@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include "Brain.h"
+#include "aicpp/Brain.h"
+
+using namespace aicpp;
 
 template <typename... Ts>
 std::map<std::string, size_t> generateAllCasts(Brain& brain)

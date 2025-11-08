@@ -2,7 +2,9 @@
 #include <random>
 #include <set>
 
-#include "Brain.h"
+#include "aicpp/Brain.h"
+
+using namespace aicpp;
 
 //std::random_device rd;
 std::mt19937 rng(0);//(rd());

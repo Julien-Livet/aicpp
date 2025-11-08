@@ -1,6 +1,8 @@
 #include <algorithm>
 
-#include "Brain.h"
+#include "aicpp/Brain.h"
+
+using namespace aicpp;
 
 std::map<size_t, AnyNeuron> const& Brain::neurons() const
 {

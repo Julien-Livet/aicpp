@@ -5,8 +5,9 @@
 
 #include <boost/json.hpp>
 
-#include "Brain.h"
+#include "aicpp/Brain.h"
 
+using namespace aicpp;
 using namespace boost::json;
 
 using Matrix = std::vector<std::vector<int>>;
@@ -95,7 +96,7 @@ void process(std::string const& task)
             "and_",
             "xor_",
             "invert_",
-            //"dotsegment_", //not yet implemented
+            "dotsegment_",
             "rot90_"
         };
 

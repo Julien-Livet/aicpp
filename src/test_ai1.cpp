@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include "Brain.h"
+#include "aicpp/Brain.h"
+
+using namespace aicpp;
 
 int main()
 {
