@@ -643,7 +643,7 @@ namespace aicpp
             }
         }
 
-        return dst;
+        return m;
     }
 
     template <typename Matrix>
