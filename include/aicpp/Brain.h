@@ -23,7 +23,7 @@ namespace aicpp
     template <typename S, typename T>
     double cost(double initCost, S const& val, T const& target)
     {
-        return initCost + std::abs(val - target);
+        return std::abs(initCost + std::abs(val - target));
     }
 
     template <typename S, typename T>
@@ -49,10 +49,12 @@ namespace aicpp
                 return heuristic(std::any_cast<long>(val), target);
             else if (val.type() == typeid(std::pair<int, int>))
                 return heuristic(std::any_cast<std::pair<int, int> >(val), target);
+            else if (val.type() == typeid(std::vector<std::pair<int, int> >))
+                return heuristic(std::any_cast<std::vector<std::pair<int, int> > >(val), target);
             else if (val.type() == typeid(std::string))
                 return heuristic(std::any_cast<std::string>(val), target);
         }
-        else if constexpr (std::is_same_v<S, std::variant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::string> >)
+        else if constexpr (std::is_same_v<S, std::variant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::string, std::vector<std::pair<int, int> > > >)
         {
             if (auto const* v = std::get_if<bool>(&val))
                 return heuristic(*v, target);
@@ -75,6 +77,8 @@ namespace aicpp
             else if (auto const* v = std::get_if<std::pair<int, int> >(&val))
                 return heuristic(*v, target);
             else if (auto const* v = std::get_if<std::string>(&val))
+                return heuristic(*v, target);
+            else if (auto const* v = std::get_if<std::vector<std::pair<int, int> > >(&val))
                 return heuristic(*v, target);
         }
         else if constexpr (std::is_same_v<T, std::string>)
@@ -150,7 +154,7 @@ namespace aicpp
                 if (!(val.rows() == target.rows() && val.cols() == target.cols()))
                     return 100.0 + std::abs(val.sum() - target.sum());
 
-                return (val - target).norm();
+                return std::abs((val - target).norm());
             }
         }
         else if constexpr (std::is_same_v<T, Eigen::MatrixXf>)
@@ -160,7 +164,7 @@ namespace aicpp
                 if (!(val.rows() == target.rows() && val.cols() == target.cols()))
                     return 100.0 + std::abs(val.sum() - target.sum());
 
-                return (val - target).norm();
+                return std::abs((val - target).norm());
             }
         }
         else if constexpr (std::is_same_v<T, Eigen::MatrixXi>)
@@ -170,7 +174,7 @@ namespace aicpp
                 if (!(val.rows() == target.rows() && val.cols() == target.cols()))
                     return 100.0 + std::abs(val.sum() - target.sum());
 
-                return (val - target).norm();
+                return std::abs((val - target).norm());
             }
         }
 
@@ -670,6 +674,9 @@ namespace aicpp
                 neuronIds[std::string{"rot90_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return rot90(x); }, std::string{"rot90_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"trace_"} + typeid(Matrix).name()] = addNeuron(Neuron<typename Matrix::Scalar, Matrix>{[] (Matrix const& x) { return x.trace(); }, std::string{"trace_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"dot_segment_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, std::pair<int, int>, typename Matrix::Scalar, int>{[] (Matrix const& x, std::pair<int, int> const& b, std::pair<int, int> const& e, auto const& v, int d) { return dotSegment(x, b, e, v, d); }, std::string{"dot_segment_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"tile_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& x, std::pair<int, int> const& r) { return tile(x, r); }, std::string{"tile_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"put_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& dst, Matrix const& src, std::pair<int, int> const& at) { return put(dst, src, at); }, std::string{"put_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"place_region_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, std::string{"place_region_"} + typeid(Matrix).name(), "matrices"});
 
                 if constexpr (std::is_same_v<Matrix, Eigen::MatrixXi>)
                 {

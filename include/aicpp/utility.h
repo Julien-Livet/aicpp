@@ -610,6 +610,59 @@ namespace aicpp
 
         return m;
     }
+
+    template <typename Matrix>
+    Matrix tile(Matrix const& a, std::pair<int, int> const& reps)
+    {
+        if (reps.first <= 0 || reps.second <= 0)
+            return Matrix{};
+
+        Matrix m;
+        m.resize(a.rows() * reps.first, a.cols() * reps.second);
+
+        for (int i{0}; i < reps.first; ++i)
+        {
+            for (int j{0}; j < reps.second; ++j)
+                m.block(i * a.rows(), j * a.cols(), a.rows(), a.cols()) = a;
+        }
+
+        return m;
+    }
+
+    template <typename Matrix>
+    Matrix put(Matrix const& dst, Matrix const& src, std::pair<int, int> const& at)
+    {
+        Matrix m{dst};
+
+        for (int i{0}; i < src.rows(); ++i)
+        {
+            for (int j{0}; j < src.cols(); ++j)
+            {
+                if (0 <= i + at.first && i + at.first < dst.rows() && 0 <= j + at.second && j + at.second < dst.cols())
+                    m(i + at.first, j + at.second) = src(i, j);
+            }
+        }
+
+        return dst;
+    }
+
+    template <typename Matrix>
+    Matrix placeRegion(Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, typename Matrix::Scalar const& x)
+    {
+        Matrix b{a};
+
+        if (region.empty())
+            return b;
+
+        for (auto const& p : region)
+        {
+            if (0 <= at.first + p.first - region.front().first && at.first + p.first - region.front().first < b.rows()
+                && 0 <= at.second + p.second - region.front().second && at.second + p.second - region.front().second < b.cols())
+                b(at.first + p.first - region.front().first, at.second + p.second - region.front().second) = x;
+        }
+
+        return b;
+    }
 }
     
 #endif // AICPP_UTILITY_H

@@ -76,10 +76,10 @@ void process(std::string const& task)
 
         std::vector<std::string> activatedNeurons{
             "zero_",
-            //"tile_", //not yet implemented
+            "tile_",
             "fliplr_",
             "flipud_",
-            //"place_region_", //not yet implemented
+            "place_region_",
             "hline_",
             "vline_",
             "hlineleft_",
@@ -89,7 +89,7 @@ void process(std::string const& task)
             "fill_region_at_",
             "fill_region2_at_",
             "replace_",
-            //"put_", //not yet implemented
+            "put_",
             "put_value_",
             "fill_region_",
             "or_",
@@ -122,6 +122,11 @@ void process(std::string const& task)
                 values.emplace(output(i, j));
 
         std::map<std::string, size_t> ids;
+
+        {
+            auto const id = brain.addNeuron(Neuron<std::pair<int, int> >{[input, output] () { return std::make_pair((int)output.rows() / (int)input.rows(), (int)output.cols() / (int)input.cols()); }, "", "pairs.variables"});
+            ids[std::to_string(id)] = id;
+        }
 
         for (auto const& v : values)
         {
@@ -185,7 +190,7 @@ void process(std::string const& task)
 
         constexpr double eps = 1.0e-6;
 
-        while (heuristic(previousOutput, output) > eps)
+        while (heuristic(previousOutput, output) >= eps)
         {
             if ((int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() > timeout)
                 break;
@@ -200,19 +205,26 @@ void process(std::string const& task)
             connections = brain.learn(output, 1, -1, learnTimeout);
             brain.setConnections(connections);
 
-            auto const newOutput{std::any_cast<Eigen::MatrixXi>(brain.connectionOutput(connections.front()))};
+            try
+            {
+                auto const newOutput{std::any_cast<Eigen::MatrixXi>(brain.connectionOutput(connections.front()))};
 
-            if (heuristic(previousOutput, newOutput) < eps)
+                if (heuristic(previousOutput, newOutput) < eps)
+                    learnTimeout *= 2;
+                else if (learnTimeout > 1000)
+                    learnTimeout /= 2;
+
+                previousOutput = newOutput;
+            }
+            catch (std::exception const&)
+            {
                 learnTimeout *= 2;
-            else if (learnTimeout > 1000)
-                learnTimeout /= 2;
-
-            previousOutput = newOutput;
+            }
         }
 
         //std::cout << "Task #" << task << ": subtask #" << i;
 
-        if (connections.size() && std::any_cast<Eigen::MatrixXi>(brain.connectionOutput(connections.front())) == output)
+        if (heuristic(previousOutput, output) < eps)
         {
             //std::cout << " passed";
         }
@@ -242,6 +254,8 @@ int main()
 {
     //process("00d62c1b");
 
+    auto const time{std::chrono::system_clock::now()};
+
     std::filesystem::path const p{path};
     std::vector<std::future<void> > futures;
 
@@ -250,13 +264,18 @@ int main()
         auto const pp{dir_entry.path()};
 
         if (std::filesystem::is_regular_file(pp))
+        {
+            //process(pp.stem().string());
             futures.emplace_back(std::async(std::launch::async, [pp] {
                 process(pp.stem().string());
             }));
+        }
     }
 
     for (auto& f : futures)
         f.get();
+
+    std::cout << "Process in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() << "ms" << std::endl;
 
     return 0;
 }
