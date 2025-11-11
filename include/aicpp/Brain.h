@@ -174,7 +174,7 @@ namespace aicpp
                 if (!(val.rows() == target.rows() && val.cols() == target.cols()))
                     return 100.0 + std::abs(val.sum() - target.sum());
 
-                return std::abs((val - target).norm());
+                return std::abs((val.template cast<double>() - target.template cast<double>()).norm());
             }
         }
 
@@ -249,7 +249,7 @@ namespace aicpp
                 auto anyToHash{
                     [] (std::any const& x)
                     {
-                        return variantToHash(anyToVariant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::string, std::vector<std::pair<int, int> >>(x));
+                        return variantToHash(anyToVariant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> >>(x));
                     }
                 };
 
@@ -665,16 +665,16 @@ namespace aicpp
                 neuronIds[std::string{"hlineleft_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineleft(x, at, value); }, std::string{"hlineleft_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"vlineup_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlineup(x, at, value); }, std::string{"vlineup_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"vlinedown_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlinedown(x, at, value); }, std::string{"vlinedown_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"zero_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<int, int> >{[] (std::pair<int, int> const& size) { return zero<Matrix>(size); }, std::string{"zero_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"ones_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<int, int> >{[] (std::pair<int, int> const& size) { return ones<Matrix>(size); }, std::string{"ones_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"identity_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<int, int> >{[] (std::pair<int, int> const& size) { return identity<Matrix>(size); }, std::string{"identity_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"zero_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return zero<Matrix>(size); }, std::string{"zero_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"ones_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return ones<Matrix>(size); }, std::string{"ones_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"identity_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return identity<Matrix>(size); }, std::string{"identity_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"put_value_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return put(x, at, value); }, std::string{"put_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"at_"} + typeid(Matrix).name()] = addNeuron(Neuron<typename Matrix::Scalar, Matrix, std::pair<int, int> >{[] (Matrix const& x, std::pair<int, int> const& pos) { return at(x, pos); }, std::string{"at_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"fill_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& value) { Matrix y{x}; y.fill(value); return y; }, std::string{"fill_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"rot90_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return rot90(x); }, std::string{"rot90_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"trace_"} + typeid(Matrix).name()] = addNeuron(Neuron<typename Matrix::Scalar, Matrix>{[] (Matrix const& x) { return x.trace(); }, std::string{"trace_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"dot_segment_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, std::pair<int, int>, typename Matrix::Scalar, int>{[] (Matrix const& x, std::pair<int, int> const& b, std::pair<int, int> const& e, auto const& v, int d) { return dotSegment(x, b, e, v, d); }, std::string{"dot_segment_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"tile_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& x, std::pair<int, int> const& r) { return tile(x, r); }, std::string{"tile_"} + typeid(Matrix).name(), "matrices"});
+                neuronIds[std::string{"tile_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<size_t, size_t> >{[] (Matrix const& x, std::pair<size_t, size_t> const& r) { return tile(x, r); }, std::string{"tile_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"put_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& dst, Matrix const& src, std::pair<int, int> const& at) { return put(dst, src, at); }, std::string{"put_"} + typeid(Matrix).name(), "matrices"});
                 neuronIds[std::string{"place_region_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, std::string{"place_region_"} + typeid(Matrix).name(), "matrices"});
 
