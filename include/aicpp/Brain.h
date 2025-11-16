@@ -518,12 +518,33 @@ namespace aicpp
             {
                 std::map<std::string, size_t> neuronIds;
 
-                neuronIds[std::string{"add_"} + typeid(String).name()] = addNeuron(Neuron<String, String, String>{[] (String const& x, String const& y) { return x + y; }, std::string{"add_"} + typeid(String).name(), "strings"});
-                neuronIds[std::string{"size_"} + typeid(String).name()] = addNeuron(Neuron<int, String>{[] (String const& x) { return (int)x.size(); }, std::string{"size_"} + typeid(String).name(), "strings"});
-                neuronIds[std::string{"lower_"} + typeid(String).name()] = addNeuron(Neuron<String, String>{[] (String const& x) { auto s{x}; std::transform(s.begin(), s.end(), s.begin(), ::tolower); return s; }, std::string{"lower_"} + typeid(String).name(), "strings"});
-                neuronIds[std::string{"upper_"} + typeid(String).name()] = addNeuron(Neuron<String, String>{[] (String const& x) { auto s{x}; std::transform(s.begin(), s.end(), s.begin(), ::toupper); return s; }, std::string{"upper_"} + typeid(String).name(), "strings"});
-                neuronIds[std::string{"pop_back_"} + typeid(String).name()] = addNeuron(Neuron<String, String>{[] (String const& x) { return x.substr(0, x.size() - 1); }, std::string{"pop_back_"} + typeid(String).name(), "strings"});
-                neuronIds[std::string{"pop_front_"} + typeid(String).name()] = addNeuron(Neuron<String, String>{[] (String const& x) { return x.substr(1); }, std::string{"pop_front_"} + typeid(String).name(), "strings"});
+                auto const suffix{std::string{"_"} + typeid(String).name()};
+
+                {
+                    auto const n{std::string{"add"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<String, String, String>{[] (String const& x, String const& y) { return x + y; }, n, "strings"});
+                }
+                {
+                    auto const n{std::string{"size"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<int, String>{[] (String const& x) { return (int)x.size(); }, n, "strings"});
+                }
+                {
+                    auto const n{std::string{"lower"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<String, String>{[] (String const& x) { auto s{x}; std::transform(s.begin(), s.end(), s.begin(), ::tolower); return s; },
+                                                                    n, "strings"});
+                }
+                {
+                    auto const n{std::string{"upper"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<String, String>{[] (String const& x) { auto s{x}; std::transform(s.begin(), s.end(), s.begin(), ::toupper); return s; },
+                                                                    n, "strings"});}
+                {
+                    auto const n{std::string{"pop_back"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<String, String>{[] (String const& x) { return x.substr(0, x.size() - 1); }, n, "strings"});
+                }
+                {
+                    auto const n{std::string{"pop_front"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<String, String>{[] (String const& x) { return x.substr(1); }, n, "strings"});
+                }
 
                 return neuronIds;
             }
@@ -532,14 +553,40 @@ namespace aicpp
             {
                 std::map<std::string, size_t> neuronIds;
 
-                neuronIds[std::string{"and_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x & y; }, std::string{"and_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{"or_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x | y; }, std::string{"or_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{"xor_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x ^ y; }, std::string{"xor_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{"not_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool>{[] (bool const& x) { return !x; }, std::string{"complement_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{typeid(bool).name()} + "_to_string"] = addNeuron(Neuron<std::string, bool>{[] (bool const& x) { std::ostringstream oss; oss << x; return oss.str(); }, std::string{typeid(bool).name()} + "_to_string", "bools"});
-                neuronIds[std::string{"string_to_"} + typeid(bool).name()] = addNeuron(Neuron<bool, std::string>{[] (std::string const& s) { std::istringstream iss{s}; bool x; iss >> x; return x; }, std::string{"string_to_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{"eq_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x == y; }, std::string{"eq_"} + typeid(bool).name(), "bools"});
-                neuronIds[std::string{"ne_"} + typeid(bool).name()] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x != y; }, std::string{"ne_"} + typeid(bool).name(), "bools"});
+                auto const suffix{std::string{"_"} + typeid(bool).name()};
+
+                {
+                    auto const n{std::string{"and"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x & y; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{"or"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x | y; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{"xor"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x ^ y; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{"not"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool>{[] (bool const& x) { return !x; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{typeid(bool).name()} + "_to_" + typeid(std::string).name()};
+                    neuronIds[n] = addNeuron(Neuron<std::string, bool>{[] (bool const& x) { std::ostringstream oss; oss << x; return oss.str(); }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{typeid(std::string).name()} + "_to" + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, std::string>{[] (std::string const& s) { std::istringstream iss{s}; bool x; iss >> x; return x; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{"eq"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x == y; }, n, "bools"});
+                }
+                {
+                    auto const n{std::string{"ne"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, bool, bool>{[] (bool const& x, bool const& y) { return x != y; }, n, "bools"});
+                }
 
                 return neuronIds;
             }
@@ -549,28 +596,96 @@ namespace aicpp
             {
                 std::map<std::string, size_t> neuronIds;
 
-                neuronIds[std::string{"add_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x + y; }, std::string{"add_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"sub_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x - y; }, std::string{"sub_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"mul_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x * y; }, std::string{"mul_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"div_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) -> Int { if (!y) return Int{}; return x / y; }, std::string{"div_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"mod_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) -> Int { if (!y) return Int{}; return x % y; }, std::string{"mod_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"pow_"} + typeid(Int).name()] = addNeuron(Neuron<double, Int, Int>{[] (Int const& x, Int const& y) { return std::pow(x, y); }, std::string{"pow_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"and_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x & y; }, std::string{"and_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"or_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x | y; }, std::string{"or_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"xor_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x ^ y; }, std::string{"xor_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"left_shift_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { if (y < 0) return Int{}; return Int{x << y}; }, std::string{"left_shift_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"right_shift_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { if (y < 0) return Int{}; return Int{x >> y}; }, std::string{"right_shift_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"complement_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return ~x; }, std::string{"complement_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"abs_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return std::abs(x); }, std::string{"abs_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"neg_"} + typeid(Int).name()] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return -x; }, std::string{"neg_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{typeid(Int).name()} + "_to_string"] = addNeuron(Neuron<std::string, Int>{[] (Int const& x) { std::ostringstream oss; oss << x; return oss.str(); }, std::string{typeid(Int).name()} + "_to_string", "ints"});
-                neuronIds[std::string{"string_to_"} + typeid(Int).name()] = addNeuron(Neuron<Int, std::string>{[] (std::string const& s) { std::istringstream iss{s}; Int x; iss >> x; return x; }, std::string{"string_to_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"eq_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x == y; }, std::string{"eq_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"ne_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x != y; }, std::string{"ne_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"gt_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x > y; }, std::string{"gt_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"lt_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x < y; }, std::string{"lt_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"ge_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x >= y; }, std::string{"ge_"} + typeid(Int).name(), "ints"});
-                neuronIds[std::string{"le_"} + typeid(Int).name()] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x <= y; }, std::string{"le_"} + typeid(Int).name(), "ints"});
+                auto const suffix{std::string{"_"} + typeid(Int).name()};
+
+                {
+                    auto const n{std::string{"add"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x + y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"sub"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x - y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"mul"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x * y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"div"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) -> Int { if (!y) return Int{}; return x / y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"mod"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) -> Int { if (!y) return Int{}; return x % y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"pow"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<double, Int, Int>{[] (Int const& x, Int const& y) { return std::pow(x, y); }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"and"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x & y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"or"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x | y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"xor"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { return x ^ y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"left_shift"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { if (y < 0) return Int{}; return Int{x << y}; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"right_shift"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int, Int>{[] (Int const& x, Int const& y) { if (y < 0) return Int{}; return Int{x >> y}; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"complement"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return ~x; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"abs"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return std::abs(x); }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"neg"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, Int>{[] (Int const& x) { return -x; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{typeid(Int).name()} + "_to_" + typeid(std::string).name()};
+                    neuronIds[n] = addNeuron(Neuron<std::string, Int>{[] (Int const& x) { std::ostringstream oss; oss << x; return oss.str(); }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{typeid(std::string).name()} + "_to" + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Int, std::string>{[] (std::string const& s) { std::istringstream iss{s}; Int x; iss >> x; return x; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"eq"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x == y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"ne"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x != y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"gt"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x > y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"lt"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x < y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"ge"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x >= y; }, n, "ints"});
+                }
+                {
+                    auto const n{std::string{"le"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Int, Int>{[] (Int const& x, Int const& y) { return x <= y; }, n, "ints"});
+                }
 
                 return neuronIds;
             }
@@ -590,36 +705,128 @@ namespace aicpp
             {
                 std::map<std::string, size_t> neuronIds;
 
-                neuronIds[std::string{"add_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x + y; }, std::string{"add_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"sub_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x - y; }, std::string{"sub_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"mul_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x * y; }, std::string{"mul_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"div_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { if (!y) return Real{}; return x / y; }, std::string{"div_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"pow_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return std::pow(x, y); }, std::string{"pow_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"abs_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::abs(x); }, std::string{"abs_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"neg_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return -x; }, std::string{"neg_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{ typeid(Real).name() } + "_to_string"] = addNeuron(Neuron<std::string, Real>{[] (Real const& x) { std::ostringstream oss; oss << x; return oss.str(); }, std::string{typeid(Real).name()} + "_to_string", "reals"});
-                neuronIds[std::string{"string_to_"} + typeid(Real).name()] = addNeuron(Neuron<Real, std::string>{[] (std::string const& s) { std::istringstream iss{s}; Real x; iss >> x; return x; }, std::string{"string_to_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"eq_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x == y; }, std::string{"eq_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"ne_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x != y; }, std::string{"ne_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"gt_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x > y; }, std::string{"gt_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"lt_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x < y; }, std::string{"lt_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"ge_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x >= y; }, std::string{"ge_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"le_"} + typeid(Real).name()] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x <= y; }, std::string{"le_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"sqrt_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sqrt(x); }, std::string{"sqrt_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"log_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::log(x); }, std::string{"log_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"exp_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::exp(x); }, std::string{"exp_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"cos_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::cos(x); }, std::string{"cos_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"sin_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sin(x); }, std::string{"sin_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"tan_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::tan(x); }, std::string{"tan_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"acos_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::acos(x); }, std::string{"acos_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"asin_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::asin(x); }, std::string{"asin_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"atan_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::atan(x); }, std::string{"atan_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"cosh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::cosh(x); }, std::string{"cosh_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"sinh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sinh(x); }, std::string{"sinh_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"tanh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::tanh(x); }, std::string{"tanh_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"acosh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::acosh(x); }, std::string{"acosh_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"asinh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::asinh(x); }, std::string{"asinh_"} + typeid(Real).name(), "reals"});
-                neuronIds[std::string{"atanh_"} + typeid(Real).name()] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::atanh(x); }, std::string{"atanh_"} + typeid(Real).name(), "reals"});
+                auto const suffix{std::string{"_"} + typeid(Real).name()};
+
+                {
+                    auto const n{std::string{"add"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x + y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"sub"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x - y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"mul"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return x * y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"div"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { if (!y) return Real{}; return x / y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"pow"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real, Real>{[] (Real const& x, Real const& y) { return std::pow(x, y); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"abs"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::abs(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"neg"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return -x; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{typeid(Real).name()} + "_to_" + typeid(std::string).name()};
+                    neuronIds[n] = addNeuron(Neuron<std::string, Real>{[] (Real const& x) { std::ostringstream oss; oss << x; return oss.str(); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{typeid(std::string).name()} + "_to_" + typeid(Real).name()};
+                    neuronIds[n] = addNeuron(Neuron<Real, std::string>{[] (std::string const& s) { std::istringstream iss{s}; Real x; iss >> x; return x; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"eq"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x == y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"ne"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x != y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"gt"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x > y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"lt"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x < y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"ge"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x >= y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"le"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<bool, Real, Real>{[] (Real const& x, Real const& y) { return x <= y; }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"sqrt"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sqrt(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"log"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::log(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"exp"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::exp(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"cos"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::cos(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"sin"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sin(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"tan"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::tan(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"acos"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::acos(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"asin"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::asin(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"atan"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::atan(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"cosh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::cosh(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"sinh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::sinh(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"tanh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::tanh(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"acosh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::acosh(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"asinh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::asinh(x); }, n, "reals"});
+                }
+                {
+                    auto const n{std::string{"atanh"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Real, Real>{[] (Real const& x) { return std::atanh(x); }, n, "reals"});
+                }
 
                 return neuronIds;
             }
@@ -639,75 +846,266 @@ namespace aicpp
             {
                 std::map<std::string, size_t> neuronIds;
 
-                neuronIds[std::string{"add_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x + y}; }, std::string{"add_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"add_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a + y; }); }, std::string{"add_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"sub_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x - y}; }, std::string{"sub_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"sub_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a - y; }); }, std::string{"sub_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"mul_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x.cwiseProduct(y)}; }, std::string{"mul_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"mul_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a * y; }); }, std::string{"mul_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"div_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols() || !y.cwiseAbs().minCoeff()) return Matrix{}; return Matrix{x.cwiseQuotient(y)}; }, std::string{"div_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"div_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { if (!y) return Matrix{}; return Matrix{x.unaryExpr([y] (auto const& a) { return a / y; })}; }, std::string{"div_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"mulmat_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (x.cols() != y.rows() || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x * y}; }, std::string{"mulmat_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"abs_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::abs(a); }); }, std::string{"abs_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"neg_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return -x; }, std::string{"neg_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"transpose_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { if (!x.rows() || !x.cols()) return Matrix{}; return Matrix{x.transpose()}; }, std::string{"transpose_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"swapcols_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, int, int>{[] (Matrix const& x, int i, int j) { return swapCols(x, i, j); }, std::string{"swapcols_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"swaprows_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, int, int>{[] (Matrix const& x, int i, int j) { return swapRows(x, i, j); }, std::string{"swaprows_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"fliplr_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return fliplr(x); }, std::string{"fliplr_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"flipud_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return flipud(x); }, std::string{"flipud_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"replace_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar, typename Matrix::Scalar>{[] (Matrix const& a, auto const& x, auto const& y) { return a.unaryExpr([x, y] (auto const& b) { return std::abs(b - x) < 1.0e-6 ? y : b; }); }, std::string{"replace_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"fill_region_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, typename Matrix::Scalar const& x) { return fillRegion(a, region, x); }, std::string{"fill_region_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"fill_region_at_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, true); }, std::string{"fill_region_at_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"fill_region2_at_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, false); }, std::string{"fill_region2_at_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"hline_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int row, typename Matrix::Scalar const& value) { return hline(x, row, value); }, std::string{"hline_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"vline_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int col, typename Matrix::Scalar const& value) { return vline(x, col, value); }, std::string{"vline_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"hlineright_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineright(x, at, value); }, std::string{"hlineright_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"hlineleft_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineleft(x, at, value); }, std::string{"hlineleft_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"vlineup_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlineup(x, at, value); }, std::string{"vlineup_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"vlinedown_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlinedown(x, at, value); }, std::string{"vlinedown_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"zero_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return zero<Matrix>(size); }, std::string{"zero_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"ones_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return ones<Matrix>(size); }, std::string{"ones_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"identity_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return identity<Matrix>(size); }, std::string{"identity_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"put_value_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return put(x, at, value); }, std::string{"put_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"at_"} + typeid(Matrix).name()] = addNeuron(Neuron<typename Matrix::Scalar, Matrix, std::pair<int, int> >{[] (Matrix const& x, std::pair<int, int> const& pos) { return at(x, pos); }, std::string{"at_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"fill_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& value) { Matrix y{x}; y.fill(value); return y; }, std::string{"fill_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"rot90_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return rot90(x); }, std::string{"rot90_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"trace_"} + typeid(Matrix).name()] = addNeuron(Neuron<typename Matrix::Scalar, Matrix>{[] (Matrix const& x) { return x.trace(); }, std::string{"trace_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"dot_segment_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, std::pair<int, int>, typename Matrix::Scalar, int>{[] (Matrix const& x, std::pair<int, int> const& b, std::pair<int, int> const& e, auto const& v, int d) { return dotSegment(x, b, e, v, d); }, std::string{"dot_segment_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"tile_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::pair<size_t, size_t> >{[] (Matrix const& x, std::pair<size_t, size_t> const& r) { return tile(x, r); }, std::string{"tile_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"put_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& dst, Matrix const& src, std::pair<int, int> const& at) { return put(dst, src, at); }, std::string{"put_"} + typeid(Matrix).name(), "matrices"});
-                neuronIds[std::string{"place_region_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, std::string{"place_region_"} + typeid(Matrix).name(), "matrices"});
+                auto const suffix{std::string{"_"} + typeid(Matrix).name()};
+
+                {
+                    auto const n{std::string{"add"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x + y}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"add2"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a + y; }); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"sub"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x - y}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"sub2"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a - y; }); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"mul"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x.cwiseProduct(y)}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"mul2"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a * y; }); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"div"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (!(x.rows() == y.rows() && x.cols() == y.cols()) || !x.rows() || !x.cols() || !y.rows() || !y.cols() || !y.cwiseAbs().minCoeff()) return Matrix{}; return Matrix{x.cwiseQuotient(y)}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"div2"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { if (!y) return Matrix{}; return Matrix{x.unaryExpr([y] (auto const& a) { return a / y; })}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"mulmat"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { if (x.cols() != y.rows() || !x.rows() || !x.cols() || !y.rows() || !y.cols()) return Matrix{}; return Matrix{x * y}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"abs"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::abs(a); }); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"neg"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return -x; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"transpose"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { if (!x.rows() || !x.cols()) return Matrix{}; return Matrix{x.transpose()}; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"swapcols"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, int>{[] (Matrix const& x, int i, int j) { return swapCols(x, i, j); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"swaprows"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, int>{[] (Matrix const& x, int i, int j) { return swapRows(x, i, j); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fliplr"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return fliplr(x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"flipud"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return flipud(x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"replace"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar, typename Matrix::Scalar>{[] (Matrix const& a, auto const& x, auto const& y) { return a.unaryExpr([x, y] (auto const& b) { return std::abs(b - x) < 1.0e-6 ? y : b; }); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fill_region"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, typename Matrix::Scalar const& x) { return fillRegion(a, region, x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fill_region_at"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, true); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fill_region2_at"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, false); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"hline"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int row, typename Matrix::Scalar const& value) { return hline(x, row, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"vline"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int col, typename Matrix::Scalar const& value) { return vline(x, col, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"hlineright"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineright(x, at, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"hlineleft"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineleft(x, at, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"vlineup"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlineup(x, at, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"vlinedown"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlinedown(x, at, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"zero"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return zero<Matrix>(size); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"ones"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return ones<Matrix>(size); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"identity"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, std::pair<size_t, size_t> >{[] (std::pair<size_t, size_t> const& size) { return identity<Matrix>(size); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"put_value"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return put(x, at, value); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"at"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<typename Matrix::Scalar, Matrix, std::pair<int, int> >{[] (Matrix const& x, std::pair<int, int> const& pos) { return at(x, pos); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fill"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& value) { Matrix y{x}; y.fill(value); return y; }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"rot90"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return rot90(x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"trace"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<typename Matrix::Scalar, Matrix>{[] (Matrix const& x) { return x.trace(); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"dot_segment"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, std::pair<int, int>, typename Matrix::Scalar, int>{[] (Matrix const& x, std::pair<int, int> const& b, std::pair<int, int> const& e, auto const& v, int d) { return dotSegment(x, b, e, v, d); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"tile"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<size_t, size_t> >{[] (Matrix const& x, std::pair<size_t, size_t> const& r) { return tile(x, r); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"put"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& dst, Matrix const& src, std::pair<int, int> const& at) { return put(dst, src, at); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"place_region"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, n, "matrices"});
+                }
 
                 if constexpr (std::is_same_v<Matrix, Eigen::MatrixXi>)
                 {
-                    neuronIds[std::string{"mod_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return modMatrix(x, y); }, std::string{"mod_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"mod_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { if (!y) return Matrix{}; return Matrix{x.unaryExpr([y] (auto const& a) { return a % y; })}; }, std::string{"mod_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"and_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return andMatrix(x, y); }, std::string{"and_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"and_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a & y; }); }, std::string{"and_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"or_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return orMatrix(x, y); }, std::string{"or_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"or_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a | y; }); }, std::string{"or_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"xor_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return xorMatrix(x, y); }, std::string{"xor_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"xor_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a ^ y; }); }, std::string{"xor_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"invert_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return ~a; }); }, std::string{"invert_"} + typeid(Matrix).name(), "matrices"});
+                    {
+                        auto const n{std::string{"mod"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return modMatrix(x, y); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"mod2"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { if (!y) return Matrix{}; return Matrix{x.unaryExpr([y] (auto const& a) { return a % y; })}; }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"and"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return andMatrix(x, y); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"and2"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a & y; }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"or"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return orMatrix(x, y); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"or2"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a | y; }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"xor"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return xorMatrix(x, y); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"xor2"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar>{[] (Matrix const& x, typename Matrix::Scalar const& y) { return x.unaryExpr([y] (auto const& a) { return a ^ y; }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"invert"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return ~a; }); }, n, "matrices"});
+                    }
                 }
                 else
                 {
-                    neuronIds[std::string{"sqrt_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sqrt(a); }); }, std::string{"sqrt_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"log_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::log(a); }); }, std::string{"log_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"exp_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::exp(a); }); }, std::string{"exp_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"cos_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::cos(a); }); }, std::string{"cos_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"sin_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sin(a); }); }, std::string{"sin_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"tan_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::tan(a); }); }, std::string{"tan_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"acos_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::acos(a); }); }, std::string{"acos_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"asin_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::asin(a); }); }, std::string{"asin_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"atan_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::atan(a); }); }, std::string{"atan_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"cosh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::cosh(a); }); }, std::string{"cosh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"sinh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sinh(a); }); }, std::string{"sinh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"tanh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::tanh(a); }); }, std::string{"tanh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"acosh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::acosh(a); }); }, std::string{"acosh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"asinh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::asinh(a); }); }, std::string{"asinh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"atanh_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::atanh(a); }); }, std::string{"atanh_"} + typeid(Matrix).name(), "matrices"});
-                    neuronIds[std::string{"inverse_"} + typeid(Matrix).name()] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.inverse(); }, std::string{"inverse_"} + typeid(Matrix).name(), "matrices"});
+                    {
+                        auto const n{std::string{"sqrt"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sqrt(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"log_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::log(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"exp_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::exp(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"cos_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::cos(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"sin_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sin(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"tan_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::tan(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"acos_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::acos(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"asin_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::asin(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"atan_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::atan(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"cosh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::cosh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"sinh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::sinh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"tanh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::tanh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"acosh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::acosh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"asinh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::asinh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"atanh_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.unaryExpr([] (auto const& a) { return std::atanh(a); }); }, n, "matrices"});
+                    }
+                    {
+                        auto const n{std::string{"inverse_"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix>{[] (Matrix const& x) { return x.inverse(); }, n, "matrices"});
+                    }
                 }
 
                 return neuronIds;
