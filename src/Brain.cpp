@@ -26,7 +26,8 @@ size_t Brain::addNeuron(AnyNeuron const& neuron)
     if (neurons_.size())
         id = neurons_.rbegin()->first + 1;
 
-    neurons_.emplace(id, neuron);
+    auto p{neurons_.emplace(id, neuron)};
+    std::visit([id] (auto& neuron) { neuron.id = id; }, p.first->second);
 
     auto const module{std::visit([] (auto const& neuron) { return neuron.module(); }, neuron)};
 

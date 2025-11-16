@@ -7,6 +7,8 @@
 
 namespace aicpp
 {
+    class Brain;
+
     class Connection
     {
         public:
@@ -18,6 +20,8 @@ namespace aicpp
             Connection(std::vector<ConnectionInput> const& inputs, size_t neuronId, double weight = 1.0);
             std::vector<ConnectionInput> const& inputs() const;
             size_t neuronId() const;
+            bool similar(Connection const& other) const;
+            std::string string(Brain const& brain) const;
 
         private:
             std::vector<ConnectionInput> inputs_;

@@ -133,7 +133,7 @@ namespace aicpp
 
     class Connection;
 
-    using ConnectionInput = std::variant<std::reference_wrapper<AnyNeuron>, Connection, bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::string>;
+    using ConnectionInput = std::variant<std::reference_wrapper<AnyNeuron>, Connection, bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> > >;
     using ConnectionOutput = std::any;
 
     template <class R, class... Args>
@@ -145,6 +145,7 @@ namespace aicpp
             int limitationTimeout{-1};
             std::function<R(Args...)> function;
             double weight{1.0};
+            size_t id{0};
 
             Neuron() = default;
 
