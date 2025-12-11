@@ -7,8 +7,10 @@
 #include <bitset>
 #include <cmath>
 #include <cstdint>
+#include <iostream> //TODO: to remove
 #include <limits>
 #include <generator>
+#include <map>
 #include <set>
 #include <sstream>
 #include <string>
@@ -160,6 +162,18 @@ namespace aicpp
         return dp[m];
     }
 
+    template <typename Matrix>
+    bool validIndex(Matrix const& a, int i, int j)
+    {
+        return (0 <= i && i < a.rows() && 0 <= j && j < a.cols());
+    }
+
+    template <typename Matrix>
+    bool validIndex(Matrix const& a, std::pair<int, int> const& at)
+    {
+        return (0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols());
+    }
+
     template<typename T>
     std::generator<std::vector<T> > cartesianProduct(std::vector<T> const& l, size_t n)
     {
@@ -183,7 +197,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix swapCols(Matrix const& a, int i, int j)
     {
-        if (!(0 <= i && i < a.cols() && 0 <= j && j < a.cols()))
+        if (!validIndex(a, i, j))
             return a;
 
         Matrix b{a};
@@ -198,7 +212,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix swapRows(Matrix const& a, int i, int j)
     {
-        if (!(0 <= i && i < a.rows() && 0 <= j && j < a.rows()))
+        if (!validIndex(a, i, j))
             return a;
 
         Matrix b{a};
@@ -261,7 +275,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix hlineright(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& value)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         Matrix b{a};
@@ -274,7 +288,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix hlineleft(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& value)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         Matrix b{a};
@@ -287,7 +301,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix vlinedown(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& value)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         Matrix b{a};
@@ -300,7 +314,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix vlineup(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& value)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         Matrix b{a};
@@ -313,7 +327,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix put(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& value)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         Matrix b{a};
@@ -326,7 +340,7 @@ namespace aicpp
     template <typename Matrix>
     typename Matrix::Scalar at(Matrix const& a, std::pair<int, int> const& at)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return typename Matrix::Scalar{};
 
         return a(at.first, at.second);
@@ -471,7 +485,7 @@ namespace aicpp
     template <typename Matrix>
     Matrix fillRegionAt(Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x, bool diagonals)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return a;
 
         auto b{a};
@@ -506,7 +520,7 @@ namespace aicpp
     template <typename Matrix>
     std::vector<std::pair<int, int> > region(Matrix const& a, std::pair<int, int> const& at, bool diagonals)
     {
-        if (!(0 <= at.first && at.first < a.rows() && 0 <= at.second && at.second < a.cols()))
+        if (!validIndex(a, at))
             return std::vector<std::pair<int, int> >{};
 
         std::set<std::pair<int, int> > s;
@@ -544,7 +558,7 @@ namespace aicpp
 
         for (auto const& p : region)
         {
-            if (0 <= p.first && p.first < b.rows() && 0 <= p.second && p.second < b.cols())
+            if (validIndex(b, p))
                 b(p.first, p.second) = x;
         }
 
@@ -554,9 +568,12 @@ namespace aicpp
     template <typename Matrix>
     Matrix matrixRegion(Matrix const& a, std::vector<std::pair<int, int> > const& region)
     {
-        int iMin{a.rows()};
+        if (!a.rows() || !a.cols())
+            return Matrix{};
+
+        auto iMin{(int)a.rows()};
         int iMax{0};
-        int jMin{a.cols()};
+        auto jMin{(int)a.cols()};
         int jMax{0};
 
         for (auto const& p : region)
@@ -567,7 +584,14 @@ namespace aicpp
             jMax = std::max(jMax, p.second);
         }
 
-        return a.block(iMin, iMax, jMin, jMax);
+        if (iMin <= iMax && jMin <= jMax
+            && 0 <= iMin && iMin < a.rows()
+            && 0 <= iMax && iMax < a.rows()
+            && 0 <= jMin && jMin < a.cols()
+            && 0 <= jMax && jMax < a.cols())
+            return a.block(iMin, jMin, iMax - iMin + 1, jMax - jMin + 1);
+
+        return Matrix{};
     }
 
     template <typename Matrix>
@@ -653,6 +677,94 @@ namespace aicpp
         }
 
         return b;
+    }
+
+    template <typename Matrix>
+    Matrix map(Matrix const& dst, std::map<typename Matrix::Scalar, typename Matrix::Scalar> const& mapping)
+    {
+        Matrix m{dst};
+
+        for (int i{0}; i < m.rows(); ++i)
+        {
+            for (int j{0}; j < m.cols(); ++j)
+            {
+                auto const it{mapping.find(m(i, j))};
+
+                if (it != mapping.end())
+                    m(i, j) = it->second;
+            }
+        }
+
+        return m;
+    }
+
+    inline std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > sameFirst(std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > const& pairs)
+    {
+        std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > result;
+
+        for (auto const& p : pairs)
+        {
+            if (p.first.first == p.second.first)
+                result.emplace_back(p);
+        }
+
+        return result;
+    }
+
+    inline std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > sameSecond(std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > const& pairs)
+    {
+        std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > result;
+
+        for (auto const& p : pairs)
+        {
+            if (p.first.second == p.second.second)
+                result.emplace_back(p);
+        }
+
+        return result;
+    }
+
+    inline std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > regionPairs(std::vector<std::vector<std::pair<int, int> > > const& regions)
+    {
+        std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > pairs;
+
+        for (size_t i1{0}; i1 < regions.size(); ++i1)
+        {
+            for (size_t j1{i1 + 1}; j1 < regions.size(); ++j1)
+            {
+                for (size_t i2{0}; i2 < regions[i1].size(); ++i2)
+                {
+                    for (size_t j2{0}; j2 < regions[j1].size(); ++j2)
+                        pairs.emplace_back(std::make_pair(regions[i1][i2], regions[j1][j2]));
+                }
+            }
+        }
+
+        return pairs;
+    }
+
+    template <typename Matrix>
+    Matrix segments(Matrix const& dst, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > const& pairs, typename Matrix::Scalar const& value, bool start, bool finish)
+    {
+        Matrix m{dst};
+
+        for (auto const& pair : pairs)
+        {
+            if (validIndex(m, pair.first) && validIndex(m, pair.second))
+            {
+                auto const s{m(pair.first.first, pair.first.second)};
+                auto const f{m(pair.second.first, pair.second.second)};
+
+                m = dotSegment(m, pair.first, pair.second, value, 1);
+
+                if (start)
+                    m(pair.first.first, pair.first.second) = s;
+                if (finish)
+                    m(pair.second.first, pair.second.second) = f;
+            }
+        }
+
+        return m;
     }
 }
 

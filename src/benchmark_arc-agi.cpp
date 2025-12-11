@@ -12,7 +12,7 @@ using namespace boost::json;
 
 using Matrix = std::vector<std::vector<int>>;
 
-std::string const path{"../../ARC-AGI-2-main/data/training"};
+std::string const path{"../../ARC-AGI-2-main/data"};
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 {
@@ -32,9 +32,9 @@ Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
     return mat;
 }
 
-void process(std::string const& task)
+void evaluationProcess(std::string const& task)
 {
-    std::ifstream ifs{path + "/" + task + ".json"};
+    std::ifstream ifs{path + "/evaluation/" + task + ".json"};
 
     std::string content;
 
@@ -47,9 +47,277 @@ void process(std::string const& task)
         content += line + '\n';
     }
 
-    value jv = parse(content);
+    value const jv = parse(content);
 
-    auto train = jv.at("train").as_array();
+    std::vector<Connection> taskConnections;
+
+    {
+        auto const train = jv.at("train").as_array();
+        auto const taskTime{std::chrono::system_clock::now()};
+        bool subtaskFailed{false};
+
+        for (std::size_t i = 0; i < train.size(); ++i)
+        {
+            auto const& sample = train[i].as_object();
+
+            auto const input = boostJsonToEigenMatrix(sample.at("input").as_array());
+            auto const output = boostJsonToEigenMatrix(sample.at("output").as_array());
+/*
+            std::cout << "input" << std::endl;
+            std::cout << input << std::endl;
+            std::cout << "output" << std::endl;
+            std::cout << output << std::endl;
+**/
+            Brain brain;
+
+            std::map<std::string, size_t> neuronIds;
+
+            auto const m{brain.addMatrices<Eigen::MatrixXi>()};
+            neuronIds.insert(m.begin(), m.end());
+
+            brain.deactivateAllModules();
+
+            std::vector<std::string> activatedNeurons{
+                "zero_",
+                "tile_",
+                "fliplr_",
+                "flipud_",
+                "place_region_",
+                "hline_",
+                "vline_",
+                "hlineleft_",
+                "hlineright_",
+                "vlineup_",
+                "vlinedown_",
+                "fill_region_at_",
+                "fill_region2_at_",
+                "replace_",
+                "put_",
+                "put_value_",
+                "fill_region_",
+                "or_",
+                "and_",
+                "xor_",
+                "invert_",
+                "dotsegment_",
+                "rot90_",
+                "matrix_region_"
+            };
+
+            for (auto const& p : brain.neurons())
+            {
+                for (auto const& s : activatedNeurons)
+                    if (brain.neuronName(p.first).find(s) != std::string::npos)
+                        brain.activateNeuron(p.first);
+            }
+
+            neuronIds["input"] = brain.addNeuron(Neuron<Eigen::MatrixXi>{[&input] () { return input; }, "input"});
+            neuronIds["shape_input"] = brain.addNeuron(Neuron<std::pair<int, int> >{[&input] () { return std::make_pair((int)input.rows(), (int)input.cols()); }, "shape_input"});
+            neuronIds["shape_output"] = brain.addNeuron(Neuron<std::pair<int, int> >{[&output] () { return std::make_pair((int)output.rows(), (int)output.cols()); }, "shape_output"});
+
+            std::set<int> values;
+/*
+            for (int i = 0; i < input.rows(); ++i)
+                for (int j = 0; j < input.cols(); ++j)
+                    values.emplace(input(i, j));
+
+            for (int i = 0; i < output.rows(); ++i)
+                for (int j = 0; j < output.cols(); ++j)
+                    values.emplace(output(i, j));
+*/
+            for (int i{0}; i < 10; ++i)
+                values.emplace(i);
+
+            std::map<std::string, size_t> ids;
+
+            ids["shape_ratio"] = brain.addNeuron(Neuron<std::pair<int, int> >{[input, output] () { return std::make_pair((int)output.rows() / (int)input.rows(), (int)output.cols() / (int)input.cols()); }, "shape_ratio", "pairs.variables"});
+
+            for (auto const& v : values)
+            {
+                auto const name{std::to_string(v)};
+                ids[name] = brain.addNeuron(Neuron<int>{[v] () { return v; }, name, "ints.variables"});
+            }
+
+            std::set<std::vector<std::pair<int, int> > > s;
+
+            for (int i = 0; i < input.rows(); ++i)
+            {
+                for (int j = 0; j < input.cols(); ++j)
+                {
+                    auto r = region(input, std::make_pair(i, j), false);
+
+                    std::sort(r.begin(), r.end(),
+                              [] (auto const& x, auto const& y) -> bool
+                              {
+                                  if (x.first == y.first)
+                                      return x.second < y.second;
+
+                                  return x.first < y.first;
+                              }
+                              );
+
+                    if (s.find(r) == s.end())
+                        s.emplace(r);
+                }
+            }
+
+            for (auto const& r : s)
+            {
+                auto const name{"region((" + std::to_string(r.front().first) + ", " + std::to_string(r.front().second) + "))"};
+                ids[name] = brain.addNeuron(Neuron<std::vector<std::pair<int, int> > >{[r] () { return r; }, name, "vectors.variables"});
+            }
+
+            for (int i = 0; i < output.rows(); ++i)
+            {
+                for (int j = 0; j < output.cols(); ++j)
+                {
+                    auto const name{"(" + std::to_string(i) + ", " + std::to_string(j) + ")"};
+                    ids[name] = brain.addNeuron(Neuron<std::pair<int, int> >{[i, j] () { return std::make_pair(i, j); }, name, "pairs.variables"});
+                }
+            }
+
+            auto const maxRows{std::max(input.rows(), output.rows())};
+            auto const maxCols{std::max(input.cols(), output.cols())};
+
+            for (int i = 0; i < std::max(maxRows, maxCols); ++i)
+            {
+                auto const name{std::to_string(i)};
+                ids[name] = brain.addNeuron(Neuron<int>{[i] () { return i; }, name, "ints.variables"});
+            }
+
+            int const timeout{10 * 60 * 1000};
+            auto const time{std::chrono::system_clock::now()};
+
+            int learnTimeout{2 * 1000};
+            Eigen::MatrixXi previousOutput{};
+            std::vector<Connection> connections;
+
+            constexpr double eps = 1.0e-6;
+
+            while (heuristic(previousOutput, output) >= eps)
+            {
+                if ((int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() > timeout)
+                    break;
+/*
+                try
+                {
+                    if (connections.size())
+                    {
+                        auto const value{std::any_cast<Eigen::MatrixXi>(brain.connectionOutput(connections.front()))};
+                        std::cout << "step" << std::endl;
+                        std::cout << value << std::endl;
+                    }
+                }
+                catch (std::exception const&)
+                {
+                }
+*/
+                brain.neuronTimeout = learnTimeout / 8;
+                connections = brain.learn(output, 1, -1, learnTimeout);
+                brain.setConnections(connections);
+
+                try
+                {
+                    auto const newOutput{std::any_cast<Eigen::MatrixXi>(brain.connectionOutput(connections.front()))};
+
+                    if (heuristic(previousOutput, newOutput) < eps)
+                        learnTimeout *= 2;
+                    else if (learnTimeout > 1000)
+                        learnTimeout /= 2;
+
+                    previousOutput = newOutput;
+                }
+                catch (std::exception const&)
+                {
+                    learnTimeout *= 2;
+                }
+            }
+
+            //std::cout << "Task #" << task << ": subtask #" << i;
+
+            if (heuristic(previousOutput, output) < eps)
+            {
+                taskConnections.emplace_back(connections.front());
+
+                std::cout << taskConnections.back().string(brain) << std::endl;
+
+                //std::cout << " passed";
+            }
+            else
+            {
+                //std::cout << " failed";
+                subtaskFailed = true;
+            }
+
+            //std::cout << " in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() << "ms" << std::endl;
+
+            if (subtaskFailed)
+                break;
+        }
+
+        std::cout << "Task #" << task;
+
+        if (!subtaskFailed)
+            std::cout << ": task passed";
+        else
+            std::cout << ": task failed";
+
+        std::cout << " in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(taskTime)).count() << "ms" << std::endl;
+
+        if (subtaskFailed)
+            return;
+    }
+
+    return;
+
+    for (size_t i{1}; i < taskConnections.size(); ++i)
+    {
+        if (!taskConnections[i - 1].similar(taskConnections[i]))
+        {
+            std::cout << "Found logics not identical" << std::endl;
+
+            return;
+        }
+    }
+
+    //Test
+    {
+        auto const test = jv.at("test").as_array();
+
+        for (std::size_t i = 0; i < test.size(); ++i)
+        {
+            auto const& sample = test[i].as_object();
+
+            auto const input = boostJsonToEigenMatrix(sample.at("input").as_array());
+            auto const output = boostJsonToEigenMatrix(sample.at("output").as_array());
+/**/
+            std::cout << "input" << std::endl;
+            std::cout << input << std::endl;
+            std::cout << "output" << std::endl;
+            std::cout << output << std::endl;
+/**/
+        }
+    }
+}
+
+void trainingProcess(std::string const& task)
+{
+    std::ifstream ifs{path + "/training/" + task + ".json"};
+
+    std::string content;
+
+    while (ifs)
+    {
+        std::string line;
+
+        std::getline(ifs, line);
+
+        content += line + '\n';
+    }
+
+    value const jv = parse(content);
+
+    auto const train = jv.at("train").as_array();
     auto const taskTime{std::chrono::system_clock::now()};
     bool subtaskFailed{false};
 
@@ -97,24 +365,23 @@ void process(std::string const& task)
             "xor_",
             "invert_",
             "dotsegment_",
-            "rot90_"
+            "rot90_",
+			"matrix_region_"
         };
 
         for (auto const& p : brain.neurons())
         {
             for (auto const& s : activatedNeurons)
-            {
                 if (brain.neuronName(p.first).find(s) != std::string::npos)
                     brain.activateNeuron(p.first);
-            }
         }
 
         neuronIds["input"] = brain.addNeuron(Neuron<Eigen::MatrixXi>{[&input] () { return input; }, "input"});
-        neuronIds["shape_input"] = brain.addNeuron(Neuron<std::pair<size_t, size_t> >{[&input] () { return std::make_pair(input.rows(), input.cols()); }, "shape_input"});
-        neuronIds["shape_output"] = brain.addNeuron(Neuron<std::pair<size_t, size_t> >{[&output] () { return std::make_pair(output.rows(), output.cols()); }, "shape_output"});
+        neuronIds["shape_input"] = brain.addNeuron(Neuron<std::pair<int, int> >{[&input] () { return std::make_pair((int)input.rows(), (int)input.cols()); }, "shape_input"});
+        neuronIds["shape_output"] = brain.addNeuron(Neuron<std::pair<int, int> >{[&output] () { return std::make_pair((int)output.rows(), (int)output.cols()); }, "shape_output"});
 
         std::set<int> values;
-
+/*
         for (int i = 0; i < input.rows(); ++i)
             for (int j = 0; j < input.cols(); ++j)
                 values.emplace(input(i, j));
@@ -122,13 +389,13 @@ void process(std::string const& task)
         for (int i = 0; i < output.rows(); ++i)
             for (int j = 0; j < output.cols(); ++j)
                 values.emplace(output(i, j));
+*/
+        for (int i{0}; i < 10; ++i)
+            values.emplace(i);
 
         std::map<std::string, size_t> ids;
 
-        {
-            auto const id = brain.addNeuron(Neuron<std::pair<size_t, size_t> >{[input, output] () { return std::make_pair(output.rows() / input.rows(), output.cols() / input.cols()); }, "", "pairs.variables"});
-            ids[std::to_string(id)] = id;
-        }
+        ids["shape_ratio"] = brain.addNeuron(Neuron<std::pair<int, int> >{[input, output] () { return std::make_pair((int)output.rows() / (int)input.rows(), (int)output.cols() / (int)input.cols()); }, "shape_ratio", "pairs.variables"});
 
         for (auto const& v : values)
         {
@@ -161,8 +428,8 @@ void process(std::string const& task)
 
         for (auto const& r : s)
         {
-            auto const id = brain.addNeuron(Neuron<std::vector<std::pair<int, int> > >{[r] () { return r; }, "", "vectors.variables"});
-            ids[std::to_string(id)] = id;
+            auto const name{"region((" + std::to_string(r.front().first) + ", " + std::to_string(r.front().second) + "))"};
+            ids[name] = brain.addNeuron(Neuron<std::vector<std::pair<int, int> > >{[r] () { return r; }, name, "vectors.variables"});
         }
 
         for (int i = 0; i < output.rows(); ++i)
@@ -186,8 +453,7 @@ void process(std::string const& task)
         int const timeout{10 * 60 * 1000};
         auto const time{std::chrono::system_clock::now()};
 
-        int constexpr minLearnTimeout{1 * 1000};
-        int learnTimeout{minLearnTimeout};
+        int learnTimeout{2 * 1000};
         Eigen::MatrixXi previousOutput{};
         std::vector<Connection> connections;
 
@@ -221,7 +487,7 @@ void process(std::string const& task)
 
                 if (heuristic(previousOutput, newOutput) < eps)
                     learnTimeout *= 2;
-                else if (learnTimeout > minLearnTimeout)
+                else if (learnTimeout > 1000)
                     learnTimeout /= 2;
 
                 previousOutput = newOutput;
@@ -262,26 +528,61 @@ void process(std::string const& task)
 
 int main()
 {
-    auto const time{std::chrono::system_clock::now()};
-
-    std::filesystem::path const p{path};
-    std::vector<std::future<void> > futures;
-
-    for (auto const& dir_entry : std::filesystem::directory_iterator{p})
+    //Evaluation
     {
-        auto const pp{dir_entry.path()};
+        evaluationProcess("1ae2feb7");
+        return 0;
+        auto const time{std::chrono::system_clock::now()};
 
-        if (std::filesystem::is_regular_file(pp))
+        std::filesystem::path const p{path + "/evaluation"};
+        std::vector<std::future<void> > futures;
+
+        for (auto const& dir_entry : std::filesystem::directory_iterator{p})
         {
-            //process(pp.stem().string());
-            futures.emplace_back(std::async(std::launch::async, [pp] { process(pp.stem().string()); }));
+            auto const pp{dir_entry.path()};
+
+            if (std::filesystem::is_regular_file(pp))
+            {
+                //evaluationProcess(pp.stem().string());
+                futures.emplace_back(std::async(std::launch::async, [pp] {
+                    evaluationProcess(pp.stem().string());
+                }));
+            }
         }
+
+        for (auto& f : futures)
+            f.get();
+
+        std::cout << "Process in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() << "ms" << std::endl;
     }
 
-    for (auto& f : futures)
-        f.get();
+    return 0;
 
-    std::cout << "Process in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() << "ms" << std::endl;
+    //Training
+    {
+        auto const time{std::chrono::system_clock::now()};
+
+        std::filesystem::path const p{path + "/training"};
+        std::vector<std::future<void> > futures;
+
+        for (auto const& dir_entry : std::filesystem::directory_iterator{p})
+        {
+            auto const pp{dir_entry.path()};
+
+            if (std::filesystem::is_regular_file(pp))
+            {
+                //trainingProcess(pp.stem().string());
+                futures.emplace_back(std::async(std::launch::async, [pp] {
+                    trainingProcess(pp.stem().string());
+                }));
+            }
+        }
+
+        for (auto& f : futures)
+            f.get();
+
+        std::cout << "Process in " << (int)(std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()) - std::chrono::time_point_cast<std::chrono::milliseconds>(time)).count() << "ms" << std::endl;
+    }
 
     return 0;
 }

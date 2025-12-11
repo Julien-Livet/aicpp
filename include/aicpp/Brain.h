@@ -31,7 +31,9 @@ namespace aicpp
     {
         if constexpr (std::is_same_v<S, std::any>)
         {
-            if (val.type() == typeid(char))
+            if (val.type() == typeid(bool))
+                return heuristic(std::any_cast<bool>(val), target);
+            else if (val.type() == typeid(char))
                 return heuristic(std::any_cast<char>(val), target);
             else if (val.type() == typeid(double))
                 return heuristic(std::any_cast<double>(val), target);
@@ -249,7 +251,9 @@ namespace aicpp
                 auto anyToHash{
                     [] (std::any const& x)
                     {
-                        return variantToHash(anyToVariant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> >>(x));
+                        return variantToHash(anyToVariant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::map<double, double>,
+                                                          std::map<float, float>, std::map<int, int>, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> >,
+                                                          std::vector<std::vector<std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >(x));
                     }
                 };
 
@@ -917,6 +921,10 @@ namespace aicpp
                     neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, typename Matrix::Scalar, typename Matrix::Scalar>{[] (Matrix const& a, auto const& x, auto const& y) { return a.unaryExpr([x, y] (auto const& b) { return std::abs(b - x) < 1.0e-6 ? y : b; }); }, n, "matrices"});
                 }
                 {
+                    auto const n{std::string{"map"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::map<typename Matrix::Scalar, typename Matrix::Scalar> >{[] (Matrix const& a, auto const& mapping) { return map(a, mapping); }, n, "matrices"});
+                }
+                {
                     auto const n{std::string{"fill_region"} + suffix};
                     neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, typename Matrix::Scalar const& x) { return fillRegion(a, region, x); }, n, "matrices"});
                 }
@@ -993,16 +1001,28 @@ namespace aicpp
                     neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<size_t, size_t> >{[] (Matrix const& x, std::pair<size_t, size_t> const& r) { return tile(x, r); }, n, "matrices"});
                 }
                 {
-                    auto const n{std::string{"put"} + suffix};
+                    auto const n{std::string{"put_matrix"} + suffix};
                     neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix, std::pair<int, int> >{[] (Matrix const& dst, Matrix const& src, std::pair<int, int> const& at) { return put(dst, src, at); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"place_region"} + suffix};
                     neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, n, "matrices"});
                 }
+                {
+                    auto const n{std::string{"place_region"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, std::pair<int, int> const& at, auto const& x) { return placeRegion(a, region, at, x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"matrix_region"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> > >{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region) { return matrixRegion(a, region); }, n, "matrices"});
+                }
 
                 if constexpr (std::is_same_v<Matrix, Eigen::MatrixXi>)
                 {
+                    {
+                        auto const n{std::string{"segments"} + suffix};
+                        neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, int, bool, bool>{[] (auto const& dst, auto const& pairs, auto const& value, auto start, auto finish) { return segments(dst, pairs, value, start, finish); }, n, "matrices"});
+                    }
                     {
                         auto const n{std::string{"mod"} + suffix};
                         neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, Matrix>{[] (Matrix const& x, Matrix const& y) { return modMatrix(x, y); }, n, "matrices"});

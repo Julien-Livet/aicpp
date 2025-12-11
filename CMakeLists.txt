@@ -11,6 +11,16 @@ else()
     add_compile_options(-Wa,-mbig-obj -O3)
 endif()
 
+set(gtest_force_shared_crt on)
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(googletest)
+
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
 
@@ -21,6 +31,12 @@ set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuro
 
 add_executable(ai src/main.cpp ${SRCS} ${HEADERS})
 target_link_libraries(ai Ws2_32 Boost::headers Eigen3::Eigen)
+
+add_executable(arc-agi src/arc-agi.cpp ${SRCS} ${HEADERS})
+target_link_libraries(arc-agi Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
+
+add_executable(arc-agi_tasks src/arc-agi_tasks.cpp ${SRCS} ${HEADERS})
+target_link_libraries(arc-agi_tasks Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
 
 add_executable(benchmark_arc-agi src/benchmark_arc-agi.cpp ${SRCS} ${HEADERS})
 target_link_libraries(benchmark_arc-agi Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
@@ -39,3 +55,15 @@ target_link_libraries(test_ai5 Ws2_32 Boost::headers Eigen3::Eigen)
 
 add_executable(test_learn src/test_learn.cpp ${SRCS} ${HEADERS})
 target_link_libraries(test_learn Ws2_32 Boost::headers Eigen3::Eigen)
+
+enable_testing()
+add_executable(test_arc-agi src/test_arc-agi.cpp ${SRCS} ${HEADERS})
+target_link_libraries(test_arc-agi Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
+
+add_test(NAME TestArcAgi COMMAND test_arc-agi)
+
+if (WIN32)
+else()
+include(GoogleTest)
+gtest_discover_tests(test_arc-agi)
+endif()

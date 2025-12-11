@@ -56,6 +56,42 @@ std::string Connection::string(Brain const& brain) const
                     s += value.string(brain);
                 else if constexpr (typeid(decltype(value)) == typeid(std::reference_wrapper<AnyNeuron>))
                     std::visit([brain, &s] (auto const& neuron) { s += brain.neuronName(neuron.id); }, value.get());
+                else if constexpr (typeid(decltype(value)) == typeid(std::map<double, double>))
+                {
+                    s += "{";
+
+                    for (auto const& p : value)
+                        s += std::to_string(p.first) + ": " + std::to_string(p.second) + ", ";
+
+                    if (s.ends_with(", "))
+                        s.resize(s.size() - 2);
+
+                    s += "}";
+                }
+                else if constexpr (typeid(decltype(value)) == typeid(std::map<float, float>))
+                {
+                    s += "{";
+
+                    for (auto const& p : value)
+                        s += std::to_string(p.first) + ": " + std::to_string(p.second) + ", ";
+
+                    if (s.ends_with(", "))
+                        s.resize(s.size() - 2);
+
+                    s += "}";
+                }
+                else if constexpr (typeid(decltype(value)) == typeid(std::map<int, int>))
+                {
+                    s += "{";
+
+                    for (auto const& p : value)
+                        s += std::to_string(p.first) + ": " + std::to_string(p.second) + ", ";
+
+                    if (s.ends_with(", "))
+                        s.resize(s.size() - 2);
+
+                    s += "}";
+                }
                 else if constexpr (typeid(decltype(value)) == typeid(std::pair<int, int>))
                     s += "(" + std::to_string(value.first) +  ", " + std::to_string(value.second) + ")";
                 else if constexpr (typeid(decltype(value)) == typeid(std::pair<size_t, size_t>))
@@ -71,6 +107,12 @@ std::string Connection::string(Brain const& brain) const
                         s += ", (" + std::to_string(value[i].first) +  ", " + std::to_string(value[i].second) + ")";
 
                     s += ")";
+                }
+                else if constexpr (typeid(decltype(value)) == typeid(std::vector<std::vector<std::pair<int, int> > >))
+                {
+                }
+                else if constexpr (typeid(decltype(value)) == typeid(std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >))
+                {
                 }
                 else
                 {

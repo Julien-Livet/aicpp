@@ -5,6 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <functional>
+#include <map>
 #include <string>
 #include <variant>
 
@@ -69,8 +70,10 @@ namespace aicpp
         Neuron<Eigen::MatrixXd>,
         Neuron<Eigen::MatrixXd, int, double>,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, std::pair<int, int> >,
+        Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::map<double, double> >,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::pair<size_t, size_t> >,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::pair<int, int>, double>,
+        Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::vector<std::pair<int, int> > >,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::vector<std::pair<int, int> >, double>,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd, std::vector<std::pair<int, int> >, std::pair<int, int>, double>,
         Neuron<Eigen::MatrixXd, Eigen::MatrixXd>,
@@ -84,8 +87,10 @@ namespace aicpp
         Neuron<Eigen::MatrixXf>,
         Neuron<Eigen::MatrixXf, int, float>,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf, Eigen::MatrixXf, std::pair<int, int> >,
+        Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::map<float, float> >,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::pair<size_t, size_t> >,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::pair<int, int>, float>,
+        Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::vector<std::pair<int, int> > >,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::vector<std::pair<int, int> >, float>,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf, std::vector<std::pair<int, int> >, std::pair<int, int>, float>,
         Neuron<Eigen::MatrixXf, Eigen::MatrixXf>,
@@ -99,8 +104,10 @@ namespace aicpp
         Neuron<Eigen::MatrixXi>,
         Neuron<Eigen::MatrixXi, int, int>,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi, Eigen::MatrixXi, std::pair<int, int> >,
+        Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::map<int, int> >,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::pair<size_t, size_t> >,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::pair<int, int>, int>,
+        Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::vector<std::pair<int, int> > >,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::vector<std::pair<int, int> >, int>,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::vector<std::pair<int, int> >, std::pair<int, int>, int>,
         Neuron<Eigen::MatrixXi, Eigen::MatrixXi>,
@@ -117,6 +124,9 @@ namespace aicpp
         Neuron<long, long>,
         Neuron<long, long, long>,
         Neuron<long, std::string>,
+        Neuron<std::map<double, double> >,
+        Neuron<std::map<float, float> >,
+        Neuron<std::map<int, int> >,
         Neuron<std::pair<int, int> >,
         Neuron<std::pair<size_t, size_t> >,
         Neuron<std::string>,
@@ -128,12 +138,16 @@ namespace aicpp
         Neuron<std::string, long>,
         Neuron<std::string, std::string>,
         Neuron<std::string, std::string, std::string>,
-        Neuron<std::vector<std::pair<int, int> > >
+        Neuron<std::vector<std::pair<int, int> > >,
+        Neuron<std::vector<std::vector<std::pair<int, int> > > >,
+        Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::vector<std::pair<int, int> > > >,
+        Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >,
+        Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, int, bool, bool>
         >;
 
     class Connection;
 
-    using ConnectionInput = std::variant<std::reference_wrapper<AnyNeuron>, Connection, bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> > >;
+    using ConnectionInput = std::variant<std::reference_wrapper<AnyNeuron>, Connection, bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::map<double, double>, std::map<float, float>, std::map<int, int>, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> >, std::vector<std::vector<std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >;
     using ConnectionOutput = std::any;
 
     template <class R, class... Args>
