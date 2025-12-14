@@ -183,8 +183,8 @@ bool process(std::string const& folder, std::string const& task)
     std::vector<std::string> const activatedNeurons{
         //"zero",
         //"tile",
-        ///"fliplr",
-        ///"flipud",
+        "fliplr",
+        "flipud",
         //"place_region",
         //"hline",
         //"vline",
@@ -194,8 +194,8 @@ bool process(std::string const& folder, std::string const& task)
         //"vlinedown",
         //"fill_region_at",
         //"fill_region2_at",
-        ///"replace",
-        ///"map",
+        "replace",
+        "map",
         //"put_matrix",
         //"put_value",
         //"fill_region",
@@ -205,9 +205,9 @@ bool process(std::string const& folder, std::string const& task)
         //"xor",
         //"invert",
         //"dotsegment",
-        ///"rot90",
+        "rot90",
         //"matrix_region",
-        ///"segments"
+        "segments"
     };
 
     for (auto const& p : brain.neurons())
@@ -220,9 +220,9 @@ bool process(std::string const& folder, std::string const& task)
     }
 
     {
-        ///brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameFirst(x); }, "sameFirst", "arc"});
-        ///brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameSecond(x); }, "sameSecond", "arc"});
-        ///brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& x) { return regionPairs(x); }, "regionPairs", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameFirst(x); }, "sameFirst", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameSecond(x); }, "sameSecond", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& x) { return regionPairs(x); }, "regionPairs", "arc"});
         brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& a, auto const& regions) { return pairedRegions(a, regions); }, "pairedRegions", "arc"});
         brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, int, bool>{[] (auto const& a, auto const& pairedRegions, auto const& value, bool first) { return filterValuePairedRegions(a, pairedRegions, value, first); }, "filterValuePairedRegions", "arc"});
         brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, bool >{[] (auto const& a, auto const& pairedRegions, bool closed) { return filterClosedPairedRegions(a, pairedRegions, closed); }, "filterClosedPairedRegions", "arc"});
