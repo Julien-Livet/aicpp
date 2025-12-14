@@ -806,7 +806,7 @@ namespace aicpp
                 b = fillRegion(b, regions[i], value);
                 b = fillRegion(b, regions[j], value);
 
-                auto const r{region(b, regions[i].front(), false)};
+                auto const r{region(b, regions[i].front(), true)};
 
                 if (r.size() == regions[i].size() + regions[j].size())
                 {
@@ -891,7 +891,7 @@ namespace aicpp
     }
 
     template <typename Matrix>
-    std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > filterClosedPaireRegions(Matrix const& a, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > const& pairedRegions, bool closed)
+    std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > filterClosedPairedRegions(Matrix const& a, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > const& pairedRegions, bool closed)
     {
         std::vector<bool> closedRegions;
         closedRegions.reserve(pairedRegions.size());
