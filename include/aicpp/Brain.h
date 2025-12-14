@@ -253,7 +253,8 @@ namespace aicpp
                     {
                         return variantToHash(anyToVariant<bool, char, double, Eigen::MatrixXd, Eigen::MatrixXf, Eigen::MatrixXi, float, int, long, std::map<double, double>,
                                                           std::map<float, float>, std::map<int, int>, std::pair<int, int>, std::pair<size_t, size_t>, std::string, std::vector<std::pair<int, int> >,
-                                                          std::vector<std::vector<std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >(x));
+                                                          std::vector<std::vector<std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >,
+                                                          std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > >(x));
                     }
                 };
 
@@ -926,39 +927,43 @@ namespace aicpp
                 }
                 {
                     auto const n{std::string{"fill_region"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, typename Matrix::Scalar>{[] (Matrix const& a, std::vector<std::pair<int, int> > const& region, typename Matrix::Scalar const& x) { return fillRegion(a, region, x); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::pair<int, int> >, typename Matrix::Scalar>{[] (Matrix const& a, auto  const& region, auto const& x) { return fillRegion(a, region, x); }, n, "matrices"});
+                }
+                {
+                    auto const n{std::string{"fill_regions"} + suffix};
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::vector<std::vector<std::pair<int, int> > >, typename Matrix::Scalar>{[] (Matrix const& a, auto const& regions, auto const& x) { return fillRegions(a, regions, x); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"fill_region_at"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, true); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, auto const& at, auto const& x) { return fillRegionAt(a, at, x, true); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"fill_region2_at"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, std::pair<int, int> const& at, typename Matrix::Scalar const& x) { return fillRegionAt(a, at, x, false); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& a, auto const& at, auto const& x) { return fillRegionAt(a, at, x, false); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"hline"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int row, typename Matrix::Scalar const& value) { return hline(x, row, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int row, auto const& value) { return hline(x, row, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"vline"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int col, typename Matrix::Scalar const& value) { return vline(x, col, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, int, typename Matrix::Scalar>{[] (Matrix const& x, int col, auto const& value) { return vline(x, col, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"hlineright"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineright(x, at, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, auto const& at, auto const& value) { return hlineright(x, at, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"hlineleft"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return hlineleft(x, at, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, auto const& at, auto const& value) { return hlineleft(x, at, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"vlineup"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlineup(x, at, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, auto const& at, auto const& value) { return vlineup(x, at, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"vlinedown"} + suffix};
-                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, std::pair<int, int> const& at, auto const& value) { return vlinedown(x, at, value); }, n, "matrices"});
+                    neuronIds[n] = addNeuron(Neuron<Matrix, Matrix, std::pair<int, int>, typename Matrix::Scalar>{[] (Matrix const& x, auto const& at, auto const& value) { return vlinedown(x, at, value); }, n, "matrices"});
                 }
                 {
                     auto const n{std::string{"zero"} + suffix};

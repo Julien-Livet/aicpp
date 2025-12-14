@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 
 #include <boost/json.hpp>
 
@@ -50,30 +51,41 @@ void applyInput(Brain& brain, std::map<std::string, size_t> const& neuronIds, Ei
 {
     std::get<Neuron<Eigen::MatrixXi> >(brain.neuron(neuronIds.at("input"))).function = [&input] () -> Eigen::MatrixXi { return input; };
 
+    auto regionSet{
+        [] (auto const& m, bool diagonals)
+        {
+            std::set<std::vector<std::pair<int, int> > > s;
+
+            for (int i = 0; i < m.rows(); ++i)
+            {
+                for (int j = 0; j < m.cols(); ++j)
+                {
+                    auto r = region(m, std::make_pair(i, j), diagonals);
+
+                    std::sort(r.begin(), r.end(),
+                              [] (auto const& x, auto const& y) -> bool
+                              {
+                                  if (x.first == y.first)
+                                      return x.second < y.second;
+
+                                  return x.first < y.first;
+                              }
+                              );
+
+                    if (s.find(r) == s.end())
+                        s.emplace(r);
+                }
+            }
+
+            return s;
+        }
+    };
+
     //Grid regions
     {
-        std::set<std::vector<std::pair<int, int> > > s;
+        auto const s{regionSet(input, false)};
 
-        for (int i = 0; i < input.rows(); ++i)
-        {
-            for (int j = 0; j < input.cols(); ++j)
-            {
-                auto r = region(input, std::make_pair(i, j), false);
-
-                std::sort(r.begin(), r.end(),
-                          [] (auto const& x, auto const& y) -> bool
-                          {
-                              if (x.first == y.first)
-                                  return x.second < y.second;
-
-                              return x.first < y.first;
-                          }
-                          );
-
-                if (s.find(r) == s.end())
-                    s.emplace(r);
-            }
-        }
+        std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("regions"))).function = [s] () { return std::vector<std::vector<std::pair<int, int> > >{s.begin(), s.end()}; };
 
         std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
 
@@ -85,6 +97,38 @@ void applyInput(Brain& brain, std::map<std::string, size_t> const& neuronIds, Ei
 
         for (auto const& p : regions)
             std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("r" + std::to_string(p.first)))).function = [p] () { return p.second; };
+    }
+
+    {
+        auto const s{regionSet(input, true)};
+
+        std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("regions_"))).function = [s] () { return std::vector<std::vector<std::pair<int, int> > >{s.begin(), s.end()}; };
+
+        std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
+
+        for (int i{0}; i < 10; ++i)
+            regions[i].clear();
+
+        for (auto const& r : s)
+            regions[input(r.front().first, r.front().second)].emplace_back(r);
+
+        for (auto const& p : regions)
+            std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("r_" + std::to_string(p.first)))).function = [p] () { return p.second; };
+    }
+
+    {
+        auto const s1{regionSet(input, false)};
+        auto const s2{regionSet(input, true)};
+
+        std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("allRegions"))).function = [s1, s2] ()
+        {
+            std::set<std::vector<std::pair<int, int> > > s{s1};
+
+            for (auto const& v : s2)
+                s.emplace(v);
+
+            return std::vector<std::vector<std::pair<int, int> > >{s.begin(), s.end()};
+        };
     }
 }
 
@@ -155,6 +199,7 @@ bool process(std::string const& folder, std::string const& task)
         //"put_matrix",
         //"put_value",
         //"fill_region",
+        "fill_regions",
         //"or",
         //"and",
         //"xor",
@@ -177,7 +222,12 @@ bool process(std::string const& folder, std::string const& task)
     {
         brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameFirst(x); }, "sameFirst", "arc"});
         brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > >{[] (auto const& x) { return sameSecond(x); }, "sameSecond", "arc"});
-        brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& x) { return regionPairs(x); }, "regionpairs", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& x) { return regionPairs(x); }, "regionPairs", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::vector<std::pair<int, int> > > >{[] (auto const& a, auto const& regions) { return pairedRegions(a, regions); }, "pairedRegions", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, int, bool>{[] (auto const& a, auto const& pairedRegions, auto const& value, bool first) { return filterValuePairedRegions(a, pairedRegions, value, first); }, "filterValuePairedRegions", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, Eigen::MatrixXi, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, bool >{[] (auto const& a, auto const& pairedRegions, bool closed) { return filterClosedPaireRegions(a, pairedRegions, closed); }, "filterClosedPaireRegions", "arc"});
+        brain.addNeuron(Neuron<Eigen::MatrixXi, Eigen::MatrixXi, std::vector<std::vector<std::pair<int, int> > >, int>{[] (auto const& a, auto const& regions, auto const& x) { return fillRegions(a, regions, x); }, "fillRegions", "arc"});
+        brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > >, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > >, bool>{[] (auto const& pairedRegions, bool first) { return memberPairedRegions(pairedRegions, first); }, "memberPairedRegions", "arc"});
     }
 
     std::map<int, int> mapping;
@@ -186,6 +236,9 @@ bool process(std::string const& folder, std::string const& task)
     neuronIds["mapping"] = brain.addNeuron(Neuron<std::map<int, int> >{[&mapping] () { return mapping; }, "mapping"});
     neuronIds["false"] = brain.addNeuron(Neuron<bool>{[] () { return false; }, "false", "bools.variables"});
     neuronIds["true"] = brain.addNeuron(Neuron<bool>{[] () { return true; }, "true", "bools.variables"});
+    neuronIds["regions"] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, "regions", "regions"});
+    neuronIds["regions_"] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, "regions", "regions"});
+    neuronIds["allRegions"] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, "regions", "regions"});
 
     //Grid values
     {
@@ -205,8 +258,15 @@ bool process(std::string const& folder, std::string const& task)
     {
         for (size_t i{0}; i < 10; ++i)
         {
-            auto const name{"r" + std::to_string(i)};
-            neuronIds[name] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, name, "regions"});
+            {
+                auto const name{"r" + std::to_string(i)};
+                neuronIds[name] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, name, "regions"});
+            }
+
+            {
+                auto const name{"r_" + std::to_string(i)};
+                neuronIds[name] = brain.addNeuron(Neuron<std::vector<std::vector<std::pair<int, int> > > >{[] () { return std::vector<std::vector<std::pair<int, int> > >{}; }, name, "regions"});
+            }
         }
     }
 
@@ -232,6 +292,8 @@ bool process(std::string const& folder, std::string const& task)
             auto const& p{trainPairs[i]};
 
             applyInput(brain, neuronIds, p.first);
+
+            auto const regions{pairedRegions(p.first, std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("allRegions"))).function())};
 
             connections = brain.learn(p.second, answerNumber, -1, learnTimeout);
 
@@ -282,7 +344,15 @@ bool process(std::string const& folder, std::string const& task)
         cost += heuristic(p.second, newOutput);
     }
 
+    if (cost < eps)
+        std::cout << connections.front().string(brain) << std::endl;
+
     return (cost < eps);
+}
+
+TEST(TestArcAgi, 00d62c1b)
+{
+    EXPECT_TRUE(process("training", "00d62c1b"));
 }
 
 TEST(TestArcAgi, 253bf280)

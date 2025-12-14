@@ -111,9 +111,6 @@ std::string Connection::string(Brain const& brain) const
                 else if constexpr (typeid(decltype(value)) == typeid(std::vector<std::vector<std::pair<int, int> > >))
                 {
                 }
-                else if constexpr (typeid(decltype(value)) == typeid(std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > >))
-                {
-                }
                 else
                 {
                     std::ostringstream oss;

@@ -7,7 +7,6 @@
 #include <bitset>
 #include <cmath>
 #include <cstdint>
-#include <iostream> //TODO: to remove
 #include <limits>
 #include <generator>
 #include <map>
@@ -566,6 +565,17 @@ namespace aicpp
     }
 
     template <typename Matrix>
+    Matrix fillRegions(Matrix const& a, std::vector<std::vector<std::pair<int, int> > > const& regions, typename Matrix::Scalar const& x)
+    {
+        Matrix b{a};
+
+        for (auto const& region : regions)
+            b = fillRegion(b, region, x);
+
+        return b;
+    }
+
+    template <typename Matrix>
     Matrix matrixRegion(Matrix const& a, std::vector<std::pair<int, int> > const& region)
     {
         if (!a.rows() || !a.cols())
@@ -723,7 +733,39 @@ namespace aicpp
 
         return result;
     }
+/*
+    inline std::vector<std::pair<int, int> > smallestRegion(std::vector<std::vector<std::pair<int, int> > > const& regions)
+    {
+        std::vector<std::pair<size_t, size_t> > sizes;
+        sizes.reserve(regions.size());
 
+        for (size_t i{0}; i < regions.size(); ++i)
+            sizes.emplace_back(std::make_pair(i, regions[i].size()));
+
+        std::sort(sizes.begin(), sizes.end(), [] (auto const& x, auto const y) { return x.second < y.second; });
+
+        if (sizes.size())
+            return regions[sizes.front().first];
+
+        return std::vector<std::pair<int, int> >{};
+    }
+
+    inline std::vector<std::pair<int, int> > biggestRegion(std::vector<std::vector<std::pair<int, int> > > const& regions)
+    {
+        std::vector<std::pair<size_t, size_t> > sizes;
+        sizes.reserve(regions.size());
+
+        for (size_t i{0}; i < regions.size(); ++i)
+            sizes.emplace_back(std::make_pair(i, regions[i].size()));
+
+        std::sort(sizes.begin(), sizes.end(), [] (auto const& x, auto const y) { return x.second < y.second; });
+
+        if (sizes.size())
+            return regions[sizes.back().first];
+
+        return std::vector<std::pair<int, int> >{};
+    }
+*/
     inline std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > regionPairs(std::vector<std::vector<std::pair<int, int> > > const& regions)
     {
         std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > pairs;
@@ -741,6 +783,143 @@ namespace aicpp
         }
 
         return pairs;
+    }
+
+    template <typename Matrix>
+    std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > pairedRegions(Matrix const& a, std::vector<std::vector<std::pair<int, int> > > const& regions)
+    {
+        std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > result;
+
+        for (size_t i{0}; i < regions.size(); ++i)
+        {
+            if (regions[i].empty())
+                continue;
+
+            for (size_t j{i + 1}; j < regions.size(); ++j)
+            {
+                if (regions[j].empty())
+                    continue;
+
+                Matrix b{a};
+                auto const value{a.maxCoeff() + 1};
+
+                b = fillRegion(b, regions[i], value);
+                b = fillRegion(b, regions[j], value);
+
+                auto const r{region(b, regions[i].front(), false)};
+
+                if (r.size() == regions[i].size() + regions[j].size())
+                {
+                    std::vector<std::pair<size_t, size_t> > pairs{regions[i].begin(), regions[i].end()};
+
+                    pairs.append_range(regions[j]);
+
+                    std::sort(pairs.begin(), pairs.end(),
+                              [] (auto const& x, auto const& y) -> bool
+                              {
+                                  if (x.first == y.first)
+                                      return x.second < y.second;
+
+                                  return x.first < y.first;
+                              }
+                              );
+
+                    if (std::find(regions[i].begin(), regions[i].end(), pairs.front()) != regions[i].end())
+                        result.emplace_back(std::make_pair(regions[j], regions[i]));
+                    else
+                        result.emplace_back(std::make_pair(regions[i], regions[j]));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    template <typename Matrix>
+    std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > filterValuePairedRegions(Matrix const& a, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > const& pairedRegions, typename Matrix::Scalar const& value, bool first)
+    {
+        std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > result;
+
+        for (auto const& pairedRegion : pairedRegions)
+        {
+            auto const& r{first ? pairedRegion.first : pairedRegion.second};
+
+            if (r.empty())
+                continue;
+
+            if (a(r.front().first, r.front().second) == value)
+                result.emplace_back(pairedRegion);
+        }
+
+        return result;
+    }
+
+    inline std::vector<std::pair<int, int> > regionContour(std::vector<std::pair<int, int> > const& region)
+    {
+        std::set<std::pair<int, int> > contour;
+
+        for (auto const& p : region)
+        {
+            auto const n{neighbors(p, std::make_pair(p.first + 2, p.second + 2), true)};
+
+            for (auto const& q : n)
+                contour.emplace(q);
+        }
+
+        for (auto const& p : region)
+            contour.erase(p);
+
+        return std::vector<std::pair<int, int> >{contour.begin(), contour.end()};
+    }
+
+    template <typename Matrix>
+    bool closedPairedRegion(Matrix const& a, std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > const& pairedRegion)
+    {
+        auto const contour{regionContour(pairedRegion.first)};
+        std::set<std::pair<int, int> > modifiedContour{contour.begin(), contour.end()};
+
+        for (auto const& p : pairedRegion.second)
+            modifiedContour.erase(p);
+
+        for (auto const& p : modifiedContour)
+        {
+            if (!validIndex(a, p))
+                return false;
+        }
+
+        return modifiedContour.size() < pairedRegion.second.size();
+    }
+
+    template <typename Matrix>
+    std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > filterClosedPaireRegions(Matrix const& a, std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > const& pairedRegions, bool closed)
+    {
+        std::vector<bool> closedRegions;
+        closedRegions.reserve(pairedRegions.size());
+
+        for (auto const& r : pairedRegions)
+            closedRegions.emplace_back(closedPairedRegion(a, r));
+
+        std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > result;
+
+        for (size_t i{0}; i < pairedRegions.size(); ++i)
+        {
+            if ((closed && closedRegions[i])
+                || (!closed && !closedRegions[i]))
+                    result.emplace_back(pairedRegions[i]);
+        }
+
+        return result;
+    }
+
+    inline std::vector<std::vector<std::pair<int, int> > > memberPairedRegions(std::vector<std::pair<std::vector<std::pair<int, int> >, std::vector<std::pair<int, int> > > > const& pairedRegions, bool first)
+    {
+        std::vector<std::vector<std::pair<int, int> > > result;
+        result.reserve(pairedRegions.size());
+
+        for (auto const& r : pairedRegions)
+            result.emplace_back(first ? r.first : r.second);
+
+        return result;
     }
 
     template <typename Matrix>
