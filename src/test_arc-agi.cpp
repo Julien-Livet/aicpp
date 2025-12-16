@@ -277,7 +277,7 @@ bool process(std::string const& folder, std::string const& task)
     double cost{1.0};
 
     constexpr double eps = 1.0e-6;
-    constexpr size_t answerNumber{1};//{static_cast<size_t>(-1)};
+    constexpr size_t answerNumber{1};
 
     while (cost >= eps)
     {
@@ -291,8 +291,6 @@ bool process(std::string const& folder, std::string const& task)
             auto const& p{trainPairs[i]};
 
             applyInput(brain, neuronIds, p.first);
-
-            auto const regions{pairedRegions(p.first, std::get<Neuron<std::vector<std::vector<std::pair<int, int> > > > >(brain.neuron(neuronIds.at("allRegions"))).function())};
 
             connections = brain.learn(p.second, answerNumber, -1, learnTimeout);
 
@@ -343,28 +341,37 @@ bool process(std::string const& folder, std::string const& task)
         cost += heuristic(p.second, newOutput);
     }
 
+    std::cout << "Task " << task;
+
     if (cost < eps)
-        std::cout << connections.front().string(brain) << std::endl;
+        std::cout << " passed";
+    else
+        std::cout << " failed";
+
+    std::cout << std::endl;
+
+    std::ofstream ofs{task + ".dot"};
+    ofs << connections.front().dot(brain);
 
     return (cost < eps);
 }
 
-TEST(TestArcAgi, 00d62c1b)
+TEST(TestArcAgi, 00d62c1b) //Fill regions
 {
     EXPECT_TRUE(process("training", "00d62c1b"));
 }
 
-TEST(TestArcAgi, 253bf280)
+TEST(TestArcAgi, 253bf280) //Draw colored segment between pixels that have same x or y coordinates
 {
     EXPECT_TRUE(process("training", "253bf280"));
 }
 
-TEST(TestArcAgi, 3c9b0459)
+TEST(TestArcAgi, 3c9b0459) //Flip left/right and flip up/down
 {
     EXPECT_TRUE(process("training", "3c9b0459"));
 }
 
-TEST(TestArcAgi, 0d3d703e)
+TEST(TestArcAgi, 0d3d703e) //Color mapping
 {
     EXPECT_TRUE(process("training", "0d3d703e"));
 }

@@ -5,6 +5,30 @@
 
 using namespace aicpp;
 
+void aicpp::freeDot(Node* node)
+{
+    for (auto const& c: node->children)
+    {
+        freeDot(c);
+        delete c;
+    }
+
+    node->children.clear();
+}
+
+void aicpp::writeDot(Node* node, std::ostream& out, size_t& counter, std::string const& parent)
+{
+    std::string current = "n" + std::to_string(counter++);
+
+    out << "    " << current << " [label=\"" << node->label << "\", shape=circle, style=filled, tooltip=\"" << node->tooltip << "\"];\n";
+
+    if (!parent.empty())
+        out << "    " << parent << " -> " << current << ";\n";
+
+    for (auto* child: node->children)
+        writeDot(child, out, counter, current);
+}
+
 Connection::Connection(std::vector<ConnectionInput> const& inputs, size_t neuronId, double weight) : weight{weight}, inputs_{inputs}, neuronId_{neuronId}
 {
 }
@@ -126,4 +150,61 @@ std::string Connection::string(Brain const& brain) const
     }
 
     return s + ")";
+}
+
+void Connection::updateNode_(Brain const& brain, Node* node) const
+{
+    //node->label = brain.neuronName(neuronId_);
+
+    auto const n{brain.neuron(neuronId_)};
+
+    std::string name{std::visit(
+        [] (auto const& neuron)
+        {
+            return neuron.name();
+        },
+        n)};
+
+    auto const pos{name.find("_")};
+
+    if (pos != std::string::npos)
+        name = name.substr(0, pos);
+
+    node->label =   name;
+
+    for (size_t i{0}; i < inputs_.size(); ++i)
+    {
+        std::visit(
+            [brain, &node] (auto const& value)
+            {
+                if constexpr (typeid(decltype(value)) == typeid(Connection))
+                {
+                    Node* n = new Node;
+                    value.updateNode_(brain, n);
+                    node->children.emplace_back(n);
+                }
+            }, inputs_[i]);
+    }
+}
+
+std::string Connection::dot(Brain const& brain) const
+{
+	std::ostringstream oss;
+
+    oss << "digraph ConnectionTree {\n"
+		<< "    node [shape=circle, style=filled, fillcolor=lightgray];\n"
+		<< "\n";
+
+	Node root;
+    updateNode_(brain, &root);
+
+	root.tooltip = string(brain);
+
+	size_t counter{0};
+	writeDot(&root, oss, counter);
+	freeDot(&root);
+
+	oss << "}\n";
+
+    return oss.str();
 }
