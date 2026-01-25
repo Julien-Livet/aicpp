@@ -195,12 +195,8 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                 continue;
             }
 
-            size_t count{0};
-
-            while (its[i] != sets[i].end() && count < std::thread::hardware_concurrency())
+            while (its[i] != sets[i].end())
             {
-                ++count;
-
                 auto const connectionId{its[i]->connectionId};
                 auto const& connection{conns[connectionId]};
                 auto const connectionParametersIt{connectionParameters.find(connection)};
@@ -286,3 +282,4 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
 
     return learnedConnections;
 }
+
