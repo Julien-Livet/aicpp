@@ -1,0 +1,30 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11", "setuptools", "wheel"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pyaicpp"
+version = "0.1.0"
+description = "Artificial intelligence with a network of connected neurons in C++ with Python bindings"
+authors = [
+    { name = "Julien LIVET", email = "julien.livet@free.fr" }
+]
+readme = "README.md"
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/Julien-Livet/aicpp"
+
+[tool.scikit-build]
+wheel.packages = ["pyaicpp"]
+cmake.minimum-version = "3.15"
+sdist.include = ["src", "CMakeLists.txt", "pyproject.toml", "README.md"]
+build-dir = "build"
+cmake.verbose = true
+
