@@ -352,6 +352,8 @@ class PyNeuron : public Neuron
             : Neuron(name,
                      [py_func] (std::vector<std::any> const& args) -> std::any
                      {
+                         py::gil_scoped_acquire gil;
+
                          py::list py_args;
 
                          for (auto const& arg : args)
