@@ -11,8 +11,9 @@ namespace aicpp
     class Brain
     {
         public:
-        Brain(std::vector<std::reference_wrapper<Neuron const> > const& neurons);
+            Brain(std::vector<std::reference_wrapper<Neuron const> > const& neurons);
             std::vector<Connection> learn(std::vector<std::any> const& targets, size_t level = 3, double eps = 1e-6) const;
+            std::vector<std::reference_wrapper<Neuron const> > const& neurons() const;
 
         private:
             std::vector<std::reference_wrapper<Neuron const> > neurons_;
