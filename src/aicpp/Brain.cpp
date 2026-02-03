@@ -1,5 +1,4 @@
 #include <future>
-#include <iostream> //TODO: to remove
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
@@ -67,18 +66,19 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
             auto& s{mapping[connection.neuron().outputType()]};
 
             std::vector<std::vector<std::any> > args;
+            auto const connectionInputTypes{connection.inputTypes()};
 
-            for (auto const& inputType : connection.inputTypes())
+            for (auto const& inputType : connectionInputTypes)
                 args.emplace_back(std::vector<std::any>{inputType});
 
-            for (size_t j{0}; j < args.size(); ++j)
+            for (size_t i{0}; i < args.size(); ++i)
             {
-                auto const it{connectionMapping.find(connection.inputTypes()[j])};
+                auto const it{connectionMapping.find(connectionInputTypes[i])};
 
                 if (it != connectionMapping.end())
                 {
                     for (auto const& v : it->second)
-                        args[j].emplace_back(v);
+                        args[i].emplace_back(v);
                 }
             }
 
@@ -91,7 +91,6 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
         }
 
         connectionMapping = mapping;
-
         connections.clear();
 
         for (auto const& p : connectionMapping)
@@ -283,3 +282,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
     return learnedConnections;
 }
 
+std::vector<std::reference_wrapper<Neuron const> > const& Brain::neurons() const
+{
+    return neurons_;
+}
