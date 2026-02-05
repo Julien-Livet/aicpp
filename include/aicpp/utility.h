@@ -215,7 +215,12 @@ namespace aicpp
         }
         else if constexpr (std::is_same_v<T, std::string>)
         {
-            if constexpr (is_string_convertible_v<S>)
+            if constexpr (std::is_same_v<S, std::any>)
+            {
+                if (val.type() == typeid(std::string))
+                    return heuristic(std::any_cast<std::string>(val), target);
+            }
+            else if constexpr (is_string_convertible_v<S>)
             {
                 double cost{std::is_same_v<S, std::string> ? 0.0 : 1.0};
 

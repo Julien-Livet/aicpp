@@ -296,6 +296,9 @@ bool Connection::operator==(Connection const& other) const
     if (&neuron_.get() != &other.neuron_.get())
         return false;
 
+    if (inputs_.size() != other.inputs_.size())
+        return false;
+
     bool equal{true};
 
     for (size_t i{0}; i < inputs_.size(); ++i)

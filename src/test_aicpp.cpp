@@ -1,10 +1,20 @@
 #include <fstream>
 
+#include <boost/json.hpp>
+
+#include <Eigen/Core>
+
 #include <gtest/gtest.h>
 
+#include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
+#include "aicpp/utility.h"
+
+using namespace boost::json;
 
 using namespace aicpp;
+
+std::string const path{"../../ARC-AGI-2-main/data"};
 
 TEST(TestAiCpp, ValidConnections)
 {
@@ -176,16 +186,54 @@ TEST(TestAiCpp, ValidConnections)
     }
 }
 
-#include <boost/json.hpp>
+TEST(TestAiCpp, Str)
+{
+    std::vector<Neuron> digitNeurons;
 
-#include <Eigen/Core>
+    for (int i{0}; i < 10; ++i)
+        digitNeurons.emplace_back(Neuron{std::to_string(i),
+                                         [i] (std::vector<std::any> const& args) -> std::any
+                                         {
+                                             return i;
+                                         }, std::vector<std::type_index>{}, typeid(int)});
 
-#include "aicpp/Brain.h"
-#include "aicpp/utility.h"
+    Neuron const addNeuron{"add",
+                           [] (std::vector<std::any> const& args) -> std::any
+                           {
+                               return std::any_cast<int>(args[0]) + std::any_cast<int>(args[1]);
+                           }, std::vector<std::type_index>{typeid(int), typeid(int)}, typeid(int)};
+    Neuron const mulNeuron{"mul",
+                           [] (std::vector<std::any> const& args) -> std::any
+                           {
+                               return std::any_cast<int>(args[0]) * std::any_cast<int>(args[1]);
+                           }, std::vector<std::type_index>{typeid(int), typeid(int)}, typeid(int)};
+    Neuron const intToStrNeuron{"intToStr",
+                                [] (std::vector<std::any> const& args) -> std::any
+                                {
+                                    return std::to_string(std::any_cast<int>(args[0]));
+                                }, std::vector<std::type_index>{typeid(int)}, typeid(std::string)};
 
-using namespace boost::json;
+    std::vector<std::reference_wrapper<Neuron const> > neurons;
 
-std::string const path{"../../ARC-AGI-2-main/data"};
+    for (auto const& neuron : digitNeurons)
+        neurons.emplace_back(neuron);
+
+    neurons.emplace_back(addNeuron);
+    neurons.emplace_back(mulNeuron);
+    neurons.emplace_back(intToStrNeuron);
+
+    Brain brain{neurons};
+
+    auto const connections{brain.learn(std::vector<std::any>{std::string{"11"}}, 2)};
+
+    EXPECT_TRUE(connections.size());
+
+    auto const connection{connections[0]};
+
+    std::cout << connection.string() << std::endl;
+
+    EXPECT_FALSE(heuristic(connection.output(), std::string{"11"}));
+}
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 {
@@ -263,59 +311,100 @@ std::pair<std::vector<Eigen::MatrixXi>, std::vector<Eigen::MatrixXi> > inputOutp
     return std::make_pair(inputs, outputs);
 }
 
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/polygon.hpp>
+
+typedef boost::geometry::model::d2::point_xy<int> Point;
+typedef boost::geometry::model::polygon<Point> Polygon;
+
+//boost::geometry::within(polyInner, poly2Outer.filled())
+
+Polygon regionToPolygon(std::vector<std::pair<int, int> > const& region)
+{
+    if (region.empty())
+        return Polygon{};
+
+    std::pair<int, int> size{0, 0};
+
+    for (auto const& p : region)
+    {
+        size.first = std::max(size.first, p.first);
+        size.second = std::max(size.second, p.second);
+    }
+
+    ++size.first;
+    ++size.second;
+
+    auto consideredRegion{region};
+    consideredRegion.clear();
+
+    for (auto const& p : region)
+    {
+        auto const n{neighbors(p, size, true)};
+    }
+
+    std::vector<Point> inPoints, outPoints;
+
+    //...
+
+    Polygon polygon;
+
+    //...
+
+    return polygon;
+}
+
 void updateRegionNeurons(std::map<int, Neuron>& regionNeurons, std::vector<Eigen::MatrixXi> const& pairs)
 {
-    //Grid regions
+    std::map<int, std::vector<std::vector<std::vector<std::pair<int, int> > > > > regionMap;
+
+    for (auto const& input : pairs)
     {
-        std::map<int, std::vector<std::vector<std::vector<std::pair<int, int> > > > > regionMap;
+        auto const s{regionSet(input, false)};
 
-        for (auto const& input : pairs)
+        std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
+
+        for (int i{0}; i < 10; ++i)
+            regions[i].clear();
+
+        for (auto const& r : s)
+            regions[input(r.front().first, r.front().second)].emplace_back(r);
+
+        for (auto const& p : regions)
+            regionMap[p.first].emplace_back(p.second);
+    }
+
+    for (auto const& p : regionMap)
+    {
+        auto const function{
+            [p] (std::vector<std::any> const& args) -> std::any
+            {
+                return p.second;
+            }};
+
+        size_t emptyCount{0};
+
+        for (auto const& v : p.second)
         {
-            auto const s{regionSet(input, false)};
-
-            std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
-
-            for (int i{0}; i < 10; ++i)
-                regions[i].clear();
-
-            for (auto const& r : s)
-                regions[input(r.front().first, r.front().second)].emplace_back(r);
-
-            for (auto const& p : regions)
-                regionMap[p.first].emplace_back(p.second);
+            if (v.empty())
+                ++emptyCount;
         }
 
-        for (auto const& p : regionMap)
+        auto const it{regionNeurons.find(p.first)};
+
+        if (it == regionNeurons.end())
         {
-            auto const it{regionNeurons.find(p.first)};
-
-            auto const function{
-                [p] (std::vector<std::any> const& args) -> std::any
-                {
-                    return p.second;
-                }};
-
-            size_t emptyCount{0};
-
-            for (auto const& v : p.second)
-            {
-                if (v.empty())
-                    ++emptyCount;
-            }
-
-            if (it == regionNeurons.end())
-            {
-                if (emptyCount != p.second.size())
-                    regionNeurons.emplace(std::make_pair(p.first, Neuron{"region" + std::to_string(p.first),
-                                                                         function, std::vector<std::type_index>{}, typeid(std::vector<std::vector<std::vector<std::pair<int, int> > > >)}));
-            }
+            if (emptyCount != p.second.size())
+                regionNeurons.emplace(std::make_pair(p.first, Neuron{"region" + std::to_string(p.first),
+                                                                     function, std::vector<std::type_index>{}, typeid(std::vector<std::vector<std::vector<std::pair<int, int> > > >)}));
+        }
+        else
+        {
+            if (emptyCount != p.second.size())
+                it->second.function() = function;
             else
-            {
-                if (emptyCount != p.second.size())
-                    it->second.function() = function;
-                else
-                    regionNeurons.erase(it);
-            }
+                regionNeurons.erase(it);
         }
     }
 }
@@ -643,7 +732,7 @@ int processTask(std::string const& folder, std::string const& task, std::vector<
 
     auto const connections{brain.learn(std::vector<std::any>{trainPairs.second})};
 
-    if (!connections.size())
+    if (connections.empty())
         return -1;
 
     auto const connection{connections[0]};
@@ -908,19 +997,9 @@ TEST(TestAiCpp, 253bf280) //Draw colored segment between pixels that have same x
 {
     EXPECT_EQ(processTask("training", "253bf280", std::vector<std::string>{"digitNeurons", "boolNeurons", "regionNeurons", "253bf280"}), 0);
 }
-
+/*
 TEST(TestAiCpp, 00d62c1b) //Fill regions
-{/**
-    auto const taskPairs{trainTestPairs("training", "00d62c1b")};
-    auto const trainPairs{inputOutputPairs(taskPairs.first)};
-    auto const testPairs{inputOutputPairs(taskPairs.second)};
-
-    std::map<int, Neuron> regionNeurons;
-    updateRegionNeurons(regionNeurons, trainPairs.first);
-    auto const r0 = std::any_cast<std::vector<std::vector<std::vector<std::pair<int, int> > > > >(regionNeurons.at(0).function()(std::vector<std::any>{}))[0];
-    std::cout << fillRegions(fillRegions(fillRegions(trainPairs.first[0], r0, 4), memberPairedRegions(pairedRegions(trainPairs.first[0], r0), false), 0),
-                             memberPairedRegions(pairedRegions(trainPairs.first[0], r0), true), 4) << std::endl;
-    std::cout << std::endl;
-    std::cout << trainPairs.second[0] << std::endl;**/
+{
     EXPECT_EQ(processTask("training", "00d62c1b", std::vector<std::string>{"digitNeurons", "boolNeurons", "regionNeurons", "00d62c1b"}), 0);
 }
+*/
