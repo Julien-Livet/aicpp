@@ -194,6 +194,12 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                 continue;
             }
 
+            if (its[i]->cost < eps)
+            {
+                finishedSets[i] = true;
+                continue;
+            }
+
             while (its[i] != sets[i].end())
             {
                 auto const connectionId{its[i]->connectionId};
