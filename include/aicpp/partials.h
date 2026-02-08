@@ -4,8 +4,14 @@
 #include <any>
 #include <vector>
 
+#include "aicpp/primitives.h"
+
 namespace aicpp
 {
+    namespace fulls
+    {
+    }
+
     namespace partials
     {
     }

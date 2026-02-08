@@ -1,0 +1,297 @@
+#include <fstream>
+#include <iostream>
+
+#include <boost/json.hpp>
+
+#include <Eigen/Core>
+
+#include "aicpp/Brain.h"
+#include "aicpp/Connection.h"
+#include "aicpp/partials.h"
+#include "aicpp/utility.h"
+
+using namespace boost::json;
+
+using namespace aicpp;
+
+std::string const path{"../../ARC-AGI-2-main/data"};
+
+Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
+{
+    std::size_t const rows = arr.size();
+    std::size_t const cols = arr.at(0).as_array().size();
+
+    Eigen::MatrixXi mat(rows, cols);
+
+    for (std::size_t i = 0; i < rows; ++i)
+    {
+        auto const& row = arr[i].as_array();
+
+        for (std::size_t j = 0; j < cols; ++j)
+            mat(i, j) = (int)row[j].as_int64();
+    }
+
+    return mat;
+}
+
+std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
+          std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > > trainTestPairs(std::string const& folder, std::string const& task)
+{
+    std::ifstream ifs{path + "/" + folder + "/" + task + ".json"};
+
+    std::string content;
+
+    while (ifs)
+    {
+        std::string line;
+
+        std::getline(ifs, line);
+
+        content += line + '\n';
+    }
+
+    value const jv{parse(content)};
+    auto const train{jv.at("train").as_array()};
+    std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > trainPairs;
+
+    for (size_t i{0}; i < train.size(); ++i)
+    {
+        auto const& sample{train[i].as_object()};
+
+        trainPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
+                                               boostJsonToEigenMatrix(sample.at("output").as_array())));
+    }
+
+    auto const test{jv.at("test").as_array()};
+    std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > testPairs;
+
+    for (size_t i{0}; i < test.size(); ++i)
+    {
+        auto const& sample{test[i].as_object()};
+
+        testPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
+                                              boostJsonToEigenMatrix(sample.at("output").as_array())));
+    }
+
+    return std::make_pair(trainPairs, testPairs);
+}
+
+std::pair<std::vector<Eigen::MatrixXi>, std::vector<Eigen::MatrixXi> > inputOutputPairs(
+    std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > const& taskPairs)
+{
+    std::vector<Eigen::MatrixXi> inputs, outputs;
+    inputs.reserve(taskPairs.size());
+    outputs.reserve(taskPairs.size());
+
+    for (size_t i{0}; i < taskPairs.size(); ++i)
+    {
+        inputs.emplace_back(taskPairs[i].first);
+        outputs.emplace_back(taskPairs[i].second);
+    }
+
+    return std::make_pair(inputs, outputs);
+}
+
+void updateRegionNeurons(std::map<int, Neuron>& regionNeurons, std::vector<Eigen::MatrixXi> const& pairs)
+{
+    std::map<int, std::vector<std::vector<std::vector<std::pair<int, int> > > > > regionMap;
+
+    for (auto const& input : pairs)
+    {
+        auto const s{utility::regionSet(input, false)};
+
+        std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
+
+        for (int i{0}; i < 10; ++i)
+            regions[i].clear();
+
+        for (auto const& r : s)
+            regions[input(r.front().first, r.front().second)].emplace_back(r);
+
+        for (auto const& p : regions)
+            regionMap[p.first].emplace_back(p.second);
+    }
+
+    for (auto const& p : regionMap)
+    {
+        auto const function{
+            [p] (std::vector<std::any> const& args) -> std::any
+            {
+                return p.second;
+            }};
+
+        size_t emptyCount{0};
+
+        for (auto const& v : p.second)
+        {
+            if (v.empty())
+                ++emptyCount;
+        }
+
+        auto const it{regionNeurons.find(p.first)};
+
+        if (it == regionNeurons.end())
+        {
+            if (emptyCount != p.second.size())
+                regionNeurons.emplace(std::make_pair(p.first, Neuron{"region" + std::to_string(p.first),
+                                                                     function, std::vector<std::type_index>{}, typeid(std::vector<std::vector<std::vector<std::pair<int, int> > > >)}));
+        }
+        else
+        {
+            if (emptyCount != p.second.size())
+                it->second.function() = function;
+            else
+                regionNeurons.erase(it);
+        }
+    }
+}
+
+int processTask(std::string const& folder, std::string const& task, size_t level)
+{
+    auto const taskPairs{trainTestPairs(folder, task)};
+    auto const trainPairs{inputOutputPairs(taskPairs.first)};
+    auto const testPairs{inputOutputPairs(taskPairs.second)};
+
+    std::vector<Neuron> digitNeurons;
+    digitNeurons.reserve(10);
+
+    for (int i{0}; i < digitNeurons.capacity(); ++i)
+        digitNeurons.emplace_back(Neuron{std::to_string(i), [i] (std::vector<std::any> const& args) -> std::any { return i; }, std::vector<std::type_index>{}, typeid(int)});
+
+    Neuron const pairsNeuron{"pairs",
+                             [taskPairs] (std::vector<std::any> const& args) -> std::any
+                             {
+                                 auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+
+                                 if (taskPairs.first.size() != v.size())
+                                     return std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >{};
+
+                                 auto pairs{taskPairs.first};
+
+                                 for (size_t i{0}; i < pairs.size(); ++i)
+                                     pairs[i].first = v[i];
+
+                                 return pairs;
+                             }, std::vector<std::type_index>{typeid(std::vector<Eigen::MatrixXi>)}, typeid(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >)};
+    Neuron const trainPairsNeuron{"trainPairs",
+                                  [taskPairs] (std::vector<std::any> const& args) -> std::any
+                                  {
+                                      return taskPairs.first;
+                                  }, std::vector<std::type_index>{}, typeid(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >)};
+    Neuron const falseNeuron{"false",
+                             [] (std::vector<std::any> const& args) -> std::any
+                             {
+                                 return false;
+                             }, std::vector<std::type_index>{}, typeid(bool)};
+    Neuron const trueNeuron{"true",
+                            [] (std::vector<std::any> const& args) -> std::any
+                            {
+                                return true;
+                            }, std::vector<std::type_index>{}, typeid(bool)};
+    Neuron inputNeuron{"input",
+                       [trainPairs] (std::vector<std::any> const&) -> std::any
+                       {
+                           return trainPairs.first;
+                       }, std::vector<std::type_index>{}, typeid(std::vector<Eigen::MatrixXi>)};
+
+    std::map<int, Neuron> regionNeurons;
+    updateRegionNeurons(regionNeurons, trainPairs.first);
+
+    std::vector<std::reference_wrapper<Neuron const> > neurons;
+
+    {
+        std::set<int> digits;
+
+        for (auto const& m : trainPairs.first)
+        {
+            for (auto const& v : m.reshaped())
+                digits.emplace(v);
+        }
+
+        for (auto const& m : trainPairs.second)
+        {
+            for (auto const& v : m.reshaped())
+                digits.emplace(v);
+        }
+
+        std::vector<bool> existingDigits;
+        existingDigits.reserve(10);
+
+        for (size_t i{0}; i < 10; ++i)
+            existingDigits.emplace_back(digits.find(i) != digits.end());
+
+        for (size_t i{0}; i < digitNeurons.size(); ++i)
+        {
+            if (existingDigits[i])
+                neurons.emplace_back(digitNeurons[i]);
+        }
+    }
+
+    {
+        neurons.emplace_back(falseNeuron);
+        neurons.emplace_back(trueNeuron);
+    }
+
+    {
+        neurons.emplace_back(pairsNeuron);
+        neurons.emplace_back(trainPairsNeuron);
+    }
+
+    {
+        for (auto const& p : regionNeurons)
+            neurons.emplace_back(p.second);
+    }
+
+    neurons.emplace_back(inputNeuron);
+
+    Brain brain{neurons};
+
+    auto const connections{brain.learn(std::vector<std::any>{trainPairs.second}, level)};
+
+    if (connections.empty())
+    {
+        std::cout << "inf" << std::endl;
+        std::cout << "" << std::endl;
+
+        return -1;
+    }
+
+    auto const connection{connections[0]};
+
+    double cost{utility::heuristic(connection.output(), trainPairs.second)};
+
+    if (cost)
+    {
+        std::cout << cost << std::endl;
+        std::cout << connection.string() << std::endl;
+
+        return -2;
+    }
+
+    updateRegionNeurons(regionNeurons, testPairs.first);
+
+    inputNeuron.function() =
+        [testPairs] (std::vector<std::any> const&) -> std::any
+    {
+        return testPairs.first;
+    };
+
+    cost = utility::heuristic(connection.output(), testPairs.second);
+
+    std::cout << cost << std::endl;
+    std::cout << connection.string() << std::endl;
+
+    if (cost)
+        return -3;
+
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    std::string const folder{argv[1]};
+    std::string const task{argv[2]};
+    auto const level{static_cast<size_t>(std::atoi(argv[3]))};
+
+    return processTask(folder, task, level);
+}

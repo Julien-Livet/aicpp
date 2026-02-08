@@ -1,0 +1,52 @@
+
+    Brain brain{neurons};
+
+    auto const connections{brain.learn(std::vector<std::any>{trainPairs.second}, level)};
+
+    if (connections.empty())
+    {
+        std::cout << "inf" << std::endl;
+        std::cout << "" << std::endl;
+
+        return -1;
+    }
+
+    auto const connection{connections[0]};
+
+    double cost{utility::heuristic(connection.output(), trainPairs.second)};
+
+    if (cost)
+    {
+        std::cout << cost << std::endl;
+        std::cout << connection.string() << std::endl;
+
+        return -2;
+    }
+
+    updateRegionNeurons(regionNeurons, testPairs.first);
+
+    inputNeuron.function() =
+        [testPairs] (std::vector<std::any> const&) -> std::any
+    {
+        return testPairs.first;
+    };
+
+    cost = utility::heuristic(connection.output(), testPairs.second);
+
+    std::cout << cost << std::endl;
+    std::cout << connection.string() << std::endl;
+
+    if (cost)
+        return -3;
+
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    std::string const folder{argv[1]};
+    std::string const task{argv[2]};
+    auto const level{static_cast<size_t>(std::atoi(argv[3]))};
+
+    return processTask(folder, task, level);
+}

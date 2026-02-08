@@ -25,23 +25,27 @@ find_package(pybind11 REQUIRED)
 include_directories(include)
 
 set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/primitives.cpp)
-set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/partials.h include/aicpp/primitives.h include/aicpp/utility.h)
+set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/primitives.h include/aicpp/utility.h)
 
 enable_testing()
 add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})
+add_executable(engine src/engine.cpp ${SRCS} ${HEADERS} include/aicpp/partials.h)
 
 add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
 pybind11_add_module(pyaicpp src/python_bindings.cpp ${SRCS} ${HEADERS})
 
 target_include_directories(test_aicpp PRIVATE include)
 target_include_directories(pyaicpp PRIVATE include)
+target_include_directories(engine PRIVATE include)
 
 if (WIN32)
     target_link_libraries(test_aicpp Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
     target_link_libraries(pyaicpp PRIVATE Ws2_32 Eigen3::Eigen Boost::headers)
+    target_link_libraries(engine PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
 else()
     target_link_libraries(test_aicpp Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
     target_link_libraries(pyaicpp PRIVATE Eigen3::Eigen Boost::headers)
+    target_link_libraries(engine PRIVATE Boost::json Boost::headers Eigen3::Eigen)
 endif()
 
 install(TARGETS pyaicpp LIBRARY DESTINATION .)
