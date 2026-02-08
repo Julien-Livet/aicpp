@@ -431,7 +431,7 @@ PYBIND11_MODULE(pyaicpp, m)
         auto const any_val = py_to_any(val);
         auto const any_target = py_to_any(target);
 
-        return heuristic(any_val, any_target);
+        return utility::heuristic(any_val, any_target);
     });
 
     py::class_<std::type_index>(m, "TypeIndex")

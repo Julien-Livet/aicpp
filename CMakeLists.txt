@@ -20,13 +20,12 @@ FetchContent_MakeAvailable(googletest)
 
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
-set(PYTHON_EXECUTABLE /home/julien-livet/miniconda3/bin/python)
 find_package(pybind11 REQUIRED)
 
 include_directories(include)
 
-set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp)
-set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h)
+set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/primitives.cpp)
+set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/partials.h include/aicpp/primitives.h include/aicpp/utility.h)
 
 enable_testing()
 add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})

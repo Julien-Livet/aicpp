@@ -38,4 +38,5 @@ setup(
     ext_modules=[CMakeExtension('pyaicpp')],
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
+    install_requires = ['numpy', 'requests'],
 )

@@ -11,7 +11,6 @@ using namespace aicpp;
 class Pair
 {
     public:
-        std::any value;
         double cost;
         size_t connectionCost;
         size_t connectionId;
@@ -82,7 +81,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                 }
             }
 
-            for (auto const& p : cartesianProduct(args))
+            for (auto const& p : utility::cartesianProduct(args))
             {
                 auto c{connection};
                 c.applyInputs(p);
@@ -129,7 +128,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
         if (args.size() != connectionInputTypes.size())
             continue;
 
-        connectionParameters.emplace(std::make_pair(connection, cartesianProduct(args)));
+        connectionParameters.emplace(std::make_pair(connection, utility::cartesianProduct(args)));
     }
 
     if (connectionParameters.empty())
@@ -167,7 +166,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
         auto const value{c.output()};
 
         for (size_t j{0}; j < targets.size(); ++j)
-            sets[j].emplace(Pair{value, heuristic(value, targets[j]), connection.cost(), i, c});
+            sets[j].emplace(Pair{utility::heuristic(value, targets[j]), connection.cost(), i, c});
     }
 
     std::vector<std::multiset<Pair>::iterator> its;
@@ -223,13 +222,13 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                                        c.applyInputs(*iterator);
                                        ++iterator;
                                        auto const value{c.output()};
-                                       auto const cost{heuristic(value, target)};
+                                       auto const cost{utility::heuristic(value, target)};
 
                                        if (cost < bestPair.cost + eps)
                                        {
                                            process = 0;
 
-                                           return Pair{value, cost, connection.cost(), connectionId, c};
+                                           return Pair{cost, connection.cost(), connectionId, c};
                                        }
                                    }
 
