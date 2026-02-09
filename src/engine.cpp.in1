@@ -14,7 +14,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-std::string const path{"../../ARC-AGI-2-main/data"};
+std::string const path{"../ARC-AGI-2-main/data"};
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 {
@@ -51,23 +51,23 @@ std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
     }
 
     value const jv{parse(content)};
-    auto const train{jv.at("train").as_array()};
+    auto const train{jv.as_array()[0].at("train").as_array()};
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > trainPairs;
 
-    for (size_t i{0}; i < train.size(); ++i)
+    for (size_t i{0}; i < train[0].as_array().size(); ++i)
     {
-        auto const& sample{train[i].as_object()};
+        auto const& sample{train[0].as_array()[i].as_object()};
 
         trainPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
                                                boostJsonToEigenMatrix(sample.at("output").as_array())));
     }
 
-    auto const test{jv.at("test").as_array()};
+    auto const test{jv.as_array()[0].at("test").as_array()};
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > testPairs;
 
-    for (size_t i{0}; i < test.size(); ++i)
+    for (size_t i{0}; i < test[0].as_array().size(); ++i)
     {
-        auto const& sample{test[i].as_object()};
+        auto const& sample{test[0].as_array()[i].as_object()};
 
         testPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
                                               boostJsonToEigenMatrix(sample.at("output").as_array())));

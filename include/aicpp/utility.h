@@ -656,6 +656,43 @@ namespace aicpp
 
             return s;
         }
+
+        inline Eigen::MatrixXi matrix(std::initializer_list<std::initializer_list<int>> values)
+        {
+            int rows = values.size();
+            int cols = values.begin()->size();
+
+            Eigen::MatrixXi m(rows, cols);
+
+            int i = 0;
+            for (auto const& row : values)
+            {
+                int j = 0;
+                for (int v : row)
+                {
+                    m(i, j++) = v;
+                }
+                ++i;
+            }
+
+            return m;
+        }
+
+        inline std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > matrixPairs(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values)
+        {
+            return std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >{std::make_pair(matrix(*values.begin()), matrix(*(values.begin() + 1)))};
+        }
+
+        inline std::vector<Eigen::MatrixXi> matrices(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values)
+        {
+            std::vector<Eigen::MatrixXi> result;
+            result.reserve(values.size());
+
+            for (auto const& v : values)
+                result.emplace_back(matrix(v));
+
+            return result;
+        }
     }
 }
 

@@ -146,20 +146,10 @@ while keeping other parameters free.
 - Only generate function wrappers that call an existing function.
 
 """
-        command += """Output example:
-SELECTED_PRIMITIVES:
-<verbatim function signatures>
-
-PARTIAL_PARAMETERIZATIONS:
-<zero or more C++ functions with unique identifiers>
-
-DEPTH LEVEL:
-<one number>
-
-"""
         command += """Output format:
 - Output ONLY valid C++ function declarations and definitions.
 - No explanations.
+- No formatting.
 - No comments.
 - No markdown.
 - No extra text.
@@ -167,14 +157,22 @@ DEPTH LEVEL:
 - Use types explictly and no initializer lists.
 
 """
+        command += """Examples of full verbatim function declarations:
+int foo(int i, bool b);
+std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
+
+"""
         command += """Example:
 
-Primitive:
-int foo(int i, bool b);
+Primitives:
+int foo(int arg0, bool arg1);
+std::map<int, int> bar(int arg0, double arg1);
 
 Valid partial parameterizations:
-int foo_i4(bool b) { return foo(4, b); }
-int foo_i6(bool b) { return foo(6, b); }
+int foo_i4(bool arg1) { return foo(4, arg1); }
+int foo_i6(bool v) { return foo(6, arg1); }
+std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
+std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
 
 Invalid:
 int bar(int x) { return foo(x, true) + 1; }
@@ -223,7 +221,7 @@ If the answer is no, do not output it.
         command += """First, select which of the given primitives are potentially useful
 for explaining the observed input-output transformations.
 
-Output the selected primitives verbatim.
+Output the selected primitive declarations verbatim.
 
 """
         command += """Then, for each selected primitive, generate partial parameterizations
@@ -237,9 +235,28 @@ to combine the different primitives for the exploration engine.
         command += """It is valid to select a primitive without generating any partial parameterization for it.
 
 """
+        command += """Useful utility functions for type conversions:
+std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > utility::matrixPairs(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
+std::vector<Eigen::MatrixXi> utility::matrices(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
+
+"""
 
         if (cost):
-            command += "The best found connection from the engine has a cost of " + str(cost) + " and his expression is: " + expression + ".\n"
+            command += "The best found connection from the engine has a cost of " + str(cost) + " and his expression is: " + expression + ".\n\n"
+
+        command += """EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATIONS:
+SELECTED_PRIMITIVES:
+int foo(int arg0, bool arg1);
+std::map<int, int> bar(int arg0, double arg1);
+
+PARTIAL_PARAMETERIZATIONS:
+int foo_i4(bool arg1) { return foo(4, arg1); }
+int foo_i6(bool arg1) { return foo(6, arg1); }
+std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
+std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
+
+DEPTH_LEVEL:
+2"""
 
         f = open("prompt.txt", "w")
         f.write(command)
@@ -247,31 +264,61 @@ to combine the different primitives for the exploration engine.
         cmd = ["ollama", "run", modelName, command]
         #result = subprocess.run(cmd, capture_output = True, text = True)
         #content = result.stdout
-        f = open("output.txt", "r")
-        content = f.read()
-        f.close()
-        f = open("output.txt", "w")
-        f.write(content)
-        f.close()
+        if (False):
+            result = subprocess.run(cmd, capture_output = True, text = True)
+            content = result.stdout
+            f = open("output.txt", "w")
+            f.write(content)
+            f.close()
+        else:
+            f = open("output.txt", "r")
+            content = f.read()
+            f.close()
         lines = content.split("\n")
 
         partialsContent = """#ifndef AICPP_PARTIALS_H
 #define AICPP_PARTIALS_H
 
 #include <any>
+#include <map>
 #include <vector>
 
 #include "aicpp/primitives.h"
+#include "aicpp/utility.h"
 
 namespace aicpp
 {
+    namespace specifics
+    {
+"""
+        for function in functions:
+            partialsContent += "        inline std::any " + function[2] + "(" + ", ".join([x + " const& " + y for x, y in function[3]]) + ")\n"
+            partialsContent += "        {\n"
+            partialsContent += "            return primitives::" + function[2] + "(std::vector<std::any>{" + ", ".join(["arg" + str(i) for i in range(0, len(function[3]))]) + "});\n"
+            partialsContent += "        }\n"
+            partialsContent += "\n"
+
+        partialsContent += """    }
+
     namespace fulls
     {
 """
         i1 = lines.index("SELECTED_PRIMITIVES:")
         i2 = lines.index("PARTIAL_PARAMETERIZATIONS:")
-        i3 = lines.index("DEPTH LEVEL:")
-        level = int(lines[i3 + 1])
+        i3 = -1
+        
+        for i in range(0, len(lines)):
+            if (lines[i].startswith("DEPTH_LEVEL:")):
+                i3 = i
+                
+                w = lines[i3].split()
+                
+                if (len(w) == 2):
+                    level = int(w[1])
+                else:
+                    level = int(lines[i3 + 1])
+
+                break
 
         table = {}
         
@@ -287,22 +334,27 @@ namespace aicpp
             line = lines[i].strip()
 
             if (len(line)):
-                function = table[line]
-                name = function[2]
-                partialsContent += "        using primitives::" + name + ";\n"
-                engineContent += "    Neuron " + name + '_neuron{"' + name + '", fulls::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in function[3]]) + "}, typeid(" + function[1] + ")};\n"  
-                engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
+                try:
+                    function = table[line]
+                    name = function[2]
+                    partialsContent += "        using primitives::" + name + ";\n"
+                    engineContent += "    Neuron " + name + '_neuron{"' + name + '", fulls::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in function[3]]) + "}, typeid(" + function[1] + ")};\n"
+                    engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
+                except KeyError:
+                    pass
 
         partialsContent += """    }
 
     namespace partials
     {
-        using namespace primitives;
+        using namespace specifics;
 
 """
-        for i in range(i2 + 1, i3):
+        i = i2 + 1
+
+        while (i < i3):
             line = lines[i].strip()
-            
+
             if (len(line)):
                 try:
                     index = line.index("{")
@@ -310,7 +362,7 @@ namespace aicpp
                     index = -1
 
                 m = extractDeclaration(line[:index].strip() + ";")
-                
+
                 if (not m):
                     continue
 
@@ -322,10 +374,12 @@ namespace aicpp
                 body = ""
 
                 while (not l.endswith("}")):
-                    body += l + "\n"
+                    if (len(l.strip())):
+                        body += l + "\n"
+
                     i += 1
-                    l = line[i].strip()
-                
+                    l = lines[i]
+
                 body += l[:-1]
 
                 partialsContent += "        inline std::any " + name + "(std::vector<std::any> const& args)\n"
@@ -335,11 +389,13 @@ namespace aicpp
                     partialsContent += "            auto const arg" + str(j) + "{std::any_cast<" + x + ">(args[" + str(j) + "])};\n"                    
                 
                 partialsContent += "        \n"
-                partialsContent += "            " + body + "\n"
+                partialsContent += "            " + body
                 partialsContent += "        }\n\n"
                 
-                engineContent += "    Neuron " + name + '_neuron{"' + name + '", partials::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in args]) + "}, typeid(" + function[1] + ")};\n"  
+                engineContent += "    Neuron " + name + '_neuron{"' + name + '", partials::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in args]) + "}, typeid(" + ret + ")};\n"  
                 engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
+                
+            i += 1
 
         partialsContent += """    }
 }
@@ -358,18 +414,32 @@ namespace aicpp
         f = open("../src/engine.cpp", "w")
         f.write(engineContent)
         f.close()
-        exit()
-        result = subprocess.run(["cmake", "--build", "../../build/Destkop-Release", "--target all"], capture_output = True, text = True)
         
-        if (result):
+        buildFolder = "Desktop-Release"
+        #buildFolder = "vc143-Release"
+        
+        result = subprocess.run(["cmake", "--build", "../build/" + buildFolder, "--target all"], capture_output = True, text = True)
+        
+        if (result.returncode < 0):
+            #print(result.returncode)
+            #print(result.stderr)
+            #print(result.stdout)
             continue
-            
-        result = subprocess.run(["C:/Users/julie/Documents/GitHub/aicpp/build/vc143-Release/engine.exe", folder, task, level], capture_output = True, text = True)
+
+        result = subprocess.run(["../build/" + buildFolder + "/engine", folder, task, str(level)], capture_output = True, text = True)
         lines = result.stdout.split("\n")
+        
+        if (result.returncode < 0):
+            #print(result.returncode)
+            #print(result.stderr)
+            #print(result.stdout)
+            continue
+
         cost = float(lines[0])
         expression = lines[1].strip()
 
     print(expression)
+    exit()
 
 def main():
     processTask("training", "3c9b0459")
