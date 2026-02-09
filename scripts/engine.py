@@ -164,6 +164,7 @@ DEPTH LEVEL:
 - No markdown.
 - No extra text.
 - Each function must be standalone and compilable.
+- Use types explictly and no initializer lists.
 
 """
         command += """Example:
@@ -244,16 +245,15 @@ to combine the different primitives for the exploration engine.
         f.write(command)
         f.close()
         cmd = ["ollama", "run", modelName, command]
-        result = subprocess.run(cmd, capture_output = True, text = True)
+        #result = subprocess.run(cmd, capture_output = True, text = True)
+        #content = result.stdout
+        f = open("output.txt", "r")
+        content = f.read()
+        f.close()
         f = open("output.txt", "w")
-        f.write(result.stdout)
+        f.write(content)
         f.close()
-        exit()
-        lines = result.stdout.split("\n")
-        
-        f = open("../src/engine.cpp.in1", "r")
-        engineContent = f.read()
-        f.close()
+        lines = content.split("\n")
 
         partialsContent = """#ifndef AICPP_PARTIALS_H
 #define AICPP_PARTIALS_H
@@ -268,27 +268,85 @@ namespace aicpp
     namespace fulls
     {
 """
-        i1 = lines.find("SELECTED_PRIMITIVES:") + 1
+        i1 = lines.index("SELECTED_PRIMITIVES:")
+        i2 = lines.index("PARTIAL_PARAMETERIZATIONS:")
+        i3 = lines.index("DEPTH LEVEL:")
+        level = int(lines[i3 + 1])
+
+        table = {}
+        
+        for function in functions:
+            key = function[1] + " " + function[2] + "(" + ", ".join([x + " " + y for x, y in function[3]]) + ");"
+            table[key] = function
+
+        f = open("../src/engine.cpp.in1", "r")
+        engineContent = f.read()
+        f.close()
 
         for i in range(i1 + 1, i2):
             line = lines[i].strip()
 
             if (len(line)):
-                pass #TODO: ...
+                function = table[line]
+                name = function[2]
+                partialsContent += "        using primitives::" + name + ";\n"
+                engineContent += "    Neuron " + name + '_neuron{"' + name + '", fulls::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in function[3]]) + "}, typeid(" + function[1] + ")};\n"  
+                engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
 
         partialsContent += """    }
 
     namespace partials
     {
-"""
+        using namespace primitives;
 
-        i2 = lines.find("PARTIAL_PARAMETERIZATIONS:")
+"""
+        for i in range(i2 + 1, i3):
+            line = lines[i].strip()
+            
+            if (len(line)):
+                try:
+                    index = line.index("{")
+                except IndexError:
+                    index = -1
+
+                m = extractDeclaration(line[:index].strip() + ";")
+                
+                if (not m):
+                    continue
+
+                ret = m.group("ret")
+                name = m.group("name")
+                args = [splitTypeName(x) for x in splitCppArgs(m.group("args"))]
+            
+                l = line[index + 1:].strip()
+                body = ""
+
+                while (not l.endswith("}")):
+                    body += l + "\n"
+                    i += 1
+                    l = line[i].strip()
+                
+                body += l[:-1]
+
+                partialsContent += "        inline std::any " + name + "(std::vector<std::any> const& args)\n"
+                partialsContent += "        {\n"
+
+                for j, (x, y) in enumerate(args):
+                    partialsContent += "            auto const arg" + str(j) + "{std::any_cast<" + x + ">(args[" + str(j) + "])};\n"                    
+                
+                partialsContent += "        \n"
+                partialsContent += "            " + body + "\n"
+                partialsContent += "        }\n\n"
+                
+                engineContent += "    Neuron " + name + '_neuron{"' + name + '", partials::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in args]) + "}, typeid(" + function[1] + ")};\n"  
+                engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
 
         partialsContent += """    }
 }
 
 #endif // AICPP_PARTIALS_H
 """
+
         f = open("../include/aicpp/partials.h", "w")
         f.write(partialsContent)
         f.close()
@@ -297,14 +355,11 @@ namespace aicpp
         engineContent += f.read()
         f.close()
         
-        f = open("../src/engine.cpp.in2", "r")
+        f = open("../src/engine.cpp", "w")
         f.write(engineContent)
         f.close()
-
-        i3 = lines.find("DEPTH LEVEL:")
-        level = int(lines[i3 + 1])
-        
-        result = subprocess.run(["cmake", "--build", "C:/Users/julie/Documents/GitHub/aicpp/build/vc143-Release", "--target all"], capture_output = True, text = True)
+        exit()
+        result = subprocess.run(["cmake", "--build", "../../build/Destkop-Release", "--target all"], capture_output = True, text = True)
         
         if (result):
             continue

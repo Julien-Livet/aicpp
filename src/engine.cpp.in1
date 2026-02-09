@@ -243,3 +243,4 @@ int processTask(std::string const& folder, std::string const& task, size_t level
     }
 
     neurons.emplace_back(inputNeuron);
+
