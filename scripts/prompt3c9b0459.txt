@@ -1,0 +1,129 @@
+You are given several input-output grid pairs from an ARC task:
+([[8, 8, 8], [5, 5, 8], [8, 5, 5]], [[5, 5, 8], [8, 5, 5], [8, 8, 8]])
+([[9, 2, 4], [2, 4, 4], [2, 9, 2]], [[2, 9, 2], [4, 4, 2], [4, 2, 9]])
+([[3, 2, 9], [9, 9, 9], [2, 3, 3]], [[3, 3, 2], [9, 9, 9], [9, 2, 3]])
+([[2, 2, 1], [2, 1, 2], [2, 8, 1]], [[1, 8, 2], [2, 1, 2], [1, 2, 2]])
+
+You are given several C++ function declarations as primitives:
+std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0); // Map given locations of arrays
+std::vector<Eigen::MatrixXi> fliplr(std::vector<Eigen::MatrixXi> arg0); // Flip left and right columns
+std::vector<Eigen::MatrixXi> flipud(std::vector<Eigen::MatrixXi> arg0); // Flip up and down rows
+std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int, int> arg1); // Map cells of arrays from a mapping
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> sameElement(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg0, bool arg1); // Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> regionPairs(std::vector<std::vector<std::vector<std::pair<int, int>>>> arg0); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
+std::vector<Eigen::MatrixXi> segments(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1, int arg2, bool arg3, bool arg4); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
+
+Your task is NOT to solve the ARC task directly.
+
+You must help a symbolic program synthesis engine by generating
+PARTIALLY PARAMETERIZED C++ FUNCTIONS based on the given primitives.
+
+These functions must restrict the search space by fixing some parameters
+(constants, sizes, colors, booleans, or structural choices),
+while keeping other parameters free.
+
+A partially parameterized function:
+- calls exactly ONE existing primitive function
+- fixes one or more arguments to constant values
+- exposes the remaining arguments as parameters
+- does not introduce new logic
+- does not combine multiple primitives
+
+Rules:
+- Do NOT invent new primitive operations.
+- Do NOT modify the body logic of primitives.
+- Do NOT combine multiple primitives in a single function.
+- Do NOT use loops, conditionals, or additional computations.
+- Only generate function wrappers that call an existing function.
+
+Output format:
+- Output ONLY valid C++ function declarations and definitions.
+- No explanations.
+- No formatting.
+- No comments.
+- No markdown.
+- No extra text.
+- Each function must be standalone and compilable.
+- Use types explictly and no initializer lists.
+
+Examples of full verbatim function declarations:
+int foo(int i, bool b);
+std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
+
+Example:
+
+Primitives:
+int foo(int arg0, bool arg1);
+std::map<int, int> bar(int arg0, double arg1);
+
+Valid partial parameterizations:
+int foo_i4(bool arg1) { return foo(4, arg1); }
+int foo_i6(bool v) { return foo(6, arg1); }
+std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
+std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
+
+Invalid:
+int bar(int x) { return foo(x, true) + 1; }
+int baz(int x) { if (x > 0) return foo(x, true); }
+
+Based on the observed input-output grid transformations,
+identify constants or structural patterns that are likely invariant
+across examples (such as fixed colors, fixed grid sizes,
+specific region counts, or alignment directions).
+
+Generate partial parameterizations that reflect these invariants.
+Generate at most 5 partial parameterizations per primitive.
+Prefer fewer, higher-confidence specializations.
+
+If no reasonable partial parameterization can be inferred for a primitive,
+do NOT generate any function for it.
+
+The symbolic engine will evaluate all generated functions exhaustively.
+Do not attempt to rank, score, or select solutions.
+
+If a primitive already fully matches the observed transformation
+without requiring any fixed parameter,
+DO NOT generate any partial parameterization for it.
+
+Only generate a partial parameterization if it is expected
+to significantly reduce the search depth or branching factor
+compared to using the primitive directly
+
+Do not generate partial parameterizations for primitives
+that do not have free scalar or structural parameters.
+
+Before outputting a function, ask yourself:
+"Does this function restrict the domain of the primitive
+more than calling the primitive directly?"
+If the answer is no, do not output it.
+
+First, select which of the given primitives are potentially useful
+for explaining the observed input-output transformations.
+
+Output the selected primitive declarations verbatim.
+
+Then, for each selected primitive, generate partial parameterizations
+ONLY IF fixing parameters is likely to further reduce the search space.
+
+Finally, provide a integer number as the maximum depth level required
+to combine the different primitives for the exploration engine.
+
+It is valid to select a primitive without generating any partial parameterization for it.
+
+Useful utility functions for type conversions:
+std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > utility::matrixPairs(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
+std::vector<Eigen::MatrixXi> utility::matrices(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
+
+EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATIONS:
+SELECTED_PRIMITIVES:
+int foo(int arg0, bool arg1);
+std::map<int, int> bar(int arg0, double arg1);
+
+PARTIAL_PARAMETERIZATIONS:
+int foo_i4(bool arg1) { return foo(4, arg1); }
+int foo_i6(bool arg1) { return foo(6, arg1); }
+std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
+std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
+
+DEPTH_LEVEL:
+2

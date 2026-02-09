@@ -1,0 +1,14 @@
+SELECTED_PRIMITIVES:
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> regionPairs(std::vector<std::vector<std::vector<std::pair<int, int>>>> arg0);
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> sameElement(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg0, bool arg1);
+std::vector<Eigen::MatrixXi> segments(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1, int arg2, bool arg3, bool arg4);
+
+PARTIAL_PARAMETERIZATIONS:
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> sameElement_true(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg0) { return sameElement(arg0, true); }
+std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> sameElement_false(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg0) { return sameElement(arg0, false); }
+std::vector<Eigen::MatrixXi> segments_color3(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1, bool arg3, bool arg4) { return segments(arg0, arg1, 3, arg3, arg4); }
+std::vector<Eigen::MatrixXi> segments_color3_true_false(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1) { return segments(arg0, arg1, 3, true, false); }
+std::vector<Eigen::MatrixXi> segments_color3_false_false(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1) { return segments(arg0, arg1, 3, false, false); }
+
+DEPTH_LEVEL:
+3

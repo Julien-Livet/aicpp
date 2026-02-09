@@ -1,0 +1,9 @@
+SELECTED_PRIMITIVES:
+std::vector<Eigen::MatrixXi> fliplr(std::vector<Eigen::MatrixXi> arg0);
+std::vector<Eigen::MatrixXi> flipud(std::vector<Eigen::MatrixXi> arg0);
+
+PARTIAL_PARAMETERIZATIONS:
+
+DEPTH_LEVEL:
+2
+

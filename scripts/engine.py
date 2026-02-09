@@ -258,22 +258,21 @@ std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
 DEPTH_LEVEL:
 2"""
 
-        f = open("prompt.txt", "w")
+        f = open("prompt" + task + ".txt", "w")
         f.write(command)
         f.close()
-        cmd = ["ollama", "run", modelName, command]
-        #result = subprocess.run(cmd, capture_output = True, text = True)
-        #content = result.stdout
-        if (False):
-            result = subprocess.run(cmd, capture_output = True, text = True)
-            content = result.stdout
-            f = open("output.txt", "w")
-            f.write(content)
-            f.close()
-        else:
-            f = open("output.txt", "r")
+
+        try:
+            f = open("output" + task + ".txt", "r")
             content = f.read()
             f.close()
+        except FileNotFoundError:
+            result = subprocess.run(["ollama", "run", modelName, command], capture_output = True, text = True)
+            content = result.stdout
+            f = open("output" + task + ".txt", "w")
+            f.write(content)
+            f.close()
+
         lines = content.split("\n")
 
         partialsContent = """#ifndef AICPP_PARTIALS_H
@@ -321,7 +320,7 @@ namespace aicpp
                 break
 
         table = {}
-        
+
         for function in functions:
             key = function[1] + " " + function[2] + "(" + ", ".join([x + " " + y for x, y in function[3]]) + ");"
             table[key] = function
@@ -350,6 +349,12 @@ namespace aicpp
         using namespace specifics;
 
 """
+
+        table = {}
+
+        for function in functions:
+            table[function[2]] = function
+
         i = i2 + 1
 
         while (i < i3):
@@ -385,7 +390,7 @@ namespace aicpp
                 partialsContent += "        inline std::any " + name + "(std::vector<std::any> const& args)\n"
                 partialsContent += "        {\n"
 
-                for j, (x, y) in enumerate(args):
+                for j, (x, y) in enumerate(table[name[:name.index("_")]][3]):
                     partialsContent += "            auto const arg" + str(j) + "{std::any_cast<" + x + ">(args[" + str(j) + "])};\n"                    
                 
                 partialsContent += "        \n"
@@ -418,31 +423,36 @@ namespace aicpp
         buildFolder = "Desktop-Release"
         #buildFolder = "vc143-Release"
         
-        result = subprocess.run(["cmake", "--build", "../build/" + buildFolder, "--target all"], capture_output = True, text = True)
-        
-        if (result.returncode < 0):
-            #print(result.returncode)
-            #print(result.stderr)
-            #print(result.stdout)
+        result = subprocess.run(["cmake", "--build", "../build/" + buildFolder, "--target engine"], capture_output = True, text = True)
+
+        if (result.returncode):
+            print("CMake result", result.returncode)
+            print("CMake error", result.stderr)
+            print("CMake output", result.stdout)
             continue
 
         result = subprocess.run(["../build/" + buildFolder + "/engine", folder, task, str(level)], capture_output = True, text = True)
         lines = result.stdout.split("\n")
-        
-        if (result.returncode < 0):
-            #print(result.returncode)
-            #print(result.stderr)
-            #print(result.stdout)
+
+        if (result.returncode):
+            print("Engine result", result.returncode)
+            print("Engine error", result.stderr)
+            print("Engine output", result.stdout)
             continue
 
         cost = float(lines[0])
         expression = lines[1].strip()
 
+        if (cost):
+            print("Cost", cost)
+            print("Expression", expression)
+
     print(expression)
-    exit()
 
 def main():
-    processTask("training", "3c9b0459")
+    processTask("training", "3c9b0459") #Flip left/right and flip up/down
+    processTask("training", "0d3d703e") #Color mapping
+    processTask("training", "253bf280") #Draw colored segment between pixels that have same x or y coordinates
 
 if (__name__ == "__main__"):
     main()
