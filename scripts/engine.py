@@ -387,6 +387,7 @@ namespace aicpp
 
                 body += l[:-1]
 
+                """
                 partialsContent += "        inline std::any " + name + "(std::vector<std::any> const& args)\n"
                 partialsContent += "        {\n"
 
@@ -399,6 +400,7 @@ namespace aicpp
                 
                 engineContent += "    Neuron " + name + '_neuron{"' + name + '", partials::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in args]) + "}, typeid(" + ret + ")};\n"  
                 engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
+                """
                 
             i += 1
 
