@@ -305,9 +305,9 @@ namespace aicpp
 """
         i1 = lines.rindex("SELECTED_PRIMITIVES:")
         i2 = lines.rindex("PARTIAL_PARAMETERIZATIONS:")
-        i3 = i2
+        i3 = -1
         
-        for i in range(0, len(lines)):
+        for i in range(i2, len(lines)):
             if (lines[i].startswith("DEPTH_LEVEL:")):
                 i3 = i
                 
