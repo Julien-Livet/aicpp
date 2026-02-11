@@ -1,6 +1,6 @@
 SELECTED_PRIMITIVES:
-std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
-std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int, int> arg1);
+std::map<int,int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
+std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int,int> arg1);
 
 PARTIAL_PARAMETERIZATIONS:
 

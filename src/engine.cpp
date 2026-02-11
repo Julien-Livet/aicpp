@@ -14,7 +14,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-std::string const path{"../../ARC-AGI-2-main/data"};
+std::string const path{"../ARC-AGI-2-main/data"};
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 {
@@ -51,23 +51,23 @@ std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
     }
 
     value const jv{parse(content)};
-    auto const train{jv.at("train").as_array()};
+    auto const train{jv.as_array()[0].at("train").as_array()};
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > trainPairs;
 
-    for (size_t i{0}; i < train.size(); ++i)
+    for (size_t i{0}; i < train[0].as_array().size(); ++i)
     {
-        auto const& sample{train[i].as_object()};
+        auto const& sample{train[0].as_array()[i].as_object()};
 
         trainPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
                                                boostJsonToEigenMatrix(sample.at("output").as_array())));
     }
 
-    auto const test{jv.at("test").as_array()};
+    auto const test{jv.as_array()[0].at("test").as_array()};
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > testPairs;
 
-    for (size_t i{0}; i < test.size(); ++i)
+    for (size_t i{0}; i < test[0].as_array().size(); ++i)
     {
-        auto const& sample{test[i].as_object()};
+        auto const& sample{test[0].as_array()[i].as_object()};
 
         testPairs.emplace_back(std::make_pair(boostJsonToEigenMatrix(sample.at("input").as_array()),
                                               boostJsonToEigenMatrix(sample.at("output").as_array())));
@@ -243,6 +243,13 @@ int processTask(std::string const& folder, std::string const& task, size_t level
     }
 
     neurons.emplace_back(inputNeuron);
+
+    Neuron regionPairs_neuron{"regionPairs", fulls::regionPairs, {typeid(std::vector<std::vector<std::vector<std::pair<int,int>>>>)}, typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>)};
+    neurons.emplace_back(regionPairs_neuron);
+    Neuron sameElement_neuron{"sameElement", fulls::sameElement, {typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>), typeid(bool)}, typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>)};
+    neurons.emplace_back(sameElement_neuron);
+    Neuron segments_neuron{"segments", fulls::segments, {typeid(std::vector<Eigen::MatrixXi>), typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>), typeid(int), typeid(bool), typeid(bool)}, typeid(std::vector<Eigen::MatrixXi>)};
+    neurons.emplace_back(segments_neuron);
 
     Brain brain{neurons};
 

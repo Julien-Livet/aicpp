@@ -5,13 +5,13 @@ You are given several input-output grid pairs from an ARC task:
 ([[3, 1, 2], [3, 1, 2], [3, 1, 2]], [[4, 5, 6], [4, 5, 6], [4, 5, 6]])
 
 You are given several C++ function declarations as primitives:
-std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0); // Map given locations of arrays
+std::map<int,int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0); // Map given locations of arrays
 std::vector<Eigen::MatrixXi> fliplr(std::vector<Eigen::MatrixXi> arg0); // Flip left and right columns
 std::vector<Eigen::MatrixXi> flipud(std::vector<Eigen::MatrixXi> arg0); // Flip up and down rows
-std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int, int> arg1); // Map cells of arrays from a mapping
-std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> sameElement(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg0, bool arg1); // Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)
-std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> regionPairs(std::vector<std::vector<std::vector<std::pair<int, int>>>> arg0); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
-std::vector<Eigen::MatrixXi> segments(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>>> arg1, int arg2, bool arg3, bool arg4); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
+std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int,int> arg1); // Map cells of arrays from a mapping
+std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>> sameElement(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>> arg0, bool arg1); // Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)
+std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>> regionPairs(std::vector<std::vector<std::vector<std::pair<int,int>>>> arg0); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
+std::vector<Eigen::MatrixXi> segments(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>> arg1, int arg2, bool arg3, bool arg4); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
 
 Your task is NOT to solve the ARC task directly.
 

@@ -106,7 +106,8 @@ def processTask(folder: str, task: str):
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
     data = json.loads(url.read().decode())
 
-    modelName = "llama3.1"
+    #modelName = "llama3.1"
+    modelName = "gpt-oss:20b"
 
     cost = None
     expression = ""
