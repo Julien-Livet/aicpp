@@ -303,11 +303,11 @@ namespace aicpp
     namespace fulls
     {
 """
-        i1 = lines.rindex("SELECTED_PRIMITIVES:")
-        i2 = lines.rindex("PARTIAL_PARAMETERIZATIONS:")
+        i1 = len(lines) - lines[-1::-1].index("SELECTED_PRIMITIVES:") - 1
+        i2 = len(lines) - lines[-1::-1].index("PARTIAL_PARAMETERIZATIONS:") - 1
         i3 = -1
-        
-        for i in range(i2, len(lines)):
+
+        for i in range(i2 + 1, len(lines)):
             if (lines[i].startswith("DEPTH_LEVEL:")):
                 i3 = i
                 
