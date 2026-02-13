@@ -106,7 +106,6 @@ def processTask(folder: str, task: str):
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
     data = json.loads(url.read().decode())
 
-    #modelName = "llama3.1"
     modelName = "gpt-oss:20b"
 
     cost = None
@@ -263,18 +262,18 @@ DEPTH_LEVEL:
         f.write(command)
         f.close()
 
-        try:
+        if (False):#try:
             f = open("output" + task + ".txt", "r")
             content = f.read()
             f.close()
-        except FileNotFoundError:
+        else:#except FileNotFoundError:
             result = subprocess.run(["ollama", "run", modelName, command], capture_output = True, text = True)
             content = result.stdout
             f = open("output" + task + ".txt", "w")
             f.write(content)
             f.close()
 
-        lines = content.split("\n")
+        lines = [x.strip() for x in content.split("\n")]
 
         partialsContent = """#ifndef AICPP_PARTIALS_H
 #define AICPP_PARTIALS_H
@@ -381,7 +380,7 @@ namespace aicpp
                 l = line[index + 1:].strip()
                 body = ""
 
-                while (not l.endswith("}")):
+                while (i < len(lines) and not l.endswith("}")):
                     if (len(l.strip())):
                         body += l + "\n"
 
