@@ -360,11 +360,13 @@ namespace aicpp
 
         while (i < i3):
             line = lines[i].strip()
+                
+            i += 1
 
             if (len(line)):
                 try:
                     index = line.index("{")
-                except IndexError:
+                except ValueError:
                     index = -1
 
                 m = extractDeclaration(line[:index].strip() + ";")
@@ -402,8 +404,6 @@ namespace aicpp
                 engineContent += "    Neuron " + name + '_neuron{"' + name + '", partials::' + name + ", {" + ", ".join(["typeid(" + x + ")" for x, y in args]) + "}, typeid(" + ret + ")};\n"  
                 engineContent += "    neurons.emplace_back(" + name + "_neuron);\n";
                 """
-                
-            i += 1
 
         partialsContent += """    }
 }
