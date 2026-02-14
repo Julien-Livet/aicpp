@@ -54,6 +54,9 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
         }
     }
 
+    for (auto const& c : connections_)
+        connections.emplace(c);
+
     std::map<std::type_index, std::unordered_set<Connection> > connectionMapping;
 
     for (size_t l{0}; l < level; ++l)
@@ -290,4 +293,119 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
 std::vector<std::reference_wrapper<Neuron const> > const& Brain::neurons() const
 {
     return neurons_;
+}
+
+std::unordered_set<Connection> const& Brain::connections() const
+{
+    return connections_;
+}
+
+void Brain::addConnection(Connection const& connection)
+{
+    connections_.emplace(connection);
+}
+
+void Brain::removeConnection(Connection const& connection)
+{
+    auto const it{connections_.find(connection)};
+
+    if (it != connections_.end())
+        connections_.erase(it);
+}
+
+void Brain::clearConnections()
+{
+    connections_.clear();
+}
+
+
+bool Brain::fromJson(boost::json::value const& value)
+{
+    std::map<std::string, std::reference_wrapper<Neuron const> > map;
+    std::unordered_set<boost::json::value> neuronValues;
+
+    for (auto const& neuron : neurons_)
+    {
+        auto const v{neuron.get().toJson()};
+
+        neuronValues.emplace(v);
+        map.emplace(std::make_pair(boost::json::serialize(v), neuron));
+    }
+
+    auto const neurons{value.at("neurons").as_array()};
+
+    for (size_t i{0}; i < neurons.size(); ++i)
+    {
+        if (neuronValues.find(neurons[i]) == neuronValues.end())
+            break;
+    }
+
+    auto const connections{value.at("connections").as_array()};
+
+    connections_.clear();
+
+    for (size_t i{0}; i < connections.size(); ++i)
+    {
+        try
+        {
+            connections_.emplace(buildConnection_(map, connections[i]));
+        }
+        catch (std::runtime_error const&)
+        {
+            return false;
+        }
+    }
+    //TODO: ...
+
+    return true;
+}
+
+Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<Neuron const> > const& map, boost::json::value const& value) const
+{
+    auto const neuron{value.at("neuron")};
+    auto const it{map.find(boost::json::serialize(neuron))};
+
+    if (it == map.end())
+        throw std::runtime_error{"Neuron not found"};
+
+    auto const types{value.at("types").as_array()};
+    auto const inputs{value.at("inputs").as_array()};
+
+    assert(types.size() == inputs.size());
+
+    std::vector<std::any> connectionInputs;
+    connectionInputs.resize(types.size());
+
+    for (size_t j{0}; j < types.size(); ++j)
+    {
+        if (types[j].as_string() == typeid(Connection).name())
+            connectionInputs.emplace_back(buildConnection_(map, inputs[j]));
+        else
+            connectionInputs.emplace_back(stringToAny(types[j].as_string().c_str(), inputs[j].as_string().c_str()));
+    }
+
+    return Connection(it->second, connectionInputs);
+}
+
+boost::json::value Brain::toJson() const
+{
+    using namespace boost::json;
+
+    object obj;
+
+    array neurons;
+
+    for (const auto& neuron : neurons_)
+        neurons.emplace_back(neuron.get().toJson());
+
+    obj["neurons"] = std::move(neurons);
+
+    array connections;
+
+    for (const auto& connection : connections_)
+        connections.emplace_back(connection.toJson());
+
+    obj["connections"] = std::move(connections);
+
+    return obj;
 }

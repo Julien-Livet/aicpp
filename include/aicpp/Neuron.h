@@ -7,6 +7,8 @@
 #include <typeindex>
 #include <vector>
 
+#include <boost/json.hpp>
+
 namespace aicpp
 {
     class Neuron
@@ -20,6 +22,7 @@ namespace aicpp
             std::vector<std::type_index> const& inputTypes() const;
             std::type_index const& outputType() const;
             std::pair<std::string, size_t> dot(size_t index = 0) const;
+            boost::json::value toJson() const;
 
         private:
             std::string name_;

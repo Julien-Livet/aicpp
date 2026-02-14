@@ -53,3 +53,23 @@ std::pair<std::string, size_t> Neuron::dot(size_t index) const
 
     return std::make_pair(s, index);
 }
+
+boost::json::value Neuron::toJson() const
+{
+    using namespace boost::json;
+
+    object obj;
+
+    obj["name"] = name_;
+
+    array inputs;
+
+    for (const auto& t : inputTypes_)
+        inputs.emplace_back(std::string(t.name()));
+
+    obj["inputTypes"] = std::move(inputs);
+
+    obj["outputType"] = std::string(outputType_.name());
+
+    return obj;
+}

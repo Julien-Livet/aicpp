@@ -234,6 +234,18 @@ TEST(TestAiCpp, Str)
     std::cout << connection.string() << std::endl;
 
     EXPECT_FALSE(utility::heuristic(connection.output(), std::string{"11"}));
+
+    brain.addConnection(connection);
+
+    auto const value{brain.toJson()};
+
+    std::ofstream ofs{"strBrain.json"};
+
+    ofs << boost::json::serialize(value);
+
+    brain.clearConnections();
+
+    EXPECT_TRUE(brain.fromJson(value));
 }
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
@@ -310,50 +322,6 @@ std::pair<std::vector<Eigen::MatrixXi>, std::vector<Eigen::MatrixXi> > inputOutp
     }
 
     return std::make_pair(inputs, outputs);
-}
-
-#include <boost/geometry.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
-
-typedef boost::geometry::model::d2::point_xy<int> Point;
-typedef boost::geometry::model::polygon<Point> Polygon;
-
-//boost::geometry::within(polyInner, poly2Outer.filled())
-
-Polygon regionToPolygon(std::vector<std::pair<int, int> > const& region)
-{
-    if (region.empty())
-        return Polygon{};
-
-    std::pair<int, int> size{0, 0};
-
-    for (auto const& p : region)
-    {
-        size.first = std::max(size.first, p.first);
-        size.second = std::max(size.second, p.second);
-    }
-
-    ++size.first;
-    ++size.second;
-
-    auto consideredRegion{region};
-    consideredRegion.clear();
-
-    for (auto const& p : region)
-    {
-        auto const n{utility::neighbors(p, size, true)};
-    }
-
-    std::vector<Point> inPoints, outPoints;
-
-    //...
-
-    Polygon polygon;
-
-    //...
-
-    return polygon;
 }
 
 void updateRegionNeurons(std::map<int, Neuron>& regionNeurons, std::vector<Eigen::MatrixXi> const& pairs)
@@ -880,9 +848,3 @@ TEST(TestAiCpp, 253bf280) //Draw colored segment between pixels that have same x
 {
     EXPECT_EQ(processTask("training", "253bf280", std::vector<std::string>{"digitNeurons", "boolNeurons", "regionNeurons", "253bf280"}), 0);
 }
-/*
-TEST(TestAiCpp, 00d62c1b) //Fill regions
-{
-    EXPECT_EQ(processTask("training", "00d62c1b", std::vector<std::string>{"digitNeurons", "boolNeurons", "regionNeurons", "00d62c1b"}), 0);
-}
-*/

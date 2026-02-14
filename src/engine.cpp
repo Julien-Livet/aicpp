@@ -244,13 +244,6 @@ int processTask(std::string const& folder, std::string const& task, size_t level
 
     neurons.emplace_back(inputNeuron);
 
-    Neuron regionPairs_neuron{"regionPairs", fulls::regionPairs, {typeid(std::vector<std::vector<std::vector<std::pair<int,int>>>>)}, typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>)};
-    neurons.emplace_back(regionPairs_neuron);
-    Neuron sameElement_neuron{"sameElement", fulls::sameElement, {typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>), typeid(bool)}, typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>)};
-    neurons.emplace_back(sameElement_neuron);
-    Neuron segments_neuron{"segments", fulls::segments, {typeid(std::vector<Eigen::MatrixXi>), typeid(std::vector<std::vector<std::pair<std::pair<int,int>, std::pair<int,int>>>>), typeid(int), typeid(bool), typeid(bool)}, typeid(std::vector<Eigen::MatrixXi>)};
-    neurons.emplace_back(segments_neuron);
-
     Brain brain{neurons};
 
     auto const connections{brain.learn(std::vector<std::any>{trainPairs.second}, level)};

@@ -1,6 +1,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "aicpp/Connection.h"
+#include "aicpp/utility.h"
 
 using namespace aicpp;
 
@@ -215,20 +216,7 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
 
     try
     {
-        auto const o{output()};
-
-        if (o.type() == typeid(char))
-            value = std::string{std::any_cast<char>(o)};
-        else if (o.type() == typeid(double))
-            value = std::to_string(std::any_cast<double>(o));
-        else if (o.type() == typeid(float))
-            value = std::to_string(std::any_cast<float>(o));
-        else if (o.type() == typeid(int))
-            value = std::to_string(std::any_cast<int>(o));
-        else if (o.type() == typeid(long))
-            value = std::to_string(std::any_cast<long>(o));
-        else if (o.type() == typeid(std::string))
-            value = std::any_cast<std::string>(o);
+        value = anyToString(output());
     }
     catch (std::bad_any_cast const&)
     {
@@ -327,4 +315,30 @@ bool Connection::operator==(Connection const& other) const
     }
 
     return equal;
+}
+
+boost::json::value Connection::toJson() const
+{
+    using namespace boost::json;
+
+    object obj;
+
+    obj["neuron"] = neuron_.get().toJson();
+
+    array inputs, types;
+
+    for (const auto& input : inputs_)
+    {
+        types.emplace_back(input.type().name());
+
+        if (input.type() == typeid(Connection))
+            inputs.emplace_back(std::any_cast<Connection>(input).toJson());
+        else
+            inputs.emplace_back(anyToString(input));
+    }
+
+    obj["types"] = std::move(types);
+    obj["inputs"] = std::move(inputs);
+
+    return obj;
 }

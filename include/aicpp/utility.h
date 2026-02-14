@@ -4,6 +4,7 @@
 #include <any>
 #include <generator>
 #include <set>
+#include <typeindex>
 #include <vector>
 
 #include <Eigen/Core>
@@ -693,6 +694,59 @@ namespace aicpp
 
             return result;
         }
+    }
+
+    inline std::string anyToString(std::any const& v)
+    {
+        if (v.type() == typeid(char))
+            return std::string{std::any_cast<char>(v)};
+        else if (v.type() == typeid(double))
+            return std::to_string(std::any_cast<double>(v));
+        else if (v.type() == typeid(float))
+            return std::to_string(std::any_cast<float>(v));
+        else if (v.type() == typeid(int))
+            return std::to_string(std::any_cast<int>(v));
+        else if (v.type() == typeid(long))
+            return std::to_string(std::any_cast<long>(v));
+        else if (v.type() == typeid(std::string))
+            return std::any_cast<std::string>(v);
+        else if (v.type() == typeid(std::type_index))
+            return std::any_cast<std::type_index>(v).name();
+
+        return std::string{};
+    }
+
+    inline std::any stringToAny(std::string const& type, std::string const& value)
+    {
+        if (type == typeid(char).name())
+            return value[0];
+        else if (type == typeid(double).name())
+            return std::stod(value);
+        else if (type == typeid(float).name())
+            return std::stof(value);
+        else if (type == typeid(int).name())
+            return std::stoi(value);
+        else if (type == typeid(long).name())
+            return std::stol(value);
+        else if (type == typeid(std::string).name())
+            return value;
+        else if (type == typeid(std::type_index).name())
+        {
+            if (value == typeid(bool).name())
+                return std::type_index{typeid(bool)};
+            else if (value == typeid(double).name())
+                return std::type_index{typeid(double)};
+            else if (value == typeid(float).name())
+                return std::type_index{typeid(float)};
+            else if (value == typeid(int).name())
+                return std::type_index{typeid(int)};
+            else if (value == typeid(long).name())
+                return std::type_index{typeid(long)};
+            else if (value == typeid(std::string).name())
+                return std::type_index{typeid(std::string)};
+        }
+
+        return std::any{};
     }
 }
 

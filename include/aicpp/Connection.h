@@ -20,6 +20,7 @@ namespace aicpp
             std::any output() const;
             size_t hash() const;
             bool operator==(Connection const& other) const;
+            boost::json::value toJson() const;
 
         private:
             size_t computeHash_() const;
