@@ -164,6 +164,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
             continue;
 
         auto c{connection};
+        c.setSource(connection);
         c.applyInputs(*iterator);
         ++iterator;
         auto const value{c.output()};
@@ -222,6 +223,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                                    while (process && iterator != connectionParametersIt->second.cend())
                                    {
                                        auto c{connection};
+                                       c.setSource(connection);
                                        c.applyInputs(*iterator);
                                        ++iterator;
                                        auto const value{c.output()};

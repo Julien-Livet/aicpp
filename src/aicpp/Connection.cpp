@@ -342,3 +342,16 @@ boost::json::value Connection::toJson() const
 
     return obj;
 }
+
+Connection const& Connection::source() const
+{
+    if (!source_)
+        return *this;
+
+    return *source_;
+}
+
+void Connection::setSource(Connection const& connection)
+{
+    source_ = std::make_shared<Connection>(connection);
+}

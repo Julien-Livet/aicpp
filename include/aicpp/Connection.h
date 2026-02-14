@@ -21,6 +21,8 @@ namespace aicpp
             size_t hash() const;
             bool operator==(Connection const& other) const;
             boost::json::value toJson() const;
+            Connection const& source() const;
+            void setSource(Connection const& connection);
 
         private:
             size_t computeHash_() const;
@@ -28,6 +30,7 @@ namespace aicpp
             std::reference_wrapper<Neuron const> neuron_;
             std::vector<std::any> inputs_;
             size_t hash_;
+            std::shared_ptr<Connection> source_;
     };
 }
 

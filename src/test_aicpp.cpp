@@ -235,7 +235,7 @@ TEST(TestAiCpp, Str)
 
     EXPECT_FALSE(utility::heuristic(connection.output(), std::string{"11"}));
 
-    brain.addConnection(connection);
+    brain.addConnection(connection.source());
 
     auto const value{brain.toJson()};
 

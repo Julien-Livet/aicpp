@@ -3,6 +3,7 @@
 
 #include <any>
 #include <generator>
+#include <map>
 #include <set>
 #include <typeindex>
 #include <vector>
@@ -736,12 +737,22 @@ namespace aicpp
                 return std::type_index{typeid(bool)};
             else if (value == typeid(double).name())
                 return std::type_index{typeid(double)};
+            else if (value == typeid(Eigen::MatrixXd).name())
+                return std::type_index{typeid(Eigen::MatrixXd)};
+            else if (value == typeid(Eigen::MatrixXf).name())
+                return std::type_index{typeid(Eigen::MatrixXf)};
+            else if (value == typeid(Eigen::MatrixXi).name())
+                return std::type_index{typeid(Eigen::MatrixXi)};
             else if (value == typeid(float).name())
                 return std::type_index{typeid(float)};
             else if (value == typeid(int).name())
                 return std::type_index{typeid(int)};
             else if (value == typeid(long).name())
                 return std::type_index{typeid(long)};
+            else if (value == typeid(std::map<int, int>).name())
+                return std::type_index{typeid(std::map<int, int>)};
+            else if (value == typeid(std::pair<int, int>).name())
+                return std::type_index{typeid(std::pair<int, int>)};
             else if (value == typeid(std::string).name())
                 return std::type_index{typeid(std::string)};
         }
