@@ -235,7 +235,10 @@ TEST(TestAiCpp, Str)
 
     EXPECT_FALSE(utility::heuristic(connection.output(), std::string{"11"}));
 
-    brain.addConnection(connection.source());
+    auto addAndStr{connection.source()};
+    addAndStr.setName("addAndStr");
+
+    brain.addConnection(addAndStr);
 
     auto const value{brain.toJson()};
 
@@ -246,6 +249,8 @@ TEST(TestAiCpp, Str)
     brain.clearConnections();
 
     EXPECT_TRUE(brain.fromJson(value));
+
+    EXPECT_EQ(addAndStr.string(), std::string{"addAndStr("} + typeid(int).name() + ", " + typeid(int).name() + ")");
 }
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)

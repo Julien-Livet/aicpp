@@ -62,30 +62,17 @@ size_t Connection::depth(size_t d) const
 
 std::string Connection::string() const
 {
+    if (name_.empty())
+        return expression();
+
+    auto const v{leafInputs()};
     std::vector<std::string> args;
-    args.reserve(inputs_.size());
+    args.reserve(v.size());
 
-    for (auto const& input : inputs_)
-    {
-        if (input.type() == typeid(char))
-            args.emplace_back(std::string{std::any_cast<char>(input)});
-        else if (input.type() == typeid(Connection))
-            args.emplace_back(std::any_cast<Connection>(input).string());
-        else if (input.type() == typeid(double))
-            args.emplace_back(std::to_string(std::any_cast<double>(input)));
-        else if (input.type() == typeid(float))
-            args.emplace_back(std::to_string(std::any_cast<float>(input)));
-        else if (input.type() == typeid(int))
-            args.emplace_back(std::to_string(std::any_cast<int>(input)));
-        else if (input.type() == typeid(long))
-            args.emplace_back(std::to_string(std::any_cast<long>(input)));
-        else if (input.type() == typeid(std::string))
-            args.emplace_back(std::any_cast<std::string>(input));
-        else if (input.type() == typeid(std::type_index))
-            args.emplace_back(std::any_cast<std::type_index>(input).name());
-    }
+    for (auto const& x : v)
+        args.emplace_back(anyToString(x));
 
-    auto s{neuron_.get().name()};
+    auto s{name_};
 
     if (neuron_.get().inputTypes().size())
         s += "(" + boost::algorithm::join(args, ", ") + ")";
@@ -323,6 +310,7 @@ boost::json::value Connection::toJson() const
 
     object obj;
 
+    obj["name"] = name_;
     obj["neuron"] = neuron_.get().toJson();
 
     array inputs, types;
@@ -354,4 +342,56 @@ Connection const& Connection::source() const
 void Connection::setSource(Connection const& connection)
 {
     source_ = std::make_shared<Connection>(connection);
+}
+
+std::string Connection::name() const
+{
+    return name_;
+}
+
+void Connection::setName(std::string const& name)
+{
+    name_ = name;
+}
+
+std::string Connection::expression() const
+{
+    std::vector<std::string> args;
+    args.reserve(inputs_.size());
+
+    for (auto const& input : inputs_)
+    {
+        if (input.type() == typeid(Connection))
+            args.emplace_back(std::any_cast<Connection>(input).string());
+        else
+            args.emplace_back(anyToString(input));
+    }
+
+    auto s{neuron_.get().name()};
+
+    if (neuron_.get().inputTypes().size())
+        s += "(" + boost::algorithm::join(args, ", ") + ")";
+
+    return s;
+}
+
+std::vector<std::any> Connection::leafInputs() const
+{
+    std::vector<std::any> inputs;
+    inputs.reserve(inputs_.size());
+
+    for (auto const& input : inputs_)
+    {
+        if (input.type() == typeid(Connection))
+        {
+            auto const connection{std::any_cast<Connection>(input)};
+            auto const v{connection.leafInputs()};
+
+            inputs.insert(inputs.end(), v.begin(), v.end());
+        }
+        else
+            inputs.emplace_back(input);
+    }
+
+    return inputs;
 }

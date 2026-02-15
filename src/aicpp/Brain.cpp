@@ -357,13 +357,13 @@ bool Brain::fromJson(boost::json::value const& value)
             return false;
         }
     }
-    //TODO: ...
 
     return true;
 }
 
 Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<Neuron const> > const& map, boost::json::value const& value) const
 {
+    auto const name{value.at("name").as_string()};
     auto const neuron{value.at("neuron")};
     auto const it{map.find(boost::json::serialize(neuron))};
 
@@ -386,7 +386,10 @@ Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<
             connectionInputs.emplace_back(stringToAny(types[j].as_string().c_str(), inputs[j].as_string().c_str()));
     }
 
-    return Connection(it->second, connectionInputs);
+    Connection connection{it->second, connectionInputs};
+    connection.setName(name.c_str());
+
+    return connection;
 }
 
 boost::json::value Brain::toJson() const

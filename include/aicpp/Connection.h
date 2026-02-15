@@ -23,10 +23,15 @@ namespace aicpp
             boost::json::value toJson() const;
             Connection const& source() const;
             void setSource(Connection const& connection);
+            std::string name() const;
+            void setName(std::string const& name);
+            std::string expression() const;
+            std::vector<std::any> leafInputs() const;
 
         private:
             size_t computeHash_() const;
 
+            std::string name_;
             std::reference_wrapper<Neuron const> neuron_;
             std::vector<std::any> inputs_;
             size_t hash_;
