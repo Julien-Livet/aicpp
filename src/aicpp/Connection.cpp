@@ -362,7 +362,7 @@ std::string Connection::expression() const
     for (auto const& input : inputs_)
     {
         if (input.type() == typeid(Connection))
-            args.emplace_back(std::any_cast<Connection>(input).string());
+            args.emplace_back(std::any_cast<Connection>(input).expression());
         else
             args.emplace_back(anyToString(input));
     }
