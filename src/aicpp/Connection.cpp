@@ -65,7 +65,7 @@ std::string Connection::string() const
     if (name_.empty())
         return expression();
 
-    auto const v{leafInputs()};
+    auto const v(leafInputs());
     std::vector<std::string> args;
     args.reserve(v.size());
 
@@ -74,7 +74,7 @@ std::string Connection::string() const
 
     auto s{name_};
 
-    if (neuron_.get().inputTypes().size())
+    if (args.size())
         s += "(" + boost::algorithm::join(args, ", ") + ")";
 
     return s;
@@ -98,7 +98,7 @@ std::vector<std::type_index> Connection::inputTypes() const
             {
                 auto const v{std::any_cast<Connection>(input).inputTypes()};
 
-                types.insert(types.end(), std::ranges::begin(v), std::ranges::end(v));
+                types.insert(types.end(), v.begin(), v.end());
             }
         }
         else if (input.type() == typeid(std::type_index))
@@ -385,7 +385,7 @@ std::vector<std::any> Connection::leafInputs() const
         if (input.type() == typeid(Connection))
         {
             auto const connection{std::any_cast<Connection>(input)};
-            auto const v{connection.leafInputs()};
+            auto const v(connection.leafInputs());
 
             inputs.insert(inputs.end(), v.begin(), v.end());
         }

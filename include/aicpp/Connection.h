@@ -1,6 +1,8 @@
 #ifndef AICPP_CONNECTION_H
 #define AICPP_CONNECTION_H
 
+#include <memory>
+
 #include "aicpp/Neuron.h"
 
 namespace aicpp
