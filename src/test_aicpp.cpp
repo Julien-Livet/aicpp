@@ -288,7 +288,13 @@ std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
     }
 
     value const jv{parse(content)};
-    auto const train{jv.at("train").as_array()};
+    boost::json::array train;
+
+    if (jv.is_object())
+        train = jv.at("train").as_array();
+    else if (jv.is_array())
+        train = jv.as_array()[0].at("train").as_array();
+
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > trainPairs;
 
     for (size_t i{0}; i < train.size(); ++i)
@@ -299,7 +305,13 @@ std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
                                                boostJsonToEigenMatrix(sample.at("output").as_array())));
     }
 
-    auto const test{jv.at("test").as_array()};
+    boost::json::array test;
+
+    if (jv.is_object())
+        test = jv.at("test").as_array();
+    else if (jv.is_array())
+        test = jv.as_array()[0].at("test").as_array();
+
     std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > testPairs;
 
     for (size_t i{0}; i < test.size(); ++i)

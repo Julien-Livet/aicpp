@@ -334,7 +334,12 @@ bool Brain::fromJson(boost::json::value const& value)
         map.emplace(std::make_pair(boost::json::serialize(v), neuron));
     }
 
-    auto const neurons{value.at("neurons").as_array()};
+    boost::json::array neurons;
+
+    if (value.is_object())
+        neurons = value.at("neurons").as_array();
+    else if (value.is_array())
+        neurons = value.as_array()[0].at("neurons").as_array();
 
     for (size_t i{0}; i < neurons.size(); ++i)
     {
@@ -342,7 +347,12 @@ bool Brain::fromJson(boost::json::value const& value)
             break;
     }
 
-    auto const connections{value.at("connections").as_array()};
+    boost::json::array connections;
+
+    if (value.is_object())
+        connections = value.at("connections").as_array();
+    else if (value.is_array())
+        connections = value.as_array()[0].at("connections").as_array();
 
     connections_.clear();
 
@@ -370,8 +380,19 @@ Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<
     if (it == map.end())
         throw std::runtime_error{"Neuron not found"};
 
-    auto const types{value.at("types").as_array()};
-    auto const inputs{value.at("inputs").as_array()};
+    boost::json::array types;
+
+    if (value.is_object())
+        types = value.at("types").as_array();
+    else if (value.is_array())
+        types = value.as_array()[0].at("types").as_array();
+
+    boost::json::array inputs;
+
+    if (value.is_object())
+        inputs = value.at("inputs").as_array();
+    else if (value.is_array())
+        inputs = value.as_array()[0].at("inputs").as_array();
 
     assert(types.size() == inputs.size());
 
