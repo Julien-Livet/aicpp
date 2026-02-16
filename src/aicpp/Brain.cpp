@@ -164,6 +164,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
             continue;
 
         auto c{connection};
+        c.setName("");
         c.setSource(connection);
         c.applyInputs(*iterator);
         ++iterator;
@@ -223,6 +224,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
                                    while (process && iterator != connectionParametersIt->second.cend())
                                    {
                                        auto c{connection};
+                                       c.setName("");
                                        c.setSource(connection);
                                        c.applyInputs(*iterator);
                                        ++iterator;
@@ -397,7 +399,7 @@ Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<
     assert(types.size() == inputs.size());
 
     std::vector<std::any> connectionInputs;
-    connectionInputs.resize(types.size());
+    connectionInputs.reserve(types.size());
 
     for (size_t j{0}; j < types.size(); ++j)
     {
@@ -406,6 +408,8 @@ Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<
         else
             connectionInputs.emplace_back(stringToAny(types[j].as_string().c_str(), inputs[j].as_string().c_str()));
     }
+
+    assert(connectionInputs.size() == types.size());
 
     Connection connection{it->second, connectionInputs};
     connection.setName(name.c_str());

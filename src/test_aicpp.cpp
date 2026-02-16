@@ -238,7 +238,19 @@ TEST(TestAiCpp, Str)
     auto addAndStr{connection.source()};
     addAndStr.setName("addAndStr");
 
+    EXPECT_EQ(addAndStr.string(), std::string{"addAndStr("} + typeid(int).name() + ", " + typeid(int).name() + ")");
+
     brain.addConnection(addAndStr);
+
+    {
+        auto const connections{brain.learn(std::vector<std::any>{std::string{"11"}}, 1)};
+
+        EXPECT_TRUE(connections.size());
+
+        auto const connection{connections[0]};
+
+        std::cout << connection.string() << std::endl;
+    }
 
     auto const value{brain.toJson()};
 
@@ -250,7 +262,21 @@ TEST(TestAiCpp, Str)
 
     EXPECT_TRUE(brain.fromJson(value));
 
-    EXPECT_EQ(addAndStr.string(), std::string{"addAndStr("} + typeid(int).name() + ", " + typeid(int).name() + ")");
+    EXPECT_EQ(brain.connections().size(), 1);
+
+    auto const c{*brain.connections().begin()};
+
+    EXPECT_EQ(c.string(), std::string{"addAndStr("} + typeid(int).name() + ", " + typeid(int).name() + ")");
+
+    {
+        auto const connections{brain.learn(std::vector<std::any>{std::string{"11"}}, 1)};
+
+        EXPECT_TRUE(connections.size());
+
+        auto const connection{connections[0]};
+
+        std::cout << connection.string() << std::endl;
+    }
 }
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
