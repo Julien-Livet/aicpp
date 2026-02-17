@@ -15,7 +15,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-std::string const path{"../../ARC-AGI-2-main/data"};
+std::string const path{"../ARC-AGI-2-main/data"};
 
 TEST(TestAiCpp, ValidConnections)
 {
