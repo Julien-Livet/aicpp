@@ -30,4 +30,4 @@ RUN cmake --build build --target test_aicpp -- -j$(nproc)
 
 ENTRYPOINT ["/bin/bash"]
 
-CMD ["-c", "./build/test_aicpp"]
+CMD ["-c", "cd build && ./test_aicpp"]
