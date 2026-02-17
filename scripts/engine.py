@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import os
 import re
 import subprocess
 import urllib.request
@@ -421,7 +422,20 @@ namespace aicpp
         f.write(engineContent)
         f.close()
         
-        result = subprocess.run(["cmake", "--build ../build", "--target engine", "--config Release", "-- -j$(nproc)"], capture_output = True, text = True)
+        path = os.path.abspath(os.getcwd() + "/..")
+
+        nproc = os.cpu_count()
+
+        docker_cmd = [
+            "docker", "run", "--rm",
+            "-v", f"{path}:/app/aicpp",
+            "aicpp", "-c",
+            "mkdir -p build && "
+            "cmake . -B build && "
+            f"cmake --build build --target engine -- -j$(nproc)"
+        ]
+        
+        result = subprocess.run(docker_cmd, capture_output = True, text = True)
 
         if (result.returncode):
             print("CMake result", result.returncode)
@@ -429,7 +443,12 @@ namespace aicpp
             print("CMake output", result.stdout)
             continue
 
-        result = subprocess.run(["../build/engine", folder, task, str(level)], capture_output = True, text = True)
+        cmd = [
+            "./../build/engine",
+            folder, task, str(level)
+        ]
+
+        result = subprocess.run(cmd, capture_output = True, text = True)
         lines = result.stdout.split("\n")
 
         if (result.returncode):

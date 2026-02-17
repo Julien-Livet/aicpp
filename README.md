@@ -6,7 +6,11 @@ Connections between compatible types can be allowed, i.e., a neuron with an int 
 
 ```
 ollama pull gpt-oss:20b
+git clone https://github.com/Julien-Livet/aicpp.git
+cd aicpp
+git clone https://github.com/arcprize/ARC-AGI-2.git
 docker build -t aicpp .
 docker run --rm aicpp
-docker run --rm aicpp -c "python3 scripts/engine.py"
+cd scripts
+python engine.py
 ```

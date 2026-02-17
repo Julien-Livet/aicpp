@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     python3-requests \
     python3-pip \
     pybind11-dev \
-    clang-20 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -25,7 +24,7 @@ WORKDIR /app/aicpp
 RUN git clone https://github.com/arcprize/ARC-AGI-2.git
 
 RUN mkdir build
-RUN cmake -S . -B build '-DCMAKE_GENERATOR:STRING=Unix Makefiles' -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-20 -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-20
+RUN cmake -S . -B build
 RUN cmake --build build --target test_aicpp -- -j$(nproc)
 
 ENTRYPOINT ["/bin/bash"]
