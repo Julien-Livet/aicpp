@@ -422,10 +422,7 @@ namespace aicpp
         f.write(engineContent)
         f.close()
         
-        buildFolder = "Desktop-Release"
-        #buildFolder = "vc143-Release"
-        
-        result = subprocess.run(["cmake", "--build", "../build/" + buildFolder, "--target engine"], capture_output = True, text = True)
+        result = subprocess.run(["cmake", "--build ../build", "--target engine", "--config Release", "-- -j$(nproc)"], capture_output = True, text = True)
 
         if (result.returncode):
             print("CMake result", result.returncode)
@@ -433,7 +430,7 @@ namespace aicpp
             print("CMake output", result.stdout)
             continue
 
-        result = subprocess.run(["../build/" + buildFolder + "/engine", folder, task, str(level)], capture_output = True, text = True)
+        result = subprocess.run(["../build/engine", folder, task, str(level)], capture_output = True, text = True)
         lines = result.stdout.split("\n")
 
         if (result.returncode):
