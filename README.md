@@ -1,3 +1,7 @@
+[![Docker](https://img.shields.io/badge/Docker-ready-blue?logo=docker)](https://hub.docker.com/r/julienlivet/aicpp)
+[![License](https://img.shields.io/badge/License-Apache-green)](LICENSE)
+[![ARC-AGI](https://img.shields.io/badge/Benchmark-ARC--AGI-orange)](https://arcprize.org)
+
 # About aicpp
 
 `aicpp` is a C++ framework about network of connected neurons.
