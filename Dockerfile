@@ -17,13 +17,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-RUN git clone https://github.com/Julien-Livet/aicpp.git
+COPY . /app/aicpp
 
 WORKDIR /app/aicpp
 
-RUN git clone https://github.com/arcprize/ARC-AGI-2.git
-
-RUN mkdir build
+RUN mkdir -p build
 RUN cmake -S . -B build
 RUN cmake --build build --target test_aicpp -- -j$(nproc)
 
