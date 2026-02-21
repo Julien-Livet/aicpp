@@ -41,13 +41,16 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
 
     for (auto const& neuron : neurons_)
     {
-        if (neuron.get().inputTypes().empty())
+        auto const types{neuron.get().inputTypes()};
+
+        if (types.empty())
             parameters[neuron.get().outputType()].emplace_back(Connection{neuron, std::vector<std::any>{}});
         else
         {
             std::vector<std::any> v;
+            v.reserve(types.size());
 
-            for (auto const& inputType : neuron.get().inputTypes())
+            for (auto const& inputType : types)
                 v.emplace_back(inputType);
 
             connections.emplace(Connection{neuron, v});
