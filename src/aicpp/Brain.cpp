@@ -55,7 +55,12 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
     }
 
     for (auto const& c : connections_)
-        connections.emplace(c);
+    {
+        if (c.inputTypes().empty())
+            parameters[c.neuron().outputType()].emplace_back(c);
+        else
+            connections.emplace(c);
+    }
 
     std::map<std::type_index, std::unordered_set<Connection> > connectionMapping;
 
