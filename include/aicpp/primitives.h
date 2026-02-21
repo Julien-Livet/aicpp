@@ -17,7 +17,7 @@ namespace aicpp
         ///std::vector<Eigen::MatrixXi> flipud(std::vector<Eigen::MatrixXi> arg0); // Flip up and down rows
         std::any flipud(std::vector<std::any> const& args);
 
-        ///std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi>) arg0, std::map<int, int> arg1); // Map cells of arrays from a mapping
+        ///std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int, int> arg1); // Map cells of arrays from a mapping
         std::any map(std::vector<std::any> const& args);
 
         ///std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > sameElement(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > arg0, bool arg1); // Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)

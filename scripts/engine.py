@@ -262,11 +262,11 @@ DEPTH_LEVEL:
         f.write(command)
         f.close()
 
-        if (False):#try:
+        try:
             f = open("output" + task + ".txt", "r")
             content = f.read()
             f.close()
-        else:#except FileNotFoundError:
+        except FileNotFoundError:
             result = subprocess.run(["ollama", "run", modelName, command], capture_output = True, text = True)
             content = result.stdout
             f = open("output" + task + ".txt", "w")
@@ -432,7 +432,7 @@ namespace aicpp
             "aicpp", "-c",
             "mkdir -p build && "
             "cmake . -B build && "
-            f"cmake --build build --target engine -- -j$(nproc)"
+            f"cmake --build build --target engine -- -j{nproc}"
         ]
         
         result = subprocess.run(docker_cmd, capture_output = True, text = True)
@@ -443,19 +443,16 @@ namespace aicpp
             print("CMake output", result.stdout)
             continue
 
-        cmd = [
-            "./../build/engine",
-            folder, task, str(level)
+        docker_cmd = [
+            "docker", "run", "--rm",
+            "-v", f"{path}:/app/aicpp",
+            "aicpp", "-c",
+            "cd build && "
+            f"./engine {folder} {task} {level}"
         ]
 
-        result = subprocess.run(cmd, capture_output = True, text = True)
+        result = subprocess.run(docker_cmd, capture_output = True, text = True)
         lines = result.stdout.split("\n")
-
-        if (result.returncode):
-            print("Engine result", result.returncode)
-            print("Engine error", result.stderr)
-            print("Engine output", result.stdout)
-            continue
 
         cost = float(lines[0])
         expression = lines[1].strip()
