@@ -39,11 +39,11 @@ target_include_directories(engine PRIVATE include)
 
 if (WIN32)
     target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
-    target_link_libraries(pyaicpp PRIVATE Ws2_32 Eigen3::Eigen Boost::headers)
+    target_link_libraries(pyaicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
     target_link_libraries(engine PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
 else()
     target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
-    target_link_libraries(pyaicpp PRIVATE Eigen3::Eigen Boost::headers)
+    target_link_libraries(pyaicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen)
     target_link_libraries(engine PRIVATE Boost::json Boost::headers Eigen3::Eigen)
 endif()
 
