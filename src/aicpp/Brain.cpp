@@ -59,7 +59,7 @@ std::vector<Connection> Brain::learn(std::vector<std::any> const& targets, size_
 
     for (auto const& c : connections_)
     {
-        if (c.inputTypes().empty())
+        if (c.leafInputs().empty())
             parameters[c.neuron().outputType()].emplace_back(c);
         else
             connections.emplace(c);
