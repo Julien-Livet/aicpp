@@ -1,5 +1,6 @@
 import json
 import numpy as np
+from openai import OpenAI
 import os
 import re
 import subprocess
@@ -106,55 +107,38 @@ def processTask(folder: str, task: str):
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
     data = json.loads(url.read().decode())
 
-    modelName = "gpt-oss:20b"
-
     cost = None
-    expression = ""
+    lastConnections = []
 
     while (cost is None or cost):
         command = "You are given several input-output grid pairs from an ARC task:\n"
+
         for i in range(len(data["train"])):
             command += "(" + json.dumps(data["train"][i]["input"]) + ", " + json.dumps(data["train"][i]["output"]) + ")\n"
+
         command += "\nYou are given several C++ function declarations as primitives:\n"
+
         for function in functions:
             command += function[0] + "\n"
 
         command += """
 Your task is NOT to solve the ARC task directly.
 
-You must help a symbolic program synthesis engine by generating
-PARTIALLY PARAMETERIZED C++ FUNCTIONS based on the given primitives.
-
-These functions must restrict the search space by fixing some parameters
-(constants, sizes, colors, booleans, or structural choices),
-while keeping other parameters free.
-
-"""
-        command += """A partially parameterized function:
-- calls exactly ONE existing primitive function
-- fixes one or more arguments to constant values
-- exposes the remaining arguments as parameters
-- does not introduce new logic
-- does not combine multiple primitives
+You must help a symbolic program synthesis engine by selecting
+NEEDED C++ FUNCTION PRIMITIVES.
 
 """
         command += """Rules:
 - Do NOT invent new primitive operations.
-- Do NOT modify the body logic of primitives.
-- Do NOT combine multiple primitives in a single function.
-- Do NOT use loops, conditionals, or additional computations.
-- Only generate function wrappers that call an existing function.
 
 """
         command += """Output format:
-- Output ONLY valid C++ function declarations and definitions.
+- Output ONLY valid C++ function declarations.
 - No explanations.
 - No formatting.
 - No comments.
 - No markdown.
 - No extra text.
-- Each function must be standalone and compilable.
-- Use types explictly and no initializer lists.
 
 """
         command += """Examples of full verbatim function declarations:
@@ -162,116 +146,33 @@ int foo(int i, bool b);
 std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
 
 """
-        command += """Example:
+        command += """Answer quickly and shortly.
 
-Primitives:
-int foo(int arg0, bool arg1);
-std::map<int, int> bar(int arg0, double arg1);
-
-Valid partial parameterizations:
-int foo_i4(bool arg1) { return foo(4, arg1); }
-int foo_i6(bool v) { return foo(6, arg1); }
-std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
-std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
-
-Invalid:
-int bar(int x) { return foo(x, true) + 1; }
-int baz(int x) { if (x > 0) return foo(x, true); }
-
-"""
-        command += """Based on the observed input-output grid transformations,
-identify constants or structural patterns that are likely invariant
-across examples (such as fixed colors, fixed grid sizes,
-specific region counts, or alignment directions).
-
-Generate partial parameterizations that reflect these invariants.
-"""
-        command += """Generate at most 5 partial parameterizations per primitive.
-Prefer fewer, higher-confidence specializations.
-
-"""
-        command += """If no reasonable partial parameterization can be inferred for a primitive,
-do NOT generate any function for it.
-
-"""
-        command += """The symbolic engine will evaluate all generated functions exhaustively.
-Do not attempt to rank, score, or select solutions.
-
-"""
-        command += """If a primitive already fully matches the observed transformation
-without requiring any fixed parameter,
-DO NOT generate any partial parameterization for it.
-
-"""
-        command += """Only generate a partial parameterization if it is expected
-to significantly reduce the search depth or branching factor
-compared to using the primitive directly
-
-"""
-        command += """Do not generate partial parameterizations for primitives
-that do not have free scalar or structural parameters.
-
-"""
-        command += """Before outputting a function, ask yourself:
-"Does this function restrict the domain of the primitive
-more than calling the primitive directly?"
-If the answer is no, do not output it.
-
-"""
-        command += """First, select which of the given primitives are potentially useful
+First, select which of the given primitives are potentially useful
 for explaining the observed input-output transformations.
 
 Output the selected primitive declarations verbatim.
 
 """
-        command += """Then, for each selected primitive, generate partial parameterizations
-ONLY IF fixing parameters is likely to further reduce the search space.
-
-"""
-        command += """Finally, provide a integer number as the maximum depth level required
-to combine the different primitives for the exploration engine.
-
-"""
-        command += """It is valid to select a primitive without generating any partial parameterization for it.
-
-"""
-        command += """Useful utility functions for type conversions:
-std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > utility::matrixPairs(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
-std::vector<Eigen::MatrixXi> utility::matrices(std::initializer_list<std::initializer_list<std::initializer_list<int> > > const& values);
-
-"""
-
         if (cost):
-            command += "The best found connection from the engine has a cost of " + str(cost) + " and his expression is: " + expression + ".\n\n"
+            command += "The last best connections from the engine are the following (explored_depth, cost, expression):\n"
+            command += "\n".join(str(l) + " " + str(c) + " " + e for l, c, e in lastConnections)
+            command += "\n\n"
 
-        command += """EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATIONS:
-SELECTED_PRIMITIVES:
+        command += """EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+PRIMITIVES:
 int foo(int arg0, bool arg1);
-std::map<int, int> bar(int arg0, double arg1);
-
-PARTIAL_PARAMETERIZATIONS:
-int foo_i4(bool arg1) { return foo(4, arg1); }
-int foo_i6(bool arg1) { return foo(6, arg1); }
-std::map<int, int> bar_d1(int arg0) { return bar(arg0, 1.0); }
-std::map<int, int> bar_d2(int arg0) { return bar(arg0, 2.0); }
-
-DEPTH_LEVEL:
-2"""
+std::map<int, int> bar(int arg0, double arg1);"""
 
         f = open("prompt" + task + ".txt", "w")
         f.write(command)
         f.close()
 
-        try:
-            f = open("output" + task + ".txt", "r")
-            content = f.read()
-            f.close()
-        except FileNotFoundError:
-            result = subprocess.run(["ollama", "run", modelName, command], capture_output = True, text = True)
-            content = result.stdout
-            f = open("output" + task + ".txt", "w")
-            f.write(content)
-            f.close()
+        result = OpenAI().responses.create(model = "gpt-5-mini", input = command).output_text
+        content = result.stdout
+        f = open("output" + task + ".txt", "w")
+        f.write(content)
+        f.close()
 
         lines = [x.strip() for x in content.split("\n")]
 
@@ -302,22 +203,9 @@ namespace aicpp
     namespace fulls
     {
 """
-        i1 = len(lines) - lines[-1::-1].index("SELECTED_PRIMITIVES:") - 1
-        i2 = len(lines) - lines[-1::-1].index("PARTIAL_PARAMETERIZATIONS:") - 1
-        i3 = -1
-
-        for i in range(i2 + 1, len(lines)):
-            if (lines[i].startswith("DEPTH_LEVEL:")):
-                i3 = i
-                
-                w = lines[i3].split()
-                
-                if (len(w) == 2):
-                    level = int(w[1])
-                else:
-                    level = int(lines[i3 + 1])
-
-                break
+        i1 = len(lines) - lines[-1::-1].index("PRIMITIVES:") - 1
+        i2 = len(lines) #len(lines) - lines[-1::-1].index("PARTIALS:") - 1
+        i3 = len(lines)
 
         table = {}
 
@@ -448,7 +336,7 @@ namespace aicpp
             "-v", f"{path}:/app/aicpp",
             "aicpp", "-c",
             "cd build && "
-            f"./engine {folder} {task} {level}"
+            f"./engine {folder} {task}"
         ]
 
         result = subprocess.run(docker_cmd, capture_output = True, text = True)
@@ -460,13 +348,30 @@ namespace aicpp
         if (cost):
             print("Cost", cost)
             print("Expression", expression)
+            
+            lastConnections.append((level, cost, expression))
+
+        if (result.returncode):
+            print("Engine result", result.returncode)
+            print("Engine error", result.stderr)
+            print("Engine output", result.stdout)
 
     print(expression)
 
 def main():
+    processTask("training", "67a3c6ac")
+    processTask("training", "68b16354")
+    processTask("training", "74dd1130")
     processTask("training", "3c9b0459") #Flip left/right and flip up/down
+    processTask("training", "6150a2bd")
+    processTask("training", "9172f3a0")
+    processTask("training", "9dfd6313")
+    processTask("training", "a416b8f3")
+    processTask("training", "b1948b0a")
+    processTask("training", "c59eb873")
+    processTask("training", "c8f0f002")
     processTask("training", "0d3d703e") #Color mapping
-    processTask("training", "253bf280") #Draw colored segment between pixels that have same x or y coordinates
+    #processTask("training", "")
 
 if (__name__ == "__main__"):
     main()

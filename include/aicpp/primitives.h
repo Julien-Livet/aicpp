@@ -8,26 +8,44 @@ namespace aicpp
 {
     namespace primitives
     {
-        ///std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > arg0); // Map given locations of arrays
-        std::any inferColorMapping(std::vector<std::any> const& args);
+        ///std::vector<Eigen::MatrixXi> hmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along horizontal
+        std::any hmirror(std::vector<std::any> const& args);
 
-        ///std::vector<Eigen::MatrixXi> fliplr(std::vector<Eigen::MatrixXi> arg0); // Flip left and right columns
-        std::any fliplr(std::vector<std::any> const& args);
+        ///std::vector<Eigen::MatrixXi> vmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along vertical
+        std::any vmirror(std::vector<std::any> const& args);
 
-        ///std::vector<Eigen::MatrixXi> flipud(std::vector<Eigen::MatrixXi> arg0); // Flip up and down rows
-        std::any flipud(std::vector<std::any> const& args);
+        ///std::vector<Eigen::MatrixXi> dmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along diagonal
+        std::any dmirror(std::vector<std::any> const& args);
 
-        ///std::vector<Eigen::MatrixXi> map(std::vector<Eigen::MatrixXi> arg0, std::map<int, int> arg1); // Map cells of arrays from a mapping
-        std::any map(std::vector<std::any> const& args);
-
-        ///std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > sameElement(std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > arg0, bool arg1); // Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)
-        std::any sameElement(std::vector<std::any> const& args);
-
-        ///std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > regionPairs(std::vector<std::vector<std::vector<std::pair<int, int> > > > arg0); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
-        std::any regionPairs(std::vector<std::any> const& args);
-
-        ///std::vector<Eigen::MatrixXi> segments(std::vector<Eigen::MatrixXi> arg0, std::vector<std::vector<std::pair<std::pair<int, int>, std::pair<int, int> > > > arg1, int arg2, bool arg3, bool arg4); // Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
-        std::any segments(std::vector<std::any> const& args);
+        ///std::vector<Eigen::MatrixXi> rot90(std::vector<Eigen::MatrixXi> arg0); // quarter clockwise rotation
+        std::any rot90(std::vector<std::any> const& args);
+		
+        ///std::vector<Eigen::MatrixXi> rot180(std::vector<Eigen::MatrixXi> arg0); // half rotation
+        std::any rot180(std::vector<std::any> const& args);
+		
+        ///std::vector<Eigen::MatrixXi> rot270(std::vector<Eigen::MatrixXi> arg0); // quarter anticlockwise rotation
+        std::any rot270(std::vector<std::any> const& args);
+		
+        ///std::vector<Eigen::MatrixXi> swap(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2); // color switching
+        std::any swap(std::vector<std::any> const& args);
+		
+        ///std::vector<std::pair<int, int> > ofcolor(std::vector<Eigen::MatrixXi> arg0, int arg1); // indices of all grid cells with value
+        std::any ofcolor(std::vector<std::any> const& args);
+		
+        ///std::vector<Eigen::MatrixXi> fill(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<std::pair<int, std::pair<int, int> > > arg2); // fill value at indices
+        std::any fill(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> upscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // upscale grid
+        std::any upscale(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> hconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1); // concatenate two grids horizontally
+        std::any hconcat(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> vconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1); // concatenate two grids vertically
+        std::any vconcat(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> replace(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2); // color substitution
+        std::any replace(std::vector<std::any> const& args);
     }
 }
 

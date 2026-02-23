@@ -62,10 +62,11 @@ C++ engine = deterministic solver
 ### Using Docker
 
 ```bash
-ollama pull gpt-oss:20b
+export OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
 git clone https://github.com/Julien-Livet/aicpp.git
 cd aicpp
 git clone https://github.com/arcprize/ARC-AGI-2.git
+pip install -r requirements.txt
 docker build -t aicpp .
 docker run --rm aicpp
 cd scripts

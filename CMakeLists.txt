@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 cmake_policy(SET CMP0148 NEW)
-cmake_policy(SET CMP0167 NEW)
 
 set(gtest_force_shared_crt on)
 

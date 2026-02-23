@@ -104,61 +104,7 @@ std::pair<std::vector<Eigen::MatrixXi>, std::vector<Eigen::MatrixXi> > inputOutp
     return std::make_pair(inputs, outputs);
 }
 
-void updateRegionNeurons(std::map<int, Neuron>& regionNeurons, std::vector<Eigen::MatrixXi> const& pairs)
-{
-    std::map<int, std::vector<std::vector<std::vector<std::pair<int, int> > > > > regionMap;
-
-    for (auto const& input : pairs)
-    {
-        auto const s{utility::regionSet(input, false)};
-
-        std::map<int, std::vector<std::vector<std::pair<int, int> > > > regions;
-
-        for (int i{0}; i < 10; ++i)
-            regions[i].clear();
-
-        for (auto const& r : s)
-            regions[input(r.front().first, r.front().second)].emplace_back(r);
-
-        for (auto const& p : regions)
-            regionMap[p.first].emplace_back(p.second);
-    }
-
-    for (auto const& p : regionMap)
-    {
-        auto const function{
-            [p] (std::vector<std::any> const& args) -> std::any
-            {
-                return p.second;
-            }};
-
-        size_t emptyCount{0};
-
-        for (auto const& v : p.second)
-        {
-            if (v.empty())
-                ++emptyCount;
-        }
-
-        auto const it{regionNeurons.find(p.first)};
-
-        if (it == regionNeurons.end())
-        {
-            if (emptyCount != p.second.size())
-                regionNeurons.emplace(std::make_pair(p.first, Neuron{"region" + std::to_string(p.first),
-                                                                     function, std::vector<std::type_index>{}, typeid(std::vector<std::vector<std::vector<std::pair<int, int> > > >)}));
-        }
-        else
-        {
-            if (emptyCount != p.second.size())
-                it->second.function() = function;
-            else
-                regionNeurons.erase(it);
-        }
-    }
-}
-
-int processTask(std::string const& folder, std::string const& task, size_t level)
+int processTask(std::string const& folder, std::string const& task)
 {
     auto const taskPairs{trainTestPairs(folder, task)};
     auto const trainPairs{inputOutputPairs(taskPairs.first)};
@@ -170,26 +116,6 @@ int processTask(std::string const& folder, std::string const& task, size_t level
     for (int i{0}; i < digitNeurons.capacity(); ++i)
         digitNeurons.emplace_back(Neuron{std::to_string(i), [i] (std::vector<std::any> const& args) -> std::any { return i; }, std::vector<std::type_index>{}, typeid(int)});
 
-    Neuron const pairsNeuron{"pairs",
-                             [taskPairs] (std::vector<std::any> const& args) -> std::any
-                             {
-                                 auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
-
-                                 if (taskPairs.first.size() != v.size())
-                                     return std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >{};
-
-                                 auto pairs{taskPairs.first};
-
-                                 for (size_t i{0}; i < pairs.size(); ++i)
-                                     pairs[i].first = v[i];
-
-                                 return pairs;
-                             }, std::vector<std::type_index>{typeid(std::vector<Eigen::MatrixXi>)}, typeid(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >)};
-    Neuron const trainPairsNeuron{"trainPairs",
-                                  [taskPairs] (std::vector<std::any> const& args) -> std::any
-                                  {
-                                      return taskPairs.first;
-                                  }, std::vector<std::type_index>{}, typeid(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >)};
     Neuron const falseNeuron{"false",
                              [] (std::vector<std::any> const& args) -> std::any
                              {
@@ -205,9 +131,6 @@ int processTask(std::string const& folder, std::string const& task, size_t level
                        {
                            return trainPairs.first;
                        }, std::vector<std::type_index>{}, typeid(std::vector<Eigen::MatrixXi>)};
-
-    std::map<int, Neuron> regionNeurons;
-    updateRegionNeurons(regionNeurons, trainPairs.first);
 
     std::vector<std::reference_wrapper<Neuron const> > neurons;
 
@@ -244,15 +167,4 @@ int processTask(std::string const& folder, std::string const& task, size_t level
         neurons.emplace_back(trueNeuron);
     }
 
-    {
-        neurons.emplace_back(pairsNeuron);
-        neurons.emplace_back(trainPairsNeuron);
-    }
-
-    {
-        for (auto const& p : regionNeurons)
-            neurons.emplace_back(p.second);
-    }
-
     neurons.emplace_back(inputNeuron);
-
