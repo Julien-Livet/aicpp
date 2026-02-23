@@ -155,8 +155,8 @@ Output the selected primitive declarations verbatim.
 
 """
         if (cost):
-            command += "The last best connections from the engine are the following (explored_depth, cost, expression):\n"
-            command += "\n".join(str(l) + " " + str(c) + " " + e for l, c, e in lastConnections)
+            command += "The last best connections from the engine are the following (cost, expression):\n"
+            command += "\n".join(f'{c} {e}' for c, e in lastConnections)
             command += "\n\n"
 
         command += """EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
@@ -349,7 +349,7 @@ namespace aicpp
             print("Cost", cost)
             print("Expression", expression)
             
-            lastConnections.append((level, cost, expression))
+            lastConnections.append((cost, expression))
 
         if (result.returncode):
             print("Engine result", result.returncode)
