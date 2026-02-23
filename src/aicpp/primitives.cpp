@@ -73,15 +73,7 @@ std::any primitives::dmirror(std::vector<std::any> const& args)
 
 std::any primitives::rot90(std::vector<std::any> const& args)
 {
-    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
-
-    std::vector<Eigen::MatrixXi> r;
-    r.reserve(v.size());
-
-    for (auto const& x : v)
-        r.emplace_back(utility::rot90(x));
-
-    return r;
+    return rot90(std::vector<std::any>{rot180(args)});
 }
 
 std::any primitives::rot180(std::vector<std::any> const& args)
@@ -91,7 +83,15 @@ std::any primitives::rot180(std::vector<std::any> const& args)
 
 std::any primitives::rot270(std::vector<std::any> const& args)
 {
-    return rot90(std::vector<std::any>{rot180(args)});
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+        r.emplace_back(utility::rot90(x));
+
+    return r;
 }
 
 std::any primitives::swap(std::vector<std::any> const& args)
@@ -175,7 +175,7 @@ std::any primitives::fill(std::vector<std::any> const& args)
 
     return r;
 }
-#include <iostream>
+
 std::any primitives::upscale(std::vector<std::any> const& args)
 {
     auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
@@ -209,10 +209,29 @@ std::any primitives::upscale(std::vector<std::any> const& args)
     return r;
 }
 
+std::any primitives::downscale(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const factor{std::any_cast<int>(args[1])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        if (factor <= 0)
+            r.emplace_back();
+        else
+            r.emplace_back(x(Eigen::seq(0, Eigen::last, factor), Eigen::seq(0, Eigen::last, factor)));
+    }
+
+    return r;
+}
+
 std::any primitives::hconcat(std::vector<std::any> const& args)
 {
     auto const v1{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
-    auto const v2{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Eigen::MatrixXi> >(args[1])};
 
     if (v1.size() != v2.size())
         return std::vector<Eigen::MatrixXi>{};
@@ -244,7 +263,7 @@ std::any primitives::hconcat(std::vector<std::any> const& args)
 std::any primitives::vconcat(std::vector<std::any> const& args)
 {
     auto const v1{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
-    auto const v2{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Eigen::MatrixXi> >(args[1])};
 
     if (v1.size() != v2.size())
         return std::vector<Eigen::MatrixXi>{};
@@ -296,6 +315,26 @@ std::any primitives::replace(std::vector<std::any> const& args)
         }
 
         r.emplace_back(y);
+    }
+
+    return r;
+}
+
+std::any primitives::crop(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const start{std::any_cast<std::pair<int, int> >(args[1])};
+    auto const dims{std::any_cast<std::pair<size_t, size_t> >(args[2])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        if (start.first < 0 || start.second < 0)
+            r.emplace_back();
+        else
+            r.emplace_back(x.block(start.first, start.second, dims.first, dims.second));
     }
 
     return r;

@@ -37,7 +37,10 @@ namespace aicpp
         
         ///std::vector<Eigen::MatrixXi> upscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // upscale grid
         std::any upscale(std::vector<std::any> const& args);
-        
+
+        ///std::vector<Eigen::MatrixXi> downscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // downscale grid
+        std::any downscale(std::vector<std::any> const& args);
+
         ///std::vector<Eigen::MatrixXi> hconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1); // concatenate two grids horizontally
         std::any hconcat(std::vector<std::any> const& args);
         
@@ -46,6 +49,9 @@ namespace aicpp
         
         ///std::vector<Eigen::MatrixXi> replace(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2); // color substitution
         std::any replace(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> crop(std::vector<Eigen::MatrixXi> arg0, std::pair<int, int> arg1, std::pair<size_t, size_t> arg2); // subgrid specified by start and dimension
+        std::any crop(std::vector<std::any> const& args);
     }
 }
 

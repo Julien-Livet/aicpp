@@ -1,0 +1,2 @@
+std::vector<Eigen::MatrixXi> hmirror(std::vector<Eigen::MatrixXi> arg0);
+std::vector<Eigen::MatrixXi> vconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1);

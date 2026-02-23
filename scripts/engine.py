@@ -146,9 +146,7 @@ int foo(int i, bool b);
 std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
 
 """
-        command += """Answer quickly and shortly.
-
-First, select which of the given primitives are potentially useful
+        command += """Select which of the given primitives are potentially useful
 for explaining the observed input-output transformations.
 
 Output the selected primitive declarations verbatim.
@@ -160,7 +158,6 @@ Output the selected primitive declarations verbatim.
             command += "\n\n"
 
         command += """EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
-PRIMITIVES:
 int foo(int arg0, bool arg1);
 std::map<int, int> bar(int arg0, double arg1);"""
 
@@ -168,7 +165,7 @@ std::map<int, int> bar(int arg0, double arg1);"""
         f.write(command)
         f.close()
 
-        if (True):#try
+        if (False):#try
             f = open("output" + task + ".txt", "r")
             content = f.read()
             f.close()
@@ -208,7 +205,6 @@ namespace aicpp
     namespace fulls
     {
 """
-        i1 = len(lines) - lines[-1::-1].index("PRIMITIVES:") - 1
         i2 = len(lines) #len(lines) - lines[-1::-1].index("PARTIALS:") - 1
         i3 = len(lines)
 
@@ -222,7 +218,7 @@ namespace aicpp
         engineContent = f.read()
         f.close()
 
-        for i in range(i1 + 1, i2):
+        for i in range(0, i2):
             line = lines[i].strip()
 
             if (len(line)):
@@ -366,6 +362,8 @@ namespace aicpp
     print(expression)
 
 def main():
+    """
+    # Validated tasks
     processTask("training", "67a3c6ac")
     processTask("training", "68b16354")
     processTask("training", "74dd1130")
@@ -378,6 +376,19 @@ def main():
     processTask("training", "c59eb873")
     processTask("training", "c8f0f002")
     processTask("training", "0d3d703e") #Color mapping
+    processTask("training", "d10ecb37")
+    processTask("training", "d511f180")
+    processTask("training", "ed36ccf7")
+    processTask("training", "4c4377d9")
+    processTask("training", "6d0aefbc")
+    processTask("training", "6fa7a44f")
+    processTask("training", "5614dbcf")
+    processTask("training", "8be77c9e")
+    processTask("training", "c9e6f938")
+    """
+    # TODO
+    #processTask("training", "5bd6f4ac")
+    #processTask("training", "5582e5ca")
     #processTask("training", "")
 
 if (__name__ == "__main__"):
