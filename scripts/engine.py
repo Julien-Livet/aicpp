@@ -169,7 +169,7 @@ std::map<int, int> bar(int arg0, double arg1);"""
         f.close()
 
         result = OpenAI().responses.create(model = "gpt-5-mini", input = command).output_text
-        content = result.stdout
+        content = result
         f = open("output" + task + ".txt", "w")
         f.write(content)
         f.close()
