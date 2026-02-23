@@ -135,31 +135,8 @@ int processTask(std::string const& folder, std::string const& task)
     std::vector<std::reference_wrapper<Neuron const> > neurons;
 
     {
-        std::set<int> digits;
-
-        for (auto const& m : trainPairs.first)
-        {
-            for (auto const& v : m.reshaped())
-                digits.emplace(v);
-        }
-
-        for (auto const& m : trainPairs.second)
-        {
-            for (auto const& v : m.reshaped())
-                digits.emplace(v);
-        }
-
-        std::vector<bool> existingDigits;
-        existingDigits.reserve(10);
-
-        for (size_t i{0}; i < 10; ++i)
-            existingDigits.emplace_back(digits.find(i) != digits.end());
-
-        for (size_t i{0}; i < digitNeurons.size(); ++i)
-        {
-            if (existingDigits[i])
-                neurons.emplace_back(digitNeurons[i]);
-        }
+        for (auto const& neuron : digitNeurons)
+            neurons.emplace_back(neuron);
     }
 
     {

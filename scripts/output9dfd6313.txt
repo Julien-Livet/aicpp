@@ -1,0 +1,2 @@
+PRIMITIVES:
+std::vector<Eigen::MatrixXi> dmirror(std::vector<Eigen::MatrixXi> arg0);

@@ -168,11 +168,16 @@ std::map<int, int> bar(int arg0, double arg1);"""
         f.write(command)
         f.close()
 
-        result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
-        content = result
-        f = open("output" + task + ".txt", "w")
-        f.write(content)
-        f.close()
+        if (True):#try
+            f = open("output" + task + ".txt", "r")
+            content = f.read()
+            f.close()
+        else:#except FileNotFoundError:
+            result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
+            content = result
+            f = open("output" + task + ".txt", "w")
+            f.write(content)
+            f.close()
 
         lines = [x.strip() for x in content.split("\n")]
 
@@ -342,6 +347,13 @@ namespace aicpp
         result = subprocess.run(docker_cmd, capture_output = True, text = True)
         lines = result.stdout.split("\n")
 
+        if (not result.returncode in (-3, -2, -1, 0)):
+            print("Engine result", result.returncode)
+            print("Engine error", result.stderr)
+            print("Engine output", result.stdout)
+
+            continue
+
         cost = float(lines[0])
         expression = lines[1].strip()
 
@@ -350,11 +362,6 @@ namespace aicpp
             print("Expression", expression)
             
             lastConnections.append((cost, expression))
-
-        if (result.returncode):
-            print("Engine result", result.returncode)
-            print("Engine error", result.stderr)
-            print("Engine output", result.stdout)
 
     print(expression)
 

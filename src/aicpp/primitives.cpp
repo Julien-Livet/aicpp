@@ -16,10 +16,10 @@ std::vector<std::pair<int, int> > toIndices(std::vector<std::pair<int, std::pair
     return r;
 }
 
-Eigen::MatrixXi convertToEigen(const std::vector<std::vector<int>>& vec)
+Eigen::MatrixXi convertToEigen(std::vector<std::vector<int> > const& vec)
 {
     size_t const rows{vec.size()};
-    size_t const cols{vec[0].size()};
+    size_t const cols{vec.empty() ? 0 : vec[0].size()};
 
     std::vector<int> flat;
     flat.reserve(rows * cols);
@@ -175,7 +175,7 @@ std::any primitives::fill(std::vector<std::any> const& args)
 
     return r;
 }
-
+#include <iostream>
 std::any primitives::upscale(std::vector<std::any> const& args)
 {
     auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
@@ -191,13 +191,16 @@ std::any primitives::upscale(std::vector<std::any> const& args)
         for (int i{0}; i < x.rows(); ++i)
         {
             std::vector<int> upscaled_row;
-            upscaled_row.reserve(x.cols());
+            upscaled_row.reserve(x.cols() * factor);
 
             for (auto const& value : x.row(i))
             {
                 for (int num{0}; num < factor; ++num)
                     upscaled_row.emplace_back(value);
             }
+
+            for (int num{0}; num < factor; ++num)
+                g.emplace_back(upscaled_row);
         }
 
         r.emplace_back(convertToEigen(g));
