@@ -390,7 +390,10 @@ def main():
     #processTask("training", "5bd6f4ac")
     #processTask("training", "5582e5ca")
     #processTask("training", "2dee498d")
+    #processTask("training", "1cf80156")
     #processTask("training", "32597951")
+    #processTask("training", "25ff71a9")
+    #processTask("training", "c909285e")
     #processTask("training", "")
 
 if (__name__ == "__main__"):

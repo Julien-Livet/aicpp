@@ -1,4 +1,5 @@
 #include <map>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -6,6 +7,94 @@
 #include "aicpp/utility.h"
 
 using namespace aicpp;
+
+Patch asobject(Eigen::MatrixXi const &grid)
+{
+    Patch patch;
+    patch.reserve(grid.rows() * grid.cols());
+
+    for (int i{0}; i < grid.rows(); ++i)
+    {
+        for (int j{0}; j < grid.cols(); ++j)
+            patch.emplace_back(grid(i, j), std::make_pair(i, j));
+    }
+
+    return patch;
+}
+
+int uppermost(Patch const& patch)
+{
+    int min{std::numeric_limits<int>::max()};
+
+    for (auto const& v : patch)
+        min = std::min(min, v.second.first);
+
+    return min;
+}
+
+int lowermost(Patch const& patch)
+{
+    int max{0};
+
+    for (auto const& v : patch)
+        max = std::max(max, v.second.first);
+    
+    return max;
+}
+
+int leftmost(Patch const& patch)
+{
+    int min{std::numeric_limits<int>::max()};
+
+    for (auto const& v : patch)
+        min = std::min(min, v.second.second);
+
+    return min;
+}
+
+int rightmost(Patch const& patch)
+{
+    int max{0};
+
+    for (auto const& v : patch)
+        max = std::max(max, v.second.second);
+    
+    return max;
+}
+
+size_t height(Patch const& patch)
+{
+    return static_cast<size_t>(lowermost(patch) - uppermost(patch) + 1);
+}
+
+size_t width(Patch const& patch)
+{
+    return static_cast<size_t>(rightmost(patch) - leftmost(patch) + 1);
+}
+
+std::pair<size_t, size_t> shape(Patch const& patch)
+{
+    return std::make_pair<size_t, size_t>(height(patch), width(patch));
+}
+
+std::pair<size_t, size_t> shape(Eigen::MatrixXi const& grid)
+{
+    return std::make_pair<size_t, size_t>(grid.rows(), grid.cols());
+}
+
+Indices asIndices(Eigen::MatrixXi const& grid)
+{
+    Indices indices;
+    indices.reserve(grid.rows() * grid.cols());
+    
+    for (int i{0}; i < grid.rows(); ++i)
+    {
+        for (int j{0}; j < grid.cols(); ++j)
+            indices.emplace_back(i, j);
+    }
+    
+    return indices;
+}
 
 Indices toIndices(Patch const& patch)
 {
@@ -25,7 +114,14 @@ std::pair<int, int> ulcorner(Patch const& patch)
     if (indices.empty())
         return std::make_pair(0, 0);
 
-    return *std::min_element(indices.begin(), indices.end());
+    return *std::min_element(indices.begin(), indices.end(),
+                             [] (auto const& x, auto const& y)
+                             {
+                                if (x.first == y.first)
+                                    return x.second < y.second;
+                                    
+                                return x.first < y.first;
+                            });
 }
 
 std::pair<int, int> urcorner(Patch const& patch)
@@ -52,7 +148,14 @@ std::pair<int, int> lrcorner(Patch const& patch)
     if (indices.empty())
         return std::make_pair(0, 0);
 
-    return *std::max_element(indices.begin(), indices.end());
+    return *std::max_element(indices.begin(), indices.end(),
+                             [] (auto const& x, auto const& y)
+                             {
+                                if (x.first == y.first)
+                                    return x.second > y.second;
+                                    
+                                return x.first > y.first;
+                            });
 }
 
 std::pair<int, int> llcorner(Patch const& patch)
@@ -489,6 +592,35 @@ std::any primitives::mostcolor(std::vector<std::any> const& args)
     return r;
 }
 
+std::any primitives::leastcolor(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+
+    std::vector<int> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        std::unordered_map<int, int> counts;
+
+        for (int k = 0; k < x.size(); ++k)
+            ++counts[x.data()[k]];
+
+        int least_value{x.data()[0]};
+        int min_count{std::numeric_limits<int>::max()};
+
+        for (auto const& [value, count] : counts)
+        {
+            if (count < min_count)
+                min_count = count, least_value = value;
+        }
+
+        r.emplace_back(min_count);
+    }
+
+    return r;
+}
+
 std::any primitives::canvas(std::vector<std::any> const& args)
 {
     auto const v{std::any_cast<std::vector<int> >(args[0])};
@@ -632,6 +764,216 @@ std::any primitives::delta(std::vector<std::any> const& args)
         std::set_difference(b.begin(), b.end(), indices.begin(), indices.end(), std::inserter(result, result.end())),
 
         r.emplace_back(result);
+    }
+
+    return r;
+}
+
+std::any primitives::objects(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const univalued{std::any_cast<bool>(args[1])};
+    auto const diagonal{std::any_cast<bool>(args[2])};
+    auto const without_bg{std::any_cast<bool>(args[3])};
+
+    std::vector<std::vector<Patch> > r;
+    r.reserve(v.size());
+
+    auto const mostcolors{std::any_cast<std::vector<int> >(mostcolor(std::vector<std::any>{args[0]}))};
+
+    for (size_t k{0}; k < v.size(); ++k)
+    {
+        auto const& grid{v[k]};
+        auto const h{grid.rows()};
+        auto const w{grid.cols()};
+
+        int bg{0};
+        bool use_bg{false};
+
+        if (without_bg)
+        {
+            bg = std::any_cast<int>(mostcolors[k]);
+            use_bg = true;
+        }
+
+        Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> visited(h, w);
+        visited.setConstant(false);
+
+        std::vector<Patch> objs;
+
+        std::vector<std::pair<int,int> > directions;
+
+        if (diagonal)
+        {
+            directions = {
+                {-1,-1}, {-1,0}, {-1,1},
+                {0,-1},          {0,1},
+                {1,-1},  {1,0},  {1,1}
+            };
+        }
+        else
+            directions = {{-1,0}, {0,-1}, {0,1}, {1,0}};
+
+        for (int i{0}; i < h; ++i)
+        {
+            for (int j{0}; j < w; ++j)
+            {
+                if (visited(i,j))
+                    continue;
+
+                auto const val{grid(i, j)};
+
+                if (use_bg && val == bg)
+                    continue;
+
+                Patch obj;
+                std::queue<std::pair<int, int> > q;
+                q.push({i, j});
+
+                while (!q.empty())
+                {
+                    auto [r, c] = q.front();
+                    q.pop();
+
+                    if (visited(r, c))
+                        continue;
+
+                    int const current_val{grid(r, c)};
+
+                    if (univalued)
+                    {
+                        if (current_val != val)
+                            continue;
+                    }
+                    else
+                    {
+                        if (use_bg && current_val == bg)
+                            continue;
+                    }
+
+                    visited(r, c) = true;
+                    obj.emplace_back(current_val, std::make_pair(r, c));
+
+                    for (auto [dr, dc] : directions)
+                    {
+                        int const nr{r + dr};
+                        int const nc{c + dc};
+
+                        if (nr >= 0 && nr < h && nc >= 0 && nc < w)
+                        {
+                            if (!visited(nr, nc))
+                                q.push({nr, nc});
+                        }
+                    }
+                }
+
+                if (!obj.empty())
+                    objs.push_back(obj);
+            }
+        }
+
+        r.emplace_back(objs);
+    }
+
+    return r;
+}
+
+std::any primitives::subgrid(std::vector<std::any> const& args)
+{
+    auto const v1{std::any_cast<std::vector<Patch> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Eigen::MatrixXi> >(args[1])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v1.size());
+
+    if (v1.size() != v2.size())
+        return r;
+
+    for (size_t i{0}; i < v1.size(); ++i)
+        r.emplace_back(std::any_cast<std::vector<Eigen::MatrixXi> >(crop(std::vector<std::any>{std::vector<Eigen::MatrixXi>{v2[i]},
+                                                                                               ulcorner(v1[i]), shape(v1[i])}))[0]);
+
+    return r;
+}
+
+std::any primitives::move(std::vector<std::any> const& args)
+{
+    auto const v1{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Patch> >(args[1])};
+    auto const offset{std::any_cast<std::pair<int, int> >(args[2])};
+
+    return paint(std::vector<std::any>{cover(std::vector<std::any>{v1, v2}), shift(std::vector<std::any>{v2, offset})});
+}
+
+std::any primitives::shift(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Patch> >(args[0])};
+    auto const offset{std::any_cast<std::pair<int, int> >(args[1])};
+
+    std::vector<Patch> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        auto y{x};
+
+        for (auto& z : y)
+        {
+            z.second.first += offset.first;
+            z.second.second += offset.second;
+        }
+
+        r.emplace_back(y);
+    }
+
+    return r;
+}
+
+std::any primitives::cover(std::vector<std::any> const& args)
+{
+    auto const v1{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Patch> >(args[1])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v1.size());
+
+    if (v1.size() != v2.size())
+        return r;
+
+    auto const mostcolors{std::any_cast<std::vector<int> >(mostcolor(std::vector<std::any>{args[0]}))};
+
+    for (size_t i{0}; i < v1.size(); ++i)
+        r.emplace_back(std::any_cast<std::vector<Eigen::MatrixXi> >(fillPatches(std::vector<std::any>{std::vector<Eigen::MatrixXi>{v1[i]},
+                                                                                                      mostcolors[i],
+                                                                                                      std::vector<Patch>{v2[i]}}))[0]);
+
+    return r;
+}
+
+std::any primitives::paint(std::vector<std::any> const& args)
+{
+    auto const v1{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const v2{std::any_cast<std::vector<Patch> >(args[1])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v1.size());
+
+    if (v1.size() != v2.size())
+        return r;
+
+    for (size_t i{0}; i < v1.size(); ++i)
+    {
+        auto const h{v1[i].rows()};
+        auto const w{v1[i].cols()};
+        auto grid_painted{v1[i]};
+
+        for (auto const& x : v2[i])
+        {
+            if (0 <= x.second.first && x.second.first <= h && 0 <= x.second.second && x.second.second <= w)
+                grid_painted(x.second.first, x.second.second) = x.first;
+        }
+
+        r.emplace_back(grid_painted);
     }
 
     return r;

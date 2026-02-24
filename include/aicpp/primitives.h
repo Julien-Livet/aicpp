@@ -68,6 +68,9 @@ namespace aicpp
         ///std::vector<int> mostcolor(std::vector<Eigen::MatrixXi> arg0); // most common color
         std::any mostcolor(std::vector<std::any> const& args);
         
+        ///std::vector<int> leastcolor(std::vector<Eigen::MatrixXi> arg0); // least common color
+        std::any leastcolor(std::vector<std::any> const& args);
+        
         ///std::vector<Eigen::MatrixXi> canvas(std::vector<int> arg0, std::pair<size_t, size_t> arg1); // grid construction
         std::any canvas(std::vector<std::any> const& args);
         
@@ -85,6 +88,24 @@ namespace aicpp
 
         ///std::vector<Indices> delta(std::vector<Patch> arg0); // indices in bounding box but not part of patch
         std::any delta(std::vector<std::any> const& args);
+
+        ///std::vector<std::vector<Patch> > objects(std::vector<Eigen::MatrixXi> arg0, bool arg1, bool arg2, bool arg3); // objects occurring on the grid
+        std::any objects(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> subgrid(std::vector<Patch> arg0, std::vector<Eigen::MatrixXi> arg1); // smallest subgrid containing object
+        std::any subgrid(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> move(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1, std::pair<int, int> arg2); // move object on grid
+        std::any move(std::vector<std::any> const& args);
+
+        ///std::vector<Patch> shift(std::vector<Patch> arg0, std::pair<int, int> arg1); // shift patch
+        std::any shift(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> cover(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1); // remove object from grid
+        std::any cover(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> paint(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1); // paint object to grid
+        std::any paint(std::vector<std::any> const& args);
     }
 }
 
