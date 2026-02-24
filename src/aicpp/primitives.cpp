@@ -339,3 +339,172 @@ std::any primitives::crop(std::vector<std::any> const& args)
 
     return r;
 }
+
+std::any primitives::toivec(std::vector<std::any> const& args)
+{
+    auto const i{std::any_cast<int>(args[0])};
+
+    return std::make_pair(i, 0);
+}
+
+std::any primitives::tojvec(std::vector<std::any> const& args)
+{
+    auto const j{std::any_cast<int>(args[0])};
+
+    return std::make_pair(0, j);
+}
+
+std::any primitives::mostcolor(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+
+    std::vector<int> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        std::unordered_map<int, int> counts;
+
+        for (int k = 0; k < x.size(); ++k)
+            ++counts[x.data()[k]];
+
+        int most_value{x.data()[0]};
+        int max_count{0};
+
+        for (auto const& [value, count] : counts)
+        {
+            if (count > max_count)
+                max_count = count, most_value = value;
+        }
+
+        r.emplace_back(most_value);
+    }
+
+    return r;
+}
+
+std::any primitives::canvas(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<int> >(args[0])};
+    auto const dims{std::any_cast<std::pair<size_t, size_t> >(args[1])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+        r.emplace_back(Eigen::MatrixXi::Constant(dims.first, dims.second, x));
+
+    return r;
+}
+
+std::any primitives::hsplit(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const n{std::any_cast<int>(args[1])};
+
+    std::vector<std::vector<Eigen::MatrixXi> > r;
+    r.reserve(v.size());
+
+    if (n <= 0)
+        return r;
+
+    for (auto const& grid : v)
+    {
+        auto const h{grid.rows()};
+        auto const total_w{grid.cols()};
+
+        int const base{total_w / n};
+        int const remainder{total_w % n};
+
+        std::vector<Eigen::MatrixXi> result;
+        result.reserve(n);
+
+        int current_col{0};
+
+        for (int i{0}; i < n; ++i)
+        {
+            int const width{base + (i < remainder ? 1 : 0)};
+
+            result.emplace_back(grid.block(0, current_col, h, width));
+            current_col += width;
+        }
+
+        r.emplace_back(result);
+    }
+
+    return r;
+}
+
+std::any primitives::vsplit(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const n{std::any_cast<int>(args[1])};
+
+    std::vector<std::vector<Eigen::MatrixXi> > r;
+    r.reserve(v.size());
+
+    if (n <= 0)
+        return r;
+
+    for (auto const& grid : v)
+    {
+        auto const total_h{grid.rows()};
+        auto const w{grid.cols()};
+
+        int const base{total_h / n};
+        int const remainder{total_h % n};
+
+        std::vector<Eigen::MatrixXi> result;
+        result.reserve(n);
+
+        int current_row{0};
+
+        for (int i{0}; i < n; ++i)
+        {
+            int const height{base + (i < remainder ? 1 : 0)};
+
+            result.emplace_back(grid.block(current_row, 0, height, w));
+            current_row += height;
+        }
+
+        r.emplace_back(result);
+    }
+
+    return r;
+}
+
+std::any primitives::first(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<std::vector<Eigen::MatrixXi> > >(args[0])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        if (x.empty())
+            r.emplace_back();
+        else
+            r.emplace_back(x.front());
+    }
+
+    return r;
+}
+
+std::any primitives::last(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<std::vector<Eigen::MatrixXi> > >(args[0])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        if (x.empty())
+            r.emplace_back();
+        else
+            r.emplace_back(x.back());
+    }
+
+    return r;
+}

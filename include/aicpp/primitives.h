@@ -52,6 +52,30 @@ namespace aicpp
         
         ///std::vector<Eigen::MatrixXi> crop(std::vector<Eigen::MatrixXi> arg0, std::pair<int, int> arg1, std::pair<size_t, size_t> arg2); // subgrid specified by start and dimension
         std::any crop(std::vector<std::any> const& args);
+        
+        ///std::pair<int, int> tojvec(int arg0); // vector pointing horizontally
+        std::any tojvec(std::vector<std::any> const& args);
+        
+        ///std::pair<int, int> toivec(int arg0); // vector pointing vertically
+        std::any toivec(std::vector<std::any> const& args);
+        
+        ///std::vector<int> mostcolor(std::vector<Eigen::MatrixXi> arg0); // most common color
+        std::any mostcolor(std::vector<std::any> const& args);
+        
+        ///std::vector<Eigen::MatrixXi> canvas(std::vector<int> arg0, std::pair<size_t, size_t> arg1); // grid construction
+        std::any canvas(std::vector<std::any> const& args);
+        
+        ///std::vector<std::vector<Eigen::MatrixXi> > hsplit(std::vector<Eigen::MatrixXi> arg0, int arg1); // split grid horizontally
+        std::any hsplit(std::vector<std::any> const& args);
+        
+        ///std::vector<std::vector<Eigen::MatrixXi> > vsplit(std::vector<Eigen::MatrixXi> arg0, int arg1); // split grid vertically
+        std::any vsplit(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> first(std::vector<std::vector<Eigen::MatrixXi> > arg0); // first item of container
+        std::any first(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> last(std::vector<std::vector<Eigen::MatrixXi> > arg0); // last item of container
+        std::any last(std::vector<std::any> const& args);
     }
 }
 
