@@ -6,6 +6,9 @@
 
 namespace aicpp
 {
+    using Patch = std::vector<std::pair<int, std::pair<int, int> > >;
+    using Indices = std::vector<std::pair<int, int> >;
+
     namespace primitives
     {
         ///std::vector<Eigen::MatrixXi> hmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along horizontal
@@ -32,8 +35,11 @@ namespace aicpp
         ///std::vector<std::pair<int, int> > ofcolor(std::vector<Eigen::MatrixXi> arg0, int arg1); // indices of all grid cells with value
         std::any ofcolor(std::vector<std::any> const& args);
 		
-        ///std::vector<Eigen::MatrixXi> fill(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<std::pair<int, std::pair<int, int> > > arg2); // fill value at indices
-        std::any fill(std::vector<std::any> const& args);
+        ///std::vector<Eigen::MatrixXi> fillPatches(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Patch> arg2); // fill value at indices
+        std::any fillPatches(std::vector<std::any> const& args);
+
+        ///std::vector<Eigen::MatrixXi> fillIndices(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Indices> arg2); // fill value at indices
+        std::any fillIndices(std::vector<std::any> const& args);
         
         ///std::vector<Eigen::MatrixXi> upscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // upscale grid
         std::any upscale(std::vector<std::any> const& args);
@@ -76,6 +82,9 @@ namespace aicpp
 
         ///std::vector<Eigen::MatrixXi> last(std::vector<std::vector<Eigen::MatrixXi> > arg0); // last item of container
         std::any last(std::vector<std::any> const& args);
+
+        ///std::vector<Indices> delta(std::vector<Patch> arg0); // indices in bounding box but not part of patch
+        std::any delta(std::vector<std::any> const& args);
     }
 }
 

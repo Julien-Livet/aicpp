@@ -1,19 +1,92 @@
 #include <map>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "aicpp/primitives.h"
 #include "aicpp/utility.h"
 
 using namespace aicpp;
 
-std::vector<std::pair<int, int> > toIndices(std::vector<std::pair<int, std::pair<int, int> > > const& patch)
+Indices toIndices(Patch const& patch)
 {
-    std::vector<std::pair<int, int> > r;
-    r.reserve(patch.size());
+    Indices indices;
+    indices.reserve(patch.size());
+    
+    for (auto const& x : v)
+        indices.emplace_back(x.second);
 
-    for (auto const& v : patch)
-        r.emplace_back(v.second);
+    return indices;
+}
 
-    return r;
+std::pair<int, int> ulcorner(Patch const& patch)
+{
+    auto const indices{toIndices(patch)};
+
+    if (indices.empty())
+        return std::make_pair(0, 0);
+
+    return *std::min_element(indices.begin(), indices.end());
+}
+
+std::pair<int, int> urcorner(Patch const& patch)
+{
+    auto const indices{toIndices(patch)};
+
+    if (indices.empty())
+        return std::make_pair(0, 0);
+
+    return *std::min_element(indices.begin(), indices.end(),
+                             [] (auto const& x, auto const& y)
+                             {
+                                if (x.second == y.second)
+                                    return x.first < y.first;
+                                    
+                                return x.second < y.second;
+                            });
+}
+
+std::pair<int, int> lrcorner(Patch const& patch)
+{
+    auto const indices{toIndices(patch)};
+
+    if (indices.empty())
+        return std::make_pair(0, 0);
+
+    return *std::max_element(indices.begin(), indices.end());
+}
+
+std::pair<int, int> llcorner(Patch const& patch)
+{
+    auto const indices{toIndices(patch)};
+
+    if (indices.empty())
+        return std::make_pair(0, 0);
+
+    return *std::max_element(indices.begin(), indices.end(),
+                             [] (auto const& x, auto const& y)
+                             {
+                                if (x.second == y.second)
+                                    return x.first > y.first;
+                                    
+                                return x.second > y.second;
+                            });
+}
+
+Indices backdrop(Patch const& patch)
+{
+    Indices indices;
+    indices.reserve(patch.size());
+    
+    auto const s{ulcorner(patch)};
+    auto const e{lrcorner(patch)};
+
+    for (int i{s.first}; i < e.first + 1; ++i)
+    {
+        for (int j{s.second}; i < e.second + 1; ++i)
+            indices.emplace_back(i, j);
+    }
+
+    return indices;
 }
 
 Eigen::MatrixXi convertToEigen(std::vector<std::vector<int> > const& vec)
@@ -151,20 +224,53 @@ std::any primitives::ofcolor(std::vector<std::any> const& args)
     return r;
 }
 
-std::any primitives::fill(std::vector<std::any> const& args)
+std::any primitives::fillPatches(std::vector<std::any> const& args)
 {
     auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
     auto const a{std::any_cast<int>(args[1])};
-    auto const patch{std::any_cast<std::vector<std::pair<int, std::pair<int, int> > > >(args[2])};
+    auto const patches{std::any_cast<std::vector<Patch> >(args[2])};
 
     std::vector<Eigen::MatrixXi> r;
     r.reserve(v.size());
 
-    for (auto const& x : v)
+    if (v.size() != patches.size())
+        return r;
+
+    for (size_t i{0}; i < v.size(); ++i)
     {
+        auto const& x{v[i]};
         auto y{x};
 
-        for (auto const& p : toIndices(patch))
+        for (auto const& p : toIndices(patches[i]))
+        {
+            if (0 <= p.first && p.first < x.rows() && 0 <= p.second && p.second < x.cols())
+                y(p.first, p.second) = a;
+        }
+
+        r.emplace_back(y);
+    }
+
+    return r;
+}
+
+std::any primitives::fillIndices(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Eigen::MatrixXi> >(args[0])};
+    auto const a{std::any_cast<int>(args[1])};
+    auto const indices{std::any_cast<std::vector<Indices> >(args[2])};
+
+    std::vector<Eigen::MatrixXi> r;
+    r.reserve(v.size());
+
+    if (v.size() != indices.size())
+        return r;
+
+    for (size_t i{0}; i < v.size(); ++i)
+    {
+        auto const& x{v[i]};
+        auto y{x};
+
+        for (auto const& p : indices[i])
         {
             if (0 <= p.first && p.first < x.rows() && 0 <= p.second && p.second < x.cols())
                 y(p.first, p.second) = a;
@@ -504,6 +610,31 @@ std::any primitives::last(std::vector<std::any> const& args)
             r.emplace_back();
         else
             r.emplace_back(x.back());
+    }
+
+    return r;
+}
+
+std::any primitives::delta(std::vector<std::any> const& args)
+{
+    auto const v{std::any_cast<std::vector<Patch> >(args[0])};
+
+    std::vector<Indices> r;
+    r.reserve(v.size());
+
+    for (auto const& x : v)
+    {
+        auto const b{backdrop(x)};
+        auto const indices{toIndices(x)};
+
+        std::unordered_set<std::pair<int, int> > s1{b.begin(), b.end()};
+        std::unordered_set<std::pair<int, int> > s2{indices.begin(), indices.end()};
+
+        std::vector<Indices> result;
+
+        std::set_difference(s1.begin(), s1.end(), s2.begin(), s2.end(), std::inserter(result, result.end())),
+
+        r.emplace_back(result);
     }
 
     return r;
