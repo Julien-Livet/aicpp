@@ -12,7 +12,7 @@ Indices toIndices(Patch const& patch)
     Indices indices;
     indices.reserve(patch.size());
     
-    for (auto const& x : v)
+    for (auto const& x : patch)
         indices.emplace_back(x.second);
 
     return indices;
@@ -519,8 +519,8 @@ std::any primitives::hsplit(std::vector<std::any> const& args)
         auto const h{grid.rows()};
         auto const total_w{grid.cols()};
 
-        int const base{total_w / n};
-        int const remainder{total_w % n};
+        auto const base{static_cast<int>(total_w / n)};
+        auto const remainder{static_cast<int>(total_w % n)};
 
         std::vector<Eigen::MatrixXi> result;
         result.reserve(n);
@@ -557,8 +557,8 @@ std::any primitives::vsplit(std::vector<std::any> const& args)
         auto const total_h{grid.rows()};
         auto const w{grid.cols()};
 
-        int const base{total_h / n};
-        int const remainder{total_h % n};
+        auto const base{static_cast<int>(total_h / n)};
+        auto const remainder{static_cast<int>(total_h % n)};
 
         std::vector<Eigen::MatrixXi> result;
         result.reserve(n);
@@ -627,12 +627,9 @@ std::any primitives::delta(std::vector<std::any> const& args)
         auto const b{backdrop(x)};
         auto const indices{toIndices(x)};
 
-        std::unordered_set<std::pair<int, int> > s1{b.begin(), b.end()};
-        std::unordered_set<std::pair<int, int> > s2{indices.begin(), indices.end()};
+        Indices result;
 
-        std::vector<Indices> result;
-
-        std::set_difference(s1.begin(), s1.end(), s2.begin(), s2.end(), std::inserter(result, result.end())),
+        std::set_difference(b.begin(), b.end(), indices.begin(), indices.end(), std::inserter(result, result.end())),
 
         r.emplace_back(result);
     }
