@@ -2,7 +2,10 @@
 
 [![ARC-AGI](https://img.shields.io/badge/Benchmark-ARC--AGI-orange)](https://arcprize.org)
 ![C++23](https://img.shields.io/badge/C++-23-blue)
+![CI](https://github.com/Julien-Livet/aicpp/actions/workflows/test.yml/badge.svg)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
+[![GitHub stars](https://img.shields.io/github/stars/Julien-Livet/aicpp.svg)](https://github.com/Julien-Livet/aicpp/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Julien-Livet/aicpp.svg)](https://github.com/Julien-Livet/aicpp/issues)
 ![License](https://img.shields.io/github/license/Julien-Livet/aicpp)
 ![Python](https://img.shields.io/badge/Python-3.10+-yellow)
 
