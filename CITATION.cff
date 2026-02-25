@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "aicpp: LLM-Guided Symbolic Program Synthesis for ARC-AGI"
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Livet
+    given-names: Julien
+year: 2025
+repository-code: https://github.com/Julien-Livet/aicpp
+license: Apache-2.0
