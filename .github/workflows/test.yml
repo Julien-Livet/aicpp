@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install pytest
-        run: sudo apt install -y python3-pytest
       - name: Build Docker
         run: git clone https://github.com/arcprize/ARC-AGI-2.git && docker build -t aicpp .
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
       - name: Run tests
         run: docker run aicpp && cd scripts && python -m pytest -sxv engine.py
