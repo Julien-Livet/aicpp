@@ -1,0 +1,9 @@
+<map id="CustomStructNamingTest" name="CustomStructNamingTest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,79,217,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,243,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,43,91,61,99,77,94,80,86,62,87,43"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="109,44,109,62,113,78,108,79,104,63,104,44"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="127,44,127,79,121,79,121,44"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="144,44,144,63,140,79,135,78,139,62,139,44"/>
+<area shape="poly" id="edge5_Node000001_Node000002" title=" " alt="" coords="161,43,162,62,154,80,149,77,157,61,156,43"/>
+</map>

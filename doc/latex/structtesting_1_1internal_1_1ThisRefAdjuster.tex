@@ -1,0 +1,216 @@
+\doxysection{testing\+::internal\+::This\+Ref\+Adjuster\texorpdfstring{$<$}{<} Pattern \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster}{}\label{structtesting_1_1internal_1_1ThisRefAdjuster}\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+
+
+{\ttfamily \#include $<$gmock-\/function-\/mocker.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::type $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\& $>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T \&, T \&\& $>$\+::type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::type $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\& $>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T \&, T \&\& $>$\+::type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::type $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\& $>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T \&, T \&\& $>$\+::type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::type $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\& $>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T \&, T \&\& $>$\+::type $>$\+::type
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::type $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\& $>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+lvalue\+\_\+reference$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T \&, T \&\& $>$\+::type $>$\+::type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}{Adjust}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{mock}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}{Adjust}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{mock}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}{Adjust}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{mock}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}{Adjust}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{mock}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}{Adjust}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{mock}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\newline
+struct testing\+::internal\+::\+This\+Ref\+Adjuster$<$ Pattern $>$}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00054}{54}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}\label{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!AdjustT@{AdjustT}}
+\index{AdjustT@{AdjustT}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{AdjustT}{AdjustT}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+AdjustT =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\+::type$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&\&$>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T\&, T\&\&$>$\+::type$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00056}{56}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}\label{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!AdjustT@{AdjustT}}
+\index{AdjustT@{AdjustT}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{AdjustT}{AdjustT}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+AdjustT =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\+::type$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&\&$>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T\&, T\&\&$>$\+::type$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00056}{56}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}\label{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!AdjustT@{AdjustT}}
+\index{AdjustT@{AdjustT}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{AdjustT}{AdjustT}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+AdjustT =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\+::type$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&\&$>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T\&, T\&\&$>$\+::type$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00056}{56}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}\label{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!AdjustT@{AdjustT}}
+\index{AdjustT@{AdjustT}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{AdjustT}{AdjustT}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+AdjustT =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\+::type$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&\&$>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T\&, T\&\&$>$\+::type$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00056}{56}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}\label{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!AdjustT@{AdjustT}}
+\index{AdjustT@{AdjustT}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{AdjustT}{AdjustT}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+AdjustT =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$ std\+::is\+\_\+const$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::remove\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\+::type$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T\&\&$>$\+::type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} std\+::conditional$<$std\+::is\+\_\+lvalue\+\_\+reference$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}}$>$\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{\+::value}}, T\&, T\&\&$>$\+::type$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00056}{56}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}\label{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{Adjust()}{Adjust()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+Adjust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&}]{mock }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00064}{64}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}\label{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{Adjust()}{Adjust()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+Adjust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&}]{mock }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00064}{64}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}\label{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{Adjust()}{Adjust()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+Adjust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&}]{mock }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00064}{64}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}\label{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{Adjust()}{Adjust()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+Adjust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&}]{mock }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00064}{64}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133}\label{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133} 
+\index{testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!testing::internal::ThisRefAdjuster$<$ Pattern $>$@{testing::internal::ThisRefAdjuster$<$ Pattern $>$}}
+\doxysubsubsection{\texorpdfstring{Adjust()}{Adjust()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster_a7c7ab5d3ec35491fcedf4b9e71a6eb54}{AdjustT}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} $>$ \mbox{\hyperlink{structtesting_1_1internal_1_1ThisRefAdjuster}{testing\+::internal\+::\+This\+Ref\+Adjuster}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Pattern}} $>$\+::\+Adjust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Mock\+Type}} \&}]{mock }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source_l00064}{64}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_source}{gmock-\/function-\/mocker.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtesting_1_1internal_1_1ThisRefAdjuster_adfffcd5147f6da9b06b5eb90168b7133_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h}{gmock-\/function-\/mocker.\+h}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h}{gmock-\/function-\/mocker.\+h}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h}{gmock-\/function-\/mocker.\+h}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h}{gmock-\/function-\/mocker.\+h}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h}{gmock-\/function-\/mocker.\+h}}\end{DoxyCompactItemize}

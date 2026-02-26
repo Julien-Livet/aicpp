@@ -1,0 +1,55 @@
+\doxysection{Neuron.\+h}
+\hypertarget{Neuron_8h_source}{}\label{Neuron_8h_source}\index{include/aicpp/Neuron.h@{include/aicpp/Neuron.h}}
+\mbox{\hyperlink{Neuron_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AICPP\_NEURON\_H}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AICPP\_NEURON\_H}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <typeindex>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <boost/json.hpp>}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00012}00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00014}\mbox{\hyperlink{classaicpp_1_1Neuron}{00014}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}(std::string\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_a8872a607e49c00d5d5366306b415eba8}{name}},\ std::function<std::any(std::vector<std::any>)>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_ada9064582964b997c137acb750201128}{function}},}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::type\_index>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_a8a7b6edd50d13f45f6b262094b37e347}{inputTypes}},\ std::type\_index\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_aa8337bf166ac7a0d12c5047423c9a1a9}{outputType}});}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_a8872a607e49c00d5d5366306b415eba8}{name}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ std::function<std::any(std::vector<std::any>)>\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_ada9064582964b997c137acb750201128}{function}}();}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ std::function<std::any(std::vector<std::any>)>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_ada9064582964b997c137acb750201128}{function}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::type\_index>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_a8a7b6edd50d13f45f6b262094b37e347}{inputTypes}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ std::type\_index\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Neuron_aa8337bf166ac7a0d12c5047423c9a1a9}{outputType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<std::string,\ size\_t>\ \mbox{\hyperlink{classaicpp_1_1Neuron_ac4b88b9ee0304e38426c0dc73810391f}{dot}}(\textcolor{keywordtype}{size\_t}\ index\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ boost::json::value\ \mbox{\hyperlink{classaicpp_1_1Neuron_ae8ebf3702e442d78c05f14ab61254513}{toJson}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ name\_;}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ std::function<std::any(std::vector<std::any>)>\ function\_;}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::type\_index>\ inputTypes\_;}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ std::type\_index\ outputType\_;}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00032}00032\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00033}00033\ \}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00035}00035\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00036}\mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Neuron_01_4}{00036}}\ \textcolor{keyword}{struct\ }std::hash<\mbox{\hyperlink{namespaceaicpp}{aicpp}}::Neuron>}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00037}00037\ \{}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00038}\mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Neuron_01_4_a662ee87090f377e08d9f20058febd490}{00038}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Neuron_01_4_a662ee87090f377e08d9f20058febd490}{operator()}}(\mbox{\hyperlink{classaicpp_1_1Neuron}{aicpp::Neuron}}\ \textcolor{keyword}{const}\&\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00039}00039\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h\{std::hash<std::string>\{\}(n.name())\};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ v\ :\ n.inputTypes())}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ h\ +=\ std::hash<std::type\_index>\{\}(v);}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ h\ +\ std::hash<std::type\_index>\{\}(n.outputType());}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00047}00047\ \};}
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{Neuron_8h_source_l00049}00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AICPP\_NEURON\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,86 @@
+\doxysection{primitives.\+h}
+\hypertarget{primitives_8h_source}{}\label{primitives_8h_source}\index{include/aicpp/primitives.h@{include/aicpp/primitives.h}}
+\mbox{\hyperlink{primitives_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AICPP\_PRIMITIVES\_H}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AICPP\_PRIMITIVES\_H}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00009}\mbox{\hyperlink{namespaceaicpp_ae7e721604824ed531ba299c68176baf8}{00009}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespaceaicpp_ae7e721604824ed531ba299c68176baf8}{Patch}}\ =\ std::vector<std::pair<int,\ std::pair<int,\ int>\ >\ >;}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00010}\mbox{\hyperlink{namespaceaicpp_abe325b25963e56fff98f8c0f063c6cee}{00010}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespaceaicpp_abe325b25963e56fff98f8c0f063c6cee}{Indices}}\ =\ std::vector<std::pair<int,\ int>\ >;}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00012}\mbox{\hyperlink{namespaceaicpp_1_1primitives}{00012}}\ \ \ \ \ \textcolor{keyword}{namespace\ }primitives}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00015}00015\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479}{hmirror}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ std::any\ vmirror(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f}{dmirror}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058}{rot90}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da}{rot180}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870}{rot270}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8}{swap}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d}{ofcolor}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c}{fillPatches}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1d81a120942d4614aee9286e737f110b}{fillIndices}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439}{upscale}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c}{downscale}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ std::any\ hconcat(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408}{vconcat}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036}{replace}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb}{crop}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a8706bef0413234d8e0f0ade407c5d3cd}{tojvec}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_af47a4731474752997092eb512db22aec}{toivec}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a562ece552c053bb81e76b37efa52926c}{mostcolor}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_ab57f502c29159f2b964ef687b7976b07}{leastcolor}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a266829c27ca3dd1114e7f17d133d8cf7}{canvas}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_ad3ac9c690fc259242055d471b1860d4d}{hsplit}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a24c4d75daa397857f610dfb2764e30a8}{vsplit}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1dac04f3e99d6c235fac061a7185d0d8}{first}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7ae626e01e3e33736b5e2b2b8d3a6fd2}{last}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_ac63b0feb5df647807f6dc1733fea24cd}{delta}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a793ce24e39323d819c406022cda1e9c6}{objects}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a5c9994639b90d015361bb6fd20fda30a}{subgrid}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a187d195e69e6afb42864d380628049b6}{move}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_aaa4c1c33d157e4a348b19fc28c7cdc37}{shift}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c}{cover}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00108}00108\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_ae6ef319ca053295eb75b53efd98aaa5a}{paint}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ args);}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00110}00110\ \}}
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{primitives_8h_source_l00112}00112\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AICPP\_PRIMITIVES\_H}}
+
+\end{DoxyCode}

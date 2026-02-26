@@ -1,0 +1,21 @@
+<map id="testing::internal::UnitTestImpl::ConfigureXmlOutput" name="testing::internal::UnitTestImpl::ConfigureXmlOutput">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,117,205,172"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1internal_1_1UnitTestOptions.html#a8b29c6a22fd2f904c6b0453e403f58fa" title=" " alt="" coords="253,5,467,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,115,252,69,267,63,269,68,254,74,159,120"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1internal_1_1UnitTestOptions.html#ae7413a21296d885c6924650b51ac4f6d" title=" " alt="" coords="260,84,460,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,129,246,124,247,129,206,134"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="515,125,648,165"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="206,147,253,149,360,151,467,149,500,147,501,153,467,154,360,156,253,154,206,152"/>
+<area shape="rect" id="Node000008" href="$classtesting_1_1internal_1_1UnitTestImpl.html#a22544d28679e9d1e2eaa3735607c8b63" title=" " alt="" coords="276,214,444,254"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="185,170,290,207,288,212,183,175"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="461,124,501,130,501,135,460,129"/>
+<area shape="poly" id="edge9_Node000004_Node000004" title=" " alt="" coords="547,125,545,115,550,106,563,100,581,98,603,101,615,108,612,113,601,106,581,103,564,105,554,110,550,116,552,124"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="696,125,829,165"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="648,151,682,151,682,156,648,156"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="696,139,662,138,662,133,696,133"/>
+<area shape="rect" id="Node000006" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="895,67,1039,107"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="829,123,881,109,883,114,830,129"/>
+<area shape="rect" id="Node000007" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="877,132,1056,187"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="830,147,864,149,863,155,829,152"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="895,93,800,101,696,115,660,124,659,118,696,110,800,95,894,88"/>
+</map>

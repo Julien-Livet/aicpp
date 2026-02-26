@@ -1,0 +1,737 @@
+\doxysection{aicpp\+::primitives Namespace Reference}
+\hypertarget{namespaceaicpp_1_1primitives}{}\label{namespaceaicpp_1_1primitives}\index{aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479}{hmirror}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ hmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along horizontal \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72}{vmirror}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ vmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along vertical \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f}{dmirror}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ dmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along diagonal \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058}{rot90}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot90(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // quarter clockwise rotation \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da}{rot180}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot180(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // half rotation \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870}{rot270}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot270(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // quarter anticlockwise rotation \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8}{swap}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ swap(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, int arg2); // color switching \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d}{ofcolor}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector\texorpdfstring{$<$}{<}std\+::pair$<$int, int$>$ \texorpdfstring{$>$}{>} ofcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // indices of all grid cells with value \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c}{fill\+Patches}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ fill\+Patches(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, std\+::vector$<$\+Patch$>$ arg2); // fill value at indices \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1d81a120942d4614aee9286e737f110b}{fill\+Indices}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ fill\+Indices(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, std\+::vector$<$\+Indices$>$ arg2); // fill value at indices \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439}{upscale}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ upscale(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // upscale grid \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c}{downscale}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ downscale(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // downscale grid \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e}{hconcat}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ hconcat(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // concatenate two grids horizontally \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408}{vconcat}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ vconcat(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // concatenate two grids vertically \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036}{replace}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ replace(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, int arg2); // color substitution \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb}{crop}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ crop(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::pair$<$int, int$>$ arg1, std\+::pair$<$size\+\_\+t, size\+\_\+t$>$ arg2); // subgrid specified by start and dimension \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a8706bef0413234d8e0f0ade407c5d3cd}{tojvec}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::pair$<$int, int$>$ tojvec(int arg0); // vector pointing horizontally \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_af47a4731474752997092eb512db22aec}{toivec}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::pair$<$int, int$>$ toivec(int arg0); // vector pointing vertically \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a562ece552c053bb81e76b37efa52926c}{mostcolor}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$int$>$ mostcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // most common color \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_ab57f502c29159f2b964ef687b7976b07}{leastcolor}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$int$>$ leastcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // least common color \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a266829c27ca3dd1114e7f17d133d8cf7}{canvas}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ canvas(std\+::vector$<$int$>$ arg0, std\+::pair$<$size\+\_\+t, size\+\_\+t$>$ arg1); // grid construction \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_ad3ac9c690fc259242055d471b1860d4d}{hsplit}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ \texorpdfstring{$>$}{>} hsplit(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // split grid horizontally \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a24c4d75daa397857f610dfb2764e30a8}{vsplit}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ \texorpdfstring{$>$}{>} vsplit(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // split grid vertically \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1dac04f3e99d6c235fac061a7185d0d8}{first}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ first(std\+::vector$<$std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ $>$ arg0); // first item of container \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7ae626e01e3e33736b5e2b2b8d3a6fd2}{last}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ last(std\+::vector$<$std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ $>$ arg0); // last item of container \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_ac63b0feb5df647807f6dc1733fea24cd}{delta}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Indices$>$ delta(std\+::vector$<$\+Patch$>$ arg0); // indices in bounding box but not part of patch \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a793ce24e39323d819c406022cda1e9c6}{objects}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Patch$>$ \texorpdfstring{$>$}{>} objects(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, bool arg1, bool arg2, bool arg3); // objects occurring on the grid \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a5c9994639b90d015361bb6fd20fda30a}{subgrid}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ subgrid(std\+::vector$<$\+Patch$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // smallest subgrid containing object \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a187d195e69e6afb42864d380628049b6}{move}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ move(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1, std\+::pair$<$int, int$>$ arg2); // move object on grid \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_aaa4c1c33d157e4a348b19fc28c7cdc37}{shift}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Patch$>$ shift(std\+::vector$<$\+Patch$>$ arg0, std\+::pair$<$int, int$>$ arg1); // shift patch \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c}{cover}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ cover(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1); // remove object from grid \end{DoxyCompactList}\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_1_1primitives_ae6ef319ca053295eb75b53efd98aaa5a}{paint}} (std\+::vector$<$ std\+::any $>$ const \&args)
+\begin{DoxyCompactList}\small\item\em std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ paint(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1); // paint object to grid \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceaicpp_1_1primitives_a266829c27ca3dd1114e7f17d133d8cf7}\label{namespaceaicpp_1_1primitives_a266829c27ca3dd1114e7f17d133d8cf7} 
+\index{aicpp::primitives@{aicpp::primitives}!canvas@{canvas}}
+\index{canvas@{canvas}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{canvas()}{canvas()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::canvas (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ canvas(std\+::vector$<$int$>$ arg0, std\+::pair$<$size\+\_\+t, size\+\_\+t$>$ arg1); // grid construction 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00624}{624}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c}\label{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c} 
+\index{aicpp::primitives@{aicpp::primitives}!cover@{cover}}
+\index{cover@{cover}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{cover()}{cover()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::cover (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ cover(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1); // remove object from grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00932}{932}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a7b30510f37cb4b1a91938e5a6f5b166c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb}\label{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb} 
+\index{aicpp::primitives@{aicpp::primitives}!crop@{crop}}
+\index{crop@{crop}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{crop()}{crop()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::crop (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ crop(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::pair$<$int, int$>$ arg1, std\+::pair$<$size\+\_\+t, size\+\_\+t$>$ arg2); // subgrid specified by start and dimension 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00532}{532}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_ac63b0feb5df647807f6dc1733fea24cd}\label{namespaceaicpp_1_1primitives_ac63b0feb5df647807f6dc1733fea24cd} 
+\index{aicpp::primitives@{aicpp::primitives}!delta@{delta}}
+\index{delta@{delta}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{delta()}{delta()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::delta (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Indices$>$ delta(std\+::vector$<$\+Patch$>$ arg0); // indices in bounding box but not part of patch 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00750}{750}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_ac63b0feb5df647807f6dc1733fea24cd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f}\label{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f} 
+\index{aicpp::primitives@{aicpp::primitives}!dmirror@{dmirror}}
+\index{dmirror@{dmirror}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{dmirror()}{dmirror()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::dmirror (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ dmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along diagonal 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00237}{237}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c}\label{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c} 
+\index{aicpp::primitives@{aicpp::primitives}!downscale@{downscale}}
+\index{downscale@{downscale}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{downscale()}{downscale()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::downscale (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ downscale(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // downscale grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00421}{421}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a1d81a120942d4614aee9286e737f110b}\label{namespaceaicpp_1_1primitives_a1d81a120942d4614aee9286e737f110b} 
+\index{aicpp::primitives@{aicpp::primitives}!fillIndices@{fillIndices}}
+\index{fillIndices@{fillIndices}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{fillIndices()}{fillIndices()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::fill\+Indices (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ fill\+Indices(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, std\+::vector$<$\+Indices$>$ arg2); // fill value at indices 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00359}{359}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c}\label{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c} 
+\index{aicpp::primitives@{aicpp::primitives}!fillPatches@{fillPatches}}
+\index{fillPatches@{fillPatches}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{fillPatches()}{fillPatches()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::fill\+Patches (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ fill\+Patches(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, std\+::vector$<$\+Patch$>$ arg2); // fill value at indices 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00330}{330}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_ac8af772eaa02b28e0971104f6bf52f3c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a1dac04f3e99d6c235fac061a7185d0d8}\label{namespaceaicpp_1_1primitives_a1dac04f3e99d6c235fac061a7185d0d8} 
+\index{aicpp::primitives@{aicpp::primitives}!first@{first}}
+\index{first@{first}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{first()}{first()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::first (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ first(std\+::vector$<$std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ $>$ arg0); // first item of container 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00714}{714}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e}\label{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e} 
+\index{aicpp::primitives@{aicpp::primitives}!hconcat@{hconcat}}
+\index{hconcat@{hconcat}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{hconcat()}{hconcat()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::hconcat (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ hconcat(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // concatenate two grids horizontally 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00440}{440}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479}\label{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479} 
+\index{aicpp::primitives@{aicpp::primitives}!hmirror@{hmirror}}
+\index{hmirror@{hmirror}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{hmirror()}{hmirror()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::hmirror (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ hmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along horizontal 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00211}{211}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_ad3ac9c690fc259242055d471b1860d4d}\label{namespaceaicpp_1_1primitives_ad3ac9c690fc259242055d471b1860d4d} 
+\index{aicpp::primitives@{aicpp::primitives}!hsplit@{hsplit}}
+\index{hsplit@{hsplit}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{hsplit()}{hsplit()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::hsplit (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ \texorpdfstring{$>$}{>} hsplit(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // split grid horizontally 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00638}{638}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_ad3ac9c690fc259242055d471b1860d4d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a7ae626e01e3e33736b5e2b2b8d3a6fd2}\label{namespaceaicpp_1_1primitives_a7ae626e01e3e33736b5e2b2b8d3a6fd2} 
+\index{aicpp::primitives@{aicpp::primitives}!last@{last}}
+\index{last@{last}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{last()}{last()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::last (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ last(std\+::vector$<$std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ $>$ arg0); // last item of container 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00732}{732}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_ab57f502c29159f2b964ef687b7976b07}\label{namespaceaicpp_1_1primitives_ab57f502c29159f2b964ef687b7976b07} 
+\index{aicpp::primitives@{aicpp::primitives}!leastcolor@{leastcolor}}
+\index{leastcolor@{leastcolor}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{leastcolor()}{leastcolor()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::leastcolor (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$int$>$ leastcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // least common color 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00595}{595}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_a562ece552c053bb81e76b37efa52926c}\label{namespaceaicpp_1_1primitives_a562ece552c053bb81e76b37efa52926c} 
+\index{aicpp::primitives@{aicpp::primitives}!mostcolor@{mostcolor}}
+\index{mostcolor@{mostcolor}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{mostcolor()}{mostcolor()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::mostcolor (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$int$>$ mostcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // most common color 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00566}{566}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a562ece552c053bb81e76b37efa52926c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a187d195e69e6afb42864d380628049b6}\label{namespaceaicpp_1_1primitives_a187d195e69e6afb42864d380628049b6} 
+\index{aicpp::primitives@{aicpp::primitives}!move@{move}}
+\index{move@{move}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::move (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ move(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1, std\+::pair$<$int, int$>$ arg2); // move object on grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00899}{899}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a187d195e69e6afb42864d380628049b6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a793ce24e39323d819c406022cda1e9c6}\label{namespaceaicpp_1_1primitives_a793ce24e39323d819c406022cda1e9c6} 
+\index{aicpp::primitives@{aicpp::primitives}!objects@{objects}}
+\index{objects@{objects}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{objects()}{objects()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::objects (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Patch$>$ \texorpdfstring{$>$}{>} objects(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, bool arg1, bool arg2, bool arg3); // objects occurring on the grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00772}{772}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{namespaceaicpp_1_1primitives_a793ce24e39323d819c406022cda1e9c6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d}\label{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d} 
+\index{aicpp::primitives@{aicpp::primitives}!ofcolor@{ofcolor}}
+\index{ofcolor@{ofcolor}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{ofcolor()}{ofcolor()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::ofcolor (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector\texorpdfstring{$<$}{<}std\+::pair$<$int, int$>$ \texorpdfstring{$>$}{>} ofcolor(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // indices of all grid cells with value 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00303}{303}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_ae6ef319ca053295eb75b53efd98aaa5a}\label{namespaceaicpp_1_1primitives_ae6ef319ca053295eb75b53efd98aaa5a} 
+\index{aicpp::primitives@{aicpp::primitives}!paint@{paint}}
+\index{paint@{paint}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{paint()}{paint()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::paint (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ paint(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Patch$>$ arg1); // paint object to grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00953}{953}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_ae6ef319ca053295eb75b53efd98aaa5a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036}\label{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036} 
+\index{aicpp::primitives@{aicpp::primitives}!replace@{replace}}
+\index{replace@{replace}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{replace()}{replace()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::replace (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ replace(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, int arg2); // color substitution 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00504}{504}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da}\label{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da} 
+\index{aicpp::primitives@{aicpp::primitives}!rot180@{rot180}}
+\index{rot180@{rot180}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{rot180()}{rot180()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::rot180 (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot180(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // half rotation 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00255}{255}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870}\label{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870} 
+\index{aicpp::primitives@{aicpp::primitives}!rot270@{rot270}}
+\index{rot270@{rot270}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{rot270()}{rot270()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::rot270 (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot270(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // quarter anticlockwise rotation 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00260}{260}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058}\label{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058} 
+\index{aicpp::primitives@{aicpp::primitives}!rot90@{rot90}}
+\index{rot90@{rot90}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::rot90 (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ rot90(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // quarter clockwise rotation 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00250}{250}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_aaa4c1c33d157e4a348b19fc28c7cdc37}\label{namespaceaicpp_1_1primitives_aaa4c1c33d157e4a348b19fc28c7cdc37} 
+\index{aicpp::primitives@{aicpp::primitives}!shift@{shift}}
+\index{shift@{shift}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{shift()}{shift()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::shift (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Patch$>$ shift(std\+::vector$<$\+Patch$>$ arg0, std\+::pair$<$int, int$>$ arg1); // shift patch 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00908}{908}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_aaa4c1c33d157e4a348b19fc28c7cdc37_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a5c9994639b90d015361bb6fd20fda30a}\label{namespaceaicpp_1_1primitives_a5c9994639b90d015361bb6fd20fda30a} 
+\index{aicpp::primitives@{aicpp::primitives}!subgrid@{subgrid}}
+\index{subgrid@{subgrid}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{subgrid()}{subgrid()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::subgrid (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ subgrid(std\+::vector$<$\+Patch$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // smallest subgrid containing object 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00881}{881}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a5c9994639b90d015361bb6fd20fda30a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8}\label{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8} 
+\index{aicpp::primitives@{aicpp::primitives}!swap@{swap}}
+\index{swap@{swap}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::swap (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ swap(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1, int arg2); // color switching 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00273}{273}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_af47a4731474752997092eb512db22aec}\label{namespaceaicpp_1_1primitives_af47a4731474752997092eb512db22aec} 
+\index{aicpp::primitives@{aicpp::primitives}!toivec@{toivec}}
+\index{toivec@{toivec}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{toivec()}{toivec()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::toivec (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::pair$<$int, int$>$ toivec(int arg0); // vector pointing vertically 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00552}{552}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_a8706bef0413234d8e0f0ade407c5d3cd}\label{namespaceaicpp_1_1primitives_a8706bef0413234d8e0f0ade407c5d3cd} 
+\index{aicpp::primitives@{aicpp::primitives}!tojvec@{tojvec}}
+\index{tojvec@{tojvec}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{tojvec()}{tojvec()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::tojvec (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::pair$<$int, int$>$ tojvec(int arg0); // vector pointing horizontally 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00559}{559}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+\Hypertarget{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439}\label{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439} 
+\index{aicpp::primitives@{aicpp::primitives}!upscale@{upscale}}
+\index{upscale@{upscale}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{upscale()}{upscale()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::upscale (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ upscale(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // upscale grid 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00388}{388}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408}\label{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408} 
+\index{aicpp::primitives@{aicpp::primitives}!vconcat@{vconcat}}
+\index{vconcat@{vconcat}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{vconcat()}{vconcat()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::vconcat (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ vconcat(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg1); // concatenate two grids vertically 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00472}{472}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72}\label{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72} 
+\index{aicpp::primitives@{aicpp::primitives}!vmirror@{vmirror}}
+\index{vmirror@{vmirror}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{vmirror()}{vmirror()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::vmirror (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ vmirror(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0); // mirroring along vertical 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00224}{224}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1primitives_a24c4d75daa397857f610dfb2764e30a8}\label{namespaceaicpp_1_1primitives_a24c4d75daa397857f610dfb2764e30a8} 
+\index{aicpp::primitives@{aicpp::primitives}!vsplit@{vsplit}}
+\index{vsplit@{vsplit}!aicpp::primitives@{aicpp::primitives}}
+\doxysubsubsection{\texorpdfstring{vsplit()}{vsplit()}}
+{\footnotesize\ttfamily std\+::any aicpp\+::primitives\+::vsplit (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{args }\end{DoxyParamCaption})}
+
+
+
+std\+::vector\texorpdfstring{$<$}{<}std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ \texorpdfstring{$>$}{>} vsplit(std\+::vector$<$\+Eigen\+::\+Matrix\+Xi$>$ arg0, int arg1); // split grid vertically 
+
+
+
+Definition at line \mbox{\hyperlink{primitives_8cpp_source_l00676}{676}} of file \mbox{\hyperlink{primitives_8cpp_source}{primitives.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1primitives_a24c4d75daa397857f610dfb2764e30a8_cgraph}
+\end{center}
+\end{figure}

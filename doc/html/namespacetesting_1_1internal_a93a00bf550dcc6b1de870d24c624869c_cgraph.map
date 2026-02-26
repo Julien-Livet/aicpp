@@ -1,0 +1,12 @@
+<map id="testing::internal::GetFailureReporter" name="testing::internal::GetFailureReporter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,59,149,99"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="197,29,331,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,65,183,59,184,65,150,70"/>
+<area shape="poly" id="edge6_Node000002_Node000002" title=" " alt="" coords="230,30,228,20,233,11,245,5,264,3,285,6,297,13,294,17,284,11,264,8,247,10,237,15,233,21,235,28"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="379,29,512,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="331,55,365,56,365,61,331,61"/>
+<area shape="poly" id="edge3_Node000003_Node000001" title=" " alt="" coords="385,72,331,84,245,90,163,88,163,83,244,85,330,79,384,67"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="378,43,345,43,345,38,379,38"/>
+<area shape="rect" id="Node000004" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="560,22,739,77"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="512,47,546,47,546,52,512,52"/>
+</map>

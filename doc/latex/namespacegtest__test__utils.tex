@@ -1,0 +1,391 @@
+\doxysection{gtest\+\_\+test\+\_\+utils Namespace Reference}
+\hypertarget{namespacegtest__test__utils}{}\label{namespacegtest__test__utils}\index{gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{Subprocess}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_aa06f86a6e66aa6de2734e2317270329f}{Set\+Env\+Var}} (env\+\_\+var, \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}{\+\_\+\+Parse\+And\+Strip\+GTest\+Flags}} (argv)
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}{Get\+Flag}} (flag)
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7}{Get\+Source\+Dir}} ()
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127}{Get\+Build\+Dir}} ()
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_ae545ccf86bd82f0b32c0caa5c0a0d732}{\+\_\+\+Remove\+Temp\+Dir}} ()
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab}{Get\+Temp\+Dir}} ()
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{Get\+Test\+Executable\+Path}} (executable\+\_\+name, build\+\_\+dir=None)
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a9b3c1dd4c39d3b98ea2436ed0f76539b}{Get\+Exit\+Status}} (exit\+\_\+code)
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483}{Main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacegtest__test__utils_aa9e8cf03519ade92e4905cb181182173}{IS\+\_\+\+WINDOWS}} = \textquotesingle{}nt\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__test__utils_a72c741a81f1bc888e2b948230736d611}{IS\+\_\+\+CYGWIN}} = \textquotesingle{}posix\textquotesingle{} and \textquotesingle{}CYGWIN\textquotesingle{} in os.\+uname()\mbox{[}0\mbox{]}
+\item 
+str \mbox{\hyperlink{namespacegtest__test__utils_a049570d7a10d0a575cd9bb0c522720f3}{IS\+\_\+\+OS2}} = \textquotesingle{}os2\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__test__utils_aaa52d2a4eb681414d6251beca6cb6e6b}{GTEST\+\_\+\+OUTPUT\+\_\+\+VAR\+\_\+\+NAME}} = \textquotesingle{}GTEST\+\_\+\+OUTPUT\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__test__utils_ae7456751e7b70f4d891db3f9f7df2519}{PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR}} = \textquotesingle{}TEST\+\_\+\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_ab0f2d4a3e90400abb93fd0808047a0a4}{environ}} = os.\+environ.\+copy()
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_acb97a85206c09d233db6c7f2362e5428}{Test\+Case}} = \+\_\+test\+\_\+module.\+Test\+Case
+\item 
+dict \mbox{\hyperlink{namespacegtest__test__utils_ae870265448894aaca93cd4539d5fd184}{\+\_\+flag\+\_\+map}}
+\item 
+bool \mbox{\hyperlink{namespacegtest__test__utils_aadccff0902c36a6d2210d33a3b58b9c0}{\+\_\+gtest\+\_\+flags\+\_\+are\+\_\+parsed}} = False
+\item 
+\mbox{\hyperlink{namespacegtest__test__utils_a63e521665d381cdeddd27066f11bdbbf}{\+\_\+temp\+\_\+dir}} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Unit test utilities for Google C++ Testing and Mocking Framework.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}\label{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!\_ParseAndStripGTestFlags@{\_ParseAndStripGTestFlags}}
+\index{\_ParseAndStripGTestFlags@{\_ParseAndStripGTestFlags}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{\_ParseAndStripGTestFlags()}{\_ParseAndStripGTestFlags()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+\_\+\+Parse\+And\+Strip\+GTest\+Flags (\begin{DoxyParamCaption}\item[{}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Parses and strips Google Test flags from argv.  This is idempotent.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00078}{78}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_ae545ccf86bd82f0b32c0caa5c0a0d732}\label{namespacegtest__test__utils_ae545ccf86bd82f0b32c0caa5c0a0d732} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!\_RemoveTempDir@{\_RemoveTempDir}}
+\index{\_RemoveTempDir@{\_RemoveTempDir}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{\_RemoveTempDir()}{\_RemoveTempDir()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+\_\+\+Remove\+Temp\+Dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00130}{130}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127}\label{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetBuildDir@{GetBuildDir}}
+\index{GetBuildDir@{GetBuildDir}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetBuildDir()}{GetBuildDir()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Build\+Dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the absolute path of the directory where the test binaries are.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00122}{122}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_a9b3c1dd4c39d3b98ea2436ed0f76539b}\label{namespacegtest__test__utils_a9b3c1dd4c39d3b98ea2436ed0f76539b} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetExitStatus@{GetExitStatus}}
+\index{GetExitStatus@{GetExitStatus}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetExitStatus()}{GetExitStatus()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Exit\+Status (\begin{DoxyParamCaption}\item[{}]{exit\+\_\+code }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the argument to exit(), or -1 if exit() wasn't called.
+
+Args:
+  exit_code: the result value of os.system(command).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00177}{177}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}\label{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetFlag@{GetFlag}}
+\index{GetFlag@{GetFlag}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetFlag()}{GetFlag()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Flag (\begin{DoxyParamCaption}\item[{}]{flag }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the value of the given flag.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00105}{105}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7}\label{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetSourceDir@{GetSourceDir}}
+\index{GetSourceDir@{GetSourceDir}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetSourceDir()}{GetSourceDir()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Source\+Dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the absolute path of the directory where the .py files are.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00116}{116}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab}\label{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetTempDir@{GetTempDir}}
+\index{GetTempDir@{GetTempDir}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetTempDir()}{GetTempDir()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Temp\+Dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00137}{137}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}\label{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GetTestExecutablePath@{GetTestExecutablePath}}
+\index{GetTestExecutablePath@{GetTestExecutablePath}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetTestExecutablePath()}{GetTestExecutablePath()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path (\begin{DoxyParamCaption}\item[{}]{executable\+\_\+name,  }\item[{}]{build\+\_\+dir = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the absolute path of the test binary given its name.
+
+The function will print a message and abort the program if the resulting file
+doesn't exist.
+
+Args:
+  executable_name: name of the test binary that the test script runs.
+  build_dir:       directory where to look for executables, by default the
+    result of GetBuildDir().
+
+Returns:
+  The absolute path of the test binary.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00144}{144}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483}\label{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!Main@{Main}}
+\index{Main@{Main}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{Main()}{Main()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Runs the unit test.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00250}{250}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__test__utils_aa06f86a6e66aa6de2734e2317270329f}\label{namespacegtest__test__utils_aa06f86a6e66aa6de2734e2317270329f} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!SetEnvVar@{SetEnvVar}}
+\index{SetEnvVar@{SetEnvVar}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{SetEnvVar()}{SetEnvVar()}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Set\+Env\+Var (\begin{DoxyParamCaption}\item[{}]{env\+\_\+var,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sets/unsets an environment variable to a given value.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00056}{56}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacegtest__test__utils_ae870265448894aaca93cd4539d5fd184}\label{namespacegtest__test__utils_ae870265448894aaca93cd4539d5fd184} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!\_flag\_map@{\_flag\_map}}
+\index{\_flag\_map@{\_flag\_map}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{\_flag\_map}{\_flag\_map}}
+{\footnotesize\ttfamily dict gtest\+\_\+test\+\_\+utils.\+\_\+flag\+\_\+map\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'source\_dir'}:\ os.path.dirname(sys.argv[0]),}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'build\_dir'}:\ os.path.dirname(sys.argv[0]),}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00071}{71}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_aadccff0902c36a6d2210d33a3b58b9c0}\label{namespacegtest__test__utils_aadccff0902c36a6d2210d33a3b58b9c0} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!\_gtest\_flags\_are\_parsed@{\_gtest\_flags\_are\_parsed}}
+\index{\_gtest\_flags\_are\_parsed@{\_gtest\_flags\_are\_parsed}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{\_gtest\_flags\_are\_parsed}{\_gtest\_flags\_are\_parsed}}
+{\footnotesize\ttfamily bool gtest\+\_\+test\+\_\+utils.\+\_\+gtest\+\_\+flags\+\_\+are\+\_\+parsed = False\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00075}{75}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_a63e521665d381cdeddd27066f11bdbbf}\label{namespacegtest__test__utils_a63e521665d381cdeddd27066f11bdbbf} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!\_temp\_dir@{\_temp\_dir}}
+\index{\_temp\_dir@{\_temp\_dir}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{\_temp\_dir}{\_temp\_dir}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+\_\+temp\+\_\+dir = None\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00128}{128}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_ab0f2d4a3e90400abb93fd0808047a0a4}\label{namespacegtest__test__utils_ab0f2d4a3e90400abb93fd0808047a0a4} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!environ@{environ}}
+\index{environ@{environ}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{environ}{environ}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+environ = os.\+environ.\+copy()}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00053}{53}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_aaa52d2a4eb681414d6251beca6cb6e6b}\label{namespacegtest__test__utils_aaa52d2a4eb681414d6251beca6cb6e6b} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!GTEST\_OUTPUT\_VAR\_NAME@{GTEST\_OUTPUT\_VAR\_NAME}}
+\index{GTEST\_OUTPUT\_VAR\_NAME@{GTEST\_OUTPUT\_VAR\_NAME}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GTEST\_OUTPUT\_VAR\_NAME}{GTEST\_OUTPUT\_VAR\_NAME}}
+{\footnotesize\ttfamily str gtest\+\_\+test\+\_\+utils.\+GTEST\+\_\+\+OUTPUT\+\_\+\+VAR\+\_\+\+NAME = \textquotesingle{}GTEST\+\_\+\+OUTPUT\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00048}{48}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_a72c741a81f1bc888e2b948230736d611}\label{namespacegtest__test__utils_a72c741a81f1bc888e2b948230736d611} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!IS\_CYGWIN@{IS\_CYGWIN}}
+\index{IS\_CYGWIN@{IS\_CYGWIN}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{IS\_CYGWIN}{IS\_CYGWIN}}
+{\footnotesize\ttfamily str gtest\+\_\+test\+\_\+utils.\+IS\+\_\+\+CYGWIN = \textquotesingle{}posix\textquotesingle{} and \textquotesingle{}CYGWIN\textquotesingle{} in os.\+uname()\mbox{[}0\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00039}{39}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_a049570d7a10d0a575cd9bb0c522720f3}\label{namespacegtest__test__utils_a049570d7a10d0a575cd9bb0c522720f3} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!IS\_OS2@{IS\_OS2}}
+\index{IS\_OS2@{IS\_OS2}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{IS\_OS2}{IS\_OS2}}
+{\footnotesize\ttfamily str gtest\+\_\+test\+\_\+utils.\+IS\+\_\+\+OS2 = \textquotesingle{}os2\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00040}{40}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_aa9e8cf03519ade92e4905cb181182173}\label{namespacegtest__test__utils_aa9e8cf03519ade92e4905cb181182173} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!IS\_WINDOWS@{IS\_WINDOWS}}
+\index{IS\_WINDOWS@{IS\_WINDOWS}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{IS\_WINDOWS}{IS\_WINDOWS}}
+{\footnotesize\ttfamily str gtest\+\_\+test\+\_\+utils.\+IS\+\_\+\+WINDOWS = \textquotesingle{}nt\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00038}{38}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_ae7456751e7b70f4d891db3f9f7df2519}\label{namespacegtest__test__utils_ae7456751e7b70f4d891db3f9f7df2519} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!PREMATURE\_EXIT\_FILE\_ENV\_VAR@{PREMATURE\_EXIT\_FILE\_ENV\_VAR}}
+\index{PREMATURE\_EXIT\_FILE\_ENV\_VAR@{PREMATURE\_EXIT\_FILE\_ENV\_VAR}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{PREMATURE\_EXIT\_FILE\_ENV\_VAR}{PREMATURE\_EXIT\_FILE\_ENV\_VAR}}
+{\footnotesize\ttfamily str gtest\+\_\+test\+\_\+utils.\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR = \textquotesingle{}TEST\+\_\+\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00051}{51}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegtest__test__utils_acb97a85206c09d233db6c7f2362e5428}\label{namespacegtest__test__utils_acb97a85206c09d233db6c7f2362e5428} 
+\index{gtest\_test\_utils@{gtest\_test\_utils}!TestCase@{TestCase}}
+\index{TestCase@{TestCase}!gtest\_test\_utils@{gtest\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{TestCase}{TestCase}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Test\+Case = \+\_\+test\+\_\+module.\+Test\+Case}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00067}{67}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+

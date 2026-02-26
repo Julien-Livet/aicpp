@@ -1,0 +1,16 @@
+<map id="testing::Message::GetString" name="testing::Message::GetString">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,70,208,95"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#ac0a2b7f69fc829d80a39e925b6417e39" title=" " alt="" coords="256,63,415,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,80,242,80,242,85,208,85"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="463,63,596,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="415,80,449,80,449,85,415,85"/>
+<area shape="poly" id="edge8_Node000003_Node000003" title=" " alt="" coords="495,63,493,53,498,44,511,38,529,36,551,39,563,46,560,51,549,44,529,41,512,43,502,48,498,54,500,62"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="644,63,777,103"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="596,89,630,89,630,94,596,94"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="644,77,610,76,610,71,644,71"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="843,5,987,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="777,61,829,47,831,52,778,67"/>
+<area shape="rect" id="Node000006" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="825,70,1004,125"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="778,85,812,87,811,93,777,90"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="843,31,748,39,644,53,608,62,607,56,644,48,748,33,842,26"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="testing::Test::SetUpTestSuite" name="testing::Test::SetUpTestSuite">
+<area shape="rect" id="Node000001" title=" " alt="" coords="729,37,904,77"/>
+<area shape="rect" id="Node000002" href="$structtesting_1_1internal_1_1SuiteApiResolver.html#abae647b1fed9422fc596fd385de6dd5b" title=" " alt="" coords="479,29,681,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="715,59,682,59,682,54,715,54"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1internal_1_1TypeParameterizedTest.html#a34c205e6aac9ee62ffa7a229d8ef9a18" title=" " alt="" coords="259,29,431,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="465,59,431,59,431,54,465,54"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="384,18,370,11,345,8,324,10,310,15,304,21,304,29,299,29,299,19,307,10,323,5,345,3,371,6,386,14"/>
+<area shape="rect" id="Node000004" href="$classtesting_1_1internal_1_1TypeParameterizedTestSuite.html#aefe563033024f580413cceef1f4088c7" title=" " alt="" coords="5,29,211,84"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="245,59,211,59,211,54,245,54"/>
+</map>

@@ -1,0 +1,150 @@
+\doxysection{src/engine.cpp File Reference}
+\hypertarget{engine_8cpp}{}\label{engine_8cpp}\index{src/engine.cpp@{src/engine.cpp}}
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$boost/json.\+hpp$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include "{}aicpp/\+Brain.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/\+Connection.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/partials.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/utility.\+h"{}}\newline
+Include dependency graph for engine.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Matrix\+Xi \mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boost\+Json\+To\+Eigen\+Matrix}} (array const \&arr)
+\item 
+std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$, std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ $>$ \mbox{\hyperlink{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459}{train\+Test\+Pairs}} (std\+::string const \&folder, std\+::string const \&task)
+\item 
+std\+::pair$<$ std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$, std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ $>$ \mbox{\hyperlink{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{input\+Output\+Pairs}} (std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ const \&task\+Pairs)
+\item 
+int \mbox{\hyperlink{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace}{process\+Task}} (std\+::string const \&folder, std\+::string const \&task)
+\item 
+int \mbox{\hyperlink{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string const \mbox{\hyperlink{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24}{path}} \{"{}../ARC-\/AGI-\/2/data"{}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{engine_8cpp_a99629c0547e7babc87cee948761f18b1}\label{engine_8cpp_a99629c0547e7babc87cee948761f18b1} 
+\index{engine.cpp@{engine.cpp}!boostJsonToEigenMatrix@{boostJsonToEigenMatrix}}
+\index{boostJsonToEigenMatrix@{boostJsonToEigenMatrix}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{boostJsonToEigenMatrix()}{boostJsonToEigenMatrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xi boost\+Json\+To\+Eigen\+Matrix (\begin{DoxyParamCaption}\item[{array const \&}]{arr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp_a99629c0547e7babc87cee948761f18b1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}\label{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb} 
+\index{engine.cpp@{engine.cpp}!inputOutputPairs@{inputOutputPairs}}
+\index{inputOutputPairs@{inputOutputPairs}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{inputOutputPairs()}{inputOutputPairs()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$, std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ $>$ input\+Output\+Pairs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ const \&}]{task\+Pairs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00091}{91}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
+\index{engine.cpp@{engine.cpp}!main@{main}}
+\index{main@{main}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00232}{232}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace}\label{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace} 
+\index{engine.cpp@{engine.cpp}!processTask@{processTask}}
+\index{processTask@{processTask}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{processTask()}{processTask()}}
+{\footnotesize\ttfamily int process\+Task (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{folder,  }\item[{std\+::string const \&}]{task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00107}{107}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459}\label{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459} 
+\index{engine.cpp@{engine.cpp}!trainTestPairs@{trainTestPairs}}
+\index{trainTestPairs@{trainTestPairs}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{trainTestPairs()}{trainTestPairs()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$, std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ $>$ train\+Test\+Pairs (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{folder,  }\item[{std\+::string const \&}]{task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24}\label{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24} 
+\index{engine.cpp@{engine.cpp}!path@{path}}
+\index{path@{path}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily std\+::string const path \{"{}../ARC-\/AGI-\/2/data"{}\}}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+

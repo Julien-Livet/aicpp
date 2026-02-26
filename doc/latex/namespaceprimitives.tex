@@ -1,0 +1,114 @@
+\doxysection{primitives Namespace Reference}
+\hypertarget{namespaceprimitives}{}\label{namespaceprimitives}\index{primitives@{primitives}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2}{segments}} (list\mbox{[}np.\+ndarray\mbox{]} dst, list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} pairs, int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, bool start, bool finish)
+\item 
+list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceprimitives_ad13344c36f30ad6bc06a5c284eab1ced}{map}} (list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}, dict\mbox{[}int, int\mbox{]} mapping)
+\item 
+dict\mbox{[}int, int\mbox{]} \mbox{\hyperlink{namespaceprimitives_af52592f12ce85cfd7a3426dad5283168}{infer\+Color\+Mapping}} (list\mbox{[}tuple\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}\mbox{]} pairs)
+\item 
+list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceprimitives_a8bd6d23776418f598d36f1369a034083}{same\+Element}} (list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} pairs, bool first)
+\item 
+list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceprimitives_a5744ac0f562971c2374f2aeaec2652b3}{region\+Pairs}} (list\mbox{[}list\mbox{[}list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} regions)
+\item 
+list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceprimitives_a2ac3b812da8d76de27ea66a645f2bf78}{fliplr}} (list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceprimitives_a675a69e72b60f638cf7fbfa5177bb3a0}{flipud}} (list\mbox{[}np.\+ndarray\mbox{]} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceprimitives_a2ac3b812da8d76de27ea66a645f2bf78}\label{namespaceprimitives_a2ac3b812da8d76de27ea66a645f2bf78} 
+\index{primitives@{primitives}!fliplr@{fliplr}}
+\index{fliplr@{fliplr}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{fliplr()}{fliplr()}}
+{\footnotesize\ttfamily  list\mbox{[}np.\+ndarray\mbox{]} primitives.\+fliplr (\begin{DoxyParamCaption}\item[{list\mbox{[}np.\+ndarray\mbox{]}}]{x }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flip left and right columns
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00124}{124}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_a675a69e72b60f638cf7fbfa5177bb3a0}\label{namespaceprimitives_a675a69e72b60f638cf7fbfa5177bb3a0} 
+\index{primitives@{primitives}!flipud@{flipud}}
+\index{flipud@{flipud}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{flipud()}{flipud()}}
+{\footnotesize\ttfamily  list\mbox{[}np.\+ndarray\mbox{]} primitives.\+flipud (\begin{DoxyParamCaption}\item[{list\mbox{[}np.\+ndarray\mbox{]}}]{x }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flip up and down rows
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00131}{131}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_af52592f12ce85cfd7a3426dad5283168}\label{namespaceprimitives_af52592f12ce85cfd7a3426dad5283168} 
+\index{primitives@{primitives}!inferColorMapping@{inferColorMapping}}
+\index{inferColorMapping@{inferColorMapping}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{inferColorMapping()}{inferColorMapping()}}
+{\footnotesize\ttfamily  dict\mbox{[}int, int\mbox{]} primitives.\+infer\+Color\+Mapping (\begin{DoxyParamCaption}\item[{list\mbox{[}tuple\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}\mbox{]}}]{pairs }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Map given locations of numpy arrays
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00060}{60}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_ad13344c36f30ad6bc06a5c284eab1ced}\label{namespaceprimitives_ad13344c36f30ad6bc06a5c284eab1ced} 
+\index{primitives@{primitives}!map@{map}}
+\index{map@{map}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily  list\mbox{[}np.\+ndarray\mbox{]} primitives.\+map (\begin{DoxyParamCaption}\item[{list\mbox{[}np.\+ndarray\mbox{]}}]{x,  }\item[{dict\mbox{[}int, int\mbox{]}}]{mapping }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Map numpy arrays cells from a mapping
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00042}{42}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_a5744ac0f562971c2374f2aeaec2652b3}\label{namespaceprimitives_a5744ac0f562971c2374f2aeaec2652b3} 
+\index{primitives@{primitives}!regionPairs@{regionPairs}}
+\index{regionPairs@{regionPairs}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{regionPairs()}{regionPairs()}}
+{\footnotesize\ttfamily  list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} primitives.\+region\+Pairs (\begin{DoxyParamCaption}\item[{list\mbox{[}list\mbox{[}list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]}}]{regions }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pair a list of regions (a region is a list of connected pairs of same value, a pair is a grid location)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00104}{104}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_a8bd6d23776418f598d36f1369a034083}\label{namespaceprimitives_a8bd6d23776418f598d36f1369a034083} 
+\index{primitives@{primitives}!sameElement@{sameElement}}
+\index{sameElement@{sameElement}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{sameElement()}{sameElement()}}
+{\footnotesize\ttfamily  list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]} primitives.\+same\+Element (\begin{DoxyParamCaption}\item[{list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]}}]{pairs,  }\item[{bool}]{first }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pair a list of index pairs where the elements are the same considering first or second element of a pair (a pair is a grid location)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00082}{82}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+\Hypertarget{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2}\label{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2} 
+\index{primitives@{primitives}!segments@{segments}}
+\index{segments@{segments}!primitives@{primitives}}
+\doxysubsubsection{\texorpdfstring{segments()}{segments()}}
+{\footnotesize\ttfamily  list\mbox{[}np.\+ndarray\mbox{]} primitives.\+segments (\begin{DoxyParamCaption}\item[{list\mbox{[}np.\+ndarray\mbox{]}}]{dst,  }\item[{list\mbox{[}list\mbox{[}tuple\mbox{[}tuple\mbox{[}int, int\mbox{]}, tuple\mbox{[}int, int\mbox{]}\mbox{]}\mbox{]}\mbox{]}}]{pairs,  }\item[{int}]{value,  }\item[{bool}]{start,  }\item[{bool}]{finish }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Segment two locations in numpy arrays
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{primitives_8py_source_l00013}{13}} of file \mbox{\hyperlink{primitives_8py_source}{primitives.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2_cgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,15 @@
+<map id="ParentClass" name="ParentClass">
+<area shape="rect" id="Node000001" title=" " alt="" coords="197,5,296,31"/>
+<area shape="rect" id="Node000002" href="$classChildClassWithStreamOperator.html" title=" " alt="" coords="5,79,229,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,38,142,60,113,81,110,76,139,55,185,33"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="201,39,126,81,123,76,199,34"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="215,40,140,81,137,76,212,35"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="230,40,153,81,151,76,227,36"/>
+<area shape="poly" id="edge5_Node000001_Node000002" title=" " alt="" coords="244,42,209,62,167,81,165,76,207,57,241,37"/>
+<area shape="rect" id="Node000003" href="$classChildClassWithoutStreamOperator.html" title=" " alt="" coords="253,79,499,104"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="252,37,286,57,329,76,327,81,284,62,249,42"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="266,36,342,76,340,81,264,40"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="281,35,356,76,354,81,278,40"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="295,34,370,76,367,81,292,39"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="308,33,354,55,384,76,381,81,351,60,306,38"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="aicpp::primitives::hsplit" name="aicpp::primitives::hsplit">
+<area shape="rect" id="Node000001" title="std::vector&lt;std::vector&lt;Eigen::MatrixXi&gt; &gt; hsplit(std::vector&lt;Eigen::MatrixXi&gt; arg0,..." alt="" coords="5,23,144,63"/>
+<area shape="rect" id="Node000002" href="$primitives_8cpp.html#a7e2c580dee7a3ccb8071ab769a05fb93" title=" " alt="" coords="192,31,251,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,41,179,41,179,46,144,46"/>
+<area shape="rect" id="Node000003" href="$primitives_8cpp.html#a58fdbac4fa463a70a400a19124d26009" title=" " alt="" coords="303,5,379,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,35,289,26,290,31,252,40"/>
+<area shape="rect" id="Node000004" href="$primitives_8cpp.html#a02ea0bb9f1c882b151ba18455cfe2a68" title=" " alt="" coords="299,55,384,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="252,47,286,54,285,59,251,52"/>
+</map>

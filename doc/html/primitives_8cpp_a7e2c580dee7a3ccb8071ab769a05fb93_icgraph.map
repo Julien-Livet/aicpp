@@ -1,0 +1,9 @@
+<map id="width" name="width">
+<area shape="rect" id="Node000001" title=" " alt="" coords="379,42,437,67"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#ad3ac9c690fc259242055d471b1860d4d" title="std::vector&lt;std::vector&lt;Eigen::MatrixXi&gt; &gt; hsplit(std::vector&lt;Eigen::MatrixXi&gt; arg0,..." alt="" coords="192,5,331,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="365,49,330,42,331,37,366,44"/>
+<area shape="rect" id="Node000003" href="$primitives_8cpp.html#aca980b9a548b34538031aacb6ce47fe7" title=" " alt="" coords="231,70,292,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="365,65,293,80,292,74,364,60"/>
+<area shape="rect" id="Node000004" href="$namespaceaicpp_1_1primitives.html#a5c9994639b90d015361bb6fd20fda30a" title="std::vector&lt;Eigen::MatrixXi&gt; subgrid(std::vector&lt;Patch&gt; arg0, std::vector&lt;Eigen::MatrixXi&gt; arg1); // ..." alt="" coords="5,63,144,103"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="217,85,144,85,144,80,217,80"/>
+</map>

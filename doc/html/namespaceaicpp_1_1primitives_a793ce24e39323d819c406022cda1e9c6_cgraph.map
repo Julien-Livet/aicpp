@@ -1,0 +1,5 @@
+<map id="aicpp::primitives::objects" name="aicpp::primitives::objects">
+<area shape="rect" id="Node000001" title="std::vector&lt;std::vector&lt;Patch&gt; &gt; objects(std::vector&lt;Eigen::MatrixXi&gt; arg0, bool arg1,..." alt="" coords="5,5,144,45"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#a562ece552c053bb81e76b37efa52926c" title="std::vector&lt;int&gt; mostcolor(std::vector&lt;Eigen::MatrixXi&gt; arg0); // most common color" alt="" coords="192,5,331,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,23,178,23,178,28,145,28"/>
+</map>

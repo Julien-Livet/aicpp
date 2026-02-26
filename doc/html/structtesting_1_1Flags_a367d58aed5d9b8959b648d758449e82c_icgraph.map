@@ -1,0 +1,9 @@
+<map id="testing::Flags::Brief" name="testing::Flags::Brief">
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,55,325,80"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#ae5fd9d397d3fccd0f8ed9afaaf48e2ec" title=" " alt="" coords="5,5,128,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,54,114,33,116,28,190,49"/>
+<area shape="rect" id="Node000003" href="$namespacetesting.html#a7bdec24ceb1179e8a52f25418d1c74fc" title=" " alt="" coords="5,55,128,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,70,128,70,128,65,162,65"/>
+<area shape="rect" id="Node000004" href="$namespacetesting.html#a7ecccb9cdd264fad1b2e332619d0f762" title=" " alt="" coords="5,104,128,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="190,86,116,106,114,101,189,81"/>
+</map>

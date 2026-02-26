@@ -1,0 +1,25 @@
+<map id="testing::internal::ParameterizedTestSuiteRegistry::GetTestSuitePatternHolder" name="testing::internal::ParameterizedTestSuiteRegistry::GetTestSuitePatternHolder">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,71,235,126"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="987,63,1120,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,90,485,78,780,68,859,66,939,68,973,71,973,76,939,73,859,71,780,73,485,83,235,95"/>
+<area shape="rect" id="Node000006" href="$namespacetesting_1_1internal.html#a7c6f19f60d6c255e99348fe8c712d503" title=" " alt="" coords="283,107,481,147"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="235,108,270,112,269,117,234,114"/>
+<area shape="poly" id="edge7_Node000002_Node000002" title=" " alt="" coords="1019,63,1017,53,1022,44,1035,38,1053,36,1075,39,1087,46,1084,51,1073,44,1053,41,1036,43,1026,48,1022,54,1024,62"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="1168,63,1301,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1120,89,1154,89,1154,94,1120,94"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="1168,77,1134,76,1134,71,1168,71"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="1367,5,1511,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1301,61,1353,47,1355,52,1302,67"/>
+<area shape="rect" id="Node000005" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="1349,70,1528,125"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="1302,85,1336,87,1335,93,1301,90"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="1367,31,1272,39,1168,53,1132,62,1131,56,1168,48,1272,33,1366,26"/>
+<area shape="poly" id="edge14_Node000006_Node000002" title=" " alt="" coords="481,110,529,105,771,90,972,82,972,87,771,95,530,111,482,116"/>
+<area shape="rect" id="Node000007" href="$namespacetesting_1_1internal.html#a31b7c3abed4a7c395f42c61e993989f4" title=" " alt="" coords="557,144,704,184"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="482,139,544,148,543,154,481,144"/>
+<area shape="rect" id="Node000008" href="$classtesting_1_1Message.html#a2cdc4df62bdcc9df37651a1cf527704e" title=" " alt="" coords="529,209,732,234"/>
+<area shape="poly" id="edge11_Node000006_Node000008" title=" " alt="" coords="421,144,472,169,530,193,559,203,557,208,528,199,470,174,419,149"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="588,144,586,134,593,125,608,119,631,117,657,120,672,127,669,132,656,125,631,123,609,125,596,129,591,135,593,143"/>
+<area shape="rect" id="Node000009" href="$namespacetesting_1_1internal.html#ac0a2b7f69fc829d80a39e925b6417e39" title=" " alt="" coords="780,160,939,200"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="701,206,766,194,767,199,702,211"/>
+<area shape="poly" id="edge13_Node000009_Node000002" title=" " alt="" coords="899,157,999,107,1002,111,902,162"/>
+</map>

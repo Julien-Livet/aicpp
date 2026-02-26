@@ -1,0 +1,102 @@
+\doxysection{include/aicpp/utility.h File Reference}
+\hypertarget{utility_8h}{}\label{utility_8h}\index{include/aicpp/utility.h@{include/aicpp/utility.h}}
+{\ttfamily \#include $<$any$>$}\newline
+{\ttfamily \#include $<$generator$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$typeindex$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string.\+hpp$>$}\newline
+Include dependency graph for utility.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utility_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utility_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structaicpp_1_1utility_1_1is__string__convertible}{aicpp\+::utility\+::is\+\_\+string\+\_\+convertible$<$ T, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structaicpp_1_1utility_1_1is__string__convertible_3_01T_00_01std_1_1void__t_3_01decltype_07stati3bd859c14bf3669c80fc4e54f6916e50}{aicpp\+::utility\+::is\+\_\+string\+\_\+convertible$<$ T, std\+::void\+\_\+t$<$ decltype(static\+\_\+cast$<$ std\+::string $>$(std\+::declval$<$ T $>$())) $>$ $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceaicpp}{aicpp}}
+\item 
+namespace \mbox{\hyperlink{namespaceaicpp_1_1utility}{aicpp\+::utility}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::generator$<$ std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a0a7b56721f6552fc4efa9c04b3cdd732}{aicpp\+::utility\+::cartesian\+Product}} (std\+::vector$<$ std\+::vector$<$ T $>$ $>$ lists)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\bool \mbox{\hyperlink{namespaceaicpp_1_1utility_a64a11f26987172943e383e2a4bb8b4d9}{aicpp\+::utility\+::valid\+Index}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\bool \mbox{\hyperlink{namespaceaicpp_1_1utility_ad4914c038c5423a39c0c9c478de2b831}{aicpp\+::utility\+::valid\+Index}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&at)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2}{aicpp\+::utility\+::swap\+Cols}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9}{aicpp\+::utility\+::swap\+Rows}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881}{aicpp\+::utility\+::fliplr}} (Matrix const \&a)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f}{aicpp\+::utility\+::flipud}} (Matrix const \&a)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{namespaceaicpp_1_1utility_aabc5b87f935844f1d01051ac4bfe2753}{aicpp\+::utility\+::to\+String}} (T const \&value)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{namespaceaicpp_1_1utility_af34e4928ab74526cd0135383148aa464}{aicpp\+::utility\+::levenshtein}} (std\+::string const \&a, std\+::string const \&b)
+\item 
+{\footnotesize template$<$typename S , typename T $>$ }\\double \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{aicpp\+::utility\+::cost}} (double init\+Cost, S const \&val, T const \&target)
+\item 
+{\footnotesize template$<$typename S , typename T $>$ }\\double \mbox{\hyperlink{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c}{aicpp\+::utility\+::heuristic}} (S const \&val, T const \&target)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540}{aicpp\+::utility\+::rot90}} (Matrix const \&a)
+\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a92a27fc3ec72edbcde6ac3fd04f1a954}{aicpp\+::utility\+::neighbors}} (std\+::pair$<$ int, int $>$ const \&loc, std\+::pair$<$ int, int $>$ const \&size, bool diagonals)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e}{aicpp\+::utility\+::region}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&at, bool diagonals)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63}{aicpp\+::utility\+::fill\+Region}} (Matrix const \&a, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ const \&\mbox{\hyperlink{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e}{region}}, typename Matrix\+::\+Scalar const \&x)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a99352a8892b0801996d7607f2d25f395}{aicpp\+::utility\+::fill\+Regions}} (Matrix const \&a, std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions, typename Matrix\+::\+Scalar const \&x)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a0b8fe2c832170306dea07bb683e27803}{aicpp\+::utility\+::dot\+Segment}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&begin, std\+::pair$<$ int, int $>$ const \&end, typename Matrix\+::\+Scalar const \&value, int dot\+Step)
+\item 
+std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a61da3a3110a1811f0d9bf456d7419ca8}{aicpp\+::utility\+::same\+Element}} (std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&pairs, bool first)
+\item 
+std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a2970ebf78e45db5e341dfa3c7d2617c9}{aicpp\+::utility\+::region\+Pairs}} (std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions)
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_acded066275c0b51cdb32d84c742b0b82}{aicpp\+::utility\+::member\+Paired\+Regions}} (std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ const \&\mbox{\hyperlink{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328}{paired\+Regions}}, bool first)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a4da6ff872fc34674eff1a35d261ca186}{aicpp\+::utility\+::segments}} (Matrix const \&dst, std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&pairs, typename Matrix\+::\+Scalar const \&value, bool start, bool finish)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328}{aicpp\+::utility\+::paired\+Regions}} (Matrix const \&a, std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::set$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a8d7c1be53e4a13e9df57a9e73b44412b}{aicpp\+::utility\+::region\+Set}} (Matrix const \&m, bool diagonals)
+\item 
+Eigen\+::\+Matrix\+Xi \mbox{\hyperlink{namespaceaicpp_1_1utility_a40da0663623b4a067f31b374cd42e9aa}{aicpp\+::utility\+::matrix}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ values)
+\item 
+std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a089abd423bd1c25a0233e2bba77462d4}{aicpp\+::utility\+::matrix\+Pairs}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&values)
+\item 
+std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_adadab4db3050596d74743d06a4f74c06}{aicpp\+::utility\+::matrices}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&values)
+\item 
+std\+::string \mbox{\hyperlink{namespaceaicpp_aa33f96f6ccb141005fa59acc2e7276ce}{aicpp\+::any\+To\+String}} (std\+::any const \&v)
+\item 
+std\+::any \mbox{\hyperlink{namespaceaicpp_a84fa4b013d4a1ef60aa863948708297e}{aicpp\+::string\+To\+Any}} (std\+::string const \&type, std\+::string const \&value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\constexpr bool \mbox{\hyperlink{namespaceaicpp_1_1utility_a613c4c29d108bacdb36fe0b6ae57b4f9}{aicpp\+::utility\+::is\+\_\+string\+\_\+convertible\+\_\+v}}
+\end{DoxyCompactItemize}

@@ -1,0 +1,142 @@
+\doxysection{primitives.\+py}
+\hypertarget{primitives_8py_source}{}\label{primitives_8py_source}\index{scripts/primitives.py@{scripts/primitives.py}}
+\mbox{\hyperlink{primitives_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00001}\mbox{\hyperlink{namespaceprimitives}{00001}}\ \textcolor{keyword}{import}\ copy}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00002}00002\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00003}00003\ \textcolor{keyword}{import}\ utils}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00005}00005\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00006}00006\ \textcolor{stringliteral}{Verb\ properties:}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00007}00007\ \textcolor{stringliteral}{Map:\ output\ pixel\ positions\ are\ identical\ to\ input\ positions.}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00008}00008\ \textcolor{stringliteral}{Flip:\ output\ pixel\ VALUES\ are\ identical\ to\ input\ values\ (only\ positions\ change).}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00009}00009\ \textcolor{stringliteral}{Segment:\ new\ pixels\ appear\ between\ existing\ pixels\ to\ form\ continuous\ structures.}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00010}00010\ \textcolor{stringliteral}{Pair:\ output\ changes\ depend\ on\ relationships\ between\ two\ or\ more\ input\ elements.}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00011}00011\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00013}\mbox{\hyperlink{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2}{00013}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_a75ae1c69c4345d2584b7636608f86fd2}{segments}}(dst:\ list[np.ndarray],\ pairs:\ list[list[tuple[tuple[int,\ int],\ tuple[int,\ int]]]],\ value:\ int,\ start:\ bool,\ finish:\ bool)\ -\/>\ list[np.ndarray]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00014}00014\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00015}00015\ \textcolor{stringliteral}{\ \ \ \ Segment\ two\ locations\ in\ numpy\ arrays}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00016}00016\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (len(dst)\ !=\ len(pairs)):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00020}00020\ \ \ \ \ result\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(dst)):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ m\ =\ copy.deepcopy(dst[i])}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ pairs[i]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{utils.validIndex}}(m,\ pair[0])\ \textcolor{keywordflow}{and}\ \mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{utils.validIndex}}(m,\ pair[1])):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ m[pair[0][0]][pair[0][1]]}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\ =\ m[pair[1][0]][pair[1][1]]}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ \mbox{\hyperlink{namespaceutils_a50be0cf310721034b00781cf56234118}{utils.dotSegment}}(m,\ pair[0],\ pair[1],\ value,\ 1)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m[pair[0][0]][pair[0][1]]\ =\ s}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (finish):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m[pair[1][0]][pair[1][1]]\ =\ f}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ result.append(m)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00042}\mbox{\hyperlink{namespaceprimitives_ad13344c36f30ad6bc06a5c284eab1ced}{00042}}\ \textcolor{keyword}{def\ }map(x:\ list[np.ndarray],\ mapping:\ dict[int,\ int])\ -\/>\ list[np.ndarray]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00043}00043\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ Map\ numpy\ arrays\ cells\ from\ a\ mapping}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00047}00047\ \ \ \ \ result\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ x:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ y\ =\ copy.deepcopy(v)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ y.shape[0]):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(0,\ y.shape[1]):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i,\ j]\ =\ mapping.get(y[i,\ j],\ y[i,\ j])}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ result.append(y)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00060}\mbox{\hyperlink{namespaceprimitives_af52592f12ce85cfd7a3426dad5283168}{00060}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_af52592f12ce85cfd7a3426dad5283168}{inferColorMapping}}(pairs:\ list[tuple[np.ndarray,\ np.ndarray]])\ -\/>\ dict[int,\ int]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00061}00061\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ Map\ given\ locations\ of\ numpy\ arrays}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00064}00064\ \ \ \ \ mapping\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ pairs:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ h,\ w\ =\ pair[0].shape}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(h):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(w):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ int(pair[0][i,\ j])}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ int(pair[1][i,\ j])}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ \textcolor{keywordflow}{in}\ mapping):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mapping[a]\ !=\ b):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mapping}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mapping[a]\ =\ b}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ mapping}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00082}\mbox{\hyperlink{namespaceprimitives_a8bd6d23776418f598d36f1369a034083}{00082}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_a8bd6d23776418f598d36f1369a034083}{sameElement}}(pairs:\ list[list[tuple[tuple[int,\ int],\ tuple[int,\ int]]]],\ first:\ bool)\ -\/>\ list[list[tuple[tuple[int,\ int],\ tuple[int,\ int]]]]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00083}00083\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ Pair\ a\ list\ of\ index\ pairs\ where\ the\ elements\ are\ the\ same\ considering\ first\ or\ second\ element\ of\ a\ pair\ (a\ pair\ is\ a\ grid\ location)}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00087}00087\ \ \ \ \ result\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ pairs:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ results\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ pair:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (first):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p[0][0]\ ==\ p[1][0]):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ results.append(p)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p[0][1]\ ==\ p[1][1]):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ results.append(p)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ result.append(results)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00104}\mbox{\hyperlink{namespaceprimitives_a5744ac0f562971c2374f2aeaec2652b3}{00104}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_a5744ac0f562971c2374f2aeaec2652b3}{regionPairs}}(regions:\ list[list[list[tuple[int,\ int]]]])\ -\/>\ list[list[tuple[tuple[int,\ int],\ tuple[int,\ int]]]]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00105}00105\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ Pair\ a\ list\ of\ regions\ (a\ region\ is\ a\ list\ of\ connected\ pairs\ of\ same\ value,\ a\ pair\ is\ a\ grid\ location)}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00109}00109\ \ \ \ \ result\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ regions:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ pairs\ =\ []}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i1\ \textcolor{keywordflow}{in}\ range(0,\ len(x)):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j1\ \textcolor{keywordflow}{in}\ range(i1\ +\ 1,\ len(x)):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i2\ \textcolor{keywordflow}{in}\ range(0,\ len(x[i1])):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j2\ \textcolor{keywordflow}{in}\ range(0,\ len(x[j1])):}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pairs.append((x[i1][i2],\ x[j1][j2]))}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ result.append(pairs)}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00124}\mbox{\hyperlink{namespaceprimitives_a2ac3b812da8d76de27ea66a645f2bf78}{00124}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_a2ac3b812da8d76de27ea66a645f2bf78}{fliplr}}(x:\ list[np.ndarray])\ -\/>\ list[np.ndarray]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00125}00125\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ Flip\ left\ and\ right\ columns}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{return}\ [np.fliplr(y)\ \textcolor{keywordflow}{for}\ y\ \textcolor{keywordflow}{in}\ x]}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00131}\mbox{\hyperlink{namespaceprimitives_a675a69e72b60f638cf7fbfa5177bb3a0}{00131}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprimitives_a675a69e72b60f638cf7fbfa5177bb3a0}{flipud}}(x:\ list[np.ndarray])\ -\/>\ list[np.ndarray]:}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00132}00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ Flip\ up\ and\ down\ rows}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{primitives_8py_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{return}\ [np.flipud(y)\ \textcolor{keywordflow}{for}\ y\ \textcolor{keywordflow}{in}\ x]}
+
+\end{DoxyCode}

@@ -1,0 +1,317 @@
+\doxysection{test\+\_\+arc\+\_\+task.\+py}
+\hypertarget{test__arc__task_8py_source}{}\label{test__arc__task_8py_source}\index{scripts/test\_arc\_task.py@{scripts/test\_arc\_task.py}}
+\mbox{\hyperlink{test__arc__task_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00001}\mbox{\hyperlink{namespacetest__arc__task}{00001}}\ \textcolor{keyword}{import}\ copy}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00002}00002\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00003}00003\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00004}00004\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00005}00005\ \textcolor{keyword}{import}\ pyaicpp}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00006}00006\ \textcolor{keyword}{import}\ pytest}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00007}00007\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00008}00008\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00009}00009\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00010}00010\ \textcolor{keyword}{import}\ urllib.request}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00011}00011\ \textcolor{keyword}{import}\ utils}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00013}00013\ \textcolor{preprocessor}{@pytest.fixture(autouse\ =\ True)}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00014}\mbox{\hyperlink{namespacetest__arc__task_a5fbc03778a3b964520bf76299410f4e2}{00014}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_a5fbc03778a3b964520bf76299410f4e2}{print\_test\_duration}}(request):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00015}00015\ \ \ \ \ start\_time\ =\ time.time()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{yield}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00017}00017\ \ \ \ \ duration\ =\ time.time()\ -\/\ start\_time}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00018}00018\ \ \ \ \ print(f\textcolor{stringliteral}{"{}\(\backslash\)nTest\ \{request.node.name\}\ took\ \{duration:.2f\}\ seconds\ to\ execute."{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00020}\mbox{\hyperlink{namespacetest__arc__task_aaea23ca21072c984f77af519560035ed}{00020}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_aaea23ca21072c984f77af519560035ed}{trainTestPairs}}(folder:\ str,\ task:\ str)\ -\/>\ tuple:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00021}00021\ \ \ \ \ url\ =\ urllib.request.urlopen(\textcolor{stringliteral}{"{}https://raw.githubusercontent.com/arcprize/ARC-\/AGI-\/2/refs/heads/main/data/"{}}\ +\ folder\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.json"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00022}00022\ \ \ \ \ data\ =\ json.loads(url.read().decode())}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00024}00024\ \ \ \ \ train\ =\ data[\textcolor{stringliteral}{"{}train"{}}]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00025}00025\ \ \ \ \ trainPairs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ train:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ trainPairs.append((np.array(v[\textcolor{stringliteral}{"{}input"{}}]),\ np.array(v[\textcolor{stringliteral}{"{}output"{}}])))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00030}00030\ \ \ \ \ test\ =\ data[\textcolor{stringliteral}{"{}test"{}}]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00031}00031\ \ \ \ \ testPairs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ test:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ testPairs.append((np.array(v[\textcolor{stringliteral}{"{}input"{}}]),\ np.array(v[\textcolor{stringliteral}{"{}output"{}}])))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{return}\ (trainPairs,\ testPairs)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00038}\mbox{\hyperlink{namespacetest__arc__task_a111e4ae5a692fd6867656c048db1a7fb}{00038}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_a111e4ae5a692fd6867656c048db1a7fb}{inputOutputPairs}}(pairs):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00039}00039\ \ \ \ \ inputs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00040}00040\ \ \ \ \ outputs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ pairs:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ inputs.append(p[0])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ outputs.append(p[1])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{return}\ (inputs,\ outputs)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00048}\mbox{\hyperlink{namespacetest__arc__task_acf7b154c248961f5f1cbb7a3147e9767}{00048}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_acf7b154c248961f5f1cbb7a3147e9767}{bestPrimitives}}(folder:\ str,\ task:\ str,\ connectionStr:\ str,\ cost:\ float)\ -\/>\ tuple[list[str],\ list[str]]:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00049}00049\ \ \ \ \ url\ =\ urllib.request.urlopen(\textcolor{stringliteral}{"{}https://raw.githubusercontent.com/arcprize/ARC-\/AGI-\/2/refs/heads/main/data/"{}}\ +\ folder\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.json"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00050}00050\ \ \ \ \ data\ =\ json.loads(url.read().decode())}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00052}00052\ \ \ \ \ modelName\ =\ \textcolor{stringliteral}{"{}llama3.1"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00053}00053\ \ \ \ \ \textcolor{comment}{\#modelName\ =\ "{}gemma3:27b-\/it-\/qat"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00055}00055\ \ \ \ \ file\ =\ open(\textcolor{stringliteral}{"{}primitives.py"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00056}00056\ \ \ \ \ content\ =\ file.read()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00057}00057\ \ \ \ \ file.close()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00059}00059\ \ \ \ \ verbProperties\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00060}00060\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00061}00061\ \ \ \ \ lines\ =\ content.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00062}00062\ \ \ \ \ index\ =\ 0}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00063}00063\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{while}\ (index\ <\ len(lines)\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ lines[index].startswith(\textcolor{stringliteral}{"{}Verb\ properties"{}})):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ index\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00066}00066\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00067}00067\ \ \ \ \ index\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00068}00068\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{while}\ (index\ <\ len(lines)\ \textcolor{keywordflow}{and}\ lines[index]\ !=\ \textcolor{stringliteral}{'"{}"{}"{}'}):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ i\ =\ lines[index].index(\textcolor{stringliteral}{"{}:"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ verbProperties[lines[index][:i]]\ =\ lines[index][i\ +\ 2:]\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ index\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00074}00074\ \ \ \ \ functions\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00076}00076\ \ \ \ \ lines\ =\ content.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ lines:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line.startswith(\textcolor{stringliteral}{"{}def\ "{}})):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ functions.append(line[len(\textcolor{stringliteral}{"{}def\ "{}}):line.find(\textcolor{stringliteral}{"{}("{}})])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{import}\ primitives}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00084}00084\ \ \ \ \ descriptions\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{for}\ function\ \textcolor{keywordflow}{in}\ functions:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ cmd\ =\ [\textcolor{stringliteral}{"{}python"{}},\ \textcolor{stringliteral}{"{}-\/c"{}},\ \textcolor{stringliteral}{"{}import\ primitives;\ help(primitives."{}}\ +\ function\ +\ \textcolor{stringliteral}{"{})"{}}]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ result\ =\ subprocess.run(cmd,\ capture\_output\ =\ \textcolor{keyword}{True},\ text\ =\ \textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ functionLines\ =\ result.stdout.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ 2):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ del\ functionLines[0]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ del\ functionLines[-\/1]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ descriptions[function]\ =\ functionLines[-\/1].strip()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00098}00098\ \ \ \ \ selection\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{for}\ count\ \textcolor{keywordflow}{in}\ range(0,\ 5):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ verbs\ =\ set(np.unique([x.split()[0]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ descriptions.values()]))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ selectedVerbs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (len(verbs)\ !=\ 1):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ command\ =\ \textcolor{stringliteral}{"{}You\ are\ given\ several\ input-\/output\ grid\ pairs\ from\ an\ ARC\ task.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#command\ +=\ json.dumps(data["{}train"{}])\ +\ "{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(data[\textcolor{stringliteral}{"{}train"{}}])):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}("{}}\ +\ json.dumps(data[\textcolor{stringliteral}{"{}train"{}}][i][\textcolor{stringliteral}{"{}input"{}}])\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ json.dumps(data[\textcolor{stringliteral}{"{}train"{}}][i][\textcolor{stringliteral}{"{}output"{}}])\ +\ \textcolor{stringliteral}{"{})\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ For\ EACH\ verb\ below,\ check\ whether\ it\ ENFORCES\ the\ following\ property:}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00113}00113\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ PROPERTY:}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ "{}If\ this\ verb\ is\ the\ main\ abstraction,\ then\ this\ property\ MUST\ hold\ for\ ALL\ input-\/output\ pairs."{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00116}00116\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ If\ the\ property\ is\ violated\ by\ at\ least\ one\ example,\ the\ verb\ is\ INVALID.}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00118}00118\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ Verbs\ and\ their\ mandatory\ properties:}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ selectedProperties\ =\ dict(list(filter(\textcolor{keyword}{lambda}\ x:\ x[0]\ \textcolor{keywordflow}{in}\ verbs,\ verbProperties.items())))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}.join([\textcolor{stringliteral}{"{}-\/\ "{}}\ +\ k\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +\ v\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ selectedProperties.items()])\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ Task:}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ Select\ ONE\ verb\ whose\ mandatory\ property\ is\ violated.}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00127}00127\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ WITHOUT\ ANY\ FORMATTING,\ answer\ ONLY\ with\ the\ right\ verb\ name.}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ Do\ NOT\ explain."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ scores\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ 5):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cmd\ =\ [\textcolor{stringliteral}{"{}ollama"{}},\ \textcolor{stringliteral}{"{}run"{}},\ modelName,\ command]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ subprocess.run(cmd,\ capture\_output\ =\ \textcolor{keyword}{True},\ text\ =\ \textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verb\ =\ result.stdout.strip()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\ =\ scores.get(verb,\ 0)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores[verb]\ =\ score}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#print("{}scores"{},\ scores)}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ verb\ =\ sorted(scores.items(),\ key\ =\ \textcolor{keyword}{lambda}\ x:\ x[1])[-\/1][0]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#print(verb)}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ verbs.remove(verb)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ selectedVerbs.append(verb)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ selectedVerbs.append(verbs.pop())}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ selectedVerbs\ =\ list(reversed(selectedVerbs))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ selection.append(tuple(selectedVerbs))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00150}00150\ \ \ \ \ hashes\ =\ [hash(x)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ selection]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00151}00151\ \ \ \ \ un,\ count\ =\ np.unique(hashes,\ return\_counts\ =\ \textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00152}00152\ \ \ \ \ i\ =\ count.tolist().index(max(count))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00154}00154\ \ \ \ \ selectedVerbs\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ selection:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hash(x)\ ==\ un[i]):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ selectedVerbs\ =\ x}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00160}00160\ \ \ \ \ print(selectedVerbs)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00161}00161\ \ \ \ \ functions\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ descriptions.items():}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ l\ =\ functions.get(v.split()[0],\ [])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ l.append(k)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ functions[v.split()[0]]\ =\ l}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00168}00168\ \ \ \ \ selectedFunctions\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00170}00170\ \ \ \ \ \textcolor{keywordflow}{for}\ verb\ \textcolor{keywordflow}{in}\ selectedVerbs:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ selectedFunctions.extend(functions[verb])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00172}00172\ \ \ \ \ print(selectedFunctions)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{return}\ selectedFunctions,\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00175}\mbox{\hyperlink{namespacetest__arc__task_af017b544a237d680c5d4464403ef5113}{00175}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_af017b544a237d680c5d4464403ef5113}{updateRegionNeurons}}(regionNeurons:\ dict,\ pairs:\ list[np.ndarray]):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00176}00176\ \ \ \ \ regionMap\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{for}\ input\_\ \textcolor{keywordflow}{in}\ pairs:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ s\ =\ \mbox{\hyperlink{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44}{utils.regionSet}}(input\_,\ \textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ regions\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ 10):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ regions[i]\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ s:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ regions[input\_[r[0][0],\ r[0][1]]].append(r)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ regions.items():}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ l\ =\ regionMap.get(k,\ [])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ l.append(v)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ regionMap[k]\ =\ l}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00194}00194\ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ regionMap.items():}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ function\ =\ \textcolor{keyword}{lambda}\ v\ =\ v:\ v}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ emptyCount\ =\ 0}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ l\ \textcolor{keywordflow}{in}\ v:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len(l)\ ==\ 0):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ emptyCount\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (regionNeurons.get(k,\ \textcolor{keywordtype}{None})\ ==\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (emptyCount\ !=\ len(v)):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ regionNeurons[k]\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}region"{}}\ +\ str(k),\ function,\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}list[list[list[tuple[int,\ int]]]]"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (emptyCount\ !=\ len(v)):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ regionNeurons[k].function\ =\ function}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ del\ regionNeurons[k]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00212}\mbox{\hyperlink{namespacetest__arc__task_a8e198f1e272fb8e9744e2edf68ac7069}{00212}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_a8e198f1e272fb8e9744e2edf68ac7069}{processTask}}(folder:\ str,\ task:\ str)\ -\/>\ int:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00213}00213\ \ \ \ \ taskPairs\ =\ \mbox{\hyperlink{namespacetest__arc__task_aaea23ca21072c984f77af519560035ed}{trainTestPairs}}(folder,\ task)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00214}00214\ \ \ \ \ trainPairs\ =\ \mbox{\hyperlink{namespacetest__arc__task_a111e4ae5a692fd6867656c048db1a7fb}{inputOutputPairs}}(taskPairs[0])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00215}00215\ \ \ \ \ testPairs\ =\ \mbox{\hyperlink{namespacetest__arc__task_a111e4ae5a692fd6867656c048db1a7fb}{inputOutputPairs}}(taskPairs[1])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00217}00217\ \ \ \ \ falseNeuron\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}False"{}},\ \textcolor{keyword}{lambda}:\ \textcolor{keyword}{False},\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}bool"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00218}00218\ \ \ \ \ trueNeuron\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}True"{}},\ \textcolor{keyword}{lambda}:\ \textcolor{keyword}{True},\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}bool"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00219}00219\ \ \ \ \ inputNeuron\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}input"{}},\ \textcolor{keyword}{lambda}\ trainPairs\ =\ trainPairs:\ trainPairs[0],\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}list[numpy.ndarray]"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00220}00220\ \ \ \ \ pairsNeuron\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}pairs"{}},\ \textcolor{keyword}{lambda}\ v,\ taskPairs\ =\ taskPairs:\ []\ \textcolor{keywordflow}{if}\ len(taskPairs[0])\ !=\ len(v)\ \textcolor{keywordflow}{else}\ [(v[i],\ taskPairs[0][i][1])\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(taskPairs[0]))],\ [pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}list[numpy.ndarray]"{}})],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}list[tuple[numpy.ndarray,\ numpy.ndarray]]"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00221}00221\ \ \ \ \ trainPairsNeuron\ =\ pyaicpp.PyNeuron(\textcolor{stringliteral}{"{}trainPairs"{}},\ \textcolor{keyword}{lambda}\ taskPairs\ =\ taskPairs:\ taskPairs[0],\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}list[tuple[numpy.ndarray,\ numpy.ndarray]]"{}}))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00223}00223\ \ \ \ \ digitNeurons\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ 10):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ digitNeurons.append(pyaicpp.PyNeuron(str(i),\ \textcolor{keyword}{lambda}\ i\ =\ i:\ i,\ [],\ pyaicpp.type\_index\_from\_name(\textcolor{stringliteral}{"{}int"{}})))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00228}00228\ \ \ \ \ connectionStr\ =\ \textcolor{stringliteral}{"{}input"{}}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00229}00229\ \ \ \ \ cost\ =\ pyaicpp.heuristic(trainPairs[0],\ trainPairs[1])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00231}00231\ \ \ \ \ \textcolor{keywordflow}{while}\ (cost):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ regionNeurons\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacetest__arc__task_af017b544a237d680c5d4464403ef5113}{updateRegionNeurons}}(regionNeurons,\ trainPairs[0])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ neurons\ =\ [inputNeuron,\ falseNeuron,\ trueNeuron,\ pairsNeuron,\ trainPairsNeuron]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ regionNeurons.items():}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ neurons.append(v)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ digits\ =\ set()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ m\ \textcolor{keywordflow}{in}\ trainPairs[0]:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ m.reshape(m.size):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ digits.add(v)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ m\ \textcolor{keywordflow}{in}\ trainPairs[1]:}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ m.reshape(m.size):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ digits.add(v)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ existingDigits\ =\ []}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ 10):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ existingDigits.append(i\ \textcolor{keywordflow}{in}\ digits)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(digitNeurons)):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (existingDigits[i]):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neurons.append(digitNeurons[i])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#selectedPrimitives,\ definitions\ =\ bestPrimitives(folder,\ task,\ connectionStr,\ cost)}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ selectedPrimitives\ =\ [\textcolor{stringliteral}{"{}flipud"{}},\ \textcolor{stringliteral}{"{}fliplr"{}}]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keyword}{import}\ primitives}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(selectedPrimitives)):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ primitive\ =\ selectedPrimitives[i]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ function\ =\ getattr(primitives,\ primitive)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ annotations\ =\ copy.deepcopy(function.\_\_annotations\_\_)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ outputType\ =\ copy.deepcopy(annotations[\textcolor{stringliteral}{"{}return"{}}])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ del\ annotations[\textcolor{stringliteral}{"{}return"{}}]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ inputTypes\ =\ list(annotations.values())}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ neurons.append(pyaicpp.PyNeuron(primitive,\ function,}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [pyaicpp.type\_index\_from\_name(str(x).replace(\textcolor{stringliteral}{"{}<class\ '"{}},\ \textcolor{stringliteral}{"{}"{}}).replace(\textcolor{stringliteral}{"{}'>"{}},\ \textcolor{stringliteral}{"{}"{}}))\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ inputTypes],}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pyaicpp.type\_index\_from\_name(str(outputType).replace(\textcolor{stringliteral}{"{}<class\ '"{}},\ \textcolor{stringliteral}{"{}"{}}).replace(\textcolor{stringliteral}{"{}'>"{}},\ \textcolor{stringliteral}{"{}"{}}))))}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ pyaicpp.Brain(neurons)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ connections\ =\ b.learn([trainPairs[1]],\ level\ =\ 3)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len(connections)\ ==\ 0):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ connection\ =\ connections[0]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ connectionStr\ =\ connection.toStr()}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ cost\ =\ pyaicpp.heuristic(connection.output(),\ trainPairs[1])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacetest__arc__task_af017b544a237d680c5d4464403ef5113}{updateRegionNeurons}}(regionNeurons,\ testPairs[0]);}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ inputNeuron.function\ =\ \textcolor{keyword}{lambda}\ testPairs\ =\ testPairs:\ testPairs[0]}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ cost\ =\ pyaicpp.heuristic(connection.output(),\ testPairs[1])}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost):}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00301}00301\ \ \ \ \ print(connectionStr)}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00303}\mbox{\hyperlink{namespacetest__arc__task_af2eb7c4343faf7162ed801f02163a2c9}{00303}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_af2eb7c4343faf7162ed801f02163a2c9}{test\_task3c9b0459}}():\ \textcolor{comment}{\#Flip\ left/right\ and\ flip\ up/down}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00304}00304\ \ \ \ \ \mbox{\hyperlink{namespacetest__arc__task_a8e198f1e272fb8e9744e2edf68ac7069}{processTask}}(\textcolor{stringliteral}{"{}training"{}},\ \textcolor{stringliteral}{"{}3c9b0459"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00306}\mbox{\hyperlink{namespacetest__arc__task_a68d0382c6a5cf6bdad11d8de9809026f}{00306}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_a68d0382c6a5cf6bdad11d8de9809026f}{test\_task0d3d703e}}():\ \textcolor{comment}{\#Color\ mapping}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00307}00307\ \ \ \ \ \mbox{\hyperlink{namespacetest__arc__task_a8e198f1e272fb8e9744e2edf68ac7069}{processTask}}(\textcolor{stringliteral}{"{}training"{}},\ \textcolor{stringliteral}{"{}0d3d703e"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00309}\mbox{\hyperlink{namespacetest__arc__task_ae7c9962f2272e7f06b722b142d3f1ba9}{00309}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetest__arc__task_ae7c9962f2272e7f06b722b142d3f1ba9}{test\_task253bf280}}():\ \textcolor{comment}{\#Draw\ colored\ segment\ between\ pixels\ that\ have\ same\ x\ or\ y\ coordinates}}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00310}00310\ \ \ \ \ \mbox{\hyperlink{namespacetest__arc__task_a8e198f1e272fb8e9744e2edf68ac7069}{processTask}}(\textcolor{stringliteral}{"{}training"{}},\ \textcolor{stringliteral}{"{}253bf280"{}})}
+\DoxyCodeLine{\Hypertarget{test__arc__task_8py_source_l00311}00311\ }
+
+\end{DoxyCode}

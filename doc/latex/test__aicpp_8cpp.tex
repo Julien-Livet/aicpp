@@ -1,0 +1,127 @@
+\doxysection{src/test\+\_\+aicpp.cpp File Reference}
+\hypertarget{test__aicpp_8cpp}{}\label{test__aicpp_8cpp}\index{src/test\_aicpp.cpp@{src/test\_aicpp.cpp}}
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$boost/json.\+hpp$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include "{}aicpp/\+Brain.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/\+Connection.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/primitives.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/utility.\+h"{}}\newline
+Include dependency graph for test\+\_\+aicpp.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{test__aicpp_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test__aicpp_8cpp_a1544a5b6379614b6f5de68f9e181c1ac}{TEST}} (Test\+Ai\+Cpp, Valid\+Connections)
+\item 
+\mbox{\hyperlink{test__aicpp_8cpp_a79d4d6d11efce7a0348c4282386bf75b}{TEST}} (Test\+Ai\+Cpp, Str)
+\item 
+Eigen\+::\+Matrix\+Xi \mbox{\hyperlink{test__aicpp_8cpp_a99629c0547e7babc87cee948761f18b1}{boost\+Json\+To\+Eigen\+Matrix}} (array const \&arr)
+\item 
+std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$, std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ $>$ \mbox{\hyperlink{test__aicpp_8cpp_ad5c3372cd2370f5799603732fb1ff459}{train\+Test\+Pairs}} (std\+::string const \&folder, std\+::string const \&task)
+\item 
+std\+::pair$<$ std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$, std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ $>$ \mbox{\hyperlink{test__aicpp_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{input\+Output\+Pairs}} (std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ const \&task\+Pairs)
+\item 
+int \mbox{\hyperlink{test__aicpp_8cpp_ae772d7a6d304e205aa8b8495988ebea2}{process\+Task}} (std\+::string const \&folder, std\+::string const \&task, std\+::vector$<$ std\+::string $>$ const \&activated\+Neuron\+Names=std\+::vector$<$ std\+::string $>$\{\})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string const \mbox{\hyperlink{test__aicpp_8cpp_a206958a0a5a2f20f681d8830677e5b24}{path}} \{"{}../ARC-\/AGI-\/2/data"{}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__aicpp_8cpp_a99629c0547e7babc87cee948761f18b1}\label{test__aicpp_8cpp_a99629c0547e7babc87cee948761f18b1} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!boostJsonToEigenMatrix@{boostJsonToEigenMatrix}}
+\index{boostJsonToEigenMatrix@{boostJsonToEigenMatrix}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{boostJsonToEigenMatrix()}{boostJsonToEigenMatrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xi boost\+Json\+To\+Eigen\+Matrix (\begin{DoxyParamCaption}\item[{array const \&}]{arr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00282}{282}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{test__aicpp_8cpp_a99629c0547e7babc87cee948761f18b1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{test__aicpp_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}\label{test__aicpp_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!inputOutputPairs@{inputOutputPairs}}
+\index{inputOutputPairs@{inputOutputPairs}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{inputOutputPairs()}{inputOutputPairs()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$, std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ $>$ input\+Output\+Pairs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ const \&}]{task\+Pairs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00354}{354}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+\Hypertarget{test__aicpp_8cpp_ae772d7a6d304e205aa8b8495988ebea2}\label{test__aicpp_8cpp_ae772d7a6d304e205aa8b8495988ebea2} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!processTask@{processTask}}
+\index{processTask@{processTask}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{processTask()}{processTask()}}
+{\footnotesize\ttfamily int process\+Task (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{folder,  }\item[{std\+::string const \&}]{task,  }\item[{std\+::vector$<$ std\+::string $>$ const \&}]{activated\+Neuron\+Names = {\ttfamily std\+:\+:vector$<$std\+:\+:string$>$\{\}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00370}{370}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+\Hypertarget{test__aicpp_8cpp_a79d4d6d11efce7a0348c4282386bf75b}\label{test__aicpp_8cpp_a79d4d6d11efce7a0348c4282386bf75b} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Ai\+Cpp}]{,  }\item[{Str}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00190}{190}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+\Hypertarget{test__aicpp_8cpp_a1544a5b6379614b6f5de68f9e181c1ac}\label{test__aicpp_8cpp_a1544a5b6379614b6f5de68f9e181c1ac} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Test\+Ai\+Cpp}]{,  }\item[{Valid\+Connections}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+\Hypertarget{test__aicpp_8cpp_ad5c3372cd2370f5799603732fb1ff459}\label{test__aicpp_8cpp_ad5c3372cd2370f5799603732fb1ff459} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!trainTestPairs@{trainTestPairs}}
+\index{trainTestPairs@{trainTestPairs}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{trainTestPairs()}{trainTestPairs()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$, std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ $>$ train\+Test\+Pairs (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{folder,  }\item[{std\+::string const \&}]{task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00301}{301}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{test__aicpp_8cpp_ad5c3372cd2370f5799603732fb1ff459_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{test__aicpp_8cpp_a206958a0a5a2f20f681d8830677e5b24}\label{test__aicpp_8cpp_a206958a0a5a2f20f681d8830677e5b24} 
+\index{test\_aicpp.cpp@{test\_aicpp.cpp}!path@{path}}
+\index{path@{path}!test\_aicpp.cpp@{test\_aicpp.cpp}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily std\+::string const path \{"{}../ARC-\/AGI-\/2/data"{}\}}
+
+
+
+Definition at line \mbox{\hyperlink{test__aicpp_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{test__aicpp_8cpp_source}{test\+\_\+aicpp.\+cpp}}.
+

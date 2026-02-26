@@ -1,0 +1,14 @@
+<map id="testing::internal::StringStreamToString" name="testing::internal::StringStreamToString">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,164,103"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="212,63,345,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,80,198,80,198,85,164,85"/>
+<area shape="poly" id="edge7_Node000002_Node000002" title=" " alt="" coords="244,63,242,53,248,44,260,38,279,36,300,39,312,46,309,51,298,44,279,41,261,43,251,48,247,54,249,62"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="393,63,527,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,89,379,89,379,94,345,94"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="393,77,359,76,359,71,393,71"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="592,5,736,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="526,61,578,47,580,52,527,67"/>
+<area shape="rect" id="Node000005" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="575,70,753,125"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="527,85,561,87,561,93,527,90"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="592,31,497,39,394,53,357,62,356,56,393,48,497,33,592,26"/>
+</map>

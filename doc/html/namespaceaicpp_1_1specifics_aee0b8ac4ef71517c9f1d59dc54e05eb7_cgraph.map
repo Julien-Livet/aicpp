@@ -1,0 +1,5 @@
+<map id="aicpp::specifics::swap" name="aicpp::specifics::swap">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,168,31"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#afb9684e875180e1b883fe1037cf805f8" title="std::vector&lt;Eigen::MatrixXi&gt; swap(std::vector&lt;Eigen::MatrixXi&gt; arg0, int arg1, int arg2); // color sw..." alt="" coords="216,5,389,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,15,202,15,202,21,168,21"/>
+</map>

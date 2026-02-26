@@ -1,0 +1,19 @@
+<map id="testing::internal::UnitTestImpl::CurrentOsStackTraceExceptTop" name="testing::internal::UnitTestImpl::CurrentOsStackTraceExceptTop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,71,219,125"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1internal_1_1OsStackTraceGetterInterface.html#a0c41724e4e47647a7fe2ace8e70c0ec7" title=" " alt="" coords="267,5,475,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,68,253,60,254,65,220,74"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="523,111,656,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,103,509,123,509,128,218,108"/>
+<area shape="rect" id="Node000007" href="$classtesting_1_1internal_1_1UnitTestImpl.html#a71753679854f7fbba6c1568eb422fecb" title=" " alt="" coords="286,136,455,191"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="220,122,273,136,272,141,218,128"/>
+<area shape="poly" id="edge8_Node000003_Node000003" title=" " alt="" coords="555,112,553,102,558,93,571,87,589,85,611,88,623,95,620,99,609,93,589,90,572,92,562,97,558,103,560,110"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="704,111,837,151"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="656,137,690,138,690,143,656,143"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="704,125,670,125,670,120,704,120"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="903,54,1047,94"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="837,110,889,95,891,100,838,115"/>
+<area shape="rect" id="Node000006" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="885,119,1064,173"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="838,133,872,136,871,141,837,139"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="903,80,808,87,704,102,668,110,667,105,704,97,808,82,902,74"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="455,148,508,140,509,146,456,154"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="MacroNamingTestNonParametrized" name="MacroNamingTestNonParametrized">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,256,104"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1Test.html" title=" " alt="" coords="80,5,181,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,43,98,61,106,77,101,80,93,62,94,43"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="116,44,116,62,120,78,114,79,110,63,111,44"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="133,44,133,79,128,79,128,44"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="151,44,151,63,147,79,142,78,146,62,145,44"/>
+<area shape="poly" id="edge5_Node000001_Node000002" title=" " alt="" coords="167,43,169,62,160,80,156,77,163,61,162,43"/>
+</map>

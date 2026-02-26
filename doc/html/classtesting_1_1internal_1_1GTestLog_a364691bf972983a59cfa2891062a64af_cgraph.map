@@ -1,0 +1,19 @@
+<map id="testing::internal::GTestLog::GTestLog" name="testing::internal::GTestLog::GTestLog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,153,133"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a31b7c3abed4a7c395f42c61e993989f4" title=" " alt="" coords="207,29,354,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,91,203,71,205,76,144,96"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1internal_1_1GTestLog.html#a74935e7a0b424c4a6312fb73dafab6b5" title=" " alt="" coords="201,93,360,133"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="154,111,188,111,188,116,154,116"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="214,181,347,221"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="127,131,222,173,220,178,125,136"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="244,30,242,20,248,11,261,5,281,3,303,6,316,13,313,17,302,11,281,8,262,10,251,15,247,21,250,28"/>
+<area shape="poly" id="edge10_Node000004_Node000004" title=" " alt="" coords="244,182,242,172,248,163,261,157,281,155,303,158,316,165,313,169,302,163,281,160,262,162,251,167,247,173,250,180"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="408,181,541,221"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="348,207,394,208,394,213,348,213"/>
+<area shape="poly" id="edge8_Node000005_Node000004" title=" " alt="" coords="407,195,362,195,362,190,407,190"/>
+<area shape="rect" id="Node000006" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="607,124,751,164"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="541,180,593,165,595,170,542,185"/>
+<area shape="rect" id="Node000007" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="589,189,768,243"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="542,203,576,206,575,211,541,209"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="607,150,512,158,408,172,362,182,360,177,408,167,512,153,606,145"/>
+</map>

@@ -1,0 +1,176 @@
+\doxysection{gmock\+\_\+test\+\_\+utils Namespace Reference}
+\hypertarget{namespacegmock__test__utils}{}\label{namespacegmock__test__utils}\index{gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a02a2cf54e2808e29aaba6712a368432f}{Get\+Source\+Dir}} ()
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246}{Get\+Test\+Executable\+Path}} (executable\+\_\+name)
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a50a969d22467b37ee1a10bc2a9033b59}{Get\+Exit\+Status}} (exit\+\_\+code)
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a41b291984bc12db5e1056a056bc79ba1}{Main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a31a0e33565ec805d314cb0a4eb8317e6}{Subprocess}} = \mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{gtest\+\_\+test\+\_\+utils.\+Subprocess}}
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a959c5af591e4d49b6d35745205b64509}{Test\+Case}} = gtest\+\_\+test\+\_\+utils.\+Test\+Case
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a6f0938b5e8839ebc847b52a38f4d35e3}{environ}} = gtest\+\_\+test\+\_\+utils.\+environ
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_ab0c69f8ce649fdd5a17f99deedf3eb29}{Set\+Env\+Var}} = gtest\+\_\+test\+\_\+utils.\+Set\+Env\+Var
+\item 
+\mbox{\hyperlink{namespacegmock__test__utils_a9392c288e6da3024d65ec0bddc0d86c3}{PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR}} = gtest\+\_\+test\+\_\+utils.\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Unit test utilities for Google C++ Mocking Framework.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacegmock__test__utils_a50a969d22467b37ee1a10bc2a9033b59}\label{namespacegmock__test__utils_a50a969d22467b37ee1a10bc2a9033b59} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!GetExitStatus@{GetExitStatus}}
+\index{GetExitStatus@{GetExitStatus}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetExitStatus()}{GetExitStatus()}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Get\+Exit\+Status (\begin{DoxyParamCaption}\item[{}]{exit\+\_\+code }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the argument to exit(), or -1 if exit() wasn't called.
+
+Args:
+  exit_code: the result value of os.system(command).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00060}{60}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegmock__test__utils_a02a2cf54e2808e29aaba6712a368432f}\label{namespacegmock__test__utils_a02a2cf54e2808e29aaba6712a368432f} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!GetSourceDir@{GetSourceDir}}
+\index{GetSourceDir@{GetSourceDir}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetSourceDir()}{GetSourceDir()}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Get\+Source\+Dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the absolute path of the directory where the .py files are.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00038}{38}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegmock__test__utils_a02a2cf54e2808e29aaba6712a368432f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246}\label{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!GetTestExecutablePath@{GetTestExecutablePath}}
+\index{GetTestExecutablePath@{GetTestExecutablePath}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{GetTestExecutablePath()}{GetTestExecutablePath()}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path (\begin{DoxyParamCaption}\item[{}]{executable\+\_\+name }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the absolute path of the test binary given its name.
+
+The function will print a message and abort the program if the resulting file
+doesn't exist.
+
+Args:
+  executable_name: name of the test binary that the test script runs.
+
+Returns:
+  The absolute path of the test binary.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00044}{44}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegmock__test__utils_a41b291984bc12db5e1056a056bc79ba1}\label{namespacegmock__test__utils_a41b291984bc12db5e1056a056bc79ba1} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!Main@{Main}}
+\index{Main@{Main}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{Main()}{Main()}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Runs the unit test.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00088}{88}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegmock__test__utils_a41b291984bc12db5e1056a056bc79ba1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegmock__test__utils_a41b291984bc12db5e1056a056bc79ba1_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacegmock__test__utils_a6f0938b5e8839ebc847b52a38f4d35e3}\label{namespacegmock__test__utils_a6f0938b5e8839ebc847b52a38f4d35e3} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!environ@{environ}}
+\index{environ@{environ}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{environ}{environ}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+environ = gtest\+\_\+test\+\_\+utils.\+environ}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00083}{83}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegmock__test__utils_a9392c288e6da3024d65ec0bddc0d86c3}\label{namespacegmock__test__utils_a9392c288e6da3024d65ec0bddc0d86c3} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!PREMATURE\_EXIT\_FILE\_ENV\_VAR@{PREMATURE\_EXIT\_FILE\_ENV\_VAR}}
+\index{PREMATURE\_EXIT\_FILE\_ENV\_VAR@{PREMATURE\_EXIT\_FILE\_ENV\_VAR}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{PREMATURE\_EXIT\_FILE\_ENV\_VAR}{PREMATURE\_EXIT\_FILE\_ENV\_VAR}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR = gtest\+\_\+test\+\_\+utils.\+PREMATURE\+\_\+\+EXIT\+\_\+\+FILE\+\_\+\+ENV\+\_\+\+VAR}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00085}{85}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegmock__test__utils_ab0c69f8ce649fdd5a17f99deedf3eb29}\label{namespacegmock__test__utils_ab0c69f8ce649fdd5a17f99deedf3eb29} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!SetEnvVar@{SetEnvVar}}
+\index{SetEnvVar@{SetEnvVar}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{SetEnvVar}{SetEnvVar}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Set\+Env\+Var = gtest\+\_\+test\+\_\+utils.\+Set\+Env\+Var}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00084}{84}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegmock__test__utils_a31a0e33565ec805d314cb0a4eb8317e6}\label{namespacegmock__test__utils_a31a0e33565ec805d314cb0a4eb8317e6} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!Subprocess@{Subprocess}}
+\index{Subprocess@{Subprocess}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{Subprocess}{Subprocess}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Subprocess = \mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{gtest\+\_\+test\+\_\+utils.\+Subprocess}}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00081}{81}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{namespacegmock__test__utils_a959c5af591e4d49b6d35745205b64509}\label{namespacegmock__test__utils_a959c5af591e4d49b6d35745205b64509} 
+\index{gmock\_test\_utils@{gmock\_test\_utils}!TestCase@{TestCase}}
+\index{TestCase@{TestCase}!gmock\_test\_utils@{gmock\_test\_utils}}
+\doxysubsubsection{\texorpdfstring{TestCase}{TestCase}}
+{\footnotesize\ttfamily gmock\+\_\+test\+\_\+utils.\+Test\+Case = gtest\+\_\+test\+\_\+utils.\+Test\+Case}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00082}{82}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{gmock\+\_\+test\+\_\+utils.\+py}}.
+

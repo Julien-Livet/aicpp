@@ -1,0 +1,11 @@
+<map id="aicpp::primitives::rot270" name="aicpp::primitives::rot270">
+<area shape="rect" id="Node000001" title="std::vector&lt;Eigen::MatrixXi&gt; rot270(std::vector&lt;Eigen::MatrixXi&gt; arg0); // quarter anticlockwise rota..." alt="" coords="5,5,144,45"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1utility.html#a6cc49c9c1c4d5f290e84edeb550d4540" title=" " alt="" coords="192,13,336,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,23,178,23,178,28,144,28"/>
+<area shape="rect" id="Node000003" href="$namespaceaicpp_1_1utility.html#a79b78b9ba08e26dcfe6089b87572a81f" title=" " alt="" coords="384,13,531,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,23,370,23,370,28,336,28"/>
+<area shape="rect" id="Node000004" href="$namespaceaicpp_1_1utility.html#acdfd2c108f2fed59d5df996d5864a4b9" title=" " alt="" coords="579,13,757,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="531,23,565,23,565,28,531,28"/>
+<area shape="rect" id="Node000005" href="$namespaceaicpp_1_1utility.html#a64a11f26987172943e383e2a4bb8b4d9" title=" " alt="" coords="805,13,984,38"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="758,23,791,23,791,28,758,28"/>
+</map>

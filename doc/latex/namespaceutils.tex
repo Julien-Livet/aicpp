@@ -1,0 +1,146 @@
+\doxysection{utils Namespace Reference}
+\hypertarget{namespaceutils}{}\label{namespaceutils}\index{utils@{utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+dict\mbox{[}int, int\mbox{]} \mbox{\hyperlink{namespaceutils_abaa941cbef1578e80d4453f86916bf16}{associate}} (dict\mbox{[}int, int\mbox{]} mapping, int a, int b)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceutils_a50be0cf310721034b00781cf56234118}{dot\+Segment}} (np.\+ndarray dst, tuple\mbox{[}int, int\mbox{]} begin, tuple\mbox{[}int, int\mbox{]} end, int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, int dot\+\_\+step)
+\item 
+set \mbox{\hyperlink{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44}{region\+Set}} (np.\+ndarray m, bool diagonals)
+\item 
+bool \mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{valid\+Index}} (np.\+ndarray a, tuple\mbox{[}int, int\mbox{]} at)
+\item 
+list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceutils_aaafbf763a1357d65adde2e444296689a}{neighbors}} (tuple\mbox{[}int, int\mbox{]} loc, tuple\mbox{[}int, int\mbox{]} size, bool diagonals)
+\item 
+list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceutils_adfd3f24969b1a7808de359e77a58491d}{region}} (np.\+ndarray a, tuple\mbox{[}int, int\mbox{]} at, bool diagonals)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceutils_abaa941cbef1578e80d4453f86916bf16}\label{namespaceutils_abaa941cbef1578e80d4453f86916bf16} 
+\index{utils@{utils}!associate@{associate}}
+\index{associate@{associate}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{associate()}{associate()}}
+{\footnotesize\ttfamily  dict\mbox{[}int, int\mbox{]} utils.\+associate (\begin{DoxyParamCaption}\item[{dict\mbox{[}int, int\mbox{]}}]{mapping,  }\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Associate a value with another value in a dictionnary
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00004}{4}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+\Hypertarget{namespaceutils_a50be0cf310721034b00781cf56234118}\label{namespaceutils_a50be0cf310721034b00781cf56234118} 
+\index{utils@{utils}!dotSegment@{dotSegment}}
+\index{dotSegment@{dotSegment}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{dotSegment()}{dotSegment()}}
+{\footnotesize\ttfamily  np.\+ndarray utils.\+dot\+Segment (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{dst,  }\item[{tuple\mbox{[}int, int\mbox{]}}]{begin,  }\item[{tuple\mbox{[}int, int\mbox{]}}]{end,  }\item[{int}]{value,  }\item[{int}]{dot\+\_\+step }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Dot a straight line between two points in an numpy array with the specified value.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00014}{14}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{namespaceutils_a50be0cf310721034b00781cf56234118_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceutils_aaafbf763a1357d65adde2e444296689a}\label{namespaceutils_aaafbf763a1357d65adde2e444296689a} 
+\index{utils@{utils}!neighbors@{neighbors}}
+\index{neighbors@{neighbors}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{neighbors()}{neighbors()}}
+{\footnotesize\ttfamily  list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]} utils.\+neighbors (\begin{DoxyParamCaption}\item[{tuple\mbox{[}int, int\mbox{]}}]{loc,  }\item[{tuple\mbox{[}int, int\mbox{]}}]{size,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of the neighboring indices of a given index considering diagonal neihbors or not
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00056}{56}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceutils_aaafbf763a1357d65adde2e444296689a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceutils_adfd3f24969b1a7808de359e77a58491d}\label{namespaceutils_adfd3f24969b1a7808de359e77a58491d} 
+\index{utils@{utils}!region@{region}}
+\index{region@{region}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{region()}{region()}}
+{\footnotesize\ttfamily  list\mbox{[}tuple\mbox{[}int, int\mbox{]}\mbox{]} utils.\+region (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{a,  }\item[{tuple\mbox{[}int, int\mbox{]}}]{at,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of indices in the same region as the given index considering diagonal neihbors or not
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00080}{80}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{namespaceutils_adfd3f24969b1a7808de359e77a58491d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceutils_adfd3f24969b1a7808de359e77a58491d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44}\label{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44} 
+\index{utils@{utils}!regionSet@{regionSet}}
+\index{regionSet@{regionSet}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{regionSet()}{regionSet()}}
+{\footnotesize\ttfamily  set utils.\+region\+Set (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{m,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00037}{37}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}\label{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22} 
+\index{utils@{utils}!validIndex@{validIndex}}
+\index{validIndex@{validIndex}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{validIndex()}{validIndex()}}
+{\footnotesize\ttfamily  bool utils.\+valid\+Index (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{a,  }\item[{tuple\mbox{[}int, int\mbox{]}}]{at }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Check if the index is within the bounds of a numpy array
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{utils_8py_source_l00049}{49}} of file \mbox{\hyperlink{utils_8py_source}{utils.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22_icgraph}
+\end{center}
+\end{figure}

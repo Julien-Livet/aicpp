@@ -1,0 +1,490 @@
+\doxysection{testing\+::internal\+::Failure\+Reporter\+Interface Class Reference}
+\hypertarget{classtesting_1_1internal_1_1FailureReporterInterface}{}\label{classtesting_1_1internal_1_1FailureReporterInterface}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+
+
+{\ttfamily \#include $<$gmock-\/internal-\/utils.\+h$>$}
+
+
+
+Inheritance diagram for testing\+::internal\+::Failure\+Reporter\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classtesting_1_1internal_1_1FailureReporterInterface__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} \{ \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+ \}
+\item 
+enum \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} \{ \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+ \}
+\item 
+enum \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} \{ \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+ \}
+\item 
+enum \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} \{ \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+ \}
+\item 
+enum \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} \{ \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+, \newline
+\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}{k\+Nonfatal}}
+, \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}{k\+Fatal}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}{\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface}} ()=\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}{Report\+Failure}} (\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)=0
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}{\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface}} ()=\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}{Report\+Failure}} (\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)=0
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}{\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface}} ()=\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}{Report\+Failure}} (\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)=0
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}{\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface}} ()=\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}{Report\+Failure}} (\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)=0
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}{\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface}} ()=\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}{Report\+Failure}} (\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}} type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00223}{223}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!FailureType@{FailureType}}
+\index{FailureType@{FailureType}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{FailureType}{FailureType}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Failure\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!FailureType@{FailureType}}
+\index{FailureType@{FailureType}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{FailureType}{FailureType}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Failure\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!FailureType@{FailureType}}
+\index{FailureType@{FailureType}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{FailureType}{FailureType}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Failure\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!FailureType@{FailureType}}
+\index{FailureType@{FailureType}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{FailureType}{FailureType}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Failure\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!FailureType@{FailureType}}
+\index{FailureType@{FailureType}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{FailureType}{FailureType}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Failure\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kNonfatal@{kNonfatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kNonfatal@{kNonfatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5eafb8838d654a07b837924c211009749ed} 
+k\+Nonfatal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kFatal@{kFatal}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!kFatal@{kFatal}}}\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9}\label{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5ea67660843ccd290b0f72ec1f442c9c9f9} 
+k\+Fatal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}\label{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}}
+\index{````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface()}{\string~FailureReporterInterface()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}\label{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}}
+\index{````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface()}{\string~FailureReporterInterface()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}\label{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}}
+\index{````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface()}{\string~FailureReporterInterface()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}\label{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}}
+\index{````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface()}{\string~FailureReporterInterface()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8}\label{classtesting_1_1internal_1_1FailureReporterInterface_a26e5717671faa74dc4b4bd063acb5ca8} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}}
+\index{````~FailureReporterInterface@{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FailureReporterInterface()}{\string~FailureReporterInterface()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Failure\+Reporter\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}\label{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!ReportFailure@{ReportFailure}}
+\index{ReportFailure@{ReportFailure}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{ReportFailure()}{ReportFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Report\+Failure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}}]{line,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, and \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}\label{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!ReportFailure@{ReportFailure}}
+\index{ReportFailure@{ReportFailure}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{ReportFailure()}{ReportFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Report\+Failure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}}]{line,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, and \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}\label{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!ReportFailure@{ReportFailure}}
+\index{ReportFailure@{ReportFailure}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{ReportFailure()}{ReportFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Report\+Failure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}}]{line,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, and \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}\label{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!ReportFailure@{ReportFailure}}
+\index{ReportFailure@{ReportFailure}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{ReportFailure()}{ReportFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Report\+Failure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}}]{line,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, and \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}.
+
+\Hypertarget{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d}\label{classtesting_1_1internal_1_1FailureReporterInterface_a0c43ec1946cb4ab51279c96ce1ad941d} 
+\index{testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}!ReportFailure@{ReportFailure}}
+\index{ReportFailure@{ReportFailure}!testing::internal::FailureReporterInterface@{testing::internal::FailureReporterInterface}}
+\doxysubsubsection{\texorpdfstring{ReportFailure()}{ReportFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{virtual}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} testing\+::internal\+::\+Failure\+Reporter\+Interface\+::\+Report\+Failure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesting_1_1internal_1_1FailureReporterInterface_aba34db997df0aefbfdc9d199d7d2ab5e}{Failure\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}}]{line,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}, and \mbox{\hyperlink{classtesting_1_1internal_1_1GoogleTestFailureReporter_aff7bfa8521e770d718172c99c807ec39}{testing\+::internal\+::\+Google\+Test\+Failure\+Reporter}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\end{DoxyCompactItemize}

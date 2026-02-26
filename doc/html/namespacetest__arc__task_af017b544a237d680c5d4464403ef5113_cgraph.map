@@ -1,0 +1,11 @@
+<map id="test_arc_task.updateRegionNeurons" name="test_arc_task.updateRegionNeurons">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,208,63"/>
+<area shape="rect" id="Node000002" href="$namespaceutils.html#ae8b5640b2a32616a4464b7bd4324dc44" title=" " alt="" coords="256,31,372,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,41,242,41,242,46,209,46"/>
+<area shape="rect" id="Node000003" href="$namespaceutils.html#adfd3f24969b1a7808de359e77a58491d" title=" " alt="" coords="420,31,515,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="372,41,406,41,406,46,372,46"/>
+<area shape="rect" id="Node000004" href="$namespaceutils.html#aaafbf763a1357d65adde2e444296689a" title=" " alt="" coords="565,5,683,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="514,33,551,27,552,32,515,38"/>
+<area shape="rect" id="Node000005" href="$namespaceutils.html#a319766d7cf29ddd5ac990620e0a3bf22" title=" " alt="" coords="563,55,685,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="515,48,549,53,548,58,514,53"/>
+</map>

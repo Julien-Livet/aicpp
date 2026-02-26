@@ -1,0 +1,152 @@
+\doxysection{googletest Namespace Reference}
+\hypertarget{namespacegoogletest}{}\label{namespacegoogletest}\index{googletest@{googletest}}
+
+
+-\/break-\/on-\/failure-\/unittest  
+
+
+
+
+\doxysubsection{Detailed Description}
+-\/break-\/on-\/failure-\/unittest 
+
+-\/uninitialized-\/test
+
+-\/throw-\/on-\/failure-\/test
+
+-\/shuffle-\/test
+
+-\/setuptestsuite-\/test
+
+-\/param-\/test-\/invalid-\/name2-\/test
+
+-\/param-\/test-\/invalid-\/name1-\/test
+
+-\/output-\/test
+
+-\/list-\/tests-\/unittest
+
+-\/json-\/output-\/unittest
+
+-\/json-\/outfiles-\/test
+
+-\/global-\/environment-\/unittest
+
+-\/filter-\/unittest
+
+-\/failfast-\/unittest
+
+-\/fail-\/if-\/no-\/test-\/selected-\/test
+
+-\/fail-\/if-\/no-\/test-\/linked-\/test
+
+-\/env-\/var-\/test
+
+-\/color-\/test
+
+-\/catch-\/exceptions-\/test
+
+\begin{DoxyVerb}Unit test for Google Test's break-on-failure mode.
+
+A user can ask Google Test to seg-fault when an assertion fails, using
+either the GTEST_BREAK_ON_FAILURE environment variable or the
+--gtest_break_on_failure flag.  This script tests such functionality
+by invoking googletest-break-on-failure-unittest_ (a program written with
+Google Test) with different environments and command line flags.
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Tests Google Test's exception catching behavior.
+
+This script invokes googletest-catch-exceptions-test_ and
+googletest-catch-exceptions-ex-test_ (programs written with
+Google Test) and verifies their output.
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Verifies that Google Test correctly determines whether to use colors.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Verifies that Google Test correctly parses environment variables.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Tests for Google Test's --gtest_fail_if_no_test_linked flag.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Tests for Google Test's --gtest_fail_if_no_test_selected flag.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Unit test for Google Test fail_fast.
+
+A user can specify if a Google Test program should continue test execution
+after a test failure via the GTEST_FAIL_FAST environment variable or the
+--gtest_fail_fast flag. The default value of the flag can also be changed
+by Bazel fail fast environment variable TESTBRIDGE_TEST_RUNNER_FAIL_FAST.
+
+This script tests such functionality by invoking googletest-failfast-unittest_
+(a program written with Google Test) with different environments and command
+line flags.
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Unit test for Google Test test filters.
+
+A user can specify which test(s) in a Google Test program to run via either
+the GTEST_FILTER environment variable or the --gtest_filter flag.
+This script tests such functionality by invoking
+googletest-filter-unittest_ (a program written with Google Test) with different
+environments and command line flags.
+
+Note that test sharding may also influence which tests are filtered. Therefore,
+we test that here also.
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Unit test for Google Test's global test environment behavior.
+
+A user can specify a global test environment via
+testing::AddGlobalTestEnvironment. Failures in the global environment should
+result in all unit tests being skipped.
+
+This script tests such functionality by invoking
+googletest-global-environment-unittest_ (a program written with Google Test).
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Unit test for the gtest_json_output module.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Unit test for Google Test's --gtest_list_tests flag.
+
+A user can ask Google Test to list all tests by specifying the
+--gtest_list_tests flag.  This script tests such functionality
+by invoking googletest-list-tests-unittest_ (a program written with
+Google Test) the command line flags.
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Tests the text output of Google C++ Testing and Mocking Framework.
+
+To update the golden file:
+googletest_output_test.py --build_dir=BUILD/DIR --gengolden
+where BUILD/DIR contains the built googletest-output-test_ file.
+googletest_output_test.py --gengolden
+googletest_output_test.py
+\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Verifies that Google Test warns the user when not initialized properly.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Verifies that SetUpTestSuite and TearDownTestSuite errors are noticed.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Verifies that test shuffling works.\end{DoxyVerb}
+
+
+\begin{DoxyVerb}Tests Google Test's throw-on-failure mode with exceptions disabled.
+
+This script invokes googletest-throw-on-failure-test_ (a program written with
+Google Test) with different environments and command line flags.
+\end{DoxyVerb}
+ 

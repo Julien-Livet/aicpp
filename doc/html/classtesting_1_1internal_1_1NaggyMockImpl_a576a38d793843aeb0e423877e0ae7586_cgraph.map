@@ -1,0 +1,14 @@
+<map id="testing::internal::NaggyMockImpl::NaggyMockImpl" name="testing::internal::NaggyMockImpl::NaggyMockImpl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,248,103"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="296,63,429,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,80,282,80,282,85,248,85"/>
+<area shape="poly" id="edge7_Node000002_Node000002" title=" " alt="" coords="328,63,326,53,332,44,344,38,363,36,384,39,396,46,393,51,382,44,363,41,345,43,335,48,331,54,333,62"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="477,63,611,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="430,89,463,89,463,94,429,94"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="477,77,443,76,443,71,477,71"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="676,5,820,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="610,61,662,47,664,52,611,67"/>
+<area shape="rect" id="Node000005" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="659,70,837,125"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="611,85,645,87,645,93,611,90"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="676,31,581,39,478,53,441,62,440,56,477,48,581,33,676,26"/>
+</map>

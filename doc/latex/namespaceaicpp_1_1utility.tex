@@ -1,0 +1,595 @@
+\doxysection{aicpp\+::utility Namespace Reference}
+\hypertarget{namespaceaicpp_1_1utility}{}\label{namespaceaicpp_1_1utility}\index{aicpp::utility@{aicpp::utility}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structaicpp_1_1utility_1_1is__string__convertible}{is\+\_\+string\+\_\+convertible}}
+\item 
+struct \mbox{\hyperlink{structaicpp_1_1utility_1_1is__string__convertible_3_01T_00_01std_1_1void__t_3_01decltype_07stati3bd859c14bf3669c80fc4e54f6916e50}{is\+\_\+string\+\_\+convertible$<$ T, std\+::void\+\_\+t$<$ decltype(static\+\_\+cast$<$ std\+::string $>$(std\+::declval$<$ T $>$())) $>$ $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::generator$<$ std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a0a7b56721f6552fc4efa9c04b3cdd732}{cartesian\+Product}} (std\+::vector$<$ std\+::vector$<$ T $>$ $>$ lists)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\bool \mbox{\hyperlink{namespaceaicpp_1_1utility_a64a11f26987172943e383e2a4bb8b4d9}{valid\+Index}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\bool \mbox{\hyperlink{namespaceaicpp_1_1utility_ad4914c038c5423a39c0c9c478de2b831}{valid\+Index}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&at)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2}{swap\+Cols}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9}{swap\+Rows}} (Matrix const \&a, int i, int j)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881}{fliplr}} (Matrix const \&a)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f}{flipud}} (Matrix const \&a)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{namespaceaicpp_1_1utility_aabc5b87f935844f1d01051ac4bfe2753}{to\+String}} (T const \&value)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{namespaceaicpp_1_1utility_af34e4928ab74526cd0135383148aa464}{levenshtein}} (std\+::string const \&a, std\+::string const \&b)
+\item 
+{\footnotesize template$<$typename S , typename T $>$ }\\double \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}} (double init\+Cost, S const \&val, T const \&target)
+\item 
+{\footnotesize template$<$typename S , typename T $>$ }\\double \mbox{\hyperlink{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c}{heuristic}} (S const \&val, T const \&target)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540}{rot90}} (Matrix const \&a)
+\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a92a27fc3ec72edbcde6ac3fd04f1a954}{neighbors}} (std\+::pair$<$ int, int $>$ const \&loc, std\+::pair$<$ int, int $>$ const \&size, bool diagonals)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e}{region}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&at, bool diagonals)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63}{fill\+Region}} (Matrix const \&a, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ const \&\mbox{\hyperlink{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e}{region}}, typename Matrix\+::\+Scalar const \&x)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a99352a8892b0801996d7607f2d25f395}{fill\+Regions}} (Matrix const \&a, std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions, typename Matrix\+::\+Scalar const \&x)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a0b8fe2c832170306dea07bb683e27803}{dot\+Segment}} (Matrix const \&a, std\+::pair$<$ int, int $>$ const \&begin, std\+::pair$<$ int, int $>$ const \&end, typename Matrix\+::\+Scalar const \&value, int dot\+Step)
+\item 
+std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a61da3a3110a1811f0d9bf456d7419ca8}{same\+Element}} (std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&pairs, bool first)
+\item 
+std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a2970ebf78e45db5e341dfa3c7d2617c9}{region\+Pairs}} (std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions)
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_acded066275c0b51cdb32d84c742b0b82}{member\+Paired\+Regions}} (std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ const \&\mbox{\hyperlink{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328}{paired\+Regions}}, bool first)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\Matrix \mbox{\hyperlink{namespaceaicpp_1_1utility_a4da6ff872fc34674eff1a35d261ca186}{segments}} (Matrix const \&dst, std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&pairs, typename Matrix\+::\+Scalar const \&value, bool start, bool finish)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328}{paired\+Regions}} (Matrix const \&a, std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&regions)
+\item 
+{\footnotesize template$<$typename Matrix $>$ }\\std\+::set$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a8d7c1be53e4a13e9df57a9e73b44412b}{region\+Set}} (Matrix const \&m, bool diagonals)
+\item 
+Eigen\+::\+Matrix\+Xi \mbox{\hyperlink{namespaceaicpp_1_1utility_a40da0663623b4a067f31b374cd42e9aa}{matrix}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ values)
+\item 
+std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_a089abd423bd1c25a0233e2bba77462d4}{matrix\+Pairs}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&values)
+\item 
+std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ \mbox{\hyperlink{namespaceaicpp_1_1utility_adadab4db3050596d74743d06a4f74c06}{matrices}} (std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&values)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\constexpr bool \mbox{\hyperlink{namespaceaicpp_1_1utility_a613c4c29d108bacdb36fe0b6ae57b4f9}{is\+\_\+string\+\_\+convertible\+\_\+v}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceaicpp_1_1utility_a0a7b56721f6552fc4efa9c04b3cdd732}\label{namespaceaicpp_1_1utility_a0a7b56721f6552fc4efa9c04b3cdd732} 
+\index{aicpp::utility@{aicpp::utility}!cartesianProduct@{cartesianProduct}}
+\index{cartesianProduct@{cartesianProduct}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{cartesianProduct()}{cartesianProduct()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::generator$<$ std\+::vector$<$ T $>$ $>$ aicpp\+::utility\+::cartesian\+Product (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ T $>$ $>$}]{lists }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00020}{20}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a0a7b56721f6552fc4efa9c04b3cdd732_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}\label{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3} 
+\index{aicpp::utility@{aicpp::utility}!cost@{cost}}
+\index{cost@{cost}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{cost()}{cost()}}
+{\footnotesize\ttfamily template$<$typename S , typename T $>$ \\
+double aicpp\+::utility\+::cost (\begin{DoxyParamCaption}\item[{double}]{init\+Cost,  }\item[{S const \&}]{val,  }\item[{T const \&}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00183}{183}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a0b8fe2c832170306dea07bb683e27803}\label{namespaceaicpp_1_1utility_a0b8fe2c832170306dea07bb683e27803} 
+\index{aicpp::utility@{aicpp::utility}!dotSegment@{dotSegment}}
+\index{dotSegment@{dotSegment}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{dotSegment()}{dotSegment()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::dot\+Segment (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::pair$<$ int, int $>$ const \&}]{begin,  }\item[{std\+::pair$<$ int, int $>$ const \&}]{end,  }\item[{typename Matrix\+::\+Scalar const \&}]{value,  }\item[{int}]{dot\+Step }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00478}{478}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a0b8fe2c832170306dea07bb683e27803_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63}\label{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63} 
+\index{aicpp::utility@{aicpp::utility}!fillRegion@{fillRegion}}
+\index{fillRegion@{fillRegion}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{fillRegion()}{fillRegion()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::fill\+Region (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ const \&}]{region,  }\item[{typename Matrix\+::\+Scalar const \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00453}{453}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a8f7c49c30b00511751c106180953ab63_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a99352a8892b0801996d7607f2d25f395}\label{namespaceaicpp_1_1utility_a99352a8892b0801996d7607f2d25f395} 
+\index{aicpp::utility@{aicpp::utility}!fillRegions@{fillRegions}}
+\index{fillRegions@{fillRegions}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{fillRegions()}{fillRegions()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::fill\+Regions (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&}]{regions,  }\item[{typename Matrix\+::\+Scalar const \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00467}{467}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a99352a8892b0801996d7607f2d25f395_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881}\label{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881} 
+\index{aicpp::utility@{aicpp::utility}!fliplr@{fliplr}}
+\index{fliplr@{fliplr}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{fliplr()}{fliplr()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::fliplr (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00096}{96}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_aecb60a5cc0ec9e414eb3c0977b610881_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f}\label{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f} 
+\index{aicpp::utility@{aicpp::utility}!flipud@{flipud}}
+\index{flipud@{flipud}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{flipud()}{flipud()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::flipud (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00107}{107}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a79b78b9ba08e26dcfe6089b87572a81f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c}\label{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c} 
+\index{aicpp::utility@{aicpp::utility}!heuristic@{heuristic}}
+\index{heuristic@{heuristic}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{heuristic()}{heuristic()}}
+{\footnotesize\ttfamily template$<$typename S , typename T $>$ \\
+double aicpp\+::utility\+::heuristic (\begin{DoxyParamCaption}\item[{S const \&}]{val,  }\item[{T const \&}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00189}{189}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_af34e4928ab74526cd0135383148aa464}\label{namespaceaicpp_1_1utility_af34e4928ab74526cd0135383148aa464} 
+\index{aicpp::utility@{aicpp::utility}!levenshtein@{levenshtein}}
+\index{levenshtein@{levenshtein}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{levenshtein()}{levenshtein()}}
+{\footnotesize\ttfamily std\+::size\+\_\+t aicpp\+::utility\+::levenshtein (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{a,  }\item[{std\+::string const \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00145}{145}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_af34e4928ab74526cd0135383148aa464_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_adadab4db3050596d74743d06a4f74c06}\label{namespaceaicpp_1_1utility_adadab4db3050596d74743d06a4f74c06} 
+\index{aicpp::utility@{aicpp::utility}!matrices@{matrices}}
+\index{matrices@{matrices}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{matrices()}{matrices()}}
+{\footnotesize\ttfamily std\+::vector$<$ Eigen\+::\+Matrix\+Xi $>$ aicpp\+::utility\+::matrices (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00688}{688}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_adadab4db3050596d74743d06a4f74c06_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a40da0663623b4a067f31b374cd42e9aa}\label{namespaceaicpp_1_1utility_a40da0663623b4a067f31b374cd42e9aa} 
+\index{aicpp::utility@{aicpp::utility}!matrix@{matrix}}
+\index{matrix@{matrix}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{matrix()}{matrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xi aicpp\+::utility\+::matrix (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00662}{662}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a40da0663623b4a067f31b374cd42e9aa_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a089abd423bd1c25a0233e2bba77462d4}\label{namespaceaicpp_1_1utility_a089abd423bd1c25a0233e2bba77462d4} 
+\index{aicpp::utility@{aicpp::utility}!matrixPairs@{matrixPairs}}
+\index{matrixPairs@{matrixPairs}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{matrixPairs()}{matrixPairs()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ Eigen\+::\+Matrix\+Xi, Eigen\+::\+Matrix\+Xi $>$ $>$ aicpp\+::utility\+::matrix\+Pairs (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ std\+::initializer\+\_\+list$<$ int $>$ $>$ $>$ const \&}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00683}{683}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a089abd423bd1c25a0233e2bba77462d4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_acded066275c0b51cdb32d84c742b0b82}\label{namespaceaicpp_1_1utility_acded066275c0b51cdb32d84c742b0b82} 
+\index{aicpp::utility@{aicpp::utility}!memberPairedRegions@{memberPairedRegions}}
+\index{memberPairedRegions@{memberPairedRegions}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{memberPairedRegions()}{memberPairedRegions()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ aicpp\+::utility\+::member\+Paired\+Regions (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ const \&}]{paired\+Regions,  }\item[{bool}]{first }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00549}{549}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_acded066275c0b51cdb32d84c742b0b82_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a92a27fc3ec72edbcde6ac3fd04f1a954}\label{namespaceaicpp_1_1utility_a92a27fc3ec72edbcde6ac3fd04f1a954} 
+\index{aicpp::utility@{aicpp::utility}!neighbors@{neighbors}}
+\index{neighbors@{neighbors}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{neighbors()}{neighbors()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ aicpp\+::utility\+::neighbors (\begin{DoxyParamCaption}\item[{std\+::pair$<$ int, int $>$ const \&}]{loc,  }\item[{std\+::pair$<$ int, int $>$ const \&}]{size,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00391}{391}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a92a27fc3ec72edbcde6ac3fd04f1a954_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328}\label{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328} 
+\index{aicpp::utility@{aicpp::utility}!pairedRegions@{pairedRegions}}
+\index{pairedRegions@{pairedRegions}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{pairedRegions()}{pairedRegions()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+std\+::vector$<$ std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$, std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ $>$ aicpp\+::utility\+::paired\+Regions (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&}]{regions }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00585}{585}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_adb49f4369ec0ccdebb7d792ea7675328_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e}\label{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e} 
+\index{aicpp::utility@{aicpp::utility}!region@{region}}
+\index{region@{region}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{region()}{region()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ aicpp\+::utility\+::region (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::pair$<$ int, int $>$ const \&}]{at,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00419}{419}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a21d18944265bf764b1fad52689d81d4e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a2970ebf78e45db5e341dfa3c7d2617c9}\label{namespaceaicpp_1_1utility_a2970ebf78e45db5e341dfa3c7d2617c9} 
+\index{aicpp::utility@{aicpp::utility}!regionPairs@{regionPairs}}
+\index{regionPairs@{regionPairs}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{regionPairs()}{regionPairs()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ aicpp\+::utility\+::region\+Pairs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ const \&}]{regions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00530}{530}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+\Hypertarget{namespaceaicpp_1_1utility_a8d7c1be53e4a13e9df57a9e73b44412b}\label{namespaceaicpp_1_1utility_a8d7c1be53e4a13e9df57a9e73b44412b} 
+\index{aicpp::utility@{aicpp::utility}!regionSet@{regionSet}}
+\index{regionSet@{regionSet}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{regionSet()}{regionSet()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+std\+::set$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ aicpp\+::utility\+::region\+Set (\begin{DoxyParamCaption}\item[{Matrix const \&}]{m,  }\item[{bool}]{diagonals }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00635}{635}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a8d7c1be53e4a13e9df57a9e73b44412b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540}\label{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540} 
+\index{aicpp::utility@{aicpp::utility}!rot90@{rot90}}
+\index{rot90@{rot90}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::rot90 (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00386}{386}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a6cc49c9c1c4d5f290e84edeb550d4540_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a61da3a3110a1811f0d9bf456d7419ca8}\label{namespaceaicpp_1_1utility_a61da3a3110a1811f0d9bf456d7419ca8} 
+\index{aicpp::utility@{aicpp::utility}!sameElement@{sameElement}}
+\index{sameElement@{sameElement}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{sameElement()}{sameElement()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ aicpp\+::utility\+::same\+Element (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&}]{pairs,  }\item[{bool}]{first }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00509}{509}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+\Hypertarget{namespaceaicpp_1_1utility_a4da6ff872fc34674eff1a35d261ca186}\label{namespaceaicpp_1_1utility_a4da6ff872fc34674eff1a35d261ca186} 
+\index{aicpp::utility@{aicpp::utility}!segments@{segments}}
+\index{segments@{segments}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{segments()}{segments()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::segments (\begin{DoxyParamCaption}\item[{Matrix const \&}]{dst,  }\item[{std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ const \&}]{pairs,  }\item[{typename Matrix\+::\+Scalar const \&}]{value,  }\item[{bool}]{start,  }\item[{bool}]{finish }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00561}{561}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a4da6ff872fc34674eff1a35d261ca186_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2}\label{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2} 
+\index{aicpp::utility@{aicpp::utility}!swapCols@{swapCols}}
+\index{swapCols@{swapCols}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{swapCols()}{swapCols()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::swap\+Cols (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00066}{66}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a788a81ef935842cfc4fb4b57901d28f2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9}\label{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9} 
+\index{aicpp::utility@{aicpp::utility}!swapRows@{swapRows}}
+\index{swapRows@{swapRows}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{swapRows()}{swapRows()}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+Matrix aicpp\+::utility\+::swap\+Rows (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00081}{81}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_acdfd2c108f2fed59d5df996d5864a4b9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_aabc5b87f935844f1d01051ac4bfe2753}\label{namespaceaicpp_1_1utility_aabc5b87f935844f1d01051ac4bfe2753} 
+\index{aicpp::utility@{aicpp::utility}!toString@{toString}}
+\index{toString@{toString}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::string aicpp\+::utility\+::to\+String (\begin{DoxyParamCaption}\item[{T const \&}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00136}{136}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_aabc5b87f935844f1d01051ac4bfe2753_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_a64a11f26987172943e383e2a4bb8b4d9}\label{namespaceaicpp_1_1utility_a64a11f26987172943e383e2a4bb8b4d9} 
+\index{aicpp::utility@{aicpp::utility}!validIndex@{validIndex}}
+\index{validIndex@{validIndex}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{validIndex()}{validIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+bool aicpp\+::utility\+::valid\+Index (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00054}{54}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespaceaicpp_1_1utility_a64a11f26987172943e383e2a4bb8b4d9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespaceaicpp_1_1utility_ad4914c038c5423a39c0c9c478de2b831}\label{namespaceaicpp_1_1utility_ad4914c038c5423a39c0c9c478de2b831} 
+\index{aicpp::utility@{aicpp::utility}!validIndex@{validIndex}}
+\index{validIndex@{validIndex}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{validIndex()}{validIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Matrix $>$ \\
+bool aicpp\+::utility\+::valid\+Index (\begin{DoxyParamCaption}\item[{Matrix const \&}]{a,  }\item[{std\+::pair$<$ int, int $>$ const \&}]{at }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00060}{60}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceaicpp_1_1utility_a613c4c29d108bacdb36fe0b6ae57b4f9}\label{namespaceaicpp_1_1utility_a613c4c29d108bacdb36fe0b6ae57b4f9} 
+\index{aicpp::utility@{aicpp::utility}!is\_string\_convertible\_v@{is\_string\_convertible\_v}}
+\index{is\_string\_convertible\_v@{is\_string\_convertible\_v}!aicpp::utility@{aicpp::utility}}
+\doxysubsubsection{\texorpdfstring{is\_string\_convertible\_v}{is\_string\_convertible\_v}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool aicpp\+::utility\+::is\+\_\+string\+\_\+convertible\+\_\+v\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ is\_string\_convertible<T>::value\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::is\_arithmetic\_v<T>}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{utility_8h_source_l00131}{131}} of file \mbox{\hyperlink{utility_8h_source}{utility.\+h}}.
+

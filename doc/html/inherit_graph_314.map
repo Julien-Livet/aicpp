@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,60,233,85"/>
+<area shape="rect" id="Node000001" href="$classtesting_1_1internal_1_1DefaultGlobalTestPartResultReporter.html" title=" " alt="" coords="293,5,497,60"/>
+<area shape="poly" id="edge220_Node000000_Node000001" title=" " alt="" coords="221,55,293,45,293,50,222,61"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1internal_1_1DefaultPerThreadTestPartResultReporter.html" title=" " alt="" coords="281,84,509,139"/>
+<area shape="poly" id="edge221_Node000000_Node000002" title=" " alt="" coords="224,85,282,93,281,98,224,90"/>
+</map>

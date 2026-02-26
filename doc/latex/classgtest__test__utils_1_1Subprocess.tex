@@ -1,0 +1,295 @@
+\doxysection{gtest\+\_\+test\+\_\+utils.\+Subprocess Class Reference}
+\hypertarget{classgtest__test__utils_1_1Subprocess}{}\label{classgtest__test__utils_1_1Subprocess}\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, command, working\+\_\+dir=None, capture\+\_\+stderr=True, env=None)
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, command, working\+\_\+dir=None, capture\+\_\+stderr=True, env=None)
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, command, working\+\_\+dir=None, capture\+\_\+stderr=True, env=None)
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, command, working\+\_\+dir=None, capture\+\_\+stderr=True, env=None)
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, command, working\+\_\+dir=None, capture\+\_\+stderr=True, env=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a170f722b867e51f3e97b5b60399988cf}{output}}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca}{terminated\+\_\+by\+\_\+signal}}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d}{exited}}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a01acee4476fd01ccf017d1351cf46c08}{exit\+\_\+code}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}{\+\_\+return\+\_\+code}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00197}{197}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}\label{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{command,  }\item[{}]{working\+\_\+dir = {\ttfamily None},  }\item[{}]{capture\+\_\+stderr = {\ttfamily True},  }\item[{}]{env = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes into a specified directory, if provided, and executes a command.
+
+Restores the old directory afterwards.
+
+Args:
+  command:        The command to run, in the form of sys.argv.
+  working_dir:    The directory to change into.
+  capture_stderr: Determines whether to capture stderr in the output member
+    or to discard it.
+  env:            Dictionary with environment to pass to the subprocess.
+
+Returns:
+  An object that represents outcome of the executed process. It has the
+  following attributes:
+    terminated_by_signal   True if and only if the child process has been
+                           terminated by a signal.
+    exited                 True if and only if the child process exited
+                           normally.
+    exit_code              The code with which the child process exited.
+    output                 Child process's stdout and stderr output
+                           combined in a string.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}{199}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}\label{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{command,  }\item[{}]{working\+\_\+dir = {\ttfamily None},  }\item[{}]{capture\+\_\+stderr = {\ttfamily True},  }\item[{}]{env = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes into a specified directory, if provided, and executes a command.
+
+Restores the old directory afterwards.
+
+Args:
+  command:        The command to run, in the form of sys.argv.
+  working_dir:    The directory to change into.
+  capture_stderr: Determines whether to capture stderr in the output member
+    or to discard it.
+  env:            Dictionary with environment to pass to the subprocess.
+
+Returns:
+  An object that represents outcome of the executed process. It has the
+  following attributes:
+    terminated_by_signal   True if and only if the child process has been
+                           terminated by a signal.
+    exited                 True if and only if the child process exited
+                           normally.
+    exit_code              The code with which the child process exited.
+    output                 Child process's stdout and stderr output
+                           combined in a string.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}{199}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}\label{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{command,  }\item[{}]{working\+\_\+dir = {\ttfamily None},  }\item[{}]{capture\+\_\+stderr = {\ttfamily True},  }\item[{}]{env = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes into a specified directory, if provided, and executes a command.
+
+Restores the old directory afterwards.
+
+Args:
+  command:        The command to run, in the form of sys.argv.
+  working_dir:    The directory to change into.
+  capture_stderr: Determines whether to capture stderr in the output member
+    or to discard it.
+  env:            Dictionary with environment to pass to the subprocess.
+
+Returns:
+  An object that represents outcome of the executed process. It has the
+  following attributes:
+    terminated_by_signal   True if and only if the child process has been
+                           terminated by a signal.
+    exited                 True if and only if the child process exited
+                           normally.
+    exit_code              The code with which the child process exited.
+    output                 Child process's stdout and stderr output
+                           combined in a string.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}{199}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}\label{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{command,  }\item[{}]{working\+\_\+dir = {\ttfamily None},  }\item[{}]{capture\+\_\+stderr = {\ttfamily True},  }\item[{}]{env = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes into a specified directory, if provided, and executes a command.
+
+Restores the old directory afterwards.
+
+Args:
+  command:        The command to run, in the form of sys.argv.
+  working_dir:    The directory to change into.
+  capture_stderr: Determines whether to capture stderr in the output member
+    or to discard it.
+  env:            Dictionary with environment to pass to the subprocess.
+
+Returns:
+  An object that represents outcome of the executed process. It has the
+  following attributes:
+    terminated_by_signal   True if and only if the child process has been
+                           terminated by a signal.
+    exited                 True if and only if the child process exited
+                           normally.
+    exit_code              The code with which the child process exited.
+    output                 Child process's stdout and stderr output
+                           combined in a string.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}{199}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}\label{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{command,  }\item[{}]{working\+\_\+dir = {\ttfamily None},  }\item[{}]{capture\+\_\+stderr = {\ttfamily True},  }\item[{}]{env = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes into a specified directory, if provided, and executes a command.
+
+Restores the old directory afterwards.
+
+Args:
+  command:        The command to run, in the form of sys.argv.
+  working_dir:    The directory to change into.
+  capture_stderr: Determines whether to capture stderr in the output member
+    or to discard it.
+  env:            Dictionary with environment to pass to the subprocess.
+
+Returns:
+  An object that represents outcome of the executed process. It has the
+  following attributes:
+    terminated_by_signal   True if and only if the child process has been
+                           terminated by a signal.
+    exited                 True if and only if the child process exited
+                           normally.
+    exit_code              The code with which the child process exited.
+    output                 Child process's stdout and stderr output
+                           combined in a string.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}{199}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}\label{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!\_return\_code@{\_return\_code}}
+\index{\_return\_code@{\_return\_code}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{\_return\_code}{\_return\_code}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+\_\+return\+\_\+code\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00239}{239}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a01acee4476fd01ccf017d1351cf46c08}\label{classgtest__test__utils_1_1Subprocess_a01acee4476fd01ccf017d1351cf46c08} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!exit\_code@{exit\_code}}
+\index{exit\_code@{exit\_code}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{exit\_code}{exit\_code}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+exit\+\_\+code}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00247}{247}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d}\label{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!exited@{exited}}
+\index{exited@{exited}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{exited}{exited}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+exited}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00243}{243}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a170f722b867e51f3e97b5b60399988cf}\label{classgtest__test__utils_1_1Subprocess_a170f722b867e51f3e97b5b60399988cf} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!output@{output}}
+\index{output@{output}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+output}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00238}{238}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+\Hypertarget{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca}\label{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca} 
+\index{gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}!terminated\_by\_signal@{terminated\_by\_signal}}
+\index{terminated\_by\_signal@{terminated\_by\_signal}!gtest\_test\_utils.Subprocess@{gtest\_test\_utils.Subprocess}}
+\doxysubsubsection{\texorpdfstring{terminated\_by\_signal}{terminated\_by\_signal}}
+{\footnotesize\ttfamily gtest\+\_\+test\+\_\+utils.\+Subprocess.\+terminated\+\_\+by\+\_\+signal}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00242}{242}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{gtest\+\_\+test\+\_\+utils.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+build/\+\_\+deps/googletest-\/src/googletest/test/\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{gtest\+\_\+test\+\_\+utils.\+py}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googletest/test/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{gtest\+\_\+test\+\_\+utils.\+py}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googletest/test/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{gtest\+\_\+test\+\_\+utils.\+py}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googletest/test/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{gtest\+\_\+test\+\_\+utils.\+py}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googletest/test/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{gtest\+\_\+test\+\_\+utils.\+py}}\end{DoxyCompactItemize}

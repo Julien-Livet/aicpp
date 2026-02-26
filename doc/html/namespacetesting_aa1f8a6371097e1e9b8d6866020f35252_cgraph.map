@@ -1,0 +1,9 @@
+<map id="testing::AnyNumber" name="testing::AnyNumber">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,157,55"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#a137297cb3c582843989fbd937cf0fed2" title=" " alt="" coords="205,29,329,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,39,192,39,192,45,158,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="238,31,232,21,235,11,247,5,267,3,292,6,302,15,298,19,289,11,267,8,249,10,239,15,237,20,242,28"/>
+<area shape="rect" id="Node000003" href="$namespacetesting.html#a3bb2d3cdd3fdf5b4be1480fce549918e" title=" " alt="" coords="377,29,509,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="330,39,364,39,364,45,330,45"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="414,31,408,21,411,11,423,5,443,3,468,6,478,15,474,19,465,11,443,8,425,10,415,15,413,20,418,28"/>
+</map>

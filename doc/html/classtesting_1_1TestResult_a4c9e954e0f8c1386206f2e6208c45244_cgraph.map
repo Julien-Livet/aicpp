@@ -1,0 +1,10 @@
+<map id="testing::TestResult::Skipped" name="testing::TestResult::Skipped">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,148,75"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1TestResult.html#afacc37e8b43c8574e4101bc61723c769" title=" " alt="" coords="196,35,339,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,52,183,52,183,57,148,57"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1TestResult.html#a765c1e734ac08115757b343d57226bba" title=" " alt="" coords="387,5,532,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,41,372,36,373,41,340,46"/>
+<area shape="rect" id="Node000004" href="$classtesting_1_1TestResult.html#a6174aa4019dcda7c34d776b5741c9032" title=" " alt="" coords="580,35,723,75"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="339,54,387,55,532,55,566,54,566,59,532,60,387,60,339,59"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="533,34,567,39,566,44,532,39"/>
+</map>

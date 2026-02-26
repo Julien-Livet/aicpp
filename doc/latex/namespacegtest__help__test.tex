@@ -1,0 +1,310 @@
+\doxysection{gtest\+\_\+help\+\_\+test Namespace Reference}
+\hypertarget{namespacegtest__help__test}{}\label{namespacegtest__help__test}\index{gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classgtest__help__test_1_1GTestHelpTest}{GTest\+Help\+Test}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacegtest__help__test_a1861ba361f493188aeede898a9350216}{is\+\_\+bsd\+\_\+based\+\_\+os}} ()
+\item 
+\mbox{\hyperlink{namespacegtest__help__test_ac724fc21ee8c39244c2d1d39fca2c8c0}{run\+\_\+with\+\_\+flag}} (flag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{namespacegtest__help__test_a9ab12c53645ad7ee7bb95e05227ec8c9}{FREEBSD}} = (\textquotesingle{}Free\+BSD\textquotesingle{}, \textquotesingle{}GNU/k\+Free\+BSD\textquotesingle{})
+\item 
+tuple \mbox{\hyperlink{namespacegtest__help__test_a3334f20eca34560819151e1458e7ebb9}{NETBSD}} = (\textquotesingle{}Net\+BSD\textquotesingle{},)
+\item 
+tuple \mbox{\hyperlink{namespacegtest__help__test_ac6c20943decf62cf0bf19e88c5089142}{OPENBSD}} = (\textquotesingle{}Open\+BSD\textquotesingle{},)
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_a08af5c5fa47522c6b02a266e329d81fe}{IS\+\_\+\+DARWIN}} = \textquotesingle{}Darwin\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_a745e1ead6eb1d4d1929e556e04caad03}{IS\+\_\+\+LINUX}} = \textquotesingle{}Linux\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_a4453cf867ba6056368c5971ce70161c7}{IS\+\_\+\+GNUHURD}} = \textquotesingle{}GNU\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_adaae1971c72c16a76f14672693ea012d}{IS\+\_\+\+WINDOWS}} = \textquotesingle{}nt\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacegtest__help__test_a52878eacdd3a1534fa4743e7d134066c}{PROGRAM\+\_\+\+PATH}} = \mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{gtest\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path}}(\textquotesingle{}gtest\+\_\+help\+\_\+test\+\_\+\textquotesingle{})
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} = \textquotesingle{}-\/-\/gtest\+\_\+\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_ad99ec6462e822187a77a3f30d42f1bf4}{DEATH\+\_\+\+TEST\+\_\+\+STYLE\+\_\+\+FLAG}} = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}death\+\_\+test\+\_\+style\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_a0ef76f47d7380e5d5d8557bc8c3910f2}{STREAM\+\_\+\+RESULT\+\_\+\+TO\+\_\+\+FLAG}} = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}stream\+\_\+result\+\_\+to\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_af8c26c51e3a1793c8614c7634b31acc2}{LIST\+\_\+\+TESTS\+\_\+\+FLAG}} = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}list\+\_\+tests\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_abdd25018dc12f3556c9da51af4b4bd8b}{INTERNAL\+\_\+\+FLAG\+\_\+\+FOR\+\_\+\+TESTING}} = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}internal\+\_\+flag\+\_\+for\+\_\+testing\textquotesingle{}
+\item 
+tuple \mbox{\hyperlink{namespacegtest__help__test_a2a47a3ed69473d2fde686a00b60dd9a8}{SUPPORTS\+\_\+\+DEATH\+\_\+\+TESTS}}
+\item 
+str \mbox{\hyperlink{namespacegtest__help__test_a3d86d0f98c8bd6186ef9f1fc5a1f4beb}{HAS\+\_\+\+ABSL\+\_\+\+FLAGS}} = \textquotesingle{}-\/-\/has\+\_\+absl\+\_\+flags\textquotesingle{} in sys.\+argv
+\item 
+\mbox{\hyperlink{namespacegtest__help__test_acaee97106f5b6ad6de66778688d4b906}{HELP\+\_\+\+REGEX}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Tests the --help flag of Google C++ Testing and Mocking Framework.
+
+SYNOPSIS
+       gtest_help_test.py --build_dir=BUILD/DIR
+         # where BUILD/DIR contains the built gtest_help_test_ file.
+       gtest_help_test.py
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacegtest__help__test_a1861ba361f493188aeede898a9350216}\label{namespacegtest__help__test_a1861ba361f493188aeede898a9350216} 
+\index{gtest\_help\_test@{gtest\_help\_test}!is\_bsd\_based\_os@{is\_bsd\_based\_os}}
+\index{is\_bsd\_based\_os@{is\_bsd\_based\_os}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{is\_bsd\_based\_os()}{is\_bsd\_based\_os()}}
+{\footnotesize\ttfamily bool gtest\+\_\+help\+\_\+test.\+is\+\_\+bsd\+\_\+based\+\_\+os (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Determine whether or not the OS is BSD-based.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00051}{51}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__help__test_a1861ba361f493188aeede898a9350216_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacegtest__help__test_ac724fc21ee8c39244c2d1d39fca2c8c0}\label{namespacegtest__help__test_ac724fc21ee8c39244c2d1d39fca2c8c0} 
+\index{gtest\_help\_test@{gtest\_help\_test}!run\_with\_flag@{run\_with\_flag}}
+\index{run\_with\_flag@{run\_with\_flag}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{run\_with\_flag()}{run\_with\_flag()}}
+{\footnotesize\ttfamily gtest\+\_\+help\+\_\+test.\+run\+\_\+with\+\_\+flag (\begin{DoxyParamCaption}\item[{}]{flag }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Runs gtest_help_test_ with the given flag.
+
+Returns:
+  the exit code and the text output as a tuple.
+Args:
+  flag: the command-line flag to pass to gtest_help_test_, or None.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00110}{110}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacegtest__help__test_ac724fc21ee8c39244c2d1d39fca2c8c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacegtest__help__test_ad99ec6462e822187a77a3f30d42f1bf4}\label{namespacegtest__help__test_ad99ec6462e822187a77a3f30d42f1bf4} 
+\index{gtest\_help\_test@{gtest\_help\_test}!DEATH\_TEST\_STYLE\_FLAG@{DEATH\_TEST\_STYLE\_FLAG}}
+\index{DEATH\_TEST\_STYLE\_FLAG@{DEATH\_TEST\_STYLE\_FLAG}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{DEATH\_TEST\_STYLE\_FLAG}{DEATH\_TEST\_STYLE\_FLAG}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+DEATH\+\_\+\+TEST\+\_\+\+STYLE\+\_\+\+FLAG = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}death\+\_\+test\+\_\+style\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00066}{66}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}\label{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb} 
+\index{gtest\_help\_test@{gtest\_help\_test}!FLAG\_PREFIX@{FLAG\_PREFIX}}
+\index{FLAG\_PREFIX@{FLAG\_PREFIX}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{FLAG\_PREFIX}{FLAG\_PREFIX}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+FLAG\+\_\+\+PREFIX = \textquotesingle{}-\/-\/gtest\+\_\+\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00065}{65}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a9ab12c53645ad7ee7bb95e05227ec8c9}\label{namespacegtest__help__test_a9ab12c53645ad7ee7bb95e05227ec8c9} 
+\index{gtest\_help\_test@{gtest\_help\_test}!FREEBSD@{FREEBSD}}
+\index{FREEBSD@{FREEBSD}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{FREEBSD}{FREEBSD}}
+{\footnotesize\ttfamily tuple gtest\+\_\+help\+\_\+test.\+FREEBSD = (\textquotesingle{}Free\+BSD\textquotesingle{}, \textquotesingle{}GNU/k\+Free\+BSD\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00046}{46}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a3d86d0f98c8bd6186ef9f1fc5a1f4beb}\label{namespacegtest__help__test_a3d86d0f98c8bd6186ef9f1fc5a1f4beb} 
+\index{gtest\_help\_test@{gtest\_help\_test}!HAS\_ABSL\_FLAGS@{HAS\_ABSL\_FLAGS}}
+\index{HAS\_ABSL\_FLAGS@{HAS\_ABSL\_FLAGS}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{HAS\_ABSL\_FLAGS}{HAS\_ABSL\_FLAGS}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+HAS\+\_\+\+ABSL\+\_\+\+FLAGS = \textquotesingle{}-\/-\/has\+\_\+absl\+\_\+flags\textquotesingle{} in sys.\+argv}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00076}{76}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_acaee97106f5b6ad6de66778688d4b906}\label{namespacegtest__help__test_acaee97106f5b6ad6de66778688d4b906} 
+\index{gtest\_help\_test@{gtest\_help\_test}!HELP\_REGEX@{HELP\_REGEX}}
+\index{HELP\_REGEX@{HELP\_REGEX}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{HELP\_REGEX}{HELP\_REGEX}}
+{\footnotesize\ttfamily gtest\+\_\+help\+\_\+test.\+HELP\+\_\+\+REGEX}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ re.compile(}
+\DoxyCodeLine{00002\ \ \ \ \ FLAG\_PREFIX}
+\DoxyCodeLine{00003\ \ \ \ \ +\ \textcolor{stringliteral}{r'list\_tests.*'}}
+\DoxyCodeLine{00004\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00005\ \ \ \ \ +\ \textcolor{stringliteral}{r'filter=.*'}}
+\DoxyCodeLine{00006\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00007\ \ \ \ \ +\ \textcolor{stringliteral}{r'also\_run\_disabled\_tests.*'}}
+\DoxyCodeLine{00008\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00009\ \ \ \ \ +\ \textcolor{stringliteral}{r'repeat=.*'}}
+\DoxyCodeLine{00010\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00011\ \ \ \ \ +\ \textcolor{stringliteral}{r'shuffle.*'}}
+\DoxyCodeLine{00012\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00013\ \ \ \ \ +\ \textcolor{stringliteral}{r'random\_seed=.*'}}
+\DoxyCodeLine{00014\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00015\ \ \ \ \ +\ \textcolor{stringliteral}{r'color=.*'}}
+\DoxyCodeLine{00016\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00017\ \ \ \ \ +\ \textcolor{stringliteral}{r'brief.*'}}
+\DoxyCodeLine{00018\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00019\ \ \ \ \ +\ \textcolor{stringliteral}{r'print\_time.*'}}
+\DoxyCodeLine{00020\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00021\ \ \ \ \ +\ \textcolor{stringliteral}{r'output=.*'}}
+\DoxyCodeLine{00022\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00023\ \ \ \ \ +\ \textcolor{stringliteral}{r'break\_on\_failure.*'}}
+\DoxyCodeLine{00024\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00025\ \ \ \ \ +\ \textcolor{stringliteral}{r'throw\_on\_failure.*'}}
+\DoxyCodeLine{00026\ \ \ \ \ +\ FLAG\_PREFIX}
+\DoxyCodeLine{00027\ \ \ \ \ +\ \textcolor{stringliteral}{r'catch\_exceptions=0.*'},}
+\DoxyCodeLine{00028\ \ \ \ \ re.DOTALL,}
+\DoxyCodeLine{00029\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00079}{79}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_abdd25018dc12f3556c9da51af4b4bd8b}\label{namespacegtest__help__test_abdd25018dc12f3556c9da51af4b4bd8b} 
+\index{gtest\_help\_test@{gtest\_help\_test}!INTERNAL\_FLAG\_FOR\_TESTING@{INTERNAL\_FLAG\_FOR\_TESTING}}
+\index{INTERNAL\_FLAG\_FOR\_TESTING@{INTERNAL\_FLAG\_FOR\_TESTING}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{INTERNAL\_FLAG\_FOR\_TESTING}{INTERNAL\_FLAG\_FOR\_TESTING}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+INTERNAL\+\_\+\+FLAG\+\_\+\+FOR\+\_\+\+TESTING = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}internal\+\_\+flag\+\_\+for\+\_\+testing\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00069}{69}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a08af5c5fa47522c6b02a266e329d81fe}\label{namespacegtest__help__test_a08af5c5fa47522c6b02a266e329d81fe} 
+\index{gtest\_help\_test@{gtest\_help\_test}!IS\_DARWIN@{IS\_DARWIN}}
+\index{IS\_DARWIN@{IS\_DARWIN}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{IS\_DARWIN}{IS\_DARWIN}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+IS\+\_\+\+DARWIN = \textquotesingle{}Darwin\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00059}{59}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a4453cf867ba6056368c5971ce70161c7}\label{namespacegtest__help__test_a4453cf867ba6056368c5971ce70161c7} 
+\index{gtest\_help\_test@{gtest\_help\_test}!IS\_GNUHURD@{IS\_GNUHURD}}
+\index{IS\_GNUHURD@{IS\_GNUHURD}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{IS\_GNUHURD}{IS\_GNUHURD}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+IS\+\_\+\+GNUHURD = \textquotesingle{}GNU\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00061}{61}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a745e1ead6eb1d4d1929e556e04caad03}\label{namespacegtest__help__test_a745e1ead6eb1d4d1929e556e04caad03} 
+\index{gtest\_help\_test@{gtest\_help\_test}!IS\_LINUX@{IS\_LINUX}}
+\index{IS\_LINUX@{IS\_LINUX}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{IS\_LINUX}{IS\_LINUX}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+IS\+\_\+\+LINUX = \textquotesingle{}Linux\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00060}{60}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_adaae1971c72c16a76f14672693ea012d}\label{namespacegtest__help__test_adaae1971c72c16a76f14672693ea012d} 
+\index{gtest\_help\_test@{gtest\_help\_test}!IS\_WINDOWS@{IS\_WINDOWS}}
+\index{IS\_WINDOWS@{IS\_WINDOWS}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{IS\_WINDOWS}{IS\_WINDOWS}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+IS\+\_\+\+WINDOWS = \textquotesingle{}nt\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00062}{62}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_af8c26c51e3a1793c8614c7634b31acc2}\label{namespacegtest__help__test_af8c26c51e3a1793c8614c7634b31acc2} 
+\index{gtest\_help\_test@{gtest\_help\_test}!LIST\_TESTS\_FLAG@{LIST\_TESTS\_FLAG}}
+\index{LIST\_TESTS\_FLAG@{LIST\_TESTS\_FLAG}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{LIST\_TESTS\_FLAG}{LIST\_TESTS\_FLAG}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+LIST\+\_\+\+TESTS\+\_\+\+FLAG = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}list\+\_\+tests\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00068}{68}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a3334f20eca34560819151e1458e7ebb9}\label{namespacegtest__help__test_a3334f20eca34560819151e1458e7ebb9} 
+\index{gtest\_help\_test@{gtest\_help\_test}!NETBSD@{NETBSD}}
+\index{NETBSD@{NETBSD}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{NETBSD}{NETBSD}}
+{\footnotesize\ttfamily tuple gtest\+\_\+help\+\_\+test.\+NETBSD = (\textquotesingle{}Net\+BSD\textquotesingle{},)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00047}{47}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_ac6c20943decf62cf0bf19e88c5089142}\label{namespacegtest__help__test_ac6c20943decf62cf0bf19e88c5089142} 
+\index{gtest\_help\_test@{gtest\_help\_test}!OPENBSD@{OPENBSD}}
+\index{OPENBSD@{OPENBSD}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{OPENBSD}{OPENBSD}}
+{\footnotesize\ttfamily tuple gtest\+\_\+help\+\_\+test.\+OPENBSD = (\textquotesingle{}Open\+BSD\textquotesingle{},)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00048}{48}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a52878eacdd3a1534fa4743e7d134066c}\label{namespacegtest__help__test_a52878eacdd3a1534fa4743e7d134066c} 
+\index{gtest\_help\_test@{gtest\_help\_test}!PROGRAM\_PATH@{PROGRAM\_PATH}}
+\index{PROGRAM\_PATH@{PROGRAM\_PATH}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{PROGRAM\_PATH}{PROGRAM\_PATH}}
+{\footnotesize\ttfamily gtest\+\_\+help\+\_\+test.\+PROGRAM\+\_\+\+PATH = \mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{gtest\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path}}(\textquotesingle{}gtest\+\_\+help\+\_\+test\+\_\+\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00064}{64}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a0ef76f47d7380e5d5d8557bc8c3910f2}\label{namespacegtest__help__test_a0ef76f47d7380e5d5d8557bc8c3910f2} 
+\index{gtest\_help\_test@{gtest\_help\_test}!STREAM\_RESULT\_TO\_FLAG@{STREAM\_RESULT\_TO\_FLAG}}
+\index{STREAM\_RESULT\_TO\_FLAG@{STREAM\_RESULT\_TO\_FLAG}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{STREAM\_RESULT\_TO\_FLAG}{STREAM\_RESULT\_TO\_FLAG}}
+{\footnotesize\ttfamily str gtest\+\_\+help\+\_\+test.\+STREAM\+\_\+\+RESULT\+\_\+\+TO\+\_\+\+FLAG = \mbox{\hyperlink{namespacegtest__help__test_acf1bdb6e8d0ee877227c6f3cf4355fbb}{FLAG\+\_\+\+PREFIX}} + \textquotesingle{}stream\+\_\+result\+\_\+to\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00067}{67}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegtest__help__test_a2a47a3ed69473d2fde686a00b60dd9a8}\label{namespacegtest__help__test_a2a47a3ed69473d2fde686a00b60dd9a8} 
+\index{gtest\_help\_test@{gtest\_help\_test}!SUPPORTS\_DEATH\_TESTS@{SUPPORTS\_DEATH\_TESTS}}
+\index{SUPPORTS\_DEATH\_TESTS@{SUPPORTS\_DEATH\_TESTS}!gtest\_help\_test@{gtest\_help\_test}}
+\doxysubsubsection{\texorpdfstring{SUPPORTS\_DEATH\_TESTS}{SUPPORTS\_DEATH\_TESTS}}
+{\footnotesize\ttfamily tuple gtest\+\_\+help\+\_\+test.\+SUPPORTS\+\_\+\+DEATH\+\_\+\+TESTS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'DeathTest'}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{keywordflow}{in}\ \mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{gtest\_test\_utils.Subprocess}}([PROGRAM\_PATH,\ LIST\_TESTS\_FLAG]).output}
+\DoxyCodeLine{00004\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source_l00071}{71}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__help__test_8py_source}{gtest\+\_\+help\+\_\+test.\+py}}.
+

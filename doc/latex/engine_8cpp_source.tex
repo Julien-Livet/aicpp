@@ -1,0 +1,244 @@
+\doxysection{engine.\+cpp}
+\hypertarget{engine_8cpp_source}{}\label{engine_8cpp_source}\index{src/engine.cpp@{src/engine.cpp}}
+\mbox{\hyperlink{engine_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <boost/json.hpp>}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Brain_8h}{aicpp/Brain.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Connection_8h}{aicpp/Connection.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{partials_8h}{aicpp/partials.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utility_8h}{aicpp/utility.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00013}00013\ \textcolor{keyword}{using\ namespace\ }boost::json;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00015}00015\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00017}\mbox{\hyperlink{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24}{00017}}\ std::string\ \textcolor{keyword}{const}\ \mbox{\hyperlink{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24}{path}}\{\textcolor{stringliteral}{"{}../ARC-\/AGI-\/2/data"{}}\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00019}\mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{00019}}\ Eigen::MatrixXi\ \mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boostJsonToEigenMatrix}}(array\ \textcolor{keyword}{const}\&\ arr)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00021}00021\ \ \ \ \ std::size\_t\ \textcolor{keyword}{const}\ rows\ =\ arr.size();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00022}00022\ \ \ \ \ std::size\_t\ \textcolor{keyword}{const}\ cols\ =\ arr.at(0).as\_array().size();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00024}00024\ \ \ \ \ Eigen::MatrixXi\ mat(rows,\ cols);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ rows;\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ row\ =\ arr[i].as\_array();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ j\ =\ 0;\ j\ <\ cols;\ ++j)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ mat(i,\ j)\ =\ (int)row[j].as\_int64();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{return}\ mat;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00037}00037\ std::pair<std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>\ >,}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00038}\mbox{\hyperlink{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459}{00038}}\ \ \ \ \ \ \ \ \ \ \ std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>\ >\ >\ \mbox{\hyperlink{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459}{trainTestPairs}}(std::string\ \textcolor{keyword}{const}\&\ folder,\ std::string\ \textcolor{keyword}{const}\&\ task)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00040}00040\ \ \ \ \ std::ifstream\ ifs\{\mbox{\hyperlink{engine_8cpp_a206958a0a5a2f20f681d8830677e5b24}{path}}\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ folder\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.json"{}}\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00042}00042\ \ \ \ \ std::string\ content;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{while}\ (ifs)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ std::getline(ifs,\ line);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ content\ +=\ line\ +\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00053}00053\ \ \ \ \ value\ \textcolor{keyword}{const}\ jv\{parse(content)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00054}00054\ \ \ \ \ boost::json::array\ train;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{if}\ (jv.is\_object())}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ train\ =\ jv.at(\textcolor{stringliteral}{"{}train"{}}).as\_array();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (jv.is\_array())}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ train\ =\ jv.as\_array()[0].at(\textcolor{stringliteral}{"{}train"{}}).as\_array();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00061}00061\ \ \ \ \ std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>\ >\ trainPairs;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{0\};\ i\ <\ train.size();\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00064}00064\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sample\{train[i].as\_object()\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ trainPairs.emplace\_back(std::make\_pair(\mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boostJsonToEigenMatrix}}(sample.at(\textcolor{stringliteral}{"{}input"{}}).as\_array()),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boostJsonToEigenMatrix}}(sample.at(\textcolor{stringliteral}{"{}output"{}}).as\_array())));}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00071}00071\ \ \ \ \ boost::json::array\ test;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (jv.is\_object())}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ test\ =\ jv.at(\textcolor{stringliteral}{"{}test"{}}).as\_array();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (jv.is\_array())}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ test\ =\ jv.as\_array()[0].at(\textcolor{stringliteral}{"{}test"{}}).as\_array();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00078}00078\ \ \ \ \ std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>\ >\ testPairs;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{0\};\ i\ <\ test.size();\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sample\{test[i].as\_object()\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ testPairs.emplace\_back(std::make\_pair(\mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boostJsonToEigenMatrix}}(sample.at(\textcolor{stringliteral}{"{}input"{}}).as\_array()),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{engine_8cpp_a99629c0547e7babc87cee948761f18b1}{boostJsonToEigenMatrix}}(sample.at(\textcolor{stringliteral}{"{}output"{}}).as\_array())));}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_pair(trainPairs,\ testPairs);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00091}\mbox{\hyperlink{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{00091}}\ std::pair<std::vector<Eigen::MatrixXi>,\ std::vector<Eigen::MatrixXi>\ >\ \mbox{\hyperlink{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{inputOutputPairs}}(}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00092}00092\ \ \ \ \ std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>\ >\ \textcolor{keyword}{const}\&\ taskPairs)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00093}00093\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00094}00094\ \ \ \ \ std::vector<Eigen::MatrixXi>\ inputs,\ outputs;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00095}00095\ \ \ \ \ inputs.reserve(taskPairs.size());}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00096}00096\ \ \ \ \ outputs.reserve(taskPairs.size());}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{0\};\ i\ <\ taskPairs.size();\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ inputs.emplace\_back(taskPairs[i].first);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ outputs.emplace\_back(taskPairs[i].second);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00102}00102\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_pair(inputs,\ outputs);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00107}\mbox{\hyperlink{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace}{00107}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace}{processTask}}(std::string\ \textcolor{keyword}{const}\&\ folder,\ std::string\ \textcolor{keyword}{const}\&\ task)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00108}00108\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ taskPairs\{\mbox{\hyperlink{engine_8cpp_ad5c3372cd2370f5799603732fb1ff459}{trainTestPairs}}(folder,\ task)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ trainPairs\{\mbox{\hyperlink{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{inputOutputPairs}}(taskPairs.first)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ testPairs\{\mbox{\hyperlink{engine_8cpp_a765b9fdc8982a75a6a6fe6ff9c5c44cb}{inputOutputPairs}}(taskPairs.second)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00113}00113\ \ \ \ \ std::vector<Neuron>\ digitNeurons;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00114}00114\ \ \ \ \ digitNeurons.reserve(11);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\{0\};\ i\ <\ digitNeurons.capacity();\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ digitNeurons.emplace\_back(\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\{std::to\_string(i),\ [i]\ (std::vector<std::any>\ const\&\ args)\ -\/>\ std::any\ \{\ return\ i;\ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(\textcolor{keywordtype}{int})\});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00119}00119\ \ \ \ \ std::vector<Neuron>\ sizeNeurons;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\{1\};\ i\ <\ 4;\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00122}00122\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\{1\};\ j\ <\ 4;\ ++j)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ sizeNeurons.emplace\_back(\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\{\textcolor{stringliteral}{"{}("{}}\ +\ std::to\_string(i)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(j)\ +\ \textcolor{stringliteral}{"{})"{}},\ [i,\ j]\ (std::vector<std::any>\ const\&\ args)\ -\/>\ std::any\ \{\ return\ std::make\_pair(i,\ j);\ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(std::pair<size\_t,\ size\_t>)\});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00127}00127\ \ \ \ \ std::vector<Neuron>\ positionNeurons;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\{-\/1\};\ i\ <\ 2;\ ++i)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00130}00130\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\{-\/1\};\ j\ <\ 2;\ ++j)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ positionNeurons.emplace\_back(\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\{\textcolor{stringliteral}{"{}("{}}\ +\ std::to\_string(i)\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ std::to\_string(j)\ +\ \textcolor{stringliteral}{"{})"{}},\ [i,\ j]\ (std::vector<std::any>\ const\&\ args)\ -\/>\ std::any\ \{\ return\ std::make\_pair(i,\ j);\ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(std::pair<int,\ int>)\});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00133}00133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00135}00135\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ \textcolor{keyword}{const}\ falseNeuron\{\textcolor{stringliteral}{"{}false"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []\ (std::vector<std::any>\ \textcolor{keyword}{const}\&\ args)\ -\/>\ std::any}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(bool)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00140}00140\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ \textcolor{keyword}{const}\ trueNeuron\{\textcolor{stringliteral}{"{}true"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []\ (std::vector<std::any>\ \textcolor{keyword}{const}\&\ args)\ -\/>\ std::any}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(bool)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ inputNeuron\{\textcolor{stringliteral}{"{}input"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [trainPairs]\ (std::vector<std::any>\ \textcolor{keyword}{const}\&)\ -\/>\ std::any}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ trainPairs.first;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ std::vector<std::type\_index>\{\},\ \textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00151}00151\ \ \ \ \ std::vector<std::reference\_wrapper<Neuron\ const>\ >\ neurons;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00153}00153\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ neuron\ :\ digitNeurons)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ neurons.emplace\_back(neuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00158}00158\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ neuron\ :\ sizeNeurons)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ neurons.emplace\_back(neuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00163}00163\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ neuron\ :\ positionNeurons)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ neurons.emplace\_back(neuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00166}00166\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00168}00168\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ neurons.emplace\_back(falseNeuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ neurons.emplace\_back(trueNeuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00173}00173\ \ \ \ \ neurons.emplace\_back(inputNeuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00174}00174\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ vmirror\_neuron\{\textcolor{stringliteral}{"{}vmirror"{}},\ fulls::vmirror,\ \{\textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>)\},\ \textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00175}00175\ \ \ \ \ neurons.emplace\_back(vmirror\_neuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00176}00176\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ hconcat\_neuron\{\textcolor{stringliteral}{"{}hconcat"{}},\ fulls::hconcat,\ \{\textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>),\ \textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>)\},\ \textcolor{keyword}{typeid}(std::vector<Eigen::MatrixXi>)\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00177}00177\ \ \ \ \ neurons.emplace\_back(hconcat\_neuron);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00179}00179\ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Brain}{Brain}}\ brain\{neurons\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}}\{0.0\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count\{0\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00183}00183\ \ \ \ \ std::vector<Connection>\ connections;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00185}00185\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00186}00186\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ connections\ =\ brain.learn(std::vector<std::any>\{trainPairs.second\},\ 2);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (connections.empty())}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}inf"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ connection\{connections[0]\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}}\ =\ \mbox{\hyperlink{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c}{utility::heuristic}}(connection.output(),\ trainPairs.second);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ brain.addConnection(connection);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00203}00203\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (cost\ \&\&\ ++count\ <\ 5);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ connection\{connections[0]\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (cost)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00208}00208\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ std::cout\ <<\ \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ std::cout\ <<\ connection.string()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/2;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00213}00213\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00215}00215\ \ \ \ \ inputNeuron.function()\ =}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ [testPairs]\ (std::vector<std::any>\ \textcolor{keyword}{const}\&)\ -\/>\ std::any}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00217}00217\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ testPairs.first;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00219}00219\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00221}00221\ \ \ \ \ \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}}\ =\ \mbox{\hyperlink{namespaceaicpp_1_1utility_a04a40320a3bc10bc864527a53336660c}{utility::heuristic}}(connection.output(),\ testPairs.second);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00223}00223\ \ \ \ \ std::cout\ <<\ \mbox{\hyperlink{namespaceaicpp_1_1utility_a7a9008580a20349dd260a249b15d16e3}{cost}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00224}00224\ \ \ \ \ std::cout\ <<\ connection.string()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00225}00225\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00226}00226\ \ \ \ \ \textcolor{keywordflow}{if}\ (cost)}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/3;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00230}00230\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00232}\mbox{\hyperlink{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{00232}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{engine_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}*\ argv[])}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00233}00233\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00234}00234\ \ \ \ \ std::string\ \textcolor{keyword}{const}\ folder\{argv[1]\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00235}00235\ \ \ \ \ std::string\ \textcolor{keyword}{const}\ task\{argv[2]\};}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00237}00237\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{engine_8cpp_ae652db9667a8e86dad4d88b86f3b6ace}{processTask}}(folder,\ task);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00238}00238\ \}}
+
+\end{DoxyCode}

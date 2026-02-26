@@ -1,0 +1,11 @@
+<map id="aicpp::Brain::connections" name="aicpp::Brain::connections">
+<area shape="rect" id="Node000001" title=" " alt="" coords="417,55,603,80"/>
+<area shape="rect" id="Node000002" href="$classaicpp_1_1Brain.html#a2e726f85e98a00258332feadbc01c151" title=" " alt="" coords="204,5,369,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="438,54,344,33,346,28,439,49"/>
+<area shape="rect" id="Node000003" href="$classaicpp_1_1Brain.html#ab433bdd2dbb8e1a1d2cb981ce6103bc5" title=" " alt="" coords="217,55,357,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="403,70,357,70,357,65,403,65"/>
+<area shape="rect" id="Node000005" href="$classaicpp_1_1Brain.html#ac7febf0afca0819e95937811e81343e4" title=" " alt="" coords="213,104,360,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="439,86,346,107,344,101,438,80"/>
+<area shape="rect" id="Node000004" href="$python__bindings_8cpp.html#af87b29a2381dc9b4b47be41e39dadc96" title=" " alt="" coords="5,55,156,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="203,70,156,70,156,65,203,65"/>
+</map>

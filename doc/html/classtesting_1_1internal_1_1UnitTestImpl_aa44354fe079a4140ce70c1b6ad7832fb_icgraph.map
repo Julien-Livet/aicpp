@@ -1,0 +1,12 @@
+<map id="testing::internal::UnitTestImpl::AddTestInfo" name="testing::internal::UnitTestImpl::AddTestInfo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="741,77,929,117"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#a3dda978293c8f8ab4f31f179cdbed33d" title=" " alt="" coords="507,77,693,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="728,99,693,99,693,94,728,94"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1internal_1_1TypeParameterizedTest.html#a34c205e6aac9ee62ffa7a229d8ef9a18" title=" " alt="" coords="273,29,445,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="493,82,445,74,445,68,493,76"/>
+<area shape="rect" id="Node000005" href="$classtesting_1_1internal_1_1ParameterizedTestSuiteInfo.html#a8c0af866d3c291a63d3f4581ccd452d1" title=" " alt="" coords="259,108,459,163"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="494,116,459,122,458,117,493,111"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="399,18,384,11,359,8,337,10,323,15,317,21,317,29,312,29,312,19,321,10,336,5,359,3,386,6,401,14"/>
+<area shape="rect" id="Node000004" href="$classtesting_1_1internal_1_1TypeParameterizedTestSuite.html#aefe563033024f580413cceef1f4088c7" title=" " alt="" coords="5,29,211,84"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="259,59,211,59,211,54,259,54"/>
+</map>

@@ -1,0 +1,854 @@
+\doxysection{testing\+::Test\+Result Class Reference}
+\hypertarget{classtesting_1_1TestResult}{}\label{classtesting_1_1TestResult}\index{testing::TestResult@{testing::TestResult}}
+
+
+{\ttfamily \#include $<$gtest.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}{Test\+Result}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}{\texorpdfstring{$\sim$}{\string~}\+Test\+Result}} ()
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}{total\+\_\+part\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}{test\+\_\+property\+\_\+count}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}{Passed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}{Skipped}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}{Failed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}{Has\+Fatal\+Failure}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}{Has\+Nonfatal\+Failure}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}{elapsed\+\_\+time}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}{start\+\_\+timestamp}} () const
+\item 
+const Test\+Part\+Result \& \mbox{\hyperlink{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}{Get\+Test\+Part\+Result}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& \mbox{\hyperlink{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}{Get\+Test\+Property}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}{Test\+Result}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}{\texorpdfstring{$\sim$}{\string~}\+Test\+Result}} ()
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}{total\+\_\+part\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}{test\+\_\+property\+\_\+count}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}{Passed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}{Skipped}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}{Failed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}{Has\+Fatal\+Failure}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}{Has\+Nonfatal\+Failure}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}{elapsed\+\_\+time}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}{start\+\_\+timestamp}} () const
+\item 
+const Test\+Part\+Result \& \mbox{\hyperlink{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}{Get\+Test\+Part\+Result}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& \mbox{\hyperlink{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}{Get\+Test\+Property}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}{Test\+Result}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}{\texorpdfstring{$\sim$}{\string~}\+Test\+Result}} ()
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}{total\+\_\+part\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}{test\+\_\+property\+\_\+count}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}{Passed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}{Skipped}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}{Failed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}{Has\+Fatal\+Failure}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}{Has\+Nonfatal\+Failure}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}{elapsed\+\_\+time}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}{start\+\_\+timestamp}} () const
+\item 
+const Test\+Part\+Result \& \mbox{\hyperlink{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}{Get\+Test\+Part\+Result}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& \mbox{\hyperlink{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}{Get\+Test\+Property}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}{Test\+Result}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}{\texorpdfstring{$\sim$}{\string~}\+Test\+Result}} ()
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}{total\+\_\+part\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}{test\+\_\+property\+\_\+count}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}{Passed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}{Skipped}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}{Failed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}{Has\+Fatal\+Failure}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}{Has\+Nonfatal\+Failure}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}{elapsed\+\_\+time}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}{start\+\_\+timestamp}} () const
+\item 
+const Test\+Part\+Result \& \mbox{\hyperlink{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}{Get\+Test\+Part\+Result}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& \mbox{\hyperlink{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}{Get\+Test\+Property}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}{Test\+Result}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}{\texorpdfstring{$\sim$}{\string~}\+Test\+Result}} ()
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}{total\+\_\+part\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}{test\+\_\+property\+\_\+count}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}{Passed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}{Skipped}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}{Failed}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}{Has\+Fatal\+Failure}} () const
+\item 
+bool \mbox{\hyperlink{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}{Has\+Nonfatal\+Failure}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}{elapsed\+\_\+time}} () const
+\item 
+\mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} \mbox{\hyperlink{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}{start\+\_\+timestamp}} () const
+\item 
+const Test\+Part\+Result \& \mbox{\hyperlink{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}{Get\+Test\+Part\+Result}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\item 
+const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& \mbox{\hyperlink{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}{Get\+Test\+Property}} (int \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_aed3c96e2bd5a46339c1cbe49a4a233ee}{Test\+Info}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_afa75eb3bdc22807c1d4fcf818c6f0fbf}{Test\+Suite}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_aaeb07ea6ba11473f5b2ff2067a1d734a}{Unit\+Test}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_ac731f0389a3fc3cae64a80a5e53acc2a}{internal\+::\+Default\+Global\+Test\+Part\+Result\+Reporter}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_a6a009268369159ee3ff3d162e5c9f0b4}{internal\+::\+Exec\+Death\+Test}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_a9409280e3d708ddb050e1b9922b91522}{internal\+::\+Test\+Result\+Accessor}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_aa684cc13a8f91b00c0c9ce41ec7474eb}{internal\+::\+Unit\+Test\+Impl}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_ab7ea7e66d98b6380f6216e44ce744390}{internal\+::\+Windows\+Death\+Test}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1TestResult_af3cc379e9a2ab2709256b2b50aeaa974}{internal\+::\+Fuchsia\+Death\+Test}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00400}{400}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}\label{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5} 
+\index{testing::TestResult@{testing::TestResult}!TestResult@{TestResult}}
+\index{TestResult@{TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestResult()}{TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02322}{2322}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+\Hypertarget{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}\label{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315} 
+\index{testing::TestResult@{testing::TestResult}!````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}}
+\index{````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TestResult()}{\string~TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\texorpdfstring{$\sim$}{\string~}\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}\label{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5} 
+\index{testing::TestResult@{testing::TestResult}!TestResult@{TestResult}}
+\index{TestResult@{TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestResult()}{TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}\label{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315} 
+\index{testing::TestResult@{testing::TestResult}!````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}}
+\index{````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TestResult()}{\string~TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\texorpdfstring{$\sim$}{\string~}\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}\label{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5} 
+\index{testing::TestResult@{testing::TestResult}!TestResult@{TestResult}}
+\index{TestResult@{TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestResult()}{TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}\label{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315} 
+\index{testing::TestResult@{testing::TestResult}!````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}}
+\index{````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TestResult()}{\string~TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\texorpdfstring{$\sim$}{\string~}\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}\label{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5} 
+\index{testing::TestResult@{testing::TestResult}!TestResult@{TestResult}}
+\index{TestResult@{TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestResult()}{TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}\label{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315} 
+\index{testing::TestResult@{testing::TestResult}!````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}}
+\index{````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TestResult()}{\string~TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\texorpdfstring{$\sim$}{\string~}\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5}\label{classtesting_1_1TestResult_a5cf5dd6f416b7334ea601aab21a2fda5} 
+\index{testing::TestResult@{testing::TestResult}!TestResult@{TestResult}}
+\index{TestResult@{TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestResult()}{TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315}\label{classtesting_1_1TestResult_a41f407680b725b75d7eadc3230bc3315} 
+\index{testing::TestResult@{testing::TestResult}!````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}}
+\index{````~TestResult@{\texorpdfstring{$\sim$}{\string~}TestResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TestResult()}{\string~TestResult()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily testing\+::\+Test\+Result\+::\texorpdfstring{$\sim$}{\string~}\+Test\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}\label{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af} 
+\index{testing::TestResult@{testing::TestResult}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::elapsed\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00431}{431}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}\label{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af} 
+\index{testing::TestResult@{testing::TestResult}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::elapsed\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00431}{431}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}\label{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af} 
+\index{testing::TestResult@{testing::TestResult}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::elapsed\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00431}{431}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}\label{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af} 
+\index{testing::TestResult@{testing::TestResult}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::elapsed\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00431}{431}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af}\label{classtesting_1_1TestResult_a717e05e00d4af5cb809433e343ab63af} 
+\index{testing::TestResult@{testing::TestResult}!elapsed\_time@{elapsed\_time}}
+\index{elapsed\_time@{elapsed\_time}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{elapsed\_time()}{elapsed\_time()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::elapsed\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00431}{431}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}\label{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769} 
+\index{testing::TestResult@{testing::TestResult}!Failed@{Failed}}
+\index{Failed@{Failed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Failed()}{Failed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Failed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02487}{2487}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}\label{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769} 
+\index{testing::TestResult@{testing::TestResult}!Failed@{Failed}}
+\index{Failed@{Failed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Failed()}{Failed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Failed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}\label{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769} 
+\index{testing::TestResult@{testing::TestResult}!Failed@{Failed}}
+\index{Failed@{Failed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Failed()}{Failed()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Failed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}\label{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769} 
+\index{testing::TestResult@{testing::TestResult}!Failed@{Failed}}
+\index{Failed@{Failed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Failed()}{Failed()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Failed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769}\label{classtesting_1_1TestResult_afacc37e8b43c8574e4101bc61723c769} 
+\index{testing::TestResult@{testing::TestResult}!Failed@{Failed}}
+\index{Failed@{Failed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Failed()}{Failed()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Failed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}\label{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba} 
+\index{testing::TestResult@{testing::TestResult}!GetTestPartResult@{GetTestPartResult}}
+\index{GetTestPartResult@{GetTestPartResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestPartResult()}{GetTestPartResult()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily const Test\+Part\+Result \& testing\+::\+Test\+Result\+::\+Get\+Test\+Part\+Result (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02331}{2331}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}\label{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba} 
+\index{testing::TestResult@{testing::TestResult}!GetTestPartResult@{GetTestPartResult}}
+\index{GetTestPartResult@{GetTestPartResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestPartResult()}{GetTestPartResult()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily const Test\+Part\+Result \& testing\+::\+Test\+Result\+::\+Get\+Test\+Part\+Result (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}\label{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba} 
+\index{testing::TestResult@{testing::TestResult}!GetTestPartResult@{GetTestPartResult}}
+\index{GetTestPartResult@{GetTestPartResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestPartResult()}{GetTestPartResult()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily const Test\+Part\+Result \& testing\+::\+Test\+Result\+::\+Get\+Test\+Part\+Result (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}\label{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba} 
+\index{testing::TestResult@{testing::TestResult}!GetTestPartResult@{GetTestPartResult}}
+\index{GetTestPartResult@{GetTestPartResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestPartResult()}{GetTestPartResult()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily const Test\+Part\+Result \& testing\+::\+Test\+Result\+::\+Get\+Test\+Part\+Result (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba}\label{classtesting_1_1TestResult_a765c1e734ac08115757b343d57226bba} 
+\index{testing::TestResult@{testing::TestResult}!GetTestPartResult@{GetTestPartResult}}
+\index{GetTestPartResult@{GetTestPartResult}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestPartResult()}{GetTestPartResult()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily const Test\+Part\+Result \& testing\+::\+Test\+Result\+::\+Get\+Test\+Part\+Result (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}\label{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af} 
+\index{testing::TestResult@{testing::TestResult}!GetTestProperty@{GetTestProperty}}
+\index{GetTestProperty@{GetTestProperty}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestProperty()}{GetTestProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& testing\+::\+Test\+Result\+::\+Get\+Test\+Property (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02339}{2339}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}\label{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af} 
+\index{testing::TestResult@{testing::TestResult}!GetTestProperty@{GetTestProperty}}
+\index{GetTestProperty@{GetTestProperty}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestProperty()}{GetTestProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& testing\+::\+Test\+Result\+::\+Get\+Test\+Property (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}\label{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af} 
+\index{testing::TestResult@{testing::TestResult}!GetTestProperty@{GetTestProperty}}
+\index{GetTestProperty@{GetTestProperty}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestProperty()}{GetTestProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& testing\+::\+Test\+Result\+::\+Get\+Test\+Property (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}\label{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af} 
+\index{testing::TestResult@{testing::TestResult}!GetTestProperty@{GetTestProperty}}
+\index{GetTestProperty@{GetTestProperty}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestProperty()}{GetTestProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& testing\+::\+Test\+Result\+::\+Get\+Test\+Property (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af}\label{classtesting_1_1TestResult_a6c2f478dbce36b57d18bedded46d70af} 
+\index{testing::TestResult@{testing::TestResult}!GetTestProperty@{GetTestProperty}}
+\index{GetTestProperty@{GetTestProperty}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{GetTestProperty()}{GetTestProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesting_1_1TestProperty}{Test\+Property}} \& testing\+::\+Test\+Result\+::\+Get\+Test\+Property (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}\label{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4} 
+\index{testing::TestResult@{testing::TestResult}!HasFatalFailure@{HasFatalFailure}}
+\index{HasFatalFailure@{HasFatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasFatalFailure()}{HasFatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Fatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02500}{2500}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+\Hypertarget{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}\label{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4} 
+\index{testing::TestResult@{testing::TestResult}!HasFatalFailure@{HasFatalFailure}}
+\index{HasFatalFailure@{HasFatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasFatalFailure()}{HasFatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Fatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}\label{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4} 
+\index{testing::TestResult@{testing::TestResult}!HasFatalFailure@{HasFatalFailure}}
+\index{HasFatalFailure@{HasFatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasFatalFailure()}{HasFatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Fatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}\label{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4} 
+\index{testing::TestResult@{testing::TestResult}!HasFatalFailure@{HasFatalFailure}}
+\index{HasFatalFailure@{HasFatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasFatalFailure()}{HasFatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Fatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4}\label{classtesting_1_1TestResult_a30e00d4076ae07fb5ad7b623d9dc1fe4} 
+\index{testing::TestResult@{testing::TestResult}!HasFatalFailure@{HasFatalFailure}}
+\index{HasFatalFailure@{HasFatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasFatalFailure()}{HasFatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Fatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}\label{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6} 
+\index{testing::TestResult@{testing::TestResult}!HasNonfatalFailure@{HasNonfatalFailure}}
+\index{HasNonfatalFailure@{HasNonfatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasNonfatalFailure()}{HasNonfatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Nonfatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02510}{2510}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+\Hypertarget{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}\label{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6} 
+\index{testing::TestResult@{testing::TestResult}!HasNonfatalFailure@{HasNonfatalFailure}}
+\index{HasNonfatalFailure@{HasNonfatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasNonfatalFailure()}{HasNonfatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Nonfatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}\label{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6} 
+\index{testing::TestResult@{testing::TestResult}!HasNonfatalFailure@{HasNonfatalFailure}}
+\index{HasNonfatalFailure@{HasNonfatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasNonfatalFailure()}{HasNonfatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Nonfatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}\label{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6} 
+\index{testing::TestResult@{testing::TestResult}!HasNonfatalFailure@{HasNonfatalFailure}}
+\index{HasNonfatalFailure@{HasNonfatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasNonfatalFailure()}{HasNonfatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Nonfatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6}\label{classtesting_1_1TestResult_a510564fa67b485ed4589a259f2a032d6} 
+\index{testing::TestResult@{testing::TestResult}!HasNonfatalFailure@{HasNonfatalFailure}}
+\index{HasNonfatalFailure@{HasNonfatalFailure}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{HasNonfatalFailure()}{HasNonfatalFailure()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Has\+Nonfatal\+Failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}\label{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df} 
+\index{testing::TestResult@{testing::TestResult}!Passed@{Passed}}
+\index{Passed@{Passed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Passed()}{Passed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Passed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00416}{416}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}\label{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df} 
+\index{testing::TestResult@{testing::TestResult}!Passed@{Passed}}
+\index{Passed@{Passed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Passed()}{Passed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Passed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00416}{416}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}\label{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df} 
+\index{testing::TestResult@{testing::TestResult}!Passed@{Passed}}
+\index{Passed@{Passed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Passed()}{Passed()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Passed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00416}{416}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}\label{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df} 
+\index{testing::TestResult@{testing::TestResult}!Passed@{Passed}}
+\index{Passed@{Passed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Passed()}{Passed()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Passed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00416}{416}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df}\label{classtesting_1_1TestResult_acf7e6e72f05a0545c48ea48e7f8851df} 
+\index{testing::TestResult@{testing::TestResult}!Passed@{Passed}}
+\index{Passed@{Passed}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Passed()}{Passed()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Passed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00416}{416}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}\label{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244} 
+\index{testing::TestResult@{testing::TestResult}!Skipped@{Skipped}}
+\index{Skipped@{Skipped}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Skipped()}{Skipped()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Skipped (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02482}{2482}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}\label{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244} 
+\index{testing::TestResult@{testing::TestResult}!Skipped@{Skipped}}
+\index{Skipped@{Skipped}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Skipped()}{Skipped()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Skipped (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}\label{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244} 
+\index{testing::TestResult@{testing::TestResult}!Skipped@{Skipped}}
+\index{Skipped@{Skipped}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Skipped()}{Skipped()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Skipped (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}\label{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244} 
+\index{testing::TestResult@{testing::TestResult}!Skipped@{Skipped}}
+\index{Skipped@{Skipped}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Skipped()}{Skipped()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Skipped (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244}\label{classtesting_1_1TestResult_a4c9e954e0f8c1386206f2e6208c45244} 
+\index{testing::TestResult@{testing::TestResult}!Skipped@{Skipped}}
+\index{Skipped@{Skipped}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{Skipped()}{Skipped()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool testing\+::\+Test\+Result\+::\+Skipped (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}\label{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9} 
+\index{testing::TestResult@{testing::TestResult}!start\_timestamp@{start\_timestamp}}
+\index{start\_timestamp@{start\_timestamp}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{start\_timestamp()}{start\_timestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::start\+\_\+timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00435}{435}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}\label{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9} 
+\index{testing::TestResult@{testing::TestResult}!start\_timestamp@{start\_timestamp}}
+\index{start\_timestamp@{start\_timestamp}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{start\_timestamp()}{start\_timestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::start\+\_\+timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00435}{435}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}\label{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9} 
+\index{testing::TestResult@{testing::TestResult}!start\_timestamp@{start\_timestamp}}
+\index{start\_timestamp@{start\_timestamp}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{start\_timestamp()}{start\_timestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::start\+\_\+timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00435}{435}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}\label{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9} 
+\index{testing::TestResult@{testing::TestResult}!start\_timestamp@{start\_timestamp}}
+\index{start\_timestamp@{start\_timestamp}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{start\_timestamp()}{start\_timestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::start\+\_\+timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00435}{435}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9}\label{classtesting_1_1TestResult_adb268289775c56570cfa4bbd4d233ec9} 
+\index{testing::TestResult@{testing::TestResult}!start\_timestamp@{start\_timestamp}}
+\index{start\_timestamp@{start\_timestamp}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{start\_timestamp()}{start\_timestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_a992de1d091ce660f451d1e8b3ce30fd6}{Time\+In\+Millis}} testing\+::\+Test\+Result\+::start\+\_\+timestamp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00435}{435}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}\label{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be} 
+\index{testing::TestResult@{testing::TestResult}!test\_property\_count@{test\_property\_count}}
+\index{test\_property\_count@{test\_property\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{test\_property\_count()}{test\_property\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::test\+\_\+property\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02521}{2521}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}\label{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be} 
+\index{testing::TestResult@{testing::TestResult}!test\_property\_count@{test\_property\_count}}
+\index{test\_property\_count@{test\_property\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{test\_property\_count()}{test\_property\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::test\+\_\+property\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}\label{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be} 
+\index{testing::TestResult@{testing::TestResult}!test\_property\_count@{test\_property\_count}}
+\index{test\_property\_count@{test\_property\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{test\_property\_count()}{test\_property\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::test\+\_\+property\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}\label{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be} 
+\index{testing::TestResult@{testing::TestResult}!test\_property\_count@{test\_property\_count}}
+\index{test\_property\_count@{test\_property\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{test\_property\_count()}{test\_property\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::test\+\_\+property\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be}\label{classtesting_1_1TestResult_afe4523257bbea8bc63b0950b702790be} 
+\index{testing::TestResult@{testing::TestResult}!test\_property\_count@{test\_property\_count}}
+\index{test\_property\_count@{test\_property\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{test\_property\_count()}{test\_property\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::test\+\_\+property\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}\label{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032} 
+\index{testing::TestResult@{testing::TestResult}!total\_part\_count@{total\_part\_count}}
+\index{total\_part\_count@{total\_part\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{total\_part\_count()}{total\_part\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::total\+\_\+part\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l02516}{2516}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}\label{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032} 
+\index{testing::TestResult@{testing::TestResult}!total\_part\_count@{total\_part\_count}}
+\index{total\_part\_count@{total\_part\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{total\_part\_count()}{total\_part\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::total\+\_\+part\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}\label{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032} 
+\index{testing::TestResult@{testing::TestResult}!total\_part\_count@{total\_part\_count}}
+\index{total\_part\_count@{total\_part\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{total\_part\_count()}{total\_part\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::total\+\_\+part\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}\label{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032} 
+\index{testing::TestResult@{testing::TestResult}!total\_part\_count@{total\_part\_count}}
+\index{total\_part\_count@{total\_part\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{total\_part\_count()}{total\_part\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::total\+\_\+part\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032}\label{classtesting_1_1TestResult_a6174aa4019dcda7c34d776b5741c9032} 
+\index{testing::TestResult@{testing::TestResult}!total\_part\_count@{total\_part\_count}}
+\index{total\_part\_count@{total\_part\_count}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{total\_part\_count()}{total\_part\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily int testing\+::\+Test\+Result\+::total\+\_\+part\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classtesting_1_1TestResult_ac731f0389a3fc3cae64a80a5e53acc2a}\label{classtesting_1_1TestResult_ac731f0389a3fc3cae64a80a5e53acc2a} 
+\index{testing::TestResult@{testing::TestResult}!internal::DefaultGlobalTestPartResultReporter@{internal::DefaultGlobalTestPartResultReporter}}
+\index{internal::DefaultGlobalTestPartResultReporter@{internal::DefaultGlobalTestPartResultReporter}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::DefaultGlobalTestPartResultReporter}{internal::DefaultGlobalTestPartResultReporter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1internal_1_1DefaultGlobalTestPartResultReporter}{internal\+::\+Default\+Global\+Test\+Part\+Result\+Reporter}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00450}{450}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a6a009268369159ee3ff3d162e5c9f0b4}\label{classtesting_1_1TestResult_a6a009268369159ee3ff3d162e5c9f0b4} 
+\index{testing::TestResult@{testing::TestResult}!internal::ExecDeathTest@{internal::ExecDeathTest}}
+\index{internal::ExecDeathTest@{internal::ExecDeathTest}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::ExecDeathTest}{internal::ExecDeathTest}}
+{\footnotesize\ttfamily internal\+::\+Exec\+Death\+Test\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00451}{451}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_af3cc379e9a2ab2709256b2b50aeaa974}\label{classtesting_1_1TestResult_af3cc379e9a2ab2709256b2b50aeaa974} 
+\index{testing::TestResult@{testing::TestResult}!internal::FuchsiaDeathTest@{internal::FuchsiaDeathTest}}
+\index{internal::FuchsiaDeathTest@{internal::FuchsiaDeathTest}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::FuchsiaDeathTest}{internal::FuchsiaDeathTest}}
+{\footnotesize\ttfamily internal\+::\+Fuchsia\+Death\+Test\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00455}{455}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_a9409280e3d708ddb050e1b9922b91522}\label{classtesting_1_1TestResult_a9409280e3d708ddb050e1b9922b91522} 
+\index{testing::TestResult@{testing::TestResult}!internal::TestResultAccessor@{internal::TestResultAccessor}}
+\index{internal::TestResultAccessor@{internal::TestResultAccessor}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::TestResultAccessor}{internal::TestResultAccessor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1internal_1_1TestResultAccessor}{internal\+::\+Test\+Result\+Accessor}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00452}{452}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_aa684cc13a8f91b00c0c9ce41ec7474eb}\label{classtesting_1_1TestResult_aa684cc13a8f91b00c0c9ce41ec7474eb} 
+\index{testing::TestResult@{testing::TestResult}!internal::UnitTestImpl@{internal::UnitTestImpl}}
+\index{internal::UnitTestImpl@{internal::UnitTestImpl}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::UnitTestImpl}{internal::UnitTestImpl}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1internal_1_1UnitTestImpl}{internal\+::\+Unit\+Test\+Impl}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00453}{453}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_ab7ea7e66d98b6380f6216e44ce744390}\label{classtesting_1_1TestResult_ab7ea7e66d98b6380f6216e44ce744390} 
+\index{testing::TestResult@{testing::TestResult}!internal::WindowsDeathTest@{internal::WindowsDeathTest}}
+\index{internal::WindowsDeathTest@{internal::WindowsDeathTest}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{internal::WindowsDeathTest}{internal::WindowsDeathTest}}
+{\footnotesize\ttfamily internal\+::\+Windows\+Death\+Test\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00454}{454}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_aed3c96e2bd5a46339c1cbe49a4a233ee}\label{classtesting_1_1TestResult_aed3c96e2bd5a46339c1cbe49a4a233ee} 
+\index{testing::TestResult@{testing::TestResult}!TestInfo@{TestInfo}}
+\index{TestInfo@{TestInfo}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestInfo}{TestInfo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1TestInfo}{Test\+Info}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00447}{447}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_afa75eb3bdc22807c1d4fcf818c6f0fbf}\label{classtesting_1_1TestResult_afa75eb3bdc22807c1d4fcf818c6f0fbf} 
+\index{testing::TestResult@{testing::TestResult}!TestSuite@{TestSuite}}
+\index{TestSuite@{TestSuite}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{TestSuite}{TestSuite}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1TestSuite}{Test\+Suite}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00448}{448}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+\Hypertarget{classtesting_1_1TestResult_aaeb07ea6ba11473f5b2ff2067a1d734a}\label{classtesting_1_1TestResult_aaeb07ea6ba11473f5b2ff2067a1d734a} 
+\index{testing::TestResult@{testing::TestResult}!UnitTest@{UnitTest}}
+\index{UnitTest@{UnitTest}!testing::TestResult@{testing::TestResult}}
+\doxysubsubsection{\texorpdfstring{UnitTest}{UnitTest}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesting_1_1UnitTest}{Unit\+Test}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source_l00449}{449}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_source}{gtest.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+build/\+\_\+deps/googletest-\/src/googletest/include/gtest/\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h}{gtest.\+h}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h}{gtest.\+h}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h}{gtest.\+h}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h}{gtest.\+h}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h}{gtest.\+h}}\item 
+build/\+\_\+deps/googletest-\/src/googletest/src/\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{gtest.\+cc}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googletest/src/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{gtest.\+cc}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googletest/src/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{gtest.\+cc}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googletest/src/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{gtest.\+cc}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googletest/src/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{gtest.\+cc}}\end{DoxyCompactItemize}

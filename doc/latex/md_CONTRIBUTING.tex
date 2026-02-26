@@ -1,0 +1,198 @@
+\chapter{Contributing to aicpp}
+\hypertarget{md_CONTRIBUTING}{}\label{md_CONTRIBUTING}\index{Contributing to aicpp@{Contributing to aicpp}}
+\label{md_CONTRIBUTING_autotoc_md849}%
+\Hypertarget{md_CONTRIBUTING_autotoc_md849}%
+ Thank you for your interest in contributing to {\bfseries{aicpp}}.
+
+aicpp is a deterministic native C++ symbolic synthesis engine guided by LLM-\/generated structural reductions. ~\newline
+ The project focuses on\+:
+
+
+\begin{DoxyItemize}
+\item Symbolic program synthesis
+\item Structural search space reduction
+\item Deterministic exhaustive exploration
+\item Native C++ compilation
+\item Reproducibility and explicability
+\end{DoxyItemize}
+
+Before contributing, please read this document carefully.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md851}{}\doxysection{\texorpdfstring{Project Philosophy}{Project Philosophy}}\label{md_CONTRIBUTING_autotoc_md851}
+aicpp is {\bfseries{not}}\+:
+
+
+\begin{DoxyItemize}
+\item A deep learning framework
+\item A stochastic generative solver
+\item A black-\/box ARC solver
+\end{DoxyItemize}
+
+aicpp is\+:
+
+
+\begin{DoxyItemize}
+\item A deterministic symbolic engine
+\item Guided externally by LLM-\/based structural parameterization
+\item Fully reproducible
+\item Fully inspectable
+\end{DoxyItemize}
+
+Maintaining this architectural clarity is essential.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md853}{}\doxysection{\texorpdfstring{Types of Contributions Welcome}{Types of Contributions Welcome}}\label{md_CONTRIBUTING_autotoc_md853}
+\hypertarget{md_CONTRIBUTING_autotoc_md854}{}\doxysubsection{\texorpdfstring{1. New Primitives (\+C++)}{1. New Primitives (C++)}}\label{md_CONTRIBUTING_autotoc_md854}
+You may propose\+:
+
+
+\begin{DoxyItemize}
+\item New ARC-\/relevant primitives
+\item Typed, composable transformations
+\item Efficient implementations
+\end{DoxyItemize}
+
+Requirements\+:
+\begin{DoxyItemize}
+\item Must preserve deterministic behavior
+\item Must include documentation
+\item Must compile without additional heavy dependencies
+\item Must include example ARC usage if applicable
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md856}{}\doxysubsection{\texorpdfstring{2. Search Space Reduction Strategies}{2. Search Space Reduction Strategies}}\label{md_CONTRIBUTING_autotoc_md856}
+Improvements to\+:
+
+
+\begin{DoxyItemize}
+\item Heuristics
+\item Pruning strategies
+\item Structural deduplication
+\item Isomorphism detection
+\item Canonical form normalization
+\end{DoxyItemize}
+
+Contributions that reduce combinatorial explosion are particularly valuable.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md858}{}\doxysubsection{\texorpdfstring{3. Partial Structural Parameterization Improvements}{3. Partial Structural Parameterization Improvements}}\label{md_CONTRIBUTING_autotoc_md858}
+Improvements to\+:
+
+
+\begin{DoxyItemize}
+\item Prompt design
+\item LLM output robustness
+\item Code generation reliability
+\item Reduction of verbosity
+\end{DoxyItemize}
+
+The goal is to reduce structural search space, not to replace symbolic reasoning.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md860}{}\doxysubsection{\texorpdfstring{4. Performance Optimizations}{4. Performance Optimizations}}\label{md_CONTRIBUTING_autotoc_md860}
+Improvements in\+:
+
+
+\begin{DoxyItemize}
+\item Compilation performance
+\item Memory usage
+\item Connection reuse
+\item Incremental rebuild
+\item Serialization efficiency
+\end{DoxyItemize}
+
+All optimizations must preserve correctness and determinism.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md862}{}\doxysubsection{\texorpdfstring{5. Benchmarking \& Evaluation}{5. Benchmarking \& Evaluation}}\label{md_CONTRIBUTING_autotoc_md862}
+You may contribute\+:
+
+
+\begin{DoxyItemize}
+\item Automated ARC benchmarking scripts
+\item Comparative evaluation setups
+\item Profiling tools
+\item Measurement of combinatorial reduction
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md864}{}\doxysection{\texorpdfstring{Contributions That Are Out of Scope}{Contributions That Are Out of Scope}}\label{md_CONTRIBUTING_autotoc_md864}
+The following are generally not aligned with the project direction\+:
+
+
+\begin{DoxyItemize}
+\item Replacing the symbolic engine with neural inference
+\item Introducing non-\/deterministic search mechanisms
+\item Adding heavy ML frameworks
+\item Refactoring without architectural justification
+\item Introducing unnecessary dependencies
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md866}{}\doxysection{\texorpdfstring{Coding Standards}{Coding Standards}}\label{md_CONTRIBUTING_autotoc_md866}
+
+\begin{DoxyItemize}
+\item C++17 minimum
+\item Use CMake
+\item Keep dependencies minimal
+\item Write clear, readable code
+\item Document new primitives
+\item Maintain type safety
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md868}{}\doxysection{\texorpdfstring{Development Workflow}{Development Workflow}}\label{md_CONTRIBUTING_autotoc_md868}
+
+\begin{DoxyEnumerate}
+\item Fork the repository
+\item Create a feature branch
+\item Implement your change
+\item Ensure compilation via Docker
+\item Provide a clear Pull Request description
+\end{DoxyEnumerate}
+
+If your contribution affects search behavior, please include\+:
+
+
+\begin{DoxyItemize}
+\item ARC task tested
+\item Performance comparison
+\item Before/after results
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md870}{}\doxysection{\texorpdfstring{Reproducibility}{Reproducibility}}\label{md_CONTRIBUTING_autotoc_md870}
+All contributions must\+:
+
+
+\begin{DoxyItemize}
+\item Build using the provided Docker setup
+\item Preserve deterministic behavior
+\item Not break existing test tasks
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md872}{}\doxysection{\texorpdfstring{Research \& Collaboration}{Research \& Collaboration}}\label{md_CONTRIBUTING_autotoc_md872}
+If you are interested in academic collaboration or deeper architectural changes\+:
+
+Please open a Discussion before submitting a major Pull Request.
+
+aicpp is evolving as a research-\/oriented symbolic synthesis framework, and architectural coherence is critical.
+
+\DoxyHorRuler{0}
+\hypertarget{md_CONTRIBUTING_autotoc_md874}{}\doxysection{\texorpdfstring{Final Note}{Final Note}}\label{md_CONTRIBUTING_autotoc_md874}
+aicpp aims to explore a hybrid approach\+:
+
+LLM-\/guided structural reduction ~\newline
+
+\begin{DoxyItemize}
+\item ~\newline
+ Deterministic symbolic native exploration ~\newline
+
+\end{DoxyItemize}
+
+Your contributions should strengthen this balance.
+
+Thank you for helping improve aicpp. 

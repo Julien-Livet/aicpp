@@ -1,0 +1,11 @@
+<map id="testing::internal::InitGoogleMockImpl" name="testing::internal::InitGoogleMockImpl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="333,47,487,87"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#a9276d4bc746722cb4fe99415c1dc778f" title=" " alt="" coords="108,5,285,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="319,49,252,33,253,28,320,44"/>
+<area shape="rect" id="Node000004" href="$namespacetesting.html#a32b1c6db9ba5133ccabfa67616b3c041" title=" " alt="" coords="108,55,285,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="320,70,285,70,285,65,320,65"/>
+<area shape="rect" id="Node000005" href="$namespacetesting.html#a20fb86152763dddef67bc1dd8b090800" title=" " alt="" coords="108,104,285,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="320,91,253,107,252,101,319,86"/>
+<area shape="rect" id="Node000003" href="$build_2__deps_2googletest-src_2googlemock_2src_2gmock__main_8cc.html#a7f83bdc516d2cb86e20235d94ddf055a" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+</map>

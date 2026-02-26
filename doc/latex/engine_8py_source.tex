@@ -1,0 +1,407 @@
+\doxysection{engine.\+py}
+\hypertarget{engine_8py_source}{}\label{engine_8py_source}\index{scripts/engine.py@{scripts/engine.py}}
+\mbox{\hyperlink{engine_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00001}\mbox{\hyperlink{namespaceengine}{00001}}\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00002}00002\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00003}00003\ \textcolor{keyword}{from}\ openai\ \textcolor{keyword}{import}\ OpenAI}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00004}00004\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00005}00005\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00006}00006\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00007}00007\ \textcolor{keyword}{import}\ urllib.request}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00009}\mbox{\hyperlink{namespaceengine_ad1d72f7c78b5ed7f1114d83d2802371a}{00009}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_ad1d72f7c78b5ed7f1114d83d2802371a}{trainTestPairs}}(folder:\ str,\ task:\ str)\ -\/>\ tuple:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00010}00010\ \ \ \ \ url\ =\ urllib.request.urlopen(\textcolor{stringliteral}{"{}https://raw.githubusercontent.com/arcprize/ARC-\/AGI-\/2/refs/heads/main/data/"{}}\ +\ folder\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.json"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00011}00011\ \ \ \ \ data\ =\ json.loads(url.read().decode())}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00013}00013\ \ \ \ \ train\ =\ data[\textcolor{stringliteral}{"{}train"{}}]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00014}00014\ \ \ \ \ trainPairs\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ train:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00017}00017\ \ \ \ \ \ \ \ \ trainPairs.append((np.array(v[\textcolor{stringliteral}{"{}input"{}}]),\ np.array(v[\textcolor{stringliteral}{"{}output"{}}])))}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00019}00019\ \ \ \ \ test\ =\ data[\textcolor{stringliteral}{"{}test"{}}]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00020}00020\ \ \ \ \ testPairs\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ test:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ testPairs.append((np.array(v[\textcolor{stringliteral}{"{}input"{}}]),\ np.array(v[\textcolor{stringliteral}{"{}output"{}}])))}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ (trainPairs,\ testPairs)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00027}\mbox{\hyperlink{namespaceengine_a217ec700f44122361550a71ab9bc932d}{00027}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_a217ec700f44122361550a71ab9bc932d}{splitCppArgs}}(arg\_str:\ str):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00028}00028\ \ \ \ \ args\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00029}00029\ \ \ \ \ depth\ =\ 0}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00030}00030\ \ \ \ \ current\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{for}\ c\ \textcolor{keywordflow}{in}\ arg\_str:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ c\ ==\ \textcolor{stringliteral}{'<'}:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ depth\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ c\ ==\ \textcolor{stringliteral}{'>'}:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ depth\ -\/=\ 1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ c\ ==\ \textcolor{stringliteral}{','}\ \textcolor{keywordflow}{and}\ depth\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ args.append(\textcolor{stringliteral}{"{}"{}}.join(current).strip())}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ current.append(c)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{if}\ current:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ args.append(\textcolor{stringliteral}{"{}"{}}.join(current).strip())}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{return}\ args}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00048}\mbox{\hyperlink{namespaceengine_a0b89e686302ad223c65863921d1556f2}{00048}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_a0b89e686302ad223c65863921d1556f2}{splitTypeName}}(arg):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00049}00049\ \ \ \ \ parts\ =\ arg.rsplit(\textcolor{stringliteral}{"{}\ "{}},\ 1)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{if}\ len(parts)\ ==\ 2\ \textcolor{keywordflow}{and}\ parts[1].isidentifier():}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ parts[0],\ parts[1]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ arg,\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00056}\mbox{\hyperlink{namespaceengine_a240018598856dc1683168eec2c98769a}{00056}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_a240018598856dc1683168eec2c98769a}{extractDeclaration}}(declaration:\ str):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00057}00057\ \ \ \ \ pattern\ =\ re.compile(}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{r"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \string^\(\backslash\)s*}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (?P<ret>.+?)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ return\ type\ (lazy)}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \(\backslash\)s+}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (?P<name>[a-\/zA-\/Z\_]\(\backslash\)w*)\ \ \ \ \ \ \ \ \#\ function\ name}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \(\backslash\)s*\(\backslash\)(}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ (?P<args>.*)}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \(\backslash\))}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \(\backslash\)s*;}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \(\backslash\)s*\$}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ re.VERBOSE,}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00070}00070\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{return}\ pattern.match(declaration)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00074}\mbox{\hyperlink{namespaceengine_a03866dbcbdfad553cea4220dc6264a74}{00074}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_a03866dbcbdfad553cea4220dc6264a74}{getFunctions}}():}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00075}00075\ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}../include/aicpp/primitives.h"{}},\ \textcolor{stringliteral}{"{}r"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00076}00076\ \ \ \ \ content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00077}00077\ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00079}00079\ \ \ \ \ declarations\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ content.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}}):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ s\ =\ line.strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.startswith(\textcolor{stringliteral}{"{}///"{}})):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ declarations.append(s.replace(\textcolor{stringliteral}{"{}///"{}},\ \textcolor{stringliteral}{"{}"{}}).strip())}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00087}00087\ \ \ \ \ functions\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{for}\ declaration\ \textcolor{keywordflow}{in}\ declarations:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ i\ =\ declaration.rfind(\textcolor{stringliteral}{"{}//"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ function\ =\ declaration[:i]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ description\ =\ declaration[i\ +\ 2:].strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ m\ =\ \mbox{\hyperlink{namespaceengine_a240018598856dc1683168eec2c98769a}{extractDeclaration}}(function)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ m.group(\textcolor{stringliteral}{"{}ret"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ m.group(\textcolor{stringliteral}{"{}name"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ args\ =\ [\mbox{\hyperlink{namespaceengine_a0b89e686302ad223c65863921d1556f2}{splitTypeName}}(x)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ \mbox{\hyperlink{namespaceengine_a217ec700f44122361550a71ab9bc932d}{splitCppArgs}}(m.group(\textcolor{stringliteral}{"{}args"{}}))]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ functions.append((declaration,\ ret,\ name,\ args,\ description))}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ functions}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00104}\mbox{\hyperlink{namespaceengine_a55d9acc6f5b58cf1352fc44af84f9069}{00104}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_a55d9acc6f5b58cf1352fc44af84f9069}{processTask}}(folder:\ str,\ task:\ str):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00105}00105\ \ \ \ \ functions\ =\ \mbox{\hyperlink{namespaceengine_a03866dbcbdfad553cea4220dc6264a74}{getFunctions}}()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00107}00107\ \ \ \ \ url\ =\ urllib.request.urlopen(\textcolor{stringliteral}{"{}https://raw.githubusercontent.com/arcprize/ARC-\/AGI-\/2/refs/heads/main/data/"{}}\ +\ folder\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.json"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00108}00108\ \ \ \ \ data\ =\ json.loads(url.read().decode())}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00110}00110\ \ \ \ \ cost\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00111}00111\ \ \ \ \ lastConnections\ =\ []}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{while}\ (cost\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ cost):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ command\ =\ \textcolor{stringliteral}{"{}You\ are\ given\ several\ input-\/output\ grid\ pairs\ from\ an\ ARC\ task:\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(data[\textcolor{stringliteral}{"{}train"{}}])):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}("{}}\ +\ json.dumps(data[\textcolor{stringliteral}{"{}train"{}}][i][\textcolor{stringliteral}{"{}input"{}}])\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ json.dumps(data[\textcolor{stringliteral}{"{}train"{}}][i][\textcolor{stringliteral}{"{}output"{}}])\ +\ \textcolor{stringliteral}{"{})\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)nYou\ are\ given\ several\ C++\ function\ declarations\ as\ primitives:\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ function\ \textcolor{keywordflow}{in}\ functions:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ function[0]\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00125}00125\ \textcolor{stringliteral}{Your\ task\ is\ NOT\ to\ solve\ the\ ARC\ task\ directly.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00126}00126\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00127}00127\ \textcolor{stringliteral}{You\ must\ help\ a\ symbolic\ program\ synthesis\ engine\ by\ selecting}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00128}00128\ \textcolor{stringliteral}{NEEDED\ C++\ FUNCTION\ PRIMITIVES.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00129}00129\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00130}00130\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}Rules:}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00132}00132\ \textcolor{stringliteral}{-\/\ Do\ NOT\ invent\ new\ primitive\ operations.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00133}00133\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00134}00134\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}Output\ format:}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00136}00136\ \textcolor{stringliteral}{-\/\ Output\ ONLY\ valid\ C++\ function\ declarations.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00137}00137\ \textcolor{stringliteral}{-\/\ No\ explanations.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00138}00138\ \textcolor{stringliteral}{-\/\ No\ formatting.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00139}00139\ \textcolor{stringliteral}{-\/\ No\ comments.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00140}00140\ \textcolor{stringliteral}{-\/\ No\ markdown.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00141}00141\ \textcolor{stringliteral}{-\/\ No\ extra\ text.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00142}00142\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00143}00143\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}Examples\ of\ full\ verbatim\ function\ declarations:}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00145}00145\ \textcolor{stringliteral}{int\ foo(int\ i,\ bool\ b);}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00146}00146\ \textcolor{stringliteral}{std::map<int,\ int>\ inferColorMapping(std::vector<std::pair<Eigen::MatrixXi,\ Eigen::MatrixXi>>\ arg0);}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00147}00147\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00148}00148\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}Select\ which\ of\ the\ given\ primitives\ are\ potentially\ useful}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00150}00150\ \textcolor{stringliteral}{for\ explaining\ the\ observed\ input-\/output\ transformations.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00151}00151\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00152}00152\ \textcolor{stringliteral}{Output\ the\ selected\ primitive\ declarations\ verbatim.}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00153}00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00154}00154\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}The\ last\ best\ connections\ from\ the\ engine\ are\ the\ following\ (cost,\ expression):\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}.join(f\textcolor{stringliteral}{'\{c\}\ \{e\}'}\ \textcolor{keywordflow}{for}\ c,\ e\ \textcolor{keywordflow}{in}\ lastConnections)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ command\ +=\ \textcolor{stringliteral}{"{}"{}"{}EXPECTED\ OUTPUT\ EXAMPLE\ WITHOUT\ ANY\ FORMATTING\ AND\ ANY\ EXPLANATION:}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00161}00161\ \textcolor{stringliteral}{int\ foo(int\ arg0,\ bool\ arg1);}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00162}00162\ \textcolor{stringliteral}{std::map<int,\ int>\ bar(int\ arg0,\ double\ arg1);"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}prompt"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.txt"{}},\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ f.write(command)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{False}):\textcolor{comment}{\#try}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}output"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.txt"{}},\ \textcolor{stringliteral}{"{}r"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ content\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:\textcolor{comment}{\#except\ FileNotFoundError:}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ OpenAI().responses.create(model\ =\ \textcolor{stringliteral}{"{}gpt-\/5"{}},\ input\ =\ command).output\_text}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ content\ =\ result}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}output"{}}\ +\ task\ +\ \textcolor{stringliteral}{"{}.txt"{}},\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(content)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ lines\ =\ [x.strip()\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ content.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ partialsContent\ =\ \textcolor{stringliteral}{"{}"{}"{}\#ifndef\ AICPP\_PARTIALS\_H}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00182}00182\ \textcolor{stringliteral}{\#define\ AICPP\_PARTIALS\_H}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00183}00183\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00184}00184\ \textcolor{stringliteral}{\#include\ <any>}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00185}00185\ \textcolor{stringliteral}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00186}00186\ \textcolor{stringliteral}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00187}00187\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00188}00188\ \textcolor{stringliteral}{\#include\ "{}aicpp/primitives.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00189}00189\ \textcolor{stringliteral}{\#include\ "{}aicpp/utility.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00190}00190\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00191}00191\ \textcolor{stringliteral}{namespace\ aicpp}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00192}00192\ \textcolor{stringliteral}{\{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00193}00193\ \textcolor{stringliteral}{\ \ \ \ namespace\ specifics}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00194}00194\ \textcolor{stringliteral}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00195}00195\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ function\ \textcolor{keywordflow}{in}\ functions:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ inline\ std::any\ "{}}\ +\ function[2]\ +\ \textcolor{stringliteral}{"{}("{}}\ +\ \textcolor{stringliteral}{"{},\ "{}}.join([x\ +\ \textcolor{stringliteral}{"{}\ const\&\ "{}}\ +\ y\ \textcolor{keywordflow}{for}\ x,\ y\ \textcolor{keywordflow}{in}\ function[3]])\ +\ \textcolor{stringliteral}{"{})\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \{\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ return\ primitives::"{}}\ +\ function[2]\ +\ \textcolor{stringliteral}{"{}(std::vector<std::any>\{"{}}\ +\ \textcolor{stringliteral}{"{},\ "{}}.join([\textcolor{stringliteral}{"{}arg"{}}\ +\ str(i)\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(function[3]))])\ +\ \textcolor{stringliteral}{"{}\});\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}"{}"{}\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00204}00204\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ namespace\ fulls}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00207}00207\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ i2\ =\ len(lines)\ \textcolor{comment}{\#len(lines)\ -\/\ lines[-\/1::-\/1].index("{}PARTIALS:"{})\ -\/\ 1}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ i3\ =\ len(lines)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ table\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ function\ \textcolor{keywordflow}{in}\ functions:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ function[1]\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ function[2]\ +\ \textcolor{stringliteral}{"{}("{}}\ +\ \textcolor{stringliteral}{"{},\ "{}}.join([x\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ y\ \textcolor{keywordflow}{for}\ x,\ y\ \textcolor{keywordflow}{in}\ function[3]])\ +\ \textcolor{stringliteral}{"{});"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ table[key]\ =\ function}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}../src/engine.cpp.in1"{}},\ \textcolor{stringliteral}{"{}r"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ engineContent\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ i2):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ line\ =\ lines[i].strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len(line)):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function\ =\ table[line]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ function[2]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ using\ primitives::"{}}\ +\ name\ +\ \textcolor{stringliteral}{"{};\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engineContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ Neuron\ "{}}\ +\ name\ +\ \textcolor{stringliteral}{'\_neuron\{"{}'}\ +\ name\ +\ \textcolor{stringliteral}{'"{},\ fulls::'}\ +\ name\ +\ \textcolor{stringliteral}{"{},\ \{"{}}\ +\ \textcolor{stringliteral}{"{},\ "{}}.join([\textcolor{stringliteral}{"{}typeid("{}}\ +\ x\ +\ \textcolor{stringliteral}{"{})"{}}\ \textcolor{keywordflow}{for}\ x,\ y\ \textcolor{keywordflow}{in}\ function[3]])\ +\ \textcolor{stringliteral}{"{}\},\ typeid("{}}\ +\ function[1]\ +\ \textcolor{stringliteral}{"{})\};\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engineContent\ +=\ \textcolor{stringliteral}{"{}\ \ \ \ neurons.emplace\_back("{}}\ +\ name\ +\ \textcolor{stringliteral}{"{}\_neuron);\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ KeyError:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}"{}"{}\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00235}00235\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00236}00236\ \textcolor{stringliteral}{\ \ \ \ namespace\ partials}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00237}00237\ \textcolor{stringliteral}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ using\ namespace\ specifics;}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00239}00239\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00240}00240\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ table\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ function\ \textcolor{keywordflow}{in}\ functions:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ table[function[2]]\ =\ function}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ i\ =\ i2\ +\ 1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (i\ <\ i3):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ line\ =\ lines[i].strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len(line)):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ line.index(\textcolor{stringliteral}{"{}\{"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ -\/1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ \mbox{\hyperlink{namespaceengine_a240018598856dc1683168eec2c98769a}{extractDeclaration}}(line[:index].strip()\ +\ \textcolor{stringliteral}{"{};"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ m):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ m.group(\textcolor{stringliteral}{"{}ret"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ m.group(\textcolor{stringliteral}{"{}name"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args\ =\ [\mbox{\hyperlink{namespaceengine_a0b89e686302ad223c65863921d1556f2}{splitTypeName}}(x)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ \mbox{\hyperlink{namespaceengine_a217ec700f44122361550a71ab9bc932d}{splitCppArgs}}(m.group(\textcolor{stringliteral}{"{}args"{}}))]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\ =\ line[index\ +\ 1:].strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body\ =\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (i\ <\ len(lines)\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ l.endswith(\textcolor{stringliteral}{"{}\}"{}})):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len(l.strip())):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body\ +=\ l\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\ =\ lines[i]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body\ +=\ l[:-\/1]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00282}00282\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ inline\ std::any\ "{}\ +\ name\ +\ "{}(std::vector<std::any>\ const\&\ args)\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00283}00283\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ \{\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00284}00284\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00285}00285\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ j,\ (x,\ y)\ in\ enumerate(table[name[:name.index("{}\_"{})]][3]):}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00286}00286\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ \ \ \ \ auto\ const\ arg"{}\ +\ str(j)\ +\ "{}\{std::any\_cast<"{}\ +\ x\ +\ "{}>(args["{}\ +\ str(j)\ +\ "{}])\};\(\backslash\)n"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00287}00287\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00288}00288\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ \(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00289}00289\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ \ \ \ \ "{}\ +\ body}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00290}00290\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partialsContent\ +=\ "{}\ \ \ \ \ \ \ \ \}\(\backslash\)n\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00291}00291\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00292}00292\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engineContent\ +=\ "{}\ \ \ \ Neuron\ "{}\ +\ name\ +\ '\_neuron\{"{}'\ +\ name\ +\ '"{},\ partials::'\ +\ name\ +\ "{},\ \{"{}\ +\ "{},\ "{}.join(["{}typeid("{}\ +\ x\ +\ "{})"{}\ for\ x,\ y\ in\ args])\ +\ "{}\},\ typeid("{}\ +\ ret\ +\ "{})\};\(\backslash\)n"{}\ \ }}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00293}00293\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ engineContent\ +=\ "{}\ \ \ \ neurons.emplace\_back("{}\ +\ name\ +\ "{}\_neuron);\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00294}00294\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ partialsContent\ +=\ \textcolor{stringliteral}{"{}"{}"{}\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00297}00297\ \textcolor{stringliteral}{\}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00298}00298\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00299}00299\ \textcolor{stringliteral}{\#endif\ //\ AICPP\_PARTIALS\_H}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00300}00300\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}../include/aicpp/partials.h"{}},\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ f.write(partialsContent)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}../src/engine.cpp.in2"{}},\ \textcolor{stringliteral}{"{}r"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ engineContent\ +=\ f.read()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ f\ =\ open(\textcolor{stringliteral}{"{}../src/engine.cpp"{}},\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ f.write(engineContent)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ f.close()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ path\ =\ os.path.abspath(os.getcwd()\ +\ \textcolor{stringliteral}{"{}/.."{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ nproc\ =\ os.cpu\_count()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ docker\_cmd\ =\ [}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}docker"{}},\ \textcolor{stringliteral}{"{}run"{}},\ \textcolor{stringliteral}{"{}-\/-\/rm"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/v"{}},\ f\textcolor{stringliteral}{"{}\{path\}:/app/aicpp"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}aicpp"{}},\ \textcolor{stringliteral}{"{}-\/c"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}mkdir\ -\/p\ build\ \&\&\ "{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cmake\ .\ -\/B\ build\ \&\&\ "{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}cmake\ -\/-\/build\ build\ -\/-\/target\ engine\ -\/-\/\ -\/j\{nproc\}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00325}00325\ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ result\ =\ subprocess.run(docker\_cmd,\ capture\_output\ =\ \textcolor{keyword}{True},\ text\ =\ \textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result.returncode):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}CMake\ result"{}},\ result.returncode)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}CMake\ error"{}},\ result.stderr)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}CMake\ output"{}},\ result.stdout)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ docker\_cmd\ =\ [}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}docker"{}},\ \textcolor{stringliteral}{"{}run"{}},\ \textcolor{stringliteral}{"{}-\/-\/rm"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/v"{}},\ f\textcolor{stringliteral}{"{}\{path\}:/app/aicpp"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}aicpp"{}},\ \textcolor{stringliteral}{"{}-\/c"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cd\ build\ \&\&\ "{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}./engine\ \{folder\}\ \{task\}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ result\ =\ subprocess.run(docker\_cmd,\ capture\_output\ =\ \textcolor{keyword}{True},\ text\ =\ \textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00344}00344\ \ \ \ \ \ \ \ \ lines\ =\ result.stdout.split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ result.returncode\ \textcolor{keywordflow}{in}\ (-\/3,\ -\/2,\ -\/1,\ 0)):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Engine\ result"{}},\ result.returncode)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Engine\ error"{}},\ result.stderr)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Engine\ output"{}},\ result.stdout)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00353}00353\ \ \ \ \ \ \ \ \ cost\ =\ float(lines[0])}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ expression\ =\ lines[1].strip()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Cost"{}},\ cost)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Expression"{}},\ expression)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ lastConnections.append((cost,\ expression))}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00362}00362\ \ \ \ \ print(expression)}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00364}\mbox{\hyperlink{namespaceengine_af4cc4a15a8da4619aa7dfeb0304b2e1a}{00364}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceengine_af4cc4a15a8da4619aa7dfeb0304b2e1a}{main}}():}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00365}00365\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00366}00366\ \textcolor{stringliteral}{\ \ \ \ \#\ Validated\ tasks}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00367}00367\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}67a3c6ac"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00368}00368\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}68b16354"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00369}00369\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}74dd1130"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00370}00370\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}3c9b0459"{})\ \#Flip\ left/right\ and\ flip\ up/down}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00371}00371\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}6150a2bd"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00372}00372\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}9172f3a0"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00373}00373\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}9dfd6313"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00374}00374\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}a416b8f3"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00375}00375\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}b1948b0a"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00376}00376\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}c59eb873"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00377}00377\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}c8f0f002"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00378}00378\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}0d3d703e"{})\ \#Color\ mapping}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00379}00379\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}d10ecb37"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00380}00380\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}d511f180"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00381}00381\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}ed36ccf7"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00382}00382\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}4c4377d9"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00383}00383\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}6d0aefbc"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00384}00384\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}6fa7a44f"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00385}00385\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}5614dbcf"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00386}00386\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}8be77c9e"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00387}00387\ \textcolor{stringliteral}{\ \ \ \ processTask("{}training"{},\ "{}c9e6f938"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00388}00388\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00389}00389\ \ \ \ \ \textcolor{comment}{\#\ TODO}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00390}00390\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}5bd6f4ac"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00391}00391\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}5582e5ca"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00392}00392\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}2dee498d"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00393}00393\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}1cf80156"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00394}00394\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}32597951"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00395}00395\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}25ff71a9"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00396}00396\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}c909285e"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00397}00397\ \ \ \ \ \textcolor{comment}{\#processTask("{}training"{},\ "{}"{})}}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00399}00399\ \textcolor{keywordflow}{if}\ (\_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}):}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00400}00400\ \ \ \ \ \mbox{\hyperlink{namespaceengine_af4cc4a15a8da4619aa7dfeb0304b2e1a}{main}}()}
+\DoxyCodeLine{\Hypertarget{engine_8py_source_l00401}00401\ }
+
+\end{DoxyCode}

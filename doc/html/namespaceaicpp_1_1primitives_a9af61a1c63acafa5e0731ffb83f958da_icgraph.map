@@ -1,0 +1,5 @@
+<map id="aicpp::primitives::rot180" name="aicpp::primitives::rot180">
+<area shape="rect" id="Node000001" title="std::vector&lt;Eigen::MatrixXi&gt; rot180(std::vector&lt;Eigen::MatrixXi&gt; arg0); // half rotation" alt="" coords="224,5,363,45"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1specifics.html#a5a6c113ce246c0548636fadc9a5068e7" title=" " alt="" coords="5,13,176,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,28,176,28,176,23,210,23"/>
+</map>

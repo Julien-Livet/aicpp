@@ -1,0 +1,89 @@
+\doxysection{gmock\+\_\+leak\+\_\+test Namespace Reference}
+\hypertarget{namespacegmock__leak__test}{}\label{namespacegmock__leak__test}\index{gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classgmock__leak__test_1_1GMockLeakTest}{GMock\+Leak\+Test}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}} = \mbox{\hyperlink{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246}{gmock\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path}}(\textquotesingle{}gmock\+\_\+leak\+\_\+test\+\_\+\textquotesingle{})
+\item 
+list \mbox{\hyperlink{namespacegmock__leak__test_ab15140ed3b48fc427f91e51024c9d1cb}{TEST\+\_\+\+WITH\+\_\+\+EXPECT\+\_\+\+CALL}} = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}Expect\+Call\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}
+\item 
+list \mbox{\hyperlink{namespacegmock__leak__test_a3a6b9f4ca3701f7e58bb05f77e386a19}{TEST\+\_\+\+WITH\+\_\+\+ON\+\_\+\+CALL}} = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}On\+Call\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}
+\item 
+list \mbox{\hyperlink{namespacegmock__leak__test_a682d8476dafe5f7ab6b94f2ad74357c5}{TEST\+\_\+\+MULTIPLE\+\_\+\+LEAKS}} = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}Multiple\+Leaked\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacegmock__leak__test_a9437a2d2e3bde77354e5c6443ef129f8}{environ}} = gmock\+\_\+test\+\_\+utils.\+environ
+\item 
+\mbox{\hyperlink{namespacegmock__leak__test_a1ab1da2afb1748500a059d59660330cb}{Set\+Env\+Var}} = gmock\+\_\+test\+\_\+utils.\+Set\+Env\+Var
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Tests that leaked mock objects can be caught be Google Mock.\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacegmock__leak__test_a9437a2d2e3bde77354e5c6443ef129f8}\label{namespacegmock__leak__test_a9437a2d2e3bde77354e5c6443ef129f8} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!environ@{environ}}
+\index{environ@{environ}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{environ}{environ}}
+{\footnotesize\ttfamily gmock\+\_\+leak\+\_\+test.\+environ = gmock\+\_\+test\+\_\+utils.\+environ}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00041}{41}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}\label{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!PROGRAM\_PATH@{PROGRAM\_PATH}}
+\index{PROGRAM\_PATH@{PROGRAM\_PATH}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{PROGRAM\_PATH}{PROGRAM\_PATH}}
+{\footnotesize\ttfamily gmock\+\_\+leak\+\_\+test.\+PROGRAM\+\_\+\+PATH = \mbox{\hyperlink{namespacegmock__test__utils_a7cef788e502f48e04bccf07abfa3d246}{gmock\+\_\+test\+\_\+utils.\+Get\+Test\+Executable\+Path}}(\textquotesingle{}gmock\+\_\+leak\+\_\+test\+\_\+\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00036}{36}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegmock__leak__test_a1ab1da2afb1748500a059d59660330cb}\label{namespacegmock__leak__test_a1ab1da2afb1748500a059d59660330cb} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!SetEnvVar@{SetEnvVar}}
+\index{SetEnvVar@{SetEnvVar}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{SetEnvVar}{SetEnvVar}}
+{\footnotesize\ttfamily gmock\+\_\+leak\+\_\+test.\+Set\+Env\+Var = gmock\+\_\+test\+\_\+utils.\+Set\+Env\+Var}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00042}{42}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegmock__leak__test_a682d8476dafe5f7ab6b94f2ad74357c5}\label{namespacegmock__leak__test_a682d8476dafe5f7ab6b94f2ad74357c5} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!TEST\_MULTIPLE\_LEAKS@{TEST\_MULTIPLE\_LEAKS}}
+\index{TEST\_MULTIPLE\_LEAKS@{TEST\_MULTIPLE\_LEAKS}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{TEST\_MULTIPLE\_LEAKS}{TEST\_MULTIPLE\_LEAKS}}
+{\footnotesize\ttfamily list gmock\+\_\+leak\+\_\+test.\+TEST\+\_\+\+MULTIPLE\+\_\+\+LEAKS = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}Multiple\+Leaked\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00039}{39}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegmock__leak__test_ab15140ed3b48fc427f91e51024c9d1cb}\label{namespacegmock__leak__test_ab15140ed3b48fc427f91e51024c9d1cb} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!TEST\_WITH\_EXPECT\_CALL@{TEST\_WITH\_EXPECT\_CALL}}
+\index{TEST\_WITH\_EXPECT\_CALL@{TEST\_WITH\_EXPECT\_CALL}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{TEST\_WITH\_EXPECT\_CALL}{TEST\_WITH\_EXPECT\_CALL}}
+{\footnotesize\ttfamily list gmock\+\_\+leak\+\_\+test.\+TEST\+\_\+\+WITH\+\_\+\+EXPECT\+\_\+\+CALL = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}Expect\+Call\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00037}{37}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+
+\Hypertarget{namespacegmock__leak__test_a3a6b9f4ca3701f7e58bb05f77e386a19}\label{namespacegmock__leak__test_a3a6b9f4ca3701f7e58bb05f77e386a19} 
+\index{gmock\_leak\_test@{gmock\_leak\_test}!TEST\_WITH\_ON\_CALL@{TEST\_WITH\_ON\_CALL}}
+\index{TEST\_WITH\_ON\_CALL@{TEST\_WITH\_ON\_CALL}!gmock\_leak\_test@{gmock\_leak\_test}}
+\doxysubsubsection{\texorpdfstring{TEST\_WITH\_ON\_CALL}{TEST\_WITH\_ON\_CALL}}
+{\footnotesize\ttfamily list gmock\+\_\+leak\+\_\+test.\+TEST\+\_\+\+WITH\+\_\+\+ON\+\_\+\+CALL = \mbox{[}\mbox{\hyperlink{namespacegmock__leak__test_ace925116117368cd02a7b45571f5133d}{PROGRAM\+\_\+\+PATH}}, \textquotesingle{}-\/-\/gtest\+\_\+filter=\texorpdfstring{$\ast$}{*}On\+Call\texorpdfstring{$\ast$}{*}\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source_l00038}{38}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test_8py_source}{gmock\+\_\+leak\+\_\+test.\+py}}.
+

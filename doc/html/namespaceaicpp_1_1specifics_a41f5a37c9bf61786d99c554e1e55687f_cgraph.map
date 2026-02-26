@@ -1,0 +1,5 @@
+<map id="aicpp::specifics::ofcolor" name="aicpp::specifics::ofcolor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,180,38"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#a62184485d6abe480a82c05c313e0cb1d" title="std::vector&lt;std::pair&lt;int, int&gt; &gt; ofcolor(std::vector&lt;Eigen::MatrixXi&gt; arg0, int arg1); // indices of..." alt="" coords="228,5,367,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,23,214,23,214,28,180,28"/>
+</map>

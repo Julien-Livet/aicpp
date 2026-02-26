@@ -1,0 +1,14 @@
+<map id="testing::internal::IsSpace" name="testing::internal::IsSpace">
+<area shape="rect" id="Node000001" title=" " alt="" coords="672,35,805,75"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1internal.html#ad5c552225eb46fca3889e6cd6486278d" title=" " alt="" coords="278,5,411,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="658,51,412,33,412,28,658,46"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#aa6afda12e567c353e2e9b9c2e8cae14f" title=" " alt="" coords="479,63,624,103"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="659,69,625,74,624,69,658,64"/>
+<area shape="rect" id="Node000003" href="$classtesting_1_1internal_1_1TypeParameterizedTestSuite.html#aefe563033024f580413cceef1f4088c7" title=" " alt="" coords="5,55,211,110"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,47,212,60,210,55,263,42"/>
+<area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="465,85,211,85,211,80,465,80"/>
+<area shape="rect" id="Node000005" href="$classtesting_1_1internal_1_1TypeParameterizedTest.html#a34c205e6aac9ee62ffa7a229d8ef9a18" title=" " alt="" coords="259,145,431,199"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="493,111,410,147,408,142,491,106"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="258,142,180,113,182,108,260,137"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="379,134,366,126,345,123,326,125,315,130,309,136,310,145,304,145,304,135,312,126,325,120,345,118,368,121,381,129"/>
+</map>

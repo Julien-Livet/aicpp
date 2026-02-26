@@ -1,0 +1,38 @@
+\doxysection{Brain.\+h}
+\hypertarget{Brain_8h_source}{}\label{Brain_8h_source}\index{include/aicpp/Brain.h@{include/aicpp/Brain.h}}
+\mbox{\hyperlink{Brain_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AICPP\_BRAIN\_H}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AICPP\_BRAIN\_H}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Connection_8h}{aicpp/Connection.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00009}\mbox{\hyperlink{namespaceaicpp}{00009}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00011}\mbox{\hyperlink{classaicpp_1_1Brain}{00011}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classaicpp_1_1Brain}{Brain}}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Brain}{Brain}}(std::vector<std::reference\_wrapper<Neuron\ const>\ >\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0}{neurons}});}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Connection>\ \mbox{\hyperlink{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5}{learn}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ targets,\ \textcolor{keywordtype}{size\_t}\ level\ =\ 3,\ \textcolor{keywordtype}{double}\ eps\ =\ 1e-\/6)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::reference\_wrapper<Neuron\ const>\ >\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0}{neurons}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<Connection>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Brain_a01ad15994a183632a6aa630eb9a02b0e}{connections}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Brain_a897c1401032a676a7c298bdf2a65747d}{addConnection}}(\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ \textcolor{keyword}{const}\&\ connection);}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Brain_ab0aaf205bb17e1d707dd70fc0f0b0389}{removeConnection}}(\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ \textcolor{keyword}{const}\&\ connection);}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Brain_ac5ef16fb0121538a6f6a7b08c9b48452}{clearConnections}}();}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classaicpp_1_1Brain_a2e726f85e98a00258332feadbc01c151}{fromJson}}(boost::json::value\ \textcolor{keyword}{const}\&\ value);}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ boost::json::value\ \mbox{\hyperlink{classaicpp_1_1Brain_ac7febf0afca0819e95937811e81343e4}{toJson}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::reference\_wrapper<Neuron\ const>\ >\ neurons\_;}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<Connection>\ connections\_;}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ buildConnection\_(std::map<std::string,\ std::reference\_wrapper<Neuron\ const>\ >\ \textcolor{keyword}{const}\&\ map,\ boost::json::value\ \textcolor{keyword}{const}\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00029}00029\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{Brain_8h_source_l00032}00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AICPP\_BRAIN\_H}}
+
+\end{DoxyCode}

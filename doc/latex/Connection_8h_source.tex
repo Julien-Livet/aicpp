@@ -1,0 +1,59 @@
+\doxysection{Connection.\+h}
+\hypertarget{Connection_8h_source}{}\label{Connection_8h_source}\index{include/aicpp/Connection.h@{include/aicpp/Connection.h}}
+\mbox{\hyperlink{Connection_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AICPP\_CONNECTION\_H}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AICPP\_CONNECTION\_H}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Neuron_8h}{aicpp/Neuron.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00010}\mbox{\hyperlink{classaicpp_1_1Connection}{00010}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}(\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f}{neuron}},\ std::vector<std::any>\ \textcolor{keyword}{const}\&\ inputs\_);}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f}{neuron}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::any>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0}{inputs}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f}{cost}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53}{depth}}(\textcolor{keywordtype}{size\_t}\ d\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8}{string}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::type\_index>\ \mbox{\hyperlink{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73}{inputTypes}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Connection_aac076a6e1c3f8c4d9269d7e803d59206}{applyInputs}}(std::vector<std::any>\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0}{inputs}});}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ std::pair<std::string,\ size\_t>\ \mbox{\hyperlink{classaicpp_1_1Connection_a9f8cdb6d8f876e0d17ea792681628eda}{dot}}(\textcolor{keywordtype}{size\_t}\ index\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387}{output}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{hash}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classaicpp_1_1Connection_a56a97029bdad05710c0abe5864da786c}{operator==}}(\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ \textcolor{keyword}{const}\&\ other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ boost::json::value\ \mbox{\hyperlink{classaicpp_1_1Connection_add2bef8c77e847d8ee5df005771c7787}{toJson}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_a7979ef7358bee277c5808a6bfcbdfae4}{source}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Connection_a6cd75fd8b2d259fee86adf46918d0f1f}{setSource}}(\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}}\ \textcolor{keyword}{const}\&\ connection);}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e}{name}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classaicpp_1_1Connection_a262605e205204d3e62fcddc09933d589}{setName}}(std::string\ \textcolor{keyword}{const}\&\ \mbox{\hyperlink{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e}{name}});}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f}{expression}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::any>\ \mbox{\hyperlink{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30}{leafInputs}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ computeHash\_()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ name\_;}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ std::reference\_wrapper<Neuron\ const>\ neuron\_;}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::any>\ inputs\_;}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ hash\_;}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<Connection>\ source\_;}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00041}00041\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00044}00044\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00045}\mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Connection_01_4}{00045}}\ \textcolor{keyword}{struct\ }std::hash<\mbox{\hyperlink{namespaceaicpp}{aicpp}}::Connection>}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00047}\mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Connection_01_4_aba520da74e102fb136e65b285ab03e3c}{00047}}\ \ \ \ \ std::size\_t\ \mbox{\hyperlink{structstd_1_1hash_3_01aicpp_1_1Connection_01_4_aba520da74e102fb136e65b285ab03e3c}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classaicpp_1_1Connection}{aicpp::Connection}}\&\ c)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00048}00048\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c.hash();}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00051}00051\ \};}
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{Connection_8h_source_l00053}00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AICPP\_CONNECTION\_H}}
+
+\end{DoxyCode}

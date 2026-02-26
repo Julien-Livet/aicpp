@@ -1,0 +1,16 @@
+<map id="testing::internal::GTestLog::~GTestLog" name="testing::internal::GTestLog::~GTestLog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,164,89"/>
+<area shape="rect" id="Node000002" href="$classtesting_1_1internal_1_1GTestLog.html#a74935e7a0b424c4a6312fb73dafab6b5" title=" " alt="" coords="212,5,371,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,50,198,42,199,48,165,55"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="225,93,358,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,84,212,94,210,99,164,89"/>
+<area shape="poly" id="edge8_Node000003_Node000003" title=" " alt="" coords="255,94,253,84,259,75,272,69,291,67,314,70,326,77,324,81,312,75,291,72,273,74,262,79,258,85,260,92"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="419,93,552,133"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="359,119,404,120,404,125,358,125"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="418,107,372,107,372,102,418,102"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="617,36,761,76"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="551,92,604,77,605,82,553,97"/>
+<area shape="rect" id="Node000006" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="600,101,779,155"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="552,115,586,118,586,123,552,121"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="618,62,523,70,419,84,372,94,371,89,418,79,522,65,617,57"/>
+</map>

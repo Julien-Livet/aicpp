@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['dataset_20v2_20changelog_0',['ARC Dataset v2 Changelog',['../md_ARC-AGI-2_2changelog.html',1,'']]],
+  ['documentation_1',['documentation',['../md_build_2__deps_2googletest-src_2docs_2community__created__documentation.html',1,'Community-Created Documentation'],['../md_cmake-build_2__deps_2googletest-src_2docs_2community__created__documentation.html',1,'Community-Created Documentation'],['../md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2community__created__documentation.html',1,'Community-Created Documentation'],['../md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2community__created__documentation.html',1,'Community-Created Documentation'],['../md_Desktop-Release-build_2__deps_2googletest-src_2docs_2community__created__documentation.html',1,'Community-Created Documentation']]],
+  ['dummies_2',['dummies',['../md_build_2__deps_2googletest-src_2docs_2gmock__for__dummies.html',1,'gMock for Dummies'],['../md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies.html',1,'gMock for Dummies'],['../md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2gmock__for__dummies.html',1,'gMock for Dummies'],['../md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__for__dummies.html',1,'gMock for Dummies'],['../md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies.html',1,'gMock for Dummies']]]
+];

@@ -1,0 +1,424 @@
+\doxysection{aicpp\+::Connection Class Reference}
+\hypertarget{classaicpp_1_1Connection}{}\label{classaicpp_1_1Connection}\index{aicpp::Connection@{aicpp::Connection}}
+
+
+{\ttfamily \#include $<$Connection.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_af3725e5166ddeba94eb36c74c85e21c7}{Connection}} (\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&\mbox{\hyperlink{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f}{neuron}}, std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&inputs\+\_\+)
+\item 
+\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \& \mbox{\hyperlink{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f}{neuron}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \& \mbox{\hyperlink{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0}{inputs}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} \mbox{\hyperlink{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f}{cost}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} \mbox{\hyperlink{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53}{depth}} (\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{d}}=0) \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+std\+::string \mbox{\hyperlink{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8}{string}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+std\+::vector$<$ std\+::type\+\_\+index $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73}{input\+Types}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} \mbox{\hyperlink{classaicpp_1_1Connection_aac076a6e1c3f8c4d9269d7e803d59206}{apply\+Inputs}} (std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&\mbox{\hyperlink{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0}{inputs}})
+\item 
+std\+::pair$<$ std\+::string, \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a9f8cdb6d8f876e0d17ea792681628eda}{dot}} (\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{index}}=0) \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+std\+::any \mbox{\hyperlink{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387}{output}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+size\+\_\+t \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{hash}} () const
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{bool}} \mbox{\hyperlink{classaicpp_1_1Connection_a56a97029bdad05710c0abe5864da786c}{operator==}} (\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{other}}) \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+boost\+::json\+::value \mbox{\hyperlink{classaicpp_1_1Connection_add2bef8c77e847d8ee5df005771c7787}{to\+Json}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \& \mbox{\hyperlink{classaicpp_1_1Connection_a7979ef7358bee277c5808a6bfcbdfae4}{source}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} \mbox{\hyperlink{classaicpp_1_1Connection_a6cd75fd8b2d259fee86adf46918d0f1f}{set\+Source}} (\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&connection)
+\item 
+std\+::string \mbox{\hyperlink{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e}{name}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} \mbox{\hyperlink{classaicpp_1_1Connection_a262605e205204d3e62fcddc09933d589}{set\+Name}} (std\+::string \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&\mbox{\hyperlink{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e}{name}})
+\item 
+std\+::string \mbox{\hyperlink{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f}{expression}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\item 
+std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30}{leaf\+Inputs}} () \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{Connection_8h_source_l00010}{10}} of file \mbox{\hyperlink{Connection_8h_source}{Connection.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classaicpp_1_1Connection_af3725e5166ddeba94eb36c74c85e21c7}\label{classaicpp_1_1Connection_af3725e5166ddeba94eb36c74c85e21c7} 
+\index{aicpp::Connection@{aicpp::Connection}!Connection@{Connection}}
+\index{Connection@{Connection}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{Connection()}{Connection()}}
+{\footnotesize\ttfamily Connection\+::\+Connection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{neuron,  }\item[{std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{inputs\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_af3725e5166ddeba94eb36c74c85e21c7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classaicpp_1_1Connection_aac076a6e1c3f8c4d9269d7e803d59206}\label{classaicpp_1_1Connection_aac076a6e1c3f8c4d9269d7e803d59206} 
+\index{aicpp::Connection@{aicpp::Connection}!applyInputs@{applyInputs}}
+\index{applyInputs@{applyInputs}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{applyInputs()}{applyInputs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} Connection\+::apply\+Inputs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{inputs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00113}{113}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_aac076a6e1c3f8c4d9269d7e803d59206_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f}\label{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f} 
+\index{aicpp::Connection@{aicpp::Connection}!cost@{cost}}
+\index{cost@{cost}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{cost()}{cost()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} Connection\+::cost (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a7bcafb4c2f91d604e30573cca703196f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53}\label{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53} 
+\index{aicpp::Connection@{aicpp::Connection}!depth@{depth}}
+\index{depth@{depth}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{depth()}{depth()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} Connection\+::depth (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}}}]{d = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classaicpp_1_1Connection_a63f9299d32a7ba81305b9f2d2c914c53_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a9f8cdb6d8f876e0d17ea792681628eda}\label{classaicpp_1_1Connection_a9f8cdb6d8f876e0d17ea792681628eda} 
+\index{aicpp::Connection@{aicpp::Connection}!dot@{dot}}
+\index{dot@{dot}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::string, \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}} $>$ Connection\+::dot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{size\+\_\+t}}}]{index = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a9f8cdb6d8f876e0d17ea792681628eda_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f}\label{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f} 
+\index{aicpp::Connection@{aicpp::Connection}!expression@{expression}}
+\index{expression@{expression}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{expression()}{expression()}}
+{\footnotesize\ttfamily std\+::string Connection\+::expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00357}{357}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_af40c7b18fd7bdc2933079b3fea779c2f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}\label{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080} 
+\index{aicpp::Connection@{aicpp::Connection}!hash@{hash}}
+\index{hash@{hash}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{hash()}{hash()}}
+{\footnotesize\ttfamily size\+\_\+t Connection\+::hash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00264}{264}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0}\label{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0} 
+\index{aicpp::Connection@{aicpp::Connection}!inputs@{inputs}}
+\index{inputs@{inputs}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{inputs()}{inputs()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}  \& Connection\+::inputs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_aca8026e79dcc80603eb39692a6f2eeb0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73}\label{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73} 
+\index{aicpp::Connection@{aicpp::Connection}!inputTypes@{inputTypes}}
+\index{inputTypes@{inputTypes}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{inputTypes()}{inputTypes()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::type\+\_\+index $>$ Connection\+::input\+Types (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classaicpp_1_1Connection_a69bf5eaa5fcfe12d253c55fcc188fe73_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30}\label{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30} 
+\index{aicpp::Connection@{aicpp::Connection}!leafInputs@{leafInputs}}
+\index{leafInputs@{leafInputs}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{leafInputs()}{leafInputs()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::any $>$ Connection\+::leaf\+Inputs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00378}{378}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_ab5710aa4c44d985c983b721cf269ba30_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e}\label{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e} 
+\index{aicpp::Connection@{aicpp::Connection}!name@{name}}
+\index{name@{name}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily std\+::string Connection\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00347}{347}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a9984df25b75f4705ddeab5d12793136e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f}\label{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f} 
+\index{aicpp::Connection@{aicpp::Connection}!neuron@{neuron}}
+\index{neuron@{neuron}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{neuron()}{neuron()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}  \& Connection\+::neuron (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classaicpp_1_1Connection_a6fa852048404815088195f346fab939f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a56a97029bdad05710c0abe5864da786c}\label{classaicpp_1_1Connection_a56a97029bdad05710c0abe5864da786c} 
+\index{aicpp::Connection@{aicpp::Connection}!operator==@{operator==}}
+\index{operator==@{operator==}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{bool}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{Connection\+::operator}}== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00269}{269}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a56a97029bdad05710c0abe5864da786c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387}\label{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387} 
+\index{aicpp::Connection@{aicpp::Connection}!output@{output}}
+\index{output@{output}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{output()}{output()}}
+{\footnotesize\ttfamily std\+::any Connection\+::output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00219}{219}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a1332bc7f5b562d7d368c0971efabe387_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a262605e205204d3e62fcddc09933d589}\label{classaicpp_1_1Connection_a262605e205204d3e62fcddc09933d589} 
+\index{aicpp::Connection@{aicpp::Connection}!setName@{setName}}
+\index{setName@{setName}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{setName()}{setName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} Connection\+::set\+Name (\begin{DoxyParamCaption}\item[{std\+::string \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00352}{352}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_a262605e205204d3e62fcddc09933d589_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_a6cd75fd8b2d259fee86adf46918d0f1f}\label{classaicpp_1_1Connection_a6cd75fd8b2d259fee86adf46918d0f1f} 
+\index{aicpp::Connection@{aicpp::Connection}!setSource@{setSource}}
+\index{setSource@{setSource}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{setSource()}{setSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{void}} Connection\+::set\+Source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}} \&}]{connection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00342}{342}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+\Hypertarget{classaicpp_1_1Connection_a7979ef7358bee277c5808a6bfcbdfae4}\label{classaicpp_1_1Connection_a7979ef7358bee277c5808a6bfcbdfae4} 
+\index{aicpp::Connection@{aicpp::Connection}!source@{source}}
+\index{source@{source}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{source()}{source()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} \mbox{\hyperlink{classaicpp_1_1Connection_a50e29df4e4058f36895b02a3e9da9080}{const}}  \& Connection\+::source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00334}{334}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+\Hypertarget{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8}\label{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8} 
+\index{aicpp::Connection@{aicpp::Connection}!string@{string}}
+\index{string@{string}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{string()}{string()}}
+{\footnotesize\ttfamily std\+::string Connection\+::string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classaicpp_1_1Connection_abeb75454760b5be33cde11a8648f9fa8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Connection_add2bef8c77e847d8ee5df005771c7787}\label{classaicpp_1_1Connection_add2bef8c77e847d8ee5df005771c7787} 
+\index{aicpp::Connection@{aicpp::Connection}!toJson@{toJson}}
+\index{toJson@{toJson}!aicpp::Connection@{aicpp::Connection}}
+\doxysubsubsection{\texorpdfstring{toJson()}{toJson()}}
+{\footnotesize\ttfamily boost\+::json\+::value Connection\+::to\+Json (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Connection_8cpp_source_l00307}{307}} of file \mbox{\hyperlink{Connection_8cpp_source}{Connection.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Connection_add2bef8c77e847d8ee5df005771c7787_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/aicpp/\mbox{\hyperlink{Connection_8h}{Connection.\+h}}\item 
+src/aicpp/\mbox{\hyperlink{Connection_8cpp}{Connection.\+cpp}}\end{DoxyCompactItemize}

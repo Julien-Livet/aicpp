@@ -1,0 +1,25 @@
+<map id="toIndices" name="toIndices">
+<area shape="rect" id="Node000001" title=" " alt="" coords="603,130,684,156"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#ac63b0feb5df647807f6dc1733fea24cd" title="std::vector&lt;Indices&gt; delta(std::vector&lt;Patch&gt; arg0); // indices in bounding box but not part of patch" alt="" coords="24,23,163,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="626,120,597,79,577,60,553,45,504,27,452,16,399,10,345,8,245,15,163,29,162,24,245,10,345,3,399,4,453,10,505,22,556,41,580,56,601,75,631,116"/>
+<area shape="rect" id="Node000003" href="$namespaceaicpp_1_1primitives.html#ac8af772eaa02b28e0971104f6bf52f3c" title="std::vector&lt;Eigen::MatrixXi&gt; fillPatches(std::vector&lt;Eigen::MatrixXi&gt; arg0, int arg1,..." alt="" coords="416,204,555,244"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="610,165,556,195,532,207,529,202,553,190,607,160"/>
+<area shape="rect" id="Node000006" href="$primitives_8cpp.html#aff402d16b695a397e9cbb8f9078c0404" title=" " alt="" coords="450,105,521,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="588,137,520,126,521,121,589,132"/>
+<area shape="rect" id="Node000007" href="$primitives_8cpp.html#a0b4d7e138cb58a95b1883055d12c212c" title=" " alt="" coords="449,56,521,81"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="610,125,554,95,520,82,522,77,556,90,612,121"/>
+<area shape="rect" id="Node000009" href="$primitives_8cpp.html#aee14386d260f035271752ee2999c57eb" title=" " alt="" coords="448,154,523,180"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="589,154,523,164,523,159,588,149"/>
+<area shape="rect" id="Node000011" href="$primitives_8cpp.html#a6336370feca17f382c3cf0e593ddad7d" title=" " alt="" coords="447,269,523,294"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="631,169,600,214,580,238,556,259,525,275,522,270,553,254,576,234,596,211,626,166"/>
+<area shape="rect" id="Node000004" href="$namespaceaicpp_1_1primitives.html#a7b30510f37cb4b1a91938e5a6f5b166c" title="std::vector&lt;Eigen::MatrixXi&gt; cover(std::vector&lt;Eigen::MatrixXi&gt; arg0, std::vector&lt;Patch&gt; arg1); // re..." alt="" coords="229,207,368,247"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="402,228,369,229,369,223,402,223"/>
+<area shape="rect" id="Node000005" href="$namespaceaicpp_1_1primitives.html#a187d195e69e6afb42864d380628049b6" title="std::vector&lt;Eigen::MatrixXi&gt; move(std::vector&lt;Eigen::MatrixXi&gt; arg0, std::vector&lt;Patch&gt; arg1,..." alt="" coords="5,214,181,240"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="216,230,182,230,182,224,216,224"/>
+<area shape="rect" id="Node000008" href="$primitives_8cpp.html#a6d13a4c997f0afd89ba7137f409364a0" title=" " alt="" coords="257,56,340,81"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="435,71,340,71,340,66,435,66"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="243,64,163,54,163,49,244,59"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="434,153,415,144,360,113,316,84,319,79,363,108,417,139,436,148"/>
+<area shape="rect" id="Node000010" href="$namespaceaicpp_1_1primitives.html#a5c9994639b90d015361bb6fd20fda30a" title="std::vector&lt;Eigen::MatrixXi&gt; subgrid(std::vector&lt;Patch&gt; arg0, std::vector&lt;Eigen::MatrixXi&gt; arg1); // ..." alt="" coords="229,143,368,183"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="434,169,368,167,368,162,434,163"/>
+</map>

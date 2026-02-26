@@ -1,0 +1,5 @@
+<map id="aicpp::specifics::downscale" name="aicpp::specifics::downscale">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,204,38"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#abc37315164fe5ada385602493e8b030c" title="std::vector&lt;Eigen::MatrixXi&gt; downscale(std::vector&lt;Eigen::MatrixXi&gt; arg0, int arg1); // downscale gri..." alt="" coords="252,5,391,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,23,238,23,238,28,204,28"/>
+</map>

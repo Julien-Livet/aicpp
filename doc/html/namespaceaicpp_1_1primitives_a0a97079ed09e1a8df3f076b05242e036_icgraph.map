@@ -1,0 +1,5 @@
+<map id="aicpp::primitives::replace" name="aicpp::primitives::replace">
+<area shape="rect" id="Node000001" title="std::vector&lt;Eigen::MatrixXi&gt; replace(std::vector&lt;Eigen::MatrixXi&gt; arg0, int arg1, int arg2); // color..." alt="" coords="231,5,369,45"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1specifics.html#a50697d6c6581461bd50899c42c3698a9" title=" " alt="" coords="5,13,183,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,28,183,28,183,23,217,23"/>
+</map>

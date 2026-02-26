@@ -1,0 +1,178 @@
+\doxysection{aicpp\+::Brain Class Reference}
+\hypertarget{classaicpp_1_1Brain}{}\label{classaicpp_1_1Brain}\index{aicpp::Brain@{aicpp::Brain}}
+
+
+{\ttfamily \#include $<$Brain.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classaicpp_1_1Brain_a0213054cd067a269735d4e054af2d368}{Brain}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} const $>$ $>$ const \&\mbox{\hyperlink{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0}{neurons}})
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} $>$ \mbox{\hyperlink{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5}{learn}} (std\+::vector$<$ std\+::any $>$ const \&targets, size\+\_\+t level=3, double eps=1e-\/6) const
+\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} const $>$ $>$ const \& \mbox{\hyperlink{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0}{neurons}} () const
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} $>$ const \& \mbox{\hyperlink{classaicpp_1_1Brain_a01ad15994a183632a6aa630eb9a02b0e}{connections}} () const
+\item 
+void \mbox{\hyperlink{classaicpp_1_1Brain_a897c1401032a676a7c298bdf2a65747d}{add\+Connection}} (\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} const \&connection)
+\item 
+void \mbox{\hyperlink{classaicpp_1_1Brain_ab0aaf205bb17e1d707dd70fc0f0b0389}{remove\+Connection}} (\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} const \&connection)
+\item 
+void \mbox{\hyperlink{classaicpp_1_1Brain_ac5ef16fb0121538a6f6a7b08c9b48452}{clear\+Connections}} ()
+\item 
+bool \mbox{\hyperlink{classaicpp_1_1Brain_a2e726f85e98a00258332feadbc01c151}{from\+Json}} (boost\+::json\+::value const \&value)
+\item 
+boost\+::json\+::value \mbox{\hyperlink{classaicpp_1_1Brain_ac7febf0afca0819e95937811e81343e4}{to\+Json}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{Brain_8h_source_l00011}{11}} of file \mbox{\hyperlink{Brain_8h_source}{Brain.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classaicpp_1_1Brain_a0213054cd067a269735d4e054af2d368}\label{classaicpp_1_1Brain_a0213054cd067a269735d4e054af2d368} 
+\index{aicpp::Brain@{aicpp::Brain}!Brain@{Brain}}
+\index{Brain@{Brain}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{Brain()}{Brain()}}
+{\footnotesize\ttfamily Brain\+::\+Brain (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} const $>$ $>$ const \&}]{neurons }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classaicpp_1_1Brain_a897c1401032a676a7c298bdf2a65747d}\label{classaicpp_1_1Brain_a897c1401032a676a7c298bdf2a65747d} 
+\index{aicpp::Brain@{aicpp::Brain}!addConnection@{addConnection}}
+\index{addConnection@{addConnection}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{addConnection()}{addConnection()}}
+{\footnotesize\ttfamily void Brain\+::add\+Connection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} const \&}]{connection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00315}{315}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+\Hypertarget{classaicpp_1_1Brain_ac5ef16fb0121538a6f6a7b08c9b48452}\label{classaicpp_1_1Brain_ac5ef16fb0121538a6f6a7b08c9b48452} 
+\index{aicpp::Brain@{aicpp::Brain}!clearConnections@{clearConnections}}
+\index{clearConnections@{clearConnections}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{clearConnections()}{clearConnections()}}
+{\footnotesize\ttfamily void Brain\+::clear\+Connections (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00328}{328}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+\Hypertarget{classaicpp_1_1Brain_a01ad15994a183632a6aa630eb9a02b0e}\label{classaicpp_1_1Brain_a01ad15994a183632a6aa630eb9a02b0e} 
+\index{aicpp::Brain@{aicpp::Brain}!connections@{connections}}
+\index{connections@{connections}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{connections()}{connections()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} $>$ const  \& Brain\+::connections (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00310}{310}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Brain_a01ad15994a183632a6aa630eb9a02b0e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Brain_a2e726f85e98a00258332feadbc01c151}\label{classaicpp_1_1Brain_a2e726f85e98a00258332feadbc01c151} 
+\index{aicpp::Brain@{aicpp::Brain}!fromJson@{fromJson}}
+\index{fromJson@{fromJson}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{fromJson()}{fromJson()}}
+{\footnotesize\ttfamily bool Brain\+::from\+Json (\begin{DoxyParamCaption}\item[{boost\+::json\+::value const \&}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00334}{334}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Brain_a2e726f85e98a00258332feadbc01c151_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5}\label{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5} 
+\index{aicpp::Brain@{aicpp::Brain}!learn@{learn}}
+\index{learn@{learn}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{learn()}{learn()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} $>$ Brain\+::learn (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::any $>$ const \&}]{targets,  }\item[{size\+\_\+t}]{level = {\ttfamily 3},  }\item[{double}]{eps = {\ttfamily 1e-\/6} }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{classaicpp_1_1Brain_ab433bdd2dbb8e1a1d2cb981ce6103bc5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0}\label{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0} 
+\index{aicpp::Brain@{aicpp::Brain}!neurons@{neurons}}
+\index{neurons@{neurons}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{neurons()}{neurons()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classaicpp_1_1Neuron}{Neuron}} const $>$ $>$ const  \& Brain\+::neurons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00305}{305}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Brain_a88d474a6c3ace656c6f50dcb365c96c0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classaicpp_1_1Brain_ab0aaf205bb17e1d707dd70fc0f0b0389}\label{classaicpp_1_1Brain_ab0aaf205bb17e1d707dd70fc0f0b0389} 
+\index{aicpp::Brain@{aicpp::Brain}!removeConnection@{removeConnection}}
+\index{removeConnection@{removeConnection}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{removeConnection()}{removeConnection()}}
+{\footnotesize\ttfamily void Brain\+::remove\+Connection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaicpp_1_1Connection}{Connection}} const \&}]{connection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00320}{320}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+\Hypertarget{classaicpp_1_1Brain_ac7febf0afca0819e95937811e81343e4}\label{classaicpp_1_1Brain_ac7febf0afca0819e95937811e81343e4} 
+\index{aicpp::Brain@{aicpp::Brain}!toJson@{toJson}}
+\index{toJson@{toJson}!aicpp::Brain@{aicpp::Brain}}
+\doxysubsubsection{\texorpdfstring{toJson()}{toJson()}}
+{\footnotesize\ttfamily boost\+::json\+::value Brain\+::to\+Json (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{Brain_8cpp_source_l00428}{428}} of file \mbox{\hyperlink{Brain_8cpp_source}{Brain.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classaicpp_1_1Brain_ac7febf0afca0819e95937811e81343e4_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/aicpp/\mbox{\hyperlink{Brain_8h}{Brain.\+h}}\item 
+src/aicpp/\mbox{\hyperlink{Brain_8cpp}{Brain.\+cpp}}\end{DoxyCompactItemize}

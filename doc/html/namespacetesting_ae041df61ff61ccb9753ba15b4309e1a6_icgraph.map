@@ -1,0 +1,8 @@
+<map id="testing::DoDefault" name="testing::DoDefault">
+<area shape="rect" id="Node000001" title=" " alt="" coords="252,45,393,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="361,35,351,27,323,23,300,25,287,30,285,36,291,43,287,46,280,36,284,26,298,20,323,18,353,22,365,31"/>
+<area shape="rect" id="Node000002" href="$namespacetesting_1_1gmock__function__mocker__test.html#a98699051ed390b45a9e94af51e04e44d" title=" " alt="" coords="5,5,204,45"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="238,48,204,43,205,37,238,42"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1gmock__function__mocker__test.html#ad69bbcda1a9826d1b75516102ea99ae2" title=" " alt="" coords="5,69,204,109"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="238,72,205,77,204,72,238,67"/>
+</map>

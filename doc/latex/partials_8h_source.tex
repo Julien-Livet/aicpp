@@ -1,0 +1,106 @@
+\doxysection{partials.\+h}
+\hypertarget{partials_8h_source}{}\label{partials_8h_source}\index{include/aicpp/partials.h@{include/aicpp/partials.h}}
+\mbox{\hyperlink{partials_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AICPP\_PARTIALS\_H}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AICPP\_PARTIALS\_H}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{primitives_8h}{aicpp/primitives.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utility_8h}{aicpp/utility.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceaicpp}{aicpp}}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00013}\mbox{\hyperlink{namespaceaicpp_1_1specifics}{00013}}\ \ \ \ \ \textcolor{keyword}{namespace\ }specifics}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00014}00014\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00015}\mbox{\hyperlink{namespaceaicpp_1_1specifics_ad6ad2137c32df184ddcd2577b46ce362}{00015}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_ad6ad2137c32df184ddcd2577b46ce362}{hmirror}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a1dca40c173e7841d44d2c19f23c1c479}{primitives::hmirror}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00020}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a3c9e2899f14c2cb8c7318083f68ea5f1}{00020}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a3c9e2899f14c2cb8c7318083f68ea5f1}{vmirror}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72}{primitives::vmirror}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00025}\mbox{\hyperlink{namespaceaicpp_1_1specifics_abe33cfdff8a029048ddca9462e5c760b}{00025}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_abe33cfdff8a029048ddca9462e5c760b}{dmirror}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_abb8dde1d15f6c9e60422c7c90915943f}{primitives::dmirror}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00030}\mbox{\hyperlink{namespaceaicpp_1_1specifics_ac003ca0a6806bd12c375d2a1e725d2f1}{00030}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_ac003ca0a6806bd12c375d2a1e725d2f1}{rot90}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9da352a9dc0fbf4df05d7895be135058}{primitives::rot90}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00035}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a5a6c113ce246c0548636fadc9a5068e7}{00035}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a5a6c113ce246c0548636fadc9a5068e7}{rot180}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a9af61a1c63acafa5e0731ffb83f958da}{primitives::rot180}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00040}\mbox{\hyperlink{namespaceaicpp_1_1specifics_af1abe13b751eff19b1fedf77d692c9d2}{00040}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_af1abe13b751eff19b1fedf77d692c9d2}{rot270}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa505fc13aa3a3e55c7734f97a6aee870}{primitives::rot270}}(std::vector<std::any>\{arg0\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00045}\mbox{\hyperlink{namespaceaicpp_1_1specifics_aee0b8ac4ef71517c9f1d59dc54e05eb7}{00045}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_aee0b8ac4ef71517c9f1d59dc54e05eb7}{swap}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg1,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg2)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_afb9684e875180e1b883fe1037cf805f8}{primitives::swap}}(std::vector<std::any>\{arg0,\ arg1,\ arg2\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00050}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a41f5a37c9bf61786d99c554e1e55687f}{00050}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a41f5a37c9bf61786d99c554e1e55687f}{ofcolor}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg1)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a62184485d6abe480a82c05c313e0cb1d}{primitives::ofcolor}}(std::vector<std::any>\{arg0,\ arg1\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00055}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a4fb4a63f529d2c32c38c22261c760c3b}{00055}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a4fb4a63f529d2c32c38c22261c760c3b}{upscale}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg1)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a6e8dbd97e66f7db009f60d085bf17439}{primitives::upscale}}(std::vector<std::any>\{arg0,\ arg1\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00060}\mbox{\hyperlink{namespaceaicpp_1_1specifics_ad9de86543ca2f9fbdbc4d6b7a3893d70}{00060}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_ad9de86543ca2f9fbdbc4d6b7a3893d70}{downscale}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg1)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_abc37315164fe5ada385602493e8b030c}{primitives::downscale}}(std::vector<std::any>\{arg0,\ arg1\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00065}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a8411171ed0410bc0f64c3c9aced146bd}{00065}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a8411171ed0410bc0f64c3c9aced146bd}{hconcat}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg1)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e}{primitives::hconcat}}(std::vector<std::any>\{arg0,\ arg1\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00070}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a54a3ba97c6119a6c89b90fb06e001f99}{00070}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a54a3ba97c6119a6c89b90fb06e001f99}{vconcat}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg1)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_acabcdfa05944a613c9fd5700e80bd408}{primitives::vconcat}}(std::vector<std::any>\{arg0,\ arg1\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00075}\mbox{\hyperlink{namespaceaicpp_1_1specifics_a50697d6c6581461bd50899c42c3698a9}{00075}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_a50697d6c6581461bd50899c42c3698a9}{replace}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg1,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\&\ arg2)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_a0a97079ed09e1a8df3f076b05242e036}{primitives::replace}}(std::vector<std::any>\{arg0,\ arg1,\ arg2\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00080}\mbox{\hyperlink{namespaceaicpp_1_1specifics_aef029ad57085572b441d61117e197b76}{00080}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ std::any\ \mbox{\hyperlink{namespaceaicpp_1_1specifics_aef029ad57085572b441d61117e197b76}{crop}}(std::vector<Eigen::MatrixXi>\ \textcolor{keyword}{const}\&\ arg0,\ std::pair<int,\ int>\ \textcolor{keyword}{const}\&\ arg1,\ std::pair<size\_t,\ size\_t>\ \textcolor{keyword}{const}\&\ arg2)}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceaicpp_1_1primitives_aa2e1195334ad3d929d5989015a82deeb}{primitives::crop}}(std::vector<std::any>\{arg0,\ arg1,\ arg2\});}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00087}\mbox{\hyperlink{namespaceaicpp_1_1fulls}{00087}}\ \ \ \ \ \textcolor{keyword}{namespace\ }fulls}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespaceaicpp_1_1primitives_a7c72e75ebdcda535f2bcaead12c8ae72}{primitives::vmirror}};}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespaceaicpp_1_1primitives_a6ae27f1c99d17d663f1ca336e5979b5e}{primitives::hconcat}};}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00091}00091\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00093}\mbox{\hyperlink{namespaceaicpp_1_1partials}{00093}}\ \ \ \ \ \textcolor{keyword}{namespace\ }partials}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00094}00094\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }specifics;}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00098}00098\ \}}
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{partials_8h_source_l00100}00100\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AICPP\_PARTIALS\_H}}
+
+\end{DoxyCode}

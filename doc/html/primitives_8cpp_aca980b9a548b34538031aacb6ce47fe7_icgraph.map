@@ -1,0 +1,5 @@
+<map id="shape" name="shape">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,13,253,38"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#a5c9994639b90d015361bb6fd20fda30a" title="std::vector&lt;Eigen::MatrixXi&gt; subgrid(std::vector&lt;Patch&gt; arg0, std::vector&lt;Eigen::MatrixXi&gt; arg1); // ..." alt="" coords="5,5,144,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,28,144,28,144,23,179,23"/>
+</map>

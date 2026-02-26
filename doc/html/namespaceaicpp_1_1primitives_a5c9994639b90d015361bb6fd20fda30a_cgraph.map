@@ -1,0 +1,21 @@
+<map id="aicpp::primitives::subgrid" name="aicpp::primitives::subgrid">
+<area shape="rect" id="Node000001" title="std::vector&lt;Eigen::MatrixXi&gt; subgrid(std::vector&lt;Patch&gt; arg0, std::vector&lt;Eigen::MatrixXi&gt; arg1); // ..." alt="" coords="5,122,144,162"/>
+<area shape="rect" id="Node000002" href="$primitives_8cpp.html#aca980b9a548b34538031aacb6ce47fe7" title=" " alt="" coords="199,104,260,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,128,184,121,185,126,145,133"/>
+<area shape="rect" id="Node000009" href="$primitives_8cpp.html#aee14386d260f035271752ee2999c57eb" title=" " alt="" coords="192,153,267,179"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="145,150,179,156,178,161,144,155"/>
+<area shape="rect" id="Node000003" href="$primitives_8cpp.html#a7ebc7958e0a2d95b2bd31711772fc92f" title=" " alt="" coords="324,55,387,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,102,310,82,312,87,262,107"/>
+<area shape="rect" id="Node000006" href="$primitives_8cpp.html#a7e2c580dee7a3ccb8071ab769a05fb93" title=" " alt="" coords="326,104,385,129"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="261,114,312,114,312,119,261,119"/>
+<area shape="rect" id="Node000004" href="$primitives_8cpp.html#aad71614328059c8780d291338206f2fe" title=" " alt="" coords="445,5,535,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="386,53,441,33,443,38,388,58"/>
+<area shape="rect" id="Node000005" href="$primitives_8cpp.html#ac84d1caa560f7d53ef7521ed803d2a15" title=" " alt="" coords="444,55,536,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="387,65,430,65,430,70,387,70"/>
+<area shape="rect" id="Node000007" href="$primitives_8cpp.html#a58fdbac4fa463a70a400a19124d26009" title=" " alt="" coords="452,104,528,129"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="385,114,438,114,438,119,385,119"/>
+<area shape="rect" id="Node000008" href="$primitives_8cpp.html#a02ea0bb9f1c882b151ba18455cfe2a68" title=" " alt="" coords="447,153,533,179"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="386,125,443,146,441,151,384,130"/>
+<area shape="rect" id="Node000010" href="$primitives_8cpp.html#a3bd62884cd6b14f7a069c655f53dc987" title=" " alt="" coords="315,153,396,179"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="267,163,301,163,301,169,267,169"/>
+</map>

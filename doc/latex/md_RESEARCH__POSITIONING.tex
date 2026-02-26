@@ -1,0 +1,201 @@
+\chapter{Research Positioning of aicpp}
+\hypertarget{md_RESEARCH__POSITIONING}{}\label{md_RESEARCH__POSITIONING}\index{Research Positioning of aicpp@{Research Positioning of aicpp}}
+\label{md_RESEARCH__POSITIONING_autotoc_md2155}%
+\Hypertarget{md_RESEARCH__POSITIONING_autotoc_md2155}%
+ This document clarifies the scientific positioning of aicpp within the broader landscape of symbolic AI, program synthesis, and neuro-\/symbolic systems.
+
+aicpp is not intended as a production ARC solver. ~\newline
+ It is a research-\/oriented exploration of hybrid symbolic architectures guided by large language models.
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2157}{}\doxysection{\texorpdfstring{1. Core Thesis}{1. Core Thesis}}\label{md_RESEARCH__POSITIONING_autotoc_md2157}
+aicpp explores the hypothesis that\+:
+
+\begin{quote}
+Large Language Models are most effective not as solvers, but as structural search space reducers. \end{quote}
+Instead of generating final solutions directly, LLMs are used to\+:
+
+
+\begin{DoxyItemize}
+\item Restrict the primitive space
+\item Suggest structural parameterizations
+\item Reduce combinatorial explosion
+\end{DoxyItemize}
+
+The actual solving process remains\+:
+
+
+\begin{DoxyItemize}
+\item Deterministic
+\item Symbolic
+\item Fully inspectable
+\item Native compiled C++
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2159}{}\doxysection{\texorpdfstring{2. Relationship to Existing Paradigms}{2. Relationship to Existing Paradigms}}\label{md_RESEARCH__POSITIONING_autotoc_md2159}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2160}{}\doxysubsection{\texorpdfstring{Deep Learning Systems}{Deep Learning Systems}}\label{md_RESEARCH__POSITIONING_autotoc_md2160}
+Deep learning-\/based approaches\+:
+
+
+\begin{DoxyItemize}
+\item Learn latent representations
+\item Optimize parameters via gradients
+\item Provide limited interpretability
+\item Do not guarantee completeness
+\end{DoxyItemize}
+
+aicpp differs by\+:
+
+
+\begin{DoxyItemize}
+\item Operating on explicit symbolic structures
+\item Preserving determinism
+\item Providing explicit execution traces
+\item Guaranteeing exploration within bounded depth
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2162}{}\doxysubsection{\texorpdfstring{Program Synthesis (e.\+g., library learning systems)}{Program Synthesis (e.g., library learning systems)}}\label{md_RESEARCH__POSITIONING_autotoc_md2162}
+Some systems learn reusable abstractions or DSL extensions.
+
+aicpp shares similarities in\+:
+
+
+\begin{DoxyItemize}
+\item Compositional symbolic construction
+\item Potential library compression
+\end{DoxyItemize}
+
+However, it differs in that\+:
+
+
+\begin{DoxyItemize}
+\item The core engine is native compiled C++
+\item No DSL interpreter is used
+\item Structural guidance can be external (LLM)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2164}{}\doxysubsection{\texorpdfstring{Neuro-\/\+Symbolic Systems}{Neuro-Symbolic Systems}}\label{md_RESEARCH__POSITIONING_autotoc_md2164}
+Many neuro-\/symbolic systems integrate neural and symbolic components jointly.
+
+aicpp instead adopts a modular separation\+:
+
+
+\begin{DoxyItemize}
+\item LLM → structural prior
+\item Symbolic engine → deterministic solver
+\end{DoxyItemize}
+
+This separation maintains\+:
+
+
+\begin{DoxyItemize}
+\item Reproducibility
+\item Control
+\item Interpretability
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2166}{}\doxysection{\texorpdfstring{3. Key Architectural Principles}{3. Key Architectural Principles}}\label{md_RESEARCH__POSITIONING_autotoc_md2166}
+aicpp is built upon\+:
+
+
+\begin{DoxyItemize}
+\item Strong typing
+\item Explicit compositional graphs
+\item Deterministic cost-\/based exploration
+\item Native compilation
+\item Structural reusability
+\item JSON-\/serializable reasoning artifacts
+\end{DoxyItemize}
+
+The system is designed to avoid\+:
+
+
+\begin{DoxyItemize}
+\item Black-\/box latent representations
+\item Opaque internal states
+\item Stochastic exploration
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2168}{}\doxysection{\texorpdfstring{4. Scientific Contributions (\+Conceptual)}{4. Scientific Contributions (Conceptual)}}\label{md_RESEARCH__POSITIONING_autotoc_md2168}
+The primary research contributions explored by aicpp are\+:
+
+
+\begin{DoxyEnumerate}
+\item Structural Partial Parameterization LLM-\/driven reduction of primitive space before search.
+\item Deterministic Symbolic Completion Exhaustive bounded-\/depth exploration.
+\item Native Compilation in Synthesis Loops Dynamic C++ generation + compilation.
+\item Reusable Structural Memory Serialization and reuse of discovered connections.
+\item Separation of Guidance and Reasoning LLM suggests; symbolic engine guarantees.
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2170}{}\doxysection{\texorpdfstring{5. Research Questions Addressed}{5. Research Questions Addressed}}\label{md_RESEARCH__POSITIONING_autotoc_md2170}
+aicpp enables investigation of\+:
+
+
+\begin{DoxyItemize}
+\item How much can LLM structural priors reduce combinatorial explosion?
+\item Can deterministic engines scale with proper structural pruning?
+\item What is the trade-\/off between probabilistic guidance and symbolic guarantees?
+\item How does structural reuse impact synthesis scalability?
+\item Can hybrid systems preserve explicability without sacrificing performance?
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2172}{}\doxysection{\texorpdfstring{6. Limitations}{6. Limitations}}\label{md_RESEARCH__POSITIONING_autotoc_md2172}
+aicpp currently faces\+:
+
+
+\begin{DoxyItemize}
+\item Combinatorial explosion beyond depth 3 without pruning
+\item Heavy reliance on correct primitive design
+\item LLM output formatting instability
+\item No automated abstraction learning yet
+\end{DoxyItemize}
+
+These limitations are active research areas.
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2174}{}\doxysection{\texorpdfstring{7. Long-\/\+Term Vision}{7. Long-Term Vision}}\label{md_RESEARCH__POSITIONING_autotoc_md2174}
+The long-\/term vision of aicpp is to\+:
+
+
+\begin{DoxyItemize}
+\item Explore scalable hybrid symbolic architectures
+\item Combine probabilistic structural priors with deterministic solvers
+\item Maintain explicability and reproducibility
+\item Provide a research platform for structured reasoning tasks
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2176}{}\doxysection{\texorpdfstring{8. Intended Audience}{8. Intended Audience}}\label{md_RESEARCH__POSITIONING_autotoc_md2176}
+aicpp is intended for\+:
+
+
+\begin{DoxyItemize}
+\item Researchers in symbolic AI
+\item Program synthesis researchers
+\item Neuro-\/symbolic system designers
+\item ARC and abstraction benchmark researchers
+\item Engineers exploring deterministic reasoning systems
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_RESEARCH__POSITIONING_autotoc_md2178}{}\doxysection{\texorpdfstring{9. Disclaimer}{9. Disclaimer}}\label{md_RESEARCH__POSITIONING_autotoc_md2178}
+aicpp is an experimental research framework.
+
+It is not\+:
+
+
+\begin{DoxyItemize}
+\item A finished ARC benchmark competitor
+\item A deep learning replacement
+\item A black-\/box solver
+\end{DoxyItemize}
+
+Its purpose is to explore architectural hypotheses. 

@@ -1,0 +1,11 @@
+<map id="test_arc_task.inputOutputPairs" name="test_arc_task.inputOutputPairs">
+<area shape="rect" id="Node000001" title=" " alt="" coords="432,69,623,109"/>
+<area shape="rect" id="Node000002" href="$namespacetest__arc__task.html#a8e198f1e272fb8e9744e2edf68ac7069" title=" " alt="" coords="192,77,384,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="418,92,384,92,384,87,418,87"/>
+<area shape="rect" id="Node000003" href="$namespacetest__arc__task.html#a68d0382c6a5cf6bdad11d8de9809026f" title=" " alt="" coords="5,5,144,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="231,75,141,48,143,43,232,70"/>
+<area shape="rect" id="Node000004" href="$namespacetest__arc__task.html#ae7c9962f2272e7f06b722b142d3f1ba9" title=" " alt="" coords="5,69,144,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="178,92,144,92,144,87,178,87"/>
+<area shape="rect" id="Node000005" href="$namespacetest__arc__task.html#af2eb7c4343faf7162ed801f02163a2c9" title=" " alt="" coords="5,133,144,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="232,109,143,136,141,131,231,104"/>
+</map>

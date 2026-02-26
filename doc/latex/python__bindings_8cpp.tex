@@ -1,0 +1,85 @@
+\doxysection{src/python\+\_\+bindings.cpp File Reference}
+\hypertarget{python__bindings_8cpp}{}\label{python__bindings_8cpp}\index{src/python\_bindings.cpp@{src/python\_bindings.cpp}}
+{\ttfamily \#include $<$pybind11/eigen.\+h$>$}\newline
+{\ttfamily \#include $<$pybind11/functional.\+h$>$}\newline
+{\ttfamily \#include $<$pybind11/pybind11.\+h$>$}\newline
+{\ttfamily \#include $<$pybind11/stl.\+h$>$}\newline
+{\ttfamily \#include "{}aicpp/\+Brain.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/\+Connection.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/\+Neuron.\+h"{}}\newline
+{\ttfamily \#include "{}aicpp/utility.\+h"{}}\newline
+Include dependency graph for python\+\_\+bindings.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{python__bindings_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classPyNeuron}{Py\+Neuron}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::any \mbox{\hyperlink{python__bindings_8cpp_a73923d57bbe1fb81d9a125334e4d520b}{py\+\_\+to\+\_\+any}} (py\+::object obj)
+\item 
+py\+::object \mbox{\hyperlink{python__bindings_8cpp_ac972de84cf5fcaf02282b0a68729c136}{any\+\_\+to\+\_\+py}} (std\+::any const \&a)
+\item 
+\mbox{\hyperlink{python__bindings_8cpp_af87b29a2381dc9b4b47be41e39dadc96}{PYBIND11\+\_\+\+MODULE}} (pyaicpp, m)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{python__bindings_8cpp_ac972de84cf5fcaf02282b0a68729c136}\label{python__bindings_8cpp_ac972de84cf5fcaf02282b0a68729c136} 
+\index{python\_bindings.cpp@{python\_bindings.cpp}!any\_to\_py@{any\_to\_py}}
+\index{any\_to\_py@{any\_to\_py}!python\_bindings.cpp@{python\_bindings.cpp}}
+\doxysubsubsection{\texorpdfstring{any\_to\_py()}{any\_to\_py()}}
+{\footnotesize\ttfamily py\+::object any\+\_\+to\+\_\+py (\begin{DoxyParamCaption}\item[{std\+::any const \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{python__bindings_8cpp_source_l00236}{236}} of file \mbox{\hyperlink{python__bindings_8cpp_source}{python\+\_\+bindings.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{python__bindings_8cpp_ac972de84cf5fcaf02282b0a68729c136_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{python__bindings_8cpp_a73923d57bbe1fb81d9a125334e4d520b}\label{python__bindings_8cpp_a73923d57bbe1fb81d9a125334e4d520b} 
+\index{python\_bindings.cpp@{python\_bindings.cpp}!py\_to\_any@{py\_to\_any}}
+\index{py\_to\_any@{py\_to\_any}!python\_bindings.cpp@{python\_bindings.cpp}}
+\doxysubsubsection{\texorpdfstring{py\_to\_any()}{py\_to\_any()}}
+{\footnotesize\ttfamily std\+::any py\+\_\+to\+\_\+any (\begin{DoxyParamCaption}\item[{py\+::object}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{python__bindings_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{python__bindings_8cpp_source}{python\+\_\+bindings.\+cpp}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{python__bindings_8cpp_a73923d57bbe1fb81d9a125334e4d520b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{python__bindings_8cpp_af87b29a2381dc9b4b47be41e39dadc96}\label{python__bindings_8cpp_af87b29a2381dc9b4b47be41e39dadc96} 
+\index{python\_bindings.cpp@{python\_bindings.cpp}!PYBIND11\_MODULE@{PYBIND11\_MODULE}}
+\index{PYBIND11\_MODULE@{PYBIND11\_MODULE}!python\_bindings.cpp@{python\_bindings.cpp}}
+\doxysubsubsection{\texorpdfstring{PYBIND11\_MODULE()}{PYBIND11\_MODULE()}}
+{\footnotesize\ttfamily PYBIND11\+\_\+\+MODULE (\begin{DoxyParamCaption}\item[{pyaicpp}]{,  }\item[{m}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{python__bindings_8cpp_source_l00372}{372}} of file \mbox{\hyperlink{python__bindings_8cpp_source}{python\+\_\+bindings.\+cpp}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{python__bindings_8cpp_af87b29a2381dc9b4b47be41e39dadc96_cgraph}
+\end{center}
+\end{figure}

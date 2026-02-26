@@ -1,0 +1,8 @@
+<map id="testing::InvokeWithoutArgs" name="testing::InvokeWithoutArgs">
+<area shape="rect" id="Node000001" title=" " alt="" coords="252,35,451,60"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="395,25,392,21,385,17,351,13,325,15,311,20,308,26,315,33,312,36,303,26,307,16,324,10,351,8,386,12,396,17,400,22"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#ab2961856113ff9af02fdf12c71b8a5f5" title=" " alt="" coords="5,5,204,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,37,204,32,205,27,239,31"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1gmock__more__actions__test.html#a8b8c811b42b5ee23c9608083c500a70c" title=" " alt="" coords="25,55,185,95"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="238,63,185,69,185,64,238,58"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="aicpp::primitives::vmirror" name="aicpp::primitives::vmirror">
+<area shape="rect" id="Node000001" title="std::vector&lt;Eigen::MatrixXi&gt; vmirror(std::vector&lt;Eigen::MatrixXi&gt; arg0); // mirroring along vertical" alt="" coords="231,22,369,62"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1specifics.html#a3c9e2899f14c2cb8c7318083f68ea5f1" title=" " alt="" coords="5,29,183,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,45,183,45,183,39,217,39"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="131,20,120,11,94,8,72,10,61,15,58,20,64,28,60,31,53,21,57,11,71,5,94,3,123,6,134,15"/>
+</map>

@@ -1,0 +1,117 @@
+\doxysection{utils.\+py}
+\hypertarget{utils_8py_source}{}\label{utils_8py_source}\index{scripts/utils.py@{scripts/utils.py}}
+\mbox{\hyperlink{utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00001}\mbox{\hyperlink{namespaceutils}{00001}}\ \textcolor{keyword}{import}\ copy}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00002}00002\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00004}\mbox{\hyperlink{namespaceutils_abaa941cbef1578e80d4453f86916bf16}{00004}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_abaa941cbef1578e80d4453f86916bf16}{associate}}(mapping:\ dict[int,\ int],\ a:\ int,\ b:\ int)\ -\/>\ dict[int,\ int]:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00005}00005\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ \ \ Associate\ a\ value\ with\ another\ value\ in\ a\ dictionnary}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00007}00007\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00008}00008\ \ \ \ \ m\ =\ copy.deepcopy(mapping)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00010}00010\ \ \ \ \ m[a]\ =\ b}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{return}\ m}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00014}\mbox{\hyperlink{namespaceutils_a50be0cf310721034b00781cf56234118}{00014}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_a50be0cf310721034b00781cf56234118}{dotSegment}}(dst:\ np.ndarray,\ begin:\ tuple[int,\ int],\ end:\ tuple[int,\ int],\ value:\ int,\ dot\_step:\ int)\ -\/>\ np.ndarray:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00015}00015\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00016}00016\ \textcolor{stringliteral}{\ \ \ \ Dot\ a\ straight\ line\ between\ two\ points\ in\ an\ numpy\ array\ with\ the\ specified\ value.}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00018}00018\ \ \ \ \ m\ =\ copy.deepcopy(dst)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00020}00020\ \ \ \ \ u\ =\ np.array([end[0],\ end[1]])\ -\/\ np.array([begin[0],\ begin[1]])}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00021}00021\ \ \ \ \ v\ =\ u\ /\ np.linalg.norm(u)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{if}\ (min(v)):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ v\ *=\ min(v)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00026}00026\ \ \ \ \ step\ =\ np.linalg.norm(v)\ /\ np.linalg.norm(u)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00027}00027\ \ \ \ \ i\ =\ 0}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ np.arange(0,\ 1\ +\ 0.1\ *\ step,\ step):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ \%\ dot\_step\ ==\ 0):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ m[round(begin[0]\ +\ t\ *\ u[0]),\ round(begin[1]\ +\ t\ *\ u[1])]\ =\ value}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{return}\ m}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00037}\mbox{\hyperlink{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44}{00037}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_ae8b5640b2a32616a4464b7bd4324dc44}{regionSet}}(m:\ np.ndarray,\ diagonals:\ bool)\ -\/>\ set:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00038}00038\ \ \ \ \ s\ =\ set()}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ m.shape[0]):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(0,\ m.shape[1]):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ r\ =\ tuple(sorted(\mbox{\hyperlink{namespaceutils_adfd3f24969b1a7808de359e77a58491d}{region}}(m,\ (i,\ j),\ diagonals)))}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ r\ \textcolor{keywordflow}{in}\ s):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s.add(r)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{return}\ s}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00049}\mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{00049}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{validIndex}}(a:\ np.ndarray,\ at:\ tuple[int,\ int])\ -\/>\ bool:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00050}00050\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ Check\ if\ the\ index\ is\ within\ the\ bounds\ of\ a\ numpy\ array}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00053}00053\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ (0\ <=\ at[0]\ \textcolor{keywordflow}{and}\ at[0]\ <\ a.shape[0]\ \textcolor{keywordflow}{and}\ 0\ <=\ at[1]\ \textcolor{keywordflow}{and}\ at[1]\ <\ a.shape[1])}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00056}\mbox{\hyperlink{namespaceutils_aaafbf763a1357d65adde2e444296689a}{00056}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_aaafbf763a1357d65adde2e444296689a}{neighbors}}(loc:\ tuple[int,\ int],\ size:\ tuple[int,\ int],\ diagonals:\ bool)\ -\/>\ list[tuple[int,\ int]]:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00057}00057\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ Return\ a\ list\ of\ the\ neighboring\ indices\ of\ a\ given\ index\ considering\ diagonal\ neihbors\ or\ not}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00060}00060\ \ \ \ \ n\ =\ []}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{for}\ di\ \textcolor{keywordflow}{in}\ range(-\/1,\ 2):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ dj\ \textcolor{keywordflow}{in}\ range(-\/1,\ 2):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (di\ ==\ 0\ \textcolor{keywordflow}{and}\ dj\ ==\ 0):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ loc[0]\ +\ di}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ loc[1]\ +\ dj}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ (0\ <=\ i\ \textcolor{keywordflow}{and}\ i\ <\ size[0]\ \textcolor{keywordflow}{and}\ 0\ <=\ j\ \textcolor{keywordflow}{and}\ j\ <\ size[1])):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ diagonals\ \textcolor{keywordflow}{and}\ abs(di)\ ==\ abs(dj)):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ n.append((i,\ j))}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{return}\ n}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00080}\mbox{\hyperlink{namespaceutils_adfd3f24969b1a7808de359e77a58491d}{00080}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceutils_adfd3f24969b1a7808de359e77a58491d}{region}}(a:\ np.ndarray,\ at:\ tuple[int,\ int],\ diagonals:\ bool)\ -\/>\ list[tuple[int,\ int]]:}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00081}00081\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ Return\ a\ list\ of\ indices\ in\ the\ same\ region\ as\ the\ given\ index\ considering\ diagonal\ neihbors\ or\ not}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00084}00084\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ \mbox{\hyperlink{namespaceutils_a319766d7cf29ddd5ac990620e0a3bf22}{validIndex}}(a,\ at)):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ []}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00088}00088\ \ \ \ \ s\ =\ set()}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00089}00089\ \ \ \ \ stack\ =\ set()}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00090}00090\ \ \ \ \ stack.add(at)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00092}00092\ \ \ \ \ v\ =\ a[at[0]][at[1]]}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00094}00094\ \ \ \ \ indices\ =\ []}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{while}\ (len(stack)):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ l\ =\ list(stack)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ loc\ =\ l[0]}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ del\ l[0]}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ stack\ =\ set(l)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ loc\ \textcolor{keywordflow}{in}\ s):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ s.add(loc)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(a[loc[0]][loc[1]]\ -\/\ v)\ <\ np.finfo(float).eps):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indices.append(loc)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ n\ \textcolor{keywordflow}{in}\ \mbox{\hyperlink{namespaceutils_aaafbf763a1357d65adde2e444296689a}{neighbors}}(loc,\ (a.shape[0],\ a.shape[1]),\ diagonals):}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack.add(n)}
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{utils_8py_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{return}\ indices}
+
+\end{DoxyCode}

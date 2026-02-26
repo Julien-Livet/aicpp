@@ -1,0 +1,190 @@
+\chapter{aicpp Roadmap}
+\hypertarget{md_ROADMAP}{}\label{md_ROADMAP}\index{aicpp Roadmap@{aicpp Roadmap}}
+\label{md_ROADMAP_autotoc_md2182}%
+\Hypertarget{md_ROADMAP_autotoc_md2182}%
+ This roadmap describes the current state and future directions of the aicpp project.
+
+aicpp is a deterministic symbolic synthesis engine guided by LLM-\/driven structural reduction. Its objective is to explore a scalable hybrid architecture combining\+:
+
+
+\begin{DoxyItemize}
+\item Native C++ symbolic exploration
+\item Structural partial parameterization
+\item Deterministic exhaustive search
+\item Reusable learned structural patterns
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2184}{}\doxysection{\texorpdfstring{Current State (v1)}{Current State (v1)}}\label{md_ROADMAP_autotoc_md2184}
+\hypertarget{md_ROADMAP_autotoc_md2185}{}\doxysubsection{\texorpdfstring{Core Engine}{Core Engine}}\label{md_ROADMAP_autotoc_md2185}
+
+\begin{DoxyItemize}
+\item Deterministic symbolic search engine
+\item Typed neuron-\/based architecture
+\item Connection composition with cost-\/based ordering
+\item Heuristic-\/guided exploration
+\item Early stopping at best solution
+\end{DoxyItemize}\hypertarget{md_ROADMAP_autotoc_md2186}{}\doxysubsection{\texorpdfstring{Structural Parameterization}{Structural Parameterization}}\label{md_ROADMAP_autotoc_md2186}
+
+\begin{DoxyItemize}
+\item LLM-\/driven primitive selection
+\item Automatic C++ partial generation
+\item Dynamic compilation via CMake
+\item Engine re-\/execution loop
+\end{DoxyItemize}\hypertarget{md_ROADMAP_autotoc_md2187}{}\doxysubsection{\texorpdfstring{Memory}{Memory}}\label{md_ROADMAP_autotoc_md2187}
+
+\begin{DoxyItemize}
+\item Brain serialization to JSON
+\item Connection source tracking
+\item Reusable connection structures
+\end{DoxyItemize}\hypertarget{md_ROADMAP_autotoc_md2188}{}\doxysubsection{\texorpdfstring{Infrastructure}{Infrastructure}}\label{md_ROADMAP_autotoc_md2188}
+
+\begin{DoxyItemize}
+\item Docker reproducibility
+\item Python pipeline orchestration
+\item ARC task integration
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2190}{}\doxysection{\texorpdfstring{Short-\/\+Term Goals}{Short-Term Goals}}\label{md_ROADMAP_autotoc_md2190}
+\hypertarget{md_ROADMAP_autotoc_md2191}{}\doxysubsection{\texorpdfstring{1. Advanced Combinatorial Reduction}{1. Advanced Combinatorial Reduction}}\label{md_ROADMAP_autotoc_md2191}
+
+\begin{DoxyItemize}
+\item Canonical structural normalization
+\item Algebraic equivalence detection
+\item Commutativity pruning
+\item Structural hash deduplication
+\item Early semantic pruning (partial evaluation rejection)
+\end{DoxyItemize}
+
+Objective\+: Reduce exponential growth at depth ≥ 3.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2193}{}\doxysubsection{\texorpdfstring{2. Heuristic Improvements}{2. Heuristic Improvements}}\label{md_ROADMAP_autotoc_md2193}
+
+\begin{DoxyItemize}
+\item Progressive structural scoring
+\item Partial output alignment scoring
+\item Constraint propagation during expansion
+\item A\texorpdfstring{$\ast$}{*}-\/like admissible heuristics
+\end{DoxyItemize}
+
+Objective\+: Improve search prioritization while preserving determinism.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2195}{}\doxysubsection{\texorpdfstring{3. Incremental Compilation Optimization}{3. Incremental Compilation Optimization}}\label{md_ROADMAP_autotoc_md2195}
+
+\begin{DoxyItemize}
+\item Reduce rebuild overhead
+\item Separate stable core from generated partials
+\item Optional dynamic module loading
+\end{DoxyItemize}
+
+Objective\+: Lower iteration time in LLM ↔ engine loop.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2197}{}\doxysection{\texorpdfstring{Mid-\/\+Term Goals}{Mid-Term Goals}}\label{md_ROADMAP_autotoc_md2197}
+\hypertarget{md_ROADMAP_autotoc_md2198}{}\doxysubsection{\texorpdfstring{4. Library Learning}{4. Library Learning}}\label{md_ROADMAP_autotoc_md2198}
+
+\begin{DoxyItemize}
+\item Automatic detection of reusable substructures
+\item Promotion of frequent subtrees to primitives
+\item Structural compression
+\item Learned structural abstraction
+\end{DoxyItemize}
+
+Objective\+: Transition from memorization to structural abstraction.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2200}{}\doxysubsection{\texorpdfstring{5. Grammar-\/\+Guided Search}{5. Grammar-Guided Search}}\label{md_ROADMAP_autotoc_md2200}
+
+\begin{DoxyItemize}
+\item Explicit typed production grammar
+\item Depth-\/controlled generation
+\item Grammar-\/level pruning
+\end{DoxyItemize}
+
+Objective\+: Move from combinatorial enumeration to grammar-\/constrained synthesis.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2202}{}\doxysubsection{\texorpdfstring{6. Probabilistic Guidance Layer}{6. Probabilistic Guidance Layer}}\label{md_ROADMAP_autotoc_md2202}
+
+\begin{DoxyItemize}
+\item LLM-\/generated primitive priors
+\item Probability-\/weighted search ordering
+\item Deterministic weighted scheduling
+\end{DoxyItemize}
+
+Objective\+: Hybrid symbolic + probabilistic exploration without losing explicability.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2204}{}\doxysection{\texorpdfstring{Long-\/\+Term Research Directions}{Long-Term Research Directions}}\label{md_ROADMAP_autotoc_md2204}
+\hypertarget{md_ROADMAP_autotoc_md2205}{}\doxysubsection{\texorpdfstring{7. Hierarchical Task Decomposition}{7. Hierarchical Task Decomposition}}\label{md_ROADMAP_autotoc_md2205}
+
+\begin{DoxyItemize}
+\item Automatic detection of segmentation vs transformation tasks
+\item Multi-\/phase solving strategy
+\item Structured task classification
+\end{DoxyItemize}
+
+Objective\+: Reduce search space via structural task recognition.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2207}{}\doxysubsection{\texorpdfstring{8. Meta-\/\+Structural Learning}{8. Meta-Structural Learning}}\label{md_ROADMAP_autotoc_md2207}
+
+\begin{DoxyItemize}
+\item Learn which partial parameterizations are effective
+\item Store structural success patterns
+\item Task similarity detection
+\item Cross-\/task transfer
+\end{DoxyItemize}
+
+Objective\+: Evolve from task solving to structural meta-\/learning.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2209}{}\doxysubsection{\texorpdfstring{9. Theoretical Formalization}{9. Theoretical Formalization}}\label{md_ROADMAP_autotoc_md2209}
+
+\begin{DoxyItemize}
+\item Formal combinatorial complexity analysis
+\item Guarantees on determinism and completeness
+\item Expressivity boundaries
+\item Comparative positioning vs Dream\+Coder / neuro-\/symbolic systems
+\end{DoxyItemize}
+
+Objective\+: Position aicpp as a research framework.
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2211}{}\doxysection{\texorpdfstring{Evaluation Goals}{Evaluation Goals}}\label{md_ROADMAP_autotoc_md2211}
+
+\begin{DoxyItemize}
+\item Full ARC benchmark automation
+\item Comparative analysis with and without LLM reduction
+\item Measurement of search space reduction factor
+\item Runtime scaling analysis
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2213}{}\doxysection{\texorpdfstring{Guiding Principles}{Guiding Principles}}\label{md_ROADMAP_autotoc_md2213}
+
+\begin{DoxyItemize}
+\item Determinism over stochasticity
+\item Explicit structures over latent representations
+\item Native compilation over interpreted DSL
+\item Reproducibility first
+\item Minimal dependencies
+\item Strong typing
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_ROADMAP_autotoc_md2215}{}\doxysection{\texorpdfstring{Vision}{Vision}}\label{md_ROADMAP_autotoc_md2215}
+aicpp explores a hybrid path\+:
+
+LLM as structural reducer ~\newline
+
+\begin{DoxyItemize}
+\item ~\newline
+ Symbolic engine as guaranteed solver ~\newline
+
+\end{DoxyItemize}
+
+The long-\/term goal is to build a scalable, reproducible, explicable synthesis framework capable of tackling abstraction-\/heavy reasoning tasks. 

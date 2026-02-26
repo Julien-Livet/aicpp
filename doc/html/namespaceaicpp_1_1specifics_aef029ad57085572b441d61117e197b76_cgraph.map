@@ -1,0 +1,5 @@
+<map id="aicpp::specifics::crop" name="aicpp::specifics::crop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,163,31"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp_1_1primitives.html#aa2e1195334ad3d929d5989015a82deeb" title="std::vector&lt;Eigen::MatrixXi&gt; crop(std::vector&lt;Eigen::MatrixXi&gt; arg0, std::pair&lt;int,..." alt="" coords="211,5,377,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,15,197,15,197,21,163,21"/>
+</map>

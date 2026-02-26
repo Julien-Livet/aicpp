@@ -1,0 +1,444 @@
+\doxysection{testing\+::internal\+::Function\texorpdfstring{$<$}{<} R(Args...)\texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4}{}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4}\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+
+
+{\ttfamily \#include $<$gmock-\/internal-\/utils.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}{Result}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}{Arg}} = \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}{Argument\+Tuple}} = std\+::tuple$<$ Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}{Argument\+Matcher\+Tuple}} = std\+::tuple$<$ \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}} $>$... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}{Make\+Result\+Void}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}{Make\+Result\+Ignored\+Value}} = \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}{Result}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}{Arg}} = \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}{Argument\+Tuple}} = std\+::tuple$<$ Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}{Argument\+Matcher\+Tuple}} = std\+::tuple$<$ \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}} $>$... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}{Make\+Result\+Void}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}{Make\+Result\+Ignored\+Value}} = \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}{Result}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}{Arg}} = \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}{Argument\+Tuple}} = std\+::tuple$<$ Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}{Argument\+Matcher\+Tuple}} = std\+::tuple$<$ \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}} $>$... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}{Make\+Result\+Void}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}{Make\+Result\+Ignored\+Value}} = \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}{Result}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}{Arg}} = \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}{Argument\+Tuple}} = std\+::tuple$<$ Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}{Argument\+Matcher\+Tuple}} = std\+::tuple$<$ \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}} $>$... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}{Make\+Result\+Void}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}{Make\+Result\+Ignored\+Value}} = \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}{Result}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}{Arg}} = \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}{Argument\+Tuple}} = std\+::tuple$<$ Args... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}{Argument\+Matcher\+Tuple}} = std\+::tuple$<$ \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}} $>$... $>$
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}{Make\+Result\+Void}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}{Make\+Result\+Ignored\+Value}} = \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{constexpr}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_ad010494dacf078ed5d833ce6d3157f4c}{Argument\+Count}} = sizeof...(\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}, typename... Args$>$\newline
+struct testing\+::internal\+::\+Function$<$ R(\+Args...)$>$}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00458}{458}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Arg@{Arg}}
+\index{Arg@{Arg}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Arg}{Arg}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Arg =  \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00462}{462}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Arg@{Arg}}
+\index{Arg@{Arg}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Arg}{Arg}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Arg =  \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00462}{462}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Arg@{Arg}}
+\index{Arg@{Arg}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Arg}{Arg}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Arg =  \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00462}{462}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Arg@{Arg}}
+\index{Arg@{Arg}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Arg}{Arg}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Arg =  \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00462}{462}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aacb86abf5791077bc9f3774fa0240ba2} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Arg@{Arg}}
+\index{Arg@{Arg}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Arg}{Arg}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Arg =  \mbox{\hyperlink{structtesting_1_1internal_1_1ElemFromList}{Elem\+From\+List}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}}, Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00462}{462}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentMatcherTuple@{ArgumentMatcherTuple}}
+\index{ArgumentMatcherTuple@{ArgumentMatcherTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentMatcherTuple}{ArgumentMatcherTuple}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Matcher\+Tuple =  std\+::tuple$<$\mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}}$>$...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00464}{464}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentMatcherTuple@{ArgumentMatcherTuple}}
+\index{ArgumentMatcherTuple@{ArgumentMatcherTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentMatcherTuple}{ArgumentMatcherTuple}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Matcher\+Tuple =  std\+::tuple$<$\mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}}$>$...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00464}{464}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentMatcherTuple@{ArgumentMatcherTuple}}
+\index{ArgumentMatcherTuple@{ArgumentMatcherTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentMatcherTuple}{ArgumentMatcherTuple}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Matcher\+Tuple =  std\+::tuple$<$\mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}}$>$...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00464}{464}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentMatcherTuple@{ArgumentMatcherTuple}}
+\index{ArgumentMatcherTuple@{ArgumentMatcherTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentMatcherTuple}{ArgumentMatcherTuple}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Matcher\+Tuple =  std\+::tuple$<$\mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}}$>$...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00464}{464}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_aa1b4dca988b45fea2307518af5ac8a09} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentMatcherTuple@{ArgumentMatcherTuple}}
+\index{ArgumentMatcherTuple@{ArgumentMatcherTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentMatcherTuple}{ArgumentMatcherTuple}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Matcher\+Tuple =  std\+::tuple$<$\mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}}$>$...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00464}{464}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentTuple@{ArgumentTuple}}
+\index{ArgumentTuple@{ArgumentTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentTuple}{ArgumentTuple}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Tuple =  std\+::tuple$<$Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00463}{463}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentTuple@{ArgumentTuple}}
+\index{ArgumentTuple@{ArgumentTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentTuple}{ArgumentTuple}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Tuple =  std\+::tuple$<$Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00463}{463}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentTuple@{ArgumentTuple}}
+\index{ArgumentTuple@{ArgumentTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentTuple}{ArgumentTuple}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Tuple =  std\+::tuple$<$Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00463}{463}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentTuple@{ArgumentTuple}}
+\index{ArgumentTuple@{ArgumentTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentTuple}{ArgumentTuple}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Tuple =  std\+::tuple$<$Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00463}{463}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_afc6bddfcfc78f9308c268123ebc2a99b} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentTuple@{ArgumentTuple}}
+\index{ArgumentTuple@{ArgumentTuple}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentTuple}{ArgumentTuple}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Tuple =  std\+::tuple$<$Args...$>$}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00463}{463}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultIgnoredValue@{MakeResultIgnoredValue}}
+\index{MakeResultIgnoredValue@{MakeResultIgnoredValue}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultIgnoredValue}{MakeResultIgnoredValue}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Ignored\+Value =  \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00466}{466}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultIgnoredValue@{MakeResultIgnoredValue}}
+\index{MakeResultIgnoredValue@{MakeResultIgnoredValue}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultIgnoredValue}{MakeResultIgnoredValue}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Ignored\+Value =  \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00466}{466}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultIgnoredValue@{MakeResultIgnoredValue}}
+\index{MakeResultIgnoredValue@{MakeResultIgnoredValue}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultIgnoredValue}{MakeResultIgnoredValue}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Ignored\+Value =  \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00466}{466}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultIgnoredValue@{MakeResultIgnoredValue}}
+\index{MakeResultIgnoredValue@{MakeResultIgnoredValue}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultIgnoredValue}{MakeResultIgnoredValue}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Ignored\+Value =  \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00466}{466}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a23361a5e5eb49aad2e1dfe784e60b5da} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultIgnoredValue@{MakeResultIgnoredValue}}
+\index{MakeResultIgnoredValue@{MakeResultIgnoredValue}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultIgnoredValue}{MakeResultIgnoredValue}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Ignored\+Value =  \mbox{\hyperlink{classtesting_1_1internal_1_1IgnoredValue}{Ignored\+Value}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00466}{466}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultVoid@{MakeResultVoid}}
+\index{MakeResultVoid@{MakeResultVoid}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultVoid}{MakeResultVoid}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Void =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00465}{465}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultVoid@{MakeResultVoid}}
+\index{MakeResultVoid@{MakeResultVoid}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultVoid}{MakeResultVoid}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Void =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00465}{465}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultVoid@{MakeResultVoid}}
+\index{MakeResultVoid@{MakeResultVoid}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultVoid}{MakeResultVoid}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Void =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00465}{465}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultVoid@{MakeResultVoid}}
+\index{MakeResultVoid@{MakeResultVoid}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultVoid}{MakeResultVoid}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Void =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00465}{465}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a763920d3647641e1100bc4ade26d1d0c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!MakeResultVoid@{MakeResultVoid}}
+\index{MakeResultVoid@{MakeResultVoid}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{MakeResultVoid}{MakeResultVoid}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Make\+Result\+Void =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}}(Args...)}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00465}{465}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Result@{Result}}
+\index{Result@{Result}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Result}{Result}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Result =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00459}{459}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Result@{Result}}
+\index{Result@{Result}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Result}{Result}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Result =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00459}{459}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Result@{Result}}
+\index{Result@{Result}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Result}{Result}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Result =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00459}{459}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Result@{Result}}
+\index{Result@{Result}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Result}{Result}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Result =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00459}{459}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_a71efbc408f9ce64e36e2cc41df0da194} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!Result@{Result}}
+\index{Result@{Result}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{Result}{Result}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Result =  \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00459}{459}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_ad010494dacf078ed5d833ce6d3157f4c}\label{structtesting_1_1internal_1_1Function_3_01R_07Args_8_8_8_08_4_ad010494dacf078ed5d833ce6d3157f4c} 
+\index{testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}!ArgumentCount@{ArgumentCount}}
+\index{ArgumentCount@{ArgumentCount}!testing::internal::Function$<$ R(Args...)$>$@{testing::internal::Function$<$ R(Args...)$>$}}
+\doxysubsubsection{\texorpdfstring{ArgumentCount}{ArgumentCount}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}} , typename... Args$>$ \\
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{static}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{constexpr}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{structtesting_1_1internal_1_1Function}{testing\+::internal\+::\+Function}}$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{R}}(Args...)$>$\+::\+Argument\+Count = sizeof...(\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Args}})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source_l00460}{460}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h_source}{gmock-\/internal-\/utils.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+cmake-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Profile-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\item 
+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/internal/\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-internal-utils_8h}{gmock-\/internal-\/utils.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,16 @@
+<map id="testing::internal::InitGoogleMockImpl" name="testing::internal::InitGoogleMockImpl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,159,79"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#ace27eb9a2534996f3711aa719689f987" title=" " alt="" coords="207,5,375,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,42,212,31,213,36,159,47"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1internal.html#a3316c24e8a79f5def3e85d763ae50854" title=" " alt="" coords="224,79,357,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,71,211,81,210,87,158,77"/>
+<area shape="poly" id="edge8_Node000003_Node000003" title=" " alt="" coords="253,80,251,70,257,61,270,55,291,53,314,56,327,63,324,68,312,61,291,58,272,60,261,65,256,71,259,78"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1internal.html#aa46ca46a5898b2ac75184c62e0355621" title=" " alt="" coords="423,79,556,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="358,105,409,106,409,111,358,111"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="422,93,371,93,371,88,422,88"/>
+<area shape="rect" id="Node000005" href="$namespacetesting_1_1internal.html#a93a00bf550dcc6b1de870d24c624869c" title=" " alt="" coords="621,22,765,62"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="555,78,608,63,609,68,557,83"/>
+<area shape="rect" id="Node000006" href="$classtesting_1_1internal_1_1FailureReporterInterface.html#a0c43ec1946cb4ab51279c96ce1ad941d" title=" " alt="" coords="604,87,783,141"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="556,101,590,104,590,109,556,107"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="622,48,527,56,423,70,371,81,370,75,422,65,526,51,621,43"/>
+</map>

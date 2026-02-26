@@ -1,0 +1,10 @@
+<map id="testing::ReturnRef" name="testing::ReturnRef">
+<area shape="rect" id="Node000001" title=" " alt="" coords="252,63,392,88"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="361,53,350,45,322,41,299,43,287,48,284,54,291,61,287,64,279,54,283,44,298,38,322,36,352,40,364,49"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#a23b8e12c383e05cb3e8add91c79fe878" title=" " alt="" coords="35,5,175,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,62,203,46,155,33,157,28,205,41,262,56"/>
+<area shape="rect" id="Node000003" href="$namespacetesting_1_1gmock__function__mocker__test.html#adc6133bd5a20d1a4690f626d09619cb2" title=" " alt="" coords="15,55,194,95"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="238,78,194,78,194,73,238,73"/>
+<area shape="rect" id="Node000004" href="$namespacetesting_1_1gmock__function__mocker__test.html#a4bf7e84533bd28edba4e421f20d28d0f" title=" " alt="" coords="5,119,204,159"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="266,95,174,122,173,117,264,89"/>
+</map>

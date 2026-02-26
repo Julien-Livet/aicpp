@@ -1,0 +1,16 @@
+<map id="aicpp::Connection::string" name="aicpp::Connection::string">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,59,152,99"/>
+<area shape="rect" id="Node000002" href="$namespaceaicpp.html#aa33f96f6ccb141005fa59acc2e7276ce" title=" " alt="" coords="413,9,554,35"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,57,150,34,199,15,251,7,303,3,399,7,399,13,303,9,251,12,201,21,152,38,111,62"/>
+<area shape="rect" id="Node000003" href="$classaicpp_1_1Connection.html#af40c7b18fd7bdc2933079b3fea779c2f" title=" " alt="" coords="200,30,347,70"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,66,186,60,187,66,152,71"/>
+<area shape="rect" id="Node000004" href="$classaicpp_1_1Connection.html#a50e29df4e4058f36895b02a3e9da9080" title=" " alt="" coords="395,95,572,120"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="153,82,381,98,381,103,152,87"/>
+<area shape="rect" id="Node000005" href="$classaicpp_1_1Connection.html#ab5710aa4c44d985c983b721cf269ba30" title=" " alt="" coords="200,145,347,185"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="126,97,215,137,213,141,124,102"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="347,38,399,31,399,36,348,43"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="348,67,423,88,422,93,346,73"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="346,142,422,121,423,126,348,147"/>
+<area shape="rect" id="Node000006" href="$classaicpp_1_1Connection.html#aca8026e79dcc80603eb39692a6f2eeb0" title=" " alt="" coords="410,145,557,185"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="347,162,396,162,396,167,347,167"/>
+</map>

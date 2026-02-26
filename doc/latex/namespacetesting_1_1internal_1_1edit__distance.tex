@@ -1,0 +1,685 @@
+\doxysection{testing\+::internal\+::edit\+\_\+distance Namespace Reference}
+\hypertarget{namespacetesting_1_1internal_1_1edit__distance}{}\label{namespacetesting_1_1internal_1_1edit__distance}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}{k\+Match}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}{k\+Add}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}{k\+Remove}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}{k\+Replace}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db}{Calculate\+Optimal\+Edits}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_a32267b2ae24de1de175ac8217406877d}{Calculate\+Optimal\+Edits}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1}{Create\+Unified\+Diff}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{context}}=2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!EditType@{EditType}}
+\index{EditType@{EditType}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{EditType}{EditType}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{testing\+::internal\+::edit\+\_\+distance\+::\+Edit\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source_l00174}{174}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source}{gtest-\/internal.\+h}}.
+
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!EditType@{EditType}}
+\index{EditType@{EditType}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{EditType}{EditType}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{testing\+::internal\+::edit\+\_\+distance\+::\+Edit\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source_l00174}{174}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source}{gtest-\/internal.\+h}}.
+
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!EditType@{EditType}}
+\index{EditType@{EditType}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{EditType}{EditType}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{testing\+::internal\+::edit\+\_\+distance\+::\+Edit\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source_l00174}{174}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source}{gtest-\/internal.\+h}}.
+
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!EditType@{EditType}}
+\index{EditType@{EditType}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{EditType}{EditType}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{testing\+::internal\+::edit\+\_\+distance\+::\+Edit\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source_l00174}{174}} of file \mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source}{gtest-\/internal.\+h}}.
+
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!EditType@{EditType}}
+\index{EditType@{EditType}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{EditType}{EditType}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{enum}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{testing\+::internal\+::edit\+\_\+distance\+::\+Edit\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMatch@{kMatch}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kMatch@{kMatch}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a5a21670815d15e7b49ebef71bfa99c7c} 
+k\+Match&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kAdd@{kAdd}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a2d7a1f55138d97b8ffbc08f95efdf1c2} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kRemove@{kRemove}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kRemove@{kRemove}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08acdb7cb59dfaf313b4842c5465ecab11f} 
+k\+Remove&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kReplace@{kReplace}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!kReplace@{kReplace}}}\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f}\label{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08a0e8ee3f6f9dd1fc8503c5ce060b88d0f} 
+k\+Replace&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source_l00174}{174}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_source}{gtest-\/internal.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db}\label{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!CalculateOptimalEdits@{CalculateOptimalEdits}}
+\index{CalculateOptimalEdits@{CalculateOptimalEdits}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{CalculateOptimalEdits()}{CalculateOptimalEdits()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ testing\+::internal\+::edit\+\_\+distance\+::\+Calculate\+Optimal\+Edits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&}]{left,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&}]{right }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l01362}{1362}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_a32267b2ae24de1de175ac8217406877d}\label{namespacetesting_1_1internal_1_1edit__distance_a32267b2ae24de1de175ac8217406877d} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!CalculateOptimalEdits@{CalculateOptimalEdits}}
+\index{CalculateOptimalEdits@{CalculateOptimalEdits}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{CalculateOptimalEdits()}{CalculateOptimalEdits()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ testing\+::internal\+::edit\+\_\+distance\+::\+Calculate\+Optimal\+Edits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&}]{left,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&}]{right }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l01438}{1438}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacetesting_1_1internal_1_1edit__distance_a32267b2ae24de1de175ac8217406877d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1}\label{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1} 
+\index{testing::internal::edit\_distance@{testing::internal::edit\_distance}!CreateUnifiedDiff@{CreateUnifiedDiff}}
+\index{CreateUnifiedDiff@{CreateUnifiedDiff}!testing::internal::edit\_distance@{testing::internal::edit\_distance}}
+\doxysubsubsection{\texorpdfstring{CreateUnifiedDiff()}{CreateUnifiedDiff()}}
+{\footnotesize\ttfamily std\+::string testing\+::internal\+::edit\+\_\+distance\+::\+Create\+Unified\+Diff (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&}]{left,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&}]{right,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}}}]{context = {\ttfamily 2} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l01537}{1537}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1_icgraph}
+\end{center}
+\end{figure}

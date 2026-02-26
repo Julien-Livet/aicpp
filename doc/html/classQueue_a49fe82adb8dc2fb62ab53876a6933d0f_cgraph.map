@@ -1,0 +1,7 @@
+<map id="Queue::~Queue" name="Queue::~Queue">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,131,31"/>
+<area shape="rect" id="Node000002" href="$classQueue.html#acfdd5f9f7e936ca30dcf877370ef9510" title=" " alt="" coords="179,5,285,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,15,165,15,165,21,131,21"/>
+<area shape="rect" id="Node000003" href="$classQueueNode.html#a55ab43663e363a44c7d8ccb511aa87e2" title=" " alt="" coords="333,5,468,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,15,319,15,319,21,285,21"/>
+</map>

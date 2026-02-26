@@ -1,0 +1,7 @@
+<map id="primitives.segments" name="primitives.segments">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,161,56"/>
+<area shape="rect" id="Node000002" href="$namespaceutils.html#a50be0cf310721034b00781cf56234118" title=" " alt="" coords="209,5,343,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,30,196,26,196,31,162,36"/>
+<area shape="rect" id="Node000003" href="$namespaceutils.html#a319766d7cf29ddd5ac990620e0a3bf22" title=" " alt="" coords="215,55,337,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,50,202,55,201,61,161,56"/>
+</map>
