@@ -5,6 +5,7 @@ import os
 import pytest
 import re
 import subprocess
+import time
 import urllib.request
 
 @pytest.fixture(autouse = True)
