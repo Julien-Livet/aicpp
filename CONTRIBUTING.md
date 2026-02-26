@@ -118,7 +118,7 @@ The following are generally not aligned with the project direction:
 
 ## Coding Standards
 
-- C++17 minimum
+- C++23 minimum
 - Use CMake
 - Keep dependencies minimal
 - Write clear, readable code
