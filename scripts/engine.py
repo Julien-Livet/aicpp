@@ -109,8 +109,12 @@ def processTask(folder: str, task: str):
 
     cost = None
     lastConnections = []
+    first = True
+    count = 0
 
-    while (cost is None or cost):
+    while ((cost is None or cost) and count < 4):
+        count += 1
+
         command = "You are given several input-output grid pairs from an ARC task:\n"
 
         for i in range(len(data["train"])):
@@ -165,16 +169,25 @@ std::map<int, int> bar(int arg0, double arg1);"""
         f.write(command)
         f.close()
 
-        if (False):#try
-            f = open("output" + task + ".txt", "r")
-            content = f.read()
-            f.close()
-        else:#except FileNotFoundError:
+        if (first):
+            try:
+                f = open("output" + task + ".txt", "r")
+                content = f.read()
+                f.close()
+            except FileNotFoundError:
+                result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
+                content = result
+                f = open("output" + task + ".txt", "w")
+                f.write(content)
+                f.close()
+        else:
             result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
             content = result
             f = open("output" + task + ".txt", "w")
             f.write(content)
             f.close()
+
+        first = False
 
         lines = [x.strip() for x in content.split("\n")]
 
@@ -359,43 +372,40 @@ namespace aicpp
             
             lastConnections.append((cost, expression))
 
-    print(expression)
+    print(folder, task, expression)
 
-def main():
-    """
+    return cost == 0
+
+def test_tasks():
     # Validated tasks
-    processTask("training", "67a3c6ac")
-    processTask("training", "68b16354")
-    processTask("training", "74dd1130")
-    processTask("training", "3c9b0459") #Flip left/right and flip up/down
-    processTask("training", "6150a2bd")
-    processTask("training", "9172f3a0")
-    processTask("training", "9dfd6313")
-    processTask("training", "a416b8f3")
-    processTask("training", "b1948b0a")
-    processTask("training", "c59eb873")
-    processTask("training", "c8f0f002")
-    processTask("training", "0d3d703e") #Color mapping
-    processTask("training", "d10ecb37")
-    processTask("training", "d511f180")
-    processTask("training", "ed36ccf7")
-    processTask("training", "4c4377d9")
-    processTask("training", "6d0aefbc")
-    processTask("training", "6fa7a44f")
-    processTask("training", "5614dbcf")
-    processTask("training", "8be77c9e")
-    processTask("training", "c9e6f938")
-    """
+    assert(processTask("training", "67a3c6ac"))
+    assert(processTask("training", "68b16354"))
+    assert(processTask("training", "74dd1130"))
+    assert(processTask("training", "3c9b0459")) #Flip left/right and flip up/down
+    assert(processTask("training", "6150a2bd"))
+    assert(processTask("training", "9172f3a0"))
+    assert(processTask("training", "9dfd6313"))
+    assert(processTask("training", "a416b8f3"))
+    assert(processTask("training", "b1948b0a"))
+    assert(processTask("training", "c59eb873"))
+    assert(processTask("training", "c8f0f002"))
+    assert(processTask("training", "0d3d703e")) #Color mapping
+    assert(processTask("training", "d10ecb37"))
+    assert(processTask("training", "d511f180"))
+    assert(processTask("training", "ed36ccf7"))
+    assert(processTask("training", "4c4377d9"))
+    assert(processTask("training", "6d0aefbc"))
+    assert(processTask("training", "6fa7a44f"))
+    assert(processTask("training", "5614dbcf"))
+    assert(processTask("training", "8be77c9e"))
+    assert(processTask("training", "c9e6f938"))
+
     # TODO
-    #processTask("training", "5bd6f4ac")
-    #processTask("training", "5582e5ca")
-    #processTask("training", "2dee498d")
-    #processTask("training", "1cf80156")
-    #processTask("training", "32597951")
-    #processTask("training", "25ff71a9")
-    #processTask("training", "c909285e")
-    #processTask("training", "")
-
-if (__name__ == "__main__"):
-    main()
-
+    #assert(processTask("training", "5bd6f4ac"))
+    #assert(processTask("training", "5582e5ca"))
+    #assert(processTask("training", "2dee498d"))
+    #assert(processTask("training", "1cf80156"))
+    #assert(processTask("training", "32597951"))
+    #assert(processTask("training", "25ff71a9"))
+    #assert(processTask("training", "c909285e"))
+    #assert(processTask("training", ""))
