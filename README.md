@@ -73,7 +73,7 @@ pip install -r requirements.txt
 docker build -t aicpp .
 docker run --rm aicpp
 cd scripts
-python engine.py
+python -m pytest -sxv engine.py
 ```
 
 ---
