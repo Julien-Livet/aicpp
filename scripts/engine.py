@@ -2,9 +2,17 @@ import json
 import numpy as np
 from openai import OpenAI
 import os
+import pytest
 import re
 import subprocess
 import urllib.request
+
+@pytest.fixture(autouse = True)
+def print_test_duration(request):
+    start_time = time.time()
+    yield
+    duration = time.time() - start_time
+    print(f"\nTest {request.node.name} took {duration:.2f} seconds to execute.")
 
 def trainTestPairs(folder: str, task: str) -> tuple:
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
