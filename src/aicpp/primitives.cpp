@@ -249,7 +249,7 @@ std::any primitives::dmirror(std::vector<std::any> const& args)
 
 std::any primitives::rot90(std::vector<std::any> const& args)
 {
-    return rot90(std::vector<std::any>{rot180(args)});
+    return rot270(std::vector<std::any>{rot180(args)});
 }
 
 std::any primitives::rot180(std::vector<std::any> const& args)
