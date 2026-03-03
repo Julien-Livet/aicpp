@@ -540,12 +540,12 @@ std::any primitives::crop(std::vector<std::any> const& args)
 
     for (auto const& x : v)
     {
-        if (start.first < 0 || start.second < 0)
+        if (start.first < 0 || start.second < 0 || start.first > x.rows() - static_cast<int>(dims.first) || start.second > x.cols() - static_cast<int>(dims.second))
             r.emplace_back();
         else
             r.emplace_back(x.block(start.first, start.second, dims.first, dims.second));
     }
-
+    
     return r;
 }
 
@@ -891,7 +891,7 @@ std::any primitives::subgrid(std::vector<std::any> const& args)
 
     for (size_t i{0}; i < v1.size(); ++i)
         r.emplace_back(std::any_cast<std::vector<Eigen::MatrixXi> >(crop(std::vector<std::any>{std::vector<Eigen::MatrixXi>{v2[i]},
-                                                                                               ulcorner(v1[i]), shape(v1[i])}))[0]);
+                                                                                            ulcorner(v1[i]), shape(v1[i])}))[0]);
 
     return r;
 }

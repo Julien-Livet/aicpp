@@ -1,0 +1,1 @@
+std::vector<Eigen::MatrixXi> vmirror(std::vector<Eigen::MatrixXi> arg0);

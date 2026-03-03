@@ -1,0 +1,66 @@
+You are given several input-output grid pairs from an ARC task:
+([[0, 0, 0, 2, 2, 2, 0, 0, 0], [0, 5, 0, 2, 2, 2, 0, 0, 0], [0, 0, 0, 2, 2, 2, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 5, 0, 0, 0, 5, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 5, 0, 7, 7, 7, 0, 0, 0], [0, 0, 0, 7, 7, 5, 0, 0, 0], [0, 0, 0, 7, 7, 7, 0, 0, 0]], [[0, 2, 0], [0, 0, 0], [0, 7, 0]])
+([[3, 3, 3, 0, 0, 0, 8, 8, 8], [3, 3, 3, 0, 0, 0, 8, 5, 8], [3, 3, 3, 0, 0, 0, 8, 8, 8], [0, 0, 0, 7, 5, 7, 0, 0, 0], [0, 0, 0, 7, 7, 7, 0, 0, 0], [0, 0, 0, 7, 7, 7, 0, 0, 0], [6, 6, 6, 0, 0, 5, 9, 9, 9], [6, 6, 6, 0, 0, 0, 9, 9, 9], [6, 5, 6, 0, 5, 0, 9, 9, 5]], [[3, 0, 8], [0, 7, 0], [6, 0, 9]])
+
+You are given several C++ function declarations as primitives:
+std::vector<Eigen::MatrixXi> hmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along horizontal
+std::vector<Eigen::MatrixXi> vmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along vertical
+std::vector<Eigen::MatrixXi> dmirror(std::vector<Eigen::MatrixXi> arg0); // mirroring along diagonal
+std::vector<Eigen::MatrixXi> rot90(std::vector<Eigen::MatrixXi> arg0); // quarter clockwise rotation
+std::vector<Eigen::MatrixXi> rot180(std::vector<Eigen::MatrixXi> arg0); // half rotation
+std::vector<Eigen::MatrixXi> rot270(std::vector<Eigen::MatrixXi> arg0); // quarter anticlockwise rotation
+std::vector<Eigen::MatrixXi> swap(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2); // color switching
+std::vector<std::pair<int, int> > ofcolor(std::vector<Eigen::MatrixXi> arg0, int arg1); // indices of all grid cells with value
+std::vector<Eigen::MatrixXi> fillPatches(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Patch> arg2); // fill value at indices
+std::vector<Eigen::MatrixXi> fillIndices(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Indices> arg2); // fill value at indices
+std::vector<Eigen::MatrixXi> upscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // upscale grid
+std::vector<Eigen::MatrixXi> downscale(std::vector<Eigen::MatrixXi> arg0, int arg1); // downscale grid
+std::vector<Eigen::MatrixXi> hconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1); // concatenate two grids horizontally
+std::vector<Eigen::MatrixXi> vconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1); // concatenate two grids vertically
+std::vector<Eigen::MatrixXi> replace(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2); // color substitution
+std::vector<Eigen::MatrixXi> crop(std::vector<Eigen::MatrixXi> arg0, std::pair<int, int> arg1, std::pair<size_t, size_t> arg2); // subgrid specified by start and dimension
+std::pair<int, int> tojvec(int arg0); // vector pointing horizontally
+std::pair<int, int> toivec(int arg0); // vector pointing vertically
+std::vector<int> mostcolor(std::vector<Eigen::MatrixXi> arg0); // most common color
+std::vector<int> leastcolor(std::vector<Eigen::MatrixXi> arg0); // least common color
+std::vector<Eigen::MatrixXi> canvas(std::vector<int> arg0, std::pair<size_t, size_t> arg1); // grid construction
+std::vector<std::vector<Eigen::MatrixXi> > hsplit(std::vector<Eigen::MatrixXi> arg0, int arg1); // split grid horizontally
+std::vector<std::vector<Eigen::MatrixXi> > vsplit(std::vector<Eigen::MatrixXi> arg0, int arg1); // split grid vertically
+std::vector<Eigen::MatrixXi> first(std::vector<std::vector<Eigen::MatrixXi> > arg0); // first item of container
+std::vector<Eigen::MatrixXi> last(std::vector<std::vector<Eigen::MatrixXi> > arg0); // last item of container
+std::vector<Indices> delta(std::vector<Patch> arg0); // indices in bounding box but not part of patch
+std::vector<std::vector<Patch> > objects(std::vector<Eigen::MatrixXi> arg0, bool arg1, bool arg2, bool arg3); // objects occurring on the grid
+std::vector<Eigen::MatrixXi> subgrid(std::vector<Patch> arg0, std::vector<Eigen::MatrixXi> arg1); // smallest subgrid containing object
+std::vector<Eigen::MatrixXi> move(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1, std::pair<int, int> arg2); // move object on grid
+std::vector<Patch> shift(std::vector<Patch> arg0, std::pair<int, int> arg1); // shift patch
+std::vector<Eigen::MatrixXi> cover(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1); // remove object from grid
+std::vector<Eigen::MatrixXi> paint(std::vector<Eigen::MatrixXi> arg0, std::vector<Patch> arg1); // paint object to grid
+
+Your task is NOT to solve the ARC task directly.
+
+You must help a symbolic program synthesis engine by selecting
+NEEDED C++ FUNCTION PRIMITIVES.
+
+Rules:
+- Do NOT invent new primitive operations.
+
+Output format:
+- Output ONLY valid C++ function declarations.
+- No explanations.
+- No formatting.
+- No comments.
+- No markdown.
+- No extra text.
+
+Examples of full verbatim function declarations:
+int foo(int i, bool b);
+std::map<int, int> inferColorMapping(std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi>> arg0);
+
+Select which of the given primitives are potentially useful
+for explaining the observed input-output transformations.
+
+Output the selected primitive declarations verbatim.
+
+EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+int foo(int arg0, bool arg1);
+std::map<int, int> bar(int arg0, double arg1);

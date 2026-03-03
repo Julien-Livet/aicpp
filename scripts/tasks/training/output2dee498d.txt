@@ -1,0 +1,3 @@
+std::vector<std::vector<Eigen::MatrixXi> > hsplit(std::vector<Eigen::MatrixXi> arg0, int arg1);
+std::vector<Eigen::MatrixXi> first(std::vector<std::vector<Eigen::MatrixXi> > arg0);
+std::vector<Eigen::MatrixXi> crop(std::vector<Eigen::MatrixXi> arg0, std::pair<int, int> arg1, std::pair<size_t, size_t> arg2);

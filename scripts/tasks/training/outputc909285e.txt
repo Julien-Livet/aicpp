@@ -1,0 +1,16 @@
+std::vector<Eigen::MatrixXi> downscale(std::vector<Eigen::MatrixXi> arg0, int arg1);
+std::vector<Eigen::MatrixXi> crop(std::vector<Eigen::MatrixXi> arg0, std::pair<int, int> arg1, std::pair<size_t, size_t> arg2);
+std::vector<Eigen::MatrixXi> canvas(std::vector<int> arg0, std::pair<size_t, size_t> arg1);
+std::vector<int> mostcolor(std::vector<Eigen::MatrixXi> arg0);
+std::vector<int> leastcolor(std::vector<Eigen::MatrixXi> arg0);
+std::vector<Eigen::MatrixXi> replace(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2);
+std::vector<Eigen::MatrixXi> swap(std::vector<Eigen::MatrixXi> arg0, int arg1, int arg2);
+std::vector<Eigen::MatrixXi> hconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1);
+std::vector<Eigen::MatrixXi> vconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1);
+std::vector<Eigen::MatrixXi> fillIndices(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Indices> arg2);
+std::vector<Eigen::MatrixXi> fillPatches(std::vector<Eigen::MatrixXi> arg0, int arg1, std::vector<Patch> arg2);
+std::vector<std::vector<Eigen::MatrixXi> > hsplit(std::vector<Eigen::MatrixXi> arg0, int arg1);
+std::vector<std::vector<Eigen::MatrixXi> > vsplit(std::vector<Eigen::MatrixXi> arg0, int arg1);
+std::vector<Eigen::MatrixXi> first(std::vector<std::vector<Eigen::MatrixXi> > arg0);
+std::vector<Eigen::MatrixXi> last(std::vector<std::vector<Eigen::MatrixXi> > arg0);
+std::vector<std::pair<int, int> > ofcolor(std::vector<Eigen::MatrixXi> arg0, int arg1);

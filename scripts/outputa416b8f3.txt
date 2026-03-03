@@ -1,2 +1,0 @@
-PRIMITIVES:
-std::vector<Eigen::MatrixXi> hconcat(std::vector<Eigen::MatrixXi> arg0, std::vector<Eigen::MatrixXi> arg1);

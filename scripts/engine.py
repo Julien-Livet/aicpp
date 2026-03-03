@@ -174,25 +174,25 @@ Output the selected primitive declarations verbatim.
 int foo(int arg0, bool arg1);
 std::map<int, int> bar(int arg0, double arg1);"""
 
-        f = open("prompt" + task + ".txt", "w")
+        f = open("tasks/" + folder + "/prompt" + task + ".txt", "w")
         f.write(command)
         f.close()
 
         if (first):
             try:
-                f = open("output" + task + ".txt", "r")
+                f = open("tasks/" + folder + "/output" + task + ".txt", "r")
                 content = f.read()
                 f.close()
             except FileNotFoundError:
                 result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
                 content = result
-                f = open("output" + task + ".txt", "w")
+                f = open("tasks/" + folder + "/output" + task + ".txt", "w")
                 f.write(content)
                 f.close()
         else:
             result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
             content = result
-            f = open("output" + task + ".txt", "w")
+            f = open("tasks/" + folder + "/output" + task + ".txt", "w")
             f.write(content)
             f.close()
 
@@ -408,13 +408,15 @@ def test_tasks():
     assert(processTask("training", "5614dbcf"))
     assert(processTask("training", "8be77c9e"))
     assert(processTask("training", "c9e6f938"))
+    assert(processTask("training", "5582e5ca"))
+    assert(processTask("training", "2dee498d"))
 
-    # TODO
-    #assert(processTask("training", "5bd6f4ac"))
-    #assert(processTask("training", "5582e5ca"))
-    #assert(processTask("training", "2dee498d"))
-    #assert(processTask("training", "1cf80156"))
-    #assert(processTask("training", "32597951"))
-    #assert(processTask("training", "25ff71a9"))
-    #assert(processTask("training", "c909285e"))
-    #assert(processTask("training", ""))
+    # TODO: tasks to test
+    """
+    assert(processTask("training", "5bd6f4ac"))
+    assert(processTask("training", "1cf80156"))
+    assert(processTask("training", "32597951"))
+    assert(processTask("training", "25ff71a9"))
+    assert(processTask("training", "c909285e"))
+    assert(processTask("training", ""))
+    """
