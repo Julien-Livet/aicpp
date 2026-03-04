@@ -1,0 +1,40 @@
+def dsl1(I):
+    b = leastcolor(I)
+    P = ofcolor(I, b)
+    O = subgrid(P, I)
+    return O
+
+def dsl2(I):
+    b = leastcolor(I)
+    P = ofcolor(I, b)
+    ul = ulcorner(P)
+    lr = lrcorner(P)
+    dims = add(subtract(lr, ul), UNITY)
+    O = crop(I, ul, dims)
+    return O
+
+def dsl3(I):
+    b = leastcolor(I)
+    P = ofcolor(I, b)
+    bb = backdrop(P)
+    O = subgrid(bb, I)
+    return O
+
+def dsl4(I):
+    b = leastcolor(I)
+    K = subgrid(ofcolor(I, b), I)
+    E = crop(K, UNITY, astuple(FIVE, FIVE))
+    top = canvas(b, astuple(ONE, SEVEN))
+    bot = canvas(b, astuple(ONE, SEVEN))
+    side = canvas(b, astuple(FIVE, ONE))
+    mid = hconcat(hconcat(side, E), side)
+    O = vconcat(vconcat(top, mid), bot)
+    return O
+
+def dsl5(I):
+    b = leastcolor(I)
+    Objs = objects(I, T, F, T)
+    Bs = colorfilter(Objs, b)
+    B = merge(Bs)
+    O = subgrid(B, I)
+    return O

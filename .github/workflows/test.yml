@@ -10,6 +10,6 @@ jobs:
       - name: Build Docker
         run: git clone https://github.com/arcprize/ARC-AGI-2.git && docker build -t aicpp .
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: python -m pip install -r requirements.txt
       - name: Run tests
-        run: docker run aicpp && cd scripts && python -m pytest -sxv engine.py
+        run: docker run aicpp && cd scripts && python -m pytest -sxv engine.py && git clone https://github.com/michaelhodel/arc-dsl.git && python -m pytest -sxv test_arc.py

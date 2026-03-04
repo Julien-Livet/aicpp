@@ -1,0 +1,34 @@
+def dsl1(I):
+    x1 = switch(I, ONE, FIVE)
+    x2 = switch(x1, TWO, SIX)
+    x3 = switch(x2, THREE, FOUR)
+    O = switch(x3, EIGHT, NINE)
+    return O
+
+def dsl2(I):
+    x1 = switch(I, EIGHT, NINE)
+    x2 = switch(x1, THREE, FOUR)
+    x3 = switch(x2, TWO, SIX)
+    O = switch(x3, ONE, FIVE)
+    return O
+
+def dsl3(I):
+    x1 = switch(I, TWO, SIX)
+    x2 = switch(x1, ONE, FIVE)
+    x3 = switch(x2, EIGHT, NINE)
+    O = switch(x3, THREE, FOUR)
+    return O
+
+def dsl4(I):
+    x1 = switch(I, THREE, FOUR)
+    x2 = switch(x1, ONE, FIVE)
+    x3 = switch(x2, EIGHT, NINE)
+    O = switch(x3, TWO, SIX)
+    return O
+
+def dsl5(I):
+    x1 = switch(I, FIVE, ONE)
+    x2 = switch(x1, SIX, TWO)
+    x3 = switch(x2, FOUR, THREE)
+    O = switch(x3, NINE, EIGHT)
+    return O
