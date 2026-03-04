@@ -260,7 +260,7 @@ from dsl import *
             scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
             totalScores.append((function, sum(score)))
 
-        scores = sorted(scores, key = lambda x: float(x[-1]))[:3]
+        scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
         totalScores = sorted(totalScores, key = lambda x: x[1])
 
         dsl = inspect.getsource(totalScores[0][0])
