@@ -1,0 +1,31 @@
+def dsl1(I):
+    O = trim(I)
+    return O
+
+def dsl2(I):
+    x1 = asindices(I)
+    x2 = ofcolor(I, ZERO)
+    x3 = difference(x1, x2)
+    O = subgrid(x3, I)
+    return O
+
+def dsl3(I):
+    x1 = objects(I, T, F, T)
+    x2 = merge(x1)
+    O = subgrid(x2, I)
+    return O
+
+def dsl4(I):
+    x1 = palette(I)
+    x2 = remove(ZERO, x1)
+    x3 = rbind(ofcolor, I)
+    x4 = apply(x3, x2)
+    x5 = merge(x4)
+    O = subgrid(x5, I)
+    return O
+
+def dsl5(I):
+    x1 = fgpartition(I)
+    x2 = merge(x1)
+    O = subgrid(x2, I)
+    return O

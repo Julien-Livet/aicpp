@@ -1,7 +1,7 @@
 # ARC-AGI Benchmark Results
 
 ## Summary
-**23/400 tasks solved (5.75%)** with unified approach
+**28/400 tasks solved (7%)** with unified approach
 
 ## Solved Tasks
 - 67a3c6ac
@@ -27,3 +27,8 @@
 - c9e6f938
 - 5582e5ca
 - 2dee498d
+- c909285e
+- 5bd6f4ac
+- 1cf80156
+- 32597951
+- 25ff71a9

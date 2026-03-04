@@ -1,0 +1,37 @@
+def dsl1(I):
+    x1 = mostcolor(I)
+    x2 = shape(I)
+    O = canvas(x1, x2)
+    return O
+
+def dsl2(I):
+    x1 = palette(I)
+    x2 = lbind(colorcount, I)
+    x3 = argmax(x1, x2)
+    x4 = shape(I)
+    O = canvas(x3, x4)
+    return O
+
+def dsl3(I):
+    x1 = mostcolor(I)
+    x2 = height(I)
+    x3 = width(I)
+    x4 = astuple(x2, x3)
+    O = canvas(x1, x4)
+    return O
+
+def dsl4(I):
+    x1 = mostcolor(I)
+    x2 = shape(I)
+    x3 = canvas(ZERO, x2)
+    x4 = asindices(I)
+    O = fill(x3, x1, x4)
+    return O
+
+def dsl5(I):
+    x1 = mostcolor(I)
+    x2 = asindices(I)
+    x3 = recolor(x1, x2)
+    x4 = canvas(ZERO, shape(I))
+    O = paint(x4, x3)
+    return O

@@ -1,0 +1,19 @@
+def dsl1(I):
+    O = dmirror(I)
+    return O
+
+def dsl2(I):
+    O = hmirror(hmirror(dmirror(I)))
+    return O
+
+def dsl3(I):
+    O = vmirror(vmirror(dmirror(I)))
+    return O
+
+def dsl4(I):
+    O = rot90(rot270(dmirror(I)))
+    return O
+
+def dsl5(I):
+    O = rot180(rot180(dmirror(I)))
+    return O

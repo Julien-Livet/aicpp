@@ -1,0 +1,30 @@
+def dsl1(I):
+    O = crop(I, tojvec(SIX), THREE_BY_THREE)
+    return O
+
+def dsl2(I):
+    x1 = hsplit(I, THREE)
+    x2 = first(x1)
+    x3 = vsplit(x2, THREE)
+    O = last(x3)
+    return O
+
+def dsl3(I):
+    x1 = vsplit(I, THREE)
+    x2 = last(x1)
+    x3 = hsplit(x2, THREE)
+    O = first(x3)
+    return O
+
+def dsl4(I):
+    w = width(I)
+    j = subtract(w, THREE)
+    start = astuple(ZERO, j)
+    O = crop(I, start, THREE_BY_THREE)
+    return O
+
+def dsl5(I):
+    x = vmirror(I)
+    y = crop(x, ORIGIN, THREE_BY_THREE)
+    O = vmirror(y)
+    return O

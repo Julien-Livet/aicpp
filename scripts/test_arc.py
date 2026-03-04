@@ -162,9 +162,9 @@ Available primitives:
             command += "|-|-|-|-|-|\n"
             command += "\n".join("|" + "|".join(s) + "|" for s in scores) + "\n"
             
-            command += "\nPropose 5 improved variants avoiding previous low-scoring.\n"
+            command += "\nPropose at most 5 improved variants avoiding previous low-scoring.\n"
         else:
-            command += "Generate 5 plausible DSL programs using only the declared primitives.\n"
+            command += "\nGenerate at most 5 plausible DSL programs using only the declared primitives.\n"
 
         command += """
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
@@ -253,29 +253,118 @@ from dsl import *
         for function in functions:
             score = [0] * len(scoreFunctions)
 
-            for pair in taskPairs[0]:
-                for i in range(0, len(scoreFunctions)):
-                    score[i] += scoreFunctions[i](np.array(function(tuple(map(tuple, pair[0].tolist())))), pair[1])
-                    
-            scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
-            totalScores.append((function, sum(score)))
+            try:
+                for pair in taskPairs[0]:
+                    for i in range(0, len(scoreFunctions)):
+                        score[i] += scoreFunctions[i](np.array(function(tuple(map(tuple, pair[0].tolist())))), pair[1])
+
+                for pair in taskPairs[1]:
+                    for i in range(0, len(scoreFunctions)):
+                        score[i] += scoreFunctions[i](np.array(function(tuple(map(tuple, pair[0].tolist())))), pair[1])
+
+                scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
+                totalScores.append((function, sum(score)))
+            except TypeError:
+                pass
+            except StopIteration:
+                pass
 
         scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
         totalScores = sorted(totalScores, key = lambda x: x[1])
 
-        dsl = inspect.getsource(totalScores[0][0])
-        cost = totalScores[0][1]
+        if (len(totalScores)):
+            dsl = inspect.getsource(totalScores[0][0])
+            cost = totalScores[0][1]
 
     print(folder, task, "\n", dsl)
 
     return cost == 0
 
 def test_task3c9b0459(): #Flip left/right and flip up/down
-    processTask("training", "3c9b0459")
+    assert(processTask("training", "3c9b0459"))
 
 def test_task0d3d703e(): #Color mapping
-    processTask("training", "0d3d703e")
+    assert(processTask("training", "0d3d703e"))
 
 def test_taskc909285e():
-    processTask("training", "c909285e")
+    assert(processTask("training", "c909285e"))
 
+def test_task67a3c6ac():
+    assert(processTask("training", "67a3c6ac"))
+
+def test_task68b16354():
+    assert(processTask("training", "68b16354"))
+
+def test_task74dd1130():
+    assert(processTask("training", "74dd1130"))
+
+def test_task6150a2bd():
+    assert(processTask("training", "6150a2bd"))
+
+def test_task9172f3a0():
+    assert(processTask("training", "9172f3a0"))
+
+def test_task9dfd6313():
+    assert(processTask("training", "9dfd6313"))
+
+def test_taska416b8f3():
+    assert(processTask("training", "a416b8f3"))
+
+def test_taskb1948b0a():
+    assert(processTask("training", "b1948b0a"))
+
+def test_taskc59eb873():
+    assert(processTask("training", "c59eb873"))
+
+def test_taskc8f0f002():
+    assert(processTask("training", "c8f0f002"))
+
+def test_taskd10ecb37():
+    assert(processTask("training", "d10ecb37"))
+
+def test_taskd511f180():
+    assert(processTask("training", "d511f180"))
+
+def test_tasked36ccf7():
+    assert(processTask("training", "ed36ccf7"))
+
+def test_task4c4377d9():
+    assert(processTask("training", "4c4377d9"))
+
+def test_task6d0aefbc():
+    assert(processTask("training", "6d0aefbc"))
+
+def test_task6fa7a44f():
+    assert(processTask("training", "6fa7a44f"))
+
+def test_task5614dbcf():
+    assert(processTask("training", "5614dbcf"))
+
+def test_task8be77c9e():
+    assert(processTask("training", "8be77c9e"))
+
+def test_taskc9e6f938():
+    assert(processTask("training", "c9e6f938"))
+
+def test_task5582e5ca():
+    assert(processTask("training", "5582e5ca"))
+
+def test_task2dee498d():
+    assert(processTask("training", "2dee498d"))
+
+def test_task5bd6f4ac():
+    assert(processTask("training", "5bd6f4ac"))
+
+def test_task1cf80156():
+    assert(processTask("training", "1cf80156"))
+
+def test_task32597951():
+    assert(processTask("training", "32597951"))
+
+def test_task25ff71a9():
+    assert(processTask("training", "25ff71a9"))
+
+"""
+def test_task():
+    assert(processTask("training", ""))
+"""

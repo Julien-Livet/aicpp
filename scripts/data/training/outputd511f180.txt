@@ -1,0 +1,27 @@
+def dsl1(I):
+    O = switch(I, FIVE, EIGHT)
+    return O
+
+def dsl2(I):
+    x1 = vmirror(I)
+    x2 = switch(x1, FIVE, EIGHT)
+    O = vmirror(x2)
+    return O
+
+def dsl3(I):
+    x1 = rot180(I)
+    x2 = switch(x1, FIVE, EIGHT)
+    O = rot180(x2)
+    return O
+
+def dsl4(I):
+    x1 = hmirror(I)
+    x2 = switch(x1, FIVE, EIGHT)
+    O = hmirror(x2)
+    return O
+
+def dsl5(I):
+    x1 = dmirror(I)
+    x2 = switch(x1, FIVE, EIGHT)
+    O = dmirror(x2)
+    return O

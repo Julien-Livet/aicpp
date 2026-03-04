@@ -1,0 +1,29 @@
+def dsl1(I):
+    O = replace(I, SIX, TWO)
+    return O
+
+def dsl2(I):
+    x1 = ofcolor(I, SIX)
+    O = fill(I, TWO, x1)
+    return O
+
+def dsl3(I):
+    x1 = ofcolor(I, SIX)
+    x2 = recolor(TWO, x1)
+    O = paint(I, x2)
+    return O
+
+def dsl4(I):
+    x1 = ofcolor(I, SIX)
+    x2 = cover(I, x1)
+    x3 = recolor(TWO, x1)
+    O = paint(x2, x3)
+    return O
+
+def dsl5(I):
+    # Equivalent to replace using a two-step paint over a copy
+    x0 = I
+    x1 = ofcolor(x0, SIX)
+    x2 = recolor(TWO, x1)
+    O = paint(x0, x2)
+    return O

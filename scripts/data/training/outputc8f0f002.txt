@@ -1,0 +1,27 @@
+def dsl1(I):
+    O = replace(I, SEVEN, FIVE)
+    return O
+
+def dsl2(I):
+    x1 = ofcolor(I, SEVEN)
+    O = fill(I, FIVE, x1)
+    return O
+
+def dsl3(I):
+    O = switch(I, SEVEN, FIVE)
+    return O
+
+def dsl4(I):
+    x1 = ofcolor(I, SEVEN)
+    x2 = toobject(x1, I)
+    x3 = recolor(FIVE, x2)
+    O = paint(I, x3)
+    return O
+
+def dsl5(I):
+    x1 = objects(I, T, F, T)
+    x2 = colorfilter(x1, SEVEN)
+    x3 = mapply(lbind(recolor, FIVE), x2)
+    x4 = merge(x3)
+    O = paint(I, x4)
+    return O

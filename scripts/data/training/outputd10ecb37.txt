@@ -1,0 +1,30 @@
+def dsl1(I):
+    O = crop(I, ORIGIN, TWO_BY_TWO)
+    return O
+
+def dsl2(I):
+    dims = astuple(TWO, TWO)
+    O = crop(I, ORIGIN, dims)
+    return O
+
+def dsl3(I):
+    dims = multiply(UNITY, TWO)
+    O = crop(I, ORIGIN, dims)
+    return O
+
+def dsl4(I):
+    s = asindices(canvas(ZERO, TWO_BY_TWO))
+    O = subgrid(s, I)
+    return O
+
+def dsl5(I):
+    p00 = astuple(ZERO, ZERO)
+    p01 = astuple(ZERO, ONE)
+    p10 = astuple(ONE, ZERO)
+    p11 = astuple(ONE, ONE)
+    s = initset(p00)
+    s = insert(p01, s)
+    s = insert(p10, s)
+    s = insert(p11, s)
+    O = subgrid(s, I)
+    return O

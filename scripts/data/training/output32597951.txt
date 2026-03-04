@@ -1,0 +1,31 @@
+def dsl1(I):
+    x8 = ofcolor(I, EIGHT)
+    bb = backdrop(x8)
+    ones = ofcolor(I, ONE)
+    tgt = intersection(bb, ones)
+    O = fill(I, THREE, tgt)
+    return O
+
+def dsl2(I):
+    x8 = ofcolor(I, EIGHT)
+    bbnot8 = delta(x8)
+    ones = ofcolor(I, ONE)
+    tgt = intersection(bbnot8, ones)
+    O = fill(I, THREE, tgt)
+    return O
+
+def dsl3(I):
+    x8 = ofcolor(I, EIGHT)
+    bb = backdrop(x8)
+    bbnot8 = difference(bb, x8)
+    ones = ofcolor(I, ONE)
+    tgt = intersection(bbnot8, ones)
+    O = fill(I, THREE, tgt)
+    return O
+
+def dsl4(I):
+    x8 = ofcolor(I, EIGHT)
+    bb = backdrop(x8)
+    tgt = intersection(bb, ofcolor(I, ONE))
+    O = fill(I, THREE, tgt)
+    return O
