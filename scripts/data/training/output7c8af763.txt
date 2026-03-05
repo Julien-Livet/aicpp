@@ -1,0 +1,60 @@
+def dsl1(I):
+    G = I
+    for _ in range(20):
+        p1 = ofcolor(G, ONE)
+        p2 = ofcolor(G, TWO)
+        for d in (UP, DOWN, LEFT, RIGHT):
+            G = underpaint(G, recolor(ONE, shift(p1, d)))
+            G = underpaint(G, recolor(TWO, shift(p2, d)))
+    return G
+
+def dsl2(I):
+    G = I
+    for _ in range(14):
+        p1 = ofcolor(G, ONE)
+        for d in (UP, DOWN, LEFT, RIGHT):
+            G = underpaint(G, recolor(ONE, shift(p1, d)))
+        p2 = ofcolor(G, TWO)
+        for d in (UP, DOWN, LEFT, RIGHT):
+            G = underpaint(G, recolor(TWO, shift(p2, d)))
+    return G
+
+def dsl3(I):
+    G = I
+    steps = height(I) + width(I)
+    for _ in range(steps):
+        p2 = ofcolor(G, TWO)
+        for d in (UP, DOWN, LEFT, RIGHT):
+            G = underpaint(G, recolor(TWO, shift(p2, d)))
+        p1 = ofcolor(G, ONE)
+        for d in (UP, DOWN, LEFT, RIGHT):
+            G = underpaint(G, recolor(ONE, shift(p1, d)))
+    return G
+
+def dsl4(I):
+    G = I
+    for _ in range(24):
+        p1 = ofcolor(G, ONE)
+        p2 = ofcolor(G, TWO)
+        G = underpaint(G, recolor(ONE, shift(p1, UP)))
+        G = underpaint(G, recolor(ONE, shift(p1, DOWN)))
+        G = underpaint(G, recolor(TWO, shift(p2, UP)))
+        G = underpaint(G, recolor(TWO, shift(p2, DOWN)))
+        p1 = ofcolor(G, ONE)
+        p2 = ofcolor(G, TWO)
+        G = underpaint(G, recolor(ONE, shift(p1, LEFT)))
+        G = underpaint(G, recolor(ONE, shift(p1, RIGHT)))
+        G = underpaint(G, recolor(TWO, shift(p2, LEFT)))
+        G = underpaint(G, recolor(TWO, shift(p2, RIGHT)))
+    return G
+
+def dsl5(I):
+    G = I
+    for _ in range(16):
+        for d in (UP, LEFT, DOWN, RIGHT):
+            p1 = ofcolor(G, ONE)
+            G = underpaint(G, recolor(ONE, shift(p1, d)))
+        for d in (LEFT, UP, RIGHT, DOWN):
+            p2 = ofcolor(G, TWO)
+            G = underpaint(G, recolor(TWO, shift(p2, d)))
+    return G

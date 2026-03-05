@@ -1,0 +1,67 @@
+def dsl1(I):
+    five = ofcolor(I, FIVE)
+    above_all = mapply(rbind(shoot, UP), five)
+    below_all = mapply(rbind(shoot, DOWN), five)
+    above = difference(above_all, five)
+    below = difference(below_all, five)
+    ones = ofcolor(I, ONE)
+    twos = ofcolor(I, TWO)
+    ones_above = intersection(ones, above)
+    ones_below = intersection(ones, below)
+    twos_above = intersection(twos, above)
+    twos_below = intersection(twos, below)
+    ones_up = mapply(rbind(shoot, UP), ones_above)
+    ones_down = mapply(rbind(shoot, DOWN), ones_below)
+    twos_down = mapply(rbind(shoot, DOWN), twos_above)
+    twos_up = mapply(rbind(shoot, UP), twos_below)
+    ones_up = intersection(ones_up, above)
+    ones_down = intersection(ones_down, below)
+    twos_down = intersection(twos_down, above)
+    twos_up = intersection(twos_up, below)
+    ones_lines = combine(ones_up, ones_down)
+    twos_lines = combine(twos_down, twos_up)
+    obj1 = recolor(ONE, ones_lines)
+    obj2 = recolor(TWO, twos_lines)
+    O = paint(I, obj1)
+    O = paint(O, obj2)
+    return O
+
+def dsl2(I):
+    five = ofcolor(I, FIVE)
+    above_all = mapply(rbind(shoot, UP), five)
+    below_all = mapply(rbind(shoot, DOWN), five)
+    above = difference(above_all, five)
+    below = difference(below_all, five)
+    ones = ofcolor(I, ONE)
+    twos = ofcolor(I, TWO)
+    ones_above = intersection(ones, above)
+    ones_below = intersection(ones, below)
+    twos_above = intersection(twos, above)
+    twos_below = intersection(twos, below)
+    ones_up = intersection(mapply(rbind(shoot, UP), ones_above), above)
+    ones_down = intersection(mapply(rbind(shoot, DOWN), ones_below), below)
+    twos_down = intersection(mapply(rbind(shoot, DOWN), twos_above), above)
+    twos_up = intersection(mapply(rbind(shoot, UP), twos_below), below)
+    obj2 = recolor(TWO, combine(twos_down, twos_up))
+    obj1 = recolor(ONE, combine(ones_up, ones_down))
+    O = underpaint(I, obj2)
+    O = underpaint(O, obj1)
+    return O
+
+def dsl3(I):
+    five = ofcolor(I, FIVE)
+    above = difference(mapply(rbind(shoot, UP), five), five)
+    below = difference(mapply(rbind(shoot, DOWN), five), five)
+    ones = ofcolor(I, ONE)
+    twos = ofcolor(I, TWO)
+    lines1 = combine(
+        intersection(mapply(rbind(shoot, UP), intersection(ones, above)), above),
+        intersection(mapply(rbind(shoot, DOWN), intersection(ones, below)), below)
+    )
+    lines2 = combine(
+        intersection(mapply(rbind(shoot, DOWN), intersection(twos, above)), above),
+        intersection(mapply(rbind(shoot, UP), intersection(twos, below)), below)
+    )
+    O = paint(I, recolor(ONE, lines1))
+    O = paint(O, recolor(TWO, lines2))
+    return O

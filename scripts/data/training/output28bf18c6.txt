@@ -1,0 +1,25 @@
+def dsl1(I):
+    x1 = trim(I)
+    O = hconcat(x1, x1)
+    return O
+
+def dsl2(I):
+    c = leastcolor(I)
+    p = ofcolor(I, c)
+    g = subgrid(p, I)
+    O = hconcat(g, g)
+    return O
+
+def dsl3(I):
+    x1 = fgpartition(I)
+    x2 = first(x1)
+    g = subgrid(x2, I)
+    O = hconcat(g, g)
+    return O
+
+def dsl4(I):
+    x1 = objects(I, T, T, T)
+    x2 = first(x1)
+    g = subgrid(x2, I)
+    O = hconcat(g, g)
+    return O

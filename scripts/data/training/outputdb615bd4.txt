@@ -1,0 +1,21 @@
+def dsl1(I):
+    O = hmirror(I)
+    return O
+
+def dsl2(I):
+    O = vmirror(I)
+    return O
+
+def dsl3(I):
+    O = rot180(I)
+    return O
+
+def dsl4(I):
+    O = switch(I, EIGHT, FOUR)
+    return O
+
+def dsl5(I):
+    x1 = replace(I, ONE, TWO)
+    x2 = replace(x1, THREE, NINE)
+    O = x2
+    return O

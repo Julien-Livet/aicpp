@@ -1,0 +1,42 @@
+def dsl1(I):
+    x4 = ofcolor(I, FOUR)
+    r = uppermost(x4)
+    h = height(I)
+    w = width(I)
+    t = crop(I, astuple(0, 0), astuple(r, w))
+    b = crop(I, astuple(add(r, ONE), 0), astuple(subtract(h, add(r, ONE)), w))
+    a = ofcolor(t, ONE)
+    c = ofcolor(b, TWO)
+    x = combine(difference(a, c), difference(c, a))
+    O = fill(canvas(ZERO, shape(t)), THREE, x)
+    return O
+
+def dsl2(I):
+    h = height(I)
+    w = width(I)
+    ht = halve(h)
+    hb = subtract(h, add(ht, ONE))
+    t = crop(I, astuple(0, 0), astuple(ht, w))
+    b = crop(I, astuple(increment(ht), 0), astuple(hb, w))
+    a = ofcolor(t, ONE)
+    c = ofcolor(b, TWO)
+    x = combine(difference(a, c), difference(c, a))
+    O = fill(canvas(ZERO, shape(t)), THREE, x)
+    return O
+
+def dsl3(I):
+    sep = ofcolor(I, FOUR)
+    top_h = uppermost(sep)
+    w = width(I)
+    H = height(I)
+    top = crop(I, astuple(0, 0), astuple(top_h, w))
+    bot_start = add(top_h, ONE)
+    bot_h = subtract(H, bot_start)
+    bot = crop(I, astuple(bot_start, 0), astuple(bot_h, w))
+    top_idx = ofcolor(top, ONE)
+    bot_idx = ofcolor(bot, TWO)
+    only_top = difference(top_idx, bot_idx)
+    only_bot = difference(bot_idx, top_idx)
+    xor_idx = combine(only_top, only_bot)
+    O = fill(canvas(ZERO, shape(top)), THREE, xor_idx)
+    return O

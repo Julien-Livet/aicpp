@@ -1,0 +1,64 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    tobj = first(colorfilter(objs, TWO))
+    fobj = first(colorfilter(objs, FIVE))
+    d = gravitate(tobj, fobj)
+    O = move(I, tobj, d)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    tobj = first(colorfilter(objs, TWO))
+    fobj = first(colorfilter(objs, FIVE))
+    d = gravitate(tobj, fobj)
+    g1 = move(I, tobj, d)
+    isvert = either(equality(d, toivec(TWO)), equality(d, toivec(NEG_TWO)))
+    mir = branch(isvert, hmirror(tobj), vmirror(tobj))
+    mpatch = normalize(toindices(mir))
+    mobj = recolor(FIVE, mpatch)
+    g2 = cover(g1, fobj)
+    d2 = gravitate(mobj, fobj)
+    O = move(g2, mobj, d2)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    tobj = first(colorfilter(objs, TWO))
+    fobj = first(colorfilter(objs, FIVE))
+    d = gravitate(tobj, fobj)
+    g0 = cover(I, tobj)
+    g1 = move(g0, tobj, d)
+    isvert = either(equality(d, toivec(TWO)), equality(d, toivec(NEG_TWO)))
+    mir = branch(isvert, hmirror(tobj), vmirror(tobj))
+    mpatch = normalize(toindices(mir))
+    mobj = recolor(FIVE, mpatch)
+    d3 = gravitate(mobj, shift(toindices(tobj), d))
+    g2 = cover(g1, fobj)
+    O = move(g2, mobj, d3)
+    return O
+
+def dsl4(I):
+    objs = objects(I, T, F, T)
+    tobj = first(colorfilter(objs, TWO))
+    fobj = first(colorfilter(objs, FIVE))
+    d = gravitate(tobj, fobj)
+    g1 = move(I, tobj, d)
+    mir = vmirror(tobj)
+    mobj = recolor(FIVE, normalize(toindices(mir)))
+    g2 = cover(g1, fobj)
+    d2 = gravitate(mobj, fobj)
+    O = move(g2, mobj, d2)
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    tobj = first(colorfilter(objs, TWO))
+    fobj = first(colorfilter(objs, FIVE))
+    d = gravitate(tobj, fobj)
+    g1 = move(I, tobj, d)
+    mir = hmirror(tobj)
+    mobj = recolor(FIVE, normalize(toindices(mir)))
+    g2 = cover(g1, fobj)
+    d2 = gravitate(mobj, fobj)
+    O = move(g2, mobj, d2)
+    return O

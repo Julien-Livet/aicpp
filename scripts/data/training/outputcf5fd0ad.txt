@@ -1,0 +1,46 @@
+def dsl1(I):
+    a = rot180(I)
+    b = rot90(I)
+    c = rot270(I)
+    row_top = hconcat(a, b)
+    row_bot = hconcat(c, I)
+    block = vconcat(row_top, row_bot)
+    O = vconcat(hconcat(block, block), hconcat(block, block))
+    return O
+
+def dsl2(I):
+    a = rot180(I)
+    b = rot90(I)
+    c = rot270(I)
+    top = hconcat(hconcat(a, a), hconcat(b, b))
+    bottom = hconcat(hconcat(c, c), hconcat(I, I))
+    O = vconcat(vconcat(top, top), vconcat(bottom, bottom))
+    return O
+
+def dsl3(I):
+    r90 = rot90(I)
+    r180 = rot90(r90)
+    r270 = rot90(r180)
+    base = vconcat(hconcat(r180, r90), hconcat(r270, I))
+    O = vconcat(hconcat(base, base), hconcat(base, base))
+    return O
+
+def dsl4(I):
+    tl = rot180(I)
+    tr = rot90(I)
+    bl = rot270(I)
+    br = I
+    quad = vconcat(hconcat(tl, tr), hconcat(bl, br))
+    O = hconcat(vconcat(quad, quad), vconcat(quad, quad))
+    return O
+
+def dsl5(I):
+    a = rot180(I)
+    b = rot90(I)
+    c = rot180(b)  # rot270(I)
+    q1 = hconcat(a, b)
+    q2 = hconcat(c, I)
+    half = vconcat(q1, q2)
+    O = vconcat(half, half)
+    O = hconcat(O, O)
+    return O

@@ -1,0 +1,75 @@
+def dsl1(I):
+    T = tophalf(I)
+    B = bottomhalf(I)
+    TL = lefthalf(T)
+    TR = righthalf(T)
+    BL = lefthalf(B)
+    BR = righthalf(B)
+    TL2 = replace(TL, FIVE, TWO)
+    TR1 = replace(TR, FIVE, ONE)
+    BL1 = replace(BL, FIVE, ONE)
+    BR2 = replace(BR, FIVE, TWO)
+    TOP = hconcat(TL2, TR1)
+    BOT = hconcat(BL1, BR2)
+    base = vconcat(TOP, BOT)
+    last = righthalf(righthalf(righthalf(righthalf(I))))
+    last1 = replace(last, FIVE, ONE)
+    O = paint(base, asobject(last1))
+    return O
+
+def dsl2(I):
+    L = lefthalf(I)
+    R = righthalf(I)
+    L1 = replace(L, FIVE, ONE)
+    R2 = replace(R, FIVE, TWO)
+    base = hconcat(L1, R2)
+    T = tophalf(base)
+    B = bottomhalf(base)
+    Tsw = switch(T, ONE, TWO)
+    tmp = vconcat(Tsw, B)
+    last = righthalf(righthalf(righthalf(righthalf(I))))
+    last1 = replace(last, FIVE, ONE)
+    O = paint(tmp, asobject(last1))
+    return O
+
+def dsl3(I):
+    R = rot90(I)
+    RL = lefthalf(R)
+    RR = righthalf(R)
+    RL1 = replace(RL, FIVE, ONE)
+    RR2 = replace(RR, FIVE, TWO)
+    Rmix = hconcat(RL1, RR2)
+    base = rot270(Rmix)
+    last = righthalf(righthalf(righthalf(righthalf(I))))
+    last1 = replace(last, FIVE, ONE)
+    O = paint(base, asobject(last1))
+    return O
+
+def dsl4(I):
+    L = lefthalf(I)
+    R = righthalf(I)
+    RL = lefthalf(R)
+    RR = righthalf(R)
+    L1 = replace(L, FIVE, ONE)
+    RL2 = replace(RL, FIVE, TWO)
+    RR1 = replace(RR, FIVE, ONE)
+    O = hconcat(L1, hconcat(RL2, RR1))
+    return O
+
+def dsl5(I):
+    L = lefthalf(I)
+    R = righthalf(I)
+    RL = lefthalf(R)
+    RR = righthalf(R)
+    L1 = replace(L, FIVE, ONE)
+    RL2 = replace(RL, FIVE, TWO)
+    RR1 = replace(RR, FIVE, ONE)
+    bands = hconcat(L1, hconcat(RL2, RR1))
+    T = tophalf(bands)
+    B = bottomhalf(bands)
+    Tsw = switch(T, ONE, TWO)
+    tmp = vconcat(Tsw, B)
+    last = righthalf(righthalf(righthalf(righthalf(I))))
+    last1 = replace(last, FIVE, ONE)
+    O = paint(tmp, asobject(last1))
+    return O

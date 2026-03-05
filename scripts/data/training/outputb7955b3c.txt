@@ -1,0 +1,25 @@
+def dsl1(I):
+    O = compress(I)
+    return O
+
+def dsl2(I):
+    x1 = frontiers(I)
+    x2 = merge(x1)
+    O = cover(I, x2)
+    return O
+
+def dsl3(I):
+    x1 = mostcolor(I)
+    O = replace(I, EIGHT, x1)
+    return O
+
+def dsl4(I):
+    x1 = palette(I)
+    x2 = minimum(x1)
+    O = replace(I, EIGHT, x2)
+    return O
+
+def dsl5(I):
+    x1 = leastcolor(I)
+    O = replace(I, EIGHT, x1)
+    return O

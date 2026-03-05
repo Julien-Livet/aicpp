@@ -1,0 +1,77 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    zeros = colorfilter(objs, ZERO)
+    sel = argmax(zeros, height)
+    zinds = toindices(sel)
+    coreL = intersection(zinds, shift(zinds, LEFT))
+    coreR = intersection(zinds, shift(zinds, RIGHT))
+    core = combine(coreL, coreR)
+    J = cover(I, sel)
+    J = paint(J, recolor(ZERO, core))
+    mid = halve(width(I))
+    lbord = intersection(core, vfrontier(ulcorner(sel)))
+    rbord = intersection(core, vfrontier(urcorner(sel)))
+    side = branch(greater(mid, rightmost(sel)), rbord, lbord)
+    O = fill(J, SIX, side)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    zeros = colorfilter(objs, ZERO)
+    sel = argmax(zeros, height)
+    zinds = toindices(sel)
+    core = combine(intersection(zinds, shift(zinds, LEFT)), intersection(zinds, shift(zinds, RIGHT)))
+    J = cover(I, sel)
+    J = paint(J, recolor(ZERO, core))
+    mid = halve(width(I))
+    lbord = intersection(core, vfrontier(ulcorner(core)))
+    rbord = intersection(core, vfrontier(urcorner(core)))
+    side = branch(greater(mid, rightmost(sel)), rbord, lbord)
+    O = fill(J, SIX, side)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    zeros = colorfilter(objs, ZERO)
+    sel = argmax(zeros, height)
+    zinds = toindices(sel)
+    core = combine(intersection(zinds, shift(zinds, LEFT)), intersection(zinds, shift(zinds, RIGHT)))
+    trim = difference(zinds, core)
+    K = fill(I, SEVEN, trim)
+    mid = halve(width(I))
+    lbord = intersection(core, vfrontier(ulcorner(sel)))
+    rbord = intersection(core, vfrontier(urcorner(sel)))
+    side = branch(greater(mid, rightmost(sel)), rbord, lbord)
+    O = fill(K, SIX, side)
+    return O
+
+def dsl4(I):
+    objs = objects(I, T, F, T)
+    zeros = colorfilter(objs, ZERO)
+    sel = argmax(zeros, height)
+    zinds = toindices(sel)
+    core = combine(intersection(zinds, shift(zinds, LEFT)), intersection(zinds, shift(zinds, RIGHT)))
+    J = cover(I, sel)
+    J = paint(J, recolor(ZERO, core))
+    mid = halve(width(I))
+    lbord = intersection(core, vfrontier(ulcorner(core)))
+    rbord = intersection(core, vfrontier(urcorner(core)))
+    side = branch(greater(leftmost(sel), mid), lbord, rbord)
+    O = fill(J, SIX, side)
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    zeros = colorfilter(objs, ZERO)
+    sel = argmax(zeros, height)
+    zinds = toindices(sel)
+    coreL = intersection(zinds, shift(zinds, LEFT))
+    coreR = intersection(zinds, shift(zinds, RIGHT))
+    core = combine(coreL, coreR)
+    J = cover(I, sel)
+    J = underpaint(J, recolor(ZERO, core))
+    lbord = intersection(core, vfrontier(ulcorner(core)))
+    rbord = intersection(core, vfrontier(urcorner(core)))
+    side = branch(greater(halve(width(I)), rightmost(sel)), rbord, lbord)
+    O = fill(J, SIX, side)
+    return O

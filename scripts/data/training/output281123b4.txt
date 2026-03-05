@@ -1,0 +1,70 @@
+def dsl1(I):
+    x0 = replace(I, THREE, ZERO)
+    h = FOUR
+    w1 = ONE
+    dims = astuple(h, w1)
+    c0 = ZERO
+    c1 = ONE
+    c2 = TWO
+    c3 = THREE
+    s5 = FIVE
+    s6 = add(FIVE, ONE)
+    s7 = add(FIVE, TWO)
+    s8 = add(FIVE, THREE)
+    s10 = TEN
+    s11 = add(TEN, ONE)
+    s12 = add(TEN, TWO)
+    s13 = add(TEN, THREE)
+    s15 = add(TEN, FIVE)
+    s16 = add(s15, ONE)
+    s17 = add(s15, TWO)
+    s18 = add(s15, THREE)
+
+    # build col0 (p=0): priority order 10,15,0,5
+    a0 = crop(x0, astuple(ZERO, s10), dims)
+    a1 = crop(x0, astuple(ZERO, s15), dims)
+    a2 = crop(x0, astuple(ZERO, c0), dims)
+    a3 = crop(x0, astuple(ZERO, s5), dims)
+    z0 = canvas(ZERO, dims)
+    y0 = underpaint(z0, asobject(a0))
+    y0 = underpaint(y0, asobject(a1))
+    y0 = underpaint(y0, asobject(a2))
+    col0 = underpaint(y0, asobject(a3))
+
+    # build col1 (p=1): priority order 11,16,1,6
+    b0 = crop(x0, astuple(ZERO, s11), dims)
+    b1 = crop(x0, astuple(ZERO, s16), dims)
+    b2 = crop(x0, astuple(ZERO, c1), dims)
+    b3 = crop(x0, astuple(ZERO, s6), dims)
+    z1 = canvas(ZERO, dims)
+    y1 = underpaint(z1, asobject(b0))
+    y1 = underpaint(y1, asobject(b1))
+    y1 = underpaint(y1, asobject(b2))
+    col1 = underpaint(y1, asobject(b3))
+
+    # build col2 (p=2): priority order 12,17,2,7
+    d0 = crop(x0, astuple(ZERO, s12), dims)
+    d1 = crop(x0, astuple(ZERO, s17), dims)
+    d2 = crop(x0, astuple(ZERO, c2), dims)
+    d3 = crop(x0, astuple(ZERO, s7), dims)
+    z2 = canvas(ZERO, dims)
+    y2 = underpaint(z2, asobject(d0))
+    y2 = underpaint(y2, asobject(d1))
+    y2 = underpaint(y2, asobject(d2))
+    col2 = underpaint(y2, asobject(d3))
+
+    # build col3 (p=3): priority order 13,18,3,8
+    e0 = crop(x0, astuple(ZERO, s13), dims)
+    e1 = crop(x0, astuple(ZERO, s18), dims)
+    e2 = crop(x0, astuple(ZERO, c3), dims)
+    e3 = crop(x0, astuple(ZERO, s8), dims)
+    z3 = canvas(ZERO, dims)
+    y3 = underpaint(z3, asobject(e0))
+    y3 = underpaint(y3, asobject(e1))
+    y3 = underpaint(y3, asobject(e2))
+    col3 = underpaint(y3, asobject(e3))
+
+    O1 = hconcat(col0, col1)
+    O2 = hconcat(col2, col3)
+    O = hconcat(O1, O2)
+    return O

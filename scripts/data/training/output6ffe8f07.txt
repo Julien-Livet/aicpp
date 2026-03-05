@@ -1,0 +1,55 @@
+def dsl1(I):
+    idx8 = ofcolor(I, EIGHT)
+    H = merge(apply(hfrontier, idx8))
+    V = merge(apply(vfrontier, idx8))
+    P = combine(H, V)
+    forbid = combine(ofcolor(I, ONE), idx8)
+    P2 = difference(P, forbid)
+    obj = recolor(FOUR, toobject(P2, I))
+    O = paint(I, obj)
+    return O
+
+def dsl2(I):
+    idx8 = ofcolor(I, EIGHT)
+    dirs = insert(DOWN, insert(UP, insert(RIGHT, initset(LEFT))))
+    rays = prapply(shoot, idx8, dirs)
+    P = merge(rays)
+    P = combine(P, idx8)
+    forbid = combine(ofcolor(I, ONE), idx8)
+    P2 = difference(P, forbid)
+    obj = recolor(FOUR, toobject(P2, I))
+    O = paint(I, obj)
+    return O
+
+def dsl3(I):
+    idx8 = ofcolor(I, EIGHT)
+    H = merge(apply(hfrontier, idx8))
+    forbid = combine(ofcolor(I, ONE), idx8)
+    P2 = difference(H, forbid)
+    obj = recolor(FOUR, toobject(P2, I))
+    O = paint(I, obj)
+    return O
+
+def dsl4(I):
+    idx8 = ofcolor(I, EIGHT)
+    V = merge(apply(vfrontier, idx8))
+    forbid = combine(ofcolor(I, ONE), idx8)
+    P2 = difference(V, forbid)
+    obj = recolor(FOUR, toobject(P2, I))
+    O = paint(I, obj)
+    return O
+
+def dsl5(I):
+    idx8 = ofcolor(I, EIGHT)
+    H = merge(apply(hfrontier, idx8))
+    V = merge(apply(vfrontier, idx8))
+    P = combine(H, V)
+    zeros = ofcolor(I, ZERO)
+    twos = ofcolor(I, TWO)
+    Pz = intersection(P, zeros)
+    Pt = intersection(P, twos)
+    objZ = recolor(FOUR, toobject(Pz, I))
+    objT = recolor(FOUR, toobject(Pt, I))
+    G = paint(I, objT)
+    O = underpaint(G, objZ)
+    return O

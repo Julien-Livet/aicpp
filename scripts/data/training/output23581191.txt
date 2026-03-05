@@ -1,0 +1,74 @@
+def dsl1(I):
+    p8 = first(totuple(ofcolor(I, EIGHT)))
+    p7 = first(totuple(ofcolor(I, SEVEN)))
+    r8 = hfrontier(p8)
+    c8 = vfrontier(p8)
+    cross8 = combine(r8, c8)
+    r7 = hfrontier(p7)
+    c7 = vfrontier(p7)
+    cross7 = combine(r7, c7)
+    ov = intersection(cross8, cross7)
+    base = canvas(ZERO, shape(I))
+    o8 = recolor(EIGHT, cross8)
+    o7 = recolor(SEVEN, cross7)
+    O1 = paint(base, o8)
+    O2 = paint(O1, o7)
+    O = fill(O2, TWO, ov)
+    return O
+
+def dsl2(I):
+    p8 = first(totuple(ofcolor(I, EIGHT)))
+    p7 = first(totuple(ofcolor(I, SEVEN)))
+    cross8 = combine(hfrontier(p8), vfrontier(p8))
+    cross7 = combine(hfrontier(p7), vfrontier(p7))
+    ov = intersection(cross8, cross7)
+    O0 = canvas(ZERO, shape(I))
+    O1 = fill(O0, SEVEN, cross7)
+    O2 = fill(O1, EIGHT, cross8)
+    O = fill(O2, TWO, ov)
+    return O
+
+def dsl3(I):
+    p8 = first(totuple(ofcolor(I, EIGHT)))
+    p7 = first(totuple(ofcolor(I, SEVEN)))
+    row8 = combine(shoot(p8, LEFT), shoot(p8, RIGHT))
+    col8 = combine(shoot(p8, UP), shoot(p8, DOWN))
+    cross8 = combine(row8, col8)
+    row7 = combine(shoot(p7, LEFT), shoot(p7, RIGHT))
+    col7 = combine(shoot(p7, UP), shoot(p7, DOWN))
+    cross7 = combine(row7, col7)
+    ov = intersection(cross8, cross7)
+    base = canvas(ZERO, shape(I))
+    o8 = recolor(EIGHT, cross8)
+    o7 = recolor(SEVEN, cross7)
+    O1 = paint(base, o8)
+    O2 = paint(O1, o7)
+    O = fill(O2, TWO, ov)
+    return O
+
+def dsl4(I):
+    p8 = first(totuple(ofcolor(I, EIGHT)))
+    p7 = first(totuple(ofcolor(I, SEVEN)))
+    cross8 = combine(hfrontier(p8), vfrontier(p8))
+    cross7 = combine(hfrontier(p7), vfrontier(p7))
+    ov = intersection(cross8, cross7)
+    base = canvas(ZERO, shape(I))
+    O1 = fill(base, EIGHT, cross8)
+    O2 = fill(O1, SEVEN, cross7)
+    O = fill(O2, TWO, ov)
+    return O
+
+def dsl5(I):
+    p8 = first(totuple(ofcolor(I, EIGHT)))
+    p7 = first(totuple(ofcolor(I, SEVEN)))
+    cross8 = combine(hfrontier(p8), vfrontier(p8))
+    cross7 = combine(hfrontier(p7), vfrontier(p7))
+    ov = intersection(cross8, cross7)
+    base = canvas(ZERO, shape(I))
+    o8 = recolor(EIGHT, cross8)
+    o7 = recolor(SEVEN, cross7)
+    o2 = recolor(TWO, ov)
+    O1 = paint(base, o8)
+    O2 = paint(O1, o7)
+    O = paint(O2, o2)
+    return O

@@ -1,0 +1,60 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    W = width(I)
+    def patt(o):
+        j0 = rightmost(o)
+        maxoff = subtract(subtract(W, ONE), j0)
+        base = toindices(o)
+        evn_offs = interval(ZERO, add(maxoff, ONE), TWO)
+        evn_vecs = apply(tojvec, evn_offs)
+        evn_patch = mapply(lbind(shift, base), evn_vecs)
+        evn_obj = recolor(color(o), evn_patch)
+        odd_offs = interval(ONE, add(maxoff, ONE), TWO)
+        odd_vecs = apply(tojvec, odd_offs)
+        odd_patch = mapply(lbind(shift, base), odd_vecs)
+        odd_obj = recolor(FIVE, odd_patch)
+        return combine(evn_obj, odd_obj)
+    obj = mapply(patt, objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    W = width(I)
+    def patt(o):
+        start = ulcorner(o)
+        line = shoot(start, RIGHT)
+        j0 = rightmost(o)
+        maxoff = subtract(subtract(W, ONE), j0)
+        base = toindices(o)
+        evn_offs = interval(ZERO, add(maxoff, ONE), TWO)
+        evn_vecs = apply(tojvec, evn_offs)
+        evn_patch = mapply(lbind(shift, base), evn_vecs)
+        odd_patch = difference(line, evn_patch)
+        evn_obj = recolor(color(o), evn_patch)
+        odd_obj = recolor(FIVE, odd_patch)
+        return combine(evn_obj, odd_obj)
+    obj = mapply(patt, objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    W = width(I)
+    def patt(o):
+        r = uppermost(o)
+        c = rightmost(o)
+        endpt = astuple(r, subtract(W, ONE))
+        line = connect(astuple(r, c), endpt)
+        base = toindices(o)
+        maxoff = subtract(subtract(W, ONE), c)
+        evn_offs = interval(ZERO, add(maxoff, ONE), TWO)
+        evn_vecs = apply(tojvec, evn_offs)
+        evn_patch = mapply(lbind(shift, base), evn_vecs)
+        odd_patch = difference(line, evn_patch)
+        evn_obj = recolor(color(o), evn_patch)
+        odd_obj = recolor(FIVE, odd_patch)
+        return combine(evn_obj, odd_obj)
+    obj = mapply(patt, objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O

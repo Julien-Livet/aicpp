@@ -1,0 +1,37 @@
+def dsl1(I):
+    x1 = replace(I, mostcolor(I), ZERO)
+    x2 = downscale(x1, THREE)
+    O = downscale(x2, THREE)
+    return O
+
+def dsl2(I):
+    x1 = replace(I, mostcolor(I), ZERO)
+    x2 = trim(x1)
+    x3 = downscale(x2, THREE)
+    x4 = downscale(x3, THREE)
+    O = rot90(x4)
+    return O
+
+def dsl3(I):
+    x1 = replace(I, mostcolor(I), ZERO)
+    x2 = trim(x1)
+    x3 = downscale(x2, THREE)
+    x4 = downscale(x3, THREE)
+    O = rot180(x4)
+    return O
+
+def dsl4(I):
+    x1 = replace(I, mostcolor(I), ZERO)
+    x2 = trim(x1)
+    x3 = downscale(x2, THREE)
+    x4 = downscale(x3, THREE)
+    O = rot270(x4)
+    return O
+
+def dsl5(I):
+    x1 = replace(I, mostcolor(I), ZERO)
+    x2 = trim(x1)
+    x3 = downscale(x2, THREE)
+    x4 = downscale(x3, THREE)
+    O = vmirror(x4)
+    return O

@@ -1,0 +1,53 @@
+def dsl1(I):
+    x1 = ofcolor(I, EIGHT)
+    x2 = apply(rbind(add, RIGHT), x1)
+    x3 = mapply(rbind(shoot, RIGHT), x2)
+    O = underfill(I, ONE, x3)
+    return O
+
+def dsl2(I):
+    x1 = objects(I, T, F, T)
+    x2 = sizefilter(x1, ONE)
+    x3 = apply(ulcorner, x2)
+    x4 = apply(rbind(add, DOWN), x3)
+    x5 = apply(rbind(add, RIGHT), x4)
+    x6 = mapply(rbind(shoot, RIGHT), x5)
+    O = underfill(I, ONE, x6)
+    return O
+
+def dsl3(I):
+    x1 = objects(I, T, F, T)
+    x2 = sfilter(x1, hline)
+    x3 = sizefilter(x2, ONE)
+    x4 = difference(x2, x3)
+    x5 = apply(urcorner, x4)
+    x6 = apply(rbind(add, RIGHT), x5)
+    x7 = mapply(rbind(shoot, RIGHT), x6)
+    O = underfill(I, ONE, x7)
+    return O
+
+def dsl4(I):
+    x1 = objects(I, T, F, T)
+    x2 = sfilter(x1, hline)
+    x3 = sizefilter(x2, ONE)
+    x4 = difference(x2, x3)
+    x5 = apply(urcorner, x4)
+    x6 = apply(rbind(add, RIGHT), x5)
+    x7 = mapply(rbind(shoot, RIGHT), x6)
+    y1 = apply(ulcorner, x3)
+    y2 = apply(rbind(add, DOWN), y1)
+    y3 = apply(rbind(add, RIGHT), y2)
+    y4 = mapply(rbind(shoot, RIGHT), y3)
+    z = combine(x7, y4)
+    O = underfill(I, ONE, z)
+    return O
+
+def dsl5(I):
+    x1 = ofcolor(I, EIGHT)
+    x2 = apply(rbind(add, RIGHT), x1)
+    x3 = mapply(rbind(shoot, RIGHT), x2)
+    x4 = ofcolor(I, EIGHT)
+    x5 = toobject(x4, I)
+    x6 = cover(I, x5)
+    O = underfill(x6, ONE, x3)
+    return O

@@ -1,0 +1,52 @@
+def dsl1(I):
+    rpatch = ofcolor(I, TWO)
+    cpatch = ofcolor(I, EIGHT)
+    r = uppermost(rpatch)
+    c = leftmost(cpatch)
+    w = width(I)
+    h = height(I)
+    p1 = astuple(r, ZERO)
+    p2 = astuple(r, subtract(w, ONE))
+    rowline = connect(p1, p2)
+    q1 = astuple(ZERO, c)
+    q2 = astuple(subtract(h, ONE), c)
+    colline = connect(q1, q2)
+    O = paint(I, recolor(TWO, rowline))
+    O = paint(O, recolor(EIGHT, colline))
+    inter = connect(astuple(r, c), astuple(r, c))
+    O = fill(O, FOUR, inter)
+    return O
+
+def dsl2(I):
+    r = uppermost(ofcolor(I, TWO))
+    c = leftmost(ofcolor(I, EIGHT))
+    w = width(I)
+    h = height(I)
+    rowline = connect(astuple(r, ZERO), astuple(r, subtract(w, ONE)))
+    colline = connect(astuple(ZERO, c), astuple(subtract(h, ONE), c))
+    O = paint(I, recolor(EIGHT, colline))
+    O = paint(O, recolor(TWO, rowline))
+    O = fill(O, FOUR, connect(astuple(r, c), astuple(r, c)))
+    return O
+
+def dsl3(I):
+    r = lowermost(ofcolor(I, TWO))
+    c = rightmost(ofcolor(I, EIGHT))
+    w = width(I)
+    h = height(I)
+    rowline = connect(astuple(r, ZERO), astuple(r, subtract(w, ONE)))
+    colline = connect(astuple(ZERO, c), astuple(subtract(h, ONE), c))
+    O = paint(I, recolor(TWO, rowline))
+    O = paint(O, recolor(EIGHT, colline))
+    O = fill(O, FOUR, connect(astuple(r, c), astuple(r, c)))
+    return O
+
+def dsl4(I):
+    r = uppermost(ofcolor(I, TWO))
+    c = leftmost(ofcolor(I, EIGHT))
+    rowline = shoot(astuple(r, ZERO), RIGHT)
+    colline = shoot(astuple(ZERO, c), DOWN)
+    O = paint(I, recolor(TWO, rowline))
+    O = paint(O, recolor(EIGHT, colline))
+    O = fill(O, FOUR, connect(astuple(r, c), astuple(r, c)))
+    return O

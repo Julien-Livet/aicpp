@@ -1,0 +1,37 @@
+def dsl1(I):
+    f = ofcolor(I, FIVE)
+    c0 = vfrontier(ORIGIN)
+    c1 = vfrontier(tojvec(ONE))
+    c2 = vfrontier(tojvec(TWO))
+    f0 = intersection(f, c0)
+    f1 = intersection(f, c1)
+    f2 = intersection(f, c2)
+    r0 = mapply(hfrontier, f0)
+    r1 = mapply(hfrontier, f1)
+    r2 = mapply(hfrontier, f2)
+    O0 = canvas(ZERO, shape(I))
+    O1 = fill(O0, TWO, r0)
+    O2 = fill(O1, FOUR, r1)
+    O = fill(O2, THREE, r2)
+    return O
+
+def dsl2(I):
+    f = ofcolor(I, FIVE)
+    r0 = mapply(hfrontier, intersection(f, vfrontier(ORIGIN)))
+    r1 = mapply(hfrontier, intersection(f, vfrontier(tojvec(ONE))))
+    r2 = mapply(hfrontier, intersection(f, vfrontier(tojvec(TWO))))
+    O = canvas(ZERO, shape(I))
+    O = fill(O, TWO, r0)
+    O = fill(O, FOUR, r1)
+    O = fill(O, THREE, r2)
+    return O
+
+def dsl3(I):
+    f = ofcolor(I, FIVE)
+    r0 = mapply(hfrontier, intersection(f, vfrontier(ORIGIN)))
+    r1 = mapply(hfrontier, intersection(f, vfrontier(tojvec(ONE))))
+    r2 = mapply(hfrontier, intersection(f, vfrontier(tojvec(TWO))))
+    O1 = fill(I, TWO, r0)
+    O2 = fill(O1, FOUR, r1)
+    O = fill(O2, THREE, r2)
+    return O

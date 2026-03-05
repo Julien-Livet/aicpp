@@ -1,0 +1,136 @@
+def dsl1(I):
+    H = height(I)
+    W = width(I)
+    seeds = ofcolor(I, EIGHT)
+    empty = difference(asindices(I), asindices(I))
+    mask = empty
+    dims = astuple(3, 3)
+    padr, padc = 1, 1
+    for (r, c) in totuple(seeds):
+        sr = r - padr
+        sc = c - padc
+        if sr < 0 or sc < 0 or sr + 3 > H or sc + 3 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl2(I):
+    H = height(I)
+    W = width(I)
+    seeds = ofcolor(I, EIGHT)
+    empty = difference(asindices(I), asindices(I))
+    mask = empty
+    dims = astuple(3, 5)
+    padr, padc = 1, 2
+    for (r, c) in totuple(seeds):
+        sr = r - padr
+        sc = c - padc
+        if sr < 0 or sc < 0 or sr + 3 > H or sc + 5 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl3(I):
+    H = height(I)
+    W = width(I)
+    seeds = ofcolor(I, EIGHT)
+    empty = difference(asindices(I), asindices(I))
+    mask = empty
+    dims = astuple(5, 3)
+    padr, padc = 2, 1
+    for (r, c) in totuple(seeds):
+        sr = r - padr
+        sc = c - padc
+        if sr < 0 or sc < 0 or sr + 5 > H or sc + 3 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl4(I):
+    H = height(I)
+    W = width(I)
+    seeds = ofcolor(I, EIGHT)
+    empty = difference(asindices(I), asindices(I))
+    mask = empty
+    # First pass: 3x3
+    dims1 = astuple(3, 3)
+    pr1, pc1 = 1, 1
+    for (r, c) in totuple(seeds):
+        sr = r - pr1
+        sc = c - pc1
+        if sr < 0 or sc < 0 or sr + 3 > H or sc + 3 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims1)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    # Second pass: 5x3
+    dims2 = astuple(5, 3)
+    pr2, pc2 = 2, 1
+    for (r, c) in totuple(seeds):
+        sr = r - pr2
+        sc = c - pc2
+        if sr < 0 or sc < 0 or sr + 5 > H or sc + 3 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims2)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl5(I):
+    H = height(I)
+    W = width(I)
+    seeds = ofcolor(I, EIGHT)
+    empty = difference(asindices(I), asindices(I))
+    mask = empty
+    dims = astuple(5, 5)
+    padr, padc = 2, 2
+    for (r, c) in totuple(seeds):
+        sr = r - padr
+        sc = c - padc
+        if sr < 0 or sc < 0 or sr + 5 > H or sc + 5 > W:
+            continue
+        sub = crop(I, astuple(sr, sc), dims)
+        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
+        ctx = toobject(nz, sub)
+        occs = occurrences(I, ctx)
+        epos = ofcolor(sub, EIGHT)
+        for p in totuple(occs):
+            shifted = shift(epos, p)
+            mask = combine(mask, shifted)
+    O = fill(I, EIGHT, mask)
+    return O

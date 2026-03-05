@@ -1,0 +1,44 @@
+def dsl1(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    s16 = sizefilter(x1, 16)
+    p16 = mapply(delta, s16)
+    O0 = underfill(I, EIGHT, p16)
+    s24 = sizefilter(x1, 24)
+    p24 = mapply(delta, s24)
+    O1 = underfill(O0, FOUR, p24)
+    s32 = sizefilter(x1, 32)
+    p32 = mapply(delta, s32)
+    O = underfill(O1, THREE, p32)
+    return O
+
+def dsl2(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    p32 = mapply(delta, sizefilter(x1, 32))
+    p24 = mapply(delta, sizefilter(x1, 24))
+    p16 = mapply(delta, sizefilter(x1, 16))
+    O = underfill(underfill(underfill(I, THREE, p32), FOUR, p24), EIGHT, p16)
+    return O
+
+def dsl3(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    p = mapply(delta, x1)
+    O = underfill(I, FOUR, p)
+    return O
+
+def dsl4(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    p16 = mapply(delta, sizefilter(x1, 16))
+    p24 = mapply(delta, sizefilter(x1, 24))
+    O = underfill(underfill(I, EIGHT, p16), FOUR, p24)
+    return O
+
+def dsl5(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    p32 = mapply(delta, sizefilter(x1, 32))
+    O = underfill(I, THREE, p32)
+    return O

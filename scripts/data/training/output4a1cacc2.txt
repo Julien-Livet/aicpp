@@ -1,0 +1,71 @@
+def dsl1(I):
+    objs = fgpartition(I)
+    obj = first(objs)
+    i = uppermost(obj)
+    j = leftmost(obj)
+    H = height(I)
+    W = width(I)
+    topd = i
+    botd = subtract(H, increment(i))
+    leftd = j
+    rightd = subtract(W, increment(j))
+    Hm1 = subtract(H, ONE)
+    Wm1 = subtract(W, ONE)
+    rstar = branch(greater(topd, botd), Hm1, ZERO)
+    cstar = branch(greater(leftd, rightd), Wm1, ZERO)
+    p = astuple(i, j)
+    q = astuple(rstar, cstar)
+    s0 = initset(p)
+    s = insert(q, s0)
+    R = backdrop(s)
+    col = color(obj)
+    O = fill(I, col, R)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    obj = first(objs)
+    i = uppermost(obj)
+    j = rightmost(obj)
+    H = height(I)
+    W = width(I)
+    topd = i
+    botd = subtract(H, increment(i))
+    leftd = j
+    rightd = subtract(W, increment(j))
+    rstar = branch(greater(topd, botd), subtract(H, ONE), ZERO)
+    cstar = branch(greater(leftd, rightd), subtract(W, ONE), ZERO)
+    p = astuple(i, j)
+    q = astuple(rstar, cstar)
+    s = insert(q, initset(p))
+    R = backdrop(s)
+    O = fill(I, color(obj), R)
+    return O
+
+def dsl3(I):
+    obj = first(fgpartition(I))
+    i = uppermost(obj)
+    j = leftmost(obj)
+    H = height(I)
+    W = width(I)
+    rstar = branch(greater(i, subtract(H, increment(i))), subtract(H, ONE), ZERO)
+    cstar = branch(greater(j, subtract(W, increment(j))), subtract(W, ONE), ZERO)
+    S = insert(astuple(rstar, cstar), initset(astuple(i, j)))
+    R = backdrop(S)
+    O = fill(I, color(obj), R)
+    return O
+
+def dsl4(I):
+    obj = first(objects(I, T, F, T))
+    i = uppermost(obj)
+    j = leftmost(obj)
+    Hm1 = subtract(height(I), ONE)
+    Wm1 = subtract(width(I), ONE)
+    botd = subtract(height(I), increment(i))
+    rightd = subtract(width(I), increment(j))
+    rstar = branch(greater(i, botd), Hm1, ZERO)
+    cstar = branch(greater(j, rightd), Wm1, ZERO)
+    cornerset = insert(astuple(rstar, cstar), initset(astuple(i, j)))
+    rect = backdrop(cornerset)
+    O = fill(I, color(obj), rect)
+    return O

@@ -1,0 +1,28 @@
+def dsl1(I):
+    x1 = objects(I, T, F, T)
+    x2 = apply(color, x1)
+    x3 = leastcommon(x2)
+    x4 = colorfilter(x1, x3)
+    x5 = first(x4)
+    O = subgrid(x5, I)
+    return O
+
+def dsl2(I):
+    x1 = fgpartition(I)
+    f = compose(size, backdrop)
+    x2 = argmin(x1, f)
+    O = subgrid(x2, I)
+    return O
+
+def dsl3(I):
+    x1 = palette(I)
+    x2 = remove(ZERO, x1)
+    f1 = lbind(ofcolor, I)
+    f2 = rbind(toobject, I)
+    f3 = compose(f2, f1)
+    f4 = compose(size, backdrop)
+    f5 = compose(f4, f3)
+    c = argmin(x2, f5)
+    x6 = toobject(ofcolor(I, c), I)
+    O = subgrid(x6, I)
+    return O

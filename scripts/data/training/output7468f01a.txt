@@ -1,0 +1,29 @@
+def dsl1(I):
+    x1 = asindices(I)
+    x2 = ofcolor(I, ZERO)
+    x3 = difference(x1, x2)
+    O = subgrid(x3, I)
+    return O
+
+def dsl2(I):
+    x1 = fgpartition(I)
+    x2 = merge(x1)
+    x3 = toindices(x2)
+    O = subgrid(x3, I)
+    return O
+
+def dsl3(I):
+    O = compress(I)
+    return O
+
+def dsl4(I):
+    O = trim(I)
+    return O
+
+def dsl5(I):
+    x1 = difference(asindices(I), ofcolor(I, ZERO))
+    a = ulcorner(x1)
+    b = lrcorner(x1)
+    dims = add(UNITY, subtract(b, a))
+    O = crop(I, a, dims)
+    return O

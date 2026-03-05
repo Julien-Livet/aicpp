@@ -1,0 +1,53 @@
+def dsl1(I):
+    x1 = compress(I)
+    x2 = asobject(x1)
+    d = multiply(FIVE, THREE)
+    base = canvas(SEVEN, astuple(d, d))
+    off1 = astuple(TWO, TWO)
+    off2 = astuple(add(THREE, FIVE), add(THREE, FIVE))
+    y1 = shift(x2, off1)
+    y2 = shift(x2, off2)
+    z1 = paint(base, y1)
+    O = paint(z1, y2)
+    return O
+
+def dsl2(I):
+    x1 = compress(I)
+    obj = asobject(x1)
+    d = multiply(FIVE, THREE)
+    base = canvas(SEVEN, astuple(d, d))
+    a = shift(obj, astuple(TWO, TWO))
+    b = shift(obj, astuple(add(THREE, FIVE), add(THREE, FIVE)))
+    both = combine(a, b)
+    O = paint(base, both)
+    return O
+
+def dsl3(I):
+    c = compress(I)
+    o = asobject(c)
+    s1 = shift(o, astuple(TWO, TWO))
+    s2 = shift(o, astuple(add(FIVE, THREE), add(FIVE, THREE)))
+    d = multiply(FIVE, THREE)
+    B = canvas(SEVEN, astuple(d, d))
+    O = paint(paint(B, s1), s2)
+    return O
+
+def dsl4(I):
+    c = compress(I)
+    o = asobject(c)
+    d = multiply(FIVE, THREE)
+    B = canvas(SEVEN, astuple(d, d))
+    t = astuple(TWO, TWO)
+    u = astuple(double(FOUR), double(FOUR))
+    O = paint(paint(B, shift(o, t)), shift(o, u))
+    return O
+
+def dsl5(I):
+    small = compress(I)
+    obj = asobject(small)
+    dim = multiply(FIVE, THREE)
+    base = canvas(SEVEN, astuple(dim, dim))
+    p1 = shift(obj, astuple(TWO, TWO))
+    p2 = shift(obj, astuple(add(THREE, FIVE), add(THREE, FIVE)))
+    O = underpaint(underpaint(base, p1), p2)
+    return O

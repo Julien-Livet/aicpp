@@ -1,0 +1,57 @@
+def dsl1(I):
+    S = ofcolor(I, FIVE)
+    Sd = shift(S, DOWN)
+    not_top = intersection(S, Sd)
+    top = difference(S, not_top)
+    A = replace(I, FIVE, TWO)
+    obj8 = recolor(EIGHT, top)
+    O = paint(A, obj8)
+    return O
+
+def dsl2(I):
+    S = ofcolor(I, FIVE)
+    Sl = shift(S, LEFT)
+    has_right = intersection(S, Sl)
+    rightmost = difference(S, has_right)
+    A = replace(I, FIVE, TWO)
+    obj8 = recolor(EIGHT, rightmost)
+    O = paint(A, obj8)
+    return O
+
+def dsl3(I):
+    S = ofcolor(I, FIVE)
+    Sd = shift(S, DOWN)
+    Sl = shift(S, LEFT)
+    not_top = intersection(S, Sd)
+    top = difference(S, not_top)
+    has_right = intersection(S, Sl)
+    rightmost = difference(S, has_right)
+    T8 = combine(top, rightmost)
+    A = replace(I, FIVE, TWO)
+    obj8 = recolor(EIGHT, T8)
+    O = paint(A, obj8)
+    return O
+
+def dsl4(I):
+    A = replace(I, FIVE, EIGHT)
+    R = rot180(I)
+    R2 = replace(R, FIVE, TWO)
+    B = rot180(R2)
+    idx2 = ofcolor(B, TWO)
+    S = ofcolor(I, FIVE)
+    mask = intersection(idx2, S)
+    obj2 = recolor(TWO, mask)
+    O = paint(A, obj2)
+    return O
+
+def dsl5(I):
+    A = replace(I, FIVE, EIGHT)
+    R = rot90(I)
+    R2 = replace(R, FIVE, TWO)
+    B = rot270(R2)
+    idx2 = ofcolor(B, TWO)
+    S = ofcolor(I, FIVE)
+    mask = intersection(idx2, S)
+    obj2 = recolor(TWO, mask)
+    O = paint(A, obj2)
+    return O

@@ -1,0 +1,34 @@
+def dsl1(I):
+    x1 = compress(I)
+    x2 = trim(x1)
+    O = downscale(x2, THREE)
+    return O
+
+def dsl2(I):
+    x1 = compress(I)
+    x2 = rot90(x1)
+    x3 = compress(x2)
+    x4 = rot270(x3)
+    x5 = trim(x4)
+    O = downscale(x5, THREE)
+    return O
+
+def dsl3(I):
+    x1 = trim(I)
+    x2 = compress(x1)
+    x3 = compress(x2)
+    O = downscale(x3, THREE)
+    return O
+
+def dsl4(I):
+    x1 = compress(I)
+    x2 = trim(x1)
+    x3 = downscale(x2, THREE)
+    O = trim(x3)
+    return O
+
+def dsl5(I):
+    x1 = trim(I)
+    x2 = downscale(x1, THREE)
+    O = trim(x2)
+    return O

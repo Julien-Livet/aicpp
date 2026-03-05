@@ -1,0 +1,42 @@
+def dsl1(I):
+    x1 = ofcolor(I, EIGHT)
+    x2 = toobject(x1, I)
+    x3 = dmirror(x2)
+    O = paint(I, x3)
+    return O
+
+def dsl2(I):
+    x1 = ofcolor(I, FOUR)
+    x2 = toobject(x1, I)
+    x3 = dmirror(x2)
+    O = paint(I, x3)
+    return O
+
+def dsl3(I):
+    x1 = ofcolor(I, EIGHT)
+    x2 = toobject(x1, I)
+    x3 = dmirror(x2)
+    x4 = ofcolor(I, FOUR)
+    x5 = toobject(x4, I)
+    x6 = dmirror(x5)
+    x7 = paint(I, x3)
+    O = paint(x7, x6)
+    return O
+
+def dsl4(I):
+    x1 = ofcolor(I, EIGHT)
+    x2 = toobject(x1, I)
+    x3 = cmirror(x2)
+    O = paint(I, x3)
+    return O
+
+def dsl5(I):
+    x1 = ofcolor(I, TWO)
+    x2 = toobject(x1, I)
+    x3 = dmirror(x2)
+    x4 = paint(I, x3)
+    x5 = ofcolor(I, FOUR)
+    x6 = toobject(x5, I)
+    x7 = dmirror(x6)
+    O = paint(x4, x7)
+    return O

@@ -1,0 +1,29 @@
+def dsl1(I):
+    x1 = shape(I)
+    x2 = canvas(FOUR, x1)
+    x3 = asobject(I)
+    O = paint(x2, x3)
+    return O
+
+def dsl2(I):
+    O = replace(I, ZERO, FOUR)
+    return O
+
+def dsl3(I):
+    x1 = frontiers(I)
+    x2 = merge(x1)
+    O = fill(I, FOUR, x2)
+    return O
+
+def dsl4(I):
+    x1 = fgpartition(I)
+    x2 = mapply(box, x1)
+    O = fill(I, FOUR, x2)
+    return O
+
+def dsl5(I):
+    x1 = asobject(I)
+    x2 = toindices(x1)
+    x3 = box(x2)
+    O = fill(I, FOUR, x3)
+    return O

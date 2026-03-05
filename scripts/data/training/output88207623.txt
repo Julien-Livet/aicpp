@@ -1,0 +1,31 @@
+def dsl1(I):
+    O = vmirror(I)
+    return O
+
+def dsl2(I):
+    t = tophalf(I)
+    b = bottomhalf(I)
+    b2 = vmirror(b)
+    O = vconcat(t, b2)
+    return O
+
+def dsl3(I):
+    l = lefthalf(I)
+    r = righthalf(I)
+    l2 = vmirror(l)
+    O = hconcat(l2, r)
+    return O
+
+def dsl4(I):
+    c = leastcolor(I)
+    x1 = vmirror(I)
+    x2 = replace(x1, FOUR, c)
+    O = cellwise(I, x2, ZERO)
+    return O
+
+def dsl5(I):
+    c = mostcolor(I)
+    x1 = hmirror(I)
+    x2 = replace(x1, FOUR, c)
+    O = cellwise(I, x2, ZERO)
+    return O

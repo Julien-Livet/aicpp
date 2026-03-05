@@ -1,0 +1,60 @@
+def dsl1(I):
+    comps = fgpartition(I)
+    comps2 = colorfilter(comps, TWO)
+    big = argmax(comps2, size)
+    S = subgrid(big, I)
+    parts = partition(S)
+    zeros = colorfilter(parts, ZERO)
+    inner = sfilter(zeros, compose(flip, rbind(bordering, S)))
+    off = ulcorner(big)
+    shifted = apply(rbind(shift, off), inner)
+    ones = apply(lbind(recolor, ONE), shifted)
+    fillobj = merge(ones)
+    O = underpaint(I, fillobj)
+    return O
+
+def dsl2(I):
+    comps = fgpartition(I)
+    twos = colorfilter(comps, TWO)
+    big = argmax(twos, size)
+    S = subgrid(big, I)
+    zparts = colorfilter(partition(S), ZERO)
+    holes = sfilter(zparts, compose(flip, rbind(bordering, S)))
+    off = ulcorner(big)
+    shifted = apply(rbind(shift, off), holes)
+    idxs = apply(toindices, shifted)
+    allidx = merge(idxs)
+    O = underfill(I, ONE, allidx)
+    return O
+
+def dsl3(I):
+    twos = colorfilter(fgpartition(I), TWO)
+    main = argmax(twos, size)
+    box = subgrid(main, I)
+    parts = partition(box)
+    zparts = colorfilter(parts, ZERO)
+    holes = sfilter(zparts, compose(flip, rbind(bordering, box)))
+    sh = apply(rbind(shift, ulcorner(main)), holes)
+    obj = merge(apply(lbind(recolor, ONE), sh))
+    O = underpaint(I, obj)
+    return O
+
+def dsl4(I):
+    twocomps = colorfilter(fgpartition(I), TWO)
+    biggest = argmax(twocomps, size)
+    crop = subgrid(biggest, I)
+    zs = colorfilter(partition(crop), ZERO)
+    nottouching = sfilter(zs, compose(flip, rbind(bordering, crop)))
+    moved = apply(rbind(shift, ulcorner(biggest)), nottouching)
+    fillidx = merge(apply(toindices, moved))
+    O = underfill(I, ONE, fillidx)
+    return O
+
+def dsl5(I):
+    a = argmax(colorfilter(fgpartition(I), TWO), size)
+    s = subgrid(a, I)
+    holes = sfilter(colorfilter(partition(s), ZERO), compose(flip, rbind(bordering, s)))
+    moved = apply(rbind(shift, ulcorner(a)), holes)
+    obj = merge(apply(lbind(recolor, ONE), moved))
+    O = underpaint(I, obj)
+    return O

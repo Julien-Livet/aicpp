@@ -1,0 +1,70 @@
+def dsl1(I):
+    c = leastcolor(I)
+    objs = colorfilter(objects(I, T, F, T), c)
+    bordercond = rbind(bordering, I)
+    ob = extract(objs, bordercond)
+    L = branch(vline(ob), height(ob), width(ob))
+    h = height(I)
+    w = width(I)
+    e = decrement(L)
+    h1 = decrement(h)
+    topseg = connect(astuple(0, 0), astuple(0, e))
+    botseg = connect(astuple(h1, 0), astuple(h1, e))
+    p1 = recolor(c, topseg)
+    p2 = recolor(c, botseg)
+    patch = combine(p1, p2)
+    O = paint(I, patch)
+    return O
+
+def dsl2(I):
+    c = leastcolor(I)
+    O1 = underpaint(I, asobject(vmirror(I)))
+    w = width(I)
+    h1 = decrement(height(I))
+    toprow = crop(I, astuple(0, 0), astuple(1, w))
+    Ltop = colorcount(toprow, c)
+    endtmp = subtract(w, Ltop)
+    endcol = decrement(endtmp)
+    start = astuple(h1, Ltop)
+    end = astuple(h1, endcol)
+    botpatch = recolor(c, connect(start, end))
+    O2 = paint(O1, botpatch)
+    O = branch(greater(Ltop, ZERO), O2, O1)
+    return O
+
+def dsl3(I):
+    O1 = underpaint(I, asobject(vmirror(I)))
+    O2 = underpaint(O1, asobject(hmirror(I)))
+    O = underpaint(O2, asobject(rot180(I)))
+    return O
+
+def dsl4(I):
+    c = leastcolor(I)
+    objs = colorfilter(objects(I, T, F, T), c)
+    ob = extract(objs, rbind(bordering, I))
+    L = branch(vline(ob), height(ob), width(ob))
+    w = width(I)
+    h1 = decrement(height(I))
+    left_end = decrement(L)
+    right_start = subtract(w, L)
+    right_end = decrement(w)
+    topL = connect(astuple(0, 0), astuple(0, left_end))
+    topR = connect(astuple(0, right_start), astuple(0, right_end))
+    botL = connect(astuple(h1, 0), astuple(h1, left_end))
+    botR = connect(astuple(h1, right_start), astuple(h1, right_end))
+    p = combine(combine(recolor(c, topL), recolor(c, topR)), combine(recolor(c, botL), recolor(c, botR)))
+    O = paint(I, p)
+    return O
+
+def dsl5(I):
+    c = leastcolor(I)
+    w = width(I)
+    Ltop = colorcount(crop(I, astuple(0, 0), astuple(1, w)), c)
+    h = height(I)
+    hL = decrement(Ltop)
+    rightcol = decrement(w)
+    vL = connect(astuple(0, 0), astuple(hL, 0))
+    vR = connect(astuple(0, rightcol), astuple(hL, rightcol))
+    p = combine(recolor(c, vL), recolor(c, vR))
+    O = paint(I, p)
+    return O

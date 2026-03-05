@@ -1,0 +1,50 @@
+def dsl1(I):
+    x4 = ofcolor(I, FOUR)
+    s1 = shift(x4, astuple(0, -2))
+    s2 = shift(x4, astuple(0, -3))
+    p = combine(s1, s2)
+    O = underfill(I, TWO, p)
+    return O
+
+def dsl2(I):
+    x4 = ofcolor(I, FOUR)
+    a = shift(x4, astuple(0, -2))
+    b = shift(x4, astuple(0, -3))
+    c = shift(x4, astuple(-1, -2))
+    d = shift(x4, astuple(-1, -3))
+    p = combine(combine(a, b), combine(c, d))
+    O = underfill(I, TWO, p)
+    return O
+
+def dsl3(I):
+    x4 = ofcolor(I, FOUR)
+    a = shift(x4, astuple(-2, -4))
+    b = shift(x4, astuple(-2, -3))
+    c = shift(x4, astuple(-1, -4))
+    d = shift(x4, astuple(-1, -2))
+    e = shift(x4, astuple(0, -3))
+    f = shift(x4, astuple(0, -2))
+    p = combine(combine(a, b), combine(combine(c, d), combine(e, f)))
+    O = underfill(I, TWO, p)
+    return O
+
+def dsl4(I):
+    x4 = ofcolor(I, FOUR)
+    p2 = ofcolor(I, TWO)
+    a = first(x4)
+    g = rbind(subtract, a)
+    dirs = apply(g, x4)
+    h = lbind(shift, p2)
+    patches = mapply(h, dirs)
+    O = underfill(I, TWO, patches)
+    return O
+
+def dsl5(I):
+    x4 = ofcolor(I, FOUR)
+    a = shift(x4, astuple(-1, -1))
+    b = shift(x4, astuple(-2, -2))
+    c = shift(x4, astuple(0, -2))
+    d = shift(x4, astuple(0, -3))
+    p = combine(combine(a, b), combine(c, d))
+    O = underfill(I, TWO, p)
+    return O

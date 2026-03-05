@@ -1,0 +1,25 @@
+def dsl1(I):
+    O = compress(I)
+    return O
+
+def dsl2(I):
+    x1 = trim(I)
+    O = compress(x1)
+    return O
+
+def dsl3(I):
+    x1 = objects(I, T, F, T)
+    x2 = merge(x1)
+    x3 = subgrid(x2, I)
+    O = compress(x3)
+    return O
+
+def dsl4(I):
+    x1 = fgpartition(I)
+    bg = mostcolor(I)
+    x2 = colorfilter(x1, bg)
+    x3 = difference(x1, x2)
+    x4 = merge(x3)
+    x5 = subgrid(x4, I)
+    O = compress(x5)
+    return O

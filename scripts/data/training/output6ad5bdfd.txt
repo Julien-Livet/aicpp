@@ -1,0 +1,351 @@
+def dsl1(I):
+    H, W = shape(I)
+    def left_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, 0)) != TWO:
+                return False
+        return True
+    def right_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, w - 1)) != TWO:
+                return False
+        return True
+    def top_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(0, j)) != TWO:
+                return False
+        return True
+    def bottom_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(h - 1, j)) != TWO:
+                return False
+        return True
+
+    # orient to make the 2-border the left column
+    if left_col_all_twos(I):
+        toL = identity
+        fromL = identity
+    elif right_col_all_twos(I):
+        toL = vmirror
+        fromL = vmirror
+    elif top_row_all_twos(I):
+        toL = rot270
+        fromL = rot90
+    else:
+        def toL(G):
+            return vmirror(rot90(G))
+        def fromL(G):
+            return rot270(vmirror(G))
+
+    IR = toL(I)
+    hL, wL = shape(IR)
+    objs = objects(IR, T, F, T)
+    twos = colorfilter(objs, TWO)
+    barcand = sfilter(twos, rbind(bordering, IR))
+    bar = branch(size(barcand) > 0, argmax(barcand, size), argmax(twos, size))
+
+    O = paint(canvas(ZERO, shape(IR)), bar)
+    accum = toindices(bar)
+    non2 = difference(objs, twos)
+
+    def keyL(o):
+        return add(multiply(leftmost(o), hL), uppermost(o))
+    ordered = order(non2, keyL)
+
+    for o in ordered:
+        cur = toindices(o)
+        while True:
+            sh = shift(cur, LEFT)
+            if size(intersection(sh, accum)) > 0:
+                break
+            cur = sh
+        O = paint(O, recolor(color(o), cur))
+        accum = combine(accum, cur)
+
+    return fromL(O)
+
+def dsl2(I):
+    H, W = shape(I)
+    def left_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, 0)) != TWO:
+                return False
+        return True
+    def right_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, w - 1)) != TWO:
+                return False
+        return True
+    def top_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(0, j)) != TWO:
+                return False
+        return True
+    def bottom_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(h - 1, j)) != TWO:
+                return False
+        return True
+
+    if left_col_all_twos(I):
+        toL = identity
+        fromL = identity
+    elif right_col_all_twos(I):
+        toL = vmirror
+        fromL = vmirror
+    elif top_row_all_twos(I):
+        toL = rot270
+        fromL = rot90
+    else:
+        def toL(G):
+            return vmirror(rot90(G))
+        def fromL(G):
+            return rot270(vmirror(G))
+
+    IR = toL(I)
+    hL, wL = shape(IR)
+    objs = objects(IR, T, F, T)
+    twos = colorfilter(objs, TWO)
+    barcand = sfilter(twos, rbind(bordering, IR))
+    bar = branch(size(barcand) > 0, argmax(barcand, size), argmax(twos, size))
+
+    O = paint(canvas(ZERO, shape(IR)), bar)
+    accum = toindices(bar)
+    non2 = difference(objs, twos)
+
+    def keyU(o):
+        return add(multiply(uppermost(o), wL), leftmost(o))
+    ordered = order(non2, keyU)
+
+    for o in ordered:
+        cur = toindices(o)
+        while True:
+            sh = shift(cur, LEFT)
+            if size(intersection(sh, accum)) > 0:
+                break
+            cur = sh
+        O = paint(O, recolor(color(o), cur))
+        accum = combine(accum, cur)
+
+    return fromL(O)
+
+def dsl3(I):
+    H, W = shape(I)
+    def left_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, 0)) != TWO:
+                return False
+        return True
+    def right_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, w - 1)) != TWO:
+                return False
+        return True
+    def top_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(0, j)) != TWO:
+                return False
+        return True
+    def bottom_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(h - 1, j)) != TWO:
+                return False
+        return True
+
+    if left_col_all_twos(I):
+        toL = identity
+        fromL = identity
+    elif right_col_all_twos(I):
+        toL = vmirror
+        fromL = vmirror
+    elif top_row_all_twos(I):
+        toL = rot270
+        fromL = rot90
+    else:
+        def toL(G):
+            return vmirror(rot90(G))
+        def fromL(G):
+            return rot270(vmirror(G))
+
+    IR = toL(I)
+    objs = objects(IR, T, F, T)
+    twos = colorfilter(objs, TWO)
+    barcand = sfilter(twos, rbind(bordering, IR))
+    bar = branch(size(barcand) > 0, argmax(barcand, size), argmax(twos, size))
+
+    non2 = tuple(order(difference(objs, twos), leftmost))
+    colors_list = [color(o) for o in non2]
+    positions = [toindices(o) for o in non2]
+
+    accum = toindices(bar)
+    moved = True
+    while moved:
+        moved = False
+        for idx in range(len(positions)):
+            p = positions[idx]
+            # occupancy of others + barrier
+            occ = accum
+            for k in range(len(positions)):
+                if k != idx:
+                    occ = combine(occ, positions[k])
+            sh = shift(p, LEFT)
+            if size(intersection(sh, occ)) == 0:
+                positions[idx] = sh
+                moved = True
+
+    O = paint(canvas(ZERO, shape(IR)), bar)
+    for idx in range(len(positions)):
+        O = paint(O, recolor(colors_list[idx], positions[idx]))
+
+    return fromL(O)
+
+def dsl4(I):
+    H, W = shape(I)
+    def left_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, 0)) != TWO:
+                return False
+        return True
+    def right_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, w - 1)) != TWO:
+                return False
+        return True
+    def top_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(0, j)) != TWO:
+                return False
+        return True
+    def bottom_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(h - 1, j)) != TWO:
+                return False
+        return True
+
+    if left_col_all_twos(I):
+        toL = identity
+        fromL = identity
+    elif right_col_all_twos(I):
+        toL = vmirror
+        fromL = vmirror
+    elif top_row_all_twos(I):
+        toL = rot270
+        fromL = rot90
+    else:
+        def toL(G):
+            return vmirror(rot90(G))
+        def fromL(G):
+            return rot270(vmirror(G))
+
+    IR = toL(I)
+    hL, wL = shape(IR)
+    objs = objects(IR, T, F, T)
+    twos = colorfilter(objs, TWO)
+    barcand = sfilter(twos, rbind(bordering, IR))
+    bar = branch(size(barcand) > 0, argmax(barcand, size), argmax(twos, size))
+
+    O = paint(canvas(ZERO, shape(IR)), bar)
+    accum = toindices(bar)
+    non2 = difference(objs, twos)
+
+    def keyWL(o):
+        return add(multiply(leftmost(o), add(hL, wL)), invert(width(o)))
+    ordered = order(non2, keyWL)
+
+    for o in ordered:
+        cur = toindices(o)
+        while True:
+            sh = shift(cur, LEFT)
+            if size(intersection(sh, accum)) > 0:
+                break
+            cur = sh
+        O = paint(O, recolor(color(o), cur))
+        accum = combine(accum, cur)
+
+    return fromL(O)
+
+def dsl5(I):
+    H, W = shape(I)
+    def left_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, 0)) != TWO:
+                return False
+        return True
+    def right_col_all_twos(G):
+        h, w = shape(G)
+        for i in range(h):
+            if index(G, astuple(i, w - 1)) != TWO:
+                return False
+        return True
+    def top_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(0, j)) != TWO:
+                return False
+        return True
+    def bottom_row_all_twos(G):
+        h, w = shape(G)
+        for j in range(w):
+            if index(G, astuple(h - 1, j)) != TWO:
+                return False
+        return True
+
+    # orient to make the 2-border the right column
+    if right_col_all_twos(I):
+        toR = identity
+        fromR = identity
+    elif left_col_all_twos(I):
+        toR = vmirror
+        fromR = vmirror
+    elif top_row_all_twos(I):
+        toR = rot90
+        fromR = rot270
+    else:
+        def toR(G):
+            return vmirror(rot270(G))
+        def fromR(G):
+            return rot90(vmirror(G))
+
+    IR = toR(I)
+    hR, wR = shape(IR)
+    objs = objects(IR, T, F, T)
+    twos = colorfilter(objs, TWO)
+    barcand = sfilter(twos, rbind(bordering, IR))
+    bar = branch(size(barcand) > 0, argmax(barcand, size), argmax(twos, size))
+
+    O = paint(canvas(ZERO, shape(IR)), bar)
+    accum = toindices(bar)
+    non2 = difference(objs, twos)
+
+    def keyR(o):
+        return subtract(multiply(rightmost(o), hR), uppermost(o))
+    ordered = order(non2, keyR)
+
+    for o in ordered:
+        cur = toindices(o)
+        while True:
+            sh = shift(cur, RIGHT)
+            if size(intersection(sh, accum)) > 0:
+                break
+            cur = sh
+        O = paint(O, recolor(color(o), cur))
+        accum = combine(accum, cur)
+
+    return fromR(O)

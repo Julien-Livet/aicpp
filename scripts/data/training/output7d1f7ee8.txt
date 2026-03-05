@@ -1,0 +1,27 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    z = ofcolor(I, ZERO)
+    g = compose(rbind(difference, z), delta)
+    f = fork(recolor, color, g)
+    mo = mapply(f, objs)
+    O = paint(I, mo)
+    return O
+
+def dsl2(I):
+    a = objects(I, T, F, T)
+    z = ofcolor(I, ZERO)
+    inner = compose(rbind(difference, z), delta)
+    recol = fork(recolor, color, inner)
+    parts = apply(recol, a)
+    mo = merge(parts)
+    O = paint(I, mo)
+    return O
+
+def dsl3(I):
+    a = objects(I, T, F, T)
+    z = ofcolor(I, ZERO)
+    pfunc = compose(rbind(difference, z), delta)
+    recolor_inside = fork(recolor, color, pfunc)
+    painted = mapply(recolor_inside, a)
+    O = paint(I, painted)
+    return O

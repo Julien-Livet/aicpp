@@ -1,0 +1,87 @@
+def dsl1(I):
+    objs = objects(I, T, T, T)
+    tup = totuple(objs)
+    a = first(tup)
+    b = last(tup)
+    xa = combine(corners(a), initset(center(a)))
+    isx = equality(toindices(a), xa)
+    xobj = branch(isx, a, b)
+    obj = other(objs, xobj)
+    cx = center(xobj)
+    co = center(obj)
+    pos = subtract(cx, co)
+    dv = double(pos)
+    off_v = multiply(dv, astuple(ZERO, ONE))
+    off_h = multiply(dv, astuple(ONE, ZERO))
+    vobj = shift(vmirror(obj), off_v)
+    hobj = shift(hmirror(obj), off_h)
+    dobj = shift(rot180(obj), dv)
+    O = paint(I, vobj)
+    O = paint(O, hobj)
+    O = paint(O, dobj)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, T, T)
+    tup = totuple(objs)
+    a = first(tup)
+    b = last(tup)
+    xa = combine(corners(a), initset(center(a)))
+    xobj = branch(equality(toindices(a), xa), a, b)
+    obj = other(objs, xobj)
+    pos = subtract(center(xobj), center(obj))
+    dv = double(pos)
+    vobj = shift(vmirror(obj), multiply(dv, astuple(ZERO, ONE)))
+    hobj = shift(hmirror(obj), multiply(dv, astuple(ONE, ZERO)))
+    both = shift(vmirror(hmirror(obj)), dv)
+    O = underpaint(I, vobj)
+    O = underpaint(O, hobj)
+    O = underpaint(O, both)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, T, T)
+    tup = totuple(objs)
+    a = first(tup)
+    b = last(tup)
+    isx = equality(toindices(a), combine(corners(a), initset(center(a))))
+    xobj = branch(isx, a, b)
+    obj = other(objs, xobj)
+    dv = double(subtract(center(xobj), center(obj)))
+    O = paint(I, shift(vmirror(obj), multiply(dv, astuple(ZERO, ONE))))
+    O = paint(O, shift(hmirror(obj), multiply(dv, astuple(ONE, ZERO))))
+    O = paint(O, shift(vmirror(hmirror(obj)), dv))
+    return O
+
+def dsl4(I):
+    objs = objects(I, T, T, T)
+    tup = totuple(objs)
+    a = first(tup)
+    b = last(tup)
+    xobj = branch(equality(toindices(a), combine(corners(a), initset(center(a)))), a, b)
+    obj = other(objs, xobj)
+    pos = subtract(center(xobj), center(obj))
+    dv = double(pos)
+    O = I
+    O = underpaint(O, shift(vmirror(obj), multiply(dv, astuple(ZERO, ONE))))
+    O = underpaint(O, shift(hmirror(obj), multiply(dv, astuple(ONE, ZERO))))
+    O = underpaint(O, shift(rot180(obj), dv))
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, T, T)
+    tup = totuple(objs)
+    a = first(tup)
+    b = last(tup)
+    xa = combine(corners(a), initset(center(a)))
+    xobj = branch(equality(toindices(a), xa), a, b)
+    obj = other(objs, xobj)
+    dv = double(subtract(center(xobj), center(obj)))
+    vobj = shift(vmirror(obj), multiply(dv, astuple(ZERO, ONE)))
+    hobj = shift(hmirror(obj), multiply(dv, astuple(ONE, ZERO)))
+    dobj = shift(rot180(obj), dv)
+    base = I
+    base = paint(base, vobj)
+    base = paint(base, hobj)
+    O = paint(base, dobj)
+    return O

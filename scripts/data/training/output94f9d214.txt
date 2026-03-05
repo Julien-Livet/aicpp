@@ -1,0 +1,48 @@
+def dsl1(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    z1 = ofcolor(a, ZERO)
+    z2 = ofcolor(b, ZERO)
+    z = intersection(z1, z2)
+    O = fill(canvas(ZERO, shape(a)), TWO, z)
+    return O
+
+def dsl2(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    nz1 = difference(asindices(a), ofcolor(a, ZERO))
+    nz2 = difference(asindices(b), ofcolor(b, ZERO))
+    u = combine(nz1, nz2)
+    C = canvas(TWO, shape(a))
+    O = cover(C, u)
+    return O
+
+def dsl3(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    z = intersection(ofcolor(a, ZERO), ofcolor(b, ZERO))
+    obj = toobject(z, a)
+    obj2 = recolor(TWO, obj)
+    O = paint(canvas(ZERO, shape(a)), obj2)
+    return O
+
+def dsl4(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    a1 = replace(a, THREE, ONE)
+    # b already only has 0/1
+    m = cellwise(a1, b, ONE)
+    z = ofcolor(m, ZERO)
+    O = fill(canvas(ZERO, shape(a)), TWO, z)
+    return O
+
+def dsl5(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    allidx = asindices(a)
+    z1 = ofcolor(a, ZERO)
+    z2 = ofcolor(b, ZERO)
+    u = combine(difference(allidx, z1), difference(allidx, z2))
+    keep = difference(allidx, u)
+    O = fill(canvas(ZERO, shape(a)), TWO, keep)
+    return O

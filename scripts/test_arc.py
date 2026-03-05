@@ -1,20 +1,62 @@
+from concurrent.futures import ThreadPoolExecutor
 import importlib.util
 import inspect
 import json
+import math
+from multiprocessing import Process, Queue
 import numpy as np
-from openai import OpenAI
+from openai import OpenAI, OpenAIError
+import os
 import pytest
 import subprocess
 import sys
 import time
+from tqdm import tqdm
 import types
 import urllib.request
+
+def run_func(func, queue, *args, **kwargs):
+    try:
+        result = func(*args, **kwargs)
+    except AttributeError:
+        result = np.zeros((1, 1))
+    except IndexError:
+        result = np.zeros((1, 1))
+    except NameError:
+        result = np.zeros((1, 1))
+    except TimeoutError:
+        result = np.zeros((1, 1))
+    except TypeError:
+        result = np.zeros((1, 1))
+    except StopIteration:
+        result = np.zeros((1, 1))
+    except ValueError:
+        result = np.zeros((1, 1))
+
+    queue.put(result)
+
+def run_with_timeout(func, timeout, *args, **kwargs):
+    queue = Queue()
+    p = Process(target = run_func, args = (func, queue, *args), kwargs = kwargs)
+
+    p.start()
+    p.join(timeout)
+
+    if (p.is_alive()):
+        p.terminate()
+        p.join()
+        raise TimeoutError("Function execution exceeded timeout")
+        
+    if (not queue.empty()):
+        return queue.get()
+
+    return np.zeros((1, 1))
 
 def load_module(name: str, path: str):
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
     spec.loader.exec_module(module)
+    sys.modules[name] = module
     
     return module
 
@@ -97,7 +139,7 @@ def inputOutputPairs(pairs):
 
     return (inputs, outputs)
 
-def processTask(folder: str, task: str) -> int:
+def processTask(folder: str, task: str, debug: bool = True) -> int:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
     testPairs = inputOutputPairs(taskPairs[1])
@@ -105,7 +147,7 @@ def processTask(folder: str, task: str) -> int:
     cost = None
     dsl = ""
     scores = []
-    first = True
+    firstLoop = True
     count = 0
 
     while ((cost is None or cost) and count < 4):
@@ -132,7 +174,7 @@ Available variables:
         content = f.read()
         f.close()
         
-        command += "I: np.ndarray\n"
+        command += "I: tuple[tuple]\n"
         command += "\n".join(filter(None, content.split("\n", ))) + "\n"
 
         command += """
@@ -194,53 +236,60 @@ def dsl5(I):
         f.write(command)
         f.close()
 
-        if (first):
+        if (firstLoop):
             try:
                 f = open("data/" + folder + "/output" + task + ".txt", "r")
                 content = f.read()
                 f.close()
-            except FileNotFoundError:
+            except FileNotFoundError as e:
+                try:
+                    result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
+                    content = result
+                    f = open("data/" + folder + "/output" + task + ".txt", "w")
+                    f.write(content)
+                    f.close()
+                except OpenAIError as e:
+                    print(e)
+
+                    return False
+        else:
+            try:
                 result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
                 content = result
                 f = open("data/" + folder + "/output" + task + ".txt", "w")
                 f.write(content)
                 f.close()
-        else:
-            result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
-            content = result
-            f = open("data/" + folder + "/output" + task + ".txt", "w")
-            f.write(content)
-            f.close()
+            except OpenAIError as e:
+                print(e)
 
-        first = False
+                return False
 
-        f = open("proposals.py", "w")
+        firstLoop = False
+
+        f = open("proposals/proposals" + task + ".py", "w")
         f.write("""import importlib.util
 import sys
 
 def load_module(name: str, path: str):
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
     spec.loader.exec_module(module)
-
+    sys.modules[name] = module
+    
     return module
 
-arc_types = load_module("arc_types", "arc-dsl/arc_types.py")
+globals().update(vars(load_module("arc_types", "arc-dsl/arc_types.py")))
+globals().update(vars(load_module("constants", "arc-dsl/constants.py")))
+globals().update(vars(load_module("dsl", "arc-dsl/dsl.py")))
 constants = load_module("constants", "arc-dsl/constants.py")
-dsl = load_module("dsl", "arc-dsl/dsl.py")
-
-from arc_types import *
-from constants import *
-from dsl import *
 
 """)
         f.write(content)
         f.close()
         
-        proposals = load_module("proposals", "proposals.py")
+        proposals = load_module("proposals" + task, "proposals/proposals" + task + ".py")
         functions = []
-        
+
         for x in dir(proposals):
             f = getattr(proposals, x)
 
@@ -256,17 +305,17 @@ from dsl import *
             try:
                 for pair in taskPairs[0]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(function(tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
                 for pair in taskPairs[1]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(function(tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
                 scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
                 totalScores.append((function, sum(score)))
-            except TypeError:
+            except TimeoutError:
                 pass
-            except StopIteration:
+            except TypeError:
                 pass
 
         scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
@@ -276,7 +325,8 @@ from dsl import *
             dsl = inspect.getsource(totalScores[0][0])
             cost = totalScores[0][1]
 
-    print(folder, task, "\n", dsl)
+    if (debug):
+        print(folder, task, cost, "\n", dsl)
 
     return cost == 0
 
@@ -367,4 +417,37 @@ def test_task25ff71a9():
 """
 def test_task():
     assert(processTask("training", ""))
+"""
+
+def run_tasks(folder: str) -> int:
+    url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + ".txt")
+    data = url.read().decode()
+    tasks = data.split("\n")
+
+    unexploredTasks = []
+
+    for task in tasks:
+        if (not os.path.exists("data/" + folder + "/" + "output" + task + ".txt")):
+            unexploredTasks.append(task)
+
+    tasks = unexploredTasks + list(set(tasks) - set(unexploredTasks))
+ 
+    with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
+        results = list(tqdm(
+            executor.map(lambda task: processTask(folder, task, False), tasks),
+            total = len(tasks), miniters = 1, smoothing = 1
+        ))
+
+    return sum(1 for r in results if r), len(tasks)
+
+def test_training_tasks():
+    count, tasks = run_tasks("training")
+
+    print(f"{count}/{tasks} {count/tasks*100}% passed training tasks")
+
+"""
+def test_evaluation_tasks():
+    count, tasks = run_tasks("evaluation")
+
+    print(f"{count}/{tasks} {count/tasks*100}% passed evaluation tasks")
 """

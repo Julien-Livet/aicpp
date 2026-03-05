@@ -1,0 +1,71 @@
+def dsl1(I):
+    P = ofcolor(I, SEVEN)
+    H = height(P)
+    Ds = interval(ZERO, H, ONE)
+    dirs = combine(initset(RIGHT), initset(LEFT))
+    def fun(d, s):
+        v1 = toivec(invert(d))
+        v2 = multiply(s, d)
+        dir = add(v1, v2)
+        Sft = shift(P, dir)
+        c = branch(even(d), SEVEN, EIGHT)
+        return recolor(c, Sft)
+    objs = prapply(fun, Ds, dirs)
+    obj = merge(objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+
+def dsl2(I):
+    P = ofcolor(I, SEVEN)
+    H = height(P)
+    Ds = interval(ZERO, H, ONE)
+    Sset = combine(initset(RIGHT), initset(LEFT))
+    def shiftfun(d, s):
+        return shift(P, add(toivec(invert(d)), multiply(s, d)))
+    evenDs = sfilter(Ds, even)
+    oddDs = sfilter(Ds, compose(flip, even))
+    evset = prapply(shiftfun, evenDs, Sset)
+    odset = prapply(shiftfun, oddDs, Sset)
+    ev = recolor(SEVEN, merge(evset))
+    od = recolor(EIGHT, merge(odset))
+    obj = combine(ev, od)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    o7s = colorfilter(objs, SEVEN)
+    base = first(o7s)
+    H = height(base)
+    Ds = interval(ZERO, H, ONE)
+    Sset = combine(initset(RIGHT), initset(LEFT))
+    def shiftfun(d, s):
+        return shift(base, add(toivec(invert(d)), multiply(s, d)))
+    evenDs = sfilter(Ds, even)
+    oddDs = sfilter(Ds, compose(flip, even))
+    evset = prapply(shiftfun, evenDs, Sset)
+    odset = prapply(shiftfun, oddDs, Sset)
+    ev = recolor(SEVEN, merge(evset))
+    od = recolor(EIGHT, merge(odset))
+    obj = combine(ev, od)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+
+def dsl4(I):
+    P = ofcolor(I, SEVEN)
+    H = height(P)
+    Ds = interval(ZERO, H, ONE)
+    LR = combine(initset(LEFT), initset(RIGHT))
+    def shifted(d, s):
+        return shift(P, add(toivec(invert(d)), multiply(s, d)))
+    parts = prapply(shifted, Ds, LR)
+    allidx = merge(parts)
+    evenmask = sfilter(Ds, even)
+    oddmask = sfilter(Ds, compose(flip, even))
+    evparts = prapply(shifted, evenmask, LR)
+    odparts = prapply(shifted, oddmask, LR)
+    evobj = recolor(SEVEN, merge(evparts))
+    odobj = recolor(EIGHT, merge(odparts))
+    obj = combine(evobj, odobj)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O

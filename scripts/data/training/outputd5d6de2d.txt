@@ -1,0 +1,27 @@
+def dsl1(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    f = fork(equality, toindices, box)
+    x2 = sfilter(x1, f)
+    x3 = mapply(delta, x2)
+    x4 = canvas(ZERO, shape(I))
+    O = fill(x4, THREE, x3)
+    return O
+
+def dsl2(I):
+    x0 = fgpartition(I)
+    x1 = colorfilter(x0, TWO)
+    f = fork(equality, toindices, box)
+    x2 = sfilter(x1, f)
+    x3 = mapply(delta, x2)
+    x4 = canvas(ZERO, shape(I))
+    O = fill(x4, THREE, x3)
+    return O
+
+def dsl3(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    x2 = mapply(delta, x1)
+    x3 = canvas(ZERO, shape(I))
+    O = fill(x3, THREE, x2)
+    return O

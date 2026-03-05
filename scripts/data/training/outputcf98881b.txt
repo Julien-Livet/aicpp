@@ -1,0 +1,56 @@
+def dsl1(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    non4 = difference(asindices(A), ofcolor(A, FOUR))
+    p9 = intersection(ofcolor(B, NINE), non4)
+    Y = fill(A, NINE, p9)
+    p1 = difference(intersection(ofcolor(C, ONE), non4), p9)
+    O = fill(Y, ONE, p1)
+    return O
+
+def dsl2(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    nz = difference(asindices(A), ofcolor(A, FOUR))
+    pB = intersection(ofcolor(B, NINE), nz)
+    pC = intersection(ofcolor(C, ONE), nz)
+    O = fill(A, NINE, pB)
+    O = fill(O, ONE, difference(pC, pB))
+    return O
+
+def dsl3(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    mask_non4 = difference(asindices(A), ofcolor(A, FOUR))
+    mask9 = intersection(ofcolor(B, NINE), mask_non4)
+    base = fill(A, NINE, mask9)
+    mask1 = difference(intersection(ofcolor(C, ONE), mask_non4), mask9)
+    O = fill(base, ONE, mask1)
+    return O
+
+def dsl4(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    keep = ofcolor(A, FOUR)
+    allidx = asindices(A)
+    modidx = difference(allidx, keep)
+    nines = intersection(ofcolor(B, NINE), modidx)
+    ones = difference(intersection(ofcolor(C, ONE), modidx), nines)
+    A1 = fill(A, NINE, nines)
+    O = fill(A1, ONE, ones)
+    return O
+
+def dsl5(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    nonfour = difference(asindices(A), ofcolor(A, FOUR))
+    put9 = intersection(ofcolor(B, NINE), nonfour)
+    put1 = intersection(ofcolor(C, ONE), nonfour)
+    Y = fill(A, NINE, put9)
+    O = fill(Y, ONE, difference(put1, put9))
+    return O

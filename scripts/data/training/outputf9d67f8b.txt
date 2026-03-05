@@ -1,0 +1,39 @@
+def dsl1(I):
+    m = ofcolor(I, NINE)
+    base = cover(I, m)
+    J = rot180(I)
+    obj = toobject(m, J)
+    O = underpaint(base, obj)
+    return O
+
+def dsl2(I):
+    m = ofcolor(I, NINE)
+    base = cover(I, m)
+    J = rot270(I)
+    obj = toobject(m, J)
+    O = underpaint(base, obj)
+    return O
+
+def dsl3(I):
+    m = ofcolor(I, NINE)
+    base = cover(I, m)
+    J = rot90(I)
+    obj = toobject(m, J)
+    O = underpaint(base, obj)
+    return O
+
+def dsl4(I):
+    m = ofcolor(I, NINE)
+    base = cover(I, m)
+    J = hmirror(I)
+    obj = toobject(m, J)
+    O = underpaint(base, obj)
+    return O
+
+def dsl5(I):
+    m = ofcolor(I, NINE)
+    base = cover(I, m)
+    J = vmirror(I)
+    obj = toobject(m, J)
+    O = underpaint(base, obj)
+    return O

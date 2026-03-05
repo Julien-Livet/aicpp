@@ -1,0 +1,115 @@
+def dsl1(I):
+    w = width(I)
+    h = height(I)
+    twos = ofcolor(I, TWO)
+    two_obj = toobject(twos, I)
+    R = lowermost(two_obj)
+    top = crop(I, ORIGIN, astuple(R, w))
+    bot = crop(I, astuple(R, ZERO), astuple(subtract(h, R), w))
+    four_top = ofcolor(top, FOUR)
+    top0 = replace(top, FOUR, ZERO)
+    shifted_top = shift(four_top, DOWN)
+    top1 = paint(top0, recolor(FOUR, shifted_top))
+    four_bot = ofcolor(bot, FOUR)
+    bot0 = replace(bot, FOUR, ZERO)
+    shifted_bot = shift(four_bot, DOWN)
+    bot1 = paint(bot0, recolor(FOUR, shifted_bot))
+    apex_row = decrement(R)
+    brow = hfrontier(astuple(apex_row, ZERO))
+    apex = intersection(shifted_top, brow)
+    upfun = rbind(shoot, UP_RIGHT)
+    dnfun = rbind(shoot, DOWN_LEFT)
+    upr = mapply(upfun, apex)
+    dnl = mapply(dnfun, apex)
+    diag = combine(upr, dnl)
+    diag = intersection(diag, asindices(top))
+    top2 = paint(top1, recolor(FOUR, diag))
+    O = vconcat(top2, bot1)
+    return O
+
+def dsl2(I):
+    w = width(I)
+    h = height(I)
+    twos = ofcolor(I, TWO)
+    R = lowermost(toobject(twos, I))
+    top = crop(I, ORIGIN, astuple(R, w))
+    bot = crop(I, astuple(R, ZERO), astuple(subtract(h, R), w))
+    # shift-down pass
+    st = shift(ofcolor(top, FOUR), DOWN)
+    sb = shift(ofcolor(bot, FOUR), DOWN)
+    top_base = paint(replace(top, FOUR, ZERO), recolor(FOUR, st))
+    bot_base = paint(replace(bot, FOUR, ZERO), recolor(FOUR, sb))
+    # diagonal expansion from row R-1 in top
+    apex = intersection(st, hfrontier(astuple(decrement(R), ZERO)))
+    diag = combine(mapply(rbind(shoot, UP_RIGHT), apex), mapply(rbind(shoot, DOWN_LEFT), apex))
+    diag = intersection(diag, asindices(top))
+    top_out = paint(top_base, recolor(FOUR, diag))
+    O = vconcat(top_out, bot_base)
+    return O
+
+def dsl3(I):
+    w = width(I)
+    h = height(I)
+    R = lowermost(toobject(ofcolor(I, TWO), I))
+    top = crop(I, ORIGIN, astuple(R, w))
+    bot = crop(I, astuple(R, ZERO), astuple(subtract(h, R), w))
+    # prepare cleared halves
+    topc = replace(top, FOUR, ZERO)
+    botc = replace(bot, FOUR, ZERO)
+    # shifted 4s
+    st = shift(ofcolor(top, FOUR), DOWN)
+    sb = shift(ofcolor(bot, FOUR), DOWN)
+    # paint shifted
+    top1 = paint(topc, recolor(FOUR, st))
+    bot1 = paint(botc, recolor(FOUR, sb))
+    # build diagonals from bottom row of top
+    rowset = hfrontier(astuple(decrement(R), ZERO))
+    seeds = intersection(st, rowset)
+    diag_up = mapply(rbind(shoot, UP_RIGHT), seeds)
+    diag_dn = mapply(rbind(shoot, DOWN_LEFT), seeds)
+    diag = intersection(combine(diag_up, diag_dn), asindices(top))
+    top2 = paint(top1, recolor(FOUR, diag))
+    O = vconcat(top2, bot1)
+    return O
+
+def dsl4(I):
+    w = width(I)
+    h = height(I)
+    R = lowermost(toobject(ofcolor(I, TWO), I))
+    top = crop(I, ORIGIN, astuple(R, w))
+    bot = crop(I, astuple(R, ZERO), astuple(subtract(h, R), w))
+    # downshift
+    st = shift(ofcolor(top, FOUR), DOWN)
+    sb = shift(ofcolor(bot, FOUR), DOWN)
+    # base paints
+    topb = paint(replace(top, FOUR, ZERO), recolor(FOUR, st))
+    botb = paint(replace(bot, FOUR, ZERO), recolor(FOUR, sb))
+    # diagonals through seeds at last row of top
+    lastrow = hfrontier(astuple(decrement(R), ZERO))
+    apex = intersection(st, lastrow)
+    lines = combine(mapply(rbind(shoot, UP_RIGHT), apex), mapply(rbind(shoot, DOWN_LEFT), apex))
+    lines = intersection(lines, asindices(top))
+    topo = paint(topb, recolor(FOUR, lines))
+    O = vconcat(topo, botb)
+    return O
+
+def dsl5(I):
+    w = width(I)
+    h = height(I)
+    tw = toobject(ofcolor(I, TWO), I)
+    R = lowermost(tw)
+    top = crop(I, ORIGIN, astuple(R, w))
+    bot = crop(I, astuple(R, ZERO), astuple(subtract(h, R), w))
+    # shift-down 4s in both parts
+    t4 = shift(ofcolor(top, FOUR), DOWN)
+    b4 = shift(ofcolor(bot, FOUR), DOWN)
+    top1 = paint(replace(top, FOUR, ZERO), recolor(FOUR, t4))
+    bot1 = paint(replace(bot, FOUR, ZERO), recolor(FOUR, b4))
+    # expand diagonals only from row R-1 in top
+    rset = hfrontier(astuple(decrement(R), ZERO))
+    ap = intersection(t4, rset)
+    diag = combine(mapply(rbind(shoot, UP_RIGHT), ap), mapply(rbind(shoot, DOWN_LEFT), ap))
+    diag = intersection(diag, asindices(top))
+    top2 = paint(top1, recolor(FOUR, diag))
+    O = vconcat(top2, bot1)
+    return O

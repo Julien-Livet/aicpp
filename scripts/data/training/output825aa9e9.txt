@@ -1,0 +1,71 @@
+def dsl1(I):
+    bg = mostcolor(I)
+    pal = palette(I)
+    p2 = remove(bg, pal)
+    comp = lbind(colorcount, I)
+    c = valmin(p2, comp)
+    cells = ofcolor(I, c)
+    G = fill(I, bg, cells)
+    obj = toobject(cells, I)
+    sh = shift(obj, double(DOWN))
+    O = underpaint(G, sh)
+    return O
+
+def dsl2(I):
+    bg = mostcolor(I)
+    pal = palette(I)
+    p2 = remove(bg, pal)
+    comp = lbind(colorcount, I)
+    c = valmin(p2, comp)
+    cells_all = ofcolor(I, c)
+    cells_th = ofcolor(tophalf(I), c)
+    cells_bot = difference(cells_all, cells_th)
+    G = fill(I, bg, cells_all)
+    obj_bot = toobject(cells_bot, I)
+    obj_th = toobject(cells_th, I)
+    sh_bot = shift(obj_bot, DOWN)
+    sh_th = shift(obj_th, double(DOWN))
+    objs = combine(sh_bot, sh_th)
+    O = underpaint(G, objs)
+    return O
+
+def dsl3(I):
+    bg = mostcolor(I)
+    pal = palette(I)
+    p2 = remove(bg, pal)
+    comp = lbind(colorcount, I)
+    c = valmin(p2, comp)
+    cells = ofcolor(I, c)
+    G = fill(I, bg, cells)
+    obj = toobject(cells, I)
+    sh = shift(obj, DOWN)
+    O = underpaint(G, sh)
+    return O
+
+def dsl4(I):
+    bg = mostcolor(I)
+    pal = palette(I)
+    p2 = remove(bg, pal)
+    comp = lbind(colorcount, I)
+    c = valmin(p2, comp)
+    th = tophalf(I)
+    cells_th = ofcolor(th, c)
+    G = fill(I, bg, cells_th)
+    obj = toobject(cells_th, I)
+    sh = shift(obj, DOWN)
+    O = underpaint(G, sh)
+    return O
+
+def dsl5(I):
+    bg = mostcolor(I)
+    pal = palette(I)
+    p2 = remove(bg, pal)
+    comp = lbind(colorcount, I)
+    c = valmin(p2, comp)
+    th = tophalf(I)
+    cells_th = ofcolor(th, c)
+    G = fill(I, bg, cells_th)
+    obj = toobject(cells_th, I)
+    sh = shift(obj, double(DOWN))
+    O = underpaint(G, sh)
+    return O

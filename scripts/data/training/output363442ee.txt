@@ -1,0 +1,53 @@
+def dsl1(I):
+    s = shape(I)
+    O = canvas(ZERO, s)
+    obj5 = recolor(FIVE, ofcolor(I, FIVE))
+    O = paint(O, obj5)
+    src = crop(I, ORIGIN, THREE_BY_THREE)
+    sobj = asobject(src)
+    O = paint(O, sobj)
+    centers = ofcolor(I, ONE)
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    O = paint(O, copies)
+    return O
+
+def dsl2(I):
+    base = replace(I, ONE, ZERO)
+    sobj = asobject(crop(I, ORIGIN, THREE_BY_THREE))
+    centers = ofcolor(I, ONE)
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    O = underpaint(base, copies)
+    return O
+
+def dsl3(I):
+    O = canvas(ZERO, shape(I))
+    O = paint(O, recolor(FIVE, ofcolor(I, FIVE)))
+    sobj = asobject(crop(I, ORIGIN, THREE_BY_THREE))
+    centers = combine(ofcolor(I, ONE), initset(astuple(1, 1)))
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    O = paint(O, copies)
+    return O
+
+def dsl4(I):
+    base = replace(I, ONE, ZERO)
+    sobj = asobject(crop(I, ORIGIN, THREE_BY_THREE))
+    centers = insert(astuple(1, 1), ofcolor(I, ONE))
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    O = underpaint(base, copies)
+    return O
+
+def dsl5(I):
+    s = shape(I)
+    src = crop(I, ORIGIN, THREE_BY_THREE)
+    sobj = asobject(src)
+    centers = insert(astuple(1, 1), ofcolor(I, ONE))
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    obj5 = recolor(FIVE, ofcolor(I, FIVE))
+    allobjs = combine(copies, combine(sobj, obj5))
+    O = paint(canvas(ZERO, s), allobjs)
+    return O

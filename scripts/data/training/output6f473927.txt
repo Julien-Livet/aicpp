@@ -1,0 +1,41 @@
+def dsl1(I):
+    x1 = vmirror(I)
+    x2 = replace(x1, ZERO, EIGHT)
+    x3 = replace(x2, TWO, ZERO)
+    h = height(I)
+    c = crop(I, ORIGIN, astuple(h, ONE))
+    cond = greater(colorcount(c, TWO), ZERO)
+    left = branch(cond, x3, I)
+    right = branch(cond, I, x3)
+    O = hconcat(left, right)
+    return O
+
+def dsl2(I):
+    x1 = vmirror(I)
+    x2 = replace(x1, ZERO, EIGHT)
+    x3 = replace(x2, TWO, ZERO)
+    cond = equality(leftmost(ofcolor(I, TWO)), ZERO)
+    left = branch(cond, x3, I)
+    right = branch(cond, I, x3)
+    O = hconcat(left, right)
+    return O
+
+def dsl3(I):
+    y1 = replace(I, ZERO, EIGHT)
+    y2 = replace(y1, TWO, ZERO)
+    x3 = vmirror(y2)
+    h = height(I)
+    c = crop(I, ORIGIN, astuple(h, ONE))
+    cond = greater(colorcount(c, TWO), ZERO)
+    left = branch(cond, x3, I)
+    right = branch(cond, I, x3)
+    O = hconcat(left, right)
+    return O
+
+def dsl4(I):
+    x1 = vmirror(I)
+    x2 = replace(x1, ZERO, EIGHT)
+    x3 = switch(x2, TWO, ZERO)
+    cond = equality(leftmost(ofcolor(I, TWO)), ZERO)
+    O = hconcat(branch(cond, x3, I), branch(cond, I, x3))
+    return O

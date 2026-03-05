@@ -1,0 +1,43 @@
+def dsl1(I):
+    h = height(I)
+    w = width(I)
+    is_h = equality(h, THREE)
+    n_v = divide(w, THREE)
+    n_h = divide(h, THREE)
+    tiles_h = vsplit(I, n_v)
+    tiles_v = hsplit(I, n_h)
+    tiles = branch(is_h, tiles_h, tiles_v)
+    tot = fork(multiply, height, width)
+    zc = rbind(colorcount, ZERO)
+    score = fork(subtract, tot, zc)
+    O = argmax(tiles, score)
+    return O
+
+def dsl2(I):
+    h = height(I)
+    w = width(I)
+    tiles = branch(equality(h, THREE), vsplit(I, divide(w, THREE)), hsplit(I, divide(h, THREE)))
+    zc = rbind(colorcount, ZERO)
+    O = argmin(tiles, zc)
+    return O
+
+def dsl3(I):
+    h = height(I)
+    w = width(I)
+    tiles_h = vsplit(I, divide(w, THREE))
+    tiles_v = hsplit(I, divide(h, THREE))
+    tiles = branch(equality(w, THREE), tiles_v, tiles_h)
+    tot = fork(multiply, height, width)
+    zc = rbind(colorcount, ZERO)
+    nz = fork(subtract, tot, zc)
+    O = argmax(tiles, nz)
+    return O
+
+def dsl4(I):
+    h = height(I)
+    w = width(I)
+    tiles = branch(equality(h, THREE), vsplit(I, divide(w, THREE)), hsplit(I, divide(h, THREE)))
+    zc = rbind(colorcount, ZERO)
+    ord = order(tiles, zc)
+    O = first(ord)
+    return O

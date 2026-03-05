@@ -1,0 +1,103 @@
+def dsl1(I):
+    h = height(I)
+    w = width(I)
+    rmid = divide(h, TWO)
+    cmid = divide(w, TWO)
+    th = rmid
+    bh = subtract(h, rmid)
+    lw = cmid
+    rw = subtract(w, cmid)
+    TL = crop(I, astuple(ZERO, ZERO), astuple(th, lw))
+    TR = crop(I, astuple(ZERO, cmid), astuple(th, rw))
+    BL = crop(I, astuple(rmid, ZERO), astuple(bh, lw))
+    BR = crop(I, astuple(rmid, cmid), astuple(bh, rw))
+    f100 = multiply(TEN, TEN)
+    f1000 = multiply(TEN, f100)
+    pall = remove(ZERO, palette(I))
+    scoreAll = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, I)), identity)
+    fallback = branch(greater(size(pall), ZERO), argmax(pall, scoreAll), ZERO)
+    pTL = remove(ZERO, palette(TL))
+    pTR = remove(ZERO, palette(TR))
+    pBL = remove(ZERO, palette(BL))
+    pBR = remove(ZERO, palette(BR))
+    sTL = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, TL)), identity)
+    sTR = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, TR)), identity)
+    sBL = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, BL)), identity)
+    sBR = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, BR)), identity)
+    cTL = branch(greater(size(pTL), ZERO), argmax(pTL, sTL), fallback)
+    cTR = branch(greater(size(pTR), ZERO), argmax(pTR, sTR), fallback)
+    cBL = branch(greater(size(pBL), ZERO), argmax(pBL, sBL), fallback)
+    cBR = branch(greater(size(pBR), ZERO), argmax(pBR, sBR), fallback)
+    top = hconcat(canvas(cTL, UNITY), canvas(cTR, UNITY))
+    bot = hconcat(canvas(cBL, UNITY), canvas(cBR, UNITY))
+    tile = vconcat(top, bot)
+    n0 = colorcount(I, ZERO)
+    O = branch(equality(n0, ONE), canvas(mostcolor(tile), UNITY), tile)
+    return O
+
+def dsl2(I):
+    h = height(I)
+    w = width(I)
+    rmid = divide(h, TWO)
+    cmid = divide(w, TWO)
+    TL = crop(I, astuple(ZERO, ZERO), astuple(rmid, cmid))
+    TR = crop(I, astuple(ZERO, cmid), astuple(rmid, subtract(w, cmid)))
+    BL = crop(I, astuple(rmid, ZERO), astuple(subtract(h, rmid), cmid))
+    BR = crop(I, astuple(rmid, cmid), astuple(subtract(h, rmid), subtract(w, cmid)))
+    f100 = multiply(TEN, TEN)
+    f1000 = multiply(TEN, f100)
+    pall = remove(ZERO, palette(I))
+    scoreAll = fork(add, compose(rbind(multiply, f1000), lbind(colorcount, I)), identity)
+    fallback = branch(greater(size(pall), ZERO), argmax(pall, scoreAll), ZERO)
+    pickTL = branch(greater(size(remove(ZERO, palette(TL))), ZERO),
+                    argmax(remove(ZERO, palette(TL)),
+                           fork(add, compose(rbind(multiply, f1000), lbind(colorcount, TL)), identity)),
+                    fallback)
+    pickTR = branch(greater(size(remove(ZERO, palette(TR))), ZERO),
+                    argmax(remove(ZERO, palette(TR)),
+                           fork(add, compose(rbind(multiply, f1000), lbind(colorcount, TR)), identity)),
+                    fallback)
+    pickBL = branch(greater(size(remove(ZERO, palette(BL))), ZERO),
+                    argmax(remove(ZERO, palette(BL)),
+                           fork(add, compose(rbind(multiply, f1000), lbind(colorcount, BL)), identity)),
+                    fallback)
+    pickBR = branch(greater(size(remove(ZERO, palette(BR))), ZERO),
+                    argmax(remove(ZERO, palette(BR)),
+                           fork(add, compose(rbind(multiply, f1000), lbind(colorcount, BR)), identity)),
+                    fallback)
+    top = hconcat(canvas(pickTL, UNITY), canvas(pickTR, UNITY))
+    bot = hconcat(canvas(pickBL, UNITY), canvas(pickBR, UNITY))
+    tile = vconcat(top, bot)
+    O = branch(equality(colorcount(I, ZERO), ONE), canvas(mostcolor(tile), UNITY), tile)
+    return O
+
+def dsl3(I):
+    h = height(I)
+    w = width(I)
+    rmid = divide(h, TWO)
+    cmid = divide(w, TWO)
+    th = rmid
+    bh = subtract(h, rmid)
+    lw = cmid
+    rw = subtract(w, cmid)
+    TL = crop(I, astuple(ZERO, ZERO), astuple(th, lw))
+    TR = crop(I, astuple(ZERO, cmid), astuple(th, rw))
+    BL = crop(I, astuple(rmid, ZERO), astuple(bh, lw))
+    BR = crop(I, astuple(rmid, cmid), astuple(bh, rw))
+    f100 = multiply(TEN, TEN)
+    f1000 = multiply(TEN, f100)
+    pick = lambda G: branch(
+        greater(size(remove(ZERO, palette(G))), ZERO),
+        argmax(remove(ZERO, palette(G)),
+               fork(add, compose(rbind(multiply, f1000), lbind(colorcount, G)), identity)),
+        ZERO
+    )
+    cTL = pick(TL)
+    cTR = pick(TR)
+    cBL = pick(BL)
+    cBR = pick(BR)
+    top = hconcat(canvas(cTL, UNITY), canvas(cTR, UNITY))
+    bot = hconcat(canvas(cBL, UNITY), canvas(cBR, UNITY))
+    tile = vconcat(top, bot)
+    O = branch(equality(colorcount(I, ZERO), ONE), canvas(mostcolor(tile), UNITY), tile)
+    return O

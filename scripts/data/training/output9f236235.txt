@@ -1,0 +1,44 @@
+def dsl1(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = argmax(x2, height)
+    x4 = height(x3)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O
+
+def dsl2(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = argmax(x2, width)
+    x4 = width(x3)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O
+
+def dsl3(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = apply(height, x2)
+    x4 = valmax(x3, identity)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O
+
+def dsl4(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = extract(x2, square)
+    x4 = height(x3)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O
+
+def dsl5(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = argmin(x2, subtract(height, ZERO))
+    x4 = height(x3)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O

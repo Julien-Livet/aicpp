@@ -1,0 +1,35 @@
+def dsl1(I):
+    x1 = objects(I, T, F, T)
+    x2 = mapply(inbox, x1)
+    O = fill(I, EIGHT, x2)
+    return O
+
+def dsl2(I):
+    x1 = objects(I, T, F, T)
+    f = compose(delta, box)
+    x2 = mapply(f, x1)
+    O = fill(I, EIGHT, x2)
+    return O
+
+def dsl3(I):
+    x1 = objects(I, T, F, T)
+    x2 = mapply(backdrop, x1)
+    x3 = mapply(box, x1)
+    x4 = difference(x2, x3)
+    O = fill(I, EIGHT, x4)
+    return O
+
+def dsl4(I):
+    x1 = objects(I, T, F, T)
+    x2 = apply(inbox, x1)
+    x3 = merge(x2)
+    O = fill(I, EIGHT, x3)
+    return O
+
+def dsl5(I):
+    x1 = objects(I, T, F, T)
+    bxs = apply(box, x1)
+    inrs = apply(delta, bxs)
+    x2 = merge(inrs)
+    O = fill(I, EIGHT, x2)
+    return O

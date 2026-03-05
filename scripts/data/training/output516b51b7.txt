@@ -1,0 +1,45 @@
+def dsl1(I):
+    objs = colorfilter(objects(I, T, F, T), ONE)
+    inner1 = mapply(inbox, objs)
+    O = fill(I, TWO, inner1)
+    inner2 = mapply(inbox, apply(inbox, objs))
+    O = fill(O, THREE, inner2)
+    return O
+
+def dsl2(I):
+    objs = colorfilter(objects(I, T, F, T), ONE)
+    a = apply(inbox, objs)
+    inner1 = merge(a)
+    O = fill(I, TWO, inner1)
+    b = apply(inbox, a)
+    inner2 = merge(b)
+    O = fill(O, THREE, inner2)
+    return O
+
+def dsl3(I):
+    objs = colorfilter(objects(I, T, F, T), ONE)
+    inner1 = mapply(inbox, objs)
+    inner2 = mapply(inbox, apply(inbox, objs))
+    inner3 = mapply(inbox, apply(inbox, apply(inbox, objs)))
+    O = fill(I, TWO, inner1)
+    O = fill(O, THREE, inner2)
+    O = fill(O, THREE, inner3)
+    return O
+
+def dsl4(I):
+    objs = colorfilter(objects(I, T, F, T), ONE)
+    a = apply(inbox, objs)
+    b = apply(inbox, a)
+    ring2 = merge(a)
+    ring3plus = merge(b)
+    O = fill(I, TWO, ring2)
+    O = fill(O, THREE, ring3plus)
+    return O
+
+def dsl5(I):
+    ones = colorfilter(objects(I, T, F, T), ONE)
+    level2 = mapply(inbox, ones)
+    O = fill(I, TWO, level2)
+    deeper = mapply(inbox, apply(inbox, ones))
+    O = fill(O, THREE, deeper)
+    return O

@@ -1,0 +1,42 @@
+def dsl1(I):
+    H = height(I)
+    W = width(I)
+    Z = canvas(ZERO, astuple(H, ONE))
+    L = crop(I, ORIGIN, astuple(H, subtract(W, ONE)))
+    O = hconcat(Z, L)
+    return O
+
+def dsl2(I):
+    H = height(I)
+    W = width(I)
+    D = divide(W, TWO)
+    Z = canvas(ZERO, astuple(H, D))
+    L = crop(I, ORIGIN, astuple(H, subtract(W, D)))
+    O = hconcat(Z, L)
+    return O
+
+def dsl3(I):
+    H = height(I)
+    W = width(I)
+    D = divide(W, TWO)
+    S = astuple(0, subtract(W, D))
+    R = crop(I, S, astuple(H, D))
+    Z = canvas(ZERO, astuple(H, subtract(W, D)))
+    O = hconcat(Z, R)
+    return O
+
+def dsl4(I):
+    H = height(I)
+    W = width(I)
+    K = divide(W, THREE)
+    S = astuple(0, subtract(W, K))
+    R = crop(I, S, astuple(H, K))
+    Z = canvas(ZERO, astuple(H, subtract(W, K)))
+    O = hconcat(Z, R)
+    return O
+
+def dsl5(I):
+    M = vmirror(I)
+    A = asobject(M)
+    O = underpaint(I, A)
+    return O

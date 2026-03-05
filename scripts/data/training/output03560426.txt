@@ -1,0 +1,53 @@
+def dsl1(I):
+    dims = shape(I)
+    O = canvas(ZERO, dims)
+    obs = objects(I, T, F, T)
+    seq = order(obs, leftmost)
+    cur = ORIGIN
+    for obj in seq:
+        norm = normalize(obj)
+        placed = shift(norm, cur)
+        O = paint(O, placed)
+        cur = lrcorner(placed)
+    return O
+
+def dsl2(I):
+    dims = shape(I)
+    O = canvas(ZERO, dims)
+    obs = objects(I, T, F, T)
+    seq = order(obs, leftmost)
+    cur = ORIGIN
+    for obj in seq:
+        inds = toindices(obj)
+        base = normalize(inds)
+        placed_inds = shift(base, cur)
+        placed_obj = recolor(color(obj), placed_inds)
+        O = paint(O, placed_obj)
+        cur = lrcorner(placed_inds)
+    return O
+
+def dsl3(I):
+    dims = shape(I)
+    O = canvas(ZERO, dims)
+    obs = fgpartition(I)
+    seq = order(obs, leftmost)
+    cur = ORIGIN
+    for obj in seq:
+        norm = normalize(obj)
+        placed = shift(norm, cur)
+        O = paint(O, placed)
+        cur = lrcorner(placed)
+    return O
+
+def dsl4(I):
+    dims = shape(I)
+    O = canvas(ZERO, dims)
+    obs = objects(I, T, F, T)
+    seq = order(obs, leftmost)
+    cur = ORIGIN
+    for obj in seq:
+        inds = normalize(toindices(obj))
+        placed = shift(inds, cur)
+        O = paint(O, recolor(color(obj), placed))
+        cur = lrcorner(placed)
+    return O

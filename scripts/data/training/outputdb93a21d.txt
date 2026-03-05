@@ -1,0 +1,48 @@
+def dsl1(I):
+    obs = objects(I, T, F, T)
+    nines = colorfilter(obs, NINE)
+    outs = mapply(outbox, nines)
+    frame = recolor(THREE, outs)
+    O = underpaint(I, frame)
+    return O
+
+def dsl2(I):
+    obs = objects(I, T, F, T)
+    nines = colorfilter(obs, NINE)
+    deltas = mapply(delta, nines)
+    ring = recolor(THREE, deltas)
+    O = underpaint(I, ring)
+    return O
+
+def dsl3(I):
+    obs = objects(I, T, F, T)
+    nines = colorfilter(obs, NINE)
+    outs = mapply(outbox, nines)
+    deltas = mapply(delta, nines)
+    frame = recolor(THREE, outs)
+    ring = recolor(THREE, deltas)
+    both = combine(frame, ring)
+    O = underpaint(I, both)
+    return O
+
+def dsl4(I):
+    obs = objects(I, T, F, T)
+    nines = colorfilter(obs, NINE)
+    js = mapply(rightmost, nines)
+    mk_loc = lbind(astuple, ZERO)
+    locs = mapply(mk_loc, js)
+    vlines = mapply(vfrontier, locs)
+    ones = recolor(ONE, vlines)
+    O = underpaint(I, ones)
+    return O
+
+def dsl5(I):
+    obs = objects(I, T, F, T)
+    nines = colorfilter(obs, NINE)
+    iset = mapply(lowermost, nines)
+    mk_loc = rbind(astuple, ZERO)
+    locs = mapply(mk_loc, iset)
+    hlines = mapply(hfrontier, locs)
+    ones = recolor(ONE, hlines)
+    O = underpaint(I, ones)
+    return O

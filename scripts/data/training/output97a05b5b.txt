@@ -1,0 +1,28 @@
+def dsl1(I):
+    x1 = compress(I)
+    O = replace(x1, ZERO, TWO)
+    return O
+
+def dsl2(I):
+    x1 = compress(I)
+    x2 = mostcolor(x1)
+    O = replace(x1, ZERO, x2)
+    return O
+
+def dsl3(I):
+    x1 = compress(I)
+    x2 = asindices(x1)
+    O = underfill(x1, TWO, x2)
+    return O
+
+def dsl4(I):
+    x1 = compress(I)
+    O = switch(x1, ZERO, TWO)
+    return O
+
+def dsl5(I):
+    x1 = compress(I)
+    x2 = mostcolor(x1)
+    x3 = switch(x1, ZERO, x2)
+    O = x3
+    return O

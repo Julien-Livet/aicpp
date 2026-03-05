@@ -1,0 +1,75 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    singles = sizefilter(objs, ONE)
+    singles_union = merge(singles)
+    O = cover(I, singles_union)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    singles = sizefilter(objs, ONE)
+    singles_union = merge(singles)
+    J = cover(I, singles_union)
+    allobjs = objects(J, T, F, T)
+    cond_ring = fork(equality, toindices, box)
+    rings = sfilter(allobjs, cond_ring)
+    h = height(J)
+    mid = divide(h, TWO)
+    gt_mid = rbind(greater, mid)
+    is_bottom = compose(gt_mid, uppermost)
+    is_top = compose(flip, is_bottom)
+    rings_top = sfilter(rings, is_top)
+    rings_bot = sfilter(rings, is_bottom)
+    top_interior = mapply(delta, rings_top)
+    bot_interior = mapply(delta, rings_bot)
+    ctop = leastcolor(tophalf(I))
+    cbot = leastcolor(bottomhalf(I))
+    K = fill(J, ctop, top_interior)
+    O = fill(K, cbot, bot_interior)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    singles = sizefilter(objs, ONE)
+    singles_union = merge(singles)
+    J = cover(I, singles_union)
+    allobjs = objects(J, T, F, T)
+    cond_ring = fork(equality, toindices, box)
+    rings = sfilter(allobjs, cond_ring)
+    w = width(J)
+    midw = divide(w, TWO)
+    gt_midw = rbind(greater, midw)
+    is_right = compose(gt_midw, leftmost)
+    is_left = compose(flip, is_right)
+    rings_left = sfilter(rings, is_left)
+    rings_right = sfilter(rings, is_right)
+    left_interior = mapply(delta, rings_left)
+    right_interior = mapply(delta, rings_right)
+    cleft = leastcolor(lefthalf(I))
+    cright = leastcolor(righthalf(I))
+    K = fill(J, cleft, left_interior)
+    O = fill(K, cright, right_interior)
+    return O
+
+def dsl4(I):
+    objs = objects(I, T, F, T)
+    cond_box = fork(equality, toindices, box)
+    cond_inside = compose(positive, compose(size, delta))
+    cond_ring = fork(both, cond_box, cond_inside)
+    rings = sfilter(objs, cond_ring)
+    rings_union = merge(rings)
+    O = paint(canvas(ZERO, shape(I)), rings_union)
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    singles = sizefilter(objs, ONE)
+    singles_union = merge(singles)
+    J = cover(I, singles_union)
+    allobjs = objects(J, T, F, T)
+    cond_ring = fork(equality, toindices, box)
+    rings = sfilter(allobjs, cond_ring)
+    interiors = mapply(delta, rings)
+    c = leastcolor(I)
+    O = fill(J, c, interiors)
+    return O

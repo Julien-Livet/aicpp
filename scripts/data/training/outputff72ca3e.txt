@@ -1,0 +1,106 @@
+def dsl1(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    acc = difference(allidx, allidx)
+    h = height(I)
+    w = width(I)
+    bound = add(h, w)
+    for o in totuple(fours):
+        c = ulcorner(o)
+        best = difference(allidx, allidx)
+        for r in interval(ONE, bound, ONE):
+            rv = multiply(UNITY, r)
+            s = add(c, invert(rv))
+            e = add(c, rv)
+            okb = both(contained(s, allidx), contained(e, allidx))
+            bb = backdrop(connect(s, e))
+            okf = equality(size(intersection(bb, fives)), ZERO)
+            best = branch(both(okb, okf), difference(bb, toindices(o)), best)
+        acc = combine(acc, best)
+    O = underfill(I, TWO, acc)
+    return O
+
+def dsl2(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    acc = difference(allidx, allidx)
+    bound = add(height(I), width(I))
+    for o in totuple(fours):
+        c = center(o)
+        best = difference(allidx, allidx)
+        for r in interval(ONE, bound, ONE):
+            d = multiply(UNITY, r)
+            s = add(c, invert(d))
+            e = add(c, d)
+            ok = both(contained(s, allidx), contained(e, allidx))
+            box = backdrop(connect(s, e))
+            clear = equality(size(intersection(box, fives)), ZERO)
+            best = branch(both(ok, clear), difference(box, toindices(o)), best)
+        acc = combine(acc, best)
+    O = underfill(I, TWO, acc)
+    return O
+
+def dsl3(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    fillset = difference(allidx, allidx)
+    lim = add(height(I), width(I))
+    for o in totuple(fours):
+        c = centerofmass(o)
+        chosen = difference(allidx, allidx)
+        for r in interval(ONE, lim, ONE):
+            step = multiply(UNITY, r)
+            a = add(c, invert(step))
+            b = add(c, step)
+            inside = both(contained(a, allidx), contained(b, allidx))
+            bb = backdrop(connect(a, b))
+            nofive = equality(size(intersection(bb, fives)), ZERO)
+            chosen = branch(both(inside, nofive), difference(bb, toindices(o)), chosen)
+        fillset = combine(fillset, chosen)
+    O = underfill(I, TWO, fillset)
+    return O
+
+def dsl4(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    acc = difference(allidx, allidx)
+    bound = add(height(I), width(I))
+    for o in totuple(fours):
+        c = ulcorner(o)
+        best = difference(allidx, allidx)
+        for r in interval(ONE, bound, ONE):
+            v = multiply(UNITY, r)
+            s = add(c, invert(v))
+            e = add(c, v)
+            okb = both(contained(s, allidx), contained(e, allidx))
+            bb = inbox(connect(s, e))
+            okf = equality(size(intersection(bb, fives)), ZERO)
+            best = branch(both(okb, okf), difference(bb, toindices(o)), best)
+        acc = combine(acc, best)
+    O = underfill(I, TWO, acc)
+    return O
+
+def dsl5(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    acc = difference(allidx, allidx)
+    maxr = add(height(I), width(I))
+    for o in totuple(fours):
+        c = center(o)
+        chosen = difference(allidx, allidx)
+        for r in interval(ONE, maxr, ONE):
+            dr = multiply(UNITY, r)
+            p = add(c, invert(dr))
+            q = add(c, dr)
+            inb = both(contained(p, allidx), contained(q, allidx))
+            region = backdrop(connect(p, q))
+            safe = equality(size(intersection(region, fives)), ZERO)
+            chosen = branch(both(inb, safe), difference(region, toindices(o)), chosen)
+        acc = combine(acc, chosen)
+    O = underfill(I, TWO, acc)
+    return O

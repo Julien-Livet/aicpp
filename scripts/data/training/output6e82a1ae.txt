@@ -1,0 +1,33 @@
+def dsl1(I):
+    O = replace(I, FIVE, ONE)
+    return O
+
+def dsl2(I):
+    O = replace(I, FIVE, TWO)
+    return O
+
+def dsl3(I):
+    O = replace(I, FIVE, THREE)
+    return O
+
+def dsl4(I):
+    x1 = objects(I, T, F, T)
+    x2 = colorfilter(x1, FIVE)
+    x3 = sfilter(x2, rbind(bordering, I))
+    x4 = difference(x2, x3)
+    y1 = mapply(lbind(recolor, ONE), x3)
+    y2 = mapply(lbind(recolor, TWO), x4)
+    y = merge((y1, y2))
+    O = paint(I, y)
+    return O
+
+def dsl5(I):
+    x1 = objects(I, T, F, T)
+    x2 = colorfilter(x1, FIVE)
+    x3 = sfilter(x2, rbind(bordering, I))
+    x4 = difference(x2, x3)
+    y1 = mapply(lbind(recolor, TWO), x3)
+    y2 = mapply(lbind(recolor, THREE), x4)
+    y = merge((y1, y2))
+    O = paint(I, y)
+    return O

@@ -1,0 +1,33 @@
+def dsl1(I):
+    c = other(palette(I), ZERO)
+    n = colorcount(I, c)
+    dims = astuple(ONE, n)
+    O = canvas(c, dims)
+    return O
+
+def dsl2(I):
+    c = leastcolor(I)
+    n = colorcount(I, c)
+    O = canvas(c, astuple(ONE, n))
+    return O
+
+def dsl3(I):
+    objs = fgpartition(I)
+    obj = first(objs)
+    c = color(obj)
+    n = size(obj)
+    O = canvas(c, astuple(ONE, n))
+    return O
+
+def dsl4(I):
+    c = other(palette(I), ZERO)
+    inds = ofcolor(I, c)
+    n = size(inds)
+    O = canvas(c, astuple(ONE, n))
+    return O
+
+def dsl5(I):
+    objs = fgpartition(I)
+    obj = first(objs)
+    O = canvas(color(obj), astuple(ONE, size(obj)))
+    return O

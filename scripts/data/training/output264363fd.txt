@@ -1,0 +1,75 @@
+def dsl1(I):
+    bg = mostcolor(I)
+    p = palette(I)
+    p2 = remove(bg, p)
+    base = valmax(p2, lbind(colorcount, I))
+    dims = shape(I)
+    O = canvas(bg, dims)
+    base_inds = ofcolor(I, base)
+    O = fill(O, base, base_inds)
+    seeds = ofcolor(I, FOUR)
+    H = merge(apply(hfrontier, seeds))
+    V = merge(apply(vfrontier, seeds))
+    HV = combine(H, V)
+    cross = intersection(HV, base_inds)
+    O = fill(O, THREE, cross)
+    O = fill(O, FOUR, seeds)
+    return O
+
+def dsl2(I):
+    bg = mostcolor(I)
+    p = palette(I)
+    p2 = remove(bg, p)
+    base = valmax(p2, lbind(colorcount, I))
+    base_inds = ofcolor(I, base)
+    seeds = ofcolor(I, FOUR)
+    H = merge(apply(hfrontier, seeds))
+    V = merge(apply(vfrontier, seeds))
+    HV = combine(H, V)
+    cross = intersection(HV, base_inds)
+    O = fill(I, THREE, cross)
+    O = fill(O, FOUR, seeds)
+    return O
+
+def dsl3(I):
+    bg = mostcolor(I)
+    p = palette(I)
+    p2 = remove(bg, p)
+    base = valmax(p2, lbind(colorcount, I))
+    dims = shape(I)
+    O = canvas(bg, dims)
+    O = fill(O, base, ofcolor(I, base))
+    O = fill(O, FOUR, ofcolor(I, FOUR))
+    return O
+
+def dsl4(I):
+    bg = mostcolor(I)
+    p = palette(I)
+    p2 = remove(bg, p)
+    base = valmax(p2, lbind(colorcount, I))
+    dims = shape(I)
+    O = canvas(bg, dims)
+    base_inds = ofcolor(I, base)
+    O = fill(O, base, base_inds)
+    seeds = ofcolor(I, FOUR)
+    H = merge(apply(hfrontier, seeds))
+    hstripe = intersection(H, base_inds)
+    O = fill(O, THREE, hstripe)
+    O = fill(O, FOUR, seeds)
+    return O
+
+def dsl5(I):
+    bg = mostcolor(I)
+    p = palette(I)
+    p2 = remove(bg, p)
+    base = valmax(p2, lbind(colorcount, I))
+    dims = shape(I)
+    O = canvas(bg, dims)
+    base_inds = ofcolor(I, base)
+    O = fill(O, base, base_inds)
+    seeds = ofcolor(I, FOUR)
+    V = merge(apply(vfrontier, seeds))
+    vstripe = intersection(V, base_inds)
+    O = fill(O, THREE, vstripe)
+    O = fill(O, FOUR, seeds)
+    return O

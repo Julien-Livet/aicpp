@@ -1,0 +1,68 @@
+def dsl1(I):
+    H = height(I)
+    W = width(I)
+    top_h = subtract(H, THREE)
+    top = canvas(ZERO, astuple(top_h, W))
+    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
+    O = vconcat(top, band3)
+    return O
+
+def dsl2(I):
+    H = height(I)
+    W = width(I)
+    r1 = subtract(H, THREE)
+    r2 = subtract(H, TWO)
+    r3 = subtract(H, ONE)
+    row1 = shoot(astuple(r1, ZERO), RIGHT)
+    row2 = shoot(astuple(r2, ZERO), RIGHT)
+    row3 = shoot(astuple(r3, ZERO), RIGHT)
+    keep = combine(combine(row1, row2), row3)
+    rem = difference(asindices(I), keep)
+    O = cover(I, rem)
+    return O
+
+def dsl3(I):
+    H = height(I)
+    W = width(I)
+    top_h = subtract(H, THREE)
+    top = canvas(ZERO, astuple(top_h, W))
+    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
+    content = compress(band3)
+    ch = height(content)
+    cw = width(content)
+    pad_h = subtract(THREE, ch)
+    pad_top = canvas(ZERO, astuple(pad_h, cw))
+    content3 = vconcat(pad_top, content)
+    pad_w = subtract(W, width(content3))
+    pad_right = canvas(ZERO, astuple(THREE, pad_w))
+    band_aligned = hconcat(content3, pad_right)
+    O = vconcat(top, band_aligned)
+    return O
+
+def dsl4(I):
+    H = height(I)
+    W = width(I)
+    top_h = subtract(H, THREE)
+    top = canvas(ZERO, astuple(top_h, W))
+    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
+    content = compress(band3)
+    ch = height(content)
+    cw = width(content)
+    pad_h = subtract(THREE, ch)
+    pad_top = canvas(ZERO, astuple(pad_h, cw))
+    content3 = vconcat(pad_top, content)
+    pad_w = subtract(W, width(content3))
+    pad_left = canvas(ZERO, astuple(THREE, pad_w))
+    band_aligned = hconcat(pad_left, content3)
+    O = vconcat(top, band_aligned)
+    return O
+
+def dsl5(I):
+    H = height(I)
+    W = width(I)
+    top_h = subtract(H, THREE)
+    top = canvas(ZERO, astuple(top_h, W))
+    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
+    band_mir = hmirror(band3)
+    O = vconcat(top, band_mir)
+    return O

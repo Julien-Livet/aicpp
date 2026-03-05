@@ -1,0 +1,57 @@
+def dsl1(I):
+    x2 = ofcolor(I, TWO)
+    b2 = backdrop(x2)
+    dest = center(b2)
+    x5 = ofcolor(I, FIVE)
+    o5 = toobject(x5, I)
+    src = centerofmass(o5)
+    off = subtract(dest, src)
+    O = move(I, o5, off)
+    return O
+
+def dsl2(I):
+    x2 = ofcolor(I, TWO)
+    o2 = toobject(x2, I)
+    interior = delta(o2)
+    dest = center(interior)
+    x5 = ofcolor(I, FIVE)
+    o5 = toobject(x5, I)
+    src = center(o5)
+    off = subtract(dest, src)
+    O = move(I, o5, off)
+    return O
+
+def dsl3(I):
+    x2 = ofcolor(I, TWO)
+    o2 = toobject(x2, I)
+    dest = center(backdrop(o2))
+    x5 = ofcolor(I, FIVE)
+    o5 = toobject(x5, I)
+    src = centerofmass(o5)
+    off = subtract(dest, src)
+    O = move(I, o5, off)
+    return O
+
+def dsl4(I):
+    x2 = ofcolor(I, TWO)
+    dest = center(backdrop(x2))
+    x5 = ofcolor(I, FIVE)
+    o5 = toobject(x5, I)
+    src = center(o5)
+    off = subtract(dest, src)
+    base = cover(I, o5)
+    p5 = toindices(o5)
+    shifted = shift(p5, off)
+    mo5 = recolor(FIVE, shifted)
+    O = paint(base, mo5)
+    return O
+
+def dsl5(I):
+    x2 = ofcolor(I, TWO)
+    dest = center(delta(toobject(x2, I)))
+    x5 = ofcolor(I, FIVE)
+    o5 = toobject(x5, I)
+    src = centerofmass(o5)
+    off = subtract(dest, src)
+    O = move(I, o5, off)
+    return O

@@ -1,0 +1,53 @@
+def dsl1(I):
+    p5 = ofcolor(I, FIVE)
+    s5 = subgrid(p5, I)
+    pal = trim(replace(I, FIVE, ZERO))
+    rows = hsplit(pal, height(pal))
+    top = first(rows)
+    bot = last(rows)
+    cr = vupscale(top, height(s5))
+    z = ofcolor(s5, ZERO)
+    b = mostcolor(bot)
+    O = fill(cr, b, z)
+    return O
+
+def dsl2(I):
+    p5 = ofcolor(I, FIVE)
+    s5 = subgrid(p5, I)
+    pal = trim(replace(I, FIVE, ZERO))
+    rows = hsplit(pal, THREE)
+    top = first(rows)
+    bot = last(rows)
+    cr = vupscale(top, height(s5))
+    z = ofcolor(s5, ZERO)
+    cr2 = fill(cr, ZERO, z)
+    b = mostcolor(bot)
+    base = canvas(b, shape(s5))
+    O = paint(base, asobject(cr2))
+    return O
+
+def dsl3(I):
+    p5 = ofcolor(I, FIVE)
+    s5 = subgrid(p5, I)
+    pal = trim(replace(I, FIVE, ZERO))
+    rows = hsplit(pal, height(pal))
+    top = first(rows)
+    bot = last(rows)
+    cond = equality(mostcolor(top), leastcolor(top))
+    colorrow = branch(cond, bot, top)
+    backrow = branch(cond, top, bot)
+    cr = vupscale(colorrow, height(s5))
+    O = fill(cr, mostcolor(backrow), ofcolor(s5, ZERO))
+    return O
+
+def dsl4(I):
+    p5 = ofcolor(I, FIVE)
+    s5 = subgrid(p5, I)
+    pal = trim(replace(I, FIVE, ZERO))
+    rows = hsplit(pal, height(pal))
+    fg = first(rows)
+    bg = last(rows)
+    h = height(s5)
+    cr = vupscale(fg, h)
+    O = underfill(fill(cr, ZERO, ofcolor(s5, ZERO)), mostcolor(bg), ofcolor(s5, ZERO))
+    return O

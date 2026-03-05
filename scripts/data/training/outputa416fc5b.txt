@@ -1,0 +1,20 @@
+def dsl1(I):
+    O = I
+    return O
+
+def dsl2(I):
+    O = replace(I, TWO, FIVE)
+    return O
+
+def dsl3(I):
+    O = replace(I, TWO, EIGHT)
+    return O
+
+def dsl4(I):
+    dims = shape(I)
+    O = canvas(SEVEN, dims)
+    return O
+
+def dsl5(I):
+    O = switch(I, FIVE, EIGHT)
+    return O

@@ -1,0 +1,45 @@
+def dsl1(I):
+    x = ofcolor(I, TWO)
+    r1 = shift(x, RIGHT)
+    r2 = shift(x, ZERO_BY_TWO)
+    r3 = shift(x, add(RIGHT, ZERO_BY_TWO))
+    b = combine(r1, r2)
+    b = combine(b, r3)
+    O = underfill(I, FOUR, b)
+    return O
+
+def dsl2(I):
+    x = ofcolor(I, TWO)
+    l1 = shift(x, LEFT)
+    l2 = shift(x, add(UP, LEFT))
+    l3 = shift(x, DOWN_LEFT)
+    b = combine(l1, l2)
+    b = combine(b, l3)
+    O = underfill(I, FOUR, b)
+    return O
+
+def dsl3(I):
+    x = ofcolor(I, TWO)
+    d1 = shift(x, DOWN)
+    d2 = shift(x, add(DOWN, RIGHT))
+    d3 = shift(x, add(DOWN, ZERO_BY_TWO))
+    b = combine(d1, d2)
+    b = combine(b, d3)
+    O = underfill(I, FOUR, b)
+    return O
+
+def dsl4(I):
+    fr = frontiers(I)
+    idx = mapply(toindices, fr)
+    O = underfill(I, FOUR, idx)
+    return O
+
+def dsl5(I):
+    x = ofcolor(I, TWO)
+    s1 = shift(x, RIGHT)
+    s2 = shift(x, UP_RIGHT)
+    s3 = shift(x, add(DOWN, RIGHT))
+    b = combine(s1, s2)
+    b = combine(b, s3)
+    O = underfill(I, FOUR, b)
+    return O

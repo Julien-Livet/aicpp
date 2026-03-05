@@ -32,7 +32,7 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 
 Available variables:
-I: np.ndarray
+I: tuple[tuple]
 F = False
 T = True
 ZERO = 0

@@ -1,0 +1,43 @@
+def dsl1(I):
+    e = ofcolor(I, EIGHT)
+    t = ofcolor(I, TWO)
+    up1 = toivec(ONE)
+    up3 = toivec(THREE)
+    up4 = toivec(FOUR)
+    f1 = rbind(subtract, up1)
+    f3 = rbind(subtract, up3)
+    f4 = rbind(subtract, up4)
+    seg8 = mapply(fork(connect, f3, f1), e)
+    seg2 = mapply(fork(connect, f4, f1), t)
+    O = fill(I, ONE, combine(seg8, seg2))
+    top8 = mapply(f3, e)
+    top2 = mapply(f4, t)
+    O = fill(O, EIGHT, top8)
+    O = fill(O, TWO, top2)
+    return O
+
+def dsl2(I):
+    e = ofcolor(I, EIGHT)
+    t = ofcolor(I, TWO)
+    f1 = rbind(subtract, toivec(ONE))
+    f3 = rbind(subtract, toivec(THREE))
+    f4 = rbind(subtract, toivec(FOUR))
+    seg2 = mapply(fork(connect, f4, f1), t)
+    O = fill(I, ONE, seg2)
+    O = fill(O, TWO, mapply(f4, t))
+    seg8 = mapply(fork(connect, f3, f1), e)
+    O = fill(O, ONE, seg8)
+    O = fill(O, EIGHT, mapply(f3, e))
+    return O
+
+def dsl3(I):
+    e = ofcolor(I, EIGHT)
+    t = ofcolor(I, TWO)
+    f1 = rbind(subtract, toivec(ONE))
+    f3 = rbind(subtract, toivec(THREE))
+    f4 = rbind(subtract, toivec(FOUR))
+    O = underfill(I, ONE, mapply(fork(connect, f3, f1), e))
+    O = underfill(O, ONE, mapply(fork(connect, f4, f1), t))
+    O = fill(O, EIGHT, mapply(f3, e))
+    O = fill(O, TWO, mapply(f4, t))
+    return O

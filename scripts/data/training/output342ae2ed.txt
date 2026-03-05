@@ -1,0 +1,59 @@
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    bgobj = toobject(ofcolor(I, SEVEN), I)
+    E = difference(bgobj, bgobj)
+    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),
+                                        recolor(color(a), connect(centerofmass(a), centerofmass(b))),
+                                        E),
+                    objs, objs)
+    lines = merge(pairs)
+    O = underpaint(I, lines)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    bgobj = toobject(ofcolor(I, SEVEN), I)
+    E = difference(bgobj, bgobj)
+    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),
+                                        recolor(color(a), connect(center(a), center(b))),
+                                        E),
+                    objs, objs)
+    lines = merge(pairs)
+    O = underpaint(I, lines)
+    return O
+
+def dsl3(I):
+    cols = remove(SEVEN, palette(I))
+    lines = mapply(lambda c: recolor(c, branch(
+        both(equality(index(I, ulcorner(ofcolor(I, c))), c),
+             equality(index(I, lrcorner(ofcolor(I, c))), c)),
+        connect(ulcorner(ofcolor(I, c)), lrcorner(ofcolor(I, c))),
+        connect(urcorner(ofcolor(I, c)), llcorner(ofcolor(I, c)))
+    )), cols)
+    all_lines = merge(lines)
+    O = underpaint(I, all_lines)
+    return O
+
+def dsl4(I):
+    cols = remove(SEVEN, palette(I))
+    lines = mapply(lambda c: recolor(c, branch(
+        both(equality(index(I, urcorner(ofcolor(I, c))), c),
+             equality(index(I, llcorner(ofcolor(I, c))), c)),
+        connect(urcorner(ofcolor(I, c)), llcorner(ofcolor(I, c))),
+        connect(ulcorner(ofcolor(I, c)), lrcorner(ofcolor(I, c)))
+    )), cols)
+    all_lines = merge(lines)
+    O = underpaint(I, all_lines)
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    bgobj = toobject(ofcolor(I, SEVEN), I)
+    E = difference(bgobj, bgobj)
+    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),
+                                        recolor(color(a), connect(urcorner(toindices(a)), llcorner(toindices(b)))),
+                                        E),
+                    objs, objs)
+    lines = merge(pairs)
+    O = underpaint(I, lines)
+    return O

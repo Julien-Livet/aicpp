@@ -1,0 +1,58 @@
+def dsl1(I):
+    objs = colorfilter(objects(I, T, F, T), EIGHT)
+    t = totuple(objs)
+    a = first(t)
+    b = last(t)
+    p = ulcorner(a)
+    q = ulcorner(b)
+    line = connect(p, q)
+    O = underfill(I, THREE, line)
+    return O
+
+def dsl2(I):
+    objs = colorfilter(objects(I, T, F, T), EIGHT)
+    t = totuple(objs)
+    a = first(t)
+    b = last(t)
+    p = ulcorner(a)
+    q = ulcorner(b)
+    line = connect(p, q)
+    thick = combine(line, shift(line, RIGHT))
+    O = underfill(I, THREE, thick)
+    return O
+
+def dsl3(I):
+    objs = colorfilter(objects(I, T, F, T), EIGHT)
+    t = totuple(objs)
+    a = first(t)
+    b = last(t)
+    p = ulcorner(a)
+    q = ulcorner(b)
+    line = connect(p, q)
+    thick = combine(line, shift(line, LEFT))
+    O = underfill(I, THREE, thick)
+    return O
+
+def dsl4(I):
+    objs = colorfilter(objects(I, T, F, T), EIGHT)
+    t = totuple(objs)
+    a = first(t)
+    b = last(t)
+    p = ulcorner(a)
+    q = ulcorner(b)
+    line = connect(p, q)
+    thick = combine(line, shift(line, UP))
+    O = underfill(I, THREE, thick)
+    return O
+
+def dsl5(I):
+    objs = colorfilter(objects(I, T, F, T), EIGHT)
+    t = totuple(objs)
+    a = first(t)
+    b = last(t)
+    p = ulcorner(a)
+    q = ulcorner(b)
+    line = connect(p, q)
+    thick = combine(line, shift(line, DOWN))
+    O = underfill(I, THREE, thick)
+    return O
