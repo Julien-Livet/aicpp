@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p = palette(I)
     nz = remove(ZERO, p)
@@ -34,3 +35,4 @@ def dsl5(I):
     x1 = rot180(I)
     O = underpaint(I, asobject(x1))
     return O
+```

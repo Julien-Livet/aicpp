@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = I
     for obj in totuple(objects(I, F, T, T)):
@@ -71,3 +72,4 @@ def dsl4(I):
         loc = underpaint(loc, toobject(cross, cw))
         O = move(O, asobject(loc), ulcorner(obj))
     return O
+```

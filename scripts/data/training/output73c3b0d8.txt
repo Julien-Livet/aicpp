@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     w = width(I)
     h = height(I)
@@ -113,3 +114,4 @@ def dsl5(I):
     top2 = paint(top1, recolor(FOUR, diag))
     O = vconcat(top2, bot1)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     S = ofcolor(I, TWO)
     # horizontal gaps n=3..6 (fill all interior cells)
@@ -159,3 +160,4 @@ def dsl5(I):
     M = combine(H, V)
     O = underpaint(I, recolor(ONE, toobject(M, I)))
     return O
+```

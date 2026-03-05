@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = replace(I, FIVE, ONE)
     return O
@@ -31,3 +32,4 @@ def dsl5(I):
     y = merge((y1, y2))
     O = paint(I, y)
     return O
+```

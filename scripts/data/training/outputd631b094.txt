@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     c = other(palette(I), ZERO)
     n = colorcount(I, c)
@@ -31,3 +32,4 @@ def dsl5(I):
     obj = first(objs)
     O = canvas(color(obj), astuple(ONE, size(obj)))
     return O
+```

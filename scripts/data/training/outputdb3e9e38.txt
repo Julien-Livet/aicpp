@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     P = ofcolor(I, SEVEN)
     H = height(P)
@@ -69,3 +70,4 @@ def dsl4(I):
     obj = combine(evobj, odobj)
     O = paint(canvas(ZERO, shape(I)), obj)
     return O
+```

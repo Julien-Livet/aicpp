@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = rot90(I)
     return O
@@ -19,3 +20,4 @@ def dsl5(I):
     x2 = index(I, x1)
     O = replace(I, ZERO, x2)
     return O
+```

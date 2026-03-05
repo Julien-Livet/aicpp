@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = hconcat(I, vmirror(I))
     return O
@@ -22,3 +23,4 @@ def dsl5(I):
     x2 = hconcat(I, x1)
     O = hmirror(hmirror(x2))
     return O
+```

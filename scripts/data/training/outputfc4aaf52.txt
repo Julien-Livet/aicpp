@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     fg = difference(asindices(I), ofcolor(I, EIGHT))
     S = subgrid(fg, I)
@@ -113,3 +114,4 @@ def dsl5(I):
     O = paint(O, shift(t_obj, add(ul, tojvec(w))))
     O = paint(O, shift(b_obj, add(ul, toivec(th))))
     return O
+```

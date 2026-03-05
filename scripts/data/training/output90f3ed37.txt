@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = ofcolor(I, EIGHT)
     x2 = apply(rbind(add, RIGHT), x1)
@@ -51,3 +52,4 @@ def dsl5(I):
     x6 = cover(I, x5)
     O = underfill(x6, ONE, x3)
     return O
+```

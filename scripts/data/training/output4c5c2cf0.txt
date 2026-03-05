@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, T, T)
     tup = totuple(objs)
@@ -85,3 +86,4 @@ def dsl5(I):
     base = paint(base, hobj)
     O = paint(base, dobj)
     return O
+```

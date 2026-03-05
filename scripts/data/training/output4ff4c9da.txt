@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     H = height(I)
     W = width(I)
@@ -134,3 +135,4 @@ def dsl5(I):
             mask = combine(mask, shifted)
     O = fill(I, EIGHT, mask)
     return O
+```

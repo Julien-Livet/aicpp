@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = vmirror(I)
     x2 = replace(x1, ZERO, EIGHT)
@@ -39,3 +40,4 @@ def dsl4(I):
     cond = equality(leftmost(ofcolor(I, TWO)), ZERO)
     O = hconcat(branch(cond, x3, I), branch(cond, I, x3))
     return O
+```

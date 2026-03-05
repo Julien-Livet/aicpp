@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     cells = sizefilter(objs, 9)
@@ -97,3 +98,4 @@ def dsl5(I):
     adds = merge((add2, add4))
     O = underpaint(I, adds)
     return O
+```

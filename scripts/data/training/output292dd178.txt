@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     onesobjs = colorfilter(objs, ONE)
@@ -50,3 +51,4 @@ def dsl5(I):
     rc_bg = intersection(rcs, ofcolor(I, bg))
     O = fill(I, TWO, rc_bg)
     return O
+```

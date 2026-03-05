@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     objs = objects(I, T, F, T)
@@ -132,3 +133,4 @@ def dsl5(I):
     O = vconcat(O, seprow)
     O = vconcat(O, seprow)
     return O
+```

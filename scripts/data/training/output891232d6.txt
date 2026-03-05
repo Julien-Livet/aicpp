@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs7 = colorfilter(objects(I, T, F, T), SEVEN)
     centers = apply(center, objs7)
@@ -79,3 +80,4 @@ def dsl5(I):
     J = paint(H, merge(u6))
     O = paint(J, merge(l6))
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O0 = I
     x8 = ofcolor(I, EIGHT)
@@ -192,3 +193,4 @@ def dsl5(I):
     c2 = underpaint(O, recolor(TWO, m8))
     O = branch(has6, c6, branch(has2, c2, O))
     return O
+```

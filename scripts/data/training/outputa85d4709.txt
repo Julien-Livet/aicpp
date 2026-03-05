@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     f = ofcolor(I, FIVE)
     c0 = vfrontier(ORIGIN)
@@ -35,3 +36,4 @@ def dsl3(I):
     O2 = fill(O1, FOUR, r1)
     O = fill(O2, THREE, r2)
     return O
+```

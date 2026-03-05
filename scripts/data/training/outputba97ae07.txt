@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     cols = remove(ZERO, palette(I))
     f = lbind(ofcolor, I)
@@ -52,3 +53,4 @@ def dsl3(I):
     x1 = paint(I, rv_obj)
     O = paint(x1, rh_obj)
     return O
+```

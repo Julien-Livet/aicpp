@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     e = ofcolor(I, EIGHT)
     t = ofcolor(I, TWO)
@@ -41,3 +42,4 @@ def dsl3(I):
     O = fill(O, EIGHT, mapply(f3, e))
     O = fill(O, TWO, mapply(f4, t))
     return O
+```

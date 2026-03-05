@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     dims = shape(I)
     O = canvas(ZERO, dims)
@@ -51,3 +52,4 @@ def dsl4(I):
         O = paint(O, recolor(color(obj), placed))
         cur = lrcorner(placed)
     return O
+```

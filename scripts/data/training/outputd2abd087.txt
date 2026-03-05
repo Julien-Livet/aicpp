@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     T = tophalf(I)
     B = bottomhalf(I)
@@ -73,3 +74,4 @@ def dsl5(I):
     last1 = replace(last, FIVE, ONE)
     O = paint(tmp, asobject(last1))
     return O
+```

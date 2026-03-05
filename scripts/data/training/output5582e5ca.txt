@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = mostcolor(I)
     x2 = shape(I)
@@ -35,3 +36,4 @@ def dsl5(I):
     x4 = canvas(ZERO, shape(I))
     O = paint(x4, x3)
     return O
+```

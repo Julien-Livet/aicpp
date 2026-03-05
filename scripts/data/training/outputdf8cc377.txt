@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     singles = sizefilter(objs, ONE)
@@ -73,3 +74,4 @@ def dsl5(I):
     c = leastcolor(I)
     O = fill(J, c, interiors)
     return O
+```

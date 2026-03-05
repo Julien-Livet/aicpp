@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     a = ofcolor(I, FIVE)
     s1 = shift(a, UP)
@@ -68,3 +69,4 @@ def dsl5(I):
     onesobj = recolor(ONE, nb_in)
     O = underpaint(I, onesobj)
     return O
+```

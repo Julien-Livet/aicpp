@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     zeros = colorfilter(objs, ZERO)
@@ -75,3 +76,4 @@ def dsl5(I):
     side = branch(greater(halve(width(I)), rightmost(sel)), rbord, lbord)
     O = fill(J, SIX, side)
     return O
+```

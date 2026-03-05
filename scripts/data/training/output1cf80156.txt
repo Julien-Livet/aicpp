@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = trim(I)
     return O
@@ -29,3 +30,4 @@ def dsl5(I):
     x2 = merge(x1)
     O = subgrid(x2, I)
     return O
+```

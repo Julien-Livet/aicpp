@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = I
     return O
@@ -18,3 +19,4 @@ def dsl4(I):
 def dsl5(I):
     O = switch(I, FIVE, EIGHT)
     return O
+```

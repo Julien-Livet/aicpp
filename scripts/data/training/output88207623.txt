@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = vmirror(I)
     return O
@@ -29,3 +30,4 @@ def dsl5(I):
     x2 = replace(x1, FOUR, c)
     O = cellwise(I, x2, ZERO)
     return O
+```

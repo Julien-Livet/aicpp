@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = compress(I)
     return O
@@ -23,3 +24,4 @@ def dsl5(I):
     x1 = leastcolor(I)
     O = replace(I, EIGHT, x1)
     return O
+```

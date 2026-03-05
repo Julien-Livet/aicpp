@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = replace(I, SIX, TWO)
     return O
@@ -27,3 +28,4 @@ def dsl5(I):
     x2 = recolor(TWO, x1)
     O = paint(x0, x2)
     return O
+```

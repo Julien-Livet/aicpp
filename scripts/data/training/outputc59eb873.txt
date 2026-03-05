@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = upscale(I, TWO)
     return O
@@ -25,3 +26,4 @@ def dsl5(I):
     h = compose(g, f)
     O = h(I)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     W = width(I)
@@ -58,3 +59,4 @@ def dsl3(I):
     obj = mapply(patt, objs)
     O = paint(canvas(ZERO, shape(I)), obj)
     return O
+```

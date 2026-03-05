@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     pts7 = ofcolor(I, SEVEN)
     obj = toobject(pts7, I)
@@ -68,3 +69,4 @@ def dsl5(I):
     p = ofcolor(ds, EIGHT)
     O = branch(greater(size(p), ZERO), subgrid(p, ds), canvas(ZERO, shape(ds)))
     return O
+```

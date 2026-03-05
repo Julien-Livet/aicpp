@@ -65,7 +65,7 @@ THREE_BY_THREE = (3, 3)
 
 Available primitives:
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
-adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
+adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
 apply(function: Callable, container: Container) -> Container # apply function to each item in container
 argmax(container: Container, compfunc: Callable) -> Any # largest item by custom order
 argmin(container: Container, compfunc: Callable) -> Any # smallest item by custom order
@@ -73,7 +73,7 @@ asindices(grid: Tuple[Tuple[int]]) -> FrozenSet[Tuple[int, int]] # indices of al
 asobject(grid: Tuple[Tuple[int]]) -> FrozenSet[Tuple[int, Tuple[int, int]]] # conversion of grid to object
 astuple(a: int, b: int) -> Tuple[int, int] # constructs a tuple
 backdrop(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # indices in bounding box of patch
-bordering(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],grid: Tuple[Tuple[int]]) -> bool # whether a patch is adjacent to a grid border
+bordering(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], grid: Tuple[Tuple[int]]) -> bool # whether a patch is adjacent to a grid border
 both(a: bool, b: bool) -> bool # logical and
 bottomhalf(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # lower half of grid
 box(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # outline of patch
@@ -85,7 +85,7 @@ centerofmass(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tupl
 chain(h: Callable, g: Callable, f: Callable) -> Callable # function composition with three functions
 cmirror(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # mirroring along counterdiagonal
 color(obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> int # color of object
-colorcount(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]],value: int) -> int # number of cells with color
+colorcount(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]], value: int) -> int # number of cells with color
 colorfilter(objs: FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]], value: int) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # filter objects by color
 combine(a: Container, b: Container) -> Container # union
 compose(outer: Callable, inner: Callable) -> Callable # function composition
@@ -93,7 +93,7 @@ compress(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # removes frontiers from 
 connect(a: Tuple[int, int], b: Tuple[int, int]) -> FrozenSet[Tuple[int, int]] # line between two points
 contained(value: Any, container: Container) -> bool # element of
 corners(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # indices of corners
-cover(grid: Tuple[Tuple[int]],patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # remove object from grid
+cover(grid: Tuple[Tuple[int]], patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # remove object from grid
 crement(x: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # incrementing positive and decrementing negative
 crop(grid: Tuple[Tuple[int]], start: Tuple[int, int], dims: Tuple[int, int]) -> Tuple[Tuple[int]] # subgrid specified by start and dimension
 decrement(x: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # decrementing
@@ -110,19 +110,19 @@ equality(a: Any, b: Any) -> bool # equality
 even(n: int) -> bool # evenness
 extract(container: Container, condition: Callable) -> Any # first element of container that satisfies condition
 fgpartition(grid: Tuple[Tuple[int]]) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # each cell with the same value part of the same object without background
-fill(grid: Tuple[Tuple[int]],value: int,patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # fill value at indices
+fill(grid: Tuple[Tuple[int]], value: int, patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # fill value at indices
 first(container: Container) -> Any # first item of container
 flip(b: bool) -> bool # logical not
 fork(outer: Callable, a: Callable, b: Callable) -> Callable # creates a wrapper function
 frontiers(grid: Tuple[Tuple[int]]) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # set of frontiers
-gravitate(source: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],destination: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # direction to move source until adjacent to destination
+gravitate(source: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], destination: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # direction to move source until adjacent to destination
 greater(a: int, b: int) -> bool # greater
 halve(n: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # scaling by one half
 hconcat(a: Tuple[Tuple[int]], b: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # concatenate two grids horizontally
 height(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # height of grid or patch
 hfrontier(location: Tuple[int, int]) -> FrozenSet[Tuple[int, int]] # horizontal frontier
 hline(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether the piece forms a horizontal line
-hmatching(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether there exists a row for which both patches have cells
+hmatching(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether there exists a row for which both patches have cells
 hmirror(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # mirroring along horizontal
 hperiod(obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> int # horizontal periodicity
 hsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid horizontally
@@ -146,7 +146,7 @@ leftmost(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[in
 llcorner(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # index of lower left corner
 lowermost(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # row index of lowermost occupied cell
 lrcorner(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # index of lower right corner
-manhattan(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # closest manhattan distance between two patches
+manhattan(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # closest manhattan distance between two patches
 mapply(function: Callable, container: Container[Container]) -> FrozenSet # apply and merge
 matcher(function: Callable, target: Any) -> Callable # construction of equality function
 maximum(container: FrozenSet[int]) -> int # maximum
@@ -155,14 +155,14 @@ mfilter(container: Container, function: Callable) -> FrozenSet # filter and merg
 minimum(container: FrozenSet[int]) -> int # minimum
 mostcolor(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]]) -> int # most common color
 mostcommon(container: Container) -> Any # most common item
-move(grid: Tuple[Tuple[int]],obj: FrozenSet[Tuple[int, Tuple[int, int]]],offset: Tuple[int, int]) -> Tuple[Tuple[int]] # move object on grid
+move(grid: Tuple[Tuple[int]], obj: FrozenSet[Tuple[int, Tuple[int, int]]], offset: Tuple[int, int]) -> Tuple[Tuple[int]] # move object on grid
 mpapply(function: Callable, a: Tuple, b: Tuple) -> Tuple # apply function on two vectors and merge
 multiply(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # multiplication
 neighbors(loc: Tuple[int, int]) -> FrozenSet[Tuple[int, int]] # adjacent indices
 normalize(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # moves upper left corner to origin
 numcolors(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]]) -> FrozenSet[int] # number of colors occurring in object or grid
-objects(grid: Tuple[Tuple[int]],univalued: bool,diagonal: bool,without_bg: bool) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # objects occurring on the grid
-occurrences(grid: Tuple[Tuple[int]],obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # locations of occurrences of object in grid
+objects(grid: Tuple[Tuple[int]], univalued: bool, diagonal: bool, without_bg: bool) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # objects occurring on the grid
+occurrences(grid: Tuple[Tuple[int]], obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # locations of occurrences of object in grid
 ofcolor(grid: Tuple[Tuple[int]], value: int) -> FrozenSet[Tuple[int, int]] # indices of all grid cells with value
 order(container: Container, compfunc: Callable) -> Tuple # order container by custom key
 other(container: Container, value: Any) -> Any # other value in the container
@@ -173,14 +173,14 @@ palette(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]
 papply(function: Callable, a: Tuple, b: Tuple) -> Tuple # apply function on two vectors
 partition(grid: Tuple[Tuple[int]]) -> FrozenSet[FrozenSet[Tuple[int, Tuple[int, int]]]] # each cell with the same value part of the same object
 portrait(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether height is greater than width
-position(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # relative position between two patches
+position(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # relative position between two patches
 positive(x: int) -> bool # positive
 power(function: Callable, n: int) -> Callable # power of function
 prapply(function, a: Container, b: Container) -> FrozenSet # apply function on cartesian product
 product(a: Container, b: Container) -> FrozenSet # cartesian product
 rapply(functions: Container, value: Any) -> Container # apply each function in container to value
 rbind(function: Callable, fixed: Any) -> Callable # fix the rightmost argument
-recolor(value: int,patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, Tuple[int, int]]] # recolor patch
+recolor(value: int, patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, Tuple[int, int]]] # recolor patch
 remove(value: Any, container: Container) -> Container # remove item from container
 repeat(item: Any, num: int) -> Tuple # repetition of item within vector
 replace(grid: Tuple[Tuple[int]], replacee: int, replacer: int) -> Tuple[Tuple[int]] # color substitution
@@ -191,43 +191,54 @@ rot270(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # quarter anticlockwise rot
 rot90(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # quarter clockwise rotation
 sfilter(container: Container, condition: Callable) -> Container # keep elements in container that satisfy condition
 shape(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # height and width of grid or patch
-shift(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],directions: Tuple[int, int]) -> Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # shift patch
+shift(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], directions: Tuple[int, int]) -> Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # shift patch
 shoot(start: Tuple[int, int], direction: Tuple[int, int]) -> FrozenSet[Tuple[int, int]] # line from starting point and direction
 sign(x: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # sign
 size(container: Container) -> int # cardinality
 sizefilter(container: Container, n: int) -> FrozenSet # filter items by size
 square(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether the piece forms a square
-subgrid(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # smallest subgrid containing object
+subgrid(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # smallest subgrid containing object
 subtract(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # subtraction
 switch(grid: Tuple[Tuple[int]], a: int, b: int) -> Tuple[Tuple[int]] # color switching
 toindices(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> FrozenSet[Tuple[int, int]] # indices of object cells
 toivec(i: int) -> Tuple[int, int] # vector pointing vertically
 tojvec(j: int) -> Tuple[int, int] # vector pointing horizontally
-toobject(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],grid: Tuple[Tuple[int]]) -> FrozenSet[Tuple[int, Tuple[int, int]]] # object from patch and grid
+toobject(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], grid: Tuple[Tuple[int]]) -> FrozenSet[Tuple[int, Tuple[int, int]]] # object from patch and grid
 tophalf(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # upper half of grid
 totuple(container: FrozenSet) -> Tuple # conversion to tuple
 trim(grid: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # trim border of grid
 ulcorner(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # index of upper left corner
-underfill(grid: Tuple[Tuple[int]],value: int,patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # fill value at indices that are background
+underfill(grid: Tuple[Tuple[int]], value: int, patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[Tuple[int]] # fill value at indices that are background
 underpaint(grid: Tuple[Tuple[int]], obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> Tuple[Tuple[int]] # paint object to grid where there is background
 uppermost(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # row index of uppermost occupied cell
-upscale(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]],factor: int) -> Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]] # upscale object or grid
+upscale(element: Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]], factor: int) -> Union[FrozenSet[Tuple[int, Tuple[int, int]]], Tuple[Tuple[int]]] # upscale object or grid
 urcorner(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Tuple[int, int] # index of upper right corner
 valmax(container: Container, compfunc: Callable) -> int # maximum by custom function
 valmin(container: Container, compfunc: Callable) -> int # minimum by custom function
 vconcat(a: Tuple[Tuple[int]], b: Tuple[Tuple[int]]) -> Tuple[Tuple[int]] # concatenate two grids vertically
 vfrontier(location: Tuple[int, int]) -> FrozenSet[Tuple[int, int]] # vertical frontier
 vline(patch: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether the piece forms a vertical line
-vmatching(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]],b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether there exists a column for which both patches have cells
+vmatching(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether there exists a column for which both patches have cells
 vmirror(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]] # mirroring along vertical
 vperiod(obj: FrozenSet[Tuple[int, Tuple[int, int]]]) -> int # vertical periodicity
 vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Generate at most 5 plausible DSL programs using only the declared primitives.
+Previous program scores:
+
+|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
+|-|-|-|-|-|
+|def dsl2(I):;    O = I;    # 4-8-4 completion (if 4 present);    x8 = ofcolor(I, EIGHT);    x4 = ofcolor(I, FOUR);    do4 = greater(size(x4), ZERO);    a = underpaint(O, recolor(FOUR, shift(x8, LEFT)));    a = underpaint(a, recolor(FOUR, shift(x8, RIGHT)));    mid4 = intersection(shift(x4, RIGHT), shift(x4, LEFT));    a = underpaint(a, recolor(EIGHT, mid4));    O = branch(do4, a, O);;    # 8-6-8 or 8-2-8 completion (choose by presence);    x6 = ofcolor(I, SIX);    x2 = ofcolor(I, TWO);    do6 = greater(size(x6), ZERO);    do2 = greater(size(x2), ZERO);    b6 = underpaint(O, recolor(EIGHT, shift(x6, LEFT)));    b6 = underpaint(b6, recolor(EIGHT, shift(x6, RIGHT)));    b2 = underpaint(O, recolor(EIGHT, shift(x2, LEFT)));    b2 = underpaint(b2, recolor(EIGHT, shift(x2, RIGHT)));    O = branch(do6, b6, branch(do2, b2, O));;    mid8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT));    c6 = underpaint(O, recolor(SIX, mid8));    c2 = underpaint(O, recolor(TWO, mid8));    O = branch(do6, c6, branch(do2, c2, O));;    # 1/3 vertical only if seen; else no change;    x3 = ofcolor(I, THREE);    x1 = ofcolor(I, ONE);    up = shift(x3, UP);    dn = shift(x3, DOWN);    seenV = either(greater(size(intersection(up, x1)), ZERO), greater(size(intersection(dn, x1)), ZERO));    v = underpaint(O, recolor(ONE, up));    v = underpaint(v, recolor(ONE, dn));    O = branch(seenV, v, O);    return O;|0.0|47.477346309778866|0.12215485345679256|0.045882301469829675|47.64538346470549|
+|def dsl1(I):;    O0 = I;    x8 = ofcolor(I, EIGHT);    x4 = ofcolor(I, FOUR);    x6 = ofcolor(I, SIX);    x2 = ofcolor(I, TWO);    x3 = ofcolor(I, THREE);    x1 = ofcolor(I, ONE);;    # Pair: 4-8-4 (apply only if 4 present);    cond4 = greater(size(x4), ZERO);    a4l = recolor(FOUR, shift(x8, LEFT));    a4r = recolor(FOUR, shift(x8, RIGHT));    tmp = underpaint(O0, a4l);    tmp = underpaint(tmp, a4r);    mid4 = intersection(shift(x4, RIGHT), shift(x4, LEFT));    tmp = underpaint(tmp, recolor(EIGHT, mid4));    O1 = branch(cond4, tmp, O0);;    # Pair: 8-6-8 or 8-2-8 (choose by presence);    cond6 = greater(size(x6), ZERO);    cond2 = greater(size(x2), ZERO);    a86l = recolor(EIGHT, shift(x6, LEFT));    a86r = recolor(EIGHT, shift(x6, RIGHT));    t6 = underpaint(O1, a86l);    t6 = underpaint(t6, a86r);    a82l = recolor(EIGHT, shift(x2, LEFT));    a82r = recolor(EIGHT, shift(x2, RIGHT));    t2 = underpaint(O1, a82l);    t2 = underpaint(t2, a82r);    O2 = branch(cond6, t6, branch(cond2, t2, O1));;    mid8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT));    tmid6 = underpaint(O2, recolor(SIX, mid8));    tmid2 = underpaint(O2, recolor(TWO, mid8));    O3 = branch(cond6, tmid6, branch(cond2, tmid2, O2));;    # Pair: 1 and 3 (orientation from adjacency; else diagonals);    up3 = shift(x3, UP);    dn3 = shift(x3, DOWN);    lf3 = shift(x3, LEFT);    rt3 = shift(x3, RIGHT);    v1 = greater(size(intersection(up3, x1)), ZERO);    v2 = greater(size(intersection(dn3, x1)), ZERO);    h1 = greater(size(intersection(lf3, x1)), ZERO);    h2 = greater(size(intersection(rt3, x1)), ZERO);    cvert = either(v1, v2);    chorz = either(h1, h2);;    candV = underpaint(O3, recolor(ONE, up3));    candV = underpaint(candV, recolor(ONE, dn3));    candH = underpaint(O3, recolor(ONE, lf3));    candH = underpaint(candH, recolor(ONE, rt3));    ul3 = shift(x3, NEG_UNITY);    ur3 = shift(x3, UP_RIGHT);    dl3 = shift(x3, DOWN_LEFT);    dr3 = shift(x3, UNITY);    candD = underpaint(O3, recolor(ONE, ul3));    candD = underpaint(candD, recolor(ONE, ur3));    candD = underpaint(candD, recolor(ONE, dl3));    candD = underpaint(candD, recolor(ONE, dr3));;    tmp2 = branch(cvert, candV, O3);    tmp2 = branch(chorz, candH, tmp2);    needD = both(greater(size(x3), ZERO), both(flip(cvert), flip(chorz)));    O = branch(needD, candD, tmp2);    return O;|0.0|47.543620591175014|0.1414098367006954|0.032230128188518094|47.717260556064225|
+|def dsl5(I):;    # Minimal horizontal triplet completion for 8-4 and one of 8-6/8-2;    O = I;    x8 = ofcolor(I, EIGHT);    x4 = ofcolor(I, FOUR);    x6 = ofcolor(I, SIX);    x2 = ofcolor(I, TWO);    has4 = greater(size(x4), ZERO);    a = underpaint(O, recolor(FOUR, shift(x8, LEFT)));    a = underpaint(a, recolor(FOUR, shift(x8, RIGHT)));    m4 = intersection(shift(x4, RIGHT), shift(x4, LEFT));    a = underpaint(a, recolor(EIGHT, m4));    O = branch(has4, a, O);    has6 = greater(size(x6), ZERO);    has2 = greater(size(x2), ZERO);    b6 = underpaint(O, recolor(EIGHT, shift(x6, LEFT)));    b6 = underpaint(b6, recolor(EIGHT, shift(x6, RIGHT)));    b2 = underpaint(O, recolor(EIGHT, shift(x2, LEFT)));    b2 = underpaint(b2, recolor(EIGHT, shift(x2, RIGHT)));    O = branch(has6, b6, branch(has2, b2, O));    m8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT));    c6 = underpaint(O, recolor(SIX, m8));    c2 = underpaint(O, recolor(TWO, m8));    O = branch(has6, c6, branch(has2, c2, O));    return O;|0.0|48.89155987215196|0.12967365044927381|0.06706798139569313|49.08830150399693|
+
+Propose at most 5 improved variants avoiding previous low-scoring.
+All programs must be described within a single Python MarkDown tag.
+
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+```python
 def dsl1(I):
     O = vmirror(I)
     return O
@@ -248,3 +259,4 @@ def dsl5(I):
     x1 = replace(I, FIVE, ZERO)
     O = downscale(x1, THREE)
     return O
+```

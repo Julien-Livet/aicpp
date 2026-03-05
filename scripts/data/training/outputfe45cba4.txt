@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -87,3 +88,4 @@ def dsl5(I):
     R2 = fill(R1, TWO, bot)
     O = hconcat(L7, R2)
     return O
+```

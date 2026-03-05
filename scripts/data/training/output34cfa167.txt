@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = shape(I)
     x2 = canvas(FOUR, x1)
@@ -27,3 +28,4 @@ def dsl5(I):
     x3 = box(x2)
     O = fill(I, FOUR, x3)
     return O
+```

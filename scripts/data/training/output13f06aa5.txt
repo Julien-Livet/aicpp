@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     inds = asindices(I)
     tlc = ulcorner(inds)
@@ -139,3 +140,4 @@ def dsl5(I):
     O8 = branch(both(has6, has2), fill(O7, ZERO, intersection(bot, lef)), O7)
     O9 = branch(both(has6, has8), fill(O8, ZERO, intersection(bot, rig)), O8)
     return O9
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = vmirror(I)
     x2 = hmirror(I)
@@ -38,3 +39,4 @@ def dsl5(I):
     val = branch(cond, ONE, SEVEN)
     O = canvas(val, UNITY)
     return O
+```

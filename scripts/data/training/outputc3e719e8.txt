@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     c = mostcolor(I)
     z = canvas(ZERO, shape(I))
@@ -53,3 +54,4 @@ def dsl3(I):
     r2 = hconcat(h, hconcat(i, j))
     O = vconcat(r0, vconcat(r1, r2))
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = replace(I, mostcolor(I), ZERO)
     x2 = downscale(x1, THREE)
@@ -35,3 +36,4 @@ def dsl5(I):
     x4 = downscale(x3, THREE)
     O = vmirror(x4)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = replace(I, ZERO, FIVE)
     return O
@@ -38,3 +39,4 @@ def dsl5(I):
     J = vmirror(I)
     O = replace(J, ZERO, FIVE)
     return O
+```

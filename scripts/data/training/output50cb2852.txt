@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = objects(I, T, F, T)
     x2 = mapply(inbox, x1)
@@ -33,3 +34,4 @@ def dsl5(I):
     x2 = merge(inrs)
     O = fill(I, EIGHT, x2)
     return O
+```

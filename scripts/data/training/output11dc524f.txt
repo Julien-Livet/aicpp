@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     tobj = first(colorfilter(objs, TWO))
@@ -62,3 +63,4 @@ def dsl5(I):
     d2 = gravitate(mobj, fobj)
     O = move(g2, mobj, d2)
     return O
+```

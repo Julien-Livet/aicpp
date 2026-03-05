@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     frame = argmax(objs, compose(size, delta))
@@ -92,3 +93,4 @@ def dsl5(I):
     Ob = fill(base, c, L)
     O = branch(rect, Oa, Ob)
     return O
+```

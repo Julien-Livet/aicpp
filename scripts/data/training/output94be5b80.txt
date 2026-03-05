@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     nz = difference(asindices(I), ofcolor(I, ZERO))
     r0 = uppermost(nz)
@@ -89,3 +90,4 @@ def dsl5(I):
     proto = recolor(leastcolor(I), toindices(normalize(templ)))
     O2 = move(O, proto, target)
     return O2
+```

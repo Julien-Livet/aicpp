@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = fgpartition(I)
     seed = first(objs)
@@ -89,3 +90,4 @@ def dsl3(I):
     O = paint(canvas(ZERO, shape(I)), stripes)
     O = paint(O, fives)
     return O
+```

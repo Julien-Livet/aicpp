@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = colorfilter(objects(I, T, F, T), THREE)
     def interior(o):
@@ -202,3 +203,4 @@ def dsl5(I):
     O = underpaint(I, ones)
     O = underpaint(O, eights)
     return O
+```

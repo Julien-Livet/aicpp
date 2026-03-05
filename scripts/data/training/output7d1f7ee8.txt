@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     z = ofcolor(I, ZERO)
@@ -25,3 +26,4 @@ def dsl3(I):
     painted = mapply(recolor_inside, a)
     O = paint(I, painted)
     return O
+```

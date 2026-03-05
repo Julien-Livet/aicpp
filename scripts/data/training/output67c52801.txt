@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     H = height(I)
     W = width(I)
@@ -66,3 +67,4 @@ def dsl5(I):
     band_mir = hmirror(band3)
     O = vconcat(top, band_mir)
     return O
+```

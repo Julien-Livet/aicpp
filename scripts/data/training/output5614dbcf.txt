@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = downscale(I, THREE)
     return O
@@ -16,3 +17,4 @@ def dsl4(I):
     x2 = downscale(x1, THREE)
     O = x2
     return O
+```

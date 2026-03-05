@@ -2,7 +2,7 @@
 
 ## Summary
 **28 tasks solved** with unified approach with TDD
-**61/177 tasks solved (34.5%)** with automatic unified approach
+**83/177 tasks solved (46.9%)** with automatic unified approach
 
 ## TDD Solved Tasks
 - 67a3c6ac

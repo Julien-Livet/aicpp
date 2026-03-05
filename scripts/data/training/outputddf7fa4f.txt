@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     w = width(I)
     top = crop(I, ORIGIN, astuple(1, w))
@@ -68,3 +69,4 @@ def dsl1(I):
     i9 = mapply(toindices, o9)
     O = fill(x8, NINE, i9)
     return O
+```

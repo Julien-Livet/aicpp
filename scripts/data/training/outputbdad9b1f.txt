@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     rpatch = ofcolor(I, TWO)
     cpatch = ofcolor(I, EIGHT)
@@ -50,3 +51,4 @@ def dsl4(I):
     O = paint(O, recolor(EIGHT, colline))
     O = fill(O, FOUR, connect(astuple(r, c), astuple(r, c)))
     return O
+```

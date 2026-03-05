@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p8 = first(totuple(ofcolor(I, EIGHT)))
     p7 = first(totuple(ofcolor(I, SEVEN)))
@@ -72,3 +73,4 @@ def dsl5(I):
     O2 = paint(O1, o7)
     O = paint(O2, o2)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     obs = objects(I, T, F, T)
     nines = colorfilter(obs, NINE)
@@ -46,3 +47,4 @@ def dsl5(I):
     ones = recolor(ONE, hlines)
     O = underpaint(I, ones)
     return O
+```

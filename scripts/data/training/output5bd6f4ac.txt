@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = crop(I, tojvec(SIX), THREE_BY_THREE)
     return O
@@ -28,3 +29,4 @@ def dsl5(I):
     y = crop(x, ORIGIN, THREE_BY_THREE)
     O = vmirror(y)
     return O
+```

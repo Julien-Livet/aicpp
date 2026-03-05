@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = objects(I, T, T, F)
     x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)))
@@ -31,3 +32,4 @@ def dsl5(I):
     x3 = argmax(x2, compose(size, box))
     O = subgrid(x3, I)
     return O
+```

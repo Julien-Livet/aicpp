@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -101,3 +102,4 @@ def dsl3(I):
     tile = vconcat(top, bot)
     O = branch(equality(colorcount(I, ZERO), ONE), canvas(mostcolor(tile), UNITY), tile)
     return O
+```

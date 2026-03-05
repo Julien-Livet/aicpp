@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x2 = ofcolor(I, TWO)
     b2 = backdrop(x2)
@@ -55,3 +56,4 @@ def dsl5(I):
     off = subtract(dest, src)
     O = move(I, o5, off)
     return O
+```

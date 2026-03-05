@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     w = width(I)
     leftc = index(I, astuple(ZERO, ZERO))
@@ -101,3 +102,4 @@ def dsl5(I):
     K = move(J, objL, dirL)
     O = vmirror(K)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     hls = sfilter(objs, hline)
@@ -154,3 +155,4 @@ def dsl4(I):
     paint_all = branch(uniform, paint_recolor, paint_obj)
     O = underpaint(I, paint_all)
     return O
+```

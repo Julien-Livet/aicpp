@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     s = first(totuple(ofcolor(I, EIGHT)))
     u2 = shoot(s, double(UP_RIGHT))
@@ -108,3 +109,4 @@ def dsl5(I):
     p = combine(tris, combine(singles, combine(ext_u, ext_d)))
     O = underpaint(I, recolor(FIVE, p))
     return O
+```

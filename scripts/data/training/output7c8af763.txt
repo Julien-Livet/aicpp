@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     G = I
     for _ in range(20):
@@ -58,3 +59,4 @@ def dsl5(I):
             p2 = ofcolor(G, TWO)
             G = underpaint(G, recolor(TWO, shift(p2, d)))
     return G
+```

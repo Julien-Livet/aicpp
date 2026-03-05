@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     comps = objects(I, F, F, T)
     def is_filled(o):
@@ -160,3 +161,4 @@ def dsl5(I):
     vp = branch(equality(multiply(hdiv, vp0), h), vp0, h)
     O = crop(R, ORIGIN, astuple(vp, hp))
     return O
+```

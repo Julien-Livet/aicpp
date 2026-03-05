@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = objects(I, T, F, T)
     x2 = apply(color, x1)
@@ -26,3 +27,4 @@ def dsl3(I):
     x6 = toobject(ofcolor(I, c), I)
     O = subgrid(x6, I)
     return O
+```

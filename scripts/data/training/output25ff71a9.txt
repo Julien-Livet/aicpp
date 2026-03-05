@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x0 = asobject(I)
     x1 = shift(x0, DOWN)
@@ -24,3 +25,4 @@ def dsl4(I):
     x2 = canvas(ZERO, shape(I))
     O = underpaint(x2, x1)
     return O
+```

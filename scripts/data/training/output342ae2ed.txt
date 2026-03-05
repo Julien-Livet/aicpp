@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     bgobj = toobject(ofcolor(I, SEVEN), I)
@@ -57,3 +58,4 @@ def dsl5(I):
     lines = merge(pairs)
     O = underpaint(I, lines)
     return O
+```

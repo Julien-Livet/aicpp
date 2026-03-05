@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = upscale(I, THREE)
     return O
@@ -23,3 +24,4 @@ def dsl5(I):
     x2 = upscale(x1, THREE)
     O = rot180(x2)
     return O
+```

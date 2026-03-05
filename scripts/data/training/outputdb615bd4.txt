@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = hmirror(I)
     return O
@@ -19,3 +20,4 @@ def dsl5(I):
     x2 = replace(x1, THREE, NINE)
     O = x2
     return O
+```

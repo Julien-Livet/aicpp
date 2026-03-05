@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     idx3 = ofcolor(I, THREE)
     z = ofcolor(I, ZERO)
@@ -44,3 +45,4 @@ def dsl5(I):
     to_change = intersection(idx3, combine(adj_e_orth, adj_e_diag))
     O = fill(I, EIGHT, to_change)
     return O
+```

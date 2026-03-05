@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = canvas(ZERO, shape(I))
     objs = objects(I, T, T, T)
@@ -71,3 +72,4 @@ def dsl5(I):
         moveable = difference(upper, preserve)
         O = paint(O, recolor(color(obj), merge((bottom, preserve, shift(moveable, RIGHT)))))
     return O
+```

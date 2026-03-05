@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = objects(I, T, F, T)
     f1 = compose(rbind(shoot, DOWN), ulcorner)
@@ -37,3 +38,4 @@ def dsl4(I):
     x2 = mapply(fline, x1)
     O = underpaint(I, x2)
     return O
+```

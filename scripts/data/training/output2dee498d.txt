@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     parts = vsplit(I, THREE)
     O = first(parts)
@@ -27,3 +28,4 @@ def dsl5(I):
     parts = vsplit(I, THREE)
     O = first(order(parts, width))
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     h = divide(height(I), THREE)
     w = width(I)
@@ -58,3 +59,4 @@ def dsl5(I):
     b = underfill(a, ONE, ofcolor(top, ONE))
     O = fill(b, SIX, ofcolor(bot, SIX))
     return O
+```

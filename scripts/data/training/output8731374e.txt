@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     objs = objects(I, T, F, F)
@@ -87,3 +88,4 @@ def dsl5(I):
     O0 = canvas(bg, shape(SG))
     O = fill(O0, fg, V)
     return O
+```

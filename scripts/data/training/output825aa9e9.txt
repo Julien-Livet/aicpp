@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     pal = palette(I)
@@ -69,3 +70,4 @@ def dsl5(I):
     sh = shift(obj, double(DOWN))
     O = underpaint(G, sh)
     return O
+```

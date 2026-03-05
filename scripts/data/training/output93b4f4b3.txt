@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     L = lefthalf(I)
     R = righthalf(I)
@@ -152,3 +153,4 @@ def dsl5(I):
     moved = merge(pack)
     O = paint(base, moved)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     t = ofcolor(I, THREE)
     s = ofcolor(I, SIX)
@@ -113,3 +114,4 @@ def dsl5(I):
     keep = combine(vkeep, hkeep)
     O = paint(replace(I, THREE, ZERO), recolor(THREE, combine(frame, keep)))
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     m = ofcolor(I, NINE)
     base = cover(I, m)
@@ -37,3 +38,4 @@ def dsl5(I):
     obj = toobject(m, J)
     O = underpaint(base, obj)
     return O
+```

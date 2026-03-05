@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     s = shape(I)
     O = canvas(ZERO, s)
@@ -51,3 +52,4 @@ def dsl5(I):
     allobjs = combine(copies, combine(sobj, obj5))
     O = paint(canvas(ZERO, s), allobjs)
     return O
+```

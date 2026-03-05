@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = replace(I, ZERO, EIGHT)
     s = first(ofcolor(I, ONE))
@@ -76,3 +77,4 @@ def dsl3(I):
     P = combine(combine(combine(combine(combine(combine(combine(p1, p2), p3), p4), p5), p6), p7), p8)
     O = fill(bg, ONE, P)
     return O
+```

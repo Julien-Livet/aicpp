@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     b = leastcolor(I)
     P = ofcolor(I, b)
@@ -38,3 +39,4 @@ def dsl5(I):
     B = merge(Bs)
     O = subgrid(B, I)
     return O
+```

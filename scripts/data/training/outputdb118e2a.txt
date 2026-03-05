@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = compress(I)
     x2 = asobject(x1)
@@ -51,3 +52,4 @@ def dsl5(I):
     p2 = shift(obj, astuple(add(THREE, FIVE), add(THREE, FIVE)))
     O = underpaint(underpaint(base, p1), p2)
     return O
+```

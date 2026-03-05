@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p = palette(I)
     p2 = remove(ZERO, p)
@@ -32,3 +33,4 @@ def dsl5(I):
     x1 = vupscale(I, n)
     O = hconcat(hupscale(x1, n), canvas(ZERO, astuple(0, 0)))
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     W = width(I)
@@ -71,3 +72,4 @@ def dsl5(I):
         O = fill(O, bg, cut)
         O = fill(O, c, difference(path, cut))
     return O
+```

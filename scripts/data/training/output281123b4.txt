@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x0 = replace(I, THREE, ZERO)
     h = FOUR
@@ -68,3 +69,4 @@ def dsl1(I):
     O2 = hconcat(col2, col3)
     O = hconcat(O1, O2)
     return O
+```

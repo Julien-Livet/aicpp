@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     L = lefthalf(I)
     R = righthalf(I)
@@ -44,3 +45,4 @@ def dsl5(I):
     x1 = replace(I, FIVE, FOUR)
     O = replace(x1, SEVEN, FIVE)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = colorfilter(objects(I, T, F, T), EIGHT)
     t = totuple(objs)
@@ -56,3 +57,4 @@ def dsl5(I):
     thick = combine(line, shift(line, DOWN))
     O = underfill(I, THREE, thick)
     return O
+```

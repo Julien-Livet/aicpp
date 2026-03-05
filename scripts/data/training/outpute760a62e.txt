@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p2 = ofcolor(I, TWO)
     p3 = ofcolor(I, THREE)
@@ -64,3 +65,4 @@ def dsl5(I):
     o6 = recolor(SIX, both)
     O = paint(underpaint(underpaint(I, o2), o3), o6)
     return O
+```

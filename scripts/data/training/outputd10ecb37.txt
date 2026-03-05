@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = crop(I, ORIGIN, TWO_BY_TWO)
     return O
@@ -28,3 +29,4 @@ def dsl5(I):
     s = insert(p11, s)
     O = subgrid(s, I)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = hconcat(I, I)
     return O
@@ -28,3 +29,4 @@ def dsl5(I):
     x4 = shift(x2, tojvec(width(I)))
     O = paint(x3, x4)
     return O
+```

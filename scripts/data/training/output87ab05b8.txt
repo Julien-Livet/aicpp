@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p = first(ofcolor(I, TWO))
     s = multiply(halve(p), TWO)
@@ -50,3 +51,4 @@ def dsl5(I):
     base = canvas(SIX, shape(I))
     O = fill(base, TWO, d)
     return O
+```

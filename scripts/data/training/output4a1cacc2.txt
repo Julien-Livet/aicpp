@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = fgpartition(I)
     obj = first(objs)
@@ -69,3 +70,4 @@ def dsl4(I):
     rect = backdrop(cornerset)
     O = fill(I, color(obj), rect)
     return O
+```

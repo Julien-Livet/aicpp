@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = ofcolor(I, EIGHT)
     x2 = toobject(x1, I)
@@ -40,3 +41,4 @@ def dsl5(I):
     x7 = dmirror(x6)
     O = paint(x4, x7)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     p = palette(I)
@@ -73,3 +74,4 @@ def dsl5(I):
     O = fill(O, THREE, vstripe)
     O = fill(O, FOUR, seeds)
     return O
+```

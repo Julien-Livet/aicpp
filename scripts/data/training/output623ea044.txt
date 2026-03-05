@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     c = leastcolor(I)
     s = first(ofcolor(I, c))
@@ -55,3 +56,4 @@ def dsl4(I):
     base = canvas(ZERO, shape(I))
     O = fill(base, c, u)
     return O
+```

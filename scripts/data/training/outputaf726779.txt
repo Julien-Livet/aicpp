@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     dir = astuple(TWO, ONE)
     objs = objects(I, T, F, T)
@@ -96,3 +97,4 @@ def dsl5(I):
     pts7 = mapply(step2, corners2)
     O = paint(O1, pts7)
     return O
+```

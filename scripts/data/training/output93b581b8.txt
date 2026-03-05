@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     allI = asindices(I)
     zeros = ofcolor(I, ZERO)
@@ -43,3 +44,4 @@ def dsl1(I):
     G2 = underpaint(G1, oBL)
     O = underpaint(G2, oBR)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = asindices(I)
     x2 = ofcolor(I, ZERO)
@@ -27,3 +28,4 @@ def dsl5(I):
     dims = add(UNITY, subtract(b, a))
     O = crop(I, a, dims)
     return O
+```

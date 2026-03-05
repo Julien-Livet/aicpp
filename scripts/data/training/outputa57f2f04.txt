@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     # tile color-1 seeds across their bounding box using their vertical/horizontal periods
     a1 = colorfilter(objects(I, T, F, F), ONE)
@@ -231,3 +232,4 @@ def dsl5(I):
     U = combine(combine(t1, t2), combine(t3, t4))
     O = paint(I, U)
     return O
+```

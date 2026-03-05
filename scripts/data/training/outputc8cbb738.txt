@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     objs = fgpartition(I)
@@ -142,3 +143,4 @@ def dsl5(I):
     O3 = branch(both(greater(n, THREE), topfg), paint(O2, recolor(leastcolor(top), tpatch)), O2)
     O4 = branch(both(greater(n, THREE), leftfg), paint(O3, recolor(leastcolor(left), lpatch)), O3)
     return O4
+```

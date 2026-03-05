@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     five = ofcolor(I, FIVE)
     H = height(five)
@@ -134,3 +135,4 @@ def dsl5(I):
     Oc = paint(base, cObj)
     O = branch(preferCols, Oc, Or)
     return O
+```

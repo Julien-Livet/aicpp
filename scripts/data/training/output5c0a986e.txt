@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     ones = colorfilter(objs, ONE)
@@ -58,3 +59,4 @@ def dsl5(I):
     tmp = fill(I, ONE, line_one)
     O = fill(tmp, TWO, line_two)
     return O
+```

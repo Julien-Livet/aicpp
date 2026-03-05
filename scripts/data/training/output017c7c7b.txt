@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x0 = replace(I, ONE, TWO)
     a = crop(x0, ORIGIN, THREE_BY_THREE)
@@ -34,3 +35,4 @@ def dsl5(I):
     a = crop(x0, ORIGIN, THREE_BY_THREE)
     O = vconcat(x0, a)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x0 = objects(I, T, F, T)
     x1 = colorfilter(x0, TWO)
@@ -25,3 +26,4 @@ def dsl3(I):
     x3 = canvas(ZERO, shape(I))
     O = fill(x3, THREE, x2)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     s8 = ofcolor(I, EIGHT)
     s2 = ofcolor(I, TWO)
@@ -195,3 +196,4 @@ def dsl5(I):
     rings = merge(apply(gate, centers))
     O = fill(fill(fill(I, TWO, wires), EIGHT, rings), TWO, centers)
     return O
+```

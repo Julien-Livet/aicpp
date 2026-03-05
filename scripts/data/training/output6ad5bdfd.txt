@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     H, W = shape(I)
     def left_col_all_twos(G):
@@ -349,3 +350,4 @@ def dsl5(I):
         accum = combine(accum, cur)
 
     return fromR(O)
+```

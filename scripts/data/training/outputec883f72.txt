@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     base = argmax(objs, fork(multiply, height, width))
@@ -140,3 +141,4 @@ def dsl5(I):
                 intersection(A, shoot(add(lr, drr), drr))))
     O = underpaint(I, recolor(minor, rays))
     return O
+```

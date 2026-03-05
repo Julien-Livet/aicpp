@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     S0 = ofcolor(I, ZERO)
     hleft = shift(S0, LEFT)
@@ -38,3 +39,4 @@ def dsl3(I):
     Cross = combine(C, combine(combine(shift(C, LEFT), shift(C, RIGHT)), combine(shift(C, UP), shift(C, DOWN))))
     O = underfill(I, THREE, Cross)
     return O
+```

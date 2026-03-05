@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x0 = objects(I, T, F, T)
     x1 = colorfilter(x0, TWO)
@@ -42,3 +43,4 @@ def dsl5(I):
     p32 = mapply(delta, sizefilter(x1, 32))
     O = underfill(I, THREE, p32)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     P = palette(I)
@@ -70,3 +71,4 @@ def dsl3(I):
     rd = intersection(shift(idx_b, UNITY), allidx)
     O = underfill(O, d, rd)
     return O
+```

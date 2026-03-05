@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     K = other(palette(I), ZERO)
     S = ofcolor(I, K)
@@ -100,3 +101,4 @@ def dsl4(I):
     R = recolor(K, Q)
     O = underpaint(I, R)
     return O
+```

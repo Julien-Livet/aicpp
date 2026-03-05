@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = vconcat(I, hmirror(I))
     return O
@@ -24,3 +25,4 @@ def dsl5(I):
     x1 = rot180(vmirror(I))
     O = vconcat(I, x1)
     return O
+```

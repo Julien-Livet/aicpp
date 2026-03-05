@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     A = crop(I, astuple(0, 0), astuple(4, 4))
     B = crop(I, astuple(0, 5), astuple(4, 4))
@@ -54,3 +55,4 @@ def dsl5(I):
     Y = fill(A, NINE, put9)
     O = fill(Y, ONE, difference(put1, put9))
     return O
+```

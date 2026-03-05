@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     w = width(I)
     h = height(I)
@@ -73,3 +74,4 @@ def dsl5(I):
     p = initset(astuple(subtract(h, ONE), halve(w)))
     O = fill(I, c, p)
     return O
+```

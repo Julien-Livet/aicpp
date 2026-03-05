@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     base = replace(I, EIGHT, ZERO)
     pal = palette(base)
@@ -104,3 +105,4 @@ def dsl4(I):
     x1 = fill(base, bcol, bord)
     O = fill(x1, icol, inter)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     U = upscale(I, TWO)
     OB = objects(I, T, F, T)
@@ -76,3 +77,4 @@ def dsl5(I):
     L = mapply(linefun, P)
     O = underfill(U, ONE, L)
     return O
+```

@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = trim(I)
     O = hconcat(x1, x1)
@@ -23,3 +24,4 @@ def dsl4(I):
     g = subgrid(x2, I)
     O = hconcat(g, g)
     return O
+```

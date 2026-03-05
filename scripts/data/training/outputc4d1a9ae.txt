@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     bg = mostcolor(I)
     P0 = palette(I)
@@ -28,3 +29,4 @@ def dsl1(I):
     I0 = replace(I, bg, ZERO)
     O = underpaint(I0, obj)
     return O
+```

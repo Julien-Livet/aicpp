@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     cset = remove(ZERO, palette(I))
     c1 = first(cset)
@@ -82,3 +83,4 @@ def dsl5(I):
     base = canvas(ZERO, shape(I))
     O = paint(base, shift(obj, off))
     return O
+```

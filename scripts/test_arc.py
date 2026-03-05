@@ -8,12 +8,36 @@ import numpy as np
 from openai import OpenAI, OpenAIError
 import os
 import pytest
+import re
 import subprocess
 import sys
 import time
 from tqdm import tqdm
 import types
 import urllib.request
+
+errors = dict()
+
+def callOllama(model: str, prompt: str) -> str:
+    cmd = ["ollama", "run", model, prompt]
+    result = subprocess.run(cmd, capture_output = True, text = True)
+    
+    return result.stdout
+
+def callGpt(prompt: str, model: str = "gpt-5") -> str:
+    try:
+        return OpenAI().responses.create(model = model, input = prompt).output_text
+    except OpenAIError as e:
+        if (errors.get(str(e), None) == None):
+            print(e)
+
+        errors[str(e)] = True
+
+        return ""
+
+def callLLM(prompt: str) -> str:
+    return callGpt(prompt)
+    return callOllama("llama3.1:405b", prompt)
 
 def run_func(func, queue, *args, **kwargs):
     try:
@@ -208,8 +232,13 @@ Available primitives:
         else:
             command += "\nGenerate at most 5 plausible DSL programs using only the declared primitives.\n"
 
+        command += """All programs must be described within a single Python MarkDown tag.
+
+"""
+
         command += """
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+```python
 def dsl1(I):
     O = vmirror(I)
     return O
@@ -230,6 +259,7 @@ def dsl5(I):
     x1 = replace(I, FIVE, ZERO)
     O = downscale(x1, THREE)
     return O
+```
 """
 
         f = open("data/" + folder + "/prompt" + task + ".txt", "w")
@@ -242,27 +272,23 @@ def dsl5(I):
                 content = f.read()
                 f.close()
             except FileNotFoundError as e:
-                try:
-                    result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
-                    content = result
-                    f = open("data/" + folder + "/output" + task + ".txt", "w")
-                    f.write(content)
-                    f.close()
-                except OpenAIError as e:
-                    print(e)
-
-                    return False
+                content = callLLM(command)
         else:
-            try:
-                result = OpenAI().responses.create(model = "gpt-5", input = command).output_text
-                content = result
-                f = open("data/" + folder + "/output" + task + ".txt", "w")
-                f.write(content)
-                f.close()
-            except OpenAIError as e:
-                print(e)
+            content = callLLM(command)
 
-                return False
+        if (len(content) == 0):
+            return False
+
+        f = open("data/" + folder + "/output" + task + ".txt", "w")
+        f.write(content)
+        f.close()
+
+        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
+
+        if (len(groups) == 0):
+            continue
+
+        content = groups[-1]
 
         firstLoop = False
 
@@ -316,6 +342,8 @@ constants = load_module("constants", "arc-dsl/constants.py")
             except TimeoutError:
                 pass
             except TypeError:
+                pass
+            except ValueError:
                 pass
 
         scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
@@ -427,14 +455,14 @@ def run_tasks(folder: str) -> int:
     unexploredTasks = []
 
     for task in tasks:
-        if (not os.path.exists("data/" + folder + "/" + "output" + task + ".txt")):
+        if (not os.path.isfile("data/" + folder + "/" + "output" + task + ".txt")):
             unexploredTasks.append(task)
 
     tasks = unexploredTasks + list(set(tasks) - set(unexploredTasks))
  
-    with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers = 1) as executor:
         results = list(tqdm(
-            executor.map(lambda task: processTask(folder, task, False), tasks),
+            executor.map(lambda task: processTask(folder, task, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 

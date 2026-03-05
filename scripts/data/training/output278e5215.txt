@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     p5 = ofcolor(I, FIVE)
     s5 = subgrid(p5, I)
@@ -51,3 +52,4 @@ def dsl4(I):
     cr = vupscale(fg, h)
     O = underfill(fill(cr, ZERO, ofcolor(s5, ZERO)), mostcolor(bg), ofcolor(s5, ZERO))
     return O
+```

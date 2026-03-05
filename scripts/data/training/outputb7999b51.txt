@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     cols = remove(ZERO, palette(I))
     comp = compose(invert, lbind(colorcount, I))
@@ -59,3 +60,4 @@ def dsl3(I):
     union = merge(pieces)
     O = paint(out, union)
     return O
+```

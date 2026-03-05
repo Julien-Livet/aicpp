@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = replace(I, FIVE, ZERO)
     x2 = objects(x1, T, F, T)
@@ -109,3 +110,4 @@ def dsl5(I):
     obj = shift(normalize(o_last), astuple(1, leftmost(o_last)))
     O = paint(canv, obj)
     return O
+```

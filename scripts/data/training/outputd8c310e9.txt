@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     x1 = rbind(objects, T)
     x2 = rbind(x1, F)
@@ -45,3 +46,4 @@ def dsl3(I):
     times = add(width(I), ONE)
     O = power(grow, times)(I)
     return O
+```

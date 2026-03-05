@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     A = I
     B = rot270(I)
@@ -29,3 +30,4 @@ def dsl4(I):
     br = rot90(I)
     O = vconcat(hconcat(tl, tr), hconcat(bl, br))
     return O
+```

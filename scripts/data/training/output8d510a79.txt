@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     five = ofcolor(I, FIVE)
     above_all = mapply(rbind(shoot, UP), five)
@@ -65,3 +66,4 @@ def dsl3(I):
     O = paint(I, recolor(ONE, lines1))
     O = paint(O, recolor(TWO, lines2))
     return O
+```

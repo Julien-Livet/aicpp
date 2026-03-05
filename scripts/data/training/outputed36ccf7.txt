@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     O = rot270(I)
     return O
@@ -23,3 +24,4 @@ def dsl5(I):
     x1 = dmirror(I)
     O = hmirror(x1)
     return O
+```

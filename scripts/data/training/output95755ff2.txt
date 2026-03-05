@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     twos = ofcolor(I, TWO)
     twoobj = toobject(twos, I)
@@ -107,3 +108,4 @@ def dsl5(I):
     botobj = merge(mapply(fup, botnz))
     O = underpaint(I, botobj)
     return O
+```

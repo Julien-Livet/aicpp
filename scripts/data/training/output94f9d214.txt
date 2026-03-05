@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     a = tophalf(I)
     b = bottomhalf(I)
@@ -46,3 +47,4 @@ def dsl5(I):
     keep = difference(allidx, u)
     O = fill(canvas(ZERO, shape(a)), TWO, keep)
     return O
+```

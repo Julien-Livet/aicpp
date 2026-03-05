@@ -1,3 +1,4 @@
+```python
 def dsl1(I):
     a = ofcolor(I, ONE)
     b = shift(a, RIGHT)
@@ -34,3 +35,4 @@ def dsl5(I):
     obj2 = recolor(TWO, toobject(mid, I))
     O = paint(I, obj2)
     return O
+```
