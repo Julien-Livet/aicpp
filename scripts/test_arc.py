@@ -333,10 +333,6 @@ constants = load_module("constants", "arc-dsl/constants.py")
                     for i in range(0, len(scoreFunctions)):
                         score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
-                for pair in taskPairs[1]:
-                    for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
-
                 scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
                 totalScores.append((function, sum(score)))
             except TimeoutError:
@@ -350,8 +346,23 @@ constants = load_module("constants", "arc-dsl/constants.py")
         totalScores = sorted(totalScores, key = lambda x: x[1])
 
         if (len(totalScores)):
-            dsl = inspect.getsource(totalScores[0][0])
-            cost = totalScores[0][1]
+            function = totalScores[0][0]
+            dsl = inspect.getsource(function)
+
+            score = [0] * len(scoreFunctions)
+
+            try:
+                for pair in taskPairs[1]:
+                    for i in range(0, len(scoreFunctions)):
+                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
+
+                cost = totalScores[0][1] + sum(score)
+            except TimeoutError:
+                cost = math.nan
+            except TypeError:
+                cost = math.nan
+            except ValueError:
+                cost = math.nan
 
     if (debug):
         print(folder, task, cost, "\n", dsl)
