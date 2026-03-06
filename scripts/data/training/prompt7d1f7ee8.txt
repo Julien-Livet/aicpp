@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    objs = objects(I, T, F, T);    z = ofcolor(I, ZERO);    g = compose(rbind(difference, z), delta);    f = fork(recolor, color, g);    mo = mapply(f, objs);    O = paint(I, mo);    return O;|0.0|18.211243569115616|0.06467797847108192|0.0|18.275921547586698|
-|def dsl2(I):;    a = objects(I, T, F, T);    z = ofcolor(I, ZERO);    inner = compose(rbind(difference, z), delta);    recol = fork(recolor, color, inner);    parts = apply(recol, a);    mo = merge(parts);    O = paint(I, mo);    return O;|0.0|18.211243569115616|0.06467797847108192|0.0|18.275921547586698|
-|def dsl3(I):;    a = objects(I, T, F, T);    z = ofcolor(I, ZERO);    pfunc = compose(rbind(difference, z), delta);    recolor_inside = fork(recolor, color, pfunc);    painted = mapply(recolor_inside, a);    O = paint(I, painted);    return O;|0.0|18.211243569115616|0.06467797847108192|0.0|18.275921547586698|
+|def dsl1(I):;    objs = objects(I, T, F, T);    z = ofcolor(I, ZERO);    g = compose(rbind(difference, z), delta);    f = fork(recolor, color, g);    mo = mapply(f, objs);    O = paint(I, mo);    return O|0.0|10.795045082019955|0.044973544973545|0.0|10.8400186269935|
+|def dsl2(I):;    a = objects(I, T, F, T);    z = ofcolor(I, ZERO);    inner = compose(rbind(difference, z), delta);    recol = fork(recolor, color, inner);    parts = apply(recol, a);    mo = merge(parts);    O = paint(I, mo);    return O|0.0|10.795045082019955|0.044973544973545|0.0|10.8400186269935|
+|def dsl3(I):;    a = objects(I, T, F, T);    z = ofcolor(I, ZERO);    pfunc = compose(rbind(difference, z), delta);    recolor_inside = fork(recolor, color, pfunc);    painted = mapply(recolor_inside, a);    O = paint(I, painted);    return O|0.0|10.795045082019955|0.044973544973545|0.0|10.8400186269935|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

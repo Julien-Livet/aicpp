@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl2(I):;    x1 = partition(I);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, backdrop));    O = subgrid(x3, I);    return O;|28.36193007666084|1007.0|544.140625|1.2563471153160704|1580.7589021919769|
-|def dsl1(I):;    x1 = objects(I, T, T, F);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, box));    O = subgrid(x3, I);    return O;|28.36193007666084|1007.0|544.140625|1.2563471153160704|1580.7589021919769|
-|def dsl3(I):;    x1 = objects(I, T, F, F);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, box));    O = subgrid(x3, I);    return O;|28.36193007666084|1007.0|544.140625|1.2563471153160704|1580.7589021919769|
+|def dsl2(I):;    x1 = partition(I);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, backdrop));    O = subgrid(x3, I);    return O|19.41765816666168|624.0|286.140625|0.9688673281204354|930.5271504947821|
+|def dsl1(I):;    x1 = objects(I, T, T, F);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, box));    O = subgrid(x3, I);    return O|19.41765816666168|624.0|286.140625|0.9688673281204354|930.5271504947821|
+|def dsl3(I):;    x1 = objects(I, T, F, F);    x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)));    x3 = argmax(x2, compose(size, box));    O = subgrid(x3, I);    return O|19.41765816666168|624.0|286.140625|0.9688673281204354|930.5271504947821|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

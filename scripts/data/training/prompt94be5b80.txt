@@ -228,13 +228,11 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    nz = difference(asindices(I), ofcolor(I, ZERO));    r0 = uppermost(nz);    W = width(I);    lastc = subtract(W, ONE);    row0 = connect(astuple(r0, 0), astuple(r0, lastc));    row1 = connect(astuple(add(r0, ONE), 0), astuple(add(r0, ONE), lastc));    row2 = connect(astuple(add(r0, TWO), 0), astuple(add(r0, TWO), lastc));    patch = combine(row0, combine(row1, row2));    O = fill(I, ZERO, patch);    return O;|0.0|83.13132635384568|0.41594962771433364|0.5411211944762473|84.08839717603627|
-|def dsl2(I):;    nz = difference(asindices(I), ofcolor(I, ZERO));    r0 = uppermost(nz);    W = width(I);    lastc = subtract(W, ONE);    row0 = connect(astuple(r0, 0), astuple(r0, lastc));    row1 = connect(astuple(add(r0, ONE), 0), astuple(add(r0, ONE), lastc));    row2 = connect(astuple(add(r0, TWO), 0), astuple(add(r0, TWO), lastc));    patch = combine(row0, combine(row1, row2));    O = fill(I, ZERO, patch);    objs = objects(O, T, F, T);    large = sfilter(objs, compose(rbind(greater, TEN), size));    templ = argmax(large, size);    topblk = argmin(large, uppermost);    h = height(templ);    target = add(ulcorner(topblk), invert(toivec(h)));    proto = recolor(leastcolor(I), toindices(normalize(templ)));    O2 = move(O, proto, target);    return O2;|43.42365010457793|340.0|524.0|2.0|909.423650104578|
-|def dsl4(I):;    nz = difference(asindices(I), ofcolor(I, ZERO));    r0 = uppermost(nz);    W = width(I);    lastc = subtract(W, ONE);    row0 = connect(astuple(r0, 0), astuple(r0, lastc));    row1 = connect(astuple(add(r0, ONE), 0), astuple(add(r0, ONE), lastc));    row2 = connect(astuple(add(r0, TWO), 0), astuple(add(r0, TWO), lastc));    patch = combine(row0, combine(row1, row2));    O = fill(I, ZERO, patch);    objs = objects(O, T, F, T);    large = sfilter(objs, compose(rbind(greater, TEN), size));    templ = argmax(large, size);    topblk = argmin(large, uppermost);    h = height(templ);    target = add(ulcorner(topblk), invert(toivec(add(h, ONE))));    proto = recolor(leastcolor(I), toindices(normalize(templ)));    O2 = move(O, proto, target);    return O2;|43.42365010457793|357.8885438199983|524.0904977375566|2.023363465670341|927.4260551278031|
+|def dsl1(I):;    nz = difference(asindices(I), ofcolor(I, ZERO));    r0 = uppermost(nz);    W = width(I);    lastc = subtract(W, ONE);    row0 = connect(astuple(r0, 0), astuple(r0, lastc));    row1 = connect(astuple(add(r0, ONE), 0), astuple(add(r0, ONE), lastc));    row2 = connect(astuple(add(r0, TWO), 0), astuple(add(r0, TWO), lastc));    patch = combine(row0, combine(row1, row2));    O = fill(I, ZERO, patch);    return O|0.0|42.84485219687831|0.1789125906772966|0.2098433792732159|43.23360816682882|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

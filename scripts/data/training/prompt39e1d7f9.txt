@@ -225,17 +225,9 @@ vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Previous program scores:
+Generate at most 5 plausible DSL programs using only the declared primitives.
 
-|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
-|-|-|-|-|-|
-|def dsl3(I):;    objs = objects(I, T, F, T);    cells = sizefilter(objs, 9);    v = double(ZERO_BY_TWO);    vm = invert(v);    h = double(TWO_BY_ZERO);    hm = invert(h);    c6 = colorfilter(cells, SIX);    a1 = mapply(compose(lbind(recolor, THREE), lbind(shift, v)), c6);    a2 = mapply(compose(lbind(recolor, THREE), lbind(shift, vm)), c6);    a3 = mapply(compose(lbind(recolor, THREE), lbind(shift, h)), c6);    a4 = mapply(compose(lbind(recolor, THREE), lbind(shift, hm)), c6);    adds = merge((merge((a1, a2)), merge((a3, a4))));    O = underpaint(I, adds);    return O;|36.76955262170047|1626.953216051364|730.319016896405|1.0|2395.0417855694695|
-|def dsl4(I):;    objs = objects(I, T, F, T);    cells = sizefilter(objs, 9);    v = double(ZERO_BY_TWO);    vm = invert(v);    h = double(TWO_BY_ZERO);    hm = invert(h);    c2 = colorfilter(cells, TWO);    a1 = mapply(compose(lbind(recolor, FOUR), lbind(shift, v)), c2);    a2 = mapply(compose(lbind(recolor, FOUR), lbind(shift, vm)), c2);    a3 = mapply(compose(lbind(recolor, FOUR), lbind(shift, h)), c2);    a4 = mapply(compose(lbind(recolor, FOUR), lbind(shift, hm)), c2);    adds = merge((merge((a1, a2)), merge((a3, a4))));    O = underpaint(I, adds);    return O;|36.76955262170047|3161.244533937196|730.2572885013432|1.0|3929.2713750602397|
-|def dsl2(I):;    objs = objects(I, T, F, T);    cells = sizefilter(objs, 9);    v = double(ZERO_BY_TWO);    vm = invert(v);    h = double(TWO_BY_ZERO);    hm = invert(h);    c4 = colorfilter(cells, FOUR);    a1 = mapply(compose(lbind(recolor, SIX), lbind(shift, v)), c4);    a2 = mapply(compose(lbind(recolor, SIX), lbind(shift, vm)), c4);    a3 = mapply(compose(lbind(recolor, SIX), lbind(shift, h)), c4);    a4 = mapply(compose(lbind(recolor, SIX), lbind(shift, hm)), c4);    adds = merge((merge((a1, a2)), merge((a3, a4))));    O = underpaint(I, adds);    return O;|73.53910524340094|4629.1537185670995|1460.1832144272694|2.0|6164.8760382377695|
-
-Propose at most 5 improved variants avoiding previous low-scoring.
 All programs must be described within a single Python MarkDown tag.
-
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

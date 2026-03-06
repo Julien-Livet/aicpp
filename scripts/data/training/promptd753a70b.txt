@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl5(I):;    O = I;    return O;|0.0|89.86266473669073|0.54296875|0.0|90.40563348669073|
-|def dsl4(I):;    O = rot270(I);    return O;|0.0|89.89744075074941|0.7578125|0.0|90.65525325074941|
-|def dsl1(I):;    O = vmirror(I);    return O;|0.0|90.71715537972304|0.71875|0.0|91.43590537972304|
+|def dsl5(I):;    O = I;    return O|0.0|70.57536321470482|0.42578125|0.0|71.00114446470482|
+|def dsl1(I):;    O = vmirror(I);    return O|0.0|71.37807577390932|0.59375|0.0|71.97182577390932|
+|def dsl4(I):;    O = rot270(I);    return O|0.0|72.17739560408006|0.64453125|0.0|72.82192685408006|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

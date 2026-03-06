@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl5(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(urcorner(toindices(a)), llcorner(toindices(b)))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O;|0.0|37.37231255373316|0.1015625|0.0|37.47387505373316|
-|def dsl2(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(center(a), center(b))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O;|0.0|37.38403303375411|0.1640625|0.0|37.54809553375411|
-|def dsl1(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(centerofmass(a), centerofmass(b))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O;|0.0|38.61717917521468|0.171875|0.0|38.78905417521468|
+|def dsl2(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(center(a), center(b))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O|0.0|26.203693146255162|0.125|0.0|26.328693146255162|
+|def dsl1(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(centerofmass(a), centerofmass(b))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O|0.0|27.43683928771573|0.1328125|0.0|27.56965178771573|
+|def dsl5(I):;    objs = objects(I, T, F, T);    bgobj = toobject(ofcolor(I, SEVEN), I);    E = difference(bgobj, bgobj);    pairs = prapply(lambda a, b: branch(equality(color(a), color(b)),;                                        recolor(color(a), connect(urcorner(toindices(a)), llcorner(toindices(b)))),;                                        E),;                    objs, objs);    lines = merge(pairs);    O = underpaint(I, lines);    return O|0.0|28.65451466665181|0.078125|0.0|28.73263966665181|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

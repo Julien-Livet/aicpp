@@ -229,13 +229,12 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    x1 = ofcolor(I, EIGHT);    x2 = toobject(x1, I);    x3 = cmirror(x2);    O = paint(I, x3);    return O;|0.0|162.12312445309934|0.4535899191216701|0.0|162.576714372221|
-|def dsl1(I):;    x1 = ofcolor(I, EIGHT);    x2 = toobject(x1, I);    x3 = dmirror(x2);    O = paint(I, x3);    return O;|0.0|181.4358801807594|0.5645849961492684|0.0|182.00046517690868|
-|def dsl2(I):;    x1 = ofcolor(I, FOUR);    x2 = toobject(x1, I);    x3 = dmirror(x2);    O = paint(I, x3);    return O;|26.870057685088806|1572.9575983891364|401.2725773452512|1.0|2002.1002334194764|
+|def dsl4(I):;    x1 = ofcolor(I, EIGHT);    x2 = toobject(x1, I);    x3 = cmirror(x2);    O = paint(I, x3);    return O|0.0|106.09634514177358|0.3081852551984877|0.0|106.40453039697206|
+|def dsl1(I):;    x1 = ofcolor(I, EIGHT);    x2 = toobject(x1, I);    x3 = dmirror(x2);    O = paint(I, x3);    return O|0.0|114.19749828470245|0.37939981096408315|0.0|114.57689809566654|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

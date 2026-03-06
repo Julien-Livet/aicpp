@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    x1 = objects(I, T, F, T);    x2 = sfilter(x1, hline);    x3 = sizefilter(x2, ONE);    x4 = difference(x2, x3);    x5 = apply(urcorner, x4);    x6 = apply(rbind(add, RIGHT), x5);    x7 = mapply(rbind(shoot, RIGHT), x6);    O = underfill(I, ONE, x7);    return O;|0.0|13.33708496134517|0.41999999999999993|0.027735009803569147|13.784819971148739|
-|def dsl2(I):;    x1 = objects(I, T, F, T);    x2 = sizefilter(x1, ONE);    x3 = apply(ulcorner, x2);    x4 = apply(rbind(add, DOWN), x3);    x5 = apply(rbind(add, RIGHT), x4);    x6 = mapply(rbind(shoot, RIGHT), x5);    O = underfill(I, ONE, x6);    return O;|0.0|14.147977592557067|0.48|0.027735009803569147|14.655712602360637|
-|def dsl4(I):;    x1 = objects(I, T, F, T);    x2 = sfilter(x1, hline);    x3 = sizefilter(x2, ONE);    x4 = difference(x2, x3);    x5 = apply(urcorner, x4);    x6 = apply(rbind(add, RIGHT), x5);    x7 = mapply(rbind(shoot, RIGHT), x6);    y1 = apply(ulcorner, x3);    y2 = apply(rbind(add, DOWN), y1);    y3 = apply(rbind(add, RIGHT), y2);    y4 = mapply(rbind(shoot, RIGHT), y3);    z = combine(x7, y4);    O = underfill(I, ONE, z);    return O;|0.0|15.071939106952986|0.5266666666666666|0.027735009803569147|15.626340783423222|
+|def dsl3(I):;    x1 = objects(I, T, F, T);    x2 = sfilter(x1, hline);    x3 = sizefilter(x2, ONE);    x4 = difference(x2, x3);    x5 = apply(urcorner, x4);    x6 = apply(rbind(add, RIGHT), x5);    x7 = mapply(rbind(shoot, RIGHT), x6);    O = underfill(I, ONE, x7);    return O|0.0|9.464101615137753|0.31999999999999995|0.027735009803569147|9.811836624941323|
+|def dsl2(I):;    x1 = objects(I, T, F, T);    x2 = sizefilter(x1, ONE);    x3 = apply(ulcorner, x2);    x4 = apply(rbind(add, DOWN), x3);    x5 = apply(rbind(add, RIGHT), x4);    x6 = mapply(rbind(shoot, RIGHT), x5);    O = underfill(I, ONE, x6);    return O|0.0|10.985699932388687|0.41333333333333333|0.027735009803569147|11.42676827552559|
+|def dsl4(I):;    x1 = objects(I, T, F, T);    x2 = sfilter(x1, hline);    x3 = sizefilter(x2, ONE);    x4 = difference(x2, x3);    x5 = apply(urcorner, x4);    x6 = apply(rbind(add, RIGHT), x5);    x7 = mapply(rbind(shoot, RIGHT), x6);    y1 = apply(ulcorner, x3);    y2 = apply(rbind(add, DOWN), y1);    y3 = apply(rbind(add, RIGHT), y2);    y4 = mapply(rbind(shoot, RIGHT), y3);    z = combine(x7, y4);    O = underfill(I, ONE, z);    return O|0.0|11.198955760745568|0.42666666666666664|0.027735009803569147|11.653357437215803|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

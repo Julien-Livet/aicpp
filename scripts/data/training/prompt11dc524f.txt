@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    O = move(I, tobj, d);    return O;|0.0|33.60680860981702|0.13609467455621294|0.0|33.742903284373234|
-|def dsl4(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    g1 = move(I, tobj, d);    mir = vmirror(tobj);    mobj = recolor(FIVE, normalize(toindices(mir)));    g2 = cover(g1, fobj);    d2 = gravitate(mobj, fobj);    O = move(g2, mobj, d2);    return O;|0.0|36.51721341778432|0.18343195266272194|0.0|36.70064537044704|
-|def dsl5(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    g1 = move(I, tobj, d);    mir = hmirror(tobj);    mobj = recolor(FIVE, normalize(toindices(mir)));    g2 = cover(g1, fobj);    d2 = gravitate(mobj, fobj);    O = move(g2, mobj, d2);    return O;|0.0|36.51721341778432|0.18343195266272194|0.0|36.70064537044704|
+|def dsl1(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    O = move(I, tobj, d);    return O|0.0|30.77838148507083|0.12426035502958577|0.0|30.902641840100415|
+|def dsl4(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    g1 = move(I, tobj, d);    mir = vmirror(tobj);    mobj = recolor(FIVE, normalize(toindices(mir)));    g2 = cover(g1, fobj);    d2 = gravitate(mobj, fobj);    O = move(g2, mobj, d2);    return O|0.0|32.51721341778432|0.1597633136094675|0.0|32.676976731393786|
+|def dsl5(I):;    objs = objects(I, T, F, T);    tobj = first(colorfilter(objs, TWO));    fobj = first(colorfilter(objs, FIVE));    d = gravitate(tobj, fobj);    g1 = move(I, tobj, d);    mir = hmirror(tobj);    mobj = recolor(FIVE, normalize(toindices(mir)));    g2 = cover(g1, fobj);    d2 = gravitate(mobj, fobj);    O = move(g2, mobj, d2);    return O|0.0|32.51721341778432|0.1597633136094675|0.0|32.676976731393786|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

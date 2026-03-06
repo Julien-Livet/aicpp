@@ -229,13 +229,11 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl2(I):;    p5 = ofcolor(I, FIVE);    s5 = subgrid(p5, I);    pal = trim(replace(I, FIVE, ZERO));    rows = hsplit(pal, THREE);    top = first(rows);    bot = last(rows);    cr = vupscale(top, height(s5));    z = ofcolor(s5, ZERO);    cr2 = fill(cr, ZERO, z);    b = mostcolor(bot);    base = canvas(b, shape(s5));    O = paint(base, asobject(cr2));    return O;|0.0|158.15750133807086|3.7714285714285714|3.1228847880275206|165.05181469752696|
-|def dsl3(I):;    p5 = ofcolor(I, FIVE);    s5 = subgrid(p5, I);    pal = trim(replace(I, FIVE, ZERO));    rows = hsplit(pal, height(pal));    top = first(rows);    bot = last(rows);    cond = equality(mostcolor(top), leastcolor(top));    colorrow = branch(cond, bot, top);    backrow = branch(cond, top, bot);    cr = vupscale(colorrow, height(s5));    O = fill(cr, mostcolor(backrow), ofcolor(s5, ZERO));    return O;|240.00029677423788|921.0|454|2.1789362142485658|1617.1792329884865|
-|def dsl1(I):;    p5 = ofcolor(I, FIVE);    s5 = subgrid(p5, I);    pal = trim(replace(I, FIVE, ZERO));    rows = hsplit(pal, height(pal));    top = first(rows);    bot = last(rows);    cr = vupscale(top, height(s5));    z = ofcolor(s5, ZERO);    b = mostcolor(bot);    O = fill(cr, b, z);    return O;|240.00029677423788|996.0|454|3.083163646054337|1693.0834604202923|
+|def dsl2(I):;    p5 = ofcolor(I, FIVE);    s5 = subgrid(p5, I);    pal = trim(replace(I, FIVE, ZERO));    rows = hsplit(pal, THREE);    top = first(rows);    bot = last(rows);    cr = vupscale(top, height(s5));    z = ofcolor(s5, ZERO);    cr2 = fill(cr, ZERO, z);    b = mostcolor(bot);    base = canvas(b, shape(s5));    O = paint(base, asobject(cr2));    return O|0.0|99.71094455326104|2.7714285714285714|2.1228847880275206|104.60525791271714|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    H = height(I);    W = width(I);    K = divide(W, THREE);    S = astuple(0, subtract(W, K));    R = crop(I, S, astuple(H, K));    Z = canvas(ZERO, astuple(H, subtract(W, K)));    O = hconcat(Z, R);    return O;|0.0|67.26871190922247|0.8099999999999999|2.390867979754965|70.46957988897744|
-|def dsl2(I):;    H = height(I);    W = width(I);    D = divide(W, TWO);    Z = canvas(ZERO, astuple(H, D));    L = crop(I, ORIGIN, astuple(H, subtract(W, D)));    O = hconcat(Z, L);    return O;|0.0|71.14316991993576|0.7475213675213676|0.16989664111286093|72.06058792856999|
-|def dsl3(I):;    H = height(I);    W = width(I);    D = divide(W, TWO);    S = astuple(0, subtract(W, D));    R = crop(I, S, astuple(H, D));    Z = canvas(ZERO, astuple(H, subtract(W, D)));    O = hconcat(Z, R);    return O;|0.0|74.03225710578016|0.9763247863247864|0.5760070104614471|75.5845889025664|
+|def dsl4(I):;    H = height(I);    W = width(I);    K = divide(W, THREE);    S = astuple(0, subtract(W, K));    R = crop(I, S, astuple(H, K));    Z = canvas(ZERO, astuple(H, subtract(W, K)));    O = hconcat(Z, R);    return O|0.0|44.79650685497824|0.6|1.3908679797549648|46.78737483473321|
+|def dsl2(I):;    H = height(I);    W = width(I);    D = divide(W, TWO);    Z = canvas(ZERO, astuple(H, D));    L = crop(I, ORIGIN, astuple(H, subtract(W, D)));    O = hconcat(Z, L);    return O|0.0|47.394485745859924|0.5675213675213675|0.1198966411305386|48.08190375451183|
+|def dsl3(I):;    H = height(I);    W = width(I);    D = divide(W, TWO);    S = astuple(0, subtract(W, D));    R = crop(I, S, astuple(H, D));    Z = canvas(ZERO, astuple(H, subtract(W, D)));    O = hconcat(Z, R);    return O|0.0|47.85975244917536|0.6863247863247863|0.4642036116259861|49.01028084712613|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

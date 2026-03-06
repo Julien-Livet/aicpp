@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl5(I):;    a = argmax(colorfilter(fgpartition(I), TWO), size);    s = subgrid(a, I);    holes = sfilter(colorfilter(partition(s), ZERO), compose(flip, rbind(bordering, s)));    moved = apply(rbind(shift, ulcorner(a)), holes);    obj = merge(apply(lbind(recolor, ONE), moved));    O = underpaint(I, obj);    return O;|0.0|11.260500271343561|0.4506172839506173|0.0|11.711117555294178|
-|def dsl3(I):;    twos = colorfilter(fgpartition(I), TWO);    main = argmax(twos, size);    box = subgrid(main, I);    parts = partition(box);    zparts = colorfilter(parts, ZERO);    holes = sfilter(zparts, compose(flip, rbind(bordering, box)));    sh = apply(rbind(shift, ulcorner(main)), holes);    obj = merge(apply(lbind(recolor, ONE), sh));    O = underpaint(I, obj);    return O;|0.0|11.260500271343561|0.4506172839506173|0.0|11.711117555294178|
-|def dsl4(I):;    twocomps = colorfilter(fgpartition(I), TWO);    biggest = argmax(twocomps, size);    crop = subgrid(biggest, I);    zs = colorfilter(partition(crop), ZERO);    nottouching = sfilter(zs, compose(flip, rbind(bordering, crop)));    moved = apply(rbind(shift, ulcorner(biggest)), nottouching);    fillidx = merge(apply(toindices, moved));    O = underfill(I, ONE, fillidx);    return O;|0.0|11.260500271343561|0.4506172839506173|0.0|11.711117555294178|
+|def dsl5(I):;    a = argmax(colorfilter(fgpartition(I), TWO), size);    s = subgrid(a, I);    holes = sfilter(colorfilter(partition(s), ZERO), compose(flip, rbind(bordering, s)));    moved = apply(rbind(shift, ulcorner(a)), holes);    obj = merge(apply(lbind(recolor, ONE), moved));    O = underpaint(I, obj);    return O|0.0|7.5188428845696205|0.2777777777777778|0.0|7.796620662347398|
+|def dsl3(I):;    twos = colorfilter(fgpartition(I), TWO);    main = argmax(twos, size);    box = subgrid(main, I);    parts = partition(box);    zparts = colorfilter(parts, ZERO);    holes = sfilter(zparts, compose(flip, rbind(bordering, box)));    sh = apply(rbind(shift, ulcorner(main)), holes);    obj = merge(apply(lbind(recolor, ONE), sh));    O = underpaint(I, obj);    return O|0.0|7.5188428845696205|0.2777777777777778|0.0|7.796620662347398|
+|def dsl4(I):;    twocomps = colorfilter(fgpartition(I), TWO);    biggest = argmax(twocomps, size);    crop = subgrid(biggest, I);    zs = colorfilter(partition(crop), ZERO);    nottouching = sfilter(zs, compose(flip, rbind(bordering, crop)));    moved = apply(rbind(shift, ulcorner(biggest)), nottouching);    fillidx = merge(apply(toindices, moved));    O = underfill(I, ONE, fillidx);    return O|0.0|7.5188428845696205|0.2777777777777778|0.0|7.796620662347398|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

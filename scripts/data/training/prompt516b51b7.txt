@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    objs = colorfilter(objects(I, T, F, T), ONE);    inner1 = mapply(inbox, objs);    O = fill(I, TWO, inner1);    inner2 = mapply(inbox, apply(inbox, objs));    O = fill(O, THREE, inner2);    return O;|0.0|25.705293981883216|0.4446475093533918|0.0|26.149941491236607|
-|def dsl5(I):;    ones = colorfilter(objects(I, T, F, T), ONE);    level2 = mapply(inbox, ones);    O = fill(I, TWO, level2);    deeper = mapply(inbox, apply(inbox, ones));    O = fill(O, THREE, deeper);    return O;|0.0|25.705293981883216|0.4446475093533918|0.0|26.149941491236607|
-|def dsl2(I):;    objs = colorfilter(objects(I, T, F, T), ONE);    a = apply(inbox, objs);    inner1 = merge(a);    O = fill(I, TWO, inner1);    b = apply(inbox, a);    inner2 = merge(b);    O = fill(O, THREE, inner2);    return O;|0.0|25.705293981883216|0.4446475093533918|0.0|26.149941491236607|
+|def dsl1(I):;    objs = colorfilter(objects(I, T, F, T), ONE);    inner1 = mapply(inbox, objs);    O = fill(I, TWO, inner1);    inner2 = mapply(inbox, apply(inbox, objs));    O = fill(O, THREE, inner2);    return O|0.0|13.8309518948453|0.17405927405927413|0.0|14.005011168904575|
+|def dsl5(I):;    ones = colorfilter(objects(I, T, F, T), ONE);    level2 = mapply(inbox, ones);    O = fill(I, TWO, level2);    deeper = mapply(inbox, apply(inbox, ones));    O = fill(O, THREE, deeper);    return O|0.0|13.8309518948453|0.17405927405927413|0.0|14.005011168904575|
+|def dsl2(I):;    objs = colorfilter(objects(I, T, F, T), ONE);    a = apply(inbox, objs);    inner1 = merge(a);    O = fill(I, TWO, inner1);    b = apply(inbox, a);    inner2 = merge(b);    O = fill(O, THREE, inner2);    return O|0.0|13.8309518948453|0.17405927405927413|0.0|14.005011168904575|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

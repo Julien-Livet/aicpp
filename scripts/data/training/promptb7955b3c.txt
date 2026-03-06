@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    x1 = mostcolor(I);    O = replace(I, EIGHT, x1);    return O;|0.0|80.73645275695009|0.2771284271284272|0.0|81.01358118407852|
-|def dsl2(I):;    x1 = frontiers(I);    x2 = merge(x1);    O = cover(I, x2);    return O;|0.0|88.16496461402235|0.3613400488400488|0.0|88.5263046628624|
-|def dsl5(I):;    x1 = leastcolor(I);    O = replace(I, EIGHT, x1);    return O;|0.0|96.33463192594216|0.3404165279165279|0.0|96.6750484538587|
+|def dsl3(I):;    x1 = mostcolor(I);    O = replace(I, EIGHT, x1);    return O|0.0|32.77201017500808|0.16349206349206358|0.0|32.93550223850014|
+|def dsl5(I):;    x1 = leastcolor(I);    O = replace(I, EIGHT, x1);    return O|0.0|35.47419489683358|0.21726190476190477|0.0|35.691456801595486|
+|def dsl4(I):;    x1 = palette(I);    x2 = minimum(x1);    O = replace(I, EIGHT, x2);    return O|0.0|40.44748237460763|0.13869047619047614|0.0|40.58617285079811|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

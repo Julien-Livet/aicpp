@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl2(I):;    x1 = trim(I);    O = compress(x1);    return O;|16.605551275463988|762|912|0.5808327827428046|1691.1863840582068|
-|def dsl1(I):;    O = compress(I);    return O;|19.99836581805009|841|973|0.6751339116380368|1834.673499729688|
-|def dsl3(I):;    x1 = objects(I, T, F, T);    x2 = merge(x1);    x3 = subgrid(x2, I);    O = compress(x3);    return O;|19.99836581805009|841|973|0.6751339116380368|1834.673499729688|
+|def dsl2(I):;    x1 = trim(I);    O = compress(x1);    return O|11.60555127546399|715|581|0.4422110395308797|1308.0477623149948|
+|def dsl1(I):;    O = compress(I);    return O|13.595241580617241|832|612|0.5043079925087919|1458.099549573126|
+|def dsl3(I):;    x1 = objects(I, T, F, T);    x2 = merge(x1);    x3 = subgrid(x2, I);    O = compress(x3);    return O|13.595241580617241|832|612|0.5043079925087919|1458.099549573126|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

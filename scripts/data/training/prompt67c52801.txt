@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    H = height(I);    W = width(I);    top_h = subtract(H, THREE);    top = canvas(ZERO, astuple(top_h, W));    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W));    O = vconcat(top, band3);    return O;|0.0|61.56551368514339|0.6920364357864358|0.2481952518630925|62.505745372792916|
-|def dsl2(I):;    H = height(I);    W = width(I);    r1 = subtract(H, THREE);    r2 = subtract(H, TWO);    r3 = subtract(H, ONE);    row1 = shoot(astuple(r1, ZERO), RIGHT);    row2 = shoot(astuple(r2, ZERO), RIGHT);    row3 = shoot(astuple(r3, ZERO), RIGHT);    keep = combine(combine(row1, row2), row3);    rem = difference(asindices(I), keep);    O = cover(I, rem);    return O;|0.0|61.56551368514339|0.6920364357864358|0.2481952518630925|62.505745372792916|
-|def dsl4(I):;    H = height(I);    W = width(I);    top_h = subtract(H, THREE);    top = canvas(ZERO, astuple(top_h, W));    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W));    content = compress(band3);    ch = height(content);    cw = width(content);    pad_h = subtract(THREE, ch);    pad_top = canvas(ZERO, astuple(pad_h, cw));    content3 = vconcat(pad_top, content);    pad_w = subtract(W, width(content3));    pad_left = canvas(ZERO, astuple(THREE, pad_w));    band_aligned = hconcat(pad_left, content3);    O = vconcat(top, band_aligned);    return O;|0.0|87.3741202414472|1.4638618326118327|0.496390503726185|89.33437257778522|
+|def dsl1(I):;    H = height(I);    W = width(I);    top_h = subtract(H, THREE);    top = canvas(ZERO, astuple(top_h, W));    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W));    O = vconcat(top, band3);    return O|0.0|51.17320883973012|0.510218253968254|0.20984700243542986|51.89327409613381|
+|def dsl2(I):;    H = height(I);    W = width(I);    r1 = subtract(H, THREE);    r2 = subtract(H, TWO);    r3 = subtract(H, ONE);    row1 = shoot(astuple(r1, ZERO), RIGHT);    row2 = shoot(astuple(r2, ZERO), RIGHT);    row3 = shoot(astuple(r3, ZERO), RIGHT);    keep = combine(combine(row1, row2), row3);    rem = difference(asindices(I), keep);    O = cover(I, rem);    return O|0.0|51.17320883973012|0.510218253968254|0.20984700243542986|51.89327409613381|
+|def dsl4(I):;    H = height(I);    W = width(I);    top_h = subtract(H, THREE);    top = canvas(ZERO, astuple(top_h, W));    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W));    content = compress(band3);    ch = height(content);    cw = width(content);    pad_h = subtract(THREE, ch);    pad_top = canvas(ZERO, astuple(pad_h, cw));    content3 = vconcat(pad_top, content);    pad_w = subtract(W, width(content3));    pad_left = canvas(ZERO, astuple(THREE, pad_w));    band_aligned = hconcat(pad_left, content3);    O = vconcat(top, band_aligned);    return O|0.0|67.80373445066627|1.139186507936508|0.4196940048708597|69.36261496347365|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

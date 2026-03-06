@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    dims = shape(I);    O = canvas(SEVEN, dims);    return O;|7.0710678118654755|993.3735464897914|378.3884297520661|0.18518518513668678|1379.0182292388597|
-|def dsl3(I):;    O = replace(I, TWO, EIGHT);    return O;|7.0710678118654755|1033.6497863243528|377.39669421487605|0.18518518513668678|1418.3027335362312|
-|def dsl2(I):;    O = replace(I, TWO, FIVE);    return O;|7.0710678118654755|1033.7749891398762|377.39669421487605|0.18518518513668678|1418.4279363517546|
+|def dsl4(I):;    dims = shape(I);    O = canvas(SEVEN, dims);    return O|7.0710678118654755|977.2490309931942|377.92561983471074|0.18518518513668678|1362.430903824907|
+|def dsl3(I):;    O = replace(I, TWO, EIGHT);    return O|7.0710678118654755|1016.0998575495685|377.26446280991735|0.18518518513668678|1400.6205733564882|
+|def dsl2(I):;    O = replace(I, TWO, FIVE);    return O|7.0710678118654755|1024.1833260932508|377.26446280991735|0.18518518513668678|1408.7040419001705|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

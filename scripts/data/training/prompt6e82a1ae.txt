@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    x1 = objects(I, T, F, T);    x2 = colorfilter(x1, FIVE);    x3 = sfilter(x2, rbind(bordering, I));    x4 = difference(x2, x3);    y1 = mapply(lbind(recolor, ONE), x3);    y2 = mapply(lbind(recolor, TWO), x4);    y = merge((y1, y2));    O = paint(I, y);    return O;|0.0|12.008755220257862|0.3900000000000001|0.0|12.398755220257863|
-|def dsl2(I):;    O = replace(I, FIVE, TWO);    return O;|0.0|12.918908015190077|0.41999999999999993|0.0|13.338908015190077|
-|def dsl1(I):;    O = replace(I, FIVE, ONE);    return O;|0.0|17.481387849961475|0.34999999999999987|0.0|17.831387849961477|
+|def dsl4(I):;    x1 = objects(I, T, F, T);    x2 = colorfilter(x1, FIVE);    x3 = sfilter(x2, rbind(bordering, I));    x4 = difference(x2, x3);    y1 = mapply(lbind(recolor, ONE), x3);    y2 = mapply(lbind(recolor, TWO), x4);    y = merge((y1, y2));    O = paint(I, y);    return O|0.0|8.692130429902463|0.28000000000000014|0.0|8.972130429902462|
+|def dsl2(I):;    O = replace(I, FIVE, TWO);    return O|0.0|9.454806400052323|0.29999999999999993|0.0|9.754806400052324|
+|def dsl1(I):;    O = replace(I, FIVE, ONE);    return O|0.0|12.790972090138045|0.2499999999999999|0.0|13.040972090138045|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

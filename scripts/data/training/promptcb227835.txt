@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    O = underfill(I, THREE, line);    return O;|0.0|50.1443299263566|0.4166858782243399|0.0|50.56101580458094|
-|def dsl4(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    thick = combine(line, shift(line, UP));    O = underfill(I, THREE, thick);    return O;|0.0|50.1443299263566|0.4166858782243399|0.0|50.56101580458094|
-|def dsl3(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    thick = combine(line, shift(line, LEFT));    O = underfill(I, THREE, thick);    return O;|0.0|50.1443299263566|0.4166858782243399|0.0|50.56101580458094|
+|def dsl1(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    O = underfill(I, THREE, line);    return O|0.0|36.72792206135786|0.30679576833422995|0.0|37.03471782969209|
+|def dsl4(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    thick = combine(line, shift(line, UP));    O = underfill(I, THREE, thick);    return O|0.0|36.72792206135786|0.30679576833422995|0.0|37.03471782969209|
+|def dsl3(I):;    objs = colorfilter(objects(I, T, F, T), EIGHT);    t = totuple(objs);    a = first(t);    b = last(t);    p = ulcorner(a);    q = ulcorner(b);    line = connect(p, q);    thick = combine(line, shift(line, LEFT));    O = underfill(I, THREE, thick);    return O|0.0|36.72792206135786|0.30679576833422995|0.0|37.03471782969209|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

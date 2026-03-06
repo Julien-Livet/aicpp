@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    outs = mapply(outbox, nines);    frame = recolor(THREE, outs);    O = underpaint(I, frame);    return O;|0.0|116.68463982884418|1.600277777777778|0.22964988986082804|118.51456749648278|
-|def dsl3(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    outs = mapply(outbox, nines);    deltas = mapply(delta, nines);    frame = recolor(THREE, outs);    ring = recolor(THREE, deltas);    both = combine(frame, ring);    O = underpaint(I, both);    return O;|0.0|116.68463982884418|1.600277777777778|0.22964988986082804|118.51456749648278|
-|def dsl2(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    deltas = mapply(delta, nines);    ring = recolor(THREE, deltas);    O = underpaint(I, ring);    return O;|0.0|158.9693617026195|2.3419444444444446|0.39455080295232325|161.70585695001625|
+|def dsl1(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    outs = mapply(outbox, nines);    frame = recolor(THREE, outs);    O = underpaint(I, frame);    return O|0.0|79.68463982884418|1.261388888888889|0.16510016743164502|81.11112888516472|
+|def dsl3(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    outs = mapply(outbox, nines);    deltas = mapply(delta, nines);    frame = recolor(THREE, outs);    ring = recolor(THREE, deltas);    both = combine(frame, ring);    O = underpaint(I, both);    return O|0.0|79.68463982884418|1.261388888888889|0.16510016743164502|81.11112888516472|
+|def dsl2(I):;    obs = objects(I, T, F, T);    nines = colorfilter(obs, NINE);    deltas = mapply(delta, nines);    ring = recolor(THREE, deltas);    O = underpaint(I, ring);    return O|0.0|113.26378217451372|1.9141666666666666|0.31121746962881086|115.4891663108092|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

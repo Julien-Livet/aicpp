@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    fr = frontiers(I);    idx = mapply(toindices, fr);    O = underfill(I, FOUR, idx);    return O;|0.0|54.676473614708115|0.94|0.0|55.61647361470811|
-|def dsl2(I):;    x = ofcolor(I, TWO);    l1 = shift(x, LEFT);    l2 = shift(x, add(UP, LEFT));    l3 = shift(x, DOWN_LEFT);    b = combine(l1, l2);    b = combine(b, l3);    O = underfill(I, FOUR, b);    return O;|0.0|66.76407566730073|1.3814814814814815|0.0|68.14555714878222|
-|def dsl3(I):;    x = ofcolor(I, TWO);    d1 = shift(x, DOWN);    d2 = shift(x, add(DOWN, RIGHT));    d3 = shift(x, add(DOWN, ZERO_BY_TWO));    b = combine(d1, d2);    b = combine(b, d3);    O = underfill(I, FOUR, b);    return O;|0.0|68.58729199751048|1.4970370370370372|0.0|70.08432903454751|
+|def dsl4(I):;    fr = frontiers(I);    idx = mapply(toindices, fr);    O = underfill(I, FOUR, idx);    return O|0.0|37.70591086623098|0.7|0.0|38.40591086623098|
+|def dsl2(I):;    x = ofcolor(I, TWO);    l1 = shift(x, LEFT);    l2 = shift(x, add(UP, LEFT));    l3 = shift(x, DOWN_LEFT);    b = combine(l1, l2);    b = combine(b, l3);    O = underfill(I, FOUR, b);    return O|0.0|44.85517336709408|0.9814814814814815|0.0|45.83665484857556|
+|def dsl3(I):;    x = ofcolor(I, TWO);    d1 = shift(x, DOWN);    d2 = shift(x, add(DOWN, RIGHT));    d3 = shift(x, add(DOWN, ZERO_BY_TWO));    b = combine(d1, d2);    b = combine(b, d3);    O = underfill(I, FOUR, b);    return O|0.0|47.80268230668394|1.137037037037037|0.0|48.93971934372098|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

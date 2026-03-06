@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    O = compress(I);    return O;|0.0|59.650549042666434|1.0558333333333334|0.0|60.706382375999766|
-|def dsl2(I):;    x1 = fgpartition(I);    x2 = merge(x1);    x3 = toindices(x2);    O = subgrid(x3, I);    return O;|0.0|59.650549042666434|1.0558333333333334|0.0|60.706382375999766|
-|def dsl1(I):;    x1 = asindices(I);    x2 = ofcolor(I, ZERO);    x3 = difference(x1, x2);    O = subgrid(x3, I);    return O;|0.0|59.650549042666434|1.0558333333333334|0.0|60.706382375999766|
+|def dsl3(I):;    O = compress(I);    return O|0.0|33.458947335248844|0.8058333333333334|0.0|34.264780668582176|
+|def dsl2(I):;    x1 = fgpartition(I);    x2 = merge(x1);    x3 = toindices(x2);    O = subgrid(x3, I);    return O|0.0|33.458947335248844|0.8058333333333334|0.0|34.264780668582176|
+|def dsl1(I):;    x1 = asindices(I);    x2 = ofcolor(I, ZERO);    x3 = difference(x1, x2);    O = subgrid(x3, I);    return O|0.0|33.458947335248844|0.8058333333333334|0.0|34.264780668582176|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    O = replace(I, ZERO, FIVE);    return O;|0.0|54.89579519647377|0.96|0.0|55.85579519647377|
-|def dsl4(I):;    c = leastcolor(I);    P = ofcolor(I, c);    j = leftmost(P);    i = lowermost(P);    vstart = astuple(0, j);    hstart = astuple(i, 0);    vline = shoot(vstart, DOWN);    hline = shoot(hstart, RIGHT);    lines = combine(vline, hline);    O = replace(I, ZERO, FIVE);    O = fill(O, c, lines);    return O;|0.0|59.307937462137836|1.1400000000000001|0.0|60.44793746213784|
-|def dsl3(I):;    c = leastcolor(I);    P = ofcolor(I, c);    outline = box(P);    dims = shape(I);    O = canvas(FIVE, dims);    O = fill(O, c, outline);    return O;|0.0|64.8090099604466|1.3499999999999999|0.0|66.1590099604466|
+|def dsl1(I):;    O = replace(I, ZERO, FIVE);    return O|0.0|51.73351753630539|0.86|0.0|52.59351753630539|
+|def dsl4(I):;    c = leastcolor(I);    P = ofcolor(I, c);    j = leftmost(P);    i = lowermost(P);    vstart = astuple(0, j);    hstart = astuple(i, 0);    vline = shoot(vstart, DOWN);    hline = shoot(hstart, RIGHT);    lines = combine(vline, hline);    O = replace(I, ZERO, FIVE);    O = fill(O, c, lines);    return O|0.0|55.06529677501855|0.96|0.0|56.02529677501855|
+|def dsl3(I):;    c = leastcolor(I);    P = ofcolor(I, c);    outline = box(P);    dims = shape(I);    O = canvas(FIVE, dims);    O = fill(O, c, outline);    return O|0.0|60.11859420062318|1.13|0.0|61.24859420062318|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

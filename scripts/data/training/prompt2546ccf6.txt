@@ -228,13 +228,12 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    x1 = hmirror(I);    O = underpaint(I, asobject(x1));    return O;|0.0|124.05574634774041|0.4487766238338321|0.0|124.50452297157425|
-|def dsl5(I):;    x1 = rot180(I);    O = underpaint(I, asobject(x1));    return O;|0.0|127.09827366379926|0.5381681628821218|0.0|127.63644182668138|
-|def dsl3(I):;    p = palette(I);    nz = remove(ZERO, p);    gc = argmax(nz, rbind(colorcount, I));    x = replace(I, gc, ZERO);    y = rot180(x);    O = underpaint(I, asobject(y));    return O;|82.14367757455791|2354.0|1266|3.0|3705.143677574558|
+|def dsl4(I):;    x1 = hmirror(I);    O = underpaint(I, asobject(x1));    return O|0.0|55.10648964398762|0.26315789473684215|0.0|55.369647538724465|
+|def dsl5(I):;    x1 = rot180(I);    O = underpaint(I, asobject(x1));    return O|0.0|57.86677794111536|0.35087719298245623|0.0|58.21765513409782|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

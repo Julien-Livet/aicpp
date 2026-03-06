@@ -225,17 +225,9 @@ vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Previous program scores:
+Generate at most 5 plausible DSL programs using only the declared primitives.
 
-|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
-|-|-|-|-|-|
-|def dsl3(I):;    bg = switch(I, ZERO, EIGHT);    s = first(ofcolor(I, ONE));    p1 = shoot(s, UP_RIGHT);    e1 = urcorner(p1);    p2 = shoot(e1, UP_LEFT);    e2 = ulcorner(p2);    p3 = shoot(e2, UP_RIGHT);    e3 = urcorner(p3);    p4 = shoot(e3, UP_LEFT);    e4 = ulcorner(p4);    p5 = shoot(e4, UP_RIGHT);    e5 = urcorner(p5);    p6 = shoot(e5, UP_LEFT);    e6 = ulcorner(p6);    p7 = shoot(e6, UP_RIGHT);    e7 = urcorner(p7);    p8 = shoot(e7, UP_LEFT);    P = combine(combine(combine(combine(combine(combine(combine(p1, p2), p3), p4), p5), p6), p7), p8);    O = fill(bg, ONE, P);    return O;|37.61062037773155|840.0|144|4.0|1025.6106203777315|
-|def dsl2(I):;    bg = replace(I, ZERO, EIGHT);    s = first(ofcolor(I, ONE));    a1 = shoot(s, UP_RIGHT);    b1 = urcorner(a1);    a2 = shoot(b1, UP_LEFT);    b2 = ulcorner(a2);    a3 = shoot(b2, UP_RIGHT);    b3 = urcorner(a3);    a4 = shoot(b3, UP_LEFT);    b4 = ulcorner(a4);    a5 = shoot(b4, UP_RIGHT);    b5 = urcorner(a5);    a6 = shoot(b5, UP_LEFT);    b6 = ulcorner(a6);    a7 = shoot(b6, UP_RIGHT);    b7 = urcorner(a7);    a8 = shoot(b7, UP_LEFT);    b8 = ulcorner(a8);    a9 = shoot(b8, UP_RIGHT);    b9 = urcorner(a9);    a10 = shoot(b9, UP_LEFT);    wave = combine(combine(combine(combine(combine(combine(combine(combine(combine(a1, a2), a3), a4), a5), a6), a7), a8), a9), a10);    obj = recolor(ONE, wave);    O = paint(bg, obj);    return O;|37.61062037773155|840.0|144|4.0|1025.6106203777315|
-|def dsl1(I):;    bg = replace(I, ZERO, EIGHT);    s = first(ofcolor(I, ONE));    p1 = shoot(s, UP_RIGHT);    e1 = urcorner(p1);    p2 = shoot(e1, UP_LEFT);    e2 = ulcorner(p2);    p3 = shoot(e2, UP_RIGHT);    e3 = urcorner(p3);    p4 = shoot(e3, UP_LEFT);    e4 = ulcorner(p4);    p5 = shoot(e4, UP_RIGHT);    e5 = urcorner(p5);    p6 = shoot(e5, UP_LEFT);    e6 = ulcorner(p6);    p7 = shoot(e6, UP_RIGHT);    e7 = urcorner(p7);    p8 = shoot(e7, UP_LEFT);    e8 = ulcorner(p8);    p9 = shoot(e8, UP_RIGHT);    e9 = urcorner(p9);    p10 = shoot(e9, UP_LEFT);    e10 = ulcorner(p10);    p11 = shoot(e10, UP_RIGHT);    e11 = urcorner(p11);    p12 = shoot(e11, UP_LEFT);    P = combine(combine(combine(combine(combine(combine(combine(combine(combine(combine(combine(p1, p2), p3), p4), p5), p6), p7), p8), p9), p10), p11), p12);    O = fill(bg, ONE, P);    return O;|37.61062037773155|840.0|144|4.0|1025.6106203777315|
-
-Propose at most 5 improved variants avoiding previous low-scoring.
 All programs must be described within a single Python MarkDown tag.
-
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

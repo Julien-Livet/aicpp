@@ -228,13 +228,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    S = ofcolor(I, FIVE);    Sd = shift(S, DOWN);    not_top = intersection(S, Sd);    top = difference(S, not_top);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, top);    O = paint(A, obj8);    return O;|0.0|48.93522569488222|0.09765625|0.0|49.03288194488222|
-|def dsl2(I):;    S = ofcolor(I, FIVE);    Sl = shift(S, LEFT);    has_right = intersection(S, Sl);    rightmost = difference(S, has_right);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, rightmost);    O = paint(A, obj8);    return O;|0.0|48.93522569488222|0.09765625|0.0|49.03288194488222|
-|def dsl3(I):;    S = ofcolor(I, FIVE);    Sd = shift(S, DOWN);    Sl = shift(S, LEFT);    not_top = intersection(S, Sd);    top = difference(S, not_top);    has_right = intersection(S, Sl);    rightmost = difference(S, has_right);    T8 = combine(top, rightmost);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, T8);    O = paint(A, obj8);    return O;|0.0|48.93522569488222|0.09765625|0.0|49.03288194488222|
+|def dsl1(I):;    S = ofcolor(I, FIVE);    Sd = shift(S, DOWN);    not_top = intersection(S, Sd);    top = difference(S, not_top);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, top);    O = paint(A, obj8);    return O|0.0|40.44994432064365|0.08984375|0.0|40.53978807064365|
+|def dsl2(I):;    S = ofcolor(I, FIVE);    Sl = shift(S, LEFT);    has_right = intersection(S, Sl);    rightmost = difference(S, has_right);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, rightmost);    O = paint(A, obj8);    return O|0.0|40.44994432064365|0.08984375|0.0|40.53978807064365|
+|def dsl3(I):;    S = ofcolor(I, FIVE);    Sd = shift(S, DOWN);    Sl = shift(S, LEFT);    not_top = intersection(S, Sd);    top = difference(S, not_top);    has_right = intersection(S, Sl);    rightmost = difference(S, has_right);    T8 = combine(top, rightmost);    A = replace(I, FIVE, TWO);    obj8 = recolor(EIGHT, T8);    O = paint(A, obj8);    return O|0.0|40.44994432064365|0.08984375|0.0|40.53978807064365|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

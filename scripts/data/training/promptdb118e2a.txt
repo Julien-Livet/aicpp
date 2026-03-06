@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    c = compress(I);    o = asobject(c);    d = multiply(FIVE, THREE);    B = canvas(SEVEN, astuple(d, d));    t = astuple(TWO, TWO);    u = astuple(double(FOUR), double(FOUR));    O = paint(paint(B, shift(o, t)), shift(o, u));    return O;|0.0|81.97294797806792|0.7911111111111111|0.0|82.76405908917903|
-|def dsl3(I):;    c = compress(I);    o = asobject(c);    s1 = shift(o, astuple(TWO, TWO));    s2 = shift(o, astuple(add(FIVE, THREE), add(FIVE, THREE)));    d = multiply(FIVE, THREE);    B = canvas(SEVEN, astuple(d, d));    O = paint(paint(B, s1), s2);    return O;|0.0|81.97294797806792|0.7911111111111111|0.0|82.76405908917903|
-|def dsl1(I):;    x1 = compress(I);    x2 = asobject(x1);    d = multiply(FIVE, THREE);    base = canvas(SEVEN, astuple(d, d));    off1 = astuple(TWO, TWO);    off2 = astuple(add(THREE, FIVE), add(THREE, FIVE));    y1 = shift(x2, off1);    y2 = shift(x2, off2);    z1 = paint(base, y1);    O = paint(z1, y2);    return O;|0.0|81.97294797806792|0.7911111111111111|0.0|82.76405908917903|
+|def dsl4(I):;    c = compress(I);    o = asobject(c);    d = multiply(FIVE, THREE);    B = canvas(SEVEN, astuple(d, d));    t = astuple(TWO, TWO);    u = astuple(double(FOUR), double(FOUR));    O = paint(paint(B, shift(o, t)), shift(o, u));    return O|0.0|79.52345823528475|0.7644444444444445|0.0|80.2879026797292|
+|def dsl3(I):;    c = compress(I);    o = asobject(c);    s1 = shift(o, astuple(TWO, TWO));    s2 = shift(o, astuple(add(FIVE, THREE), add(FIVE, THREE)));    d = multiply(FIVE, THREE);    B = canvas(SEVEN, astuple(d, d));    O = paint(paint(B, s1), s2);    return O|0.0|79.52345823528475|0.7644444444444445|0.0|80.2879026797292|
+|def dsl1(I):;    x1 = compress(I);    x2 = asobject(x1);    d = multiply(FIVE, THREE);    base = canvas(SEVEN, astuple(d, d));    off1 = astuple(TWO, TWO);    off2 = astuple(add(THREE, FIVE), add(THREE, FIVE));    y1 = shift(x2, off1);    y2 = shift(x2, off2);    z1 = paint(base, y1);    O = paint(z1, y2);    return O|0.0|79.52345823528475|0.7644444444444445|0.0|80.2879026797292|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

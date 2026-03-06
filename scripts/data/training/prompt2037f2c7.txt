@@ -225,17 +225,9 @@ vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Previous program scores:
+Generate at most 5 plausible DSL programs using only the declared primitives.
 
-|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
-|-|-|-|-|-|
-|def dsl2(I):;    pts7 = ofcolor(I, SEVEN);    up = shift(pts7, UP);    dn = shift(pts7, DOWN);    lf = shift(pts7, LEFT);    rt = shift(pts7, RIGHT);    dil = combine(combine(pts7, up), combine(dn, combine(lf, rt)));    obj = toobject(dil, I);    o8 = recolor(EIGHT, obj);    g8 = paint(canvas(ZERO, shape(I)), o8);    ds = downscale(g8, THREE);    p = ofcolor(ds, EIGHT);    O = branch(greater(size(p), ZERO), subgrid(p, ds), canvas(ZERO, shape(ds)));    return O;|21.54221811864256|232.0|132|2.4390721593456868|387.98129027798825|
-|def dsl3(I):;    pts7 = ofcolor(I, SEVEN);    up = shift(pts7, UP);    dn = shift(pts7, DOWN);    lf = shift(pts7, LEFT);    rt = shift(pts7, RIGHT);    ur = shift(pts7, UP_RIGHT);    dl = shift(pts7, DOWN_LEFT);    dr = shift(pts7, UNITY);    ul = shift(pts7, NEG_UNITY);    dil = combine(combine(combine(pts7, up), combine(dn, lf)), combine(combine(rt, ur), combine(dl, combine(dr, ul))));    obj = toobject(dil, I);    o8 = recolor(EIGHT, obj);    g8 = paint(canvas(ZERO, shape(I)), o8);    ds = downscale(g8, THREE);    p = ofcolor(ds, EIGHT);    O = branch(greater(size(p), ZERO), subgrid(p, ds), canvas(ZERO, shape(ds)));    return O;|21.54221811864256|232.0|132|2.4390721593456868|387.98129027798825|
-|def dsl1(I):;    pts7 = ofcolor(I, SEVEN);    obj = toobject(pts7, I);    o8 = recolor(EIGHT, obj);    g8 = paint(canvas(ZERO, shape(I)), o8);    ds = downscale(g8, THREE);    p = ofcolor(ds, EIGHT);    O = branch(greater(size(p), ZERO), subgrid(p, ds), canvas(ZERO, shape(ds)));    return O;|23.542218118642555|264.0|104|2.8343501404708125|394.37656825911336|
-
-Propose at most 5 improved variants avoiding previous low-scoring.
 All programs must be described within a single Python MarkDown tag.
-
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

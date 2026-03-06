@@ -228,13 +228,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    x1 = compress(I);    x2 = trim(x1);    O = downscale(x2, THREE);    return O;|15.099019513592784|341|309|0.7357923790952607|665.8348118926881|
-|def dsl3(I):;    x1 = trim(I);    x2 = compress(x1);    x3 = compress(x2);    O = downscale(x3, THREE);    return O;|15.099019513592784|341|309|0.7357923790952607|665.8348118926881|
-|def dsl2(I):;    x1 = compress(I);    x2 = rot90(x1);    x3 = compress(x2);    x4 = rot270(x3);    x5 = trim(x4);    O = downscale(x5, THREE);    return O;|15.099019513592784|341|309|0.7357923790952607|665.8348118926881|
+|def dsl1(I):;    x1 = compress(I);    x2 = trim(x1);    O = downscale(x2, THREE);    return O|10.099019513592784|247|207|0.49550771354462786|464.5945272271374|
+|def dsl3(I):;    x1 = trim(I);    x2 = compress(x1);    x3 = compress(x2);    O = downscale(x3, THREE);    return O|10.099019513592784|247|207|0.49550771354462786|464.5945272271374|
+|def dsl2(I):;    x1 = compress(I);    x2 = rot90(x1);    x3 = compress(x2);    x4 = rot270(x3);    x5 = trim(x4);    O = downscale(x5, THREE);    return O|10.099019513592784|247|207|0.49550771354462786|464.5945272271374|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

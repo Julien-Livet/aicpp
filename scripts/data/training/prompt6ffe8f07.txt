@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    idx8 = ofcolor(I, EIGHT);    H = merge(apply(hfrontier, idx8));    V = merge(apply(vfrontier, idx8));    P = combine(H, V);    forbid = combine(ofcolor(I, ONE), idx8);    P2 = difference(P, forbid);    obj = recolor(FOUR, toobject(P2, I));    O = paint(I, obj);    return O;|0.0|57.3169756437209|0.15635580178516462|0.0|57.47333144550607|
-|def dsl2(I):;    idx8 = ofcolor(I, EIGHT);    dirs = insert(DOWN, insert(UP, insert(RIGHT, initset(LEFT))));    rays = prapply(shoot, idx8, dirs);    P = merge(rays);    P = combine(P, idx8);    forbid = combine(ofcolor(I, ONE), idx8);    P2 = difference(P, forbid);    obj = recolor(FOUR, toobject(P2, I));    O = paint(I, obj);    return O;|0.0|57.3169756437209|0.15635580178516462|0.0|57.47333144550607|
-|def dsl5(I):;    idx8 = ofcolor(I, EIGHT);    H = merge(apply(hfrontier, idx8));    V = merge(apply(vfrontier, idx8));    P = combine(H, V);    zeros = ofcolor(I, ZERO);    twos = ofcolor(I, TWO);    Pz = intersection(P, zeros);    Pt = intersection(P, twos);    objZ = recolor(FOUR, toobject(Pz, I));    objT = recolor(FOUR, toobject(Pt, I));    G = paint(I, objT);    O = underpaint(G, objZ);    return O;|0.0|57.3169756437209|0.15635580178516462|0.0|57.47333144550607|
+|def dsl1(I):;    idx8 = ofcolor(I, EIGHT);    H = merge(apply(hfrontier, idx8));    V = merge(apply(vfrontier, idx8));    P = combine(H, V);    forbid = combine(ofcolor(I, ONE), idx8);    P2 = difference(P, forbid);    obj = recolor(FOUR, toobject(P2, I));    O = paint(I, obj);    return O|0.0|44.66786500304738|0.1286549707602339|0.0|44.79651997380761|
+|def dsl2(I):;    idx8 = ofcolor(I, EIGHT);    dirs = insert(DOWN, insert(UP, insert(RIGHT, initset(LEFT))));    rays = prapply(shoot, idx8, dirs);    P = merge(rays);    P = combine(P, idx8);    forbid = combine(ofcolor(I, ONE), idx8);    P2 = difference(P, forbid);    obj = recolor(FOUR, toobject(P2, I));    O = paint(I, obj);    return O|0.0|44.66786500304738|0.1286549707602339|0.0|44.79651997380761|
+|def dsl5(I):;    idx8 = ofcolor(I, EIGHT);    H = merge(apply(hfrontier, idx8));    V = merge(apply(vfrontier, idx8));    P = combine(H, V);    zeros = ofcolor(I, ZERO);    twos = ofcolor(I, TWO);    Pz = intersection(P, zeros);    Pt = intersection(P, twos);    objZ = recolor(FOUR, toobject(Pz, I));    objT = recolor(FOUR, toobject(Pt, I));    G = paint(I, objT);    O = underpaint(G, objZ);    return O|0.0|44.66786500304738|0.1286549707602339|0.0|44.79651997380761|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

@@ -210,7 +210,6 @@ cython_debug/
 .pypirc
 
 CMakeLists.txt.user
-scripts/proposals
 include/aicpp/partials.h
 src/engine.cpp
 

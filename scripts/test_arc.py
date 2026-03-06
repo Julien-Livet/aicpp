@@ -1,22 +1,41 @@
+import ast
 from concurrent.futures import ThreadPoolExecutor
 import importlib.util
-import inspect
 import json
 import math
-from multiprocessing import Process, Queue
+import multiprocessing as mp
 import numpy as np
 from openai import OpenAI, OpenAIError
 import os
 import pytest
+import queue
 import re
 import subprocess
 import sys
 import time
 from tqdm import tqdm
-import types
 import urllib.request
 
 errors = dict()
+
+def load_dsl_functions(code: str, env: dict):
+    namespace = {}
+    namespace.update(env)
+
+    exec(code, namespace)
+
+    functions = {}
+
+    tree = ast.parse(code)
+
+    for node in tree.body:
+        if (isinstance(node, ast.FunctionDef) and node.name.startswith("dsl")):
+            functions[node.name] = {
+                "function": namespace[node.name],
+                "source": ast.get_source_segment(code, node)
+            }
+
+    return functions
 
 def callOllama(model: str, prompt: str) -> str:
     cmd = ["ollama", "run", model, prompt]
@@ -39,42 +58,54 @@ def callLLM(prompt: str) -> str:
     return callGpt(prompt)
     return callOllama("llama3.1:405b", prompt)
 
-def run_func(func, queue, *args, **kwargs):
-    try:
-        result = func(*args, **kwargs)
-    except AttributeError:
-        result = np.zeros((1, 1))
-    except IndexError:
-        result = np.zeros((1, 1))
-    except NameError:
-        result = np.zeros((1, 1))
-    except TimeoutError:
-        result = np.zeros((1, 1))
-    except TypeError:
-        result = np.zeros((1, 1))
-    except StopIteration:
-        result = np.zeros((1, 1))
-    except ValueError:
-        result = np.zeros((1, 1))
+class DSLWorker:
+    def __init__(self):
+        self.task_q = mp.Queue()
+        self.result_q = mp.Queue()
 
-    queue.put(result)
+        self.p = mp.Process(target = self._worker_loop, args = (self.task_q, self.result_q), daemon = True)
+        self.p.start()
 
-def run_with_timeout(func, timeout, *args, **kwargs):
-    queue = Queue()
-    p = Process(target = run_func, args = (func, queue, *args), kwargs = kwargs)
+    @staticmethod
+    def _worker_loop(task_q, result_q):
+        arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
+        constants_module = load_module("constants", "arc-dsl/constants.py")
+        dsl_module = load_module("dsl", "arc-dsl/dsl.py")
 
-    p.start()
-    p.join(timeout)
+        env = {}
+        env.update(vars(arc_types_module))
+        env.update(vars(constants_module))
+        env.update(vars(dsl_module))
 
-    if (p.is_alive()):
-        p.terminate()
-        p.join()
-        raise TimeoutError("Function execution exceeded timeout")
-        
-    if (not queue.empty()):
-        return queue.get()
+        namespace = {}
+        namespace.update(env)
 
-    return np.zeros((1, 1))
+        while (True):
+            code, func_name, args, kwargs = task_q.get()
+
+            try:
+                exec(code, namespace)
+                result = namespace[func_name](*args, **kwargs)
+                result_q.put(("ok", result))
+            except Exception as e:
+                result_q.put(("err", e))
+
+    def run_with_timeout(self, code: str, func_name: str, timeout: float, *args, **kwargs):
+        self.task_q.put((code, func_name, args, kwargs))
+
+        try:
+            status, value = self.result_q.get(timeout = timeout)
+        except queue.Empty:
+            raise TimeoutError("Function execution exceeded timeout")
+
+        if (status == "err"):
+            raise value
+
+        return value
+
+    def terminate(self):
+        self.p.terminate()
+        self.p.join()
 
 def load_module(name: str, path: str):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -163,18 +194,27 @@ def inputOutputPairs(pairs):
 
     return (inputs, outputs)
 
-def processTask(folder: str, task: str, debug: bool = True) -> int:
+def processTask(folder: str, task: str, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
-    testPairs = inputOutputPairs(taskPairs[1])
 
-    cost = None
-    dsl = ""
+    scoreFunctions = [size_cost, value_cost, pixel_overlap_cost, bounding_box_cost]
+    costs = [math.nan] * (len(scoreFunctions) + 1)
+    best_dsl = ""
     scores = []
     firstLoop = True
     count = 0
 
-    while ((cost is None or cost) and count < 4):
+    arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
+    constants_module = load_module("constants", "arc-dsl/constants.py")
+    dsl_module = load_module("dsl", "arc-dsl/dsl.py")
+
+    env = {}
+    env.update(vars(arc_types_module))
+    env.update(vars(constants_module))
+    env.update(vars(dsl_module))
+
+    while (costs[-1] and count < 4):
         count += 1
 
         command = "You are given several input-output grid pairs from an ARC task:\n"
@@ -232,9 +272,7 @@ Available primitives:
         else:
             command += "\nGenerate at most 5 plausible DSL programs using only the declared primitives.\n"
 
-        command += """All programs must be described within a single Python MarkDown tag.
-
-"""
+        command += "\nAll programs must be described within a single Python MarkDown tag.\n"
 
         command += """
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
@@ -277,7 +315,9 @@ def dsl5(I):
             content = callLLM(command)
 
         if (len(content) == 0):
-            return False
+            return [best_dsl, folder, task] + costs
+
+        firstLoop = False
 
         f = open("data/" + folder + "/output" + task + ".txt", "w")
         f.write(content)
@@ -290,172 +330,152 @@ def dsl5(I):
 
         content = groups[-1]
 
-        firstLoop = False
+        code = """from arc_types import *
+from constants import *
+from dsl import *
 
-        f = open("proposals/proposals" + task + ".py", "w")
-        f.write("""import importlib.util
-import sys
-
-def load_module(name: str, path: str):
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    sys.modules[name] = module
-    
-    return module
-
-globals().update(vars(load_module("arc_types", "arc-dsl/arc_types.py")))
-globals().update(vars(load_module("constants", "arc-dsl/constants.py")))
-globals().update(vars(load_module("dsl", "arc-dsl/dsl.py")))
-constants = load_module("constants", "arc-dsl/constants.py")
-
-""")
-        f.write(content)
-        f.close()
+"""
+        code += content
         
-        proposals = load_module("proposals" + task, "proposals/proposals" + task + ".py")
-        functions = []
+        functions = load_dsl_functions(code, env)
 
-        for x in dir(proposals):
-            f = getattr(proposals, x)
-
-            if (type(f) is types.FunctionType and f.__name__.startswith("dsl")):
-                functions.append(f)
-
-        scoreFunctions = [size_cost, value_cost, pixel_overlap_cost, bounding_box_cost]
         totalScores = []
 
-        for function in functions:
+        for k, v in functions.items():
+            function = v["function"]
+            source = v["source"]
             score = [0] * len(scoreFunctions)
+
+            runner = DSLWorker()
 
             try:
                 for pair in taskPairs[0]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, k, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
-                scores.append([";".join(inspect.getsource(function).split("\n"))] + [str(x) for x in score] + [str(sum(score))])
-                totalScores.append((function, sum(score)))
-            except TimeoutError:
+                scores.append([";".join(source.split("\n"))] + [str(x) for x in score] + [str(sum(score))])
+                totalScores.append([k, source] + score + [sum(score)])
+            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError):
                 pass
-            except TypeError:
-                pass
-            except ValueError:
-                pass
+        
+            runner.terminate()
 
         scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
-        totalScores = sorted(totalScores, key = lambda x: x[1])
+        totalScores = sorted(totalScores, key = lambda x: x[-1])
 
         if (len(totalScores)):
-            function = totalScores[0][0]
-            dsl = inspect.getsource(function)
+            name = totalScores[0][0]
+            source = totalScores[0][1]
+            best_dsl = source
 
             score = [0] * len(scoreFunctions)
+
+            runner = DSLWorker()
 
             try:
                 for pair in taskPairs[1]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(run_with_timeout(function, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, name, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
-                cost = totalScores[0][1] + sum(score)
-            except TimeoutError:
-                cost = math.nan
-            except TypeError:
-                cost = math.nan
-            except ValueError:
-                cost = math.nan
+                costs = (np.array(totalScores[0][2:]) + np.array(score + [sum(score)])).tolist()
+            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError):
+                costs = [math.nan] * (len(scoreFunctions) + 1)
+
+            runner.terminate()
 
     if (debug):
-        print(folder, task, cost, "\n", dsl)
+        print(" ".join(str(x) for x in [folder, task] + costs))
+        print(best_dsl)
 
-    return cost == 0
+    return [best_dsl, folder, task] + costs
 
 def test_task3c9b0459(): #Flip left/right and flip up/down
-    assert(processTask("training", "3c9b0459"))
+    assert(processTask("training", "3c9b0459")[-1] == 0)
 
 def test_task0d3d703e(): #Color mapping
-    assert(processTask("training", "0d3d703e"))
+    assert(processTask("training", "0d3d703e")[-1] == 0)
 
 def test_taskc909285e():
-    assert(processTask("training", "c909285e"))
+    assert(processTask("training", "c909285e")[-1] == 0)
 
 def test_task67a3c6ac():
-    assert(processTask("training", "67a3c6ac"))
+    assert(processTask("training", "67a3c6ac")[-1] == 0)
 
 def test_task68b16354():
-    assert(processTask("training", "68b16354"))
+    assert(processTask("training", "68b16354")[-1] == 0)
 
 def test_task74dd1130():
-    assert(processTask("training", "74dd1130"))
+    assert(processTask("training", "74dd1130")[-1] == 0)
 
 def test_task6150a2bd():
-    assert(processTask("training", "6150a2bd"))
+    assert(processTask("training", "6150a2bd")[-1] == 0)
 
 def test_task9172f3a0():
-    assert(processTask("training", "9172f3a0"))
+    assert(processTask("training", "9172f3a0")[-1] == 0)
 
 def test_task9dfd6313():
-    assert(processTask("training", "9dfd6313"))
+    assert(processTask("training", "9dfd6313")[-1] == 0)
 
 def test_taska416b8f3():
-    assert(processTask("training", "a416b8f3"))
+    assert(processTask("training", "a416b8f3")[-1] == 0)
 
 def test_taskb1948b0a():
-    assert(processTask("training", "b1948b0a"))
+    assert(processTask("training", "b1948b0a")[-1] == 0)
 
 def test_taskc59eb873():
-    assert(processTask("training", "c59eb873"))
+    assert(processTask("training", "c59eb873")[-1] == 0)
 
 def test_taskc8f0f002():
-    assert(processTask("training", "c8f0f002"))
+    assert(processTask("training", "c8f0f002")[-1] == 0)
 
 def test_taskd10ecb37():
-    assert(processTask("training", "d10ecb37"))
+    assert(processTask("training", "d10ecb37")[-1] == 0)
 
 def test_taskd511f180():
-    assert(processTask("training", "d511f180"))
+    assert(processTask("training", "d511f180")[-1] == 0)
 
 def test_tasked36ccf7():
-    assert(processTask("training", "ed36ccf7"))
+    assert(processTask("training", "ed36ccf7")[-1] == 0)
 
 def test_task4c4377d9():
-    assert(processTask("training", "4c4377d9"))
+    assert(processTask("training", "4c4377d9")[-1] == 0)
 
 def test_task6d0aefbc():
-    assert(processTask("training", "6d0aefbc"))
+    assert(processTask("training", "6d0aefbc")[-1] == 0)
 
 def test_task6fa7a44f():
-    assert(processTask("training", "6fa7a44f"))
+    assert(processTask("training", "6fa7a44f")[-1] == 0)
 
 def test_task5614dbcf():
-    assert(processTask("training", "5614dbcf"))
+    assert(processTask("training", "5614dbcf")[-1] == 0)
 
 def test_task8be77c9e():
-    assert(processTask("training", "8be77c9e"))
+    assert(processTask("training", "8be77c9e")[-1] == 0)
 
 def test_taskc9e6f938():
-    assert(processTask("training", "c9e6f938"))
+    assert(processTask("training", "c9e6f938")[-1] == 0)
 
 def test_task5582e5ca():
-    assert(processTask("training", "5582e5ca"))
+    assert(processTask("training", "5582e5ca")[-1] == 0)
 
 def test_task2dee498d():
-    assert(processTask("training", "2dee498d"))
+    assert(processTask("training", "2dee498d")[-1] == 0)
 
 def test_task5bd6f4ac():
-    assert(processTask("training", "5bd6f4ac"))
+    assert(processTask("training", "5bd6f4ac")[-1] == 0)
 
 def test_task1cf80156():
-    assert(processTask("training", "1cf80156"))
+    assert(processTask("training", "1cf80156")[-1] == 0)
 
 def test_task32597951():
-    assert(processTask("training", "32597951"))
+    assert(processTask("training", "32597951")[-1] == 0)
 
 def test_task25ff71a9():
-    assert(processTask("training", "25ff71a9"))
+    assert(processTask("training", "25ff71a9")[-1] == 0)
 
 """
 def test_task():
-    assert(processTask("training", ""))
+    assert(processTask("training", "")[-1] == 0)
 """
 
 def run_tasks(folder: str) -> int:
@@ -469,15 +489,25 @@ def run_tasks(folder: str) -> int:
         if (not os.path.isfile("data/" + folder + "/" + "output" + task + ".txt")):
             unexploredTasks.append(task)
 
-    tasks = unexploredTasks + list(set(tasks) - set(unexploredTasks))
+    tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
  
-    with ThreadPoolExecutor(max_workers = 1) as executor:
+    with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
             executor.map(lambda task: processTask(folder, task, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
-    return sum(1 for r in results if r), len(tasks)
+    results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: x[-1])
+
+    f = open(folder + "_results.txt", "w")
+
+    for result in results:
+        f.write(" ".join(str(x) for x in result[1:]) + "\n")
+        f.write(result[0] + "\n")
+
+    f.close()
+
+    return sum(1 for r in results if r[-1] == 0), len(tasks)
 
 def test_training_tasks():
     count, tasks = run_tasks("training")

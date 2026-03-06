@@ -228,13 +228,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    l = lefthalf(I);    r = righthalf(I);    l2 = vmirror(l);    O = hconcat(l2, r);    return O;|0.0|102.60372272194303|0.6276661706349207|0.12631817306970886|103.35770706564766|
-|def dsl2(I):;    t = tophalf(I);    b = bottomhalf(I);    b2 = vmirror(b);    O = vconcat(t, b2);    return O;|0.0|103.7344722646352|0.6158234126984127|0.26805454118056876|104.6183502185142|
-|def dsl4(I):;    c = leastcolor(I);    x1 = vmirror(I);    x2 = replace(x1, FOUR, c);    O = cellwise(I, x2, ZERO);    return O;|0.0|111.86892948121749|0.7214781746031745|2.254273813805013|114.84468146962568|
+|def dsl2(I):;    t = tophalf(I);    b = bottomhalf(I);    b2 = vmirror(b);    O = vconcat(t, b2);    return O|0.0|66.34463407295536|0.3727678571428571|0.26805454118056876|66.9854564712788|
+|def dsl3(I):;    l = lefthalf(I);    r = righthalf(I);    l2 = vmirror(l);    O = hconcat(l2, r);    return O|0.0|67.30499753249745|0.4436383928571429|0.08479543315145956|67.83343135850605|
+|def dsl5(I):;    c = mostcolor(I);    x1 = hmirror(I);    x2 = replace(x1, FOUR, c);    O = cellwise(I, x2, ZERO);    return O|0.0|71.88143143495307|0.4575892857142857|2.0|74.33902072066736|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

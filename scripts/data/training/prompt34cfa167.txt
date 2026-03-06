@@ -228,13 +228,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    x1 = shape(I);    x2 = canvas(FOUR, x1);    x3 = asobject(I);    O = paint(x2, x3);    return O;|0.0|187.10335503976466|0.9303259313785629|0.06852015504653747|188.10220112618978|
-|def dsl4(I):;    x1 = fgpartition(I);    x2 = mapply(box, x1);    O = fill(I, FOUR, x2);    return O;|0.0|190.18305333719115|1.1670424896740685|0.06852015504653747|191.41861598191176|
-|def dsl5(I):;    x1 = asobject(I);    x2 = toindices(x1);    x3 = box(x2);    O = fill(I, FOUR, x3);    return O;|0.0|219.63554516589215|1.4112773483826115|0.11320902606375158|221.1600315403385|
+|def dsl1(I):;    x1 = shape(I);    x2 = canvas(FOUR, x1);    x3 = asobject(I);    O = paint(x2, x3);    return O|0.0|85.14959849835296|0.4598873348873349|0.02826167094321747|85.63774750418352|
+|def dsl4(I):;    x1 = fgpartition(I);    x2 = mapply(box, x1);    O = fill(I, FOUR, x2);    return O|0.0|89.84420092604384|0.5609459984459984|0.02826167094321747|90.43340859543306|
+|def dsl5(I):;    x1 = asobject(I);    x2 = toindices(x1);    x3 = box(x2);    O = fill(I, FOUR, x3);    return O|0.0|96.43130335912954|0.6137334887334888|0.05995205751483564|97.10498890537787|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

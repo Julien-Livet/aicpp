@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl5(I):;    idx3 = ofcolor(I, THREE);    e = ofcolor(I, EIGHT);    adj_e_orth = combine(combine(shift(e, UP), shift(e, DOWN)), combine(shift(e, LEFT), shift(e, RIGHT)));    adj_e_diag = combine(combine(shift(e, UP_RIGHT), shift(e, DOWN_LEFT)), combine(shift(e, UNITY), shift(e, NEG_UNITY)));    to_change = intersection(idx3, combine(adj_e_orth, adj_e_diag));    O = fill(I, EIGHT, to_change);    return O;|0.0|82.33999264134957|0.21495062671533272|0.0|82.5549432680649|
-|def dsl4(I):;    idx3 = ofcolor(I, THREE);    z = ofcolor(I, ZERO);    s7 = ofcolor(I, SEVEN);    adjz = combine(combine(shift(z, UP), shift(z, DOWN)), combine(shift(z, LEFT), shift(z, RIGHT)));    adj7 = combine(combine(shift(s7, UP), shift(s7, DOWN)), combine(shift(s7, LEFT), shift(s7, RIGHT)));    to_change = intersection(idx3, intersection(adjz, adj7));    O = fill(I, EIGHT, to_change);    return O;|0.0|113.711418747896|0.4035247432306256|0.0|114.11494349112662|
-|def dsl2(I):;    idx3 = ofcolor(I, THREE);    has_left3 = shift(idx3, RIGHT);    has_right3 = shift(idx3, LEFT);    has_up3 = shift(idx3, DOWN);    has_down3 = shift(idx3, UP);    horiz_end = intersection(idx3, combine(difference(has_left3, has_right3), difference(has_right3, has_left3)));    vert_end = intersection(idx3, combine(difference(has_up3, has_down3), difference(has_down3, has_up3)));    to_change = combine(horiz_end, vert_end);    O = fill(I, EIGHT, to_change);    return O;|0.0|118.26566526517678|0.4427192088956794|0.0|118.70838447407246|
+|def dsl5(I):;    idx3 = ofcolor(I, THREE);    e = ofcolor(I, EIGHT);    adj_e_orth = combine(combine(shift(e, UP), shift(e, DOWN)), combine(shift(e, LEFT), shift(e, RIGHT)));    adj_e_diag = combine(combine(shift(e, UP_RIGHT), shift(e, DOWN_LEFT)), combine(shift(e, UNITY), shift(e, NEG_UNITY)));    to_change = intersection(idx3, combine(adj_e_orth, adj_e_diag));    O = fill(I, EIGHT, to_change);    return O|0.0|62.33999264134957|0.156127097303568|0.0|62.496119738653135|
+|def dsl2(I):;    idx3 = ofcolor(I, THREE);    has_left3 = shift(idx3, RIGHT);    has_right3 = shift(idx3, LEFT);    has_up3 = shift(idx3, DOWN);    has_down3 = shift(idx3, UP);    horiz_end = intersection(idx3, combine(difference(has_left3, has_right3), difference(has_right3, has_left3)));    vert_end = intersection(idx3, combine(difference(has_up3, has_down3), difference(has_down3, has_up3)));    to_change = combine(horiz_end, vert_end);    O = fill(I, EIGHT, to_change);    return O|0.0|87.4435952503319|0.30301332654273827|0.0|87.74660857687464|
+|def dsl4(I):;    idx3 = ofcolor(I, THREE);    z = ofcolor(I, ZERO);    s7 = ofcolor(I, SEVEN);    adjz = combine(combine(shift(z, UP), shift(z, DOWN)), combine(shift(z, LEFT), shift(z, RIGHT)));    adj7 = combine(combine(shift(s7, UP), shift(s7, DOWN)), combine(shift(s7, LEFT), shift(s7, RIGHT)));    to_change = intersection(idx3, intersection(adjz, adj7));    O = fill(I, EIGHT, to_change);    return O|0.0|88.21632117993208|0.30793650793650795|0.0|88.52425768786858|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

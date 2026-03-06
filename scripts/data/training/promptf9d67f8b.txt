@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = rot90(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O;|0.0|115.59611354740389|0.29000000000000004|0.0|115.8861135474039|
-|def dsl4(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = hmirror(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O;|0.0|116.7667018556343|0.29222222222222216|0.0|117.05892407785652|
-|def dsl1(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = rot180(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O;|0.0|117.05137980116811|0.23777777777777764|0.0|117.28915757894589|
+|def dsl3(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = rot90(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O|0.0|77.34693054959334|0.18000000000000005|0.0|77.52693054959335|
+|def dsl5(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = vmirror(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O|0.0|81.4902999218412|0.18666666666666676|0.0|81.67696658850787|
+|def dsl2(I):;    m = ofcolor(I, NINE);    base = cover(I, m);    J = rot270(I);    obj = toobject(m, J);    O = underpaint(base, obj);    return O|0.0|81.97442887657297|0.18222222222222217|0.0|82.1566510987952|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

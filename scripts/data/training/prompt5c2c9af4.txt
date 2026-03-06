@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    B = box(G);    L = prapply(connect, S, B);    P = merge(L);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, P);    return O;|0.0|258.4323426587324|1.6306951892288106|0.08959392049839388|260.15263176845957|
-|def dsl2(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    UL = ulcorner(G);    UR = urcorner(G);    LL = llcorner(G);    LR = lrcorner(G);    E1 = connect(UL, UR);    E2 = connect(UL, LL);    E3 = connect(UR, LR);    E4 = connect(LL, LR);    E = combine(E1, E2);    E = combine(E, E3);    E = combine(E, E4);    L = prapply(connect, S, E);    P = merge(L);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, P);    return O;|0.0|258.4323426587324|1.6306951892288106|0.08959392049839388|260.15263176845957|
-|def dsl5(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    B = box(G);    K1 = prapply(connect, S, B);    C1 = merge(K1);    C2 = prapply(connect, S, corners(G));    P2 = merge(C2);    U = combine(C1, P2);    D = initset(UP);    D = insert(DOWN, D);    D = insert(LEFT, D);    D = insert(RIGHT, D);    D = insert(UP_RIGHT, D);    D = insert(DOWN_LEFT, D);    R = prapply(shoot, S, D);    P = merge(R);    W = combine(U, P);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, W);    return O;|0.0|258.4323426587324|1.6306951892288106|0.08959392049839388|260.15263176845957|
+|def dsl1(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    B = box(G);    L = prapply(connect, S, B);    P = merge(L);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, P);    return O|0.0|195.95034525147915|1.3194706994328922|0.08959392049839388|197.35940987141043|
+|def dsl2(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    UL = ulcorner(G);    UR = urcorner(G);    LL = llcorner(G);    LR = lrcorner(G);    E1 = connect(UL, UR);    E2 = connect(UL, LL);    E3 = connect(UR, LR);    E4 = connect(LL, LR);    E = combine(E1, E2);    E = combine(E, E3);    E = combine(E, E4);    L = prapply(connect, S, E);    P = merge(L);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, P);    return O|0.0|195.95034525147915|1.3194706994328922|0.08959392049839388|197.35940987141043|
+|def dsl5(I):;    c = leastcolor(I);    S = ofcolor(I, c);    G = asindices(I);    B = box(G);    K1 = prapply(connect, S, B);    C1 = merge(K1);    C2 = prapply(connect, S, corners(G));    P2 = merge(C2);    U = combine(C1, P2);    D = initset(UP);    D = insert(DOWN, D);    D = insert(LEFT, D);    D = insert(RIGHT, D);    D = insert(UP_RIGHT, D);    D = insert(DOWN_LEFT, D);    R = prapply(shoot, S, D);    P = merge(R);    W = combine(U, P);    Z = canvas(ZERO, shape(I));    O = fill(Z, c, W);    return O|0.0|195.95034525147915|1.3194706994328922|0.08959392049839388|197.35940987141043|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

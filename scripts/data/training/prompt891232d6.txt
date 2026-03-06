@@ -230,13 +230,11 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl4(I):;    objs7 = colorfilter(objects(I, T, F, T), SEVEN);    centers = apply(center, objs7);    cols = apply(vfrontier, centers);    twos = apply(lbind(recolor, TWO), cols);    O = underpaint(I, merge(twos));    return O;|0.0|171.89399475509546|2.7378725080429955|0.14315949947914336|174.77502676261759|
-|def dsl1(I):;    objs7 = colorfilter(objects(I, T, F, T), SEVEN);    centers = apply(center, objs7);    eights = mapply(compose(lbind(recolor, EIGHT), initset), centers);    upr = apply(urcorner, objs7);    lwr = apply(lrcorner, objs7);    edges = mpapply(connect, upr, lwr);    v2 = recolor(TWO, merge(edges));    G = paint(I, merge(eights));    O = underpaint(G, v2);    return O;|154.1573176408207|2819.0|2654|5.0|5632.15731764082|
-|def dsl5(I):;    objs7 = colorfilter(objects(I, T, F, T), SEVEN);    centers = apply(center, objs7);    eights = mapply(compose(lbind(recolor, EIGHT), initset), centers);    upr = apply(urcorner, objs7);    lwr = apply(lrcorner, objs7);    edges = mpapply(connect, upr, lwr);    v2 = recolor(TWO, merge(edges));    u6 = mapply(compose(lbind(recolor, SIX), initset), upr);    l6 = mapply(compose(lbind(recolor, SIX), initset), lwr);    G = paint(I, merge(eights));    H = underpaint(G, v2);    J = paint(H, merge(u6));    O = paint(J, merge(l6));    return O;|154.1573176408207|2819.0|2654|5.0|5632.15731764082|
+|def dsl4(I):;    objs7 = colorfilter(objects(I, T, F, T), SEVEN);    centers = apply(center, objs7);    cols = apply(vfrontier, centers);    twos = apply(lbind(recolor, TWO), cols);    O = underpaint(I, merge(twos));    return O|0.0|127.75784177366765|2.019353989524477|0.14315949947914336|129.92035526267128|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

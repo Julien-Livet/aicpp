@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    x1 = rot90(I);    x2 = compress(x1);    O = rot270(x2);    return O;|34.555740781599376|118|711|1.4031890419815098|864.9589298235809|
-|def dsl4(I):;    x1 = rot180(I);    x2 = compress(x1);    O = rot180(x2);    return O;|34.555740781599376|118|711|1.4031890419815098|864.9589298235809|
-|def dsl2(I):;    x1 = hmirror(I);    x2 = compress(x1);    O = hmirror(x2);    return O;|34.555740781599376|118|711|1.4031890419815098|864.9589298235809|
+|def dsl1(I):;    x1 = rot90(I);    x2 = compress(x1);    O = rot270(x2);    return O|29.17057597446487|110|516|1.2079769703030199|656.3785529447679|
+|def dsl4(I):;    x1 = rot180(I);    x2 = compress(x1);    O = rot180(x2);    return O|29.17057597446487|110|516|1.2079769703030199|656.3785529447679|
+|def dsl2(I):;    x1 = hmirror(I);    x2 = compress(x1);    O = hmirror(x2);    return O|29.17057597446487|110|516|1.2079769703030199|656.3785529447679|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

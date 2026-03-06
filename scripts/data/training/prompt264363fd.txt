@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl2(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    base_inds = ofcolor(I, base);    seeds = ofcolor(I, FOUR);    H = merge(apply(hfrontier, seeds));    V = merge(apply(vfrontier, seeds));    HV = combine(H, V);    cross = intersection(HV, base_inds);    O = fill(I, THREE, cross);    O = fill(O, FOUR, seeds);    return O;|0.0|102.23009418727412|0.3455555555555555|0.0|102.57564974282967|
-|def dsl3(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    dims = shape(I);    O = canvas(bg, dims);    O = fill(O, base, ofcolor(I, base));    O = fill(O, FOUR, ofcolor(I, FOUR));    return O;|0.0|317.46530729687703|1.7444444444444445|0.0|319.2097517413215|
-|def dsl4(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    dims = shape(I);    O = canvas(bg, dims);    base_inds = ofcolor(I, base);    O = fill(O, base, base_inds);    seeds = ofcolor(I, FOUR);    H = merge(apply(hfrontier, seeds));    hstripe = intersection(H, base_inds);    O = fill(O, THREE, hstripe);    O = fill(O, FOUR, seeds);    return O;|0.0|317.46530729687703|1.7444444444444445|0.0|319.2097517413215|
+|def dsl2(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    base_inds = ofcolor(I, base);    seeds = ofcolor(I, FOUR);    H = merge(apply(hfrontier, seeds));    V = merge(apply(vfrontier, seeds));    HV = combine(H, V);    cross = intersection(HV, base_inds);    O = fill(I, THREE, cross);    O = fill(O, FOUR, seeds);    return O|0.0|54.76431704205085|0.26555555555555554|0.0|55.029872597606406|
+|def dsl3(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    dims = shape(I);    O = canvas(bg, dims);    O = fill(O, base, ofcolor(I, base));    O = fill(O, FOUR, ofcolor(I, FOUR));    return O|0.0|259.46530729687703|1.3466666666666667|0.0|260.8119739635437|
+|def dsl4(I):;    bg = mostcolor(I);    p = palette(I);    p2 = remove(bg, p);    base = valmax(p2, lbind(colorcount, I));    dims = shape(I);    O = canvas(bg, dims);    base_inds = ofcolor(I, base);    O = fill(O, base, base_inds);    seeds = ofcolor(I, FOUR);    H = merge(apply(hfrontier, seeds));    hstripe = intersection(H, base_inds);    O = fill(O, THREE, hstripe);    O = fill(O, FOUR, seeds);    return O|0.0|259.46530729687703|1.3466666666666667|0.0|260.8119739635437|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    x1 = compress(I);    x2 = asindices(x1);    O = underfill(x1, TWO, x2);    return O;|21.474192049298324|118|1087|0.6490060297815327|1227.1231980790799|
-|def dsl4(I):;    x1 = compress(I);    O = switch(x1, ZERO, TWO);    return O;|21.474192049298324|202|1087|0.580446508724508|1311.0546385580228|
-|def dsl5(I):;    x1 = compress(I);    x2 = mostcolor(x1);    x3 = switch(x1, ZERO, x2);    O = x3;    return O;|21.474192049298324|202|1087|0.580446508724508|1311.0546385580228|
+|def dsl3(I):;    x1 = compress(I);    x2 = asindices(x1);    O = underfill(x1, TWO, x2);    return O|14.403124237432849|72|796|0.4408533062819004|882.8439775437148|
+|def dsl4(I):;    x1 = compress(I);    O = switch(x1, ZERO, TWO);    return O|14.403124237432849|196|796|0.3722937852248758|1006.7754180226577|
+|def dsl5(I):;    x1 = compress(I);    x2 = mostcolor(x1);    x3 = switch(x1, ZERO, x2);    O = x3;    return O|14.403124237432849|196|796|0.3722937852248758|1006.7754180226577|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

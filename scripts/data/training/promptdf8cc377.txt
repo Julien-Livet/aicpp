@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl2(I):;    objs = objects(I, T, F, T);    singles = sizefilter(objs, ONE);    singles_union = merge(singles);    J = cover(I, singles_union);    allobjs = objects(J, T, F, T);    cond_ring = fork(equality, toindices, box);    rings = sfilter(allobjs, cond_ring);    h = height(J);    mid = divide(h, TWO);    gt_mid = rbind(greater, mid);    is_bottom = compose(gt_mid, uppermost);    is_top = compose(flip, is_bottom);    rings_top = sfilter(rings, is_top);    rings_bot = sfilter(rings, is_bottom);    top_interior = mapply(delta, rings_top);    bot_interior = mapply(delta, rings_bot);    ctop = leastcolor(tophalf(I));    cbot = leastcolor(bottomhalf(I));    K = fill(J, ctop, top_interior);    O = fill(K, cbot, bot_interior);    return O;|0.0|72.44474058367854|0.28822404648491606|0.0|72.73296463016345|
-|def dsl1(I):;    objs = objects(I, T, F, T);    singles = sizefilter(objs, ONE);    singles_union = merge(singles);    O = cover(I, singles_union);    return O;|0.0|81.91720313921266|0.16598400391878654|0.0|82.08318714313144|
-|def dsl4(I):;    objs = objects(I, T, F, T);    cond_box = fork(equality, toindices, box);    cond_inside = compose(positive, compose(size, delta));    cond_ring = fork(both, cond_box, cond_inside);    rings = sfilter(objs, cond_ring);    rings_union = merge(rings);    O = paint(canvas(ZERO, shape(I)), rings_union);    return O;|0.0|81.91720313921266|0.16598400391878654|0.0|82.08318714313144|
+|def dsl2(I):;    objs = objects(I, T, F, T);    singles = sizefilter(objs, ONE);    singles_union = merge(singles);    J = cover(I, singles_union);    allobjs = objects(J, T, F, T);    cond_ring = fork(equality, toindices, box);    rings = sfilter(allobjs, cond_ring);    h = height(J);    mid = divide(h, TWO);    gt_mid = rbind(greater, mid);    is_bottom = compose(gt_mid, uppermost);    is_top = compose(flip, is_bottom);    rings_top = sfilter(rings, is_top);    rings_bot = sfilter(rings, is_bottom);    top_interior = mapply(delta, rings_top);    bot_interior = mapply(delta, rings_bot);    ctop = leastcolor(tophalf(I));    cbot = leastcolor(bottomhalf(I));    K = fill(J, ctop, top_interior);    O = fill(K, cbot, bot_interior);    return O|0.0|49.14238018821644|0.13787439613526575|0.0|49.28025458435171|
+|def dsl1(I):;    objs = objects(I, T, F, T);    singles = sizefilter(objs, ONE);    singles_union = merge(singles);    O = cover(I, singles_union);    return O|0.0|49.87036242128853|0.09080917874396133|0.0|49.96117160003249|
+|def dsl4(I):;    objs = objects(I, T, F, T);    cond_box = fork(equality, toindices, box);    cond_inside = compose(positive, compose(size, delta));    cond_ring = fork(both, cond_box, cond_inside);    rings = sfilter(objs, cond_ring);    rings_union = merge(rings);    O = paint(canvas(ZERO, shape(I)), rings_union);    return O|0.0|49.87036242128853|0.09080917874396133|0.0|49.96117160003249|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

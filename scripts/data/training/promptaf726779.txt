@@ -225,17 +225,9 @@ vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Previous program scores:
+Generate at most 5 plausible DSL programs using only the declared primitives.
 
-|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
-|-|-|-|-|-|
-|def dsl3(I):;    dir = astuple(TWO, ONE);    objs = objects(I, T, F, T);    sevens = colorfilter(objs, SEVEN);    corners = mapply(urcorner, sevens);    make_point = fork(connect, identity, identity);    shift2 = rbind(shift, dir);    to6 = lbind(recolor, SIX);    step = compose(to6, compose(shift2, make_point));    pts6 = mapply(step, corners);    O = paint(I, pts6);    return O;|122.98689302439259|4465.0|1326|6.0|5919.986893024393|
-|def dsl2(I):;    dir = astuple(TWO, ONE);    objs = objects(I, T, F, T);    sevens = colorfilter(objs, SEVEN);    corners = mapply(urcorner, sevens);    make_point = fork(connect, identity, identity);    shift2 = rbind(shift, dir);    to6 = lbind(recolor, SIX);    step = compose(to6, compose(shift2, make_point));    pts6 = mapply(step, corners);    O1 = paint(I, pts6);    objs2 = objects(O1, T, F, T);    sixes = colorfilter(objs2, SIX);    corners2 = mapply(urcorner, sixes);    to7 = lbind(recolor, SEVEN);    step2 = compose(to7, compose(shift2, make_point));    pts7 = mapply(step2, corners2);    O = paint(O1, pts7);    return O;|122.98689302439259|4465.0|1326|6.0|5919.986893024393|
-|def dsl5(I):;    dir = astuple(TWO, ONE);    objs = objects(I, T, F, T);    sevens = colorfilter(objs, SEVEN);    corners = mapply(lrcorner, sevens);    make_point = fork(connect, identity, identity);    shift2 = rbind(shift, dir);    to6 = lbind(recolor, SIX);    step = compose(to6, compose(shift2, make_point));    pts6 = mapply(step, corners);    O1 = paint(I, pts6);    objs2 = objects(O1, T, F, T);    sixes = colorfilter(objs2, SIX);    corners2 = mapply(lrcorner, sixes);    to7 = lbind(recolor, SEVEN);    step2 = compose(to7, compose(shift2, make_point));    pts7 = mapply(step2, corners2);    O = paint(O1, pts7);    return O;|122.98689302439259|4465.0|1326|6.0|5919.986893024393|
-
-Propose at most 5 improved variants avoiding previous low-scoring.
 All programs must be described within a single Python MarkDown tag.
-
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

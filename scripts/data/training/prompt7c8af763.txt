@@ -229,13 +229,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl1(I):;    G = I;    for _ in range(20):;        p1 = ofcolor(G, ONE);        p2 = ofcolor(G, TWO);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(ONE, shift(p1, d)));            G = underpaint(G, recolor(TWO, shift(p2, d)));    return G;|0.0|54.176668561407446|1.6400000000000001|0.0|55.81666856140745|
-|def dsl3(I):;    G = I;    steps = height(I) + width(I);    for _ in range(steps):;        p2 = ofcolor(G, TWO);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(TWO, shift(p2, d)));        p1 = ofcolor(G, ONE);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(ONE, shift(p1, d)));    return G;|0.0|54.318215566183|1.74|0.0|56.058215566183|
-|def dsl5(I):;    G = I;    for _ in range(16):;        for d in (UP, LEFT, DOWN, RIGHT):;            p1 = ofcolor(G, ONE);            G = underpaint(G, recolor(ONE, shift(p1, d)));        for d in (LEFT, UP, RIGHT, DOWN):;            p2 = ofcolor(G, TWO);            G = underpaint(G, recolor(TWO, shift(p2, d)));    return G;|0.0|55.236274302476815|1.8|0.0|57.03627430247681|
+|def dsl3(I):;    G = I;    steps = height(I) + width(I);    for _ in range(steps):;        p2 = ofcolor(G, TWO);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(TWO, shift(p2, d)));        p1 = ofcolor(G, ONE);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(ONE, shift(p1, d)));    return G|0.0|39.41855114043166|1.23|0.0|40.64855114043166|
+|def dsl1(I):;    G = I;    for _ in range(20):;        p1 = ofcolor(G, ONE);        p2 = ofcolor(G, TWO);        for d in (UP, DOWN, LEFT, RIGHT):;            G = underpaint(G, recolor(ONE, shift(p1, d)));            G = underpaint(G, recolor(TWO, shift(p2, d)));    return G|0.0|40.392619809317225|1.22|0.0|41.61261980931722|
+|def dsl5(I):;    G = I;    for _ in range(16):;        for d in (UP, LEFT, DOWN, RIGHT):;            p1 = ofcolor(G, ONE);            G = underpaint(G, recolor(ONE, shift(p1, d)));        for d in (LEFT, UP, RIGHT, DOWN):;            p2 = ofcolor(G, TWO);            G = underpaint(G, recolor(TWO, shift(p2, d)));    return G|0.0|40.607535464149024|1.35|0.0|41.957535464149025|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

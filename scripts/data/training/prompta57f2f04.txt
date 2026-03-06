@@ -225,17 +225,9 @@ vsplit(grid: Tuple[Tuple[int]], n: int) -> Tuple # split grid vertically
 vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale grid vertically
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 
-Previous program scores:
+Generate at most 5 plausible DSL programs using only the declared primitives.
 
-|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
-|-|-|-|-|-|
-|def dsl2(I):;    # merge all positive-colored (nonzero, non-background) seeds and tile by their periods over their own box;    X = objects(I, T, F, F);    P = mfilter(X, compose(positive, color));    U = merge(P);    B = subgrid(U);    H = height(B);    W = width(B);    VP = vperiod(U);    HP = hperiod(U);    SI = interval(ZERO, H, VP);    SJ = interval(ZERO, W, HP);    VI = apply(toivec, SI);    VJ = apply(tojvec, SJ);    VEC = prapply(add, VI, VJ);    SH = mapply(lbind(shift, U), VEC);    TIL = merge(SH);    O = paint(I, TIL);    return O;|113.18780520277309|10922.0|1764|4.0|12803.187805202773|
-|def dsl4(I):;    # specifically tile colors 2 and 4 by their periods over their respective boxes (useful for third pair);    o2s = colorfilter(objects(I, T, F, F), TWO);    u2 = merge(o2s);    b2 = subgrid(u2);    h2 = height(b2);    w2 = width(b2);    p2 = vperiod(u2);    q2 = hperiod(u2);    si2 = interval(ZERO, h2, p2);    sj2 = interval(ZERO, w2, q2);    vi2 = apply(toivec, si2);    vj2 = apply(tojvec, sj2);    vec2 = prapply(add, vi2, vj2);    sh2 = mapply(lbind(shift, u2), vec2);    t2 = merge(sh2);    o4s = colorfilter(objects(I, T, F, F), FOUR);    u4 = merge(o4s);    b4 = subgrid(u4);    h4 = height(b4);    w4 = width(b4);    p4 = vperiod(u4);    q4 = hperiod(u4);    si4 = interval(ZERO, h4, p4);    sj4 = interval(ZERO, w4, q4);    vi4 = apply(toivec, si4);    vj4 = apply(tojvec, sj4);    vec4 = prapply(add, vi4, vj4);    sh4 = mapply(lbind(shift, u4), vec4);    t4 = merge(sh4);    U = combine(t2, t4);    O = paint(I, U);    return O;|113.18780520277309|10922.0|1764|4.0|12803.187805202773|
-|def dsl3(I):;    # process foreground excluding main background, tile per-color 1..3; then paint;    o = objects(I, T, F, T);    o1 = colorfilter(o, ONE);    u1 = merge(o1);    s1 = subgrid(u1);    h1 = height(s1);    w1 = width(s1);    vp1 = vperiod(u1);    hp1 = hperiod(u1);    si1 = interval(ZERO, h1, vp1);    sj1 = interval(ZERO, w1, hp1);    vi1 = apply(toivec, si1);    vj1 = apply(tojvec, sj1);    ve1 = prapply(add, vi1, vj1);    sh1 = mapply(lbind(shift, u1), ve1);    t1 = merge(sh1);    o2 = colorfilter(o, TWO);    u2 = merge(o2);    s2 = subgrid(u2);    h2 = height(s2);    w2 = width(s2);    vp2 = vperiod(u2);    hp2 = hperiod(u2);    si2 = interval(ZERO, h2, vp2);    sj2 = interval(ZERO, w2, hp2);    vi2 = apply(toivec, si2);    vj2 = apply(tojvec, sj2);    ve2 = prapply(add, vi2, vj2);    sh2 = mapply(lbind(shift, u2), ve2);    t2 = merge(sh2);    o3 = colorfilter(o, THREE);    u3 = merge(o3);    s3 = subgrid(u3);    h3 = height(s3);    w3 = width(s3);    vp3 = vperiod(u3);    hp3 = hperiod(u3);    si3 = interval(ZERO, h3, vp3);    sj3 = interval(ZERO, w3, hp3);    vi3 = apply(toivec, si3);    vj3 = apply(tojvec, sj3);    ve3 = prapply(add, vi3, vj3);    sh3 = mapply(lbind(shift, u3), ve3);    t3 = merge(sh3);    U = combine(combine(t1, t2), t3);    O = paint(I, U);    return O;|113.18780520277309|10922.0|1764|4.0|12803.187805202773|
-
-Propose at most 5 improved variants avoiding previous low-scoring.
 All programs must be described within a single Python MarkDown tag.
-
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python

@@ -230,13 +230,13 @@ Previous program scores:
 
 |Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|
 |-|-|-|-|-|
-|def dsl3(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    cells = ofcolor(I, c);    G = fill(I, bg, cells);    obj = toobject(cells, I);    sh = shift(obj, DOWN);    O = underpaint(G, sh);    return O;|0.0|40.30361529710298|0.6753968253968254|0.0|40.9790121224998|
-|def dsl1(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    cells = ofcolor(I, c);    G = fill(I, bg, cells);    obj = toobject(cells, I);    sh = shift(obj, double(DOWN));    O = underpaint(G, sh);    return O;|0.0|40.30361529710298|0.6753968253968254|0.0|40.9790121224998|
-|def dsl4(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    th = tophalf(I);    cells_th = ofcolor(th, c);    G = fill(I, bg, cells_th);    obj = toobject(cells_th, I);    sh = shift(obj, DOWN);    O = underpaint(G, sh);    return O;|0.0|40.30361529710298|0.6753968253968254|0.0|40.9790121224998|
+|def dsl3(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    cells = ofcolor(I, c);    G = fill(I, bg, cells);    obj = toobject(cells, I);    sh = shift(obj, DOWN);    O = underpaint(G, sh);    return O|0.0|29.34916414699966|0.5253968253968254|0.0|29.874560972396484|
+|def dsl1(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    cells = ofcolor(I, c);    G = fill(I, bg, cells);    obj = toobject(cells, I);    sh = shift(obj, double(DOWN));    O = underpaint(G, sh);    return O|0.0|29.34916414699966|0.5253968253968254|0.0|29.874560972396484|
+|def dsl4(I):;    bg = mostcolor(I);    pal = palette(I);    p2 = remove(bg, pal);    comp = lbind(colorcount, I);    c = valmin(p2, comp);    th = tophalf(I);    cells_th = ofcolor(th, c);    G = fill(I, bg, cells_th);    obj = toobject(cells_th, I);    sh = shift(obj, DOWN);    O = underpaint(G, sh);    return O|0.0|29.34916414699966|0.5253968253968254|0.0|29.874560972396484|
 
 Propose at most 5 improved variants avoiding previous low-scoring.
-All programs must be described within a single Python MarkDown tag.
 
+All programs must be described within a single Python MarkDown tag.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python
