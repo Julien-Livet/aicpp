@@ -1,157 +1,220 @@
 training 3c9b0459 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = rot180(I)
     return O
+```
 training 6150a2bd 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = rot180(I)
     return O
+```
 training ed36ccf7 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = rot270(I)
     return O
+```
 training 67a3c6ac 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = vmirror(I)
     return O
+```
 training 68b16354 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = hmirror(I)
     return O
+```
 training 74dd1130 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = dmirror(I)
     return O
+```
 training 9dfd6313 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = dmirror(I)
     return O
+```
 training a416b8f3 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = hconcat(I, I)
     return O
+```
 training c59eb873 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = upscale(I, TWO)
     return O
+```
 training 9172f3a0 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = upscale(I, THREE)
     return O
+```
 training b1948b0a 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = replace(I, SIX, TWO)
     return O
+```
 training 4c4377d9 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = vconcat(hmirror(I), I)
     return O
+```
 training 6d0aefbc 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = hconcat(I, vmirror(I))
     return O
+```
 training 6fa7a44f 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = vconcat(I, hmirror(I))
     return O
+```
 training 8be77c9e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = vconcat(I, hmirror(I))
     return O
+```
 training d511f180 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = switch(I, FIVE, EIGHT)
     return O
+```
 training c8f0f002 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = replace(I, SEVEN, FIVE)
     return O
+```
 training d10ecb37 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = crop(I, ORIGIN, TWO_BY_TWO)
     return O
+```
 training c9e6f938 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = vmirror(I)
     O = hconcat(I, x1)
     return O
+```
 training 5bd6f4ac 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = crop(I, tojvec(SIX), THREE_BY_THREE)
     return O
+```
 training 5614dbcf 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     x1 = replace(I, FIVE, ZERO)
     O = downscale(x1, THREE)
     return O
+```
 training 5582e5ca 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = mostcolor(I)
     x2 = shape(I)
     O = canvas(x1, x2)
     return O
+```
 training c909285e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     b = leastcolor(I)
     P = ofcolor(I, b)
     O = subgrid(P, I)
     return O
+```
 training be94b721 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = objects(I, T, F, T)
     x2 = argmax(x1, size)
     O = subgrid(x2, I)
     return O
+```
 training b91ae062 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     p = palette(I)
     p2 = remove(ZERO, p)
     n = size(p2)
     O = upscale(I, n)
     return O
+```
 training 28bf18c6 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     c = leastcolor(I)
     p = ofcolor(I, c)
     g = subgrid(p, I)
     O = hconcat(g, g)
     return O
+```
 training 1cf80156 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     x1 = asindices(I)
     x2 = ofcolor(I, ZERO)
     x3 = difference(x1, x2)
     O = subgrid(x3, I)
     return O
+```
 training 25ff71a9 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x0 = asobject(I)
     x1 = shift(x0, DOWN)
     x2 = canvas(ZERO, shape(I))
     O = paint(x2, x1)
     return O
+```
 training cd3c21df 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     x1 = fgpartition(I)
     f = compose(size, backdrop)
     x2 = argmin(x1, f)
     O = subgrid(x2, I)
     return O
+```
 training 50cb2852 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     x1 = objects(I, T, F, T)
     f = compose(delta, box)
     x2 = mapply(f, x1)
     O = fill(I, EIGHT, x2)
     return O
+```
 training d631b094 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     c = other(palette(I), ZERO)
     n = colorcount(I, c)
     dims = astuple(ONE, n)
     O = canvas(c, dims)
     return O
+```
 training 2dee498d 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     h = height(I)
     w = width(I)
@@ -159,14 +222,18 @@ def dsl2(I):
     dims = astuple(h, w3)
     O = crop(I, ORIGIN, dims)
     return O
+```
 training 0d3d703e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = switch(I, ONE, FIVE)
     x2 = switch(x1, TWO, SIX)
     x3 = switch(x2, THREE, FOUR)
     O = switch(x3, EIGHT, NINE)
     return O
+```
 training 67e8384a 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     a = vmirror(I)
     b = hmirror(I)
@@ -175,7 +242,9 @@ def dsl1(I):
     bottom = hconcat(b, c)
     O = vconcat(top, bottom)
     return O
+```
 training 32597951 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x8 = ofcolor(I, EIGHT)
     bb = backdrop(x8)
@@ -183,7 +252,9 @@ def dsl1(I):
     tgt = intersection(bb, ones)
     O = fill(I, THREE, tgt)
     return O
+```
 training ed98d772 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     A = I
     B = rot270(I)
@@ -193,7 +264,9 @@ def dsl1(I):
     bottom = hconcat(C, D)
     O = vconcat(top, bottom)
     return O
+```
 training 9f236235 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl4(I):
     x1 = compress(I)
     x2 = objects(x1, T, F, T)
@@ -202,7 +275,9 @@ def dsl4(I):
     x5 = downscale(x1, x4)
     O = vmirror(x5)
     return O
+```
 training d037b0a7 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = objects(I, T, F, T)
     f1 = compose(rbind(shoot, DOWN), ulcorner)
@@ -210,7 +285,9 @@ def dsl1(I):
     x2 = mapply(f2, x1)
     O = underpaint(I, x2)
     return O
+```
 training 94f9d214 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     a = tophalf(I)
     b = bottomhalf(I)
@@ -219,7 +296,9 @@ def dsl1(I):
     z = intersection(z1, z2)
     O = fill(canvas(ZERO, shape(a)), TWO, z)
     return O
+```
 training a699fb00 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     a = ofcolor(I, ONE)
     b = shift(a, RIGHT)
@@ -229,7 +308,9 @@ def dsl1(I):
     p = intersection(m, z)
     O = fill(I, TWO, p)
     return O
+```
 training 44f52bb0 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = vmirror(I)
     x2 = hmirror(I)
@@ -239,7 +320,9 @@ def dsl1(I):
     val = branch(cond, ONE, SEVEN)
     O = canvas(val, UNITY)
     return O
+```
 training 017c7c7b 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x0 = replace(I, ONE, TWO)
     a = crop(x0, ORIGIN, THREE_BY_THREE)
@@ -247,7 +330,9 @@ def dsl1(I):
     c = branch(equality(a, b), a, vmirror(a))
     O = vconcat(a, vconcat(b, c))
     return O
+```
 training d5d6de2d 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x0 = objects(I, T, F, T)
     x1 = colorfilter(x0, TWO)
@@ -257,7 +342,9 @@ def dsl1(I):
     x4 = canvas(ZERO, shape(I))
     O = fill(x4, THREE, x3)
     return O
+```
 training cf5fd0ad 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     a = rot180(I)
     b = rot90(I)
@@ -266,7 +353,9 @@ def dsl2(I):
     bottom = hconcat(hconcat(c, c), hconcat(I, I))
     O = vconcat(vconcat(top, top), vconcat(bottom, bottom))
     return O
+```
 training 87ab05b8 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     p = first(ofcolor(I, TWO))
     s = multiply(halve(p), TWO)
@@ -277,7 +366,9 @@ def dsl1(I):
     base = canvas(SIX, shape(I))
     O = fill(base, TWO, d)
     return O
+```
 training 623ea044 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     c = leastcolor(I)
     s = first(ofcolor(I, c))
@@ -290,7 +381,9 @@ def dsl1(I):
     u = combine(u1, u2)
     O = fill(I, c, u)
     return O
+```
 training 37ce87bb 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     H = height(I)
     W = width(I)
@@ -303,7 +396,9 @@ def dsl1(I):
     patch = shoot(start, DOWN)
     O = fill(I, FIVE, patch)
     return O
+```
 training 03560426 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     dims = shape(I)
     O = canvas(ZERO, dims)
@@ -316,7 +411,9 @@ def dsl1(I):
         O = paint(O, placed)
         cur = lrcorner(placed)
     return O
+```
 training 6f473927 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = vmirror(I)
     x2 = replace(x1, ZERO, EIGHT)
@@ -328,7 +425,9 @@ def dsl1(I):
     right = branch(cond, I, x3)
     O = hconcat(left, right)
     return O
+```
 training d8c310e9 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x1 = rbind(objects, T)
     x2 = rbind(x1, F)
@@ -344,7 +443,9 @@ def dsl1(I):
     powf = power(f, n)
     O = powf(I)
     return O
+```
 training 00dbd492 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x0 = objects(I, T, F, T)
     x1 = colorfilter(x0, TWO)
@@ -358,7 +459,9 @@ def dsl1(I):
     p32 = mapply(delta, s32)
     O = underfill(O1, THREE, p32)
     return O
+```
 training dce56571 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -376,7 +479,9 @@ def dsl1(I):
     base = canvas(EIGHT, dims)
     O = fill(base, c, seg)
     return O
+```
 training 5c0a986e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     ones = colorfilter(objs, ONE)
@@ -391,7 +496,9 @@ def dsl1(I):
     x = fill(I, ONE, l1)
     O = fill(x, TWO, l2)
     return O
+```
 training 363442ee 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     s = shape(I)
     O = canvas(ZERO, s)
@@ -405,7 +512,9 @@ def dsl1(I):
     copies = mapply(lbind(shift, sobj), dirs)
     O = paint(O, copies)
     return O
+```
 training cf98881b 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     A = crop(I, astuple(0, 0), astuple(4, 4))
     B = crop(I, astuple(0, 5), astuple(4, 4))
@@ -416,7 +525,9 @@ def dsl1(I):
     p1 = difference(intersection(ofcolor(C, ONE), non4), p9)
     O = fill(Y, ONE, p1)
     return O
+```
 training 99b1bc43 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     x4 = ofcolor(I, FOUR)
     r = uppermost(x4)
@@ -429,7 +540,9 @@ def dsl1(I):
     x = combine(difference(a, c), difference(c, a))
     O = fill(canvas(ZERO, shape(t)), THREE, x)
     return O
+```
 training f0afb749 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     U = upscale(I, TWO)
     OB = objects(I, T, F, T)
@@ -445,7 +558,9 @@ def dsl1(I):
     L = mapply(linefun, P)
     O = underfill(U, ONE, L)
     return O
+```
 training 6a11f6da 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl3(I):
     top = crop(I, astuple(0, 0), astuple(5, 5))
     mid = crop(I, astuple(5, 0), astuple(5, 5))
@@ -458,7 +573,9 @@ def dsl3(I):
     b = paint(a, o1)
     O = paint(b, o6)
     return O
+```
 training 7e02026e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     S0 = ofcolor(I, ZERO)
     Sh = intersection(intersection(S0, shift(S0, LEFT)), shift(S0, RIGHT))
@@ -470,7 +587,9 @@ def dsl2(I):
     Z = intersection(P, S0)
     O = fill(I, THREE, Z)
     return O
+```
 training a85d4709 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     f = ofcolor(I, FIVE)
     c0 = vfrontier(ORIGIN)
@@ -487,7 +606,9 @@ def dsl1(I):
     O2 = fill(O1, FOUR, r1)
     O = fill(O2, THREE, r2)
     return O
+```
 training db3e9e38 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     P = ofcolor(I, SEVEN)
     H = height(P)
@@ -504,7 +625,9 @@ def dsl1(I):
     obj = merge(objs)
     O = paint(canvas(ZERO, shape(I)), obj)
     return O
+```
 training 23581191 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     p8 = first(totuple(ofcolor(I, EIGHT)))
     p7 = first(totuple(ofcolor(I, SEVEN)))
@@ -522,7 +645,9 @@ def dsl1(I):
     O2 = paint(O1, o7)
     O = fill(O2, TWO, ov)
     return O
+```
 training ba97ae07 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl2(I):
     cols = remove(ZERO, palette(I))
     f = lbind(ofcolor, I)
@@ -541,7 +666,9 @@ def dsl2(I):
     x1 = fill(I, hcol, rv)
     O = fill(x1, vcol, rh)
     return O
+```
 training 4258a5f9 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     a = ofcolor(I, FIVE)
     s1 = shift(a, UP)
@@ -562,7 +689,9 @@ def dsl1(I):
     nb_in = intersection(nbrs, asindices(I))
     O = underfill(I, ONE, nb_in)
     return O
+```
 training bdad9b1f 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     rpatch = ofcolor(I, TWO)
     cpatch = ofcolor(I, EIGHT)
@@ -581,7 +710,9 @@ def dsl1(I):
     inter = connect(astuple(r, c), astuple(r, c))
     O = fill(O, FOUR, inter)
     return O
+```
 training 981add89 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     bg = mostcolor(I)
     W = width(I)
@@ -598,7 +729,9 @@ def dsl1(I):
         paintset = difference(colpath, samecol_no_starts)
         O = fill(O, c, paintset)
     return O
+```
 training 4a1cacc2 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     objs = fgpartition(I)
     obj = first(objs)
@@ -622,7 +755,9 @@ def dsl1(I):
     col = color(obj)
     O = fill(I, col, R)
     return O
+```
 training 19bb5feb 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     g = subgrid(ofcolor(I, EIGHT), I)
     L = lefthalf(g)
@@ -643,7 +778,9 @@ def dsl1(I):
     r2 = hconcat(canvas(vBL, UNITY), canvas(vBR, UNITY))
     O = vconcat(r1, r2)
     return O
+```
 training 77fdfe62 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -669,7 +806,9 @@ def dsl1(I):
     bot2 = hconcat(bl2, br2)
     O = vconcat(top2, bot2)
     return O
+```
 training 025d127b 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     O = canvas(ZERO, shape(I))
     objs = objects(I, T, T, T)
@@ -687,7 +826,9 @@ def dsl1(I):
         newobj = recolor(color(obj), newinds)
         O = paint(O, newobj)
     return O
+```
 training 97999447 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     W = width(I)
@@ -707,7 +848,9 @@ def dsl1(I):
     obj = mapply(patt, objs)
     O = paint(canvas(ZERO, shape(I)), obj)
     return O
+```
 training ff72ca3e 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     allidx = asindices(I)
     fives = ofcolor(I, FIVE)
@@ -730,7 +873,9 @@ def dsl1(I):
         acc = combine(acc, best)
     O = underfill(I, TWO, acc)
     return O
+```
 training ec883f72 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     base = argmax(objs, fork(multiply, height, width))
@@ -758,7 +903,9 @@ def dsl1(I):
     obj = recolor(minor, rays)
     O = underpaint(I, obj)
     return O
+```
 training c3e719e8 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     c = mostcolor(I)
     z = canvas(ZERO, shape(I))
@@ -776,7 +923,9 @@ def dsl1(I):
     r2 = hconcat(p20, hconcat(p21, p22))
     O = vconcat(r0, vconcat(r1, r2))
     return O
+```
 training 8403a5d5 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     objs = fgpartition(I)
     seed = first(objs)
@@ -808,7 +957,9 @@ def dsl1(I):
     O = paint(canvas(ZERO, shape(I)), stripes)
     O = paint(O, fives)
     return O
+```
 training 8e1813be 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     five = ofcolor(I, FIVE)
     H = height(five)
@@ -843,7 +994,9 @@ def dsl1(I):
     useCols = greater(vb, hb)
     O = branch(useCols, Oc, Or)
     return O
+```
 training 8d510a79 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     five = ofcolor(I, FIVE)
     above_all = mapply(rbind(shoot, UP), five)
@@ -871,7 +1024,9 @@ def dsl1(I):
     O = paint(I, obj1)
     O = paint(O, obj2)
     return O
+```
 training baf41dbf 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     t = ofcolor(I, THREE)
     s = ofcolor(I, SIX)
@@ -899,7 +1054,9 @@ def dsl1(I):
     base = replace(I, THREE, ZERO)
     O = paint(base, recolor(THREE, pattern))
     return O
+```
 training 93b581b8 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     allI = asindices(I)
     zeros = ofcolor(I, ZERO)
@@ -945,7 +1102,9 @@ def dsl1(I):
     G2 = underpaint(G1, oBL)
     O = underpaint(G2, oBR)
     return O
+```
 training f83cb3f6 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     P = palette(I)
     P1 = remove(ZERO, P)
@@ -990,7 +1149,9 @@ def dsl1(I):
 
     O = branch(equality(height(E), ONE), Oh, Ov)
     return O
+```
 training ddf7fa4f 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     w = width(I)
     top = crop(I, ORIGIN, astuple(1, w))
@@ -1061,7 +1222,9 @@ def dsl1(I):
     i9 = mapply(toindices, o9)
     O = fill(x8, NINE, i9)
     return O
+```
 training ecdecbb3 0.0 0.0 0.0 0.0 0.0
+```python
 def dsl1(I):
     s8 = ofcolor(I, EIGHT)
     s2 = ofcolor(I, TWO)
@@ -1116,7 +1279,9 @@ def dsl1(I):
     G = merge(apply(gate, C))
     O = fill(fill(fill(I, TWO, W), EIGHT, G), TWO, C)
     return O
+```
 training fe45cba4 0.0 3.605551275463989 0.05078125 0.0 3.656332525463989
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -1133,7 +1298,9 @@ def dsl1(I):
     bot = asindices(crop(I, astuple(starti, half), astuple(n2, rw)))
     O = fill(O1, TWO, shift(bot, astuple(starti, half)))
     return O
+```
 training 27a77e38 0.0 8.0 0.012345679012345734 0.0 8.012345679012345
+```python
 def dsl1(I):
     w = width(I)
     h = height(I)
@@ -1148,7 +1315,9 @@ def dsl1(I):
     p = initset(astuple(i, j))
     O = fill(I, c, p)
     return O
+```
 training 465b7d93 0.0 8.48528137423857 0.18000000000000005 0.0 8.66528137423857
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     frame = argmax(objs, compose(size, delta))
@@ -1169,7 +1338,9 @@ def dsl1(I):
     O_lines = fill(base, c, L)
     O = branch(rect, O_full, O_lines)
     return O
+```
 training 351d6448 0.0 10.524647141517395 0.41025641025641024 0.13986451720835702 11.074768068982161
+```python
 def dsl2(I):
     x1 = replace(I, FIVE, ZERO)
     x2 = objects(x1, T, F, T)
@@ -1186,7 +1357,9 @@ def dsl2(I):
     obj = shift(normalize(o_last), astuple(1, joff))
     O = paint(canv, obj)
     return O
+```
 training d2abd087 0.0 10.933056446942715 0.44000000000000006 0.0 11.373056446942714
+```python
 def dsl1(I):
     T = tophalf(I)
     B = bottomhalf(I)
@@ -1205,7 +1378,9 @@ def dsl1(I):
     last1 = replace(last, FIVE, ONE)
     O = paint(base, asobject(last1))
     return O
+```
 training a5313dff 0.0 11.260500271343561 0.4506172839506173 0.0 11.711117555294178
+```python
 def dsl1(I):
     comps = fgpartition(I)
     comps2 = colorfilter(comps, TWO)
@@ -1220,7 +1395,9 @@ def dsl1(I):
     fillobj = merge(ones)
     O = underpaint(I, fillobj)
     return O
+```
 training 6e82a1ae 0.0 12.008755220257862 0.3900000000000001 0.0 12.398755220257861
+```python
 def dsl4(I):
     x1 = objects(I, T, F, T)
     x2 = colorfilter(x1, FIVE)
@@ -1231,7 +1408,9 @@ def dsl4(I):
     y = merge((y1, y2))
     O = paint(I, y)
     return O
+```
 training 60a26a3e 0.0 12.39635450163017 0.236084656084656 0.0 12.632439157714828
+```python
 def dsl4(I):
     S = ofcolor(I, TWO)
     # conservative: horizontal n=3..4, vertical n=2..3
@@ -1254,7 +1433,9 @@ def dsl4(I):
     M = combine(H, V)
     O = underpaint(I, recolor(ONE, toobject(M, I)))
     return O
+```
 training b7999b51 0.0 11.916375287812984 0.8 0.0 12.716375287812985
+```python
 def dsl1(I):
     cols = remove(ZERO, palette(I))
     comp = compose(invert, lbind(colorcount, I))
@@ -1276,7 +1457,9 @@ def dsl1(I):
     merged = merge(objs)
     O = paint(base, merged)
     return O
+```
 training c8cbb738 0.0 12.649110640673518 0.16326530612244894 0.0 12.812375946795967
+```python
 def dsl1(I):
     bg = mostcolor(I)
     objs = fgpartition(I)
@@ -1313,7 +1496,9 @@ def dsl1(I):
     O3 = branch(both(greater(n, THREE), top_has_fg), paint(O2, recolor(topbotcol, tpatch)), O2)
     O4 = branch(both(greater(n, THREE), left_has_fg), paint(O3, recolor(lrcol, lpatch)), O3)
     return O4
+```
 training 90f3ed37 0.0 13.33708496134517 0.41999999999999993 0.027735009803569147 13.78481997114874
+```python
 def dsl3(I):
     x1 = objects(I, T, F, T)
     x2 = sfilter(x1, hline)
@@ -1324,7 +1509,9 @@ def dsl3(I):
     x7 = mapply(rbind(shoot, RIGHT), x6)
     O = underfill(I, ONE, x7)
     return O
+```
 training 6e19193c 0.0 16.0 0.040000000000000036 0.07905694147625864 16.11905694147626
+```python
 def dsl1(I):
     K = other(palette(I), ZERO)
     S = ofcolor(I, K)
@@ -1350,12 +1537,16 @@ def dsl1(I):
     R = recolor(K, Q)
     O = underpaint(I, R)
     return O
+```
 training d93c6891 0.0 17.788656935474513 0.10633680555555558 0.0 17.89499374103007
+```python
 def dsl5(I):
     x1 = replace(I, FIVE, FOUR)
     O = replace(x1, SEVEN, FIVE)
     return O
+```
 training 7d1f7ee8 0.0 18.211243569115616 0.06467797847108192 0.0 18.275921547586698
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     z = ofcolor(I, ZERO)
@@ -1364,7 +1555,9 @@ def dsl1(I):
     mo = mapply(f, objs)
     O = paint(I, mo)
     return O
+```
 training 73c3b0d8 0.0 21.65685424949238 0.16547619047619044 0.12862393880173456 21.950954378770305
+```python
 def dsl1(I):
     w = width(I)
     h = height(I)
@@ -1393,7 +1586,9 @@ def dsl1(I):
     top2 = paint(top1, recolor(FOUR, diag))
     O = vconcat(top2, bot1)
     return O
+```
 training fc4aaf52 0.0 22.494443758403985 0.0625 0.0 22.556943758403985
+```python
 def dsl1(I):
     fg = difference(asindices(I), ofcolor(I, EIGHT))
     S = subgrid(fg, I)
@@ -1416,7 +1611,9 @@ def dsl1(I):
     O1 = paint(O, shift(top_obj, add(ul, tojvec(w))))
     O2 = paint(O1, shift(bot_obj, add(ul, toivec(th))))
     return O2
+```
 training 30f42897 0.0 25.452568411534056 0.6718253968253969 0.0 26.124393808359454
+```python
 def dsl1(I):
     c = leastcolor(I)
     objs = colorfilter(objects(I, T, F, T), c)
@@ -1434,7 +1631,9 @@ def dsl1(I):
     patch = combine(p1, p2)
     O = paint(I, patch)
     return O
+```
 training 516b51b7 0.0 25.705293981883216 0.4446475093533918 0.0 26.14994149123661
+```python
 def dsl1(I):
     objs = colorfilter(objects(I, T, F, T), ONE)
     inner1 = mapply(inbox, objs)
@@ -1442,7 +1641,9 @@ def dsl1(I):
     inner2 = mapply(inbox, apply(inbox, objs))
     O = fill(O, THREE, inner2)
     return O
+```
 training f0100645 0.0 28.69560344015403 0.33753086419753087 0.0 29.033134304351563
+```python
 def dsl1(I):
     w = width(I)
     leftc = index(I, astuple(ZERO, ZERO))
@@ -1468,7 +1669,9 @@ def dsl1(I):
     dirL2 = gravitate(objL2, toobject(leftcol, g2))
     O = move(g2, objL2, dirL2)
     return O
+```
 training 94414823 0.0 32.0 0.16000000000000003 0.0 32.16
+```python
 def dsl1(I):
     allobjs = fgpartition(I)
     obj5set = colorfilter(allobjs, FIVE)
@@ -1509,7 +1712,9 @@ def dsl1(I):
     O3 = fill(O2, lb, BL)
     O = fill(O3, rb, BR)
     return O
+```
 training 3d588dc9 0.0 32.526911934581186 0.0546875 0.0 32.581599434581186
+```python
 def dsl4(I):
     objs = objects(I, T, F, T)
     zeros = colorfilter(objs, ZERO)
@@ -1524,7 +1729,9 @@ def dsl4(I):
     side = branch(greater(leftmost(sel), mid), lbord, rbord)
     O = fill(J, SIX, side)
     return O
+```
 training 46c35fc7 0.0 31.966417166152745 0.7551020408163266 0.0 32.72151920696907
+```python
 def dsl1(I):
     O = I
     for obj in totuple(objects(I, F, T, T)):
@@ -1545,7 +1752,9 @@ def dsl1(I):
         loc = underpaint(loc, toobject(cross, cw))
         O = move(O, asobject(loc), ulcorner(obj))
     return O
+```
 training f9012d9b 1.4142135623730951 19.0 13.0 0.1999999997171573 33.61421356209025
+```python
 def dsl1(I):
     h = height(I)
     w = width(I)
@@ -1582,7 +1791,9 @@ def dsl1(I):
     n0 = colorcount(I, ZERO)
     O = branch(equality(n0, ONE), canvas(mostcolor(tile), UNITY), tile)
     return O
+```
 training 11dc524f 0.0 33.60680860981702 0.13609467455621294 0.0 33.742903284373234
+```python
 def dsl1(I):
     objs = objects(I, T, F, T)
     tobj = first(colorfilter(objs, TWO))
@@ -1590,7 +1801,9 @@ def dsl1(I):
     d = gravitate(tobj, fobj)
     O = move(I, tobj, d)
     return O
+```
 training 342ae2ed 0.0 37.38403303375411 0.1640625 0.0 37.54809553375411
+```python
 def dsl2(I):
     objs = objects(I, T, F, T)
     bgobj = toobject(ofcolor(I, SEVEN), I)
@@ -1602,7 +1815,9 @@ def dsl2(I):
     lines = merge(pairs)
     O = underpaint(I, lines)
     return O
+```
 training c4d1a9ae 0.0 40.24922359499622 0.5 0.0 40.74922359499622
+```python
 def dsl1(I):
     bg = mostcolor(I)
     P0 = palette(I)
@@ -1633,7 +1848,9 @@ def dsl1(I):
     I0 = replace(I, bg, ZERO)
     O = underpaint(I0, obj)
     return O
+```
 training 825aa9e9 0.0 40.30361529710298 0.6753968253968254 0.0 40.97901212249981
+```python
 def dsl1(I):
     bg = mostcolor(I)
     pal = palette(I)
@@ -1646,7 +1863,9 @@ def dsl1(I):
     sh = shift(obj, double(DOWN))
     O = underpaint(G, sh)
     return O
+```
 training 72322fa7 0.0 47.543620591175014 0.1414098367006954 0.032230128188518094 47.717260556064225
+```python
 def dsl1(I):
     O0 = I
     x8 = ofcolor(I, EIGHT)
@@ -1714,7 +1933,9 @@ def dsl1(I):
     needD = both(greater(size(x3), ZERO), both(flip(cvert), flip(chorz)))
     O = branch(needD, candD, tmp2)
     return O
+```
 training 1d61978c 0.0 48.93522569488222 0.09765625 0.0 49.03288194488222
+```python
 def dsl1(I):
     S = ofcolor(I, FIVE)
     Sd = shift(S, DOWN)
@@ -1724,7 +1945,9 @@ def dsl1(I):
     obj8 = recolor(EIGHT, top)
     O = paint(A, obj8)
     return O
+```
 training ad38a9d0 0.0 48.30584272273025 0.962962962962963 0.0 49.26880568569321
+```python
 def dsl1(I):
     parts = fgpartition(I)
     sixparts = colorfilter(parts, SIX)
@@ -1757,7 +1980,9 @@ def dsl1(I):
     allc = combine(r5, o5)
     O = paint(base, allc)
     return O
+```
 training 7837ac64 0.0 44.49990517191746 2.8888888888888893 2.0 49.388794060806354
+```python
 def dsl2(I):
     x1 = replace(I, mostcolor(I), ZERO)
     x2 = trim(x1)
@@ -1765,7 +1990,9 @@ def dsl2(I):
     x4 = downscale(x3, THREE)
     O = rot90(x4)
     return O
+```
 training cb227835 0.0 50.1443299263566 0.4166858782243399 0.0 50.56101580458094
+```python
 def dsl1(I):
     objs = colorfilter(objects(I, T, F, T), EIGHT)
     t = totuple(objs)
@@ -1776,7 +2003,9 @@ def dsl1(I):
     line = connect(p, q)
     O = underfill(I, THREE, line)
     return O
+```
 training d06dbe63 0.0 51.05551275463989 0.20710059171597628 0.09285436775832752 51.35546771411419
+```python
 def dsl1(I):
     s = first(totuple(ofcolor(I, EIGHT)))
     u2 = shoot(s, double(UP_RIGHT))
@@ -1797,14 +2026,18 @@ def dsl1(I):
     p = combine(combine(tri_up, tri_dn), combine(singles, combine(extra_singles, extra_tris)))
     O = underpaint(I, recolor(FIVE, p))
     return O
+```
 training 712bf12e 0.0 50.74192633588899 0.9229360383206537 0.0 51.66486237420965
+```python
 def dsl1(I):
     x1 = ofcolor(I, FIVE)
     x2 = shift(x1, RIGHT)
     x3 = recolor(TWO, x2)
     O = underpaint(I, x3)
     return O
+```
 training ac0c5833 0.0 54.20301858130129 0.2608862590401053 0.13888242296550535 54.60278726330691
+```python
 def dsl1(I):
     x4 = ofcolor(I, FOUR)
     s1 = shift(x4, astuple(0, -2))
@@ -1812,7 +2045,9 @@ def dsl1(I):
     p = combine(s1, s2)
     O = underfill(I, TWO, p)
     return O
+```
 training b548a754 0.0 54.16164595166167 0.5040670285425529 0.40653907474987405 55.07225205495409
+```python
 def dsl4(I):
     base = replace(I, EIGHT, ZERO)
     pal = palette(base)
@@ -1838,7 +2073,9 @@ def dsl4(I):
     x1 = fill(base, bcol, bord)
     O = fill(x1, icol, inter)
     return O
+```
 training 13f06aa5 0.0 55.0934614056165 0.27355650885062643 0.0 55.36701791446713
+```python
 def dsl1(I):
     inds = asindices(I)
     tlc = ulcorner(inds)
@@ -1870,17 +2107,23 @@ def dsl1(I):
     O8 = branch(both(has6, has2), fill(O7, ZERO, blp), O7)
     O9 = branch(both(has6, has8), fill(O8, ZERO, brp), O8)
     return O9
+```
 training 7447852a 0.0 54.676473614708115 0.94 0.0 55.61647361470812
+```python
 def dsl4(I):
     fr = frontiers(I)
     idx = mapply(toindices, fr)
     O = underfill(I, FOUR, idx)
     return O
+```
 training f8c80d96 0.0 54.89579519647377 0.96 0.0 55.85579519647377
+```python
 def dsl1(I):
     O = replace(I, ZERO, FIVE)
     return O
+```
 training 7c8af763 0.0 54.318215566183 1.74 0.0 56.058215566182994
+```python
 def dsl3(I):
     G = I
     steps = height(I) + width(I)
@@ -1892,7 +2135,9 @@ def dsl3(I):
         for d in (UP, DOWN, LEFT, RIGHT):
             G = underpaint(G, recolor(ONE, shift(p1, d)))
     return G
+```
 training 6ffe8f07 0.0 57.3169756437209 0.15635580178516462 0.0 57.47333144550606
+```python
 def dsl1(I):
     idx8 = ofcolor(I, EIGHT)
     H = merge(apply(hfrontier, idx8))
@@ -1903,11 +2148,15 @@ def dsl1(I):
     obj = recolor(FOUR, toobject(P2, I))
     O = paint(I, obj)
     return O
+```
 training f28a3cbb 0.0 57.00106909354186 1.6419753086419755 0.0 58.64304440218384
+```python
 def dsl2(I):
     O = hmirror(I)
     return O
+```
 training 14754a24 0.0 59.177866382001504 0.2822115596007563 0.0 59.46007794160226
+```python
 def dsl1(I):
     fives = ofcolor(I, FIVE)
     fours = ofcolor(I, FOUR)
@@ -1924,14 +2173,18 @@ def dsl1(I):
     obj = recolor(TWO, toobject(targets, I))
     O = paint(I, obj)
     return O
+```
 training 7468f01a 0.0 59.650549042666434 1.0558333333333334 0.0 60.706382375999766
+```python
 def dsl1(I):
     x1 = asindices(I)
     x2 = ofcolor(I, ZERO)
     x3 = difference(x1, x2)
     O = subgrid(x3, I)
     return O
+```
 training 4ff4c9da 0.0 61.028067592695464 0.06781640299430824 0.0 61.09588399568977
+```python
 def dsl5(I):
     H = height(I)
     W = width(I)
@@ -1955,7 +2208,9 @@ def dsl5(I):
             mask = combine(mask, shifted)
     O = fill(I, EIGHT, mask)
     return O
+```
 training 67c52801 0.0 61.56551368514339 0.6920364357864358 0.2481952518630925 62.505745372792916
+```python
 def dsl1(I):
     H = height(I)
     W = width(I)
@@ -1964,7 +2219,9 @@ def dsl1(I):
     band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
     O = vconcat(top, band3)
     return O
+```
 training 4c5c2cf0 0.0 62.9534741772363 0.3729705215419501 0.08384096054033202 63.41028565931859
+```python
 def dsl2(I):
     objs = objects(I, T, T, T)
     tup = totuple(objs)
@@ -1982,7 +2239,9 @@ def dsl2(I):
     O = underpaint(O, hobj)
     O = underpaint(O, both)
     return O
+```
 training 5ffb2104 0.0 67.26871190922247 0.8099999999999999 2.390867979754965 70.46957988897744
+```python
 def dsl4(I):
     H = height(I)
     W = width(I)
@@ -1992,7 +2251,9 @@ def dsl4(I):
     Z = canvas(ZERO, astuple(H, subtract(W, K)))
     O = hconcat(Z, R)
     return O
+```
 training df8cc377 0.0 72.44474058367854 0.28822404648491606 0.0 72.73296463016345
+```python
 def dsl2(I):
     objs = objects(I, T, F, T)
     singles = sizefilter(objs, ONE)
@@ -2015,7 +2276,9 @@ def dsl2(I):
     K = fill(J, ctop, top_interior)
     O = fill(K, cbot, bot_interior)
     return O
+```
 training 20fb2937 0.0 76.07145151094456 1.7062937062937062 0.0 77.77774521723826
+```python
 def dsl4(I):
     bg = mostcolor(I)
     objs = objects(I, T, F, T)
@@ -2042,7 +2305,9 @@ def dsl4(I):
     O = vconcat(O, seprow)
     O = vconcat(O, seprow)
     return O
+```
 training 6855a6e4 0.0 79.12608191037563 0.2844444444444445 0.34991217162622335 79.7604385264463
+```python
 def dsl1(I):
     x2 = ofcolor(I, TWO)
     b2 = backdrop(x2)
@@ -2053,12 +2318,16 @@ def dsl1(I):
     off = subtract(dest, src)
     O = move(I, o5, off)
     return O
+```
 training b7955b3c 0.0 80.73645275695009 0.2771284271284272 0.0 81.01358118407853
+```python
 def dsl3(I):
     x1 = mostcolor(I)
     O = replace(I, EIGHT, x1)
     return O
+```
 training 50f325b5 0.0 82.33999264134957 0.21495062671533272 0.0 82.5549432680649
+```python
 def dsl5(I):
     idx3 = ofcolor(I, THREE)
     e = ofcolor(I, EIGHT)
@@ -2067,7 +2336,9 @@ def dsl5(I):
     to_change = intersection(idx3, combine(adj_e_orth, adj_e_diag))
     O = fill(I, EIGHT, to_change)
     return O
+```
 training db118e2a 0.0 81.97294797806792 0.7911111111111111 0.0 82.76405908917904
+```python
 def dsl1(I):
     x1 = compress(I)
     x2 = asobject(x1)
@@ -2080,7 +2351,9 @@ def dsl1(I):
     z1 = paint(base, y1)
     O = paint(z1, y2)
     return O
+```
 training d6ad076f 0.0 83.0858185033641 0.38 0.0 83.46581850336409
+```python
 def dsl1(I):
     obs = objects(I, T, F, T)
     a = argmin(obs, leftmost)
@@ -2119,7 +2392,9 @@ def dsl1(I):
     rect = backdrop(line)
     O = fill(I, EIGHT, rect)
     return O
+```
 training 94be5b80 0.0 83.13132635384568 0.41594962771433364 0.5411211944762473 84.08839717603627
+```python
 def dsl1(I):
     nz = difference(asindices(I), ofcolor(I, ZERO))
     r0 = uppermost(nz)
@@ -2131,11 +2406,15 @@ def dsl1(I):
     patch = combine(row0, combine(row1, row2))
     O = fill(I, ZERO, patch)
     return O
+```
 training d753a70b 0.0 89.86266473669073 0.54296875 0.0 90.40563348669073
+```python
 def dsl5(I):
     O = I
     return O
+```
 training d6542281 0.0 92.98433835033228 0.31195562900755336 0.0 93.29629397933982
+```python
 def dsl1(I):
     bg = mostcolor(I)
     P = palette(I)
@@ -2161,7 +2440,9 @@ def dsl1(I):
     patchd = intersection(dr, allidx)
     O = underfill(O, d, patchd)
     return O
+```
 training 264363fd 0.0 102.23009418727412 0.3455555555555555 0.0 102.57564974282968
+```python
 def dsl2(I):
     bg = mostcolor(I)
     p = palette(I)
@@ -2176,7 +2457,9 @@ def dsl2(I):
     O = fill(I, THREE, cross)
     O = fill(O, FOUR, seeds)
     return O
+```
 training 9c1e755f 0.0 101.9327473075766 0.9600000000000001 0.0 102.8927473075766
+```python
 def dsl2(I):
     objs = objects(I, T, F, T)
     hls = sfilter(objs, hline)
@@ -2212,14 +2495,18 @@ def dsl2(I):
     paints = combine(p_top, p_bot)
     O = underpaint(I, paints)
     return O
+```
 training 88207623 0.0 103.7344722646352 0.6158234126984127 0.26805454118056876 104.6183502185142
+```python
 def dsl2(I):
     t = tophalf(I)
     b = bottomhalf(I)
     b2 = vmirror(b)
     O = vconcat(t, b2)
     return O
+```
 training f9d67f8b 0.0 115.59611354740389 0.29000000000000004 0.0 115.88611354740391
+```python
 def dsl3(I):
     m = ofcolor(I, NINE)
     base = cover(I, m)
@@ -2227,7 +2514,9 @@ def dsl3(I):
     obj = toobject(m, J)
     O = underpaint(base, obj)
     return O
+```
 training db93a21d 0.0 116.68463982884418 1.600277777777778 0.22964988986082804 118.51456749648278
+```python
 def dsl1(I):
     obs = objects(I, T, F, T)
     nines = colorfilter(obs, NINE)
@@ -2235,7 +2524,9 @@ def dsl1(I):
     frame = recolor(THREE, outs)
     O = underpaint(I, frame)
     return O
+```
 training 281123b4 0.0 117.9778237912648 4.5 0.0 122.4778237912648
+```python
 def dsl1(I):
     x0 = replace(I, THREE, ZERO)
     h = FOUR
@@ -2306,12 +2597,16 @@ def dsl1(I):
     O2 = hconcat(col2, col3)
     O = hconcat(O1, O2)
     return O
+```
 training 2546ccf6 0.0 124.05574634774041 0.4487766238338321 0.0 124.50452297157425
+```python
 def dsl4(I):
     x1 = hmirror(I)
     O = underpaint(I, asobject(x1))
     return O
+```
 training 4acc7107 0.0 124.5469446446679 1.3499999999999999 0.3725504925360528 126.26949513720395
+```python
 def dsl1(I):
     cset = remove(ZERO, palette(I))
     c1 = first(cset)
@@ -2335,7 +2630,9 @@ def dsl1(I):
     tmp = paint(base, shift(n1, off1))
     O = paint(tmp, shift(n2, off2))
     return O
+```
 training dc2e9a9d 0.0 129.54191363801957 0.38582319149620636 0.11665404613369268 130.04439087564947
+```python
 def dsl1(I):
     objs = colorfilter(objects(I, T, F, T), THREE)
     def interior(o):
@@ -2376,18 +2673,24 @@ def dsl1(I):
     O = underpaint(I, eights)
     O = underpaint(O, ones)
     return O
+```
 training db615bd4 0.0 152.8982222327197 0.5952 0.0 153.4934222327197
+```python
 def dsl1(I):
     O = hmirror(I)
     return O
+```
 training 9b5080bb 0.0 162.12312445309934 0.4535899191216701 0.0 162.576714372221
+```python
 def dsl4(I):
     x1 = ofcolor(I, EIGHT)
     x2 = toobject(x1, I)
     x3 = cmirror(x2)
     O = paint(I, x3)
     return O
+```
 training 278e5215 0.0 158.15750133807086 3.7714285714285714 3.1228847880275206 165.05181469752696
+```python
 def dsl2(I):
     p5 = ofcolor(I, FIVE)
     s5 = subgrid(p5, I)
@@ -2402,11 +2705,15 @@ def dsl2(I):
     base = canvas(b, shape(s5))
     O = paint(base, asobject(cr2))
     return O
+```
 training d22278a0 0.0 163.2207679369944 2.3417855015309295 0.6465131876019454 166.20906662612728
+```python
 def dsl2(I):
     O = rot180(I)
     return O
+```
 training 891232d6 0.0 171.89399475509546 2.7378725080429955 0.14315949947914336 174.7750267626176
+```python
 def dsl4(I):
     objs7 = colorfilter(objects(I, T, F, T), SEVEN)
     centers = apply(center, objs7)
@@ -2414,7 +2721,9 @@ def dsl4(I):
     twos = apply(lbind(recolor, TWO), cols)
     O = underpaint(I, merge(twos))
     return O
+```
 training 7bb29440 10.43650317030929 60.0 114.0 1.0108891104062114 185.44739228071552
+```python
 def dsl5(I):
     comps = objects(I, F, F, T)
     def is_filled(o):
@@ -2443,14 +2752,18 @@ def dsl5(I):
     vp = branch(equality(multiply(hdiv, vp0), h), vp0, h)
     O = crop(R, ORIGIN, astuple(vp, hp))
     return O
+```
 training 34cfa167 0.0 187.1033550397647 0.9303259313785629 0.06852015504653747 188.1022011261898
+```python
 def dsl1(I):
     x1 = shape(I)
     x2 = canvas(FOUR, x1)
     x3 = asobject(I)
     O = paint(x2, x3)
     return O
+```
 training 5c2c9af4 0.0 258.4323426587324 1.6306951892288106 0.08959392049839388 260.15263176845957
+```python
 def dsl1(I):
     c = leastcolor(I)
     S = ofcolor(I, c)
@@ -2461,17 +2774,23 @@ def dsl1(I):
     Z = canvas(ZERO, shape(I))
     O = fill(Z, c, P)
     return O
+```
 training 305b1341 0.0 311.4659273193485 1.8775000000000002 0.3114849819376412 313.6549123012861
+```python
 def dsl4(I):
     O = hmirror(I)
     return O
+```
 training a644e277 15.099019513592784 341.0 309.0 0.7357923790952607 665.8348118926881
+```python
 def dsl1(I):
     x1 = compress(I)
     x2 = trim(x1)
     O = downscale(x2, THREE)
     return O
+```
 training 8731374e 14.123105625617661 444.0 404.0 0.7484787726780245 862.8715843982957
+```python
 def dsl3(I):
     bg = mostcolor(I)
     objs = objects(I, T, F, F)
@@ -2490,1702 +2809,3383 @@ def dsl3(I):
     O0 = canvas(bg, shape(SG))
     O = fill(O0, fg, stripes)
     return O
+```
 training ce8d95cc 34.555740781599376 118.0 711.0 1.4031890419815098 864.9589298235809
+```python
 def dsl1(I):
     x1 = rot90(I)
     x2 = compress(x1)
     O = rot270(x2)
     return O
+```
 training 97a05b5b 21.474192049298324 118.0 1087.0 0.6490060297815327 1227.1231980790799
+```python
 def dsl3(I):
     x1 = compress(I)
     x2 = asindices(x1)
     O = underfill(x1, TWO, x2)
     return O
+```
 training a416fc5b 7.0710678118654755 993.3735464897914 378.3884297520661 0.18518518513668678 1379.0182292388595
+```python
 def dsl4(I):
     dims = shape(I)
     O = canvas(SEVEN, dims)
     return O
+```
 training 6cbe9eb8 28.36193007666084 1007.0 544.140625 1.2563471153160704 1580.7589021919766
+```python
 def dsl1(I):
     x1 = objects(I, T, T, F)
     x2 = sfilter(x1, fork(equality, toindices, compose(box, toindices)))
     x3 = argmax(x2, compose(size, box))
     O = subgrid(x3, I)
     return O
+```
 training 4290ef0e 16.605551275463988 762.0 912.0 0.5808327827428046 1691.1863840582066
+```python
 def dsl2(I):
     x1 = trim(I)
     O = compress(x1)
     return O
+```
 training 00576224 nan nan nan nan nan
+```python
 
+```
 training 007bbfb7 nan nan nan nan nan
+```python
 
+```
 training 009d5c81 nan nan nan nan nan
+```python
 
+```
 training 00d62c1b nan nan nan nan nan
+```python
 
+```
 training 045e512c nan nan nan nan nan
+```python
 
+```
 training 0520fde7 nan nan nan nan nan
+```python
 
+```
 training 05269061 nan nan nan nan nan
+```python
 
+```
 training 05a7bcf2 nan nan nan nan nan
+```python
 
+```
 training 05f2a901 nan nan nan nan nan
+```python
 
+```
 training 0607ce86 nan nan nan nan nan
+```python
 
+```
 training 0692e18c nan nan nan nan nan
+```python
 
+```
 training 06df4c85 nan nan nan nan nan
+```python
 
+```
 training 070dd51e nan nan nan nan nan
+```python
 
+```
 training 08ed6ac7 nan nan nan nan nan
+```python
 
+```
 training 09629e4f nan nan nan nan nan
+```python
 
+```
 training 0962bcdd nan nan nan nan nan
+```python
 
+```
 training 09c534e7 nan nan nan nan nan
+```python
 
+```
 training 0a1d4ef5 nan nan nan nan nan
+```python
 
+```
 training 0a2355a6 nan nan nan nan nan
+```python
 
+```
 training 0a938d79 nan nan nan nan nan
+```python
 
+```
 training 0b148d64 nan nan nan nan nan
+```python
 
+```
 training 0b17323b nan nan nan nan nan
+```python
 
+```
 training 0bb8deee nan nan nan nan nan
+```python
 
+```
 training 0becf7df nan nan nan nan nan
+```python
 
+```
 training 0c786b71 nan nan nan nan nan
+```python
 
+```
 training 0c9aba6e nan nan nan nan nan
+```python
 
+```
 training 0ca9ddb6 nan nan nan nan nan
+```python
 
+```
 training 0d87d2a6 nan nan nan nan nan
+```python
 
+```
 training 0e206a2e nan nan nan nan nan
+```python
 
+```
 training 0e671a1a nan nan nan nan nan
+```python
 
+```
 training 0f63c0b9 nan nan nan nan nan
+```python
 
+```
 training 103eff5b nan nan nan nan nan
+```python
 
+```
 training 10fcaaa3 nan nan nan nan nan
+```python
 
+```
 training 11852cab nan nan nan nan nan
+```python
 
+```
 training 1190bc91 nan nan nan nan nan
+```python
 
+```
 training 1190e5a7 nan nan nan nan nan
+```python
 
+```
 training 11e1fe23 nan nan nan nan nan
+```python
 
+```
 training 12422b43 nan nan nan nan nan
+```python
 
+```
 training 12997ef3 nan nan nan nan nan
+```python
 
+```
 training 12eac192 nan nan nan nan nan
+```python
 
+```
 training 13713586 nan nan nan nan nan
+```python
 
+```
 training 137eaa0f nan nan nan nan nan
+```python
 
+```
 training 137f0df0 nan nan nan nan nan
+```python
 
+```
 training 140c817e nan nan nan nan nan
+```python
 
+```
 training 1478ab18 nan nan nan nan nan
+```python
 
+```
 training 14b8e18c nan nan nan nan nan
+```python
 
+```
 training 150deff5 nan nan nan nan nan
+```python
 
+```
 training 15113be4 nan nan nan nan nan
+```python
 
+```
 training 15660dd6 nan nan nan nan nan
+```python
 
+```
 training 15663ba9 nan nan nan nan nan
+```python
 
+```
 training 15696249 nan nan nan nan nan
+```python
 
+```
 training 17829a00 nan nan nan nan nan
+```python
 
+```
 training 178fcbfb nan nan nan nan nan
+```python
 
+```
 training 17b80ad2 nan nan nan nan nan
+```python
 
+```
 training 17b866bd nan nan nan nan nan
+```python
 
+```
 training 17cae0c1 nan nan nan nan nan
+```python
 
+```
 training 18286ef8 nan nan nan nan nan
+```python
 
+```
 training 182e5d0f nan nan nan nan nan
+```python
 
+```
 training 18419cfa nan nan nan nan nan
+```python
 
+```
 training 18447a8d nan nan nan nan nan
+```python
 
+```
 training 184a9768 nan nan nan nan nan
+```python
 
+```
 training 195ba7dc nan nan nan nan nan
+```python
 
+```
 training 1990f7a8 nan nan nan nan nan
+```python
 
+```
 training 1a07d186 nan nan nan nan nan
+```python
 
+```
 training 1a244afd nan nan nan nan nan
+```python
 
+```
 training 1a2e2828 nan nan nan nan nan
+```python
 
+```
 training 1a6449f1 nan nan nan nan nan
+```python
 
+```
 training 1acc24af nan nan nan nan nan
+```python
 
+```
 training 1b2d62fb nan nan nan nan nan
+```python
 
+```
 training 1b59e163 nan nan nan nan nan
+```python
 
+```
 training 1b60fb0c nan nan nan nan nan
+```python
 
+```
 training 1b8318e3 nan nan nan nan nan
+```python
 
+```
 training 1be83260 nan nan nan nan nan
+```python
 
+```
 training 1bfc4729 nan nan nan nan nan
+```python
 
+```
 training 1c02dbbe nan nan nan nan nan
+```python
 
+```
 training 1c0d0a4b nan nan nan nan nan
+```python
 
+```
 training 1c56ad9f nan nan nan nan nan
+```python
 
+```
 training 1c786137 nan nan nan nan nan
+```python
 
+```
 training 1caeab9d nan nan nan nan nan
+```python
 
+```
 training 1d0a4b61 nan nan nan nan nan
+```python
 
+```
 training 1d398264 nan nan nan nan nan
+```python
 
+```
 training 1da012fc nan nan nan nan nan
+```python
 
+```
 training 1e0a9b12 nan nan nan nan nan
+```python
 
+```
 training 1e32b0e9 nan nan nan nan nan
+```python
 
+```
 training 1e5d6875 nan nan nan nan nan
+```python
 
+```
 training 1e81d6f9 nan nan nan nan nan
+```python
 
+```
 training 1efba499 nan nan nan nan nan
+```python
 
+```
 training 1f0c79e5 nan nan nan nan nan
+```python
 
+```
 training 1f642eb9 nan nan nan nan nan
+```python
 
+```
 training 1f85a75f nan nan nan nan nan
+```python
 
+```
 training 1f876c06 nan nan nan nan nan
+```python
 
+```
 training 1fad071e nan nan nan nan nan
+```python
 
+```
 training 2013d3e2 nan nan nan nan nan
+```python
 
+```
 training 2072aba6 nan nan nan nan nan
+```python
 
+```
 training 20818e16 nan nan nan nan nan
+```python
 
+```
 training 20981f0e nan nan nan nan nan
+```python
 
+```
 training 212895b5 nan nan nan nan nan
+```python
 
+```
 training 21f83797 nan nan nan nan nan
+```python
 
+```
 training 2204b7a8 nan nan nan nan nan
+```python
 
+```
 training 22168020 nan nan nan nan nan
+```python
 
+```
 training 22208ba4 nan nan nan nan nan
+```python
 
+```
 training 22233c11 nan nan nan nan nan
+```python
 
+```
 training 22425bda nan nan nan nan nan
+```python
 
+```
 training 22806e14 nan nan nan nan nan
+```python
 
+```
 training 2281f1f4 nan nan nan nan nan
+```python
 
+```
 training 228f6490 nan nan nan nan nan
+```python
 
+```
 training 22a4bbc2 nan nan nan nan nan
+```python
 
+```
 training 22eb0ac0 nan nan nan nan nan
+```python
 
+```
 training 230f2e48 nan nan nan nan nan
+```python
 
+```
 training 234bbc79 nan nan nan nan nan
+```python
 
+```
 training 239be575 nan nan nan nan nan
+```python
 
+```
 training 23b5c85d nan nan nan nan nan
+```python
 
+```
 training 25094a63 nan nan nan nan nan
+```python
 
+```
 training 252143c9 nan nan nan nan nan
+```python
 
+```
 training 253bf280 nan nan nan nan nan
+```python
 
+```
 training 256b0a75 nan nan nan nan nan
+```python
 
+```
 training 25c199f5 nan nan nan nan nan
+```python
 
+```
 training 25d487eb nan nan nan nan nan
+```python
 
+```
 training 25d8a9c8 nan nan nan nan nan
+```python
 
+```
 training 25e02866 nan nan nan nan nan
+```python
 
+```
 training 2601afb7 nan nan nan nan nan
+```python
 
+```
 training 2685904e nan nan nan nan nan
+```python
 
+```
 training 2697da3f nan nan nan nan nan
+```python
 
+```
 training 272f95fa nan nan nan nan nan
+```python
 
+```
 training 2753e76c nan nan nan nan nan
+```python
 
+```
 training 27a28665 nan nan nan nan nan
+```python
 
+```
 training 27f8ce4f nan nan nan nan nan
+```python
 
+```
 training 28e73c20 nan nan nan nan nan
+```python
 
+```
 training 29623171 nan nan nan nan nan
+```python
 
+```
 training 29700607 nan nan nan nan nan
+```python
 
+```
 training 29c11459 nan nan nan nan nan
+```python
 
+```
 training 2a28add5 nan nan nan nan nan
+```python
 
+```
 training 2a5f8217 nan nan nan nan nan
+```python
 
+```
 training 2b01abd0 nan nan nan nan nan
+```python
 
+```
 training 2b9ef948 nan nan nan nan nan
+```python
 
+```
 training 2bcee788 nan nan nan nan nan
+```python
 
+```
 training 2bee17df nan nan nan nan nan
+```python
 
+```
 training 2c0b0aff nan nan nan nan nan
+```python
 
+```
 training 2c608aff nan nan nan nan nan
+```python
 
+```
 training 2c737e39 nan nan nan nan nan
+```python
 
+```
 training 2ccd9fef nan nan nan nan nan
+```python
 
+```
 training 2dc579da nan nan nan nan nan
+```python
 
+```
 training 2dd70a9a nan nan nan nan nan
+```python
 
+```
 training 2de01db2 nan nan nan nan nan
+```python
 
+```
 training 2e65ae53 nan nan nan nan nan
+```python
 
+```
 training 2f0c5170 nan nan nan nan nan
+```python
 
+```
 training 2f767503 nan nan nan nan nan
+```python
 
+```
 training 2faf500b nan nan nan nan nan
+```python
 
+```
 training 310f3251 nan nan nan nan nan
+```python
 
+```
 training 3194b014 nan nan nan nan nan
+```python
 
+```
 training 319f2597 nan nan nan nan nan
+```python
 
+```
 training 31aa019c nan nan nan nan nan
+```python
 
+```
 training 31adaf00 nan nan nan nan nan
+```python
 
+```
 training 31d5ba1a nan nan nan nan nan
+```python
 
+```
 training 320afe60 nan nan nan nan nan
+```python
 
+```
 training 321b1fc6 nan nan nan nan nan
+```python
 
+```
 training 32e9702f nan nan nan nan nan
+```python
 
+```
 training 33067df9 nan nan nan nan nan
+```python
 
+```
 training 332202d5 nan nan nan nan nan
+```python
 
+```
 training 332efdb3 nan nan nan nan nan
+```python
 
+```
 training 3345333e nan nan nan nan nan
+```python
 
+```
 training 337b420f nan nan nan nan nan
+```python
 
+```
 training 3391f8c0 nan nan nan nan nan
+```python
 
+```
 training 33b52de3 nan nan nan nan nan
+```python
 
+```
 training 3428a4f5 nan nan nan nan nan
+```python
 
+```
 training 342dd610 nan nan nan nan nan
+```python
 
+```
 training 3490cc26 nan nan nan nan nan
+```python
 
+```
 training 34b99a2b nan nan nan nan nan
+```python
 
+```
 training 358ba94e nan nan nan nan nan
+```python
 
+```
 training 3618c87e nan nan nan nan nan
+```python
 
+```
 training 36d67576 nan nan nan nan nan
+```python
 
+```
 training 36fdfd69 nan nan nan nan nan
+```python
 
+```
 training 37d3e8b2 nan nan nan nan nan
+```python
 
+```
 training 3906de3d nan nan nan nan nan
+```python
 
+```
 training 396d80d7 nan nan nan nan nan
+```python
 
+```
 training 3979b1a8 nan nan nan nan nan
+```python
 
+```
 training 39a8645d nan nan nan nan nan
+```python
 
+```
 training 3a301edc nan nan nan nan nan
+```python
 
+```
 training 3aa6fb7a nan nan nan nan nan
+```python
 
+```
 training 3ac3eb23 nan nan nan nan nan
+```python
 
+```
 training 3ad05f52 nan nan nan nan nan
+```python
 
+```
 training 3af2c5a8 nan nan nan nan nan
+```python
 
+```
 training 3b4c2228 nan nan nan nan nan
+```python
 
+```
 training 3bd292e8 nan nan nan nan nan
+```python
 
+```
 training 3bd67248 nan nan nan nan nan
+```python
 
+```
 training 3bdb4ada nan nan nan nan nan
+```python
 
+```
 training 3befdf3e nan nan nan nan nan
+```python
 
+```
 training 3cd86f4f nan nan nan nan nan
+```python
 
+```
 training 3d31c5b3 nan nan nan nan nan
+```python
 
+```
 training 3d6c6e23 nan nan nan nan nan
+```python
 
+```
 training 3de23699 nan nan nan nan nan
+```python
 
+```
 training 3e980e27 nan nan nan nan nan
+```python
 
+```
 training 3eda0437 nan nan nan nan nan
+```python
 
+```
 training 3ee1011a nan nan nan nan nan
+```python
 
+```
 training 3f23242b nan nan nan nan nan
+```python
 
+```
 training 3f7978a0 nan nan nan nan nan
+```python
 
+```
 training 4093f84a nan nan nan nan nan
+```python
 
+```
 training 40f6cd08 nan nan nan nan nan
+```python
 
+```
 training 412b6263 nan nan nan nan nan
+```python
 
+```
 training 414297c0 nan nan nan nan nan
+```python
 
+```
 training 41ace6b5 nan nan nan nan nan
+```python
 
+```
 training 41e4d17e nan nan nan nan nan
+```python
 
+```
 training 423a55dc nan nan nan nan nan
+```python
 
+```
 training 42918530 nan nan nan nan nan
+```python
 
+```
 training 42a15761 nan nan nan nan nan
+```python
 
+```
 training 42a50994 nan nan nan nan nan
+```python
 
+```
 training 42f14c03 nan nan nan nan nan
+```python
 
+```
 training 42f83767 nan nan nan nan nan
+```python
 
+```
 training 4347f46a nan nan nan nan nan
+```python
 
+```
 training 4364c1c4 nan nan nan nan nan
+```python
 
+```
 training 444801d8 nan nan nan nan nan
+```python
 
+```
 training 445eab21 nan nan nan nan nan
+```python
 
+```
 training 447fd412 nan nan nan nan nan
+```python
 
+```
 training 44d8ac46 nan nan nan nan nan
+```python
 
+```
 training 4522001f nan nan nan nan nan
+```python
 
+```
 training 456873bc nan nan nan nan nan
+```python
 
+```
 training 45737921 nan nan nan nan nan
+```python
 
+```
 training 458e3a53 nan nan nan nan nan
+```python
 
+```
 training 45bbe264 nan nan nan nan nan
+```python
 
+```
 training 4612dd53 nan nan nan nan nan
+```python
 
+```
 training 46442a0e nan nan nan nan nan
+```python
 
+```
 training 469497ad nan nan nan nan nan
+```python
 
+```
 training 46f33fce nan nan nan nan nan
+```python
 
+```
 training 470c91de nan nan nan nan nan
+```python
 
+```
 training 47c1f68c nan nan nan nan nan
+```python
 
+```
 training 48131b3c nan nan nan nan nan
+```python
 
+```
 training 484b58aa nan nan nan nan nan
+```python
 
+```
 training 4852f2fa nan nan nan nan nan
+```python
 
+```
 training 48634b99 nan nan nan nan nan
+```python
 
+```
 training 48d8fb45 nan nan nan nan nan
+```python
 
+```
 training 48f8583b nan nan nan nan nan
+```python
 
+```
 training 4938f0c2 nan nan nan nan nan
+```python
 
+```
 training 494ef9d7 nan nan nan nan nan
+```python
 
+```
 training 496994bd nan nan nan nan nan
+```python
 
+```
 training 49d1d64f nan nan nan nan nan
+```python
 
+```
 training 4b6b68e5 nan nan nan nan nan
+```python
 
+```
 training 4be741c5 nan nan nan nan nan
+```python
 
+```
 training 4c177718 nan nan nan nan nan
+```python
 
+```
 training 4cd1b7b2 nan nan nan nan nan
+```python
 
+```
 training 4df5b0ae nan nan nan nan nan
+```python
 
+```
 training 4e45f183 nan nan nan nan nan
+```python
 
+```
 training 4e469f39 nan nan nan nan nan
+```python
 
+```
 training 4e7e0eb9 nan nan nan nan nan
+```python
 
+```
 training 4f537728 nan nan nan nan nan
+```python
 
+```
 training 5034a0b5 nan nan nan nan nan
+```python
 
+```
 training 505fff84 nan nan nan nan nan
+```python
 
+```
 training 506d28a5 nan nan nan nan nan
+```python
 
+```
 training 50846271 nan nan nan nan nan
+```python
 
+```
 training 508bd3b6 nan nan nan nan nan
+```python
 
+```
 training 50a16a69 nan nan nan nan nan
+```python
 
+```
 training 50aad11f nan nan nan nan nan
+```python
 
+```
 training 50c07299 nan nan nan nan nan
+```python
 
+```
 training 5117e062 nan nan nan nan nan
+```python
 
+```
 training 5168d44c nan nan nan nan nan
+```python
 
+```
 training 5207a7b5 nan nan nan nan nan
+```python
 
+```
 training 522fdd07 nan nan nan nan nan
+```python
 
+```
 training 52364a65 nan nan nan nan nan
+```python
 
+```
 training 5289ad53 nan nan nan nan nan
+```python
 
+```
 training 52df9849 nan nan nan nan nan
+```python
 
+```
 training 52fd389e nan nan nan nan nan
+```python
 
+```
 training 538b439f nan nan nan nan nan
+```python
 
+```
 training 539a4f51 nan nan nan nan nan
+```python
 
+```
 training 53b68214 nan nan nan nan nan
+```python
 
+```
 training 543a7ed5 nan nan nan nan nan
+```python
 
+```
 training 54d82841 nan nan nan nan nan
+```python
 
+```
 training 54d9e175 nan nan nan nan nan
+```python
 
+```
 training 54db823b nan nan nan nan nan
+```python
 
+```
 training 54dc2872 nan nan nan nan nan
+```python
 
+```
 training 55059096 nan nan nan nan nan
+```python
 
+```
 training 551d5bf1 nan nan nan nan nan
+```python
 
+```
 training 5521c0d9 nan nan nan nan nan
+```python
 
+```
 training 5587a8d0 nan nan nan nan nan
+```python
 
+```
 training 5623160b nan nan nan nan nan
+```python
 
+```
 training 56dc2b01 nan nan nan nan nan
+```python
 
+```
 training 56ff96f3 nan nan nan nan nan
+```python
 
+```
 training 5751f35e nan nan nan nan nan
+```python
 
+```
 training 575b1a71 nan nan nan nan nan
+```python
 
+```
 training 5783df64 nan nan nan nan nan
+```python
 
+```
 training 5792cb4d nan nan nan nan nan
+```python
 
+```
 training 57aa92db nan nan nan nan nan
+```python
 
+```
 training 57edb29d nan nan nan nan nan
+```python
 
+```
 training 5833af48 nan nan nan nan nan
+```python
 
+```
 training 58743b76 nan nan nan nan nan
+```python
 
+```
 training 58c02a16 nan nan nan nan nan
+```python
 
+```
 training 58e15b12 nan nan nan nan nan
+```python
 
+```
 training 59341089 nan nan nan nan nan
+```python
 
+```
 training 5a5a2103 nan nan nan nan nan
+```python
 
+```
 training 5a719d11 nan nan nan nan nan
+```python
 
+```
 training 5ad4f10b nan nan nan nan nan
+```python
 
+```
 training 5ad8a7c0 nan nan nan nan nan
+```python
 
+```
 training 5adee1b2 nan nan nan nan nan
+```python
 
+```
 training 5af49b42 nan nan nan nan nan
+```python
 
+```
 training 5b37cb25 nan nan nan nan nan
+```python
 
+```
 training 5b526a93 nan nan nan nan nan
+```python
 
+```
 training 5b692c0f nan nan nan nan nan
+```python
 
+```
 training 5b6cbef5 nan nan nan nan nan
+```python
 
+```
 training 5d2a5c43 nan nan nan nan nan
+```python
 
+```
 training 5d588b4d nan nan nan nan nan
+```python
 
+```
 training 5daaa586 nan nan nan nan nan
+```python
 
+```
 training 5e6bbc0b nan nan nan nan nan
+```python
 
+```
 training 5ecac7f7 nan nan nan nan nan
+```python
 
+```
 training 60b61512 nan nan nan nan nan
+```python
 
+```
 training 60c09cac nan nan nan nan nan
+```python
 
+```
 training 60d73be6 nan nan nan nan nan
+```python
 
+```
 training 6165ea8f nan nan nan nan nan
+```python
 
+```
 training 626c0bcc nan nan nan nan nan
+```python
 
+```
 training 62ab2642 nan nan nan nan nan
+```python
 
+```
 training 62b74c02 nan nan nan nan nan
+```python
 
+```
 training 62c24649 nan nan nan nan nan
+```python
 
+```
 training 6350f1f4 nan nan nan nan nan
+```python
 
+```
 training 63613498 nan nan nan nan nan
+```python
 
+```
 training 639f5a19 nan nan nan nan nan
+```python
 
+```
 training 642248e4 nan nan nan nan nan
+```python
 
+```
 training 642d658d nan nan nan nan nan
+```python
 
+```
 training 6430c8c4 nan nan nan nan nan
+```python
 
+```
 training 6455b5f5 nan nan nan nan nan
+```python
 
+```
 training 64a7c07e nan nan nan nan nan
+```python
 
+```
 training 652646ff nan nan nan nan nan
+```python
 
+```
 training 662c240a nan nan nan nan nan
+```python
 
+```
 training 668eec9a nan nan nan nan nan
+```python
 
+```
 training 66ac4c3b nan nan nan nan nan
+```python
 
+```
 training 66e6c45b nan nan nan nan nan
+```python
 
+```
 training 66f2d22f nan nan nan nan nan
+```python
 
+```
 training 67385a82 nan nan nan nan nan
+```python
 
+```
 training 673ef223 nan nan nan nan nan
+```python
 
+```
 training 67636eac nan nan nan nan nan
+```python
 
+```
 training 6773b310 nan nan nan nan nan
+```python
 
+```
 training 67a423a3 nan nan nan nan nan
+```python
 
+```
 training 681b3aeb nan nan nan nan nan
+```python
 
+```
 training 689c358e nan nan nan nan nan
+```python
 
+```
 training 68b67ca3 nan nan nan nan nan
+```python
 
+```
 training 68bc2e87 nan nan nan nan nan
+```python
 
+```
 training 692cd3b6 nan nan nan nan nan
+```python
 
+```
 training 694f12f3 nan nan nan nan nan
+```python
 
+```
 training 695367ec nan nan nan nan nan
+```python
 
+```
 training 696d4842 nan nan nan nan nan
+```python
 
+```
 training 69889d6e nan nan nan nan nan
+```python
 
+```
 training 6a1e5592 nan nan nan nan nan
+```python
 
+```
 training 6a980be1 nan nan nan nan nan
+```python
 
+```
 training 6aa20dc0 nan nan nan nan nan
+```python
 
+```
 training 6b9890af nan nan nan nan nan
+```python
 
+```
 training 6bcdb01e nan nan nan nan nan
+```python
 
+```
 training 6c434453 nan nan nan nan nan
+```python
 
+```
 training 6ca952ad nan nan nan nan nan
+```python
 
+```
 training 6cdd2623 nan nan nan nan nan
+```python
 
+```
 training 6cf79266 nan nan nan nan nan
+```python
 
+```
 training 6d0160f0 nan nan nan nan nan
+```python
 
+```
 training 6d1d5c90 nan nan nan nan nan
+```python
 
+```
 training 6d58a25d nan nan nan nan nan
+```python
 
+```
 training 6d75e8bb nan nan nan nan nan
+```python
 
+```
 training 6df30ad6 nan nan nan nan nan
+```python
 
+```
 training 6e02f1e3 nan nan nan nan nan
+```python
 
+```
 training 6ea4a07e nan nan nan nan nan
+```python
 
+```
 training 6ecd11f4 nan nan nan nan nan
+```python
 
+```
 training 6f8cd79b nan nan nan nan nan
+```python
 
+```
 training 7039b2d7 nan nan nan nan nan
+```python
 
+```
 training 705a3229 nan nan nan nan nan
+```python
 
+```
 training 72207abc nan nan nan nan nan
+```python
 
+```
 training 72ca375d nan nan nan nan nan
+```python
 
+```
 training 73182012 nan nan nan nan nan
+```python
 
+```
 training 73ccf9c2 nan nan nan nan nan
+```python
 
+```
 training 746b3537 nan nan nan nan nan
+```python
 
+```
 training 753ea09b nan nan nan nan nan
+```python
 
+```
 training 758abdf0 nan nan nan nan nan
+```python
 
+```
 training 759f3fd3 nan nan nan nan nan
+```python
 
+```
 training 75b8110e nan nan nan nan nan
+```python
 
+```
 training 760b3cac nan nan nan nan nan
+```python
 
+```
 training 762cd429 nan nan nan nan nan
+```python
 
+```
 training 770cc55f nan nan nan nan nan
+```python
 
+```
 training 776ffc46 nan nan nan nan nan
+```python
 
+```
 training 780d0b14 nan nan nan nan nan
+```python
 
+```
 training 782b5218 nan nan nan nan nan
+```python
 
+```
 training 78e78cff nan nan nan nan nan
+```python
 
+```
 training 79369cc6 nan nan nan nan nan
+```python
 
+```
 training 794b24be nan nan nan nan nan
+```python
 
+```
 training 7953d61e nan nan nan nan nan
+```python
 
+```
 training 79cce52d nan nan nan nan nan
+```python
 
+```
 training 7acdf6d3 nan nan nan nan nan
+```python
 
+```
 training 7b6016b9 nan nan nan nan nan
+```python
 
+```
 training 7b7f7511 nan nan nan nan nan
+```python
 
+```
 training 7c008303 nan nan nan nan nan
+```python
 
+```
 training 7c9b52a0 nan nan nan nan nan
+```python
 
+```
 training 7d18a6fb nan nan nan nan nan
+```python
 
+```
 training 7d419a02 nan nan nan nan nan
+```python
 
+```
 training 7d7772cc nan nan nan nan nan
+```python
 
+```
 training 7ddcd7ec nan nan nan nan nan
+```python
 
+```
 training 7df24a62 nan nan nan nan nan
+```python
 
+```
 training 7e0986d6 nan nan nan nan nan
+```python
 
+```
 training 7e2bad24 nan nan nan nan nan
+```python
 
+```
 training 7e4d4f7c nan nan nan nan nan
+```python
 
+```
 training 7e576d6e nan nan nan nan nan
+```python
 
+```
 training 7ec998c9 nan nan nan nan nan
+```python
 
+```
 training 7ee1c6ea nan nan nan nan nan
+```python
 
+```
 training 7f4411dc nan nan nan nan nan
+```python
 
+```
 training 7fe24cdd nan nan nan nan nan
+```python
 
+```
 training 80214e03 nan nan nan nan nan
+```python
 
+```
 training 80af3007 nan nan nan nan nan
+```python
 
+```
 training 810b9b61 nan nan nan nan nan
+```python
 
+```
 training 817e6c09 nan nan nan nan nan
+```python
 
+```
 training 81c0276b nan nan nan nan nan
+```python
 
+```
 training 82819916 nan nan nan nan nan
+```python
 
+```
 training 83302e8f nan nan nan nan nan
+```python
 
+```
 training 833966f4 nan nan nan nan nan
+```python
 
+```
 training 833dafe3 nan nan nan nan nan
+```python
 
+```
 training 834ec97d nan nan nan nan nan
+```python
 
+```
 training 83b6b474 nan nan nan nan nan
+```python
 
+```
 training 83eb0a57 nan nan nan nan nan
+```python
 
+```
 training 84551f4c nan nan nan nan nan
+```python
 
+```
 training 845d6e51 nan nan nan nan nan
+```python
 
+```
 training 846bdb03 nan nan nan nan nan
+```python
 
+```
 training 84ba50d3 nan nan nan nan nan
+```python
 
+```
 training 84db8fc4 nan nan nan nan nan
+```python
 
+```
 training 84f2aca1 nan nan nan nan nan
+```python
 
+```
 training 855e0971 nan nan nan nan nan
+```python
 
+```
 training 8597cfd7 nan nan nan nan nan
+```python
 
+```
 training 85b81ff1 nan nan nan nan nan
+```python
 
+```
 training 85c4e7cd nan nan nan nan nan
+```python
 
+```
 training 85fa5666 nan nan nan nan nan
+```python
 
+```
 training 8618d23e nan nan nan nan nan
+```python
 
+```
 training 868de0fa nan nan nan nan nan
+```python
 
+```
 training 8719f442 nan nan nan nan nan
+```python
 
+```
 training 878187ab nan nan nan nan nan
+```python
 
+```
 training 880c1354 nan nan nan nan nan
+```python
 
+```
 training 8886d717 nan nan nan nan nan
+```python
 
+```
 training 88a10436 nan nan nan nan nan
+```python
 
+```
 training 88a62173 nan nan nan nan nan
+```python
 
+```
 training 890034e9 nan nan nan nan nan
+```python
 
+```
 training 896d5239 nan nan nan nan nan
+```python
 
+```
 training 8a004b2b nan nan nan nan nan
+```python
 
+```
 training 8a371977 nan nan nan nan nan
+```python
 
+```
 training 8a6d367c nan nan nan nan nan
+```python
 
+```
 training 8abad3cf nan nan nan nan nan
+```python
 
+```
 training 8b28cd80 nan nan nan nan nan
+```python
 
+```
 training 8ba14f53 nan nan nan nan nan
+```python
 
+```
 training 8cb8642d nan nan nan nan nan
+```python
 
+```
 training 8d5021e8 nan nan nan nan nan
+```python
 
+```
 training 8dab14c2 nan nan nan nan nan
+```python
 
+```
 training 8dae5dfc nan nan nan nan nan
+```python
 
+```
 training 8e2edd66 nan nan nan nan nan
+```python
 
+```
 training 8e301a54 nan nan nan nan nan
+```python
 
+```
 training 8e5a5113 nan nan nan nan nan
+```python
 
+```
 training 8eb1be9a nan nan nan nan nan
+```python
 
+```
 training 8ee62060 nan nan nan nan nan
+```python
 
+```
 training 8efcae92 nan nan nan nan nan
+```python
 
+```
 training 8f2ea7aa nan nan nan nan nan
+```python
 
+```
 training 8fbca751 nan nan nan nan nan
+```python
 
+```
 training 8fff9e47 nan nan nan nan nan
+```python
 
+```
 training 902510d5 nan nan nan nan nan
+```python
 
+```
 training 90347967 nan nan nan nan nan
+```python
 
+```
 training 90c28cc7 nan nan nan nan nan
+```python
 
+```
 training 9110e3c5 nan nan nan nan nan
+```python
 
+```
 training 913fb3ed nan nan nan nan nan
+```python
 
+```
 training 91413438 nan nan nan nan nan
+```python
 
+```
 training 91714a58 nan nan nan nan nan
+```python
 
+```
 training 917bccba nan nan nan nan nan
+```python
 
+```
 training 928ad970 nan nan nan nan nan
+```python
 
+```
 training 92e50de0 nan nan nan nan nan
+```python
 
+```
 training 9344f635 nan nan nan nan nan
+```python
 
+```
 training 9356391f nan nan nan nan nan
+```python
 
+```
 training 93c31fbe nan nan nan nan nan
+```python
 
+```
 training 94133066 nan nan nan nan nan
+```python
 
+```
 training 941d9a10 nan nan nan nan nan
+```python
 
+```
 training 9473c6fb nan nan nan nan nan
+```python
 
+```
 training 952a094c nan nan nan nan nan
+```python
 
+```
 training 9565186b nan nan nan nan nan
+```python
 
+```
 training 95990924 nan nan nan nan nan
+```python
 
+```
 training 95a58926 nan nan nan nan nan
+```python
 
+```
 training 963c33f8 nan nan nan nan nan
+```python
 
+```
 training 963e52fc nan nan nan nan nan
+```python
 
+```
 training 963f59bc nan nan nan nan nan
+```python
 
+```
 training 96a8c0cd nan nan nan nan nan
+```python
 
+```
 training 9720b24f nan nan nan nan nan
+```python
 
+```
 training 97239e3d nan nan nan nan nan
+```python
 
+```
 training 973e499e nan nan nan nan nan
+```python
 
+```
 training 9772c176 nan nan nan nan nan
+```python
 
+```
 training 97c75046 nan nan nan nan nan
+```python
 
+```
 training 9841fdad nan nan nan nan nan
+```python
 
+```
 training 984d8a3e nan nan nan nan nan
+```python
 
+```
 training 985ae207 nan nan nan nan nan
+```python
 
+```
 training 98c475bf nan nan nan nan nan
+```python
 
+```
 training 98cf29f8 nan nan nan nan nan
+```python
 
+```
 training 992798f6 nan nan nan nan nan
+```python
 
+```
 training 99306f82 nan nan nan nan nan
+```python
 
+```
 training 995c5fa3 nan nan nan nan nan
+```python
 
+```
 training 9968a131 nan nan nan nan nan
+```python
 
+```
 training 996ec1f3 nan nan nan nan nan
+```python
 
+```
 training 99caaf76 nan nan nan nan nan
+```python
 
+```
 training 99fa7670 nan nan nan nan nan
+```python
 
+```
 training 9a4bb226 nan nan nan nan nan
+```python
 
+```
 training 9aec4887 nan nan nan nan nan
+```python
 
+```
 training 9af7a82c nan nan nan nan nan
+```python
 
+```
 training 9b2a60aa nan nan nan nan nan
+```python
 
+```
 training 9b30e358 nan nan nan nan nan
+```python
 
+```
 training 9b365c51 nan nan nan nan nan
+```python
 
+```
 training 9b4c17c4 nan nan nan nan nan
+```python
 
+```
 training 9ba4a9aa nan nan nan nan nan
+```python
 
+```
 training 9bebae7a nan nan nan nan nan
+```python
 
+```
 training 9c56f360 nan nan nan nan nan
+```python
 
+```
 training 9caba7c3 nan nan nan nan nan
+```python
 
+```
 training 9caf5b84 nan nan nan nan nan
+```python
 
+```
 training 9d9215db nan nan nan nan nan
+```python
 
+```
 training 9ddd00f0 nan nan nan nan nan
+```python
 
+```
 training 9def23fe nan nan nan nan nan
+```python
 
+```
 training 9edfc990 nan nan nan nan nan
+```python
 
+```
 training 9f27f097 nan nan nan nan nan
+```python
 
+```
 training 9f41bd9c nan nan nan nan nan
+```python
 
+```
 training 9f5f939b nan nan nan nan nan
+```python
 
+```
 training 9f669b64 nan nan nan nan nan
+```python
 
+```
 training 9f8de559 nan nan nan nan nan
+```python
 
+```
 training a04b2602 nan nan nan nan nan
+```python
 
+```
 training a096bf4d nan nan nan nan nan
+```python
 
+```
 training a09f6c25 nan nan nan nan nan
+```python
 
+```
 training a1570a43 nan nan nan nan nan
+```python
 
+```
 training a1aa0c1e nan nan nan nan nan
+```python
 
+```
 training a2d730bd nan nan nan nan nan
+```python
 
+```
 training a2fd1cf0 nan nan nan nan nan
+```python
 
+```
 training a3325580 nan nan nan nan nan
+```python
 
+```
 training a3f84088 nan nan nan nan nan
+```python
 
+```
 training a406ac07 nan nan nan nan nan
+```python
 
+```
 training a48eeaf7 nan nan nan nan nan
+```python
 
+```
 training a59b95c0 nan nan nan nan nan
+```python
 
+```
 training a5f85a15 nan nan nan nan nan
+```python
 
+```
 training a61ba2ce nan nan nan nan nan
+```python
 
+```
 training a61f2674 nan nan nan nan nan
+```python
 
+```
 training a64e4611 nan nan nan nan nan
+```python
 
+```
 training a65b410d nan nan nan nan nan
+```python
 
+```
 training a680ac02 nan nan nan nan nan
+```python
 
+```
 training a68b268e nan nan nan nan nan
+```python
 
+```
 training a6953f00 nan nan nan nan nan
+```python
 
+```
 training a740d043 nan nan nan nan nan
+```python
 
+```
 training a78176bb nan nan nan nan nan
+```python
 
+```
 training a79310a0 nan nan nan nan nan
+```python
 
+```
 training a834deea nan nan nan nan nan
+```python
 
+```
 training a8610ef7 nan nan nan nan nan
+```python
 
+```
 training a8c38be5 nan nan nan nan nan
+```python
 
+```
 training a8d7556c nan nan nan nan nan
+```python
 
+```
 training a934301b nan nan nan nan nan
+```python
 
+```
 training a9f96cdd nan nan nan nan nan
+```python
 
+```
 training aa18de87 nan nan nan nan nan
+```python
 
+```
 training aa300dc3 nan nan nan nan nan
+```python
 
+```
 training aa62e3f4 nan nan nan nan nan
+```python
 
+```
 training aab50785 nan nan nan nan nan
+```python
 
+```
 training aabf363d nan nan nan nan nan
+```python
 
+```
 training aaecdb9a nan nan nan nan nan
+```python
 
+```
 training aaef0977 nan nan nan nan nan
+```python
 
+```
 training aba27056 nan nan nan nan nan
+```python
 
+```
 training abbfd121 nan nan nan nan nan
+```python
 
+```
 training ac0a08a4 nan nan nan nan nan
+```python
 
+```
 training ac0c2ac3 nan nan nan nan nan
+```python
 
+```
 training ac2e8ecf nan nan nan nan nan
+```python
 
+```
 training ac3e2b04 nan nan nan nan nan
+```python
 
+```
 training ac605cbb nan nan nan nan nan
+```python
 
+```
 training ac6f9922 nan nan nan nan nan
+```python
 
+```
 training ad173014 nan nan nan nan nan
+```python
 
+```
 training ad3b40cf nan nan nan nan nan
+```python
 
+```
 training ad7e01d0 nan nan nan nan nan
+```python
 
+```
 training ae3edfdc nan nan nan nan nan
+```python
 
+```
 training ae4f1146 nan nan nan nan nan
+```python
 
+```
 training ae58858e nan nan nan nan nan
+```python
 
+```
 training aedd82e4 nan nan nan nan nan
+```python
 
+```
 training aee291af nan nan nan nan nan
+```python
 
+```
 training af24b4cc nan nan nan nan nan
+```python
 
+```
 training af902bf9 nan nan nan nan nan
+```python
 
+```
 training afe3afe9 nan nan nan nan nan
+```python
 
+```
 training b0722778 nan nan nan nan nan
+```python
 
+```
 training b0c4d837 nan nan nan nan nan
+```python
 
+```
 training b0f4d537 nan nan nan nan nan
+```python
 
+```
 training b15fca0b nan nan nan nan nan
+```python
 
+```
 training b190f7f5 nan nan nan nan nan
+```python
 
+```
 training b1986d4b nan nan nan nan nan
+```python
 
+```
 training b1fc8b8e nan nan nan nan nan
+```python
 
+```
 training b20f7c8b nan nan nan nan nan
+```python
 
+```
 training b230c067 nan nan nan nan nan
+```python
 
+```
 training b25e450b nan nan nan nan nan
+```python
 
+```
 training b27ca6d3 nan nan nan nan nan
+```python
 
+```
 training b2862040 nan nan nan nan nan
+```python
 
+```
 training b2bc3ffd nan nan nan nan nan
+```python
 
+```
 training b457fec5 nan nan nan nan nan
+```python
 
+```
 training b4a43f3b nan nan nan nan nan
+```python
 
+```
 training b527c5c6 nan nan nan nan nan
+```python
 
+```
 training b5bb5719 nan nan nan nan nan
+```python
 
+```
 training b60334d2 nan nan nan nan nan
+```python
 
+```
 training b6afb2da nan nan nan nan nan
+```python
 
+```
 training b71a7747 nan nan nan nan nan
+```python
 
+```
 training b7249182 nan nan nan nan nan
+```python
 
+```
 training b7256dcd nan nan nan nan nan
+```python
 
+```
 training b745798f nan nan nan nan nan
+```python
 
+```
 training b74ca5d1 nan nan nan nan nan
+```python
 
+```
 training b775ac94 nan nan nan nan nan
+```python
 
+```
 training b782dc8a nan nan nan nan nan
+```python
 
+```
 training b7cb93ac nan nan nan nan nan
+```python
 
+```
 training b7f8a4d8 nan nan nan nan nan
+```python
 
+```
 training b7fb29bc nan nan nan nan nan
+```python
 
+```
 training b8825c91 nan nan nan nan nan
+```python
 
+```
 training b8cdaf2b nan nan nan nan nan
+```python
 
+```
 training b942fd60 nan nan nan nan nan
+```python
 
+```
 training b94a9452 nan nan nan nan nan
+```python
 
+```
 training b9630600 nan nan nan nan nan
+```python
 
+```
 training b9b7f026 nan nan nan nan nan
+```python
 
+```
 training ba1aa698 nan nan nan nan nan
+```python
 
+```
 training ba26e723 nan nan nan nan nan
+```python
 
+```
 training ba9d41b8 nan nan nan nan nan
+```python
 
+```
 training bae5c565 nan nan nan nan nan
+```python
 
+```
 training bb43febb nan nan nan nan nan
+```python
 
+```
 training bb52a14b nan nan nan nan nan
+```python
 
+```
 training bbb1b8b6 nan nan nan nan nan
+```python
 
+```
 training bbc9ae5d nan nan nan nan nan
+```python
 
+```
 training bc1d5164 nan nan nan nan nan
+```python
 
+```
 training bc4146bd nan nan nan nan nan
+```python
 
+```
 training bc93ec48 nan nan nan nan nan
+```python
 
+```
 training bcb3040b nan nan nan nan nan
+```python
 
+```
 training bd14c3bf nan nan nan nan nan
+```python
 
+```
 training bd283c4a nan nan nan nan nan
+```python
 
+```
 training bd4472b8 nan nan nan nan nan
+```python
 
+```
 training bd5af378 nan nan nan nan nan
+```python
 
+```
 training bda2d7a6 nan nan nan nan nan
+```python
 
+```
 training be03b35f nan nan nan nan nan
+```python
 
+```
 training beb8660c nan nan nan nan nan
+```python
 
+```
 training bf32578f nan nan nan nan nan
+```python
 
+```
 training bf699163 nan nan nan nan nan
+```python
 
+```
 training bf89d739 nan nan nan nan nan
+```python
 
+```
 training c074846d nan nan nan nan nan
+```python
 
+```
 training c0f76784 nan nan nan nan nan
+```python
 
+```
 training c1990cce nan nan nan nan nan
+```python
 
+```
 training c1d99e64 nan nan nan nan nan
+```python
 
+```
 training c3202e5a nan nan nan nan nan
+```python
 
+```
 training c35c1b4c nan nan nan nan nan
+```python
 
+```
 training c3fa4749 nan nan nan nan nan
+```python
 
+```
 training c444b776 nan nan nan nan nan
+```python
 
+```
 training c48954c1 nan nan nan nan nan
+```python
 
+```
 training c6141b15 nan nan nan nan nan
+```python
 
+```
 training c61be7dc nan nan nan nan nan
+```python
 
+```
 training c62e2108 nan nan nan nan nan
+```python
 
+```
 training c64f1187 nan nan nan nan nan
+```python
 
+```
 training c658a4bd nan nan nan nan nan
+```python
 
+```
 training c6e1b8da nan nan nan nan nan
+```python
 
+```
 training c7d4e6ad nan nan nan nan nan
+```python
 
+```
 training c803e39c nan nan nan nan nan
+```python
 
+```
 training c87289bb nan nan nan nan nan
+```python
 
+```
 training c8b7cc0f nan nan nan nan nan
+```python
 
+```
 training c920a713 nan nan nan nan nan
+```python
 
+```
 training c92b942c nan nan nan nan nan
+```python
 
+```
 training c9680e90 nan nan nan nan nan
+```python
 
+```
 training c97c0139 nan nan nan nan nan
+```python
 
+```
 training c9f8e694 nan nan nan nan nan
+```python
 
+```
 training ca8de6ea nan nan nan nan nan
+```python
 
+```
 training caa06a1f nan nan nan nan nan
+```python
 
+```
 training cad67732 nan nan nan nan nan
+```python
 
+```
 training cbded52d nan nan nan nan nan
+```python
 
+```
 training cc9053aa nan nan nan nan nan
+```python
 
+```
 training ccd554ac nan nan nan nan nan
+```python
 
+```
 training cce03e0d nan nan nan nan nan
+```python
 
+```
 training cdecee7f nan nan nan nan nan
+```python
 
+```
 training ce039d91 nan nan nan nan nan
+```python
 
+```
 training ce22a75a nan nan nan nan nan
+```python
 
+```
 training ce4f8723 nan nan nan nan nan
+```python
 
+```
 training ce602527 nan nan nan nan nan
+```python
 
+```
 training ce9e57f2 nan nan nan nan nan
+```python
 
+```
 training cf133acc nan nan nan nan nan
+```python
 
+```
 training cfb2ce5a nan nan nan nan nan
+```python
 
+```
 training d017b73f nan nan nan nan nan
+```python
 
+```
 training d07ae81c nan nan nan nan nan
+```python
 
+```
 training d0f5fe59 nan nan nan nan nan
+```python
 
+```
 training d13f3404 nan nan nan nan nan
+```python
 
+```
 training d19f7514 nan nan nan nan nan
+```python
 
+```
 training d23f8c26 nan nan nan nan nan
+```python
 
+```
 training d255d7a7 nan nan nan nan nan
+```python
 
+```
 training d282b262 nan nan nan nan nan
+```python
 
+```
 training d2acf2cb nan nan nan nan nan
+```python
 
+```
 training d304284e nan nan nan nan nan
+```python
 
+```
 training d364b489 nan nan nan nan nan
+```python
 
+```
 training d37a1ef5 nan nan nan nan nan
+```python
 
+```
 training d406998b nan nan nan nan nan
+```python
 
+```
 training d43fd935 nan nan nan nan nan
+```python
 
+```
 training d4469b4b nan nan nan nan nan
+```python
 
+```
 training d47aa2ff nan nan nan nan nan
+```python
 
+```
 training d492a647 nan nan nan nan nan
+```python
 
+```
 training d4a91cb9 nan nan nan nan nan
+```python
 
+```
 training d4b1c2b1 nan nan nan nan nan
+```python
 
+```
 training d4c90558 nan nan nan nan nan
+```python
 
+```
 training d4f3cd78 nan nan nan nan nan
+```python
 
+```
 training d56f2372 nan nan nan nan nan
+```python
 
+```
 training d5c634a2 nan nan nan nan nan
+```python
 
+```
 training d687bc17 nan nan nan nan nan
+```python
 
+```
 training d6e50e54 nan nan nan nan nan
+```python
 
+```
 training d749d46f nan nan nan nan nan
+```python
 
+```
 training d89b689b nan nan nan nan nan
+```python
 
+```
 training d90796e8 nan nan nan nan nan
+```python
 
+```
 training d931c21c nan nan nan nan nan
+```python
 
+```
 training d94c3b52 nan nan nan nan nan
+```python
 
+```
 training d968ffd4 nan nan nan nan nan
+```python
 
+```
 training d9f24cd1 nan nan nan nan nan
+```python
 
+```
 training d9fac9be nan nan nan nan nan
+```python
 
+```
 training da2b0fe3 nan nan nan nan nan
+```python
 
+```
 training da6e95e5 nan nan nan nan nan
+```python
 
+```
 training dae9d2b5 nan nan nan nan nan
+```python
 
+```
 training db7260a4 nan nan nan nan nan
+```python
 
+```
 training dbc1a6ce nan nan nan nan nan
+```python
 
+```
 training dc1df850 nan nan nan nan nan
+```python
 
+```
 training dc2aa30b nan nan nan nan nan
+```python
 
+```
 training dc433765 nan nan nan nan nan
+```python
 
+```
 training dc46ea44 nan nan nan nan nan
+```python
 
+```
 training dd2401ed nan nan nan nan nan
+```python
 
+```
 training de1cd16c nan nan nan nan nan
+```python
 
+```
 training de493100 nan nan nan nan nan
+```python
 
+```
 training ded97339 nan nan nan nan nan
+```python
 
+```
 training df978a02 nan nan nan nan nan
+```python
 
+```
 training df9fd884 nan nan nan nan nan
+```python
 
+```
 training e048c9ed nan nan nan nan nan
+```python
 
+```
 training e0fb7511 nan nan nan nan nan
+```python
 
+```
 training e133d23d nan nan nan nan nan
+```python
 
+```
 training e1baa8a4 nan nan nan nan nan
+```python
 
+```
 training e1d2900e nan nan nan nan nan
+```python
 
+```
 training e2092e0c nan nan nan nan nan
+```python
 
+```
 training e21a174a nan nan nan nan nan
+```python
 
+```
 training e21d9049 nan nan nan nan nan
+```python
 
+```
 training e26a3af2 nan nan nan nan nan
+```python
 
+```
 training e345f17b nan nan nan nan nan
+```python
 
+```
 training e3497940 nan nan nan nan nan
+```python
 
+```
 training e39e9282 nan nan nan nan nan
+```python
 
+```
 training e3f79277 nan nan nan nan nan
+```python
 
+```
 training e3fe1151 nan nan nan nan nan
+```python
 
+```
 training e4075551 nan nan nan nan nan
+```python
 
+```
 training e40b9e2f nan nan nan nan nan
+```python
 
+```
 training e41c6fd3 nan nan nan nan nan
+```python
 
+```
 training e45ef808 nan nan nan nan nan
+```python
 
+```
 training e4888269 nan nan nan nan nan
+```python
 
+```
 training e48d4e1a nan nan nan nan nan
+```python
 
+```
 training e4941b18 nan nan nan nan nan
+```python
 
+```
 training e5062a87 nan nan nan nan nan
+```python
 
+```
 training e509e548 nan nan nan nan nan
+```python
 
+```
 training e50d258f nan nan nan nan nan
+```python
 
+```
 training e57337a4 nan nan nan nan nan
+```python
 
+```
 training e5790162 nan nan nan nan nan
+```python
 
+```
 training e5c44e8f nan nan nan nan nan
+```python
 
+```
 training e619ca6e nan nan nan nan nan
+```python
 
+```
 training e633a9e5 nan nan nan nan nan
+```python
 
+```
 training e6721834 nan nan nan nan nan
+```python
 
+```
 training e681b708 nan nan nan nan nan
+```python
 
+```
 training e69241bd nan nan nan nan nan
+```python
 
+```
 training e6de6e8f nan nan nan nan nan
+```python
 
+```
 training e729b7be nan nan nan nan nan
+```python
 
+```
 training e73095fd nan nan nan nan nan
+```python
 
+```
 training e734a0e8 nan nan nan nan nan
+```python
 
+```
 training e74e1818 nan nan nan nan nan
+```python
 
+```
 training e7639916 nan nan nan nan nan
+```python
 
+```
 training e76a88a6 nan nan nan nan nan
+```python
 
+```
 training e78887d1 nan nan nan nan nan
+```python
 
+```
 training e7a25a18 nan nan nan nan nan
+```python
 
+```
 training e7b06bea nan nan nan nan nan
+```python
 
+```
 training e7dd8335 nan nan nan nan nan
+```python
 
+```
 training e84fef15 nan nan nan nan nan
+```python
 
+```
 training e8593010 nan nan nan nan nan
+```python
 
+```
 training e872b94a nan nan nan nan nan
+```python
 
+```
 training e88171ec nan nan nan nan nan
+```python
 
+```
 training e8dc4411 nan nan nan nan nan
+```python
 
+```
 training e9614598 nan nan nan nan nan
+```python
 
+```
 training e98196ab nan nan nan nan nan
+```python
 
+```
 training e99362f0 nan nan nan nan nan
+```python
 
+```
 training e9ac8c9e nan nan nan nan nan
+```python
 
+```
 training e9afcf9a nan nan nan nan nan
+```python
 
+```
 training e9b4f6fc nan nan nan nan nan
+```python
 
+```
 training e9bb6954 nan nan nan nan nan
+```python
 
+```
 training e9c9d9a1 nan nan nan nan nan
+```python
 
+```
 training e9fc42f2 nan nan nan nan nan
+```python
 
+```
 training ea32f347 nan nan nan nan nan
+```python
 
+```
 training ea786f4a nan nan nan nan nan
+```python
 
+```
 training ea959feb nan nan nan nan nan
+```python
 
+```
 training ea9794b1 nan nan nan nan nan
+```python
 
+```
 training eb281b96 nan nan nan nan nan
+```python
 
+```
 training eb5a1d5d nan nan nan nan nan
+```python
 
+```
 training ecaa0ec1 nan nan nan nan nan
+```python
 
+```
 training ecb67b6d nan nan nan nan nan
+```python
 
+```
 training ed74f2f2 nan nan nan nan nan
+```python
 
+```
 training edcc2ff0 nan nan nan nan nan
+```python
 
+```
 training ef135b50 nan nan nan nan nan
+```python
 
+```
 training ef26cbf6 nan nan nan nan nan
+```python
 
+```
 training f0df5ff0 nan nan nan nan nan
+```python
 
+```
 training f0f8a26d nan nan nan nan nan
+```python
 
+```
 training f15e1fac nan nan nan nan nan
+```python
 
+```
 training f18ec8cc nan nan nan nan nan
+```python
 
+```
 training f1bcbc2c nan nan nan nan nan
+```python
 
+```
 training f1cefba8 nan nan nan nan nan
+```python
 
+```
 training f21745ec nan nan nan nan nan
+```python
 
+```
 training f25fbde4 nan nan nan nan nan
+```python
 
+```
 training f25ffba3 nan nan nan nan nan
+```python
 
+```
 training f2829549 nan nan nan nan nan
+```python
 
+```
 training f341894c nan nan nan nan nan
+```python
 
+```
 training f35d900a nan nan nan nan nan
+```python
 
+```
 training f3b10344 nan nan nan nan nan
+```python
 
+```
 training f3cdc58f nan nan nan nan nan
+```python
 
+```
 training f3e14006 nan nan nan nan nan
+```python
 
+```
 training f3e62deb nan nan nan nan nan
+```python
 
+```
 training f45f5ca7 nan nan nan nan nan
+```python
 
+```
 training f5aa3634 nan nan nan nan nan
+```python
 
+```
 training f5b8619d nan nan nan nan nan
+```python
 
+```
 training f5c89df1 nan nan nan nan nan
+```python
 
+```
 training f76d97a5 nan nan nan nan nan
+```python
 
+```
 training f823c43c nan nan nan nan nan
+```python
 
+```
 training f8a8fe49 nan nan nan nan nan
+```python
 
+```
 training f8b3ba0a nan nan nan nan nan
+```python
 
+```
 training f8be4b64 nan nan nan nan nan
+```python
 
+```
 training f8cc533f nan nan nan nan nan
+```python
 
+```
 training f8f52ecc nan nan nan nan nan
+```python
 
+```
 training f8ff0b80 nan nan nan nan nan
+```python
 
+```
 training f9a67cb5 nan nan nan nan nan
+```python
 
+```
 training fafd9572 nan nan nan nan nan
+```python
 
+```
 training fafffa47 nan nan nan nan nan
+```python
 
+```
 training fb791726 nan nan nan nan nan
+```python
 
+```
 training fbf15a0b nan nan nan nan nan
+```python
 
+```
 training fc10701f nan nan nan nan nan
+```python
 
+```
 training fc754716 nan nan nan nan nan
+```python
 
+```
 training fcb5c309 nan nan nan nan nan
+```python
 
+```
 training fcc82909 nan nan nan nan nan
+```python
 
+```
 training fd02da9e nan nan nan nan nan
+```python
 
+```
 training fd096ab6 nan nan nan nan nan
+```python
 
+```
 training fd4b2b02 nan nan nan nan nan
+```python
 
+```
 training fe9372f3 nan nan nan nan nan
+```python
 
+```
 training fea12743 nan nan nan nan nan
+```python
 
+```
 training feca6190 nan nan nan nan nan
+```python
 
+```
 training ff2825db nan nan nan nan nan
+```python
 
+```
 training ff28f65a nan nan nan nan nan
+```python
 
+```
 training ff805c23 nan nan nan nan nan
+```python
 
+```
 training 2037f2c7 nan nan nan nan nan
+```python
 
+```
 training 292dd178 nan nan nan nan nan
+```python
 
+```
 training 39e1d7f9 nan nan nan nan nan
+```python
 
+```
 training 6ad5bdfd nan nan nan nan nan
+```python
 
+```
 training 72a961c9 nan nan nan nan nan
+```python
 
+```
 training 93b4f4b3 nan nan nan nan nan
+```python
 
+```
 training 95755ff2 nan nan nan nan nan
+```python
 
+```
 training a57f2f04 nan nan nan nan nan
+```python
 
+```
 training a87f7484 nan nan nan nan nan
+```python
 
+```
 training af726779 nan nan nan nan nan
+```python
 
+```
 training e179c5f4 nan nan nan nan nan
+```python
 
+```
 training e760a62e nan nan nan nan nan
+```python
 
+```

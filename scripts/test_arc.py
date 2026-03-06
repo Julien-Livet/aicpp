@@ -499,11 +499,11 @@ def run_tasks(folder: str) -> int:
 
     results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: (x[-1], len(x[0])))
 
-    f = open(folder + "_results.txt", "w")
+    f = open(folder + "_results.md", "w")
 
     for result in results:
         f.write(" ".join(str(x) for x in result[1:]) + "\n")
-        f.write(result[0] + "\n")
+        f.write("```python\n" + result[0] + "\n```\n")
 
     f.close()
 
