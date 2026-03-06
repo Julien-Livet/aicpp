@@ -12,4 +12,4 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install -r requirements.txt
       - name: Run tests
-        run: docker run aicpp && cd scripts && python -m pytest -sxv engine.py && git clone https://github.com/michaelhodel/arc-dsl.git && mkdir proposals && python -m pytest -sxv test_arc.py
+        run: docker run aicpp && cd scripts && python -m pytest -sxv engine.py && git clone https://github.com/michaelhodel/arc-dsl.git && python -m pytest -sxv test_arc.py

@@ -75,7 +75,6 @@ docker run --rm aicpp
 cd scripts
 python -m pytest -sxv engine.py
 git clone https://github.com/michaelhodel/arc-dsl.git
-mkdir proposals
 python -m pytest -sxv test_arc.py
 ```
 
