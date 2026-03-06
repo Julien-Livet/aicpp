@@ -497,7 +497,7 @@ def run_tasks(folder: str) -> int:
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
-    results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: x[-1])
+    results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: (x[-1], len(x[0])))
 
     f = open(folder + "_results.txt", "w")
 

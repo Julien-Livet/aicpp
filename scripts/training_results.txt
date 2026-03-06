@@ -1,16 +1,243 @@
-training 00dbd492 0.0 0.0 0.0 0.0 0.0
+training 3c9b0459 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    x0 = objects(I, T, F, T)
-    x1 = colorfilter(x0, TWO)
-    s16 = sizefilter(x1, 16)
-    p16 = mapply(delta, s16)
-    O0 = underfill(I, EIGHT, p16)
-    s24 = sizefilter(x1, 24)
-    p24 = mapply(delta, s24)
-    O1 = underfill(O0, FOUR, p24)
-    s32 = sizefilter(x1, 32)
-    p32 = mapply(delta, s32)
-    O = underfill(O1, THREE, p32)
+    O = rot180(I)
+    return O
+training 6150a2bd 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = rot180(I)
+    return O
+training ed36ccf7 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = rot270(I)
+    return O
+training 67a3c6ac 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = vmirror(I)
+    return O
+training 68b16354 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = hmirror(I)
+    return O
+training 74dd1130 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = dmirror(I)
+    return O
+training 9dfd6313 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = dmirror(I)
+    return O
+training a416b8f3 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = hconcat(I, I)
+    return O
+training c59eb873 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = upscale(I, TWO)
+    return O
+training 9172f3a0 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = upscale(I, THREE)
+    return O
+training b1948b0a 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = replace(I, SIX, TWO)
+    return O
+training 4c4377d9 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = vconcat(hmirror(I), I)
+    return O
+training 6d0aefbc 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = hconcat(I, vmirror(I))
+    return O
+training 6fa7a44f 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = vconcat(I, hmirror(I))
+    return O
+training 8be77c9e 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = vconcat(I, hmirror(I))
+    return O
+training d511f180 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = switch(I, FIVE, EIGHT)
+    return O
+training c8f0f002 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = replace(I, SEVEN, FIVE)
+    return O
+training d10ecb37 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = crop(I, ORIGIN, TWO_BY_TWO)
+    return O
+training c9e6f938 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = vmirror(I)
+    O = hconcat(I, x1)
+    return O
+training 5bd6f4ac 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = crop(I, tojvec(SIX), THREE_BY_THREE)
+    return O
+training 5614dbcf 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    x1 = replace(I, FIVE, ZERO)
+    O = downscale(x1, THREE)
+    return O
+training 5582e5ca 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = mostcolor(I)
+    x2 = shape(I)
+    O = canvas(x1, x2)
+    return O
+training c909285e 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    b = leastcolor(I)
+    P = ofcolor(I, b)
+    O = subgrid(P, I)
+    return O
+training be94b721 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = objects(I, T, F, T)
+    x2 = argmax(x1, size)
+    O = subgrid(x2, I)
+    return O
+training b91ae062 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    p = palette(I)
+    p2 = remove(ZERO, p)
+    n = size(p2)
+    O = upscale(I, n)
+    return O
+training 28bf18c6 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    c = leastcolor(I)
+    p = ofcolor(I, c)
+    g = subgrid(p, I)
+    O = hconcat(g, g)
+    return O
+training 1cf80156 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    x1 = asindices(I)
+    x2 = ofcolor(I, ZERO)
+    x3 = difference(x1, x2)
+    O = subgrid(x3, I)
+    return O
+training 25ff71a9 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x0 = asobject(I)
+    x1 = shift(x0, DOWN)
+    x2 = canvas(ZERO, shape(I))
+    O = paint(x2, x1)
+    return O
+training cd3c21df 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    x1 = fgpartition(I)
+    f = compose(size, backdrop)
+    x2 = argmin(x1, f)
+    O = subgrid(x2, I)
+    return O
+training 50cb2852 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    x1 = objects(I, T, F, T)
+    f = compose(delta, box)
+    x2 = mapply(f, x1)
+    O = fill(I, EIGHT, x2)
+    return O
+training d631b094 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    c = other(palette(I), ZERO)
+    n = colorcount(I, c)
+    dims = astuple(ONE, n)
+    O = canvas(c, dims)
+    return O
+training 2dee498d 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    h = height(I)
+    w = width(I)
+    w3 = divide(w, THREE)
+    dims = astuple(h, w3)
+    O = crop(I, ORIGIN, dims)
+    return O
+training 0d3d703e 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = switch(I, ONE, FIVE)
+    x2 = switch(x1, TWO, SIX)
+    x3 = switch(x2, THREE, FOUR)
+    O = switch(x3, EIGHT, NINE)
+    return O
+training 67e8384a 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    a = vmirror(I)
+    b = hmirror(I)
+    c = rot180(I)
+    top = hconcat(I, a)
+    bottom = hconcat(b, c)
+    O = vconcat(top, bottom)
+    return O
+training 32597951 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x8 = ofcolor(I, EIGHT)
+    bb = backdrop(x8)
+    ones = ofcolor(I, ONE)
+    tgt = intersection(bb, ones)
+    O = fill(I, THREE, tgt)
+    return O
+training ed98d772 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    A = I
+    B = rot270(I)
+    C = rot180(I)
+    D = rot90(I)
+    top = hconcat(A, B)
+    bottom = hconcat(C, D)
+    O = vconcat(top, bottom)
+    return O
+training 9f236235 0.0 0.0 0.0 0.0 0.0
+def dsl4(I):
+    x1 = compress(I)
+    x2 = objects(x1, T, F, T)
+    x3 = extract(x2, square)
+    x4 = height(x3)
+    x5 = downscale(x1, x4)
+    O = vmirror(x5)
+    return O
+training d037b0a7 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = objects(I, T, F, T)
+    f1 = compose(rbind(shoot, DOWN), ulcorner)
+    f2 = fork(recolor, color, f1)
+    x2 = mapply(f2, x1)
+    O = underpaint(I, x2)
+    return O
+training 94f9d214 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    a = tophalf(I)
+    b = bottomhalf(I)
+    z1 = ofcolor(a, ZERO)
+    z2 = ofcolor(b, ZERO)
+    z = intersection(z1, z2)
+    O = fill(canvas(ZERO, shape(a)), TWO, z)
+    return O
+training a699fb00 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    a = ofcolor(I, ONE)
+    b = shift(a, RIGHT)
+    c = shift(a, LEFT)
+    m = intersection(b, c)
+    z = ofcolor(I, ZERO)
+    p = intersection(m, z)
+    O = fill(I, TWO, p)
+    return O
+training 44f52bb0 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x1 = vmirror(I)
+    x2 = hmirror(I)
+    c1 = equality(I, x1)
+    c2 = equality(I, x2)
+    cond = either(c1, c2)
+    val = branch(cond, ONE, SEVEN)
+    O = canvas(val, UNITY)
     return O
 training 017c7c7b 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -20,23 +247,61 @@ def dsl1(I):
     c = branch(equality(a, b), a, vmirror(a))
     O = vconcat(a, vconcat(b, c))
     return O
-training 025d127b 0.0 0.0 0.0 0.0 0.0
+training d5d6de2d 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    O = canvas(ZERO, shape(I))
-    objs = objects(I, T, T, T)
-    for obj in objs:
-        inds = toindices(obj)
-        # bottom row of the object
-        bottom = intersection(inds, hfrontier(llcorner(obj)))
-        # all non-bottom indices
-        upper = difference(inds, bottom)
-        # right-edge indices (by object's rightmost column)
-        rightedge = intersection(upper, vfrontier(urcorner(obj)))
-        # shift upper non-rightedge to the right by 1
-        upper_move = shift(difference(upper, rightedge), RIGHT)
-        newinds = merge((bottom, rightedge, upper_move))
-        newobj = recolor(color(obj), newinds)
-        O = paint(O, newobj)
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    f = fork(equality, toindices, box)
+    x2 = sfilter(x1, f)
+    x3 = mapply(delta, x2)
+    x4 = canvas(ZERO, shape(I))
+    O = fill(x4, THREE, x3)
+    return O
+training cf5fd0ad 0.0 0.0 0.0 0.0 0.0
+def dsl2(I):
+    a = rot180(I)
+    b = rot90(I)
+    c = rot270(I)
+    top = hconcat(hconcat(a, a), hconcat(b, b))
+    bottom = hconcat(hconcat(c, c), hconcat(I, I))
+    O = vconcat(vconcat(top, top), vconcat(bottom, bottom))
+    return O
+training 87ab05b8 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    p = first(ofcolor(I, TWO))
+    s = multiply(halve(p), TWO)
+    a = initset(s)
+    b = insert(add(s, RIGHT), a)
+    c = insert(add(s, DOWN), b)
+    d = insert(add(add(s, DOWN), RIGHT), c)
+    base = canvas(SIX, shape(I))
+    O = fill(base, TWO, d)
+    return O
+training 623ea044 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    c = leastcolor(I)
+    s = first(ofcolor(I, c))
+    l1 = shoot(s, UP_RIGHT)
+    l2 = shoot(s, DOWN_LEFT)
+    l3 = shoot(s, NEG_UNITY)
+    l4 = shoot(s, UNITY)
+    u1 = combine(l1, l2)
+    u2 = combine(l3, l4)
+    u = combine(u1, u2)
+    O = fill(I, c, u)
+    return O
+training 37ce87bb 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    H = height(I)
+    W = width(I)
+    j = subtract(W, TWO)
+    c8 = colorcount(I, EIGHT)
+    c2 = colorcount(I, TWO)
+    h = subtract(c8, c2)
+    start_row = subtract(H, h)
+    start = astuple(start_row, j)
+    patch = shoot(start, DOWN)
+    O = fill(I, FIVE, patch)
     return O
 training 03560426 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -51,40 +316,193 @@ def dsl1(I):
         O = paint(O, placed)
         cur = lrcorner(placed)
     return O
-training 0d3d703e 0.0 0.0 0.0 0.0 0.0
+training 6f473927 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    x1 = switch(I, ONE, FIVE)
-    x2 = switch(x1, TWO, SIX)
-    x3 = switch(x2, THREE, FOUR)
-    O = switch(x3, EIGHT, NINE)
+    x1 = vmirror(I)
+    x2 = replace(x1, ZERO, EIGHT)
+    x3 = replace(x2, TWO, ZERO)
+    h = height(I)
+    c = crop(I, ORIGIN, astuple(h, ONE))
+    cond = greater(colorcount(c, TWO), ZERO)
+    left = branch(cond, x3, I)
+    right = branch(cond, I, x3)
+    O = hconcat(left, right)
     return O
-training 19bb5feb 0.0 0.0 0.0 0.0 0.0
+training d8c310e9 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    g = subgrid(ofcolor(I, EIGHT), I)
-    L = lefthalf(g)
-    R = righthalf(g)
-    TL = tophalf(L)
-    TR = tophalf(R)
-    BL = bottomhalf(L)
-    BR = bottomhalf(R)
-    cTL = leastcolor(TL)
-    cTR = leastcolor(TR)
-    cBL = leastcolor(BL)
-    cBR = leastcolor(BR)
-    vTL = branch(equality(cTL, EIGHT), ZERO, cTL)
-    vTR = branch(equality(cTR, EIGHT), ZERO, cTR)
-    vBL = branch(equality(cBL, EIGHT), ZERO, cBL)
-    vBR = branch(equality(cBR, EIGHT), ZERO, cBR)
-    r1 = hconcat(canvas(vTL, UNITY), canvas(vTR, UNITY))
-    r2 = hconcat(canvas(vBL, UNITY), canvas(vBR, UNITY))
-    O = vconcat(r1, r2)
+    x1 = rbind(objects, T)
+    x2 = rbind(x1, F)
+    x3 = rbind(x2, T)
+    x4 = compose(merge, x3)
+    obj0 = x4(I)
+    p = hperiod(obj0)
+    dir = astuple(ZERO, p)
+    sh = rbind(shift, dir)
+    shobj = compose(sh, x4)
+    f = fork(underpaint, identity, shobj)
+    n = width(I)
+    powf = power(f, n)
+    O = powf(I)
     return O
-training 1cf80156 0.0 0.0 0.0 0.0 0.0
+training 00dbd492 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x0 = objects(I, T, F, T)
+    x1 = colorfilter(x0, TWO)
+    s16 = sizefilter(x1, 16)
+    p16 = mapply(delta, s16)
+    O0 = underfill(I, EIGHT, p16)
+    s24 = sizefilter(x1, 24)
+    p24 = mapply(delta, s24)
+    O1 = underfill(O0, FOUR, p24)
+    s32 = sizefilter(x1, 32)
+    p32 = mapply(delta, s32)
+    O = underfill(O1, THREE, p32)
+    return O
+training dce56571 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    h = height(I)
+    w = width(I)
+    c = leastcolor(I)
+    k = colorcount(I, c)
+    r = halve(h)
+    diff = subtract(w, k)
+    s = halve(diff)
+    ek = add(s, k)
+    e = decrement(ek)
+    p1 = astuple(r, s)
+    p2 = astuple(r, e)
+    seg = connect(p1, p2)
+    dims = astuple(h, w)
+    base = canvas(EIGHT, dims)
+    O = fill(base, c, seg)
+    return O
+training 5c0a986e 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    ones = colorfilter(objs, ONE)
+    twos = colorfilter(objs, TWO)
+    o1 = first(ones)
+    o2 = first(twos)
+    s1 = ulcorner(o1)
+    s2 = lrcorner(o2)
+    r = asindices(I)
+    l1 = intersection(shoot(s1, NEG_UNITY), r)
+    l2 = intersection(shoot(s2, UNITY), r)
+    x = fill(I, ONE, l1)
+    O = fill(x, TWO, l2)
+    return O
+training 363442ee 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    s = shape(I)
+    O = canvas(ZERO, s)
+    obj5 = recolor(FIVE, ofcolor(I, FIVE))
+    O = paint(O, obj5)
+    src = crop(I, ORIGIN, THREE_BY_THREE)
+    sobj = asobject(src)
+    O = paint(O, sobj)
+    centers = ofcolor(I, ONE)
+    dirs = apply(rbind(subtract, UNITY), centers)
+    copies = mapply(lbind(shift, sobj), dirs)
+    O = paint(O, copies)
+    return O
+training cf98881b 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    A = crop(I, astuple(0, 0), astuple(4, 4))
+    B = crop(I, astuple(0, 5), astuple(4, 4))
+    C = crop(I, astuple(0, 10), astuple(4, 4))
+    non4 = difference(asindices(A), ofcolor(A, FOUR))
+    p9 = intersection(ofcolor(B, NINE), non4)
+    Y = fill(A, NINE, p9)
+    p1 = difference(intersection(ofcolor(C, ONE), non4), p9)
+    O = fill(Y, ONE, p1)
+    return O
+training 99b1bc43 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    x4 = ofcolor(I, FOUR)
+    r = uppermost(x4)
+    h = height(I)
+    w = width(I)
+    t = crop(I, astuple(0, 0), astuple(r, w))
+    b = crop(I, astuple(add(r, ONE), 0), astuple(subtract(h, add(r, ONE)), w))
+    a = ofcolor(t, ONE)
+    c = ofcolor(b, TWO)
+    x = combine(difference(a, c), difference(c, a))
+    O = fill(canvas(ZERO, shape(t)), THREE, x)
+    return O
+training f0afb749 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    U = upscale(I, TWO)
+    OB = objects(I, T, F, T)
+    P0 = apply(ulcorner, OB)
+    P = apply(double, P0)
+    DR = add(DOWN, RIGHT)
+    UL = add(UP, LEFT)
+    dr = rbind(shoot, DR)
+    ul = rbind(shoot, UL)
+    a = compose(lrcorner, dr)
+    b = compose(ulcorner, ul)
+    linefun = fork(connect, a, b)
+    L = mapply(linefun, P)
+    O = underfill(U, ONE, L)
+    return O
+training 6a11f6da 0.0 0.0 0.0 0.0 0.0
+def dsl3(I):
+    top = crop(I, astuple(0, 0), astuple(5, 5))
+    mid = crop(I, astuple(5, 0), astuple(5, 5))
+    bot = crop(I, astuple(10, 0), astuple(5, 5))
+    o1 = toobject(ofcolor(top, ONE), top)
+    o8 = toobject(ofcolor(mid, EIGHT), mid)
+    o6 = toobject(ofcolor(bot, SIX), bot)
+    base = canvas(ZERO, astuple(5, 5))
+    a = underpaint(base, o8)
+    b = paint(a, o1)
+    O = paint(b, o6)
+    return O
+training 7e02026e 0.0 0.0 0.0 0.0 0.0
 def dsl2(I):
-    x1 = asindices(I)
-    x2 = ofcolor(I, ZERO)
-    x3 = difference(x1, x2)
-    O = subgrid(x3, I)
+    S0 = ofcolor(I, ZERO)
+    Sh = intersection(intersection(S0, shift(S0, LEFT)), shift(S0, RIGHT))
+    Sv = intersection(intersection(S0, shift(S0, UP)), shift(S0, DOWN))
+    C = intersection(Sh, Sv)
+    arms_h = combine(shift(C, LEFT), shift(C, RIGHT))
+    arms_v = combine(shift(C, UP), shift(C, DOWN))
+    P = combine(C, combine(arms_h, arms_v))
+    Z = intersection(P, S0)
+    O = fill(I, THREE, Z)
+    return O
+training a85d4709 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    f = ofcolor(I, FIVE)
+    c0 = vfrontier(ORIGIN)
+    c1 = vfrontier(tojvec(ONE))
+    c2 = vfrontier(tojvec(TWO))
+    f0 = intersection(f, c0)
+    f1 = intersection(f, c1)
+    f2 = intersection(f, c2)
+    r0 = mapply(hfrontier, f0)
+    r1 = mapply(hfrontier, f1)
+    r2 = mapply(hfrontier, f2)
+    O0 = canvas(ZERO, shape(I))
+    O1 = fill(O0, TWO, r0)
+    O2 = fill(O1, FOUR, r1)
+    O = fill(O2, THREE, r2)
+    return O
+training db3e9e38 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    P = ofcolor(I, SEVEN)
+    H = height(P)
+    Ds = interval(ZERO, H, ONE)
+    dirs = combine(initset(RIGHT), initset(LEFT))
+    def fun(d, s):
+        v1 = toivec(invert(d))
+        v2 = multiply(s, d)
+        dir = add(v1, v2)
+        Sft = shift(P, dir)
+        c = branch(even(d), SEVEN, EIGHT)
+        return recolor(c, Sft)
+    objs = prapply(fun, Ds, dirs)
+    obj = merge(objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
     return O
 training 23581191 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -104,66 +522,24 @@ def dsl1(I):
     O2 = paint(O1, o7)
     O = fill(O2, TWO, ov)
     return O
-training 25ff71a9 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x0 = asobject(I)
-    x1 = shift(x0, DOWN)
-    x2 = canvas(ZERO, shape(I))
-    O = paint(x2, x1)
-    return O
-training 28bf18c6 0.0 0.0 0.0 0.0 0.0
+training ba97ae07 0.0 0.0 0.0 0.0 0.0
 def dsl2(I):
-    c = leastcolor(I)
-    p = ofcolor(I, c)
-    g = subgrid(p, I)
-    O = hconcat(g, g)
-    return O
-training 2dee498d 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    h = height(I)
-    w = width(I)
-    w3 = divide(w, THREE)
-    dims = astuple(h, w3)
-    O = crop(I, ORIGIN, dims)
-    return O
-training 32597951 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x8 = ofcolor(I, EIGHT)
-    bb = backdrop(x8)
-    ones = ofcolor(I, ONE)
-    tgt = intersection(bb, ones)
-    O = fill(I, THREE, tgt)
-    return O
-training 363442ee 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    s = shape(I)
-    O = canvas(ZERO, s)
-    obj5 = recolor(FIVE, ofcolor(I, FIVE))
-    O = paint(O, obj5)
-    src = crop(I, ORIGIN, THREE_BY_THREE)
-    sobj = asobject(src)
-    O = paint(O, sobj)
-    centers = ofcolor(I, ONE)
-    dirs = apply(rbind(subtract, UNITY), centers)
-    copies = mapply(lbind(shift, sobj), dirs)
-    O = paint(O, copies)
-    return O
-training 37ce87bb 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    H = height(I)
-    W = width(I)
-    j = subtract(W, TWO)
-    c8 = colorcount(I, EIGHT)
-    c2 = colorcount(I, TWO)
-    h = subtract(c8, c2)
-    start_row = subtract(H, h)
-    start = astuple(start_row, j)
-    patch = shoot(start, DOWN)
-    O = fill(I, FIVE, patch)
-    return O
-training 3c9b0459 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = rot180(I)
+    cols = remove(ZERO, palette(I))
+    f = lbind(ofcolor, I)
+    hfun = compose(height, f)
+    wfun = compose(width, f)
+    comp = fork(subtract, hfun, wfun)
+    vcol = argmax(cols, comp)
+    hcol = other(cols, vcol)
+    vp = ofcolor(I, vcol)
+    hp = ofcolor(I, hcol)
+    vb = backdrop(vp)
+    hb = backdrop(hp)
+    intr = intersection(vb, hb)
+    rv = intersection(intr, vp)
+    rh = intersection(intr, hp)
+    x1 = fill(I, hcol, rv)
+    O = fill(x1, vcol, rh)
     return O
 training 4258a5f9 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -186,15 +562,41 @@ def dsl1(I):
     nb_in = intersection(nbrs, asindices(I))
     O = underfill(I, ONE, nb_in)
     return O
-training 44f52bb0 0.0 0.0 0.0 0.0 0.0
+training bdad9b1f 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    x1 = vmirror(I)
-    x2 = hmirror(I)
-    c1 = equality(I, x1)
-    c2 = equality(I, x2)
-    cond = either(c1, c2)
-    val = branch(cond, ONE, SEVEN)
-    O = canvas(val, UNITY)
+    rpatch = ofcolor(I, TWO)
+    cpatch = ofcolor(I, EIGHT)
+    r = uppermost(rpatch)
+    c = leftmost(cpatch)
+    w = width(I)
+    h = height(I)
+    p1 = astuple(r, ZERO)
+    p2 = astuple(r, subtract(w, ONE))
+    rowline = connect(p1, p2)
+    q1 = astuple(ZERO, c)
+    q2 = astuple(subtract(h, ONE), c)
+    colline = connect(q1, q2)
+    O = paint(I, recolor(TWO, rowline))
+    O = paint(O, recolor(EIGHT, colline))
+    inter = connect(astuple(r, c), astuple(r, c))
+    O = fill(O, FOUR, inter)
+    return O
+training 981add89 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    bg = mostcolor(I)
+    W = width(I)
+    rowG = crop(I, (0, 0), (1, W))
+    colors = remove(bg, palette(rowG))
+    O = I
+    row0 = shoot((0, 0), RIGHT)
+    for c in totuple(colors):
+        starts = intersection(ofcolor(I, c), row0)
+        colpath = mapply(rbind(shoot, DOWN), starts)
+        samecol = intersection(colpath, ofcolor(I, c))
+        samecol_no_starts = difference(samecol, starts)
+        O = fill(O, bg, samecol_no_starts)
+        paintset = difference(colpath, samecol_no_starts)
+        O = fill(O, c, paintset)
     return O
 training 4a1cacc2 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -220,117 +622,26 @@ def dsl1(I):
     col = color(obj)
     O = fill(I, col, R)
     return O
-training 4c4377d9 0.0 0.0 0.0 0.0 0.0
+training 19bb5feb 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    O = vconcat(hmirror(I), I)
-    return O
-training 50cb2852 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    x1 = objects(I, T, F, T)
-    f = compose(delta, box)
-    x2 = mapply(f, x1)
-    O = fill(I, EIGHT, x2)
-    return O
-training 5582e5ca 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = mostcolor(I)
-    x2 = shape(I)
-    O = canvas(x1, x2)
-    return O
-training 5614dbcf 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    x1 = replace(I, FIVE, ZERO)
-    O = downscale(x1, THREE)
-    return O
-training 5bd6f4ac 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = crop(I, tojvec(SIX), THREE_BY_THREE)
-    return O
-training 5c0a986e 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    objs = objects(I, T, F, T)
-    ones = colorfilter(objs, ONE)
-    twos = colorfilter(objs, TWO)
-    o1 = first(ones)
-    o2 = first(twos)
-    s1 = ulcorner(o1)
-    s2 = lrcorner(o2)
-    r = asindices(I)
-    l1 = intersection(shoot(s1, NEG_UNITY), r)
-    l2 = intersection(shoot(s2, UNITY), r)
-    x = fill(I, ONE, l1)
-    O = fill(x, TWO, l2)
-    return O
-training 6150a2bd 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = rot180(I)
-    return O
-training 623ea044 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    c = leastcolor(I)
-    s = first(ofcolor(I, c))
-    l1 = shoot(s, UP_RIGHT)
-    l2 = shoot(s, DOWN_LEFT)
-    l3 = shoot(s, NEG_UNITY)
-    l4 = shoot(s, UNITY)
-    u1 = combine(l1, l2)
-    u2 = combine(l3, l4)
-    u = combine(u1, u2)
-    O = fill(I, c, u)
-    return O
-training 67a3c6ac 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = vmirror(I)
-    return O
-training 67e8384a 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    a = vmirror(I)
-    b = hmirror(I)
-    c = rot180(I)
-    top = hconcat(I, a)
-    bottom = hconcat(b, c)
-    O = vconcat(top, bottom)
-    return O
-training 68b16354 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = hmirror(I)
-    return O
-training 6a11f6da 0.0 0.0 0.0 0.0 0.0
-def dsl3(I):
-    top = crop(I, astuple(0, 0), astuple(5, 5))
-    mid = crop(I, astuple(5, 0), astuple(5, 5))
-    bot = crop(I, astuple(10, 0), astuple(5, 5))
-    o1 = toobject(ofcolor(top, ONE), top)
-    o8 = toobject(ofcolor(mid, EIGHT), mid)
-    o6 = toobject(ofcolor(bot, SIX), bot)
-    base = canvas(ZERO, astuple(5, 5))
-    a = underpaint(base, o8)
-    b = paint(a, o1)
-    O = paint(b, o6)
-    return O
-training 6d0aefbc 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = hconcat(I, vmirror(I))
-    return O
-training 6f473927 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = vmirror(I)
-    x2 = replace(x1, ZERO, EIGHT)
-    x3 = replace(x2, TWO, ZERO)
-    h = height(I)
-    c = crop(I, ORIGIN, astuple(h, ONE))
-    cond = greater(colorcount(c, TWO), ZERO)
-    left = branch(cond, x3, I)
-    right = branch(cond, I, x3)
-    O = hconcat(left, right)
-    return O
-training 6fa7a44f 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = vconcat(I, hmirror(I))
-    return O
-training 74dd1130 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = dmirror(I)
+    g = subgrid(ofcolor(I, EIGHT), I)
+    L = lefthalf(g)
+    R = righthalf(g)
+    TL = tophalf(L)
+    TR = tophalf(R)
+    BL = bottomhalf(L)
+    BR = bottomhalf(R)
+    cTL = leastcolor(TL)
+    cTR = leastcolor(TR)
+    cBL = leastcolor(BL)
+    cBR = leastcolor(BR)
+    vTL = branch(equality(cTL, EIGHT), ZERO, cTL)
+    vTR = branch(equality(cTR, EIGHT), ZERO, cTR)
+    vBL = branch(equality(cBL, EIGHT), ZERO, cBL)
+    vBR = branch(equality(cBR, EIGHT), ZERO, cBR)
+    r1 = hconcat(canvas(vTL, UNITY), canvas(vTR, UNITY))
+    r2 = hconcat(canvas(vBL, UNITY), canvas(vBR, UNITY))
+    O = vconcat(r1, r2)
     return O
 training 77fdfe62 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -358,17 +669,112 @@ def dsl1(I):
     bot2 = hconcat(bl2, br2)
     O = vconcat(top2, bot2)
     return O
-training 7e02026e 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    S0 = ofcolor(I, ZERO)
-    Sh = intersection(intersection(S0, shift(S0, LEFT)), shift(S0, RIGHT))
-    Sv = intersection(intersection(S0, shift(S0, UP)), shift(S0, DOWN))
-    C = intersection(Sh, Sv)
-    arms_h = combine(shift(C, LEFT), shift(C, RIGHT))
-    arms_v = combine(shift(C, UP), shift(C, DOWN))
-    P = combine(C, combine(arms_h, arms_v))
-    Z = intersection(P, S0)
-    O = fill(I, THREE, Z)
+training 025d127b 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    O = canvas(ZERO, shape(I))
+    objs = objects(I, T, T, T)
+    for obj in objs:
+        inds = toindices(obj)
+        # bottom row of the object
+        bottom = intersection(inds, hfrontier(llcorner(obj)))
+        # all non-bottom indices
+        upper = difference(inds, bottom)
+        # right-edge indices (by object's rightmost column)
+        rightedge = intersection(upper, vfrontier(urcorner(obj)))
+        # shift upper non-rightedge to the right by 1
+        upper_move = shift(difference(upper, rightedge), RIGHT)
+        newinds = merge((bottom, rightedge, upper_move))
+        newobj = recolor(color(obj), newinds)
+        O = paint(O, newobj)
+    return O
+training 97999447 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    W = width(I)
+    def patt(o):
+        j0 = rightmost(o)
+        maxoff = subtract(subtract(W, ONE), j0)
+        base = toindices(o)
+        evn_offs = interval(ZERO, add(maxoff, ONE), TWO)
+        evn_vecs = apply(tojvec, evn_offs)
+        evn_patch = mapply(lbind(shift, base), evn_vecs)
+        evn_obj = recolor(color(o), evn_patch)
+        odd_offs = interval(ONE, add(maxoff, ONE), TWO)
+        odd_vecs = apply(tojvec, odd_offs)
+        odd_patch = mapply(lbind(shift, base), odd_vecs)
+        odd_obj = recolor(FIVE, odd_patch)
+        return combine(evn_obj, odd_obj)
+    obj = mapply(patt, objs)
+    O = paint(canvas(ZERO, shape(I)), obj)
+    return O
+training ff72ca3e 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    allidx = asindices(I)
+    fives = ofcolor(I, FIVE)
+    fours = colorfilter(objects(I, True, False, True), FOUR)
+    acc = difference(allidx, allidx)
+    h = height(I)
+    w = width(I)
+    bound = add(h, w)
+    for o in totuple(fours):
+        c = ulcorner(o)
+        best = difference(allidx, allidx)
+        for r in interval(ONE, bound, ONE):
+            rv = multiply(UNITY, r)
+            s = add(c, invert(rv))
+            e = add(c, rv)
+            okb = both(contained(s, allidx), contained(e, allidx))
+            bb = backdrop(connect(s, e))
+            okf = equality(size(intersection(bb, fives)), ZERO)
+            best = branch(both(okb, okf), difference(bb, toindices(o)), best)
+        acc = combine(acc, best)
+    O = underfill(I, TWO, acc)
+    return O
+training ec883f72 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    base = argmax(objs, fork(multiply, height, width))
+    basecol = color(base)
+    cols = remove(ZERO, palette(I))
+    minor = other(cols, basecol)
+    dul = add(UP, LEFT)
+    dur = add(UP, RIGHT)
+    dll = add(DOWN, LEFT)
+    drr = add(DOWN, RIGHT)
+    ul = ulcorner(base)
+    ur = urcorner(base)
+    ll = llcorner(base)
+    lr = lrcorner(base)
+    s_ul = add(ul, dul)
+    s_ur = add(ur, dur)
+    s_ll = add(ll, dll)
+    s_lr = add(lr, drr)
+    A = asindices(I)
+    r_ul = intersection(A, shoot(s_ul, dul))
+    r_ur = intersection(A, shoot(s_ur, dur))
+    r_ll = intersection(A, shoot(s_ll, dll))
+    r_lr = intersection(A, shoot(s_lr, drr))
+    rays = combine(combine(r_ul, r_ur), combine(r_ll, r_lr))
+    obj = recolor(minor, rays)
+    O = underpaint(I, obj)
+    return O
+training c3e719e8 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    c = mostcolor(I)
+    z = canvas(ZERO, shape(I))
+    p00 = branch(equality(index(I, astuple(ZERO, ZERO)), c), I, z)
+    p01 = branch(equality(index(I, astuple(ZERO, ONE)), c), I, z)
+    p02 = branch(equality(index(I, astuple(ZERO, TWO)), c), I, z)
+    r0 = hconcat(p00, hconcat(p01, p02))
+    p10 = branch(equality(index(I, astuple(ONE, ZERO)), c), I, z)
+    p11 = branch(equality(index(I, astuple(ONE, ONE)), c), I, z)
+    p12 = branch(equality(index(I, astuple(ONE, TWO)), c), I, z)
+    r1 = hconcat(p10, hconcat(p11, p12))
+    p20 = branch(equality(index(I, astuple(TWO, ZERO)), c), I, z)
+    p21 = branch(equality(index(I, astuple(TWO, ONE)), c), I, z)
+    p22 = branch(equality(index(I, astuple(TWO, TWO)), c), I, z)
+    r2 = hconcat(p20, hconcat(p21, p22))
+    O = vconcat(r0, vconcat(r1, r2))
     return O
 training 8403a5d5 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -401,49 +807,6 @@ def dsl1(I):
     fives = recolor(FIVE, fivepatch)
     O = paint(canvas(ZERO, shape(I)), stripes)
     O = paint(O, fives)
-    return O
-training 87ab05b8 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    p = first(ofcolor(I, TWO))
-    s = multiply(halve(p), TWO)
-    a = initset(s)
-    b = insert(add(s, RIGHT), a)
-    c = insert(add(s, DOWN), b)
-    d = insert(add(add(s, DOWN), RIGHT), c)
-    base = canvas(SIX, shape(I))
-    O = fill(base, TWO, d)
-    return O
-training 8be77c9e 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = vconcat(I, hmirror(I))
-    return O
-training 8d510a79 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    five = ofcolor(I, FIVE)
-    above_all = mapply(rbind(shoot, UP), five)
-    below_all = mapply(rbind(shoot, DOWN), five)
-    above = difference(above_all, five)
-    below = difference(below_all, five)
-    ones = ofcolor(I, ONE)
-    twos = ofcolor(I, TWO)
-    ones_above = intersection(ones, above)
-    ones_below = intersection(ones, below)
-    twos_above = intersection(twos, above)
-    twos_below = intersection(twos, below)
-    ones_up = mapply(rbind(shoot, UP), ones_above)
-    ones_down = mapply(rbind(shoot, DOWN), ones_below)
-    twos_down = mapply(rbind(shoot, DOWN), twos_above)
-    twos_up = mapply(rbind(shoot, UP), twos_below)
-    ones_up = intersection(ones_up, above)
-    ones_down = intersection(ones_down, below)
-    twos_down = intersection(twos_down, above)
-    twos_up = intersection(twos_up, below)
-    ones_lines = combine(ones_up, ones_down)
-    twos_lines = combine(twos_down, twos_up)
-    obj1 = recolor(ONE, ones_lines)
-    obj2 = recolor(TWO, twos_lines)
-    O = paint(I, obj1)
-    O = paint(O, obj2)
     return O
 training 8e1813be 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -480,9 +843,61 @@ def dsl1(I):
     useCols = greater(vb, hb)
     O = branch(useCols, Oc, Or)
     return O
-training 9172f3a0 0.0 0.0 0.0 0.0 0.0
+training 8d510a79 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    O = upscale(I, THREE)
+    five = ofcolor(I, FIVE)
+    above_all = mapply(rbind(shoot, UP), five)
+    below_all = mapply(rbind(shoot, DOWN), five)
+    above = difference(above_all, five)
+    below = difference(below_all, five)
+    ones = ofcolor(I, ONE)
+    twos = ofcolor(I, TWO)
+    ones_above = intersection(ones, above)
+    ones_below = intersection(ones, below)
+    twos_above = intersection(twos, above)
+    twos_below = intersection(twos, below)
+    ones_up = mapply(rbind(shoot, UP), ones_above)
+    ones_down = mapply(rbind(shoot, DOWN), ones_below)
+    twos_down = mapply(rbind(shoot, DOWN), twos_above)
+    twos_up = mapply(rbind(shoot, UP), twos_below)
+    ones_up = intersection(ones_up, above)
+    ones_down = intersection(ones_down, below)
+    twos_down = intersection(twos_down, above)
+    twos_up = intersection(twos_up, below)
+    ones_lines = combine(ones_up, ones_down)
+    twos_lines = combine(twos_down, twos_up)
+    obj1 = recolor(ONE, ones_lines)
+    obj2 = recolor(TWO, twos_lines)
+    O = paint(I, obj1)
+    O = paint(O, obj2)
+    return O
+training baf41dbf 0.0 0.0 0.0 0.0 0.0
+def dsl1(I):
+    t = ofcolor(I, THREE)
+    s = ofcolor(I, SIX)
+    tl = leftmost(t); tr = rightmost(t); tt = uppermost(t); tb = lowermost(t)
+    nl = minimum(insert(add(leftmost(s), ONE), initset(tl)))
+    nr = maximum(insert(subtract(rightmost(s), ONE), initset(tr)))
+    nu = minimum(insert(add(uppermost(s), ONE), initset(tt)))
+    nd = maximum(insert(subtract(lowermost(s), ONE), initset(tb)))
+    ul = astuple(nu, nl); lr = astuple(nd, nr)
+    frame = box(insert(ul, initset(lr)))
+    nbb = backdrop(frame)
+    holes = delta(t)
+    tinds = toindices(t)
+    cols_all = mapply(vfrontier, tinds)
+    cols_holes = mapply(vfrontier, holes)
+    full_cols = difference(cols_all, cols_holes)
+    edge_cols = combine(vfrontier(astuple(ZERO, tl)), vfrontier(astuple(ZERO, tr)))
+    vints = intersection(difference(full_cols, edge_cols), nbb)
+    rows_all = mapply(hfrontier, tinds)
+    rows_holes = mapply(hfrontier, holes)
+    full_rows = difference(rows_all, rows_holes)
+    edge_rows = combine(hfrontier(astuple(tt, ZERO)), hfrontier(astuple(tb, ZERO)))
+    hints = intersection(difference(full_rows, edge_rows), nbb)
+    pattern = combine(frame, combine(vints, hints))
+    base = replace(I, THREE, ZERO)
+    O = paint(base, recolor(THREE, pattern))
     return O
 training 93b581b8 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -530,339 +945,50 @@ def dsl1(I):
     G2 = underpaint(G1, oBL)
     O = underpaint(G2, oBR)
     return O
-training 94f9d214 0.0 0.0 0.0 0.0 0.0
+training f83cb3f6 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
-    a = tophalf(I)
-    b = bottomhalf(I)
-    z1 = ofcolor(a, ZERO)
-    z2 = ofcolor(b, ZERO)
-    z = intersection(z1, z2)
-    O = fill(canvas(ZERO, shape(a)), TWO, z)
-    return O
-training 97999447 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    objs = objects(I, T, F, T)
-    W = width(I)
-    def patt(o):
-        j0 = rightmost(o)
-        maxoff = subtract(subtract(W, ONE), j0)
-        base = toindices(o)
-        evn_offs = interval(ZERO, add(maxoff, ONE), TWO)
-        evn_vecs = apply(tojvec, evn_offs)
-        evn_patch = mapply(lbind(shift, base), evn_vecs)
-        evn_obj = recolor(color(o), evn_patch)
-        odd_offs = interval(ONE, add(maxoff, ONE), TWO)
-        odd_vecs = apply(tojvec, odd_offs)
-        odd_patch = mapply(lbind(shift, base), odd_vecs)
-        odd_obj = recolor(FIVE, odd_patch)
-        return combine(evn_obj, odd_obj)
-    obj = mapply(patt, objs)
-    O = paint(canvas(ZERO, shape(I)), obj)
-    return O
-training 981add89 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    bg = mostcolor(I)
-    W = width(I)
-    rowG = crop(I, (0, 0), (1, W))
-    colors = remove(bg, palette(rowG))
-    O = I
-    row0 = shoot((0, 0), RIGHT)
-    for c in totuple(colors):
-        starts = intersection(ofcolor(I, c), row0)
-        colpath = mapply(rbind(shoot, DOWN), starts)
-        samecol = intersection(colpath, ofcolor(I, c))
-        samecol_no_starts = difference(samecol, starts)
-        O = fill(O, bg, samecol_no_starts)
-        paintset = difference(colpath, samecol_no_starts)
-        O = fill(O, c, paintset)
-    return O
-training 99b1bc43 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x4 = ofcolor(I, FOUR)
-    r = uppermost(x4)
-    h = height(I)
-    w = width(I)
-    t = crop(I, astuple(0, 0), astuple(r, w))
-    b = crop(I, astuple(add(r, ONE), 0), astuple(subtract(h, add(r, ONE)), w))
-    a = ofcolor(t, ONE)
-    c = ofcolor(b, TWO)
-    x = combine(difference(a, c), difference(c, a))
-    O = fill(canvas(ZERO, shape(t)), THREE, x)
-    return O
-training 9dfd6313 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = dmirror(I)
-    return O
-training 9f236235 0.0 0.0 0.0 0.0 0.0
-def dsl4(I):
-    x1 = compress(I)
-    x2 = objects(x1, T, F, T)
-    x3 = extract(x2, square)
-    x4 = height(x3)
-    x5 = downscale(x1, x4)
-    O = vmirror(x5)
-    return O
-training a416b8f3 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = hconcat(I, I)
-    return O
-training a699fb00 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    a = ofcolor(I, ONE)
-    b = shift(a, RIGHT)
-    c = shift(a, LEFT)
-    m = intersection(b, c)
-    z = ofcolor(I, ZERO)
-    p = intersection(m, z)
-    O = fill(I, TWO, p)
-    return O
-training a85d4709 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    f = ofcolor(I, FIVE)
-    c0 = vfrontier(ORIGIN)
-    c1 = vfrontier(tojvec(ONE))
-    c2 = vfrontier(tojvec(TWO))
-    f0 = intersection(f, c0)
-    f1 = intersection(f, c1)
-    f2 = intersection(f, c2)
-    r0 = mapply(hfrontier, f0)
-    r1 = mapply(hfrontier, f1)
-    r2 = mapply(hfrontier, f2)
+    P = palette(I)
+    P1 = remove(ZERO, P)
+    P2 = remove(EIGHT, P1)
+    C = first(P2)
+
+    E = ofcolor(I, EIGHT)
     O0 = canvas(ZERO, shape(I))
-    O1 = fill(O0, TWO, r0)
-    O2 = fill(O1, FOUR, r1)
-    O = fill(O2, THREE, r2)
-    return O
-training b1948b0a 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = replace(I, SIX, TWO)
-    return O
-training b91ae062 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    p = palette(I)
-    p2 = remove(ZERO, p)
-    n = size(p2)
-    O = upscale(I, n)
-    return O
-training ba97ae07 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    cols = remove(ZERO, palette(I))
-    f = lbind(ofcolor, I)
-    hfun = compose(height, f)
-    wfun = compose(width, f)
-    comp = fork(subtract, hfun, wfun)
-    vcol = argmax(cols, comp)
-    hcol = other(cols, vcol)
-    vp = ofcolor(I, vcol)
-    hp = ofcolor(I, hcol)
-    vb = backdrop(vp)
-    hb = backdrop(hp)
-    intr = intersection(vb, hb)
-    rv = intersection(intr, vp)
-    rh = intersection(intr, hp)
-    x1 = fill(I, hcol, rv)
-    O = fill(x1, vcol, rh)
-    return O
-training baf41dbf 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    t = ofcolor(I, THREE)
-    s = ofcolor(I, SIX)
-    tl = leftmost(t); tr = rightmost(t); tt = uppermost(t); tb = lowermost(t)
-    nl = minimum(insert(add(leftmost(s), ONE), initset(tl)))
-    nr = maximum(insert(subtract(rightmost(s), ONE), initset(tr)))
-    nu = minimum(insert(add(uppermost(s), ONE), initset(tt)))
-    nd = maximum(insert(subtract(lowermost(s), ONE), initset(tb)))
-    ul = astuple(nu, nl); lr = astuple(nd, nr)
-    frame = box(insert(ul, initset(lr)))
-    nbb = backdrop(frame)
-    holes = delta(t)
-    tinds = toindices(t)
-    cols_all = mapply(vfrontier, tinds)
-    cols_holes = mapply(vfrontier, holes)
-    full_cols = difference(cols_all, cols_holes)
-    edge_cols = combine(vfrontier(astuple(ZERO, tl)), vfrontier(astuple(ZERO, tr)))
-    vints = intersection(difference(full_cols, edge_cols), nbb)
-    rows_all = mapply(hfrontier, tinds)
-    rows_holes = mapply(hfrontier, holes)
-    full_rows = difference(rows_all, rows_holes)
-    edge_rows = combine(hfrontier(astuple(tt, ZERO)), hfrontier(astuple(tb, ZERO)))
-    hints = intersection(difference(full_rows, edge_rows), nbb)
-    pattern = combine(frame, combine(vints, hints))
-    base = replace(I, THREE, ZERO)
-    O = paint(base, recolor(THREE, pattern))
-    return O
-training bdad9b1f 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    rpatch = ofcolor(I, TWO)
-    cpatch = ofcolor(I, EIGHT)
-    r = uppermost(rpatch)
-    c = leftmost(cpatch)
-    w = width(I)
-    h = height(I)
-    p1 = astuple(r, ZERO)
-    p2 = astuple(r, subtract(w, ONE))
-    rowline = connect(p1, p2)
-    q1 = astuple(ZERO, c)
-    q2 = astuple(subtract(h, ONE), c)
-    colline = connect(q1, q2)
-    O = paint(I, recolor(TWO, rowline))
-    O = paint(O, recolor(EIGHT, colline))
-    inter = connect(astuple(r, c), astuple(r, c))
-    O = fill(O, FOUR, inter)
-    return O
-training be94b721 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = objects(I, T, F, T)
-    x2 = argmax(x1, size)
-    O = subgrid(x2, I)
-    return O
-training c3e719e8 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    c = mostcolor(I)
-    z = canvas(ZERO, shape(I))
-    p00 = branch(equality(index(I, astuple(ZERO, ZERO)), c), I, z)
-    p01 = branch(equality(index(I, astuple(ZERO, ONE)), c), I, z)
-    p02 = branch(equality(index(I, astuple(ZERO, TWO)), c), I, z)
-    r0 = hconcat(p00, hconcat(p01, p02))
-    p10 = branch(equality(index(I, astuple(ONE, ZERO)), c), I, z)
-    p11 = branch(equality(index(I, astuple(ONE, ONE)), c), I, z)
-    p12 = branch(equality(index(I, astuple(ONE, TWO)), c), I, z)
-    r1 = hconcat(p10, hconcat(p11, p12))
-    p20 = branch(equality(index(I, astuple(TWO, ZERO)), c), I, z)
-    p21 = branch(equality(index(I, astuple(TWO, ONE)), c), I, z)
-    p22 = branch(equality(index(I, astuple(TWO, TWO)), c), I, z)
-    r2 = hconcat(p20, hconcat(p21, p22))
-    O = vconcat(r0, vconcat(r1, r2))
-    return O
-training c59eb873 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = upscale(I, TWO)
-    return O
-training c8f0f002 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = replace(I, SEVEN, FIVE)
-    return O
-training c909285e 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    b = leastcolor(I)
-    P = ofcolor(I, b)
-    O = subgrid(P, I)
-    return O
-training c9e6f938 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = vmirror(I)
-    O = hconcat(I, x1)
-    return O
-training cd3c21df 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    x1 = fgpartition(I)
-    f = compose(size, backdrop)
-    x2 = argmin(x1, f)
-    O = subgrid(x2, I)
-    return O
-training cf5fd0ad 0.0 0.0 0.0 0.0 0.0
-def dsl2(I):
-    a = rot180(I)
-    b = rot90(I)
-    c = rot270(I)
-    top = hconcat(hconcat(a, a), hconcat(b, b))
-    bottom = hconcat(hconcat(c, c), hconcat(I, I))
-    O = vconcat(vconcat(top, top), vconcat(bottom, bottom))
-    return O
-training cf98881b 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    A = crop(I, astuple(0, 0), astuple(4, 4))
-    B = crop(I, astuple(0, 5), astuple(4, 4))
-    C = crop(I, astuple(0, 10), astuple(4, 4))
-    non4 = difference(asindices(A), ofcolor(A, FOUR))
-    p9 = intersection(ofcolor(B, NINE), non4)
-    Y = fill(A, NINE, p9)
-    p1 = difference(intersection(ofcolor(C, ONE), non4), p9)
-    O = fill(Y, ONE, p1)
-    return O
-training d037b0a7 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = objects(I, T, F, T)
-    f1 = compose(rbind(shoot, DOWN), ulcorner)
-    f2 = fork(recolor, color, f1)
-    x2 = mapply(f2, x1)
-    O = underpaint(I, x2)
-    return O
-training d10ecb37 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = crop(I, ORIGIN, TWO_BY_TWO)
-    return O
-training d511f180 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = switch(I, FIVE, EIGHT)
-    return O
-training d5d6de2d 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x0 = objects(I, T, F, T)
-    x1 = colorfilter(x0, TWO)
-    f = fork(equality, toindices, box)
-    x2 = sfilter(x1, f)
-    x3 = mapply(delta, x2)
-    x4 = canvas(ZERO, shape(I))
-    O = fill(x4, THREE, x3)
-    return O
-training d631b094 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    c = other(palette(I), ZERO)
-    n = colorcount(I, c)
-    dims = astuple(ONE, n)
-    O = canvas(c, dims)
-    return O
-training d8c310e9 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    x1 = rbind(objects, T)
-    x2 = rbind(x1, F)
-    x3 = rbind(x2, T)
-    x4 = compose(merge, x3)
-    obj0 = x4(I)
-    p = hperiod(obj0)
-    dir = astuple(ZERO, p)
-    sh = rbind(shift, dir)
-    shobj = compose(sh, x4)
-    f = fork(underpaint, identity, shobj)
-    n = width(I)
-    powf = power(f, n)
-    O = powf(I)
-    return O
-training db3e9e38 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    P = ofcolor(I, SEVEN)
-    H = height(P)
-    Ds = interval(ZERO, H, ONE)
-    dirs = combine(initset(RIGHT), initset(LEFT))
-    def fun(d, s):
-        v1 = toivec(invert(d))
-        v2 = multiply(s, d)
-        dir = add(v1, v2)
-        Sft = shift(P, dir)
-        c = branch(even(d), SEVEN, EIGHT)
-        return recolor(c, Sft)
-    objs = prapply(fun, Ds, dirs)
-    obj = merge(objs)
-    O = paint(canvas(ZERO, shape(I)), obj)
-    return O
-training dce56571 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    h = height(I)
-    w = width(I)
-    c = leastcolor(I)
-    k = colorcount(I, c)
-    r = halve(h)
-    diff = subtract(w, k)
-    s = halve(diff)
-    ek = add(s, k)
-    e = decrement(ek)
-    p1 = astuple(r, s)
-    p2 = astuple(r, e)
-    seg = connect(p1, p2)
-    dims = astuple(h, w)
-    base = canvas(EIGHT, dims)
-    O = fill(base, c, seg)
+    O0 = paint(O0, toobject(E, I))
+
+    e0 = first(E)
+    row_up = hfrontier(add(e0, UP))
+    row_dn = hfrontier(add(e0, DOWN))
+    col_lt = vfrontier(add(e0, LEFT))
+    col_rt = vfrontier(add(e0, RIGHT))
+    col8 = mapply(vfrontier, E)
+
+    A = ofcolor(I, C)
+
+    upRays = mapply(rbind(shoot, UP), E)
+    dnRays = mapply(rbind(shoot, DOWN), E)
+    ltRays = mapply(rbind(shoot, LEFT), E)
+    rtRays = mapply(rbind(shoot, RIGHT), E)
+
+    upHits = intersection(upRays, A)
+    dnHits = intersection(dnRays, A)
+    ltHits = intersection(ltRays, A)
+    rtHits = intersection(rtRays, A)
+
+    col_up = mapply(vfrontier, upHits)
+    col_dn = mapply(vfrontier, dnHits)
+    rows_lt = mapply(hfrontier, ltHits)
+    rows_rt = mapply(hfrontier, rtHits)
+
+    tgt_up = intersection(row_up, intersection(col_up, col8))
+    tgt_dn = intersection(row_dn, intersection(col_dn, col8))
+    tgt_lt = intersection(rows_lt, col_lt)
+    tgt_rt = intersection(rows_rt, col_rt)
+
+    Oh = paint(paint(O0, recolor(C, tgt_up)), recolor(C, tgt_dn))
+    Ov = paint(paint(O0, recolor(C, tgt_lt)), recolor(C, tgt_rt))
+
+    O = branch(equality(height(E), ONE), Oh, Ov)
     return O
 training ddf7fa4f 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
@@ -935,34 +1061,6 @@ def dsl1(I):
     i9 = mapply(toindices, o9)
     O = fill(x8, NINE, i9)
     return O
-training ec883f72 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    objs = objects(I, T, F, T)
-    base = argmax(objs, fork(multiply, height, width))
-    basecol = color(base)
-    cols = remove(ZERO, palette(I))
-    minor = other(cols, basecol)
-    dul = add(UP, LEFT)
-    dur = add(UP, RIGHT)
-    dll = add(DOWN, LEFT)
-    drr = add(DOWN, RIGHT)
-    ul = ulcorner(base)
-    ur = urcorner(base)
-    ll = llcorner(base)
-    lr = lrcorner(base)
-    s_ul = add(ul, dul)
-    s_ur = add(ur, dur)
-    s_ll = add(ll, dll)
-    s_lr = add(lr, drr)
-    A = asindices(I)
-    r_ul = intersection(A, shoot(s_ul, dul))
-    r_ur = intersection(A, shoot(s_ur, dur))
-    r_ll = intersection(A, shoot(s_ll, dll))
-    r_lr = intersection(A, shoot(s_lr, drr))
-    rays = combine(combine(r_ul, r_ur), combine(r_ll, r_lr))
-    obj = recolor(minor, rays)
-    O = underpaint(I, obj)
-    return O
 training ecdecbb3 0.0 0.0 0.0 0.0 0.0
 def dsl1(I):
     s8 = ofcolor(I, EIGHT)
@@ -1017,104 +1115,6 @@ def dsl1(I):
     W = merge(apply(wires, s2))
     G = merge(apply(gate, C))
     O = fill(fill(fill(I, TWO, W), EIGHT, G), TWO, C)
-    return O
-training ed36ccf7 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    O = rot270(I)
-    return O
-training ed98d772 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    A = I
-    B = rot270(I)
-    C = rot180(I)
-    D = rot90(I)
-    top = hconcat(A, B)
-    bottom = hconcat(C, D)
-    O = vconcat(top, bottom)
-    return O
-training f0afb749 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    U = upscale(I, TWO)
-    OB = objects(I, T, F, T)
-    P0 = apply(ulcorner, OB)
-    P = apply(double, P0)
-    DR = add(DOWN, RIGHT)
-    UL = add(UP, LEFT)
-    dr = rbind(shoot, DR)
-    ul = rbind(shoot, UL)
-    a = compose(lrcorner, dr)
-    b = compose(ulcorner, ul)
-    linefun = fork(connect, a, b)
-    L = mapply(linefun, P)
-    O = underfill(U, ONE, L)
-    return O
-training f83cb3f6 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    P = palette(I)
-    P1 = remove(ZERO, P)
-    P2 = remove(EIGHT, P1)
-    C = first(P2)
-
-    E = ofcolor(I, EIGHT)
-    O0 = canvas(ZERO, shape(I))
-    O0 = paint(O0, toobject(E, I))
-
-    e0 = first(E)
-    row_up = hfrontier(add(e0, UP))
-    row_dn = hfrontier(add(e0, DOWN))
-    col_lt = vfrontier(add(e0, LEFT))
-    col_rt = vfrontier(add(e0, RIGHT))
-    col8 = mapply(vfrontier, E)
-
-    A = ofcolor(I, C)
-
-    upRays = mapply(rbind(shoot, UP), E)
-    dnRays = mapply(rbind(shoot, DOWN), E)
-    ltRays = mapply(rbind(shoot, LEFT), E)
-    rtRays = mapply(rbind(shoot, RIGHT), E)
-
-    upHits = intersection(upRays, A)
-    dnHits = intersection(dnRays, A)
-    ltHits = intersection(ltRays, A)
-    rtHits = intersection(rtRays, A)
-
-    col_up = mapply(vfrontier, upHits)
-    col_dn = mapply(vfrontier, dnHits)
-    rows_lt = mapply(hfrontier, ltHits)
-    rows_rt = mapply(hfrontier, rtHits)
-
-    tgt_up = intersection(row_up, intersection(col_up, col8))
-    tgt_dn = intersection(row_dn, intersection(col_dn, col8))
-    tgt_lt = intersection(rows_lt, col_lt)
-    tgt_rt = intersection(rows_rt, col_rt)
-
-    Oh = paint(paint(O0, recolor(C, tgt_up)), recolor(C, tgt_dn))
-    Ov = paint(paint(O0, recolor(C, tgt_lt)), recolor(C, tgt_rt))
-
-    O = branch(equality(height(E), ONE), Oh, Ov)
-    return O
-training ff72ca3e 0.0 0.0 0.0 0.0 0.0
-def dsl1(I):
-    allidx = asindices(I)
-    fives = ofcolor(I, FIVE)
-    fours = colorfilter(objects(I, True, False, True), FOUR)
-    acc = difference(allidx, allidx)
-    h = height(I)
-    w = width(I)
-    bound = add(h, w)
-    for o in totuple(fours):
-        c = ulcorner(o)
-        best = difference(allidx, allidx)
-        for r in interval(ONE, bound, ONE):
-            rv = multiply(UNITY, r)
-            s = add(c, invert(rv))
-            e = add(c, rv)
-            okb = both(contained(s, allidx), contained(e, allidx))
-            bb = backdrop(connect(s, e))
-            okf = equality(size(intersection(bb, fives)), ZERO)
-            best = branch(both(okb, okf), difference(bb, toindices(o)), best)
-        acc = combine(acc, best)
-    O = underfill(I, TWO, acc)
     return O
 training fe45cba4 0.0 3.605551275463989 0.05078125 0.0 3.656332525463989
 def dsl1(I):
