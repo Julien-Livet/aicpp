@@ -244,9 +244,9 @@ Available variables:
         command += """
 Available primitives:
 """
-        result = subprocess.run("cd arc-dsl && python -c 'import dsl; help(dsl)'", shell = True, capture_output = True, text = True)
+        result = subprocess.run('cd arc-dsl && python -c "import dsl; help(dsl)"', shell = True, capture_output = True, text = True)
         lines = result.stdout.split("\n")
-        
+
         functions = []
         words = []
         finish = False
@@ -263,14 +263,16 @@ Available primitives:
         command += "\n".join(functions) + "\n"
         
         if (len(scores)):
-            command += "\nPrevious program scores:\n\n"
+            command += "\nPrevious program scores (best, intermediate, worst):\n\n"
             command += "|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|\n"
             command += "|-|-|-|-|-|\n"
             command += "\n".join("|" + "|".join(s) + "|" for s in scores) + "\n"
             
-            command += "\nPropose at most 5 improved variants avoiding previous low-scoring.\n"
+            command += "\nPropose at most 5 diverse hypotheses of DSL programs exploring different transformations avoiding previous low-scoring.\n"
         else:
-            command += "\nGenerate at most 5 plausible DSL programs using only the declared primitives.\n"
+            command += "\nGenerate at most 5 diverse hypotheses of DSL programs exploring different transformations using only the declared primitives.\n"
+
+        command += "\nWorkflow: analyze transformation -> identify primitives -> generate DSL programs\n"
 
         command += "\nAll programs must be described within a single Python MarkDown tag.\n"
 
@@ -351,7 +353,7 @@ from dsl import *
             try:
                 for pair in taskPairs[0]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, k, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, k, 5, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
                 scores.append([";".join(source.split("\n"))] + [str(x) for x in score] + [str(sum(score))])
                 totalScores.append([k, source] + score + [sum(score)])
@@ -360,7 +362,11 @@ from dsl import *
         
             runner.terminate()
 
-        scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))[:3]
+        scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))
+ 
+        if (len(scores)):
+            scores = [scores[0], scores[len(scores) // 2], scores[-1]]
+    
         totalScores = sorted(totalScores, key = lambda x: x[-1])
 
         if (len(totalScores)):
@@ -375,7 +381,7 @@ from dsl import *
             try:
                 for pair in taskPairs[1]:
                     for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, name, 1, tuple(map(tuple, pair[0].tolist())))), pair[1])
+                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
                 costs = (np.array(totalScores[0][2:]) + np.array(score + [sum(score)])).tolist()
             except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError):
