@@ -1,59 +1,65 @@
 ```python
 def dsl1(I):
+    # Map -1 slope adjacency to 8, others to 2
     S = ofcolor(I, FIVE)
-    Sd = shift(S, DOWN)
-    not_top = intersection(S, Sd)
-    top = difference(S, not_top)
     A = replace(I, FIVE, TWO)
-    obj8 = recolor(EIGHT, top)
+    S_ur = shift(S, UP_RIGHT)
+    S_dl = shift(S, DOWN_LEFT)
+    neg_neigh = combine(S_ur, S_dl)
+    neg_slope = intersection(S, neg_neigh)
+    obj8 = recolor(EIGHT, neg_slope)
     O = paint(A, obj8)
     return O
 
 def dsl2(I):
+    # Map +1 slope adjacency to 8, others to 2
     S = ofcolor(I, FIVE)
-    Sl = shift(S, LEFT)
-    has_right = intersection(S, Sl)
-    rightmost = difference(S, has_right)
     A = replace(I, FIVE, TWO)
-    obj8 = recolor(EIGHT, rightmost)
+    S_dr = shift(S, UNITY)
+    S_ul = shift(S, NEG_UNITY)
+    pos_neigh = combine(S_dr, S_ul)
+    pos_slope = intersection(S, pos_neigh)
+    obj8 = recolor(EIGHT, pos_slope)
     O = paint(A, obj8)
     return O
 
 def dsl3(I):
+    # Map -1 slope adjacency to 2, others to 8
     S = ofcolor(I, FIVE)
-    Sd = shift(S, DOWN)
-    Sl = shift(S, LEFT)
-    not_top = intersection(S, Sd)
-    top = difference(S, not_top)
-    has_right = intersection(S, Sl)
-    rightmost = difference(S, has_right)
-    T8 = combine(top, rightmost)
-    A = replace(I, FIVE, TWO)
-    obj8 = recolor(EIGHT, T8)
-    O = paint(A, obj8)
+    A = replace(I, FIVE, EIGHT)
+    S_ur = shift(S, UP_RIGHT)
+    S_dl = shift(S, DOWN_LEFT)
+    neg_neigh = combine(S_ur, S_dl)
+    neg_slope = intersection(S, neg_neigh)
+    obj2 = recolor(TWO, neg_slope)
+    O = paint(A, obj2)
     return O
 
 def dsl4(I):
-    A = replace(I, FIVE, EIGHT)
-    R = rot180(I)
-    R2 = replace(R, FIVE, TWO)
-    B = rot180(R2)
-    idx2 = ofcolor(B, TWO)
+    # Map +1 slope adjacency to 2, others to 8
     S = ofcolor(I, FIVE)
-    mask = intersection(idx2, S)
-    obj2 = recolor(TWO, mask)
+    A = replace(I, FIVE, EIGHT)
+    S_dr = shift(S, UNITY)
+    S_ul = shift(S, NEG_UNITY)
+    pos_neigh = combine(S_dr, S_ul)
+    pos_slope = intersection(S, pos_neigh)
+    obj2 = recolor(TWO, pos_slope)
     O = paint(A, obj2)
     return O
 
 def dsl5(I):
-    A = replace(I, FIVE, EIGHT)
-    R = rot90(I)
-    R2 = replace(R, FIVE, TWO)
-    B = rot270(R2)
-    idx2 = ofcolor(B, TWO)
+    # Data-driven orientation choice: larger diagonal family -> 8, other -> 2
     S = ofcolor(I, FIVE)
-    mask = intersection(idx2, S)
-    obj2 = recolor(TWO, mask)
-    O = paint(A, obj2)
+    S_ur = shift(S, UP_RIGHT)
+    S_dl = shift(S, DOWN_LEFT)
+    S_dr = shift(S, UNITY)
+    S_ul = shift(S, NEG_UNITY)
+    neg_slope = intersection(S, combine(S_ur, S_dl))
+    pos_slope = intersection(S, combine(S_dr, S_ul))
+    cond = greater(size(pos_slope), size(neg_slope))
+    eight_set = branch(cond, pos_slope, neg_slope)
+    A = replace(I, FIVE, TWO)
+    obj8 = recolor(EIGHT, eight_set)
+    O = paint(A, obj8)
     return O
 ```

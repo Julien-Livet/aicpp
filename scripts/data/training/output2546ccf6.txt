@@ -1,38 +1,36 @@
 ```python
 def dsl1(I):
-    p = palette(I)
-    nz = remove(ZERO, p)
-    gc = argmax(nz, rbind(colorcount, I))
-    x = replace(I, gc, ZERO)
-    y = hmirror(x)
+    c = mostcolor(I)
+    J = replace(I, c, ZERO)
+    y = underpaint(J, asobject(vmirror(J)))
     O = underpaint(I, asobject(y))
     return O
 
 def dsl2(I):
-    p = palette(I)
-    nz = remove(ZERO, p)
-    gc = argmax(nz, rbind(colorcount, I))
-    x = replace(I, gc, ZERO)
-    y = vmirror(x)
+    c = mostcolor(I)
+    J = replace(I, c, ZERO)
+    y = underpaint(J, asobject(rot180(J)))
     O = underpaint(I, asobject(y))
     return O
 
 def dsl3(I):
-    p = palette(I)
-    nz = remove(ZERO, p)
-    gc = argmax(nz, rbind(colorcount, I))
-    x = replace(I, gc, ZERO)
-    y = rot180(x)
-    O = underpaint(I, asobject(y))
+    c = mostcolor(I)
+    J = replace(I, c, ZERO)
+    y1 = underpaint(J, asobject(dmirror(J)))
+    y2 = underpaint(y1, asobject(cmirror(J)))
+    O = underpaint(I, asobject(y2))
     return O
 
 def dsl4(I):
-    x1 = hmirror(I)
-    O = underpaint(I, asobject(x1))
+    x1 = underpaint(I, asobject(hmirror(I)))
+    O = underpaint(x1, asobject(vmirror(x1)))
     return O
 
 def dsl5(I):
-    x1 = rot180(I)
-    O = underpaint(I, asobject(x1))
+    c = mostcolor(I)
+    J = replace(I, c, ZERO)
+    r1 = underpaint(J, asobject(vmirror(J)))
+    r2 = underpaint(r1, asobject(rot180(r1)))
+    O = underpaint(I, asobject(r2))
     return O
 ```

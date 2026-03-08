@@ -1,5 +1,60 @@
 ```python
 def dsl1(I):
+    # Mirror existing 8s horizontally and add them to the original.
+    H = height(I)
+    W = width(I)
+    dims = astuple(H, W)
+    seeds = ofcolor(I, EIGHT)
+    blank = canvas(ZERO, dims)
+    seedgrid = fill(blank, EIGHT, seeds)
+    mirrored = vmirror(seedgrid)
+    mirrored_seeds = ofcolor(mirrored, EIGHT)
+    mask = combine(seeds, mirrored_seeds)
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl2(I):
+    # Replicate 8s horizontally by the horizontal periodicity of zeros.
+    Zobj = toobject(ofcolor(I, ZERO), I)
+    P = hperiod(Zobj)
+    seeds = ofcolor(I, EIGHT)
+    left = shift(seeds, astuple(0, invert(P)))
+    right = shift(seeds, astuple(0, P))
+    mask = combine(seeds, combine(left, right))
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl3(I):
+    # Replicate 8s vertically by the vertical periodicity of zeros.
+    Zobj = toobject(ofcolor(I, ZERO), I)
+    Vp = vperiod(Zobj)
+    seeds = ofcolor(I, EIGHT)
+    up = shift(seeds, astuple(invert(Vp), 0))
+    down = shift(seeds, astuple(Vp, 0))
+    mask = combine(seeds, combine(up, down))
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl4(I):
+    # Replicate 8s across the 2D lattice formed by zero-periods (horizontal and vertical).
+    Zobj = toobject(ofcolor(I, ZERO), I)
+    P = hperiod(Zobj)
+    Vp = vperiod(Zobj)
+    seeds = ofcolor(I, EIGHT)
+    l = shift(seeds, astuple(0, invert(P)))
+    r = shift(seeds, astuple(0, P))
+    u = shift(seeds, astuple(invert(Vp), 0))
+    d = shift(seeds, astuple(Vp, 0))
+    ul = shift(seeds, astuple(invert(Vp), invert(P)))
+    ur = shift(seeds, astuple(invert(Vp), P))
+    dl = shift(seeds, astuple(Vp, invert(P)))
+    dr = shift(seeds, astuple(Vp, P))
+    mask = combine(seeds, combine(l, combine(r, combine(u, combine(d, combine(ul, combine(ur, combine(dl, dr))))))))
+    O = fill(I, EIGHT, mask)
+    return O
+
+def dsl5(I):
+    # 3x3 local-context replication via occurrences: replicate seed 8s wherever the 3x3 non-8 context matches.
     H = height(I)
     W = width(I)
     seeds = ofcolor(I, EIGHT)
@@ -13,121 +68,7 @@ def dsl1(I):
         if sr < 0 or sc < 0 or sr + 3 > H or sc + 3 > W:
             continue
         sub = crop(I, astuple(sr, sc), dims)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
-        occs = occurrences(I, ctx)
-        epos = ofcolor(sub, EIGHT)
-        for p in totuple(occs):
-            shifted = shift(epos, p)
-            mask = combine(mask, shifted)
-    O = fill(I, EIGHT, mask)
-    return O
-
-def dsl2(I):
-    H = height(I)
-    W = width(I)
-    seeds = ofcolor(I, EIGHT)
-    empty = difference(asindices(I), asindices(I))
-    mask = empty
-    dims = astuple(3, 5)
-    padr, padc = 1, 2
-    for (r, c) in totuple(seeds):
-        sr = r - padr
-        sc = c - padc
-        if sr < 0 or sc < 0 or sr + 3 > H or sc + 5 > W:
-            continue
-        sub = crop(I, astuple(sr, sc), dims)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
-        occs = occurrences(I, ctx)
-        epos = ofcolor(sub, EIGHT)
-        for p in totuple(occs):
-            shifted = shift(epos, p)
-            mask = combine(mask, shifted)
-    O = fill(I, EIGHT, mask)
-    return O
-
-def dsl3(I):
-    H = height(I)
-    W = width(I)
-    seeds = ofcolor(I, EIGHT)
-    empty = difference(asindices(I), asindices(I))
-    mask = empty
-    dims = astuple(5, 3)
-    padr, padc = 2, 1
-    for (r, c) in totuple(seeds):
-        sr = r - padr
-        sc = c - padc
-        if sr < 0 or sc < 0 or sr + 5 > H or sc + 3 > W:
-            continue
-        sub = crop(I, astuple(sr, sc), dims)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
-        occs = occurrences(I, ctx)
-        epos = ofcolor(sub, EIGHT)
-        for p in totuple(occs):
-            shifted = shift(epos, p)
-            mask = combine(mask, shifted)
-    O = fill(I, EIGHT, mask)
-    return O
-
-def dsl4(I):
-    H = height(I)
-    W = width(I)
-    seeds = ofcolor(I, EIGHT)
-    empty = difference(asindices(I), asindices(I))
-    mask = empty
-    # First pass: 3x3
-    dims1 = astuple(3, 3)
-    pr1, pc1 = 1, 1
-    for (r, c) in totuple(seeds):
-        sr = r - pr1
-        sc = c - pc1
-        if sr < 0 or sc < 0 or sr + 3 > H or sc + 3 > W:
-            continue
-        sub = crop(I, astuple(sr, sc), dims1)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
-        occs = occurrences(I, ctx)
-        epos = ofcolor(sub, EIGHT)
-        for p in totuple(occs):
-            shifted = shift(epos, p)
-            mask = combine(mask, shifted)
-    # Second pass: 5x3
-    dims2 = astuple(5, 3)
-    pr2, pc2 = 2, 1
-    for (r, c) in totuple(seeds):
-        sr = r - pr2
-        sc = c - pc2
-        if sr < 0 or sc < 0 or sr + 5 > H or sc + 3 > W:
-            continue
-        sub = crop(I, astuple(sr, sc), dims2)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
-        occs = occurrences(I, ctx)
-        epos = ofcolor(sub, EIGHT)
-        for p in totuple(occs):
-            shifted = shift(epos, p)
-            mask = combine(mask, shifted)
-    O = fill(I, EIGHT, mask)
-    return O
-
-def dsl5(I):
-    H = height(I)
-    W = width(I)
-    seeds = ofcolor(I, EIGHT)
-    empty = difference(asindices(I), asindices(I))
-    mask = empty
-    dims = astuple(5, 5)
-    padr, padc = 2, 2
-    for (r, c) in totuple(seeds):
-        sr = r - padr
-        sc = c - padc
-        if sr < 0 or sc < 0 or sr + 5 > H or sc + 5 > W:
-            continue
-        sub = crop(I, astuple(sr, sc), dims)
-        nz = difference(asindices(sub), ofcolor(sub, EIGHT))
-        ctx = toobject(nz, sub)
+        ctx = toobject(difference(asindices(sub), ofcolor(sub, EIGHT)), sub)
         occs = occurrences(I, ctx)
         epos = ofcolor(sub, EIGHT)
         for p in totuple(occs):

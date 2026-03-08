@@ -1,143 +1,158 @@
 ```python
 def dsl1(I):
+    # Fixed color-to-border mapping + rays + zeroing mismatched corners
     inds = asindices(I)
-    tlc = ulcorner(inds)
-    trc = urcorner(inds)
-    blc = llcorner(inds)
-    brc = lrcorner(inds)
-    top = hfrontier(tlc)
-    bot = hfrontier(blc)
-    lef = vfrontier(tlc)
-    rig = vfrontier(trc)
+    tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
+    top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+
     has1 = equality(colorcount(I, ONE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
     has3 = equality(colorcount(I, THREE), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
+    has2 = equality(colorcount(I, TWO), ONE)
     has8 = equality(colorcount(I, EIGHT), ONE)
-    top_used = either(has1, has3)
-    O0 = I
-    O1 = branch(has3, fill(O0, THREE, top), O0)
-    O2 = branch(has1, fill(O1, ONE, top), O1)
-    O3 = branch(has2, fill(O2, TWO, lef), O2)
-    O4 = branch(has8, fill(O3, EIGHT, rig), O3)
-    O5 = branch(has6, fill(O4, SIX, bot), O4)
-    tlp = intersection(top, lef)
-    trp = intersection(top, rig)
-    blp = intersection(bot, lef)
-    brp = intersection(bot, rig)
-    O6 = branch(both(top_used, has2), fill(O5, ZERO, tlp), O5)
-    O7 = branch(both(top_used, has8), fill(O6, ZERO, trp), O6)
-    O8 = branch(both(has6, has2), fill(O7, ZERO, blp), O7)
-    O9 = branch(both(has6, has8), fill(O8, ZERO, brp), O8)
-    return O9
+    has6 = equality(colorcount(I, SIX), ONE)
+
+    # Fill mapped borders (prefer THREE over ONE for top)
+    O = I
+    O = branch(has2, fill(O, TWO, lef), O)
+    O = branch(has8, fill(O, EIGHT, rig), O)
+    O = branch(has6, fill(O, SIX, bot), O)
+    O = branch(has1, fill(O, ONE, top), O)
+    O = branch(has3, fill(O, THREE, top), O)
+
+    # Zero corners where different mapped colors meet
+    tuse = either(has1, has3)
+    O = branch(both(tuse, has2), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(tuse, has8), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(has6, has2), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(has6, has8), fill(O, ZERO, intersection(bot, rig)), O)
+
+    # Rays from singletons toward their mapped borders
+    topcol = branch(has3, THREE, ONE)
+    hasTop = tuse
+    locTop = branch(has3, first(ofcolor(I, THREE)), first(ofcolor(I, ONE)))
+    O = branch(hasTop, fill(O, topcol, shoot(locTop, UP)), O)
+    O = branch(has8, fill(O, EIGHT, shoot(first(ofcolor(I, EIGHT)), RIGHT)), O)
+    O = branch(has2, fill(O, TWO, shoot(first(ofcolor(I, TWO)), LEFT)), O)
+    O = branch(has6, fill(O, SIX, shoot(first(ofcolor(I, SIX)), DOWN)), O)
+    return O
 
 def dsl2(I):
+    # Only paint the single border cell where each singleton's ray meets its mapped border
     inds = asindices(I)
-    tlc = ulcorner(inds)
-    trc = urcorner(inds)
-    blc = llcorner(inds)
-    top = hfrontier(tlc)
-    bot = hfrontier(blc)
-    lef = vfrontier(tlc)
-    rig = vfrontier(trc)
+    tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
+    top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+
     has1 = equality(colorcount(I, ONE), ONE)
     has3 = equality(colorcount(I, THREE), ONE)
     has2 = equality(colorcount(I, TWO), ONE)
     has8 = equality(colorcount(I, EIGHT), ONE)
     has6 = equality(colorcount(I, SIX), ONE)
-    top_used = either(has1, has3)
-    O0 = I
-    O1 = branch(has1, fill(O0, ONE, top), O0)
-    O2 = branch(has3, fill(O1, THREE, top), O1)
-    O3 = branch(has8, fill(O2, EIGHT, rig), O2)
-    O4 = branch(has2, fill(O3, TWO, lef), O3)
-    O5 = branch(has6, fill(O4, SIX, bot), O4)
-    O6 = branch(both(top_used, has2), fill(O5, ZERO, intersection(top, lef)), O5)
-    O7 = branch(both(top_used, has8), fill(O6, ZERO, intersection(top, rig)), O6)
-    O8 = branch(both(has6, has2), fill(O7, ZERO, intersection(bot, lef)), O7)
-    O9 = branch(both(has6, has8), fill(O8, ZERO, intersection(bot, rig)), O8)
-    return O9
+
+    O = I
+    # Top: prefer 3 over 1
+    O = branch(has3, fill(O, THREE, intersection(shoot(first(ofcolor(I, THREE)), UP), top)), O)
+    O = branch(both(flip(has3), has1), fill(O, ONE, intersection(shoot(first(ofcolor(I, ONE)), UP), top)), O)
+
+    # Right, Left, Bottom
+    O = branch(has8, fill(O, EIGHT, intersection(shoot(first(ofcolor(I, EIGHT)), RIGHT), rig)), O)
+    O = branch(has2, fill(O, TWO, intersection(shoot(first(ofcolor(I, TWO)), LEFT), lef)), O)
+    O = branch(has6, fill(O, SIX, intersection(shoot(first(ofcolor(I, SIX)), DOWN), bot)), O)
+    return O
 
 def dsl3(I):
+    # Nearest singleton to each border colors that border (no rays), zero corners if colors differ
     inds = asindices(I)
-    tlc = ulcorner(inds)
-    trc = urcorner(inds)
-    blc = llcorner(inds)
-    top = hfrontier(tlc)
-    bot = hfrontier(blc)
-    lef = vfrontier(tlc)
-    rig = vfrontier(trc)
-    has3 = equality(colorcount(I, THREE), ONE)
-    has1 = equality(colorcount(I, ONE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
-    top_used = either(has3, has1)
-    topcol3 = branch(has3, THREE, ONE)
-    topcol = branch(top_used, topcol3, ZERO)
-    O0 = I
-    O1 = branch(top_used, fill(O0, topcol, top), O0)
-    O2 = branch(has2, fill(O1, TWO, lef), O1)
-    O3 = branch(has8, fill(O2, EIGHT, rig), O2)
-    O4 = branch(has6, fill(O3, SIX, bot), O3)
-    O5 = branch(both(top_used, has2), fill(O4, ZERO, intersection(top, lef)), O4)
-    O6 = branch(both(top_used, has8), fill(O5, ZERO, intersection(top, rig)), O5)
-    O7 = branch(both(has6, has2), fill(O6, ZERO, intersection(bot, lef)), O6)
-    O8 = branch(both(has6, has8), fill(O7, ZERO, intersection(bot, rig)), O7)
-    return O8
+    tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
+    top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+
+    objs = objects(I, T, F, T)
+    singles = sizefilter(objs, ONE)
+
+    comp_top = rbind(manhattan, top)
+    comp_bot = rbind(manhattan, bot)
+    comp_lef = rbind(manhattan, lef)
+    comp_rig = rbind(manhattan, rig)
+
+    otop = argmin(singles, comp_top)
+    obot = argmin(singles, comp_bot)
+    olef = argmin(singles, comp_lef)
+    orig = argmin(singles, comp_rig)
+
+    ctop = color(otop); cbot = color(obot); clef = color(olef); crig = color(orig)
+
+    O = I
+    O = fill(O, ctop, top)
+    O = fill(O, cbot, bot)
+    O = fill(O, clef, lef)
+    O = fill(O, crig, rig)
+
+    O = branch(flip(equality(ctop, clef)), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(flip(equality(ctop, crig)), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(flip(equality(cbot, clef)), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(flip(equality(cbot, crig)), fill(O, ZERO, intersection(bot, rig)), O)
+    return O
 
 def dsl4(I):
+    # Fixed mapping to borders + full row/column through the singleton (cross lines)
     inds = asindices(I)
-    tlc = ulcorner(inds)
-    trc = urcorner(inds)
-    blc = llcorner(inds)
-    top = hfrontier(tlc)
-    bot = hfrontier(blc)
-    lef = vfrontier(tlc)
-    rig = vfrontier(trc)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
-    has13 = either(equality(colorcount(I, ONE), ONE), equality(colorcount(I, THREE), ONE))
-    # prefer THREE for top if both present
-    O0 = I
-    O1 = branch(equality(colorcount(I, ONE), ONE), fill(O0, ONE, top), O0)
-    O2 = branch(equality(colorcount(I, THREE), ONE), fill(O1, THREE, top), O1)
-    O3 = branch(has2, fill(O2, TWO, lef), O2)
-    O4 = branch(has8, fill(O3, EIGHT, rig), O3)
-    O5 = branch(has6, fill(O4, SIX, bot), O4)
-    O6 = branch(both(has13, has2), fill(O5, ZERO, intersection(top, lef)), O5)
-    O7 = branch(both(has13, has8), fill(O6, ZERO, intersection(top, rig)), O6)
-    O8 = branch(both(has6, has2), fill(O7, ZERO, intersection(bot, lef)), O7)
-    O9 = branch(both(has6, has8), fill(O8, ZERO, intersection(bot, rig)), O8)
-    return O9
+    tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
+    top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
 
-def dsl5(I):
-    inds = asindices(I)
-    tlc = ulcorner(inds)
-    trc = urcorner(inds)
-    blc = llcorner(inds)
-    top = hfrontier(tlc)
-    bot = hfrontier(blc)
-    lef = vfrontier(tlc)
-    rig = vfrontier(trc)
     has1 = equality(colorcount(I, ONE), ONE)
     has3 = equality(colorcount(I, THREE), ONE)
     has2 = equality(colorcount(I, TWO), ONE)
     has8 = equality(colorcount(I, EIGHT), ONE)
     has6 = equality(colorcount(I, SIX), ONE)
-    O0 = I
-    # only one top color: ONE preferred, else THREE
-    O1 = branch(has1, fill(O0, ONE, top), O0)
-    O2 = branch(both(flip(has1), has3), fill(O1, THREE, top), O1)
-    O3 = branch(has8, fill(O2, EIGHT, rig), O2)
-    O4 = branch(both(flip(has8), has2), fill(O3, TWO, lef), O3)
-    O5 = branch(has6, fill(O4, SIX, bot), O4)
-    # zero intersections of any two used borders
-    top_used = either(has1, has3)
-    O6 = branch(both(top_used, has2), fill(O5, ZERO, intersection(top, lef)), O5)
-    O7 = branch(both(top_used, has8), fill(O6, ZERO, intersection(top, rig)), O6)
-    O8 = branch(both(has6, has2), fill(O7, ZERO, intersection(bot, lef)), O7)
-    O9 = branch(both(has6, has8), fill(O8, ZERO, intersection(bot, rig)), O8)
-    return O9
+
+    O = I
+    # Borders (prefer 3 over 1 for top)
+    O = branch(has2, fill(O, TWO, lef), O)
+    O = branch(has8, fill(O, EIGHT, rig), O)
+    O = branch(has6, fill(O, SIX, bot), O)
+    O = branch(has1, fill(O, ONE, top), O)
+    O = branch(has3, fill(O, THREE, top), O)
+
+    # Cross lines through the singleton's row/column
+    # Top color -> vertical line at its column
+    tuse = either(has1, has3)
+    tloc = branch(has3, first(ofcolor(I, THREE)), first(ofcolor(I, ONE)))
+    tcol = branch(has3, THREE, ONE)
+    O = branch(tuse, fill(O, tcol, vfrontier(tloc)), O)
+
+    # Right color (8) -> horizontal line at its row
+    O = branch(has8, fill(O, EIGHT, hfrontier(first(ofcolor(I, EIGHT)))), O)
+
+    # Left color (2) -> horizontal line at its row
+    O = branch(has2, fill(O, TWO, hfrontier(first(ofcolor(I, TWO)))), O)
+
+    # Bottom color (6) -> vertical line at its column
+    O = branch(has6, fill(O, SIX, vfrontier(first(ofcolor(I, SIX)))), O)
+
+    # Zero mismatched corners
+    O = branch(both(tuse, has2), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(tuse, has8), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(has6, has2), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(has6, has8), fill(O, ZERO, intersection(bot, rig)), O)
+    return O
+
+def dsl5(I):
+    # Only fixed mapping to borders (no rays, no corner zeroing)
+    inds = asindices(I)
+    tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
+    top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+
+    has1 = equality(colorcount(I, ONE), ONE)
+    has3 = equality(colorcount(I, THREE), ONE)
+    has2 = equality(colorcount(I, TWO), ONE)
+    has8 = equality(colorcount(I, EIGHT), ONE)
+    has6 = equality(colorcount(I, SIX), ONE)
+
+    O = I
+    # Prefer THREE over ONE for top
+    O = branch(has1, fill(O, ONE, top), O)
+    O = branch(has3, fill(O, THREE, top), O)
+    O = branch(has2, fill(O, TWO, lef), O)
+    O = branch(has8, fill(O, EIGHT, rig), O)
+    O = branch(has6, fill(O, SIX, bot), O)
+    return O
 ```

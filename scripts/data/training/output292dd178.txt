@@ -1,54 +1,45 @@
 ```python
 def dsl1(I):
-    objs = objects(I, T, F, T)
-    onesobjs = colorfilter(objs, ONE)
-    rf = compose(lbind(mapply, hfrontier), toindices)
-    cf = compose(lbind(mapply, vfrontier), toindices)
-    rcfunc = fork(lbind(prapply, intersection), rf, cf)
-    rcs = mapply(rcfunc, onesobjs)
-    O = underfill(I, TWO, rcs)
+    objs = colorfilter(fgpartition(I), ONE)
+    U = merge(objs)
+    P = delta(U)
+    O = underfill(I, TWO, P)
     return O
 
 def dsl2(I):
-    objs = fgpartition(I)
-    onesobjs = colorfilter(objs, ONE)
-    rf = compose(lbind(mapply, hfrontier), toindices)
-    cf = compose(lbind(mapply, vfrontier), toindices)
-    rcfunc = fork(lbind(prapply, intersection), rf, cf)
-    rcs = mapply(rcfunc, onesobjs)
-    O = underfill(I, TWO, rcs)
+    objs = colorfilter(fgpartition(I), ONE)
+    U = merge(objs)
+    P = backdrop(U)
+    O = underfill(I, TWO, P)
     return O
 
 def dsl3(I):
-    ones = ofcolor(I, ONE)
-    # partition 1s into connected components
-    objs = objects(fill(canvas(ZERO, shape(I)), ONE, ones), T, F, T)
-    rf = compose(lbind(mapply, hfrontier), toindices)
-    cf = compose(lbind(mapply, vfrontier), toindices)
-    rcfunc = fork(lbind(prapply, intersection), rf, cf)
-    rcs = mapply(rcfunc, objs)
-    O = underfill(I, TWO, rcs)
+    objs = colorfilter(fgpartition(I), ONE)
+    P = merge(mapply(delta, objs))
+    O = underfill(I, TWO, P)
     return O
 
 def dsl4(I):
-    objs = objects(I, T, F, T)
-    onesobjs = colorfilter(objs, ONE)
-    rows = mapply(compose(lbind(mapply, hfrontier), toindices), onesobjs)
-    cols = mapply(compose(lbind(mapply, vfrontier), toindices), onesobjs)
-    rcs = prapply(intersection, rows, cols)
-    O = underfill(I, TWO, rcs)
+    objs = colorfilter(fgpartition(I), ONE)
+    A1 = apply(ulcorner, objs)
+    B1 = apply(urcorner, objs)
+    L1 = mpapply(connect, A1, B1)
+    A2 = apply(llcorner, objs)
+    B2 = apply(lrcorner, objs)
+    L2 = mpapply(connect, A2, B2)
+    P = merge(combine(L1, L2))
+    O = underfill(I, TWO, P)
     return O
 
 def dsl5(I):
-    # Same as dsl1 but compute background explicitly (robustness)
-    bg = mostcolor(I)
-    objs = objects(I, T, F, T)
-    onesobjs = colorfilter(objs, ONE)
-    rf = compose(lbind(mapply, hfrontier), toindices)
-    cf = compose(lbind(mapply, vfrontier), toindices)
-    rcfunc = fork(lbind(prapply, intersection), rf, cf)
-    rcs = mapply(rcfunc, onesobjs)
-    rc_bg = intersection(rcs, ofcolor(I, bg))
-    O = fill(I, TWO, rc_bg)
+    objs = colorfilter(fgpartition(I), ONE)
+    A1 = apply(ulcorner, objs)
+    B1 = apply(llcorner, objs)
+    V1 = mpapply(connect, A1, B1)
+    A2 = apply(urcorner, objs)
+    B2 = apply(lrcorner, objs)
+    V2 = mpapply(connect, A2, B2)
+    P = merge(combine(V1, V2))
+    O = underfill(I, TWO, P)
     return O
 ```

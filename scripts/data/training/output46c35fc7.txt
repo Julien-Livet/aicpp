@@ -4,20 +4,18 @@ def dsl1(I):
     for obj in totuple(objects(I, F, T, T)):
         sub = subgrid(obj, I)
         idxs = asindices(sub)
-        ul_i = ulcorner(idxs)
-        lr_i = lrcorner(idxs)
-        ur_i = urcorner(idxs)
-        ll_i = llcorner(idxs)
-        main = connect(ul_i, lr_i)
-        anti = connect(ur_i, ll_i)
-        diag = combine(main, anti)
-        cross = difference(idxs, diag)
+        ring = box(idxs)
+        crn = corners(idxs)
+        edg = difference(ring, crn)
         cw = rot90(sub)
         ccw = rot270(sub)
-        loc = canvas(SEVEN, shape(sub))
-        loc = underpaint(loc, toobject(diag, ccw))
-        loc = underpaint(loc, toobject(cross, cw))
-        O = move(O, asobject(loc), ulcorner(obj))
+        oc = toobject(crn, ccw)  # corners from CCW
+        oe = toobject(edg, cw)   # edges from CW
+        base = canvas(SEVEN, shape(sub))
+        base = paint(base, oc)
+        base = paint(base, oe)
+        O = cover(O, obj)
+        O = move(O, asobject(base), ulcorner(obj))
     return O
 
 def dsl2(I):
@@ -25,35 +23,35 @@ def dsl2(I):
     for obj in totuple(objects(I, F, T, T)):
         sub = subgrid(obj, I)
         idxs = asindices(sub)
-        main = connect(ulcorner(idxs), lrcorner(idxs))
-        anti = connect(urcorner(idxs), llcorner(idxs))
-        diag = combine(main, anti)
-        cross = difference(idxs, diag)
+        ring = box(idxs)
+        crn = corners(idxs)
+        edg = difference(ring, crn)
         cw = rot90(sub)
-        ccw = rot270(sub)
-        loc = canvas(SEVEN, shape(sub))
-        loc = underpaint(loc, toobject(diag, ccw))
-        loc = underpaint(loc, toobject(cross, cw))
-        O = move(O, asobject(loc), ulcorner(obj))
+        oc = toobject(crn, cw)   # corners from CW
+        oe = toobject(edg, cw)   # edges from CW
+        base = canvas(SEVEN, shape(sub))
+        base = paint(base, oc)
+        base = paint(base, oe)
+        O = cover(O, obj)
+        O = move(O, asobject(base), ulcorner(obj))
     return O
 
 def dsl3(I):
     O = I
     for obj in totuple(objects(I, F, T, T)):
         sub = subgrid(obj, I)
-        cw = rot90(sub)
-        ccw = rot270(sub)
         idxs = asindices(sub)
-        ul_i = ulcorner(idxs)
-        lr_i = lrcorner(idxs)
-        ur_i = urcorner(idxs)
-        ll_i = llcorner(idxs)
-        main = connect(ul_i, lr_i)
-        anti = connect(ur_i, ll_i)
-        diag = combine(main, anti)
-        loc = cw
-        loc = paint(loc, toobject(diag, ccw))
-        O = move(O, asobject(loc), ulcorner(obj))
+        ring = box(idxs)
+        crn = corners(idxs)
+        edg = difference(ring, crn)
+        ccw = rot270(sub)
+        oc = toobject(crn, ccw)  # corners from CCW
+        oe = toobject(edg, ccw)  # edges from CCW
+        base = canvas(SEVEN, shape(sub))
+        base = paint(base, oc)
+        base = paint(base, oe)
+        O = cover(O, obj)
+        O = move(O, asobject(base), ulcorner(obj))
     return O
 
 def dsl4(I):
@@ -61,15 +59,25 @@ def dsl4(I):
     for obj in totuple(objects(I, F, T, T)):
         sub = subgrid(obj, I)
         idxs = asindices(sub)
-        main = connect(ulcorner(idxs), lrcorner(idxs))
-        anti = connect(urcorner(idxs), llcorner(idxs))
-        diag = combine(main, anti)
-        cross = delta(diag)
+        ring = box(idxs)
+        crn = corners(idxs)
+        edg = difference(ring, crn)
         cw = rot90(sub)
-        ccw = rot270(sub)
-        loc = canvas(SEVEN, shape(sub))
-        loc = underpaint(loc, toobject(diag, ccw))
-        loc = underpaint(loc, toobject(cross, cw))
-        O = move(O, asobject(loc), ulcorner(obj))
+        oc = toobject(crn, sub)  # corners unchanged
+        oe = toobject(edg, cw)   # edges from CW
+        base = canvas(SEVEN, shape(sub))
+        base = paint(base, oc)
+        base = paint(base, oe)
+        O = cover(O, obj)
+        O = move(O, asobject(base), ulcorner(obj))
+    return O
+
+def dsl5(I):
+    O = I
+    for obj in totuple(objects(I, F, T, T)):
+        sub = subgrid(obj, I)
+        r = rot90(sub)
+        O = cover(O, obj)
+        O = move(O, asobject(r), ulcorner(obj))
     return O
 ```

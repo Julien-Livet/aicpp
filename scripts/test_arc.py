@@ -22,9 +22,12 @@ def load_dsl_functions(code: str, env: dict):
     namespace = {}
     namespace.update(env)
 
-    exec(code, namespace)
-
     functions = {}
+
+    try:
+        exec(code, namespace)
+    except SyntaxError:
+        return functions
 
     tree = ast.parse(code)
 
@@ -268,11 +271,11 @@ Available primitives:
             command += "|-|-|-|-|-|\n"
             command += "\n".join("|" + "|".join(s) + "|" for s in scores) + "\n"
             
-            command += "\nPropose at most 5 diverse hypotheses of DSL programs exploring different transformations avoiding previous low-scoring.\n"
+            command += "\nPropose at most 5 diverse hypotheses of plausible DSL programs exploring different transformations avoiding previous low-scoring.\n"
         else:
-            command += "\nGenerate at most 5 diverse hypotheses of DSL programs exploring different transformations using only the declared primitives.\n"
+            command += "\nGenerate at most 5 diverse hypotheses of plausible DSL programs exploring different transformations using only the declared primitives.\n"
 
-        command += "\nWorkflow: analyze transformation -> identify primitives -> generate DSL programs\n"
+        command += "\nWorkflow: analyze transformation -> identify relevant object properties -> propose possible rules -> analyze why previous programs failed based on their scores -> identify primitives -> generate DSL programs\n"
 
         command += "\nAll programs must be described within a single Python MarkDown tag.\n"
 
@@ -496,7 +499,7 @@ def run_tasks(folder: str) -> int:
             unexploredTasks.append(task)
 
     tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
- 
+
     with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
             executor.map(lambda task: processTask(folder, task, debug = False), tasks),

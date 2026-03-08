@@ -2,29 +2,22 @@
 def dsl1(I):
     w = width(I)
     h = height(I)
-    top = crop(I, ORIGIN, astuple(ONE, w))
-    cc = lbind(colorcount, top)
-    times10 = rbind(multiply, TEN)
-    a = compose(times10, cc)
-    comp = fork(subtract, a, identity)
-    c = argmax(palette(top), comp)
-    i = subtract(h, ONE)
-    j = halve(w)
-    p = initset(astuple(i, j))
+    obs = objects(I, T, F, T)
+    hlines = mfilter(obs, hline)
+    rowobj = argmax(hlines, width)
+    r = uppermost(rowobj)
+    top = crop(I, ORIGIN, astuple(r, w))
+    c = mostcolor(top)
+    p = initset(astuple(subtract(h, ONE), halve(w)))
     O = fill(I, c, p)
     return O
 
 def dsl2(I):
     w = width(I)
     h = height(I)
-    top = crop(I, ORIGIN, astuple(ONE, w))
-    cc = lbind(colorcount, top)
-    comp = fork(subtract, compose(rbind(multiply, TEN), cc), identity)
-    ordered = order(palette(top), comp)
-    c = last(ordered)
-    i = subtract(h, ONE)
-    j = halve(w)
-    p = initset(astuple(i, j))
+    top = tophalf(I)
+    c = mostcolor(top)
+    p = initset(astuple(subtract(h, ONE), halve(w)))
     O = fill(I, c, p)
     return O
 
@@ -32,45 +25,28 @@ def dsl3(I):
     w = width(I)
     h = height(I)
     top = crop(I, ORIGIN, astuple(ONE, w))
-    pal = palette(top)
-    cc = lbind(colorcount, top)
-    # find max count
-    counts = mapply(cc, pal)
-    mx = maximum(counts)
-    # filter colors with max count
-    ismax = rbind(equality, mx)
-    keep = sfilter(pal, compose(ismax, cc))
-    # choose smallest color among modes
-    c = minimum(keep)
-    i = subtract(h, ONE)
-    j = halve(w)
-    p = initset(astuple(i, j))
+    c = mostcolor(top)
+    p = initset(astuple(subtract(h, ONE), halve(w)))
     O = fill(I, c, p)
     return O
 
 def dsl4(I):
     w = width(I)
     h = height(I)
-    top = crop(I, ORIGIN, astuple(ONE, w))
-    # prefer smallest color in case of tie: score = 10*count - color
-    comp = fork(
-        subtract,
-        compose(rbind(multiply, TEN), lbind(colorcount, top)),
-        identity
-    )
-    c = argmax(palette(top), comp)
-    loc = astuple(subtract(h, ONE), halve(w))
-    O = fill(I, c, initset(loc))
+    obs = objects(I, T, F, T)
+    lastobj = argmax(obs, lowermost)
+    r = lowermost(lastobj)
+    top = crop(I, ORIGIN, astuple(r, w))
+    c = mostcolor(top)
+    p = initset(astuple(subtract(h, ONE), halve(w)))
+    O = fill(I, c, p)
     return O
 
 def dsl5(I):
     w = width(I)
     h = height(I)
-    top = crop(I, ORIGIN, astuple(ONE, w))
-    pal = palette(top)
-    # same scoring via fork/compose
-    score = fork(subtract, compose(rbind(multiply, TEN), lbind(colorcount, top)), identity)
-    c = argmax(pal, score)
+    top = tophalf(I)
+    c = argmax(palette(top), lbind(colorcount, top))
     p = initset(astuple(subtract(h, ONE), halve(w)))
     O = fill(I, c, p)
     return O

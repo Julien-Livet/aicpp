@@ -1,23 +1,30 @@
 ```python
 def dsl1(I):
-    O = rot90(I)
+    O = compress(I)
     return O
 
 def dsl2(I):
-    O = rot180(I)
+    x1 = rot270(I)
+    x2 = compress(x1)
+    O = rot90(x2)
     return O
 
 def dsl3(I):
-    O = rot270(I)
+    x1 = asobject(I)
+    x2 = backdrop(x1)
+    x3 = leastcolor(I)
+    O = underfill(I, x3, x2)
     return O
 
 def dsl4(I):
-    O = hmirror(I)
+    x1 = righthalf(I)
+    x2 = lefthalf(I)
+    O = hconcat(x1, x2)
     return O
 
 def dsl5(I):
-    x1 = astuple(1, 1)
-    x2 = index(I, x1)
-    O = replace(I, ZERO, x2)
+    x1 = downscale(I, TWO)
+    x2 = vupscale(x1, TWO)
+    O = hupscale(x2, TWO)
     return O
 ```
