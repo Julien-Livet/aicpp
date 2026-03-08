@@ -314,7 +314,7 @@ def dsl5(I):
                 f = open("data/" + folder + "/output" + task + ".txt", "r")
                 content = f.read()
                 f.close()
-            except FileNotFoundError as e:
+            except (FileNotFoundError, UnicodeDecodeError):
                 content = callLLM(command)
         else:
             content = callLLM(command)
