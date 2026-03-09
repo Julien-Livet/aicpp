@@ -1,47 +1,66 @@
 ```python
 def dsl1(I):
+    # Paint cells directly above/below any 2, then bridge horizontally between adjacent painted cells
     x = ofcolor(I, TWO)
-    r1 = shift(x, RIGHT)
-    r2 = shift(x, ZERO_BY_TWO)
-    r3 = shift(x, add(RIGHT, ZERO_BY_TWO))
-    b = combine(r1, r2)
-    b = combine(b, r3)
-    O = underfill(I, FOUR, b)
+    up = shift(x, UP)
+    down = shift(x, DOWN)
+    y = combine(up, down)
+    centers = intersection(shift(y, LEFT), shift(y, RIGHT))
+    idx = combine(y, centers)
+    O = underfill(I, FOUR, idx)
     return O
 
 def dsl2(I):
+    # Paint diagonal and vertical neighbors of any 2 (no direct left/right), a kind of 8-neighborhood minus horizontals
     x = ofcolor(I, TWO)
-    l1 = shift(x, LEFT)
-    l2 = shift(x, add(UP, LEFT))
-    l3 = shift(x, DOWN_LEFT)
-    b = combine(l1, l2)
-    b = combine(b, l3)
-    O = underfill(I, FOUR, b)
+    u = shift(x, UP)
+    d = shift(x, DOWN)
+    ul = shift(x, add(UP, LEFT))
+    ur = shift(x, add(UP, RIGHT))
+    dl = shift(x, add(DOWN, LEFT))
+    dr = shift(x, add(DOWN, RIGHT))
+    idx = combine(u, combine(d, combine(ul, combine(ur, combine(dl, dr)))))
+    O = underfill(I, FOUR, idx)
     return O
 
 def dsl3(I):
+    # Paint cells that are left/right of a 2 and also vertically adjacent to a (possibly other) 2
     x = ofcolor(I, TWO)
-    d1 = shift(x, DOWN)
-    d2 = shift(x, add(DOWN, RIGHT))
-    d3 = shift(x, add(DOWN, ZERO_BY_TWO))
-    b = combine(d1, d2)
-    b = combine(b, d3)
-    O = underfill(I, FOUR, b)
+    leftof = shift(x, LEFT)
+    rightof = shift(x, RIGHT)
+    vert = combine(shift(x, UP), shift(x, DOWN))
+    a = intersection(leftof, vert)
+    b = intersection(rightof, vert)
+    idx = combine(a, b)
+    O = underfill(I, FOUR, idx)
     return O
 
 def dsl4(I):
-    fr = frontiers(I)
-    idx = mapply(toindices, fr)
+    # Diagonal centers between opposing diagonals of 2s, then expand to adjacent horizontals
+    x = ofcolor(I, TWO)
+    c1 = shift(x, add(UP, RIGHT))
+    c2 = shift(x, add(DOWN, LEFT))
+    centers = intersection(c1, c2)
+    l = shift(centers, LEFT)
+    r = shift(centers, RIGHT)
+    idx = combine(centers, combine(l, r))
     O = underfill(I, FOUR, idx)
     return O
 
 def dsl5(I):
+    # Fill the three interior cells between horizontally-separated-by-4 2s,
+    # but only for those intervals whose left endpoint has a 2 just to its left in the middle row (via DOWN from that endpoint)
     x = ofcolor(I, TWO)
-    s1 = shift(x, RIGHT)
-    s2 = shift(x, UP_RIGHT)
-    s3 = shift(x, add(DOWN, RIGHT))
-    b = combine(s1, s2)
-    b = combine(b, s3)
-    O = underfill(I, FOUR, b)
+    # detect left endpoints of spans of length 4: cells that have another 2 four steps right
+    right4 = shift(shift(x, ZERO_BY_TWO), ZERO_BY_TWO)  # shift by (0,4)
+    lefts = intersection(x, right4)
+    # filter lefts so that (left-1) is directly above/below a 2 (using DOWN from top-row endpoints)
+    cond = intersection(shift(lefts, LEFT), shift(x, DOWN))
+    sel_lefts = shift(cond, RIGHT)
+    r1 = shift(sel_lefts, RIGHT)
+    r2 = shift(sel_lefts, ZERO_BY_TWO)
+    r3 = shift(sel_lefts, add(RIGHT, ZERO_BY_TWO))
+    idx = combine(r1, combine(r2, r3))
+    O = underfill(I, FOUR, idx)
     return O
 ```

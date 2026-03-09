@@ -360,7 +360,7 @@ from dsl import *
 
                 scores.append([";".join(source.split("\n"))] + [str(x) for x in score] + [str(sum(score))])
                 totalScores.append([k, source] + score + [sum(score)])
-            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError):
+            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError):
                 pass
         
             runner.terminate()
@@ -387,7 +387,7 @@ from dsl import *
                         score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))), pair[1])
 
                 costs = (np.array(totalScores[0][2:]) + np.array(score + [sum(score)])).tolist()
-            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError):
+            except (AttributeError, IndexError, NameError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError):
                 costs = [math.nan] * (len(scoreFunctions) + 1)
 
             runner.terminate()

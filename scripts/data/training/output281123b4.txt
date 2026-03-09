@@ -1,72 +1,103 @@
 ```python
 def dsl1(I):
-    # Overlay 4x4 blocks with precedence: C > D > A > B (fill holes with next)
-    dims = astuple(FOUR, FOUR)
-    a = crop(I, astuple(ZERO, ZERO), dims)
-    b = crop(I, astuple(ZERO, FIVE), dims)
-    c = crop(I, astuple(ZERO, add(TEN, ZERO)), dims)
-    d = crop(I, astuple(ZERO, add(TEN, FIVE)), dims)
-    z = canvas(ZERO, dims)
-    y = underpaint(z, asobject(c))
-    y = underpaint(y, asobject(d))
-    y = underpaint(y, asobject(a))
-    O = underpaint(y, asobject(b))
+    # Fixed-position tiles: [0..3], [5..8], [10..13], [15..18]
+    t1 = crop(I, ORIGIN, (4, 4))                 # mostly 8
+    t2 = crop(I, (0, 5), (4, 4))                 # mostly 5
+    t3 = crop(I, (0, 10), (4, 4))                # mostly 9
+    t4 = crop(I, (0, 15), (4, 4))                # mostly 4
+    # Nonzero patches per tile
+    p1 = difference(asindices(t1), ofcolor(t1, ZERO))
+    p2 = difference(asindices(t2), ofcolor(t2, ZERO))
+    p3 = difference(asindices(t3), ofcolor(t3, ZERO))
+    p4 = difference(asindices(t4), ofcolor(t4, ZERO))
+    # Convert to objects with original colors
+    o1 = toobject(p1, t1)
+    o2 = toobject(p2, t2)
+    o3 = toobject(p3, t3)
+    o4 = toobject(p4, t4)
+    # Overlay by priority using paint: lowest -> highest (5,8,4,9)
+    O = canvas(ZERO, (4, 4))
+    O = paint(O, o2)  # 5
+    O = paint(O, o1)  # 8
+    O = paint(O, o4)  # 4
+    O = paint(O, o3)  # 9
     return O
 
 def dsl2(I):
-    # Same precedence implemented via paint (last writer wins): B -> A -> D -> C
-    dims = astuple(FOUR, FOUR)
-    a = crop(I, astuple(ZERO, ZERO), dims)
-    b = crop(I, astuple(ZERO, FIVE), dims)
-    c = crop(I, astuple(ZERO, add(TEN, ZERO)), dims)
-    d = crop(I, astuple(ZERO, add(TEN, FIVE)), dims)
-    z = canvas(ZERO, dims)
-    y = paint(z, asobject(b))
-    y = paint(y, asobject(a))
-    y = paint(y, asobject(d))
-    O = paint(y, asobject(c))
+    # Same tiles, use underpaint in descending priority (9,4,8,5)
+    t1 = crop(I, ORIGIN, (4, 4))
+    t2 = crop(I, (0, 5), (4, 4))
+    t3 = crop(I, (0, 10), (4, 4))
+    t4 = crop(I, (0, 15), (4, 4))
+    p1 = difference(asindices(t1), ofcolor(t1, ZERO))
+    p2 = difference(asindices(t2), ofcolor(t2, ZERO))
+    p3 = difference(asindices(t3), ofcolor(t3, ZERO))
+    p4 = difference(asindices(t4), ofcolor(t4, ZERO))
+    o1 = toobject(p1, t1)  # 8
+    o2 = toobject(p2, t2)  # 5
+    o3 = toobject(p3, t3)  # 9
+    o4 = toobject(p4, t4)  # 4
+    O = canvas(ZERO, (4, 4))
+    O = underpaint(O, o3)  # 9
+    O = underpaint(O, o4)  # 4
+    O = underpaint(O, o1)  # 8
+    O = underpaint(O, o2)  # 5
     return O
 
 def dsl3(I):
-    # Variant precedence: C > D > B > A
-    dims = astuple(FOUR, FOUR)
-    a = crop(I, astuple(ZERO, ZERO), dims)
-    b = crop(I, astuple(ZERO, FIVE), dims)
-    c = crop(I, astuple(ZERO, add(TEN, ZERO)), dims)
-    d = crop(I, astuple(ZERO, add(TEN, FIVE)), dims)
-    z = canvas(ZERO, dims)
-    y = underpaint(z, asobject(c))
-    y = underpaint(y, asobject(d))
-    y = underpaint(y, asobject(b))
-    O = underpaint(y, asobject(a))
+    # Dynamic by color filtering, then underpaint in 9>4>8>5
+    t1 = crop(I, ORIGIN, (4, 4))
+    t2 = crop(I, (0, 5), (4, 4))
+    t3 = crop(I, (0, 10), (4, 4))
+    t4 = crop(I, (0, 15), (4, 4))
+    S = merge((fgpartition(t1), fgpartition(t2), fgpartition(t3), fgpartition(t4)))
+    o9 = first(colorfilter(S, NINE))
+    o4 = first(colorfilter(S, FOUR))
+    o8 = first(colorfilter(S, EIGHT))
+    o5 = first(colorfilter(S, FIVE))
+    O = canvas(ZERO, (4, 4))
+    O = underpaint(O, o9)
+    O = underpaint(O, o4)
+    O = underpaint(O, o8)
+    O = underpaint(O, o5)
     return O
 
 def dsl4(I):
-    # Pre-transform D (vmirror) then overlay: C > D' > A > B
-    dims = astuple(FOUR, FOUR)
-    a = crop(I, astuple(ZERO, ZERO), dims)
-    b = crop(I, astuple(ZERO, FIVE), dims)
-    c = crop(I, astuple(ZERO, add(TEN, ZERO)), dims)
-    d = crop(I, astuple(ZERO, add(TEN, FIVE)), dims)
-    d2 = vmirror(d)
-    z = canvas(ZERO, dims)
-    y = underpaint(z, asobject(c))
-    y = underpaint(y, asobject(d2))
-    y = underpaint(y, asobject(a))
-    O = underpaint(y, asobject(b))
+    # Recolor nonzero indices per tile to fixed colors by position; underpaint 9,4,8,5
+    t1 = crop(I, ORIGIN, (4, 4))
+    t2 = crop(I, (0, 5), (4, 4))
+    t3 = crop(I, (0, 10), (4, 4))
+    t4 = crop(I, (0, 15), (4, 4))
+    p1 = difference(asindices(t1), ofcolor(t1, ZERO))
+    p2 = difference(asindices(t2), ofcolor(t2, ZERO))
+    p3 = difference(asindices(t3), ofcolor(t3, ZERO))
+    p4 = difference(asindices(t4), ofcolor(t4, ZERO))
+    o8 = recolor(EIGHT, p1)
+    o5 = recolor(FIVE, p2)
+    o9 = recolor(NINE, p3)
+    o4 = recolor(FOUR, p4)
+    O = canvas(ZERO, (4, 4))
+    O = underpaint(O, o9)
+    O = underpaint(O, o4)
+    O = underpaint(O, o8)
+    O = underpaint(O, o5)
     return O
 
 def dsl5(I):
-    # Rotate all blocks 90° then overlay with precedence: C' > D' > A' > B'
-    dims = astuple(FOUR, FOUR)
-    a = rot90(crop(I, astuple(ZERO, ZERO), dims))
-    b = rot90(crop(I, astuple(ZERO, FIVE), dims))
-    c = rot90(crop(I, astuple(ZERO, add(TEN, ZERO)), dims))
-    d = rot90(crop(I, astuple(ZERO, add(TEN, FIVE)), dims))
-    z = canvas(ZERO, dims)
-    y = underpaint(z, asobject(c))
-    y = underpaint(y, asobject(d))
-    y = underpaint(y, asobject(a))
-    O = underpaint(y, asobject(b))
+    # Dynamic by color filtering, then paint in 5,8,4,9 (low->high) to overwrite
+    t1 = crop(I, ORIGIN, (4, 4))
+    t2 = crop(I, (0, 5), (4, 4))
+    t3 = crop(I, (0, 10), (4, 4))
+    t4 = crop(I, (0, 15), (4, 4))
+    S = merge((fgpartition(t1), fgpartition(t2), fgpartition(t3), fgpartition(t4)))
+    o5 = first(colorfilter(S, FIVE))
+    o8 = first(colorfilter(S, EIGHT))
+    o4 = first(colorfilter(S, FOUR))
+    o9 = first(colorfilter(S, NINE))
+    O = canvas(ZERO, (4, 4))
+    O = paint(O, o5)
+    O = paint(O, o8)
+    O = paint(O, o4)
+    O = paint(O, o9)
     return O
 ```

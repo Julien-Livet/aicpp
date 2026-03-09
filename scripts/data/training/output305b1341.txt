@@ -1,30 +1,109 @@
 ```python
 def dsl1(I):
-    O = compress(I)
+    # Hypothesis A: Use a one-cell expanded bounding box per stripe color (via backdrop(outbox(P))),
+    # fill bases first, then repaint the dot lattice at the original seed positions.
+    H = height(I); W = width(I)
+    OFF = tojvec(2)
+    J = crop(I, astuple(0, 2), astuple(H, subtract(W, 2)))
+    # Legend pairs (stripe, base)
+    s1 = index(I, ORIGIN);       b1 = index(I, tojvec(1))
+    s2 = index(I, toivec(1));    b2 = index(I, add(toivec(1), tojvec(1)))
+    s3 = index(I, toivec(2));    b3 = index(I, add(toivec(2), tojvec(1)))
+    O = canvas(ZERO, shape(I))
+    # Prepare patches
+    P1 = ofcolor(J, s1); R1 = shift(backdrop(outbox(P1)), OFF)
+    P2 = ofcolor(J, s2); R2 = shift(backdrop(outbox(P2)), OFF)
+    P3 = ofcolor(J, s3); R3 = shift(backdrop(outbox(P3)), OFF)
+    # Fill all bases first
+    O = branch(both(positive(s1), positive(b1)), fill(O, b1, R1), O)
+    O = branch(both(positive(s2), positive(b2)), fill(O, b2, R2), O)
+    O = branch(both(positive(s3), positive(b3)), fill(O, b3, R3), O)
+    # Repaint dot-lattice stripes
+    O = branch(positive(s1), paint(O, recolor(s1, shift(P1, OFF))), O)
+    O = branch(positive(s2), paint(O, recolor(s2, shift(P2, OFF))), O)
+    O = branch(positive(s3), paint(O, recolor(s3, shift(P3, OFF))), O)
     return O
 
 def dsl2(I):
-    x1 = rot270(I)
-    x2 = compress(x1)
-    O = rot90(x2)
+    # Hypothesis B: Use a two-step expansion of the bounding box (backdrop(outbox(backdrop(P))))
+    # to define slightly larger regions before repainting stripes.
+    H = height(I); W = width(I)
+    OFF = tojvec(2)
+    J = crop(I, astuple(0, 2), astuple(H, subtract(W, 2)))
+    s1 = index(I, ORIGIN);       b1 = index(I, tojvec(1))
+    s2 = index(I, toivec(1));    b2 = index(I, add(toivec(1), tojvec(1)))
+    s3 = index(I, toivec(2));    b3 = index(I, add(toivec(2), tojvec(1)))
+    O = canvas(ZERO, shape(I))
+    P1 = ofcolor(J, s1); B1 = backdrop(P1); R1 = shift(backdrop(outbox(B1)), OFF)
+    P2 = ofcolor(J, s2); B2 = backdrop(P2); R2 = shift(backdrop(outbox(B2)), OFF)
+    P3 = ofcolor(J, s3); B3 = backdrop(P3); R3 = shift(backdrop(outbox(B3)), OFF)
+    O = branch(both(positive(s1), positive(b1)), fill(O, b1, R1), O)
+    O = branch(both(positive(s2), positive(b2)), fill(O, b2, R2), O)
+    O = branch(both(positive(s3), positive(b3)), fill(O, b3, R3), O)
+    O = branch(positive(s1), paint(O, recolor(s1, shift(P1, OFF))), O)
+    O = branch(positive(s2), paint(O, recolor(s2, shift(P2, OFF))), O)
+    O = branch(positive(s3), paint(O, recolor(s3, shift(P3, OFF))), O)
     return O
 
 def dsl3(I):
-    x1 = asobject(I)
-    x2 = backdrop(x1)
-    x3 = leastcolor(I)
-    O = underfill(I, x3, x2)
+    # Hypothesis C: Use the tight bounding box only (backdrop(P)) for each stripe color,
+    # then paint seeds; minimal-region interpretation.
+    H = height(I); W = width(I)
+    OFF = tojvec(2)
+    J = crop(I, astuple(0, 2), astuple(H, subtract(W, 2)))
+    s1 = index(I, ORIGIN);       b1 = index(I, tojvec(1))
+    s2 = index(I, toivec(1));    b2 = index(I, add(toivec(1), tojvec(1)))
+    s3 = index(I, toivec(2));    b3 = index(I, add(toivec(2), tojvec(1)))
+    O = canvas(ZERO, shape(I))
+    P1 = ofcolor(J, s1); R1 = shift(backdrop(P1), OFF)
+    P2 = ofcolor(J, s2); R2 = shift(backdrop(P2), OFF)
+    P3 = ofcolor(J, s3); R3 = shift(backdrop(P3), OFF)
+    O = branch(both(positive(s1), positive(b1)), fill(O, b1, R1), O)
+    O = branch(both(positive(s2), positive(b2)), fill(O, b2, R2), O)
+    O = branch(both(positive(s3), positive(b3)), fill(O, b3, R3), O)
+    O = branch(positive(s1), paint(O, recolor(s1, shift(P1, OFF))), O)
+    O = branch(positive(s2), paint(O, recolor(s2, shift(P2, OFF))), O)
+    O = branch(positive(s3), paint(O, recolor(s3, shift(P3, OFF))), O)
     return O
 
 def dsl4(I):
-    x1 = righthalf(I)
-    x2 = lefthalf(I)
-    O = hconcat(x1, x2)
+    # Hypothesis D: Enlarge via backdrop of the union with its outbox, then re-backdrop
+    # to ensure a slightly padded rectangle: backdrop(combine(backdrop(P), outbox(backdrop(P))))
+    H = height(I); W = width(I)
+    OFF = tojvec(2)
+    J = crop(I, astuple(0, 2), astuple(H, subtract(W, 2)))
+    s1 = index(I, ORIGIN);       b1 = index(I, tojvec(1))
+    s2 = index(I, toivec(1));    b2 = index(I, add(toivec(1), tojvec(1)))
+    s3 = index(I, toivec(2));    b3 = index(I, add(toivec(2), tojvec(1)))
+    O = canvas(ZERO, shape(I))
+    P1 = ofcolor(J, s1); B1 = backdrop(P1); E1 = combine(B1, outbox(B1)); R1 = shift(backdrop(E1), OFF)
+    P2 = ofcolor(J, s2); B2 = backdrop(P2); E2 = combine(B2, outbox(B2)); R2 = shift(backdrop(E2), OFF)
+    P3 = ofcolor(J, s3); B3 = backdrop(P3); E3 = combine(B3, outbox(B3)); R3 = shift(backdrop(E3), OFF)
+    O = branch(both(positive(s1), positive(b1)), fill(O, b1, R1), O)
+    O = branch(both(positive(s2), positive(b2)), fill(O, b2, R2), O)
+    O = branch(both(positive(s3), positive(b3)), fill(O, b3, R3), O)
+    O = branch(positive(s1), paint(O, recolor(s1, shift(P1, OFF))), O)
+    O = branch(positive(s2), paint(O, recolor(s2, shift(P2, OFF))), O)
+    O = branch(positive(s3), paint(O, recolor(s3, shift(P3, OFF))), O)
     return O
 
 def dsl5(I):
-    x1 = downscale(I, TWO)
-    x2 = vupscale(x1, TWO)
-    O = hupscale(x2, TWO)
+    # Hypothesis E: Use delta(P) (interior minus seeds) for base-fill, then repaint seeds.
+    H = height(I); W = width(I)
+    OFF = tojvec(2)
+    J = crop(I, astuple(0, 2), astuple(H, subtract(W, 2)))
+    s1 = index(I, ORIGIN);       b1 = index(I, tojvec(1))
+    s2 = index(I, toivec(1));    b2 = index(I, add(toivec(1), tojvec(1)))
+    s3 = index(I, toivec(2));    b3 = index(I, add(toivec(2), tojvec(1)))
+    O = canvas(ZERO, shape(I))
+    P1 = ofcolor(J, s1); D1 = shift(delta(P1), OFF)
+    P2 = ofcolor(J, s2); D2 = shift(delta(P2), OFF)
+    P3 = ofcolor(J, s3); D3 = shift(delta(P3), OFF)
+    O = branch(both(positive(s1), positive(b1)), fill(O, b1, D1), O)
+    O = branch(both(positive(s2), positive(b2)), fill(O, b2, D2), O)
+    O = branch(both(positive(s3), positive(b3)), fill(O, b3, D3), O)
+    O = branch(positive(s1), paint(O, recolor(s1, shift(P1, OFF))), O)
+    O = branch(positive(s2), paint(O, recolor(s2, shift(P2, OFF))), O)
+    O = branch(positive(s3), paint(O, recolor(s3, shift(P3, OFF))), O)
     return O
 ```

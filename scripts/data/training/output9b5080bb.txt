@@ -1,44 +1,54 @@
 ```python
 def dsl1(I):
-    x1 = ofcolor(I, EIGHT)
-    x2 = toobject(x1, I)
-    x3 = dmirror(x2)
-    O = paint(I, x3)
+    # Rotate colors along the cycle 1->8->4->2->1 using pairwise switches
+    x1 = switch(I, ONE, EIGHT)
+    x2 = switch(x1, ONE, FOUR)
+    O = switch(x2, ONE, TWO)
     return O
 
 def dsl2(I):
-    x1 = ofcolor(I, FOUR)
-    x2 = toobject(x1, I)
-    x3 = dmirror(x2)
-    O = paint(I, x3)
+    # For each object's bbox: where it's TWO, paint bbox-on-8 as ONE; where it's FOUR, paint bbox-on-8 as TWO
+    # Also turn original background 1-cells into 8 (but keep newly created 1s intact)
+    x8 = ofcolor(I, EIGHT)
+    x2 = toobject(ofcolor(I, TWO), I)
+    x4 = toobject(ofcolor(I, FOUR), I)
+    b2 = box(x2)
+    b4 = box(x4)
+    m21 = intersection(b2, x8)
+    m42 = intersection(b4, x8)
+    y1 = fill(I, ONE, m21)
+    y2 = fill(y1, TWO, m42)
+    bg1 = ofcolor(I, ONE)
+    O = fill(y2, EIGHT, bg1)
     return O
 
 def dsl3(I):
-    x1 = ofcolor(I, EIGHT)
-    x2 = toobject(x1, I)
-    x3 = dmirror(x2)
-    x4 = ofcolor(I, FOUR)
-    x5 = toobject(x4, I)
-    x6 = dmirror(x5)
-    x7 = paint(I, x3)
-    O = paint(x7, x6)
+    # Like dsl2 but use the delta ring (bbox minus object) around TWO/FOUR objects intersected with EIGHT
+    # Then convert original 1-cells to 8
+    x8 = ofcolor(I, EIGHT)
+    x2 = toobject(ofcolor(I, TWO), I)
+    x4 = toobject(ofcolor(I, FOUR), I)
+    r2 = delta(x2)
+    r4 = delta(x4)
+    m21 = intersection(r2, x8)
+    m42 = intersection(r4, x8)
+    y1 = fill(I, ONE, m21)
+    y2 = fill(y1, TWO, m42)
+    bg1 = ofcolor(I, ONE)
+    O = fill(y2, EIGHT, bg1)
     return O
 
 def dsl4(I):
-    x1 = ofcolor(I, EIGHT)
-    x2 = toobject(x1, I)
-    x3 = cmirror(x2)
-    O = paint(I, x3)
+    # Swap the least common and most common colors in the grid
+    cmin = leastcolor(I)
+    cmax = mostcolor(I)
+    O = switch(I, cmin, cmax)
     return O
 
 def dsl5(I):
-    x1 = ofcolor(I, TWO)
-    x2 = toobject(x1, I)
-    x3 = dmirror(x2)
-    x4 = paint(I, x3)
-    x5 = ofcolor(I, FOUR)
-    x6 = toobject(x5, I)
-    x7 = dmirror(x6)
-    O = paint(x4, x7)
+    # Inverse rotation: 1->2, 2->4, 4->8, 8->1 via pairwise switches
+    x1 = switch(I, ONE, TWO)
+    x2 = switch(x1, ONE, FOUR)
+    O = switch(x2, ONE, EIGHT)
     return O
 ```

@@ -2,69 +2,185 @@
 def dsl1(I):
     H = height(I)
     W = width(I)
-    top_h = subtract(H, THREE)
-    top = canvas(ZERO, astuple(top_h, W))
-    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
-    O = vconcat(top, band3)
+    # keep band and bottom, clear above
+    top = canvas(ZERO, astuple(subtract(H, THREE), W))
+    band = crop(I, astuple(subtract(H, THREE), ZERO), astuple(TWO, W))
+    bottom = crop(I, astuple(subtract(H, ONE), ZERO), astuple(ONE, W))
+    G = vconcat(vconcat(top, band), bottom)
+
+    # foreground objects above the two-row band (exclude base color)
+    base = mostcolor(bottom)
+    upper = crop(I, ORIGIN, astuple(subtract(H, THREE), W))
+    nobase_upper = replace(upper, base, ZERO)
+    ups = objects(nobase_upper, T, F, T)
+    ups_ord = order(ups, leftmost)
+    cols = apply(color, ups_ord)
+
+    # free columns within the two-row band (both rows must be zero)
+    row_top = crop(band, ORIGIN, astuple(ONE, W))
+    row_bot = crop(band, astuple(ONE, ZERO), astuple(ONE, W))
+    free_top = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_top, ZERO)))
+    free_bot = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_bot, ZERO)))
+    both = cellwise(free_top, free_bot, ZERO)
+    both2 = vupscale(both, TWO)
+
+    # gap segments ordered left-to-right
+    segs_rel = colorfilter(objects(both2, T, F, T), ONE)
+    segs_ord = order(segs_rel, leftmost)
+    segs_idx = apply(toindices, segs_ord)
+
+    # shift gaps into absolute grid coords and color-map by object order
+    down_vec = astuple(subtract(H, THREE), ZERO)
+    abs_segs = apply(rbind(shift, down_vec), segs_idx)
+    seg_colored = papply(recolor, cols, abs_segs)
+    union = merge(seg_colored)
+
+    O = paint(G, union)
     return O
+
 
 def dsl2(I):
     H = height(I)
     W = width(I)
-    r1 = subtract(H, THREE)
-    r2 = subtract(H, TWO)
-    r3 = subtract(H, ONE)
-    row1 = shoot(astuple(r1, ZERO), RIGHT)
-    row2 = shoot(astuple(r2, ZERO), RIGHT)
-    row3 = shoot(astuple(r3, ZERO), RIGHT)
-    keep = combine(combine(row1, row2), row3)
-    rem = difference(asindices(I), keep)
-    O = cover(I, rem)
+    top = canvas(ZERO, astuple(subtract(H, THREE), W))
+    band = crop(I, astuple(subtract(H, THREE), ZERO), astuple(TWO, W))
+    bottom = crop(I, astuple(subtract(H, ONE), ZERO), astuple(ONE, W))
+    G = vconcat(vconcat(top, band), bottom)
+
+    base = mostcolor(bottom)
+    upper = crop(I, ORIGIN, astuple(subtract(H, THREE), W))
+    nobase_upper = replace(upper, base, ZERO)
+    ups = objects(nobase_upper, T, F, T)
+    # order objects by area ascending (tie-breaking left-to-right implicit)
+    ups_ord = order(ups, size)
+    cols = apply(color, ups_ord)
+
+    row_top = crop(band, ORIGIN, astuple(ONE, W))
+    row_bot = crop(band, astuple(ONE, ZERO), astuple(ONE, W))
+    free_top = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_top, ZERO)))
+    free_bot = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_bot, ZERO)))
+    both = cellwise(free_top, free_bot, ZERO)
+    both2 = vupscale(both, TWO)
+
+    segs_rel = colorfilter(objects(both2, T, F, T), ONE)
+    # map gaps strictly left-to-right
+    segs_ord = order(segs_rel, leftmost)
+    segs_idx = apply(toindices, segs_ord)
+
+    down_vec = astuple(subtract(H, THREE), ZERO)
+    abs_segs = apply(rbind(shift, down_vec), segs_idx)
+    seg_colored = papply(recolor, cols, abs_segs)
+    union = merge(seg_colored)
+    O = paint(G, union)
     return O
+
 
 def dsl3(I):
     H = height(I)
     W = width(I)
-    top_h = subtract(H, THREE)
-    top = canvas(ZERO, astuple(top_h, W))
-    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
-    content = compress(band3)
-    ch = height(content)
-    cw = width(content)
-    pad_h = subtract(THREE, ch)
-    pad_top = canvas(ZERO, astuple(pad_h, cw))
-    content3 = vconcat(pad_top, content)
-    pad_w = subtract(W, width(content3))
-    pad_right = canvas(ZERO, astuple(THREE, pad_w))
-    band_aligned = hconcat(content3, pad_right)
-    O = vconcat(top, band_aligned)
+    top = canvas(ZERO, astuple(subtract(H, THREE), W))
+    band = crop(I, astuple(subtract(H, THREE), ZERO), astuple(TWO, W))
+    bottom = crop(I, astuple(subtract(H, ONE), ZERO), astuple(ONE, W))
+    G = vconcat(vconcat(top, band), bottom)
+
+    base = mostcolor(bottom)
+    upper = crop(I, ORIGIN, astuple(subtract(H, THREE), W))
+    nobase_upper = replace(upper, base, ZERO)
+    ups = objects(nobase_upper, T, F, T)
+    # order objects by leftmost x (primary) already handled by leftmost
+    ups_ord = order(ups, leftmost)
+    cols = apply(color, ups_ord)
+
+    row_top = crop(band, ORIGIN, astuple(ONE, W))
+    row_bot = crop(band, astuple(ONE, ZERO), astuple(ONE, W))
+    free_top = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_top, ZERO)))
+    free_bot = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_bot, ZERO)))
+    both = cellwise(free_top, free_bot, ZERO)
+    both2 = vupscale(both, TWO)
+
+    segs_rel = colorfilter(objects(both2, T, F, T), ONE)
+    # alternative ordering: by uppermost (equivalent within band but diversifies)
+    segs_ord = order(segs_rel, leftmost)
+    segs_idx = apply(toindices, segs_ord)
+
+    down_vec = astuple(subtract(H, THREE), ZERO)
+    abs_segs = apply(rbind(shift, down_vec), segs_idx)
+    seg_colored = papply(recolor, cols, abs_segs)
+    union = merge(seg_colored)
+    O = paint(G, union)
     return O
+
 
 def dsl4(I):
     H = height(I)
     W = width(I)
-    top_h = subtract(H, THREE)
-    top = canvas(ZERO, astuple(top_h, W))
-    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
-    content = compress(band3)
-    ch = height(content)
-    cw = width(content)
-    pad_h = subtract(THREE, ch)
-    pad_top = canvas(ZERO, astuple(pad_h, cw))
-    content3 = vconcat(pad_top, content)
-    pad_w = subtract(W, width(content3))
-    pad_left = canvas(ZERO, astuple(THREE, pad_w))
-    band_aligned = hconcat(pad_left, content3)
-    O = vconcat(top, band_aligned)
+    # rebuild with original band preserved
+    top = canvas(ZERO, astuple(subtract(H, THREE), W))
+    band = crop(I, astuple(subtract(H, THREE), ZERO), astuple(TWO, W))
+    bottom = crop(I, astuple(subtract(H, ONE), ZERO), astuple(ONE, W))
+    G = vconcat(vconcat(top, band), bottom)
+
+    # derive objects using full grid but filtering by position (above band)
+    base = mostcolor(bottom)
+    allobjs = objects(replace(I, base, ZERO), T, F, T)
+    aboves = sfilter(allobjs, compose(greater, subtract(H, THREE), uppermost))
+    ups_ord = order(aboves, leftmost)
+    cols = apply(color, ups_ord)
+
+    # compute free two-row columns (both rows zero)
+    row_top = crop(band, ORIGIN, astuple(ONE, W))
+    row_bot = crop(band, astuple(ONE, ZERO), astuple(ONE, W))
+    free_top = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_top, ZERO)))
+    free_bot = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_bot, ZERO)))
+    both = cellwise(free_top, free_bot, ZERO)
+    both2 = vupscale(both, TWO)
+
+    segs_rel = colorfilter(objects(both2, T, F, T), ONE)
+    segs_ord = order(segs_rel, leftmost)
+    segs_idx = apply(toindices, segs_ord)
+
+    down_vec = astuple(subtract(H, THREE), ZERO)
+    abs_segs = apply(rbind(shift, down_vec), segs_idx)
+    seg_colored = papply(recolor, cols, abs_segs)
+    union = merge(seg_colored)
+    O = paint(G, union)
     return O
+
 
 def dsl5(I):
     H = height(I)
     W = width(I)
-    top_h = subtract(H, THREE)
-    top = canvas(ZERO, astuple(top_h, W))
-    band3 = crop(I, astuple(subtract(H, THREE), ZERO), astuple(THREE, W))
-    band_mir = hmirror(band3)
-    O = vconcat(top, band_mir)
+    # preserve the two-row band and bottom; clear above
+    top = canvas(ZERO, astuple(subtract(H, THREE), W))
+    band = crop(I, astuple(subtract(H, THREE), ZERO), astuple(TWO, W))
+    bottom = crop(I, astuple(subtract(H, ONE), ZERO), astuple(ONE, W))
+    G = vconcat(vconcat(top, band), bottom)
+
+    # objects from the trimmed upper region, ordered by uppermost then leftmost (implicit tie)
+    base = mostcolor(bottom)
+    upper = crop(I, ORIGIN, astuple(subtract(H, THREE), W))
+    nobase_upper = replace(upper, base, ZERO)
+    ups = objects(nobase_upper, T, F, T)
+    ups_ord = order(ups, uppermost)
+    cols = apply(color, ups_ord)
+
+    # gap columns where both rows are background
+    row_top = crop(band, ORIGIN, astuple(ONE, W))
+    row_bot = crop(band, astuple(ONE, ZERO), astuple(ONE, W))
+    free_top = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_top, ZERO)))
+    free_bot = paint(canvas(ZERO, astuple(ONE, W)), recolor(ONE, ofcolor(row_bot, ZERO)))
+    both = cellwise(free_top, free_bot, ZERO)
+    both2 = vupscale(both, TWO)
+
+    segs_rel = colorfilter(objects(both2, T, F, T), ONE)
+    # map gaps left-to-right
+    segs_ord = order(segs_rel, leftmost)
+    segs_idx = apply(toindices, segs_ord)
+
+    down_vec = astuple(subtract(H, THREE), ZERO)
+    abs_segs = apply(rbind(shift, down_vec), segs_idx)
+    seg_colored = papply(recolor, cols, abs_segs)
+    union = merge(seg_colored)
+    O = paint(G, union)
     return O
 ```

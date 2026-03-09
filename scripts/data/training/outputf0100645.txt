@@ -1,105 +1,116 @@
 ```python
 def dsl1(I):
+    # Full gravitate of interior left/right colors to their respective border columns
     w = width(I)
     leftc = index(I, astuple(ZERO, ZERO))
     rightc = index(I, astuple(ZERO, subtract(w, ONE)))
     leftcol = shoot(astuple(ZERO, ZERO), DOWN)
     rightcol = shoot(astuple(ZERO, subtract(w, ONE)), DOWN)
-    # move left-internal toward left border
+    # move all interior left-color cells fully toward the left column
     allL = ofcolor(I, leftc)
     internalL = difference(allL, leftcol)
     objL = toobject(internalL, I)
-    dirL = gravitate(objL, toobject(leftcol, I))
+    dirL = gravitate(internalL, leftcol)
     g1 = move(I, objL, dirL)
-    # then move right-internal toward right border
+    # then move all interior right-color cells fully toward the right column
     allR = ofcolor(g1, rightc)
     internalR = difference(allR, rightcol)
     objR = toobject(internalR, g1)
-    dirR = gravitate(objR, toobject(rightcol, g1))
-    g2 = move(g1, objR, dirR)
-    # final pass: left again
-    allL2 = ofcolor(g2, leftc)
-    internalL2 = difference(allL2, leftcol)
-    objL2 = toobject(internalL2, g2)
-    dirL2 = gravitate(objL2, toobject(leftcol, g2))
-    O = move(g2, objL2, dirL2)
+    dirR = gravitate(internalR, rightcol)
+    O = move(g1, objR, dirR)
     return O
 
 def dsl2(I):
+    # Fill interior (excluding first and last columns) with the most common color, keep border columns intact
+    dims = shape(I)
+    m = mostcolor(I)
     w = width(I)
-    leftc = index(I, astuple(ZERO, ZERO))
-    rightc = index(I, astuple(ZERO, subtract(w, ONE)))
     leftcol = shoot(astuple(ZERO, ZERO), DOWN)
     rightcol = shoot(astuple(ZERO, subtract(w, ONE)), DOWN)
-    # move right-internal first
-    allR = ofcolor(I, rightc)
-    internalR = difference(allR, rightcol)
-    objR = toobject(internalR, I)
-    dirR = gravitate(objR, toobject(rightcol, I))
-    g1 = move(I, objR, dirR)
-    # then left-internal
-    allL = ofcolor(g1, leftc)
-    internalL = difference(allL, leftcol)
-    objL = toobject(internalL, g1)
-    dirL = gravitate(objL, toobject(leftcol, g1))
-    g2 = move(g1, objL, dirL)
-    # final pass: right again
-    allR2 = ofcolor(g2, rightc)
-    internalR2 = difference(allR2, rightcol)
-    objR2 = toobject(internalR2, g2)
-    dirR2 = gravitate(objR2, toobject(rightcol, g2))
-    O = move(g2, objR2, dirR2)
+    allinds = asindices(I)
+    interior = difference(allinds, combine(leftcol, rightcol))
+    O = canvas(m, dims)
+    O = paint(O, toobject(leftcol, I))
+    O = paint(O, toobject(rightcol, I))
+    # Ensure interior is set to m explicitly (in case paint affected it)
+    O = fill(O, m, interior)
     return O
 
 def dsl3(I):
+    # Suppress interior right-color first, pack left-color fully to the left border, then pack right-color to the right border
     w = width(I)
     leftc = index(I, astuple(ZERO, ZERO))
     rightc = index(I, astuple(ZERO, subtract(w, ONE)))
     leftcol = shoot(astuple(ZERO, ZERO), DOWN)
     rightcol = shoot(astuple(ZERO, subtract(w, ONE)), DOWN)
-    # move both sides with doubled gravitation
-    allL = ofcolor(I, leftc)
+    m = mostcolor(I)
+    # remove interior right-color to reduce conflicts
+    allR0 = ofcolor(I, rightc)
+    internalR0 = difference(allR0, rightcol)
+    g0 = fill(I, m, internalR0)
+    # gravitate interior left-color fully to left column
+    allL = ofcolor(g0, leftc)
     internalL = difference(allL, leftcol)
-    objL = toobject(internalL, I)
-    dirL = gravitate(objL, toobject(leftcol, I))
-    g1 = move(I, objL, double(dirL))
+    objL = toobject(internalL, g0)
+    dirL = gravitate(internalL, leftcol)
+    g1 = move(g0, objL, dirL)
+    # gravitate interior right-color (recomputed) fully to right column
     allR = ofcolor(g1, rightc)
     internalR = difference(allR, rightcol)
     objR = toobject(internalR, g1)
-    dirR = gravitate(objR, toobject(rightcol, g1))
-    O = move(g1, objR, double(dirR))
+    dirR = gravitate(internalR, rightcol)
+    O = move(g1, objR, dirR)
     return O
 
 def dsl4(I):
+    # Vertical packing: move interior left-border color up to top row, right-border color down to bottom row
+    h = height(I)
     w = width(I)
+    leftc = index(I, astuple(ZERO, ZERO))
+    rightc = index(I, astuple(ZERO, subtract(w, ONE)))
+    toprow = shoot(astuple(ZERO, ZERO), RIGHT)
+    bottomrow = shoot(astuple(subtract(h, ONE), ZERO), RIGHT)
+    # move all non-top-row left-color cells up
+    allL = ofcolor(I, leftc)
+    internalLt = difference(allL, toprow)
+    objLt = toobject(internalLt, I)
+    dirUp = gravitate(internalLt, toprow)
+    g1 = move(I, objLt, dirUp)
+    # move all non-bottom-row right-color cells down
+    allR = ofcolor(g1, rightc)
+    internalRb = difference(allR, bottomrow)
+    objRb = toobject(internalRb, g1)
+    dirDn = gravitate(internalRb, bottomrow)
+    O = move(g1, objRb, dirDn)
+    return O
+
+def dsl5(I):
+    # Interior reset to mostcolor, then reinsert/move interior left/right colors fully to their borders and paint over
+    w = width(I)
+    dims = shape(I)
+    m = mostcolor(I)
     leftc = index(I, astuple(ZERO, ZERO))
     rightc = index(I, astuple(ZERO, subtract(w, ONE)))
     leftcol = shoot(astuple(ZERO, ZERO), DOWN)
     rightcol = shoot(astuple(ZERO, subtract(w, ONE)), DOWN)
-    # shift internal blocks toward fixed target columns (2 from left, 3 from right)
+    allinds = asindices(I)
+    interior = difference(allinds, combine(leftcol, rightcol))
+    # base canvas
+    O = canvas(m, dims)
+    O = paint(O, toobject(leftcol, I))
+    O = paint(O, toobject(rightcol, I))
+    # prepare interior left/right objects and move them fully toward their borders
     allL = ofcolor(I, leftc)
     internalL = difference(allL, leftcol)
     objL = toobject(internalL, I)
-    dxL = subtract(TWO, leftmost(objL))
-    g1 = move(I, objL, tojvec(dxL))
-    allR = ofcolor(g1, rightc)
+    dirL = gravitate(internalL, leftcol)
+    movedL = move(canvas(ZERO, dims), objL, dirL)  # move on a blank canvas
+    O = underpaint(O, asobject(movedL))  # paint moved left-color onto O
+    allR = ofcolor(I, rightc)
     internalR = difference(allR, rightcol)
-    objR = toobject(internalR, g1)
-    dxR = subtract(subtract(w, THREE), rightmost(objR))
-    O = move(g1, objR, tojvec(dxR))
-    return O
-
-def dsl5(I):
-    # use mirroring to symmetrically pull to the right, then mirror back
-    w = width(I)
-    J = vmirror(I)
-    leftc = index(J, astuple(ZERO, ZERO))
-    leftcol = shoot(astuple(ZERO, ZERO), DOWN)
-    allL = ofcolor(J, leftc)
-    internalL = difference(allL, leftcol)
-    objL = toobject(internalL, J)
-    dirL = gravitate(objL, toobject(leftcol, J))
-    K = move(J, objL, dirL)
-    O = vmirror(K)
+    objR = toobject(internalR, I)
+    dirR = gravitate(internalR, rightcol)
+    movedR = move(canvas(ZERO, dims), objR, dirR)
+    O = underpaint(O, asobject(movedR))  # paint moved right-color onto O
     return O
 ```

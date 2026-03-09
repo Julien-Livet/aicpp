@@ -1,76 +1,85 @@
 ```python
 def dsl1(I):
+    # Rule: Choose which marker colors go to the TL+BR vs TR+BL diagonals
+    # by comparing each marker’s nearest distance to corners {TL,BR} vs {TR,BL}.
     allobjs = fgpartition(I)
-    obj5set = colorfilter(allobjs, FIVE)
-    ring5 = first(obj5set)
-    markers = difference(allobjs, obj5set)
+    ring5 = first(colorfilter(allobjs, FIVE))
     interior = delta(ring5)
     u0 = ulcorner(interior)
     sub = subgrid(interior, I)
-    tlg = crop(sub, ORIGIN, TWO_BY_TWO)
-    trg = crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)
-    blg = crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)
-    brg = crop(sub, TWO_BY_TWO, TWO_BY_TWO)
-    tllocal = asindices(tlg)
-    trlocal = asindices(trg)
-    bllocal = asindices(blg)
-    brlocal = asindices(brg)
-    TL = shift(tllocal, u0)
-    TR = shift(trlocal, add(u0, astuple(ZERO, TWO)))
-    BL = shift(bllocal, add(u0, astuple(TWO, ZERO)))
-    BR = shift(brlocal, add(u0, TWO_BY_TWO))
-    aobj = argmin(markers, uppermost)
-    bobj = other(markers, aobj)
-    lobj = argmin(markers, leftmost)
-    robj = other(markers, lobj)
-    samecol = equality(leftmost(aobj), leftmost(bobj))
-    r5 = rightmost(ring5)
-    rside = greater(leftmost(aobj), r5)
-    lt_v = branch(rside, color(bobj), color(aobj))
-    rt_v = branch(rside, color(aobj), color(bobj))
-    lt_h = color(lobj)
-    rt_h = color(robj)
-    lt = branch(samecol, lt_v, lt_h)
-    rt = branch(samecol, rt_v, rt_h)
-    lb = rt
-    rb = lt
-    O1 = fill(I, lt, TL)
-    O2 = fill(O1, rt, TR)
-    O3 = fill(O2, lb, BL)
-    O = fill(O3, rb, BR)
+    TL = shift(asindices(crop(sub, ORIGIN, TWO_BY_TWO)), u0)
+    TR = shift(asindices(crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)), add(u0, astuple(ZERO, TWO)))
+    BL = shift(asindices(crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)), add(u0, astuple(TWO, ZERO)))
+    BR = shift(asindices(crop(sub, TWO_BY_TWO, TWO_BY_TWO)), add(u0, TWO_BY_TWO))
+    d1 = combine(TL, BR)
+    d2 = combine(TR, BL)
+
+    markers = difference(allobjs, colorfilter(allobjs, FIVE))
+    a = first(markers)
+    b = other(markers, a)
+
+    pTL = ulcorner(interior)
+    pTR = urcorner(interior)
+    pBL = llcorner(interior)
+    pBR = lrcorner(interior)
+
+    A = toindices(a); B = toindices(b)
+    aTL = manhattan(A, initset(pTL)); aBR = manhattan(A, initset(pBR))
+    aTR = manhattan(A, initset(pTR)); aBL = manhattan(A, initset(pBL))
+    bTL = manhattan(B, initset(pTL)); bBR = manhattan(B, initset(pBR))
+    bTR = manhattan(B, initset(pTR)); bBL = manhattan(B, initset(pBL))
+
+    aMinDiag1 = minimum(insert(aTL, initset(aBR)))
+    aMinDiag2 = minimum(insert(aTR, initset(aBL)))
+    aToDiag1 = flip(greater(aMinDiag1, aMinDiag2))  # True if a closer to {TL,BR}
+
+    diagA = branch(aToDiag1, d1, d2)
+    OA = fill(I, color(a), diagA)
+    otherDiag = branch(equality(diagA, d1), d2, d1)
+    O = fill(OA, color(b), otherDiag)
     return O
+
 
 def dsl2(I):
+    # Rule: Assign the marker with smaller min distance to {TL,BR} to TL+BR, the other to TR+BL.
     allobjs = fgpartition(I)
-    obj5set = colorfilter(allobjs, FIVE)
-    ring5 = first(obj5set)
-    markers = difference(allobjs, obj5set)
+    ring5 = first(colorfilter(allobjs, FIVE))
     interior = delta(ring5)
     u0 = ulcorner(interior)
     sub = subgrid(interior, I)
-    tlg = crop(sub, ORIGIN, TWO_BY_TWO)
-    trg = crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)
-    blg = crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)
-    brg = crop(sub, TWO_BY_TWO, TWO_BY_TWO)
-    TL = shift(asindices(tlg), u0)
-    TR = shift(asindices(trg), add(u0, astuple(ZERO, TWO)))
-    BL = shift(asindices(blg), add(u0, astuple(TWO, ZERO)))
-    BR = shift(asindices(brg), add(u0, TWO_BY_TWO))
-    lobj = argmin(markers, leftmost)
-    robj = other(markers, lobj)
-    cL = color(lobj)
-    cR = color(robj)
-    O1 = fill(I, cL, TL)
-    O2 = fill(O1, cR, TR)
-    O3 = fill(O2, cR, BL)
-    O = fill(O3, cL, BR)
+    TL = shift(asindices(crop(sub, ORIGIN, TWO_BY_TWO)), u0)
+    TR = shift(asindices(crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)), add(u0, astuple(ZERO, TWO)))
+    BL = shift(asindices(crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)), add(u0, astuple(TWO, ZERO)))
+    BR = shift(asindices(crop(sub, TWO_BY_TWO, TWO_BY_TWO)), add(u0, TWO_BY_TWO))
+    d1 = combine(TL, BR)
+    d2 = combine(TR, BL)
+
+    markers = difference(allobjs, colorfilter(allobjs, FIVE))
+    a = first(markers)
+    b = other(markers, a)
+
+    pTL = ulcorner(interior)
+    pBR = lrcorner(interior)
+
+    A = toindices(a); B = toindices(b)
+    aTL = manhattan(A, initset(pTL)); aBR = manhattan(A, initset(pBR))
+    bTL = manhattan(B, initset(pTL)); bBR = manhattan(B, initset(pBR))
+
+    aMin = minimum(insert(aTL, initset(aBR)))
+    bMin = minimum(insert(bTL, initset(bBR)))
+
+    aCloser = greater(bMin, aMin)  # True if a is closer to {TL,BR}
+    diagA = branch(aCloser, d1, d2)
+    OA = fill(I, color(a), diagA)
+    otherDiag = branch(equality(diagA, d1), d2, d1)
+    O = fill(OA, color(b), otherDiag)
     return O
+
 
 def dsl3(I):
+    # Rule: Break tie by TL only: the marker closer to TL gets TL+BR diagonal.
     allobjs = fgpartition(I)
-    obj5set = colorfilter(allobjs, FIVE)
-    ring5 = first(obj5set)
-    markers = difference(allobjs, obj5set)
+    ring5 = first(colorfilter(allobjs, FIVE))
     interior = delta(ring5)
     u0 = ulcorner(interior)
     sub = subgrid(interior, I)
@@ -78,22 +87,32 @@ def dsl3(I):
     TR = shift(asindices(crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)), add(u0, astuple(ZERO, TWO)))
     BL = shift(asindices(crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)), add(u0, astuple(TWO, ZERO)))
     BR = shift(asindices(crop(sub, TWO_BY_TWO, TWO_BY_TWO)), add(u0, TWO_BY_TWO))
-    tobj = argmin(markers, uppermost)
-    bobj = other(markers, tobj)
-    cT = color(tobj)
-    cB = color(bobj)
-    O1 = fill(I, cT, TL)
-    O2 = fill(O1, cB, TR)
-    O3 = fill(O2, cB, BL)
-    O = fill(O3, cT, BR)
+    d1 = combine(TL, BR)
+    d2 = combine(TR, BL)
+
+    markers = difference(allobjs, colorfilter(allobjs, FIVE))
+    a = first(markers)
+    b = other(markers, a)
+
+    pTL = ulcorner(interior)
+    A = toindices(a); B = toindices(b)
+    aTL = manhattan(A, initset(pTL)); bTL = manhattan(B, initset(pTL))
+
+    aCloserTL = greater(bTL, aTL)  # True if a closer to TL
+    diagA = branch(aCloserTL, d1, d2)
+    OA = fill(I, color(a), diagA)
+    otherDiag = branch(equality(diagA, d1), d2, d1)
+    O = fill(OA, color(b), otherDiag)
     return O
+
 
 def dsl4(I):
-    allcols = palette(I)
-    cset1 = remove(ZERO, allcols)
-    cset2 = remove(FIVE, cset1)
-    cA = first(cset2)
-    cB = last(cset2)
+    # Rule: Side-based heuristic:
+    # - If both markers are left of interior: topmost -> TL+BR
+    # - If both right of interior: bottommost -> TL+BR
+    # - If both above interior: leftmost -> TL+BR
+    # - If both below interior: rightmost -> TL+BR
+    # Else fallback to nearest {TL,BR}.
     allobjs = fgpartition(I)
     ring5 = first(colorfilter(allobjs, FIVE))
     interior = delta(ring5)
@@ -103,18 +122,56 @@ def dsl4(I):
     TR = shift(asindices(crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)), add(u0, astuple(ZERO, TWO)))
     BL = shift(asindices(crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)), add(u0, astuple(TWO, ZERO)))
     BR = shift(asindices(crop(sub, TWO_BY_TWO, TWO_BY_TWO)), add(u0, TWO_BY_TWO))
-    O1 = fill(I, cA, TL)
-    O2 = fill(O1, cB, TR)
-    O3 = fill(O2, cB, BL)
-    O = fill(O3, cA, BR)
+    d1 = combine(TL, BR)
+    d2 = combine(TR, BL)
+
+    markers = difference(allobjs, colorfilter(allobjs, FIVE))
+    a = first(markers)
+    b = other(markers, a)
+
+    rMin = uppermost(interior); rMax = lowermost(interior)
+    cMin = leftmost(interior);  cMax = rightmost(interior)
+    ra = uppermost(a); rb = uppermost(b)
+    ca = leftmost(a);  cb = leftmost(b)
+
+    aLeft = greater(cMin, ca); bLeft = greater(cMin, cb)
+    aRight = greater(ca, cMax); bRight = greater(cb, cMax)
+    aTop = greater(rMin, ra);   bTop = greater(rMin, rb)
+    aBot = greater(ra, rMax);   bBot = greater(rb, rMax)
+
+    bothLeft = both(aLeft, bLeft)
+    bothRight = both(aRight, bRight)
+    bothTop = both(aTop, bTop)
+    bothBot = both(aBot, bBot)
+
+    # Choose which marker gets TL+BR based on side rule
+    # Defaults to nearest {TL,BR}
+    pTL = ulcorner(interior); pBR = lrcorner(interior)
+    A = toindices(a); B = toindices(b)
+    aTL = manhattan(A, initset(pTL)); aBR = manhattan(A, initset(pBR))
+    bTL = manhattan(B, initset(pTL)); bBR = manhattan(B, initset(pBR))
+    aMin = minimum(insert(aTL, initset(aBR)))
+    bMin = minimum(insert(bTL, initset(bBR)))
+    aCloser = greater(bMin, aMin)
+
+    # Side picking
+    pickA_left = both(bothLeft, greater(rb, ra))           # topmost => a if ra < rb, i.e. rb>ra
+    pickA_right = both(bothRight, greater(ra, rb))         # bottommost => a if ra > rb
+    pickA_top = both(bothTop, greater(cb, ca))             # leftmost => a if ca < cb, i.e. cb>ca
+    pickA_bot = both(bothBot, greater(ca, cb))             # rightmost => a if ca > cb
+
+    sideChoice = either(either(pickA_left, pickA_right), either(pickA_top, pickA_bot))
+    aGetsDiag1 = branch(sideChoice, T, aCloser)
+
+    diagA = branch(aGetsDiag1, d1, d2)
+    OA = fill(I, color(a), diagA)
+    otherDiag = branch(equality(diagA, d1), d2, d1)
+    O = fill(OA, color(b), otherDiag)
     return O
 
+
 def dsl5(I):
-    allcols = palette(I)
-    cset1 = remove(ZERO, allcols)
-    cset2 = remove(FIVE, cset1)
-    cA = first(cset2)
-    cB = last(cset2)
+    # Rule: Assign the marker closer to BR to TL+BR; the other to TR+BL.
     allobjs = fgpartition(I)
     ring5 = first(colorfilter(allobjs, FIVE))
     interior = delta(ring5)
@@ -124,9 +181,21 @@ def dsl5(I):
     TR = shift(asindices(crop(sub, astuple(ZERO, TWO), TWO_BY_TWO)), add(u0, astuple(ZERO, TWO)))
     BL = shift(asindices(crop(sub, astuple(TWO, ZERO), TWO_BY_TWO)), add(u0, astuple(TWO, ZERO)))
     BR = shift(asindices(crop(sub, TWO_BY_TWO, TWO_BY_TWO)), add(u0, TWO_BY_TWO))
-    O1 = fill(I, cB, TL)
-    O2 = fill(O1, cA, TR)
-    O3 = fill(O2, cA, BL)
-    O = fill(O3, cB, BR)
+    d1 = combine(TL, BR)
+    d2 = combine(TR, BL)
+
+    markers = difference(allobjs, colorfilter(allobjs, FIVE))
+    a = first(markers)
+    b = other(markers, a)
+
+    pBR = lrcorner(interior)
+    A = toindices(a); B = toindices(b)
+    aBR = manhattan(A, initset(pBR)); bBR = manhattan(B, initset(pBR))
+
+    aCloserBR = greater(bBR, aBR)  # True if a closer to BR
+    diagA = branch(aCloserBR, d1, d2)
+    OA = fill(I, color(a), diagA)
+    otherDiag = branch(equality(diagA, d1), d2, d1)
+    O = fill(OA, color(b), otherDiag)
     return O
 ```

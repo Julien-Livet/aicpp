@@ -1,33 +1,138 @@
 ```python
 def dsl1(I):
-    O = vmirror(I)
+    # per-half: align vmirrored 4s to 2-column using centers; paint with most frequent seed color per half
+    h = height(I)
+    th = divide(h, 2)
+    T = tophalf(I)
+    B = bottomhalf(I)
+
+    # top half
+    S2t = ofcolor(T, TWO)
+    S2tm = ofcolor(vmirror(T), TWO)
+    oj_t = subtract(center(S2t), center(S2tm))
+    Mt = move(canvas(ZERO, shape(T)), recolor(ONE, ofcolor(vmirror(T), FOUR)), oj_t)
+    St = ofcolor(Mt, ONE)
+    ct = mostcolor(replace(replace(replace(T, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    # bottom half
+    S2b = ofcolor(B, TWO)
+    S2bm = ofcolor(vmirror(B), TWO)
+    oj_b = subtract(center(S2b), center(S2bm))
+    Mb = move(canvas(ZERO, shape(B)), recolor(ONE, ofcolor(vmirror(B), FOUR)), oj_b)
+    Sb = ofcolor(Mb, ONE)
+    cb = mostcolor(replace(replace(replace(B, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    G = underpaint(I, recolor(ct, St))
+    O = underpaint(G, recolor(cb, shift(Sb, astuple(th, 0))))
     return O
 
 def dsl2(I):
-    t = tophalf(I)
-    b = bottomhalf(I)
-    b2 = vmirror(b)
-    O = vconcat(t, b2)
+    # per-half: gravitate vmirrored 4s toward 2-column; paint with least frequent seed color per half
+    h = height(I)
+    th = divide(h, 2)
+    T = tophalf(I)
+    B = bottomhalf(I)
+
+    # top half
+    Sv_t = ofcolor(vmirror(T), FOUR)
+    off_t = gravitate(Sv_t, ofcolor(T, TWO))
+    Mt = move(canvas(ZERO, shape(T)), recolor(ONE, Sv_t), off_t)
+    St = ofcolor(Mt, ONE)
+    ct = leastcolor(replace(replace(replace(T, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    # bottom half
+    Sv_b = ofcolor(vmirror(B), FOUR)
+    off_b = gravitate(Sv_b, ofcolor(B, TWO))
+    Mb = move(canvas(ZERO, shape(B)), recolor(ONE, Sv_b), off_b)
+    Sb = ofcolor(Mb, ONE)
+    cb = leastcolor(replace(replace(replace(B, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    G = underpaint(I, recolor(ct, St))
+    O = underpaint(G, recolor(cb, shift(Sb, astuple(th, 0))))
     return O
 
 def dsl3(I):
-    l = lefthalf(I)
-    r = righthalf(I)
-    l2 = vmirror(l)
-    O = hconcat(l2, r)
+    # per-half: align vmirrored 4s by leftmost-2 column difference; paint with most frequent seed color per half
+    h = height(I)
+    th = divide(h, 2)
+    T = tophalf(I)
+    B = bottomhalf(I)
+
+    # top half
+    S2t = ofcolor(T, TWO)
+    S2tm = ofcolor(vmirror(T), TWO)
+    oj_t = subtract(tojvec(leftmost(S2t)), tojvec(leftmost(S2tm)))
+    Mt = move(canvas(ZERO, shape(T)), recolor(ONE, ofcolor(vmirror(T), FOUR)), oj_t)
+    St = ofcolor(Mt, ONE)
+    ct = mostcolor(replace(replace(replace(T, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    # bottom half
+    S2b = ofcolor(B, TWO)
+    S2bm = ofcolor(vmirror(B), TWO)
+    oj_b = subtract(tojvec(leftmost(S2b)), tojvec(leftmost(S2bm)))
+    Mb = move(canvas(ZERO, shape(B)), recolor(ONE, ofcolor(vmirror(B), FOUR)), oj_b)
+    Sb = ofcolor(Mb, ONE)
+    cb = mostcolor(replace(replace(replace(B, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    G = underpaint(I, recolor(ct, St))
+    O = underpaint(G, recolor(cb, shift(Sb, astuple(th, 0))))
     return O
 
 def dsl4(I):
-    c = leastcolor(I)
-    x1 = vmirror(I)
-    x2 = replace(x1, FOUR, c)
-    O = cellwise(I, x2, ZERO)
+    # per-half: align vmirrored 4s using centers of mass; paint with least frequent seed color per half
+    h = height(I)
+    th = divide(h, 2)
+    T = tophalf(I)
+    B = bottomhalf(I)
+
+    # top half
+    S2t = ofcolor(T, TWO)
+    S2tm = ofcolor(vmirror(T), TWO)
+    oj_t = subtract(centerofmass(S2t), centerofmass(S2tm))
+    Mt = move(canvas(ZERO, shape(T)), recolor(ONE, ofcolor(vmirror(T), FOUR)), oj_t)
+    St = ofcolor(Mt, ONE)
+    ct = leastcolor(replace(replace(replace(T, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    # bottom half
+    S2b = ofcolor(B, TWO)
+    S2bm = ofcolor(vmirror(B), TWO)
+    oj_b = subtract(centerofmass(S2b), centerofmass(S2bm))
+    Mb = move(canvas(ZERO, shape(B)), recolor(ONE, ofcolor(vmirror(B), FOUR)), oj_b)
+    Sb = ofcolor(Mb, ONE)
+    cb = leastcolor(replace(replace(replace(B, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    G = underpaint(I, recolor(ct, St))
+    O = underpaint(G, recolor(cb, shift(Sb, astuple(th, 0))))
     return O
 
 def dsl5(I):
-    c = mostcolor(I)
-    x1 = hmirror(I)
-    x2 = replace(x1, FOUR, c)
-    O = cellwise(I, x2, ZERO)
+    # per-half: align vmirrored 4s by matching rightmost-2 columns; paint with most frequent seed color per half
+    h = height(I)
+    th = divide(h, 2)
+    T = tophalf(I)
+    B = bottomhalf(I)
+
+    # top half
+    S2t = ofcolor(T, TWO)
+    S2tm = ofcolor(vmirror(T), TWO)
+    rt = rightmost(S2t)
+    rtm = rightmost(S2tm)
+    oj_t = subtract(tojvec(rt), tojvec(rtm))
+    Mt = move(canvas(ZERO, shape(T)), recolor(ONE, ofcolor(vmirror(T), FOUR)), oj_t)
+    St = ofcolor(Mt, ONE)
+    ct = mostcolor(replace(replace(replace(T, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    # bottom half
+    S2b = ofcolor(B, TWO)
+    S2bm = ofcolor(vmirror(B), TWO)
+    rb = rightmost(S2b)
+    rbm = rightmost(S2bm)
+    oj_b = subtract(tojvec(rb), tojvec(rbm))
+    Mb = move(canvas(ZERO, shape(B)), recolor(ONE, ofcolor(vmirror(B), FOUR)), oj_b)
+    Sb = ofcolor(Mb, ONE)
+    cb = mostcolor(replace(replace(replace(B, ZERO, TEN), TWO, TEN), FOUR, TEN))
+
+    G = underpaint(I, recolor(ct, St))
+    O = underpaint(G, recolor(cb, shift(Sb, astuple(th, 0))))
     return O
 ```

@@ -1,93 +1,264 @@
 ```python
 def dsl1(I):
-    # Only immediate 5-neighbors of any 4 (Manhattan distance 1) become 2
+    # Rays from each 4 along rows and columns through contiguous 5s (long reach)
     fives = ofcolor(I, FIVE)
     fours = ofcolor(I, FOUR)
-    r1 = intersection(shift(fours, RIGHT), fives)
-    l1 = intersection(shift(fours, LEFT), fives)
-    u1 = intersection(shift(fours, UP), fives)
-    d1 = intersection(shift(fours, DOWN), fives)
-    targets = combine(combine(r1, l1), combine(u1, d1))
+
+    # Left rays
+    L1 = intersection(shift(fours, LEFT), fives)
+    L2 = intersection(shift(L1, LEFT), fives)
+    L3 = intersection(shift(L2, LEFT), fives)
+    L4 = intersection(shift(L3, LEFT), fives)
+    L5 = intersection(shift(L4, LEFT), fives)
+    L6 = intersection(shift(L5, LEFT), fives)
+    L7 = intersection(shift(L6, LEFT), fives)
+    L8 = intersection(shift(L7, LEFT), fives)
+    L9 = intersection(shift(L8, LEFT), fives)
+    L10 = intersection(shift(L9, LEFT), fives)
+    L11 = intersection(shift(L10, LEFT), fives)
+    L12 = intersection(shift(L11, LEFT), fives)
+    Lray = combine(combine(combine(L1, L2), combine(L3, L4)), combine(combine(combine(L5, L6), combine(L7, L8)), combine(combine(L9, L10), combine(L11, L12))))
+
+    # Right rays
+    R1 = intersection(shift(fours, RIGHT), fives)
+    R2 = intersection(shift(R1, RIGHT), fives)
+    R3 = intersection(shift(R2, RIGHT), fives)
+    R4 = intersection(shift(R3, RIGHT), fives)
+    R5 = intersection(shift(R4, RIGHT), fives)
+    R6 = intersection(shift(R5, RIGHT), fives)
+    R7 = intersection(shift(R6, RIGHT), fives)
+    R8 = intersection(shift(R7, RIGHT), fives)
+    R9 = intersection(shift(R8, RIGHT), fives)
+    R10 = intersection(shift(R9, RIGHT), fives)
+    R11 = intersection(shift(R10, RIGHT), fives)
+    R12 = intersection(shift(R11, RIGHT), fives)
+    Rray = combine(combine(combine(R1, R2), combine(R3, R4)), combine(combine(combine(R5, R6), combine(R7, R8)), combine(combine(R9, R10), combine(R11, R12))))
+
+    # Up rays
+    U1 = intersection(shift(fours, UP), fives)
+    U2 = intersection(shift(U1, UP), fives)
+    U3 = intersection(shift(U2, UP), fives)
+    U4 = intersection(shift(U3, UP), fives)
+    U5 = intersection(shift(U4, UP), fives)
+    U6 = intersection(shift(U5, UP), fives)
+    U7 = intersection(shift(U6, UP), fives)
+    U8 = intersection(shift(U7, UP), fives)
+    U9 = intersection(shift(U8, UP), fives)
+    U10 = intersection(shift(U9, UP), fives)
+    U11 = intersection(shift(U10, UP), fives)
+    U12 = intersection(shift(U11, UP), fives)
+    Uray = combine(combine(combine(U1, U2), combine(U3, U4)), combine(combine(combine(U5, U6), combine(U7, U8)), combine(combine(U9, U10), combine(U11, U12))))
+
+    # Down rays
+    D1 = intersection(shift(fours, DOWN), fives)
+    D2 = intersection(shift(D1, DOWN), fives)
+    D3 = intersection(shift(D2, DOWN), fives)
+    D4 = intersection(shift(D3, DOWN), fives)
+    D5 = intersection(shift(D4, DOWN), fives)
+    D6 = intersection(shift(D5, DOWN), fives)
+    D7 = intersection(shift(D6, DOWN), fives)
+    D8 = intersection(shift(D7, DOWN), fives)
+    D9 = intersection(shift(D8, DOWN), fives)
+    D10 = intersection(shift(D9, DOWN), fives)
+    D11 = intersection(shift(D10, DOWN), fives)
+    D12 = intersection(shift(D11, DOWN), fives)
+    Dray = combine(combine(combine(D1, D2), combine(D3, D4)), combine(combine(combine(D5, D6), combine(D7, D8)), combine(combine(D9, D10), combine(D11, D12))))
+
+    targets = combine(combine(Lray, Rray), combine(Uray, Dray))
     O = paint(I, recolor(TWO, toobject(targets, I)))
     return O
+
 
 def dsl2(I):
-    # Only second-step 5s from any 4 (exactly distance 2, requiring a 5 at distance 1)
+    # Vertical rays only from each 4 through contiguous 5s
     fives = ofcolor(I, FIVE)
     fours = ofcolor(I, FOUR)
-    r1 = intersection(shift(fours, RIGHT), fives)
-    l1 = intersection(shift(fours, LEFT), fives)
-    u1 = intersection(shift(fours, UP), fives)
-    d1 = intersection(shift(fours, DOWN), fives)
-    r2 = intersection(shift(r1, RIGHT), fives)
-    l2 = intersection(shift(l1, LEFT), fives)
-    u2 = intersection(shift(u1, UP), fives)
-    d2 = intersection(shift(d1, DOWN), fives)
-    targets = combine(combine(r2, l2), combine(u2, d2))
+
+    U1 = intersection(shift(fours, UP), fives)
+    U2 = intersection(shift(U1, UP), fives)
+    U3 = intersection(shift(U2, UP), fives)
+    U4 = intersection(shift(U3, UP), fives)
+    U5 = intersection(shift(U4, UP), fives)
+    U6 = intersection(shift(U5, UP), fives)
+    U7 = intersection(shift(U6, UP), fives)
+    U8 = intersection(shift(U7, UP), fives)
+    U9 = intersection(shift(U8, UP), fives)
+    U10 = intersection(shift(U9, UP), fives)
+    U11 = intersection(shift(U10, UP), fives)
+    U12 = intersection(shift(U11, UP), fives)
+    Uray = combine(combine(combine(U1, U2), combine(U3, U4)), combine(combine(combine(U5, U6), combine(U7, U8)), combine(combine(U9, U10), combine(U11, U12))))
+
+    D1 = intersection(shift(fours, DOWN), fives)
+    D2 = intersection(shift(D1, DOWN), fives)
+    D3 = intersection(shift(D2, DOWN), fives)
+    D4 = intersection(shift(D3, DOWN), fives)
+    D5 = intersection(shift(D4, DOWN), fives)
+    D6 = intersection(shift(D5, DOWN), fives)
+    D7 = intersection(shift(D6, DOWN), fives)
+    D8 = intersection(shift(D7, DOWN), fives)
+    D9 = intersection(shift(D8, DOWN), fives)
+    D10 = intersection(shift(D9, DOWN), fives)
+    D11 = intersection(shift(D10, DOWN), fives)
+    D12 = intersection(shift(D11, DOWN), fives)
+    Dray = combine(combine(combine(D1, D2), combine(D3, D4)), combine(combine(combine(D5, D6), combine(D7, D8)), combine(combine(D9, D10), combine(D11, D12))))
+
+    targets = combine(Uray, Dray)
     O = paint(I, recolor(TWO, toobject(targets, I)))
     return O
+
 
 def dsl3(I):
-    # Rays from each 4: recolor contiguous runs of 5s up to four steps in all four directions
+    # Horizontal rays only from each 4 through contiguous 5s
     fives = ofcolor(I, FIVE)
     fours = ofcolor(I, FOUR)
-    # step 1
-    r1 = intersection(shift(fours, RIGHT), fives)
-    l1 = intersection(shift(fours, LEFT), fives)
-    u1 = intersection(shift(fours, UP), fives)
-    d1 = intersection(shift(fours, DOWN), fives)
-    # step 2
-    r2 = intersection(shift(r1, RIGHT), fives)
-    l2 = intersection(shift(l1, LEFT), fives)
-    u2 = intersection(shift(u1, UP), fives)
-    d2 = intersection(shift(d1, DOWN), fives)
-    # step 3
-    r3 = intersection(shift(r2, RIGHT), fives)
-    l3 = intersection(shift(l2, LEFT), fives)
-    u3 = intersection(shift(u2, UP), fives)
-    d3 = intersection(shift(d2, DOWN), fives)
-    # step 4
-    r4 = intersection(shift(r3, RIGHT), fives)
-    l4 = intersection(shift(l3, LEFT), fives)
-    u4 = intersection(shift(u3, UP), fives)
-    d4 = intersection(shift(d3, DOWN), fives)
-    hori = combine(combine(r1, r2), combine(combine(r3, r4), combine(l1, combine(l2, combine(l3, l4)))))
-    vert = combine(combine(u1, u2), combine(combine(u3, u4), combine(d1, combine(d2, combine(d3, d4)))))
-    targets = combine(hori, vert)
+
+    L1 = intersection(shift(fours, LEFT), fives)
+    L2 = intersection(shift(L1, LEFT), fives)
+    L3 = intersection(shift(L2, LEFT), fives)
+    L4 = intersection(shift(L3, LEFT), fives)
+    L5 = intersection(shift(L4, LEFT), fives)
+    L6 = intersection(shift(L5, LEFT), fives)
+    L7 = intersection(shift(L6, LEFT), fives)
+    L8 = intersection(shift(L7, LEFT), fives)
+    L9 = intersection(shift(L8, LEFT), fives)
+    L10 = intersection(shift(L9, LEFT), fives)
+    L11 = intersection(shift(L10, LEFT), fives)
+    L12 = intersection(shift(L11, LEFT), fives)
+    Lray = combine(combine(combine(L1, L2), combine(L3, L4)), combine(combine(combine(L5, L6), combine(L7, L8)), combine(combine(L9, L10), combine(L11, L12))))
+
+    R1 = intersection(shift(fours, RIGHT), fives)
+    R2 = intersection(shift(R1, RIGHT), fives)
+    R3 = intersection(shift(R2, RIGHT), fives)
+    R4 = intersection(shift(R3, RIGHT), fives)
+    R5 = intersection(shift(R4, RIGHT), fives)
+    R6 = intersection(shift(R5, RIGHT), fives)
+    R7 = intersection(shift(R6, RIGHT), fives)
+    R8 = intersection(shift(R7, RIGHT), fives)
+    R9 = intersection(shift(R8, RIGHT), fives)
+    R10 = intersection(shift(R9, RIGHT), fives)
+    R11 = intersection(shift(R10, RIGHT), fives)
+    R12 = intersection(shift(R11, RIGHT), fives)
+    Rray = combine(combine(combine(R1, R2), combine(R3, R4)), combine(combine(combine(R5, R6), combine(R7, R8)), combine(combine(R9, R10), combine(R11, R12))))
+
+    targets = combine(Lray, Rray)
     O = paint(I, recolor(TWO, toobject(targets, I)))
     return O
+
 
 def dsl4(I):
-    # Horizontal-only: up to two contiguous 5s from each 4 to left and right
+    # 5s that are strictly between two 4s along rows or columns (arbitrary gap)
     fives = ofcolor(I, FIVE)
     fours = ofcolor(I, FOUR)
-    r1 = intersection(shift(fours, RIGHT), fives)
-    r2 = intersection(shift(r1, RIGHT), fives)
-    l1 = intersection(shift(fours, LEFT), fives)
-    l2 = intersection(shift(l1, LEFT), fives)
-    targets = combine(combine(r1, r2), combine(l1, l2))
+
+    # Horizontal shadows from left and right 4s through contiguous 5s
+    L1 = intersection(shift(fours, LEFT), fives)
+    L2 = intersection(shift(L1, LEFT), fives)
+    L3 = intersection(shift(L2, LEFT), fives)
+    L4 = intersection(shift(L3, LEFT), fives)
+    L5 = intersection(shift(L4, LEFT), fives)
+    L6 = intersection(shift(L5, LEFT), fives)
+    L7 = intersection(shift(L6, LEFT), fives)
+    L8 = intersection(shift(L7, LEFT), fives)
+    L9 = intersection(shift(L8, LEFT), fives)
+    L10 = intersection(shift(L9, LEFT), fives)
+    L11 = intersection(shift(L10, LEFT), fives)
+    L12 = intersection(shift(L11, LEFT), fives)
+    Lshadow = combine(combine(combine(L1, L2), combine(L3, L4)), combine(combine(combine(L5, L6), combine(L7, L8)), combine(combine(L9, L10), combine(L11, L12))))
+
+    R1 = intersection(shift(fours, RIGHT), fives)
+    R2 = intersection(shift(R1, RIGHT), fives)
+    R3 = intersection(shift(R2, RIGHT), fives)
+    R4 = intersection(shift(R3, RIGHT), fives)
+    R5 = intersection(shift(R4, RIGHT), fives)
+    R6 = intersection(shift(R5, RIGHT), fives)
+    R7 = intersection(shift(R6, RIGHT), fives)
+    R8 = intersection(shift(R7, RIGHT), fives)
+    R9 = intersection(shift(R8, RIGHT), fives)
+    R10 = intersection(shift(R9, RIGHT), fives)
+    R11 = intersection(shift(R10, RIGHT), fives)
+    R12 = intersection(shift(R11, RIGHT), fives)
+    Rshadow = combine(combine(combine(R1, R2), combine(R3, R4)), combine(combine(combine(R5, R6), combine(R7, R8)), combine(combine(R9, R10), combine(R11, R12))))
+
+    H_between = intersection(Lshadow, Rshadow)
+
+    # Vertical shadows from up and down 4s through contiguous 5s
+    U1 = intersection(shift(fours, UP), fives)
+    U2 = intersection(shift(U1, UP), fives)
+    U3 = intersection(shift(U2, UP), fives)
+    U4 = intersection(shift(U3, UP), fives)
+    U5 = intersection(shift(U4, UP), fives)
+    U6 = intersection(shift(U5, UP), fives)
+    U7 = intersection(shift(U6, UP), fives)
+    U8 = intersection(shift(U7, UP), fives)
+    U9 = intersection(shift(U8, UP), fives)
+    U10 = intersection(shift(U9, UP), fives)
+    U11 = intersection(shift(U10, UP), fives)
+    U12 = intersection(shift(U11, UP), fives)
+    Ushadow = combine(combine(combine(U1, U2), combine(U3, U4)), combine(combine(combine(U5, U6), combine(U7, U8)), combine(combine(U9, U10), combine(U11, U12))))
+
+    D1 = intersection(shift(fours, DOWN), fives)
+    D2 = intersection(shift(D1, DOWN), fives)
+    D3 = intersection(shift(D2, DOWN), fives)
+    D4 = intersection(shift(D3, DOWN), fives)
+    D5 = intersection(shift(D4, DOWN), fives)
+    D6 = intersection(shift(D5, DOWN), fives)
+    D7 = intersection(shift(D6, DOWN), fives)
+    D8 = intersection(shift(D7, DOWN), fives)
+    D9 = intersection(shift(D8, DOWN), fives)
+    D10 = intersection(shift(D9, DOWN), fives)
+    D11 = intersection(shift(D10, DOWN), fives)
+    D12 = intersection(shift(D11, DOWN), fives)
+    Dshadow = combine(combine(combine(D1, D2), combine(D3, D4)), combine(combine(combine(D5, D6), combine(D7, D8)), combine(combine(D9, D10), combine(D11, D12))))
+
+    V_between = intersection(Ushadow, Dshadow)
+
+    targets = combine(H_between, V_between)
     O = paint(I, recolor(TWO, toobject(targets, I)))
     return O
 
+
 def dsl5(I):
-    # End-capped second step: only second 5 in a direction if followed by a 0 (pattern 4-5-5-0 and symmetries)
+    # 4-connected flood from each 4 into 5 regions (larger BFS radius)
     fives = ofcolor(I, FIVE)
-    zeros = ofcolor(I, ZERO)
     fours = ofcolor(I, FOUR)
-    r1 = intersection(shift(fours, RIGHT), fives)
-    l1 = intersection(shift(fours, LEFT), fives)
-    u1 = intersection(shift(fours, UP), fives)
-    d1 = intersection(shift(fours, DOWN), fives)
-    r2 = intersection(shift(r1, RIGHT), fives)
-    l2 = intersection(shift(l1, LEFT), fives)
-    u2 = intersection(shift(u1, UP), fives)
-    d2 = intersection(shift(d1, DOWN), fives)
-    # require a 0 just beyond the second step
-    r2c = intersection(r2, shift(zeros, LEFT))
-    l2c = intersection(l2, shift(zeros, RIGHT))
-    u2c = intersection(u2, shift(zeros, DOWN))
-    d2c = intersection(d2, shift(zeros, UP))
-    targets = combine(combine(r2c, l2c), combine(u2c, d2c))
+
+    # initial frontier: 5s adjacent (rookwise) to any 4
+    N1 = combine(combine(intersection(shift(fours, LEFT), fives), intersection(shift(fours, RIGHT), fives)),
+                 combine(intersection(shift(fours, UP), fives),   intersection(shift(fours, DOWN), fives)))
+
+    # iteratively expand into neighboring 5s
+    E1 = combine(combine(intersection(shift(N1, LEFT), fives), intersection(shift(N1, RIGHT), fives)),
+                 combine(intersection(shift(N1, UP), fives),   intersection(shift(N1, DOWN), fives)))
+    N2 = combine(N1, E1)
+
+    E2 = combine(combine(intersection(shift(N2, LEFT), fives), intersection(shift(N2, RIGHT), fives)),
+                 combine(intersection(shift(N2, UP), fives),   intersection(shift(N2, DOWN), fives)))
+    N3 = combine(N2, E2)
+
+    E3 = combine(combine(intersection(shift(N3, LEFT), fives), intersection(shift(N3, RIGHT), fives)),
+                 combine(intersection(shift(N3, UP), fives),   intersection(shift(N3, DOWN), fives)))
+    N4 = combine(N3, E3)
+
+    E4 = combine(combine(intersection(shift(N4, LEFT), fives), intersection(shift(N4, RIGHT), fives)),
+                 combine(intersection(shift(N4, UP), fives),   intersection(shift(N4, DOWN), fives)))
+    N5 = combine(N4, E4)
+
+    E5 = combine(combine(intersection(shift(N5, LEFT), fives), intersection(shift(N5, RIGHT), fives)),
+                 combine(intersection(shift(N5, UP), fives),   intersection(shift(N5, DOWN), fives)))
+    N6 = combine(N5, E5)
+
+    E6 = combine(combine(intersection(shift(N6, LEFT), fives), intersection(shift(N6, RIGHT), fives)),
+                 combine(intersection(shift(N6, UP), fives),   intersection(shift(N6, DOWN), fives)))
+    N7 = combine(N6, E6)
+
+    E7 = combine(combine(intersection(shift(N7, LEFT), fives), intersection(shift(N7, RIGHT), fives)),
+                 combine(intersection(shift(N7, UP), fives),   intersection(shift(N7, DOWN), fives)))
+    N8 = combine(N7, E7)
+
+    E8 = combine(combine(intersection(shift(N8, LEFT), fives), intersection(shift(N8, RIGHT), fives)),
+                 combine(intersection(shift(N8, UP), fives),   intersection(shift(N8, DOWN), fives)))
+    targets = combine(N8, E8)
+
     O = paint(I, recolor(TWO, toobject(targets, I)))
     return O
 ```

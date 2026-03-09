@@ -1,42 +1,55 @@
 ```python
 def dsl1(I):
-    O = replace(I, ZERO, FIVE)
-    return O
-
-def dsl2(I):
-    c = leastcolor(I)
-    P = ofcolor(I, c)
-    bb = backdrop(P)
-    dims = shape(I)
-    O = canvas(FIVE, dims)
-    O = fill(O, c, bb)
-    return O
-
-def dsl3(I):
-    c = leastcolor(I)
-    P = ofcolor(I, c)
-    outline = box(P)
-    dims = shape(I)
-    O = canvas(FIVE, dims)
-    O = fill(O, c, outline)
-    return O
-
-def dsl4(I):
-    c = leastcolor(I)
-    P = ofcolor(I, c)
-    j = leftmost(P)
-    i = lowermost(P)
-    vstart = astuple(0, j)
-    hstart = astuple(i, 0)
-    vline = shoot(vstart, DOWN)
-    hline = shoot(hstart, RIGHT)
-    lines = combine(vline, hline)
-    O = replace(I, ZERO, FIVE)
+    ps = remove(ZERO, palette(I))
+    seeds = mapply(lbind(ofcolor, I), ps)
+    r = mapply(rbind(shoot, RIGHT), seeds)
+    l = mapply(rbind(shoot, LEFT), seeds)
+    u = mapply(rbind(shoot, UP), seeds)
+    d = mapply(rbind(shoot, DOWN), seeds)
+    lines = combine(combine(r, l), combine(u, d))
+    c = maximum(ps)
+    O = canvas(FIVE, shape(I))
     O = fill(O, c, lines)
     return O
 
+def dsl2(I):
+    ps = remove(ZERO, palette(I))
+    seeds = mapply(lbind(ofcolor, I), ps)
+    r = mapply(rbind(shoot, RIGHT), seeds)
+    d = mapply(rbind(shoot, DOWN), seeds)
+    lines = combine(r, d)
+    c = maximum(ps)
+    O = canvas(FIVE, shape(I))
+    O = fill(O, c, lines)
+    return O
+
+def dsl3(I):
+    ps = remove(ZERO, palette(I))
+    seeds = mapply(lbind(ofcolor, I), ps)
+    ur = mapply(rbind(shoot, UP_RIGHT), seeds)
+    dl = mapply(rbind(shoot, DOWN_LEFT), seeds)
+    lines = combine(ur, dl)
+    c = maximum(ps)
+    O = canvas(FIVE, shape(I))
+    O = fill(O, c, lines)
+    return O
+
+def dsl4(I):
+    frs = frontiers(I)
+    gridlines = merge(frs)
+    ps = remove(ZERO, palette(I))
+    c = maximum(ps)
+    O = canvas(FIVE, shape(I))
+    O = fill(O, c, gridlines)
+    return O
+
 def dsl5(I):
-    J = vmirror(I)
-    O = replace(J, ZERO, FIVE)
+    ps = remove(ZERO, palette(I))
+    fg_parts = mapply(lbind(ofcolor, I), ps)
+    fg = merge(fg_parts)
+    frame = box(fg)
+    c = maximum(ps)
+    O = canvas(FIVE, shape(I))
+    O = fill(O, c, frame)
     return O
 ```

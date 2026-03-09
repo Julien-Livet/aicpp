@@ -1,36 +1,71 @@
 ```python
 def dsl1(I):
-    x1 = compress(I)
-    x2 = trim(x1)
-    O = downscale(x2, THREE)
+    # Identify separator color (neither background nor rarest), use its periodicity.
+    bg = mostcolor(I)
+    mk = leastcolor(I)
+    sep = first(remove(mk, remove(bg, palette(I))))
+    obj = toobject(ofcolor(I, sep), I)
+    hp = hperiod(obj)
+    vp = vperiod(obj)
+    start = subtract(ulcorner(obj), UNITY)  # include top-left background corner
+    hdim = add(ONE, multiply(vp, TWO))     # two vertical tiles + borders
+    wdim = add(ONE, multiply(hp, TWO))     # two horizontal tiles + borders
+    O = crop(I, start, astuple(hdim, wdim))
     return O
 
 def dsl2(I):
-    x1 = compress(I)
-    x2 = rot90(x1)
-    x3 = compress(x2)
-    x4 = rot270(x3)
-    x5 = trim(x4)
-    O = downscale(x5, THREE)
+    # Two tiles horizontally, one vertically (include borders), starting at first separator.
+    bg = mostcolor(I)
+    mk = leastcolor(I)
+    sep = first(remove(mk, remove(bg, palette(I))))
+    obj = toobject(ofcolor(I, sep), I)
+    hp = hperiod(obj)
+    vp = vperiod(obj)
+    start = ulcorner(obj)
+    hdim = add(ONE, vp)                    # one vertical tile + top/bottom lines
+    wdim = add(ONE, multiply(hp, TWO))     # two horizontal tiles + three lines
+    O = crop(I, start, astuple(hdim, wdim))
     return O
 
 def dsl3(I):
-    x1 = trim(I)
-    x2 = compress(x1)
-    x3 = compress(x2)
-    O = downscale(x3, THREE)
+    # Two tiles vertically, one horizontally; include left border by shifting left.
+    bg = mostcolor(I)
+    mk = leastcolor(I)
+    sep = first(remove(mk, remove(bg, palette(I))))
+    obj = toobject(ofcolor(I, sep), I)
+    hp = hperiod(obj)
+    vp = vperiod(obj)
+    start = subtract(ulcorner(obj), tojvec(ONE))  # shift left to include border
+    hdim = add(ONE, multiply(vp, TWO))            # two vertical tiles + borders
+    wdim = add(ONE, hp)                            # one horizontal tile + borders
+    O = crop(I, start, astuple(hdim, wdim))
     return O
 
 def dsl4(I):
-    x1 = compress(I)
-    x2 = trim(x1)
-    x3 = downscale(x2, THREE)
-    O = trim(x3)
+    # Single tile both directions (between first two separators), starting exactly at first separator.
+    bg = mostcolor(I)
+    mk = leastcolor(I)
+    sep = first(remove(mk, remove(bg, palette(I))))
+    obj = toobject(ofcolor(I, sep), I)
+    hp = hperiod(obj)
+    vp = vperiod(obj)
+    start = ulcorner(obj)
+    hdim = add(ONE, vp)    # one vertical period + two lines
+    wdim = add(ONE, hp)    # one horizontal period + two lines
+    O = crop(I, start, astuple(hdim, wdim))
     return O
 
 def dsl5(I):
-    x1 = trim(I)
-    x2 = downscale(x1, THREE)
-    O = trim(x2)
+    # Two tiles both directions but start shifted up only (align to nearest full row line).
+    bg = mostcolor(I)
+    mk = leastcolor(I)
+    sep = first(remove(mk, remove(bg, palette(I))))
+    obj = toobject(ofcolor(I, sep), I)
+    hp = hperiod(obj)
+    vp = vperiod(obj)
+    start = subtract(ulcorner(obj), toivec(ONE))  # shift up to include the top border
+    hdim = add(ONE, multiply(vp, TWO))
+    wdim = add(ONE, multiply(hp, TWO))
+    O = crop(I, start, astuple(hdim, wdim))
     return O
 ```

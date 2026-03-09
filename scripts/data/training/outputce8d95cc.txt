@@ -2,7 +2,8 @@
 def dsl1(I):
     x1 = rot90(I)
     x2 = compress(x1)
-    O = rot270(x2)
+    x3 = rot270(x2)
+    O = compress(x3)
     return O
 
 def dsl2(I):
@@ -18,13 +19,17 @@ def dsl3(I):
     return O
 
 def dsl4(I):
-    x1 = rot180(I)
-    x2 = compress(x1)
-    O = rot180(x2)
+    x1 = compress(I)
+    x2 = rot90(x1)
+    x3 = compress(x2)
+    O = rot270(x3)
     return O
 
 def dsl5(I):
-    x1 = compress(I)
-    O = compress(x1)
+    x1 = frontiers(I)
+    x2 = merge(x1)
+    x3 = canvas(ZERO, shape(I))
+    x4 = paint(x3, x2)
+    O = compress(x4)
     return O
 ```

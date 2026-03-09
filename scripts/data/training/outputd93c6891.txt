@@ -1,48 +1,32 @@
 ```python
 def dsl1(I):
-    L = lefthalf(I)
-    R = righthalf(I)
-    x1 = replace(R, FIVE, FOUR)
-    x2 = replace(x1, SEVEN, FIVE)
-    O = hconcat(L, x2)
+    x1 = switch(I, FIVE, SEVEN)
+    O = replace(x1, SEVEN, FOUR)
     return O
 
 def dsl2(I):
-    T = tophalf(I)
-    B = bottomhalf(I)
-    x1 = replace(T, FIVE, FOUR)
-    x2 = replace(x1, SEVEN, FIVE)
-    O = vconcat(x2, B)
+    p7 = ofcolor(I, SEVEN)
+    x1 = replace(I, FIVE, FOUR)
+    O = fill(x1, FIVE, p7)
     return O
 
 def dsl3(I):
-    T = tophalf(I)
-    B = bottomhalf(I)
-    BL = lefthalf(B)
-    BR = righthalf(B)
-    xT = replace(T, FIVE, FOUR)
-    yT = replace(xT, SEVEN, FIVE)
-    xBR = replace(BR, FIVE, FOUR)
-    yBR = replace(xBR, SEVEN, FIVE)
-    O = vconcat(yT, hconcat(BL, yBR))
+    x1 = replace(I, FIVE, FOUR)
+    o7 = recolor(FIVE, toobject(ofcolor(I, SEVEN), I))
+    O = paint(x1, o7)
     return O
 
 def dsl4(I):
-    T = tophalf(I)
-    B = bottomhalf(I)
-    TL = lefthalf(T)
-    TR = righthalf(T)
-    BL = lefthalf(B)
-    BR = righthalf(B)
-    mTR = replace(replace(TR, FIVE, FOUR), SEVEN, FIVE)
-    mBR = replace(replace(BR, FIVE, FOUR), SEVEN, FIVE)
-    top = hconcat(TL, mTR)
-    bottom = hconcat(BL, mBR)
-    O = vconcat(top, bottom)
+    p7 = ofcolor(I, SEVEN)
+    x1 = fill(I, ZERO, p7)
+    x2 = replace(x1, FIVE, FOUR)
+    O = fill(x2, FIVE, p7)
     return O
 
 def dsl5(I):
+    p7 = ofcolor(I, SEVEN)
     x1 = replace(I, FIVE, FOUR)
-    O = replace(x1, SEVEN, FIVE)
+    x2 = replace(x1, SEVEN, FOUR)
+    O = fill(x2, FIVE, p7)
     return O
 ```

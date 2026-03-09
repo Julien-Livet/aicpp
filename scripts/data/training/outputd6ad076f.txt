@@ -1,107 +1,147 @@
 ```python
 def dsl1(I):
+    # Decide orientation by row/column overlap, then bridge with 1-cell margin on the overlap axis.
     obs = objects(I, T, F, T)
     a = argmin(obs, leftmost)
     b = other(obs, a)
-    # side-by-side if they don't share any column
-    side = flip(vmatching(a, b))
+    side = both(hmatching(a, b), flip(vmatching(a, b)))  # side-by-side if rows overlap but columns don't
     if side:
-        # a is left, b is right
-        j0 = increment(rightmost(a))
-        j1 = decrement(leftmost(b))
-        ua = uppermost(a)
-        ub = uppermost(b)
-        topov = branch(greater(ua, ub), ua, ub)  # max uppermost
-        la = lowermost(a)
-        lb = lowermost(b)
-        botov = branch(greater(la, lb), lb, la)  # min lowermost
+        lefto = a
+        righto = b
+        topov = branch(greater(uppermost(lefto), uppermost(righto)), uppermost(lefto), uppermost(righto))
+        botov = branch(greater(lowermost(lefto), lowermost(righto)), lowermost(righto), lowermost(lefto))
         i0 = increment(topov)
         i1 = decrement(botov)
-    else:
-        # stacked vertically
-        topobj = argmin(obs, uppermost)
-        botobj = other(obs, topobj)
-        i0 = increment(lowermost(topobj))
-        i1 = decrement(uppermost(botobj))
-        la = leftmost(topobj)
-        lb = leftmost(botobj)
-        leftov = branch(greater(la, lb), la, lb)  # max leftmost
-        ra = rightmost(topobj)
-        rb = rightmost(botobj)
-        rightov = branch(greater(ra, rb), rb, ra)  # min rightmost
-        j0 = increment(leftov)
-        j1 = decrement(rightov)
-    p1 = astuple(i0, j0)
-    p2 = astuple(i1, j1)
-    line = connect(p1, p2)
-    rect = backdrop(line)
-    O = fill(I, EIGHT, rect)
-    return O
-
-def dsl2(I):
-    obs = objects(I, T, F, T)
-    # decide orientation using row-overlap
-    x = argmin(obs, leftmost)
-    y = other(obs, x)
-    side = hmatching(x, y)  # share rows => side-by-side
-    if side:
-        lefto = x
-        righto = y
         j0 = increment(rightmost(lefto))
         j1 = decrement(leftmost(righto))
-        ua = uppermost(lefto)
-        ub = uppermost(righto)
-        topov = branch(greater(ua, ub), ua, ub)
-        la = lowermost(lefto)
-        lb = lowermost(righto)
-        botov = branch(greater(la, lb), lb, la)
-        i0 = increment(topov)
-        i1 = decrement(botov)
     else:
         topo = argmin(obs, uppermost)
         boto = other(obs, topo)
-        i0 = increment(lowermost(topo))
-        i1 = decrement(uppermost(boto))
-        la = leftmost(topo)
-        lb = leftmost(boto)
-        leftov = branch(greater(la, lb), la, lb)
-        ra = rightmost(topo)
-        rb = rightmost(boto)
-        rightov = branch(greater(ra, rb), rb, ra)
+        leftov = branch(greater(leftmost(topo), leftmost(boto)), leftmost(topo), leftmost(boto))
+        rightov = branch(greater(rightmost(topo), rightmost(boto)), rightmost(boto), rightmost(topo))
         j0 = increment(leftov)
         j1 = decrement(rightov)
-    p1 = astuple(i0, j0)
-    p2 = astuple(i1, j1)
-    rect = backdrop(connect(p1, p2))
-    O = fill(I, EIGHT, rect)
+        i0 = increment(lowermost(topo))
+        i1 = decrement(uppermost(boto))
+    rect = backdrop(connect(astuple(i0, j0), astuple(i1, j1)))
+    O = underfill(I, EIGHT, rect)
     return O
 
-def dsl3(I):
+def dsl2(I):
+    # Build both candidates and choose the one that neither overlaps nor touches the given objects.
     obs = objects(I, T, F, T)
-    # prepare both candidate rectangles, choose by orientation flag
     lefto = argmin(obs, leftmost)
     righto = other(obs, lefto)
+    topo = argmin(obs, uppermost)
+    boto = other(obs, topo)
     # side-by-side candidate
-    sj0 = increment(rightmost(lefto))
-    sj1 = decrement(leftmost(righto))
     su = branch(greater(uppermost(lefto), uppermost(righto)), uppermost(lefto), uppermost(righto))
     sl = branch(greater(lowermost(lefto), lowermost(righto)), lowermost(righto), lowermost(lefto))
     si0 = increment(su)
     si1 = decrement(sl)
+    sj0 = increment(rightmost(lefto))
+    sj1 = decrement(leftmost(righto))
     srect = backdrop(connect(astuple(si0, sj0), astuple(si1, sj1)))
     # stacked candidate
-    topo = argmin(obs, uppermost)
-    boto = other(obs, topo)
-    vi0 = increment(lowermost(topo))
-    vi1 = decrement(uppermost(boto))
     vl = branch(greater(leftmost(topo), leftmost(boto)), leftmost(topo), leftmost(boto))
     vr = branch(greater(rightmost(topo), rightmost(boto)), rightmost(boto), rightmost(topo))
+    vi0 = increment(lowermost(topo))
+    vi1 = decrement(uppermost(boto))
     vj0 = increment(vl)
     vj1 = decrement(vr)
     vrect = backdrop(connect(astuple(vi0, vj0), astuple(vi1, vj1)))
-    # choose by column-overlap
-    use_side = flip(vmatching(lefto, righto))
-    rect = branch(use_side, srect, vrect)
+    # choose the clear (no overlap, no adjacency) candidate
+    aidx = toindices(lefto)
+    bidx = toindices(righto)
+    sover = either(greater(size(intersection(srect, aidx)), ZERO), greater(size(intersection(srect, bidx)), ZERO))
+    vover = either(greater(size(intersection(vrect, aidx)), ZERO), greater(size(intersection(vrect, bidx)), ZERO))
+    sadj = either(adjacency(srect, lefto), adjacency(srect, righto))
+    vadj = either(adjacency(vrect, lefto), adjacency(vrect, righto))
+    sclear = both(flip(sover), flip(sadj))
+    vclear = both(flip(vover), flip(vadj))
+    rect = branch(sclear, srect, branch(vclear, vrect, vrect))
+    O = underfill(I, EIGHT, rect)
+    return O
+
+def dsl3(I):
+    # Orientation by checking for a positive horizontal gap between leftmost and rightmost boxes.
+    obs = objects(I, T, F, T)
+    lefto = argmin(obs, leftmost)
+    othero = other(obs, lefto)
+    side = greater(leftmost(othero), rightmost(lefto))
+    if side:
+        topov = branch(greater(uppermost(lefto), uppermost(othero)), uppermost(lefto), uppermost(othero))
+        botov = branch(greater(lowermost(lefto), lowermost(othero)), lowermost(othero), lowermost(lefto))
+        i0 = increment(topov)
+        i1 = decrement(botov)
+        j0 = increment(rightmost(lefto))
+        j1 = decrement(leftmost(othero))
+    else:
+        topo = argmin(obs, uppermost)
+        boto = other(obs, topo)
+        leftov = branch(greater(leftmost(topo), leftmost(boto)), leftmost(topo), leftmost(boto))
+        rightov = branch(greater(rightmost(topo), rightmost(boto)), rightmost(boto), rightmost(topo))
+        j0 = increment(leftov)
+        j1 = decrement(rightov)
+        i0 = increment(lowermost(topo))
+        i1 = decrement(uppermost(boto))
+    rect = backdrop(connect(astuple(i0, j0), astuple(i1, j1)))
     O = fill(I, EIGHT, rect)
+    return O
+
+def dsl4(I):
+    # Use largest two foreground objects; decide by shared rows, then bridge with margin.
+    obs = fgpartition(I)
+    a = argmax(obs, size)
+    b = other(obs, a)
+    side = hmatching(a, b)
+    if side:
+        lefto = branch(greater(leftmost(a), leftmost(b)), b, a)
+        righto = other(obs, lefto)
+        topov = branch(greater(uppermost(lefto), uppermost(righto)), uppermost(lefto), uppermost(righto))
+        botov = branch(greater(lowermost(lefto), lowermost(righto)), lowermost(righto), lowermost(lefto))
+        i0 = increment(topov)
+        i1 = decrement(botov)
+        j0 = increment(rightmost(lefto))
+        j1 = decrement(leftmost(righto))
+    else:
+        topo = branch(greater(uppermost(a), uppermost(b)), b, a)
+        boto = other(obs, topo)
+        leftov = branch(greater(leftmost(topo), leftmost(boto)), leftmost(topo), leftmost(boto))
+        rightov = branch(greater(rightmost(topo), rightmost(boto)), rightmost(boto), rightmost(topo))
+        j0 = increment(leftov)
+        j1 = decrement(rightov)
+        i0 = increment(lowermost(topo))
+        i1 = decrement(uppermost(boto))
+    rect = backdrop(connect(astuple(i0, j0), astuple(i1, j1)))
+    O = underfill(I, EIGHT, rect)
+    return O
+
+def dsl5(I):
+    # Compare gaps along axes; prefer the axis with a positive gap.
+    obs = objects(I, T, F, T)
+    lefto = argmin(obs, leftmost)
+    righto = other(obs, lefto)
+    topo = argmin(obs, uppermost)
+    boto = other(obs, topo)
+    hg = subtract(subtract(leftmost(righto), rightmost(lefto)), ONE)   # horizontal gap width
+    vg = subtract(subtract(uppermost(boto), lowermost(topo)), ONE)     # vertical gap height
+    side = greater(hg, ZERO)
+    if side:
+        topov = branch(greater(uppermost(lefto), uppermost(righto)), uppermost(lefto), uppermost(righto))
+        botov = branch(greater(lowermost(lefto), lowermost(righto)), lowermost(righto), lowermost(lefto))
+        i0 = increment(topov)
+        i1 = decrement(botov)
+        j0 = increment(rightmost(lefto))
+        j1 = decrement(leftmost(righto))
+    else:
+        leftov = branch(greater(leftmost(topo), leftmost(boto)), leftmost(topo), leftmost(boto))
+        rightov = branch(greater(rightmost(topo), rightmost(boto)), rightmost(boto), rightmost(topo))
+        j0 = increment(leftov)
+        j1 = decrement(rightov)
+        i0 = increment(lowermost(topo))
+        i1 = decrement(uppermost(boto))
+    rect = backdrop(connect(astuple(i0, j0), astuple(i1, j1)))
+    O = underfill(I, EIGHT, rect)
     return O
 ```

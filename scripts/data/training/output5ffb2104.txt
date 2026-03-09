@@ -1,44 +1,29 @@
 ```python
 def dsl1(I):
-    H = height(I)
-    W = width(I)
-    Z = canvas(ZERO, astuple(H, ONE))
-    L = crop(I, ORIGIN, astuple(H, subtract(W, ONE)))
-    O = hconcat(Z, L)
+    O = vmirror(I)
     return O
 
 def dsl2(I):
-    H = height(I)
-    W = width(I)
-    D = divide(W, TWO)
-    Z = canvas(ZERO, astuple(H, D))
-    L = crop(I, ORIGIN, astuple(H, subtract(W, D)))
-    O = hconcat(Z, L)
+    O = rot90(I)
     return O
 
 def dsl3(I):
-    H = height(I)
-    W = width(I)
-    D = divide(W, TWO)
-    S = astuple(0, subtract(W, D))
-    R = crop(I, S, astuple(H, D))
-    Z = canvas(ZERO, astuple(H, subtract(W, D)))
-    O = hconcat(Z, R)
+    O = rot270(I)
     return O
 
 def dsl4(I):
-    H = height(I)
-    W = width(I)
-    K = divide(W, THREE)
-    S = astuple(0, subtract(W, K))
-    R = crop(I, S, astuple(H, K))
-    Z = canvas(ZERO, astuple(H, subtract(W, K)))
-    O = hconcat(Z, R)
+    O = rot180(I)
     return O
 
 def dsl5(I):
-    M = vmirror(I)
-    A = asobject(M)
-    O = underpaint(I, A)
+    h = height(I)
+    w = width(I)
+    all_idx = asindices(I)
+    bg_idx = ofcolor(I, ZERO)
+    fg_idx = difference(all_idx, bg_idx)
+    obj = toobject(fg_idx, I)
+    r = rightmost(fg_idx)
+    dx = subtract(subtract(w, ONE), r)
+    O = move(canvas(ZERO, astuple(h, w)), obj, astuple(0, dx))
     return O
 ```

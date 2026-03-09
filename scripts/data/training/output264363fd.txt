@@ -1,56 +1,75 @@
 ```python
 def dsl1(I):
-    # Draw row/column lines through each 4: use 3 over 2-cells and 2 over 1-cells
+    # Plus from each 4; map along lines: 1->2, 2->3, 3->4
     seeds4 = ofcolor(I, FOUR)
     H = merge(apply(hfrontier, seeds4))
     V = merge(apply(vfrontier, seeds4))
-    HV = combine(H, V)
-    on1 = intersection(HV, ofcolor(I, ONE))
-    on2 = intersection(HV, ofcolor(I, TWO))
-    O = fill(I, TWO, on1)
-    O = fill(O, THREE, on2)
+    O = I
+    O = fill(O, TWO,   intersection(H, ofcolor(I, ONE)))
+    O = fill(O, TWO,   intersection(V, ofcolor(I, ONE)))
+    O = fill(O, THREE, intersection(H, ofcolor(I, TWO)))
+    O = fill(O, THREE, intersection(V, ofcolor(I, TWO)))
+    O = fill(O, FOUR,  intersection(H, ofcolor(I, THREE)))
+    O = fill(O, FOUR,  intersection(V, ofcolor(I, THREE)))
     O = fill(O, FOUR, seeds4)
     return O
 
 def dsl2(I):
-    # Around each 4: paint onto 3-background only (diagonals -> 5, orthogonals -> 6)
+    # Draw plus only through non-background (mostcolor is background), recolor to 3
+    bg = mostcolor(I)
     seeds4 = ofcolor(I, FOUR)
-    diag = merge(apply(ineighbors, seeds4))
-    ortho = merge(apply(neighbors, seeds4))
-    on3d = intersection(diag, ofcolor(I, THREE))
-    on3o = intersection(ortho, ofcolor(I, THREE))
-    O = fill(I, FIVE, on3d)
-    O = fill(O, SIX, on3o)
+    H = merge(apply(hfrontier, seeds4))
+    V = merge(apply(vfrontier, seeds4))
+    L = combine(H, V)
+    nb = difference(asindices(I), ofcolor(I, bg))
+    draw = intersection(L, nb)
+    O = fill(I, THREE, draw)
     O = fill(O, FOUR, seeds4)
     return O
 
 def dsl3(I):
-    # Extend every existing 3 into full row/column lines over 1/2 background
-    seeds3 = ofcolor(I, THREE)
-    H = merge(apply(hfrontier, seeds3))
-    V = merge(apply(vfrontier, seeds3))
-    HV = combine(H, V)
-    bg12 = combine(ofcolor(I, ONE), ofcolor(I, TWO))
-    draw = intersection(HV, bg12)
-    O = fill(I, THREE, draw)
+    # Only affect 3-regions: horizontal from 4 -> 5, vertical from 4 -> 6
+    seeds4 = ofcolor(I, FOUR)
+    H = merge(apply(hfrontier, seeds4))
+    V = merge(apply(vfrontier, seeds4))
+    threes = ofcolor(I, THREE)
+    O = I
+    O = fill(O, FIVE, intersection(H, threes))
+    O = fill(O, SIX,  intersection(V, threes))
+    O = fill(O, FOUR, seeds4)
     return O
 
 def dsl4(I):
-    # Turn only the boundary cells of 2-regions into 3 (2-cells that lie on a frontier)
-    F = merge(frontiers(I))
-    boundary2 = intersection(F, ofcolor(I, TWO))
-    O = fill(I, THREE, boundary2)
+    # Restrict drawing to bounding rectangles of 2- and 3-regions
+    seeds4 = ofcolor(I, FOUR)
+    H = merge(apply(hfrontier, seeds4))
+    V = merge(apply(vfrontier, seeds4))
+    rect2 = backdrop(ofcolor(I, TWO))
+    rect3 = backdrop(ofcolor(I, THREE))
+    O = I
+    # within 2-rectangle: mark both H and V as 3
+    O = fill(O, THREE, intersection(H, rect2))
+    O = fill(O, THREE, intersection(V, rect2))
+    # within 3-rectangle: H->5, V->6
+    O = fill(O, FIVE,  intersection(H, rect3))
+    O = fill(O, SIX,   intersection(V, rect3))
+    O = fill(O, FOUR, seeds4)
     return O
 
 def dsl5(I):
-    # Local cross around each 4 over 1/2 background using 3
+    # Use bounding rectangles of 1/2/3-regions with distinct mappings; keep 4 as anchor
     seeds4 = ofcolor(I, FOUR)
-    ortho = merge(apply(neighbors, seeds4))
-    diag = merge(apply(ineighbors, seeds4))
-    cross = combine(ortho, diag)
-    bg12 = combine(ofcolor(I, ONE), ofcolor(I, TWO))
-    mask = intersection(cross, bg12)
-    O = fill(I, THREE, mask)
+    H = merge(apply(hfrontier, seeds4))
+    V = merge(apply(vfrontier, seeds4))
+    L = combine(H, V)
+    rect1 = backdrop(ofcolor(I, ONE))
+    rect2 = backdrop(ofcolor(I, TWO))
+    rect3 = backdrop(ofcolor(I, THREE))
+    O = I
+    O = fill(O, TWO,   intersection(L, rect1))   # in 1-rect -> 2
+    O = fill(O, THREE, intersection(L, rect2))   # in 2-rect -> 3
+    O = fill(O, FIVE,  intersection(H, rect3))   # in 3-rect, H->5
+    O = fill(O, SIX,   intersection(V, rect3))   # in 3-rect, V->6
     O = fill(O, FOUR, seeds4)
     return O
 ```

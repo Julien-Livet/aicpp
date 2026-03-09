@@ -1,6 +1,6 @@
 ```python
 def dsl1(I):
-    O0 = I
+    O = I
     x8 = ofcolor(I, EIGHT)
     x4 = ofcolor(I, FOUR)
     x6 = ofcolor(I, SIX)
@@ -8,189 +8,226 @@ def dsl1(I):
     x3 = ofcolor(I, THREE)
     x1 = ofcolor(I, ONE)
 
-    # Pair: 4-8-4 (apply only if 4 present)
-    cond4 = greater(size(x4), ZERO)
-    a4l = recolor(FOUR, shift(x8, LEFT))
-    a4r = recolor(FOUR, shift(x8, RIGHT))
-    tmp = underpaint(O0, a4l)
-    tmp = underpaint(tmp, a4r)
-    mid4 = intersection(shift(x4, RIGHT), shift(x4, LEFT))
-    tmp = underpaint(tmp, recolor(EIGHT, mid4))
-    O1 = branch(cond4, tmp, O0)
+    # 4/8: complete both directions
+    O = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
+    O = underpaint(O, recolor(FOUR, shift(x8, RIGHT)))
+    O = underpaint(O, recolor(FOUR, shift(x8, UP)))
+    O = underpaint(O, recolor(FOUR, shift(x8, DOWN)))
+    mid4h = intersection(shift(x4, LEFT), shift(x4, RIGHT))
+    mid4v = intersection(shift(x4, UP), shift(x4, DOWN))
+    O = underpaint(O, recolor(EIGHT, mid4h))
+    O = underpaint(O, recolor(EIGHT, mid4v))
 
-    # Pair: 8-6-8 or 8-2-8 (choose by presence)
-    cond6 = greater(size(x6), ZERO)
-    cond2 = greater(size(x2), ZERO)
-    a86l = recolor(EIGHT, shift(x6, LEFT))
-    a86r = recolor(EIGHT, shift(x6, RIGHT))
-    t6 = underpaint(O1, a86l)
-    t6 = underpaint(t6, a86r)
-    a82l = recolor(EIGHT, shift(x2, LEFT))
-    a82r = recolor(EIGHT, shift(x2, RIGHT))
-    t2 = underpaint(O1, a82l)
-    t2 = underpaint(t2, a82r)
-    O2 = branch(cond6, t6, branch(cond2, t2, O1))
+    # 6/2 around 8 and between 8s (prefer 6 if present)
+    has6 = greater(size(x6), ZERO)
+    has2 = greater(size(x2), ZERO)
+    mid88h = intersection(shift(x8, LEFT), shift(x8, RIGHT))
+    mid88v = intersection(shift(x8, UP), shift(x8, DOWN))
 
-    mid8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT))
-    tmid6 = underpaint(O2, recolor(SIX, mid8))
-    tmid2 = underpaint(O2, recolor(TWO, mid8))
-    O3 = branch(cond6, tmid6, branch(cond2, tmid2, O2))
+    O6 = O
+    O6 = underpaint(O6, recolor(EIGHT, shift(x6, LEFT)))
+    O6 = underpaint(O6, recolor(EIGHT, shift(x6, RIGHT)))
+    O6 = underpaint(O6, recolor(EIGHT, shift(x6, UP)))
+    O6 = underpaint(O6, recolor(EIGHT, shift(x6, DOWN)))
+    O6 = underpaint(O6, recolor(SIX, mid88h))
+    O6 = underpaint(O6, recolor(SIX, mid88v))
 
-    # Pair: 1 and 3 (orientation from adjacency; else diagonals)
-    up3 = shift(x3, UP)
-    dn3 = shift(x3, DOWN)
-    lf3 = shift(x3, LEFT)
-    rt3 = shift(x3, RIGHT)
-    v1 = greater(size(intersection(up3, x1)), ZERO)
-    v2 = greater(size(intersection(dn3, x1)), ZERO)
-    h1 = greater(size(intersection(lf3, x1)), ZERO)
-    h2 = greater(size(intersection(rt3, x1)), ZERO)
-    cvert = either(v1, v2)
-    chorz = either(h1, h2)
+    O2 = O
+    O2 = underpaint(O2, recolor(EIGHT, shift(x2, LEFT)))
+    O2 = underpaint(O2, recolor(EIGHT, shift(x2, RIGHT)))
+    O2 = underpaint(O2, recolor(EIGHT, shift(x2, UP)))
+    O2 = underpaint(O2, recolor(EIGHT, shift(x2, DOWN)))
+    O2 = underpaint(O2, recolor(TWO, mid88h))
+    O2 = underpaint(O2, recolor(TWO, mid88v))
 
-    candV = underpaint(O3, recolor(ONE, up3))
-    candV = underpaint(candV, recolor(ONE, dn3))
-    candH = underpaint(O3, recolor(ONE, lf3))
-    candH = underpaint(candH, recolor(ONE, rt3))
-    ul3 = shift(x3, NEG_UNITY)
-    ur3 = shift(x3, UP_RIGHT)
-    dl3 = shift(x3, DOWN_LEFT)
-    dr3 = shift(x3, UNITY)
-    candD = underpaint(O3, recolor(ONE, ul3))
-    candD = underpaint(candD, recolor(ONE, ur3))
-    candD = underpaint(candD, recolor(ONE, dl3))
-    candD = underpaint(candD, recolor(ONE, dr3))
+    O = branch(has6, O6, branch(has2, O2, O))
 
-    tmp2 = branch(cvert, candV, O3)
-    tmp2 = branch(chorz, candH, tmp2)
-    needD = both(greater(size(x3), ZERO), both(flip(cvert), flip(chorz)))
-    O = branch(needD, candD, tmp2)
+    # 1/3: prefer vertical, else horizontal, else diagonals
+    up1 = greater(size(intersection(shift(x3, UP), x1)), ZERO)
+    dn1 = greater(size(intersection(shift(x3, DOWN), x1)), ZERO)
+    lf1 = greater(size(intersection(shift(x3, LEFT), x1)), ZERO)
+    rt1 = greater(size(intersection(shift(x3, RIGHT), x1)), ZERO)
+    d1 = greater(size(intersection(shift(x3, NEG_UNITY), x1)), ZERO)
+    d2 = greater(size(intersection(shift(x3, UP_RIGHT), x1)), ZERO)
+    d3 = greater(size(intersection(shift(x3, DOWN_LEFT), x1)), ZERO)
+    d4 = greater(size(intersection(shift(x3, UNITY), x1)), ZERO)
+    haveV = either(up1, dn1)
+    haveH = either(lf1, rt1)
+    haveD = either(either(d1, d2), either(d3, d4))
+
+    candV = O
+    candV = underpaint(candV, recolor(ONE, shift(x3, UP)))
+    candV = underpaint(candV, recolor(ONE, shift(x3, DOWN)))
+    candH = O
+    candH = underpaint(candH, recolor(ONE, shift(x3, LEFT)))
+    candH = underpaint(candH, recolor(ONE, shift(x3, RIGHT)))
+    candD = O
+    candD = underpaint(candD, recolor(ONE, shift(x3, NEG_UNITY)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, UP_RIGHT)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, DOWN_LEFT)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, UNITY)))
+
+    O = branch(haveV, candV, branch(haveH, candH, branch(haveD, candD, O)))
     return O
 
 def dsl2(I):
     O = I
-    # 4-8-4 completion (if 4 present)
     x8 = ofcolor(I, EIGHT)
     x4 = ofcolor(I, FOUR)
-    do4 = greater(size(x4), ZERO)
-    a = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
-    a = underpaint(a, recolor(FOUR, shift(x8, RIGHT)))
-    mid4 = intersection(shift(x4, RIGHT), shift(x4, LEFT))
-    a = underpaint(a, recolor(EIGHT, mid4))
-    O = branch(do4, a, O)
-
-    # 8-6-8 or 8-2-8 completion (choose by presence)
     x6 = ofcolor(I, SIX)
     x2 = ofcolor(I, TWO)
-    do6 = greater(size(x6), ZERO)
-    do2 = greater(size(x2), ZERO)
-    b6 = underpaint(O, recolor(EIGHT, shift(x6, LEFT)))
-    b6 = underpaint(b6, recolor(EIGHT, shift(x6, RIGHT)))
-    b2 = underpaint(O, recolor(EIGHT, shift(x2, LEFT)))
-    b2 = underpaint(b2, recolor(EIGHT, shift(x2, RIGHT)))
-    O = branch(do6, b6, branch(do2, b2, O))
-
-    mid8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT))
-    c6 = underpaint(O, recolor(SIX, mid8))
-    c2 = underpaint(O, recolor(TWO, mid8))
-    O = branch(do6, c6, branch(do2, c2, O))
-
-    # 1/3 vertical only if seen; else no change
     x3 = ofcolor(I, THREE)
     x1 = ofcolor(I, ONE)
-    up = shift(x3, UP)
-    dn = shift(x3, DOWN)
-    seenV = either(greater(size(intersection(up, x1)), ZERO), greater(size(intersection(dn, x1)), ZERO))
-    v = underpaint(O, recolor(ONE, up))
-    v = underpaint(v, recolor(ONE, dn))
-    O = branch(seenV, v, O)
+
+    # Only complete midpoints
+    mid4h = intersection(shift(x4, LEFT), shift(x4, RIGHT))
+    mid4v = intersection(shift(x4, UP), shift(x4, DOWN))
+    O = underpaint(O, recolor(EIGHT, mid4h))
+    O = underpaint(O, recolor(EIGHT, mid4v))
+
+    mid88h = intersection(shift(x8, LEFT), shift(x8, RIGHT))
+    mid88v = intersection(shift(x8, UP), shift(x8, DOWN))
+    has6 = greater(size(x6), ZERO)
+    has2 = greater(size(x2), ZERO)
+    O = branch(has6, underpaint(O, recolor(SIX, mid88h)), O)
+    O = branch(has6, underpaint(O, recolor(SIX, mid88v)), O)
+    O = branch(both(flip(has6), has2), underpaint(O, recolor(TWO, mid88h)), O)
+    O = branch(both(flip(has6), has2), underpaint(O, recolor(TWO, mid88v)), O)
+
+    # 1/3: replicate horizontally and vertically if present
+    haveH = either(greater(size(intersection(shift(x3, LEFT), x1)), ZERO),
+                   greater(size(intersection(shift(x3, RIGHT), x1)), ZERO))
+    haveV = either(greater(size(intersection(shift(x3, UP), x1)), ZERO),
+                   greater(size(intersection(shift(x3, DOWN), x1)), ZERO))
+    O = branch(haveH, underpaint(O, recolor(ONE, shift(x3, LEFT))), O)
+    O = branch(haveH, underpaint(O, recolor(ONE, shift(x3, RIGHT))), O)
+    O = branch(haveV, underpaint(O, recolor(ONE, shift(x3, UP))), O)
+    O = branch(haveV, underpaint(O, recolor(ONE, shift(x3, DOWN))), O)
     return O
 
 def dsl3(I):
-    O0 = I
-    # Handle 8-4 and 8-6/2 horizontally; compute mids on current grid to allow chaining
-    x8 = ofcolor(O0, EIGHT)
-    x4 = ofcolor(O0, FOUR)
-    x6 = ofcolor(O0, SIX)
-    x2 = ofcolor(O0, TWO)
-
-    # 4-8-4
-    has4 = greater(size(x4), ZERO)
-    t = underpaint(O0, recolor(FOUR, shift(x8, LEFT)))
-    t = underpaint(t, recolor(FOUR, shift(x8, RIGHT)))
-    mid4 = intersection(shift(x4, RIGHT), shift(x4, LEFT))
-    t = underpaint(t, recolor(EIGHT, mid4))
-    O1 = branch(has4, t, O0)
-
-    # 8-6-8 or 8-2-8
-    has6 = greater(size(x6), ZERO)
-    has2 = greater(size(x2), ZERO)
-    u6 = underpaint(O1, recolor(EIGHT, shift(x6, LEFT)))
-    u6 = underpaint(u6, recolor(EIGHT, shift(x6, RIGHT)))
-    u2 = underpaint(O1, recolor(EIGHT, shift(x2, LEFT)))
-    u2 = underpaint(u2, recolor(EIGHT, shift(x2, RIGHT)))
-    O2 = branch(has6, u6, branch(has2, u2, O1))
-
-    mid8 = intersection(shift(ofcolor(O0, EIGHT), RIGHT), shift(ofcolor(O0, EIGHT), LEFT))
-    v6 = underpaint(O2, recolor(SIX, mid8))
-    v2 = underpaint(O2, recolor(TWO, mid8))
-    O = branch(has6, v6, branch(has2, v2, O2))
-    return O
-
-def dsl4(I):
-    # Only 1/3 completion with orientation detection (others unchanged)
-    O = I
-    x3 = ofcolor(I, THREE)
-    x1 = ofcolor(I, ONE)
-    up3 = shift(x3, UP)
-    dn3 = shift(x3, DOWN)
-    lf3 = shift(x3, LEFT)
-    rt3 = shift(x3, RIGHT)
-    vseen = either(greater(size(intersection(up3, x1)), ZERO), greater(size(intersection(dn3, x1)), ZERO))
-    hseen = either(greater(size(intersection(lf3, x1)), ZERO), greater(size(intersection(rt3, x1)), ZERO))
-    # build candidates
-    v = underpaint(O, recolor(ONE, up3))
-    v = underpaint(v, recolor(ONE, dn3))
-    h = underpaint(O, recolor(ONE, lf3))
-    h = underpaint(h, recolor(ONE, rt3))
-    # diagonals as fallback
-    ul3 = shift(x3, NEG_UNITY)
-    ur3 = shift(x3, UP_RIGHT)
-    dl3 = shift(x3, DOWN_LEFT)
-    dr3 = shift(x3, UNITY)
-    d = underpaint(O, recolor(ONE, ul3))
-    d = underpaint(d, recolor(ONE, ur3))
-    d = underpaint(d, recolor(ONE, dl3))
-    d = underpaint(d, recolor(ONE, dr3))
-    tmp = branch(vseen, v, O)
-    tmp = branch(hseen, h, tmp)
-    needD = both(greater(size(x3), ZERO), both(flip(vseen), flip(hseen)))
-    O = branch(needD, d, tmp)
-    return O
-
-def dsl5(I):
-    # Minimal horizontal triplet completion for 8-4 and one of 8-6/8-2
     O = I
     x8 = ofcolor(I, EIGHT)
     x4 = ofcolor(I, FOUR)
     x6 = ofcolor(I, SIX)
     x2 = ofcolor(I, TWO)
-    has4 = greater(size(x4), ZERO)
-    a = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
-    a = underpaint(a, recolor(FOUR, shift(x8, RIGHT)))
-    m4 = intersection(shift(x4, RIGHT), shift(x4, LEFT))
-    a = underpaint(a, recolor(EIGHT, m4))
-    O = branch(has4, a, O)
+    x3 = ofcolor(I, THREE)
+    x1 = ofcolor(I, ONE)
+
+    # 4/8: horizontal only
+    O = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
+    O = underpaint(O, recolor(FOUR, shift(x8, RIGHT)))
+    mid4h = intersection(shift(x4, LEFT), shift(x4, RIGHT))
+    O = underpaint(O, recolor(EIGHT, mid4h))
+
+    # 6/2: prioritize 6, then 2; add siding 8s for both
+    O = underpaint(O, recolor(EIGHT, shift(x6, LEFT)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, RIGHT)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, UP)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, DOWN)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, LEFT)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, RIGHT)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, UP)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, DOWN)))
+    mid88h = intersection(shift(x8, LEFT), shift(x8, RIGHT))
+    mid88v = intersection(shift(x8, UP), shift(x8, DOWN))
+    O = underpaint(O, recolor(SIX, mid88h))
+    O = underpaint(O, recolor(SIX, mid88v))
+    O = underpaint(O, recolor(TWO, mid88h))
+    O = underpaint(O, recolor(TWO, mid88v))
+
+    # 1/3: if any adjacency exists, fill all eight directions
+    haveH = either(greater(size(intersection(shift(x3, LEFT), x1)), ZERO),
+                   greater(size(intersection(shift(x3, RIGHT), x1)), ZERO))
+    haveV = either(greater(size(intersection(shift(x3, UP), x1)), ZERO),
+                   greater(size(intersection(shift(x3, DOWN), x1)), ZERO))
+    haveD = either(either(greater(size(intersection(shift(x3, NEG_UNITY), x1)), ZERO),
+                          greater(size(intersection(shift(x3, UP_RIGHT), x1)), ZERO)),
+                   either(greater(size(intersection(shift(x3, DOWN_LEFT), x1)), ZERO),
+                          greater(size(intersection(shift(x3, UNITY), x1)), ZERO)))
+    anyAdj = either(haveH, either(haveV, haveD))
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, LEFT))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, RIGHT))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, UP))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, DOWN))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, NEG_UNITY))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, UP_RIGHT))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, DOWN_LEFT))), O)
+    O = branch(anyAdj, underpaint(O, recolor(ONE, shift(x3, UNITY))), O)
+    return O
+
+def dsl4(I):
+    O = I
+    x8 = ofcolor(I, EIGHT)
+    x4 = ofcolor(I, FOUR)
+    x6 = ofcolor(I, SIX)
+    x2 = ofcolor(I, TWO)
+    x3 = ofcolor(I, THREE)
+    x1 = ofcolor(I, ONE)
+
+    # 4/8: horizontal completion only
+    O = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
+    O = underpaint(O, recolor(FOUR, shift(x8, RIGHT)))
+    mid4h = intersection(shift(x4, LEFT), shift(x4, RIGHT))
+    O = underpaint(O, recolor(EIGHT, mid4h))
+
+    # 8/center: fill centers in both orientations; prefer 6 over 2
+    mid88h = intersection(shift(x8, LEFT), shift(x8, RIGHT))
+    mid88v = intersection(shift(x8, UP), shift(x8, DOWN))
     has6 = greater(size(x6), ZERO)
-    has2 = greater(size(x2), ZERO)
-    b6 = underpaint(O, recolor(EIGHT, shift(x6, LEFT)))
-    b6 = underpaint(b6, recolor(EIGHT, shift(x6, RIGHT)))
-    b2 = underpaint(O, recolor(EIGHT, shift(x2, LEFT)))
-    b2 = underpaint(b2, recolor(EIGHT, shift(x2, RIGHT)))
-    O = branch(has6, b6, branch(has2, b2, O))
-    m8 = intersection(shift(ofcolor(I, EIGHT), RIGHT), shift(ofcolor(I, EIGHT), LEFT))
-    c6 = underpaint(O, recolor(SIX, m8))
-    c2 = underpaint(O, recolor(TWO, m8))
-    O = branch(has6, c6, branch(has2, c2, O))
+    O = branch(has6, underpaint(O, recolor(SIX, mid88h)), O)
+    O = branch(has6, underpaint(O, recolor(SIX, mid88v)), O)
+    O = branch(flip(has6), underpaint(O, recolor(TWO, mid88h)), O)
+    O = branch(flip(has6), underpaint(O, recolor(TWO, mid88v)), O)
+    O = underpaint(O, recolor(EIGHT, shift(x6, LEFT)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, RIGHT)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, LEFT)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, RIGHT)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, UP)))
+    O = underpaint(O, recolor(EIGHT, shift(x6, DOWN)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, UP)))
+    O = underpaint(O, recolor(EIGHT, shift(x2, DOWN)))
+
+    # 1/3: diagonals preferred; else vertical; no horizontal
+    d1 = greater(size(intersection(shift(x3, NEG_UNITY), x1)), ZERO)
+    d2 = greater(size(intersection(shift(x3, UP_RIGHT), x1)), ZERO)
+    d3 = greater(size(intersection(shift(x3, DOWN_LEFT), x1)), ZERO)
+    d4 = greater(size(intersection(shift(x3, UNITY), x1)), ZERO)
+    haveDiag = either(either(d1, d2), either(d3, d4))
+    haveV = either(greater(size(intersection(shift(x3, UP), x1)), ZERO),
+                   greater(size(intersection(shift(x3, DOWN), x1)), ZERO))
+
+    candD = O
+    candD = underpaint(candD, recolor(ONE, shift(x3, NEG_UNITY)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, UP_RIGHT)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, DOWN_LEFT)))
+    candD = underpaint(candD, recolor(ONE, shift(x3, UNITY)))
+    candV = O
+    candV = underpaint(candV, recolor(ONE, shift(x3, UP)))
+    candV = underpaint(candV, recolor(ONE, shift(x3, DOWN)))
+
+    O = branch(haveDiag, candD, branch(haveV, candV, O))
+    return O
+
+def dsl5(I):
+    O = I
+    x8 = ofcolor(I, EIGHT)
+    x4 = ofcolor(I, FOUR)
+    x6 = ofcolor(I, SIX)
+    x2 = ofcolor(I, TWO)
+
+    # Minimal: 4/8 horizontal completion
+    O = underpaint(O, recolor(FOUR, shift(x8, LEFT)))
+    O = underpaint(O, recolor(FOUR, shift(x8, RIGHT)))
+    mid4h = intersection(shift(x4, LEFT), shift(x4, RIGHT))
+    O = underpaint(O, recolor(EIGHT, mid4h))
+
+    # 8/center: both orientations, prefer 6 then 2
+    mid88h = intersection(shift(x8, LEFT), shift(x8, RIGHT))
+    mid88v = intersection(shift(x8, UP), shift(x8, DOWN))
+    O = underpaint(O, recolor(SIX, mid88h))
+    O = underpaint(O, recolor(SIX, mid88v))
+    O = underpaint(O, recolor(TWO, mid88h))
+    O = underpaint(O, recolor(TWO, mid88v))
     return O
 ```

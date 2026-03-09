@@ -1,31 +1,31 @@
 ```python
 def dsl1(I):
     x1 = asindices(I)
-    x2 = ofcolor(I, ZERO)
+    x2 = ofcolor(I, mostcolor(I))
     x3 = difference(x1, x2)
-    O = subgrid(x3, I)
+    x4 = subgrid(x3, I)
+    O = vmirror(x4)
     return O
 
 def dsl2(I):
-    x1 = fgpartition(I)
-    x2 = merge(x1)
-    x3 = toindices(x2)
-    O = subgrid(x3, I)
+    x1 = asindices(I)
+    x2 = ofcolor(I, ZERO)
+    x3 = difference(x1, x2)
+    x4 = subgrid(x3, I)
+    O = vmirror(x4)
     return O
 
 def dsl3(I):
-    O = compress(I)
+    x1 = fgpartition(I)
+    x2 = merge(x1)
+    x3 = subgrid(x2, I)
+    O = vmirror(x3)
     return O
 
 def dsl4(I):
-    O = trim(I)
-    return O
-
-def dsl5(I):
-    x1 = difference(asindices(I), ofcolor(I, ZERO))
-    a = ulcorner(x1)
-    b = lrcorner(x1)
-    dims = add(UNITY, subtract(b, a))
-    O = crop(I, a, dims)
+    x1 = objects(I, True, False, True)
+    x2 = merge(x1)
+    x3 = subgrid(x2, I)
+    O = vmirror(x3)
     return O
 ```

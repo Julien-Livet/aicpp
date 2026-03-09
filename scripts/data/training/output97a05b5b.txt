@@ -1,30 +1,34 @@
 ```python
 def dsl1(I):
-    x1 = compress(I)
-    O = replace(x1, ZERO, TWO)
+    non2 = difference(asindices(I), ofcolor(I, TWO))
+    region = subgrid(non2, I)
+    O = replace(region, ZERO, TWO)
     return O
 
 def dsl2(I):
-    x1 = compress(I)
-    x2 = mostcolor(x1)
-    O = replace(x1, ZERO, x2)
+    nonzero = difference(asindices(I), ofcolor(I, ZERO))
+    region = subgrid(nonzero, I)
+    O = replace(region, ZERO, TWO)
     return O
 
 def dsl3(I):
-    x1 = compress(I)
-    x2 = asindices(x1)
-    O = underfill(x1, TWO, x2)
+    x = compress(I)
+    non2 = difference(asindices(x), ofcolor(x, TWO))
+    region = subgrid(non2, x)
+    O = replace(region, ZERO, TWO)
     return O
 
 def dsl4(I):
-    x1 = compress(I)
-    O = switch(x1, ZERO, TWO)
+    non2 = difference(asindices(I), ofcolor(I, TWO))
+    region = subgrid(non2, I)
+    rr = replace(region, ZERO, TWO)
+    O = downscale(rr, 2)
     return O
 
 def dsl5(I):
-    x1 = compress(I)
-    x2 = mostcolor(x1)
-    x3 = switch(x1, ZERO, x2)
-    O = x3
+    cut = bottomhalf(I)
+    non2 = difference(asindices(cut), ofcolor(cut, TWO))
+    region = subgrid(non2, cut)
+    O = replace(region, ZERO, TWO)
     return O
 ```

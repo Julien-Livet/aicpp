@@ -1,112 +1,84 @@
 ```python
 def dsl1(I):
     s = first(totuple(ofcolor(I, EIGHT)))
-    u2 = shoot(s, double(UP_RIGHT))
-    d2 = shoot(s, double(DOWN_LEFT))
-    u2e = difference(u2, initset(s))
-    d2e = difference(d2, initset(s))
-    tri_up = combine(u2e, combine(shift(u2e, LEFT), shift(u2e, double(LEFT))))
-    tri_dn = combine(d2e, combine(shift(d2e, RIGHT), shift(d2e, double(RIGHT))))
-    uo = shoot(add(s, UP_RIGHT), double(UP_RIGHT))
-    do = shoot(add(s, DOWN_LEFT), double(DOWN_LEFT))
-    singles = combine(shift(uo, LEFT), shift(do, RIGHT))
-    buo = shift(initset(urcorner(uo)), double(UP_RIGHT))
-    bdo = shift(initset(llcorner(do)), double(DOWN_LEFT))
-    bue = shift(initset(urcorner(u2)), double(UP_RIGHT))
-    bde = shift(initset(llcorner(d2)), double(DOWN_LEFT))
-    extra_singles = combine(shift(buo, LEFT), shift(bdo, RIGHT))
-    extra_tris = combine(combine(shift(bue, LEFT), shift(bue, double(LEFT))), combine(shift(bde, RIGHT), shift(bde, double(RIGHT))))
-    p = combine(combine(tri_up, tri_dn), combine(singles, combine(extra_singles, extra_tris)))
+    # centers along anti-diagonals by distance parity, then shift one toward the 8 horizontally
+    up_odd = shift(shoot(add(s, UP_RIGHT), double(UP_RIGHT)), LEFT)                  # singles
+    up_even = shift(difference(shoot(s, double(UP_RIGHT)), initset(s)), LEFT)        # triple centers
+    dn_odd = shift(shoot(add(s, DOWN_LEFT), double(DOWN_LEFT)), RIGHT)               # singles
+    dn_even = shift(difference(shoot(s, double(DOWN_LEFT)), initset(s)), RIGHT)      # triple centers
+    tri_up = combine(up_even, combine(shift(up_even, LEFT), shift(up_even, RIGHT)))
+    tri_dn = combine(dn_even, combine(shift(dn_even, LEFT), shift(dn_even, RIGHT)))
+    p = combine(combine(up_odd, dn_odd), combine(tri_up, tri_dn))
+    p = intersection(p, asindices(I))
     O = underpaint(I, recolor(FIVE, p))
     return O
 
 def dsl2(I):
     s = first(totuple(ofcolor(I, EIGHT)))
-    # even centers
-    u2 = shoot(s, double(UP_RIGHT))
-    d2 = shoot(s, double(DOWN_LEFT))
-    u2e = difference(u2, initset(s))
-    d2e = difference(d2, initset(s))
-    tri_up = combine(u2e, combine(shift(u2e, LEFT), shift(u2e, double(LEFT))))
-    tri_dn = combine(d2e, combine(shift(d2e, RIGHT), shift(d2e, double(RIGHT))))
-    # all-step singles from unit diagonals
-    u1 = difference(shoot(s, UP_RIGHT), initset(s))
-    d1 = difference(shoot(s, DOWN_LEFT), initset(s))
-    singles = combine(shift(u1, LEFT), shift(d1, RIGHT))
-    # boundary extras (one more step)
-    buo = shift(initset(urcorner(shoot(add(s, UP_RIGHT), double(UP_RIGHT)))), double(UP_RIGHT))
-    bdo = shift(initset(llcorner(shoot(add(s, DOWN_LEFT), double(DOWN_LEFT)))), double(DOWN_LEFT))
-    bue = shift(initset(urcorner(u2)), double(UP_RIGHT))
-    bde = shift(initset(llcorner(d2)), double(DOWN_LEFT))
-    extra = combine(shift(buo, LEFT), shift(bdo, RIGHT))
-    extra = combine(extra, combine(shift(bue, LEFT), shift(bue, double(LEFT))))
-    extra = combine(extra, combine(shift(bde, RIGHT), shift(bde, double(RIGHT))))
-    p = combine(combine(tri_up, tri_dn), combine(singles, extra))
+    # direct offset-start method (no explicit shift): centers already biased toward the 8
+    up_sing = shoot(add(s, UP), double(UP_RIGHT))                      # singles centers (rows: s+UP, s+UP+2*UR, ...)
+    up_tri_c = shoot(add(add(s, UP), UP_RIGHT), double(UP_RIGHT))      # triple centers (rows between singles)
+    dn_sing = shoot(add(s, DOWN), double(DOWN_LEFT))                   # singles centers
+    dn_tri_c = shoot(add(add(s, DOWN), DOWN_LEFT), double(DOWN_LEFT))  # triple centers
+    tri_up = combine(up_tri_c, combine(shift(up_tri_c, LEFT), shift(up_tri_c, RIGHT)))
+    tri_dn = combine(dn_tri_c, combine(shift(dn_tri_c, LEFT), shift(dn_tri_c, RIGHT)))
+    p = combine(combine(up_sing, dn_sing), combine(tri_up, tri_dn))
+    p = intersection(p, asindices(I))
     O = underpaint(I, recolor(FIVE, p))
     return O
 
 def dsl3(I):
     s = first(totuple(ofcolor(I, EIGHT)))
-    # base diagonals (step 2 for parity-controlled triples)
-    up2 = shoot(s, double(UP_RIGHT))
-    dn2 = shoot(s, double(DOWN_LEFT))
-    up2e = difference(up2, initset(s))
-    dn2e = difference(dn2, initset(s))
-    tris = combine(combine(up2e, combine(shift(up2e, LEFT), shift(up2e, double(LEFT)))),
-                   combine(dn2e, combine(shift(dn2e, RIGHT), shift(dn2e, double(RIGHT)))))
-    # singles from odd steps
-    odd_up = shoot(add(s, UP_RIGHT), double(UP_RIGHT))
-    odd_dn = shoot(add(s, DOWN_LEFT), double(DOWN_LEFT))
-    singles = combine(shift(odd_up, LEFT), shift(odd_dn, RIGHT))
-    # extend one beyond for border-cropping
-    eu = shift(initset(urcorner(up2)), double(UP_RIGHT))
-    ed = shift(initset(llcorner(dn2)), double(DOWN_LEFT))
-    extras = combine(combine(shift(eu, LEFT), shift(eu, double(LEFT))),
-                     combine(shift(ed, RIGHT), shift(ed, double(RIGHT))))
-    extras = combine(extras, combine(shift(shift(initset(urcorner(odd_up)), double(UP_RIGHT)), LEFT),
-                                     shift(shift(initset(llcorner(odd_dn)), double(DOWN_LEFT)), RIGHT)))
-    p = combine(tris, combine(singles, extras))
+    # variant: build halves separately then merge
+    # upper half
+    u_s = shoot(add(s, UP), double(UP_RIGHT))
+    u_c = shoot(add(add(s, UP), UP_RIGHT), double(UP_RIGHT))
+    u_t = combine(u_c, combine(shift(u_c, LEFT), shift(u_c, RIGHT)))
+    # lower half
+    d_s = shoot(add(s, DOWN), double(DOWN_LEFT))
+    d_c = shoot(add(add(s, DOWN), DOWN_LEFT), double(DOWN_LEFT))
+    d_t = combine(d_c, combine(shift(d_c, LEFT), shift(d_c, RIGHT)))
+    p = combine(combine(u_s, d_s), combine(u_t, d_t))
+    p = intersection(p, asindices(I))
     O = underpaint(I, recolor(FIVE, p))
     return O
 
 def dsl4(I):
     s = first(totuple(ofcolor(I, EIGHT)))
-    # triples from even-distance centers
-    ce_u = difference(shoot(s, double(UP_RIGHT)), initset(s))
-    ce_d = difference(shoot(s, double(DOWN_LEFT)), initset(s))
-    tri_u = combine(ce_u, combine(shift(ce_u, LEFT), shift(ce_u, double(LEFT))))
-    tri_d = combine(ce_d, combine(shift(ce_d, RIGHT), shift(ce_d, double(RIGHT))))
-    # singles from odd-distance centers
-    co_u = shoot(add(s, UP_RIGHT), double(UP_RIGHT))
-    co_d = shoot(add(s, DOWN_LEFT), double(DOWN_LEFT))
-    singles = combine(shift(co_u, LEFT), shift(co_d, RIGHT))
-    # boundary compensation (only shifted versions to avoid OOB base)
-    bu_even = shift(initset(urcorner(shoot(s, double(UP_RIGHT)))), double(UP_RIGHT))
-    bd_even = shift(initset(llcorner(shoot(s, double(DOWN_LEFT)))), double(DOWN_LEFT))
-    bu_odd = shift(initset(urcorner(co_u)), double(UP_RIGHT))
-    bd_odd = shift(initset(llcorner(co_d)), double(DOWN_LEFT))
-    extra = combine(combine(shift(bu_even, LEFT), shift(bu_even, double(LEFT))),
-                    combine(shift(bd_even, RIGHT), shift(bd_even, double(RIGHT))))
-    extra = combine(extra, combine(shift(bu_odd, LEFT), shift(bd_odd, RIGHT)))
-    p = combine(combine(tri_u, tri_d), combine(singles, extra))
+    # generate diagonal nodes first, then bias by one toward the 8 horizontally
+    ur_all = difference(shoot(s, UP_RIGHT), initset(s))
+    dl_all = difference(shoot(s, DOWN_LEFT), initset(s))
+    # split by parity via two-phase stepping
+    ur_odd = shoot(add(s, UP_RIGHT), double(UP_RIGHT))
+    ur_even = difference(intersection(ur_all, shoot(s, double(UP_RIGHT))), initset(s))
+    dl_odd = shoot(add(s, DOWN_LEFT), double(DOWN_LEFT))
+    dl_even = difference(intersection(dl_all, shoot(s, double(DOWN_LEFT))), initset(s))
+    # shift one toward 8 horizontally
+    u_s = shift(ur_odd, LEFT)
+    u_c = shift(ur_even, LEFT)
+    d_s = shift(dl_odd, RIGHT)
+    d_c = shift(dl_even, RIGHT)
+    tri_u = combine(u_c, combine(shift(u_c, LEFT), shift(u_c, RIGHT)))
+    tri_d = combine(d_c, combine(shift(d_c, LEFT), shift(d_c, RIGHT)))
+    p = combine(combine(u_s, d_s), combine(tri_u, tri_d))
+    p = intersection(p, asindices(I))
     O = underpaint(I, recolor(FIVE, p))
     return O
 
 def dsl5(I):
     s = first(totuple(ofcolor(I, EIGHT)))
-    ru2 = shoot(s, double(UP_RIGHT))
-    dl2 = shoot(s, double(DOWN_LEFT))
-    up_e = difference(ru2, initset(s))
-    dn_e = difference(dl2, initset(s))
-    tris = combine(combine(up_e, combine(shift(up_e, LEFT), shift(up_e, double(LEFT)))),
-                   combine(dn_e, combine(shift(dn_e, RIGHT), shift(dn_e, double(RIGHT)))))
-    # build singles using unit-diagonal spines plus one-step border extension
-    spine_u = difference(shoot(s, UP_RIGHT), initset(s))
-    spine_d = difference(shoot(s, DOWN_LEFT), initset(s))
-    singles = combine(shift(spine_u, LEFT), shift(spine_d, RIGHT))
-    ext_u = shift(shift(initset(urcorner(spine_u)), UP_RIGHT), LEFT)
-    ext_d = shift(shift(initset(llcorner(spine_d)), DOWN_LEFT), RIGHT)
-    p = combine(tris, combine(singles, combine(ext_u, ext_d)))
+    # compact formulation: compute all four center streams, expand triples, merge
+    streams = (
+        shoot(add(s, UP), double(UP_RIGHT)),                       # up singles
+        shoot(add(add(s, UP), UP_RIGHT), double(UP_RIGHT)),        # up triple centers
+        shoot(add(s, DOWN), double(DOWN_LEFT)),                    # down singles
+        shoot(add(add(s, DOWN), DOWN_LEFT), double(DOWN_LEFT))     # down triple centers
+    )
+    up_s, up_c, dn_s, dn_c = streams
+    tri_up = combine(up_c, combine(shift(up_c, LEFT), shift(up_c, RIGHT)))
+    tri_dn = combine(dn_c, combine(shift(dn_c, LEFT), shift(dn_c, RIGHT)))
+    p = combine(combine(up_s, dn_s), combine(tri_up, tri_dn))
+    p = intersection(p, asindices(I))
     O = underpaint(I, recolor(FIVE, p))
     return O
 ```

@@ -1,71 +1,60 @@
 ```python
 def dsl1(I):
-    c = leastcolor(I)
-    src = ofcolor(I, c)
-    h = height(I)
-    w = width(I)
-    topf = hfrontier(astuple(ZERO, ZERO))
-    botf = hfrontier(astuple(subtract(h, ONE), ZERO))
-    rightf = vfrontier(astuple(ZERO, subtract(w, ONE)))
-    a = shift(src, gravitate(src, topf))
-    b = shift(src, gravitate(src, botf))
-    r = shift(src, gravitate(src, rightf))
-    copies = combine(combine(a, b), r)
-    O = underpaint(I, recolor(c, copies))
+    # Paint both horizontal and vertical mirrors onto the original
+    Mv = vmirror(I)
+    Oh = underpaint(I, asobject(Mv))
+    Mh = hmirror(I)
+    O = underpaint(Oh, asobject(Mh))
     return O
 
 def dsl2(I):
-    c = leastcolor(I)
-    vm = ofcolor(vmirror(I), c)
-    hm = ofcolor(hmirror(I), c)
-    mir = combine(vm, hm)
-    O = underpaint(I, recolor(c, mir))
+    # Overlay two mirrored versions without using the original directly
+    A = vmirror(I)
+    B = hmirror(I)
+    O = underpaint(A, asobject(B))
     return O
 
 def dsl3(I):
+    # Draw centered top and bottom horizontal segments of the least color,
+    # length equals the count of that color
     c = leastcolor(I)
-    src = ofcolor(I, c)
-    n = size(src)
+    n = colorcount(I, c)
     h = height(I)
     w = width(I)
-    start = divide(subtract(w, n), TWO)
-    end = add(start, subtract(n, ONE))
-    bottom = connect(astuple(subtract(h, ONE), start), astuple(subtract(h, ONE), end))
-    wr = width(src)
-    hr = height(src)
-    top = connect(astuple(ZERO, subtract(w, wr)), astuple(ZERO, subtract(w, ONE)))
-    right = connect(astuple(ZERO, subtract(w, ONE)), astuple(subtract(hr, ONE), subtract(w, ONE)))
-    lines = combine(bottom, combine(top, right))
-    O = underpaint(I, recolor(c, lines))
+    startj = divide(subtract(w, n), TWO)
+    endj = subtract(add(startj, n), ONE)
+    topseg = connect(astuple(ZERO, startj), astuple(ZERO, endj))
+    botseg = connect(astuple(subtract(h, ONE), startj), astuple(subtract(h, ONE), endj))
+    segs = combine(topseg, botseg)
+    O = underpaint(I, recolor(c, segs))
     return O
 
 def dsl4(I):
+    # Draw top and bottom horizontal segments of the least color.
+    # If that color appears on the right border, place segments from the left;
+    # otherwise place them from the right.
     c = leastcolor(I)
-    src = ofcolor(I, c)
+    n = colorcount(I, c)
     h = height(I)
     w = width(I)
-    L = height(src)
-    top = connect(astuple(ZERO, ZERO), astuple(ZERO, subtract(L, ONE)))
-    bottom = connect(astuple(subtract(h, ONE), subtract(w, L)), astuple(subtract(h, ONE), subtract(w, ONE)))
-    left = connect(astuple(ZERO, ZERO), astuple(subtract(L, ONE), ZERO))
-    right = connect(astuple(ZERO, subtract(w, ONE)), astuple(subtract(L, ONE), subtract(w, ONE)))
-    copies = combine(combine(top, bottom), combine(left, right))
-    O = underpaint(I, recolor(c, copies))
+    leftcol = vfrontier(ORIGIN)
+    jright = subtract(w, ONE)
+    rightcol = vfrontier(astuple(ZERO, jright))
+    leftn = size(intersection(ofcolor(I, c), leftcol))
+    rightn = size(intersection(ofcolor(I, c), rightcol))
+    startj = branch(greater(rightn, ZERO), ZERO, subtract(w, n))
+    endj = subtract(add(startj, n), ONE)
+    topseg = connect(astuple(ZERO, startj), astuple(ZERO, endj))
+    botseg = connect(astuple(subtract(h, ONE), startj), astuple(subtract(h, ONE), endj))
+    segs = combine(topseg, botseg)
+    O = underpaint(I, recolor(c, segs))
     return O
 
 def dsl5(I):
-    c = leastcolor(I)
-    src = ofcolor(I, c)
-    h = height(I)
-    w = width(I)
-    L = height(src)
-    topL = connect(astuple(ZERO, ZERO), astuple(ZERO, subtract(L, ONE)))
-    topR = connect(astuple(ZERO, subtract(w, L)), astuple(ZERO, subtract(w, ONE)))
-    n = size(src)
-    s = divide(subtract(w, n), TWO)
-    e = add(s, subtract(n, ONE))
-    botC = connect(astuple(subtract(h, ONE), s), astuple(subtract(h, ONE), e))
-    lines = combine(combine(topL, topR), botC)
-    O = underpaint(I, recolor(c, lines))
+    # Paint both diagonal mirrors onto the original
+    D = dmirror(I)
+    C = cmirror(I)
+    O1 = underpaint(I, asobject(D))
+    O = underpaint(O1, asobject(C))
     return O
 ```

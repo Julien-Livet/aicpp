@@ -1,235 +1,168 @@
 ```python
 def dsl1(I):
-    # tile color-1 seeds across their bounding box using their vertical/horizontal periods
-    a1 = colorfilter(objects(I, T, F, F), ONE)
-    b1 = merge(a1)
-    c1 = subgrid(b1)
-    h1 = height(c1)
-    w1 = width(c1)
-    p1 = vperiod(b1)
-    q1 = hperiod(b1)
-    si1 = interval(ZERO, h1, p1)
-    sj1 = interval(ZERO, w1, q1)
-    vi1 = apply(toivec, si1)
-    vj1 = apply(tojvec, sj1)
-    vec1 = prapply(add, vi1, vj1)
-    sh1 = mapply(lbind(shift, b1), vec1)
-    t1 = merge(sh1)
-    # tile color-2
-    a2 = colorfilter(objects(I, T, F, F), TWO)
-    b2 = merge(a2)
-    c2 = subgrid(b2)
-    h2 = height(c2)
-    w2 = width(c2)
-    p2 = vperiod(b2)
-    q2 = hperiod(b2)
-    si2 = interval(ZERO, h2, p2)
-    sj2 = interval(ZERO, w2, q2)
-    vi2 = apply(toivec, si2)
-    vj2 = apply(tojvec, sj2)
-    vec2 = prapply(add, vi2, vj2)
-    sh2 = mapply(lbind(shift, b2), vec2)
-    t2 = merge(sh2)
-    # tile color-3
-    a3 = colorfilter(objects(I, T, F, F), THREE)
-    b3 = merge(a3)
-    c3 = subgrid(b3)
-    h3 = height(c3)
-    w3 = width(c3)
-    p3 = vperiod(b3)
-    q3 = hperiod(b3)
-    si3 = interval(ZERO, h3, p3)
-    sj3 = interval(ZERO, w3, q3)
-    vi3 = apply(toivec, si3)
-    vj3 = apply(tojvec, sj3)
-    vec3 = prapply(add, vi3, vj3)
-    sh3 = mapply(lbind(shift, b3), vec3)
-    t3 = merge(sh3)
-    # tile color-4
-    a4 = colorfilter(objects(I, T, F, F), FOUR)
-    b4 = merge(a4)
-    c4 = subgrid(b4)
-    h4 = height(c4)
-    w4 = width(c4)
-    p4 = vperiod(b4)
-    q4 = hperiod(b4)
-    si4 = interval(ZERO, h4, p4)
-    sj4 = interval(ZERO, w4, q4)
-    vi4 = apply(toivec, si4)
-    vj4 = apply(tojvec, sj4)
-    vec4 = prapply(add, vi4, vj4)
-    sh4 = mapply(lbind(shift, b4), vec4)
-    t4 = merge(sh4)
-    # combine and paint
-    u1 = combine(t1, t2)
-    u2 = combine(t3, t4)
-    U = combine(u1, u2)
-    O = paint(I, U)
-    return O
+    # Tile the smallest non-zero seed inside each 0-colored rectangular area across that area (modulus tiling).
+    H, W = shape(I)
+    O = [list(row) for row in I]
+    zero_objs = colorfilter(objects(I, True, False, True), ZERO)
+    for zobj in zero_objs:
+        r0, c0 = ulcorner(zobj)
+        Gh, Gw = shape(subgrid(zobj, I))
+        G = crop(I, (r0, c0), (Gh, Gw))
+        # find seed bounding box (colors not in {0,8})
+        rmin = cmin = None
+        rmax = cmax = None
+        for (ri, rj) in asindices(G):
+            v = index(G, (ri, rj))
+            if v != ZERO and v != EIGHT:
+                if rmin is None or ri < rmin: rmin = ri
+                if rmax is None or ri > rmax: rmax = ri
+                if cmin is None or rj < cmin: cmin = rj
+                if cmax is None or rj > cmax: cmax = rj
+        if rmin is None:
+            continue  # no seed inside this zero region
+        Th, Tw = (rmax - rmin + 1), (cmax - cmin + 1)
+        T = crop(G, (rmin, cmin), (Th, Tw))
+        for i in range(Gh):
+            for j in range(Gw):
+                O[r0 + i][c0 + j] = index(T, (i % Th, j % Tw))
+    return tuple(tuple(row) for row in O)
 
 def dsl2(I):
-    # merge all positive-colored (nonzero, non-background) seeds and tile by their periods over their own box
-    X = objects(I, T, F, F)
-    P = mfilter(X, compose(positive, color))
-    U = merge(P)
-    B = subgrid(U)
-    H = height(B)
-    W = width(B)
-    VP = vperiod(U)
-    HP = hperiod(U)
-    SI = interval(ZERO, H, VP)
-    SJ = interval(ZERO, W, HP)
-    VI = apply(toivec, SI)
-    VJ = apply(tojvec, SJ)
-    VEC = prapply(add, VI, VJ)
-    SH = mapply(lbind(shift, U), VEC)
-    TIL = merge(SH)
-    O = paint(I, TIL)
-    return O
+    # Same as dsl1 but tiling is done by doubling with hconcat/vconcat and then cropping to fit.
+    H, W = shape(I)
+    O = [list(row) for row in I]
+    zero_objs = colorfilter(objects(I, True, False, True), ZERO)
+    for zobj in zero_objs:
+        r0, c0 = ulcorner(zobj)
+        Gh, Gw = shape(subgrid(zobj, I))
+        G = crop(I, (r0, c0), (Gh, Gw))
+        # find seed bounding box (colors not in {0,8})
+        rmin = cmin = None
+        rmax = cmax = None
+        for (ri, rj) in asindices(G):
+            v = index(G, (ri, rj))
+            if v != ZERO and v != EIGHT:
+                if rmin is None or ri < rmin: rmin = ri
+                if rmax is None or ri > rmax: rmax = ri
+                if cmin is None or rj < cmin: cmin = rj
+                if cmax is None or rj > cmax: cmax = rj
+        if rmin is None:
+            continue
+        Th, Tw = (rmax - rmin + 1), (cmax - cmin + 1)
+        T = crop(G, (rmin, cmin), (Th, Tw))
+        # horizontally tile by doubling until width >= Gw
+        HT = T
+        while width(HT) < Gw:
+            HT = hconcat(HT, HT)
+        HT = crop(HT, (0, 0), (Th, Gw))
+        # vertically tile by doubling until height >= Gh
+        VT = HT
+        while height(VT) < Gh:
+            VT = vconcat(VT, VT)
+        VT = crop(VT, (0, 0), (Gh, Gw))
+        # paste into output
+        for i in range(Gh):
+            for j in range(Gw):
+                O[r0 + i][c0 + j] = index(VT, (i, j))
+    return tuple(tuple(row) for row in O)
 
 def dsl3(I):
-    # process foreground excluding main background, tile per-color 1..3; then paint
-    o = objects(I, T, F, T)
-    o1 = colorfilter(o, ONE)
-    u1 = merge(o1)
-    s1 = subgrid(u1)
-    h1 = height(s1)
-    w1 = width(s1)
-    vp1 = vperiod(u1)
-    hp1 = hperiod(u1)
-    si1 = interval(ZERO, h1, vp1)
-    sj1 = interval(ZERO, w1, hp1)
-    vi1 = apply(toivec, si1)
-    vj1 = apply(tojvec, sj1)
-    ve1 = prapply(add, vi1, vj1)
-    sh1 = mapply(lbind(shift, u1), ve1)
-    t1 = merge(sh1)
-    o2 = colorfilter(o, TWO)
-    u2 = merge(o2)
-    s2 = subgrid(u2)
-    h2 = height(s2)
-    w2 = width(s2)
-    vp2 = vperiod(u2)
-    hp2 = hperiod(u2)
-    si2 = interval(ZERO, h2, vp2)
-    sj2 = interval(ZERO, w2, hp2)
-    vi2 = apply(toivec, si2)
-    vj2 = apply(tojvec, sj2)
-    ve2 = prapply(add, vi2, vj2)
-    sh2 = mapply(lbind(shift, u2), ve2)
-    t2 = merge(sh2)
-    o3 = colorfilter(o, THREE)
-    u3 = merge(o3)
-    s3 = subgrid(u3)
-    h3 = height(s3)
-    w3 = width(s3)
-    vp3 = vperiod(u3)
-    hp3 = hperiod(u3)
-    si3 = interval(ZERO, h3, vp3)
-    sj3 = interval(ZERO, w3, hp3)
-    vi3 = apply(toivec, si3)
-    vj3 = apply(tojvec, sj3)
-    ve3 = prapply(add, vi3, vj3)
-    sh3 = mapply(lbind(shift, u3), ve3)
-    t3 = merge(sh3)
-    U = combine(combine(t1, t2), t3)
-    O = paint(I, U)
-    return O
+    # Periodically extend each seed only horizontally first (doubling + crop), then mod-repeat vertically.
+    H, W = shape(I)
+    O = [list(row) for row in I]
+    zero_objs = colorfilter(objects(I, True, False, True), ZERO)
+    for zobj in zero_objs:
+        r0, c0 = ulcorner(zobj)
+        Gh, Gw = shape(subgrid(zobj, I))
+        G = crop(I, (r0, c0), (Gh, Gw))
+        rmin = cmin = None
+        rmax = cmax = None
+        for (ri, rj) in asindices(G):
+            v = index(G, (ri, rj))
+            if v != ZERO and v != EIGHT:
+                if rmin is None or ri < rmin: rmin = ri
+                if rmax is None or ri > rmax: rmax = ri
+                if cmin is None or rj < cmin: cmin = rj
+                if cmax is None or rj > cmax: cmax = rj
+        if rmin is None:
+            continue
+        Th, Tw = (rmax - rmin + 1), (cmax - cmin + 1)
+        T = crop(G, (rmin, cmin), (Th, Tw))
+        # Horizontal tiling using doubling to target width
+        HT = T
+        while width(HT) < Gw:
+            HT = hconcat(HT, HT)
+        HT = crop(HT, (0, 0), (Th, Gw))
+        # Vertical fill using modulus from the horizontally tiled band
+        for i in range(Gh):
+            for j in range(Gw):
+                O[r0 + i][c0 + j] = index(HT, (i % Th, j))
+    return tuple(tuple(row) for row in O)
 
 def dsl4(I):
-    # specifically tile colors 2 and 4 by their periods over their respective boxes (useful for third pair)
-    o2s = colorfilter(objects(I, T, F, F), TWO)
-    u2 = merge(o2s)
-    b2 = subgrid(u2)
-    h2 = height(b2)
-    w2 = width(b2)
-    p2 = vperiod(u2)
-    q2 = hperiod(u2)
-    si2 = interval(ZERO, h2, p2)
-    sj2 = interval(ZERO, w2, q2)
-    vi2 = apply(toivec, si2)
-    vj2 = apply(tojvec, sj2)
-    vec2 = prapply(add, vi2, vj2)
-    sh2 = mapply(lbind(shift, u2), vec2)
-    t2 = merge(sh2)
-    o4s = colorfilter(objects(I, T, F, F), FOUR)
-    u4 = merge(o4s)
-    b4 = subgrid(u4)
-    h4 = height(b4)
-    w4 = width(b4)
-    p4 = vperiod(u4)
-    q4 = hperiod(u4)
-    si4 = interval(ZERO, h4, p4)
-    sj4 = interval(ZERO, w4, q4)
-    vi4 = apply(toivec, si4)
-    vj4 = apply(tojvec, sj4)
-    vec4 = prapply(add, vi4, vj4)
-    sh4 = mapply(lbind(shift, u4), vec4)
-    t4 = merge(sh4)
-    U = combine(t2, t4)
-    O = paint(I, U)
-    return O
+    # Mirror-assisted expansion: mirror the seed both ways to create a repeated motif, then crop to the area.
+    H, W = shape(I)
+    O = [list(row) for row in I]
+    zero_objs = colorfilter(objects(I, True, False, True), ZERO)
+    for zobj in zero_objs:
+        r0, c0 = ulcorner(zobj)
+        Gh, Gw = shape(subgrid(zobj, I))
+        G = crop(I, (r0, c0), (Gh, Gw))
+        rmin = cmin = None
+        rmax = cmax = None
+        for (ri, rj) in asindices(G):
+            v = index(G, (ri, rj))
+            if v != ZERO and v != EIGHT:
+                if rmin is None or ri < rmin: rmin = ri
+                if rmax is None or ri > rmax: rmax = ri
+                if cmin is None or rj < cmin: cmin = rj
+                if cmax is None or rj > cmax: cmax = rj
+        if rmin is None:
+            continue
+        Th, Tw = (rmax - rmin + 1), (cmax - cmin + 1)
+        T = crop(G, (rmin, cmin), (Th, Tw))
+        # Build a mirrored band horizontally: T | hmirror(T) | T | ...
+        band = hconcat(T, hmirror(T))
+        while width(band) < Gw:
+            band = hconcat(band, band)
+        band = crop(band, (0, 0), (Th, Gw))
+        # Build a mirrored stack vertically: band over vmirror(band) repeated
+        stack = vconcat(band, vmirror(band))
+        while height(stack) < Gh:
+            stack = vconcat(stack, stack)
+        stack = crop(stack, (0, 0), (Gh, Gw))
+        for i in range(Gh):
+            for j in range(Gw):
+                O[r0 + i][c0 + j] = index(stack, (i, j))
+    return tuple(tuple(row) for row in O)
 
 def dsl5(I):
-    # general: tile each positive-colored union (1..4) and paint; favors fgpartition
-    P = fgpartition(I)
-    p1 = colorfilter(P, ONE)
-    u1 = merge(p1)
-    s1 = subgrid(u1)
-    h1 = height(s1)
-    w1 = width(s1)
-    vp1 = vperiod(u1)
-    hp1 = hperiod(u1)
-    si1 = interval(ZERO, h1, vp1)
-    sj1 = interval(ZERO, w1, hp1)
-    vi1 = apply(toivec, si1)
-    vj1 = apply(tojvec, sj1)
-    ve1 = prapply(add, vi1, vj1)
-    sh1 = mapply(lbind(shift, u1), ve1)
-    t1 = merge(sh1)
-    p2 = colorfilter(P, TWO)
-    u2 = merge(p2)
-    s2 = subgrid(u2)
-    h2 = height(s2)
-    w2 = width(s2)
-    vp2 = vperiod(u2)
-    hp2 = hperiod(u2)
-    si2 = interval(ZERO, h2, vp2)
-    sj2 = interval(ZERO, w2, hp2)
-    vi2 = apply(toivec, si2)
-    vj2 = apply(tojvec, sj2)
-    ve2 = prapply(add, vi2, vj2)
-    sh2 = mapply(lbind(shift, u2), ve2)
-    t2 = merge(sh2)
-    p3 = colorfilter(P, THREE)
-    u3 = merge(p3)
-    s3 = subgrid(u3)
-    h3 = height(s3)
-    w3 = width(s3)
-    vp3 = vperiod(u3)
-    hp3 = hperiod(u3)
-    si3 = interval(ZERO, h3, vp3)
-    sj3 = interval(ZERO, w3, hp3)
-    vi3 = apply(toivec, si3)
-    vj3 = apply(tojvec, sj3)
-    ve3 = prapply(add, vi3, vj3)
-    sh3 = mapply(lbind(shift, u3), ve3)
-    t3 = merge(sh3)
-    p4 = colorfilter(P, FOUR)
-    u4 = merge(p4)
-    s4 = subgrid(u4)
-    h4 = height(s4)
-    w4 = width(s4)
-    vp4 = vperiod(u4)
-    hp4 = hperiod(u4)
-    si4 = interval(ZERO, h4, vp4)
-    sj4 = interval(ZERO, w4, hp4)
-    vi4 = apply(toivec, si4)
-    vj4 = apply(tojvec, sj4)
-    ve4 = prapply(add, vi4, vj4)
-    sh4 = mapply(lbind(shift, u4), ve4)
-    t4 = merge(sh4)
-    U = combine(combine(t1, t2), combine(t3, t4))
-    O = paint(I, U)
-    return O
+    # Fallback: if a zero-region contains a 2x2 seed at its top-left, tile that; otherwise leave grid unchanged.
+    H, W = shape(I)
+    O = [list(row) for row in I]
+    zero_objs = colorfilter(objects(I, True, False, True), ZERO)
+    for zobj in zero_objs:
+        r0, c0 = ulcorner(zobj)
+        Gh, Gw = shape(subgrid(zobj, I))
+        G = crop(I, (r0, c0), (Gh, Gw))
+        # Try to detect a 2x2 seed anchored to the minimal non-zero bbox if present, else skip
+        rmin = cmin = None
+        rmax = cmax = None
+        for (ri, rj) in asindices(G):
+            v = index(G, (ri, rj))
+            if v != ZERO and v != EIGHT:
+                if rmin is None or ri < rmin: rmin = ri
+                if rmax is None or ri > rmax: rmax = ri
+                if cmin is None or rj < cmin: cmin = rj
+                if cmax is None or rj > cmax: cmax = rj
+        if rmin is None:
+            continue
+        Th, Tw = (rmax - rmin + 1), (cmax - cmin + 1)
+        if Th != 2 or Tw != 2:
+            continue
+        T = crop(G, (rmin, cmin), (Th, Tw))
+        for i in range(Gh):
+            for j in range(Gw):
+                O[r0 + i][c0 + j] = index(T, (i % 2, j % 2))
+    return tuple(tuple(row) for row in O)
 ```

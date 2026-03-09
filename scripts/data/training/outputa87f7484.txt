@@ -1,45 +1,48 @@
 ```python
 def dsl1(I):
-    h = height(I)
-    w = width(I)
-    is_h = equality(h, THREE)
-    n_v = divide(w, THREE)
-    n_h = divide(h, THREE)
-    tiles_h = vsplit(I, n_v)
-    tiles_v = hsplit(I, n_h)
-    tiles = branch(is_h, tiles_h, tiles_v)
-    tot = fork(multiply, height, width)
-    zc = rbind(colorcount, ZERO)
-    score = fork(subtract, tot, zc)
-    O = argmax(tiles, score)
+    colors = remove(ZERO, palette(I))
+    best = argmax(colors, lambda c: colorcount(I, c))
+    P = ofcolor(I, best)
+    O = subgrid(P, I)
     return O
 
 def dsl2(I):
-    h = height(I)
-    w = width(I)
-    tiles = branch(equality(h, THREE), vsplit(I, divide(w, THREE)), hsplit(I, divide(h, THREE)))
-    zc = rbind(colorcount, ZERO)
-    O = argmin(tiles, zc)
+    h3 = equality(height(I), THREE)
+    n = divide(width(I), THREE)
+    m = divide(height(I), THREE)
+    segs = branch(h3, vsplit(I, n), hsplit(I, m))
+    score = lambda b: subtract(NINE, colorcount(b, ZERO))
+    O = argmax(segs, score)
     return O
 
 def dsl3(I):
-    h = height(I)
-    w = width(I)
-    tiles_h = vsplit(I, divide(w, THREE))
-    tiles_v = hsplit(I, divide(h, THREE))
-    tiles = branch(equality(w, THREE), tiles_v, tiles_h)
-    tot = fork(multiply, height, width)
-    zc = rbind(colorcount, ZERO)
-    nz = fork(subtract, tot, zc)
-    O = argmax(tiles, nz)
+    h3 = equality(height(I), THREE)
+    n = divide(width(I), THREE)
+    m = divide(height(I), THREE)
+    segs = branch(h3, vsplit(I, n), hsplit(I, m))
+    def blockscore(b):
+        cols = remove(ZERO, palette(b))
+        cbest = argmax(cols, lambda c: colorcount(b, c))
+        return colorcount(b, cbest)
+    O = argmax(segs, blockscore)
     return O
 
 def dsl4(I):
-    h = height(I)
-    w = width(I)
-    tiles = branch(equality(h, THREE), vsplit(I, divide(w, THREE)), hsplit(I, divide(h, THREE)))
-    zc = rbind(colorcount, ZERO)
-    ord = order(tiles, zc)
-    O = first(ord)
+    colors = remove(ZERO, palette(I))
+    grids = tuple(subgrid(ofcolor(I, c), I) for c in colors)
+    score = lambda g: subtract(NINE, colorcount(g, ZERO))
+    O = argmax(grids, score)
+    return O
+
+def dsl5(I):
+    h3 = equality(height(I), THREE)
+    n = divide(width(I), THREE)
+    m = divide(height(I), THREE)
+    segs = branch(h3, vsplit(I, n), hsplit(I, m))
+    score = lambda b: subtract(NINE, colorcount(b, ZERO))
+    scores = apply(score, segs)
+    pairs = pair(segs, scores)
+    best_pair = argmax(pairs, lambda p: last(p))
+    O = first(best_pair)
     return O
 ```

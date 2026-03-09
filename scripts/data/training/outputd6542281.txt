@@ -1,74 +1,67 @@
 ```python
 def dsl1(I):
+    # Duplicate all non-background colored cells to the right, down, and down-right (preserving original colors)
     bg = mostcolor(I)
     P = palette(I)
     Pnb = remove(bg, P)
-    a = minimum(Pnb)
-    d = maximum(Pnb)
-    Ptmp = remove(d, Pnb)
-    b = maximum(Ptmp)
-    idx_b = ofcolor(I, b)
-    allidx = asindices(I)
-    ul = shift(idx_b, NEG_UNITY)
-    up = shift(idx_b, UP)
-    left = shift(idx_b, LEFT)
-    patch1 = combine(combine(ul, up), left)
-    patch1 = intersection(patch1, allidx)
-    O = underfill(I, a, patch1)
-    right = shift(idx_b, RIGHT)
-    down = shift(idx_b, DOWN)
-    patch2a = combine(right, down)
-    patch2a = intersection(patch2a, allidx)
-    O = underfill(O, a, patch2a)
-    dr = shift(idx_b, UNITY)
-    patchd = intersection(dr, allidx)
-    O = underfill(O, d, patchd)
+    nb = mapply(lbind(ofcolor, I), Pnb)
+    objnb = toobject(nb, I)
+    O = move(I, objnb, RIGHT)
+    O = move(O, objnb, DOWN)
+    O = move(O, objnb, UNITY)
     return O
 
 def dsl2(I):
-    bg = mostcolor(I)
-    P = palette(I)
-    Pnb = remove(bg, P)
-    d = maximum(Pnb)
-    Ptmp = remove(d, Pnb)
-    b = maximum(Ptmp)
-    a = minimum(Pnb)
-    idx_b = ofcolor(I, b)
+    # Expand around each 4: put 2 at up/left/up-left, 8 at down-right, and 3 at two steps down-right
     allidx = asindices(I)
-    dr = shift(idx_b, UNITY)
-    patchd = intersection(dr, allidx)
-    O = underfill(I, d, patchd)
-    right = shift(idx_b, RIGHT)
-    down = shift(idx_b, DOWN)
-    patch2a = combine(right, down)
-    patch2a = intersection(patch2a, allidx)
-    O = underfill(O, a, patch2a)
-    ul = shift(idx_b, NEG_UNITY)
-    up = shift(idx_b, UP)
-    left = shift(idx_b, LEFT)
-    patch1 = combine(combine(ul, up), left)
-    patch1 = intersection(patch1, allidx)
-    O = underfill(O, a, patch1)
+    idx4 = ofcolor(I, FOUR)
+    up = intersection(shift(idx4, UP), allidx)
+    left = intersection(shift(idx4, LEFT), allidx)
+    upleft = intersection(shift(idx4, NEG_UNITY), allidx)
+    dr = intersection(shift(idx4, UNITY), allidx)
+    ddr = intersection(shift(idx4, double(UNITY)), allidx)
+    O = underfill(I, TWO, combine(combine(up, left), upleft))
+    O = underfill(O, EIGHT, dr)
+    O = underfill(O, THREE, ddr)
     return O
 
 def dsl3(I):
+    # Fill the bounding rectangle of all 3-cells with 3 (if any 3s exist)
+    idx3 = ofcolor(I, THREE)
+    rect = backdrop(idx3)
+    O = underfill(I, THREE, rect)
+    return O
+
+def dsl4(I):
+    # Union with its counter-diagonal mirror, but only for non-background colors
+    bg = mostcolor(I)
+    J = dmirror(I)
+    P = palette(J)
+    Pnb = remove(bg, P)
+    nbJ = mapply(lbind(ofcolor, J), Pnb)
+    objJ = toobject(nbJ, J)
+    O = underpaint(I, objJ)
+    return O
+
+def dsl5(I):
+    # Morphological expansion using global min/max non-bg colors around all non-bg cells
     bg = mostcolor(I)
     P = palette(I)
     Pnb = remove(bg, P)
+    if size(Pnb) == 0:
+        return I
     a = minimum(Pnb)
     d = maximum(Pnb)
-    b = maximum(remove(d, Pnb))
-    idx_b = ofcolor(I, b)
     allidx = asindices(I)
-    # complete T1 around b
-    t1 = combine(combine(shift(idx_b, NEG_UNITY), shift(idx_b, UP)), shift(idx_b, LEFT))
-    t1 = intersection(t1, allidx)
-    O = underfill(I, a, t1)
-    # place a to the right/down of b and d on the diagonal
-    ra = intersection(shift(idx_b, RIGHT), allidx)
-    da = intersection(shift(idx_b, DOWN), allidx)
-    O = underfill(O, a, combine(ra, da))
-    rd = intersection(shift(idx_b, UNITY), allidx)
-    O = underfill(O, d, rd)
+    nb = mapply(lbind(ofcolor, I), Pnb)
+    t_ul = combine(combine(shift(nb, NEG_UNITY), shift(nb, UP)), shift(nb, LEFT))
+    t_ul = intersection(t_ul, allidx)
+    t_r = intersection(shift(nb, RIGHT), allidx)
+    t_d = intersection(shift(nb, DOWN), allidx)
+    t_dr = intersection(shift(nb, UNITY), allidx)
+    O = underfill(I, a, t_ul)
+    O = underfill(O, a, t_r)
+    O = underfill(O, a, t_d)
+    O = underfill(O, d, t_dr)
     return O
 ```

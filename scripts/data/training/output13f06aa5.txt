@@ -1,158 +1,299 @@
 ```python
 def dsl1(I):
-    # Fixed color-to-border mapping + rays + zeroing mismatched corners
+    # Rule: For each non-background singleton cell, choose the unique clear direction to a border (if any; else nearest),
+    # paint that whole border with its color, draw a step-2 ray from the cell in that direction, and set any intersecting
+    # colored border corners to 0.
     inds = asindices(I)
     tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
     top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+    bg = mostcolor(I)
+    singles = sizefilter(objects(I, T, F, T), ONE)
+    nonbg = difference(singles, colorfilter(singles, bg))
 
-    has1 = equality(colorcount(I, ONE), ONE)
-    has3 = equality(colorcount(I, THREE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
+    def proc(O, o, gate):
+        p = first(toindices(o))
+        c = color(o)
+        bu = difference(intersection(shoot(p, UP), inds), initset(p))
+        bd = difference(intersection(shoot(p, DOWN), inds), initset(p))
+        bl = difference(intersection(shoot(p, LEFT), inds), initset(p))
+        br = difference(intersection(shoot(p, RIGHT), inds), initset(p))
+        cu = equality(bu, intersection(bu, ofcolor(I, bg)))
+        cd = equality(bd, intersection(bd, ofcolor(I, bg)))
+        cl = equality(bl, intersection(bl, ofcolor(I, bg)))
+        cr = equality(br, intersection(br, ofcolor(I, bg)))
+        anyc = either(cu, either(cd, either(cl, cr)))
 
-    # Fill mapped borders (prefer THREE over ONE for top)
+        du = manhattan(o, top); dd = manhattan(o, bot)
+        dl = manhattan(o, lef); dr = manhattan(o, rig)
+        up_best = both(flip(greater(du, dl)), both(flip(greater(du, dr)), flip(greater(du, dd))))
+        dn_best = both(flip(greater(dd, du)), both(flip(greater(dd, dl)), flip(greater(dd, dr))))
+        lf_best = both(flip(greater(dl, du)), both(flip(greater(dl, dr)), flip(greater(dl, dd))))
+        rg_best = both(flip(greater(dr, du)), both(flip(greater(dr, dl)), flip(greater(dr, dd))))
+
+        sel_u = either(cu, both(flip(anyc), up_best))
+        sel_r = both(flip(sel_u), either(cr, both(flip(anyc), rg_best)))
+        sel_l = both(flip(either(sel_u, sel_r)), either(cl, both(flip(anyc), lf_best)))
+        sel_d = both(flip(either(either(sel_u, sel_r), sel_l)), either(cd, both(flip(anyc), dn_best)))
+
+        O = branch(both(gate, sel_u), fill(O, c, top), O)
+        O = branch(both(gate, sel_r), fill(O, c, rig), O)
+        O = branch(both(gate, sel_l), fill(O, c, lef), O)
+        O = branch(both(gate, sel_d), fill(O, c, bot), O)
+
+        O = branch(both(gate, sel_u), fill(O, c, intersection(shoot(p, double(UP)), inds)), O)
+        O = branch(both(gate, sel_r), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sel_l), fill(O, c, intersection(shoot(p, double(LEFT)), inds)), O)
+        O = branch(both(gate, sel_d), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+        return O, sel_u, sel_d, sel_l, sel_r
+
     O = I
-    O = branch(has2, fill(O, TWO, lef), O)
-    O = branch(has8, fill(O, EIGHT, rig), O)
-    O = branch(has6, fill(O, SIX, bot), O)
-    O = branch(has1, fill(O, ONE, top), O)
-    O = branch(has3, fill(O, THREE, top), O)
+    o1 = first(nonbg)
+    o2 = last(nonbg)
+    two = flip(equality(o1, o2))
+    O, su1, sd1, sl1, sr1 = proc(O, o1, T)
+    O, su2, sd2, sl2, sr2 = proc(O, o2, two)
 
-    # Zero corners where different mapped colors meet
-    tuse = either(has1, has3)
-    O = branch(both(tuse, has2), fill(O, ZERO, intersection(top, lef)), O)
-    O = branch(both(tuse, has8), fill(O, ZERO, intersection(top, rig)), O)
-    O = branch(both(has6, has2), fill(O, ZERO, intersection(bot, lef)), O)
-    O = branch(both(has6, has8), fill(O, ZERO, intersection(bot, rig)), O)
-
-    # Rays from singletons toward their mapped borders
-    topcol = branch(has3, THREE, ONE)
-    hasTop = tuse
-    locTop = branch(has3, first(ofcolor(I, THREE)), first(ofcolor(I, ONE)))
-    O = branch(hasTop, fill(O, topcol, shoot(locTop, UP)), O)
-    O = branch(has8, fill(O, EIGHT, shoot(first(ofcolor(I, EIGHT)), RIGHT)), O)
-    O = branch(has2, fill(O, TWO, shoot(first(ofcolor(I, TWO)), LEFT)), O)
-    O = branch(has6, fill(O, SIX, shoot(first(ofcolor(I, SIX)), DOWN)), O)
+    bt = either(su1, su2); bb = either(sd1, sd2)
+    blf = either(sl1, sl2); brg = either(sr1, sr2)
+    O = branch(both(bt, blf), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(bt, brg), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(bb, blf), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(bb, brg), fill(O, ZERO, intersection(bot, rig)), O)
     return O
 
 def dsl2(I):
-    # Only paint the single border cell where each singleton's ray meets its mapped border
+    # Variation: same as dsl1 but simpler direction choice: pick the first clear among U,L,R,D; fallback to nearest border if none clear.
     inds = asindices(I)
     tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
     top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+    bg = mostcolor(I)
+    singles = sizefilter(objects(I, T, F, T), ONE)
+    nonbg = difference(singles, colorfilter(singles, bg))
 
-    has1 = equality(colorcount(I, ONE), ONE)
-    has3 = equality(colorcount(I, THREE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
+    def proc(O, o, gate):
+        p = first(toindices(o)); c = color(o)
+        bu = difference(intersection(shoot(p, UP), inds), initset(p))
+        bd = difference(intersection(shoot(p, DOWN), inds), initset(p))
+        bl = difference(intersection(shoot(p, LEFT), inds), initset(p))
+        br = difference(intersection(shoot(p, RIGHT), inds), initset(p))
+        cu = equality(bu, intersection(bu, ofcolor(I, bg)))
+        cd = equality(bd, intersection(bd, ofcolor(I, bg)))
+        cl = equality(bl, intersection(bl, ofcolor(I, bg)))
+        cr = equality(br, intersection(br, ofcolor(I, bg)))
+        anyc = either(cu, either(cd, either(cl, cr)))
+        du = manhattan(o, top); dd = manhattan(o, bot); dl = manhattan(o, lef); dr = manhattan(o, rig)
+        up_best = both(flip(greater(du, dl)), both(flip(greater(du, dr)), flip(greater(du, dd))))
+        dn_best = both(flip(greater(dd, du)), both(flip(greater(dd, dl)), flip(greater(dd, dr))))
+        lf_best = both(flip(greater(dl, du)), both(flip(greater(dl, dr)), flip(greater(dl, dd))))
+        rg_best = both(flip(greater(dr, du)), both(flip(greater(dr, dl)), flip(greater(dr, dd))))
+
+        # Priority U, L, R, D if clear; else nearest by distance with same priority
+        su = cu
+        sl = both(flip(su), cl)
+        sr = both(flip(either(su, sl)), cr)
+        sd = both(flip(either(either(su, sl), sr)), cd)
+        su = either(su, both(flip(anyc), up_best))
+        sl = either(sl, both(flip(anyc), lf_best))
+        sr = either(sr, both(flip(anyc), rg_best))
+        sd = either(sd, both(flip(anyc), dn_best))
+
+        O = branch(both(gate, su), fill(O, c, top), O)
+        O = branch(both(gate, sl), fill(O, c, lef), O)
+        O = branch(both(gate, sr), fill(O, c, rig), O)
+        O = branch(both(gate, sd), fill(O, c, bot), O)
+
+        O = branch(both(gate, su), fill(O, c, intersection(shoot(p, double(UP)), inds)), O)
+        O = branch(both(gate, sl), fill(O, c, intersection(shoot(p, double(LEFT)), inds)), O)
+        O = branch(both(gate, sr), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sd), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+        return O, su, sd, sl, sr
 
     O = I
-    # Top: prefer 3 over 1
-    O = branch(has3, fill(O, THREE, intersection(shoot(first(ofcolor(I, THREE)), UP), top)), O)
-    O = branch(both(flip(has3), has1), fill(O, ONE, intersection(shoot(first(ofcolor(I, ONE)), UP), top)), O)
+    o1 = first(nonbg); o2 = last(nonbg)
+    two = flip(equality(o1, o2))
+    O, su1, sd1, sl1, sr1 = proc(O, o1, T)
+    O, su2, sd2, sl2, sr2 = proc(O, o2, two)
 
-    # Right, Left, Bottom
-    O = branch(has8, fill(O, EIGHT, intersection(shoot(first(ofcolor(I, EIGHT)), RIGHT), rig)), O)
-    O = branch(has2, fill(O, TWO, intersection(shoot(first(ofcolor(I, TWO)), LEFT), lef)), O)
-    O = branch(has6, fill(O, SIX, intersection(shoot(first(ofcolor(I, SIX)), DOWN), bot)), O)
+    bt = either(su1, su2); bb = either(sd1, sd2)
+    blf = either(sl1, sl2); brg = either(sr1, sr2)
+    O = branch(both(bt, blf), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(bt, brg), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(bb, blf), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(bb, brg), fill(O, ZERO, intersection(bot, rig)), O)
     return O
 
 def dsl3(I):
-    # Nearest singleton to each border colors that border (no rays), zero corners if colors differ
+    # Fallback-focused: if no non-bg singletons, use leastcolor pivot; otherwise behave like dsl1 for up to two pivots.
     inds = asindices(I)
     tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
     top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+    bg = mostcolor(I)
+    singles = sizefilter(objects(I, T, F, T), ONE)
+    nonbg = difference(singles, colorfilter(singles, bg))
 
-    objs = objects(I, T, F, T)
-    singles = sizefilter(objs, ONE)
+    def choose_pivots():
+        # if nonbg has at least one, take first/last; else build a 1-cell object from leastcolor index
+        cond = greater(size(nonbg), ZERO)
+        return branch(cond, first(nonbg), toobject(ofcolor(I, leastcolor(I)), I)), branch(cond, last(nonbg), first(nonbg))
 
-    comp_top = rbind(manhattan, top)
-    comp_bot = rbind(manhattan, bot)
-    comp_lef = rbind(manhattan, lef)
-    comp_rig = rbind(manhattan, rig)
+    o1, o2 = choose_pivots()
+    two = flip(equality(o1, o2))
 
-    otop = argmin(singles, comp_top)
-    obot = argmin(singles, comp_bot)
-    olef = argmin(singles, comp_lef)
-    orig = argmin(singles, comp_rig)
+    def proc(O, o, gate):
+        p = first(toindices(o)); c = color(o)
+        bu = difference(intersection(shoot(p, UP), inds), initset(p))
+        bd = difference(intersection(shoot(p, DOWN), inds), initset(p))
+        bl = difference(intersection(shoot(p, LEFT), inds), initset(p))
+        br = difference(intersection(shoot(p, RIGHT), inds), initset(p))
+        cu = equality(bu, intersection(bu, ofcolor(I, bg)))
+        cd = equality(bd, intersection(bd, ofcolor(I, bg)))
+        cl = equality(bl, intersection(bl, ofcolor(I, bg)))
+        cr = equality(br, intersection(br, ofcolor(I, bg)))
+        anyc = either(cu, either(cd, either(cl, cr)))
 
-    ctop = color(otop); cbot = color(obot); clef = color(olef); crig = color(orig)
+        du = manhattan(o, top); dd = manhattan(o, bot)
+        dl = manhattan(o, lef); dr = manhattan(o, rig)
+        up_best = both(flip(greater(du, dl)), both(flip(greater(du, dr)), flip(greater(du, dd))))
+        dn_best = both(flip(greater(dd, du)), both(flip(greater(dd, dl)), flip(greater(dd, dr))))
+        lf_best = both(flip(greater(dl, du)), both(flip(greater(dl, dr)), flip(greater(dl, dd))))
+        rg_best = both(flip(greater(dr, du)), both(flip(greater(dr, dl)), flip(greater(dr, dd))))
+
+        sel_u = either(cu, both(flip(anyc), up_best))
+        sel_r = both(flip(sel_u), either(cr, both(flip(anyc), rg_best)))
+        sel_l = both(flip(either(sel_u, sel_r)), either(cl, both(flip(anyc), lf_best)))
+        sel_d = both(flip(either(either(sel_u, sel_r), sel_l)), either(cd, both(flip(anyc), dn_best)))
+
+        O = branch(both(gate, sel_u), fill(O, c, top), O)
+        O = branch(both(gate, sel_r), fill(O, c, rig), O)
+        O = branch(both(gate, sel_l), fill(O, c, lef), O)
+        O = branch(both(gate, sel_d), fill(O, c, bot), O)
+        O = branch(both(gate, sel_u), fill(O, c, intersection(shoot(p, double(UP)), inds)), O)
+        O = branch(both(gate, sel_r), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sel_l), fill(O, c, intersection(shoot(p, double(LEFT)), inds)), O)
+        O = branch(both(gate, sel_d), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+        return O, sel_u, sel_d, sel_l, sel_r
 
     O = I
-    O = fill(O, ctop, top)
-    O = fill(O, cbot, bot)
-    O = fill(O, clef, lef)
-    O = fill(O, crig, rig)
+    O, su1, sd1, sl1, sr1 = proc(O, o1, T)
+    O, su2, sd2, sl2, sr2 = proc(O, o2, two)
 
-    O = branch(flip(equality(ctop, clef)), fill(O, ZERO, intersection(top, lef)), O)
-    O = branch(flip(equality(ctop, crig)), fill(O, ZERO, intersection(top, rig)), O)
-    O = branch(flip(equality(cbot, clef)), fill(O, ZERO, intersection(bot, lef)), O)
-    O = branch(flip(equality(cbot, crig)), fill(O, ZERO, intersection(bot, rig)), O)
+    bt = either(su1, su2); bb = either(sd1, sd2)
+    blf = either(sl1, sl2); brg = either(sr1, sr2)
+    O = branch(both(bt, blf), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(bt, brg), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(bb, blf), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(bb, brg), fill(O, ZERO, intersection(bot, rig)), O)
     return O
 
 def dsl4(I):
-    # Fixed mapping to borders + full row/column through the singleton (cross lines)
+    # Simpler hypothesis: for each non-bg singleton, paint only the chosen border (no step-2 ray), with ULRD clear-path priority;
+    # zero any border-intersection corners.
     inds = asindices(I)
     tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
     top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+    bg = mostcolor(I)
+    singles = sizefilter(objects(I, T, F, T), ONE)
+    nonbg = difference(singles, colorfilter(singles, bg))
 
-    has1 = equality(colorcount(I, ONE), ONE)
-    has3 = equality(colorcount(I, THREE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
+    def proc(O, o, gate):
+        p = first(toindices(o)); c = color(o)
+        bu = difference(intersection(shoot(p, UP), inds), initset(p))
+        bd = difference(intersection(shoot(p, DOWN), inds), initset(p))
+        bl = difference(intersection(shoot(p, LEFT), inds), initset(p))
+        br = difference(intersection(shoot(p, RIGHT), inds), initset(p))
+        cu = equality(bu, intersection(bu, ofcolor(I, bg)))
+        cd = equality(bd, intersection(bd, ofcolor(I, bg)))
+        cl = equality(bl, intersection(bl, ofcolor(I, bg)))
+        cr = equality(br, intersection(br, ofcolor(I, bg)))
+
+        su = cu
+        sl = both(flip(su), cl)
+        sr = both(flip(either(su, sl)), cr)
+        sd = both(flip(either(either(su, sl), sr)), cd)
+
+        O = branch(both(gate, su), fill(O, c, top), O)
+        O = branch(both(gate, sl), fill(O, c, lef), O)
+        O = branch(both(gate, sr), fill(O, c, rig), O)
+        O = branch(both(gate, sd), fill(O, c, bot), O)
+        return O, su, sd, sl, sr
 
     O = I
-    # Borders (prefer 3 over 1 for top)
-    O = branch(has2, fill(O, TWO, lef), O)
-    O = branch(has8, fill(O, EIGHT, rig), O)
-    O = branch(has6, fill(O, SIX, bot), O)
-    O = branch(has1, fill(O, ONE, top), O)
-    O = branch(has3, fill(O, THREE, top), O)
+    o1 = first(nonbg); o2 = last(nonbg)
+    two = flip(equality(o1, o2))
+    O, su1, sd1, sl1, sr1 = proc(O, o1, T)
+    O, su2, sd2, sl2, sr2 = proc(O, o2, two)
 
-    # Cross lines through the singleton's row/column
-    # Top color -> vertical line at its column
-    tuse = either(has1, has3)
-    tloc = branch(has3, first(ofcolor(I, THREE)), first(ofcolor(I, ONE)))
-    tcol = branch(has3, THREE, ONE)
-    O = branch(tuse, fill(O, tcol, vfrontier(tloc)), O)
-
-    # Right color (8) -> horizontal line at its row
-    O = branch(has8, fill(O, EIGHT, hfrontier(first(ofcolor(I, EIGHT)))), O)
-
-    # Left color (2) -> horizontal line at its row
-    O = branch(has2, fill(O, TWO, hfrontier(first(ofcolor(I, TWO)))), O)
-
-    # Bottom color (6) -> vertical line at its column
-    O = branch(has6, fill(O, SIX, vfrontier(first(ofcolor(I, SIX)))), O)
-
-    # Zero mismatched corners
-    O = branch(both(tuse, has2), fill(O, ZERO, intersection(top, lef)), O)
-    O = branch(both(tuse, has8), fill(O, ZERO, intersection(top, rig)), O)
-    O = branch(both(has6, has2), fill(O, ZERO, intersection(bot, lef)), O)
-    O = branch(both(has6, has8), fill(O, ZERO, intersection(bot, rig)), O)
+    bt = either(su1, su2); bb = either(sd1, sd2)
+    blf = either(sl1, sl2); brg = either(sr1, sr2)
+    O = branch(both(bt, blf), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(bt, brg), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(bb, blf), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(bb, brg), fill(O, ZERO, intersection(bot, rig)), O)
     return O
 
 def dsl5(I):
-    # Only fixed mapping to borders (no rays, no corner zeroing)
+    # Variant: like dsl1 but also extend the step-2 ray one-way (forward only) more aggressively:
+    # for horizontal picks, propagate every 2 cells to the right; for vertical picks, propagate every 2 cells downward.
     inds = asindices(I)
     tlc = ulcorner(inds); trc = urcorner(inds); blc = llcorner(inds)
     top = hfrontier(tlc); bot = hfrontier(blc); lef = vfrontier(tlc); rig = vfrontier(trc)
+    bg = mostcolor(I)
+    singles = sizefilter(objects(I, T, F, T), ONE)
+    nonbg = difference(singles, colorfilter(singles, bg))
 
-    has1 = equality(colorcount(I, ONE), ONE)
-    has3 = equality(colorcount(I, THREE), ONE)
-    has2 = equality(colorcount(I, TWO), ONE)
-    has8 = equality(colorcount(I, EIGHT), ONE)
-    has6 = equality(colorcount(I, SIX), ONE)
+    def proc(O, o, gate):
+        p = first(toindices(o)); c = color(o)
+        bu = difference(intersection(shoot(p, UP), inds), initset(p))
+        bd = difference(intersection(shoot(p, DOWN), inds), initset(p))
+        bl = difference(intersection(shoot(p, LEFT), inds), initset(p))
+        br = difference(intersection(shoot(p, RIGHT), inds), initset(p))
+        cu = equality(bu, intersection(bu, ofcolor(I, bg)))
+        cd = equality(bd, intersection(bd, ofcolor(I, bg)))
+        cl = equality(bl, intersection(bl, ofcolor(I, bg)))
+        cr = equality(br, intersection(br, ofcolor(I, bg)))
+        anyc = either(cu, either(cd, either(cl, cr)))
+
+        du = manhattan(o, top); dd = manhattan(o, bot)
+        dl = manhattan(o, lef); dr = manhattan(o, rig)
+        up_best = both(flip(greater(du, dl)), both(flip(greater(du, dr)), flip(greater(du, dd))))
+        dn_best = both(flip(greater(dd, du)), both(flip(greater(dd, dl)), flip(greater(dd, dr))))
+        lf_best = both(flip(greater(dl, du)), both(flip(greater(dl, dr)), flip(greater(dl, dd))))
+        rg_best = both(flip(greater(dr, du)), both(flip(greater(dr, dl)), flip(greater(dr, dd))))
+
+        sel_u = either(cu, both(flip(anyc), up_best))
+        sel_r = both(flip(sel_u), either(cr, both(flip(anyc), rg_best)))
+        sel_l = both(flip(either(sel_u, sel_r)), either(cl, both(flip(anyc), lf_best)))
+        sel_d = both(flip(either(either(sel_u, sel_r), sel_l)), either(cd, both(flip(anyc), dn_best)))
+
+        O = branch(both(gate, sel_u), fill(O, c, top), O)
+        O = branch(both(gate, sel_r), fill(O, c, rig), O)
+        O = branch(both(gate, sel_l), fill(O, c, lef), O)
+        O = branch(both(gate, sel_d), fill(O, c, bot), O)
+
+        # Base step-2 ray in selected direction
+        O = branch(both(gate, sel_u), fill(O, c, intersection(shoot(p, double(UP)), inds)), O)
+        O = branch(both(gate, sel_r), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sel_l), fill(O, c, intersection(shoot(p, double(LEFT)), inds)), O)
+        O = branch(both(gate, sel_d), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+
+        # Extra "forward-only" propagation: if horizontal pick, extend to the right; if vertical pick, extend downward.
+        O = branch(both(gate, sel_r), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sel_l), fill(O, c, intersection(shoot(p, double(RIGHT)), inds)), O)
+        O = branch(both(gate, sel_u), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+        O = branch(both(gate, sel_d), fill(O, c, intersection(shoot(p, double(DOWN)), inds)), O)
+        return O, sel_u, sel_d, sel_l, sel_r
 
     O = I
-    # Prefer THREE over ONE for top
-    O = branch(has1, fill(O, ONE, top), O)
-    O = branch(has3, fill(O, THREE, top), O)
-    O = branch(has2, fill(O, TWO, lef), O)
-    O = branch(has8, fill(O, EIGHT, rig), O)
-    O = branch(has6, fill(O, SIX, bot), O)
+    o1 = first(nonbg); o2 = last(nonbg)
+    two = flip(equality(o1, o2))
+    O, su1, sd1, sl1, sr1 = proc(O, o1, T)
+    O, su2, sd2, sl2, sr2 = proc(O, o2, two)
+
+    bt = either(su1, su2); bb = either(sd1, sd2)
+    blf = either(sl1, sl2); brg = either(sr1, sr2)
+    O = branch(both(bt, blf), fill(O, ZERO, intersection(top, lef)), O)
+    O = branch(both(bt, brg), fill(O, ZERO, intersection(top, rig)), O)
+    O = branch(both(bb, blf), fill(O, ZERO, intersection(bot, lef)), O)
+    O = branch(both(bb, brg), fill(O, ZERO, intersection(bot, rig)), O)
     return O
 ```

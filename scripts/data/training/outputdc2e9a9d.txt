@@ -1,205 +1,114 @@
 ```python
 def dsl1(I):
-    objs = colorfilter(objects(I, T, F, T), THREE)
-    def interior(o):
-        return flip(bordering(o, I))
-    inobjs = sfilter(objs, interior)
-    def onecopy(o):
+    # Copy each gray object away from its nearest border:
+    # - place 1-copy horizontally opposite the nearest vertical border by width+1
+    # - place 8-copy vertically opposite the nearest horizontal border by height+1
+    objs = colorfilter(objects(I, True, False, True), THREE)
+    H = height(I)
+    W = width(I)
+    def hcopy(o):
         w1 = add(width(o), ONE)
-        r = rightmost(o)
         l = leftmost(o)
-        W = width(I)
-        fitsR = flip(greater(add(r, w1), subtract(W, ONE)))
-        fitsL = greater(subtract(l, w1), NEG_ONE)
-        offR = tojvec(w1)
-        offL = tojvec(invert(w1))
-        off0 = tojvec(ZERO)
-        off = branch(fitsR, offR, branch(fitsL, offL, off0))
-        p = shift(toindices(o), off)
-        return recolor(ONE, toobject(p, I))
-    def isborder(o):
-        return bordering(o, I)
-    bords = sfilter(objs, isborder)
-    def eightinward(o):
-        H = height(I)
-        W = width(I)
+        r = rightmost(o)
+        dL = l
+        dR = subtract(subtract(W, ONE), r)
+        nearL = flip(greater(dL, dR))
+        off = branch(nearL, tojvec(w1), tojvec(invert(w1)))
+        return recolor(ONE, toobject(shift(toindices(o), off), I))
+    def vcopy(o):
         h1 = add(height(o), ONE)
-        w1 = add(width(o), ONE)
-        top = equality(uppermost(o), ZERO)
-        bot = equality(lowermost(o), subtract(H, ONE))
-        lef = equality(leftmost(o), ZERO)
-        rig = equality(rightmost(o), subtract(W, ONE))
-        dy = branch(top, h1, branch(bot, invert(h1), ZERO))
-        dx = branch(lef, w1, branch(rig, invert(w1), ZERO))
-        off = add(toivec(dy), tojvec(dx))
-        p = shift(toindices(o), off)
-        return recolor(EIGHT, toobject(p, I))
-    ones = merge(apply(onecopy, inobjs))
-    eights = merge(apply(eightinward, bords))
-    O = underpaint(I, eights)
-    O = underpaint(O, ones)
+        u = uppermost(o)
+        b = lowermost(o)
+        dT = u
+        dB = subtract(subtract(H, ONE), b)
+        nearT = flip(greater(dT, dB))
+        off = branch(nearT, toivec(h1), toivec(invert(h1)))
+        return recolor(EIGHT, toobject(shift(toindices(o), off), I))
+    ones = merge(apply(hcopy, objs))
+    eights = merge(apply(vcopy, objs))
+    O = underpaint(I, ones)
+    O = underpaint(O, eights)
     return O
 
 def dsl2(I):
-    objs = colorfilter(objects(I, T, F, T), THREE)
-    def interior(o):
-        return flip(bordering(o, I))
-    inobjs = sfilter(objs, interior)
-    def onecopy(o):
-        W = width(I)
-        H = height(I)
-        w1 = add(width(o), ONE)
-        h1 = add(height(o), ONE)
-        r = rightmost(o)
-        l = leftmost(o)
-        u = uppermost(o)
-        b = lowermost(o)
-        fitsR = flip(greater(add(r, w1), subtract(W, ONE)))
-        fitsL = greater(subtract(l, w1), NEG_ONE)
-        fitsD = flip(greater(add(b, h1), subtract(H, ONE)))
-        fitsU = greater(subtract(u, h1), NEG_ONE)
-        offR = tojvec(w1)
-        offL = tojvec(invert(w1))
-        offD = toivec(h1)
-        offU = toivec(invert(h1))
-        off0 = tojvec(ZERO)
-        off = branch(fitsR, offR, branch(fitsL, offL, branch(fitsD, offD, branch(fitsU, offU, off0))))
-        p = shift(toindices(o), off)
-        return recolor(ONE, toobject(p, I))
-    def isborder(o):
-        return bordering(o, I)
-    bords = sfilter(objs, isborder)
-    def eightinward(o):
-        H = height(I)
-        W = width(I)
-        h1 = add(height(o), ONE)
-        w1 = add(width(o), ONE)
-        top = equality(uppermost(o), ZERO)
-        bot = equality(lowermost(o), subtract(H, ONE))
-        lef = equality(leftmost(o), ZERO)
-        rig = equality(rightmost(o), subtract(W, ONE))
-        dy = branch(top, h1, branch(bot, invert(h1), ZERO))
-        dx = branch(lef, w1, branch(rig, invert(w1), ZERO))
-        off = add(toivec(dy), tojvec(dx))
-        p = shift(toindices(o), off)
-        return recolor(EIGHT, toobject(p, I))
-    ones = merge(apply(onecopy, inobjs))
-    eights = merge(apply(eightinward, bords))
-    O = underpaint(I, eights)
-    O = underpaint(O, ones)
+    # Only ring-like gray objects (equal to their outline) duplicate:
+    # - 1-copy horizontally to the right by width+1
+    # - 8-copy vertically downward by height+1
+    objs = colorfilter(objects(I, True, False, True), THREE)
+    def is_ring(o):
+        return equality(size(toindices(o)), size(box(o)))
+    rings = sfilter(objs, is_ring)
+    def hcopy(o):
+        off = tojvec(add(width(o), ONE))
+        return recolor(ONE, toobject(shift(toindices(o), off), I))
+    def vcopy(o):
+        off = toivec(add(height(o), ONE))
+        return recolor(EIGHT, toobject(shift(toindices(o), off), I))
+    ones = merge(apply(hcopy, rings))
+    eights = merge(apply(vcopy, rings))
+    O = underpaint(I, ones)
+    O = underpaint(O, eights)
     return O
 
 def dsl3(I):
-    objs = colorfilter(objects(I, T, F, T), THREE)
-    def interior(o):
-        return flip(bordering(o, I))
-    inobjs = sfilter(objs, interior)
-    def onecopy(o):
-        w1 = add(width(o), ONE)
-        r = rightmost(o)
-        l = leftmost(o)
-        W = width(I)
-        fitsR = flip(greater(add(r, w1), subtract(W, ONE)))
-        fitsL = greater(subtract(l, w1), NEG_ONE)
-        off = branch(fitsR, tojvec(w1), branch(fitsL, tojvec(invert(w1)), tojvec(ZERO)))
-        p = shift(toindices(o), off)
-        return recolor(ONE, toobject(p, I))
-    def isborder(o):
-        return bordering(o, I)
-    bords = sfilter(objs, isborder)
-    def eightinward_prefvert(o):
-        H = height(I)
-        W = width(I)
-        h1 = add(height(o), ONE)
-        w1 = add(width(o), ONE)
-        top = equality(uppermost(o), ZERO)
-        bot = equality(lowermost(o), subtract(H, ONE))
-        lef = equality(leftmost(o), ZERO)
-        rig = equality(rightmost(o), subtract(W, ONE))
-        hasV = either(top, bot)
-        dy = branch(top, h1, branch(bot, invert(h1), ZERO))
-        dx0 = branch(lef, w1, branch(rig, invert(w1), ZERO))
-        dx = branch(hasV, ZERO, dx0)
-        off = add(toivec(dy), tojvec(dx))
-        p = shift(toindices(o), off)
-        return recolor(EIGHT, toobject(p, I))
-    ones = merge(apply(onecopy, inobjs))
-    eights = merge(apply(eightinward_prefvert, bords))
-    O = underpaint(I, eights)
-    O = underpaint(O, ones)
+    # Only extremal gray objects duplicate:
+    # - topmost object creates a 1-copy to the right by width+1
+    # - bottommost object creates an 8-copy downward by height+1
+    objs = colorfilter(objects(I, True, False, True), THREE)
+    top = argmin(objs, uppermost)
+    bot = argmax(objs, lowermost)
+    one = recolor(ONE, toobject(shift(toindices(top), tojvec(add(width(top), ONE))), I))
+    eight = recolor(EIGHT, toobject(shift(toindices(bot), toivec(add(height(bot), ONE))), I))
+    O = underpaint(I, one)
+    O = underpaint(O, eight)
     return O
 
 def dsl4(I):
-    objs = colorfilter(objects(I, T, F, T), THREE)
-    def interior(o):
-        return flip(bordering(o, I))
-    inobjs = sfilter(objs, interior)
-    def onecopy(o):
-        w1 = add(width(o), ONE)
-        r = rightmost(o)
-        l = leftmost(o)
-        W = width(I)
-        fitsR = flip(greater(add(r, w1), subtract(W, ONE)))
-        off = branch(fitsR, tojvec(w1), tojvec(invert(w1)))
-        p = shift(toindices(o), off)
-        return recolor(ONE, toobject(p, I))
-    def isborder(o):
-        return bordering(o, I)
-    bords = sfilter(objs, isborder)
-    def eight_hv(o):
-        H = height(I)
-        W = width(I)
-        h1 = add(height(o), ONE)
-        w1 = add(width(o), ONE)
-        top = equality(uppermost(o), ZERO)
-        bot = equality(lowermost(o), subtract(H, ONE))
-        lef = equality(leftmost(o), ZERO)
-        rig = equality(rightmost(o), subtract(W, ONE))
-        offV = branch(top, toivec(h1), branch(bot, toivec(invert(h1)), toivec(ZERO)))
-        offH = branch(lef, tojvec(w1), branch(rig, tojvec(invert(w1)), tojvec(ZERO)))
-        off = add(offV, offH)
-        p = shift(toindices(o), off)
-        return recolor(EIGHT, toobject(p, I))
-    ones = merge(apply(onecopy, inobjs))
-    eights = merge(apply(eight_hv, bords))
-    O = underpaint(I, eights)
-    O = underpaint(O, ones)
+    # Half-plane rule:
+    # - gray objects whose rightmost column is in the left half get an 8-copy below by height+1
+    # - gray objects in the right half get a 1-copy to the left by width+1
+    objs = colorfilter(objects(I, True, False, True), THREE)
+    W = width(I)
+    mid = divide(W, TWO)
+    lefts = sfilter(objs, lambda o: flip(greater(rightmost(o), mid)))
+    rights = sfilter(objs, lambda o: greater(rightmost(o), mid))
+    def vcopy(o):
+        return recolor(EIGHT, toobject(shift(toindices(o), toivec(add(height(o), ONE))), I))
+    def hcopy(o):
+        return recolor(ONE, toobject(shift(toindices(o), tojvec(invert(add(width(o), ONE)))), I))
+    eights = merge(apply(vcopy, lefts))
+    ones = merge(apply(hcopy, rights))
+    O = underpaint(I, ones)
+    O = underpaint(O, eights)
     return O
 
 def dsl5(I):
-    objs = colorfilter(objects(I, T, F, T), THREE)
-    def interior(o):
-        return flip(bordering(o, I))
-    inobjs = sfilter(objs, interior)
-    def onecopy(o):
-        w1 = add(width(o), ONE)
-        r = rightmost(o)
+    # Copy toward the grid center:
+    # - if object's horizontal midpoint is in left half -> 1-copy right by width+1 else left
+    # - if object's vertical midpoint is in top half -> 8-copy down by height+1 else up
+    objs = colorfilter(objects(I, True, False, True), THREE)
+    H = height(I)
+    W = width(I)
+    midW = divide(W, TWO)
+    midH = divide(H, TWO)
+    def hcopy(o):
         l = leftmost(o)
-        W = width(I)
-        fitsR = flip(greater(add(r, w1), subtract(W, ONE)))
-        fitsL = greater(subtract(l, w1), NEG_ONE)
-        off = branch(fitsR, tojvec(w1), branch(fitsL, tojvec(invert(w1)), tojvec(ZERO)))
-        p = shift(toindices(o), off)
-        return recolor(ONE, toobject(p, I))
-    def edge(o):
-        return bordering(o, I)
-    bords = sfilter(objs, edge)
-    def eight_sidein(o):
-        H = height(I)
-        W = width(I)
-        h1 = add(height(o), ONE)
+        r = rightmost(o)
+        midcol = divide(add(l, r), TWO)
         w1 = add(width(o), ONE)
-        top = equality(uppermost(o), ZERO)
-        bot = equality(lowermost(o), subtract(H, ONE))
-        lef = equality(leftmost(o), ZERO)
-        rig = equality(rightmost(o), subtract(W, ONE))
-        dy = branch(top, h1, branch(bot, invert(h1), ZERO))
-        dx = branch(lef, w1, branch(rig, invert(w1), ZERO))
-        off = add(toivec(dy), tojvec(dx))
-        p = shift(toindices(o), off)
-        return recolor(EIGHT, toobject(p, I))
-    ones = merge(apply(onecopy, inobjs))
-    eights = merge(apply(eight_sidein, bords))
+        leftHalf = flip(greater(midcol, midW))
+        off = branch(leftHalf, tojvec(w1), tojvec(invert(w1)))
+        return recolor(ONE, toobject(shift(toindices(o), off), I))
+    def vcopy(o):
+        u = uppermost(o)
+        b = lowermost(o)
+        midrow = divide(add(u, b), TWO)
+        h1 = add(height(o), ONE)
+        topHalf = flip(greater(midrow, midH))
+        off = branch(topHalf, toivec(h1), toivec(invert(h1)))
+        return recolor(EIGHT, toobject(shift(toindices(o), off), I))
+    ones = merge(apply(hcopy, objs))
+    eights = merge(apply(vcopy, objs))
     O = underpaint(I, ones)
     O = underpaint(O, eights)
     return O
