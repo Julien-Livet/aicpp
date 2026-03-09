@@ -23,7 +23,10 @@ The goal is to explore a hybrid architecture that balances:
 
 [Concept of connected neural network.pdf](https://github.com/user-attachments/files/25365047/Concept.of.connected.neural.network.pdf)
 
+[LLM-Guided Hypothesis Generation with Progressive Feedback for Neuro-Symbolic Program Synthesis on ARC-AGI-2.pdf](https://github.com/user-attachments/files/25835291/LLM-Guided.Hypothesis.Generation.with.Progressive.Feedback.for.Neuro-Symbolic.Program.Synthesis.on.ARC-AGI-2.pdf)
+
 ---
+
 
 ## 🧠 Core Idea
 
