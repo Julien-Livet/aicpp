@@ -305,13 +305,13 @@ def dsl5(I):
 ```
 """
 
-        f = open("data/" + folder + "/prompt" + task + ".txt", "w")
+        f = open("data/" + folder + "/prompt" + task + ".md", "w")
         f.write(command)
         f.close()
 
         if (firstLoop):
             try:
-                f = open("data/" + folder + "/output" + task + ".txt", "r")
+                f = open("data/" + folder + "/output" + task + ".md", "r")
                 content = f.read()
                 f.close()
             except (FileNotFoundError, UnicodeDecodeError):
@@ -324,7 +324,7 @@ def dsl5(I):
 
         firstLoop = False
 
-        f = open("data/" + folder + "/output" + task + ".txt", "w")
+        f = open("data/" + folder + "/output" + task + ".md", "w")
         f.write(content)
         f.close()
 
@@ -495,7 +495,7 @@ def run_tasks(folder: str) -> int:
     unexploredTasks = []
 
     for task in tasks:
-        if (not os.path.isfile("data/" + folder + "/" + "output" + task + ".txt")):
+        if (not os.path.isfile("data/" + folder + "/" + "output" + task + ".md")):
             unexploredTasks.append(task)
 
     tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
