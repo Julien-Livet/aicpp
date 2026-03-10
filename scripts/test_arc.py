@@ -225,28 +225,29 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
         for i in range(len(trainPairs[0])):
             command += "(" + json.dumps(trainPairs[0][i].tolist()) + ", " + json.dumps(trainPairs[1][i].tolist()) + ")\n"
 
-        command += """
-Available types:
-"""
+        command += "\nAvailable types:\n"
+
         f = open("arc-dsl/arc_types.py", "r")
         content = f.read()
         f.close()
         
+        command += "```python\n"
         command += content
+        command += "```\n"
 
-        command += """
-Available variables:
-"""
+        command += "\nAvailable variables:\n"
+
         f = open("arc-dsl/constants.py", "r")
         content = f.read()
         f.close()
         
+        command += "```python\n"
         command += "I: tuple[tuple]\n"
         command += "\n".join(filter(None, content.split("\n", ))) + "\n"
+        command += "```\n"
 
-        command += """
-Available primitives:
-"""
+        command += "\nAvailable primitives:\n"
+
         result = subprocess.run('cd arc-dsl && python -c "import dsl; help(dsl)"', shell = True, capture_output = True, text = True)
         lines = result.stdout.split("\n")
 
@@ -263,7 +264,9 @@ Available primitives:
                 
             finish = ")" in lines[i]
 
+        command += "```python\n"
         command += "\n".join(functions) + "\n"
+        command += "```\n"
         
         if (len(scores)):
             command += "\nPrevious program scores (best, intermediate, worst):\n\n"
