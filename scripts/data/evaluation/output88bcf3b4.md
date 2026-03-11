@@ -1,0 +1,85 @@
+```python
+def dsl1(I):
+    BG = mostcolor(I)
+    objs = objects(I, T, F, T)
+    vobjs = mfilter(objs, vline)
+    V = argmax(vobjs, size)
+    Vc = color(V)
+    pal = palette(I)
+    colors1 = remove(BG, pal)
+    colors2 = remove(Vc, colors1)
+    Pc = argmax(colors2, lbind(colorcount, I))
+    left_adj = shift(toindices(V), LEFT)
+    path = recolor(Pc, left_adj)
+    O = underpaint(I, path)
+    return O
+
+def dsl2(I):
+    BG = mostcolor(I)
+    objs = objects(I, T, F, T)
+    vobjs = mfilter(objs, vline)
+    V = argmax(vobjs, size)
+    Vc = color(V)
+    pal = palette(I)
+    colors1 = remove(BG, pal)
+    colors2 = remove(Vc, colors1)
+    Pc = argmax(colors2, lbind(colorcount, I))
+    right_adj = shift(toindices(V), RIGHT)
+    path = recolor(Pc, right_adj)
+    O = underpaint(I, path)
+    return O
+
+def dsl3(I):
+    BG = mostcolor(I)
+    objs = objects(I, T, F, T)
+    vobjs = mfilter(objs, vline)
+    V = argmax(vobjs, size)
+    Vc = color(V)
+    pal = palette(I)
+    colors1 = remove(BG, pal)
+    colors2 = remove(Vc, colors1)
+    Pc = argmax(colors2, lbind(colorcount, I))
+    left_adj = shift(toindices(V), LEFT)
+    right_adj = shift(toindices(V), RIGHT)
+    belt = combine(left_adj, right_adj)
+    path = recolor(Pc, belt)
+    O = underpaint(I, path)
+    return O
+
+def dsl4(I):
+    BG = mostcolor(I)
+    objs = objects(I, T, F, T)
+    vobjs = mfilter(objs, vline)
+    V = argmax(vobjs, size)
+    Vc = color(V)
+    pal = palette(I)
+    colors1 = remove(BG, pal)
+    colors2 = remove(Vc, colors1)
+    Pc = argmax(colors2, lbind(colorcount, I))
+    Ppatch = ofcolor(I, Pc)
+    dvec = gravitate(Ppatch, toindices(V))
+    shifted = shift(Ppatch, dvec)
+    obj = recolor(Pc, shifted)
+    O = underpaint(I, obj)
+    return O
+
+def dsl5(I):
+    BG = mostcolor(I)
+    objs = objects(I, T, F, T)
+    vobjs = mfilter(objs, vline)
+    V = argmax(vobjs, size)
+    Vc = color(V)
+    pal = palette(I)
+    colors1 = remove(BG, pal)
+    colors2 = remove(Vc, colors1)
+    Pc = argmax(colors2, lbind(colorcount, I))
+    Ppatch = ofcolor(I, Pc)
+    rtop = uppermost(V)
+    jv = leftmost(V)
+    start = centerofmass(Ppatch)
+    end = astuple(rtop, jv)
+    seg = connect(start, end)
+    path = recolor(Pc, seg)
+    O = underpaint(I, path)
+    return O
+```
