@@ -170,6 +170,8 @@ def print_test_duration(request):
     print(f"\nTest {request.node.name} took {duration:.2f} seconds to execute.")
 
 def trainTestPairs(folder: str, task: str) -> tuple:
+    assert(folder == "training" or folder == "evaluation")
+
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
     data = json.loads(url.read().decode())
 
@@ -490,7 +492,9 @@ def test_task():
     assert(processTask("training", "")[-1] == 0)
 """
 
-def run_tasks(folder: str) -> int:
+def run_tasks(folder: str) -> tuple[int, int]:
+    assert(folder == "training" or folder == "evaluation")
+
     url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + ".txt")
     data = url.read().decode()
     tasks = data.split("\n")
