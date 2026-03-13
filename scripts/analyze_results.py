@@ -17,6 +17,7 @@ def analyseFolder(folder: str):
     y3 = []
     y4 = []
     yt = []
+    dsls = []
 
     while (i < len(lines)):
         f, t, s1, s2, s3, s4, st = lines[i].split(" ")
@@ -27,8 +28,15 @@ def analyseFolder(folder: str):
         y4.append(float(s4))
         yt.append(float(st))
 
+        i += 2
+
+        dsl = []
+
         while (lines[i] != "```"):
+            dsl.append(lines[i])
             i += 1
+
+        dsls.append("\n".join(dsl))
 
         i += 1
 
@@ -41,8 +49,10 @@ def analyseFolder(folder: str):
     ax.plot(x, y3, label = "pixel_overlap_cost")
     ax.plot(x, y4, label = "bounding_box_cost")
     ax.plot(x, yt, label = "total_cost")
+    ax.plot(x, [x.count("\n") for x in dsls], label = "len_cost")
     plt.xticks(x, labels, rotation = 'vertical')
     plt.legend()
+    plt.yscale('log')
     mng = plt.get_current_fig_manager()
     mng.resize(*mng.window.maxsize())
     plt.show()
