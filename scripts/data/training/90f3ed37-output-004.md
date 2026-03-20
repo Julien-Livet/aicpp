@@ -1,4 +1,3 @@
-training 90f3ed37 test 0.0 0.0 0.0 0.0 0.0
 ```python
 def dsl(I):
     S = ofcolor(I, EIGHT)

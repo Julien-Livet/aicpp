@@ -1,6 +1,31 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
+    fig, ax = plt.subplots()
+
+    maxCost = 100
+    totalCosts = [x["Total cost"] for x in costs]
+
+    print(folder, step)
+    print("Maximum total cost:", max(totalCosts))
+    print(f"Task ratio with a total cost < {maxCost}: {len(list(filter(lambda x: x < maxCost, totalCosts))) / len(totalCosts) * 100}%")
+
+    x = range(0, len(labels))
+
+    for cost in costs:
+        for k, v in cost.items():
+            ax.plot(x, v, label = k)
+
+    ax.plot(x, np.log([len(x) for x in dsls]), label = "Program length (log)")
+    ax.plot(x, [len(x.split("\n")) for x in dsls], label = "Program lines")
+    fig.suptitle(" ".join([folder, step, "results"]))
+    plt.xticks(x, labels, rotation = 'vertical')
+    plt.legend()
+    mng = plt.get_current_fig_manager()
+    mng.resize(*mng.window.maxsize())
+    plt.show()
+
 def analyseFolder(folder: str):
     assert(folder == "training" or folder == "evaluation")
 
@@ -11,23 +36,17 @@ def analyseFolder(folder: str):
     lines = list(filter(None, content.split("\n")))
     
     i = 0
-    labels = []
-    y1 = []
-    y2 = []
-    y3 = []
-    y4 = []
-    yt = []
-    dsls = []
+    trainLabels = []
+    trainCosts = []
+    trainDsls = []
+    testLabels = []
+    testCosts = []
+    testDsls = []
 
     while (i < len(lines)):
-        f, t, s1, s2, s3, s4, st = lines[i].split(" ")
-        labels.append(t)
-        y1.append(float(s1))
-        y2.append(float(s2))
-        y3.append(float(s3))
-        y4.append(float(s4))
-        yt.append(float(st))
-
+        f, t, step, gridSizeCost, valueCost, pixelOverlapCost, boudingBoxCost, totalCost = lines[i].split(" ")
+        cost = {"Grid size cost": float(gridSizeCost), "Value cost": float(valueCost), "Pixel overlap cost": float(pixelOverlapCost),
+                "Bounding box cost": float(boudingBoxCost), "Total cost": float(totalCost)}
         i += 2
 
         dsl = []
@@ -36,26 +55,30 @@ def analyseFolder(folder: str):
             dsl.append(lines[i])
             i += 1
 
-        dsls.append("\n".join(dsl))
+        match (step):
+            case "train":
+                trainLabels.append(t)
+                trainCosts.append(cost)
+                trainDsls.append("\n".join(dsl))
+            case "test":
+                testLabels.append(t)
+                testCosts.append(cost)
+                testDsls.append("\n".join(dsl))
 
         i += 1
 
-    x = range(0, len(labels))
-    
-    fig, ax = plt.subplots()
+    if (len(trainLabels)):
+        plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
 
-    ax.plot(x, y1, label = "size_cost")
-    ax.plot(x, y2, label = "value_cost")
-    ax.plot(x, y3, label = "pixel_overlap_cost")
-    ax.plot(x, y4, label = "bounding_box_cost")
-    ax.plot(x, yt, label = "total_cost")
-    ax.plot(x, [x.count("\n") for x in dsls], label = "len_cost")
-    plt.xticks(x, labels, rotation = 'vertical')
-    plt.legend()
-    plt.yscale('log')
-    mng = plt.get_current_fig_manager()
-    mng.resize(*mng.window.maxsize())
-    plt.show()
+    if (len(testLabels)):
+        plotTasks(folder, "test", testLabels, testCosts, testDsls)
+
+    taskTotal = len(testLabels) + len(testLabels)
+    optimalCount = len(list(filter(lambda x: not x, testCosts)))
+
+    print(folder)
+    print(f"{len(testLabels)/taskTotal*100}% passing train dataset")
+    print(f"{optimalCount/taskTotal*100}% passing test dataset")
 
 analyseFolder("training")
 analyseFolder("evaluation")

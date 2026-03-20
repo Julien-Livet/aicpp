@@ -79,6 +79,8 @@ cd scripts
 python -m pytest -sxv engine.py
 git clone https://github.com/michaelhodel/arc-dsl.git
 python -m pytest -sxv test_arc.py
+python analyze_task.py training 90f3ed37
+python analyze_results.py
 ```
 
 ---

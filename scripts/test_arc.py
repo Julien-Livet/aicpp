@@ -1,5 +1,6 @@
 import ast
 from concurrent.futures import ThreadPoolExecutor
+import copy
 import importlib.util
 import json
 import math
@@ -7,38 +8,18 @@ import multiprocessing as mp
 import numpy as np
 from openai import OpenAI, OpenAIError
 import os
+import pandas as pd
 import pytest
 import queue
 import re
 import subprocess
 import sys
 import time
+import traceback
 from tqdm import tqdm
 import urllib.request
 
-errors = dict()
-
-def load_dsl_functions(code: str, env: dict):
-    namespace = {}
-    namespace.update(env)
-
-    functions = {}
-
-    try:
-        exec(code, namespace)
-    except SyntaxError:
-        return functions
-
-    tree = ast.parse(code)
-
-    for node in tree.body:
-        if (isinstance(node, ast.FunctionDef) and node.name.startswith("dsl")):
-            functions[node.name] = {
-                "function": namespace[node.name],
-                "source": ast.get_source_segment(code, node)
-            }
-
-    return functions
+errors = set()
 
 def callOllama(model: str, prompt: str) -> str:
     cmd = ["ollama", "run", model, prompt]
@@ -50,10 +31,10 @@ def callGpt(prompt: str, model: str = "gpt-5") -> str:
     try:
         return OpenAI().responses.create(model = model, input = prompt).output_text
     except OpenAIError as e:
-        if (errors.get(str(e), None) == None):
+        if (not str(e) in errors):
             print(e)
 
-        errors[str(e)] = True
+        errors.add(str(e))
 
         return ""
 
@@ -91,6 +72,10 @@ class DSLWorker:
                 result = namespace[func_name](*args, **kwargs)
                 result_q.put(("ok", result))
             except Exception as e:
+                lines = traceback.format_exc().split("\n")
+                lines = lines[4:]
+                lines = lines[:1] + [code] + lines[1:]
+                e.traceback = "\n".join(lines)
                 result_q.put(("err", e))
 
     def run_with_timeout(self, code: str, func_name: str, timeout: float, *args, **kwargs):
@@ -162,6 +147,9 @@ def bounding_box_cost(x: np.ndarray, y: np.ndarray) -> float:
 
     return diff / (norm + 1e-8)
 
+scoreFunctions = [size_cost, value_cost, pixel_overlap_cost, bounding_box_cost]
+scoreColumns = ["Grid size cost", "Value cost", "Pixel overlap cost", "Bounding box cost", "Total cost"]
+
 @pytest.fixture(autouse = True)
 def print_test_duration(request):
     start_time = time.time()
@@ -172,7 +160,7 @@ def print_test_duration(request):
 def trainTestPairs(folder: str, task: str) -> tuple:
     assert(folder == "training" or folder == "evaluation")
 
-    url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + "/" + task + ".json")
+    url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
     data = json.loads(url.read().decode())
 
     train = data["train"]
@@ -199,16 +187,122 @@ def inputOutputPairs(pairs):
 
     return (inputs, outputs)
 
+def taskPrompt(trainPairs: list) -> str:
+    command = "You are given several input->output grid pairs from an ARC task:\n"
+
+    for i in range(len(trainPairs[0])):
+        command += f"train{i+1}: " + str(tuple(map(tuple, trainPairs[0][i].tolist()))) + " -> " + str(tuple(map(tuple, trainPairs[1][i].tolist()))) + "\n"
+
+    command += "\nAvailable types:\n"
+
+    f = open("arc-dsl/arc_types.py", "r")
+    content = f.read()
+    f.close()
+    
+    command += "```python\n"
+    command += content
+    command += "```\n"
+
+    command += "\nAvailable variables:\n"
+
+    f = open("arc-dsl/constants.py", "r")
+    content = f.read()
+    f.close()
+    
+    command += "```python\n"
+    command += "I: Tuple[Tuple]\n"
+    command += "\n".join(filter(None, content.split("\n", ))) + "\n"
+    command += "```\n"
+
+    command += "\nAvailable primitives:\n"
+
+    result = subprocess.run('cd arc-dsl && python -c "import dsl; help(dsl)"', shell = True, capture_output = True, text = True)
+    lines = result.stdout.split("\n")
+
+    functions = []
+    words = []
+    finish = False
+
+    for i in range(lines.index("FUNCTIONS") + 1, lines.index("DATA") ):
+        if (finish):
+            functions.append("".join(words) + " # " + lines[i].strip())
+            words = []
+        else:
+            words.append(lines[i].strip())
+            
+        finish = ")" in lines[i]
+
+    command += "```python\n"
+    command += "\n".join(functions) + "\n"
+    command += "```\n"
+        
+    return command
+
+def taskResults(source: str, pairs: list, label: str):
+    name = source.split("\n")[0].replace("def ", "").replace("(I):", "")
+    runner = DSLWorker()
+    scores = []
+    outputs = []
+    tracebacks = set()
+
+    for pair in pairs:
+        try:
+            score = [0] * len(scoreFunctions)
+
+            for i in range(0, len(scoreFunctions)):
+                output = runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))
+                score[i] += scoreFunctions[i](np.array(output), pair[1])
+        except (AttributeError, IndexError, KeyError, NameError, RecursionError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError) as e:
+            if (type(e) != TimeoutError):
+                tracebacks.add("```\n" + e.traceback + "```")
+
+            score = [math.nan] * len(scoreFunctions)
+            output = np.array(pair[0], dtype = float)
+            np.ndarray.fill(output, np.nan)
+            output = tuple(map(tuple, output))
+
+        scores.append(score + [sum(score)])
+        outputs.append(output)
+
+    runner.terminate()
+
+    df = pd.DataFrame(scores, index = [f"{label}{i+1}" for i in range(len(pairs))], columns = scoreColumns)
+
+    return (df, outputs, tracebacks)
+
 def processTask(folder: str, task: str, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
 
-    scoreFunctions = [size_cost, value_cost, pixel_overlap_cost, bounding_box_cost]
-    costs = [math.nan] * (len(scoreFunctions) + 1)
-    best_dsl = ""
-    scores = []
-    firstLoop = True
-    count = 0
+    cost = math.nan
+    currentDsl = """def dsl(I):
+    O = I
+    return O"""
+    index = 0
+
+    for file in os.listdir(f"data/{folder}"):
+        if ("input" in file and task in file):
+            index = max(index, int(file.replace(".md", "").replace(f"{task}-input-", "")))
+
+    if (os.path.exists(f"data/{folder}/{task}-output-{index:03d}.md")):
+        f = open(f"data/{folder}/{task}-output-{index:03d}.md", "r")
+        content = f.read()
+        f.close()
+
+        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
+
+        if (len(groups)):
+            currentDsl = groups[-1].strip()
+            index += 1
+    elif (os.path.exists(f"data/{folder}/{task}-output-{index-1:03d}.md")):
+        f = open(f"data/{folder}/{task}-output-{index-1:03d}.md", "r")
+        content = f.read()
+        f.close()
+
+        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
+
+        if (len(groups)):
+            currentDsl = groups[-1].strip()
 
     arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
     constants_module = load_module("constants", "arc-dsl/constants.py")
@@ -219,189 +313,132 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
     env.update(vars(constants_module))
     env.update(vars(dsl_module))
 
-    while (costs[-1] and count < 4):
-        count += 1
-
-        command = "You are given several input-output grid pairs from an ARC task:\n"
-
-        for i in range(len(trainPairs[0])):
-            command += "(" + json.dumps(trainPairs[0][i].tolist()) + ", " + json.dumps(trainPairs[1][i].tolist()) + ")\n"
-
-        command += "\nAvailable types:\n"
-
-        f = open("arc-dsl/arc_types.py", "r")
-        content = f.read()
-        f.close()
-        
+    for _ in range(0, 10):
+        command = taskPrompt(trainPairs) + "\n"
+        command += "Current DSL program:\n"
         command += "```python\n"
-        command += content
+        command += currentDsl + "\n"
         command += "```\n"
 
-        command += "\nAvailable variables:\n"
+        trainResults = taskResults(currentDsl, taskPairs[0], "train")
+        cost = trainResults[0][scoreColumns[-1]].sum(skipna = False)
 
-        f = open("arc-dsl/constants.py", "r")
-        content = f.read()
-        f.close()
-        
-        command += "```python\n"
-        command += "I: tuple[tuple]\n"
-        command += "\n".join(filter(None, content.split("\n", ))) + "\n"
-        command += "```\n"
+        if (not cost):
+            break
+        elif (debug):
+            print(trainResults[0])
+            print("Total cost", cost)
+            print("Program length", len(currentDsl))
+            print("Program lines", len(currentDsl.split("\n")))
 
-        command += "\nAvailable primitives:\n"
+        command += "\nExplosive scores:\n"
+        command += trainResults[0].to_csv(sep = ",", na_rep = "nan")
+        command += "\nOutput grids:\n"
+        command += "\n".join(list(filter(lambda x: not "NaN" in x, [f"train{i+1}: " + str(x) for i, x in enumerate(trainResults[1])]))) + "\n"
 
-        result = subprocess.run('cd arc-dsl && python -c "import dsl; help(dsl)"', shell = True, capture_output = True, text = True)
-        lines = result.stdout.split("\n")
+        if (len(trainResults[2])):
+            command += "\nTracebacks:\n"
+            command += "\n".join([str(x) for x in trainResults[2]]) + "\n"
 
-        functions = []
-        words = []
-        finish = False
+        command += """\nThe goal is to incrementally improve the current DSL program to match the examples, while avoiding previously low-scoring solutions, in two steps:
+1. Expansion: add missing generic concepts to fix observed errors.
+2. Reduction: refactor the program into a minimal, unified, and fully factorized form.
 
-        for i in range(lines.index("FUNCTIONS") + 1, lines.index("DATA") ):
-            if (finish):
-                functions.append("".join(words) + " # " + lines[i].strip())
-                words = []
-            else:
-                words.append(lines[i].strip())
-                
-            finish = ")" in lines[i]
+Constraints:
+- Use a single transformation pipeline.
+- All spatial propagation must be expressed as:
+    vectors = ...
+    shifted = mapply(shift, vectors)
+- The final result must be obtained by filtering (masking) these propagated indices.
+- Do not implement multiple propagation mechanisms or case-based logic.
+- All variations (direction, step size, repetition) must be encoded as data (vectors), not separate branches.
+- Avoid row-level or object-level special cases; operate directly on indices whenever possible.
 
-        command += "```python\n"
-        command += "\n".join(functions) + "\n"
-        command += "```\n"
-        
-        if (len(scores)):
-            command += "\nPrevious program scores (best, intermediate, worst):\n\n"
-            command += "|Program|Size cost|Value cost|Pixel overlap cost|Bounding box cost|Total cost|\n"
-            command += "|-|-|-|-|-|\n"
-            command += "\n".join("|" + "|".join(s) + "|" for s in scores) + "\n"
-            
-            command += "\nPropose at most 5 diverse hypotheses of plausible DSL programs exploring different transformations avoiding previous low-scoring.\n"
-        else:
-            command += "\nGenerate at most 5 diverse hypotheses of plausible DSL programs exploring different transformations using only the declared primitives.\n"
+Guidelines:
+- Merge all similar transformations into one parameterized rule.
+- Replace repeated patterns with higher-order constructs (interval, apply, mapply).
+- Prefer invariant and position-independent primitives.
+- Eliminate unnecessary conditions and constants.
 
-        command += "\nWorkflow: analyze transformation -> identify relevant object properties -> propose possible rules -> analyze why previous programs failed based on their scores -> identify primitives -> generate DSL programs\n"
+Goal:
+Produce the simplest program that applies a single coherent transformation rule uniformly across the grid.\n"""
 
-        command += "\nAll programs must be described within a single Python MarkDown tag.\n"
+        if (len(trainResults[2])):
+            command += "\nNaN values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.\n"
 
-        command += """
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+        command += """\nGenerate the new DSL program issued from the step 2.
+
+A good final program should look like:
 ```python
-def dsl1(I):
-    O = vmirror(I)
-    return O
-
-def dsl2(I):
-    O = hmirror(I)
-    return O
-
-def dsl3(I):
-    O = dmirror(I)
-    return O
-
-def dsl4(I):
-    O = rot180(I)
-    return O
-    
-def dsl5(I):
-    x1 = replace(I, FIVE, ZERO)
-    O = downscale(x1, THREE)
+def dsl(I):
+    # 1. Extract entities
+    x1 = objects(...)
+    # 2. For each entity, select the best transformation
+    x2 = mapply(some_transform, x1)
+    # 3. Apply to grid
+    O = underfill(I, ONE, x2)
     return O
 ```
-"""
 
-        f = open("data/" + folder + "/prompt" + task + ".md", "w")
+EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+```python
+def dsl(I):
+    O = vmirror(I)
+    return O
+```"""
+
+        f = open(f"data/{folder}/{task}-input-{index:03d}.md", "w")
         f.write(command)
         f.close()
 
-        if (firstLoop):
-            try:
-                f = open("data/" + folder + "/output" + task + ".md", "r")
-                content = f.read()
-                f.close()
-            except (FileNotFoundError, UnicodeDecodeError):
-                content = callLLM(command)
-        else:
-            content = callLLM(command)
+        content = callLLM(command)
 
         if (len(content) == 0):
-            return [best_dsl, folder, task] + costs
+            return [currentDsl, folder, task, "train", cost]
 
-        firstLoop = False
-
-        f = open("data/" + folder + "/output" + task + ".md", "w")
+        f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
 
         groups = re.findall(r'```python(.*?)```', content, flags = re.S)
 
         if (len(groups) == 0):
-            continue
+            currentDsl = content.strip()
 
-        content = groups[-1]
+            f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
+            f.write(f"```python\n{currentDsl}\n```")
+            f.close()
+        else:
+            currentDsl = groups[-1].strip()
 
-        code = """from arc_types import *
-from constants import *
-from dsl import *
+        index += 1
 
-"""
-        code += content
-        
-        functions = load_dsl_functions(code, env)
+    if (cost):
+        costs = [trainResults[0][x].sum(skipna = False) for x in scoreColumns]
 
-        totalScores = []
+        if (debug):
+            print(" ".join(str(x) for x in [folder, task, "train"] + costs))
+            print(trainResults[0])
+            print("Total cost", cost)
+            print("Program length", len(currentDsl))
+            print("Program lines", len(currentDsl.split("\n")))
+            print(currentDsl)
 
-        for k, v in functions.items():
-            function = v["function"]
-            source = v["source"]
-            score = [0] * len(scoreFunctions)
+        return [currentDsl, folder, task, "train"] + costs
 
-            runner = DSLWorker()
-
-            try:
-                for pair in taskPairs[0]:
-                    for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, k, 5, tuple(map(tuple, pair[0].tolist())))), pair[1])
-
-                scores.append([";".join(source.split("\n"))] + [str(x) for x in score] + [str(sum(score))])
-                totalScores.append([k, source] + score + [sum(score)])
-            except (AttributeError, IndexError, NameError, RecursionError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError):
-                pass
-        
-            runner.terminate()
-
-        scores = sorted(scores, key = lambda x: (float(x[-1]), len(x[0])))
- 
-        if (len(scores)):
-            scores = [scores[0], scores[len(scores) // 2], scores[-1]]
-    
-        totalScores = sorted(totalScores, key = lambda x: x[-1])
-
-        if (len(totalScores)):
-            name = totalScores[0][0]
-            source = totalScores[0][1]
-            best_dsl = source
-
-            score = [0] * len(scoreFunctions)
-
-            runner = DSLWorker()
-
-            try:
-                for pair in taskPairs[1]:
-                    for i in range(0, len(scoreFunctions)):
-                        score[i] += scoreFunctions[i](np.array(runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))), pair[1])
-
-                costs = (np.array(totalScores[0][2:]) + np.array(score + [sum(score)])).tolist()
-            except (AttributeError, IndexError, NameError, RecursionError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError):
-                costs = [math.nan] * (len(scoreFunctions) + 1)
-
-            runner.terminate()
+    testResults = taskResults(currentDsl, taskPairs[1], "test")
+    cost = testResults[0][scoreColumns[-1]].sum(skipna = False)
+    costs = [testResults[0][x].sum(skipna = False) for x in scoreColumns]
 
     if (debug):
-        print(" ".join(str(x) for x in [folder, task] + costs))
-        print(best_dsl)
+        print(" ".join(str(x) for x in [folder, task, "test"] + costs))
+        print(testResults[0])
+        print("Total cost", cost)
+        print("Program length", len(currentDsl))
+        print("Program lines", len(currentDsl.split("\n")))
+        print(currentDsl)
 
-    return [best_dsl, folder, task] + costs
+    return [currentDsl, folder, task, "test"] + costs
 
 def test_task3c9b0459(): #Flip left/right and flip up/down
     assert(processTask("training", "3c9b0459")[-1] == 0)
@@ -495,27 +532,33 @@ def test_task():
 def run_tasks(folder: str) -> tuple[int, int]:
     assert(folder == "training" or folder == "evaluation")
 
-    url = urllib.request.urlopen("https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/" + folder + ".txt")
+    url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}.txt")
     data = url.read().decode()
     tasks = data.split("\n")
-
+    files = os.listdir(f"data/{folder}")
     unexploredTasks = []
 
     for task in tasks:
-        if (not os.path.isfile("data/" + folder + "/" + "output" + task + ".md")):
+        if (not any([task in x for x in files])):
             unexploredTasks.append(task)
 
     tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
+    tasks = tasks[:120] #TODO: to remove
+
+    if (folder == "training"):
+        tasks = ["90f3ed37"] #["90f3ed37", "46c35fc7", "351d6448"]
+    elif (folder == "evaluation"):
+        tasks = [] #["28a6681f", "9bbf930d", "7b5033c1"]
 
     with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
-            executor.map(lambda task: processTask(folder, task, debug = False), tasks),
+            executor.map(lambda task: processTask(folder, task, debug = True), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
     results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: (x[-1], len(x[0])))
 
-    f = open(folder + "_results.md", "w")
+    f = open(f"{folder}_results.md", "w")
 
     for result in results:
         f.write(" ".join(str(x) for x in result[1:]) + "\n")
