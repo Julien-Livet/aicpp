@@ -1,35 +1,33 @@
 training 90f3ed37 test 0.0 0.0 0.0 0.0 0.0
 ```python
-def dsl(I):
-    S = ofcolor(I, EIGHT)
-    hasR  = intersection(S, shift(S, LEFT))
-    has2R = intersection(S, shift(S, add(LEFT, LEFT)))
-    hasL  = intersection(S, shift(S, RIGHT))
-    has2L = intersection(S, shift(S, add(RIGHT, RIGHT)))
-    hasDR = intersection(S, shift(S, add(UP, LEFT)))
-    hasUL = intersection(S, shift(S, add(DOWN, RIGHT)))
-    hasUR = intersection(S, shift(S, add(DOWN, LEFT)))
-    hasDL = intersection(S, shift(S, add(UP, RIGHT)))
-
-    term = difference(S, combine(combine(hasR, has2R), hasDR))
-
-    # seeds for step-1 (contiguous)
-    T1  = shift(intersection(term, hasL), RIGHT)
-    Td1 = shift(intersection(difference(difference(term, has2L), hasL), difference(hasUL, hasUR)), add(DOWN, RIGHT))
-
-    # seeds for step-2 (checkerboard)
-    T2  = shift(intersection(term, has2L), add(RIGHT, RIGHT))
-    T2d = shift(intersection(intersection(term, has2L), hasDL), add(DOWN, RIGHT))
-
-    w = width(I)
-    ks = interval(ZERO, add(w, ONE), ONE)
-    V1 = apply(tojvec, ks)
-    V2 = apply(double, V1)
-
-    R1 = mapply(lbind(shift, combine(T1, Td1)), V1)
-    R2 = mapply(lbind(shift, combine(T2, T2d)), V2)
-    R  = combine(R1, R2)
-
-    O = underfill(I, ONE, R)
+def dsl3(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    OE = toobject(E, I)
+    HP = hperiod(OE)
+    AboveE = shift(E, UP)
+    R = difference(E, shift(E, LEFT))
+    L8 = intersection(E, shift(E, RIGHT))
+    Diag = combine(shift(E, UP_RIGHT), shift(E, DOWN_LEFT))
+    A = shift(intersection(R, L8), RIGHT)
+    B = shift(shift(intersection(R, Diag), RIGHT), RIGHT)
+    C = shift(difference(R, combine(L8, Diag)), RIGHT)
+    Af = difference(intersection(A, Z), AboveE)
+    Bf = difference(intersection(B, Z), AboveE)
+    Cf = difference(intersection(C, Z), AboveE)
+    RaysA = mapply(rbind(shoot, RIGHT), totuple(Af))
+    RaysB = mapply(rbind(shoot, RIGHT), totuple(Bf))
+    RaysC = mapply(rbind(shoot, RIGHT), totuple(Cf))
+    RaysP1 = combine(RaysA, combine(RaysB, shift(RaysC, DOWN)))
+    RR = difference(E, shift(E, RIGHT))
+    S0 = difference(intersection(shift(shift(RR, RIGHT), RIGHT), Z), AboveE)
+    T1 = shift(S0, ZERO_BY_TWO)
+    T2 = shift(T1, ZERO_BY_TWO)
+    T3 = shift(T2, ZERO_BY_TWO)
+    T4 = shift(T3, ZERO_BY_TWO)
+    T5 = shift(T4, ZERO_BY_TWO)
+    Points = combine(combine(S0, T1), combine(combine(T2, T3), combine(T4, T5)))
+    Patch = branch(equality(HP, TWO), Points, RaysP1)
+    O = underfill(I, ONE, Patch)
     return O
 ```

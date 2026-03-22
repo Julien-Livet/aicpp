@@ -1,32 +1,108 @@
 ```python
-def dsl(I):
-    S = ofcolor(I, EIGHT)
-    # adjacency among 8-cells
-    hasR  = intersection(S, shift(S, LEFT))                # immediate right neighbor
-    has2R = intersection(S, shift(S, add(LEFT, LEFT)))     # two-right neighbor
-    hasL  = intersection(S, shift(S, RIGHT))               # immediate left neighbor
-    has2L = intersection(S, shift(S, add(RIGHT, RIGHT)))   # two-left neighbor
-    hasDR = intersection(S, shift(S, add(UP, LEFT)))       # down-right neighbor
-    hasUL = intersection(S, shift(S, add(DOWN, RIGHT)))    # up-left neighbor
+def dsl1(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    R = difference(E, shift(E, LEFT))
+    D1 = intersection(R, shift(E, UP_RIGHT))
+    D2 = intersection(R, shift(E, DOWN_LEFT))
+    D = combine(D1, D2)
+    RN = difference(R, D)
+    S1 = shift(RN, RIGHT)
+    S2 = shift(shift(D, RIGHT), RIGHT)
+    S = intersection(combine(S1, S2), Z)
+    AboveE = shift(E, UP)
+    S = difference(S, AboveE)
+    Rays = mapply(rbind(shoot, RIGHT), totuple(S))
+    O = underfill(I, ONE, Rays)
+    return O
 
-    # terminal 8-cells: no right, no two-right, no down-right
-    term = difference(S, combine(combine(hasR, has2R), hasDR))
+def dsl2(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    R = difference(E, shift(E, LEFT))
+    LeftNbr8 = intersection(E, shift(E, RIGHT))
+    Multi = intersection(R, LeftNbr8)
+    Solo = difference(R, LeftNbr8)
+    Diag = combine(shift(E, UP_RIGHT), shift(E, DOWN_LEFT))
+    SoloHasDiag = intersection(Solo, Diag)
+    SoloNoDiag = difference(Solo, SoloHasDiag)
+    S_multi = shift(Multi, RIGHT)
+    S_sdiag = shift(shift(SoloHasDiag, RIGHT), RIGHT)
+    S_snd = shift(SoloNoDiag, RIGHT)
+    AboveE = shift(E, UP)
+    S_multiF = difference(intersection(S_multi, Z), AboveE)
+    S_sdiagF = difference(intersection(S_sdiag, Z), AboveE)
+    S_sndF = difference(intersection(S_snd, Z), AboveE)
+    Rays_multi = mapply(rbind(shoot, RIGHT), totuple(S_multiF))
+    Rays_sdiag = mapply(rbind(shoot, RIGHT), totuple(S_sdiagF))
+    Rays_snd = mapply(rbind(shoot, RIGHT), totuple(S_sndF))
+    Rays = combine(combine(Rays_multi, Rays_sdiag), shift(Rays_snd, DOWN))
+    O = underfill(I, ONE, Rays)
+    return O
 
-    # seeds
-    T1 = shift(intersection(term, hasL), RIGHT)                                # contiguous run -> start at j+1
-    Td = shift(intersection(difference(difference(term, has2L), hasL), hasUL), add(DOWN, RIGHT))  # diagonal end (not checkerboard) -> next row j+1
-    T2 = shift(intersection(term, has2L), add(RIGHT, RIGHT))                   # checkerboard run -> start at j+2
+def dsl3(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    S0 = intersection(shift(E, RIGHT), Z)
+    LeftNbr8 = intersection(E, shift(E, RIGHT))
+    S_run = intersection(S0, shift(LeftNbr8, RIGHT))
+    S_single = difference(S0, S_run)
+    Diag8 = combine(shift(E, UP_RIGHT), shift(E, DOWN_LEFT))
+    S_sdiag = intersection(S_single, shift(Diag8, RIGHT))
+    S_snd = difference(S_single, S_sdiag)
+    AboveE = shift(E, UP)
+    S_runF = difference(S_run, AboveE)
+    S_sdiagF = difference(S_sdiag, AboveE)
+    S_sndF = difference(S_snd, AboveE)
+    Rays_run = mapply(rbind(shoot, RIGHT), totuple(S_runF))
+    Rays_sdiag = mapply(rbind(shoot, RIGHT), totuple(shift(S_sdiagF, RIGHT)))
+    Rays_snd = mapply(rbind(shoot, RIGHT), totuple(S_sndF))
+    Rays = combine(Rays_run, combine(Rays_sdiag, shift(Rays_snd, DOWN)))
+    O = underfill(I, ONE, Rays)
+    return O
 
-    # propagation
-    w = width(I)
-    ks = interval(ZERO, add(w, ONE), ONE)
-    V1 = apply(tojvec, ks)             # (0, k)
-    V2 = apply(double, V1)             # (0, 2k)
+def dsl4(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    R = difference(E, shift(E, LEFT))
+    Top = difference(E, shift(E, DOWN))
+    Bot = difference(E, shift(E, UP))
+    Lnbr = intersection(E, shift(E, RIGHT))
+    Ends = intersection(R, Lnbr)
+    Solo = difference(R, Lnbr)
+    SoloT = intersection(Solo, Top)
+    SoloB = intersection(Solo, Bot)
+    S_ends = shift(Ends, RIGHT)
+    S_soloB = shift(SoloB, RIGHT)
+    S_soloT = shift(SoloT, RIGHT)
+    AboveE = shift(E, UP)
+    S_endsF = difference(intersection(S_ends, Z), AboveE)
+    S_soloBF = difference(intersection(S_soloB, Z), AboveE)
+    S_soloTF = difference(intersection(S_soloT, Z), AboveE)
+    Rays_ends = mapply(rbind(shoot, RIGHT), totuple(S_endsF))
+    Rays_soloB = mapply(rbind(shoot, RIGHT), totuple(S_soloBF))
+    Rays_soloT = mapply(rbind(shoot, RIGHT), totuple(S_soloTF))
+    Rays = combine(combine(Rays_ends, Rays_soloB), shift(Rays_soloT, DOWN))
+    O = underfill(I, ONE, Rays)
+    return O
 
-    R1 = mapply(lbind(shift, combine(T1, Td)), V1)
-    R2 = mapply(lbind(shift, T2), V2)
-    R  = combine(R1, R2)
-
-    O = underfill(I, ONE, R)
+def dsl5(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    R = difference(E, shift(E, LEFT))
+    L8 = intersection(E, shift(E, RIGHT))
+    Diag = combine(shift(E, UP_RIGHT), shift(E, DOWN_LEFT))
+    A = shift(intersection(R, L8), RIGHT)
+    B = shift(shift(intersection(R, Diag), RIGHT), RIGHT)
+    C = shift(difference(R, combine(L8, Diag)), RIGHT)
+    AboveE = shift(E, UP)
+    Af = difference(intersection(A, Z), AboveE)
+    Bf = difference(intersection(B, Z), AboveE)
+    Cf = difference(intersection(C, Z), AboveE)
+    RaysA = mapply(rbind(shoot, RIGHT), totuple(Af))
+    RaysB = mapply(rbind(shoot, RIGHT), totuple(Bf))
+    RaysC = mapply(rbind(shoot, RIGHT), totuple(Cf))
+    Rays = combine(combine(RaysA, RaysB), shift(RaysC, DOWN))
+    O = underfill(I, ONE, Rays)
     return O
 ```

@@ -1,9 +1,7 @@
 # ARC-AGI Benchmark Results
 
 ## Summary
-**28 tasks solved** with unified approach with TDD
-**102/177 tasks solved (57.6%)** with automatic unified approach for training tasks
-**3/120 tasks solved (2.5%)** with automatic unified approach for evaluation tasks
+**29 tasks solved** with unified approach with TDD
 
 ## TDD Solved Tasks
 - 67a3c6ac
@@ -34,3 +32,4 @@
 - 1cf80156
 - 32597951
 - 25ff71a9
+- 90f3ed37

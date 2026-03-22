@@ -238,7 +238,9 @@ def taskPrompt(trainPairs: list) -> str:
         
     return command
 
-def taskResults(source: str, pairs: list, label: str):
+def taskResults(source: str, pairs: list, label: str) -> tuple:
+    assert(label == "train" or label == "test")
+
     name = source.split("\n")[0].replace("def ", "").replace("(I):", "")
     runner = DSLWorker()
     scores = []
@@ -253,8 +255,8 @@ def taskResults(source: str, pairs: list, label: str):
                 output = runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))
                 score[i] += scoreFunctions[i](np.array(output), pair[1])
         except (AttributeError, IndexError, KeyError, NameError, RecursionError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError) as e:
-            if (type(e) != TimeoutError):
-                tracebacks.add("```\n" + e.traceback + "```")
+            if (hasattr(e, "traceback")):
+                tracebacks.add("```bash\n" + e.traceback + "```")
 
             score = [math.nan] * len(scoreFunctions)
             output = np.array(pair[0], dtype = float)
@@ -270,14 +272,41 @@ def taskResults(source: str, pairs: list, label: str):
 
     return (df, outputs, tracebacks)
 
+def outputPrograms(outputFile: str, pairs: list, step: str):
+    assert(step == "train" or step == "test")
+
+    f = open(outputFile, "r")
+    content = f.read()
+    f.close()
+    
+    groups = re.findall(r'```python(.*?)```', content, flags = re.S)
+
+    assert(len(groups))
+
+    groups = re.findall(r'def (dsl\d)\(I\):\s*(.*?)(?=\ndef dsl\d|\Z)', groups[-1], re.S)
+
+    assert(len(groups) == 5)
+
+    programs = []
+
+    for group in groups:
+        dsl = f"def {group[0]}(I):\n    " + group[1].strip()
+        programs.append((dsl, taskResults(dsl, pairs, step)))
+
+    return programs
+
 def processTask(folder: str, task: str, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
 
-    cost = math.nan
-    currentDsl = """def dsl(I):
+    programs = []
+
+    for i in range(0, 5):
+        dsl = f"""def dsl{i+1}(I):
     O = I
     return O"""
+        programs.append((dsl, taskResults(dsl, taskPairs[0], "train")))
+
     index = 0
 
     for file in os.listdir(f"data/{folder}"):
@@ -285,24 +314,10 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
             index = max(index, int(file.replace(".md", "").replace(f"{task}-input-", "")))
 
     if (os.path.exists(f"data/{folder}/{task}-output-{index:03d}.md")):
-        f = open(f"data/{folder}/{task}-output-{index:03d}.md", "r")
-        content = f.read()
-        f.close()
-
-        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
-
-        if (len(groups)):
-            currentDsl = groups[-1].strip()
-            index += 1
+        programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
+        index += 1
     elif (os.path.exists(f"data/{folder}/{task}-output-{index-1:03d}.md")):
-        f = open(f"data/{folder}/{task}-output-{index-1:03d}.md", "r")
-        content = f.read()
-        f.close()
-
-        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
-
-        if (len(groups)):
-            currentDsl = groups[-1].strip()
+        programs = outputPrograms(f"data/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
 
     arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
     constants_module = load_module("constants", "arc-dsl/constants.py")
@@ -313,79 +328,201 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
     env.update(vars(constants_module))
     env.update(vars(dsl_module))
 
+    bestProgram = programs[0]
+
     for _ in range(0, 10):
         command = taskPrompt(trainPairs) + "\n"
-        command += "Current DSL program:\n"
-        command += "```python\n"
-        command += currentDsl + "\n"
-        command += "```\n"
+        nanValues = False
 
-        trainResults = taskResults(currentDsl, taskPairs[0], "train")
-        cost = trainResults[0][scoreColumns[-1]].sum(skipna = False)
+        for i, program in enumerate(programs):
+            command += f"**Program {i+1}**\n"
+            command += "*DSL*\n"
+            command += "```python\n"
+            command += program[0] + "\n"
+            command += "```\n"
 
-        if (not cost):
-            break
-        elif (debug):
-            print(trainResults[0])
-            print("Total cost", cost)
-            print("Program length", len(currentDsl))
-            print("Program lines", len(currentDsl.split("\n")))
+            cost = program[1][0][scoreColumns[-1]].sum(skipna = False)
+            bestCost = bestProgram[1][0][scoreColumns[-1]].sum(skipna = False)
 
-        command += "\nExplosive scores:\n"
-        command += trainResults[0].to_csv(sep = ",", na_rep = "nan")
-        command += "\nOutput grids:\n"
-        command += "\n".join(list(filter(lambda x: not "NaN" in x, [f"train{i+1}: " + str(x) for i, x in enumerate(trainResults[1])]))) + "\n"
+            if (cost < bestCost):
+                bestProgram = program
+            elif (cost == bestCost and len(program[0]) < len(bestProgram[0])):
+                bestProgram = program
 
-        if (len(trainResults[2])):
-            command += "\nTracebacks:\n"
-            command += "\n".join([str(x) for x in trainResults[2]]) + "\n"
+            if (debug):
+                print(f"Program {i+1}")
+                print(program[1][0])
+                print("Total cost", cost)
+                print("Program length", len(program[0]))
+                print("Program lines", len(program[0].split("\n")))
 
-        command += """\nThe goal is to incrementally improve the current DSL program to match the examples, while avoiding previously low-scoring solutions, in two steps:
-1. Expansion: add missing generic concepts to fix observed errors.
-2. Reduction: refactor the program into a minimal, unified, and fully factorized form.
+            command += "\n*Explosive scores*\n\n"
+            command += program[1][0].to_markdown() + "\n"
+            command += "\n*Output grids*\n"
+            command += "\n".join(list(filter(lambda x: not "nan" in x, [f"train{i+1}: " + str(x) for i, x in enumerate(program[1][1])]))) + "\n"
 
-Constraints:
-- Use a single transformation pipeline.
-- All spatial propagation must be expressed as:
-    vectors = ...
-    shifted = mapply(shift, vectors)
-- The final result must be obtained by filtering (masking) these propagated indices.
-- Do not implement multiple propagation mechanisms or case-based logic.
-- All variations (direction, step size, repetition) must be encoded as data (vectors), not separate branches.
-- Avoid row-level or object-level special cases; operate directly on indices whenever possible.
+            if (len(program[1][2])):
+                nanValues = True
+                command += "\n*Tracebacks*\n"
+                command += "\n".join([str(x) for x in program[1][2]]) + "\n"
+
+            command += "\n---\n\n"
+
+        command += """The goal is to improve the 5 DSL programs incrementally in two phases:
+
+--------------------------------
+PHASE 1 — EXPANSION (DISCOVERY)
+--------------------------------
+
+- Analyze failures and identify missing spatial or relational patterns.
+- Introduce new intermediate concepts using ONLY the provided DSL primitives.
+- All transformations MUST be expressed as compositions of DSL primitives.
+- Do NOT write imperative logic (loops, indexing, or manual grid traversal).
+- Do NOT use global case distinctions based on grid-level properties.
 
 Guidelines:
-- Merge all similar transformations into one parameterized rule.
-- Replace repeated patterns with higher-order constructs (interval, apply, mapply).
-- Prefer invariant and position-independent primitives.
-- Eliminate unnecessary conditions and constants.
+- Represent all structures as sets of indices or objects derived from the grid.
+- Express behaviors as transformations over these sets.
+- You may use multiple intermediate concepts, but each must be defined using DSL primitives.
+- Avoid hardcoded positional logic or scanning patterns.
 
-Goal:
-Produce the simplest program that applies a single coherent transformation rule uniformly across the grid.\n"""
+--------------------------------
+PHASE 2 — REDUCTION (ABSTRACTION)
+--------------------------------
 
-        if (len(trainResults[2])):
-            command += "\nNaN values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.\n"
+- Identify structurally similar transformations.
+- Merge them into higher-order transformations using apply, mapply, interval, etc.
+- Reduce program length and number of concepts.
 
-        command += """\nGenerate the new DSL program issued from the step 2.
+Guidelines:
+- Merge only transformations that share the same structure.
+- Prefer parameterized transformations over duplicated logic.
+- Avoid unnecessary intermediate variables.
 
-A good final program should look like:
-```python
-def dsl(I):
-    # 1. Extract entities
-    x1 = objects(...)
-    # 2. For each entity, select the best transformation
-    x2 = mapply(some_transform, x1)
-    # 3. Apply to grid
-    O = underfill(I, ONE, x2)
-    return O
-```
+--------------------------------
+STRICT DSL CONSTRAINTS
+--------------------------------
+
+- The final program MUST be written entirely using the provided DSL primitives.
+- No Python control flow (if, for, while).
+- No manual indexing (index, shape, etc.).
+- No explicit loops or list comprehensions.
+- No global grid analysis (e.g. "if a full row exists", "if checkerboard pattern exists").
+
+--------------------------------
+STRUCTURAL BIAS
+--------------------------------
+
+- Prefer local, compositional rules over global heuristics.
+- Prefer transformations that operate uniformly across the grid.
+- Avoid splitting the solution into unrelated cases.
+
+--------------------------------
+SEARCH STRATEGY
+--------------------------------
+
+- Maintain multiple candidate programs with different structural approaches.
+- Vary:
+    - how anchors are defined,
+    - how propagation directions are constructed,
+    - how masks are generated.
+- Avoid reusing previously failed structural ideas.
+
+--------------------------------
+OBJECTIVE
+--------------------------------
+
+Among correct programs, prefer those that:
+- use fewer concepts,
+- are fully expressed in DSL primitives,
+- and describe the transformation as a composition of local operations.
+
+The program must use a single consistent rule to decide where to apply the transformation.
+Do not combine multiple independent heuristics (parity, diagonal, density, etc.).
+Choose ONE principle and apply it consistently.
+Identify a single property that explains all training examples.
+Use only that property to guide the transformation.
+Remove any part of the program that does not strictly improve performance on all training examples.
+Prefer shorter and simpler programs.
+Try removing a component of the logic and check if performance improves.
+
+If the transformation cannot be explained by a single local rule,
+introduce a global structural property (e.g., symmetry, periodicity, alignment)
+and branch on it.
+
+Avoid reusing previously tried concepts such as:
+- parity-based rules
+- diagonal propagation
+- run-length heuristics
+unless they clearly solve all examples.
+
+Prefer solutions that are:
+1. correct on all training examples
+2. simple
+3. based on a single idea
+
+Each program MUST belong to a different reasoning family:
+1. Global transformation:
+   - Apply operations like crop, compress, trim, downscale, symmetry
+2. Object extraction:
+   - Identify a subset of pixels (e.g., using ofcolor or object detection)
+   - Extract a subgrid or bounding box from them
+3. Color filtering:
+   - Select or remove specific colors and reconstruct the output
+4. Geometric reasoning:
+   - Use symmetry, mirroring, alignment, or relative positions
+5. Relational / structural reasoning:
+   - Use relationships between parts (e.g., center, adjacency, repetition)
+
+Constraints:
+- Each program must use a DIFFERENT core strategy
+- Avoid reusing the same sequence of operations
+- Use the DSL primitives explicitly
+- Avoid reusing the same core operators across candidates
+- Each program should reflect a distinct hypothesis about the task
+
+
+Programs should be short, clean, and compositional.
+Prefer minimal and compositional programs.
+
+Important:
+Do NOT generate 5 variations of the same idea.
+
+Before writing each program, explicitly choose a different reasoning strategy.
+
+If two programs use similar primitives (e.g., both use compress + downscale),
+they will be considered invalid.\n"""
+
+        if (nanValues):
+            command += "\nnan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.\n"
+
+        command += """\nGenerate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
 EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
 ```python
-def dsl(I):
-    O = vmirror(I)
+def dsl1(I):
+    # O = ...
+    return O
+
+def dsl2(I):
+    # O = ...
+    return O
+
+def dsl3(I):
+    # O = ...
+    return O
+
+def dsl4(I):
+    # O = ...
+    return O
+
+def dsl5(I):
+    # O = ...
     return O
 ```"""
+
+        if (not bestProgram[1][0][scoreColumns[-1]].sum(skipna = False)):
+            break
 
         f = open(f"data/{folder}/{task}-input-{index:03d}.md", "w")
         f.write(command)
@@ -394,51 +531,45 @@ def dsl(I):
         content = callLLM(command)
 
         if (len(content) == 0):
-            return [currentDsl, folder, task, "train", cost]
+            return [bestProgram[0], folder, task, "train"] + [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
+
+        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
+
+        if (len(groups) == 0):
+            content = f"```python\n{content}\n```"
 
         f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
 
-        groups = re.findall(r'```python(.*?)```', content, flags = re.S)
-
-        if (len(groups) == 0):
-            currentDsl = content.strip()
-
-            f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
-            f.write(f"```python\n{currentDsl}\n```")
-            f.close()
-        else:
-            currentDsl = groups[-1].strip()
-
+        programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
+    
+    costs = [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
 
-    if (cost):
-        costs = [trainResults[0][x].sum(skipna = False) for x in scoreColumns]
-
+    if (costs[-1]):
         if (debug):
             print(" ".join(str(x) for x in [folder, task, "train"] + costs))
-            print(trainResults[0])
+            print(bestProgram[1][0])
             print("Total cost", cost)
-            print("Program length", len(currentDsl))
-            print("Program lines", len(currentDsl.split("\n")))
-            print(currentDsl)
+            print("Program length", len(bestProgram[0]))
+            print("Program lines", len(bestProgram[0].split("\n")))
+            print(bestProgram[0])
 
-        return [currentDsl, folder, task, "train"] + costs
+        return [bestProgram[0], folder, task, "train"] + costs
 
-    testResults = taskResults(currentDsl, taskPairs[1], "test")
-    cost = testResults[0][scoreColumns[-1]].sum(skipna = False)
+    testResults = taskResults(bestProgram[0], taskPairs[1], "test")
     costs = [testResults[0][x].sum(skipna = False) for x in scoreColumns]
 
     if (debug):
         print(" ".join(str(x) for x in [folder, task, "test"] + costs))
         print(testResults[0])
-        print("Total cost", cost)
-        print("Program length", len(currentDsl))
-        print("Program lines", len(currentDsl.split("\n")))
-        print(currentDsl)
+        print("Total cost", costs[-1])
+        print("Program length", len(bestProgram[0]))
+        print("Program lines", len(bestProgram[0].split("\n")))
+        print(bestProgram[0])
 
-    return [currentDsl, folder, task, "test"] + costs
+    return [bestProgram[0], folder, task, "test"] + costs
 
 def test_task3c9b0459(): #Flip left/right and flip up/down
     assert(processTask("training", "3c9b0459")[-1] == 0)
@@ -524,6 +655,9 @@ def test_task32597951():
 def test_task25ff71a9():
     assert(processTask("training", "25ff71a9")[-1] == 0)
 
+def test_task90f3ed37():
+    assert(processTask("training", "90f3ed37")[-1] == 0)
+
 """
 def test_task():
     assert(processTask("training", "")[-1] == 0)
@@ -545,11 +679,6 @@ def run_tasks(folder: str) -> tuple[int, int]:
     tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
     tasks = tasks[:120] #TODO: to remove
 
-    if (folder == "training"):
-        tasks = ["90f3ed37"] #["90f3ed37", "46c35fc7", "351d6448"]
-    elif (folder == "evaluation"):
-        tasks = [] #["28a6681f", "9bbf930d", "7b5033c1"]
-
     with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
             executor.map(lambda task: processTask(folder, task, debug = True), tasks),
@@ -567,7 +696,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
     f.close()
 
     return sum(1 for r in results if r[-1] == 0), len(tasks)
-
+""" #TODO: to remove
 def test_training_tasks():
     count, tasks = run_tasks("training")
 
@@ -577,3 +706,4 @@ def test_evaluation_tasks():
     count, tasks = run_tasks("evaluation")
 
     print(f"{count}/{tasks} {count/tasks*100}% passed evaluation tasks")
+""" #TODO: to remove

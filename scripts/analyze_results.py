@@ -15,10 +15,10 @@ def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
 
     for cost in costs:
         for k, v in cost.items():
-            ax.plot(x, v, label = k)
+            ax.plot(x, v, label = k, marker='o')
 
-    ax.plot(x, np.log([len(x) for x in dsls]), label = "Program length (log)")
-    ax.plot(x, [len(x.split("\n")) for x in dsls], label = "Program lines")
+    ax.plot(x, np.log([len(x) for x in dsls]), label = "Program length (log)", marker='o')
+    ax.plot(x, [len(x.split("\n")) for x in dsls], label = "Program lines", marker='o')
     fig.suptitle(" ".join([folder, step, "results"]))
     plt.xticks(x, labels, rotation = 'vertical')
     plt.legend()

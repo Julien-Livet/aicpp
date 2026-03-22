@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+import re
 import sys
 
 def plotTask(folder: str, task: str):
@@ -10,7 +11,6 @@ def plotTask(folder: str, task: str):
 
     files = os.listdir(f"data/{folder}")
     inputFiles = sorted(filter(lambda x: "input" in x, files))
-    #outputFiles = sorted(filter(lambda x: "output" in x, files))
 
     results = []
     programs = []
@@ -21,72 +21,100 @@ def plotTask(folder: str, task: str):
         f.close()
 
         lines = content.split("\n")
-        grid = []
-        add = False
+        index = 0
+        programSet = []
 
-        for i in range(0, len(lines)):
-            if (lines[i] == "Explosive scores:"):
-                add = True
-            elif (add):
-                if (len(lines[i])):
-                    grid.append(lines[i])
-                else:
-                    break
-    
-        grid = "\n".join(grid)
-        results.append(pd.read_table(StringIO(grid), sep = ','))
-        
-        program = []
-        add = False
+        for i in range(0, 5):
+            while (not lines[index].startswith("**Program")):
+                index += 1
 
-        for i in range(0, len(lines)):
-            if (lines[i] == "Current DSL program:"):
-                add = True
-            elif (add):
-                if (lines[i] != "```"):
-                    program.append(lines[i])
-                else:
-                    break
+            while (lines[index] != "*DSL*"):
+                index += 1
 
-        program = "\n".join(program)
-        programs.append(program)
+            index += 2
+            program = []
 
-    costs =  {}
+            while (lines[index] != "```"):
+                program.append(lines[index])
+                index += 1
 
-    for result in results:
-        for row in result.iterrows():
-            label = row[1][result.columns[0]]
-            d = costs.get(label, {})
+            program = "\n".join(program)
 
-            for index, val in list(row[1].items())[1:]:
-                l = d.get(index, [])
-                l.append(val)
-                d[index] = l
+            while (lines[index] != "*Explosive scores*"):
+                index += 1
 
-            costs[label] = d
+            index += 2
+            grid = []
 
-    
-    totalCosts = {}
-    
-    for k, v in list(costs.values())[0].items():
-        totalCosts[k] = np.array(v) * 0
+            while (len(lines[index])):
+                grid.append(lines[index])
+                index += 1
 
-    for value in list(costs.values())[1:]:
-        for k, v in value.items():
-            totalCosts[k] += v
+            grid = "\n".join(grid)
+            
+            df = pd.read_table(StringIO(grid), sep="|", skiprows=[1])
+            df = df.drop(columns = [col for col in df.columns if "Unnamed" in col])
+            df.columns = df.columns.str.strip()
+            df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+            df = df.set_index(df.columns[0]).astype(float)
 
-    costs["total"] = totalCosts
+            programSet.append((program, df))
 
-    fig, ax = plt.subplots(nrows = len(costs) + 1, ncols = 1)
+        programs.append(programSet)
 
-    for i, (k1, v1) in enumerate(costs.items()):
-        for k2, v2 in v1.items():
-            ax[i].plot(range(len(v2)), v2, label = k2)
-            ax[i].set_title(k1)
+    dsl, df = programs[0][0]
+    costs = {}
 
-    ax[-1].plot(range(len(programs)), [len(x.split("\n")) for x in programs], label = "Program lines")
-    ax[-1].plot(range(len(programs)), np.log([len(x) for x in programs]), label = "Program length (log)")
-    ax[-1].set_title("Programs")
+    for row in df.iterrows():
+        costs[row[0]] = []
+
+        for program in programs[0]:
+            d = {}
+
+            for index, _ in list(row[1].items())[1:]:
+                d[index] = []
+
+            costs[row[0]].append(d)
+
+    for programSet in programs:
+        for i, program in enumerate(programSet):
+            dsl, df = program
+
+            for row in df.iterrows():
+                label = row[0]
+                d = costs[label][i]
+
+                for index, val in list(row[1].items())[1:]:
+                    l = d.get(index, [])
+                    l.append(val)
+                    d[index] = l
+
+    fig, ax = plt.subplots(nrows = len(costs) + 1, ncols = len(programs[0]))
+
+    for i, (name, programCost) in enumerate(costs.items()):
+        for j, cost in enumerate(programCost):
+            for key, value in cost.items():
+                ax[i, j].plot(range(len(value)), value, label = key, marker='o')
+                ax[i, j].set_title(" ".join([name, f"Program {j+1}"]))
+                ax[i, j].legend(loc = "upper right")
+
+    lines = {}
+    length = {}
+
+    for i in range(0, len(programs[0])):
+        lines[i] = []
+        length[i] = []
+
+    for programSet in programs:
+        for i, program in enumerate(programSet):
+            lines[i].append(len(program[0].split("\n")))
+            length[i].append(len(program[0]))
+
+    for i in range(0, len(lines)):
+        ax[-1, i].plot(range(len(lines[i])), lines[i], label = "Program lines", marker='o')
+        ax[-1, i].plot(range(len(length[i])), np.log(length[i]), label = "Program length (log)", marker='o')
+        ax[-1, i].set_title(" ".join(["Programs", f"Program {j+1}"]))
+        ax[-1, i].legend(loc = "upper right")
 
     fig.suptitle(" ".join([folder, task, "results"]))
     plt.legend()

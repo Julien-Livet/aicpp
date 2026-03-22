@@ -1,32 +1,58 @@
 ```python
-def dsl(I):
-    # Extract 8-cells
-    S = ofcolor(I, EIGHT)
-    # Predecessor detectors
-    P1 = shift(S, LEFT)                  # has 8 immediately to the left
-    P2 = shift(S, add(LEFT, LEFT))       # has 8 two to the left
-    Pd = shift(S, add(UP, LEFT))         # has 8 up-left
-    Upr = shift(S, add(UP, RIGHT))       # has 8 up-right
-    # True terminal 8s: no successor to right, down-right, or two-right
-    term = difference(S, combine(combine(P1, Pd), P2))
-    # Tip classes
-    tips1 = intersection(term, P1)                                   # extend by step 1 on same row
-    tips2 = combine(difference(intersection(term, P2), P1),          # extend by step 2 on same row
-                    intersection(intersection(term, Pd), Upr))
-    tipsd = difference(difference(intersection(term, Pd), Upr),      # extend by step 1 on next row
-                       combine(P1, P2))
-    # Propagation vectors
-    w = width(I)
-    ks = interval(ONE, add(w, ONE), ONE)
-    V1 = apply(tojvec, ks)                       # (0, k)
-    V2 = apply(double, V1)                       # (0, 2k)
-    Iv = repeat(toivec(ONE), size(ks))           # (1, 0) repeated
-    Vb = mpapply(add, Iv, V1)                    # (1, k)
-    # Propagate from tips
-    R = combine(combine(mapply(lbind(shift, tips1), V1),
-                        mapply(lbind(shift, tips2), V2)),
-                mapply(lbind(shift, tipsd), Vb))
-    # Paint ones on background
-    O = underfill(I, ONE, R)
+def dsl1(I):
+    E = ofcolor(I, EIGHT)
+    RightNbr = shift(E, LEFT)
+    Rightmost = difference(E, RightNbr)
+    BelowNbr = shift(E, UP)
+    Lowermost = difference(E, BelowNbr)
+    Anch = intersection(Rightmost, Lowermost)
+    S = shift(Anch, RIGHT)
+    Rays = mapply(rbind(shoot, RIGHT), totuple(S))
+    O = underfill(I, ONE, Rays)
+    return O
+
+def dsl2(I):
+    E = ofcolor(I, EIGHT)
+    L = shift(E, LEFT)
+    R = shift(E, RIGHT)
+    HAdj = combine(L, R)
+    IsoH = difference(E, HAdj)
+    S = shift(IsoH, RIGHT)
+    Rays = mapply(rbind(shoot, RIGHT), totuple(S))
+    RaysD = shift(Rays, DOWN)
+    O = underfill(I, ONE, RaysD)
+    return O
+
+def dsl3(I):
+    E = ofcolor(I, EIGHT)
+    Topmost = difference(E, shift(E, UP))
+    Rightmost = difference(E, shift(E, LEFT))
+    Corners = intersection(Topmost, Rightmost)
+    S = shift(Corners, RIGHT)
+    Rays = mapply(rbind(shoot, RIGHT), totuple(S))
+    O = underfill(I, ONE, Rays)
+    return O
+
+def dsl4(I):
+    E = ofcolor(I, EIGHT)
+    Z = ofcolor(I, ZERO)
+    S = intersection(shift(E, RIGHT), Z)
+    Rays = mapply(rbind(shoot, RIGHT), totuple(S))
+    O = underfill(I, ONE, Rays)
+    return O
+
+def dsl5(I):
+    E = ofcolor(I, EIGHT)
+    Rightmost = difference(E, shift(E, LEFT))
+    VAdj = combine(shift(E, UP), shift(E, DOWN))
+    VertIso = difference(E, VAdj)
+    A = intersection(Rightmost, VertIso)
+    B = difference(Rightmost, A)
+    SA = shift(A, RIGHT)
+    SB = shift(B, RIGHT)
+    RaysA = mapply(rbind(shoot, RIGHT), totuple(SA))
+    RaysB = mapply(rbind(shoot, RIGHT), totuple(SB))
+    Rays = combine(shift(RaysA, DOWN), RaysB)
+    O = underfill(I, ONE, Rays)
     return O
 ```
