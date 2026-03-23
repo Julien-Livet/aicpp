@@ -12,7 +12,6 @@ def plotTask(folder: str, task: str):
     files = os.listdir(f"data/{folder}")
     inputFiles = sorted(filter(lambda x: "input" in x, files))
 
-    results = []
     programs = []
 
     for file in inputFiles:

@@ -73,13 +73,13 @@ def analyseFolder(folder: str):
                 testDsls.append("\n".join(dsl))
 
         i += 1
-    """
+
     if (len(trainLabels)):
         plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
 
     if (len(testLabels)):
         plotTasks(folder, "test", testLabels, testCosts, testDsls)
-    """
+
     taskTotal = len(trainLabels) + len(testLabels)
 
     if (taskTotal):
