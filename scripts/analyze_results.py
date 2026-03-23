@@ -73,17 +73,27 @@ def analyseFolder(folder: str):
                 testDsls.append("\n".join(dsl))
 
         i += 1
-
+    """
     if (len(trainLabels)):
         plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
 
     if (len(testLabels)):
         plotTasks(folder, "test", testLabels, testCosts, testDsls)
-
-    taskTotal = len(testLabels) + len(testLabels)
-    optimalCount = len(list(filter(lambda x: not x, testCosts)))
+    """
+    taskTotal = len(trainLabels) + len(testLabels)
 
     if (taskTotal):
+        taskCosts = {}
+
+        for v in testCosts[0].keys():
+            taskCosts[v] = []
+
+        for cost in testCosts:
+            for k, v in cost.items():
+                taskCosts[k].append(v)
+
+        optimalCount = len(list(filter(lambda x: not x, taskCosts[list(taskCosts.keys())[-1]])))
+
         print(folder)
         print(f"{len(testLabels)/taskTotal*100}% passing train dataset")
         print(f"{optimalCount/taskTotal*100}% passing test dataset")
