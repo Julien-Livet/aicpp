@@ -1,0 +1,88 @@
+```python
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    eights = colorfilter(objs, EIGHT)
+    non8 = difference(objs, eights)
+    zeros = colorfilter(objs, ZERO)
+    seeds = difference(non8, zeros)
+    pairs = product(seeds, eights)
+    cond = matcher(fork(gravitate, first, last), UNITY)
+    chosen = sfilter(pairs, cond)
+    recol = apply(fork(recolor, compose(color, first), last), chosen)
+    recolmerged = merge(recol)
+    seeds_idx = mapply(toindices, seeds)
+    base = fill(I, ZERO, seeds_idx)
+    O = paint(base, recolmerged)
+    return O
+
+def dsl2(I):
+    objs = objects(I, T, F, T)
+    eights = colorfilter(objs, EIGHT)
+    non8 = difference(objs, eights)
+    zeros = colorfilter(objs, ZERO)
+    seeds = difference(non8, zeros)
+    pairs = product(seeds, eights)
+    tgtul = fork(add, compose(center, first), rbind(identity, UNITY))
+    cond = fork(equality, compose(ulcorner, last), tgtul)
+    chosen = sfilter(pairs, cond)
+    recol = apply(fork(recolor, compose(color, first), last), chosen)
+    recolmerged = merge(recol)
+    seeds_idx = mapply(toindices, seeds)
+    base = fill(I, ZERO, seeds_idx)
+    O = paint(base, recolmerged)
+    return O
+
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    eights = colorfilter(objs, EIGHT)
+    non8 = difference(objs, eights)
+    zeros = colorfilter(objs, ZERO)
+    seeds = difference(non8, zeros)
+    pairs = product(seeds, eights)
+    sh = compose(rbind(shift, UNITY), first)
+    shidx = compose(toindices, sh)
+    cond = matcher(fork(manhattan, shidx, last), ZERO)
+    chosen = sfilter(pairs, cond)
+    recol = apply(fork(recolor, compose(color, first), last), chosen)
+    recolmerged = merge(recol)
+    seeds_idx = mapply(toindices, seeds)
+    base = fill(I, ZERO, seeds_idx)
+    O = paint(base, recolmerged)
+    return O
+
+def dsl4(I):
+    objs = objects(I, T, F, T)
+    eights = colorfilter(objs, EIGHT)
+    non8 = difference(objs, eights)
+    zeros = colorfilter(objs, ZERO)
+    seeds = difference(non8, zeros)
+    pairs = product(seeds, eights)
+    cond = matcher(compose(sign, fork(position, first, last)), UNITY)
+    chosen = sfilter(pairs, cond)
+    recol = apply(fork(recolor, compose(color, first), last), chosen)
+    recolmerged = merge(recol)
+    seeds_idx = mapply(toindices, seeds)
+    base = fill(I, ZERO, seeds_idx)
+    O = paint(base, recolmerged)
+    return O
+
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    eights = colorfilter(objs, EIGHT)
+    non8 = difference(objs, eights)
+    zeros = colorfilter(objs, ZERO)
+    seeds = difference(non8, zeros)
+    pairs = product(seeds, eights)
+    sh = compose(rbind(shift, UNITY), first)
+    shidx = compose(toindices, sh)
+    condA = matcher(fork(gravitate, first, last), UNITY)
+    condB = matcher(fork(manhattan, shidx, last), ZERO)
+    cond = fork(both, condA, condB)
+    chosen = sfilter(pairs, cond)
+    recol = apply(fork(recolor, compose(color, first), last), chosen)
+    recolmerged = merge(recol)
+    seeds_idx = mapply(toindices, seeds)
+    base = fill(I, ZERO, seeds_idx)
+    O = paint(base, recolmerged)
+    return O
+```

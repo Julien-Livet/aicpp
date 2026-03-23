@@ -12,10 +12,17 @@ def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
     print(f"Task ratio with a total cost < {maxCost}: {len(list(filter(lambda x: x < maxCost, totalCosts))) / len(totalCosts) * 100}%")
 
     x = range(0, len(labels))
+    taskCosts = {}
+
+    for v in costs[0].keys():
+        taskCosts[v] = []
 
     for cost in costs:
         for k, v in cost.items():
-            ax.plot(x, v, label = k, marker='o')
+            taskCosts[k].append(v)
+
+    for k, v in taskCosts.items():
+        ax.plot(x, v, label = k, marker='o')
 
     ax.plot(x, np.log([len(x) for x in dsls]), label = "Program length (log)", marker='o')
     ax.plot(x, [len(x.split("\n")) for x in dsls], label = "Program lines", marker='o')

@@ -254,7 +254,7 @@ def taskResults(source: str, pairs: list, label: str) -> tuple:
             for i in range(0, len(scoreFunctions)):
                 output = runner.run_with_timeout(source, name, 5, tuple(map(tuple, pair[0].tolist())))
                 score[i] += scoreFunctions[i](np.array(output), pair[1])
-        except (AttributeError, IndexError, KeyError, NameError, RecursionError, StopIteration, TimeoutError, TypeError, ValueError, ZeroDivisionError) as e:
+        except (AttributeError, IndexError, KeyError, NameError, RecursionError, RuntimeError, StopIteration, SyntaxError, TimeoutError, TypeError, ValueError, ZeroDivisionError) as e:
             if (hasattr(e, "traceback")):
                 tracebacks.add("```bash\n" + e.traceback + "```")
 
@@ -524,6 +524,9 @@ def dsl5(I):
         if (not bestProgram[1][0][scoreColumns[-1]].sum(skipna = False)):
             break
 
+        if (index > 9):
+            break
+
         f = open(f"data/{folder}/{task}-input-{index:03d}.md", "w")
         f.write(command)
         f.close()
@@ -676,12 +679,12 @@ def run_tasks(folder: str) -> tuple[int, int]:
         if (not any([task in x for x in files])):
             unexploredTasks.append(task)
 
-    tasks = sorted(unexploredTasks) + sorted(set(tasks) - set(unexploredTasks))
+    tasks = sorted(set(tasks) - set(unexploredTasks)) + sorted(unexploredTasks)
     tasks = tasks[:120] #TODO: to remove
 
     with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
-            executor.map(lambda task: processTask(folder, task, debug = True), tasks),
+            executor.map(lambda task: processTask(folder, task, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
@@ -696,12 +699,12 @@ def run_tasks(folder: str) -> tuple[int, int]:
     f.close()
 
     return sum(1 for r in results if r[-1] == 0), len(tasks)
-""" #TODO: to remove
+
 def test_training_tasks():
     count, tasks = run_tasks("training")
 
     print(f"{count}/{tasks} {count/tasks*100}% passed training tasks")
-
+""" #TODO: to remove
 def test_evaluation_tasks():
     count, tasks = run_tasks("evaluation")
 

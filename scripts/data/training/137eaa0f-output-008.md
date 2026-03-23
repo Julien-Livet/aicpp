@@ -1,0 +1,112 @@
+```python
+def dsl1(I):
+    C = compress(I)
+    W = width(C)
+    H = height(C)
+    RT = crop(C, toivec(ZERO), astuple(ONE, W))
+    RM = crop(C, toivec(halve(H)), astuple(ONE, W))
+    RB = crop(C, toivec(decrement(H)), astuple(ONE, W))
+    neg3 = subtract(NEG_TWO, ONE)
+    def row_last3(R):
+        NZ = difference(asindices(R), ofcolor(R, ZERO))
+        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J3 = rightmost(P3)
+        NZ2 = difference(NZ, intersection(NZ, vfrontier(astuple(ZERO, J3))))
+        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J2 = rightmost(P2)
+        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
+        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J1 = rightmost(P1)
+        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
+        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
+        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
+        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
+    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    return O
+
+def dsl2(I):
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    S = subgrid(NZ, I)
+    W = width(S)
+    H = height(S)
+    RT = crop(S, toivec(ZERO), astuple(ONE, W))
+    RM = crop(S, toivec(halve(H)), astuple(ONE, W))
+    RB = crop(S, toivec(decrement(H)), astuple(ONE, W))
+    neg3 = subtract(NEG_TWO, ONE)
+    def row_last3(R):
+        NZr = difference(asindices(R), ofcolor(R, ZERO))
+        P3 = combine(combine(combine(NZr, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J3 = rightmost(P3)
+        NZ2 = difference(NZr, intersection(NZr, vfrontier(astuple(ZERO, J3))))
+        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J2 = rightmost(P2)
+        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
+        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J1 = rightmost(P1)
+        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
+        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
+        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
+        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
+    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    return O
+
+def dsl3(I):
+    P = palette(I)
+    PNZ = remove(ZERO, P)
+    COUNT = lbind(colorcount, I)
+    C1 = argmin(PNZ, COUNT)
+    R1 = remove(C1, PNZ)
+    C2 = branch(positive(size(R1)), argmin(R1, COUNT), C1)
+    R2 = remove(C2, R1)
+    C3 = branch(positive(size(R2)), argmin(R2, COUNT), C2)
+    def row_of(c):
+        return hconcat(hconcat(canvas(c, UNITY), canvas(c, UNITY)), canvas(c, UNITY))
+    O = vconcat(vconcat(row_of(C1), row_of(C2)), row_of(C3))
+    return O
+
+def dsl4(I):
+    J = rot90(I)
+    C = compress(J)
+    W = width(C)
+    H = height(C)
+    RT = crop(C, toivec(ZERO), astuple(ONE, W))
+    RM = crop(C, toivec(halve(H)), astuple(ONE, W))
+    RB = crop(C, toivec(decrement(H)), astuple(ONE, W))
+    neg3 = subtract(NEG_TWO, ONE)
+    def row_last3(R):
+        NZ = difference(asindices(R), ofcolor(R, ZERO))
+        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J3 = rightmost(P3)
+        NZ2 = difference(NZ, intersection(NZ, vfrontier(astuple(ZERO, J3))))
+        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J2 = rightmost(P2)
+        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
+        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
+        J1 = rightmost(P1)
+        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
+        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
+        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
+        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
+    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    return O
+
+def dsl5(I):
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    JL = leftmost(NZ)
+    JR = rightmost(NZ)
+    JM = divide(add(JL, JR), TWO)
+    def col_triplet(j):
+        COL = intersection(NZ, vfrontier(astuple(ZERO, j)))
+        U = branch(positive(size(COL)), uppermost(COL), NEG_ONE)
+        L = branch(positive(size(COL)), lowermost(COL), NEG_ONE)
+        M = branch(positive(size(COL)), divide(add(uppermost(COL), lowermost(COL)), TWO), NEG_ONE)
+        CT = branch(greater(U, NEG_ONE), index(I, astuple(U, j)), ZERO)
+        CM = branch(greater(M, NEG_ONE), index(I, astuple(M, j)), ZERO)
+        CB = branch(greater(L, NEG_ONE), index(I, astuple(L, j)), ZERO)
+        return vconcat(vconcat(canvas(CT, UNITY), canvas(CM, UNITY)), canvas(CB, UNITY))
+    C1 = col_triplet(JL)
+    C2 = col_triplet(JM)
+    C3 = col_triplet(JR)
+    O = hconcat(hconcat(C1, C2), C3)
+    return O
+```

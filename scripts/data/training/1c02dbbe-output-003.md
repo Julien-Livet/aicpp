@@ -1,0 +1,117 @@
+```python
+def dsl1(I):
+    # Global: seed row/col projection inside 5-region; fill each component's bbox with its color
+    dims = shape(I)
+    base = canvas(ZERO, dims)
+    fidx = ofcolor(I, FIVE)
+    fbase = fill(base, FIVE, fidx)
+    objs = objects(I, T, F, T)
+    seeds = difference(objs, colorfilter(objs, FIVE))
+    horiz = compose(hfrontier, center)
+    vert = compose(vfrontier, center)
+    cross = fork(combine, horiz, vert)
+    in5 = compose(rbind(intersection, fidx), cross)
+    hvcol = fork(recolor, color, in5)
+    hvobj = merge(apply(hvcol, seeds))
+    hvgrid = paint(base, hvobj)
+    comps = fgpartition(hvgrid)
+    rect = fork(recolor, color, backdrop)
+    rectobj = merge(apply(rect, comps))
+    O = paint(fbase, rectobj)
+    return O
+
+def dsl2(I):
+    # Geometric (ray casting): shoot 4 directions from each seed; bbox per color inside 5-region
+    dims = shape(I)
+    base = canvas(ZERO, dims)
+    fidx = ofcolor(I, FIVE)
+    fbase = fill(base, FIVE, fidx)
+    objs = objects(I, T, F, T)
+    seeds = difference(objs, colorfilter(objs, FIVE))
+    sR = compose(rbind(shoot, RIGHT), center)
+    sL = compose(rbind(shoot, LEFT), center)
+    sU = compose(rbind(shoot, UP), center)
+    sD = compose(rbind(shoot, DOWN), center)
+    pair1 = fork(combine, sR, sL)
+    pair2 = fork(combine, sU, sD)
+    rays = fork(combine, pair1, pair2)
+    in5 = compose(rbind(intersection, fidx), rays)
+    recol = fork(recolor, color, in5)
+    rayobj = merge(apply(recol, seeds))
+    raygrid = paint(base, rayobj)
+    comps = fgpartition(raygrid)
+    rect = fork(recolor, color, backdrop)
+    rectobj = merge(apply(rect, comps))
+    O = paint(fbase, rectobj)
+    return O
+
+def dsl3(I):
+    # Object-based pairing: intersect horizontal/vertical bands of same color to make tiles
+    dims = shape(I)
+    base = canvas(ZERO, dims)
+    fidx = ofcolor(I, FIVE)
+    fbase = fill(base, FIVE, fidx)
+    objs = objects(I, T, F, T)
+    seeds = difference(objs, colorfilter(objs, FIVE))
+    hseg = fork(recolor, color, compose(rbind(intersection, fidx), compose(hfrontier, center)))
+    vseg = fork(recolor, color, compose(rbind(intersection, fidx), compose(vfrontier, center)))
+    H = apply(hseg, seeds)
+    V = apply(vseg, seeds)
+    pairs = product(H, V)
+    samec = fork(equality, compose(color, first), compose(color, last))
+    pp = sfilter(pairs, samec)
+    bfirst = compose(backdrop, first)
+    blast = compose(backdrop, last)
+    inter = fork(intersection, bfirst, blast)
+    cfirst = compose(color, first)
+    rectpair = fork(recolor, cfirst, inter)
+    rectobj = merge(apply(rectpair, pp))
+    O = paint(fbase, rectobj)
+    return O
+
+def dsl4(I):
+    # Geometric via bbox complement: build seed crosses, then use delta to fill their bboxes
+    dims = shape(I)
+    base = canvas(ZERO, dims)
+    fidx = ofcolor(I, FIVE)
+    fbase = fill(base, FIVE, fidx)
+    objs = objects(I, T, F, T)
+    seeds = difference(objs, colorfilter(objs, FIVE))
+    horiz = compose(hfrontier, center)
+    vert = compose(vfrontier, center)
+    cross = fork(combine, horiz, vert)
+    in5 = compose(rbind(intersection, fidx), cross)
+    hvcol = fork(recolor, color, in5)
+    hvobj = merge(apply(hvcol, seeds))
+    hvgrid = paint(base, hvobj)
+    comps = fgpartition(hvgrid)
+    bboxpatch = fork(combine, toindices, delta)
+    rect = fork(recolor, color, bboxpatch)
+    rectobj = merge(apply(rect, comps))
+    O = paint(fbase, rectobj)
+    return O
+
+def dsl5(I):
+    # Relational (per-color unification): union all seed lines per color, then fill each color's bbox
+    dims = shape(I)
+    base = canvas(ZERO, dims)
+    fidx = ofcolor(I, FIVE)
+    fbase = fill(base, FIVE, fidx)
+    objs = objects(I, T, F, T)
+    seeds = difference(objs, colorfilter(objs, FIVE))
+    horiz = compose(hfrontier, center)
+    vert = compose(vfrontier, center)
+    cross = fork(combine, horiz, vert)
+    in5 = compose(rbind(intersection, fidx), cross)
+    recol = fork(recolor, color, in5)
+    hvobj = merge(apply(recol, seeds))
+    hvgrid = paint(base, hvobj)
+    comps = fgpartition(hvgrid)
+    colpatch = compose(ofcolor, compose(color, identity))
+    # for each component use its color to take the full-color union from hvgrid, then fill bbox
+    getpatch = fork(lbind(ofcolor, hvgrid), compose(color, identity))
+    rect = fork(recolor, compose(color, identity), compose(backdrop, getpatch))
+    rectobj = merge(apply(rect, comps))
+    O = paint(fbase, rectobj)
+    return O
+```

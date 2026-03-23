@@ -1,0 +1,86 @@
+```python
+def dsl1(I):
+    colors = remove(ZERO, palette(I))
+    L = argmax(colors, lbind(colorcount, I))
+    marker_colors = remove(L, colors)
+    objs = objects(I, T, F, T)
+    comp = fork(add, lowermost, rightmost)
+    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
+    picks = apply(chooser, marker_colors)
+    pairs = product(picks, picks)
+    same_row = fork(hmatching, first, last)
+    distinct = compose(flip, fork(equality, first, last))
+    valid = sfilter(pairs, fork(both, same_row, distinct))
+    best = argmax(valid, fork(manhattan, first, last))
+    endpoints = apply(centerofmass, totuple(best))
+    seg = connect(first(endpoints), last(endpoints))
+    base = replace(I, L, ZERO)
+    O = underfill(base, L, seg)
+    return O
+
+def dsl2(I):
+    colors = remove(ZERO, palette(I))
+    L = argmax(colors, lbind(colorcount, I))
+    marker_colors = remove(L, colors)
+    objs = objects(I, T, F, T)
+    comp = fork(add, lowermost, rightmost)
+    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
+    picks = apply(chooser, marker_colors)
+    ppatch = merge(picks)
+    pivot = centerofmass(ppatch)
+    hline = hfrontier(pivot)
+    vline = vfrontier(pivot)
+    bbox = backdrop(ppatch)
+    hseg = intersection(hline, bbox)
+    vseg = intersection(vline, bbox)
+    cross = merge(combine(hseg, vseg))
+    base = replace(I, L, ZERO)
+    O = underfill(base, L, cross)
+    return O
+
+def dsl3(I):
+    colors = remove(ZERO, palette(I))
+    L = argmax(colors, lbind(colorcount, I))
+    marker_colors = remove(L, colors)
+    objs = objects(I, T, F, T)
+    comp = fork(add, lowermost, rightmost)
+    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
+    picks = apply(chooser, marker_colors)
+    centers = apply(centerofmass, picks)
+    nbs = apply(dneighbors, centers)
+    neigh = merge(nbs)
+    bbox = backdrop(merge(picks))
+    clipped = intersection(neigh, bbox)
+    base = replace(I, L, ZERO)
+    O = underfill(base, L, clipped)
+    return O
+
+def dsl4(I):
+    colors = remove(ZERO, palette(I))
+    L = argmax(colors, lbind(colorcount, I))
+    marker_colors = remove(L, colors)
+    objs = objects(I, T, F, T)
+    comp = fork(add, lowermost, rightmost)
+    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
+    picks = apply(chooser, marker_colors)
+    ppatch = merge(picks)
+    ll = llcorner(ppatch)
+    rowline = hfrontier(ll)
+    bbox = backdrop(ppatch)
+    bottomedge = intersection(rowline, bbox)
+    base = replace(I, L, ZERO)
+    O = underfill(base, L, bottomedge)
+    return O
+
+def dsl5(I):
+    colors = remove(ZERO, palette(I))
+    L = argmax(colors, lbind(colorcount, I))
+    fg = merge(objects(I, T, F, T))
+    ll = llcorner(fg)
+    rowline = hfrontier(ll)
+    bbox = backdrop(fg)
+    bottomedge = intersection(rowline, bbox)
+    base = replace(I, L, ZERO)
+    O = underfill(base, L, bottomedge)
+    return O
+```
