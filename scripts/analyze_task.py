@@ -10,7 +10,8 @@ def plotTask(folder: str, task: str):
     assert(folder == "training" or folder == "evaluation")
 
     files = os.listdir(f"data/{folder}")
-    inputFiles = sorted(filter(lambda x: "input" in x, files))
+    taskFiles = list(filter(lambda x: task in x, files))
+    inputFiles = sorted(filter(lambda x: "input" in x, taskFiles))
 
     programs = []
 
