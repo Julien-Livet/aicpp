@@ -83,9 +83,10 @@ def analyseFolder(folder: str):
     taskTotal = len(testLabels) + len(testLabels)
     optimalCount = len(list(filter(lambda x: not x, testCosts)))
 
-    print(folder)
-    print(f"{len(testLabels)/taskTotal*100}% passing train dataset")
-    print(f"{optimalCount/taskTotal*100}% passing test dataset")
+    if (taskTotal):
+        print(folder)
+        print(f"{len(testLabels)/taskTotal*100}% passing train dataset")
+        print(f"{optimalCount/taskTotal*100}% passing test dataset")
 
 analyseFolder("training")
 analyseFolder("evaluation")
