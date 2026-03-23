@@ -7,7 +7,7 @@ import re
 import sys
 
 def plotTask(folder: str, task: str):
-    assert(folder == "training" or folder == "evaluation")
+    assert(folder in ("training", "evaluation"))
 
     files = os.listdir(f"data/{folder}")
     taskFiles = list(filter(lambda x: task in x, files))

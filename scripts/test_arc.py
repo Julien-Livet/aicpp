@@ -158,7 +158,7 @@ def print_test_duration(request):
     print(f"\nTest {request.node.name} took {duration:.2f} seconds to execute.")
 
 def trainTestPairs(folder: str, task: str) -> tuple:
-    assert(folder == "training" or folder == "evaluation")
+    assert(folder in ("training", "evaluation"))
 
     url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
     data = json.loads(url.read().decode())
@@ -239,7 +239,7 @@ def taskPrompt(trainPairs: list) -> str:
     return command
 
 def taskResults(source: str, pairs: list, label: str) -> tuple:
-    assert(label == "train" or label == "test")
+    assert(label in ("train", "test"))
 
     name = source.split("\n")[0].replace("def ", "").replace("(I):", "")
     runner = DSLWorker()
@@ -272,8 +272,8 @@ def taskResults(source: str, pairs: list, label: str) -> tuple:
 
     return (df, outputs, tracebacks)
 
-def outputPrograms(outputFile: str, pairs: list, step: str):
-    assert(step == "train" or step == "test")
+def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
+    assert(step in ("train", "test"))
 
     f = open(outputFile, "r")
     content = f.read()
@@ -481,7 +481,6 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
-
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
 
@@ -491,7 +490,13 @@ Do NOT generate 5 variations of the same idea.
 Before writing each program, explicitly choose a different reasoning strategy.
 
 If two programs use similar primitives (e.g., both use compress + downscale),
-they will be considered invalid.\n"""
+they will be considered invalid.
+
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.\n"""
 
         if (nanValues):
             command += "\nnan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.\n"
@@ -667,7 +672,7 @@ def test_task():
 """
 
 def run_tasks(folder: str) -> tuple[int, int]:
-    assert(folder == "training" or folder == "evaluation")
+    assert(folder in ("training", "evaluation"))
 
     url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}.txt")
     data = url.read().decode()

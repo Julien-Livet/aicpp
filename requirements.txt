@@ -1,6 +1,7 @@
 matplotlib
 numpy
 openai
+openpyxl
 pandas
 pytest
 requests
