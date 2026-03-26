@@ -31,13 +31,28 @@ def exportResults(folder: str):
             subResults.append((trainPrograms, testPrograms))
 
         results.append((task, subResults))
-        
+
     content = ""
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
             task, subResult = result
-            content += f"# Task {task}\n\n"
+            trainSolved = False
+            testSolved = False
+            trainPrograms, testPrograms = subResult[-1]
+
+            for i in range(0, len(trainPrograms)):
+                trainProgram = trainPrograms[i]
+                testProgram = testPrograms[i]
+
+                if (not trainSolved):
+                    trainSolved = not trainProgram[1][0]["Total cost"].sum(skipna = False)
+
+                if (not testSolved):
+                    testSolved = not testProgram[1][0]["Total cost"].sum(skipna = False)
+
+            content += f"# Task {task}\n"
+            content += f"train {'solved' if trainSolved else 'failed'}, test {'solved' if testSolved else 'failed'}\n\n"
             row = 0
 
             for iteration, (trainPrograms, testPrograms) in enumerate(subResult):
@@ -50,10 +65,10 @@ def exportResults(folder: str):
                     trainDsl, trainResult = trainProgram
                     testDsl, testResult = testProgram
                     trainDf, testDf = trainResult[0], testResult[0]
-                    trainDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row, startcol = col, na_rep = "NaN")
-                    testDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row + len(trainDf) + 2, startcol = col, na_rep = "NaN")
+                    trainDf.to_excel(writer, sheet_name = f"{task}", index = True, startrow = row, startcol = col, na_rep = "NaN")
+                    testDf.to_excel(writer, sheet_name = f"{task}", index = True, startrow = row + len(trainDf) + 2, startcol = col, na_rep = "NaN")
                     col += len(trainDf.columns) + 2
-                    
+
                     content += f"### Program {i+1}\n\n"
                     content += f"#### Train costs\n\n"
                     content += trainDf.to_markdown() + "\n\n"
