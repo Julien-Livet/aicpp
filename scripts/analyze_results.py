@@ -11,42 +11,46 @@ def exportResults(folder: str):
     outputFiles = sorted(filter(lambda x: "output" in x, files))
 
     tasksFiles = {}
-    
+
     for file in outputFiles:
         task = file[:file.index("-")]
         l = tasksFiles.get(task, [])
         tasksFiles[task] = l + [file]
 
-    lastFiles = []
-    
-    for task, files in tasksFiles.items():
-        lastFiles.append(files[-1])
-
-    lastFiles = sorted(lastFiles)
-
     results = []
 
-    for file in lastFiles:
-        task = file[:file.index("-")]
-        taskPairs = test_arc.trainTestPairs(folder, task)
-        trainPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[0], "train")
-        testPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[1], "test")
-        
-        results.append((task, trainPrograms, testPrograms))
+    for task, files in tasksFiles.items():
+        files = sorted(files)
+
+        subResults = []
+
+        for file in files:
+            taskPairs = test_arc.trainTestPairs(folder, task)
+            trainPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[0], "train")
+            testPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[1], "test")
+            subResults.append((trainPrograms, testPrograms))
+
+        results.append((task, subResults))
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
-            col = 0
+            task, subResult = result
+            row = 0
 
-            for i in range(0, len(result[1])):
-                trainProgram = result[1][i]
-                testProgram = result[2][i]
-                trainDsl, trainResult = trainProgram
-                testDsl, testResult = testProgram
-                trainDf, testDf = trainResult[0], testResult[0]
-                trainDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = 0, startcol = col, na_rep = "NaN")
-                testDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = len(trainDf) + 2, startcol = col, na_rep = "NaN")
-                col += len(trainDf.columns) + 2
+            for trainPrograms, testPrograms in subResult:
+                col = 0
+
+                for i in range(0, len(trainPrograms)):
+                    trainProgram = trainPrograms[i]
+                    testProgram = testPrograms[i]
+                    trainDsl, trainResult = trainProgram
+                    testDsl, testResult = testProgram
+                    trainDf, testDf = trainResult[0], testResult[0]
+                    trainDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row, startcol = col, na_rep = "NaN")
+                    testDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row + len(trainDf) + 2, startcol = col, na_rep = "NaN")
+                    col += len(trainDf.columns) + 2
+
+                row += len(trainDf) + len(testDf) + 4
 
 def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
     assert(folder in ("training", "evaluation"))
@@ -54,7 +58,7 @@ def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
 
     fig, ax = plt.subplots()
 
-    maxCost = 100
+    maxCost = 200
     totalCosts = [x["Total cost"] for x in costs]
 
     print(folder, step)
