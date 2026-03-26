@@ -31,14 +31,18 @@ def exportResults(folder: str):
             subResults.append((trainPrograms, testPrograms))
 
         results.append((task, subResults))
+        
+    content = ""
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
             task, subResult = result
+            content += f"# Task {task}\n\n"
             row = 0
 
-            for trainPrograms, testPrograms in subResult:
+            for iteration, (trainPrograms, testPrograms) in enumerate(subResult):
                 col = 0
+                content += f"## Iteration {iteration+1}\n\n"
 
                 for i in range(0, len(trainPrograms)):
                     trainProgram = trainPrograms[i]
@@ -49,8 +53,19 @@ def exportResults(folder: str):
                     trainDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row, startcol = col, na_rep = "NaN")
                     testDf.to_excel(writer, sheet_name = f"{result[0]}", index = True, startrow = row + len(trainDf) + 2, startcol = col, na_rep = "NaN")
                     col += len(trainDf.columns) + 2
+                    
+                    content += f"### Program {i+1}\n\n"
+                    content += f"#### Train costs\n\n"
+                    content += trainDf.to_markdown() + "\n\n"
+                    content += f"#### Test costs\n\n"
+                    content += testDf.to_markdown() + "\n\n"
+                    content += f"#### DSL\n\n```python\n{trainDsl}\n```\n\n"
 
                 row += len(trainDf) + len(testDf) + 4
+
+    f = open(f"{folder}_full_results.md", "w")
+    f.write(content)
+    f.close()
 
 def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
     assert(folder in ("training", "evaluation"))
