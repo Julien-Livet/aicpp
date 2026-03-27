@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import test_arc
 
-def exportResults(folder: str):
+def exportResults(folder: str, sortedTasks: list):
     assert(folder in ("training", "evaluation"))
 
     files = os.listdir(f"data/{folder}")
@@ -16,6 +16,8 @@ def exportResults(folder: str):
         task = file[:file.index("-")]
         l = tasksFiles.get(task, [])
         tasksFiles[task] = l + [file]
+
+    tasksFiles = {k: tasksFiles[k] for k in sortedTasks}
 
     results = []
 
@@ -36,10 +38,10 @@ def exportResults(folder: str):
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
-            task, subResult = result
+            task, subResults = result
             trainSolved = False
             testSolved = False
-            trainPrograms, testPrograms = subResult[-1]
+            trainPrograms, testPrograms = subResults[-1]
 
             for i in range(0, len(trainPrograms)):
                 trainProgram = trainPrograms[i]
@@ -55,7 +57,7 @@ def exportResults(folder: str):
             content += f"train {'solved' if trainSolved else 'failed'}, test {'solved' if testSolved else 'failed'}\n\n"
             row = 0
 
-            for iteration, (trainPrograms, testPrograms) in enumerate(subResult):
+            for iteration, (trainPrograms, testPrograms) in enumerate(subResults):
                 col = 0
                 content += f"## Iteration {iteration+1}\n\n"
 
@@ -134,9 +136,11 @@ def analyseFolder(folder: str):
     testLabels = []
     testCosts = []
     testDsls = []
+    sortedTasks = []
 
     while (i < len(lines)):
         f, t, step, gridSizeCost, valueCost, pixelOverlapCost, boudingBoxCost, totalCost = lines[i].split(" ")
+        sortedTasks.append(t)
         cost = {"Grid size cost": float(gridSizeCost), "Value cost": float(valueCost), "Pixel overlap cost": float(pixelOverlapCost),
                 "Bounding box cost": float(boudingBoxCost), "Total cost": float(totalCost)}
         i += 2
@@ -159,13 +163,16 @@ def analyseFolder(folder: str):
 
         i += 1
 
-    exportResults(folder)
-
-    if (len(trainLabels)):
-        plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
+    exportResults(folder, sortedTasks)
 
     if (len(testLabels)):
         plotTasks(folder, "test", testLabels, testCosts, testDsls)
+
+    if (len(testLabels)):
+        plotTasks(folder, "test", testLabels, testCosts, testDsls)
+
+    if (len(trainLabels)):
+        plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
 
     taskTotal = len(trainLabels) + len(testLabels)
 
