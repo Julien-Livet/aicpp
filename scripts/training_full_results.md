@@ -1,5 +1,10 @@
 # Task 3c9b0459
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L20)
 
@@ -131,7 +136,12 @@ def dsl5(I):
 ```
 
 # Task 6150a2bd
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-5)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L25)
 
@@ -253,7 +263,12 @@ def dsl5(I):
 ```
 
 # Task ed36ccf7
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-10)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L70)
 
@@ -385,7 +400,12 @@ def dsl5(I):
 ```
 
 # Task 67a3c6ac
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-15)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L5)
 
@@ -529,7 +549,12 @@ def dsl5(I):
 ```
 
 # Task 68b16354
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-20)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L10)
 
@@ -666,7 +691,12 @@ def dsl5(I):
 ```
 
 # Task 9dfd6313
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-25)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L35)
 
@@ -795,7 +825,12 @@ def dsl5(I):
 ```
 
 # Task a416b8f3
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-30)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L40)
 
@@ -932,7 +967,12 @@ def dsl5(I):
 ```
 
 # Task c59eb873
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-35)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L50)
 
@@ -1069,7 +1109,12 @@ def dsl5(I):
 ```
 
 # Task 74dd1130
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-40)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L15)
 
@@ -1214,7 +1259,12 @@ def dsl5(I):
 ```
 
 # Task 9172f3a0
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-45)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L30)
 
@@ -1351,7 +1401,12 @@ def dsl5(I):
 ```
 
 # Task b1948b0a
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-50)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L45)
 
@@ -1485,7 +1540,12 @@ def dsl5(I):
 ```
 
 # Task 6d0aefbc
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-55)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L81)
 
@@ -1630,7 +1690,12 @@ def dsl5(I):
 ```
 
 # Task 6fa7a44f
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-60)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L87)
 
@@ -1779,7 +1844,12 @@ def dsl5(I):
 ```
 
 # Task 8be77c9e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-65)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L111)
 
@@ -1912,7 +1982,12 @@ def dsl5(I):
 ```
 
 # Task c9e6f938
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-70)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L117)
 
@@ -2064,7 +2139,12 @@ def dsl5(I):
 ```
 
 # Task d511f180
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-75)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L65)
 
@@ -2194,7 +2274,12 @@ def dsl5(I):
 ```
 
 # Task c8f0f002
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-80)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L55)
 
@@ -2332,7 +2417,12 @@ def dsl5(I):
 ```
 
 # Task d10ecb37
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-85)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L60)
 
@@ -2472,7 +2562,12 @@ def dsl5(I):
 ```
 
 # Task 4c4377d9
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-90)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L75)
 
@@ -2621,7 +2716,12 @@ def dsl5(I):
 ```
 
 # Task 5582e5ca
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-95)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L105)
 
@@ -2761,7 +2861,12 @@ def dsl5(I):
 ```
 
 # Task 5614dbcf
+
 train solved, test solved
+
+4 iterations
+
+[Best program](#dsl-115)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L93)
 
@@ -3460,7 +3565,12 @@ def dsl5(I):
 ```
 
 # Task 1cf80156
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-120)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L129)
 
@@ -3599,7 +3709,12 @@ def dsl5(I):
 ```
 
 # Task 2dee498d
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-130)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L123)
 
@@ -3849,7 +3964,12 @@ def dsl5(I):
 ```
 
 # Task 00576224
+
 train solved, test solved
+
+3 iterations
+
+[Best program](#dsl-145)
 
 ## Iteration 1
 
@@ -4293,7 +4413,12 @@ def dsl5(I):
 ```
 
 # Task 5bd6f4ac
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-150)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L99)
 
@@ -4431,7 +4556,12 @@ def dsl5(I):
 ```
 
 # Task 25ff71a9
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-155)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L143)
 
@@ -4585,7 +4715,12 @@ def dsl5(I):
 ```
 
 # Task 0c786b71
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-160)
 
 ## Iteration 1
 
@@ -4733,7 +4868,12 @@ def dsl5(I):
 ```
 
 # Task 0b148d64
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-165)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L150)
 
@@ -4884,7 +5024,12 @@ def dsl5(I):
 ```
 
 # Task c909285e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-172)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L192)
 
@@ -5032,7 +5177,12 @@ def dsl5(I):
 ```
 
 # Task 0d3d703e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-175)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L425)
 
@@ -5189,7 +5339,12 @@ def dsl5(I):
 ```
 
 # Task 1c786137
+
 train solved, test solved
+
+7 iterations
+
+[Best program](#dsl-210)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L441)
 
@@ -6150,7 +6305,12 @@ def dsl5(I):
 ```
 
 # Task 32597951
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-215)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L136)
 
@@ -6299,7 +6459,12 @@ def dsl5(I):
 ```
 
 # Task 0ca9ddb6
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-220)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L595)
 
@@ -6480,7 +6645,12 @@ def dsl5(I):
 ```
 
 # Task 1c0d0a4b
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-230)
 
 ## Iteration 1
 
@@ -6820,7 +6990,12 @@ def dsl5(I):
 ```
 
 # Task 12eac192
+
 train solved, test solved
+
+5 iterations
+
+[Best program](#dsl-255)
 
 ## Iteration 1
 
@@ -7577,7 +7752,12 @@ def dsl5(I):
 ```
 
 # Task 178fcbfb
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-260)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2018)
 
@@ -7758,7 +7938,12 @@ def dsl5(I):
 ```
 
 # Task 007bbfb7
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-265)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L825)
 
@@ -7936,7 +8121,12 @@ def dsl5(I):
 ```
 
 # Task 08ed6ac7
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-270)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1001)
 
@@ -8101,7 +8291,12 @@ def dsl5(I):
 ```
 
 # Task 009d5c81
+
 train solved, test solved
+
+9 iterations
+
+[Best program](#dsl-315)
 
 ## Iteration 1
 
@@ -9614,7 +9809,12 @@ def dsl5(I):
 ```
 
 # Task 05f2a901
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-320)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L858)
 
@@ -9790,7 +9990,12 @@ def dsl5(I):
 ```
 
 # Task 0520fde7
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-325)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L615)
 
@@ -9976,7 +10181,12 @@ def dsl5(I):
 ```
 
 # Task 1a2e2828
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-330)
 
 ## Iteration 1
 
@@ -10188,7 +10398,12 @@ def dsl5(I):
 ```
 
 # Task 0692e18c
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-335)
 
 ## Iteration 1
 
@@ -10361,7 +10576,12 @@ def dsl5(I):
 ```
 
 # Task 017c7c7b
+
 train solved, test solved
+
+4 iterations
+
+[Best program](#dsl-355)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1067)
 
@@ -10980,7 +11200,12 @@ def dsl5(I):
 ```
 
 # Task 0c9aba6e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-360)
 
 ## Iteration 1
 
@@ -11158,7 +11383,12 @@ def dsl5(I):
 ```
 
 # Task 140c817e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-365)
 
 ## Iteration 1
 
@@ -11343,7 +11573,12 @@ def dsl5(I):
 ```
 
 # Task 1190e5a7
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-375)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1417)
 
@@ -11706,7 +11941,12 @@ def dsl5(I):
 ```
 
 # Task 0becf7df
+
 train solved, test solved
+
+8 iterations
+
+[Best program](#dsl-415)
 
 ## Iteration 1
 
@@ -13403,7 +13643,12 @@ def dsl5(I):
 ```
 
 # Task 12997ef3
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-420)
 
 ## Iteration 1
 
@@ -13598,7 +13843,12 @@ def dsl5(I):
 ```
 
 # Task 195ba7dc
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-425)
 
 ## Iteration 1
 
@@ -13786,7 +14036,12 @@ def dsl5(I):
 ```
 
 # Task 070dd51e
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-430)
 
 ## Iteration 1
 
@@ -13964,7 +14219,12 @@ def dsl5(I):
 ```
 
 # Task 19bb5feb
+
 train solved, test solved
+
+3 iterations
+
+[Best program](#dsl-445)
 
 ## Iteration 1
 
@@ -14435,7 +14695,12 @@ def dsl5(I):
 ```
 
 # Task 1478ab18
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-450)
 
 ## Iteration 1
 
@@ -14637,7 +14902,12 @@ def dsl5(I):
 ```
 
 # Task 025d127b
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-459)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1765)
 
@@ -14782,7 +15052,12 @@ def dsl5(I):
 ```
 
 # Task 0e671a1a
+
 train solved, test solved
+
+5 iterations
+
+[Best program](#dsl-481)
 
 ## Iteration 1
 
@@ -15689,7 +15964,12 @@ def dsl5(I):
 ```
 
 # Task 1b2d62fb
+
 train solved, test solved
+
+3 iterations
+
+[Best program](#dsl-495)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L880)
 
@@ -16342,7 +16622,12 @@ def dsl5(I):
 ```
 
 # Task 00dbd492
+
 train solved, test solved
+
+3 iterations
+
+[Best program](#dsl-511)
 
 ## Iteration 1
 
@@ -16916,7 +17201,12 @@ def dsl5(I):
 ```
 
 # Task 05269061
+
 train solved, test solved
+
+7 iterations
+
+[Best program](#dsl-545)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2702)
 
@@ -18283,7 +18573,12 @@ def dsl5(I):
 ```
 
 # Task 14b8e18c
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-555)
 
 ## Iteration 1
 
@@ -18655,7 +18950,12 @@ def dsl5(I):
 ```
 
 # Task 1a244afd
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-566)
 
 ## Iteration 1
 
@@ -19053,7 +19353,12 @@ def dsl5(I):
 ```
 
 # Task 0962bcdd
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-575)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2669)
 
@@ -19465,7 +19770,12 @@ def dsl5(I):
 ```
 
 # Task 15696249
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-585)
 
 ## Iteration 1
 
@@ -19955,7 +20265,12 @@ def dsl5(I):
 ```
 
 # Task 1bfc4729
+
 train solved, test solved
+
+1 iteration
+
+[Best program](#dsl-590)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2801)
 
@@ -20217,7 +20532,12 @@ def dsl5(I):
 ```
 
 # Task 0a938d79
+
 train solved, test solved
+
+7 iterations
+
+[Best program](#dsl-625)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4593)
 
@@ -22075,7 +22395,12 @@ def dsl5(I):
 ```
 
 # Task 90f3ed37
+
 train solved, test solved
+
+5 iterations
+
+[Best program](#dsl-652)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L3715)
 
@@ -22985,7 +23310,12 @@ def dsl5(I):
 ```
 
 # Task 13713586
+
 train solved, test solved
+
+7 iterations
+
+[Best program](#dsl-685)
 
 ## Iteration 1
 
@@ -24538,7 +24868,12 @@ def dsl5(I):
 ```
 
 # Task 1d398264
+
 train solved, test solved
+
+2 iterations
+
+[Best program](#dsl-695)
 
 ## Iteration 1
 
@@ -25072,7 +25407,12 @@ def dsl5(I):
 ```
 
 # Task 0f63c0b9
+
 train solved, test solved
+
+6 iterations
+
+[Best program](#dsl-726)
 
 ## Iteration 1
 
@@ -27213,7 +27553,12 @@ def dsl5(I):
 ```
 
 # Task 0d87d2a6
+
 train solved, test failed
+
+2 iterations
+
+[Best program](#dsl-735)
 
 ## Iteration 1
 
@@ -27604,7 +27949,12 @@ def dsl5(I):
 ```
 
 # Task 11852cab
+
 train solved, test failed
+
+1 iteration
+
+[Best program](#dsl-740)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1990)
 
@@ -27791,7 +28141,12 @@ def dsl5(I):
 ```
 
 # Task 18286ef8
+
 train failed, test solved
+
+10 iterations
+
+[Best program](#dsl-790)
 
 ## Iteration 1
 
@@ -29568,7 +29923,12 @@ def dsl5(I):
 ```
 
 # Task 1caeab9d
+
 train solved, test failed
+
+1 iteration
+
+[Best program](#dsl-795)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2312)
 
@@ -29740,7 +30100,12 @@ def dsl5(I):
 ```
 
 # Task 0b17323b
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-845)
 
 ## Iteration 1
 
@@ -31363,7 +31728,12 @@ def dsl5(I):
 ```
 
 # Task 1a07d186
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-895)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L3060)
 
@@ -33534,7 +33904,12 @@ def dsl5(I):
 ```
 
 # Task 137f0df0
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-947)
 
 ## Iteration 1
 
@@ -35238,7 +35613,12 @@ def dsl5(I):
 ```
 
 # Task 1b60fb0c
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-996)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2354)
 
@@ -36811,7 +37191,12 @@ def dsl5(I):
 ```
 
 # Task 11dc524f
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1047)
 
 ## Iteration 1
 
@@ -38376,7 +38761,12 @@ def dsl5(I):
 ```
 
 # Task 1da012fc
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1095)
 
 ## Iteration 1
 
@@ -40122,7 +40512,12 @@ def dsl5(I):
 ```
 
 # Task 1acc24af
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1148)
 
 ## Iteration 1
 
@@ -41694,7 +42089,12 @@ def dsl5(I):
 ```
 
 # Task 1d61978c
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1195)
 
 ## Iteration 1
 
@@ -43208,7 +43608,12 @@ def dsl5(I):
 ```
 
 # Task 0a2355a6
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1246)
 
 ## Iteration 1
 
@@ -45324,7 +45729,12 @@ def dsl5(I):
 ```
 
 # Task 17829a00
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1295)
 
 ## Iteration 1
 
@@ -47774,7 +48184,12 @@ def dsl5(I):
 ```
 
 # Task 137eaa0f
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1346)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1830)
 
@@ -49949,7 +50364,12 @@ def dsl5(I):
 ```
 
 # Task 03560426
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1397)
 
 ## Iteration 1
 
@@ -51844,7 +52264,12 @@ def dsl5(I):
 ```
 
 # Task 17b866bd
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1446)
 
 ## Iteration 1
 
@@ -53949,7 +54374,12 @@ def dsl5(I):
 ```
 
 # Task 1b59e163
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1495)
 
 ## Iteration 1
 
@@ -55518,7 +55948,12 @@ def dsl5(I):
 ```
 
 # Task 182e5d0f
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1545)
 
 ## Iteration 1
 
@@ -57136,7 +57571,12 @@ def dsl5(I):
 ```
 
 # Task 14754a24
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1596)
 
 ## Iteration 1
 
@@ -58747,7 +59187,12 @@ def dsl5(I):
 ```
 
 # Task 15663ba9
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1645)
 
 ## Iteration 1
 
@@ -60723,7 +61168,12 @@ def dsl5(I):
 ```
 
 # Task 15113be4
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1696)
 
 ## Iteration 1
 
@@ -62290,7 +62740,12 @@ def dsl5(I):
 ```
 
 # Task 09c534e7
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1746)
 
 ## Iteration 1
 
@@ -63928,7 +64383,12 @@ def dsl5(I):
 ```
 
 # Task 1b8318e3
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1797)
 
 ## Iteration 1
 
@@ -65658,7 +66118,12 @@ def dsl5(I):
 ```
 
 # Task 13f06aa5
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1846)
 
 ## Iteration 1
 
@@ -67133,7 +67598,12 @@ def dsl5(I):
 ```
 
 # Task 150deff5
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1899)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L5849)
 
@@ -68741,7 +69211,12 @@ def dsl5(I):
 ```
 
 # Task 00d62c1b
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1949)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L755)
 
@@ -70710,7 +71185,12 @@ def dsl5(I):
 ```
 
 # Task 1c02dbbe
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1995)
 
 ## Iteration 1
 
@@ -73125,7 +73605,12 @@ def dsl5(I):
 ```
 
 # Task 045e512c
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2046)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4614)
 
@@ -74779,7 +75264,12 @@ def dsl5(I):
 ```
 
 # Task 0a1d4ef5
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2096)
 
 ## Iteration 1
 
@@ -76902,7 +77392,12 @@ def dsl5(I):
 ```
 
 # Task 18447a8d
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2146)
 
 ## Iteration 1
 
@@ -78534,7 +79029,12 @@ def dsl5(I):
 ```
 
 # Task 12422b43
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2195)
 
 ## Iteration 1
 
@@ -80601,7 +81101,12 @@ def dsl5(I):
 ```
 
 # Task 1d0a4b61
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2248)
 
 ## Iteration 1
 
@@ -82675,7 +83180,12 @@ def dsl5(I):
 ```
 
 # Task 1190bc91
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2299)
 
 ## Iteration 1
 
@@ -84270,7 +84780,12 @@ def dsl5(I):
 ```
 
 # Task 1be83260
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2345)
 
 ## Iteration 1
 
@@ -85871,7 +86386,12 @@ def dsl5(I):
 ```
 
 # Task 09629e4f
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2395)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2583)
 
@@ -88111,7 +88631,12 @@ def dsl5(I):
 ```
 
 # Task 1c56ad9f
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2445)
 
 ## Iteration 1
 
@@ -89946,7 +90471,12 @@ def dsl5(I):
 ```
 
 # Task 0607ce86
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2495)
 
 ## Iteration 1
 
@@ -91276,7 +91806,12 @@ def dsl5(I):
 ```
 
 # Task 184a9768
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2546)
 
 ## Iteration 1
 
@@ -92773,7 +93308,12 @@ def dsl5(I):
 ```
 
 # Task 10fcaaa3
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2599)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L815)
 
@@ -94661,7 +95201,12 @@ def dsl5(I):
 ```
 
 # Task 0e206a2e
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2645)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L5635)
 
@@ -96388,7 +96933,12 @@ def dsl5(I):
 ```
 
 # Task 17b80ad2
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2699)
 
 ## Iteration 1
 
@@ -98204,7 +98754,12 @@ def dsl5(I):
 ```
 
 # Task 05a7bcf2
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2748)
 
 ## Iteration 1
 
@@ -99618,7 +100173,12 @@ def dsl5(I):
 ```
 
 # Task 0bb8deee
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2795)
 
 ## Iteration 1
 
@@ -101748,7 +102308,12 @@ def dsl5(I):
 ```
 
 # Task 15660dd6
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2845)
 
 ## Iteration 1
 
@@ -103118,7 +103683,12 @@ def dsl5(I):
 ```
 
 # Task 1a6449f1
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2895)
 
 ## Iteration 1
 
@@ -104570,7 +105140,12 @@ def dsl5(I):
 ```
 
 # Task 06df4c85
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2945)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4361)
 
@@ -106580,7 +107155,12 @@ def dsl5(I):
 ```
 
 # Task 103eff5b
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2995)
 
 ## Iteration 1
 
@@ -108333,7 +108913,12 @@ def dsl5(I):
 ```
 
 # Task 11e1fe23
+
 train solved, test failed
+
+1 iteration
+
+[Best program](#dsl-3000)
 
 ## Iteration 1
 
@@ -108521,7 +109106,12 @@ def dsl5(I):
 ```
 
 # Task 17cae0c1
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-3050)
 
 ## Iteration 1
 
@@ -111161,7 +111751,12 @@ def dsl5(I):
 ```
 
 # Task 18419cfa
+
 train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-3100)
 
 ## Iteration 1
 
@@ -112951,7 +113546,12 @@ def dsl5(I):
 ```
 
 # Task 1990f7a8
+
 train solved, test failed
+
+2 iterations
+
+[Best program](#dsl-3110)
 
 ## Iteration 1
 

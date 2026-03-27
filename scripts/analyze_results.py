@@ -9,7 +9,6 @@ def exportResults(folder: str, sortedTasks: list):
 
     files = os.listdir(f"data/{folder}")
     outputFiles = sorted(filter(lambda x: "output" in x, files))
-
     tasksFiles = {}
 
     for file in outputFiles:
@@ -18,7 +17,6 @@ def exportResults(folder: str, sortedTasks: list):
         tasksFiles[task] = l + [file]
 
     tasksFiles = {k: tasksFiles[k] for k in sortedTasks}
-
     results = []
 
     for task, files in tasksFiles.items():
@@ -39,6 +37,7 @@ def exportResults(folder: str, sortedTasks: list):
 
     solversLines = solversContent.split("\n")
     content = ""
+    dslCount = 0
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
@@ -46,19 +45,33 @@ def exportResults(folder: str, sortedTasks: list):
             trainSolved = False
             testSolved = False
             trainPrograms, testPrograms = subResults[-1]
+            costs = []
 
             for i in range(0, len(trainPrograms)):
                 trainProgram = trainPrograms[i]
                 testProgram = testPrograms[i]
+                trainCost = trainProgram[1][0]["Total cost"].sum(skipna = False)
+                testCost = testProgram[1][0]["Total cost"].sum(skipna = False)
 
                 if (not trainSolved):
-                    trainSolved = not trainProgram[1][0]["Total cost"].sum(skipna = False)
+                    trainSolved = not trainCost
 
                 if (not testSolved):
-                    testSolved = not testProgram[1][0]["Total cost"].sum(skipna = False)
+                    testSolved = not testCost
 
-            content += f"# Task {task}\n"
+                costs.append((trainCost, testCost, i))
+
+            content += f"# Task {task}\n\n"
             content += f"train {'solved' if trainSolved else 'failed'}, test {'solved' if testSolved else 'failed'}\n\n"
+            content += f"{len(subResults)} iteration{'s' if len(subResults) != 1 else ''}\n\n"
+
+            costs = sorted(costs)
+            index = dslCount + (len(subResults) - 1) * 5 + costs[0][-1]
+
+            if (index):
+                content += f"[Best program](#dsl-{index})\n\n"
+            else:
+                content += f"[Best program](#dsl)\n\n"
 
             try:            
                 lineIndex = solversLines.index(f"def solve_{task}(I):")
@@ -90,6 +103,8 @@ def exportResults(folder: str, sortedTasks: list):
                     content += f"#### DSL\n\n```python\n{trainDsl}\n```\n\n"
 
                 row += len(trainDf) + len(testDf) + 4
+                
+            dslCount += 5 * len(subResults)
 
     f = open(f"{folder}_full_results.md", "w")
     f.write(content)
