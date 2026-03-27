@@ -34,6 +34,10 @@ def exportResults(folder: str, sortedTasks: list):
 
         results.append((task, subResults))
 
+    with open("arc-dsl/solvers.py", "r") as file:
+        solversContent = file.read()
+
+    solversLines = solversContent.split("\n")
     content = ""
 
     with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
@@ -55,6 +59,13 @@ def exportResults(folder: str, sortedTasks: list):
 
             content += f"# Task {task}\n"
             content += f"train {'solved' if trainSolved else 'failed'}, test {'solved' if testSolved else 'failed'}\n\n"
+
+            try:            
+                lineIndex = solversLines.index(f"def solve_{task}(I):")
+                content += f"[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L{lineIndex+1})\n\n"
+            except ValueError:
+                pass
+
             row = 0
 
             for iteration, (trainPrograms, testPrograms) in enumerate(subResults):
