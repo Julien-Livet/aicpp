@@ -66,7 +66,7 @@ def exportResults(folder: str, sortedTasks: list):
             content += f"{len(subResults)} iteration{'s' if len(subResults) != 1 else ''}\n\n"
 
             costs = sorted(costs)
-            index = dslCount + (len(subResults) - 1) * 5 + costs[0][-1]
+            index = dslCount + (len(subResults) - 1) * len(trainPrograms) + costs[0][-1]
 
             if (index):
                 content += f"[Best program](#dsl-{index})\n\n"
@@ -104,7 +104,7 @@ def exportResults(folder: str, sortedTasks: list):
 
                 row += len(trainDf) + len(testDf) + 4
                 
-            dslCount += 5 * len(subResults)
+            dslCount += len(trainPrograms) * len(subResults)
 
     f = open(f"{folder}_full_results.md", "w")
     f.write(content)
