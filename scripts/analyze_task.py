@@ -1,3 +1,4 @@
+import difflib
 from io import StringIO
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,6 +6,13 @@ import os
 import pandas as pd
 import re
 import sys
+
+def diff(a: str, b: str):
+    return "\n".join(difflib.unified_diff(
+        a.splitlines(),
+        b.splitlines(),
+        lineterm = ""
+    ))
 
 def plotTask(folder: str, task: str):
     assert(folder in ("training", "evaluation"))
@@ -61,6 +69,23 @@ def plotTask(folder: str, task: str):
             programSet.append((program, df))
 
         programs.append(programSet)
+
+    dsls = []
+    
+    for i in range(0, len(programSet)):
+        dsls.append([f"def dsl{i+1}(I):\n    O = I\n    return O"])
+
+    for programSet in programs:
+        for i, program in enumerate(programSet):
+            dsl, df = program
+            dsls[i].append(dsl)
+
+    for i in range(0, len(dsls)):
+        print(f"Program {i+1}")
+
+        for j in range(1, len(dsls[i])):
+            delta = diff(dsls[i][j - 1], dsls[i][j])
+            print(delta)
 
     dsl, df = programs[0][0]
     costs = {}
