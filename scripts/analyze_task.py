@@ -164,6 +164,7 @@ def plotTask(folder: str, task: str):
     plt.legend()
     mng = plt.get_current_fig_manager()
     mng.resize(*mng.window.maxsize())
+    plt.savefig(f"{folder}_{task}_results.png")
     plt.show()
 
 if (__name__ == "__main__"):
