@@ -90,15 +90,21 @@ def plotTask(folder: str, task: str):
 
             history.append((diff(dsl1, dsl2), df))
 
+    content = ""
+    
     for i in range(0, len(programs[0])):
-        print(f"# Program {i+1}\n")
+        content += f"# Program {i+1}\n\n"
 
-        print(f"## Scores\n")
-        print(dfs[i].to_markdown() + "\n")
+        content += f"## Scores\n\n"
+        content += dfs[i].to_markdown() + "\n\n"
 
         for j in range(0, len(programs) - 1):            
-            print(f"## Iteration {i+j+1} - DSL diff\n")
-            print(history[i + j * len(programs[0])][0] + "\n")
+            content += f"## Iteration {j+1} - DSL diff\n\n"
+            content += f"```bash\n{history[i + j * len(programs[0])][0]}\n```\n\n"
+
+    f = open(f"{folder}_{task}_history.md", "w")
+    f.write(content)
+    f.close()
 
     dsl, df = programs[0][0]
     costs = {}
