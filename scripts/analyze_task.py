@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
-import re
 import sys
 
 def diff(a: str, b: str):
@@ -70,22 +69,36 @@ def plotTask(folder: str, task: str):
 
         programs.append(programSet)
 
-    dsls = []
-    
-    for i in range(0, len(programSet)):
-        dsls.append([f"def dsl{i+1}(I):\n    O = I\n    return O"])
+    history = []
+    dfs = [None] * len(programs[0])
 
-    for programSet in programs:
-        for i, program in enumerate(programSet):
-            dsl, df = program
-            dsls[i].append(dsl)
+    for i in range(1, len(programs)):
+        for j in range(0, len(programs[i])):
+            dsl1, df1 = programs[i - 1][j]
+            dsl2, df2 = programs[i][j]
+            df1.index = df1.index.str.strip()
+            df2.index = df2.index.str.strip()
+            df1.columns = df1.columns.str.strip()
+            df2.columns = df2.columns.str.strip()
+            df1, df2 = df1.align(df2)
+            df = df1.combine(df2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
 
-    for i in range(0, len(dsls)):
-        print(f"Program {i+1}")
+            if (dfs[j] is None):
+                dfs[j] = df
+            else:
+                dfs[j] = dfs[j].combine(df2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
 
-        for j in range(1, len(dsls[i])):
-            delta = diff(dsls[i][j - 1], dsls[i][j])
-            print(delta)
+            history.append((diff(dsl1, dsl2), df))
+
+    for i in range(0, len(programs[0])):
+        print(f"# Program {i+1}\n")
+
+        print(f"## Scores\n")
+        print(dfs[i].to_markdown() + "\n")
+
+        for j in range(0, len(programs) - 1):            
+            print(f"## Iteration {i+j+1} - DSL diff\n")
+            print(history[i + j * len(programs[0])][0] + "\n")
 
     dsl, df = programs[0][0]
     costs = {}
