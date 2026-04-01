@@ -19,6 +19,9 @@ import urllib.request
 
 errors = set()
 
+def ndarray_to_str_one_liner(arr):
+    return '\n'.join(''.join(map(str, row)) for row in arr)
+
 def callOllama(model: str, prompt: str) -> str:
     cmd = ["ollama", "run", model, prompt]
     result = subprocess.run(cmd, capture_output = True, text = True)
@@ -186,12 +189,16 @@ def inputOutputPairs(pairs):
     return (inputs, outputs)
 
 def taskPrompt(trainPairs: list) -> str:
-    command = "# Input->output grid pairs of an ARC task\n\n```bash\n"
+    command = "# Input->output grid pairs of an ARC task\n\n"
 
     for i in range(len(trainPairs[0])):
-        command += f"train{i+1}: " + str(tuple(map(tuple, trainPairs[0][i].tolist()))) + " -> " + str(tuple(map(tuple, trainPairs[1][i].tolist()))) + "\n"
+        command += f"# train{i+1}\n\n"
+        command += f"## Input\n\n```bash\n"
+        command += ndarray_to_str_one_liner(trainPairs[0][i])
+        command += f"\n```\n\n## Output\n\n```bash\n"
+        command += ndarray_to_str_one_liner(trainPairs[1][i]) + "\n```\n\n"
 
-    command += "\n```\n\n# Available types\n\n"
+    command += "# Available types\n\n"
 
     f = open("arc-dsl/arc_types.py", "r")
     content = f.read()
@@ -356,9 +363,14 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
 
             command += "\n## Explosive scores\n\n"
             command += program[1][0].to_markdown() + "\n"
-            command += "\n## Output grids\n\n```bash\n"
-            command += "\n".join(list(filter(lambda x: not "nan" in x, [f"train{i+1}: " + str(x) for i, x in enumerate(program[1][1])]))) + "\n"
-            command += "```\n"
+            command += "\n## Output grids\n\n"
+            
+            for i, output in enumerate(program[1][1]):
+                if (np.any(np.isnan(output))):
+                    continue
+
+                command += f"### train{i+1} output\n\n```bash\n"
+                command += ndarray_to_str_one_liner(output) + "\n```\n\n"
 
             if (len(program[1][2])):
                 nanValues = True
