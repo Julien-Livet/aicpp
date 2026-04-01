@@ -186,12 +186,12 @@ def inputOutputPairs(pairs):
     return (inputs, outputs)
 
 def taskPrompt(trainPairs: list) -> str:
-    command = "You are given several input->output grid pairs from an ARC task:\n"
+    command = "# Input->output grid pairs of an ARC task\n\n```bash\n"
 
     for i in range(len(trainPairs[0])):
         command += f"train{i+1}: " + str(tuple(map(tuple, trainPairs[0][i].tolist()))) + " -> " + str(tuple(map(tuple, trainPairs[1][i].tolist()))) + "\n"
 
-    command += "\nAvailable types:\n"
+    command += "\n```\n\n# Available types\n\n"
 
     f = open("arc-dsl/arc_types.py", "r")
     content = f.read()
@@ -201,7 +201,7 @@ def taskPrompt(trainPairs: list) -> str:
     command += content
     command += "```\n"
 
-    command += "\nAvailable variables:\n"
+    command += "\n# Available variables\n\n"
 
     f = open("arc-dsl/constants.py", "r")
     content = f.read()
@@ -212,7 +212,7 @@ def taskPrompt(trainPairs: list) -> str:
     command += "\n".join(filter(None, content.split("\n", ))) + "\n"
     command += "```\n"
 
-    command += "\nAvailable primitives:\n"
+    command += "\n# Available primitives\n\n"
 
     result = subprocess.run('cd arc-dsl && python -c "import dsl; help(dsl)"', shell = True, capture_output = True, text = True)
     lines = result.stdout.split("\n")
@@ -333,8 +333,8 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
         nanValues = False
 
         for i, program in enumerate(programs):
-            command += f"**Program {i+1}**\n"
-            command += "*DSL*\n"
+            command += f"# Program {i+1}\n"
+            command += "## DSL\n"
             command += "```python\n"
             command += program[0] + "\n"
             command += "```\n"
@@ -354,14 +354,15 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
                 print("Program length", len(program[0]))
                 print("Program lines", len(program[0].split("\n")))
 
-            command += "\n*Explosive scores*\n\n"
+            command += "\n## Explosive scores\n\n"
             command += program[1][0].to_markdown() + "\n"
-            command += "\n*Output grids*\n"
+            command += "\n## Output grids\n\n```bash\n"
             command += "\n".join(list(filter(lambda x: not "nan" in x, [f"train{i+1}: " + str(x) for i, x in enumerate(program[1][1])]))) + "\n"
+            command += "```\n"
 
             if (len(program[1][2])):
                 nanValues = True
-                command += "\n*Tracebacks*\n"
+                command += "\n## Tracebacks\n"
                 command += "\n".join([str(x) for x in program[1][2]]) + "\n"
 
             command += "\n---\n\n"
@@ -506,7 +507,7 @@ unless you can generalize them without increasing their cost.\n"""
 
         command += """\nGenerate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...
