@@ -73,7 +73,7 @@ def exportResults(folder: str, sortedTasks: list):
             else:
                 content += f"[Best program](#dsl)\n\n"
 
-            try:            
+            try:
                 lineIndex = solversLines.index(f"def solve_{task}(I):")
                 content += f"[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L{lineIndex+1})\n\n"
             except ValueError:
