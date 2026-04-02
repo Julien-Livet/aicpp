@@ -33,45 +33,30 @@ def show(text, pairs):
 
     fig.suptitle(text + ' input/output pairs')
 
+    def plot_data(ax, data):
+        ax.set_xticks([])
+        ax.set_yticks([])
+        im = ax.matshow(data, cmap = cmap_arc, norm = norm_arc)
+        cbar = plt.colorbar(im, ax = ax, ticks = np.arange(0, 10))
+        cbar.ax.set_yticklabels(np.arange(0, 10)) 
+        cbar.outline.set_edgecolor('black')
+
+        for (i, j), z in np.ndenumerate(data):
+            ax.text(j, i, f'{z}', c = neg_arc_color(z), ha = 'center', va = 'center', size = "x-small")#, bbox = dict(boxstyle = 'round', facecolor = 'white', edgecolor = '0.3'))
+
+        #ax.set_axis_off()
+        rows, cols = np.array(data).shape
+        ax.set_xticks(np.arange(-0.5, cols, 1), minor = True)
+        ax.set_yticks(np.arange(-0.5, rows, 1), minor = True)
+        ax.grid(which = 'minor', color = 'white', linestyle = '-', linewidth = 1)
+        ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
+
     for k in range(0, len(pairs)):
         ipt = pairs[k]["input"]
         opt = pairs[k]["output"]
 
-        ax = axs[k][0]
-        ax.set_xticks([])
-        ax.set_yticks([])
-        im = ax.matshow(ipt, cmap = cmap_arc, norm = norm_arc)
-        cbar = plt.colorbar(im, ax = ax, ticks = np.arange(0, 10))
-        cbar.ax.set_yticklabels(np.arange(0, 10)) 
-        cbar.outline.set_edgecolor('black')
-
-        for (i, j), z in np.ndenumerate(ipt):
-            ax.text(j, i, f'{z}', c = neg_arc_color(z), ha = 'center', va='center')#, size = 'xx-small', bbox = dict(boxstyle = 'round', facecolor = 'white', edgecolor = '0.3'))
-
-        #ax.set_axis_off()
-        rows, cols = np.array(ipt).shape
-        ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
-        ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
-        ax.grid(which = 'minor', color = 'white', linestyle = '-', linewidth = 1)
-        ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
-
-        ax = axs[k][1]
-        ax.set_xticks([])
-        ax.set_yticks([])
-        im = ax.matshow(opt, cmap = cmap_arc, norm = norm_arc)
-        cbar = plt.colorbar(im, ax = ax, ticks = np.arange(0, 10))
-        cbar.ax.set_yticklabels(np.arange(0, 10)) 
-        cbar.outline.set_edgecolor('black')
-
-        for (i, j), z in np.ndenumerate(opt):
-            ax.text(j, i, f'{z}', c = neg_arc_color(z), ha = 'center', va = 'center')#, size = 'xx-small', bbox = dict(boxstyle = 'round', facecolor = 'white', edgecolor = '0.3'))
-
-        #ax.set_axis_off()
-        rows, cols = np.array(opt).shape
-        ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
-        ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
-        ax.grid(which = 'minor', color = 'white', linestyle = '-', linewidth = 1)
-        ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
+        plot_data(axs[k][0], ipt)
+        plot_data(axs[k][1], opt)
 
     mng = plt.get_current_fig_manager()
     mng.resize(*mng.window.maxsize())
