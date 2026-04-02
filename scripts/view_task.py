@@ -52,11 +52,8 @@ def show(text, pairs):
         ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
 
     for k in range(0, len(pairs)):
-        ipt = pairs[k]["input"]
-        opt = pairs[k]["output"]
-
-        plot_data(axs[k][0], ipt)
-        plot_data(axs[k][1], opt)
+        plot_data(axs[k][0], pairs[k]["input"])
+        plot_data(axs[k][1], pairs[k]["output"])
 
     mng = plt.get_current_fig_manager()
     mng.resize(*mng.window.maxsize())
