@@ -29,6 +29,20 @@ def show(text, pairs):
         #axs[k][0].set_axis_off()
         #axs[k][1].set_axis_off()
 
+        rows, cols = np.array(ipt).shape
+        ax = axs[k][0]
+        ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
+        ax.grid(which = 'minor', color = 'black', linestyle = '-', linewidth = 1)
+        ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
+
+        rows, cols = np.array(opt).shape
+        ax = axs[k][1]
+        ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
+        ax.grid(which = 'minor', color = 'black', linestyle = '-', linewidth = 1)
+        ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
+
     mng = plt.get_current_fig_manager()
     mng.resize(*mng.window.maxsize())
     plt.show()
