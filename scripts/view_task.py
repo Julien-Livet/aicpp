@@ -1,5 +1,6 @@
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 import sys
 import urllib.request
 
@@ -11,16 +12,25 @@ def show(text, pairs):
 
     fig.suptitle(text + ' input/output pairs')
 
-    for i in range(0, len(pairs)):
-        ipt = pairs[i]["input"]
-        opt = pairs[i]["output"]
+    for k in range(0, len(pairs)):
+        ipt = pairs[k]["input"]
+        opt = pairs[k]["output"]
 
-        fig.colorbar(axs[i][0].matshow(ipt, vmin = 1, vmax = 9))
-        fig.colorbar(axs[i][1].matshow(opt, vmin = 1, vmax = 9))
+        fig.colorbar(axs[k][0].matshow(ipt, vmin = 1, vmax = 9))
 
-        #axs[i][0].set_axis_off()
-        #axs[i][1].set_axis_off()
+        for (i, j), z in np.ndenumerate(ipt):
+            axs[k][0].text(j, i, f'{z}', ha='center', va='center')#, size = 'xx-small', bbox=dict(boxstyle='round', facecolor='white', edgecolor='0.3'))
 
+        fig.colorbar(axs[k][1].matshow(opt, vmin = 1, vmax = 9))
+
+        for (i, j), z in np.ndenumerate(opt):
+            axs[k][1].text(j, i, f'{z}', ha='center', va='center')#, size = 'xx-small', bbox=dict(boxstyle='round', facecolor='white', edgecolor='0.3'))
+
+        #axs[k][0].set_axis_off()
+        #axs[k][1].set_axis_off()
+
+    mng = plt.get_current_fig_manager()
+    mng.resize(*mng.window.maxsize())
     plt.show()
 
 def view(folder: str, task: str):
