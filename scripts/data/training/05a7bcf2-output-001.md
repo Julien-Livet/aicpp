@@ -1,42 +1,34 @@
 ```python
 def dsl1(I):
-    Ih = hmirror(I)
-    Iv = vmirror(I)
-    Eh = ofcolor(Ih, EIGHT)
-    Ev = ofcolor(Iv, EIGHT)
-    G = underfill(I, EIGHT, Eh)
-    O = underfill(G, EIGHT, Ev)
+    top = tophalf(I)
+    O = vconcat(top, top)
     return O
 
 def dsl2(I):
-    F4 = ofcolor(I, FOUR)
-    bb4 = inbox(F4)
-    O = underfill(I, THREE, bb4)
+    objs = objects(I, T, F, T)
+    rects = mapply(inbox, objs)
+    region = merge(rects)
+    obj = recolor(EIGHT, region)
+    O = underpaint(I, obj)
     return O
 
 def dsl3(I):
-    O = replace(I, FOUR, THREE)
+    a = ofcolor(I, FOUR)
+    b = ofcolor(I, TWO)
+    anchors = combine(a, b)
+    band = inbox(anchors)
+    O = fill(I, EIGHT, band)
     return O
 
 def dsl4(I):
-    E = ofcolor(I, EIGHT)
-    fR = rbind(shoot, RIGHT)
-    fD = rbind(shoot, DOWN)
-    raysR = apply(fR, E)
-    raysD = apply(fD, E)
-    PR = merge(raysR)
-    PD = merge(raysD)
-    G = fill(I, EIGHT, PR)
-    O = fill(G, EIGHT, PD)
+    O = hmirror(I)
     return O
 
 def dsl5(I):
-    T2 = ofcolor(I, TWO)
-    E = ofcolor(I, EIGHT)
-    dir = gravitate(T2, E)
-    f = rbind(shoot, dir)
-    rays = apply(f, T2)
-    P = merge(rays)
-    O = fill(I, TWO, P)
+    e = ofcolor(I, EIGHT)
+    c = center(e)
+    line = hfrontier(c)
+    obj = recolor(EIGHT, line)
+    O = underpaint(I, obj)
     return O
 ```

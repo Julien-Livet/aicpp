@@ -1,40 +1,38 @@
 ```python
 def dsl1(I):
-    O = vupscale(hupscale(I, TWO), TWO)
+    # Global tiling: duplicate grid 2x horizontally and vertically
+    H = hconcat(I, I)
+    O = vconcat(H, H)
     return O
 
 def dsl2(I):
-    O = vconcat(hconcat(I, I), hconcat(I, I))
+    # Object extraction: tile 2x2, then paint only non-zero cells onto an 8 canvas
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    C = canvas(EIGHT, shape(B))
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    O = paint(C, NZOBJ)
     return O
 
 def dsl3(I):
-    O0 = hconcat(I, I)
-    O = replace(O0, ZERO, EIGHT)
+    # Color filtering: tile 2x2, then turn all zeros into 8
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    O = replace(B, ZERO, EIGHT)
     return O
 
 def dsl4(I):
-    TL = I
-    TR = hmirror(I)
-    BL = vmirror(I)
-    BR = rot180(I)
-    O = vconcat(hconcat(TL, TR), hconcat(BL, BR))
+    # Geometric upscaling: upscale by 2x in both directions, then turn zeros into 8
+    U = vupscale(hupscale(I, TWO), TWO)
+    O = replace(U, ZERO, EIGHT)
     return O
 
 def dsl5(I):
-    h = height(I)
-    w = width(I)
-    H2 = double(h)
-    W2 = double(w)
-    dims = astuple(H2, W2)
-    base = canvas(ZERO, dims)
-    obj = asobject(I)
-    off1 = ORIGIN
-    off2 = tojvec(w)
-    off3 = toivec(h)
-    off4 = add(off2, off3)
-    G1 = move(base, obj, off1)
-    G2 = move(G1, obj, off2)
-    G3 = move(G2, obj, off3)
-    O = move(G3, obj, off4)
+    # Relational/structural: tile 2x2, then draw 8s along color frontiers
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    F = frontiers(B)
+    O = fill(B, EIGHT, F)
     return O
 ```

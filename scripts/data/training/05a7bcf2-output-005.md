@@ -1,38 +1,44 @@
 ```python
 def dsl1(I):
-    E = ofcolor(I, EIGHT)
-    T2 = ofcolor(I, TWO)
-    c8 = centerofmass(E)
-    c2 = centerofmass(T2)
-    P = connect(c8, c2)
-    B = inbox(P)
-    O = underfill(I, EIGHT, B)
+    p2 = ofcolor(I, TWO)
+    p4 = ofcolor(I, FOUR)
+    p8 = ofcolor(I, EIGHT)
+    big = inbox(combine(p2, combine(p4, p8)))
+    frame4 = box(inbox(p4))
+    A = fill(I, THREE, frame4)
+    O = underfill(A, EIGHT, big)
     return O
 
 def dsl2(I):
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    Bs = apply(backdrop, F4s)
-    B = merge(Bs)
-    O = fill(I, THREE, B)
+    objs = objects(I, T, F, T)
+    o4 = colorfilter(objs, FOUR)
+    o2 = colorfilter(objs, TWO)
+    r4 = mapply(inbox, o4)
+    r2 = mapply(inbox, o2)
+    A = underfill(I, THREE, r4)
+    O = underfill(A, EIGHT, r2)
     return O
 
 def dsl3(I):
-    O = switch(I, FOUR, THREE)
+    A = replace(I, FOUR, THREE)
+    core = combine(ofcolor(A, TWO), ofcolor(A, THREE))
+    frame = box(inbox(core))
+    O = fill(A, EIGHT, frame)
     return O
 
 def dsl4(I):
-    Iv = vmirror(I)
-    Ev = ofcolor(Iv, EIGHT)
-    Obj = recolor(EIGHT, Ev)
-    O = underpaint(I, Obj)
+    M = vmirror(I)
+    m4 = ofcolor(M, FOUR)
+    obj = recolor(EIGHT, m4)
+    O = paint(I, obj)
     return O
 
 def dsl5(I):
-    E = ofcolor(I, EIGHT)
-    T2 = ofcolor(I, TWO)
-    U = combine(E, T2)
-    B = inbox(U)
-    O = underfill(I, EIGHT, B)
+    p4 = ofcolor(I, FOUR)
+    p2 = ofcolor(I, TWO)
+    a = lrcorner(p4)
+    b = ulcorner(p2)
+    path = connect(a, b)
+    O = fill(I, EIGHT, path)
     return O
 ```

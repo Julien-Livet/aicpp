@@ -1,8 +1,83 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 5, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 5, 7, 7, 7), (7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 5, 7, 7), (7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)) -> ((7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 5), (7, 7, 7, 5, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7), (7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7), (7, 7, 5, 7, 7, 5, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7), (7, 7, 7, 5, 7, 7, 5, 7, 7, 7, 7, 5, 7, 7, 7, 7), (7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 5, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 5, 7), (7, 7, 7, 7, 7, 5, 7, 7, 5, 7, 7, 7, 7, 5, 7, 7), (7, 7, 7, 7, 5, 7, 7, 7, 7, 5, 7, 7, 5, 7, 7, 7), (7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)) -> ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 8), (7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 2, 7, 7, 2, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 8, 7, 7, 2, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 2, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+## Output
+
+```bash
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0222111444
+0222111444
+0000000000
+0000000000
+0000000000
+```
+
+# train2
+
+## Input
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+## Output
+
+```bash
+0000000000
+0220440110
+0220440110
+0000000000
+0000000000
+```
+
+# train3
+
+## Input
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
+## Output
+
+```bash
+0000000000
+0000000000
+0102004000
+0102004000
+0000000000
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -33,7 +108,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -66,7 +142,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -230,136 +307,280 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    # 2 where 5 is invariant under counterdiagonal mirror; others -> 8
-    S5 = ofcolor(I, FIVE)
-    S5m = cmirror(S5)
-    S2 = intersection(S5, S5m)
-    S8 = difference(S5, S2)
-    O = fill(fill(I, EIGHT, S8), TWO, S2)
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    top = uppermost(tgt)
+    up = toivec(top)
+    f_upvec = compose(toivec, uppermost)
+    dvf = compose(lbind(subtract, up), f_upvec)
+    shifter = fork(shift, identity, dvf)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
-| train2 |                0 |      23.2379 |            0.0585938 |                   0 |      23.2965 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8), (7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 2, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 11, in dsl1
+def dsl1(I):
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    top = uppermost(tgt)
+    up = toivec(top)
+    f_upvec = compose(toivec, uppermost)
+    dvf = compose(lbind(subtract, up), f_upvec)
+    shifter = fork(shift, identity, dvf)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 1035, in paint
+    for value, (i, j) in obj:
+        ^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+```
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    # 2 for 5-objects that touch the grid border; others -> 8
-    O5 = colorfilter(objects(I, T, T, T), FIVE)
-    B = sfilter(O5, rbind(bordering, I))
-    S2 = merge(apply(toindices, B))
-    S8 = difference(ofcolor(I, FIVE), S2)
-    O = fill(fill(I, EIGHT, S8), TWO, S2)
+    colobjs = fgpartition(I)
+    tgt = first(colorfilter(colobjs, ONE))
+    top = uppermost(tgt)
+    up = toivec(top)
+    f_upvec = compose(toivec, uppermost)
+    dvf = compose(lbind(subtract, up), f_upvec)
+    shifter = fork(shift, identity, dvf)
+    shifted = mapply(shifter, colobjs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      24      |            0.0625    |                   0 |      24.0625 |
-| train2 |                0 |      27.4955 |            0.0820312 |                   0 |      27.5775 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 2), (7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 11, in dsl2
+def dsl2(I):
+    colobjs = fgpartition(I)
+    tgt = first(colorfilter(colobjs, ONE))
+    top = uppermost(tgt)
+    up = toivec(top)
+    f_upvec = compose(toivec, uppermost)
+    dvf = compose(lbind(subtract, up), f_upvec)
+    shifter = fork(shift, identity, dvf)
+    shifted = mapply(shifter, colobjs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 1035, in paint
+    for value, (i, j) in obj:
+        ^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+```
 
 ---
 
-**Program 3**
-*DSL*
+# Program 3
+## DSL
 ```python
 def dsl3(I):
-    # 2 for 5s with exactly one neighbor along UL-DR diagonal; others -> 8
-    S5 = ofcolor(I, FIVE)
-    HasUL = intersection(S5, shift(S5, UNITY))
-    HasDR = intersection(S5, shift(S5, NEG_UNITY))
-    Interior = intersection(HasUL, HasDR)
-    OneSide = difference(combine(HasUL, HasDR), Interior)
-    S2 = OneSide
-    S8 = difference(S5, S2)
-    O = fill(fill(I, EIGHT, S8), TWO, S2)
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    cconst = rbind(center, tgt)
+    dv0 = fork(subtract, cconst, center)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      21.6333 |            0.0507812 |                   0 |      21.6841 |
-| train2 |                0 |      16.9706 |            0.03125   |                   0 |      17.0018 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 2), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 8), (7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 2, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 2, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 2, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 8, in dsl3
+def dsl3(I):
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    cconst = rbind(center, tgt)
+    dv0 = fork(subtract, cconst, center)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 533, in mapply
+    return merge(apply(function, container))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 517, in apply
+    return type(container)(function(e) for e in container)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 517, in <genexpr>
+    return type(container)(function(e) for e in container)
+                           ^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 509, in <lambda>
+    return lambda x: outer(a(x), b(x))
+                                 ^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 445, in <lambda>
+    return lambda x: outer(inner(x))
+                           ^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 509, in <lambda>
+    return lambda x: outer(a(x), b(x))
+                           ^^^^
+TypeError: rbind.<locals>.<lambda>() missing 2 required positional arguments: 'y' and 'z'
+```
 
 ---
 
-**Program 4**
-*DSL*
+# Program 4
+## DSL
 ```python
 def dsl4(I):
-    # 2 where 5 lies on the main diagonal of its own bbox; others -> 8
-    S5 = ofcolor(I, FIVE)
-    Axis = connect(ulcorner(S5), lrcorner(S5))
-    S2 = intersection(S5, Axis)
-    S8 = difference(S5, S2)
-    O = fill(fill(I, EIGHT, S8), TWO, S2)
+    colobjs = fgpartition(I)
+    tgt = first(colorfilter(colobjs, ONE))
+    cconst = rbind(centerofmass, tgt)
+    dv0 = fork(subtract, cconst, centerofmass)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, colobjs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
-| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8), (7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7), (7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 8, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 8, 7), (7, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7), (7, 7, 7, 7, 8, 7, 7, 7, 7, 8, 7, 7, 8, 7, 7, 7), (7, 7, 7, 8, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 8, in dsl4
+def dsl4(I):
+    colobjs = fgpartition(I)
+    tgt = first(colorfilter(colobjs, ONE))
+    cconst = rbind(centerofmass, tgt)
+    dv0 = fork(subtract, cconst, centerofmass)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, colobjs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 533, in mapply
+    return merge(apply(function, container))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 517, in apply
+    return type(container)(function(e) for e in container)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 517, in <genexpr>
+    return type(container)(function(e) for e in container)
+                           ^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 509, in <lambda>
+    return lambda x: outer(a(x), b(x))
+                                 ^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 445, in <lambda>
+    return lambda x: outer(inner(x))
+                           ^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 509, in <lambda>
+    return lambda x: outer(a(x), b(x))
+                           ^^^^
+TypeError: rbind.<locals>.<lambda>() missing 2 required positional arguments: 'y' and 'z'
+```
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
-    # 2 for leftmost 5s in each row; others -> 8
-    S5 = ofcolor(I, FIVE)
-    WithLeft = intersection(S5, shift(S5, RIGHT))
-    S2 = difference(S5, WithLeft)
-    S8 = difference(S5, S2)
-    O = fill(fill(I, EIGHT, S8), TWO, S2)
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    dv0 = rbind(position, tgt)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      24      |            0.0625    |                   0 |      24.0625 |
-| train2 |                0 |      23.2379 |            0.0585938 |                   0 |      23.2965 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (2, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
-train2: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 2), (7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7), (7, 7, 2, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7), (7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 2, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7), (7, 7, 7, 7, 7, 2, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7), (7, 7, 7, 7, 2, 7, 7, 7, 7, 2, 7, 7, 2, 7, 7, 7), (7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 9, in dsl5
+def dsl5(I):
+    objs = objects(I, T, F, T)
+    tgt = first(colorfilter(objs, ONE))
+    dv0 = rbind(position, tgt)
+    dv = compose(lbind(multiply, toivec(ONE)), dv0)
+    shifter = fork(shift, identity, dv)
+    shifted = mapply(shifter, objs)
+    allobj = merge(shifted)
+    O = paint(canvas(ZERO, shape(I)), allobj)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 1035, in paint
+    for value, (i, j) in obj:
+        ^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+```
 
 ---
 
@@ -476,6 +697,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -488,9 +713,17 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
+
+nan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.
+
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

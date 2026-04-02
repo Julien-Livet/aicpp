@@ -1,9 +1,85 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 5, 0, 7, 5, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0), (0, 0, 2, 2, 0, 0, 3, 3, 3, 0, 0), (0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((6, 2, 2), (7, 5, 7), (3, 3, 3))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0), (0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0), (0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 5, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((6, 6, 7), (0, 5, 7), (4, 4, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0), (1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0), (0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 1, 1), (1, 5, 2), (9, 9, 2))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+00000000000
+00000000000
+06000000000
+00507570000
+00000000000
+00000000000
+00000000000
+00000005000
+00220033300
+00500000000
+00000000000
+```
+
+## Output
+
+```bash
+622
+757
+333
+```
+
+# train2
+
+## Input
+
+```bash
+00000000000
+00000066000
+00050005000
+00440000000
+00000000000
+00000000000
+00000000000
+00000070000
+00000570000
+00000000000
+00000000000
+```
+
+## Output
+
+```bash
+667
+057
+440
+```
+
+# train3
+
+## Input
+
+```bash
+00000000000
+00000000000
+01100000000
+15000000000
+00000520000
+00000020000
+00000000000
+00000000000
+00000005000
+00000099000
+00000000000
+```
+
+## Output
+
+```bash
+011
+152
+992
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -34,7 +110,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -67,7 +144,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -231,219 +309,406 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    J = I
-    W = width(J)
-    H = height(J)
-    RT = crop(J, toivec(ZERO), astuple(ONE, W))
-    RM = crop(J, toivec(halve(H)), astuple(ONE, W))
-    RB = crop(J, toivec(decrement(H)), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZ = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZ, initset(astuple(ZERO, J3)))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, initset(astuple(ZERO, J2)))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Global 3x3 partition on bbox; pick color at lower-rightmost nonzero per bin (fallback 0 via origin)
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    H = height(BB); W = width(BB)
+    h1 = divide(H, THREE); h2 = divide(H, THREE); h12 = add(h1, h2); h3 = subtract(H, h12)
+    w1 = divide(W, THREE); w2 = divide(W, THREE); w12 = add(w1, w2); w3 = subtract(W, w12)
+    sr1 = ORIGIN; sr2 = toivec(h1); sr3 = toivec(h12)
+    sc1 = ORIGIN; sc2 = tojvec(w1); sc3 = tojvec(w12)
+    Gs = (
+        crop(BB, add(sr1, sc1), astuple(h1, w1)),
+        crop(BB, add(sr1, sc2), astuple(h1, w2)),
+        crop(BB, add(sr1, sc3), astuple(h1, w3)),
+        crop(BB, add(sr2, sc1), astuple(h2, w1)),
+        crop(BB, add(sr2, sc2), astuple(h2, w2)),
+        crop(BB, add(sr2, sc3), astuple(h2, w3)),
+        crop(BB, add(sr3, sc1), astuple(h3, w1)),
+        crop(BB, add(sr3, sc2), astuple(h3, w2)),
+        crop(BB, add(sr3, sc3), astuple(h3, w3)),
+    )
+    pick = lambda G: index(G, lrcorner(toobject(combine(difference(asindices(G), ofcolor(G, ZERO)), initset(ORIGIN)), G)))
+    vals = tuple(apply(pick, Gs))
+    r1 = hconcat(hconcat(canvas(vals[0], UNITY), canvas(vals[1], UNITY)), canvas(vals[2], UNITY))
+    r2 = hconcat(hconcat(canvas(vals[3], UNITY), canvas(vals[4], UNITY)), canvas(vals[5], UNITY))
+    r3 = hconcat(hconcat(canvas(vals[6], UNITY), canvas(vals[7], UNITY)), canvas(vals[8], UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      13.9284 |             1        |            1        |      15.9284 |
-| train2 |                0 |      15.0665 |             0.777778 |            1        |      16.8443 |
-| train3 |                0 |      13.9284 |             0.777778 |            0.288675 |      14.9948 |
+| train1 |                0 |      13.3791 |             0.888889 |                   0 |      14.268  |
+| train2 |                0 |      14.0357 |             1        |                   0 |      15.0357 |
+| train3 |                0 |      16.2173 |             0.777778 |                   0 |      16.9951 |
 
-*Output grids*
-train1: ((0, 0, 0), (0, 0, 0), (0, 0, 0))
-train2: ((0, 0, 0), (0, 0, 0), (0, 0, 0))
-train3: ((0, 0, 0), (0, 0, 2), (0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+577
+000
+523
+```
+
+### train2 output
+
+```bash
+505
+400
+057
+```
+
+### train3 output
+
+```bash
+510
+002
+009
+```
+
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    W = width(I)
-    RTi = uppermost(NZ)
-    RBi = lowermost(NZ)
-    RMi = divide(add(RTi, RBi), TWO)
-    RT = crop(I, toivec(RTi), astuple(ONE, W))
-    RM = crop(I, toivec(RMi), astuple(ONE, W))
-    RB = crop(I, toivec(RBi), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZr = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZr, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZr, initset(astuple(ZERO, J3)))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, initset(astuple(ZERO, J2)))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Object extraction: pick three horizontal-line objects (size 2 or 3), order by vertical position, sample L/M/R
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    allobjs = objects(I, F, F, T)
+    hlines = mfilter(allobjs, hline)
+    L2 = sizefilter(hlines, TWO)
+    L3 = sizefilter(hlines, THREE)
+    lines = combine(L2, L3)
+    rtop = uppermost(FG); rbot = lowermost(FG); rmid = divide(add(rtop, rbot), TWO)
+    midrow = hfrontier(astuple(rmid, ZERO))
+    top = argmin(lines, uppermost)
+    bot = argmax(lines, lowermost)
+    rest = remove(bot, remove(top, lines))
+    dist_to_mid = compose(lbind(manhattan, midrow), toindices)
+    mid = argmin(rest, dist_to_mid)
+    mkrow = lambda o: (
+        lambda G, W, c3, c2, v1, v2, v3, r:
+            hconcat(hconcat(canvas(v1, UNITY), canvas(v2, UNITY)), canvas(v3, UNITY))
+    )(
+        subgrid(o, I),
+        width(subgrid(o, I)),
+        decrement(width(subgrid(o, I))),
+        divide(decrement(width(subgrid(o, I))), TWO),
+        index(subgrid(o, I), ORIGIN),
+        index(subgrid(o, I), astuple(ZERO, divide(decrement(width(subgrid(o, I))), TWO))),
+        index(subgrid(o, I), astuple(ZERO, decrement(width(subgrid(o, I))))),
+        ZERO
+    )
+    R_top = mkrow(top)
+    R_mid = mkrow(mid)
+    R_bot = mkrow(bot)
+    O = vconcat(vconcat(R_top, R_mid), R_bot)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      14.1774 |             1        |            0.235702 |      15.4131 |
-| train2 |                0 |      13.3041 |             0.777778 |            0.117851 |      14.1998 |
-| train3 |                0 |      12.49   |             0.444444 |            0.117851 |      13.0523 |
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
-train1: ((0, 0, 6), (0, 0, 0), (0, 0, 5))
-train2: ((0, 6, 6), (0, 0, 0), (0, 5, 7))
-train3: ((0, 1, 1), (0, 0, 2), (0, 9, 9))
+## Output grids
+
+
+## Tracebacks
+```bash
+  File "<string>", line 11, in dsl2
+def dsl2(I):
+    # Object extraction: pick three horizontal-line objects (size 2 or 3), order by vertical position, sample L/M/R
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    allobjs = objects(I, F, F, T)
+    hlines = mfilter(allobjs, hline)
+    L2 = sizefilter(hlines, TWO)
+    L3 = sizefilter(hlines, THREE)
+    lines = combine(L2, L3)
+    rtop = uppermost(FG); rbot = lowermost(FG); rmid = divide(add(rtop, rbot), TWO)
+    midrow = hfrontier(astuple(rmid, ZERO))
+    top = argmin(lines, uppermost)
+    bot = argmax(lines, lowermost)
+    rest = remove(bot, remove(top, lines))
+    dist_to_mid = compose(lbind(manhattan, midrow), toindices)
+    mid = argmin(rest, dist_to_mid)
+    mkrow = lambda o: (
+        lambda G, W, c3, c2, v1, v2, v3, r:
+            hconcat(hconcat(canvas(v1, UNITY), canvas(v2, UNITY)), canvas(v3, UNITY))
+    )(
+        subgrid(o, I),
+        width(subgrid(o, I)),
+        decrement(width(subgrid(o, I))),
+        divide(decrement(width(subgrid(o, I))), TWO),
+        index(subgrid(o, I), ORIGIN),
+        index(subgrid(o, I), astuple(ZERO, divide(decrement(width(subgrid(o, I))), TWO))),
+        index(subgrid(o, I), astuple(ZERO, decrement(width(subgrid(o, I))))),
+        ZERO
+    )
+    R_top = mkrow(top)
+    R_mid = mkrow(mid)
+    R_bot = mkrow(bot)
+    O = vconcat(vconcat(R_top, R_mid), R_bot)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 230, in argmin
+    return min(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 817, in uppermost
+    return min(i for i, j in toindices(patch))
+                             ^^^^^^^^^^^^^^^^
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 699, in toindices
+    if isinstance(next(iter(patch))[1], tuple):
+                  ~~~~~~~~~~~~~~~~~^^^
+TypeError: 'int' object is not subscriptable
+```
+```bash
+  File "<string>", line 11, in dsl2
+def dsl2(I):
+    # Object extraction: pick three horizontal-line objects (size 2 or 3), order by vertical position, sample L/M/R
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    allobjs = objects(I, F, F, T)
+    hlines = mfilter(allobjs, hline)
+    L2 = sizefilter(hlines, TWO)
+    L3 = sizefilter(hlines, THREE)
+    lines = combine(L2, L3)
+    rtop = uppermost(FG); rbot = lowermost(FG); rmid = divide(add(rtop, rbot), TWO)
+    midrow = hfrontier(astuple(rmid, ZERO))
+    top = argmin(lines, uppermost)
+    bot = argmax(lines, lowermost)
+    rest = remove(bot, remove(top, lines))
+    dist_to_mid = compose(lbind(manhattan, midrow), toindices)
+    mid = argmin(rest, dist_to_mid)
+    mkrow = lambda o: (
+        lambda G, W, c3, c2, v1, v2, v3, r:
+            hconcat(hconcat(canvas(v1, UNITY), canvas(v2, UNITY)), canvas(v3, UNITY))
+    )(
+        subgrid(o, I),
+        width(subgrid(o, I)),
+        decrement(width(subgrid(o, I))),
+        divide(decrement(width(subgrid(o, I))), TWO),
+        index(subgrid(o, I), ORIGIN),
+        index(subgrid(o, I), astuple(ZERO, divide(decrement(width(subgrid(o, I))), TWO))),
+        index(subgrid(o, I), astuple(ZERO, decrement(width(subgrid(o, I))))),
+        ZERO
+    )
+    R_top = mkrow(top)
+    R_mid = mkrow(mid)
+    R_bot = mkrow(bot)
+    O = vconcat(vconcat(R_top, R_mid), R_bot)
+    return O
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 230, in argmin
+    return min(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: min() iterable argument is empty
+```
 
 ---
 
-**Program 3**
-*DSL*
+# Program 3
+## DSL
 ```python
 def dsl3(I):
-    P = palette(I)
-    PNZ = remove(ZERO, P)
-    COUNT = lbind(colorcount, I)
-    C1 = argmax(PNZ, COUNT)
-    R1 = remove(C1, PNZ)
-    C2 = branch(positive(size(R1)), argmax(R1, COUNT), C1)
-    R2 = remove(C2, R1)
-    C3 = branch(positive(size(R2)), argmax(R2, COUNT), C2)
-    def row_of(c):
-        return hconcat(hconcat(canvas(c, UNITY), canvas(c, UNITY)), canvas(c, UNITY))
-    O = vconcat(vconcat(row_of(C1), row_of(C2)), row_of(C3))
+    # Color filtering per 3x3 bin: replace zeros by leastcolor of bbox, then take mostcolor per bin
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    base = leastcolor(BB)
+    H = height(BB); W = width(BB)
+    h1 = divide(H, THREE); h2 = divide(H, THREE); h12 = add(h1, h2); h3 = subtract(H, h12)
+    w1 = divide(W, THREE); w2 = divide(W, THREE); w12 = add(w1, w2); w3 = subtract(W, w12)
+    sr1 = ORIGIN; sr2 = toivec(h1); sr3 = toivec(h12)
+    sc1 = ORIGIN; sc2 = tojvec(w1); sc3 = tojvec(w12)
+    Gs = (
+        crop(BB, add(sr1, sc1), astuple(h1, w1)),
+        crop(BB, add(sr1, sc2), astuple(h1, w2)),
+        crop(BB, add(sr1, sc3), astuple(h1, w3)),
+        crop(BB, add(sr2, sc1), astuple(h2, w1)),
+        crop(BB, add(sr2, sc2), astuple(h2, w2)),
+        crop(BB, add(sr2, sc3), astuple(h2, w3)),
+        crop(BB, add(sr3, sc1), astuple(h3, w1)),
+        crop(BB, add(sr3, sc2), astuple(h3, w2)),
+        crop(BB, add(sr3, sc3), astuple(h3, w3)),
+    )
+    choose = lambda G: mostcolor(replace(G, ZERO, base))
+    vals = tuple(apply(choose, Gs))
+    r1 = hconcat(hconcat(canvas(vals[0], UNITY), canvas(vals[1], UNITY)), canvas(vals[2], UNITY))
+    r2 = hconcat(hconcat(canvas(vals[3], UNITY), canvas(vals[4], UNITY)), canvas(vals[5], UNITY))
+    r3 = hconcat(hconcat(canvas(vals[6], UNITY), canvas(vals[7], UNITY)), canvas(vals[8], UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      7.61577 |             1        |                   0 |      8.61577 |
-| train2 |                0 |      8.7178  |             1        |                   0 |      9.7178  |
-| train3 |                0 |      8.66025 |             0.444444 |                   0 |      9.1047  |
+| train1 |                0 |      7.87401 |             0.888889 |                   0 |      8.7629  |
+| train2 |                0 |      7.14143 |             0.777778 |                   0 |      7.91921 |
+| train3 |                0 |     10.5357  |             0.777778 |                   0 |     11.3134  |
 
-*Output grids*
-train1: ((5, 5, 5), (3, 3, 3), (2, 2, 2))
-train2: ((5, 5, 5), (4, 4, 4), (6, 6, 6))
-train3: ((1, 1, 1), (5, 5, 5), (9, 9, 9))
+## Output grids
+
+### train1 output
+
+```bash
+666
+666
+666
+```
+
+### train2 output
+
+```bash
+446
+444
+444
+```
+
+### train3 output
+
+```bash
+122
+222
+222
+```
+
 
 ---
 
-**Program 4**
-*DSL*
+# Program 4
+## DSL
 ```python
 def dsl4(I):
-    J = rot90(I)
-    W = width(J)
-    H = height(J)
-    RT = crop(J, toivec(ZERO), astuple(ONE, W))
-    RM = crop(J, toivec(halve(H)), astuple(ONE, W))
-    RB = crop(J, toivec(decrement(H)), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZ = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZ, initset(astuple(ZERO, J3)))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, initset(astuple(ZERO, J2)))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Geometric sampling: intersections of extreme rows/cols with midpoint rows/cols
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    r1 = uppermost(FG); r3 = lowermost(FG); r2 = divide(add(r1, r3), TWO)
+    c1 = leftmost(FG); c3 = rightmost(FG); c2 = divide(add(c1, c3), TWO)
+    s = lambda r, c: index(I, astuple(r, c))
+    v11 = s(r1, c1); v12 = s(r1, c2); v13 = s(r1, c3)
+    v21 = s(r2, c1); v22 = s(r2, c2); v23 = s(r2, c3)
+    v31 = s(r3, c1); v32 = s(r3, c2); v33 = s(r3, c3)
+    r_1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r_2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r_3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r_1, r_2), r_3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      12.2066 |             1        |            0.288675 |      13.4952 |
-| train2 |                0 |      13.4907 |             0.777778 |            0.288675 |      14.5572 |
-| train3 |                0 |      14.2127 |             0.777778 |            0.263523 |      15.254  |
+| train1 |                0 |      12.5698 |             0.888889 |            0.333333 |      13.792  |
+| train2 |                0 |      13.3791 |             0.777778 |            0.333333 |      14.4902 |
+| train3 |                0 |      15.5885 |             0.888889 |            0.333333 |      16.8107 |
 
-*Output grids*
-train1: ((0, 0, 0), (0, 0, 5), (0, 0, 0))
-train2: ((0, 0, 0), (0, 0, 5), (0, 0, 0))
-train3: ((0, 0, 1), (0, 0, 5), (0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+600
+000
+000
+```
+
+### train2 output
+
+```bash
+006
+000
+000
+```
+
+### train3 output
+
+```bash
+000
+000
+009
+```
+
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    JL = leftmost(NZ)
-    JR = rightmost(NZ)
-    JM = divide(add(JL, JR), TWO)
-    H = height(I)
-    CL = crop(I, astuple(ZERO, JL), astuple(H, ONE))
-    CM = crop(I, astuple(ZERO, JM), astuple(H, ONE))
-    CR = crop(I, astuple(ZERO, JR), astuple(H, ONE))
-    RL = rot90(CL)
-    RMd = rot90(CM)
-    RR = rot90(CR)
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZr = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZr, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZr, initset(astuple(ZERO, J3)))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, initset(astuple(ZERO, J2)))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RL), row_last3(RMd)), row_last3(RR))
+    # Relational by vertical slices: in each slice, pick upper/mid/lower rows at the slice's rightmost fg column
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    H = height(BB); W = width(BB)
+    w1 = divide(W, THREE); w2 = divide(W, THREE); w12 = add(w1, w2); w3 = subtract(W, w12)
+    sc1 = ORIGIN; sc2 = tojvec(w1); sc3 = tojvec(w12)
+    S1 = crop(BB, add(ORIGIN, sc1), astuple(H, w1))
+    S2 = crop(BB, add(ORIGIN, sc2), astuple(H, w2))
+    S3 = crop(BB, add(ORIGIN, sc3), astuple(H, w3))
+    colpick = lambda S: (
+        lambda P, r1, r3, r2, c, v1, v2, v3: vconcat(vconcat(canvas(v1, UNITY), canvas(v2, UNITY)), canvas(v3, UNITY))
+    )(
+        difference(asindices(S), ofcolor(S, ZERO)),
+        uppermost(difference(asindices(S), ofcolor(S, ZERO))),
+        lowermost(difference(asindices(S), ofcolor(S, ZERO))),
+        divide(add(uppermost(difference(asindices(S), ofcolor(S, ZERO))), lowermost(difference(asindices(S), ofcolor(S, ZERO)))), TWO),
+        rightmost(difference(asindices(S), ofcolor(S, ZERO))),
+        index(S, astuple(uppermost(difference(asindices(S), ofcolor(S, ZERO))), rightmost(difference(asindices(S), ofcolor(S, ZERO))))),
+        index(S, astuple(divide(add(uppermost(difference(asindices(S), ofcolor(S, ZERO))), lowermost(difference(asindices(S), ofcolor(S, ZERO)))), TWO), rightmost(difference(asindices(S), ofcolor(S, ZERO))))),
+        index(S, astuple(lowermost(difference(asindices(S), ofcolor(S, ZERO))), rightmost(difference(asindices(S), ofcolor(S, ZERO)))))
+    )
+    C1 = colpick(S1)
+    C2 = colpick(S2)
+    C3 = colpick(S3)
+    O = hconcat(hconcat(C1, C2), C3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      12.1655 |             0.777778 |            0.235702 |      13.179  |
-| train2 |                0 |      14.4222 |             0.888889 |            0.117851 |      15.4289 |
-| train3 |                0 |      11      |             0.666667 |            0.117851 |      11.7845 |
+| train1 |                0 |     14.1774  |             0.888889 |                   0 |     15.0663  |
+| train2 |                0 |      8.83176 |             0.666667 |                   0 |      9.49843 |
+| train3 |                0 |     12.2882  |             0.777778 |                   0 |     13.066   |
 
-*Output grids*
-train1: ((0, 0, 6), (0, 0, 7), (0, 0, 3))
-train2: ((0, 0, 4), (0, 0, 0), (0, 5, 6))
-train3: ((0, 0, 1), (0, 0, 0), (0, 9, 5))
+## Output grids
+
+### train1 output
+
+```bash
+070
+000
+503
+```
+
+### train2 output
+
+```bash
+556
+550
+450
+```
+
+### train3 output
+
+```bash
+110
+110
+519
+```
+
 
 ---
 
@@ -560,6 +825,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -572,9 +841,17 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
+
+nan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.
+
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

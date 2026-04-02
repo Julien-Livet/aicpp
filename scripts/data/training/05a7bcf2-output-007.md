@@ -1,38 +1,42 @@
 ```python
 def dsl1(I):
-    E8 = ofcolor(I, EIGHT)
-    Rays = merge(apply(rbind(shoot, RIGHT), E8))
-    O = underfill(I, EIGHT, Rays)
+    core = combine(combine(ofcolor(I, TWO), ofcolor(I, FOUR)), ofcolor(I, EIGHT))
+    R = inbox(core)
+    frame = box(R)
+    A = fill(I, EIGHT, frame)
+    O = underfill(A, THREE, R)
     return O
 
 def dsl2(I):
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    Boxes = merge(apply(inbox, F4s))
-    O1 = fill(I, FOUR, Boxes)
-    Out = merge(apply(box, F4s))
-    O = fill(O1, THREE, Out)
+    objs = objects(I, T, F, T)
+    o4 = colorfilter(objs, FOUR)
+    o2 = colorfilter(objs, TWO)
+    c4 = mapply(urcorner, o4)
+    c2 = mapply(ulcorner, o2)
+    segs = prapply(connect, c4, c2)
+    P = merge(segs)
+    O = fill(I, EIGHT, P)
     return O
 
 def dsl3(I):
-    O = replace(I, FOUR, ZERO)
+    A = replace(I, FOUR, THREE)
+    objs = objects(I, T, F, T)
+    o2 = colorfilter(objs, TWO)
+    B = mapply(compose(box, inbox), o2)
+    O = fill(A, EIGHT, B)
     return O
 
 def dsl4(I):
-    E8 = ofcolor(I, EIGHT)
-    R = merge(apply(rbind(shoot, RIGHT), E8))
-    L = merge(apply(rbind(shoot, LEFT), E8))
-    HL = combine(R, L)
-    O = underfill(I, EIGHT, HL)
+    M = vmirror(I)
+    P = ofcolor(M, TWO)
+    O = fill(I, EIGHT, P)
     return O
 
 def dsl5(I):
-    E8 = ofcolor(I, EIGHT)
-    c8 = centerofmass(E8)
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    Cs = apply(centerofmass, F4s)
-    Lines = merge(prapply(connect, Cs, initset(c8)))
-    O = fill(I, EIGHT, Lines)
+    c4 = centerofmass(ofcolor(I, FOUR))
+    c2 = centerofmass(ofcolor(I, TWO))
+    path = connect(c4, c2)
+    A = replace(I, FOUR, THREE)
+    O = fill(A, EIGHT, path)
     return O
 ```

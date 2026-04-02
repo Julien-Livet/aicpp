@@ -1,64 +1,50 @@
 ```python
 def dsl1(I):
-    # Global: draw the bounding box of the entire foreground with the dominant nonzero color
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    fg = merge(objs)
-    edge = box(fg)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edge)
+    # Global: compress and place at bottom-right
+    C = compress(I)
+    obj = asobject(C)
+    off = subtract(shape(I), shape(C))
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl2(I):
-    # Object extraction: ring around the merged non-dominant foreground
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    mN = merge(nonL)
-    ring = outbox(mN)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, ring)
+    # Geometric: drop all nonzeros straight down to the bottom border
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    obj = toobject(NZ, I)
+    P = asindices(I)
+    B = connect(llcorner(P), lrcorner(P))
+    off = gravitate(NZ, B)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl3(I):
-    # Color filtering: per-object tight boxes around each non-dominant object
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    perboxes = mapply(box, nonL)
-    edges = merge(perboxes)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edges)
+    # Object extraction: keep the largest foreground object and place it at bottom-left
+    OBJS = fgpartition(I)
+    BIG = argmax(OBJS, size)
+    G = subgrid(BIG, I)
+    obj = asobject(G)
+    off = astuple(subtract(height(I), height(G)), ZERO)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl4(I):
-    # Geometric: gravitate merged non-dominant mass toward dominant mass and outline its new position
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    Lobjs = sfilter(objs, matcher(color, L))
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    mL = merge(Lobjs)
-    mN = merge(nonL)
-    dir = gravitate(mN, mL)
-    moved = shift(mN, dir)
-    edge = outbox(moved)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edge)
+    # Color filtering: keep least frequent nonzero color, crop it, and place at bottom-left
+    CSET = remove(ZERO, palette(I))
+    c = valmin(CSET, lbind(colorcount, I))
+    S = ofcolor(I, c)
+    G = subgrid(toobject(S, I), I)
+    obj = asobject(G)
+    off = astuple(subtract(height(I), height(G)), ZERO)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl5(I):
-    # Relational: fill the negative space (bounding-box minus content) around merged non-dominant mass
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    mN = merge(nonL)
-    hollow = delta(mN)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, hollow)
+    # Relational: move all nonzeros to be adjacent to the grid center
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    obj = toobject(NZ, I)
+    P = asindices(I)
+    Cpt = initset(center(P))
+    off = gravitate(NZ, Cpt)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 ```

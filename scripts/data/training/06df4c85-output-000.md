@@ -1,106 +1,108 @@
 ```python
 def dsl1(I):
-    lc = mostcolor(I)
-    obs = objects(I, T, F, T)
-    lineobs = colorfilter(obs, lc)
-    seeds0 = difference(obs, lineobs)
-    seeds = sizefilter(seeds0, 4)
-    pairs = product(seeds, seeds)
-    sameclr = fork(equality, compose(color, first), compose(color, last))
-    samerow = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    samecolb = fork(equality, compose(leftmost, first), compose(leftmost, last))
-    hpairs = sfilter(pairs, fork(both, sameclr, samerow))
-    vpairs = sfilter(pairs, fork(both, sameclr, samecolb))
-    hcol = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), hpairs)
-    vcol = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), vpairs)
-    addobj = merge(combine(hcol, vcol))
-    O = underpaint(I, addobj)
+    # Global transform: compress the grid structure
+    O = compress(I)
     return O
 
 def dsl2(I):
-    lc0 = mostcolor(I)
-    obs0 = objects(I, T, F, T)
-    seeds0 = sizefilter(difference(obs0, colorfilter(obs0, lc0)), 4)
-    pr0 = product(seeds0, seeds0)
-    sameclr0 = fork(equality, compose(color, first), compose(color, last))
-    samerow0 = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    hpairs0 = sfilter(pr0, fork(both, sameclr0, samerow0))
-    hcol0 = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), hpairs0)
-    addh = merge(hcol0)
-    H = underpaint(I, addh)
-    R = rot90(I)
-    lcr = mostcolor(R)
-    obsr = objects(R, T, F, T)
-    seedsr = sizefilter(difference(obsr, colorfilter(obsr, lcr)), 4)
-    prr = product(seedsr, seedsr)
-    sameclrr = fork(equality, compose(color, first), compose(color, last))
-    samerowr = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    hpairsr = sfilter(prr, fork(both, sameclrr, samerowr))
-    hcolr = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), hpairsr)
-    addr = merge(hcolr)
-    R2 = underpaint(R, addr)
-    V = rot270(R2)
-    O = underpaint(V, addh)
+    # Object-level vertical propagation between same-color occurrences
+    s = mostcolor(I)
+    objs = objects(I, T, F, T)
+    notS = mfilter(objs, compose(flip, matcher(color, s)))
+    colors = apply(color, notS)
+    grouped = apply(merge, apply(lbind(colorfilter, notS), colors))
+    dims = shape(I)
+
+    idxF = toindices
+    upF = compose(merge, lbind(apply, rbind(shoot, UP)))
+    dnF = compose(merge, lbind(apply, rbind(shoot, DOWN)))
+    upIdx = compose(upF, idxF)
+    dnIdx = compose(dnF, idxF)
+    vlines = fork(combine, upIdx, dnIdx)
+    bbox = backdrop
+    vmask = fork(intersection, vlines, bbox)
+
+    canF = compose(rbind(canvas, dims), color)
+    objFromMask = fork(toobject, vmask, canF)
+
+    P = mapply(objFromMask, grouped)
+    O = underpaint(I, P)
     return O
 
 def dsl3(I):
-    lc = mostcolor(I)
-    obs = objects(I, T, F, T)
-    seeds = sizefilter(difference(obs, colorfilter(obs, lc)), 4)
-    pairs = product(seeds, seeds)
-    samec = fork(equality, compose(color, first), compose(color, last))
-    samer = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    samek = fork(equality, compose(leftmost, first), compose(leftmost, last))
-    hp = sfilter(pairs, fork(both, samec, samer))
-    vp = sfilter(pairs, fork(both, samec, samek))
-    hboxes = mapply(compose(backdrop, fork(combine, first, last)), hp)
-    vboxes = mapply(compose(backdrop, fork(combine, first, last)), vp)
-    hpaint = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), hp)
-    vpaint = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), vp)
-    add = merge(combine(hpaint, vpaint))
-    O = underpaint(I, add)
+    # Color-filtered horizontal propagation between same-color occurrences
+    s = mostcolor(I)
+    objs = objects(I, T, F, T)
+    notS = mfilter(objs, compose(flip, matcher(color, s)))
+    colors = apply(color, notS)
+    grouped = apply(merge, apply(lbind(colorfilter, notS), colors))
+    dims = shape(I)
+
+    idxF = toindices
+    lfF = compose(merge, lbind(apply, rbind(shoot, LEFT)))
+    rtF = compose(merge, lbind(apply, rbind(shoot, RIGHT)))
+    lfIdx = compose(lfF, idxF)
+    rtIdx = compose(rtF, idxF)
+    hlines = fork(combine, lfIdx, rtIdx)
+    bbox = backdrop
+    hmask = fork(intersection, hlines, bbox)
+
+    canF = compose(rbind(canvas, dims), color)
+    objFromMask = fork(toobject, hmask, canF)
+
+    P = mapply(objFromMask, grouped)
+    O = underpaint(I, P)
     return O
 
 def dsl4(I):
-    lc = mostcolor(I)
-    allobs = objects(I, T, F, T)
-    nonline = difference(allobs, colorfilter(allobs, lc))
-    cells = sizefilter(nonline, 4)
-    pp = product(cells, cells)
-    same = fork(equality, compose(color, first), compose(color, last))
-    samerow = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    samecol = fork(equality, compose(leftmost, first), compose(leftmost, last))
-    hpairs = sfilter(pp, fork(both, same, samerow))
-    vpairs = sfilter(pp, fork(both, same, samecol))
-    hrects = mapply(compose(backdrop, fork(combine, first, last)), hpairs)
-    vrects = mapply(compose(backdrop, fork(combine, first, last)), vpairs)
-    hcol = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), hpairs)
-    vcol = mapply(fork(recolor, compose(color, first), compose(backdrop, fork(combine, first, last))), vpairs)
-    toadd = merge(combine(hcol, vcol))
-    O = underpaint(I, toadd)
+    # Geometric reasoning: draw the bounding box outline of each color group
+    s = mostcolor(I)
+    objs = objects(I, T, F, T)
+    notS = mfilter(objs, compose(flip, matcher(color, s)))
+    colors = apply(color, notS)
+    grouped = apply(merge, apply(lbind(colorfilter, notS), colors))
+    dims = shape(I)
+
+    outline = compose(box, normalize)  # outline (box) around grouped color
+    # Use original (unnormalized) group's bbox outline instead
+    outline = box  # keep it simple: box around the group's support
+    canF = compose(rbind(canvas, dims), color)
+    objFromOutline = fork(toobject, outline, canF)
+
+    P = mapply(objFromOutline, grouped)
+    O = underpaint(I, P)
     return O
 
 def dsl5(I):
-    lc = mostcolor(I)
-    obs = objects(I, T, F, T)
-    seeds = sizefilter(difference(obs, colorfilter(obs, lc)), 4)
-    prs = product(seeds, seeds)
-    sameclr = fork(equality, compose(color, first), compose(color, last))
-    samer = fork(equality, compose(uppermost, first), compose(uppermost, last))
-    samec = fork(equality, compose(leftmost, first), compose(leftmost, last))
-    hp = sfilter(prs, fork(both, sameclr, samer))
-    vp = sfilter(prs, fork(both, sameclr, samec))
-    htop = mapply(compose(connect, compose(ulcorner, first), compose(urcorner, last)), hp)
-    hbot = mapply(compose(shift, compose(connect, compose(ulcorner, first), compose(urcorner, last)), lbind(astuple, 1, 0)), hp)
-    vleft = mapply(compose(connect, compose(ulcorner, first), compose(llcorner, last)), vp)
-    vright = mapply(compose(shift, compose(connect, compose(ulcorner, first), compose(llcorner, last)), lbind(astuple, 0, 1)), vp)
-    hlines = merge(combine(htop, hbot))
-    vlines = merge(combine(vleft, vright))
-    hobj = mapply(fork(recolor, compose(color, first), compose(connect, compose(ulcorner, first), compose(urcorner, last))), hp)
-    hobj2 = mapply(fork(recolor, compose(color, first), compose(shift, compose(connect, compose(ulcorner, first), compose(urcorner, last)), lbind(astuple, 1, 0))), hp)
-    vobj = mapply(fork(recolor, compose(color, first), compose(connect, compose(ulcorner, first), compose(llcorner, last))), vp)
-    vobj2 = mapply(fork(recolor, compose(color, first), compose(shift, compose(connect, compose(ulcorner, first), compose(llcorner, last)), lbind(astuple, 0, 1))), vp)
-    add = merge(combine(combine(hobj, hobj2), combine(vobj, vobj2)))
-    O = underpaint(I, add)
+    # Relational/structural: combined vertical and horizontal propagation per color
+    s = mostcolor(I)
+    objs = objects(I, T, F, T)
+    notS = mfilter(objs, compose(flip, matcher(color, s)))
+    colors = apply(color, notS)
+    grouped = apply(merge, apply(lbind(colorfilter, notS), colors))
+    dims = shape(I)
+
+    idxF = toindices
+    upF = compose(merge, lbind(apply, rbind(shoot, UP)))
+    dnF = compose(merge, lbind(apply, rbind(shoot, DOWN)))
+    lfF = compose(merge, lbind(apply, rbind(shoot, LEFT)))
+    rtF = compose(merge, lbind(apply, rbind(shoot, RIGHT)))
+    upIdx = compose(upF, idxF)
+    dnIdx = compose(dnF, idxF)
+    lfIdx = compose(lfF, idxF)
+    rtIdx = compose(rtF, idxF)
+
+    vlines = fork(combine, upIdx, dnIdx)
+    hlines = fork(combine, lfIdx, rtIdx)
+    bbox = backdrop
+    vmask = fork(intersection, vlines, bbox)
+    hmask = fork(intersection, hlines, bbox)
+    mask = fork(combine, vmask, hmask)
+
+    canF = compose(rbind(canvas, dims), color)
+    objFromMask = fork(toobject, mask, canF)
+
+    P = mapply(objFromMask, grouped)
+    O = underpaint(I, P)
     return O
 ```

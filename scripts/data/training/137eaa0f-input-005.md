@@ -1,9 +1,85 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 5, 0, 7, 5, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0), (0, 0, 2, 2, 0, 0, 3, 3, 3, 0, 0), (0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((6, 2, 2), (7, 5, 7), (3, 3, 3))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0), (0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0), (0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 5, 7, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((6, 6, 7), (0, 5, 7), (4, 4, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0), (1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0), (0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 1, 1), (1, 5, 2), (9, 9, 2))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+00000000000
+00000000000
+06000000000
+00507570000
+00000000000
+00000000000
+00000000000
+00000005000
+00220033300
+00500000000
+00000000000
+```
+
+## Output
+
+```bash
+622
+757
+333
+```
+
+# train2
+
+## Input
+
+```bash
+00000000000
+00000066000
+00050005000
+00440000000
+00000000000
+00000000000
+00000000000
+00000070000
+00000570000
+00000000000
+00000000000
+```
+
+## Output
+
+```bash
+667
+057
+440
+```
+
+# train3
+
+## Input
+
+```bash
+00000000000
+00000000000
+01100000000
+15000000000
+00000520000
+00000020000
+00000000000
+00000000000
+00000005000
+00000099000
+00000000000
+```
+
+## Output
+
+```bash
+011
+152
+992
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -34,7 +110,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -67,7 +144,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -231,37 +309,41 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    UM = uppermost(NZ)
-    LM = lowermost(NZ)
-    MID = divide(add(UM, LM), TWO)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RU = crop(I, toivec(UM), astuple(ONE, W))
-    RM = crop(I, toivec(MID), astuple(ONE, W))
-    RL = crop(I, toivec(LM), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RU), row_last3(RM)), row_last3(RL))
+    # Global 3x3 binning on bbox with dominant nonzero color per bin
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    nzdom = lambda G: branch(
+        equality(size(remove(ZERO, palette(G))), ZERO),
+        ZERO,
+        argmax(remove(ZERO, palette(G)), lbind(colorcount, G))
+    )
+    v11 = nzdom(TL); v12 = nzdom(TC); v13 = nzdom(TR)
+    v21 = nzdom(ML); v22 = nzdom(MC); v23 = nzdom(MR)
+    v31 = nzdom(BL); v32 = nzdom(BC); v33 = nzdom(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -269,112 +351,193 @@ def dsl1(I):
 | train2 |              nan |          nan |                  nan |                 nan |          nan |
 | train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
+## Output grids
 
 
-*Tracebacks*
+## Tracebacks
 ```bash
-  File "<string>", line 24, in dsl1
+  File "<string>", line 23, in dsl1
 def dsl1(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    UM = uppermost(NZ)
-    LM = lowermost(NZ)
-    MID = divide(add(UM, LM), TWO)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RU = crop(I, toivec(UM), astuple(ONE, W))
-    RM = crop(I, toivec(MID), astuple(ONE, W))
-    RL = crop(I, toivec(LM), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RU), row_last3(RM)), row_last3(RL))
+    # Global 3x3 binning on bbox with dominant nonzero color per bin
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    nzdom = lambda G: branch(
+        equality(size(remove(ZERO, palette(G))), ZERO),
+        ZERO,
+        argmax(remove(ZERO, palette(G)), lbind(colorcount, G))
+    )
+    v11 = nzdom(TL); v12 = nzdom(TC); v13 = nzdom(TR)
+    v21 = nzdom(ML); v22 = nzdom(MC); v23 = nzdom(MR)
+    v31 = nzdom(BL); v32 = nzdom(BC); v33 = nzdom(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
-  File "<string>", line 13, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 222, in argmax
+    return max(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: max() iterable argument is empty
 ```
 ```bash
-  File "<string>", line 24, in dsl1
+  File "<string>", line 22, in dsl1
 def dsl1(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    UM = uppermost(NZ)
-    LM = lowermost(NZ)
-    MID = divide(add(UM, LM), TWO)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RU = crop(I, toivec(UM), astuple(ONE, W))
-    RM = crop(I, toivec(MID), astuple(ONE, W))
-    RL = crop(I, toivec(LM), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RU), row_last3(RM)), row_last3(RL))
+    # Global 3x3 binning on bbox with dominant nonzero color per bin
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    nzdom = lambda G: branch(
+        equality(size(remove(ZERO, palette(G))), ZERO),
+        ZERO,
+        argmax(remove(ZERO, palette(G)), lbind(colorcount, G))
+    )
+    v11 = nzdom(TL); v12 = nzdom(TC); v13 = nzdom(TR)
+    v21 = nzdom(ML); v22 = nzdom(MC); v23 = nzdom(MR)
+    v31 = nzdom(BL); v32 = nzdom(BC); v33 = nzdom(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
-  File "<string>", line 16, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 222, in argmax
+    return max(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: max() iterable argument is empty
 ```
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    TH = tophalf(I)
-    BH = bottomhalf(I)
-    Wt = width(TH)
-    Wb = width(BH)
-    NZT = difference(asindices(TH), ofcolor(TH, ZERO))
-    NZB = difference(asindices(BH), ofcolor(BH, ZERO))
-    NZA = difference(asindices(I), ofcolor(I, ZERO))
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = branch(positive(size(NZT)), crop(TH, toivec(uppermost(NZT)), astuple(ONE, Wt)), canvas(ZERO, astuple(ONE, Wt)))
-    RM = branch(positive(size(NZB)), crop(BH, toivec(uppermost(NZB)), astuple(ONE, Wb)), canvas(ZERO, astuple(ONE, Wb)))
-    RB = branch(positive(size(NZA)), crop(I, toivec(lowermost(NZA)), astuple(ONE, width(I))), canvas(ZERO, astuple(ONE, width(I))))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # 3x3 binning on bbox; sample color at center-of-mass of each bin (fallback 0)
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    samp = lambda G: branch(
+        equality(size(remove(ZERO, palette(G))), ZERO),
+        ZERO,
+        index(G, centerofmass(asindices(G)))
+    )
+    v11 = samp(TL); v12 = samp(TC); v13 = samp(TR)
+    v21 = samp(ML); v22 = samp(MC); v23 = samp(MR)
+    v31 = samp(BL); v32 = samp(BC); v33 = samp(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      13.4164 |             1        |            0.235702 |      14.6521 |
+| train2 |                0 |      14.4222 |             0.888889 |            0.263523 |      15.5746 |
+| train3 |                0 |      15.0997 |             1        |            0.117851 |      16.2175 |
+
+## Output grids
+
+### train1 output
+
+```bash
+507
+000
+000
+```
+
+### train2 output
+
+```bash
+500
+400
+000
+```
+
+### train3 output
+
+```bash
+500
+005
+000
+```
+
+
+---
+
+# Program 3
+## DSL
+```python
+def dsl3(I):
+    # 3x3 binning on bbox; choose color of largest object per bin (fallback 0)
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    pick = lambda G: branch(
+        equality(size(fgpartition(G)), ZERO),
+        ZERO,
+        color(argmax(fgpartition(G), size))
+    )
+    v11 = pick(TL); v12 = pick(TC); v13 = pick(TR)
+    v21 = pick(ML); v22 = pick(MC); v23 = pick(MR)
+    v31 = pick(BL); v32 = pick(BC); v33 = pick(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
+    return O
+```
+
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -382,363 +545,251 @@ def dsl2(I):
 | train2 |              nan |          nan |                  nan |                 nan |          nan |
 | train3 |              nan |          nan |                  nan |                 nan |          nan |
 
-*Output grids*
+## Output grids
 
 
-*Tracebacks*
+## Tracebacks
 ```bash
-  File "<string>", line 26, in dsl2
-def dsl2(I):
-    TH = tophalf(I)
-    BH = bottomhalf(I)
-    Wt = width(TH)
-    Wb = width(BH)
-    NZT = difference(asindices(TH), ofcolor(TH, ZERO))
-    NZB = difference(asindices(BH), ofcolor(BH, ZERO))
-    NZA = difference(asindices(I), ofcolor(I, ZERO))
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = branch(positive(size(NZT)), crop(TH, toivec(uppermost(NZT)), astuple(ONE, Wt)), canvas(ZERO, astuple(ONE, Wt)))
-    RM = branch(positive(size(NZB)), crop(BH, toivec(uppermost(NZB)), astuple(ONE, Wb)), canvas(ZERO, astuple(ONE, Wb)))
-    RB = branch(positive(size(NZA)), crop(I, toivec(lowermost(NZA)), astuple(ONE, width(I))), canvas(ZERO, astuple(ONE, width(I))))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+  File "<string>", line 22, in dsl3
+def dsl3(I):
+    # 3x3 binning on bbox; choose color of largest object per bin (fallback 0)
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    pick = lambda G: branch(
+        equality(size(fgpartition(G)), ZERO),
+        ZERO,
+        color(argmax(fgpartition(G), size))
+    )
+    v11 = pick(TL); v12 = pick(TC); v13 = pick(TR)
+    v21 = pick(ML); v22 = pick(MC); v23 = pick(MR)
+    v31 = pick(BL); v32 = pick(BC); v33 = pick(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
-  File "<string>", line 15, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 222, in argmax
+    return max(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: max() iterable argument is empty
 ```
 ```bash
-  File "<string>", line 26, in dsl2
-def dsl2(I):
-    TH = tophalf(I)
-    BH = bottomhalf(I)
-    Wt = width(TH)
-    Wb = width(BH)
-    NZT = difference(asindices(TH), ofcolor(TH, ZERO))
-    NZB = difference(asindices(BH), ofcolor(BH, ZERO))
-    NZA = difference(asindices(I), ofcolor(I, ZERO))
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = branch(positive(size(NZT)), crop(TH, toivec(uppermost(NZT)), astuple(ONE, Wt)), canvas(ZERO, astuple(ONE, Wt)))
-    RM = branch(positive(size(NZB)), crop(BH, toivec(uppermost(NZB)), astuple(ONE, Wb)), canvas(ZERO, astuple(ONE, Wb)))
-    RB = branch(positive(size(NZA)), crop(I, toivec(lowermost(NZA)), astuple(ONE, width(I))), canvas(ZERO, astuple(ONE, width(I))))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+  File "<string>", line 23, in dsl3
+def dsl3(I):
+    # 3x3 binning on bbox; choose color of largest object per bin (fallback 0)
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    TL = lefthalf(TOP)
+    TC = righthalf(lefthalf(TOP))
+    TR = righthalf(TOP)
+    ML = lefthalf(MID)
+    MC = righthalf(lefthalf(MID))
+    MR = righthalf(MID)
+    BL = lefthalf(BOT)
+    BC = righthalf(lefthalf(BOT))
+    BR = righthalf(BOT)
+    pick = lambda G: branch(
+        equality(size(fgpartition(G)), ZERO),
+        ZERO,
+        color(argmax(fgpartition(G), size))
+    )
+    v11 = pick(TL); v12 = pick(TC); v13 = pick(TR)
+    v21 = pick(ML); v22 = pick(MC); v23 = pick(MR)
+    v31 = pick(BL); v32 = pick(BC); v33 = pick(BR)
+    r1 = hconcat(hconcat(canvas(v11, UNITY), canvas(v12, UNITY)), canvas(v13, UNITY))
+    r2 = hconcat(hconcat(canvas(v21, UNITY), canvas(v22, UNITY)), canvas(v23, UNITY))
+    r3 = hconcat(hconcat(canvas(v31, UNITY), canvas(v32, UNITY)), canvas(v33, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
-  File "<string>", line 18, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 20, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 222, in argmax
+    return max(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: max() iterable argument is empty
 ```
 
 ---
 
-**Program 3**
-*DSL*
-```python
-def dsl3(I):
-    P = palette(I)
-    PNZ = remove(ZERO, P)
-    UP = chain(uppermost, lbind(ofcolor, I), identity)
-    Ctop = argmin(PNZ, UP)
-    R1 = remove(Ctop, PNZ)
-    Cmid = branch(positive(size(R1)), argmin(R1, UP), Ctop)
-    Cbot = argmax(PNZ, UP)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = crop(I, toivec(UP(Ctop)), astuple(ONE, W))
-    RM = crop(I, toivec(UP(Cmid)), astuple(ONE, W))
-    RB = crop(I, toivec(UP(Cbot)), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
-    return O
-```
-
-*Explosive scores*
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
-
-*Output grids*
-
-
-*Tracebacks*
-```bash
-  File "<string>", line 27, in dsl3
-def dsl3(I):
-    P = palette(I)
-    PNZ = remove(ZERO, P)
-    UP = chain(uppermost, lbind(ofcolor, I), identity)
-    Ctop = argmin(PNZ, UP)
-    R1 = remove(Ctop, PNZ)
-    Cmid = branch(positive(size(R1)), argmin(R1, UP), Ctop)
-    Cbot = argmax(PNZ, UP)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = crop(I, toivec(UP(Ctop)), astuple(ONE, W))
-    RM = crop(I, toivec(UP(Cmid)), astuple(ONE, W))
-    RB = crop(I, toivec(UP(Cbot)), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
-    return O
-  File "<string>", line 19, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: max() iterable argument is empty
-```
-```bash
-  File "<string>", line 27, in dsl3
-def dsl3(I):
-    P = palette(I)
-    PNZ = remove(ZERO, P)
-    UP = chain(uppermost, lbind(ofcolor, I), identity)
-    Ctop = argmin(PNZ, UP)
-    R1 = remove(Ctop, PNZ)
-    Cmid = branch(positive(size(R1)), argmin(R1, UP), Ctop)
-    Cbot = argmax(PNZ, UP)
-    W = width(I)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = crop(I, toivec(UP(Ctop)), astuple(ONE, W))
-    RM = crop(I, toivec(UP(Cmid)), astuple(ONE, W))
-    RB = crop(I, toivec(UP(Cbot)), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
-    return O
-  File "<string>", line 16, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: max() iterable argument is empty
-```
-
----
-
-**Program 4**
-*DSL*
+# Program 4
+## DSL
 ```python
 def dsl4(I):
-    J = rot90(I)
-    NZ = difference(asindices(J), ofcolor(J, ZERO))
-    UM = uppermost(NZ)
-    LM = lowermost(NZ)
-    MID = divide(add(UM, LM), TWO)
-    W = width(J)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = crop(J, toivec(UM), astuple(ONE, W))
-    RM = crop(J, toivec(MID), astuple(ONE, W))
-    RB = crop(J, toivec(LM), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Horizontal band reasoning on bbox: per band use [leftmost obj color, largest obj color, rightmost obj color]
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    rowvec = lambda G: (
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmin(fgpartition(G), leftmost))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), size))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), rightmost)))
+    )
+    a1, b1, c1 = rowvec(TOP)
+    a2, b2, c2 = rowvec(MID)
+    a3, b3, c3 = rowvec(BOT)
+    r1 = hconcat(hconcat(canvas(a1, UNITY), canvas(b1, UNITY)), canvas(c1, UNITY))
+    r2 = hconcat(hconcat(canvas(a2, UNITY), canvas(b2, UNITY)), canvas(c2, UNITY))
+    r3 = hconcat(hconcat(canvas(a3, UNITY), canvas(b3, UNITY)), canvas(c3, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train1 |              nan |    nan       |           nan        |                 nan |    nan       |
+| train2 |                0 |      9.69536 |             1        |                   0 |     10.6954  |
+| train3 |                0 |      6       |             0.555556 |                   0 |      6.55556 |
 
-*Output grids*
+## Output grids
 
+### train2 output
 
-*Tracebacks*
 ```bash
-  File "<string>", line 25, in dsl4
+455
+444
+577
+```
+
+### train3 output
+
+```bash
+112
+522
+995
+```
+
+
+## Tracebacks
+```bash
+  File "<string>", line 14, in dsl4
 def dsl4(I):
-    J = rot90(I)
-    NZ = difference(asindices(J), ofcolor(J, ZERO))
-    UM = uppermost(NZ)
-    LM = lowermost(NZ)
-    MID = divide(add(UM, LM), TWO)
-    W = width(J)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    RT = crop(J, toivec(UM), astuple(ONE, W))
-    RM = crop(J, toivec(MID), astuple(ONE, W))
-    RB = crop(J, toivec(LM), astuple(ONE, W))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Horizontal band reasoning on bbox: per band use [leftmost obj color, largest obj color, rightmost obj color]
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    TOP = tophalf(BB)
+    MID = bottomhalf(tophalf(BB))
+    BOT = bottomhalf(BB)
+    rowvec = lambda G: (
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmin(fgpartition(G), leftmost))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), size))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), rightmost)))
+    )
+    a1, b1, c1 = rowvec(TOP)
+    a2, b2, c2 = rowvec(MID)
+    a3, b3, c3 = rowvec(BOT)
+    r1 = hconcat(hconcat(canvas(a1, UNITY), canvas(b1, UNITY)), canvas(c1, UNITY))
+    r2 = hconcat(hconcat(canvas(a2, UNITY), canvas(b2, UNITY)), canvas(c2, UNITY))
+    r3 = hconcat(hconcat(canvas(a3, UNITY), canvas(b3, UNITY)), canvas(c3, UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
-  File "<string>", line 14, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: max() iterable argument is empty
+  File "<string>", line 9, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 230, in argmin
+    return min(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: min() iterable argument is empty
 ```
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    JL = leftmost(NZ)
-    JR = rightmost(NZ)
-    JM = divide(add(JL, JR), TWO)
-    H = height(I)
-    CL = crop(I, astuple(ZERO, JL), astuple(H, ONE))
-    CM = crop(I, astuple(ZERO, JM), astuple(H, ONE))
-    CR = crop(I, astuple(ZERO, JR), astuple(H, ONE))
-    RL = rot90(CL)
-    RM = rot90(CM)
-    RR = rot90(CR)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RL), row_last3(RM)), row_last3(RR))
+    # Vertical band reasoning on bbox: per band use [uppermost obj color; largest obj color; lowermost obj color] stacked
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    L = lefthalf(BB)
+    C = righthalf(lefthalf(BB))
+    R = righthalf(BB)
+    colvec = lambda G: (
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmin(fgpartition(G), uppermost))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), size))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), lowermost)))
+    )
+    t1, m1, b1 = colvec(L)
+    t2, m2, b2 = colvec(C)
+    t3, m3, b3 = colvec(R)
+    col1 = vconcat(vconcat(canvas(t1, UNITY), canvas(m1, UNITY)), canvas(b1, UNITY))
+    col2 = vconcat(vconcat(canvas(t2, UNITY), canvas(m2, UNITY)), canvas(b2, UNITY))
+    col3 = vconcat(vconcat(canvas(t3, UNITY), canvas(m3, UNITY)), canvas(b3, UNITY))
+    O = hconcat(hconcat(col1, col2), col3)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train1 |                0 |      9.16515 |             0.777778 |                   0 |      9.94293 |
+| train2 |              nan |    nan       |           nan        |                 nan |    nan       |
+| train3 |                0 |     13.9642  |             0.666667 |                   0 |     14.6309  |
 
-*Output grids*
+## Output grids
 
+### train1 output
 
-*Tracebacks*
 ```bash
-  File "<string>", line 27, in dsl5
+675
+273
+523
+```
+
+### train3 output
+
+```bash
+112
+112
+119
+```
+
+
+## Tracebacks
+```bash
+  File "<string>", line 14, in dsl5
 def dsl5(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    JL = leftmost(NZ)
-    JR = rightmost(NZ)
-    JM = divide(add(JL, JR), TWO)
-    H = height(I)
-    CL = crop(I, astuple(ZERO, JL), astuple(H, ONE))
-    CM = crop(I, astuple(ZERO, JM), astuple(H, ONE))
-    CR = crop(I, astuple(ZERO, JR), astuple(H, ONE))
-    RL = rot90(CL)
-    RM = rot90(CM)
-    RR = rot90(CR)
-    def row_last3(R):
-        NZR = difference(asindices(R), ofcolor(R, ZERO))
-        S = size(NZR)
-        J3 = branch(positive(S), rightmost(NZR), NEG_ONE)
-        NZ2 = difference(NZR, initset(astuple(ZERO, J3)))
-        S2 = size(NZ2)
-        J2 = branch(positive(S2), rightmost(NZ2), NEG_ONE)
-        NZ3 = difference(NZ2, initset(astuple(ZERO, J2)))
-        S3 = size(NZ3)
-        J1 = branch(positive(S3), rightmost(NZ3), NEG_ONE)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RL), row_last3(RM)), row_last3(RR))
+    # Vertical band reasoning on bbox: per band use [uppermost obj color; largest obj color; lowermost obj color] stacked
+    fg = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(fg, I)
+    L = lefthalf(BB)
+    C = righthalf(lefthalf(BB))
+    R = righthalf(BB)
+    colvec = lambda G: (
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmin(fgpartition(G), uppermost))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), size))),
+        branch(equality(size(fgpartition(G)), ZERO), ZERO, color(argmax(fgpartition(G), lowermost)))
+    )
+    t1, m1, b1 = colvec(L)
+    t2, m2, b2 = colvec(C)
+    t3, m3, b3 = colvec(R)
+    col1 = vconcat(vconcat(canvas(t1, UNITY), canvas(m1, UNITY)), canvas(b1, UNITY))
+    col2 = vconcat(vconcat(canvas(t2, UNITY), canvas(m2, UNITY)), canvas(b2, UNITY))
+    col3 = vconcat(vconcat(canvas(t3, UNITY), canvas(m3, UNITY)), canvas(b3, UNITY))
+    O = hconcat(hconcat(col1, col2), col3)
     return O
-  File "<string>", line 19, in row_last3
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 838, in rightmost
-    return max(j for i, j in toindices(patch))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: max() iterable argument is empty
+  File "<string>", line 9, in <lambda>
+  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 230, in argmin
+    return min(container, key=compfunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: min() iterable argument is empty
 ```
 
 ---
@@ -856,6 +907,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -868,11 +923,17 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
+
 nan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.
 
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

@@ -1,41 +1,40 @@
 ```python
 def dsl1(I):
-    E = ofcolor(I, EIGHT)
-    c8 = centerofmass(E)
-    R = shoot(c8, RIGHT)
-    B = inbox(R)
-    O = underfill(I, EIGHT, B)
+    core = combine(ofcolor(I, TWO), ofcolor(I, FOUR))
+    R = inbox(core)
+    frame = box(R)
+    A = fill(I, EIGHT, frame)
+    O = underfill(A, THREE, R)
     return O
 
 def dsl2(I):
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    Outlines = apply(box, F4s)
-    P = merge(Outlines)
-    O = fill(I, THREE, P)
+    objs = objects(I, T, F, T)
+    o4 = colorfilter(objs, FOUR)
+    r4 = mapply(inbox, o4)
+    b4 = mapply(box, r4)
+    B = merge(b4)
+    O = fill(I, THREE, B)
     return O
 
 def dsl3(I):
-    O = replace(I, FOUR, THREE)
+    A = replace(I, FOUR, THREE)
+    r2 = inbox(ofcolor(A, TWO))
+    O = underfill(A, EIGHT, r2)
     return O
 
 def dsl4(I):
-    Ih = hmirror(I)
-    Iv = vmirror(I)
-    Eh = ofcolor(Ih, EIGHT)
-    Ev = ofcolor(Iv, EIGHT)
-    U = combine(Eh, Ev)
-    Obj = recolor(EIGHT, U)
-    O = underpaint(I, Obj)
+    M = hmirror(I)
+    p = ofcolor(M, FOUR)
+    O = fill(I, EIGHT, p)
     return O
 
 def dsl5(I):
-    E8 = ofcolor(I, EIGHT)
-    c8 = centerofmass(E8)
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    Cs = apply(centerofmass, F4s)
-    Lines = merge(prapply(connect, Cs, initset(c8)))
-    O = fill(I, THREE, Lines)
+    objs = objects(I, T, F, T)
+    o4 = colorfilter(objs, FOUR)
+    o2 = colorfilter(objs, TWO)
+    c4 = mapply(lrcorner, o4)
+    c2 = mapply(ulcorner, o2)
+    paths = prapply(connect, c4, c2)
+    O = fill(I, EIGHT, paths)
     return O
 ```

@@ -1,9 +1,141 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 2, 0, 0, 0, 2, 0, 8, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 2, 8, 0, 0, 2, 0, 8, 0, 0, 0, 0, 0), (0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 8, 8, 2, 0, 0, 0, 0, 0, 0), (8, 0, 2, 3, 3, 3, 3, 3, 3, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 9, 9, 9, 9, 9, 0, 0), (8, 0, 8, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 8, 0, 8, 9, 9, 9, 9, 9, 8, 8), (2, 8, 0, 3, 3, 3, 3, 3, 3, 8, 8, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 9, 9, 9, 9, 9, 0, 0), (8, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 2, 2, 2, 8, 8, 8, 8, 0, 2, 8, 2, 0, 9, 9, 9, 9, 9, 0, 0), (0, 0, 0, 8, 0, 0, 8, 0, 0, 2, 8, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 8, 0, 9, 9, 9, 9, 9, 8, 8), (0, 8, 8, 8, 0, 0, 2, 0, 8, 0, 0, 0, 2, 8, 8, 0, 0, 0, 8, 0, 2, 0, 2, 0, 8, 0, 0, 8, 8, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 8, 8, 2, 0, 0, 2, 0, 0, 2, 0, 0, 8, 2, 8, 0), (8, 0, 0, 0, 0, 0, 8, 2, 8, 2, 8, 0, 0, 0, 0, 0, 0, 2, 8, 2, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0), (0, 0, 2, 6, 6, 6, 6, 0, 8, 0, 0, 4, 4, 4, 4, 4, 4, 2, 0, 0, 0, 8, 0, 0, 2, 0, 0, 0, 2, 0), (8, 0, 8, 6, 6, 6, 6, 0, 8, 0, 8, 4, 4, 4, 4, 4, 4, 2, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 8, 0), (0, 2, 0, 6, 6, 6, 6, 8, 0, 2, 2, 4, 4, 4, 4, 4, 4, 8, 0, 8, 0, 0, 0, 1, 1, 1, 1, 1, 0, 2), (0, 2, 8, 6, 6, 6, 6, 8, 0, 8, 0, 4, 4, 4, 4, 4, 4, 0, 8, 2, 2, 0, 2, 1, 1, 1, 1, 1, 0, 8), (0, 0, 2, 6, 6, 6, 6, 0, 0, 0, 2, 4, 4, 4, 4, 4, 4, 0, 0, 8, 0, 8, 8, 1, 1, 1, 1, 1, 8, 0), (0, 0, 0, 6, 6, 6, 6, 0, 0, 2, 8, 0, 8, 8, 2, 8, 0, 8, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 2), (2, 8, 0, 6, 6, 6, 6, 0, 2, 0, 0, 0, 0, 2, 8, 0, 0, 0, 2, 8, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 0, 2, 0, 0, 0, 0, 0, 8, 0, 0, 0, 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 0, 2), (0, 0, 2, 0, 8, 0, 0, 0, 2, 8, 0, 8, 0, 0, 0, 8, 0, 8, 8, 8, 0, 8, 0, 0, 8, 0, 2, 2, 0, 2), (8, 0, 0, 0, 0, 0, 8, 8, 2, 2, 8, 0, 8, 2, 2, 8, 0, 0, 0, 0, 8, 0, 2, 0, 8, 0, 0, 0, 8, 2), (2, 2, 0, 0, 0, 0, 2, 8, 0, 8, 0, 0, 2, 2, 8, 0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 8), (0, 8, 8, 0, 0, 8, 8, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 8, 2, 0, 0), (0, 0, 2, 8, 2, 0, 2, 0, 0, 8, 0, 0, 0, 2, 0, 8, 0, 0, 0, 2, 8, 8, 0, 8, 0, 2, 0, 0, 0, 8), (2, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 2, 0, 8, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 0, 0, 8, 8, 0), (8, 2, 0, 0, 0, 8, 0, 8, 0, 8, 2, 0, 0, 0, 8, 0, 0, 8, 0, 2, 0, 0, 8, 0, 2, 2, 8, 0, 0, 0), (0, 8, 0, 2, 2, 8, 2, 8, 0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 8, 0, 8, 0, 0, 8, 2), (0, 0, 2, 8, 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 2, 0, 2, 2, 0, 0, 8, 0, 2, 0, 0, 8, 8), (0, 0, 0, 0, 8, 0, 0, 0, 8, 0, 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 2, 8, 0, 0, 8, 0), (8, 2, 0, 2, 8, 8, 0, 0, 0, 2, 0, 0, 0, 8, 8, 0, 8, 0, 0, 0, 8, 2, 8, 8, 0, 2, 8, 2, 2, 2), (2, 0, 8, 8, 0, 0, 0, 8, 0, 0, 8, 0, 8, 0, 0, 0, 8, 0, 2, 0, 0, 8, 0, 8, 0, 0, 2, 8, 0, 0)) -> ((3, 1, 9), (6, 4, 1))
-train2: ((0, 2, 0, 0, 0, 2, 5, 2, 2, 0, 5, 2, 5, 5, 0, 2, 2, 5, 2, 2, 5, 5, 0, 2, 0, 0, 2, 0, 0, 0), (5, 0, 0, 5, 2, 2, 5, 2, 5, 0, 0, 2, 2, 5, 5, 2, 2, 5, 0, 5, 2, 0, 0, 0, 5, 0, 5, 5, 0, 2), (5, 0, 2, 2, 8, 8, 8, 8, 8, 8, 8, 5, 0, 2, 4, 4, 4, 4, 5, 0, 0, 2, 3, 3, 3, 3, 3, 0, 0, 2), (0, 5, 0, 5, 8, 8, 8, 8, 8, 8, 8, 2, 0, 0, 4, 4, 4, 4, 0, 0, 2, 0, 3, 3, 3, 3, 3, 0, 2, 0), (5, 0, 5, 0, 8, 8, 8, 8, 8, 8, 8, 2, 2, 0, 4, 4, 4, 4, 2, 2, 0, 2, 3, 3, 3, 3, 3, 5, 0, 5), (0, 0, 0, 5, 8, 8, 8, 8, 8, 8, 8, 2, 0, 0, 4, 4, 4, 4, 0, 0, 2, 2, 3, 3, 3, 3, 3, 0, 0, 2), (0, 0, 0, 2, 5, 5, 5, 2, 2, 0, 0, 0, 2, 5, 0, 5, 2, 0, 2, 0, 5, 0, 5, 2, 0, 2, 0, 5, 5, 2), (0, 0, 2, 2, 5, 5, 0, 0, 2, 0, 5, 0, 5, 0, 0, 0, 2, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0), (0, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 5, 2, 0, 0, 0, 5, 2, 0, 5, 2, 0, 0, 5, 2, 0, 0), (0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 2, 5, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 5, 0, 5, 0), (0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 0, 0, 7, 7, 7, 7, 7, 0, 0, 5, 0), (0, 0, 0, 2, 1, 1, 1, 1, 1, 0, 5, 0, 3, 3, 3, 3, 3, 3, 3, 2, 0, 7, 7, 7, 7, 7, 2, 5, 5, 5), (0, 0, 5, 2, 1, 1, 1, 1, 1, 5, 2, 0, 3, 3, 3, 3, 3, 3, 3, 0, 2, 7, 7, 7, 7, 7, 0, 2, 5, 2), (2, 5, 0, 2, 1, 1, 1, 1, 1, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 2, 5, 7, 7, 7, 7, 7, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 5, 0, 2, 2, 2, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 7, 7, 7, 7, 7, 2, 0, 2, 2), (0, 0, 2, 0, 0, 5, 0, 2, 0, 2, 0, 5, 5, 0, 0, 2, 0, 5, 2, 2, 2, 2, 0, 5, 2, 0, 0, 2, 2, 0), (0, 0, 5, 2, 0, 0, 2, 0, 5, 0, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 5, 5, 0, 2, 0, 0, 5), (0, 2, 2, 0, 8, 8, 8, 8, 8, 0, 2, 0, 5, 4, 4, 4, 4, 4, 2, 0, 0, 2, 0, 0, 5, 0, 0, 0, 2, 0), (0, 0, 2, 0, 8, 8, 8, 8, 8, 2, 2, 5, 0, 4, 4, 4, 4, 4, 0, 2, 5, 0, 1, 1, 1, 1, 1, 2, 0, 2), (2, 2, 0, 0, 8, 8, 8, 8, 8, 5, 0, 0, 0, 4, 4, 4, 4, 4, 0, 0, 5, 5, 1, 1, 1, 1, 1, 5, 0, 0), (2, 5, 5, 0, 8, 8, 8, 8, 8, 0, 5, 0, 5, 4, 4, 4, 4, 4, 0, 5, 0, 2, 1, 1, 1, 1, 1, 0, 0, 0), (2, 0, 0, 0, 8, 8, 8, 8, 8, 0, 0, 0, 5, 2, 5, 0, 0, 2, 5, 0, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0), (0, 5, 2, 5, 5, 2, 2, 0, 2, 0, 0, 2, 5, 0, 5, 0, 0, 5, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0), (2, 0, 0, 0, 2, 5, 0, 0, 5, 5, 2, 0, 2, 2, 0, 0, 5, 5, 0, 0, 0, 5, 0, 2, 0, 5, 0, 0, 2, 5), (0, 0, 5, 0, 0, 0, 0, 2, 0, 5, 5, 0, 2, 5, 0, 0, 0, 2, 0, 2, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5), (0, 2, 0, 2, 0, 5, 2, 5, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 2, 5, 2, 0, 0, 0, 0, 0, 5, 5, 0), (0, 0, 0, 5, 5, 0, 2, 2, 2, 0, 0, 2, 0, 2, 0, 0, 5, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 5, 2, 2, 2, 0, 0, 0, 5), (2, 2, 2, 0, 0, 0, 0, 2, 0, 5, 5, 0, 0, 0, 5, 0, 2, 0, 5, 0, 0, 0, 5, 0, 2, 0, 2, 2, 2, 5), (5, 0, 0, 2, 2, 5, 2, 2, 0, 0, 0, 0, 2, 5, 0, 2, 0, 5, 0, 0, 5, 5, 5, 0, 0, 2, 0, 0, 0, 5)) -> ((8, 4, 3), (1, 3, 7), (8, 4, 1))
-train3: ((1, 0, 0, 0, 9, 1, 1, 0, 1, 9, 1, 0, 9, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 9, 0, 1, 1, 9, 9, 9), (0, 0, 0, 0, 9, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 9, 9, 0, 0, 1, 1, 1, 1, 9, 0), (1, 1, 1, 0, 0, 1, 1, 9, 1, 0, 1, 0, 4, 4, 4, 4, 4, 4, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 9), (0, 1, 9, 0, 0, 0, 0, 1, 0, 0, 1, 1, 4, 4, 4, 4, 4, 4, 0, 9, 0, 0, 8, 8, 8, 8, 1, 0, 1, 0), (0, 0, 1, 1, 0, 9, 0, 9, 0, 0, 0, 9, 4, 4, 4, 4, 4, 4, 9, 0, 1, 1, 8, 8, 8, 8, 0, 1, 9, 0), (1, 1, 0, 8, 8, 8, 8, 8, 8, 1, 0, 0, 4, 4, 4, 4, 4, 4, 1, 0, 0, 0, 8, 8, 8, 8, 1, 0, 9, 0), (1, 0, 9, 8, 8, 8, 8, 8, 8, 0, 0, 9, 4, 4, 4, 4, 4, 4, 0, 0, 1, 9, 8, 8, 8, 8, 1, 0, 1, 0), (9, 0, 0, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 9, 9, 0, 9, 0, 0, 1, 0, 1, 9, 1, 0, 0, 9, 1), (0, 9, 1, 1, 0, 1, 9, 1, 0, 1, 0, 9, 1, 0, 0, 0, 9, 9, 1, 0, 1, 1, 0, 0, 0, 0, 0, 9, 0, 1), (1, 1, 0, 9, 9, 0, 0, 9, 0, 0, 0, 0, 7, 7, 7, 7, 1, 1, 1, 0, 1, 0, 3, 3, 3, 3, 3, 0, 1, 0), (0, 1, 0, 0, 3, 3, 3, 1, 9, 1, 0, 0, 7, 7, 7, 7, 0, 1, 0, 9, 0, 0, 3, 3, 3, 3, 3, 1, 1, 9), (1, 0, 1, 1, 3, 3, 3, 1, 0, 0, 1, 0, 7, 7, 7, 7, 0, 0, 9, 0, 0, 0, 3, 3, 3, 3, 3, 0, 1, 0), (0, 1, 1, 0, 3, 3, 3, 9, 0, 1, 0, 9, 1, 1, 0, 0, 0, 1, 9, 1, 1, 1, 3, 3, 3, 3, 3, 0, 0, 9), (0, 0, 0, 1, 0, 9, 9, 9, 0, 9, 9, 1, 9, 9, 0, 0, 1, 0, 1, 0, 0, 9, 0, 0, 0, 0, 9, 0, 9, 0), (0, 1, 0, 1, 0, 9, 1, 0, 1, 9, 1, 9, 0, 0, 1, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 0, 9, 9, 1, 0), (1, 0, 9, 0, 1, 9, 0, 0, 0, 0, 9, 9, 1, 1, 1, 9, 0, 1, 9, 1, 4, 4, 4, 4, 4, 9, 0, 1, 0, 0), (9, 0, 0, 0, 9, 0, 9, 0, 0, 9, 0, 0, 9, 0, 0, 0, 1, 0, 0, 9, 4, 4, 4, 4, 4, 0, 1, 0, 0, 0), (9, 0, 9, 2, 2, 2, 2, 2, 9, 9, 1, 9, 8, 8, 8, 8, 0, 9, 0, 9, 4, 4, 4, 4, 4, 0, 0, 0, 0, 1), (0, 0, 1, 2, 2, 2, 2, 2, 1, 0, 1, 0, 8, 8, 8, 8, 1, 9, 9, 1, 4, 4, 4, 4, 4, 1, 0, 9, 9, 0), (0, 1, 0, 2, 2, 2, 2, 2, 0, 1, 0, 1, 8, 8, 8, 8, 0, 9, 1, 0, 4, 4, 4, 4, 4, 0, 1, 1, 1, 1), (1, 0, 0, 2, 2, 2, 2, 2, 0, 0, 1, 0, 8, 8, 8, 8, 0, 9, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0), (9, 1, 9, 0, 9, 0, 9, 9, 1, 9, 9, 9, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0), (9, 0, 9, 0, 0, 1, 0, 0, 9, 1, 1, 9, 9, 1, 0, 9, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1), (1, 0, 0, 0, 1, 9, 1, 1, 1, 1, 0, 0, 9, 1, 0, 1, 1, 1, 9, 1, 9, 0, 9, 1, 1, 1, 1, 0, 0, 0), (1, 0, 0, 0, 1, 9, 9, 1, 1, 0, 1, 0, 0, 9, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 9, 1, 1), (0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 1, 1, 1, 0, 0, 0, 0), (0, 0, 9, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 9, 9, 0, 1, 0, 1, 1, 0, 1), (0, 0, 0, 9, 0, 1, 9, 1, 1, 1, 1, 0, 9, 9, 0, 0, 0, 0, 0, 0, 9, 0, 1, 0, 0, 0, 0, 9, 0, 1), (1, 0, 1, 9, 0, 9, 0, 0, 0, 0, 9, 1, 0, 0, 0, 0, 9, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0), (1, 0, 0, 0, 0, 9, 9, 0, 1, 0, 9, 0, 9, 0, 1, 1, 1, 0, 0, 1, 0, 0, 9, 0, 1, 0, 9, 9, 9, 1)) -> ((8, 4, 8), (3, 7, 3), (2, 8, 4))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+020002080002020200280020800000
+000333333000111111112882000000
+802333333002111111110009999900
+808333333222111111118089999988
+280333333880111111110029999900
+800333333002228888028209999900
+000800800282002000000809999988
+088800208000288000802020800880
+000000000222002882002002008280
+800000828280000002820000080000
+002666608004444442000800200020
+808666608084444442022201111180
+020666680224444448080001111102
+028666680804444440822021111108
+002666600024444440080881111180
+000666600280882808000001111102
+280666602000028000280020000000
+008020000080002800000000820002
+002080002808000808880800802202
+800000882280822800008020800082
+220000280800228002000222000228
+088008808080000000002200008200
+002820200800020800028808020008
+200000008802080000002200200880
+820008080820008008020080228000
+080228280220002222220008080082
+002828000000008002022008020088
+000080008028000000000028280080
+820288000200088080008288028222
+208800080080800080200808002800
+```
+
+## Output
+
+```bash
+319
+641
+```
+
+# train2
+
+## Input
+
+```bash
+020002522052550225225502002000
+500522525002255225052000505502
+502288888885024444500233333002
+050588888882004444002033333020
+505088888882204444220233333505
+000588888882004444002233333002
+000255522000250520205052020552
+002255002050500022002000202000
+020200002020205200052052005200
+020200200025200200202000205050
+022211111222333333300777770050
+000211111050333333320777772555
+005211111520333333302777770252
+250211111200333333325777770000
+000200502220333333300777772022
+002005020205500205222205200220
+005200205000050002200005502005
+022088888020544444200200500020
+002088888225044444025011111202
+220088888500044444005511111500
+255088888050544444050211111000
+200088888000525002502211111000
+052552202002505005000011111000
+200025005520220055000502050025
+005000020550250002020050000005
+020205250520000005225200000550
+000550222002020052022000000200
+000200000000022022000052220005
+222000020550005020500050202225
+500225220000250205005550020005
+```
+
+## Output
+
+```bash
+843
+137
+841
+```
+
+# train3
+
+## Input
+
+```bash
+100091101910900101000019011999
+000091000110100111109900111190
+111001191010444444110010100019
+019000010011444444090088881010
+001109090009444444901188880190
+110888888100444444100088881090
+109888888009444444001988881010
+900888888000000990900101910091
+091101910109100099101100000901
+110990090000777711101033333010
+010033319100777701090033333119
+101133310010777700900033333010
+011033390109110001911133333009
+000109990991990010100900009090
+010109101919001000000999909910
+109019000099111901914444490100
+900090900900900010094444401000
+909222229919888809094444400001
+001222221010888819914444410990
+010222220101888809104444401111
+100222220010888809001100111100
+919090991999100100101100010110
+909001009119910910001000000001
+100019111100910111919091111000
+100019911010090010000000090911
+001110100110000000009991110000
+009010100001011100110990101101
+000901911110990000009010000901
+101909000091000090110111000100
+100009901090901110010090109991
+```
+
+## Output
+
+```bash
+848
+373
+284
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -34,7 +166,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -67,7 +200,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -231,242 +365,245 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    d8 = astuple(EIGHT, EIGHT)
-    def tilecol(r0, c0):
-        return mostcolor(crop(I, add(astuple(r0, c0), U), d8))
-    c00 = tilecol(z, z);   c01 = tilecol(z, t);   c02 = tilecol(z, tt)
-    c10 = tilecol(t, z);   c11 = tilecol(t, t);   c12 = tilecol(t, tt)
-    c20 = tilecol(tt, z);  c21 = tilecol(tt, t);  c22 = tilecol(tt, tt)
-    r0 = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    r1 = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    r2 = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(r0, vconcat(r1, r2))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
+    G = compress(I)
+    O = downscale(G, TEN)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |          0       |      6.08276 |             0.333333 |                 0   |       6.4161 |
-| train2 |          1.41421 |     28       |            13        |                 0.2 |      42.6142 |
-| train3 |          2.82843 |     43       |            10        |                 0.5 |      56.3284 |
+| train1 |                1 |      22      |                   15 |            0.384111 |      38.3841 |
+| train2 |                0 |      12.5698 |                    1 |            0        |      13.5698 |
+| train3 |                0 |      15.748  |                    1 |            0        |      16.748  |
 
-*Output grids*
-train1: ((3, 1, 9), (0, 4, 0))
-train2: ((8, 0), (0, 3))
-train3: ((4,),)
+## Output grids
+
+### train1 output
+
+```bash
+000
+000
+200
+```
+
+### train2 output
+
+```bash
+055
+020
+250
+```
+
+### train3 output
+
+```bash
+110
+000
+111
+```
+
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    d10 = astuple(TEN, TEN)
-    def bestcolor(r0, c0):
-        T = crop(I, astuple(r0, c0), d10)
-        OB = objects(T, T, F, T)
-        H = multiply(TEN, TEN)
-        pen = compose(lbind(multiply, H), rbind(bordering, T))
-        comp = fork(subtract, size, pen)
-        B = argmax(OB, comp)
-        return color(B)
-    c00 = bestcolor(z, z);   c01 = bestcolor(z, t);   c02 = bestcolor(z, tt)
-    c10 = bestcolor(t, z);   c11 = bestcolor(t, t);   c12 = bestcolor(t, tt)
-    c20 = bestcolor(tt, z);  c21 = bestcolor(tt, t);  c22 = bestcolor(tt, tt)
-    r0 = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    r1 = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    r2 = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(r0, vconcat(r1, r2))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
+    obs = objects(I, T, F, T)
+    bobs = sfilter(obs, rbind(bordering, I))
+    inner = difference(obs, bobs)
+    big = argmax(inner, size)
+    base = canvas(ZERO, shape(I))
+    iso = paint(base, big)
+    O = downscale(iso, TEN)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                1 |      13      |            15        |            0.128037 |     29.128   |
-| train2 |                0 |       8      |             0.777778 |            0        |      8.77778 |
-| train3 |                0 |      12.9228 |             0.666667 |            0        |     13.5895  |
+| train1 |                1 |      24      |                   15 |                   1 |      41      |
+| train2 |                0 |      15.1327 |                    1 |                   1 |      17.1327 |
+| train3 |                0 |      17.1756 |                    1 |                   1 |      19.1756 |
 
-*Output grids*
-train1: ((3, 2, 9), (2, 8, 1), (2, 8, 2))
-train2: ((5, 4, 3), (2, 0, 5), (2, 2, 2))
-train3: ((8, 4, 8), (9, 1, 9), (1, 1, 1))
+## Output grids
+
+### train1 output
+
+```bash
+000
+000
+000
+```
+
+### train2 output
+
+```bash
+000
+000
+000
+```
+
+### train3 output
+
+```bash
+000
+000
+000
+```
+
 
 ---
 
-**Program 3**
-*DSL*
+# Program 3
+## DSL
 ```python
 def dsl3(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    d10 = astuple(TEN, TEN)
-    def maj_nonzero(r0, c0):
-        T = crop(I, astuple(r0, c0), d10)
-        P = palette(T)
-        Pn = remove(ZERO, P)
-        Cset = combine(Pn, initset(ZERO))
-        comp = rbind(colorcount, T)
-        return argmax(Cset, comp)
-    c00 = maj_nonzero(z, z);   c01 = maj_nonzero(z, t);   c02 = maj_nonzero(z, tt)
-    c10 = maj_nonzero(t, z);   c11 = maj_nonzero(t, t);   c12 = maj_nonzero(t, tt)
-    c20 = maj_nonzero(tt, z);  c21 = maj_nonzero(tt, t);  c22 = maj_nonzero(tt, tt)
-    r0 = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    r1 = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    r2 = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(r0, vconcat(r1, r2))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
+    lc = leastcolor(I)
+    mask = ofcolor(I, lc)
+    base = canvas(ZERO, shape(I))
+    pic = fill(base, lc, mask)
+    O = downscale(pic, TEN)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train1 |                1 |      24      |                   15 |                   1 |      41      |
+| train2 |                0 |      15.1327 |                    1 |                   1 |      17.1327 |
+| train3 |                0 |      17.1756 |                    1 |                   1 |      19.1756 |
 
-*Output grids*
+## Output grids
 
+### train1 output
 
-*Tracebacks*
 ```bash
-  File "<string>", line 11, in dsl3
-def dsl3(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    d10 = astuple(TEN, TEN)
-    def maj_nonzero(r0, c0):
-        T = crop(I, astuple(r0, c0), d10)
-        P = palette(T)
-        Pn = remove(ZERO, P)
-        Cset = combine(Pn, initset(ZERO))
-        comp = rbind(colorcount, T)
-        return argmax(Cset, comp)
-    c00 = maj_nonzero(z, z);   c01 = maj_nonzero(z, t);   c02 = maj_nonzero(z, tt)
-    c10 = maj_nonzero(t, z);   c11 = maj_nonzero(t, t);   c12 = maj_nonzero(t, tt)
-    c20 = maj_nonzero(tt, z);  c21 = maj_nonzero(tt, t);  c22 = maj_nonzero(tt, tt)
-    r0 = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    r1 = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    r2 = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(r0, vconcat(r1, r2))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
-    return O
-  File "<string>", line 10, in maj_nonzero
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 222, in argmax
-    return max(container, key=compfunc)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 472, in <lambda>
-    return lambda x: function(x, fixed)
-                     ^^^^^^^^^^^^^^^^^^
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 622, in colorcount
-    return sum(v == value for v, _ in element)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: 'int' object is not iterable
+000
+000
+000
 ```
+
+### train2 output
+
+```bash
+000
+000
+000
+```
+
+### train3 output
+
+```bash
+000
+000
+000
+```
+
 
 ---
 
-**Program 4**
-*DSL*
+# Program 4
+## DSL
 ```python
 def dsl4(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    r0 = add(z, FIVE); r1 = add(t, FIVE); r2 = add(tt, FIVE)
-    c0 = add(z, FIVE); c1 = add(t, FIVE); c2 = add(tt, FIVE)
-    def sample_color(r, c):
-        pt = initset(astuple(r, c))
-        return color(toobject(pt, I))
-    def vote5(r, c):
-        a = sample_color(r, c)
-        b = sample_color(decrement(r), c)
-        d = sample_color(increment(r), c)
-        e = sample_color(r, decrement(c))
-        f = sample_color(r, increment(c))
-        row = hconcat(canvas(a,U), hconcat(canvas(b,U), canvas(d,U)))
-        row2 = hconcat(canvas(e,U), canvas(f,U))
-        mix = hconcat(row, row2)
-        return mostcolor(mix)
-    c00 = vote5(r0,c0); c01 = vote5(r0,c1); c02 = vote5(r0,c2)
-    c10 = vote5(r1,c0); c11 = vote5(r1,c1); c12 = vote5(r1,c2)
-    c20 = vote5(r2,c0); c21 = vote5(r2,c1); c22 = vote5(r2,c2)
-    rA = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    rB = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    rC = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(rA, vconcat(rB, rC))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
+    G = rot90(I)
+    O = downscale(G, TEN)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                1 |           13 |                   15 |            0.128037 |      29.128  |
-| train2 |                2 |           24 |                   12 |            0.27735  |      38.2774 |
-| train3 |                2 |           27 |                   12 |            0.27735  |      41.2774 |
+| train1 |                1 |     26       |                   15 |            0.128037 |     42.128   |
+| train2 |                0 |      8.24621 |                    1 |            0        |      9.24621 |
+| train3 |                0 |     15.3948  |                    1 |            0        |     16.3948  |
 
-*Output grids*
-train1: ((3, 8, 9), (6, 0, 1), (8, 2, 0))
-train2: ((8, 4, 3),)
-train3: ((8, 4, 8),)
+## Output grids
+
+### train1 output
+
+```bash
+288
+888
+080
+```
+
+### train2 output
+
+```bash
+520
+002
+552
+```
+
+### train3 output
+
+```bash
+101
+900
+041
+```
+
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
-    z = ZERO; t = TEN; tt = double(TEN); U = UNITY
-    d10 = astuple(TEN, TEN)
-    def nearcol(r0, c0):
-        T = crop(I, astuple(r0, c0), d10)
-        p = astuple(FIVE, FIVE)
-        up = shoot(p, UP); dn = shoot(p, DOWN); lf = shoot(p, LEFT); rt = shoot(p, RIGHT)
-        X = merge(initset(up) | initset(dn) | initset(lf) | initset(rt))
-        OB = objects(T, T, F, T)
-        dfunc = rbind(manhattan, X)
-        Osel = argmin(OB, dfunc)
-        return color(Osel)
-    c00 = nearcol(z, z);   c01 = nearcol(z, t);   c02 = nearcol(z, tt)
-    c10 = nearcol(t, z);   c11 = nearcol(t, t);   c12 = nearcol(t, tt)
-    c20 = nearcol(tt, z);  c21 = nearcol(tt, t);  c22 = nearcol(tt, tt)
-    r0 = hconcat(canvas(c00,U), hconcat(canvas(c01,U), canvas(c02,U)))
-    r1 = hconcat(canvas(c10,U), hconcat(canvas(c11,U), canvas(c12,U)))
-    r2 = hconcat(canvas(c20,U), hconcat(canvas(c21,U), canvas(c22,U)))
-    G = vconcat(r0, vconcat(r1, r2))
-    nz = difference(asindices(G), ofcolor(G, ZERO))
-    O = subgrid(nz, G)
+    obs = objects(I, T, F, T)
+    g = fork(recolor, color, backdrop)
+    rects = merge(apply(g, obs))
+    base = canvas(ZERO, shape(I))
+    pic = paint(base, rects)
+    O = downscale(pic, TEN)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                1 |     12       |            15        |            0.128037 |     28.128   |
-| train2 |                0 |      6.78233 |             0.555556 |            0        |      7.33789 |
-| train3 |                0 |     13.9642  |             0.888889 |            0        |     14.8531  |
+| train1 |                1 |      20      |                   15 |            0.286299 |      36.2863 |
+| train2 |                0 |      12.5698 |                    1 |            0        |      13.5698 |
+| train3 |                0 |      15.5885 |                    1 |            0        |      16.5885 |
 
-*Output grids*
-train1: ((8, 2, 8), (2, 8, 2), (2, 2, 2))
-train2: ((2, 5, 3), (1, 2, 5), (8, 2, 1))
-train3: ((1, 4, 1), (9, 8, 4), (1, 1, 1))
+## Output grids
+
+### train1 output
+
+```bash
+000
+000
+202
+```
+
+### train2 output
+
+```bash
+055
+020
+252
+```
+
+### train3 output
+
+```bash
+110
+100
+111
+```
+
 
 ---
 
@@ -583,6 +720,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -595,11 +736,15 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
-nan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
 
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

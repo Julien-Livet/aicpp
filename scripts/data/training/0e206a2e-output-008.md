@@ -1,71 +1,51 @@
 ```python
 def dsl1(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    m = merge(nonL)
-    sym = cmirror(m)
-    both = combine(m, sym)
-    edge = box(both)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edge)
+    # Global: compress and place at bottom-left
+    C = compress(I)
+    obj = asobject(C)
+    dr = subtract(height(I), height(C))
+    off = astuple(dr, ZERO)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl2(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    rings = mapply(outbox, nonL)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, rings)
+    # Object extraction: move all nonzeros horizontally to the right border
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    obj = toobject(NZ, I)
+    P = asindices(I)
+    Right = connect(urcorner(P), lrcorner(P))
+    off = gravitate(NZ, Right)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 
 def dsl3(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    C = leastcolor(I)
-    Ctobjs = colorfilter(objs, C)
-    mC = merge(Ctobjs)
-    edge = box(mC)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edge)
+    # Color filtering: keep only the dominant nonzero color
+    P = remove(ZERO, palette(I))
+    dom = valmax(P, lbind(colorcount, I))
+    S = ofcolor(I, dom)
+    O = paint(canvas(ZERO, shape(I)), toobject(S, I))
     return O
 
 def dsl4(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    Lobjs = sfilter(objs, matcher(color, L))
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    mL = merge(Lobjs)
-    mN = merge(nonL)
-    off = subtract(center(mL), center(mN))
-    moved = shift(mN, off)
-    edge = box(moved)
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, edge)
+    # Geometric: drop only the dominant color straight down to the bottom border
+    P = asindices(I)
+    B = connect(llcorner(P), lrcorner(P))
+    dom = valmax(remove(ZERO, palette(I)), lbind(colorcount, I))
+    Sdom = ofcolor(I, dom)
+    objdom = toobject(Sdom, I)
+    off = gravitate(Sdom, B)
+    O = move(canvas(ZERO, shape(I)), objdom, off)
     return O
 
 def dsl5(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    nonL = sfilter(objs, compose(flip, matcher(color, L)))
-    mN = merge(nonL)
-    ul = ulcorner(mN)
-    ur = urcorner(mN)
-    ll = llcorner(mN)
-    lr = lrcorner(mN)
-    top = connect(ul, ur)
-    bot = connect(ll, lr)
-    lef = connect(ul, ll)
-    rig = connect(ur, lr)
-    ring1 = combine(top, bot)
-    ring = combine(ring1, combine(lef, rig))
-    base = replace(I, L, ZERO)
-    O = underfill(base, L, ring)
+    # Relational: move all non-dominant colors to be adjacent to the dominant color; keep dominant fixed
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    dom = valmax(remove(ZERO, palette(I)), lbind(colorcount, I))
+    Sdom = ofcolor(I, dom)
+    Snot = difference(NZ, Sdom)
+    objNot = toobject(Snot, I)
+    off = gravitate(Snot, Sdom)
+    Moved = move(canvas(ZERO, shape(I)), objNot, off)
+    O = paint(Moved, toobject(Sdom, I))
     return O
 ```

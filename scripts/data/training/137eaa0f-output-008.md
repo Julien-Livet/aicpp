@@ -1,112 +1,156 @@
 ```python
 def dsl1(I):
-    C = compress(I)
-    W = width(C)
-    H = height(C)
-    RT = crop(C, toivec(ZERO), astuple(ONE, W))
-    RM = crop(C, toivec(halve(H)), astuple(ONE, W))
-    RB = crop(C, toivec(decrement(H)), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZ = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZ, intersection(NZ, vfrontier(astuple(ZERO, J3))))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Global 3x3 partition on bbox; per bin pick color at lower-rightmost nonzero (fallback 0)
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    H = height(BB); W = width(BB)
+    h1 = divide(H, THREE); h2 = divide(H, THREE); h12 = add(h1, h2); h3 = subtract(H, h12)
+    w1 = divide(W, THREE); w2 = divide(W, THREE); w12 = add(w1, w2); w3 = subtract(W, w12)
+    sr1 = ORIGIN; sr2 = toivec(h1); sr3 = toivec(h12)
+    sc1 = ORIGIN; sc2 = tojvec(w1); sc3 = tojvec(w12)
+    Gs = (
+        crop(BB, add(sr1, sc1), astuple(h1, w1)),
+        crop(BB, add(sr1, sc2), astuple(h1, w2)),
+        crop(BB, add(sr1, sc3), astuple(h1, w3)),
+        crop(BB, add(sr2, sc1), astuple(h2, w1)),
+        crop(BB, add(sr2, sc2), astuple(h2, w2)),
+        crop(BB, add(sr2, sc3), astuple(h2, w3)),
+        crop(BB, add(sr3, sc1), astuple(h3, w1)),
+        crop(BB, add(sr3, sc2), astuple(h3, w2)),
+        crop(BB, add(sr3, sc3), astuple(h3, w3)),
+    )
+    choose = lambda G: (
+        lambda P: branch(
+            equality(size(P), ZERO),
+            ZERO,
+            index(G, lrcorner(toobject(P, G)))
+        )
+    )(difference(asindices(G), ofcolor(G, ZERO)))
+    vals = tuple(apply(choose, Gs))
+    r1 = hconcat(hconcat(canvas(vals[0], UNITY), canvas(vals[1], UNITY)), canvas(vals[2], UNITY))
+    r2 = hconcat(hconcat(canvas(vals[3], UNITY), canvas(vals[4], UNITY)), canvas(vals[5], UNITY))
+    r3 = hconcat(hconcat(canvas(vals[6], UNITY), canvas(vals[7], UNITY)), canvas(vals[8], UNITY))
+    O = vconcat(vconcat(r1, r2), r3)
     return O
 
 def dsl2(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    S = subgrid(NZ, I)
-    W = width(S)
-    H = height(S)
-    RT = crop(S, toivec(ZERO), astuple(ONE, W))
-    RM = crop(S, toivec(halve(H)), astuple(ONE, W))
-    RB = crop(S, toivec(decrement(H)), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZr = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZr, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZr, intersection(NZr, vfrontier(astuple(ZERO, J3))))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Object extraction: pick three horizontal-line objects (top/mid/bot), sample L/M/R within each row object
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    HL = mfilter(objects(I, F, F, T), hline)
+    rtop = uppermost(FG); rbot = lowermost(FG); rmid = divide(add(rtop, rbot), TWO)
+    midrow = hfrontier(astuple(rmid, ZERO))
+    top = argmin(HL, uppermost)
+    bot = argmax(HL, lowermost)
+    rest = remove(bot, remove(top, HL))
+    dist_to_mid = compose(lbind(manhattan, midrow), toindices)
+    mid = branch(equality(size(rest), ZERO), top, argmin(rest, dist_to_mid))
+    mkrow = lambda o: (
+        lambda S, W, j1, j2, j3:
+            hconcat(
+                hconcat(canvas(index(S, astuple(ZERO, j1)), UNITY),
+                        canvas(index(S, astuple(ZERO, j2)), UNITY)),
+                canvas(index(S, astuple(ZERO, j3)), UNITY)
+            )
+    )(
+        subgrid(o, I),
+        width(subgrid(o, I)),
+        ZERO,
+        divide(decrement(width(subgrid(o, I))), TWO),
+        decrement(width(subgrid(o, I)))
+    )
+    R_top = mkrow(top)
+    R_mid = mkrow(mid)
+    R_bot = mkrow(bot)
+    O = vconcat(vconcat(R_top, R_mid), R_bot)
     return O
 
 def dsl3(I):
-    P = palette(I)
-    PNZ = remove(ZERO, P)
-    COUNT = lbind(colorcount, I)
-    C1 = argmin(PNZ, COUNT)
-    R1 = remove(C1, PNZ)
-    C2 = branch(positive(size(R1)), argmin(R1, COUNT), C1)
-    R2 = remove(C2, R1)
-    C3 = branch(positive(size(R2)), argmin(R2, COUNT), C2)
-    def row_of(c):
-        return hconcat(hconcat(canvas(c, UNITY), canvas(c, UNITY)), canvas(c, UNITY))
-    O = vconcat(vconcat(row_of(C1), row_of(C2)), row_of(C3))
+    # Color filtering per horizontal third: pick most common nonzero color in each band (fallback 0), repeat across row
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    H = height(BB); W = width(BB)
+    h1 = divide(H, THREE); h2 = divide(H, THREE); h12 = add(h1, h2); h3 = subtract(H, h12)
+    B1 = crop(BB, ORIGIN, astuple(h1, W))
+    B2 = crop(BB, toivec(h1), astuple(h2, W))
+    B3 = crop(BB, toivec(h12), astuple(h3, W))
+    pickrow = lambda G: (
+        lambda pal: branch(
+            equality(size(pal), ZERO),
+            ZERO,
+            argmax(pal, lbind(colorcount, G))
+        )
+    )(remove(ZERO, palette(G)))
+    v1 = pickrow(B1); v2 = pickrow(B2); v3 = pickrow(B3)
+    R1 = hconcat(hconcat(canvas(v1, UNITY), canvas(v1, UNITY)), canvas(v1, UNITY))
+    R2 = hconcat(hconcat(canvas(v2, UNITY), canvas(v2, UNITY)), canvas(v2, UNITY))
+    R3 = hconcat(hconcat(canvas(v3, UNITY), canvas(v3, UNITY)), canvas(v3, UNITY))
+    O = vconcat(vconcat(R1, R2), R3)
     return O
 
 def dsl4(I):
-    J = rot90(I)
-    C = compress(J)
-    W = width(C)
-    H = height(C)
-    RT = crop(C, toivec(ZERO), astuple(ONE, W))
-    RM = crop(C, toivec(halve(H)), astuple(ONE, W))
-    RB = crop(C, toivec(decrement(H)), astuple(ONE, W))
-    neg3 = subtract(NEG_TWO, ONE)
-    def row_last3(R):
-        NZ = difference(asindices(R), ofcolor(R, ZERO))
-        P3 = combine(combine(combine(NZ, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J3 = rightmost(P3)
-        NZ2 = difference(NZ, intersection(NZ, vfrontier(astuple(ZERO, J3))))
-        P2 = combine(combine(combine(NZ2, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J2 = rightmost(P2)
-        NZ1 = difference(NZ2, intersection(NZ2, vfrontier(astuple(ZERO, J2))))
-        P1 = combine(combine(combine(NZ1, initset(astuple(ZERO, NEG_ONE))), initset(astuple(ZERO, NEG_TWO))), initset(astuple(ZERO, neg3)))
-        J1 = rightmost(P1)
-        C1 = branch(greater(J1, NEG_ONE), index(R, astuple(ZERO, J1)), ZERO)
-        C2 = branch(greater(J2, NEG_ONE), index(R, astuple(ZERO, J2)), ZERO)
-        C3 = branch(greater(J3, NEG_ONE), index(R, astuple(ZERO, J3)), ZERO)
-        return hconcat(hconcat(canvas(C1, UNITY), canvas(C2, UNITY)), canvas(C3, UNITY))
-    O = vconcat(vconcat(row_last3(RT), row_last3(RM)), row_last3(RB))
+    # Geometric: at intersections of extreme/mid rows&cols, choose nearest color-object (by manhattan) and use its color
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    r1 = uppermost(FG); r3 = lowermost(FG); r2 = divide(add(r1, r3), TWO)
+    c1 = leftmost(FG); c3 = rightmost(FG); c2 = divide(add(c1, c3), TWO)
+    FGobjs = fgpartition(I)
+    mkcell = lambda r, c: (
+        lambda cross, near:
+            canvas(color(near), UNITY)
+    )(
+        intersection(hfrontier(astuple(r, ZERO)), vfrontier(astuple(ZERO, c))),
+        argmin(FGobjs, compose(lbind(manhattan, intersection(hfrontier(astuple(r, ZERO)), vfrontier(astuple(ZERO, c)))), toindices))
+    )
+    R1 = hconcat(hconcat(mkcell(r1, c1), mkcell(r1, c2)), mkcell(r1, c3))
+    R2 = hconcat(hconcat(mkcell(r2, c1), mkcell(r2, c2)), mkcell(r2, c3))
+    R3 = hconcat(hconcat(mkcell(r3, c1), mkcell(r3, c2)), mkcell(r3, c3))
+    O = vconcat(vconcat(R1, R2), R3)
     return O
 
 def dsl5(I):
-    NZ = difference(asindices(I), ofcolor(I, ZERO))
-    JL = leftmost(NZ)
-    JR = rightmost(NZ)
-    JM = divide(add(JL, JR), TWO)
-    def col_triplet(j):
-        COL = intersection(NZ, vfrontier(astuple(ZERO, j)))
-        U = branch(positive(size(COL)), uppermost(COL), NEG_ONE)
-        L = branch(positive(size(COL)), lowermost(COL), NEG_ONE)
-        M = branch(positive(size(COL)), divide(add(uppermost(COL), lowermost(COL)), TWO), NEG_ONE)
-        CT = branch(greater(U, NEG_ONE), index(I, astuple(U, j)), ZERO)
-        CM = branch(greater(M, NEG_ONE), index(I, astuple(M, j)), ZERO)
-        CB = branch(greater(L, NEG_ONE), index(I, astuple(L, j)), ZERO)
-        return vconcat(vconcat(canvas(CT, UNITY), canvas(CM, UNITY)), canvas(CB, UNITY))
-    C1 = col_triplet(JL)
-    C2 = col_triplet(JM)
-    C3 = col_triplet(JR)
+    # Relational by vertical slices: per slice pick top/mid/bot rows; for each row take rightmost fg in that row (fallback 0)
+    FG = difference(asindices(I), ofcolor(I, ZERO))
+    BB = subgrid(FG, I)
+    H = height(BB); W = width(BB)
+    w1 = divide(W, THREE); w2 = divide(W, THREE); w12 = add(w1, w2); w3 = subtract(W, w12)
+    S1 = crop(BB, ORIGIN, astuple(H, w1))
+    S2 = crop(BB, tojvec(w1), astuple(H, w2))
+    S3 = crop(BB, tojvec(w12), astuple(H, w3))
+    colpick = lambda S: (
+        lambda P, r1, r3, r2:
+            vconcat(
+                vconcat(
+                    canvas(
+                        branch(
+                            equality(size(intersection(P, hfrontier(astuple(r1, ZERO)))), ZERO),
+                            ZERO,
+                            index(S, astuple(r1, rightmost(intersection(P, hfrontier(astuple(r1, ZERO))))))
+                        ), UNITY
+                    ),
+                    canvas(
+                        branch(
+                            equality(size(intersection(P, hfrontier(astuple(r2, ZERO)))), ZERO),
+                            ZERO,
+                            index(S, astuple(r2, rightmost(intersection(P, hfrontier(astuple(r2, ZERO))))))
+                        ), UNITY
+                    )
+                ),
+                canvas(
+                    branch(
+                        equality(size(intersection(P, hfrontier(astuple(r3, ZERO)))), ZERO),
+                        ZERO,
+                        index(S, astuple(r3, rightmost(intersection(P, hfrontier(astuple(r3, ZERO))))))
+                    ), UNITY
+                )
+            )
+    )(
+        difference(asindices(S), ofcolor(S, ZERO)),
+        uppermost(difference(asindices(S), ofcolor(S, ZERO))),
+        lowermost(difference(asindices(S), ofcolor(S, ZERO))),
+        divide(add(uppermost(difference(asindices(S), ofcolor(S, ZERO))), lowermost(difference(asindices(S), ofcolor(S, ZERO)))), TWO)
+    )
+    C1 = colpick(S1)
+    C2 = colpick(S2)
+    C3 = colpick(S3)
     O = hconcat(hconcat(C1, C2), C3)
     return O
 ```

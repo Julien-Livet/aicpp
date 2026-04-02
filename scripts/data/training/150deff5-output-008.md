@@ -1,58 +1,63 @@
 ```python
 def dsl1(I):
-    p5 = ofcolor(I, FIVE)
-    hasL = intersection(p5, shift(p5, LEFT))
-    hasR = intersection(p5, shift(p5, RIGHT))
-    hasU = intersection(p5, shift(p5, UP))
-    hasD = intersection(p5, shift(p5, DOWN))
-    core4 = intersection(intersection(hasL, hasR), intersection(hasU, hasD))
-    border = difference(p5, core4)
+    # Relational: propagate columns from horizontally isolated 5s (singletons) upward and downward; others 5->8
+    P = ofcolor(I, FIVE)
+    Hleft = shift(P, LEFT)
+    Hright = shift(P, RIGHT)
+    Singles = difference(P, combine(Hleft, Hright))
+    Up = rbind(shoot, UP)
+    Down = rbind(shoot, DOWN)
+    Vline = fork(combine, compose(Up, identity), compose(Down, identity))
+    Lines = merge(apply(Vline, Singles))
+    Stripe = intersection(P, Lines)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, border)
+    O = fill(base, TWO, Stripe)
     return O
 
 def dsl2(I):
-    p5 = ofcolor(I, FIVE)
-    vcore = intersection(intersection(p5, shift(p5, UP)), intersection(p5, shift(p5, DOWN)))
-    hcore = intersection(intersection(p5, shift(p5, LEFT)), intersection(p5, shift(p5, RIGHT)))
-    mask = combine(vcore, hcore)
+    # Global morphological: mark vertical endpoints (no 5 above and no 5 below); others 5->8
+    P = ofcolor(I, FIVE)
+    UpAdj = intersection(P, shift(P, UP))
+    DownAdj = intersection(P, shift(P, DOWN))
+    HasNeighbor = combine(UpAdj, DownAdj)
+    Endpoints = difference(P, HasNeighbor)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Endpoints)
     return O
 
 def dsl3(I):
-    p5 = ofcolor(I, FIVE)
-    c = centerofmass(p5)
-    up = shoot(c, UP)
-    down = shoot(c, DOWN)
-    left = shoot(c, LEFT)
-    right = shoot(c, RIGHT)
-    axes = combine(combine(up, down), combine(left, right))
+    # Color filtering: unsupported from below (no 5 directly below) become 2; others 5->8
+    P = ofcolor(I, FIVE)
+    Below = shift(P, DOWN)
+    Unsupported = difference(P, Below)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, intersection(p5, axes))
+    O = fill(base, TWO, Unsupported)
     return O
 
 def dsl4(I):
-    p5 = ofcolor(I, FIVE)
-    diag = intersection(p5, dmirror(p5))
-    cdiag = intersection(p5, cmirror(p5))
-    mask = combine(diag, cdiag)
+    # Object extraction: per-5-object right edge pixels become 2; others 5->8
+    Os = colorfilter(objects(I, T, F, T), FIVE)
+    ShL = rbind(shift, LEFT)
+    Inx = toindices
+    HasRight = fork(intersection, compose(Inx, identity), compose(ShL, compose(Inx, identity)))
+    RightEdge = fork(difference, compose(Inx, identity), HasRight)
+    EdgeCols = merge(apply(RightEdge, Os))
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, EdgeCols)
     return O
 
 def dsl5(I):
-    p5 = ofcolor(I, FIVE)
-    hasL = intersection(p5, shift(p5, LEFT))
-    hasR = intersection(p5, shift(p5, RIGHT))
-    hasU = intersection(p5, shift(p5, UP))
-    hasD = intersection(p5, shift(p5, DOWN))
-    t1 = intersection(intersection(hasL, hasR), hasU)
-    t2 = intersection(intersection(hasL, hasR), hasD)
-    t3 = intersection(intersection(hasU, hasD), hasL)
-    t4 = intersection(intersection(hasU, hasD), hasR)
-    mask = combine(combine(t1, t2), combine(t3, t4))
+    # Geometric (period-2 vertical alignment): columns where a 5 recurs two rows apart become 2 (propagated along the column); others 5->8
+    P = ofcolor(I, FIVE)
+    P1 = shift(P, DOWN)
+    P2 = shift(P1, DOWN)
+    Seeds = intersection(P, P2)
+    Up = rbind(shoot, UP)
+    Down = rbind(shoot, DOWN)
+    Vline = fork(combine, compose(Up, identity), compose(Down, identity))
+    Lines = merge(apply(Vline, Seeds))
+    Stripe = intersection(P, Lines)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Stripe)
     return O
 ```

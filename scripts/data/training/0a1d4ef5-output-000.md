@@ -1,44 +1,41 @@
 ```python
 def dsl1(I):
-    # Global summarization via block downscaling and cropping to nonzero
-    ds = downscale(I, TEN)
-    nz = difference(asindices(ds), ofcolor(ds, ZERO))
-    O = subgrid(nz, ds)
+    O = downscale(I, TEN)
     return O
 
 def dsl2(I):
-    # Global compression of frontiers followed by cropping to nonzero
-    C = compress(I)
-    nz = difference(asindices(C), ofcolor(C, ZERO))
-    O = subgrid(nz, C)
+    pal = remove(ZERO, palette(I))
+    col2idx = rbind(ofcolor, I)
+    idxsets = apply(col2idx, pal)
+    mask = merge(idxsets)
+    O = subgrid(mask, I)
     return O
 
 def dsl3(I):
-    # Geometric: extract and render only frontiers (boundaries)
-    frs = frontiers(I)
-    merged = merge(frs)
+    pal = remove(ZERO, palette(I))
+    f = lbind(colorcount, I)
+    dom = valmax(pal, f)
+    mask = ofcolor(I, dom)
     base = canvas(ZERO, shape(I))
-    O = paint(base, merged)
+    single = fill(base, dom, mask)
+    O = subgrid(mask, single)
     return O
 
 def dsl4(I):
-    # Geometric + reduction: render frontiers, compress them, then crop to nonzero
-    frs = frontiers(I)
-    merged = merge(frs)
-    base = canvas(ZERO, shape(I))
-    F = paint(base, merged)
-    C = compress(F)
-    nz = difference(asindices(C), ofcolor(C, ZERO))
-    O = subgrid(nz, C)
+    C = compress(I)
+    R = rot90(C)
+    O = vmirror(hmirror(R))
     return O
 
 def dsl5(I):
-    # Relational: compress each half, then combine and compress again
-    L = lefthalf(I)
-    R = righthalf(I)
-    CL = compress(L)
-    CR = compress(R)
-    H = hconcat(CL, CR)
-    O = compress(H)
+    obs = objects(I, T, F, T)
+    bobs = mfilter(obs, rbind(bordering, I))
+    idxs = mapply(toindices, bobs)
+    borderpatch = merge(idxs)
+    inner = cover(I, borderpatch)
+    ipal = remove(ZERO, palette(inner))
+    occ = apply(rbind(ofcolor, inner), ipal)
+    imask = merge(occ)
+    O = subgrid(imask, inner)
     return O
 ```

@@ -1,9 +1,83 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 1, 1, 1, 4, 4, 4), (0, 2, 2, 2, 1, 1, 1, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 4, 4, 0, 1, 1, 0), (0, 2, 2, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 4, 0, 0, 0), (0, 1, 0, 2, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+## Output
+
+```bash
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0222111444
+0222111444
+0000000000
+0000000000
+0000000000
+```
+
+# train2
+
+## Input
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+## Output
+
+```bash
+0000000000
+0220440110
+0220440110
+0000000000
+0000000000
+```
+
+# train3
+
+## Input
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
+## Output
+
+```bash
+0000000000
+0000000000
+0102004000
+0102004000
+0000000000
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -34,7 +108,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -67,7 +142,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -231,15 +307,15 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
     O = I
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -247,22 +323,55 @@ def dsl1(I):
 | train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
 | train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+### train2 output
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+### train3 output
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
     O = I
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -270,22 +379,55 @@ def dsl2(I):
 | train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
 | train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+### train2 output
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+### train3 output
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
 
 ---
 
-**Program 3**
-*DSL*
+# Program 3
+## DSL
 ```python
 def dsl3(I):
     O = I
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -293,22 +435,55 @@ def dsl3(I):
 | train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
 | train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+### train2 output
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+### train3 output
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
 
 ---
 
-**Program 4**
-*DSL*
+# Program 4
+## DSL
 ```python
 def dsl4(I):
     O = I
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -316,22 +491,55 @@ def dsl4(I):
 | train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
 | train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+### train2 output
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+### train3 output
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
     O = I
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
@@ -339,10 +547,43 @@ def dsl5(I):
 | train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
 | train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 0, 0, 0, 0, 0, 0, 4, 4, 4), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 1, 1, 1, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 0, 0, 0, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 1, 1, 0), (0, 0, 0, 0, 4, 4, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 2, 0, 0, 0, 0, 0, 0), (0, 1, 0, 0, 0, 0, 4, 0, 0, 0), (0, 0, 0, 0, 0, 0, 4, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000444
+0000000444
+0222000000
+0222000000
+0000000000
+0000111000
+0000111000
+0000000000
+0000000000
+0000000000
+```
+
+### train2 output
+
+```bash
+0220000000
+0220000110
+0000440110
+0000440000
+0000000000
+```
+
+### train3 output
+
+```bash
+0000000000
+0002000000
+0102000000
+0100004000
+0000004000
+```
+
 
 ---
 
@@ -459,6 +700,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -471,9 +716,15 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
+
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

@@ -31,4 +31,4 @@ Features:
 
 Links:
 
-- C++: [https://github.com/Julien-Livet/aicpp/tree/dev](https://github.com/Julien-Livet/aicpp/tree/dev)
+- Python: [https://github.com/Julien-Livet/aicpp/tree/dev](https://github.com/Julien-Livet/aicpp/tree/dev)

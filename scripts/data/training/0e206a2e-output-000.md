@@ -1,63 +1,40 @@
 ```python
 def dsl1(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    markers = remove(L, colors)
-    anchor_sets = mapply(lbind(ofcolor, I), markers)
-    anchors = anchor_sets
-    bbox = box(anchors)
-    base = replace(I, L, ZERO)
-    O = fill(base, L, bbox)
+    top = canvas(ZERO, astuple(halve(height(I)), width(I)))
+    bot = bottomhalf(I)
+    O = vconcat(top, bot)
     return O
 
 def dsl2(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    objs = objects(I, T, F, T)
-    comp = fork(add, lowermost, rightmost)
-    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
-    marker_colors = remove(L, colors)
-    picked = apply(chooser, marker_colors)
-    sel = merge(picked)
-    blank = canvas(ZERO, shape(I))
-    O = paint(blank, sel)
+    parts = partition(I)
+    border_sel = sfilter(parts, rbind(bordering, I))
+    kept = merge(border_sel)
+    O = paint(canvas(ZERO, shape(I)), kept)
     return O
 
 def dsl3(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    O = replace(I, L, ZERO)
+    c = leastcolor(I)
+    idx = ofcolor(I, c)
+    obj = toobject(idx, I)
+    O = paint(canvas(ZERO, shape(I)), obj)
     return O
 
 def dsl4(I):
-    colors = remove(ZERO, palette(I))
-    L = argmax(colors, lbind(colorcount, I))
-    src_idx = ofcolor(I, L)
-    src = toobject(src_idx, I)
-    objs = objects(I, T, F, T)
-    lobjs = colorfilter(objs, L)
-    anchors = difference(objs, lobjs)
-    dest = argmax(anchors, lbind(manhattan, src))
-    offset = gravitate(src, dest)
-    base = cover(I, src)
-    shifted = shift(src, offset)
-    O = paint(base, shifted)
+    O = vmirror(I)
     return O
 
 def dsl5(I):
-    colors_nz = remove(ZERO, palette(I))
-    L = argmax(colors_nz, lbind(colorcount, I))
-    base = replace(I, L, ZERO)
-    objs = objects(I, T, F, T)
-    comp = fork(add, lowermost, rightmost)
-    chooser = compose(rbind(argmax, comp), lbind(colorfilter, objs))
-    marker_colors = remove(L, colors_nz)
-    picks = apply(chooser, marker_colors)
-    centers = apply(centerofmass, picks)
-    lines = merge(prapply(connect, centers, centers))
-    anc_patch = mapply(lbind(ofcolor, I), marker_colors)
-    bbox = backdrop(anc_patch)
-    clipped = intersection(lines, bbox)
-    O = underfill(base, L, clipped)
+    p1 = ofcolor(I, ONE)
+    p2 = ofcolor(I, TWO)
+    c1 = centerofmass(p1)
+    c2 = centerofmass(p2)
+    path = connect(c1, c2)
+    wire = recolor(THREE, path)
+    t1 = toobject(p1, I)
+    t2 = toobject(p2, I)
+    t4 = toobject(ofcolor(I, FOUR), I)
+    terms = combine(combine(t1, t2), t4)
+    allobj = combine(terms, wire)
+    O = paint(canvas(ZERO, shape(I)), allobj)
     return O
 ```

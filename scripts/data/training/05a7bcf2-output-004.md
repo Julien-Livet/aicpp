@@ -1,41 +1,39 @@
 ```python
 def dsl1(I):
-    Ih = hmirror(I)
-    Iv = vmirror(I)
-    E0 = ofcolor(I, EIGHT)
-    E1 = ofcolor(Ih, EIGHT)
-    E2 = ofcolor(Iv, EIGHT)
-    EM = combine(combine(E0, E1), E2)
-    B = inbox(EM)
-    O = underfill(I, EIGHT, B)
+    anchors = combine(combine(ofcolor(I, TWO), ofcolor(I, FOUR)), ofcolor(I, EIGHT))
+    region = inbox(anchors)
+    O = underfill(I, EIGHT, region)
     return O
 
 def dsl2(I):
-    Os = fgpartition(I)
-    F4s = colorfilter(Os, FOUR)
-    B = merge(apply(inbox, F4s))
-    O = fill(I, THREE, B)
+    p4 = ofcolor(I, FOUR)
+    p2 = ofcolor(I, TWO)
+    a = urcorner(p4)
+    b = ulcorner(p2)
+    path = connect(a, b)
+    O = fill(I, EIGHT, path)
     return O
 
 def dsl3(I):
-    P4 = ofcolor(I, FOUR)
-    O = fill(I, THREE, P4)
+    e = ofcolor(I, EIGHT)
+    region = inbox(e)
+    O = underfill(I, EIGHT, region)
     return O
 
 def dsl4(I):
-    E = ofcolor(I, EIGHT)
-    T2 = ofcolor(I, TWO)
-    c8 = centerofmass(E)
-    c2 = centerofmass(T2)
-    P = connect(c8, c2)
-    O = underfill(I, EIGHT, P)
+    p4 = ofcolor(I, FOUR)
+    p2 = ofcolor(I, TWO)
+    core = combine(p4, p2)
+    region = delta(core)
+    O = underfill(I, EIGHT, region)
     return O
 
 def dsl5(I):
-    T2 = ofcolor(I, TWO)
-    E = ofcolor(I, EIGHT)
-    D = gravitate(T2, E)
-    S = shift(T2, D)
-    O = underfill(I, EIGHT, S)
+    p4 = ofcolor(I, FOUR)
+    p2 = ofcolor(I, TWO)
+    a = centerofmass(p4)
+    b = centerofmass(p2)
+    path = connect(a, b)
+    O = fill(I, EIGHT, path)
     return O
 ```

@@ -1,67 +1,58 @@
 ```python
 def dsl1(I):
-    p5 = ofcolor(I, FIVE)
-    sl = shift(p5, LEFT)
-    sr = shift(p5, RIGHT)
-    su = shift(p5, UP)
-    sd = shift(p5, DOWN)
-    hcore = intersection(p5, intersection(sl, sr))
-    vcore = intersection(p5, intersection(su, sd))
-    mask = combine(hcore, vcore)
+    # Global (rotation-based): mark vertical edges of 5s via top/bottom edges after rotation
+    R = rot90(I)
+    PR = ofcolor(R, FIVE)
+    Top = difference(PR, shift(PR, UP))
+    Bot = difference(PR, shift(PR, DOWN))
+    EdgesR = combine(Top, Bot)
+    Edges = rot270(EdgesR)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Edges)
     return O
 
 def dsl2(I):
-    p5 = ofcolor(I, FIVE)
-    c = centerofmass(p5)
-    up = shoot(c, UP)
-    down = shoot(c, DOWN)
-    left = shoot(c, LEFT)
-    right = shoot(c, RIGHT)
-    axes = combine(combine(up, down), combine(left, right))
-    mask = intersection(p5, axes)
+    # Object extraction: per-5-object right edges become 2
+    Os = colorfilter(objects(I, T, F, T), FIVE)
+    f = fork(difference, identity, rbind(shift, RIGHT))
+    Rg = merge(apply(f, Os))
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Rg)
     return O
 
 def dsl3(I):
-    p5 = ofcolor(I, FIVE)
-    vcore = intersection(p5, vmirror(p5))
-    hcore = intersection(p5, hmirror(p5))
-    mask = combine(vcore, hcore)
+    # Color filtering: both horizontal boundaries of 5-runs become 2
+    P = ofcolor(I, FIVE)
+    L = difference(P, shift(P, LEFT))
+    Rr = difference(P, shift(P, RIGHT))
+    Hedges = combine(L, Rr)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Hedges)
     return O
 
 def dsl4(I):
-    p5 = ofcolor(I, FIVE)
-    jL = leftmost(p5)
-    jR = rightmost(p5)
-    iU = uppermost(p5)
-    iD = lowermost(p5)
-    jM = divide(add(jL, jR), TWO)
-    iM = divide(add(iU, iD), TWO)
-    topc = astuple(iU, jM)
-    botc = astuple(iD, jM)
-    lefc = astuple(iM, jL)
-    rigc = astuple(iM, jR)
-    vline = connect(topc, botc)
-    hline = connect(lefc, rigc)
-    axes = combine(vline, hline)
-    mask = intersection(p5, axes)
+    # Geometric: paint the vertical line through the center of the 5-region as 2 (within the 5s)
+    P = ofcolor(I, FIVE)
+    c = center(P)
+    Up = shoot(c, UP)
+    Down = shoot(c, DOWN)
+    Vline = combine(Up, Down)
+    Inside = intersection(P, Vline)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Inside)
     return O
 
 def dsl5(I):
-    p5 = ofcolor(I, FIVE)
-    sl = shift(p5, LEFT)
-    su = shift(p5, UP)
-    right_edge = difference(p5, sl)
-    bottom_edge = difference(p5, su)
-    mask = combine(right_edge, bottom_edge)
+    # Relational/structural: 5-cells with vertical support (up & down) but on a horizontal boundary become 2
+    P = ofcolor(I, FIVE)
+    U = shift(P, UP)
+    D = shift(P, DOWN)
+    L = difference(P, shift(P, LEFT))
+    Rr = difference(P, shift(P, RIGHT))
+    Vert = intersection(U, D)
+    Hbound = combine(L, Rr)
+    Mark = intersection(P, intersection(Vert, Hbound))
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Mark)
     return O
 ```

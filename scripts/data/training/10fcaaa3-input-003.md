@@ -1,10 +1,97 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 0, 0), (0, 4, 0), (0, 0, 0), (0, 0, 0), (4, 0, 0)) -> ((8, 0, 8, 8, 0, 8), (0, 4, 0, 0, 4, 0), (8, 0, 8, 8, 0, 8), (0, 8, 8, 0, 8, 0), (4, 0, 0, 4, 0, 0), (8, 8, 8, 8, 8, 8), (0, 4, 0, 0, 4, 0), (8, 0, 8, 8, 0, 8), (0, 8, 8, 0, 8, 0), (4, 0, 0, 4, 0, 0))
-train2: ((0, 0, 6, 0), (0, 0, 0, 0), (0, 6, 0, 0)) -> ((0, 0, 6, 0, 0, 0, 6, 0), (8, 8, 8, 8, 8, 8, 8, 8), (0, 6, 0, 8, 0, 6, 0, 8), (8, 0, 6, 0, 8, 0, 6, 0), (8, 8, 8, 8, 8, 8, 8, 8), (0, 6, 0, 0, 0, 6, 0, 0))
-train3: ((0, 0, 0, 0), (0, 2, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0)) -> ((8, 0, 8, 0, 8, 0, 8, 0), (0, 2, 0, 0, 0, 2, 0, 0), (8, 0, 8, 0, 8, 0, 8, 0), (0, 0, 0, 0, 0, 0, 0, 0), (8, 0, 8, 0, 8, 0, 8, 0), (0, 2, 0, 0, 0, 2, 0, 0), (8, 0, 8, 0, 8, 0, 8, 0), (0, 0, 0, 0, 0, 0, 0, 0))
-train4: ((0, 0, 0, 0), (0, 5, 0, 0)) -> ((8, 0, 8, 0, 8, 0, 8, 0), (0, 5, 0, 0, 0, 5, 0, 0), (8, 0, 8, 0, 8, 0, 8, 0), (0, 5, 0, 0, 0, 5, 0, 0))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+000
+040
+000
+000
+400
+```
+
+## Output
+
+```bash
+808808
+040040
+808808
+088080
+400400
+888888
+040040
+808808
+088080
+400400
+```
+
+# train2
+
+## Input
+
+```bash
+0060
+0000
+0600
+```
+
+## Output
+
+```bash
+00600060
+88888888
+06080608
+80608060
+88888888
+06000600
+```
+
+# train3
+
+## Input
+
+```bash
+0000
+0200
+0000
+0000
+```
+
+## Output
+
+```bash
+80808080
+02000200
+80808080
+00000000
+80808080
+02000200
+80808080
+00000000
+```
+
+# train4
+
+## Input
+
+```bash
+0000
+0500
+```
+
+## Output
+
+```bash
+80808080
+05000500
+80808080
+05000500
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -35,7 +122,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -68,7 +156,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -232,185 +321,396 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    S = vupscale(hupscale(I, TWO), TWO)
-    O = replace(S, ZERO, EIGHT)
+    # Relational: tile 2x2, then fill 8 on background cells that are not in any row or column containing a nonzero (via line shoots)
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    Ls = apply(lbind(shoot, LEFT), NZ)
+    Rs = apply(lbind(shoot, RIGHT), NZ)
+    Us = apply(lbind(shoot, UP), NZ)
+    Ds = apply(lbind(shoot, DOWN), NZ)
+    ROWS = merge(combine(Ls, Rs))
+    COLS = merge(combine(Us, Ds))
+    LINES = merge(combine(initset(ROWS), initset(COLS)))
+    BG = ofcolor(B, ZERO)
+    FAR = difference(BG, LINES)
+    O = fill(B, EIGHT, FAR)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      42.7083 |             0.65     |           0         |      43.3583 |
-| train2 |                0 |      34.8712 |             0.666667 |           0         |      35.5379 |
-| train3 |                0 |      53.066  |             0.765625 |           0.0625    |      53.8941 |
-| train4 |                0 |      34.7563 |             0.78125  |           0.0559017 |      35.5934 |
+| train1 |                0 |      41.5692 |              0.45    |           0         |      42.0192 |
+| train2 |                0 |      39.1918 |              0.5     |           0         |      39.6918 |
+| train3 |                0 |      43.8178 |              0.46875 |           0.0625    |      44.3491 |
+| train4 |                0 |      28.8444 |              0.40625 |           0.0559017 |      29.3066 |
 
-*Output grids*
-train1: ((8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8), (8, 8, 4, 4, 8, 8), (8, 8, 4, 4, 8, 8), (8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8), (4, 4, 8, 8, 8, 8), (4, 4, 8, 8, 8, 8))
-train2: ((8, 8, 8, 8, 6, 6, 8, 8), (8, 8, 8, 8, 6, 6, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 6, 6, 8, 8, 8, 8), (8, 8, 6, 6, 8, 8, 8, 8))
-train3: ((8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 2, 2, 8, 8, 8, 8), (8, 8, 2, 2, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8))
-train4: ((8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 5, 5, 8, 8, 8, 8), (8, 8, 5, 5, 8, 8, 8, 8))
+## Output grids
+
+### train1 output
+
+```bash
+008888
+040848
+008088
+000808
+408480
+008808
+048840
+008888
+008888
+408488
+```
+
+### train2 output
+
+```bash
+00600060
+00000000
+86808688
+88680868
+88808088
+86880608
+```
+
+### train3 output
+
+```bash
+80888888
+02088288
+80808888
+88080888
+88808088
+82880208
+88888080
+88888808
+```
+
+### train4 output
+
+```bash
+80888888
+05088588
+80808888
+85080588
+```
+
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    h = height(I)
-    w = width(I)
-    H2 = double(h)
-    W2 = double(w)
-    dims = astuple(H2, W2)
-    base = canvas(ZERO, dims)
-    Os = objects(I, T, F, T)
-    MO = merge(Os)
-    off1 = ORIGIN
-    off2 = tojvec(w)
-    off3 = toivec(h)
-    off4 = add(off2, off3)
-    G1 = move(base, MO, off1)
-    G2 = move(G1, MO, off2)
-    G3 = move(G2, MO, off3)
-    O = move(G3, MO, off4)
+    # Structural: tile 2x2, then paint 8s on frontiers thickened by one-neighbor dilation
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    Fobjs = frontiers(B)
+    F = merge(apply(toindices, Fobjs))
+    N = merge(apply(neighbors, F))
+    BAND = merge(combine(initset(F), initset(N)))
+    O = fill(B, EIGHT, BAND)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      39.598  |             0.433333 |           0.0606339 |      40.0919 |
-| train2 |                0 |      36.7696 |             0.458333 |           0.0707107 |      37.2986 |
-| train3 |                0 |      32.0624 |             0.265625 |           0.0883883 |      32.4165 |
-| train4 |                0 |      23.1733 |             0.28125  |           0.0968246 |      23.5513 |
+| train1 |                0 |      43.8178 |             0.6      |           0         |      44.4178 |
+| train2 |                0 |      36.2215 |             0.583333 |           0         |      36.8049 |
+| train3 |                0 |      54.4059 |             0.75     |           0.0625    |      55.2184 |
+| train4 |                0 |      36.2767 |             0.75     |           0.0559017 |      37.0826 |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 4, 0), (0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0), (0, 0, 0, 4, 0, 0), (0, 0, 0, 0, 0, 0), (0, 4, 0, 0, 4, 0), (0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0), (4, 0, 0, 4, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 6, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 6, 0, 0), (0, 0, 6, 0, 0, 0, 6, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 6, 0, 0, 0, 6, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 2, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 0, 0, 0, 2, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
-train4: ((0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 5, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 5, 0, 0, 0, 5, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+888888
+888888
+888888
+888888
+888888
+888888
+888888
+888888
+888888
+888888
+```
+
+### train2 output
+
+```bash
+88888888
+88888888
+88888888
+88888888
+88888888
+88888888
+```
+
+### train3 output
+
+```bash
+88888888
+88888888
+88888888
+88888888
+88888888
+88888888
+88888888
+88888888
+```
+
+### train4 output
+
+```bash
+88888888
+88888888
+88888888
+88888888
+```
+
 
 ---
 
-**Program 3**
-*DSL*
+# Program 3
+## DSL
 ```python
 def dsl3(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    All = asindices(T)
-    Z = ofcolor(T, ZERO)
-    NZ = difference(All, Z)
-    B = box(NZ)
-    O = underfill(T, EIGHT, B)
+    # Global: tile 2x2, then underfill the top half background with 8s and keep the bottom half unchanged
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    TH = tophalf(B)
+    BH = bottomhalf(B)
+    T8 = underfill(TH, EIGHT, asindices(TH))
+    O = vconcat(T8, BH)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      43.8178 |             0.5      |           0.0606339 |      44.3784 |
-| train2 |                0 |      40.7922 |             0.541667 |           0.0707107 |      41.4045 |
-| train3 |                0 |      42.332  |             0.4375   |           0.0883883 |      42.8579 |
-| train4 |                0 |      32      |             0.5      |           0.0968246 |      32.5968 |
-
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0), (8, 4, 8, 8, 4, 0), (8, 0, 0, 0, 8, 0), (8, 0, 0, 0, 8, 0), (4, 0, 0, 4, 8, 0), (8, 0, 0, 0, 8, 0), (8, 4, 0, 0, 4, 0), (8, 0, 0, 0, 8, 0), (8, 0, 0, 0, 8, 0), (4, 8, 8, 4, 8, 0))
-train2: ((0, 8, 6, 8, 8, 8, 6, 0), (0, 8, 0, 0, 0, 0, 8, 0), (0, 6, 0, 0, 0, 6, 8, 0), (0, 8, 6, 0, 0, 0, 6, 0), (0, 8, 0, 0, 0, 0, 8, 0), (0, 6, 8, 8, 8, 6, 8, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 8, 8, 8, 2, 0, 0), (0, 8, 0, 0, 0, 8, 0, 0), (0, 8, 0, 0, 0, 8, 0, 0), (0, 8, 0, 0, 0, 8, 0, 0), (0, 2, 8, 8, 8, 2, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
-train4: ((0, 0, 0, 0, 0, 0, 0, 0), (0, 5, 8, 8, 8, 5, 0, 0), (0, 8, 0, 0, 0, 8, 0, 0), (0, 5, 8, 8, 8, 5, 0, 0))
-
----
-
-**Program 4**
-*DSL*
-```python
-def dsl4(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    P = asindices(T)
-    D1 = intersection(P, dmirror(P))
-    D2 = intersection(P, cmirror(P))
-    V = combine(D1, D2)
-    O = underfill(T, EIGHT, V)
-    return O
-```
-
-*Explosive scores*
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      37.5233 |             0.366667 |           0         |      37.89   |
-| train2 |                0 |      35.7771 |             0.416667 |           0.05      |      36.2438 |
-| train3 |                0 |      53.066  |             0.6875   |           0.0625    |      53.816  |
+| train1 |                0 |      42.332  |             0.466667 |           0         |      42.7987 |
+| train2 |                0 |      35.7771 |             0.416667 |           0         |      36.1938 |
+| train3 |                0 |      43.8178 |             0.46875  |           0.0625    |      44.3491 |
 | train4 |                0 |      29.9333 |             0.4375   |           0.0559017 |      30.4267 |
 
-*Output grids*
-train1: ((8, 8, 8, 8, 8, 8), (8, 4, 8, 8, 4, 8), (8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8), (4, 8, 8, 4, 8, 8), (8, 8, 8, 8, 8, 8), (0, 4, 0, 0, 4, 0), (0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0), (4, 0, 0, 4, 0, 0))
-train2: ((8, 8, 6, 8, 8, 8, 6, 0), (8, 8, 8, 8, 8, 8, 0, 0), (8, 6, 8, 8, 8, 6, 0, 0), (8, 8, 6, 8, 8, 8, 6, 0), (8, 8, 8, 8, 8, 8, 0, 0), (8, 6, 8, 8, 8, 6, 0, 0))
-train3: ((8, 8, 8, 8, 8, 8, 8, 8), (8, 2, 8, 8, 8, 2, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 2, 8, 8, 8, 2, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8), (8, 8, 8, 8, 8, 8, 8, 8))
-train4: ((8, 8, 8, 8, 0, 0, 0, 0), (8, 5, 8, 8, 0, 5, 0, 0), (8, 8, 8, 8, 0, 0, 0, 0), (8, 5, 8, 8, 0, 5, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+888888
+848848
+888888
+888888
+488488
+000000
+040040
+000000
+000000
+400400
+```
+
+### train2 output
+
+```bash
+88688868
+88888888
+86888688
+00600060
+00000000
+06000600
+```
+
+### train3 output
+
+```bash
+88888888
+82888288
+88888888
+88888888
+00000000
+02000200
+00000000
+00000000
+```
+
+### train4 output
+
+```bash
+88888888
+85888588
+00000000
+05000500
+```
+
 
 ---
 
-**Program 5**
-*DSL*
+# Program 4
+## DSL
 ```python
-def dsl5(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    Os = objects(T, T, F, T)
-    Cs = mapply(center, Os)
-    Ds = insert(DOWN, insert(UP, insert(LEFT, insert(RIGHT, initset(ORIGIN)))))
-    Rays = prapply(shoot, Cs, Ds)
-    L = merge(Rays)
-    O = underfill(T, EIGHT, L)
+def dsl4(I):
+    # Geometric: mirror-based 2x2 tiling, then overlay 8s on a shifted union of the nonzero bounding-box outline
+    H = hconcat(I, vmirror(I))
+    K = hmirror(H)
+    B = vconcat(H, K)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    BX = box(NZOBJ)
+    BXr = shift(BX, RIGHT)
+    BXd = shift(BX, DOWN)
+    PAT = merge(combine(combine(initset(BX), initset(BXr)), initset(BXd)))
+    O = fill(B, EIGHT, PAT)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
-| train4 |              nan |          nan |                  nan |                 nan |          nan |
+| train1 |                0 |      45.9565 |               0.65   |           0.0428746 |      46.6494 |
+| train2 |                0 |      38.3667 |               0.625  |           0.05      |      39.0417 |
+| train3 |                0 |      49.1528 |               0.625  |           0.0883883 |      49.8662 |
+| train4 |                0 |      34.4674 |               0.6875 |           0.0968246 |      35.2517 |
 
-*Output grids*
+## Output grids
 
+### train1 output
 
-*Tracebacks*
 ```bash
-  File "<string>", line 7, in dsl5
-def dsl5(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    Os = objects(T, T, F, T)
-    Cs = mapply(center, Os)
-    Ds = insert(DOWN, insert(UP, insert(LEFT, insert(RIGHT, initset(ORIGIN)))))
-    Rays = prapply(shoot, Cs, Ds)
-    L = merge(Rays)
-    O = underfill(T, EIGHT, L)
-    return O
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 560, in prapply
-    return frozenset(function(i, j) for j in b for i in a)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 560, in <genexpr>
-    return frozenset(function(i, j) for j in b for i in a)
-                     ^^^^^^^^^^^^^^
-  File "/home/julien-livet/Documents/GitHub/aicpp/scripts/arc-dsl/dsl.py", line 1453, in shoot
-    return connect(start, (start[0] + 42 * direction[0], start[1] + 42 * direction[1]))
-                           ~~~~~^^^
-TypeError: 'int' object is not subscriptable
+000000
+888888
+888888
+880008
+880008
+880008
+880008
+880008
+888888
+888888
 ```
+
+### train2 output
+
+```bash
+08888888
+08888888
+08800088
+08800088
+08800088
+08888888
+```
+
+### train3 output
+
+```bash
+00000000
+08888888
+08888888
+08800088
+08800088
+08800088
+08888888
+08888880
+```
+
+### train4 output
+
+```bash
+00000000
+08888888
+08888888
+08888880
+```
+
+
+---
+
+# Program 5
+## DSL
+```python
+def dsl5(I):
+    # Object extraction: tile 2x2, then fill 8s in the interior of the nonzero bounding rectangle (excluding the nonzeros)
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    BD = backdrop(NZOBJ)
+    HOLES = difference(BD, toindices(NZOBJ))
+    O = fill(B, EIGHT, HOLES)
+    return O
+```
+
+## Explosive scores
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      41.5692 |             0.45     |           0.0606339 |      42.0799 |
+| train2 |                0 |      35.7771 |             0.416667 |           0.0707107 |      36.2645 |
+| train3 |                0 |      43.0813 |             0.453125 |           0.0883883 |      43.6228 |
+| train4 |                0 |      30.9839 |             0.46875  |           0.0968246 |      31.5494 |
+
+## Output grids
+
+### train1 output
+
+```bash
+000000
+848840
+888880
+888880
+488480
+888880
+848840
+888880
+888880
+488480
+```
+
+### train2 output
+
+```bash
+08688860
+08888880
+06888680
+08688860
+08888880
+06888680
+```
+
+### train3 output
+
+```bash
+00000000
+02888200
+08888800
+08888800
+08888800
+02888200
+00000000
+00000000
+```
+
+### train4 output
+
+```bash
+00000000
+05888500
+08888800
+05888500
+```
+
 
 ---
 
@@ -527,6 +827,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -539,11 +843,15 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
-nan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
 
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...

@@ -1,60 +1,51 @@
 ```python
 def dsl1(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    inds = asindices(T)
-    c = center(inds)
-    H = hfrontier(c)
-    V = vfrontier(c)
-    P = combine(H, V)
-    O = underfill(T, EIGHT, P)
+    # Relational: tile 2x2, turn zeros to 8 except keep zeros adjacent to any non-zero
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NBRSETS = apply(neighbors, NZ)
+    NBRS = merge(NBRSETS)
+    BG = ofcolor(B, ZERO)
+    KEEP = intersection(BG, NBRS)
+    O1 = replace(B, ZERO, EIGHT)
+    O = fill(O1, ZERO, KEEP)
     return O
 
 def dsl2(I):
-    h = height(I)
-    w = width(I)
-    H2 = double(h)
-    W2 = double(w)
-    dims = astuple(H2, W2)
-    base = canvas(EIGHT, dims)
-    obj = asobject(I)
-    off1 = ORIGIN
-    off2 = tojvec(w)
-    off3 = toivec(h)
-    off4 = add(off2, off3)
-    G1 = move(base, obj, off1)
-    G2 = move(G1, obj, off2)
-    G3 = move(G2, obj, off3)
-    O = move(G3, obj, off4)
+    # Structural: tile 2x2, then draw 8s along all color frontiers
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    Fobjs = frontiers(B)
+    FindexSets = apply(toindices, Fobjs)
+    F = merge(FindexSets)
+    O = fill(B, EIGHT, F)
     return O
 
 def dsl3(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    base8 = replace(T, ZERO, EIGHT)
-    L = lefthalf(T)
-    ZL = ofcolor(L, ZERO)
-    Top = tophalf(T)
-    ZT = ofcolor(Top, ZERO)
-    P = combine(ZL, ZT)
-    O = cover(base8, P)
+    # Global: tile 2x2, then convert zeros to 8 only in the top half
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    TH = tophalf(B)
+    BH = bottomhalf(B)
+    T8 = replace(TH, ZERO, EIGHT)
+    O = vconcat(T8, BH)
     return O
 
 def dsl4(I):
-    TL = I
-    TR = hmirror(I)
-    BL = vmirror(I)
-    BR = rot180(I)
-    T = vconcat(hconcat(TL, TR), hconcat(BL, BR))
-    B = box(asindices(T))
-    O = underfill(T, EIGHT, B)
+    # Geometric: mirror-based 2x2 tiling (no color change)
+    H = hconcat(I, vmirror(I))
+    K = hmirror(H)
+    O = vconcat(H, K)
     return O
 
 def dsl5(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    Fs = frontiers(T)
-    U = mapply(toindices, Fs)
-    O = underfill(T, EIGHT, U)
+    # Box-based: tile 2x2, then paint 8s on the outline of the non-zero bounding box
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    BX = box(NZOBJ)
+    O = fill(B, EIGHT, BX)
     return O
 ```

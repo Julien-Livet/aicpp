@@ -1,56 +1,64 @@
 ```python
 def dsl1(I):
-    S = vupscale(hupscale(I, TWO), TWO)
-    O = replace(S, ZERO, EIGHT)
+    # Relational: tile 2x2, then fill 8 on background cells that are not in any row or column containing a nonzero (via line shoots)
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    Ls = apply(lbind(shoot, LEFT), NZ)
+    Rs = apply(lbind(shoot, RIGHT), NZ)
+    Us = apply(lbind(shoot, UP), NZ)
+    Ds = apply(lbind(shoot, DOWN), NZ)
+    ROWS = merge(combine(Ls, Rs))
+    COLS = merge(combine(Us, Ds))
+    LINES = merge(combine(initset(ROWS), initset(COLS)))
+    BG = ofcolor(B, ZERO)
+    FAR = difference(BG, LINES)
+    O = fill(B, EIGHT, FAR)
     return O
 
 def dsl2(I):
-    h = height(I)
-    w = width(I)
-    H2 = double(h)
-    W2 = double(w)
-    dims = astuple(H2, W2)
-    base = canvas(ZERO, dims)
-    Os = objects(I, T, F, T)
-    MO = merge(Os)
-    off1 = ORIGIN
-    off2 = tojvec(w)
-    off3 = toivec(h)
-    off4 = add(off2, off3)
-    G1 = move(base, MO, off1)
-    G2 = move(G1, MO, off2)
-    G3 = move(G2, MO, off3)
-    O = move(G3, MO, off4)
+    # Structural: tile 2x2, then paint 8s on frontiers thickened by one-neighbor dilation
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    Fobjs = frontiers(B)
+    F = merge(apply(toindices, Fobjs))
+    N = merge(apply(neighbors, F))
+    BAND = merge(combine(initset(F), initset(N)))
+    O = fill(B, EIGHT, BAND)
     return O
 
 def dsl3(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    All = asindices(T)
-    Z = ofcolor(T, ZERO)
-    NZ = difference(All, Z)
-    B = box(NZ)
-    O = underfill(T, EIGHT, B)
+    # Global: tile 2x2, then underfill the top half background with 8s and keep the bottom half unchanged
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    TH = tophalf(B)
+    BH = bottomhalf(B)
+    T8 = underfill(TH, EIGHT, asindices(TH))
+    O = vconcat(T8, BH)
     return O
 
 def dsl4(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    P = asindices(T)
-    D1 = intersection(P, dmirror(P))
-    D2 = intersection(P, cmirror(P))
-    V = combine(D1, D2)
-    O = underfill(T, EIGHT, V)
+    # Geometric: mirror-based 2x2 tiling, then overlay 8s on a shifted union of the nonzero bounding-box outline
+    H = hconcat(I, vmirror(I))
+    K = hmirror(H)
+    B = vconcat(H, K)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    BX = box(NZOBJ)
+    BXr = shift(BX, RIGHT)
+    BXd = shift(BX, DOWN)
+    PAT = merge(combine(combine(initset(BX), initset(BXr)), initset(BXd)))
+    O = fill(B, EIGHT, PAT)
     return O
 
 def dsl5(I):
-    T0 = hconcat(I, I)
-    T = vconcat(T0, T0)
-    Os = objects(T, T, F, T)
-    Cs = mapply(center, Os)
-    Ds = insert(DOWN, insert(UP, insert(LEFT, insert(RIGHT, initset(ORIGIN)))))
-    Rays = prapply(shoot, Cs, Ds)
-    L = merge(Rays)
-    O = underfill(T, EIGHT, L)
+    # Object extraction: tile 2x2, then fill 8s in the interior of the nonzero bounding rectangle (excluding the nonzeros)
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    NZ = difference(asindices(B), ofcolor(B, ZERO))
+    NZOBJ = toobject(NZ, B)
+    BD = backdrop(NZOBJ)
+    HOLES = difference(BD, toindices(NZOBJ))
+    O = fill(B, EIGHT, HOLES)
     return O
 ```

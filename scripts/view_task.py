@@ -15,8 +15,8 @@ def show(text, pairs):
         ipt = pairs[i]["input"]
         opt = pairs[i]["output"]
 
-        fig.colorbar(axs[i][0].matshow(ipt))
-        fig.colorbar(axs[i][1].matshow(opt))
+        fig.colorbar(axs[i][0].matshow(ipt, vmin = 1, vmax = 9))
+        fig.colorbar(axs[i][1].matshow(opt, vmin = 1, vmax = 9))
 
         #axs[i][0].set_axis_off()
         #axs[i][1].set_axis_off()

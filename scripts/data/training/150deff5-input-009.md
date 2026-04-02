@@ -1,9 +1,93 @@
-You are given several input->output grid pairs from an ARC task:
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 5, 5, 5, 5, 5, 5, 0, 0, 0), (0, 5, 5, 5, 5, 5, 5, 0, 0, 0), (0, 0, 0, 5, 0, 0, 5, 0, 0, 0), (0, 0, 0, 0, 5, 5, 5, 0, 0, 0), (0, 0, 0, 0, 5, 5, 5, 0, 0, 0), (0, 0, 0, 0, 5, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 8, 2, 8, 8, 2, 0, 0, 0), (0, 8, 8, 2, 8, 8, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 2, 0, 0, 0), (0, 0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0), (0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0), (0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0), (0, 0, 0, 5, 5, 5, 5, 5, 0, 0, 0), (0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0), (0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 2, 2, 2, 0, 0, 0, 0), (0, 0, 0, 2, 8, 8, 0, 0, 0, 0, 0), (0, 0, 0, 2, 8, 8, 8, 8, 0, 0, 0), (0, 0, 0, 2, 0, 0, 8, 8, 0, 0, 0), (0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 5, 5, 5, 5, 5, 0, 0, 0), (0, 0, 0, 0, 5, 5, 0, 0, 0), (0, 0, 0, 5, 0, 0, 0, 0, 0), (0, 0, 0, 5, 5, 5, 0, 0, 0), (0, 0, 0, 5, 5, 5, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0)) -> ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 8, 8, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
+# Input->output grid pairs of an ARC task
 
-Available types:
+# train1
+
+## Input
+
+```bash
+0000000000
+0555555000
+0555555000
+0005005000
+0000555000
+0000555000
+0000500000
+0000000000
+```
+
+## Output
+
+```bash
+0000000000
+0882882000
+0882882000
+0002002000
+0000288000
+0000288000
+0000200000
+0000000000
+```
+
+# train2
+
+## Input
+
+```bash
+00000000000
+00550000000
+00555550000
+00055500000
+00055555000
+00050055000
+00000555000
+00000000000
+00000000000
+```
+
+## Output
+
+```bash
+00000000000
+00880000000
+00882220000
+00028800000
+00028888000
+00020088000
+00000222000
+00000000000
+00000000000
+```
+
+# train3
+
+## Input
+
+```bash
+000000000
+055555000
+000055000
+000500000
+000555000
+000555000
+000000000
+000000000
+```
+
+## Output
+
+```bash
+000000000
+022288000
+000088000
+000200000
+000288000
+000288000
+000000000
+000000000
+```
+
+# Available types
+
 ```python
 from typing import (
     List,
@@ -34,7 +118,8 @@ TupleTuple = Tuple[Tuple]
 ContainerContainer = Container[Container]
 ```
 
-Available variables:
+# Available variables
+
 ```python
 I: Tuple[Tuple]
 F = False
@@ -67,7 +152,8 @@ TWO_BY_TWO = (2, 2)
 THREE_BY_THREE = (3, 3)
 ```
 
-Available primitives:
+# Available primitives
+
 ```python
 add(a: Union[int, Tuple[int, int]], b: Union[int, Tuple[int, int]]) -> Union[int, Tuple[int, int]] # addition
 adjacent(a: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]], b: Union[FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> bool # whether two patches are adjacent
@@ -231,155 +317,350 @@ vupscale(grid: Tuple[Tuple[int]], factor: int) -> Tuple[Tuple[int]] # upscale gr
 width(piece: Union[Tuple[Tuple[int]], FrozenSet[Tuple[int, Tuple[int, int]]], FrozenSet[Tuple[int, int]]]) -> int # width of grid or patch
 ```
 
-**Program 1**
-*DSL*
+# Program 1
+## DSL
 ```python
 def dsl1(I):
-    p5 = ofcolor(I, FIVE)
-    hasL = intersection(p5, shift(p5, LEFT))
-    hasR = intersection(p5, shift(p5, RIGHT))
-    hasU = intersection(p5, shift(p5, UP))
-    hasD = intersection(p5, shift(p5, DOWN))
-    core4 = intersection(intersection(hasL, hasR), intersection(hasU, hasD))
-    border = difference(p5, core4)
+    # Relational: propagate columns from horizontally isolated 5s (singletons) upward and downward; others 5->8
+    P = ofcolor(I, FIVE)
+    Hleft = shift(P, LEFT)
+    Hright = shift(P, RIGHT)
+    Singles = difference(P, combine(Hleft, Hright))
+    Up = rbind(shoot, UP)
+    Down = rbind(shoot, DOWN)
+    Vline = fork(combine, compose(Up, identity), compose(Down, identity))
+    Lines = merge(apply(Vline, Singles))
+    Stripe = intersection(P, Lines)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, border)
+    O = fill(base, TWO, Stripe)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      21.6333 |             0.1625   |                   0 |      21.7958 |
-| train2 |                0 |      18.9737 |             0.10101  |                   0 |      19.0747 |
-| train3 |                0 |      16.9706 |             0.111111 |                   0 |      17.0817 |
+| train1 |                0 |     12       |            0.05      |                   0 |     12.05    |
+| train2 |                0 |     16.9706  |            0.0808081 |                   0 |     17.0514  |
+| train3 |                0 |      8.48528 |            0.0277778 |                   0 |      8.51306 |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 2, 2, 2, 0, 0, 0), (0, 2, 2, 8, 2, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 0, 2, 8, 2, 2, 2, 0, 0, 0, 0), (0, 0, 0, 2, 8, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000000
+0882282000
+0882282000
+0002002000
+0000282000
+0000282000
+0000200000
+0000000000
+```
+
+### train2 output
+
+```bash
+00000000000
+00820000000
+00828880000
+00028800000
+00028888000
+00020088000
+00000888000
+00000000000
+00000000000
+```
+
+### train3 output
+
+```bash
+000000000
+088288000
+000088000
+000200000
+000288000
+000288000
+000000000
+000000000
+```
+
 
 ---
 
-**Program 2**
-*DSL*
+# Program 2
+## DSL
 ```python
 def dsl2(I):
-    p5 = ofcolor(I, FIVE)
-    vcore = intersection(intersection(p5, shift(p5, UP)), intersection(p5, shift(p5, DOWN)))
-    hcore = intersection(intersection(p5, shift(p5, LEFT)), intersection(p5, shift(p5, RIGHT)))
-    mask = combine(vcore, hcore)
+    # Global morphological: mark vertical endpoints (no 5 above and no 5 below); others 5->8
+    P = ofcolor(I, FIVE)
+    UpAdj = intersection(P, shift(P, UP))
+    DownAdj = intersection(P, shift(P, DOWN))
+    HasNeighbor = combine(UpAdj, DownAdj)
+    Endpoints = difference(P, HasNeighbor)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Endpoints)
     return O
 ```
 
-*Explosive scores*
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      21.6333 |            0.1625    |                   0 |      21.7958 |
-| train2 |                0 |      20.7846 |            0.121212  |                   0 |      20.9058 |
-| train3 |                0 |      14.6969 |            0.0833333 |                   0 |      14.7803 |
-
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 2, 2, 2, 2, 8, 0, 0, 0), (0, 8, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 8, 0, 0, 2, 0, 0, 0), (0, 0, 0, 0, 8, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 8, 0, 0, 0), (0, 0, 0, 0, 8, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 2, 2, 2, 8, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 2, 8, 0, 0, 0), (0, 0, 0, 8, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 2, 2, 2, 8, 0, 0, 0), (0, 0, 0, 0, 8, 8, 0, 0, 0), (0, 0, 0, 8, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 8, 0, 0, 0), (0, 0, 0, 8, 2, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
-
----
-
-**Program 3**
-*DSL*
-```python
-def dsl3(I):
-    p5 = ofcolor(I, FIVE)
-    c = centerofmass(p5)
-    up = shoot(c, UP)
-    down = shoot(c, DOWN)
-    left = shoot(c, LEFT)
-    right = shoot(c, RIGHT)
-    axes = combine(combine(up, down), combine(left, right))
-    base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, intersection(p5, axes))
-    return O
-```
-
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
 | train1 |                0 |      18      |            0.1125    |                   0 |      18.1125 |
-| train2 |                0 |      18.9737 |            0.10101   |                   0 |      19.0747 |
-| train3 |                0 |      12      |            0.0555556 |                   0 |      12.0556 |
+| train2 |                0 |      15.8745 |            0.0707071 |                   0 |      15.9452 |
+| train3 |                0 |      10.3923 |            0.0416667 |                   0 |      10.434  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 8, 8, 2, 8, 8, 0, 0, 0), (0, 2, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 8, 0, 0, 8, 0, 0, 0), (0, 0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 2, 8, 8, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0), (0, 0, 0, 8, 2, 8, 8, 8, 0, 0, 0), (0, 0, 0, 8, 0, 0, 8, 8, 0, 0, 0), (0, 0, 0, 0, 0, 8, 8, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 8, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 2, 8, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000000
+0888888000
+0888888000
+0008008000
+0000888000
+0000888000
+0000800000
+0000000000
+```
+
+### train2 output
+
+```bash
+00000000000
+00880000000
+00888820000
+00088800000
+00088888000
+00080088000
+00000288000
+00000000000
+00000000000
+```
+
+### train3 output
+
+```bash
+000000000
+022288000
+000088000
+000800000
+000888000
+000888000
+000000000
+000000000
+```
+
 
 ---
 
-**Program 4**
-*DSL*
+# Program 3
+## DSL
+```python
+def dsl3(I):
+    # Color filtering: unsupported from below (no 5 directly below) become 2; others 5->8
+    P = ofcolor(I, FIVE)
+    Below = shift(P, DOWN)
+    Unsupported = difference(P, Below)
+    base = replace(I, FIVE, EIGHT)
+    O = fill(base, TWO, Unsupported)
+    return O
+```
+
+## Explosive scores
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.8997 |            0.1375    |                   0 |      20.0372 |
+| train2 |                0 |      18      |            0.0909091 |                   0 |      18.0909 |
+| train3 |                0 |      14.6969 |            0.0833333 |                   0 |      14.7803 |
+
+## Output grids
+
+### train1 output
+
+```bash
+0000000000
+0222222000
+0888888000
+0008008000
+0000228000
+0000888000
+0000800000
+0000000000
+```
+
+### train2 output
+
+```bash
+00000000000
+00220000000
+00882220000
+00088800000
+00088822000
+00080088000
+00000288000
+00000000000
+00000000000
+```
+
+### train3 output
+
+```bash
+000000000
+022222000
+000088000
+000200000
+000822000
+000888000
+000000000
+000000000
+```
+
+
+---
+
+# Program 4
+## DSL
 ```python
 def dsl4(I):
-    p5 = ofcolor(I, FIVE)
-    diag = intersection(p5, dmirror(p5))
-    cdiag = intersection(p5, cmirror(p5))
-    mask = combine(diag, cdiag)
+    # Object extraction: per-5-object right edge pixels become 2; others 5->8
+    Os = colorfilter(objects(I, T, F, T), FIVE)
+    ShL = rbind(shift, LEFT)
+    Inx = toindices
+    HasRight = fork(intersection, compose(Inx, identity), compose(ShL, compose(Inx, identity)))
+    RightEdge = fork(difference, compose(Inx, identity), HasRight)
+    EdgeCols = merge(apply(RightEdge, Os))
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, EdgeCols)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      19.8997 |             0.1375   |                   0 |      20.0372 |
-| train2 |                0 |      20.7846 |             0.121212 |                   0 |      20.9058 |
-| train3 |                0 |      19.8997 |             0.152778 |                   0 |      20.0525 |
+| train1 |                0 |      14.6969 |              0.075   |                   0 |      14.7719 |
+| train2 |                0 |      18.9737 |              0.10101 |                   0 |      19.0747 |
+| train3 |                0 |      18      |              0.125   |                   0 |      18.125  |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 2, 2, 2, 2, 0, 0, 0), (0, 2, 2, 2, 8, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0), (0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 2, 2, 8, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 2, 0, 0, 0, 0, 0), (0, 0, 0, 8, 2, 2, 0, 0, 0), (0, 0, 0, 8, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000000
+0888882000
+0888882000
+0002002000
+0000882000
+0000882000
+0000200000
+0000000000
+```
+
+### train2 output
+
+```bash
+00000000000
+00820000000
+00888820000
+00088200000
+00088882000
+00020082000
+00000882000
+00000000000
+00000000000
+```
+
+### train3 output
+
+```bash
+000000000
+088882000
+000082000
+000200000
+000882000
+000882000
+000000000
+000000000
+```
+
 
 ---
 
-**Program 5**
-*DSL*
+# Program 5
+## DSL
 ```python
 def dsl5(I):
-    p5 = ofcolor(I, FIVE)
-    hasL = intersection(p5, shift(p5, LEFT))
-    hasR = intersection(p5, shift(p5, RIGHT))
-    hasU = intersection(p5, shift(p5, UP))
-    hasD = intersection(p5, shift(p5, DOWN))
-    t1 = intersection(intersection(hasL, hasR), hasU)
-    t2 = intersection(intersection(hasL, hasR), hasD)
-    t3 = intersection(intersection(hasU, hasD), hasL)
-    t4 = intersection(intersection(hasU, hasD), hasR)
-    mask = combine(combine(t1, t2), combine(t3, t4))
+    # Geometric (period-2 vertical alignment): columns where a 5 recurs two rows apart become 2 (propagated along the column); others 5->8
+    P = ofcolor(I, FIVE)
+    P1 = shift(P, DOWN)
+    P2 = shift(P1, DOWN)
+    Seeds = intersection(P, P2)
+    Up = rbind(shoot, UP)
+    Down = rbind(shoot, DOWN)
+    Vline = fork(combine, compose(Up, identity), compose(Down, identity))
+    Lines = merge(apply(Vline, Seeds))
+    Stripe = intersection(P, Lines)
     base = replace(I, FIVE, EIGHT)
-    O = fill(base, TWO, mask)
+    O = fill(base, TWO, Stripe)
     return O
 ```
 
-*Explosive scores*
+## Explosive scores
 
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      22.4499 |             0.175    |                   0 |      22.6249 |
-| train2 |                0 |      20.7846 |             0.121212 |                   0 |      20.9058 |
-| train3 |                0 |      16.9706 |             0.111111 |                   0 |      17.0817 |
+| train1 |                0 |      16.9706 |             0.1      |                   0 |      17.0706 |
+| train2 |                0 |      18.9737 |             0.10101  |                   0 |      19.0747 |
+| train3 |                0 |      18.9737 |             0.138889 |                   0 |      19.1126 |
 
-*Output grids*
-train1: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 2, 2, 2, 2, 8, 0, 0, 0), (0, 8, 2, 2, 2, 2, 2, 0, 0, 0), (0, 0, 0, 8, 0, 0, 8, 0, 0, 0), (0, 0, 0, 0, 8, 2, 2, 0, 0, 0), (0, 0, 0, 0, 2, 2, 8, 0, 0, 0), (0, 0, 0, 0, 8, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train2: ((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0), (0, 0, 8, 2, 2, 2, 8, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 2, 2, 8, 0, 0, 0), (0, 0, 0, 8, 0, 0, 2, 2, 0, 0, 0), (0, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-train3: ((0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 8, 8, 8, 2, 8, 0, 0, 0), (0, 0, 0, 0, 8, 8, 0, 0, 0), (0, 0, 0, 8, 0, 0, 0, 0, 0), (0, 0, 0, 2, 2, 8, 0, 0, 0), (0, 0, 0, 8, 2, 8, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0, 0))
+## Output grids
+
+### train1 output
+
+```bash
+0000000000
+0882222000
+0882222000
+0002002000
+0000222000
+0000222000
+0000200000
+0000000000
+```
+
+### train2 output
+
+```bash
+00000000000
+00820000000
+00822220000
+00022200000
+00022222000
+00020022000
+00000222000
+00000000000
+00000000000
+```
+
+### train3 output
+
+```bash
+000000000
+088222000
+000022000
+000200000
+000222000
+000222000
+000000000
+000000000
+```
+
 
 ---
 
@@ -496,6 +777,10 @@ Constraints:
 - Avoid reusing the same core operators across candidates
 - Each program should reflect a distinct hypothesis about the task
 
+Ensure diversity across candidates by varying:
+- global vs local processing (full grid vs subgrid)
+- object-level vs pixel-level reasoning
+- use vs avoidance of normalization / cropping
 
 Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
@@ -508,9 +793,15 @@ Before writing each program, explicitly choose a different reasoning strategy.
 If two programs use similar primitives (e.g., both use compress + downscale),
 they will be considered invalid.
 
+If a program achieves zero cost on any training example,
+you MUST preserve the underlying transformation responsible for that success.
+
+Do NOT modify or destroy parts of the program that already perfectly solve a training example,
+unless you can generalize them without increasing their cost.
+
 Generate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
-EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION:
+# EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
 def dsl1(I):
     # O = ...
