@@ -150,7 +150,6 @@ def plotTask(folder: str, task: str):
     f = open(f"{folder}_{task}_history.md", "w")
     f.write(content)
     f.close()
-    exit() #TODO: to remove
 
     trainPrograms, testPrograms = results[0]
     trainDf = trainPrograms[0][1][0]
