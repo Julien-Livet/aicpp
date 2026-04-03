@@ -209,7 +209,11 @@ def inputOutputPairs(pairs):
     return (inputs, outputs)
 
 def taskPrompt(trainPairs: list) -> str:
-    command = "The attached image describes the input grids in the left column and the output grids of an ARC task in the right column.\n\n"
+    command = ""
+    
+    if (withImages):
+        command += "The attached image describes the input grids in the left column and the output grids of an ARC task in the right column.\n\n"
+
     command += "# Input->output grid pairs of an ARC task\n\n"
 
     for i in range(len(trainPairs[0])):
