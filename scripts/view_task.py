@@ -26,24 +26,27 @@ def neg_arc_color(i: int):
     return f"#{r_neg:02X}{g_neg:02X}{b_neg:02X}"
 
 def show(text, pairs, buffer = None):
-    iptMaxCols, optMaxCols = 0, 0
-    iptRows, optRows = 0, 0
+    if (buffer):
+        iptMaxCols, optMaxCols = 0, 0
+        iptRows, optRows = 0, 0
 
-    for k in range(0, len(pairs)):
-        ipt = pairs[k]["input"]
-        opt = pairs[k]["output"]
+        for k in range(0, len(pairs)):
+            ipt = pairs[k]["input"]
+            opt = pairs[k]["output"]
 
-        rows, cols = np.array(ipt).shape
-        iptRows += rows
-        iptMaxCols = max(iptMaxCols, cols)
-        rows, cols = np.array(opt).shape
-        optRows += rows
-        optMaxCols = max(optMaxCols, cols)
+            rows, cols = np.array(ipt).shape
+            iptRows += rows
+            iptMaxCols = max(iptMaxCols, cols)
+            rows, cols = np.array(opt).shape
+            optRows += rows
+            optMaxCols = max(optMaxCols, cols)
 
-    width, height = iptMaxCols + optMaxCols, max(iptRows, optRows)
-    dpi = 150
+        width, height = iptMaxCols + optMaxCols, max(iptRows, optRows)
+        dpi = 150
 
-    fig, axs = plt.subplots(len(pairs), 2, figsize = (100 * width / dpi, 100 * height / dpi), dpi = dpi)
+        fig, axs = plt.subplots(len(pairs), 2, figsize = (100 * width / dpi, 100 * height / dpi), dpi = dpi)
+    else:
+        fig, axs = plt.subplots(len(pairs), 2)
 
     if (len(axs.shape) == 1):
         axs.resize((1, axs.shape[0]))
