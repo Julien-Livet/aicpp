@@ -63,26 +63,29 @@ def plotTask(folder: str, task: str):
     results = [(trainPrograms, testPrograms)] + results
     trainSolved = False
     testSolved = False
-    trainPrograms, testPrograms = results[-1]
     costs = []
 
-    for i in range(0, len(trainPrograms)):
-        trainProgram = trainPrograms[i]
-        testProgram = testPrograms[i]
-        trainCost = trainProgram[1][0]["Total cost"].sum(skipna = False)
-        testCost = testProgram[1][0]["Total cost"].sum(skipna = False)
+    for i, result in enumerate(results):
+        trainPrograms, testPrograms = result
 
-        if (not trainSolved):
-            trainSolved = not trainCost
+        for j in range(0, len(trainPrograms)):
+            trainProgram = trainPrograms[j]
+            testProgram = testPrograms[j]
+            trainCost = trainProgram[1][0]["Total cost"].sum(skipna = False)
+            testCost = testProgram[1][0]["Total cost"].sum(skipna = False)
 
-        if (not testSolved):
-            testSolved = not testCost
+            if (not trainSolved):
+                trainSolved = not trainCost
 
-        costs.append((trainCost, testCost, i))
+            if (not testSolved):
+                testSolved = not testCost
 
-    costs = sorted(costs)
+            costs.append((trainCost, len(trainProgram[0]), i, j))
+
+    costs = sorted(sorted(costs, key = lambda x: np.isnan(x[0])), key = lambda x: x)
     history = []
-    dfs = [None] * len(results[0][0])
+    trainDfs = [None] * len(results[0][0])
+    testDfs = [None] * len(results[0][0])
 
     for i in range(1, len(results)):
         trainPrograms1, testPrograms1 = results[i - 1]
@@ -91,21 +94,26 @@ def plotTask(folder: str, task: str):
         for j in range(0, len(trainPrograms1)):
             dsl1, result1 = trainPrograms1[j]
             dsl2, result2 = trainPrograms2[j]
-            df1 = result1[0]
-            df2 = result2[0]
-            df1.index = df1.index.str.strip()
-            df2.index = df2.index.str.strip()
-            df1.columns = df1.columns.str.strip()
-            df2.columns = df2.columns.str.strip()
-            df1, df2 = df1.align(df2)
-            df = df1.combine(df2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
+            trainDf1 = result1[0]
+            trainDf2 = result2[0]
+            trainDf = trainDf1.combine(trainDf2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
+            dsl1, result1 = testPrograms1[j]
+            dsl2, result2 = testPrograms2[j]
+            testDf1 = result1[0]
+            testDf2 = result2[0]
+            testDf = testDf1.combine(testDf2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
 
-            if (dfs[j] is None):
-                dfs[j] = df
+            if (trainDfs[j] is None):
+                trainDfs[j] = trainDf
             else:
-                dfs[j] = dfs[j].combine(df2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
+                trainDfs[j] = trainDfs[j].combine(trainDf2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
 
-            history.append((diff(dsl1, dsl2), df))
+            if (testDfs[j] is None):
+                testDfs[j] = testDf
+            else:
+                testDfs[j] = testDfs[j].combine(testDf2, lambda s1, s2: s1.combine(s2, lambda x, y: f"{x if pd.notna(x) else 'NaN'},{y if pd.notna(y) else 'NaN'}"))
+
+            history.append((diff(dsl1, dsl2), trainDf, testDf))
 
     with open("arc-dsl/solvers.py", "r") as file:
         solversContent = file.read()
@@ -117,9 +125,9 @@ def plotTask(folder: str, task: str):
     index = len(results) - 1
 
     if (not costs[0][-1]):
-        content += f"[Best program](#iteration-{index}-dsl-diff)\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff)\n\n"
     else:
-        content += f"[Best program](#iteration-{index}-dsl-diff-{costs[0][-1]})\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff-{costs[0][-1]})\n\n"
 
     try:
         lineIndex = solversLines.index(f"def solve_{task}(I):")
@@ -130,10 +138,10 @@ def plotTask(folder: str, task: str):
     for i in range(0, len(results[0][0])):
         content += f"## Program {i+1}\n\n"
         content += f"### Train scores\n\n"
-        content += dfs[i].to_markdown() + "\n\n"
+        content += trainDfs[i].to_markdown() + "\n\n"
         trainPrograms, testPrograms = results[-1]
         content += f"### Test scores\n\n"
-        content += testPrograms[i][1][0].to_markdown() + "\n\n"
+        content += testDfs[i].to_markdown() + "\n\n"
 
         for j in range(0, len(results) - 1):            
             content += f"### Iteration {j+1} DSL diff\n\n"
@@ -142,6 +150,7 @@ def plotTask(folder: str, task: str):
     f = open(f"{folder}_{task}_history.md", "w")
     f.write(content)
     f.close()
+    exit() #TODO: to remove
 
     trainPrograms, testPrograms = results[0]
     trainDf = trainPrograms[0][1][0]
