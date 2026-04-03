@@ -1,5 +1,8 @@
+import base64
 from concurrent.futures import ThreadPoolExecutor
 import importlib.util
+import io
+from io import BytesIO
 import json
 import math
 import multiprocessing as mp
@@ -7,6 +10,7 @@ import numpy as np
 from openai import OpenAI, OpenAIError
 import os
 import pandas as pd
+from PIL import Image
 import pytest
 import queue
 import re
@@ -16,21 +20,37 @@ import time
 import traceback
 from tqdm import tqdm
 import urllib.request
+import view_task
 
 errors = set()
+withImages = False
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
 
-def callOllama(model: str, prompt: str) -> str:
+def callOllama(model: str, prompt: str, image: str = "") -> str:
     cmd = ["ollama", "run", model, prompt]
     result = subprocess.run(cmd, capture_output = True, text = True)
     
     return result.stdout
 
-def callGpt(prompt: str, model: str = "gpt-5") -> str:
+def callGpt(prompt: str, image: str = "", model: str = "gpt-5") -> str:
     try:
-        return OpenAI().responses.create(model = model, input = prompt).output_text
+        if (len(image)):
+            return OpenAI().responses.create(model = model, input = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": prompt},
+                        {
+                            "type": "input_image",
+                            "image_url": f"data:image/png;base64,{image}"
+                        }
+                    ]
+                }
+            ]).output_text
+        else:
+            return OpenAI().responses.create(model = model, input = prompt).output_text
     except OpenAIError as e:
         if (not str(e) in errors):
             print(e)
@@ -39,9 +59,9 @@ def callGpt(prompt: str, model: str = "gpt-5") -> str:
 
         return ""
 
-def callLLM(prompt: str) -> str:
-    return callGpt(prompt)
-    return callOllama("llama3.1:405b", prompt)
+def callLLM(prompt: str, image: str = "") -> str:
+    return callGpt(prompt, image)
+    return callOllama("llama3.1:405b", prompt, image)
 
 class DSLWorker:
     def __init__(self):
@@ -189,7 +209,8 @@ def inputOutputPairs(pairs):
     return (inputs, outputs)
 
 def taskPrompt(trainPairs: list) -> str:
-    command = "# Input->output grid pairs of an ARC task\n\n"
+    command = "The attached image describes the input grids in the left column and the output grids of an ARC task in the right column.\n\n"
+    command += "# Input->output grid pairs of an ARC task\n\n"
 
     for i in range(len(trainPairs[0])):
         command += f"# train{i+1}\n\n"
@@ -303,6 +324,19 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 def processTask(folder: str, task: str, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
+    
+    if (withImages):
+        url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
+        data = json.loads(url.read().decode())
+        buffer = io.BytesIO()
+        view_task.show("Train", data["train"], buffer)
+        buffer.seek(0)
+        image_base64 = base64.b64encode(buffer.read()).decode("utf-8")
+        image_data = base64.b64decode(image_base64)
+        image = Image.open(BytesIO(image_data))
+        image.save(f"data/{folder}/{task}.png", 'PNG')
+    else:
+        image_base64 = ""
 
     programs = []
 
@@ -552,7 +586,7 @@ def dsl5(I):
         f.write(command)
         f.close()
 
-        content = callLLM(command)
+        content = callLLM(command) #, image_base64)
 
         if (len(content) == 0):
             return [bestProgram[0], folder, task, "train"] + [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
@@ -684,7 +718,10 @@ def test_task90f3ed37():
 
 def test_task12422b43():
     assert(processTask("training", "12422b43")[-1] == 0)
-
+"""
+def test_task11dc524f():
+    assert(processTask("training", "11dc524f")[-1] == 0)
+"""
 """
 def test_task():
     assert(processTask("training", "")[-1] == 0)
@@ -706,7 +743,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
     tasks = sorted(set(tasks) - set(unexploredTasks)) + sorted(unexploredTasks)
     tasks = tasks[:120] #TODO: to remove
 
-    with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers = 1 if withImages else os.cpu_count()) as executor:
         results = list(tqdm(
             executor.map(lambda task: processTask(folder, task, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1

@@ -981,25 +981,6 @@ def dsl2(I):
     O = paint(Z, combine(rows, combine(bands, combine(topL, combine(topR, combine(botL, combine(botR, combine(topfull, botfull))))))))
     return O
 ```
-training 11dc524f train 0.0 5.464101615137754 0.023668639053254448 0.0 5.487770254191009
-```python
-def dsl1(I):
-    dims = shape(I)
-    bg = canvas(SEVEN, dims)
-    s2 = ofcolor(I, TWO)
-    s5 = ofcolor(I, FIVE)
-    v = gravitate(s2, s5)
-    s2p = shift(s2, v)
-    hv = either(equality(sign(v), LEFT), equality(sign(v), RIGHT))
-    corner = branch(hv, urcorner(s5), lrcorner(s5))
-    cset = initset(corner)
-    s5rest = difference(toindices(s5), cset)
-    moved = shift(cset, branch(hv, UP, LEFT))
-    O = paint(bg, recolor(FIVE, s5rest))
-    O = paint(O, recolor(FIVE, moved))
-    O = paint(O, recolor(TWO, s2p))
-    return O
-```
 training 11852cab test 0.0 5.656854249492381 0.020000000000000018 0.0 5.676854249492381
 ```python
 def dsl4(I):
@@ -1051,6 +1032,58 @@ def dsl4(I):
     rect = backdrop(combine(initset(start), initset(br)))
     path = intersection(shoot(start, step), rect)
     O = underpaint(I, recolor(TWO, path))
+    return O
+```
+training 11dc524f train 0.0 7.464101615137754 0.029585798816568087 0.0 7.493687413954323
+```python
+def dsl4(I):
+    # Geometric orientation by adjacency vector: choose row vs col by v, extend on that side toward 2, drop opposite corner
+    dims = shape(I)
+    bg = canvas(SEVEN, dims)
+    s2 = ofcolor(I, TWO)
+    s5 = ofcolor(I, FIVE)
+
+    v = gravitate(s2, s5)
+    d = sign(v)
+    s2p = shift(s2, v)
+    hv = either(equality(d, LEFT), equality(d, RIGHT))
+
+    topRow = connect(ulcorner(s5), urcorner(s5))
+    botRow = connect(llcorner(s5), lrcorner(s5))
+    leftCol = connect(ulcorner(s5), llcorner(s5))
+    rightCol = connect(urcorner(s5), lrcorner(s5))
+
+    rows = insert(botRow, initset(topRow))
+    cols = insert(rightCol, initset(leftCol))
+    nearRow = argmin(rows, lbind(manhattan, s2))
+    farRow = other(rows, nearRow)
+    nearCol = argmin(cols, lbind(manhattan, s2))
+    farCol = other(cols, nearCol)
+
+    condLeft = greater(leftmost(s5), leftmost(s2))
+    condUp = greater(uppermost(s5), uppermost(s2))
+    stepH = branch(condLeft, LEFT, RIGHT)
+    stepV = branch(condUp, UP, DOWN)
+
+    endNearH = branch(equality(nearRow, topRow),
+                      branch(condLeft, ulcorner(s5), urcorner(s5)),
+                      branch(condLeft, llcorner(s5), lrcorner(s5)))
+    endNearV = branch(equality(nearCol, leftCol),
+                      branch(condUp, ulcorner(s5), llcorner(s5)),
+                      branch(condUp, urcorner(s5), lrcorner(s5)))
+    endNear = branch(hv, endNearH, endNearV)
+    step = branch(hv, stepH, stepV)
+
+    endFar = branch(equality(farRow, topRow),
+                    branch(equality(farCol, rightCol), urcorner(s5), ulcorner(s5)),
+                    branch(equality(farCol, rightCol), lrcorner(s5), llcorner(s5)))
+
+    new = shift(initset(endNear), step)
+    s5rest = difference(toindices(s5), initset(endFar))
+    s5p = combine(s5rest, new)
+
+    O = paint(bg, recolor(FIVE, s5p))
+    O = paint(O, recolor(TWO, s2p))
     return O
 ```
 training 137f0df0 train 0.0 7.277916867529369 0.18000000000000005 0.16123724351257346 7.619154111041942
@@ -1149,25 +1182,6 @@ def dsl1(I):
     O = paint(I, U)
     return O
 ```
-training 15663ba9 train 0.0 14.601126159491539 0.09307786230863158 0.0 14.694204021800171
-```python
-def dsl5(I):
-    bg = ofcolor(I, ZERO)
-    U = asindices(I)
-    nz = difference(U, bg)
-    hasL = intersection(nz, shift(nz, RIGHT))
-    hasR = intersection(nz, shift(nz, LEFT))
-    leftOnly = difference(hasR, hasL)
-    rightOnly = difference(hasL, hasR)
-    vt = intersection(rightOnly, shift(bg, DOWN))
-    vb = intersection(rightOnly, shift(bg, UP))
-    tipsR = intersection(vt, vb)
-    o4 = recolor(FOUR, merge(insert(leftOnly, initset(rightOnly))))
-    o2 = recolor(TWO, tipsR)
-    O = paint(I, o4)
-    O = paint(O, o2)
-    return O
-```
 training 11e1fe23 test 0.0 17.549928774784245 0.0357142857142857 0.0 17.58564306049853
 ```python
 def dsl1(I):
@@ -1196,50 +1210,38 @@ def dsl4(I):
     O = paint(replace(I, FIVE, TWO), toobject(keep, I))
     return O
 ```
+training 15663ba9 train 0.0 20.12899020449196 0.12085564008640937 0.0 20.249845844578367
+```python
+def dsl1(I):
+    bg = ofcolor(I, ZERO)
+    fg = difference(asindices(I), bg)
+    LB0 = intersection(fg, shift(bg, RIGHT))
+    RB0 = intersection(fg, shift(bg, LEFT))
+    singles = intersection(LB0, RB0)
+    LB = difference(LB0, singles)
+    RB = difference(RB0, singles)
+    shR = rbind(shoot, RIGHT)
+    shL = rbind(shoot, LEFT)
+    right_of_fg = difference(merge(apply(shR, fg)), fg)
+    left_of_fg = difference(merge(apply(shL, fg)), fg)
+    LB_inner = intersection(LB, right_of_fg)
+    LB_outer = difference(LB, right_of_fg)
+    RB_inner = intersection(RB, left_of_fg)
+    RB_outer = difference(RB, left_of_fg)
+    O = paint(I, recolor(TWO, LB_inner))
+    O = paint(O, recolor(TWO, RB_inner))
+    O = paint(O, recolor(FOUR, LB_outer))
+    O = paint(O, recolor(FOUR, RB_outer))
+    return O
+```
 training 009d5c81 train 0.0 22.271057451320086 0.15816326530612246 0.0 22.429220716626208
 ```python
 def dsl3(I):
+    # Color filtering: fill 8-mask with value from bottom-half 1s
     bh = bottomhalf(I)
-    val = halve(colorcount(bh, ONE))
-    tmp = replace(I, ONE, ZERO)
-    O = replace(tmp, EIGHT, val)
-    return O
-```
-training 1990f7a8 train 0.0 22.379216273125635 0.8571428571428572 0.0 23.23635913026849
-```python
-def dsl4(I):
-    # Geometric: tile one normalized shape into the four corners without mirroring
-    P = toobject(ofcolor(I, TWO), I)
-    N = normalize(P)
-    A = recolor(TWO, N)
-    OX = tojvec(FOUR)
-    OY = toivec(FOUR)
-    OD = add(OX, OY)
-    SA = shift(A, ORIGIN)
-    SB = shift(A, OX)
-    SC = shift(A, OY)
-    SD = shift(A, OD)
-    U1 = combine(SA, SB)
-    U2 = combine(SC, SD)
-    U = combine(U1, U2)
-    G = canvas(ZERO, astuple(SEVEN, SEVEN))
-    O = paint(G, U)
-    return O
-```
-training 137eaa0f train 0.0 24.39613157305104 2.0 0.0 26.396131573051036
-```python
-def dsl2(I):
-    # Object extraction: three topmost components (by uppermost) as uniform rows
-    comps = objects(I, T, F, T)
-    c1 = argmin(comps, uppermost)
-    rest1 = remove(c1, comps)
-    c2 = argmin(rest1, uppermost)
-    rest2 = remove(c2, rest1)
-    c3 = argmin(rest2, uppermost)
-    r1 = canvas(color(c1), astuple(ONE, THREE))
-    r2 = canvas(color(c2), astuple(ONE, THREE))
-    r3 = canvas(color(c3), astuple(ONE, THREE))
-    O = vconcat(vconcat(r1, r2), r3)
+    val = halve(size(ofcolor(bh, ONE)))
+    mask8 = ofcolor(I, EIGHT)
+    O = fill(canvas(ZERO, shape(I)), val, mask8)
     return O
 ```
 training 0a2355a6 train 0.0 25.85408803659051 0.6950937950937951 0.0 26.549181831684308
@@ -1307,6 +1309,65 @@ def dsl4(I):
     O = fill(O2, cB, Rb)
     return O
 ```
+training 1990f7a8 train 0.0 25.90828104831583 1.1428571428571428 0.24387239718918974 27.295010588362164
+```python
+def dsl5(I):
+    # Color-filtered geometric: take outline of a global ~3x3 summary, replicate to corners, carve cross
+    S = compress(subgrid(ofcolor(I, TWO), I))
+    H = height(S); W = width(S)
+    FH = divide(add(H, TWO), THREE); FW = divide(add(W, TWO), THREE)
+    F = branch(greater(FH, FW), FH, FW)
+    E = compress(downscale(S, F))
+    P = ofcolor(E, TWO)
+    OUT = box(P)
+
+    T1 = astuple(ONE, ONE); OX = tojvec(FOUR); OY = toivec(FOUR); OD = add(OX, OY)
+    A = shift(OUT, T1); B = shift(OUT, add(OX, T1))
+    C = shift(OUT, add(OY, T1)); D = shift(OUT, add(OD, T1))
+    U = combine(combine(A, B), combine(C, D))
+
+    G7 = canvas(ZERO, astuple(SEVEN, SEVEN))
+    P7 = fill(G7, TWO, U)
+    R0 = astuple(THREE, ZERO); R6 = astuple(THREE, SIX)
+    C0 = astuple(ZERO, THREE); C6 = astuple(SIX, THREE)
+    ROW = connect(R0, R6); COL = connect(C0, C6)
+    O = fill(P7, ZERO, combine(ROW, COL))
+    return O
+```
+training 137eaa0f train 0.0 26.04652408600503 1.6666666666666667 0.0 27.713190752671693
+```python
+def dsl2(I):
+    # Object extraction: for mid-row of each horizontal third, pick nearest object; within its bbox sample L/M/R on top row
+    H = height(I)
+    h1 = divide(H, THREE); h2 = divide(H, THREE); h3 = subtract(H, add(h1, h2))
+    r1 = halve(h1)
+    r2 = add(h1, halve(h2))
+    r3 = add(add(h1, h2), halve(h3))
+    FGobjs = fgpartition(I)
+    pick_near_row = lambda r: argmin(FGobjs, compose(lbind(manhattan, hfrontier(astuple(r, ZERO))), toindices))
+    top = pick_near_row(r1)
+    mid = pick_near_row(r2)
+    bot = pick_near_row(r3)
+    mkrow = lambda o: (
+        lambda S, W, j1, j2, j3:
+            hconcat(
+                hconcat(canvas(index(S, astuple(ZERO, j1)), UNITY),
+                        canvas(index(S, astuple(ZERO, j2)), UNITY)),
+                canvas(index(S, astuple(ZERO, j3)), UNITY)
+            )
+    )(
+        subgrid(o, I),
+        width(subgrid(o, I)),
+        ZERO,
+        divide(decrement(width(subgrid(o, I))), TWO),
+        decrement(width(subgrid(o, I)))
+    )
+    R_top = mkrow(top)
+    R_mid = mkrow(mid)
+    R_bot = mkrow(bot)
+    O = vconcat(vconcat(R_top, R_mid), R_bot)
+    return O
+```
 training 17b866bd train 0.0 28.844410203711913 0.038690476190476164 0.0 28.883100679902387
 ```python
 def dsl2(I):
@@ -1362,42 +1423,29 @@ def dsl1(I):
     O = fill(with5a, FIVE, keep5)
     return O
 ```
-training 14754a24 train 0.0 33.29554569091714 0.13029448621553885 0.0 33.425840177132685
+training 14754a24 train 0.0 36.90300016727839 0.1566311612364245 0.0 37.05963132851482
 ```python
-def dsl5(I):
+def dsl4(I):
+    # Geometric: 5s strictly between two 4s along a pure straight row or column.
     p4 = ofcolor(I, FOUR)
-    left_of = shift(p4, RIGHT)
-    right_of = shift(p4, LEFT)
-    sand_h = intersection(left_of, right_of)
-    below = shift(p4, UP)
-    above = shift(p4, DOWN)
-    sand_v = intersection(above, below)
-    mask = intersection(ofcolor(I, FIVE), combine(sand_h, sand_v))
+    p5 = ofcolor(I, FIVE)
+    linear = fork(either, hline, vline)
+    paths44 = prapply(connect, p4, p4)
+    allowed44 = merge(insert(p4, initset(p5)))
+    pure44 = compose(lbind(equality, ZERO), compose(size, rbind(difference, allowed44)))
+    good44 = mfilter(paths44, fork(both, pure44, linear))
+    mask = intersection(merge(good44), p5)
     O = fill(I, TWO, mask)
     return O
 ```
-training 03560426 train 0.0 34.110256987700566 0.43999999999999995 0.4130648585420177 34.963321846242586
-```python
-def dsl2(I):
-    objs = fgpartition(I)
-    norms = apply(normalize, objs)
-    packed = merge(norms)
-    base = canvas(ZERO, shape(I))
-    O = paint(base, packed)
-    return O
-```
-training 150deff5 train 0.0 37.45584412271571 0.1585858585858586 0.0 37.61442998130157
+training 150deff5 train 0.0 37.45584412271571 0.16136363636363638 0.0 37.61720775907934
 ```python
 def dsl1(I):
-    # Relational: propagate columns from horizontally isolated 5s (singletons) upward and downward; others 5->8
+    # Relational: propagate upward from horizontally isolated 5s; others 5->8
     P = ofcolor(I, FIVE)
-    Hleft = shift(P, LEFT)
-    Hright = shift(P, RIGHT)
-    Singles = difference(P, combine(Hleft, Hright))
+    Singles = difference(P, combine(shift(P, LEFT), shift(P, RIGHT)))
     Up = rbind(shoot, UP)
-    Down = rbind(shoot, DOWN)
-    Vline = fork(combine, compose(Up, identity), compose(Down, identity))
-    Lines = merge(apply(Vline, Singles))
+    Lines = merge(apply(Up, Singles))
     Stripe = intersection(P, Lines)
     base = replace(I, FIVE, EIGHT)
     O = fill(base, TWO, Stripe)
@@ -1439,14 +1487,6 @@ def dsl3(I):
     O = paint(canvas(ZERO, shape(I)), merge(keep))
     return O
 ```
-training 0a1d4ef5 train 1.0 26.29571637714647 17.0 0.36373913988669965 44.659455517033166
-```python
-def dsl4(I):
-    G = vmirror(I)
-    H = downscale(G, TEN)
-    O = vmirror(H)
-    return O
-```
 training 13f06aa5 train 0.0 44.74143209076087 0.45379342879342877 0.0 45.19522551955429
 ```python
 def dsl2(I):
@@ -1455,6 +1495,12 @@ def dsl2(I):
     P = box(toindices(S))
     c = color(S)
     O = paint(I, recolor(c, P))
+    return O
+```
+training 03560426 train 0.0 47.28844491362149 0.6799999999999999 0.5898415537761545 48.55828646739765
+```python
+def dsl4(I):
+    O = rot270(dmirror(I))
     return O
 ```
 training 00d62c1b train 0.0 51.00519409487307 0.31305555555555553 0.0 51.31824965042862
@@ -1473,36 +1519,30 @@ def dsl5(I):
     O = underfill(I, FOUR, H)
     return O
 ```
-training 045e512c train 0.0 51.42199198954002 0.20861678004535156 0.6444139582387098 52.27502272782408
+training 1be83260 train 0.0 52.585496660811344 1.1828961552281712 0.0 53.76839281603952
 ```python
-def dsl1(I):
-    O = I
-    return O
-```
-training 1be83260 train 0.0 51.519700454133314 1.1383399209486167 0.0 52.658040375081924
-```python
-def dsl4(I):
-    # Geometric: enforce vertical agreement with its mirror, disagreements go to modal color
+def dsl3(I):
+    # Color filtering: emphasize least-common color via backdrops on a modal base
     fg = merge(objects(I, T, F, T))
     G = subgrid(fg, I)
+    objs = objects(G, T, F, T)
     modal = mostcolor(fg)
-    B = replace(G, ZERO, modal)
-    V = vmirror(B)
-    O = cellwise(B, V, modal)
+    base = replace(G, ZERO, modal)
+    rare = leastcolor(fg)
+    rareobjs = colorfilter(objs, rare)
+    patches = apply(backdrop, rareobjs)
+    P = merge(patches)
+    O = fill(base, rare, P)
     return O
 ```
-training 0e206a2e train 0.0 54.23270730513721 0.15575396825396826 2.0576071529346445 56.44606842632582
+training 045e512c train 0.0 54.10422280336664 0.22448979591836737 0.6444139582387098 54.97312655752371
 ```python
-def dsl5(I):
-    B = bottomhalf(I)
-    parts = objects(B, T, F, T)
-    L = argmin(parts, leftmost)
-    R = argmax(parts, rightmost)
-    c1 = center(L)
-    c2 = center(R)
-    wire = recolor(THREE, connect(c1, c2))
-    off = astuple(halve(height(I)), ZERO)
-    O = move(canvas(ZERO, shape(I)), wire, off)
+def dsl2(I):
+    # Object extraction: fill each object's bounding box (backdrop) with its own color
+    objs = objects(I, T, F, T)
+    mk = fork(recolor, color, backdrop)
+    fills = apply(mk, objs)
+    O = paint(canvas(ZERO, shape(I)), merge(fills))
     return O
 ```
 training 18447a8d train 0.0 64.05900585427788 0.580556698203757 0.0 64.63956255248164
@@ -1520,10 +1560,16 @@ def dsl3(I):
     O = underpaint(B, U)
     return O
 ```
-training 06df4c85 train 0.0 69.13704857008466 0.18610586011342156 0.0 69.32315443019809
+training 0e206a2e train 0.0 66.76596072884224 0.2311507936507936 2.0310086836405032 69.02812020613354
 ```python
-def dsl1(I):
-    O = I
+def dsl5(I):
+    # Relational: move all nonzeros to be adjacent to the grid center
+    NZ = difference(asindices(I), ofcolor(I, ZERO))
+    obj = toobject(NZ, I)
+    P = asindices(I)
+    Cpt = initset(center(P))
+    off = gravitate(NZ, Cpt)
+    O = move(canvas(ZERO, shape(I)), obj, off)
     return O
 ```
 training 1d0a4b61 train 0.0 74.00842223237059 0.3408000000000001 0.0 74.3492222323706
@@ -1575,6 +1621,31 @@ def dsl5(I):
     PARTS = apply(RC, FG)
     OBJ = merge(PARTS)
     O = underpaint(I, OBJ)
+    return O
+```
+training 06df4c85 train 0.0 84.48065524153348 0.2533648393194706 0.0 84.73402008085296
+```python
+def dsl2(I):
+    # Object-level relational: connect centers of same-colored objects along shared rows/columns; underpaint on original grid
+    s = mostcolor(I)
+    dims = shape(I)
+    objs = objects(I, T, F, T)
+    notS = compose(flip, matcher(color, s))
+    notZ = compose(flip, matcher(color, ZERO))
+    cond = fork(both, notS, notZ)
+    fg = sfilter(objs, cond)
+    pairs = product(fg, fg)
+    same = fork(equality, compose(color, first), compose(color, last))
+    hA = fork(hmatching, first, last)
+    vA = fork(vmatching, first, last)
+    goodH = sfilter(pairs, fork(both, same, hA))
+    goodV = sfilter(pairs, fork(both, same, vA))
+    good = combine(goodH, goodV)
+    seg = fork(connect, compose(centerofmass, first), compose(centerofmass, last))
+    can = compose(rbind(canvas, dims), compose(color, first))
+    mk = fork(toobject, seg, can)
+    P = merge(apply(mk, good))
+    O = underpaint(I, P)
     return O
 ```
 training 09629e4f train 0.0 88.04519379887188 1.115702479338843 0.0 89.16089627821071
@@ -1652,19 +1723,6 @@ def dsl2(I):
     O = paint(canvas(ZERO, shape(I)), merge(rects))
     return O
 ```
-training 10fcaaa3 train 0.0 111.5950639150106 1.0333333333333332 0.11840169937862338 112.74679894772257
-```python
-def dsl1(I):
-    H = hconcat(I, I)
-    B = vconcat(H, H)
-    BG = mostcolor(B)
-    NZ = difference(asindices(B), ofcolor(B, BG))
-    HF = merge(apply(hfrontier, NZ))
-    ALL = asindices(B)
-    ZR = difference(ALL, HF)
-    O = fill(B, EIGHT, ZR)
-    return O
-```
 training 17b80ad2 train 0.0 138.20066244322436 1.4559948878031315 0.0 139.65665733102753
 ```python
 def dsl5(I):
@@ -1694,12 +1752,28 @@ def dsl5(I):
     O = relax(G0)
     return O
 ```
-training 05a7bcf2 train 0.0 308.95998004282615 0.7977777777777778 0.16499158225741664 309.9227494028613
+training 10fcaaa3 train 0.0 149.30094450156093 1.7916666666666665 0.18911237746192278 151.28172354568952
 ```python
-def dsl4(I):
-    M = hmirror(I)
-    p = ofcolor(M, FOUR)
-    O = fill(I, EIGHT, p)
+def dsl1(I):
+    H = hconcat(I, I)
+    B = vconcat(H, H)
+    HM = hmirror(B)
+    VM = vmirror(B)
+    C1 = cellwise(B, HM, EIGHT)
+    C2 = cellwise(C1, VM, EIGHT)
+    BG = mostcolor(B)
+    NZ = difference(asindices(B), ofcolor(B, BG))
+    OBJ = toobject(NZ, B)
+    O = paint(C2, OBJ)
+    return O
+```
+training 0a1d4ef5 train 13.462852037598074 147 121 1.0784228231556723 282.54127486075373
+```python
+def dsl2(I):
+    # Object extraction: crop to the largest univalued object by size
+    obs = objects(I, T, F, T)
+    o = argmax(obs, size)
+    O = subgrid(o, I)
     return O
 ```
 training 0bb8deee train 10.70820393249937 0 304 0.527392727891763 315.23559666039114
@@ -1732,6 +1806,20 @@ def dsl4(I):
     bbgrid = subgrid(backdrop(frame), I)
     core = crop(bbgrid, UNITY, subtract(shape(bbgrid), TWO_BY_TWO))
     O = trim(core)
+    return O
+```
+training 05a7bcf2 train nan nan nan nan nan
+```python
+def dsl1(I):
+    c4 = centerofmass(ofcolor(I, FOUR))
+    c8 = centerofmass(ofcolor(I, EIGHT))
+    c2 = centerofmass(ofcolor(I, TWO))
+    L = inbox(connect(c4, c8))
+    R = inbox(connect(c8, c2))
+    G0 = replace(I, FOUR, ZERO)
+    G1 = fill(G0, FOUR, L)
+    G2 = underfill(G1, EIGHT, R)
+    O = paint(G2, recolor(THREE, ofcolor(I, FOUR)))
     return O
 ```
 training 103eff5b train nan nan nan nan nan

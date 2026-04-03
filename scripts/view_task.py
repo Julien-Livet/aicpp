@@ -25,8 +25,25 @@ def neg_arc_color(i: int):
 
     return f"#{r_neg:02X}{g_neg:02X}{b_neg:02X}"
 
-def show(text, pairs):
-    fig, axs = plt.subplots(len(pairs), 2)
+def show(text, pairs, buffer = None):
+    iptMaxCols, optMaxCols = 0, 0
+    iptRows, optRows = 0, 0
+
+    for k in range(0, len(pairs)):
+        ipt = pairs[k]["input"]
+        opt = pairs[k]["output"]
+
+        rows, cols = np.array(ipt).shape
+        iptRows += rows
+        iptMaxCols = max(iptMaxCols, cols)
+        rows, cols = np.array(opt).shape
+        optRows += rows
+        optMaxCols = max(optMaxCols, cols)
+
+    width, height = iptMaxCols + optMaxCols, max(iptRows, optRows)
+    dpi = 150
+
+    fig, axs = plt.subplots(len(pairs), 2, figsize = (100 * width / dpi, 100 * height / dpi), dpi = dpi)
 
     if (len(axs.shape) == 1):
         axs.resize((1, axs.shape[0]))
@@ -42,7 +59,7 @@ def show(text, pairs):
         cbar.outline.set_edgecolor('black')
 
         for (i, j), z in np.ndenumerate(data):
-            ax.text(j, i, f'{z}', c = neg_arc_color(z), ha = 'center', va = 'center', size = "x-small")#, bbox = dict(boxstyle = 'round', facecolor = 'white', edgecolor = '0.3'))
+            ax.text(j, i, f'{z}', c = neg_arc_color(z), ha = 'center', va = 'center', size = "medium")#, bbox = dict(boxstyle = 'round', facecolor = 'white', edgecolor = '0.3'))
 
         #ax.set_axis_off()
         rows, cols = np.array(data).shape
@@ -52,12 +69,19 @@ def show(text, pairs):
         ax.tick_params(which = 'both', bottom = False, left = False, labelbottom = False, labelleft = False)
 
     for k in range(0, len(pairs)):
-        plot_data(axs[k][0], pairs[k]["input"])
-        plot_data(axs[k][1], pairs[k]["output"])
+        ipt = pairs[k]["input"]
+        opt = pairs[k]["output"]
 
-    mng = plt.get_current_fig_manager()
-    mng.resize(*mng.window.maxsize())
-    plt.show()
+        plot_data(axs[k][0], ipt)
+        plot_data(axs[k][1], opt)
+
+    if (buffer):
+        plt.savefig(buffer, format = "png", bbox_inches = 'tight')
+        plt.close()
+    else:
+        mng = plt.get_current_fig_manager()
+        mng.resize(*mng.window.maxsize())
+        plt.show()
 
 def view(folder: str, task: str):
     assert(folder in ("training", "evaluation"))
