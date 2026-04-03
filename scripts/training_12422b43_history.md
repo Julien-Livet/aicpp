@@ -6,6 +6,8 @@ train solved, test solved
 
 [Best program](#iteration-5-dsl-diff-1)
 
+![Task 12422b43 image](data/training/12422b43.png)
+
 ## Program 1
 
 ### Train scores

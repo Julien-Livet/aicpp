@@ -6,6 +6,8 @@ train failed, test failed
 
 [Best program](#iteration-8-dsl-diff)
 
+![Task 11dc524f image](data/training/11dc524f.png)
+
 ## Program 1
 
 ### Train scores

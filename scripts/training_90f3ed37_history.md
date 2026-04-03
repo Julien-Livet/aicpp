@@ -8,6 +8,8 @@ train solved, test solved
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L3715)
 
+![Task 90f3ed37 image](data/training/90f3ed37.png)
+
 ## Program 1
 
 ### Train scores

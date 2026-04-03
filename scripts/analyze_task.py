@@ -35,7 +35,7 @@ def plotDataSet(folder: str, task: str, step: str, costs: list, ncols: int):
     plt.savefig(f"{folder}_{task}_{step}_results.png")
     plt.show()
 
-def plotTask(folder: str, task: str):
+def analyzeTask(folder: str, task: str):
     assert(folder in ("training", "evaluation"))
 
     files = os.listdir(f"data/{folder}")
@@ -134,6 +134,9 @@ def plotTask(folder: str, task: str):
         content += f"[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L{lineIndex+1})\n\n"
     except ValueError:
         pass
+    
+    if (os.path.exists(f"data/{folder}/{task}.png")):
+        content += f"![Task {task} image](data/{folder}/{task}.png)\n\n"
 
     for i in range(0, len(results[0][0])):
         content += f"## Program {i+1}\n\n"
@@ -240,4 +243,4 @@ def plotTask(folder: str, task: str):
     plt.show()
 
 if (__name__ == "__main__"):
-    plotTask(sys.argv[-2], sys.argv[-1])
+    analyzeTask(sys.argv[-2], sys.argv[-1])
