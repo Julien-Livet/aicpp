@@ -1,3 +1,4 @@
+anthropic
 matplotlib
 numpy
 openai

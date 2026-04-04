@@ -3,7 +3,6 @@ from matplotlib import colors
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
-import urllib.request
 
 arc_colors = [
     '#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
@@ -89,8 +88,8 @@ def show(text, pairs, buffer = None):
 def view(folder: str, task: str):
     assert(folder in ("training", "evaluation"))
 
-    url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
-    data = json.loads(url.read().decode())
+    with open(f"../ARC-AGI-2/data/{folder}/{task}.json", "r") as file:
+        data = json.loads(file.read())
 
     train = data["train"]
     test = data["test"]

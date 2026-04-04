@@ -1,3 +1,4 @@
+import anthropic
 import base64
 from concurrent.futures import ThreadPoolExecutor
 import importlib.util
@@ -19,11 +20,10 @@ import sys
 import time
 import traceback
 from tqdm import tqdm
-import urllib.request
 import view_task
 
 errors = set()
-withImages = False
+llm = "claude"
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
@@ -31,7 +31,7 @@ def ndarray_to_str_one_liner(arr):
 def callOllama(model: str, prompt: str, image: str = "") -> str:
     cmd = ["ollama", "run", model, prompt]
     result = subprocess.run(cmd, capture_output = True, text = True)
-    
+
     return result.stdout
 
 def callGpt(prompt: str, image: str = "", model: str = "gpt-5") -> str:
@@ -59,9 +59,56 @@ def callGpt(prompt: str, image: str = "", model: str = "gpt-5") -> str:
 
         return ""
 
+def callClaude(prompt: str, image: str = "", model: str = "claude-sonnet-4-6") -> str:
+    try:
+        budget_tokens = 8192
+        max_tokens = 2 * budget_tokens
+        thinking = "enabled"
+
+        if (len(image)):
+            response = anthropic.Anthropic().messages.create(model = model, max_tokens = max_tokens,
+                                                         thinking = {"type": thinking, "budget_tokens": budget_tokens},
+                                                         messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {"type": "base64", "media_type": "image/png", "data": image}
+                        },
+                        {"type": "text", "text": prompt}
+                    ]
+                }
+            ])
+
+            return "".join(block.text for block in response.content if block.type == "text")
+        else:
+            response = anthropic.Anthropic().messages.create(model = model, max_tokens = max_tokens,
+                                                         thinking = {"type": thinking, "budget_tokens": budget_tokens},
+                                                         messages = [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ])
+
+            return "".join(block.text for block in response.content if block.type == "text")
+    except anthropic.APIError as e:
+        if (not str(e) in errors):
+            print(e)
+
+        errors.add(str(e))
+
+        return ""
+
 def callLLM(prompt: str, image: str = "") -> str:
-    return callGpt(prompt, image)
-    return callOllama("llama3.1:405b", prompt, image)
+    match (llm):
+        case "claude":
+            return callClaude(prompt, image)
+        case "gpt":
+            return callGpt(prompt, image)
+        case "llama":
+            return callOllama("llama3.1:405b", prompt, image)
 
 class DSLWorker:
     def __init__(self):
@@ -181,8 +228,8 @@ def print_test_duration(request):
 def trainTestPairs(folder: str, task: str) -> tuple:
     assert(folder in ("training", "evaluation"))
 
-    url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
-    data = json.loads(url.read().decode())
+    with open(f"../ARC-AGI-2/data/{folder}/{task}.json", "r") as file:
+        data = json.loads(file.read())
 
     train = data["train"]
     trainPairs = []
@@ -208,7 +255,7 @@ def inputOutputPairs(pairs):
 
     return (inputs, outputs)
 
-def taskPrompt(trainPairs: list) -> str:
+def taskPrompt(trainPairs: list, withImages: bool) -> str:
     command = ""
     
     if (withImages):
@@ -217,10 +264,10 @@ def taskPrompt(trainPairs: list) -> str:
     command += "# Input->output grid pairs of an ARC task\n\n"
 
     for i in range(len(trainPairs[0])):
-        command += f"# train{i+1}\n\n"
-        command += f"## Input\n\n```bash\n"
+        command += f"## train{i+1}\n\n"
+        command += f"### Input\n\n```bash\n"
         command += ndarray_to_str_one_liner(trainPairs[0][i])
-        command += f"\n```\n\n## Output\n\n```bash\n"
+        command += f"\n```\n\n### Output\n\n```bash\n"
         command += ndarray_to_str_one_liner(trainPairs[1][i]) + "\n```\n\n"
 
     command += "# Available types\n\n"
@@ -325,13 +372,14 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 
     return programs
 
-def processTask(folder: str, task: str, debug: bool = True) -> list:
+def processTask(folder: str, task: str, withImages: bool = False, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
     
     if (withImages):
-        url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}/{task}.json")
-        data = json.loads(url.read().decode())
+        with open(f"../ARC-AGI-2/data/{folder}/{task}.json", "r") as file:
+            data = json.loads(file.read())
+
         buffer = io.BytesIO()
         view_task.show("Train", data["train"], buffer)
         buffer.seek(0)
@@ -374,7 +422,7 @@ def processTask(folder: str, task: str, debug: bool = True) -> list:
     bestProgram = programs[0]
 
     for _ in range(0, 10):
-        command = taskPrompt(trainPairs) + "\n"
+        command = taskPrompt(trainPairs, withImages) + "\n"
         nanValues = False
 
         for i, program in enumerate(programs):
@@ -590,7 +638,7 @@ def dsl5(I):
         f.write(command)
         f.close()
 
-        content = callLLM(command) #, image_base64)
+        content = callLLM(command, image_base64)
 
         if (len(content) == 0):
             return [bestProgram[0], folder, task, "train"] + [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
@@ -603,6 +651,7 @@ def dsl5(I):
         f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
+        exit() #TODO: to remove
 
         programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
@@ -722,10 +771,10 @@ def test_task90f3ed37():
 
 def test_task12422b43():
     assert(processTask("training", "12422b43")[-1] == 0)
-"""
+""" #TODO: to remove
 def test_task11dc524f():
-    assert(processTask("training", "11dc524f")[-1] == 0)
-"""
+    assert(processTask("training", "11dc524f", withImages = False)[-1] == 0)
+""" #TODO: to remove
 """
 def test_task():
     assert(processTask("training", "")[-1] == 0)
@@ -734,8 +783,9 @@ def test_task():
 def run_tasks(folder: str) -> tuple[int, int]:
     assert(folder in ("training", "evaluation"))
 
-    url = urllib.request.urlopen(f"https://raw.githubusercontent.com/arcprize/ARC-AGI-2/refs/heads/main/data/{folder}.txt")
-    data = url.read().decode()
+    with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as file:
+        data = file.read()
+
     tasks = data.split("\n")
     files = os.listdir(f"data/{folder}")
     unexploredTasks = []
@@ -747,9 +797,11 @@ def run_tasks(folder: str) -> tuple[int, int]:
     tasks = sorted(set(tasks) - set(unexploredTasks)) + sorted(unexploredTasks)
     tasks = tasks[:120] #TODO: to remove
 
+    withImages = False
+
     with ThreadPoolExecutor(max_workers = 1 if withImages else os.cpu_count()) as executor:
         results = list(tqdm(
-            executor.map(lambda task: processTask(folder, task, debug = False), tasks),
+            executor.map(lambda task: processTask(folder, task, withImages = withImages, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
@@ -764,11 +816,12 @@ def run_tasks(folder: str) -> tuple[int, int]:
     f.close()
 
     return sum(1 for r in results if r[-1] == 0), len(tasks)
-
+""" #TODO: to remove
 def test_training_tasks():
     count, tasks = run_tasks("training")
 
     print(f"{count}/{tasks} {count/tasks*100}% passed training tasks")
+""" #TODO: to remove
 """ #TODO: to remove
 def test_evaluation_tasks():
     count, tasks = run_tasks("evaluation")

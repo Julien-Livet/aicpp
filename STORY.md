@@ -27,7 +27,7 @@ Object: **LLM-Guided hypothesis generation with progressive feedback**
 
 Features:
 
-- GPT5 as LLM
+- GPT5 and Claude Sonnet 4.6 as LLM
 
 Links:
 
