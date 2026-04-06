@@ -2,8 +2,6 @@ import anthropic
 import base64
 from concurrent.futures import ThreadPoolExecutor
 import importlib.util
-import io
-from io import BytesIO
 import json
 import math
 import multiprocessing as mp
@@ -11,7 +9,6 @@ import numpy as np
 from openai import OpenAI, OpenAIError
 import os
 import pandas as pd
-from PIL import Image
 import pytest
 import queue
 import re
@@ -20,10 +17,11 @@ import sys
 import time
 import traceback
 from tqdm import tqdm
-import view_task
 
 errors = set()
-llm = "claude"
+#llm = ("claude", "claude-sonnet-4-6")
+#llm = ("gpt", "gpt-5")
+llm = ("ollama", "gemma4:31b-cloud")
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
@@ -102,13 +100,13 @@ def callClaude(prompt: str, image: str = "", model: str = "claude-sonnet-4-6") -
         return ""
 
 def callLLM(prompt: str, image: str = "") -> str:
-    match (llm):
+    match (llm[0]):
         case "claude":
-            return callClaude(prompt, image)
+            return callClaude(prompt, image, llm[1])
         case "gpt":
-            return callGpt(prompt, image)
-        case "llama":
-            return callOllama("llama3.1:405b", prompt, image)
+            return callGpt(prompt, image, llm[1])
+        case "ollama":
+            return callOllama(llm[1], prompt, image)
 
 class DSLWorker:
     def __init__(self):
@@ -375,18 +373,10 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 def processTask(folder: str, task: str, withImages: bool = False, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
-    
-    if (withImages):
-        with open(f"../ARC-AGI-2/data/{folder}/{task}.json", "r") as file:
-            data = json.loads(file.read())
 
-        buffer = io.BytesIO()
-        view_task.show("Train", data["train"], buffer)
-        buffer.seek(0)
-        image_base64 = base64.b64encode(buffer.read()).decode("utf-8")
-        image_data = base64.b64decode(image_base64)
-        image = Image.open(BytesIO(image_data))
-        image.save(f"data/{folder}/{task}.png", 'PNG')
+    if (withImages and os.path.exists(f"data/{folder}/{task}.png")):
+        with open(f"data/{folder}/{task}.png", "rb") as f:
+            image_base64 = base64.b64encode(f.read()).decode("utf-8")
     else:
         image_base64 = ""
 
@@ -651,7 +641,6 @@ def dsl5(I):
         f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
-        exit() #TODO: to remove
 
         programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
@@ -816,12 +805,11 @@ def run_tasks(folder: str) -> tuple[int, int]:
     f.close()
 
     return sum(1 for r in results if r[-1] == 0), len(tasks)
-""" #TODO: to remove
+
 def test_training_tasks():
     count, tasks = run_tasks("training")
 
     print(f"{count}/{tasks} {count/tasks*100}% passed training tasks")
-""" #TODO: to remove
 """ #TODO: to remove
 def test_evaluation_tasks():
     count, tasks = run_tasks("evaluation")
