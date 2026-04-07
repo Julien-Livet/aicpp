@@ -15,20 +15,24 @@ import re
 import subprocess
 import sys
 import time
-import traceback
 from tqdm import tqdm
+import traceback
 
 errors = set()
 #llm = ("claude", "claude-sonnet-4-6")
 #llm = ("gpt", "gpt-5")
 llm = ("ollama", "gemma4:31b-cloud")
+#llm = ("ollama", "gpt-oss:120b-cloud")
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
 
 def callOllama(model: str, prompt: str, image: str = "") -> str:
     cmd = ["ollama", "run", model, prompt]
-    
+
+    if (len(image)):
+        prompt = f"![Task image](data:image/png;base64,{image})\n\n" + prompt
+
     try:
         result = subprocess.run(cmd, capture_output = True, text = True)
 
@@ -770,7 +774,7 @@ def test_task12422b43():
     assert(processTask("training", "12422b43")[-1] == 0)
 """ #TODO: to remove
 def test_task11dc524f():
-    assert(processTask("training", "11dc524f", withImages = False)[-1] == 0)
+    assert(processTask("training", "11dc524f", withImages = True)[-1] == 0)
 """ #TODO: to remove
 """
 def test_task():
