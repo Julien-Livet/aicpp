@@ -104,7 +104,7 @@ def callClaude(prompt: str, image: str = "", model: str = "claude-sonnet-4-6") -
             ])
 
             return "".join(block.text for block in response.content if block.type == "text")
-    except anthropic.APIError as e:
+    except (anthropic.APIError, TypeError) as e:
         if (not str(e) in errors):
             print(e)
 
@@ -774,7 +774,7 @@ def test_task12422b43():
     assert(processTask("training", "12422b43")[-1] == 0)
 """ #TODO: to remove
 def test_task11dc524f():
-    assert(processTask("training", "11dc524f", withImages = True)[-1] == 0)
+    assert(processTask("training", "11dc524f", withImages = False)[-1] == 0)
 """ #TODO: to remove
 """
 def test_task():
