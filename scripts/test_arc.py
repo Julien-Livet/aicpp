@@ -794,7 +794,6 @@ def run_tasks(folder: str) -> tuple[int, int]:
     for task in tasks:
         if (not any([task in x for x in files])):
             unexploredTasks.append(task)
-    print(len(unexploredTasks))
 
     tasks = sorted(set(tasks) - set(unexploredTasks)) + sorted(unexploredTasks)
     tasks = tasks[:120] #TODO: to remove
