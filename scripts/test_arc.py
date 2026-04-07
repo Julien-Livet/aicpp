@@ -28,9 +28,18 @@ def ndarray_to_str_one_liner(arr):
 
 def callOllama(model: str, prompt: str, image: str = "") -> str:
     cmd = ["ollama", "run", model, prompt]
-    result = subprocess.run(cmd, capture_output = True, text = True)
+    
+    try:
+        result = subprocess.run(cmd, capture_output = True, text = True)
 
-    return result.stdout
+        return result.stdout
+    except FileNotFoundError as e:
+        if (not str(e) in errors):
+            print(e)
+
+        errors.add(str(e))
+
+        return ""
 
 def callGpt(prompt: str, image: str = "", model: str = "gpt-5") -> str:
     try:
@@ -373,12 +382,11 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 def processTask(folder: str, task: str, withImages: bool = False, debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
+    image_base64 = ""
 
     if (withImages and os.path.exists(f"data/{folder}/{task}.png")):
         with open(f"data/{folder}/{task}.png", "rb") as f:
             image_base64 = base64.b64encode(f.read()).decode("utf-8")
-    else:
-        image_base64 = ""
 
     programs = []
 
@@ -776,21 +784,20 @@ def run_tasks(folder: str) -> tuple[int, int]:
         data = file.read()
 
     tasks = data.split("\n")
-    files = os.listdir(f"data/{folder}")
+    files = list(filter(lambda x: x.endswith(".md"), os.listdir(f"data/{folder}")))
     unexploredTasks = []
 
     for task in tasks:
         if (not any([task in x for x in files])):
             unexploredTasks.append(task)
+    print(len(unexploredTasks))
 
     tasks = sorted(set(tasks) - set(unexploredTasks)) + sorted(unexploredTasks)
     tasks = tasks[:120] #TODO: to remove
 
-    withImages = False
-
-    with ThreadPoolExecutor(max_workers = 1 if withImages else os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers = os.cpu_count()) as executor:
         results = list(tqdm(
-            executor.map(lambda task: processTask(folder, task, withImages = withImages, debug = False), tasks),
+            executor.map(lambda task: processTask(folder, task, withImages = False, debug = False), tasks),
             total = len(tasks), miniters = 1, smoothing = 1
         ))
 
