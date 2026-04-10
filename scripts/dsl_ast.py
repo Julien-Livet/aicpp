@@ -1040,21 +1040,19 @@ if (__name__ == "__main__"):
     # Inference
     model = model.to(DEVICE)
 
-    # 1. Combien d'exemples vmirror(I) dans le dataset ?
     print("vmirror(I) examples in dataset:", sum(1 for pairs, expr in raw_dataset if expr == "vmirror(I)"))
 
-    # 2. La loss sur ces exemples spécifiquement
     model.eval()
-    loss_fn = nn.CrossEntropyLoss(ignore_index=0)
+    loss_fn = nn.CrossEntropyLoss(ignore_index = 0)
     losses = []
 
     for pairs, expr in raw_dataset:
-        if expr != "vmirror(I)":
+        if (expr != "vmirror(I)"):
             continue
 
         grids_tensor, tokens_tensor = ARCDataset([(pairs, expr)], tokenizer,
-                                                max_grid=MAX_GRID,
-                                                max_len=MAX_TOKEN_LEN)[0]
+                                                max_grid = MAX_GRID,
+                                                max_len = MAX_TOKEN_LEN)[0]
         grids_tensor  = grids_tensor.unsqueeze(0).to(DEVICE)
         tokens_tensor = tokens_tensor.unsqueeze(0).to(DEVICE)
 
