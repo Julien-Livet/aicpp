@@ -936,6 +936,7 @@ if (__name__ == "__main__"):
         ast_dataset = hodelDataset()
         pickle.dump(ast_dataset, open(datasetFilename, "wb"))
 
+    MAX_TOKEN_LEN = 350
     N_SETS  = 50   # pair sets by task
     MAX_PAIRS = 8  # pairs by set
 
@@ -1005,7 +1006,6 @@ if (__name__ == "__main__"):
             print(f"p{p}: {np.percentile(lengths, p):.0f} tokens")
         """
 
-        MAX_TOKEN_LEN = 350
         raw_dataset = [(pairs, expr) for pairs, expr in raw_dataset
                     if len(tokenizer(expr)) <= MAX_TOKEN_LEN]
 
@@ -1041,7 +1041,7 @@ if (__name__ == "__main__"):
     model = model.to(DEVICE)
 
     # 1. Combien d'exemples vmirror(I) dans le dataset ?
-    print(sum(1 for pairs, expr in raw_dataset if expr == "vmirror(I)"))
+    print("vmirror(I) examples in dataset:", sum(1 for pairs, expr in raw_dataset if expr == "vmirror(I)"))
 
     # 2. La loss sur ces exemples spécifiquement
     model.eval()
@@ -1069,6 +1069,7 @@ if (__name__ == "__main__"):
     for pairs, expr in raw_dataset:
         if (expr == "vmirror(I)"):
             print("Example AST:\n", expr)
+            dataset = ARCDataset(raw_dataset, tokenizer, max_grid = MAX_GRID, max_len = MAX_TOKEN_LEN)
             pred = generate(model, pairs, tokenizer, dataset, beam_size = 5)
             print("Predicted AST:", "".join(pred))
             break
