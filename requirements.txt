@@ -1,5 +1,7 @@
 anthropic
+graphviz
 matplotlib
+networkx
 numpy
 nvidia-cublas-cu12==12.4.5.8
 nvidia-cuda-runtime-cu12==12.4.127
@@ -13,6 +15,7 @@ nvidia-cuda-nvrtc-cu12==12.4.127
 openai
 openpyxl
 pandas
+plotly
 pytest
 requests
 tabulate
