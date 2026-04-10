@@ -171,6 +171,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+tf_gpu_env
 
 # Spyder project settings
 .spyderproject
