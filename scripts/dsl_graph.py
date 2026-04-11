@@ -1,10 +1,12 @@
 from collections import defaultdict
+from dash import Dash, dcc, html, Input, Output
 import dsl_ast
 from graphviz import Digraph
 import math
 import networkx as nx
 from networkx.algorithms import community
 import plotly.graph_objects as go
+import random
 import sys
 
 def build_graphviz(edge_weights, node_counts):
@@ -90,6 +92,112 @@ def plot_3d_graph(G, pos):
 
     fig.show()
 
+def compute_grid_3d_layout(nodes):
+    nodes = sorted(G.nodes(), key = lambda n: (node_types.get(n, ""), n))
+
+    n = len(nodes)
+    k = math.ceil(n ** (1 / 3))
+
+    pos = {}
+
+    for idx, node in enumerate(nodes):
+        x = idx % k
+        y = (idx // k) % k
+        z = idx // (k * k)
+
+        pos[node] = (x, y, z)
+
+    return pos
+
+def normalize_pos(pos):
+    xs = [p[0] for p in pos.values()]
+    ys = [p[1] for p in pos.values()]
+    zs = [p[2] for p in pos.values()]
+
+    def norm(v, vmin, vmax):
+        return (v - vmin) / (vmax - vmin + 1e-9)
+
+    return {
+        k: (
+            norm(x, min(xs), max(xs)),
+            norm(y, min(ys), max(ys)),
+            norm(z, min(zs), max(zs))
+        )
+        for k, (x, y, z) in pos.items()
+    }
+
+def jitter(pos, scale=0.1):
+    return {
+        k: (
+            x + random.uniform(-scale, scale),
+            y + random.uniform(-scale, scale),
+            z + random.uniform(-scale, scale)
+        )
+        for k, (x, y, z) in pos.items()
+    }
+
+def build_figure(G, pos, highlight_node = None):
+    edge_traces = []
+        
+    for u, v, data in G.edges(data = True):
+        x0, y0, z0 = pos[u]
+        x1, y1, z1 = pos[v]
+
+        if (highlight_node and (u == highlight_node or v == highlight_node)):
+            color = "red"
+            width = 5
+        else:
+            color = "rgba(0,0,255,0.1)"
+            width = 1
+
+        edge_traces.append(
+            go.Scatter3d(
+                x = [x0, x1],
+                y = [y0, y1],
+                z = [z0, z1],
+                mode = "lines",
+                line = dict(color = color, width = width),
+                hoverinfo = "text",
+                text = [f"{u} → {v}"]
+            )
+        )
+
+    node_x, node_y, node_z = [], [], []
+    texts = []
+
+    for node in G.nodes():
+        x, y, z = pos[node]
+        node_x.append(x)
+        node_y.append(y)
+        node_z.append(z)
+        label = f"{node}:{node_type}"
+        texts.append(label)
+
+    node_trace = go.Scatter3d(
+        x = node_x,
+        y = node_y,
+        z = node_z,
+        mode = "markers+text",
+        text = texts,
+        customdata = list(G.nodes()),
+        textposition = "top center",
+        marker = dict(size = 6, color = "black"),
+        hoverinfo = "text"
+    )
+
+    fig = go.Figure(data = edge_traces + [node_trace])
+
+    fig.update_layout(
+        margin = dict(l = 0, r = 0, b = 0, t = 0),
+        scene = dict(
+            xaxis = dict(visible = False),
+            yaxis = dict(visible = False),
+            zaxis = dict(visible = False),
+        )
+    )
+
+    return fig
+
 if (__name__ == "__main__"):
     all_asts = {}
 
@@ -140,30 +248,9 @@ if (__name__ == "__main__"):
         for task, ast in all_asts.items():
             traverse_types(ast)
 
-        pos = nx.spring_layout(G, dim = 3, seed = 42)
-        
-        edge_traces = []
-
-        for u, v, data in G.edges(data = True):
-            x0, y0, z0 = pos[u]
-            x1, y1, z1 = pos[v]
-
-            w = data["weight"]
-
-            edge_traces.append(
-                go.Scatter3d(
-                    x=[x0, x1],
-                    y=[y0, y1],
-                    z=[z0, z1],
-                    mode = 'lines',
-                    line = dict(
-                        width = 1 + math.log(1 + w),
-                        color = 'blue'
-                    ),
-                    hoverinfo = 'text',
-                    text = [f"{u} → {v} ({w})"]
-                )
-            )
+        pos = compute_grid_3d_layout(G.nodes())
+        pos = normalize_pos(pos)
+        #pos = jitter(pos)
 
         node_x, node_y, node_z = [], [], []
         texts = []
@@ -180,4 +267,30 @@ if (__name__ == "__main__"):
             label = f"{node}:{node_type}"
             texts.append(label)
 
-        plot_3d_graph(G, pos)
+        if ("plotly" in sys.argv):
+            plot_3d_graph(G, pos)
+        else:
+            app = Dash(__name__)
+
+            app.layout = html.Div([
+                dcc.Graph(id = "graph", figure = build_figure(G, pos))
+            ])
+
+            @app.callback(
+                Output("graph", "figure"),
+                Input("graph", "hoverData")
+            )
+            def update_graph(hoverData):
+                if (hoverData is None):
+                    return build_figure(G, pos)
+
+                point = hoverData["points"][0]
+
+                if ("customdata" not in point):
+                    return build_figure(G, pos)
+
+                node = point["customdata"]
+
+                return build_figure(G, pos, highlight_node = node)
+
+            app.run(debug = True)
