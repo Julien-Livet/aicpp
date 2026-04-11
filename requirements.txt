@@ -1,4 +1,5 @@
 anthropic
+dash
 graphviz
 matplotlib
 networkx
