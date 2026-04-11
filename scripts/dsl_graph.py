@@ -170,7 +170,7 @@ def build_figure(G, pos, highlight_node = None):
         node_x.append(x)
         node_y.append(y)
         node_z.append(z)
-        label = f"{node}:{node_type}"
+        label = f"{node}:{node_types.get(node, '')}"
         texts.append(label)
 
     node_trace = go.Scatter3d(
