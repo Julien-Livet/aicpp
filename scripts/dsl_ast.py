@@ -498,6 +498,17 @@ def convert(node, nodes: dict, constants: dict):
             op = node.id,
             type = constants.get(node.id)
         )
+    elif (isinstance(node, ast.Constant)):
+        return Node(
+            op = str(node.value),
+            type = type(node.value).__name__
+        )
+    elif (isinstance(node, ast.Tuple)):
+        return Node(
+            op = "tuple",
+            type = "tuple",
+            args = [convert(elt, nodes, constants) for elt in node.elts]
+        )
     else:
         raise NotImplementedError(type(node))
 
@@ -571,7 +582,7 @@ def taskExpression(task: str):
         taskLines.append(line)
 
     if (len(taskLines) == 0):
-        return []
+        return ""
 
     taskLines = list(reversed(taskLines))
     var, expression = taskLines[0].split(" = ")
@@ -852,32 +863,14 @@ def hodelDataset():
 
     return dataset
 
-def taskAst(task: str, png: bool = False):
-    with open("arc-dsl/dsl.py", "r") as f:
-        lines = f.read().split("\n")
-
-    symbols = ["", "I"]
-
-    for line in lines:
-        if (line.startswith("def ")):
-            symbols.append(line.split("def ")[1].split("(")[0])
-
-    with open("arc-dsl/constants.py", "r") as f:
-        lines = f.read().split("\n")
-
-    for line in lines:
-        if ("=" in line):
-            symbols.append(line.split("=")[0].strip())
-
-    expression = taskExpression(task)
-
+def expressionTreeNode(expression: str):
     nodes = allNodes()
-    
+
     with open("arc-dsl/constants.py", "r") as f:
         lines = f.read().split("\n")
-        
+
     constants = {"I": "Grid"}
-    
+
     for line in lines:
         if ("=" in line):
             key, value = line.split("=", 1)
@@ -885,6 +878,16 @@ def taskAst(task: str, png: bool = False):
 
     tree = ast.parse(expression, mode = "eval")
     node = convert(tree.body, nodes, constants)
+
+    return tree, node
+
+def taskAst(task: str, png: bool = False):
+    with open("arc-dsl/dsl.py", "r") as f:
+        lines = f.read().split("\n")
+
+    expression = taskExpression(task)
+
+    tree, node = expressionTreeNode(expression)
 
     if (png):
         with open(f"{task}_tree.dot", "w") as f:

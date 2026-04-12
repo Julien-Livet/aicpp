@@ -33,7 +33,7 @@ def traverse(node):
         edge_weights[edge] += 1
         traverse(child)
 
-def plot_3d_graph(G, pos):
+def edgeNodeTraces(G, pos, node_types):
     edge_x, edge_y, edge_z = [], [], []
     widths = []
 
@@ -67,7 +67,8 @@ def plot_3d_graph(G, pos):
         node_x.append(x)
         node_y.append(y)
         node_z.append(z)
-        texts.append(node)
+        label = f"{node}:{node_types.get(node, '')}"
+        texts.append(label)
 
     node_trace = go.Scatter3d(
         x = node_x,
@@ -80,8 +81,13 @@ def plot_3d_graph(G, pos):
         hoverinfo = 'text'
     )
 
+    return edge_trace, node_trace
+
+def plot_3d_graph(G, pos, node_types):
+    edge_trace, node_trace = edgeNodeTraces(G, pos, node_types)
+
     fig = go.Figure(
-        data = edge_traces + [node_trace]
+        data = [edge_trace, node_trace]
     )
 
     fig.update_layout(
@@ -92,8 +98,8 @@ def plot_3d_graph(G, pos):
 
     fig.show()
 
-def compute_grid_3d_layout(nodes):
-    nodes = sorted(G.nodes(), key = lambda n: (node_types.get(n, ""), n))
+def compute_grid_3d_layout(nodes, node_types):
+    nodes = sorted(nodes, key = lambda n: (node_types.get(n, ""), n))
 
     n = len(nodes)
     k = math.ceil(n ** (1 / 3))
@@ -232,7 +238,7 @@ if (__name__ == "__main__"):
         dot.attr(dpi = "600")
         dot.attr(overlap = "false")
         dot.attr(K = "0.6")
-        dot.render("dsl_graph", view = True)
+        dot.render("hodel_dsl_graph", view = True)
 
     if ("3d" in sys.argv):
         G = nx.DiGraph()
@@ -248,7 +254,7 @@ if (__name__ == "__main__"):
         for task, ast in all_asts.items():
             traverse_types(ast)
 
-        pos = compute_grid_3d_layout(G.nodes())
+        pos = compute_grid_3d_layout(G.nodes(), node_types)
         pos = normalize_pos(pos)
         #pos = jitter(pos)
 
@@ -268,7 +274,7 @@ if (__name__ == "__main__"):
             texts.append(label)
 
         if ("plotly" in sys.argv):
-            plot_3d_graph(G, pos)
+            plot_3d_graph(G, pos, node_types)
         else:
             app = Dash(__name__)
 
