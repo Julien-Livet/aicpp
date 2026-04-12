@@ -55,7 +55,8 @@ def programExpression(program: str):
                                .replace(f"({var},", f"({expr},") \
                                .replace(f",{var},", f",{expr},") \
                                .replace(f",{var})", f",{expr})") \
-                               .replace(f",{var}(", f",{expr}(")
+                               .replace(f",{var}(", f",{expr}(") \
+                               .replace(f"({var}(", f"({expr}(")
 
             if (affectations[v].startswith(f"{var}(")):
                 affectations[v] = affectations[v].replace(f"{var}(", f"{expr}(", 1)
