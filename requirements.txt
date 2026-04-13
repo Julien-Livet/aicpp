@@ -1,6 +1,8 @@
 anthropic
 dash
 graphviz
+imageio
+kaleido
 matplotlib
 networkx
 numpy

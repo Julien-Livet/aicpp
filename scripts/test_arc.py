@@ -412,15 +412,6 @@ def processTask(folder: str, task: str, withImages: bool = False, debug: bool = 
     elif (os.path.exists(f"data/{folder}/{task}-output-{index-1:03d}.md")):
         programs = outputPrograms(f"data/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
 
-    arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
-    constants_module = load_module("constants", "arc-dsl/constants.py")
-    dsl_module = load_module("dsl", "arc-dsl/dsl.py")
-
-    env = {}
-    env.update(vars(arc_types_module))
-    env.update(vars(constants_module))
-    env.update(vars(dsl_module))
-
     bestProgram = programs[0]
 
     for _ in range(0, 10):

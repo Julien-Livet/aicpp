@@ -1,7 +1,9 @@
 import ast
 import hodel_dsl_graph
+import imageio
 import inspect
 import networkx as nx
+import os
 import plotly.graph_objects as go
 import re
 import subprocess
@@ -358,6 +360,22 @@ def viewGraph(programs: list):
     )
 
     fig.show()
+
+    if ("gif" in sys.argv):
+        folder = f"{sys.argv[-1]}_frames"
+
+        os.makedirs(folder, exist_ok = True)
+
+        for i, frame in enumerate(fig.frames):
+            fig.update(data = frame.data)
+            fig.write_image(f"{folder}/frame_{i:03d}.png")
+
+        images = []
+
+        for file in sorted(os.listdir(folder)):
+            images.append(imageio.imread(os.path.join(folder, file)))
+
+        imageio.mimsave(f"{sys.argv[-1]}_graph.gif", images, fps = 2)
 
 if (__name__ == "__main__"):
     if (sys.argv[-1] == "hodel"):
