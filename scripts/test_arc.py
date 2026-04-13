@@ -383,7 +383,9 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 
     return programs
 
-def processTask(folder: str, task: str, withImages: bool = False, debug: bool = True) -> list:
+def processTask(folder: str, task: str, withImages: bool = False,
+                initPrograms: list[tuple[float, str]] = [(math.nan, f"""def dsl{i+1}(I):\n    O = I\n    return O""") for i in range(0, 5)],
+                debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
     image_base64 = ""
@@ -394,10 +396,7 @@ def processTask(folder: str, task: str, withImages: bool = False, debug: bool = 
 
     programs = []
 
-    for i in range(0, 5):
-        dsl = f"""def dsl{i+1}(I):
-    O = I
-    return O"""
+    for similarity, dsl in initPrograms:
         programs.append((dsl, taskResults(dsl, taskPairs[0], "train")))
 
     index = 0
