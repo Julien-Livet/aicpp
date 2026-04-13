@@ -20,9 +20,26 @@ import traceback
 
 errors = set()
 #llm = ("claude", "claude-sonnet-4-6")
-#llm = ("gpt", "gpt-5")
-llm = ("ollama", "gemma4:31b-cloud")
+llm = ("gpt", "gpt-5")
+#llm = ("ollama", "gemma4:31b-cloud")
 #llm = ("ollama", "gpt-oss:120b-cloud")
+
+TDD = False
+
+for folder in ("training", "evaluation"):
+    os.makedirs(f"data/{llm[0]}/{llm[1]}/{folder}", exist_ok = True)
+
+def test_arc(request):
+    global TDD, llm
+
+    mode = request.config.getoption("--mode")
+    provider = request.config.getoption("--provider")
+    model = request.config.getoption("--model")
+
+    llm = (provider, model)
+
+    if (mode == "TDD"):
+        TDD = True
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
@@ -401,15 +418,15 @@ def processTask(folder: str, task: str, withImages: bool = False,
 
     index = 0
 
-    for file in os.listdir(f"data/{folder}"):
+    for file in os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}"):
         if ("input" in file and task in file):
             index = max(index, int(file.replace(".md", "").replace(f"{task}-input-", "")))
 
-    if (os.path.exists(f"data/{folder}/{task}-output-{index:03d}.md")):
-        programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
+    if (os.path.exists(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md")):
+        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
-    elif (os.path.exists(f"data/{folder}/{task}-output-{index-1:03d}.md")):
-        programs = outputPrograms(f"data/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
+    elif (os.path.exists(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index-1:03d}.md")):
+        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
 
     bestProgram = programs[0]
 
@@ -626,7 +643,7 @@ def dsl5(I):
         if (index > 9):
             break
 
-        f = open(f"data/{folder}/{task}-input-{index:03d}.md", "w")
+        f = open(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-input-{index:03d}.md", "w")
         f.write(command)
         f.close()
 
@@ -640,11 +657,11 @@ def dsl5(I):
         if (len(groups) == 0):
             content = f"```python\n{content}\n```"
 
-        f = open(f"data/{folder}/{task}-output-{index:03d}.md", "w")
+        f = open(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
 
-        programs = outputPrograms(f"data/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
+        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
     
     costs = [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
@@ -674,101 +691,133 @@ def dsl5(I):
     return [bestProgram[0], folder, task, "test"] + costs
 
 def test_task3c9b0459(): #Flip left/right and flip up/down
-    assert(processTask("training", "3c9b0459")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "3c9b0459")[-1] == 0)
 
 def test_task0d3d703e(): #Color mapping
-    assert(processTask("training", "0d3d703e")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "0d3d703e")[-1] == 0)
 
 def test_taskc909285e():
-    assert(processTask("training", "c909285e")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "c909285e")[-1] == 0)
 
 def test_task67a3c6ac():
-    assert(processTask("training", "67a3c6ac")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "67a3c6ac")[-1] == 0)
 
 def test_task68b16354():
-    assert(processTask("training", "68b16354")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "68b16354")[-1] == 0)
 
 def test_task74dd1130():
-    assert(processTask("training", "74dd1130")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "74dd1130")[-1] == 0)
 
 def test_task6150a2bd():
-    assert(processTask("training", "6150a2bd")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "6150a2bd")[-1] == 0)
 
 def test_task9172f3a0():
-    assert(processTask("training", "9172f3a0")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "9172f3a0")[-1] == 0)
 
 def test_task9dfd6313():
-    assert(processTask("training", "9dfd6313")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "9dfd6313")[-1] == 0)
 
 def test_taska416b8f3():
-    assert(processTask("training", "a416b8f3")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "a416b8f3")[-1] == 0)
 
 def test_taskb1948b0a():
-    assert(processTask("training", "b1948b0a")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "b1948b0a")[-1] == 0)
 
 def test_taskc59eb873():
-    assert(processTask("training", "c59eb873")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "c59eb873")[-1] == 0)
 
 def test_taskc8f0f002():
-    assert(processTask("training", "c8f0f002")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "c8f0f002")[-1] == 0)
 
 def test_taskd10ecb37():
-    assert(processTask("training", "d10ecb37")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "d10ecb37")[-1] == 0)
 
 def test_taskd511f180():
-    assert(processTask("training", "d511f180")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "d511f180")[-1] == 0)
 
 def test_tasked36ccf7():
-    assert(processTask("training", "ed36ccf7")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "ed36ccf7")[-1] == 0)
 
 def test_task4c4377d9():
-    assert(processTask("training", "4c4377d9")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "4c4377d9")[-1] == 0)
 
 def test_task6d0aefbc():
-    assert(processTask("training", "6d0aefbc")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "6d0aefbc")[-1] == 0)
 
 def test_task6fa7a44f():
-    assert(processTask("training", "6fa7a44f")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "6fa7a44f")[-1] == 0)
 
 def test_task5614dbcf():
-    assert(processTask("training", "5614dbcf")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "5614dbcf")[-1] == 0)
 
 def test_task8be77c9e():
-    assert(processTask("training", "8be77c9e")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "8be77c9e")[-1] == 0)
 
 def test_taskc9e6f938():
-    assert(processTask("training", "c9e6f938")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "c9e6f938")[-1] == 0)
 
 def test_task5582e5ca():
-    assert(processTask("training", "5582e5ca")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "5582e5ca")[-1] == 0)
 
 def test_task2dee498d():
-    assert(processTask("training", "2dee498d")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "2dee498d")[-1] == 0)
 
 def test_task5bd6f4ac():
-    assert(processTask("training", "5bd6f4ac")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "5bd6f4ac")[-1] == 0)
 
 def test_task1cf80156():
-    assert(processTask("training", "1cf80156")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "1cf80156")[-1] == 0)
 
 def test_task32597951():
-    assert(processTask("training", "32597951")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "32597951")[-1] == 0)
 
 def test_task25ff71a9():
-    assert(processTask("training", "25ff71a9")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "25ff71a9")[-1] == 0)
 
 def test_task90f3ed37():
-    assert(processTask("training", "90f3ed37")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "90f3ed37")[-1] == 0)
 
 def test_task12422b43():
-    assert(processTask("training", "12422b43")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "12422b43")[-1] == 0)
 """ #TODO: to remove
 def test_task11dc524f():
-    assert(processTask("training", "11dc524f", withImages = False)[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "11dc524f", withImages = False)[-1] == 0)
 """ #TODO: to remove
 """
 def test_task():
-    assert(processTask("training", "")[-1] == 0)
+    if (TDD):
+        assert(processTask("training", "")[-1] == 0)
 """
 
 def run_tasks(folder: str) -> tuple[int, int]:
@@ -778,7 +827,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
         data = file.read()
 
     tasks = data.split("\n")
-    files = list(filter(lambda x: x.endswith(".md"), os.listdir(f"data/{folder}")))
+    files = list(filter(lambda x: x.endswith(".md"), os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}")))
     unexploredTasks = []
 
     for task in tasks:
@@ -796,7 +845,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
 
     results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: (x[-1], len(x[0])))
 
-    f = open(f"{folder}_results.md", "w")
+    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_results.md", "w")
 
     for result in results:
         f.write(" ".join(str(x) for x in result[1:]) + "\n")

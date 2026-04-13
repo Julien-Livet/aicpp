@@ -1,5 +1,8 @@
+import matplotlib
+
+matplotlib.use("Qt5Agg")
+
 import difflib
-from io import StringIO
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -14,7 +17,7 @@ def diff(a: str, b: str):
         lineterm = ""
     ))
 
-def plotDataSet(folder: str, task: str, step: str, costs: list, ncols: int):
+def plotDataSet(llm: tuple, folder: str, task: str, step: str, costs: list, ncols: int):
     assert(folder in ("training", "evaluation"))
     assert(step in ("train", "test"))
 
@@ -31,14 +34,14 @@ def plotDataSet(folder: str, task: str, step: str, costs: list, ncols: int):
     fig.suptitle(" ".join([folder, task, step, "results"]))
     plt.legend()
     mng = plt.get_current_fig_manager()
-    mng.resize(*mng.window.maxsize())
-    plt.savefig(f"{folder}_{task}_{step}_results.png")
+    mng.full_screen_toggle()
+    plt.savefig(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_{step}_results.png")
     plt.show()
 
-def analyzeTask(folder: str, task: str):
+def analyzeTask(llm: tuple, folder: str, task: str):
     assert(folder in ("training", "evaluation"))
 
-    files = os.listdir(f"data/{folder}")
+    files = os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}")
     taskFiles = list(filter(lambda x: task in x, files))
     outputFiles = sorted(filter(lambda x: "output" in x, taskFiles))
 
@@ -47,8 +50,8 @@ def analyzeTask(folder: str, task: str):
 
     for file in files:
         taskPairs = test_arc.trainTestPairs(folder, task)
-        trainPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[0], "train")
-        testPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[1], "test")
+        trainPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[0], "train")
+        testPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[1], "test")
         results.append((trainPrograms, testPrograms))
 
     n = len(trainPrograms)
@@ -134,9 +137,9 @@ def analyzeTask(folder: str, task: str):
         content += f"[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L{lineIndex+1})\n\n"
     except ValueError:
         pass
-    
+
     if (os.path.exists(f"data/{folder}/{task}.png")):
-        content += f"![Task {task} image](data/{folder}/{task}.png)\n\n"
+        content += f"![Task {task} image](../../{folder}/{task}.png)\n\n"
 
     for i in range(0, len(results[0][0])):
         content += f"## Program {i+1}\n\n"
@@ -150,7 +153,7 @@ def analyzeTask(folder: str, task: str):
             content += f"### Iteration {j+1} DSL diff\n\n"
             content += f"```bash\n{history[i + j * len(results[0])][0]}\n```\n\n"
 
-    f = open(f"{folder}_{task}_history.md", "w")
+    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_history.md", "w")
     f.write(content)
     f.close()
 
@@ -210,8 +213,8 @@ def analyzeTask(folder: str, task: str):
                     l.append(val)
                     d[index] = l
 
-    plotDataSet(folder, task, "train", trainCosts, len(results[0][0]))
-    plotDataSet(folder, task, "test", testCosts, len(results[0][0]))
+    plotDataSet(llm, folder, task, "train", trainCosts, len(results[0][0]))
+    plotDataSet(llm, folder, task, "test", testCosts, len(results[0][0]))
 
     lines = {}
     length = {}
@@ -238,9 +241,9 @@ def analyzeTask(folder: str, task: str):
     fig.suptitle(" ".join([folder, task, "results"]))
     plt.legend()
     mng = plt.get_current_fig_manager()
-    mng.resize(*mng.window.maxsize())
-    plt.savefig(f"{folder}_{task}_program_results.png")
+    mng.full_screen_toggle()
+    plt.savefig(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_program_results.png")
     plt.show()
 
 if (__name__ == "__main__"):
-    analyzeTask(sys.argv[-2], sys.argv[-1])
+    analyzeTask((sys.argv[-4], sys.argv[-3]), sys.argv[-2], sys.argv[-1])

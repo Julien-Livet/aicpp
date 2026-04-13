@@ -6,6 +6,7 @@ import networkx as nx
 import os
 import plotly.graph_objects as go
 import re
+import shutil
 import subprocess
 import sys
 import test_arc
@@ -263,10 +264,10 @@ def hodelPrograms():
 
     return programs
 
-def resultsPrograms(folder: str):
+def resultsPrograms(llm: tuple, folder: str):
     assert(folder in ("training", "evaluation"))
 
-    with open(f"{folder}_results.md", "r") as f:
+    with open(f"data/{llm[0]}/{llm[1]}/{folder}_results.md", "r") as f:
         lines = f.read().split("\n")
 
     programs = []
@@ -327,7 +328,7 @@ def programGraphs(programs: list):
 
     return graphs
     
-def viewGraph(programs: list):
+def viewGraph(llm: tuple, programs: list):
     graphs = programGraphs(programs)
 
     frames = []
@@ -362,7 +363,10 @@ def viewGraph(programs: list):
     fig.show()
 
     if ("gif" in sys.argv):
-        folder = f"{sys.argv[-1]}_frames"
+        folder = f"frames"
+
+        if (os.path.exists(folder)):
+            shutil.rmtree(folder)
 
         os.makedirs(folder, exist_ok = True)
 
@@ -375,10 +379,16 @@ def viewGraph(programs: list):
         for file in sorted(os.listdir(folder)):
             images.append(imageio.imread(os.path.join(folder, file)))
 
-        imageio.mimsave(f"{sys.argv[-1]}_graph.gif", images, fps = 2)
+        if (not llm):
+            imageio.mimsave(f"{sys.argv[-1]}_graph.gif", images, fps = 2)
+        else:
+            imageio.mimsave(f"data/{llm[0]}/{llm[1]}/{sys.argv[-1]}_graph.gif", images, fps = 2)
 
 if (__name__ == "__main__"):
     if (sys.argv[-1] == "hodel"):
-        viewGraph(hodelPrograms())
+        viewGraph(None, hodelPrograms())
     else:
-        viewGraph(resultsPrograms(sys.argv[-1]))
+        llm = (sys.argv[-3], sys.argv[-2])
+
+        viewGraph(llm, resultsPrograms(llm, sys.argv[-1]))
+

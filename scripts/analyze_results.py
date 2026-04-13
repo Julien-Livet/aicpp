@@ -1,13 +1,18 @@
+import matplotlib
+
+matplotlib.use("Qt5Agg")
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+import sys
 import test_arc
 
-def exportResults(folder: str, sortedTasks: list):
+def exportResults(llm: tuple, folder: str, sortedTasks: list):
     assert(folder in ("training", "evaluation"))
 
-    files = os.listdir(f"data/{folder}")
+    files = os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}")
     outputFiles = sorted(filter(lambda x: "output" in x, files))
     tasksFiles = {}
 
@@ -16,7 +21,7 @@ def exportResults(folder: str, sortedTasks: list):
         l = tasksFiles.get(task, [])
         tasksFiles[task] = l + [file]
 
-    tasksFiles = {k: tasksFiles[k] for k in sortedTasks}
+    tasksFiles = {k: tasksFiles.get(k, []) for k in sortedTasks}
     results = []
 
     for task, files in tasksFiles.items():
@@ -26,8 +31,8 @@ def exportResults(folder: str, sortedTasks: list):
 
         for file in files:
             taskPairs = test_arc.trainTestPairs(folder, task)
-            trainPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[0], "train")
-            testPrograms = test_arc.outputPrograms(f"data/{folder}/{file}", taskPairs[1], "test")
+            trainPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[0], "train")
+            testPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[1], "test")
             subResults.append((trainPrograms, testPrograms))
 
         results.append((task, subResults))
@@ -39,9 +44,13 @@ def exportResults(folder: str, sortedTasks: list):
     content = ""
     dslCount = 0
 
-    with pd.ExcelWriter(f"{folder}_results.xlsx", engine = "openpyxl") as writer:
+    with pd.ExcelWriter(f"data/{llm[0]}/{llm[1]}/{folder}_results.xlsx", engine = "openpyxl") as writer:
         for result in results:
             task, subResults = result
+            
+            if (not subResults):
+                continue
+            
             trainSolved = False
             testSolved = False
             trainPrograms, testPrograms = subResults[-1]
@@ -106,11 +115,11 @@ def exportResults(folder: str, sortedTasks: list):
                 
             dslCount += len(trainPrograms) * len(subResults)
 
-    f = open(f"{folder}_full_results.md", "w")
+    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_full_results.md", "w")
     f.write(content)
     f.close()
 
-def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
+def plotTasks(llm: tuple, folder: str, step: str, labels: list, costs: list, dsls: list):
     assert(folder in ("training", "evaluation"))
     assert(step in ("train", "test"))
 
@@ -142,14 +151,14 @@ def plotTasks(folder: str, step: str, labels: list, costs: list, dsls: list):
     plt.xticks(x, labels, rotation = 'vertical')
     plt.legend()
     mng = plt.get_current_fig_manager()
-    mng.resize(*mng.window.maxsize())
-    plt.savefig(f"{folder}_{step}_results.png")
+    mng.full_screen_toggle()
+    plt.savefig(f"data/{llm[0]}/{llm[1]}/{folder}_{step}_results.png")
     plt.show()
 
-def analyseFolder(folder: str):
-    assert(folder == "training" or folder == "evaluation")
+def analyseFolder(llm: tuple, folder: str):
+    assert(folder in ("training", "evaluation"))
 
-    f = open(folder + "_results.md")
+    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_results.md")
     content = f.read()
     f.close()
     
@@ -189,16 +198,13 @@ def analyseFolder(folder: str):
 
         i += 1
 
-    exportResults(folder, sortedTasks)
+    exportResults(llm, folder, sortedTasks)
 
     if (len(testLabels)):
-        plotTasks(folder, "test", testLabels, testCosts, testDsls)
-
-    if (len(testLabels)):
-        plotTasks(folder, "test", testLabels, testCosts, testDsls)
+        plotTasks(llm, folder, "test", testLabels, testCosts, testDsls)
 
     if (len(trainLabels)):
-        plotTasks(folder, "train", trainLabels, trainCosts, trainDsls)
+        plotTasks(llm, folder, "train", trainLabels, trainCosts, trainDsls)
 
     taskTotal = len(trainLabels) + len(testLabels)
 
@@ -218,5 +224,5 @@ def analyseFolder(folder: str):
         print(f"{len(testLabels)/taskTotal*100}% passing train dataset")
         print(f"{optimalCount/taskTotal*100}% passing test dataset")
 
-analyseFolder("training")
-analyseFolder("evaluation")
+if (__name__ == "__main__"):
+    analyseFolder((sys.argv[-3], sys.argv[-2]), sys.argv[-1])

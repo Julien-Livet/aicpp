@@ -213,4 +213,4 @@ cython_debug/
 CMakeLists.txt.user
 include/aicpp/partials.h
 src/engine.cpp
-scripts/*_frames
+scripts/frames

@@ -19,6 +19,7 @@ openai
 openpyxl
 pandas
 plotly
+PyQt5
 pytest
 requests
 tabulate
