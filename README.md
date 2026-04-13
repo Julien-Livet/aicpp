@@ -83,6 +83,7 @@ python -m pytest -sxv test_arc.py
 python analyze_results.py
 python view_task.py training 90f3ed37
 python analyze_task.py training 90f3ed37
+python view_dsl_graph hodel
 ```
 
 ---
