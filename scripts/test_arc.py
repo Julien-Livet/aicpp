@@ -26,9 +26,6 @@ llm = ("gpt", "gpt-5")
 
 TDD = False
 
-for folder in ("training", "evaluation"):
-    os.makedirs(f"data/{llm[0]}/{llm[1]}/{folder}", exist_ok = True)
-
 def test_arc(request):
     global TDD, llm
 
@@ -40,6 +37,9 @@ def test_arc(request):
 
     if (mode == "TDD"):
         TDD = True
+
+    for folder in ("training", "evaluation"):
+        os.makedirs(f"data/{llm[0]}/{llm[1]}/{folder}", exist_ok = True)
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
