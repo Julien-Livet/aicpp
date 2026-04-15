@@ -26,6 +26,9 @@ llm = ("gpt", "gpt-5")
 
 TDD = False
 
+def llmPath(llm: tuple):
+    return f"{llm[0]}/{llm[1].replace(':', '_')}"
+
 def test_arc(request):
     global TDD, llm
 
@@ -39,7 +42,7 @@ def test_arc(request):
         TDD = True
 
     for folder in ("training", "evaluation"):
-        os.makedirs(f"data/{llm[0]}/{llm[1]}/{folder}", exist_ok = True)
+        os.makedirs(f"data/{llmPath(llm)}/{folder}", exist_ok = True)
 
 def ndarray_to_str_one_liner(arr):
     return '\n'.join(''.join(map(str, row)) for row in arr)
@@ -418,15 +421,15 @@ def processTask(folder: str, task: str, withImages: bool = False,
 
     index = 0
 
-    for file in os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}"):
+    for file in os.listdir(f"data/{llmPath(llm)}/{folder}"):
         if ("input" in file and task in file):
             index = max(index, int(file.replace(".md", "").replace(f"{task}-input-", "")))
 
-    if (os.path.exists(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md")):
-        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
+    if (os.path.exists(f"data/{llmPath(llm)}/{folder}/{task}-output-{index:03d}.md")):
+        programs = outputPrograms(f"data/{llmPath(llm)}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
-    elif (os.path.exists(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index-1:03d}.md")):
-        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
+    elif (os.path.exists(f"data/{llmPath(llm)}/{folder}/{task}-output-{index-1:03d}.md")):
+        programs = outputPrograms(f"data/{llmPath(llm)}/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
 
     bestProgram = programs[0]
 
@@ -643,7 +646,7 @@ def dsl5(I):
         if (index > 9):
             break
 
-        f = open(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-input-{index:03d}.md", "w")
+        f = open(f"data/{llmPath(llm)}/{folder}/{task}-input-{index:03d}.md", "w")
         f.write(command)
         f.close()
 
@@ -657,11 +660,11 @@ def dsl5(I):
         if (len(groups) == 0):
             content = f"```python\n{content}\n```"
 
-        f = open(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", "w")
+        f = open(f"data/{llmPath(llm)}/{folder}/{task}-output-{index:03d}.md", "w")
         f.write(content)
         f.close()
 
-        programs = outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
+        programs = outputPrograms(f"data/{llmPath(llm)}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
     
     costs = [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
@@ -827,7 +830,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
         data = file.read()
 
     tasks = data.split("\n")
-    files = list(filter(lambda x: x.endswith(".md"), os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}")))
+    files = list(filter(lambda x: x.endswith(".md"), os.listdir(f"data/{llmPath(llm)}/{folder}")))
     unexploredTasks = []
 
     for task in tasks:
@@ -845,7 +848,7 @@ def run_tasks(folder: str) -> tuple[int, int]:
 
     results = sorted(sorted(results, key = lambda x: math.isnan(x[-1])), key = lambda x: (x[-1], len(x[0])))
 
-    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_results.md", "w")
+    f = open(f"data/{llmPath(llm)}/{folder}_results.md", "w")
 
     for result in results:
         f.write(" ".join(str(x) for x in result[1:]) + "\n")

@@ -149,7 +149,7 @@ This separation preserves:
 
 Minimum requirements:
 - C++23
-- Python 3.10+
+- Python 3.10
 - Docker (recommended)
 
 ---
