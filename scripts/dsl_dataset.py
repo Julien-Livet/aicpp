@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import random
 import re
 
 NUM_COLORS = 10
@@ -72,16 +73,17 @@ def dsl(I):
 
     return groups[-1]
 
-def generate_example():
+def generate_example(dsl: str):
     import test_arc
 
-    dsl = generate_dsl()
     grids = []
     runner = test_arc.DSLWorker()
 
-    for _ in range(4):
+    for _ in range(random.randint(3, 6)):
         inp = generate_structured_grid()
         out = runner.run_with_timeout(dsl, "dsl", 5, tuple(map(tuple, inp.tolist())))
+
+        grids.append((inp, out))
 
     return {
         "dsl": dsl,
@@ -111,13 +113,15 @@ def generate_dataset(n = 10000, path = "dataset.json"):
 
     while (len(data) < n):
         try:
-            ex = generate_example()
+            dsl = generate_dsl()
 
-            formatted = format_example(ex)
-            data.append(formatted)
+            for _ in range(0, 50):
+                ex = generate_example(dsl)
+                formatted = format_example(ex)
+                data.append(formatted)
 
-            if (len(data) % 100 == 0):
-                print(f"{len(data)} examples")
+                if (len(data) % 100 == 0):
+                    print(f"{len(data)} examples")
         except Exception:
             pass
 
