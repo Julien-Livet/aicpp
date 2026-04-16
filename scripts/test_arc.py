@@ -286,22 +286,8 @@ def inputOutputPairs(pairs):
 
     return (inputs, outputs)
 
-def taskPrompt(trainPairs: list, withImages: bool) -> str:
-    command = ""
-    
-    if (withImages):
-        command += "The attached image describes the input grids in the left column and the output grids of an ARC task in the right column.\n\n"
-
-    command += "# Input->output grid pairs of an ARC task\n\n"
-
-    for i in range(len(trainPairs[0])):
-        command += f"## train{i+1}\n\n"
-        command += f"### Input\n\n```bash\n"
-        command += ndarray_to_str_one_liner(trainPairs[0][i])
-        command += f"\n```\n\n### Output\n\n```bash\n"
-        command += ndarray_to_str_one_liner(trainPairs[1][i]) + "\n```\n\n"
-
-    command += "# Available types\n\n"
+def dslPrompt():
+    command = "# Available types\n\n"
 
     f = open("arc-dsl/arc_types.py", "r")
     content = f.read()
@@ -346,6 +332,25 @@ def taskPrompt(trainPairs: list, withImages: bool) -> str:
         
     return command
 
+def taskPrompt(trainPairs: list, withImages: bool) -> str:
+    command = ""
+    
+    if (withImages):
+        command += "The attached image describes the input grids in the left column and the output grids of an ARC task in the right column.\n\n"
+
+    command += "# Input->output grid pairs of an ARC task\n\n"
+
+    for i in range(len(trainPairs[0])):
+        command += f"## train{i+1}\n\n"
+        command += f"### Input\n\n```bash\n"
+        command += ndarray_to_str_one_liner(trainPairs[0][i])
+        command += f"\n```\n\n### Output\n\n```bash\n"
+        command += ndarray_to_str_one_liner(trainPairs[1][i]) + "\n```\n\n"
+
+    command += dslPrompt()
+
+    return command
+
 def taskResults(source: str, pairs: list, label: str) -> tuple:
     assert(label in ("train", "test"))
 
@@ -386,7 +391,7 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
     f = open(outputFile, "r")
     content = f.read()
     f.close()
-    
+
     groups = re.findall(r'```python(.*?)```', content, flags = re.S)
 
     assert(len(groups))
