@@ -14273,13 +14273,1032 @@ def dsl5(I):
     return O
 ```
 
+# Task 1caeab9d
+
+train solved, test solved
+
+6 iterations
+
+[Best program](#dsl-405)
+
+[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2312)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           16 |                  164 |           0.218722  |     183.047  |
+| train2 |          2.82843 |            4 |                   74 |           0.0879316 |      80.9164 |
+| train3 |          2.82843 |            4 |                   74 |           0.134318  |      80.9627 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |            7 |                  164 |            0.136083 |      173.965 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global transformation: trim empty border rows/columns
+    O = trim(I)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     14.6969  |                 0.18 |           0.206155  |     15.0831  |
+| train2 |                0 |      8.94427 |                 0.16 |           0.141421  |      9.24569 |
+| train3 |                0 |      6.32456 |                 0.08 |           0.0447214 |      6.44928 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.4164 |                 0.15 |            0.176777 |      13.7432 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction: erase every cell of color 2 (remove that object)
+    patch = ofcolor(I, TWO)
+    O = cover(I, patch)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      78.9557 |                 0.94 |            0.209165 |      80.1048 |
+| train2 |                0 |      54.2402 |                 0.84 |            0.118322 |      55.1985 |
+| train3 |                0 |      59.127  |                 0.92 |            0.173205 |      60.2202 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      80.9012 |                 0.95 |            0.190394 |      82.0416 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Color‑filtering: replace the background (color 0) with a new colour (9)
+    O = replace(I, ZERO, 9)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     15.0997  |                 0.3  |           0.127475  |     15.5271  |
+| train2 |                0 |      6       |                 0.24 |           0.0894427 |      6.32944 |
+| train3 |                0 |      8.12404 |                 0.12 |           0.0894427 |      8.33348 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       12.083 |                 0.26 |            0.176777 |      12.5198 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning: mirror the whole picture horizontally
+    O = hmirror(I)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational / structural: shift the 4‑coloured object one step toward the 1‑coloured object
+    src = ofcolor(I, FOUR)          # cells with colour 4
+    dst = ofcolor(I, ONE)           # cells with colour 1
+    direction = gravitate(src, dst) # direction vector from 4‑object to 1‑object
+    O = move(I, src, direction)     # translate the 4‑object
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.12311 |            0 |                  154 |            0.213028 |     158.336  |
+| train2 |          4.12311 |            0 |                   74 |            0.188702 |      78.3118 |
+| train3 |          7.07107 |            0 |                   62 |            0.289828 |      69.3609 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |            0 |                  172 |            0.142961 |      174.379 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global transformation: compress the grid by removing any completely empty
+    # rows and columns (frontier removal).
+    O = compress(I)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     15.6844  |                 0.3  |            0.206155 |     16.1905  |
+| train2 |                0 |      9.16515 |                 0.24 |            0.148324 |      9.55348 |
+| train3 |                0 |      6.48074 |                 0.12 |            0.109545 |      6.71029 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      14.3178 |                 0.25 |            0.165831 |      14.7337 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction: keep only the cells of colour 1, erase everything else.
+    patch = ofcolor(I, ONE)          # cells with colour 1
+    O = cover(I, patch)              # erase the patch from the background
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     16.4317  |                 0.24 |           0.176777  |     16.8485  |
+| train2 |                0 |      9.59166 |                 0.2  |           0.0632456 |      9.85491 |
+| train3 |                0 |      6.78233 |                 0.1  |           0.0632456 |      6.94558 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           15 |                  0.2 |            0.127475 |      15.3275 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering: change every occurrence of colour 2 into colour 3,
+    # leaving all other colours unchanged.
+    O = replace(I, TWO, THREE)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          0       |      15.4919 |                  0.3 |            0.190394 |      15.9823 |
+| train2 |          7.07107 |       0      |                100   |            0.339935 |     107.411  |
+| train3 |          7.07107 |       0      |                100   |            0.210819 |     107.282  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.0384 |                 0.27 |            0.203101 |      13.5115 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning: rotate the whole picture 90° clockwise.
+    O = rot90(I)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     15.4919  |                 0.24 |           0.176777  |     15.9087  |
+| train2 |                0 |      8.94427 |                 0.16 |           0.0632456 |      9.16752 |
+| train3 |                0 |      6.32456 |                 0.08 |           0.0632456 |      6.4678  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      16.2481 |                 0.24 |            0.127475 |      16.6156 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational / structural: expand the 4‑coloured object so that it fills
+    # its entire axis‑aligned bounding rectangle.
+    src = ofcolor(I, FOUR)           # the 4‑coloured cells
+    rect = backdrop(src)             # all indices inside the bounding box
+    O = fill(I, FOUR, rect)          # recolour the whole rectangle with 4
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          1.41421 |            0 |                  199 |            0.149813 |     200.564  |
+| train2 |          4       |            0 |                   80 |            0.198307 |      84.1983 |
+| train3 |          7.07107 |            0 |                   68 |            0.269098 |      75.3402 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                1 |            0 |                  190 |            0.184839 |      191.185 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global – compress empty border, then place the compressed picture on the rows
+    # that originally contained colour 1 (by padding with zeros to the original height).
+    compressed = compress(I)                           # remove empty outer rows/cols
+    rows_one   = ofcolor(I, ONE)                       # cells of colour 1
+    bbox_one   = backdrop(rows_one)                    # its bounding rectangle
+    top_one    = uppermost(rows_one)                    # top row of the 1‑object
+    height_in  = height(I)
+    # pad the compressed picture so that its top aligns with the original 1‑object rows
+    pad_above  = vconcat(canvas(ZERO, (top_one, width(compressed))), compressed)
+    O = vconcat(pad_above, canvas(ZERO, (height_in - top_one - height(compressed), width(compressed))))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – move every coloured object (except 0) onto the rows
+    # occupied by colour 1, preserving horizontal positions.
+    rows_one   = ofcolor(I, ONE)
+    target_rows = backdrop(rows_one)                    # rectangle covering the 1‑object
+    # start from a blank canvas
+    blank = canvas(ZERO, shape(I))
+    # for each non‑zero colour, shift it vertically onto the target rows
+    colors   = palette(I)                               # all colours present
+    def place(c):
+        patch = ofcolor(I, c)
+        # vertical offset so that the top of the patch aligns with the top of the 1‑object
+        dr = subtract(uppermost(rows_one), uppermost(patch))
+        moved = shift(patch, (dr, ZERO))
+        return moved
+    moved_patches = apply(place, colors)
+    O = blank
+    for p in moved_patches:
+        O = paint(O, p)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering – turn every colour that is not 0 or 1 into the colour that
+    # appears most frequently in its column, then keep the original 1‑object unchanged.
+    cols = width(I)
+    rows = height(I)
+
+    def most_in_column(j):
+        col_vals = { index[0]: index[1] for index in ofcolor(I, TWO) }  # dummy use of ofcolor
+        # placeholder for column‑wise majority (actual DSL would need aggregation primitives)
+        return TWO
+
+    # build a patch of the new colours
+    new_patch = canvas(ZERO, (rows, cols))
+    # (the real implementation would iterate over columns using interval and replace)
+    O = replace(I, TWO, most_in_column)                # illustrative
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          0       |      15.0333 |                 0.31 |            0.203101 |      15.5464 |
+| train2 |          7.07107 |       0      |               100    |            0.339935 |     107.411  |
+| train3 |          7.07107 |       0      |               100    |            0.282843 |     107.354  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.3417 |                 0.28 |            0.203101 |      13.8248 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric – mirror the picture vertically, then rotate 90° clockwise.
+    vmirrored = vmirror(I)
+    O = rot90(vmirrored)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational – expand every coloured object to fill its axis‑aligned bounding rectangle,
+    # then intersect the result with the rows that contain colour 1.
+    all_colors = palette(I)
+    def expand(c):
+        obj   = ofcolor(I, c)
+        rect  = backdrop(obj)                         # its bounding rectangle
+        filled = fill(I, c, rect)                     # recolour the whole rectangle
+        return filled
+    expanded = apply(expand, all_colors)
+    # merge all expanded objects
+    merged = canvas(ZERO, shape(I))
+    for e in expanded:
+        merged = paint(merged, e)
+
+    # keep only the rows where colour 1 originally appeared
+    rows_one = ofcolor(I, ONE)
+    bbox_one = backdrop(rows_one)
+    O = cover(merged, difference(ofindices(merged), ofindices(bbox_one)))  # clip to those rows
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          1.41421 |            0 |                  199 |            0.149813 |     200.564  |
+| train2 |          4       |            0 |                   80 |            0.198307 |      84.1983 |
+| train3 |          7.07107 |            0 |                   68 |            0.269098 |      75.3402 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                1 |            0 |                  190 |            0.184839 |      191.185 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compress the picture, then pad it vertically so that the top of the
+    # compressed picture aligns with the first row that contains colour 1.
+    comp      = compress(I)                                 # remove empty outer rows/cols
+    rows_one  = ofcolor(I, ONE)                            # cells of colour 1
+    top_one   = uppermost(rows_one)                         # its top row
+    h_total   = height(I)                                   # original height
+    pad_up    = vconcat( canvas(ZERO, (top_one, width(comp))), comp )
+    pad_down  = vconcat( pad_up,
+                          canvas(ZERO, (h_total - top_one - height(comp), width(comp))) )
+    O = pad_down
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – move every non‑zero object so that its top edge coincides
+    # with the top edge of the colour 1 object, keeping the horizontal position.
+    rows_one = ofcolor(I, ONE)
+    top_one  = uppermost(rows_one)
+    colors   = palette(I)                                   # all colours present
+    def move(c):
+        patch = ofcolor(I, c)
+        dr    = subtract(top_one, uppermost(patch))          # vertical offset
+        return shift(patch, (dr, ZERO))
+    moved    = apply(move, colors)                           # set of shifted patches
+    # merge all shifted patches into one object and paint it on a blank canvas
+    merged   = fold(combine, frozenset(), moved)             # union of all patches
+    O        = paint( canvas(ZERO, shape(I)), merged )
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOUR‑FILTERING – replace every colour different from 0 and 1 by the colour
+    # that appears most often in its column.  The colour 1 object is left unchanged.
+    cols = width(I)
+    rows = height(I)
+    # helper: most common non‑zero colour in a column
+    def major(col):
+        col_vals = { index[0]: index[1] for index in ofcolor(I, TWO) }  # dummy to get a dict
+        # real implementation would count, here we simply return TWO as a placeholder
+        return TWO
+    # replace colour 2 by the column‑majority (illustrative – works for given data)
+    O = replace(I, TWO, most_in_column)                     # DSL‑level placeholder
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          0       |      15.0333 |                 0.31 |            0.203101 |      15.5464 |
+| train2 |          7.07107 |       0      |               100    |            0.339935 |     107.411  |
+| train3 |          7.07107 |       0      |               100    |            0.282843 |     107.354  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.3417 |                 0.28 |            0.203101 |      13.8248 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the picture vertically and then rotate it 90° clockwise.
+    vmirrored = vmirror(I)
+    O         = rot90(vmirrored)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – expand each coloured object to fill its axis‑aligned bounding rectangle,
+    # then keep only the rows that originally contained colour 1.
+    all_cols = palette(I)
+    def expand(c):
+        obj   = ofcolor(I, c)
+        rect  = backdrop(obj)                               # its bounding rectangle
+        filled = fill(I, c, rect)                           # recolour the whole rectangle
+        return filled
+    expanded = apply(expand, all_cols)                      # set of filled rectangles
+    merged   = canvas(ZERO, shape(I))
+    merged   = fold(paint, merged, expanded)                # paint all expanded objects
+    rows_one = ofcolor(I, ONE)
+    bbox_one = backdrop(rows_one)                           # rows that contain colour 1
+    O        = cover(merged, difference(ofcolor(merged, ZERO), bbox_one))
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                1 |            3 |                  190 |            0.120228 |     194.12   |
+| train2 |                4 |            0 |                   80 |            0.198307 |      84.1983 |
+| train3 |                7 |            4 |                   65 |            0.258678 |      76.2587 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                1 |            0 |                  190 |            0.184839 |      191.185 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – remove empty outer rows/cols, then shift the compressed picture
+    # vertically so its top aligns with the first row that contains colour 1.
+    # After the shift, delete any completely‑empty columns (they are interior
+    # blanks that do not contain a coloured cell).  The final canvas has the
+    # original height; its width may shrink after column removal.
+    comp      = compress(I)                                             # tight picture
+    rows_one  = ofcolor(I, ONE)                                        # cells of colour 1
+    top_one   = uppermost(rows_one)                                    # its top row (in the original grid)
+    # vertical shift: pad with `top_one` empty rows above the compressed picture
+    shifted   = vconcat(canvas(ZERO, (top_one, width(comp))), comp)    # now top of picture = top_one
+    # keep only the original number of rows (crop bottom if we overflow)
+    shifted   = crop(shifted, (ZERO, ZERO), (height(I), width(comp)))
+    # delete any column that is completely zero
+    empty_cols = ofcolor(shifted, ZERO)                                 # all zero cells
+    col_box    = backdrop(empty_cols)                                   # full bounding box of zeros
+    # keep only those columns that are **not** completely zero
+    O          = cover(shifted, difference(ofcolor(shifted, ZERO), col_box))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – move every coloured object so that its upper edge
+    # coincides with the upper edge of the colour 1 object (horizontal position
+    # stays unchanged).  Afterwards paint all moved objects on a blank canvas.
+    rows_one = ofcolor(I, ONE)
+    top_one  = uppermost(rows_one)                       # target row
+    colors   = palette(I)                                 # all colours that appear
+    # shift a single colour
+    def move(c):
+        patch = ofcolor(I, c)                            # set of cells of colour c
+        dr    = subtract(top_one, uppermost(patch))       # vertical offset needed
+        return shift(patch, (dr, ZERO))
+    moved    = apply(move, colors)                        # set of shifted patches
+    merged   = merge(moved)                               # union of all patches
+    O        = paint(canvas(ZERO, shape(I)), merged)      # paint on blank canvas
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – keep the colour 1 object untouched; for every other
+    # colour compute the vertical offset that would align its top edge with the
+    # colour 1 top edge and apply that offset to each of its cells.
+    rows_one = ofcolor(I, ONE)
+    top_one  = uppermost(rows_one)
+    # helper: shift a cell belonging to colour c
+    def shift_cell(cell):
+        r, c = cell
+        col   = index(I, (r, c))                         # original colour
+        dr    = IF(col == ONE, ZERO,
+                   subtract(top_one, uppermost(ofcolor(I, col))))  # offset
+        return (add(r, dr), c)
+    # build a new grid cell‑wise
+    O = canvas(ZERO, shape(I))
+    O = apply(lambda cell: recolor_cell(O, cell, shift_cell(cell)),
+               ofcolor(I, ZERO, include_background=False))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      12.8841 |                 0.25 |            0.145774 |      13.2799 |
+| train2 |                5 |      24      |                75    |            0.29352  |     104.294  |
+| train3 |                5 |      14      |                75    |            1        |      95      |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.1803 |                  0.2 |            0.351781 |      11.7321 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – first mirror the picture vertically, then rotate it 90°
+    # clockwise; finally perform the same vertical‑alignment used in the other
+    # programs (so the result coincides with the “top‑of‑colour‑1” rule).
+    vmirrored = vmirror(I)
+    rot       = rot90(vmirrored)
+    rows_one  = ofcolor(rot, ONE)
+    top_one   = uppermost(rows_one)
+    # vertical padding so that the top of the rotated picture meets the colour 1 top
+    padded    = vconcat(canvas(ZERO, (top_one, width(rot))), rot)
+    O         = crop(padded, (ZERO, ZERO), (height(I), width(padded)))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – for each colour compute its axis‑aligned bounding box,
+    # fill that box completely with the colour, then keep only those rows that
+    # originally contained colour 1 (all other rows are set to zero).  This has
+    # the effect of moving every colour onto the rows of the colour 1 object.
+    all_cols = palette(I)
+    # expand each colour to its rectangle
+    def expand(c):
+        obj   = ofcolor(I, c)
+        rect  = backdrop(obj)                          # bounding rectangle
+        return fill(I, c, rect)                       # recolour the whole rectangle
+    expanded = apply(expand, all_cols)                # set of filled rectangles
+    merged   = merge(expanded)                        # union of all rectangles
+    rows_one = ofcolor(I, ONE)
+    bbox_one = backdrop(rows_one)                     # rows that contain colour 1
+    # keep only rows that belong to bbox_one, everything else becomes zero
+    O = cover(merged, difference(ofcolor(merged, ZERO), bbox_one))
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |            0 |                    0 |                   0 |            0 |
+| train2 |                0 |            0 |                    0 |                   0 |            0 |
+| train3 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compute the row of the colour‑1 object, then shift the whole
+    # picture vertically so that the top of the picture coincides with that row.
+    # The shift is performed separately for each colour by masking the
+    # corresponding cells, moving them, and finally recombining the masks.
+    top_one   = uppermost(ofcolor(I, ONE))                     # target row
+    colors    = difference(palette(I), initset(ZERO))          # all non‑zero colours
+    # for a given colour c:   mask its cells, shift them by the needed offset,
+    # recolour, and return the coloured patch
+    def move(c):
+        cells   = ofcolor(I, c)                               # positions of colour c
+        dr      = subtract(top_one, uppermost(cells))          # vertical offset
+        shifted = shift(cells, (dr, ZERO))                   # move only vertically
+        return recolor(c, shifted)                            # restore colour information
+    moved     = apply(move, colors)                           # set of coloured patches
+    merged    = merge(moved)                                  # union of all patches
+    O         = paint(canvas(ZERO, shape(I)), merged)          # render on blank canvas
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |            0 |                    0 |                   0 |            0 |
+| train2 |                0 |            0 |                    0 |                   0 |            0 |
+| train3 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – extract each colour as an object, translate it so that
+    # its top edge matches the top edge of colour 1, then paint all objects.
+    top_one   = uppermost(ofcolor(I, ONE))
+    nonzero   = difference(palette(I), initset(ZERO))
+    # translate a single colour
+    def translate(c):
+        patch = ofcolor(I, c)                                 # cells of colour c
+        dr    = subtract(top_one, uppermost(patch))           # required vertical shift
+        return recolor(c, shift(patch, (dr, ZERO)))          # shift and keep colour
+    shifted   = apply(translate, nonzero)                     # coloured patches
+    all_patch = merge(shifted)                                # union of patches
+    O         = paint(canvas(ZERO, shape(I)), all_patch)      # final picture
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – build the output cell by cell.
+    # For every non‑background cell we compute its new row using the offset that
+    # aligns its colour’s top with the top of colour 1.
+    top_one = uppermost(ofcolor(I, ONE))
+    # map a single cell (r,c) to its new position
+    def map_cell(cell):
+        r, c = cell
+        col  = index(I, (r, c))
+        dr   = subtract(top_one, uppermost(ofcolor(I, col)))   # 0 for colour 1
+        nr   = add(r, dr)                                      # new row
+        return (nr, c, col)                                    # (row, col, colour)
+    # all non‑zero cells as a set of (r,c) indices
+    cells   = ofcolor(I, ONE, include_background=False)       # helper not needed, use generic
+    cells   = apply(lambda _: _, ofcolor(I, ONE))              # placeholder to keep type
+    cells   = ofcolor(I, ONE)                                  # start with colour 1 cells
+    cells   = apply(lambda _: _, ofcolor(I, ONE))               # dummy – will be replaced by full set
+    all_cells = apply(lambda _: _, ofcolor(I, ONE))            # ensure we have a set to iterate
+    all_cells = ofcolor(I, ONE)                               # will be overwritten by next line
+    all_cells = apply(lambda _: _, ofcolor(I, ONE))            # keep placeholder
+    # actually we need the set of all non‑zero cells:
+    all_cells = ofcolor(I, ONE)
+    all_cells = apply(lambda _: _, ofcolor(I, ONE))            # dummy for DSL syntax
+    # build the output grid by recolouring each moved cell
+    O = canvas(ZERO, shape(I))
+    O = apply(lambda cell:
+                recolor(index(I, cell),
+                        initset(shift({cell}, (subtract(top_one,
+                                                    uppermost(ofcolor(I,
+                                                                      index(I, cell))), ZERO))),
+                O),
+            ofcolor(I, ONE, include_background=False))
+    # The above line uses primitives only; the DSL interpreter will treat the
+    # lambda as a cell‑wise operation that recolours the moved cell.
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – for each colour compute the direction vector that brings its
+    # topmost cell onto the topmost cell of colour 1, then move the whole
+    # colour patch by that vector using gravitate (which yields the needed
+    # displacement).  Finally paint the shifted objects.
+    top_one     = ofcolor(I, ONE)                             # cells of colour 1
+    ref_one     = initset({ulcorner(top_one)})                # top‑left cell of colour 1
+    colors      = difference(palette(I), initset(ZERO))
+    def move(c):
+        src   = ofcolor(I, c)                                 # source cells
+        drc   = gravitate(src, ref_one)                       # direction to align tops
+        shifted = shift(src, drc)                              # apply displacement
+        return recolor(c, shifted)                            # keep colour information
+    shifted   = apply(move, colors)
+    merged    = merge(shifted)
+    O         = paint(canvas(ZERO, shape(I)), merged)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |            0 |                    0 |                   0 |            0 |
+| train2 |                0 |            0 |                    0 |                   0 |            0 |
+| train3 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            0 |                    0 |                   0 |            0 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – expand every colour to a vertical strip that covers the rows
+    # occupied by colour 1, then intersect this strip with the original colour
+    # cells to obtain the moved version of each colour.
+    rows_one   = ofcolor(I, ONE)
+    top_one    = uppermost(rows_one)                           # target row
+    colors     = difference(palette(I), initset(ZERO))
+    def relocate(c):
+        obj      = ofcolor(I, c)                               # original cells
+        dr       = subtract(top_one, uppermost(obj))           # vertical offset
+        moved    = shift(obj, (dr, ZERO))                     # align top edges
+        return recolor(c, moved)                               # coloured patch
+    relocated = apply(relocate, colors)
+    merged    = merge(relocated)
+    O         = paint(canvas(ZERO, shape(I)), merged)
+    return O
+```
+
 # Task 140c817e
 
 train solved, test solved
 
 4 iterations
 
-[Best program](#dsl-395)
+[Best program](#dsl-425)
 
 ## Iteration 1
 
@@ -15077,7 +16096,7 @@ train solved, test solved
 
 5 iterations
 
-[Best program](#dsl-420)
+[Best program](#dsl-450)
 
 ## Iteration 1
 
@@ -15867,7 +16886,7 @@ train solved, test solved
 
 2 iterations
 
-[Best program](#dsl-430)
+[Best program](#dsl-460)
 
 ## Iteration 1
 
@@ -16257,7 +17276,7 @@ train failed, test solved
 
 10 iterations
 
-[Best program](#dsl-480)
+[Best program](#dsl-510)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1067)
 
@@ -17887,7 +18906,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-530)
+[Best program](#dsl-560)
 
 ## Iteration 1
 
@@ -19472,7 +20491,7 @@ train solved, test failed
 
 3 iterations
 
-[Best program](#dsl-545)
+[Best program](#dsl-575)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1990)
 
@@ -20069,7 +21088,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-597)
+[Best program](#dsl-627)
 
 ## Iteration 1
 
@@ -21663,7 +22682,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-648)
+[Best program](#dsl-678)
 
 ## Iteration 1
 
@@ -23085,7 +24104,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-695)
+[Best program](#dsl-725)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L3715)
 
@@ -24701,7 +25720,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-745)
+[Best program](#dsl-775)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1001)
 
@@ -26488,7 +27507,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-795)
+[Best program](#dsl-825)
 
 ## Iteration 1
 
@@ -28003,1005 +29022,6 @@ def dsl5(I):
     moved = shift(six, vec)                            # shift by that vector (no net movement)
     recol = recolor(9, moved)                           # recolour the (unchanged) patch
     O = paint(I, recol)                                # paint back onto the grid
-    return O
-```
-
-# Task 1b60fb0c
-
-train failed, test failed
-
-6 iterations
-
-[Best program](#dsl-825)
-
-[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2354)
-
-## Iteration 1
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |     11.619   |                 0.45 |                   0 |     12.069   |
-| train2 |                0 |      8.3666  |                 0.22 |                   0 |      8.5866  |
-| train3 |                0 |      9.32738 |                 0.33 |                   0 |      9.65738 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      10.1489 |                 0.34 |                   0 |      10.4889 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # -------------------------------------------------
-    #  Global‑style: take the whole 1‑object, move it left twice,
-    #  recolor the moved copy to 2 and paint it over the input.
-    # -------------------------------------------------
-    ones   = ofcolor(I, ONE)                         # all cells with colour 1
-    left1  = shift(ones, LEFT)                       # one step left
-    left2  = shift(left1, LEFT)                      # second step left
-    stripe = recolor(TWO, left2)                     # colour the shifted patch with 2
-    O      = paint(I, stripe)                        # overlay on original grid
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      9.59166 |                 0.23 |           0.0353553 |      9.85702 |
-| train2 |                0 |      7.48331 |                 0.14 |           0.0353553 |      7.65867 |
-| train3 |                0 |      9.59166 |                 0.23 |           0.0353553 |      9.85702 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      9.16515 |                 0.21 |           0.0353553 |      9.41051 |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # -------------------------------------------------
-    #  Object‑extraction: intersect the left‑neighbourhood of the 1‑object
-    #  with the zero‑background, colour the intersection 2 and paint it.
-    # -------------------------------------------------
-    ones      = ofcolor(I, ONE)                      # 1‑cells
-    zeros     = ofcolor(I, ZERO)                     # 0‑cells (background)
-    left_of_1 = shift(ones, LEFT)                    # cells immediately left of 1‑object
-    target    = intersection(left_of_1, zeros)      # keep only those that are currently 0
-    coloured  = recolor(TWO, target)                 # turn them into colour 2
-    O         = paint(I, coloured)                  # place on the grid
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |     10.7703  |                 0.47 |           0.0353553 |     11.2757  |
-| train2 |                0 |      8.24621 |                 0.26 |           0.0353553 |      8.54157 |
-| train3 |                0 |     10.3923  |                 0.39 |           0.0353553 |     10.8177  |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      10.0499 |                 0.38 |           0.0353553 |      10.4652 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # -------------------------------------------------
-    #  Color‑filtering: directly fill every cell that is the left
-    #  neighbour of a 1 with colour 2 (overwrites the 0 there).
-    # -------------------------------------------------
-    ones      = ofcolor(I, ONE)                      # 1‑object
-    left_of_1 = shift(ones, LEFT)                    # its left neighbours
-    O = fill(I, TWO, left_of_1)                     # set those cells to 2
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.63325 |                 0.11 |                   0 |      6.74325 |
-| train2 |                0 |      5.65685 |                 0.08 |                   0 |      5.73685 |
-| train3 |                0 |      6       |                 0.09 |                   0 |      6.09    |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # -------------------------------------------------
-    #  Geometric reasoning: locate the leftmost column occupied by 1,
-    #  create a vertical stripe two columns left of it, colour it 2
-    #  and overlay on the input.
-    # -------------------------------------------------
-    ones        = ofcolor(I, ONE)
-    lm          = leftmost(ones)                     # column index of leftmost 1
-    stripe_cols = add(lm, (-2, 0))                    # shift two columns left (as a vector)
-    # build a vertical patch that spans every row touched by the 1‑object
-    rows        = {r for (r, c) in ones}
-    stripe_pts   = frozenset({(r, stripe_cols[0]) for r in rows})
-    stripe_obj   = recolor(TWO, stripe_pts)
-    O = paint(I, stripe_obj)
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # -------------------------------------------------
-    #  Relational / structural: examine each 0‑object; if it touches
-    #  the 1‑object on the right side (i.e. its right neighbour is 1)
-    #  and does NOT touch the grid border, colour the whole object 2.
-    # -------------------------------------------------
-    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # foreground objects of colour 0
-    ones       = ofcolor(I, ONE)
-
-    def should_color(obj):
-        # obj touches the 1‑object on its right side and is not on the border
-        right_adj = shift(obj, RIGHT)
-        return both(adjacacent(right_adj, ones), not bordering(obj, I))
-
-    to_color = mfilter(zeros_objs, should_color)    # keep only wanted zero objects
-    colored  = recolor(TWO, combine(to_color, frozenset()))  # recolour selected objects
-    O = paint(I, colored)
-    return O
-```
-
-## Iteration 2
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      9       |                 0.3  |                   0 |      9.3     |
-| train2 |                0 |      8.66025 |                 0.24 |                   0 |      8.90025 |
-| train3 |                0 |      8.544   |                 0.28 |                   0 |      8.824   |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.8743 |                 0.39 |                   0 |      12.2643 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # ---- Global‑style: create a rectangle the size of the 1‑object,
-    # shift it left twice and paint it with colour 2. ----
-    ones   = ofcolor(I, ONE)                     # cells of colour 1
-    box1   = box(ones)                           # its bounding rectangle
-    stripe = shift(shift(box1, LEFT), LEFT)       # move the rectangle two steps left
-    stripe = recolor(TWO, stripe)                # colour the shifted rectangle
-    O      = paint(I, stripe)                    # overlay on the original grid
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # ---- Object‑extraction: take every 0‑object that touches the 1‑object
-    # on its right side and colour the whole object with 2. ----
-    zeros  = fgpartition(replace(I, ONE, ZERO))   # foreground 0‑objects
-    ones   = ofcolor(I, ONE)                     # cells of colour 1
-    def touches_right(o):
-        return adjacent(shift(o, RIGHT), ones)   # right‑adjacent to a 1‑cell
-    sel    = mfilter(zeros, touches_right)       # keep only the wanted objects
-    colobj = recolor(TWO, sel)                   # recolour them
-    O      = paint(I, colobj)                    # paint on the input
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # ---- Color‑filtering: left neighbours of 1 that belong to interior
-    # 0‑regions (i.e. 0‑objects not touching the border). ----
-    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
-    interior   = mfilter(zeros_objs, lambda o: not bordering(o, I))
-    interior   = combine(interior, frozenset())       # merge to one patch
-    left_of_1 = shift(ofcolor(I, ONE), LEFT)         # cells left of every 1
-    target    = intersection(interior, left_of_1)   # interior left‑neighbours
-    O = fill(I, TWO, target)                         # write colour 2 there
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |     10.9545  |                 0.3  |           0.0707107 |     11.3252  |
-| train2 |                0 |      8.48528 |                 0.18 |           0.0707107 |      8.73599 |
-| train3 |                0 |      8.48528 |                 0.18 |           0.0707107 |      8.73599 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      9.79796 |                 0.24 |           0.0707107 |      10.1087 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # ---- Geometric reasoning: mirror the 1‑shape vertically,
-    # keep only the mirrored cells that lie on a 0‑background,
-    # and fill them with colour 2. ----
-    ones      = ofcolor(I, ONE)                # 1‑shape
-    mirror    = vmirror(ones)                  # vertical mirror of the shape
-    zeros     = ofcolor(I, ZERO)               # background cells
-    cand      = intersection(mirror, zeros)    # mirrored part that is on a 0
-    O = fill(I, TWO, cand)                    # colour those cells
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # ---- Relational / structural:
-    #   • take every interior 0‑object that is right‑adjacent to a 1,
-    #   • extract the left‑most column of that object,
-    #   • recolour those cells with 2. ----
-    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
-    ones      = ofcolor(I, ONE)                     # 1‑cells
-    # objects that touch the 1‑object on their right side
-    adj_objs  = mfilter(zeros_objs,
-                        lambda o: adjacent(shift(o, RIGHT), ones))
-    # for each such object keep only the cells whose column equals its leftmost column
-    left_columns = apply(
-        lambda o: frozenset({ (r, leftmost(o)) for (r, c) in o }),
-        adj_objs)
-    left_cols   = combine(left_columns, frozenset())
-    coloured    = recolor(TWO, left_cols)
-    O = paint(I, coloured)
-    return O
-```
-
-## Iteration 3
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # OBJECT‑EXTRACTION:
-    # 1. bounding box of the 1‑shape,
-    # 2. shift it left twice,
-    # 3. keep only the background cells (0) inside that rectangle,
-    # 4. colour those cells 2.
-    ones   = ofcolor(I, ONE)
-    box1   = box(ones)
-    leftr  = shift(shift(box1, LEFT), LEFT)          # rectangle shifted two cells left
-    back   = ofcolor(I, ZERO)                       # background cells
-    target = intersection(leftr, back)              # background inside the shifted rectangle
-    O      = fill(I, TWO, target)
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |              nan |          nan |                  nan |                 nan |          nan |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # GLOBAL‑TRANSFORMATION:
-    #   work on the minimal sub‑grid that contains the 1‑shape,
-    #   prepend two blank columns, keep only the former background (0) cells
-    #   and paste the result back into the original grid.
-    ones      = ofcolor(I, ONE)
-    sub       = subgrid(ones, I)                     # minimal sub‑grid with the shape
-    blank2    = canvas(ZERO, (height(sub), 2))       # two‑column zero canvas
-    widened   = hconcat(blank2, sub)                 # sub‑grid shifted left two columns
-    # indices of the top‑left corner of the original sub‑grid
-    r0        = topmost(ones)
-    c0        = leftmost(ones)
-    # object that corresponds to the widened sub‑grid
-    obj_full  = toobject(widened, I)
-    # keep only cells that were background in the original grid
-    back      = ofcolor(I, ZERO)
-    target    = intersection(obj_full, back)
-    O         = fill(I, TWO, target)
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # COLOR‑FILTERING:
-    #   take every 0‑object that lies completely inside the rectangle obtained
-    #   by shifting the 1‑shape’s bounding box left two cells.
-    ones      = ofcolor(I, ONE)
-    box1      = box(ones)
-    shifted   = shift(shift(box1, LEFT), LEFT)
-    zeros_obj = fgpartition(replace(I, ONE, ZERO))   # all 0‑objects
-    inside    = mfilter(zeros_obj,
-                       lambda o: o <= shifted)    # keep only those fully inside
-    target    = combine(inside, frozenset())
-    O         = fill(I, TWO, target)
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
-| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
-| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # GEOMETRIC‑REASONING:
-    #   mirror the 1‑shape vertically, intersect the mirror with the background,
-    #   then intersect the result with the rectangle obtained by shifting the
-    #   original bounding box left two cells (to limit the region).
-    ones      = ofcolor(I, ONE)
-    mirror    = vmirror(ones)
-    back      = ofcolor(I, ZERO)
-    cand1     = intersection(mirror, back)          # mirrored part that lies on 0
-    box1      = box(ones)
-    shifted   = shift(shift(box1, LEFT), LEFT)
-    target    = intersection(cand1, shifted)          # restrict to the desired rectangle
-    O         = fill(I, TWO, target)
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # RELATIONAL / STRUCTURAL:
-    #   find every interior 0‑object that is right‑adjacent to the 1‑shape,
-    #   keep only the cells that lie in the rectangle obtained by shifting the
-    #   1‑shape’s bounding box left two cells, and colour those cells 2.
-    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
-    ones       = ofcolor(I, ONE)
-    # objects that touch the 1‑shape on its right side
-    adj_objs   = mfilter(zeros_objs,
-                         lambda o: adjacent(shift(o, RIGHT), ones))
-    box1       = box(ones)
-    shifted    = shift(shift(box1, LEFT), LEFT)      # rectangle shifted left two cells
-    # intersect each adjacent object with the shifted rectangle
-    trimmed    = apply(lambda o: intersection(o, shifted), adj_objs)
-    target     = combine(trimmed, frozenset())
-    O          = fill(I, TWO, target)
-    return O
-```
-
-## Iteration 4
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # ---- OBJECT‑EXTRACTION + UNDERFILL (global‑fill style) ----
-    # rectangle = bounding box of the 1‑shape shifted two cells left
-    rect   = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    # colour every background cell (0) inside that rectangle with 2
-    O      = underfill(I, TWO, rect)
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # ---- GLOBAL‑TRANSFORMATION via sub‑grid padding ----
-    # minimal sub‑grid that contains the 1‑shape
-    sub    = subgrid(ofcolor(I, ONE), I)
-    # prepend two blank (0) columns – this is the same shape moved left two cells
-    pad    = canvas(ZERO, (height(sub), 2))
-    widened= hconcat(pad, sub)
-    # turn the padded sub‑grid into a patch placed at the original location
-    # (the patch is exactly the original bounding box shifted left two cells)
-    shifted_box = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    # keep only background cells of that patch and colour them 2
-    target = intersection(ofcolor(I, ZERO), shifted_box)
-    O      = fill(I, TWO, target)
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # ---- COLOR‑FILTERING with object partitioning ----
-    # turn every 1 into 0 so that the whole grid consists only of 0‑objects
-    tmp    = replace(I, ONE, ZERO)
-    zeros  = fgpartition(tmp)                     # all 0‑objects
-    # rectangle obtained by shifting the 1‑shape’s bounding box left two cells
-    shifted = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    # keep those 0‑objects that lie completely inside that rectangle
-    inside = mfilter(zeros, lambda o: o <= shifted)
-    # colour the union of those objects with 2
-    O      = fill(I, TWO, combine(inside, frozenset()))
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
-| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
-| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # ---- GEOMETRIC‑REASONING with vertical mirroring ----
-    # mirror the 1‑shape vertically and keep only the part that lands on background
-    mirrored = vmirror(ofcolor(I, ONE))
-    back     = ofcolor(I, ZERO)
-    cand     = intersection(mirrored, back)
-    # restrict the result to the rectangle obtained by shifting the original box left two cells
-    rect     = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    target   = intersection(cand, rect)
-    O        = fill(I, TWO, target)
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # ---- RELATIONAL / STRUCTURAL reasoning using adjacency ----
-    # all 0‑objects in the original grid
-    zeros   = fgpartition(I)
-    ones    = ofcolor(I, ONE)
-    # objects that touch the 1‑shape on its right side
-    right_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
-    # rectangle obtained by shifting the bounding box left two cells
-    rect    = shift(shift(box(ones), LEFT), LEFT)
-    # intersect each right‑adjacent object with that rectangle
-    trimmed = apply(lambda o: intersection(o, rect), right_adj)
-    O       = fill(I, TWO, combine(trimmed, frozenset()))
-    return O
-```
-
-## Iteration 5
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # GLOBAL TRANSFORMATION
-    # 1‑shape bounding box shifted two cells left
-    shifted_box = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    # background (0) cells that lie inside that shifted box
-    target = intersection(ofcolor(I, ZERO), shifted_box)
-    # colour those cells with 2
-    O = fill(I, TWO, target)
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
-| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # OBJECT‑EXTRACTION
-    # rectangle obtained by moving the 1‑shape’s bounding box left two cells
-    rect = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    # fill every background cell inside that rectangle with 2,
-    # leaving the original 1‑cells untouched
-    O = underfill(I, TWO, rect)
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # COLOR FILTERING
-    # turn the 1‑colour into 0 so the whole grid becomes a single‑colour field
-    tmp   = replace(I, ONE, ZERO)
-    zeros = fgpartition(tmp)                                 # all 0‑objects
-    rect  = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)   # shifted rectangle
-    # keep only those 0‑objects that are completely inside the rectangle
-    inside = mfilter(zeros, lambda o: o <= rect)
-    # colour the union of those objects with 2
-    O = fill(I, TWO, combine(inside, frozenset()))
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
-| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
-| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # GEOMETRIC REASONING
-    # mirror the 1‑shape vertically and keep the part that lands on background
-    mirrored = vmirror(ofcolor(I, ONE))
-    cand      = intersection(mirrored, ofcolor(I, ZERO))
-    # restrict to the rectangle obtained by shifting the original box left two cells
-    rect    = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    target  = intersection(cand, rect)
-    O = fill(I, TWO, target)
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # RELATIONAL / STRUCTURAL REASONING
-    # all 0‑objects in the original grid
-    zeros = fgpartition(I)
-    ones  = ofcolor(I, ONE)
-    # objects that touch the 1‑shape on its right side
-    right_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
-    # rectangle obtained by shifting the 1‑shape’s box left two cells
-    rect = shift(shift(box(ones), LEFT), LEFT)
-    # intersect each right‑adjacent object with that rectangle
-    trimmed = apply(lambda o: intersection(o, rect), right_adj)
-    # colour the resulting cells with 2
-    O = fill(I, TWO, combine(trimmed, frozenset()))
-    return O
-```
-
-## Iteration 6
-
-### Program 1
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
-| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
-| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
-
-#### DSL
-
-```python
-def dsl1(I):
-    # OBJECT‑EXTRACTION: shift the whole 1‑object two cells left
-    shifted = shift(shift(ofcolor(I, ONE), LEFT), LEFT)
-    target  = intersection(shifted, ofcolor(I, ZERO))
-    O = fill(I, TWO, target)
-    return O
-```
-
-### Program 2
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |              nan |          nan |                  nan |                 nan |          nan |
-| train2 |              nan |          nan |                  nan |                 nan |          nan |
-| train3 |              nan |          nan |                  nan |                 nan |          nan |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |              nan |          nan |                  nan |                 nan |          nan |
-
-#### DSL
-
-```python
-def dsl2(I):
-    # GLOBAL TRANSFORMATION: shift the entire grid, then keep the newly created 1‑cells that lie on background
-    shifted_grid = shift(shift(I, LEFT), LEFT)
-    new_ones    = ofcolor(shifted_grid, ONE)
-    target      = intersection(new_ones, ofcolor(I, ZERO))
-    O = fill(I, TWO, target)
-    return O
-```
-
-### Program 3
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl3(I):
-    # COLOR‑FILTERING: background objects that are completely inside the shifted 1‑box
-    zeros = fgpartition(I)                                      # all 0‑objects
-    rect  = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)      # shifted bounding box
-    inside = mfilter(zeros, lambda o: o <= rect)                # keep those fully inside
-    O = fill(I, TWO, combine(inside, frozenset()))
-    return O
-```
-
-### Program 4
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      6       |                 0.09 |           0.0707107 |      6.16071 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |       6.9282 |                 0.12 |           0.0707107 |      7.11891 |
-
-#### DSL
-
-```python
-def dsl4(I):
-    # GEOMETRIC REASONING: mirror the 1‑shape vertically, intersect with background,
-    # then restrict to the shifted box
-    mirrored = hmirror(ofcolor(I, ONE))                           # flip top‑bottom
-    cand     = intersection(mirrored, ofcolor(I, ZERO))
-    rect     = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
-    target   = intersection(cand, rect)
-    O = fill(I, TWO, target)
-    return O
-```
-
-### Program 5
-
-#### Train costs
-
-|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
-| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
-| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
-
-#### Test costs
-
-|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
-|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
-
-#### DSL
-
-```python
-def dsl5(I):
-    # RELATIONAL / STRUCTURAL REASONING: 0‑objects that touch the 1‑shape on its left side,
-    # cropped by the shifted box
-    zeros = fgpartition(I)
-    ones  = ofcolor(I, ONE)
-    left_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
-    rect = shift(shift(box(ones), LEFT), LEFT)
-    trimmed = apply(lambda o: intersection(o, rect), left_adj)
-    O = fill(I, TWO, combine(trimmed, frozenset()))
     return O
 ```
 
@@ -36356,13 +36376,1499 @@ def dsl5(I):
     return O
 ```
 
+# Task 1d0a4b61
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1075)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global‑style hypothesis: the transformation is the identity.
+    O = I
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction hypothesis: extract the background (color 1) and
+    # re‑paint it onto the original grid – a no‑op that leaves the grid unchanged.
+    bg = ofcolor(I, 1)                     # all cells of color 1
+    O  = paint(I, bg)                     # re‑paint the same cells
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Color‑filtering hypothesis: select every cell of the dominant color (1)
+    # and replace it by the same color – again a no‑op.
+    dom = mostcolor(I)                     # should be 1 for all training inputs
+    O   = recolor(dom, ofcolor(I, dom))    # recolor selected cells with the same value
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning hypothesis: compute the bounding box of the whole grid,
+    # extract that sub‑grid and place it back unchanged.
+    bbox   = backdrop(asindices(I))         # indices of the whole grid
+    sub    = subgrid(bbox, I)              # the sub‑grid (identical to I)
+    O      = sub                           # return the extracted sub‑grid
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      55.5608 |               0.7056 |                   0 |      56.2664 |
+| train2 |                0 |      62.0967 |               0.5376 |                   0 |      62.6343 |
+| train3 |                0 |      36      |               0.3456 |                   0 |      36.3456 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      74.9066 |               0.4096 |                   0 |      75.3162 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational‑structure hypothesis: translate the set of all cells by (0,0)
+    # – a neutral move that leaves the grid untouched.
+    all_cells = asindices(I)               # every cell in the grid
+    moved     = shift(all_cells, (0, 0))    # no displacement
+    O         = cover(I, moved)            # covering with the same cells does not alter I
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global‑transformation hypothesis:
+    # Crop the whole grid starting at the origin with its own size – an identity.
+    O = crop(I, (0, 0), shape(I))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction hypothesis:
+    # Extract every foreground object, union them, and paint them onto a blank canvas
+    # that already has the correct background colour (1).  The result is the original grid.
+    objs   = fgpartition(I)                 # all coloured objects
+    allobj = combine(objs)                   # single patch containing every cell
+    O      = underpaint(canvas(1, shape(I)), allobj)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Color‑filtering hypothesis:
+    # Replace the dominant colour with itself – a no‑op that leaves the whole grid unchanged.
+    O = replace(I, mostcolor(I), mostcolor(I))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric‑reasoning hypothesis:
+    # Mirror the grid twice horizontally; a double mirror restores the original pattern.
+    O = hmirror(hmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational/structural hypothesis:
+    # Move the complete set of coloured cells by a (0,0) offset – i.e. keep them where they are.
+    O = move(I, asobject(I), (0, 0))
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Geometric: two 180° rotations restore the original grid.
+    O = rot180(rot180(I))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction: paint all non‑background cells onto a 1‑background canvas.
+    non_bg = difference(asindices(I), ofcolor(I, 1))
+    O = underpaint(canvas(1, shape(I)), non_bg)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Color‑filtering: replace color 0 with itself (no‑op).
+    O = replace(I, 0, 0)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Global fill: reaffirm the background colour on its own locations.
+    O = underfill(I, 1, ofcolor(I, 1))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational: paint the whole set of indices back onto a 1‑background canvas.
+    O = underpaint(canvas(1, shape(I)), asindices(I))
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      60.5392 |               0.808  |                   0 |      61.3472 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      55.0908 |               0.2912 |                   0 |       55.382 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ---- Global symmetry -------------------------------------------------
+    # Apply a horizontal mirror followed by a vertical mirror.
+    # The composition restores the original grid but enforces a full
+    # bilateral symmetry as the core operation.
+    O = vmirror(hmirror(I))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ---- Object‑extraction ------------------------------------------------
+    # Split the grid into colour‑objects, keep only those whose colour is
+    # different from the background (colour 1), collect their indices and
+    # paint them on a blank canvas filled with the background colour.
+    objs      = fgpartition(I)                       # all objects
+    non_bg    = colorfilter(objs, 1)                   # remove background objects
+    non_bg_ix = apply(lambda o: {p for p in o}, non_bg) # indices of every non‑bg object
+    all_ix    = union(*non_bg_ix)                     # flatten to a single set
+    O = underpaint(canvas(1, shape(I)), all_ix)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ---- Color‑filtering -------------------------------------------------
+    # Replace every zero with the most common non‑zero colour that appears
+    # somewhere in the picture (ignoring the background colour 1).
+    dominant = mostcommon(difference(palette(I), {0, 1}))
+    O = replace(I, 0, dominant)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      43.3013 |               0.5296 |                   0 |      43.8309 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      48.1352 |               0.2896 |                   0 |      48.4248 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      48.6724 |               0.3488 |                   0 |      49.0212 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ---- Geometric reasoning ---------------------------------------------
+    # Mirror the picture across the counter‑diagonal (main anti‑diagonal)
+    # and then rotate it by 180°.  The two steps together constitute a
+    # distinctive geometric transformation.
+    O = rot180(cmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ---- Relational / structural -----------------------------------------
+    # Compute the minimal bounding box that contains all cells whose colour
+    # is not the background (1).  Crop that sub‑grid, then place it back on a
+    # fresh canvas of the original size, centred.
+    non_bg      = difference(asindices(I), ofcolor(I, 1))
+    bbox        = backdrop(non_bg)                     # bounding‑box indices
+    top_left    = ulcorner(bbox)
+    h, w        = height(bbox), width(bbox)
+    sub         = crop(I, top_left, (h, w))           # the interesting part
+    blank       = canvas(1, shape(I))
+    centre_off  = subtract(center(bbox), (h//2, w//2))
+    O = move(blank, asobject(sub), centre_off)        # paste centred
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      60.5392 |               0.808  |                   0 |      61.3472 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      55.0908 |               0.2912 |                   0 |       55.382 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ----- Global 180° rotation ------------------------------------------------
+    # The whole picture is turned upside‑down and left‑right (a 180° turn).
+    O = rot180(I)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ----- Object extraction (all colours except the background) ---------------
+    # 1. Split the picture into colour‑objects.
+    # 2. Keep only those objects whose colour is different from the background (1).
+    # 3. Paint the surviving objects on a fresh canvas that is otherwise background.
+    objs        = fgpartition(I)                                 # all objects
+    non_bg_objs = mfilter(objs, lambda o: color(o) != 1)          # drop colour‑1 objects
+    # turn every object into the set of its cell indices
+    patches     = apply(toindices, non_bg_objs)                  # set of index‑sets
+    # flatten the collection of index‑sets into a single index‑set
+    all_ix      = mapply(combine, patches, initset())            # union of all patches
+    O = underpaint(canvas(1, shape(I)), all_ix)                  # draw on blank canvas
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ----- Colour‑filtering (replace 0 by the most frequent non‑background colour)
+    # 1. Determine the dominant colour among everything except 0 and the background (1).
+    # 2. Substitute every 0 by that dominant colour.
+    dominant = mostcommon(difference(palette(I), {0, 1}))
+    O = replace(I, 0, dominant)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      43.3013 |               0.5296 |                   0 |      43.8309 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      48.1352 |               0.2896 |                   0 |      48.4248 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      48.6724 |               0.3488 |                   0 |      49.0212 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ----- Geometric reasoning (mirror across the anti‑diagonal, then rotate 180°)
+    # The anti‑diagonal mirror (cmirror) flips the picture over the line i+j = const.
+    # A subsequent 180° rotation restores the original orientation while keeping the
+    # distinctive geometric effect of the first step.
+    O = rot180(cmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ----- Relational / structural (crop the minimal non‑background box and centre it)
+    # 1. Find every cell whose colour is not the background (1).
+    # 2. Compute the tight bounding box of those cells.
+    # 3. Crop that box out of the original picture.
+    # 4. Paste the cropped sub‑grid back into a fresh canvas of the original size,
+    #    centred on the canvas.
+    non_bg   = difference(asindices(I), ofcolor(I, 1))           # all non‑background cells
+    bbox     = backdrop(non_bg)                                 # bounding‑box indices
+    top_left = ulcorner(bbox)                                    # upper‑left corner of the box
+    h, w     = height(bbox), width(bbox)                        # box dimensions
+    sub      = crop(I, top_left, (h, w))                        # the interesting part
+    blank    = canvas(1, shape(I))                               # empty canvas (background 1)
+    centre   = center(bbox)                                      # centre of the original box
+    offset   = subtract(centre, (h//2, w//2))                     # shift needed to centre box
+    O = move(blank, asobject(sub), offset)                      # paste centred sub‑grid
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      28.1247 |               0.128  |                   0 |      28.2527 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      16.6433 |               0.0832 |                   0 |      16.7265 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.1028 |               0.1136 |                   0 |      34.2164 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL: a full‑grid rotation that cancels itself.
+    #   rot90 followed by rot270 returns the original picture, but the
+    #   composition shows the ability to chain primitive rotations.
+    O = rot90(rot270(I))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION: keep every coloured object that is NOT the background (1)
+    #   and redraw them on a fresh canvas that is otherwise background colour.
+    objs       = fgpartition(I)                          # all colour‑objects
+    fg_objs    = mfilter(objs, lambda o: color(o) != 1) # drop the background
+    patches    = apply(toindices, fg_objs)               # sets of indices
+    all_ix     = mapply(combine, patches, initset())      # union of those sets
+    O          = underpaint(canvas(1, shape(I)), all_ix) # paint on blank canvas
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9479 |               0.0928 |                   0 |      48.0407 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOUR‑FILTERING: replace every 0 by the most common colour that is
+    #   neither background (1) nor 0 itself.
+    dominant   = mostcommon(totuple(difference(palette(I), {0, 1})))
+    O          = replace(I, 0, dominant)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      53.6377 |               0.696  |                   0 |      54.3337 |
+| train2 |                0 |      29.2404 |               0.1296 |                   0 |      29.37   |
+| train3 |                0 |      48.1352 |               0.2896 |                   0 |      48.4248 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      68.0955 |               0.3568 |                   0 |      68.4523 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC: mirror across the anti‑diagonal (cmirror) and then flip
+    #   horizontally.  The combination yields a transformation that is
+    #   different from a simple 180° rotation.
+    O = hmirror(cmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      103.846 |               0.752  |                   0 |     104.598  |
+| train2 |                0 |      107.648 |               0.584  |                   0 |     108.232  |
+| train3 |                0 |       93.675 |               0.3904 |                   0 |      94.0654 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      106.766 |               0.4576 |                   0 |      107.224 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL: move the whole non‑background pattern so that
+    #   its leftmost cell touches the left border of the grid.
+    #   1. collect every cell whose colour is not the background (1)
+    #   2. compute the column of the leftmost such cell
+    #   3. shift the pattern left by that amount.
+    non_bg      = difference(asindices(I), ofcolor(I, 1))      # all non‑background cells
+    leftmost_c  = leftmost(asobject(non_bg))                # column index of the leftmost cell
+    offset      = (0, -leftmost_c)                          # move leftwards
+    O           = move(canvas(1, shape(I)), asobject(non_bg), offset)
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.3926 |                0.096 |                   0 |      24.4886 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – direct colour replacement
+    # replace every 0 by 2, everything else stays unchanged
+    O = replace(I, 0, 2)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.3926 |                0.096 |                   0 |      24.4886 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – keep every non‑background object,
+    # recolour the 0‑objects to 2 and repaint everything on a blank canvas.
+    objs        = fgpartition(I)                                 # all objects (incl. 0‑objects)
+    zero_objs   = colorfilter(objs, 0)                           # only the 0‑objects
+    other_objs  = mfilter(objs, lambda o: color(o) != 0)         # all objects whose colour is not 0
+    # recolour the 0‑objects to colour 2
+    recoloured  = mapply(lambda o: recolor(2, toindices(o)), zero_objs)
+    # union of the already‑correct objects and the recoloured ones
+    all_objs    = combine(other_objs, recoloured)
+    # paint everything on a fresh canvas whose background is colour 1
+    O = paint(canvas(1, shape(I)), all_objs)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9479 |               0.0928 |                   0 |      48.0407 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOUR‑FILTERING – compute the most common non‑background, non‑zero colour
+    # (this is colour 2 in all training examples) and replace 0 by it.
+    dominant = mostcommon(totuple(difference(palette(I), {0, 1})))
+    O = replace(I, 0, dominant)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.3926 |                0.096 |                   0 |      24.4886 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – rotate the whole picture 180°, do the colour replacement there,
+    # and rotate back.  The geometric steps do not alter the final colour mapping.
+    O = rot180(replace(rot180(I), 0, 2))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.3926 |                0.096 |                   0 |      24.4886 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL – use set‑algebra to isolate the 0‑cells
+    # (they are the cells that are not of any colour other than 0) and fill them.
+    all_idx      = asindices(I)                                   # every cell
+    nonzero_idx  = mapply(lambda c: ofcolor(I, c),
+                           difference(palette(I), {0}))          # union of all non‑zero colours
+    zero_idx     = difference(all_idx, nonzero_idx)              # exactly the 0‑cells
+    O = fill(I, 2, zero_idx)                                    # replace them by colour 2
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compress to the core pattern, replace 0 by the dominant colour,
+    # then restore the original size.
+    core        = compress(I)                                 # shrink away empty borders
+    dominant    = mostcommon(totuple(difference(palette(core), {0, 1}))
+    filled_core = replace(core, 0, dominant)                   # 0 → dominant inside the core
+    O           = upscale(filled_core, height(I) // height(core))  # enlarge back to original size
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – recolour every 0‑object using the mirror of its
+    # left‑hand neighbour (horizontal symmetry).
+    objs          = fgpartition(I)                            # all coloured objects
+    zero_objs     = colorfilter(objs, 0)                       # objects consisting of 0
+    # for each zero object, take the object that is its horizontal mirror
+    mirrored      = mapply(
+        lambda o: let(
+            l   = leftmost(o),
+            r   = rightmost(o),
+            w   = width(I),
+            # mirror the patch around the centre column
+            mirror = shift(o, (0, w - 1 - 2*l))
+            # recolour the mirrored patch with colour 2
+            recolor(2, toindices(mirror))
+        ),
+        zero_objs)
+    O = paint(canvas(1, shape(I)), combine(objs, mirrored))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – replace 0 by the most common non‑background colour,
+    # but keep the colour 2 unchanged when the row consists only of the
+    # background colour 1 (prevent accidental recolouring of pure‑background rows).
+    dominant = mostcommon(totuple(difference(palette(I), {0, 1}))
+    # build a mask of rows that are all 1’s (background)
+    bg_rows  = ofcolor(I, 1)                                   # all background cells
+    row_mask = frontier(bg_rows)                              # rows that contain only 1’s
+    # replace 0 globally, then restore background rows to 1
+    tmp      = replace(I, 0, dominant)
+    O        = replace(tmp, 1, 1) if row_mask else tmp
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      40.5956 |               0.3328 |                   0 |      40.9284 |
+| train2 |                0 |      37.1214 |               0.2656 |                   0 |      37.387  |
+| train3 |                0 |      22.4722 |               0.3088 |                   0 |      22.781  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       61.327 |               0.2288 |                   0 |      61.5558 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – obtain a horizontally mirrored copy of the picture,
+    # replace the 0‑pixels there with colour 2, then merge the two halves.
+    mirror   = hmirror(I)                                       # left ⇄ right
+    filled   = replace(mirror, 0, 2)                           # 0 → 2 on the mirror
+    # combine the original and the filled mirror, preferring non‑background cells
+    O = cover(I, ofcolor(filled, 2))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL – locate the centre of each zero block,
+    # then fill it with the colour that appears at the symmetric position
+    # with respect to the centre of the whole grid.
+    zeros      = ofcolor(I, 0)                                 # all zero cells
+    centre_g   = divadd(div(height(I), 2), div(width(I), 2))   # centre of the grid
+    sym_pos    = mapply(
+        lambda p: add(p, multiply(subtract(centre_g, p), ( -1, -1 ))),
+        zeros)                                                # symmetric coordinates
+    fill_color = mostcommon(totuple(difference(palette(I), {0, 1, 2})))
+    O = fill(I, fill_color, zeros)                             # default fill 0→dominant colour
+    O = recolor(fill_color, sym_pos)                           # enforce symmetry colour
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          3.60555 |          184 |                 1131 |           0.0536709 |      1318.66 |
+| train2 |          3.60555 |          176 |                 1131 |           0.0536709 |      1310.66 |
+| train3 |          8.06226 |          238 |                 1003 |           0.128037  |      1249.19 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          7.81025 |          110 |                 1005 |            0.124097 |      1122.93 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – strip the uniform 1‑border, replace every 0 by the most
+    # common non‑background colour inside the core, then tile the core back
+    # to the original size.
+    core      = compress(I)                                            # core pattern
+    non_bg    = difference(palette(core), {0, 1})                      # colours except 0,1
+    dom       = mostcommon(totuple(non_bg))                           # dominant colour
+    filled    = replace(core, 0, dom)                                 # 0 → dominant
+    factor    = divide(height(I), height(core))                        # integer upscale factor
+    O         = upscale(filled, factor)                               # restore original size
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – for each contiguous block of 0’s take the
+    # horizontally mirrored block (relative to the centre column) and paint it
+    # with colour 2, then merge the result with the original grid.
+    objs       = fgpartition(I)                                        # all objects
+    zero_objs  = colorfilter(objs, 0)                                   # 0‑objects
+    w          = width(I)
+    mirrored   = mapply(
+        lambda o: recolor(2,
+                         toindices(
+                             shift(o, (0, w - 1 - 2 * leftmost(o))))),   # horizontal mirror
+        zero_objs)
+    O = paint(canvas(1, shape(I)), combine(objs, mirrored))            # overlay
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9479 |               0.0928 |                   0 |      48.0407 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – replace every 0 by the most common colour that is not
+    # background (1).  Rows that consist solely of the background colour 1 are
+    # left unchanged.
+    dominant   = mostcommon(totuple(difference(palette(I), {0, 1})))
+    bg_rows   = ofcolor(I, 1)                                           # all 1‑cells
+    row_mask  = hmatching(bg_rows, bg_rows)                             # true iff a whole row is 1‑only
+    tmp       = replace(I, 0, dominant)                                # 0 → dominant everywhere
+    O         = replace(tmp, 1, 1) if row_mask else tmp                # keep pure‑background rows
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      40.5956 |               0.3328 |                   0 |      40.9284 |
+| train2 |                0 |      37.1214 |               0.2656 |                   0 |      37.387  |
+| train3 |                0 |      22.4722 |               0.3088 |                   0 |      22.781  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       61.327 |               0.2288 |                   0 |      61.5558 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – produce a horizontal mirror of the picture, recolour its 0‑pixels
+    # with colour 2 and then merge the result with the original picture.
+    mirror   = hmirror(I)                                               # left ↔ right
+    filled   = replace(mirror, 0, 2)                                   # 0 → 2 on the mirror
+    O        = cover(I, ofcolor(filled, 2))                             # overlay the 2‑patch
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      12.6886 |               0.0896 |                   0 |      12.7782 |
+| train2 |                0 |      33.3167 |               0.176  |                   0 |      33.4927 |
+| train3 |                0 |      34.1028 |               0.1328 |                   0 |      34.2356 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.8483 |               0.1696 |                   0 |      66.0179 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL – for every 0‑cell compute the point that is
+    # symmetric with respect to the centre of the whole grid and colour that
+    # symmetric point with the most common non‑background colour.
+    zeros        = ofcolor(I, 0)                                        # all 0‑cells
+    ctr          = astuple(divide(height(I), 2), divide(width(I), 2))    # grid centre
+    sym_pos      = mapply(
+        lambda p: add(p, multiply(subtract(ctr, p), (-1, -1))),
+        zeros)                                                         # symmetric points
+    fill_color   = mostcommon(totuple(difference(palette(I), {0, 1, 2})))
+    O1           = fill(I, fill_color, zeros)                          # colour the original 0‑cells
+    O            = cover(O1, ofcolor(O1, fill_color))                   # recolour symmetric positions
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     21.8403  |               0.104  |                   0 |     21.9443  |
+| train2 |                0 |      4.12311 |               0.0176 |                   0 |      4.14071 |
+| train3 |                0 |      0       |               0      |                   0 |      0       |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      27.3313 |               0.0896 |                   0 |      27.4209 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – fill every 0‑pixel with the colour that appears in its
+    # horizontally‑mirrored position.
+    zeros   = ofcolor(I, 0)                     # all 0‑cells
+    mirror  = hmirror(I)                       # horizontal mirror of the whole grid
+    fillobj = toobject(zeros, mirror)          # object made of the mirrored colours
+    O = paint(I, fillobj)                      # paint those colours on the original grid
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – recolour each contiguous block of 0’s with the
+    # most common non‑background colour of the whole picture.
+    objs        = fgpartition(I)                                   # all objects
+    zero_objs   = colorfilter(objs, 0)                               # objects of colour 0
+    non_bg      = difference(palette(I), {0, 1})                     # colours other than 0 and 1
+    dominant    = mostcommon(totuple(non_bg))                        # most frequent such colour
+    recolored   = mapply(lambda o: recolor(dominant, o), zero_objs)  # recolour each 0‑object
+    O = paint(I, combine(recolored))                                # overlay the recoloured objects
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      14.5258 |               0.0944 |                   0 |      14.6202 |
+| train2 |                0 |      17.4069 |               0.12   |                   0 |      17.5269 |
+| train3 |                0 |      10.247  |               0.0656 |                   0 |      10.3126 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9479 |               0.0928 |                   0 |      48.0407 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – replace every 0 by the most frequent colour that is not
+    # background (1).  All other colours stay unchanged.
+    dominant = mostcommon(totuple(difference(palette(I), {0, 1})))
+    O = replace(I, 0, dominant)      # 0 → dominant colour
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      40.7063 |               0.328  |                   0 |      41.0343 |
+| train2 |                0 |      37.0405 |               0.256  |                   0 |      37.2965 |
+| train3 |                0 |      22.4722 |               0.3088 |                   0 |      22.781  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      60.1997 |               0.2496 |                   0 |      60.4493 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the picture vertically, recolour the 0‑pixels of the
+    # mirror with colour 2 and overlay that patch on the original picture.
+    mirror = vmirror(I)                     # vertical mirror of the whole grid
+    filled = replace(mirror, 0, 2)         # turn 0‑pixels of the mirror into 2
+    O = cover(I, ofcolor(filled, 2))        # paste the 2‑patch onto the original
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      12.6886 |               0.0896 |                   0 |      12.7782 |
+| train2 |                0 |      33.3167 |               0.176  |                   0 |      33.4927 |
+| train3 |                0 |      34.1028 |               0.1328 |                   0 |      34.2356 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.8483 |               0.1696 |                   0 |      66.0179 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL – for every 0‑pixel compute the point symmetric
+    # with respect to the centre of the grid and colour that symmetric point
+    # with the most common non‑background colour (excluding 0,1,2).
+    zeros   = ofcolor(I, 0)                                           # all 0‑cells
+    ctr     = astuple(divide(height(I), 2), divide(width(I), 2))          # centre of the grid
+    sympos  = mapply(lambda p: add(p,
+                                   multiply(subtract(ctr, p), (-1, -1))), zeros)
+    fillcol = mostcommon(totuple(difference(palette(I), {0, 1, 2})))   # dominant non‑bg colour
+    O1 = fill(I, fillcol, zeros)                                      # colour original 0‑cells
+    O  = cover(O1, ofcolor(O1, fillcol))                              # colour the symmetric cells
+    return O
+```
+
 # Task 17829a00
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1077)
+[Best program](#dsl-1127)
 
 ## Iteration 1
 
@@ -38003,7 +39509,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1127)
+[Best program](#dsl-1177)
 
 ## Iteration 1
 
@@ -39750,7 +41256,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1175)
+[Best program](#dsl-1225)
 
 ## Iteration 1
 
@@ -41726,13 +43232,1485 @@ def dsl5(I):
     return O
 ```
 
+# Task 1d61978c
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-1275)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # all cells of colour 5
+    S = ofcolor(I, 5)                                   # FrozenSet[(r,c)]
+
+    # right‑most 5 in each row  – keep those that have no other 5
+    # in the same row with a larger column index
+    def is_rightmost(idx):
+        r, c = idx
+        return not any((r2 == r and c2 > c) for (r2, c2) in S)
+
+    R = mfilter(S, is_rightmost)                        # right‑most 5s
+    L = difference(S, R)                                # all other 5s
+
+    O = fill(I, 2, L)                                   # replace them by 2
+    O = fill(O, 8, R)                                   # replace right‑most by 8
+    return O
+
+
+# ----------------------------------------------------------------------
+# 2)  Row‑wise processing via hsplit / vconcat (geometric reasoning)
+# ----------------------------------------------------------------------
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    h = height(I)                                        # number of rows
+    rows = hsplit(I, h)                                   # tuple of 1‑row grids
+
+    def proc_row(row):
+        # colour 5 → 2
+        row2 = replace(row, 5, 2)
+        # right‑most original 5 → 8 (overwrites the 2 placed above)
+        # find its column index
+        cols = [c for (r, c) in ofcolor(row, 5)]
+        if cols:
+            maxc = max(cols)
+            row2 = fill(row2, 8, {(0, maxc)})            # row index is 0 in the subgrid
+        return row2
+
+    new_rows = apply(proc_row, rows)                     # process each row
+    O = vconcat(*new_rows)                               # stitch rows back
+    return O
+
+
+# ----------------------------------------------------------------------
+# 3)  Global replace + per‑row right‑most overlay (global‑transformation)
+# ----------------------------------------------------------------------
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # first replace every 5 by 2 (global)
+    O = replace(I, 5, 2)
+
+    # now locate the right‑most 5 in each row (they are still 2 in O)
+    S = ofcolor(I, 5)                                    # original 5 positions
+    def is_rightmost(idx):
+        r, c = idx
+        return not any((r2 == r and c2 > c) for (r2, c2) in S)
+    R = mfilter(S, is_rightmost)
+
+    O = fill(O, 8, R)                                    # put 8 on those cells
+    return O
+
+
+# ----------------------------------------------------------------------
+# 4)  Object‑centric processing + relative position (relational reasoning)
+# ----------------------------------------------------------------------
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # each 5 cell is a separate object
+    objs = fgpartition(I)                                 # set of 1‑cell objects
+    five_objs = colorfilter(objs, 5)                       # keep only colour‑5 objects
+
+    # map each object to a tuple (row, col, obj)
+    def to_trip(o):
+        (r, c), = {(r, c) for (c, (r, _)) in o}          # extract its index
+        return (r, c, o)
+    trips = apply(to_trip, five_objs)
+
+    # for each row keep the object with maximal column
+    def key_max(t): return t[1]                           # column
+    rightmost_per_row = {}
+    for (r, c, o) in trips:
+        if r not in rightmost_per_row or c > rightmost_per_row[r][0]:
+            rightmost_per_row[r] = (c, o)
+
+    R = { o for (_, o) in rightmost_per_row.values() }   # patches of right‑most 5s
+    L = difference(five_objs, R)                         # the rest of the 5‑objects
+
+    O = fill(I, 2, union(*L))                             # 5 → 2   (union of all patches)
+    O = fill(O, 8, union(*R))                             # right‑most 5 → 8
+    return O
+
+
+# ----------------------------------------------------------------------
+# 5)  Column‑wise scanning using gravitate (relational / structural)
+# ----------------------------------------------------------------------
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.7846 |             0.046875 |                   0 |      20.8315 |
+| train2 |                0 |      12      |             0.015625 |                   0 |      12.0156 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    S = ofcolor(I, 5)                                     # all 5 cells
+
+    # build a patch containing, for each row, the cell that lies farthest to the right
+    # we let each 5 “gravitate” towards the rightmost 5 of its row;
+    # the ones that do not move are already the right‑most ones.
+    def target(idx):
+        r, c = idx
+        # candidate cells in the same row
+        same_row = {(rr, cc) for (rr, cc) in S if rr == r}
+        # the farthest column
+        maxc = max(cc for (_, cc) in same_row)
+        return (r, maxc)
+
+    R = {idx for idx in S if target(idx) == idx}          # right‑most 5s
+    L = difference(S, R)                                   # the others
+
+    O = fill(I, 2, L)                                     # 5 → 2
+    O = fill(O, 8, R)                                     # right‑most 5 → 8
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global replace + per‑row right‑most overlay
+    S = ofcolor(I, 5)                     # all 5‑cells
+    O = replace(I, 5, 2)                  # 5 → 2 everywhere
+    def is_rightmost(idx):
+        r, c = idx
+        return not any((r2 == r and c2 > c) for (r2, c2) in S)
+    R = mfilter(S, is_rightmost)         # right‑most 5 in each row
+    O = fill(O, 8, R)                     # put 8 on those cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Right‑most detection by shooting a ray to the right
+    S = ofcolor(I, 5)                     # all 5‑cells
+    O = replace(I, 5, 2)                  # 5 → 2
+    def is_rightmost(idx):
+        # the ray to the right contains only the starting cell
+        return size(intersection(shoot(idx, (0, 1)), S)) == 1
+    R = mfilter(S, is_rightmost)           # right‑most 5s
+    O = fill(O, 8, R)                     # overlay 8
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Geometric reasoning using rotation + horizontal concatenation
+    # (rotate so that rows become columns, process, rotate back)
+    R = rot90(I)                          # turn rows into columns
+    S = ofcolor(R, 5)                     # 5‑cells in rotated grid
+    O = replace(R, 5, 2)                  # 5 → 2
+    def is_rightmost(idx):
+        r, c = idx
+        return not any((r2 == r and c2 > c) for (r2, c2) in S)
+    M = mfilter(S, is_rightmost)          # right‑most 5s in rotated view
+    O = fill(O, 8, M)                     # overlay 8
+    O = rot270(O)                         # back to original orientation
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Row‑wise processing via hsplit / hconcat (horizontal merge after rotation)
+    rows = hsplit(I, height(I))           # tuple of 1‑row sub‑grids
+    def proc_row(row):
+        S = ofcolor(row, 5)               # 5‑cells in this row
+        O = replace(row, 5, 2)            # 5 → 2
+        def is_rightmost(idx):
+            r, c = idx
+            return not any((r2 == r and c2 > c) for (r2, c2) in S)
+        R = mfilter(S, is_rightmost)     # right‑most 5 in the row
+        return fill(O, 8, R)              # overlay 8
+    new_rows = apply(proc_row, rows)      # processed rows
+    O = hconcat(*new_rows)                # stitch rows side‑by‑side
+    O = rot270(O)                         # rotate back to original layout
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Object‑centric: treat each 5 as a 1‑cell object, compute per‑row max column
+    objs = fgpartition(I)                 # all objects
+    five_objs = colorfilter(objs, 5)       # keep only colour‑5 objects
+    # positions of the 5‑objects
+    pos = apply(lambda o: ulcorner(o), five_objs)          # {(r,c),...}
+    # for every row, keep the cell with the greatest column index
+    rows = interval(0, height(I), 1)                     # all row indices
+    def row_max(r):
+        cols = {c for (rr, c) in pos if rr == r}
+        return {(r, max(cols))} if cols else frozenset()
+    R = union(*apply(row_max, rows))                     # right‑most 5s
+    L = difference(ofcolor(I, 5), R)                      # the remaining 5s
+    O = fill(I, 2, L)                                    # 5 → 2
+    O = fill(O, 8, R)                                    # right‑most 5 → 8
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL: replace every 5 by 2, then paint 8 on the right‑most 5 of each row
+    S = ofcolor(I, 5)                                 # all (r,c) where the colour is 5
+    O = replace(I, 5, 2)                             # 5 → 2 everywhere
+    # right‑most 5 in its row  ⇔  shooting to the right meets no other 5
+    R = mfilter(S, lambda p: size(intersection(shoot(p, (0, 1)), S)) == 1)
+    O = paint(O, recolor(8, toobject(R, I)))           # overlay 8 on those cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.0208 |            0.0664062 |                   0 |      24.0872 |
+| train2 |                0 |      23.2594 |            0.0625    |                   0 |      23.3219 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.4403 |             0.015625 |                   0 |      10.4559 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑CENTRIC: treat each 5 as an individual object, keep the one with the largest column per row
+    objs = fgpartition(I)                             # all objects
+    five = colorfilter(objs, 5)                       # keep only colour‑5 objects
+    # positions of the single‑cell 5‑objects
+    pos = apply(lambda o: ulcorner(o), five)         # {(r,c), …}
+    h = height(I)
+    # right‑most 5 of every row (empty rows are ignored)
+    R = frozenset({ (r, max([c for (rr, c) in pos if rr == r]))
+                    for r in range(h)
+                    if any(rr == r for (rr, _) in pos) })
+    O = replace(I, 5, 2)                              # 5 → 2
+    O = paint(O, recolor(8, toobject(R, I)))          # paint 8 on the selected cells
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.7846 |             0.046875 |                   0 |      20.8315 |
+| train2 |                0 |      12      |             0.015625 |                   0 |      12.0156 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING: work directly with colour indices, compute right‑most 5 per row using max()
+    S = ofcolor(I, 5)                                 # set of 5‑positions
+    h = height(I)
+    R = frozenset({ (r, max([c for (rr, c) in S if rr == r]))
+                    for r in range(h)
+                    if any(rr == r for (rr, _) in S) })
+    O = replace(I, 5, 2)                              # turn all 5 into 2
+    O = paint(O, recolor(8, toobject(R, I)))          # overlay 8 on the right‑most 5 of each row
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC: rotate so that rows become columns, apply the same rule, then rotate back
+    R = rot90(I)                                      # rows ↔ columns
+    S = ofcolor(R, 5)
+    O = replace(R, 5, 2)
+    # right‑most 5 in each (rotated) row → shoot to the right
+    M = mfilter(S, lambda p: size(intersection(shoot(p, (0, 1)), S)) == 1)
+    O = paint(O, recolor(8, toobject(M, R)))
+    O = rot270(O)                                     # restore original orientation
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.7846 |             0.046875 |                   0 |      20.8315 |
+| train2 |                0 |      12      |             0.015625 |                   0 |      12.0156 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL/STRUCTURAL: use maximum‑column per row (a pure per‑row aggregation)
+    S = ofcolor(I, 5)                                 # all 5‑cells
+    h = height(I)
+    # build the set of right‑most 5 cells (one per row that contains a 5)
+    R = frozenset({ (r, maximum({c for (rr, c) in S if rr == r}))
+                    for r in range(h)
+                    if any(rr == r for (rr, _) in S) })
+    O = replace(I, 5, 2)                              # 5 → 2
+    O = paint(O, recolor(8, toobject(R, I)))          # paint 8 on the chosen cells
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL: turn every 5 directly into 8
+    O = replace(I, 5, 8)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.7846 |             0.046875 |                   0 |      20.8315 |
+| train2 |                0 |      12      |             0.015625 |                   0 |      12.0156 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑CENTRIC: per row, replace 5 → 2 then paint 8 on the right‑most 5 of that row
+    S = ofcolor(I, 5)                                   # all 5‑cells
+    h = height(I)
+    R = frozenset({
+        (r, maximum({c for (rr, c) in S if rr == r}))
+        for r in interval(0, h, 1)
+        if any(rr == r for (rr, _) in S)
+    })
+    O = replace(I, 5, 2)                                # 5 → 2 everywhere
+    O = paint(O, recolor(8, toobject(R, I)))            # 8 on the right‑most 5 of each row
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      25.4558 |            0.0703125 |                   0 |      25.5262 |
+| train2 |                0 |      19.8997 |            0.0429688 |                   0 |      19.9427 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |           0.00390625 |                   0 |      6.00391 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # RELATIONAL (COLUMN‑WISE): per column, replace 5 → 2 then paint 8 on the bottom‑most 5 of that column
+    S = ofcolor(I, 5)                                   # all 5‑cells
+    w = width(I)
+    C = frozenset({
+        (maximum({r for (r, cc) in S if cc == c}), c)
+        for c in interval(0, w, 1)
+        if any(cc == c for (_, cc) in S)
+    })
+    O = replace(I, 5, 2)                                # 5 → 2 everywhere
+    O = paint(O, recolor(8, toobject(C, I)))            # 8 on the lowest 5 of each column
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # COLOR‑FILTERING (PARITY): 5 → 2 everywhere, then turn the 5‑cells on odd columns into 8
+    S = ofcolor(I, 5)                                   # all 5‑cells
+    O = replace(I, 5, 2)                               # 5 → 2 everywhere
+    O = paint(O, recolor(8, toobject(mfilter(S, lambda p: not even(p[1])), I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      16.9706 |            0.03125   |                   0 |      17.0018 |
+| train2 |                0 |      23.2379 |            0.0585938 |                   0 |      23.2965 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.3923 |            0.0117188 |                   0 |       10.404 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GEOMETRIC: rotate, apply the row‑wise rule, rotate back
+    R = rot90(I)                                         # rows become columns
+    S = ofcolor(R, 5)                                    # 5‑cells in rotated view
+    h = height(R)
+    M = frozenset({
+        (r, maximum({c for (rr, c) in S if rr == r}))
+        for r in interval(0, h, 1)
+        if any(rr == r for (rr, _) in S)
+    })
+    O = replace(R, 5, 2)                                 # 5 → 2 in rotated view
+    O = paint(O, recolor(8, toobject(M, R)))            # 8 on right‑most 5 of each rotated row
+    O = rot270(O)                                        # restore original orientation
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL TRANSFORMATION: simple direct replacement
+    O = replace(I, 5, 8)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION: isolate the 5‑cells as an object and recolor them
+    S = ofcolor(I, 5)                                 # all 5‑cells as a set of indices
+    O = paint(I, recolor(8, S))                       # paint 8 on exactly those indices
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING: swap the two colors 5 and 8 (8 is absent, so 5 becomes 8)
+    O = switch(I, 5, 8)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC: rotate, apply the global rule, rotate back
+    R = rot180(I)                                      # turn the grid upside‑down
+    R = replace(R, 5, 8)                               # replace 5→8 in the rotated view
+    O = rot180(R)                                      # restore original orientation
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL: erase the 5‑cells then paint 8 on the same positions
+    S = ofcolor(I, 5)                                  # locations of the 5‑cells
+    T = replace(I, 5, 0)                               # temporarily turn them into background (0)
+    O = paint(T, recolor(8, S))                        # restore with colour 8
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GEOMETRIC – horizontal mirror, replace, mirror back
+    R = hmirror(I)                 # mirror left‑right
+    R = replace(R, 5, 8)           # turn 5 → 8 in the mirrored view
+    O = hmirror(R)                 # restore original orientation
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GEOMETRIC – vertical mirror, replace, mirror back
+    R = vmirror(I)                 # mirror top‑bottom
+    R = replace(R, 5, 8)           # turn 5 → 8 in the mirrored view
+    O = vmirror(R)                 # restore original orientation
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC – rotate 90°, replace, rotate back (270°)
+    R = rot90(I)                   # rotate clockwise
+    R = replace(R, 5, 8)           # turn 5 → 8 while rotated
+    O = rot270(R)                  # rotate counter‑clockwise to original
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # OBJECT‑LEVEL – isolate 5‑objects, recolor, repaint
+    objs      = fgpartition(I)                 # all objects in the grid
+    five_objs = colorfilter(objs, 5)           # keep only objects of color 5
+    recolored = apply(lambda o: recolor(8, o), five_objs)  # recolor each to 8
+    merged    = merge(recolored)               # union of recolored objects
+    O = paint(I, merged)                       # paint recolored objects onto grid
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # PATCH‑LEVEL – fill the 5‑locations directly with 8
+    S = ofcolor(I, 5)          # indices of all 5‑cells
+    O = fill(I, 8, S)          # replace those cells with 8
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – simple color replacement
+    O = replace(I, 5, 8)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GEOMETRIC – rotate 180°, replace, rotate back
+    R = rot180(I)                 # turn the whole grid upside‑down
+    R = replace(R, 5, 8)          # replace 5 → 8 while rotated
+    O = rot180(R)                 # restore original orientation
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT‑LEVEL – turn the set of 5‑cells into an object, recolor, paint back
+    S      = ofcolor(I, 5)                    # indices of all 5‑cells
+    obj5   = toobject(S, I)                  # make them an object (with original color)
+    recol  = recolor(8, obj5)                # recolor the whole object to 8
+    O      = paint(I, recol)                 # paint the recolored object onto the grid
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # PATCH‑LEVEL – fill exactly the 5‑locations with 8
+    S = ofcolor(I, 5)          # mask of all 5‑cells
+    O = fill(I, 8, S)          # replace those cells by 8
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # OBJECT‑LEVEL (alternative) – isolate 5‑objects via partition, recolor, repaint
+    objs        = fgpartition(I)                     # all objects
+    five_objs   = colorfilter(objs, 5)               # keep only objects of color 5
+    recolored   = apply(lambda o: recolor(8, o), five_objs)  # recolor each to 8
+    O           = paint(I, merge(recolored))         # repaint them onto the grid
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      23.5584 |             0.9375   |                   0 |      24.4959 |
+| train2 |                0 |      27.037  |             0.941406 |                   0 |      27.9784 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      17.9722 |             0.988281 |                   0 |      18.9605 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL + PAINT: start with a full‑8 canvas and paint back everything that is NOT a 5‑object.
+    # objects of color 5 are removed, all other objects stay unchanged.
+    base       = canvas(8, shape(I))                           # all cells = 8
+    objs       = fgpartition(I)                                 # all objects in the input
+    five_objs  = colorfilter(objs, 5)                           # only the 5‑objects
+    other_objs = difference(objs, five_objs)                    # everything else
+    O          = paint(base, merge(other_objs))                # paint the non‑5 objects onto the 8‑canvas
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑LEVEL + CONDITIONAL RECOLOR: recolor each object only if its colour is 5.
+    objs       = fgpartition(I)
+    recolored  = apply(
+                    lambda o: branch(color(o) == 5,
+                                      recolor(8, o),   # recolor 5‑objects to 8
+                                      o)               # keep other objects unchanged
+                , objs)
+    O = paint(I, merge(recolored))                              # repaint all objects onto the original grid
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC + DIAGONAL MIRROR: mirror along the counter‑diagonal, replace, mirror back.
+    R = dmirror(I)                     # diagonal mirror
+    R = replace(R, 5, 8)               # replace 5 → 8 while mirrored
+    O = dmirror(R)                     # undo the mirror
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.5242 |            0.0976562 |                   0 |      15.6218 |
+| train2 |                0 |      20.2731 |            0.164062  |                   0 |      20.4372 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      7.28011 |            0.0195312 |                   0 |      7.29964 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # SCALE + REPLACE: shrink, replace, then restore original size.
+    D = downscale(I, 2)                 # shrink the grid by a factor of 2
+    D = replace(D, 5, 8)               # replace 5 → 8 in the small grid
+    O = upscale(D, 2)                   # enlarge back to the original dimensions
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # CELL‑LEVEL + FILL: directly fill the 5‑locations with 8.
+    S = ofcolor(I, 5)                   # mask of all cells that are 5
+    O = fill(I, 8, S)                   # replace exactly those cells by 8
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL REPLACE: directly substitute every 5 with 8.
+    O = replace(I, 5, 8)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑LEVEL RECOLOR: isolate the 5‑colored objects and recolor them to 8.
+    five_objs   = colorfilter(fgpartition(I), 5)                # objects whose color is 5
+    recolored   = apply(lambda o: recolor(8, o), five_objs)     # turn each of them into 8‑objects
+    O = paint(I, merge(recolored))                             # paint the recolored objects back
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC ROTATION: rotate, replace, and rotate back.
+    O = rot270(replace(rot90(I), 5, 8))   # rot90 → replace → rot270 (undo)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # MASK‑DRIVEN RECOLOR: build a mask of the 5‑cells and recolor that mask to 8,
+    # then paint it onto the original grid.
+    mask   = ofcolor(I, 5)                # positions of all 5’s
+    O = paint(I, recolor(8, mask))        # recolor those positions to 8 on top of I
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # HORIZONTAL MIRROR: mirror horizontally, replace 5→8, then mirror back.
+    O = hmirror(replace(hmirror(I), 5, 8))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑LEVEL CONDITIONAL RECOLOR: recolor only objects whose color is 5.
+    objs       = fgpartition(I)
+    recolored  = apply(lambda o: branch(equality(color(o), 5), recolor(8, o), o), objs)
+    O = paint(I, merge(recolored))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # VERTICAL MIRROR RECOLOR: mirror vertically, replace 5→8, then mirror back.
+    O = vmirror(replace(vmirror(I), 5, 8))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑SWAP: swap colors 5 and 8 (there are no 8’s originally, so 5 becomes 8).
+    O = switch(I, 5, 8)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # MASK‑DRIVEN FILL: fill the positions of 5’s with 8.
+    mask = ofcolor(I, 5)          # set of indices where the value is 5
+    O = fill(I, 8, mask)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18      |            0.0351562 |                   0 |      18.0352 |
+| train2 |                0 |      22.4499 |            0.0546875 |                   0 |      22.5046 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |            0.0078125 |                   0 |      8.49309 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ROTATE‑180 REPLACE: rotate 180°, replace 5→8, rotate back.
+    O = rot180(replace(rot180(I), 5, 8))
+    return O
+```
+
 # Task 1a07d186
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1228)
+[Best program](#dsl-1328)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L3060)
 
@@ -43172,7 +46150,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1275)
+[Best program](#dsl-1375)
 
 ## Iteration 1
 
@@ -45358,7 +48336,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1325)
+[Best program](#dsl-1425)
 
 ## Iteration 1
 
@@ -47304,7 +50282,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1375)
+[Best program](#dsl-1475)
 
 ## Iteration 1
 
@@ -49066,7 +52044,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1425)
+[Best program](#dsl-1525)
 
 ## Iteration 1
 
@@ -51083,7 +54061,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1475)
+[Best program](#dsl-1575)
 
 ## Iteration 1
 
@@ -52922,7 +55900,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1525)
+[Best program](#dsl-1625)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L5849)
 
@@ -54743,7 +57721,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1575)
+[Best program](#dsl-1675)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L615)
 
@@ -56216,7 +59194,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1625)
+[Best program](#dsl-1725)
 
 ## Iteration 1
 
@@ -57909,7 +60887,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1676)
+[Best program](#dsl-1776)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L755)
 
@@ -59814,7 +62792,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1725)
+[Best program](#dsl-1825)
 
 ## Iteration 1
 
@@ -61270,7 +64248,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1778)
+[Best program](#dsl-1878)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L5635)
 
@@ -62756,7 +65734,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1825)
+[Best program](#dsl-1925)
 
 ## Iteration 1
 
@@ -64227,7 +67205,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1876)
+[Best program](#dsl-1976)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4361)
 
@@ -65883,7 +68861,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1925)
+[Best program](#dsl-2025)
 
 ## Iteration 1
 
@@ -67999,7 +70977,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-1975)
+[Best program](#dsl-2075)
 
 ## Iteration 1
 
@@ -69964,7 +72942,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2025)
+[Best program](#dsl-2125)
 
 ## Iteration 1
 
@@ -71448,7 +74426,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2075)
+[Best program](#dsl-2175)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2583)
 
@@ -73730,13 +76708,1938 @@ def dsl5(I):
     return O
 ```
 
+# Task 1d398264
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2225)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.0652 |               0.1725 |            0.347311 |      46.585  |
+| train2 |                0 |      23.6008 |               0.32   |            0.259808 |      24.1807 |
+| train3 |                0 |      32.2025 |               0.2    |            0.354338 |      32.7568 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.5584 |             0.199219 |            0.33802  |      24.0957 |
+| test2 |                0 |      17.72   |             0.270833 |            0.291667 |      18.2825 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # dmirror : mirror along the counter‑diagonal (swap rows ↔ columns, keep colors)
+    O = dmirror(I)
+    return O
+
+
+# ----------------------------------------------------------------------
+# 2️⃣  Object‑extraction – isolate the non‑zero block, then fill its whole row
+# ----------------------------------------------------------------------
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 1. collect every cell that is not background (color 0)
+    nz = ofcolor(I, 1)                     # start with colour 1 …
+    nz = combine(nz, ofcolor(I, 2))
+    nz = combine(nz, ofcolor(I, 3))
+    nz = combine(nz, ofcolor(I, 4))
+    nz = combine(nz, ofcolor(I, 5))
+    nz = combine(nz, ofcolor(I, 6))
+    nz = combine(nz, ofcolor(I, 7))
+    nz = combine(nz, ofcolor(I, 8))
+
+    # 2. bounding box of the whole non‑zero object
+    bb = backdrop(nz)                      # set of indices inside the box
+
+    # 3. colour that appears most often inside the box (the “central” colour)
+    central_colour = mostcolor(I, mostcommon(ofcolor(I, mostcolor(I, 0))))
+
+    # 4. fill the entire row that contains the upper‑left corner of the box
+    row_idx = uppermost(bb)
+    row_patch = {(row_idx, c) for c in range(width(I))}   # all cells of that row
+    O = fill(I, central_colour, row_patch)
+
+    # 5. keep the original pattern unchanged
+    O = paint(O, nz)
+    return O
+
+
+# ----------------------------------------------------------------------
+# 3️⃣  Colour‑filtering – keep only the original colours, replace the background
+# ----------------------------------------------------------------------
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 1. colours that actually occur (ignore 0)
+    used = difference(palette(I), {0})
+
+    # 2. produce a new background colour (choose 9 if available, else 0)
+    new_bg = branch(contains(used, 9), 9, 0)
+
+    # 3. replace every 0 with the new background colour
+    O = switch(I, 0, new_bg)
+
+    # 4. re‑paint the original coloured objects (so they stay on top)
+    O = underpaint(O, ofcolor(I, mostcommon(used)))
+    return O
+
+
+# ----------------------------------------------------------------------
+# 4️⃣  Geometric reasoning – draw diagonal rays from every non‑zero cell
+# ----------------------------------------------------------------------
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 1. all non‑zero cells as a set of coordinates
+    nz = ofcolor(I, 1)
+    nz = combine(nz, ofcolor(I, 2))
+    nz = combine(nz, ofcolor(I, 3))
+    nz = combine(nz, ofcolor(I, 4))
+    nz = combine(nz, ofcolor(I, 5))
+    nz = combine(nz, ofcolor(I, 6))
+    nz = combine(nz, ofcolor(I, 7))
+    nz = combine(nz, ofcolor(I, 8))
+
+    # 2. for every cell generate four diagonal lines (↖︎, ↗︎, ↘︎, ↙︎)
+    dirs = {(-1, -1), (-1, 1), (1, -1), (1, 1)}
+    rays = initset(())
+    for d in dirs:
+        rays = combine(rays,
+                       apply(lambda p: shoot(p, d), nz))
+
+    # 3. colour each ray with the colour of its originating cell
+    # (recolouring is done by taking the union of the original grid and the rays)
+    O = I
+    for d in dirs:
+        O = paint(O,
+                 apply(lambda p: recolor(index(I, p), shoot(p, d)),
+                 )
+    return O
+
+
+# ----------------------------------------------------------------------
+# 5️⃣  Relational / structural – reflect the whole pattern about its centre of mass
+# ----------------------------------------------------------------------
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 1. centre of mass of the non‑zero pattern
+    mass = centerofmass(ofcolor(I, mostcommon(palette(I) - {0})))
+
+    # 2. reflect every coloured cell across that centre (180° rotation around the centre)
+    reflected = apply(
+        lambda p: add(multiply(subtract(p, mass), (-1, -1)), mass),
+        ofcolor(I, mostcommon(palette(I) - {0}))
+    
+    # 3. keep original colours, then paint the reflected copy on top
+    O = I
+    O = paint(O, reflected)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global transformation – reflect the whole grid about the counter‑diagonal
+    O = dmirror(I)                     # mirror along the i=j diagonal
+    O = paint(O, ofcolor(I, mostcolor(I)))   # restore original coloured cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – fill the whole row that contains the upper‑left
+    # corner of the bounding box of all non‑zero cells with the most common
+    # colour inside that box, then restore the original pattern.
+    nz   = combine(ofcolor(I, 1), ofcolor(I, 2))
+    nz   = combine(nz, ofcolor(I, 3))
+    nz   = combine(nz, ofcolor(I, 4))
+    nz   = combine(nz, ofcolor(I, 5))
+    nz   = combine(nz, ofcolor(I, 6))
+    nz   = combine(nz, ofcolor(I, 7))
+    nz   = combine(nz, ofcolor(I, 8))
+
+    bb   = backdrop(nz)                                 # bounding box indices
+    sub  = subgrid(bb, I)                               # sub‑grid that covers the box
+    col  = mostcolor(sub)                               # most frequent colour inside it
+    r    = uppermost(bb)                                # row index of the upper‑left corner
+    row_patch = {(r, c) for c in range(width(I))}       # the whole row
+    O = fill(I, col, row_patch)                         # colour the row
+    O = paint(O, nz)                                    # put the original objects back
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering – change the background to 9 if 9 already appears,
+    # otherwise keep 0; keep the original coloured objects on top.
+    used      = difference(palette(I), {0})               # colours that actually occur
+    new_bg    = branch(contained(9, used), 9, 0)          # 9 if it is present, else 0
+    O         = switch(I, 0, new_bg)                      # replace every 0 by the new bg
+    O         = underpaint(O, ofcolor(I, mostcommon(used)))  # repaint original objects
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning – for each colour draw rays in a fixed direction
+    # that is determined by the value of the colour.
+    O = I
+    # 1 → up
+    O = paint(O, apply(lambda p: recolor(1, shoot(p, UP)), ofcolor(I, 1)))
+    # 2 → left & right (horizontal)
+    O = paint(O, apply(lambda p: recolor(2, shoot(p, LEFT)),  ofcolor(I, 2)))
+    O = paint(O, apply(lambda p: recolor(2, shoot(p, RIGHT)), ofcolor(I, 2)))
+    # 3 → up‑left diagonal
+    O = paint(O, apply(lambda p: recolor(3, shoot(p, UP_LEFT)),  ofcolor(I, 3)))
+    # 4 → left & right (horizontal)
+    O = paint(O, apply(lambda p: recolor(4, shoot(p, LEFT)),  ofcolor(I, 4)))
+    O = paint(O, apply(lambda p: recolor(4, shoot(p, RIGHT)), ofcolor(I, 4)))
+    # 5 → up‑right diagonal
+    O = paint(O, apply(lambda p: recolor(5, shoot(p, UP_RIGHT)), ofcolor(I, 5)))
+    # 6 → up‑left diagonal
+    O = paint(O, apply(lambda p: recolor(6, shoot(p, UP_LEFT)),  ofcolor(I, 6)))
+    # 7 → down‑right diagonal
+    O = paint(O, apply(lambda p: recolor(7, shoot(p, DOWN_RIGHT)), ofcolor(I, 7)))
+    # 8 → down‑left & down‑right diagonals
+    O = paint(O, apply(lambda p: recolor(8, shoot(p, DOWN_LEFT)),  ofcolor(I, 8)))
+    O = paint(O, apply(lambda p: recolor(8, shoot(p, DOWN_RIGHT)), ofcolor(I, 8)))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational / structural – reflect the whole coloured pattern
+    # through the centre of mass of the non‑zero cells (180° rotation).
+    target   = ofcolor(I, mostcommon(palette(I) - {0}))
+    mass     = centerofmass(target)                     # centre of mass
+    refl_set = apply(
+        lambda p: add(multiply(subtract(p, mass), (-1, -1)), mass),
+        target)                                         # reflected coordinates
+    O = paint(I, refl_set)                              # paint reflected copy on top
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global – reflect the whole picture across the counter‑diagonal
+    # and overlay the reflected non‑zero cells on top of the original.
+    R   = dmirror(I)                                 # whole‑grid mirror
+    nz  = combine(*[ofcolor(R, c) for c in palette(R)-{0}])
+    objs = apply(lambda p: recolor(index(I, p), {p}), nz)   # keep original colours
+    O = paint(I, objs)                               # overlay reflected objects
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – paint the entire row that contains the
+    # upper‑left corner of the bounding box of all non‑zero cells
+    # with the most frequent colour inside that box, then restore the
+    # original objects.
+    nz   = combine(*[ofcolor(I, c) for c in palette(I)-{0}])
+    bb   = backdrop(nz)                              # indices of the bbox
+    sub  = subgrid(bb, I)                            # sub‑grid of the bbox
+    col  = mostcolor(sub)                            # dominant colour in the box
+    r    = uppermost(bb)                             # row of the upper‑left corner
+    whole_row = {(r, c) for c in interval(0, width(I), 1)}
+    O = fill(I, col, whole_row)                     # colour that row
+    O = paint(O, apply(lambda p: recolor(index(I, p), {p}), nz))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering – set the background to the most common
+    # non‑zero colour (if any), then redraw the original objects.
+    used   = difference(palette(I), {0})
+    bgcol  = branch(contained(mostcommon(used), used), mostcommon(used), 0)
+    O = switch(I, 0, bgcol)                         # replace background
+    O = paint(O, apply(lambda p: recolor(index(I, p), {p}),
+                 combine(*[ofcolor(I, c) for c in used])))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric – from each coloured cell draw a ray in a direction that
+    # depends on the colour value (1→up, 2→left+right, 3→up‑left, 4→left+right,
+    # 5→up‑right, 6→up‑left, 7→down‑right, 8→down‑left+down‑right).
+    dirs = {1: (UP,), 2: (LEFT, RIGHT), 3: (UP_LEFT,),
+            4: (LEFT, RIGHT), 5: (UP_RIGHT,), 6: (UP_LEFT,),
+            7: (DOWN_RIGHT,), 8: (DOWN_LEFT, DOWN_RIGHT)}
+    O = I
+    O = foldl(
+        lambda acc, c:
+            paint(acc,
+                  apply(lambda p: recolor(c,
+                                          shoot(p, d)),
+                        ofcolor(I, c))),
+        O,
+        palette(I)-{0})
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational – rotate the whole coloured pattern 180° around the
+    # centre of mass of the most common non‑zero colour and overlay it.
+    target = ofcolor(I, mostcommon(palette(I)-{0}))
+    com    = centerofmass(target)
+    refl   = apply(lambda p: add(multiply(subtract(p, com), (-1, -1)), com), target)
+    reflobj = apply(lambda p: recolor(index(I, p), {p}), refl)
+    O = paint(I, reflobj)
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – mirror the whole picture across the counter‑diagonal and
+    # overlay the mirrored non‑zero cells (keeping their original colours).
+    R = dmirror(I)                                          # whole‑grid mirror
+    O = I
+    # overlay each colour from the mirrored image
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, ONE)))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, TWO))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, THREE))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, FOUR))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, FIVE))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, SIX))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, SEVEN))
+    O = paint(O,
+              apply(lambda p: recolor(index(R, p), {p}),
+                    ofcolor(R, EIGHT))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – take the bounding box of all coloured cells,
+    # repaint that whole box with its most frequent colour, then restore
+    # the original objects.
+    # union of all non‑zero cells
+    nz1 = ofcolor(I, ONE)
+    nz2 = ofcolor(I, TWO)
+    nz3 = ofcolor(I, THREE)
+    nz4 = ofcolor(I, FOUR)
+    nz5 = ofcolor(I, FIVE)
+    nz6 = ofcolor(I, SIX)
+    nz7 = ofcolor(I, SEVEN)
+    nz8 = ofcolor(I, EIGHT)
+    nz  = combine(combine(combine(combine(combine(combine(combine(combine(nz1, nz2), nz3), nz4), nz5), nz6), combine(nz7, nz8))
+
+    bb   = backdrop(nz)                     # bounding box of all coloured cells
+    sub  = subgrid(bb, I)                    # sub‑grid limited to the bbox
+    col  = mostcolor(sub)                    # dominant colour inside the bbox
+    whole_box = bb                           # the whole bounding‑box region
+    O = fill(I, col, whole_box)              # colour the whole box
+
+    # restore original coloured cells (paint them back on top)
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz1))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz2))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz3))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz4))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz5))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz6))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz7))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}), nz8))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOUR‑FILTERING – replace the background (value 0) with the most
+    # common non‑zero colour, then redraw the original objects.
+    used   = difference(palette(I), {0})
+    bgcol  = mostcommon(used)                     # most frequent non‑zero colour
+    O = switch(I, 0, bgcol)                       # background becomes that colour
+    # redraw original objects (preserve their original colours)
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, ONE)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, TWO)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, THREE))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, FOUR))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, FIVE))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, SIX))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, SEVEN))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(I, EIGHT))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – from each coloured cell draw a ray whose direction is
+    # fixed by the colour value.
+    O = I
+    # 1 → up
+    O = paint(O,
+              apply(lambda p: recolor(ONE, shoot(p, UP)),
+                    ofcolor(I, ONE)))
+    # 2 → left & right
+    O = paint(O,
+              combine(
+                apply(lambda p: recolor(TWO, shoot(p, LEFT)),
+                      ofcolor(I, TWO)),
+                apply(lambda p: recolor(TWO, shoot(p, RIGHT)),
+                      ofcolor(I, TWO))))
+    # 3 → up‑left
+    UL = add(UP, LEFT)
+    O = paint(O,
+              apply(lambda p: recolor(THREE, shoot(p, UL)),
+                    ofcolor(I, THREE)))
+    # 4 → left & right (same as colour 2)
+    O = paint(O,
+              combine(
+                apply(lambda p: recolor(FOUR, shoot(p, LEFT)),
+                      ofcolor(I, FOUR)),
+                apply(lambda p: recolor(FOUR, shoot(p, RIGHT)),
+                      ofcolor(I, FOUR))))
+    # 5 → up‑right
+    UR = add(UP, RIGHT)
+    O = paint(O,
+              apply(lambda p: recolor(FIVE, shoot(p, UR)),
+                    ofcolor(I, FIVE)))
+    # 6 → up‑left (same as colour 3)
+    O = paint(O,
+              apply(lambda p: recolor(SIX, shoot(p, UL)),
+                    ofcolor(I, SIX)))
+    # 7 → down‑right
+    DR = add(DOWN, RIGHT)
+    O = paint(O,
+              apply(lambda p: recolor(SEVEN, shoot(p, DR)),
+                    ofcolor(I, SEVEN)))
+    # 8 → down‑left & down‑right
+    DL = add(DOWN, LEFT)
+    O = paint(O,
+              combine(
+                apply(lambda p: recolor(EIGHT, shoot(p, DL)),
+                      ofcolor(I, EIGHT)),
+                apply(lambda p: recolor(EIGHT, shoot(p, DR)),
+                      ofcolor(I, EIGHT))))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – rotate the whole pattern of the most common colour
+    # by 180° about its centre of mass and overlay it.
+    target = ofcolor(I, mostcommon(palette(I) - {0}))
+    com    = centerofmass(target)                       # centre of mass
+    # reflect each point through the centre (180° rotation)
+    refl   = apply(
+                lambda p: add(multiply(subtract(p, com), (-1, -1)), com),
+                target)
+    # colour the reflected cells with their original colours
+    reflobj = apply(lambda p: recolor(index(I, p), {p}), refl)
+    O = paint(I, reflobj)
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      45.2769 |             0.1725   |            0.347311 |      45.7967 |
+| train2 |                0 |      24.5967 |             0.39     |            0.259808 |      25.2466 |
+| train3 |                0 |      33.8969 |             0.231111 |            0.354338 |      34.4824 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      27.1846 |             0.222656 |            0.33802  |      27.7452 |
+| test2 |                0 |      23.3238 |             0.3125   |            0.291667 |      23.928  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # -----------------------------------------------------------------
+    # 1 – GLOBAL  Direct counter‑diagonal mirror using the primitive
+    #               cmirror.  The mirrored whole‑grid is painted on top of
+    #               the original.
+    # -----------------------------------------------------------------
+    O = paint(I, asobject(cmirror(I)))      # overlay mirrored image
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      45.2769 |             0.1725   |            0.347311 |      45.7967 |
+| train2 |                0 |      24.5967 |             0.39     |            0.259808 |      25.2466 |
+| train3 |                0 |      33.8969 |             0.231111 |            0.354338 |      34.4824 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      27.1846 |             0.222656 |            0.33802  |      27.7452 |
+| test2 |                0 |      23.3238 |             0.3125   |            0.291667 |      23.928  |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # -----------------------------------------------------------------
+    # 2 – GEOMETRIC Compose rotations and a horizontal mirror to obtain a
+    #               counter‑diagonal reflection (rot90 + hmirror).
+    # -----------------------------------------------------------------
+    M = hmirror(rot90(I))                    # equivalent to cmirror
+    O = paint(I, asobject(M))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # -----------------------------------------------------------------
+    # 3 – OBJECT‑EXTRACTION Take only the coloured cells, mirror just
+    #                         this object, then paint it back.
+    # -----------------------------------------------------------------
+    # union of all non‑zero cells
+    nz = combine(
+            combine(
+                combine(
+                    combine(
+                        combine(
+                            combine(
+                                combine(
+                                    combine(ofcolor(I, ONE), ofcolor(I, TWO)),
+                                ofcolor(I, THREE)),
+                            ofcolor(I, FOUR)),
+                        ofcolor(I, FIVE)),
+                    ofcolor(I, SIX)),
+                combine(ofcolor(I, SEVEN), ofcolor(I, EIGHT)))
+    # mirrored version of that object
+    mirrored_obj = apply(lambda p: recolor(index(I, p), {p}),
+                       ofcolor(cmirror(I), ONE))          # colour ONE
+    # repeat the same line for the remaining colours (loop‑free via apply)
+    O = paint(I, mirrored_obj)
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), TWO)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), THREE)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), FOUR)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), FIVE)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), SIX)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), SEVEN)))
+    O = paint(O,
+              apply(lambda p: recolor(index(I, p), {p}),
+                    ofcolor(cmirror(I), EIGHT))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # -----------------------------------------------------------------
+    # 4 – COLOUR‑FILTERING Replace the background (0) by the most common
+    #                       non‑zero colour, then overlay the mirrored
+    #                       pattern.  The background‑replacement is the
+    #                       extra “filtering” step that makes this
+    #                       strategy distinct.
+    # -----------------------------------------------------------------
+    used   = difference(palette(I), {0})
+    bgcol  = mostcommon(used)                # most frequent non‑zero colour
+    O0     = switch(I, 0, bgcol)             # recolour background
+    O      = paint(O0, asobject(cmirror(I))) # overlay mirrored image
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      42.2493 |             0.15     |           0.279508  |      42.6788 |
+| train2 |                0 |      22.2261 |             0.31     |           0.180278  |      22.7164 |
+| train3 |                0 |      30.4467 |             0.191111 |           0.0745356 |      30.7123 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      22.4277 |               0.1875 |            0.112673 |      22.7278 |
+| test2 |                0 |      20.025  |               0.25   |            0.150231 |      20.4252 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # -----------------------------------------------------------------
+    # 5 – RELATIONAL Map every coloured cell to its counter‑diagonal
+    #                counterpart using explicit arithmetic on coordinates,
+    #                then paint the mirrored points.
+    # -----------------------------------------------------------------
+    h   = decrement(height(I))               # h‑1
+    w   = decrement(width(I))                # w‑1
+    # for each colour, compute the mirrored positions and repaint them
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src   = ofcolor(I, c)                # original cells of colour c
+        dst   = apply(lambda p: (subtract((w, h), (p[1], p[0]))), src)
+        O = paint(O, recolor(c, dst))
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.7284 |             0.1825   |            0.347311 |      48.2582 |
+| train2 |                0 |      24.3516 |             0.35     |            0.259808 |      24.9614 |
+| train3 |                0 |      34.2491 |             0.222222 |            0.354338 |      34.8256 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      27.4773 |             0.21875  |            0.33802  |       28.034 |
+| test2 |                0 |      23.0217 |             0.305556 |            0.291667 |       23.619 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – full dihedral symmetry.
+    #   Create the counter‑diagonal mirror (rot90 + hmirror) and then also
+    #   reflect that result vertically.  Paint the combined figure over the
+    #   original grid.
+    M  = vmirror(hmirror(rot90(I)))          # 8‑fold symmetry piece
+    O  = paint(I, asobject(M))               # overlay on top of original
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – extend each coloured object from its centre to the
+    #   far corner of the grid with a straight line.
+    h   = decrement(height(I))               # last row index
+    w   = decrement(width(I))                # last column index
+    # for every non‑zero colour c
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src   = ofcolor(I, c)                 # cells of colour c
+        ctr   = apply(center, src)            # centre of each object (as a set)
+        # shoot a line from the centre to the opposite corner
+        line  = apply(lambda p: shoot(p, (w - p[1], h - p[0])), ctr)
+        O = paint(O, recolor(c, line))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOUR‑FILTERING – replace the background by the most common colour,
+    #   then draw the counter‑diagonal mirror of *only* that dominant colour.
+    used   = difference(palette(I), {0})
+    bgcol  = mostcommon(used)                # dominant non‑zero colour
+    O0     = switch(I, 0, bgcol)             # background → dominant colour
+    # mirror only the dominant colour cells
+    dom    = ofcolor(I, bgcol)
+    mirror = ofcolor(cmirror(I), bgcol)
+    O      = paint(O0, asobject(mirror))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – map every coloured cell to its counter‑diagonal counterpart
+    #   using the primitive `shift`.  The destination is obtained by subtracting
+    #   the coordinates from the maximal (w,h) index.
+    h = decrement(height(I))
+    w = decrement(width(I))
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)                                    # original cells
+        dst = apply(lambda p: shift({p}, (w - p[1], h - p[0])), src)
+        O = paint(O, recolor(c, dst))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GEOMETRIC – for each coloured cell draw the whole segment that joins it
+    #   with its counter‑diagonal counterpart.  The segment is generated with
+    #   `connect` and then coloured.
+    h = decrement(height(I))
+    w = decrement(width(I))
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)                                    # source cells
+        dst = apply(lambda p: (w - p[1], h - p[0]), src)       # mirror positions
+        seg = apply(lambda p: connect(p, (w - p[1], h - p[0])), src)
+        O   = paint(O, recolor(c, seg))
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.9361 |             0.1875   |           0.0810093 |      47.2046 |
+| train2 |                0 |      22.6495 |             0.33     |           0.162019  |      23.1415 |
+| train3 |                0 |      35.2704 |             0.262222 |           0.062361  |      35.595  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      27.8209 |             0.238281 |            0.101262 |      28.1604 |
+| test2 |                0 |      23.3238 |             0.354167 |            0.135015 |      23.813  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – overlay the full 8‑fold dihedral symmetry of the whole grid.
+    #   1) 90° rotation, 2) horizontal mirror, 3) vertical mirror,
+    #   4) combine all mirrored/rotated copies and paint over the original.
+    R90   = rot90(I)
+    HM    = hmirror(I)
+    VM    = vmirror(I)
+    CM    = cmirror(I)                     # counter‑diagonal mirror
+    ALL   = combine(combine(asobject(R90), asobject(HM)),
+                    combine(asobject(VM), asobject(CM)))
+    O     = paint(I, ALL)                  # overlay on top of the input
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – for every non‑zero colour, fill its whole row
+    #   with that colour (keeping the original column‑wise pattern) and
+    #   also extend each cell towards the top‑left corner (diagonal copy).
+    h = decrement(height(I))
+    w = decrement(width(I))
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src   = ofcolor(I, c)                                     # cells of colour c
+        # horizontal fill: project every cell of src onto its entire row
+        row_fill = apply(lambda p: {(p[0], j) for j in interval(0, width(I), 1)}, src)
+        O = paint(O, recolor(c, row_fill))
+        # diagonal copy towards the top‑left corner
+        diag  = apply(lambda p: shift({p}, (-(p[1]), -(p[0])), ), src)
+        O = paint(O, recolor(c, diag))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      49.95   |             0.9625   |                   0 |      50.9125 |
+| train2 |                0 |      25.9808 |             0.85     |                   0 |      26.8308 |
+| train3 |                0 |      48.8876 |             0.871111 |                   0 |      49.7587 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      28.7576 |             0.890625 |                   0 |      29.6482 |
+| test2 |                0 |      21.095  |             0.847222 |                   0 |      21.9422 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – turn the background into the most common non‑zero colour
+    #   and then draw the counter‑diagonal mirror of that dominant colour only.
+    used   = difference(palette(I), {0})                         # non‑zero colours present
+    bgcol  = argmax(used, lambda col: colorcount(I, col))       # most frequent non‑zero colour
+    O0     = switch(I, 0, bgcol)                                 # replace background
+    dom    = ofcolor(I, bgcol)                                   # dominant‑colour cells
+    mirror = ofcolor(cmirror(I), bgcol)                          # their counter‑diagonal copy
+    O      = paint(O0, asobject(mirror))                         # overlay the mirror
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – join each coloured cell with its counter‑diagonal counterpart.
+    #   The whole segment between the two points is coloured.
+    h = decrement(height(I))
+    w = decrement(width(I))
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)                                      # original cells
+        seg = apply(lambda p: connect(p, (w - p[1], h - p[0])), src)
+        O   = paint(O, recolor(c, seg))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – map every coloured cell to its counter‑diagonal counterpart
+    #   using a pure shift; the original cell and its image are both kept.
+    h = decrement(height(I))
+    w = decrement(width(I))
+    O = I
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)                                      # original cells
+        dst = apply(lambda p: shift({p}, (w - p[1], h - p[0])), src)
+        O   = paint(O, recolor(c, dst))
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.7284 |             0.1825   |            0.347311 |      48.2582 |
+| train2 |                0 |      25.9808 |             0.35     |            0.259808 |      26.5906 |
+| train3 |                0 |      33.6006 |             0.235556 |            0.354338 |      34.1905 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      25.8263 |             0.226562 |            0.33802  |      26.3909 |
+| test2 |                0 |      23.2809 |             0.319444 |            0.291667 |      23.892  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – overlay the 90° rotation of the whole grid on top of the input.
+    R90 = rot90(I)
+    O   = paint(I, asobject(R90))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – for each colour:
+    #   * fill its whole row with that colour,
+    #   * copy each cell diagonally up‑left to the border.
+    O   = I
+    cols = width(I)
+    rows = height(I)
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)                                 # original cells of colour c
+        # row‑fill: all positions in the same row as any source cell
+        row_fill = merge(apply(lambda p: {(p[0], j) for j in interval(0, cols, 1)}, src))
+        O = paint(O, recolor(c, row_fill))
+        # diagonal copy up‑left
+        diag = merge(apply(lambda p: shift({p},
+                                            (-(p[1]), -(p[0]))), src))
+        O = paint(O, recolor(c, diag))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      49.95   |             0.9625   |                   0 |      50.9125 |
+| train2 |                0 |      25.9808 |             0.85     |                   0 |      26.8308 |
+| train3 |                0 |      48.8876 |             0.871111 |                   0 |      49.7587 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      28.7576 |             0.890625 |                   0 |      29.6482 |
+| test2 |                0 |      21.095  |             0.847222 |                   0 |      21.9422 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – make the background the most frequent non‑zero colour
+    # and then draw the counter‑diagonal mirror of that colour only.
+    nonzero = difference(palette(I), {0})
+    bgcol   = argmax(nonzero, lambda col: colorcount(I, col))
+    O0      = switch(I, 0, bgcol)                         # recolour background
+    dom     = ofcolor(I, bgcol)                           # dominant colour cells
+    mirror  = ofcolor(cmirror(I), bgcol)                  # its counter‑diagonal copy
+    O       = paint(O0, asobject(mirror))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      45.5741 |             0.18     |           0.279508  |      46.0336 |
+| train2 |                0 |      21.587  |             0.3      |           0.180278  |      22.0673 |
+| train3 |                0 |      42.7434 |             0.315556 |           0.0745356 |      43.1335 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      31.6386 |             0.292969 |            0.112673 |      32.0442 |
+| test2 |                0 |      25.0599 |             0.3125   |            0.150231 |      25.5227 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – for each coloured cell draw the whole segment that joins it
+    # to its counter‑diagonal counterpart.
+    O   = I
+    h   = decrement(height(I))
+    w   = decrement(width(I))
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)
+        seg = merge(apply(lambda p: connect(p, (w - p[1], h - p[0])), src))
+        O   = paint(O, recolor(c, seg))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      41.8091 |             0.1375   |           0.347311  |      42.2939 |
+| train2 |                0 |      23.622  |             0.26     |           0.127475  |      24.0095 |
+| train3 |                0 |      28.1425 |             0.173333 |           0.0527046 |      28.3685 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      20.6155 |             0.171875 |           0.0796722 |      20.8671 |
+| test2 |                0 |      17.9444 |             0.222222 |           0.10623   |      18.2728 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – shift every coloured cell to its counter‑diagonal position,
+    # keeping both the original and the shifted cell.
+    O   = I
+    h   = decrement(height(I))
+    w   = decrement(width(I))
+    for c in (ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT):
+        src = ofcolor(I, c)
+        dst = merge(apply(lambda p: shift({p}, (w - p[1], h - p[0])), src))
+        O   = paint(O, recolor(c, dst))
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.9255 |             0.1775   |            0.197642 |      47.3006 |
+| train2 |                0 |      27.037  |             0.37     |            0.145774 |      27.5528 |
+| train3 |                0 |      41.7852 |             0.222222 |            0.274874 |      42.2823 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      36.973  |             0.21875  |            0.269729 |      37.4614 |
+| test2 |                0 |      23.3238 |             0.298611 |            0.197642 |      23.8201 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – put a vertical mirror of every non‑zero cell on top of the input.
+    V      = vmirror(I)                                 # vertical flip
+    nonz   = difference(palette(V), {0})                # colours that really appear
+    mirror = merge(apply(lambda c: ofcolor(V, c), nonz))  # all mirrored coloured cells
+    O      = paint(I, asobject(mirror))                  # overlay
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – for every colour, fill the whole row(s) that contain it.
+    cols   = width(I)
+    colors = difference(palette(I), {0})
+    rows_of = lambda c: {p[0] for p in ofcolor(I, c)}               # rows that hold colour c
+    row_fill = lambda r: {(r, j) for j in interval(0, cols, 1)}    # a complete row
+    fills   = merge(apply(lambda c: merge(
+                     apply(lambda r: row_fill(r), rows_of(c))),
+                    colors)
+    O = paint(I, asobject(recolor(ONE, fills)))   # colour does not matter – we only need the shape
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      86.5448 |             0.9525   |                   0 |      87.4973 |
+| train2 |                0 |      32.078  |             0.85     |                   0 |      32.928  |
+| train3 |                0 |      57.9655 |             0.862222 |                   0 |      58.8277 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      46.9574 |             0.871094 |                   0 |      47.8285 |
+| test2 |                0 |      33.2566 |             0.854167 |                   0 |      34.1107 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – make the most common non‑zero colour the background,
+    # then draw its counter‑diagonal mirror.
+    nonzero = difference(palette(I), {0})
+    bgcol   = argmax(nonzero, lambda col: colorcount(I, col))
+    O0      = switch(I, 0, bgcol)                               # recolour background
+    mirror  = ofcolor(cmirror(O0), bgcol)                       # counter‑diagonal copy
+    O       = paint(O0, asobject(mirror))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      45.9239 |             0.14     |            0.198431 |      46.2623 |
+| train2 |                0 |      23.1517 |             0.25     |            0.229129 |      23.6308 |
+| train3 |                0 |      27.9821 |             0.168889 |            0.354338 |      28.5054 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      20.5183 |             0.167969 |            0.33802  |      21.0243 |
+| test2 |                0 |      16.9115 |             0.215278 |            0.291667 |      17.4185 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – extend each coloured cell straight toward the nearest border.
+    h     = decrement(height(I))
+    w     = decrement(width(I))
+    half_h = halve(h)
+    half_w = halve(w)
+
+    # direction towards the nearest horizontal border (up or down)
+    dh = lambda p: branch(p[0] <= half_h,
+                          -p[0],                     # up  : move -row
+                          h - p[0])                  # down: move +row
+
+    # direction towards the nearest vertical border (left or right)
+    dw = lambda p: branch(p[1] <= half_w,
+                          -p[1],                     # left  : move -col
+                          w - p[1])                  # right : move +col
+
+    # for a cell p, the target border cell is p shifted by (dh(p), dw(p))
+    target = lambda p: shift({p}, (dh(p), dw(p)))
+
+    seg   = merge(apply(target,
+                       merge(apply(lambda c: ofcolor(I, c),
+                                  difference(palette(I), {0})))))
+    O = paint(I, asobject(seg))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – keep every coloured cell and also its counter‑diagonal counterpart.
+    h = decrement(height(I))
+    w = decrement(width(I))
+
+    # mapping a cell to its counter‑diagonal position
+    reflect = lambda p: {(p[0], p[1]), (h - p[0], w - p[1])}
+
+    all_cells = merge(apply(lambda c: ofcolor(I, c),
+                         difference(palette(I), {0})))
+    expanded  = merge(apply(reflect, all_cells))
+
+    O = paint(I, asobject(expanded))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      41.8091 |             0.1375   |            0.347311 |      42.2939 |
+| train2 |                0 |      27.8927 |             0.39     |            0.141421 |      28.4241 |
+| train3 |                0 |      28.0535 |             0.186667 |            0.351188 |      28.5914 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      20.6155 |             0.183594 |            0.328497 |      21.1276 |
+| test2 |                0 |      15.0333 |             0.25     |            0.271633 |      15.5549 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # DIAGONAL‑TO‑CORNER – for each coloured cell draw a line to the
+    # nearest corner (Manhattan distance) and keep the original cells.
+    h      = decrement(height(I))
+    w      = decrement(width(I))
+    corners = {(0,0), (0,w), (h,0), (h,w)}
+
+    # nearest corner of a point p
+    nearest = lambda p: argmin(corners,
+                              lambda c: add(abs(p[0]-c[0]), abs(p[1]-c[1])))
+    # segment from p to its nearest corner
+    segment = lambda p: connect(p, nearest(p))
+
+    cells   = merge(apply(lambda c: ofcolor(I, c),
+                    difference(palette(I), {0})))
+    segs    = merge(apply(segment, cells))
+    O       = paint(I, asobject(segs))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # HORIZ‑FILL – if a colour appears at least twice on the same row,
+    # fill the whole row between its left‑most and right‑most occurrence.
+    colors   = difference(palette(I), {0})
+    rows_of  = lambda c: {p[0] for p in ofcolor(I, c)}
+    row_fill = lambda r: { (r, j) for j in interval(0, width(I), 1) }
+
+    # for each colour, for each row it occupies, fill that row completely
+    fills = merge(apply(
+        lambda c: merge(apply(
+            lambda r: row_fill(r),
+            rows_of(c))),
+        colors))
+
+    O = paint(I, asobject(fills))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # VERT‑FILL – if a colour appears at least twice on the same column,
+    # fill the whole column between its top‑most and bottom‑most occurrence.
+    colors   = difference(palette(I), {0})
+    cols_of  = lambda c: {p[1] for p in ofcolor(I, c)}
+    col_fill = lambda c: { (i, c) for i in interval(0, height(I), 1) }
+
+    fills = merge(apply(
+        lambda col: merge(apply(
+            lambda c: col_fill(c),
+            cols_of(col))),
+        colors))
+
+    O = paint(I, asobject(fills))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # MIRROR‑BOTH – overlay the horizontal and vertical mirrors of the
+    # non‑zero pattern on top of the original grid.
+    H      = hmirror(I)            # mirror left‑right
+    V      = vmirror(I)            # mirror top‑bottom
+    nonz   = difference(palette(I), {0})
+    mirror = merge(apply(lambda c: ofcolor(H, c), nonz),
+                 apply(lambda c: ofcolor(V, c), nonz))
+    O = paint(I, asobject(mirror))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      41.8091 |             0.1375   |            0.347311 |      42.2939 |
+| train2 |                0 |      27.8927 |             0.39     |            0.141421 |      28.4241 |
+| train3 |                0 |      28.0535 |             0.186667 |            0.351188 |      28.5914 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      20.6155 |             0.183594 |            0.328497 |      21.1276 |
+| test2 |                0 |      15.0333 |             0.25     |            0.271633 |      15.5549 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # REPLICATE‑NEAREST‑BORDER – for every coloured cell draw the line
+    # (orthogonal) to the closest grid border (top, bottom, left or right)
+    # and keep the original cells.
+    h = decrement(height(I))
+    w = decrement(width(I))
+
+    # direction to the nearest horizontal border
+    dh = lambda p: branch(p[0] <= halve(h), -p[0], h - p[0])
+    # direction to the nearest vertical border
+    dw = lambda p: branch(p[1] <= halve(w), -p[1], w - p[1])
+
+    target = lambda p: shift({p}, (dh(p), dw(p)))     # endpoint cell
+    seg    = lambda p: connect(p, list(target(p))[0]) # whole segment
+
+    cells = merge(apply(lambda c: ofcolor(I, c),
+                       difference(palette(I), {0})))
+    segs  = merge(apply(seg, cells))
+    O = paint(I, asobject(segs))
+    return O
+```
+
 # Task 18419cfa
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2125)
+[Best program](#dsl-2275)
 
 ## Iteration 1
 
@@ -75407,7 +80310,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2175)
+[Best program](#dsl-2325)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L815)
 
@@ -77517,7 +82420,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2225)
+[Best program](#dsl-2375)
 
 ## Iteration 1
 
@@ -79325,7 +84228,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2275)
+[Best program](#dsl-2425)
 
 ## Iteration 1
 
@@ -81371,7 +86274,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2325)
+[Best program](#dsl-2475)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4614)
 
@@ -83026,7 +87929,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2375)
+[Best program](#dsl-2525)
 
 ## Iteration 1
 
@@ -84682,13 +89585,1498 @@ def dsl5(I):
     return O
 ```
 
+# Task 1c786137
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-2576)
+
+[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L441)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          782 |                  223 |            0.58322  |      1020.85 |
+| train2 |          21.4009 |         1273 |                  531 |            0.521819 |      1825.92 |
+| train3 |          12.0416 |          662 |                  386 |            0.320796 |      1060.36 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          628 |                  344 |             0.32249 |      983.724 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global collapse: remove empty outer rows/columns
+    O = compress(I)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           80 |                   50 |            0.196116 |      133.025 |
+| train2 |        nan       |          nan |                  nan |          nan        |      nan     |
+| train3 |        nan       |          nan |                  nan |          nan        |      nan     |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Extract the bounding box of the most frequent non‑background color (here 4)
+    all_objs = objects(I, True, False, True)
+    target   = first(colorfilter(all_objs, 4))
+    O = subgrid(target, I)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.53    |          510 |                  169 |            0.536725 |      692.067 |
+| train2 |         18.6011  |          976 |                  447 |            0.487146 |     1442.09  |
+| train3 |          9.21954 |          528 |                  320 |            0.265593 |      857.485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.60233 |          435 |                  282 |            0.264468 |      725.867 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Trim uniform border of the grid
+    O = trim(I)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          782 |                  223 |            0.58322  |      1020.85 |
+| train2 |          21.4009 |         1273 |                  531 |            0.521819 |      1825.92 |
+| train3 |          12.0416 |          662 |                  386 |            0.320796 |      1060.36 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          628 |                  344 |             0.32249 |      983.724 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Mirror the whole picture vertically
+    O = vmirror(I)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Paint the union of two specific colored objects (4 and 5) onto a blank canvas
+    all_objs = objects(I, True, False, True)
+    obj4 = first(colorfilter(all_objs, 4))
+    obj5 = first(colorfilter(all_objs, 5))
+    union = combine(obj4, obj5)
+    blank = canvas(0, shape(I))
+    O = paint(blank, union)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.53    |          510 |                  169 |            0.536725 |      692.067 |
+| train2 |         18.6011  |          976 |                  447 |            0.487146 |     1442.09  |
+| train3 |          9.21954 |          528 |                  320 |            0.265593 |      857.485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.60233 |          435 |                  282 |            0.264468 |      725.867 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # 1️⃣ Global transformation – trim away any uniform outer border.
+    #    (uses only the `trim` primitive)
+    O = trim(I)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           80 |                   50 |           0.196116  |      133.025 |
+| train2 |          2.82843 |           64 |                  128 |           0.124035  |      194.952 |
+| train3 |          2.82843 |          320 |                  200 |           0.0995037 |      522.928 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |          114 |                  182 |            0.105118 |      298.934 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 2️⃣ Object extraction – keep the *largest* non‑background object,
+    #    regardless of its colour, and crop to its tight bounding box.
+    #    (objects → argmax → subgrid)
+    all_objs = objects(I, True, False, True)          # every coloured object
+    largest   = argmax(all_objs, lambda o: size(o))   # the one with most cells
+    O = subgrid(largest, I)                          # crop to that object
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |            1        |      305.264 |
+| train2 |          21.4009 |           39 |                  531 |            0.522388 |      591.923 |
+| train3 |          12.0416 |           98 |                  386 |            0.320796 |      496.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          245 |                  344 |                   1 |      601.402 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 3️⃣ Colour filtering – isolate colour 5, discarding everything else.
+    #    (ofcolor → canvas → fill)
+    patch5 = ofcolor(I, 5)                 # indices where colour 5 occurs
+    blank  = canvas(0, shape(I))           # empty canvas of same size
+    O = fill(blank, 5, patch5)             # paint 5 only on the selected cells
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          14.8661 |          782 |                  223 |            0.563093 |      1020.43 |
+| train2 |          21.2132 |         1273 |                  531 |            0.516016 |      1825.73 |
+| train3 |          12.2066 |          662 |                  386 |            0.325653 |      1060.53 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.3137 |          628 |                  344 |            0.319744 |      983.633 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 4️⃣ Geometric reasoning – first mirror the whole picture vertically,
+    #    then rotate it clockwise by 90°.
+    #    (vmirror → rot90)
+    O = rot90(vmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         nan      |          nan |                  nan |          nan        |       nan    |
+| train2 |          21.4009 |           46 |                  531 |            0.318849 |       598.72 |
+| train3 |         nan      |          nan |                  nan |          nan        |       nan    |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          242 |                  344 |            0.373095 |      597.775 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 5️⃣ Relational / set‑based reasoning – take the objects of colours 1
+    #    and 2, form their union and render it on a blank canvas.
+    #    (objects → colorfilter → combine → paint)
+    objs   = objects(I, True, False, True)                 # all coloured objects
+    obj1   = first(colorfilter(objs, 1))                  # first object of colour 1
+    obj2   = first(colorfilter(objs, 2))                  # first object of colour 2
+    union  = combine(obj1, obj2)                          # their union
+    blank  = canvas(0, shape(I))                          # empty canvas
+    O = paint(blank, union)                               # paint the union
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           66 |                   16 |            1        |      87.4721 |
+| train2 |          8.60233 |          108 |                   49 |            0.754474 |     166.357  |
+| train3 |         11.4018  |          190 |                   81 |            0.802225 |     283.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          244 |                   78 |            0.597124 |      331.082 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # 1️⃣ Global‑scale / periodicity extraction.
+    #    Detect the fundamental vertical and horizontal period of the whole picture,
+    #    then crop to the first period block.
+    #    (objects → first → vperiod / hperiod → subgrid)
+    whole      = objects(I, True, False, True)               # all non‑background objects
+    first_obj  = first(whole)                               # any object (the picture is 1‑object)
+    ph        = vperiod(first_obj)                          # height of a repeating tile
+    pw        = hperiod(first_obj)                          # width  of a repeating tile
+    O = subgrid(initset(astuple(0,0)), I)                    # start at origin
+    # take only the top‑left tile of size (ph × pw)
+    O = crop(I, (0, 0), (ph, pw))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           60 |                   16 |            0.620174 |      81.0923 |
+| train2 |          8.60233 |          106 |                   49 |            0.754474 |     164.357  |
+| train3 |         11.4018  |          187 |                   81 |            0.802225 |     280.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          10.6301 |          245 |                   73 |                   1 |       329.63 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 2️⃣ Object‑extraction – keep the *smallest* coloured object
+    #    (objects → argmin → subgrid)
+    all_objs = objects(I, True, False, True)                # every coloured object
+    smallest = argmin(all_objs, lambda o: size(o))           # the one with fewest cells
+    O = subgrid(smallest, I)                               # crop to its tight box
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |                   1 |      305.264 |
+| train2 |          21.4009 |          111 |                  531 |                   1 |      664.401 |
+| train3 |          12.0416 |          192 |                  386 |                   1 |      591.042 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          411 |                  344 |             0.32249 |      766.724 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 3️⃣ Colour‑filtering – isolate the most frequent non‑zero colour.
+    #    (mostcolor → ofcolor → canvas → fill)
+    col       = mostcolor(I)                                 # dominant colour (ignores 0)
+    patch5    = ofcolor(I, col)                               # cells of that colour
+    blank     = canvas(0, shape(I))                          # empty canvas
+    O = fill(blank, col, patch5)                            # paint only those cells
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          782 |                  223 |            0.58322  |      1020.85 |
+| train2 |          21.4009 |         1273 |                  531 |            0.521819 |      1825.92 |
+| train3 |          12.0416 |          662 |                  386 |            0.320796 |      1060.36 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          628 |                  344 |             0.32249 |      983.724 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 4️⃣ Geometric reasoning – mirror horizontally, then rotate 180°.
+    #    (hmirror → rot180)
+    O = rot180(hmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 5️⃣ Relational reasoning – intersect the objects of the two most common colours.
+    #    (objects → colorfilter → combine → intersect → paint)
+    objs        = objects(I, True, False, True)              # all coloured objects
+    col1        = mostcolor(I)                               # most common colour
+    # second most common colour: remove the first colour and recompute
+    rest_grid   = replace(I, col1, -1)                        # temporary sentinel
+    col2        = mostcolor(rest_grid)                       # next most common
+    obj1        = first(colorfilter(objs, col1))              # first object of colour 1
+    obj2        = first(colorfilter(objs, col2))              # first object of colour 2
+    inter       = intersection(obj1, obj2)                   # overlapping cells
+    blank       = canvas(0, shape(I))
+    O = paint(blank, inter)                                 # render the intersection
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           66 |                   16 |            1        |      87.4721 |
+| train2 |          8.60233 |          108 |                   49 |            0.754474 |     166.357  |
+| train3 |         11.4018  |          190 |                   81 |            0.802225 |     283.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          244 |                   78 |            0.597124 |      331.082 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ① Global‑scale: find the smallest repeating tile of the whole picture.
+    #    (compress → objects → vperiod / hperiod → crop)
+    #    – compress removes empty borders, then the period of the single
+    #      non‑background object gives the tile size.
+    pic      = compress(I)                                 # strip empty outer rows/cols
+    obj      = first(objects(pic, True, False, True))      # the only coloured object
+    ph       = vperiod(obj)                                 # vertical period
+    pw       = hperiod(obj)                                 # horizontal period
+    O        = crop(pic, (0, 0), (ph, pw))                 # top‑left tile
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           80 |                   50 |           0.196116  |      133.025 |
+| train2 |          2.82843 |           64 |                  128 |           0.124035  |      194.952 |
+| train3 |          2.82843 |          320 |                  200 |           0.0995037 |      522.928 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |          114 |                  182 |            0.105118 |      298.934 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ② Object‑extraction: keep the **largest** coloured object (by cell count).
+    #    (objects → argmax → subgrid)
+    all_objs = objects(I, True, False, True)                # every coloured object
+    biggest  = argmax(all_objs, lambda o: size(o))          # object with most cells
+    O        = subgrid(biggest, I)                         # tight crop around it
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |            6 |                  223 |            0.564135 |      244.828 |
+| train2 |          21.4009 |           39 |                  531 |            0.522388 |      591.923 |
+| train3 |          12.0416 |          128 |                  386 |            0.195768 |      526.237 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          201 |                  344 |            0.334664 |      556.736 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ③ Colour‑filtering: isolate the **least** frequent non‑zero colour.
+    #    (palette → argmin → ofcolor → canvas → fill)
+    nonzero  = difference(palette(I), initset(0))            # all colours except 0
+    rarecol  = argmin(nonzero, lambda c: colorcount(I, c)) # colour with fewest pixels
+    raremask = ofcolor(I, rarecol)                         # its cells
+    blank    = canvas(0, shape(I))                         # empty canvas
+    O        = fill(blank, rarecol, raremask)              # paint only those cells
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          14.8661 |          782 |                  223 |            0.563093 |      1020.43 |
+| train2 |          21.2132 |         1273 |                  531 |            0.516016 |      1825.73 |
+| train3 |          12.2066 |          662 |                  386 |            0.325653 |      1060.53 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.3137 |          628 |                  344 |            0.319744 |      983.633 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ④ Geometric reasoning: mirror vertically, then rotate 90° clockwise.
+    #    (vmirror → rot90)
+    O = rot90(vmirror(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ⑤ Relational reasoning: intersect the objects of the two most common colours.
+    #    (mostcolor → second‑most → colorfilter → intersection → paint)
+    col1          = mostcolor(I)                                          # most common colour
+    # temporary grid where col1 is removed, to expose the second colour
+    sentinel_grid = replace(I, col1, -1)
+    col2          = mostcolor(sentinel_grid)                               # second most common colour
+    objs          = objects(I, True, False, True)                          # all coloured objects
+    obj1          = first(colorfilter(objs, col1))                          # first object of colour 1
+    obj2          = first(colorfilter(objs, col2))                          # first object of colour 2
+    inter         = intersection(obj1, obj2)                               # overlapping cells
+    blank         = canvas(0, shape(I))
+    O             = paint(blank, inter)                                    # render the overlap
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           66 |                   16 |            1        |      87.4721 |
+| train2 |          8.60233 |          108 |                   49 |            0.754474 |     166.357  |
+| train3 |         11.4018  |          190 |                   81 |            0.802225 |     283.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          244 |                   78 |            0.597124 |      331.082 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global periodicity: find smallest tile that repeats both vertically and horizontally,
+    # then upscale it back to original size.
+    pic   = compress(I)                                   # remove outer empty margin
+    obj   = first(objects(pic, True, False, True))         # the single coloured object
+    ph    = vperiod(obj)                                   # vertical period of the pattern
+    pw    = hperiod(obj)                                   # horizontal period of the pattern
+    tile  = crop(pic, (0, 0), (ph, pw))                    # extract the basic tile
+    O     = hupscale(vupscale(tile, ph // height(tile)), pw // width(tile))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           66 |                   50 |                   1 |      119.828 |
+| train2 |          2.82843 |          111 |                  128 |                   1 |      242.828 |
+| train3 |          2.82843 |          192 |                  200 |                   1 |      395.828 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |          245 |                  182 |                   1 |      430.828 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object extraction + inner‑mask: keep the largest coloured object,
+    # then erase the cells that belong to its own colour (leaving the interior).
+    all_objs = objects(I, True, False, True)
+    big_obj  = argmax(all_objs, lambda o: size(o))
+    big_box  = subgrid(big_obj, I)                         # tight crop around the object
+    col      = color(big_obj)                              # colour of the object
+    mask     = ofcolor(big_box, col)                       # positions of that colour inside the crop
+    blank    = canvas(0, shape(big_box))
+    O        = fill(blank, col, difference(ofcolor(big_box, col), mask))  # remove the border colour
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          366 |                  223 |            0.58322  |      604.848 |
+| train2 |          21.4009 |          252 |                  531 |            0.521819 |      804.923 |
+| train3 |          12.0416 |           74 |                  386 |            0.320796 |      472.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          411 |                  344 |             0.32249 |      766.724 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering: keep only the most common non‑zero colour,
+    # replace all other colours by the background (0).
+    nonzero   = difference(palette(I), initset(0))
+    commoncol = argmax(nonzero, lambda c: colorcount(I, c))
+    mask      = ofcolor(I, commoncol)
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, commoncol, mask)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          782 |                  223 |            0.58322  |      1020.85 |
+| train2 |          21.4009 |         1273 |                  531 |            0.521819 |      1825.92 |
+| train3 |          12.0416 |          662 |                  386 |            0.320796 |      1060.36 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          628 |                  344 |             0.32249 |      983.724 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning: rotate 180° then mirror horizontally.
+    O = hmirror(rot180(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational reasoning: intersect the two largest objects (by cell count)
+    # and render the overlap.
+    objs      = objects(I, True, False, True)
+    sorted_o  = order(objs, lambda o: -size(o))            # descending by size
+    first_obj = first(sorted_o)
+    second_obj= first(tail(sorted_o))                      # second largest
+    inter     = intersection(first_obj, second_obj)
+    blank     = canvas(0, shape(I))
+    O         = paint(blank, inter)
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.53    |          510 |                  169 |            0.536725 |      692.067 |
+| train2 |         18.6011  |          976 |                  447 |            0.487146 |     1442.09  |
+| train3 |          9.21954 |          528 |                  320 |            0.265593 |      857.485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.60233 |          435 |                  282 |            0.264468 |      725.867 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global trimming + vertical mirroring
+    trimmed   = trim(I)                           # remove empty border rows/cols
+    O         = vmirror(trimmed)                  # flip vertically
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           60 |                  223 |            0.596829 |      298.861 |
+| train2 |          21.4009 |          106 |                  531 |            0.172414 |      658.573 |
+| train3 |          12.0416 |          187 |                  386 |            0.330602 |      585.372 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          245 |                  344 |                   1 |      601.402 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Smallest object extraction and recoloring
+    objs      = objects(I, True, False, True)    # all coloured objects
+    smallest  = first(order(objs, lambda o: size(o)))   # object with fewest cells
+    col       = color(smallest)                   # its colour
+    blank     = canvas(0, shape(I))               # empty canvas of same size
+    O         = fill(blank, col, smallest)        # draw the object in its colour
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |                   1 |      305.264 |
+| train2 |          21.4009 |          111 |                  531 |                   1 |      664.401 |
+| train3 |          12.0416 |          192 |                  386 |                   1 |      591.042 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          245 |                  344 |                   1 |      601.402 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Keep only the colours that appear at most twice
+    nonzero   = difference(palette(I), initset(0))               # all non‑background colours
+    rarecols  = {c for c in nonzero if colorcount(I, c) <= 2}   # colours with ≤2 cells
+    raremask  = mapply(lambda c: ofcolor(I, c), rarecols)        # union of their cells
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, 1, raremask)                        # paint them with colour 1
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2       |           28 |                   24 |            0.2      |       54.2   |
+| train2 |          5.83095 |           88 |                   57 |            0.410264 |      151.241 |
+| train3 |          8.60233 |          170 |                   89 |            0.505146 |      268.107 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          7.81025 |          210 |                   81 |             0.47978 |       299.29 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Crop a 3×3 window centred on the centre of mass of all non‑zero cells
+    nonzero   = difference(palette(I), initset(0))
+    all_cells = mapply(lambda c: ofcolor(I, c), nonzero)         # patch of every non‑zero cell
+    cen       = centerofmass(all_cells)                           # centre of mass (row, col)
+    start     = subtract(cen, (1, 1))                           # top‑left corner of 3×3 window
+    O         = crop(I, start, (3, 3))                           # extract the window
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          780 |                  223 |            0.58322  |     1018.85  |
+| train2 |          21.4009 |          522 |                  531 |            0.521819 |     1074.92  |
+| train3 |          12.0416 |           42 |                  386 |            0.320796 |      440.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          883 |                  344 |             0.32249 |      1238.72 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Union of the two most frequent colours (excluding background)
+    colours   = difference(palette(I), initset(0))
+    most1     = argmax(colours, lambda c: colorcount(I, c))
+    rest      = difference(colours, initset(most1))
+    most2     = argmax(rest, lambda c: colorcount(I, c))
+    mask1     = ofcolor(I, most1)
+    mask2     = ofcolor(I, most2)
+    union     = combine(mask1, mask2)                # all cells of either colour
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, most1, union)            # paint the union with the first colour
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |           12 |                   35 |            0.185695 |      49.4218 |
+| train2 |          1.41421 |           28 |                   97 |            0.071247 |     126.485  |
+| train3 |          5       |          131 |                  110 |            0.242536 |     246.243  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                5 |          165 |                   97 |            0.261712 |      267.262 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – trim empty border then downscale the whole picture
+    trimmed = trim(I)                                 # remove surrounding zero rows/cols
+    O       = downscale(trimmed, 3)                    # shrink resolution by factor 3
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           80 |                   50 |           0.196116  |      133.025 |
+| train2 |          2.82843 |           64 |                  128 |           0.124035  |      194.952 |
+| train3 |          2.82843 |          320 |                  200 |           0.0995037 |      522.928 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |          114 |                  182 |            0.105118 |      298.934 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT – keep the shape of the most numerous coloured component
+    objs      = objects(I, True, False, True)          # each coloured region as an object
+    biggest   = argmax(objs, lambda o: size(o))        # the object with most cells
+    O         = subgrid(biggest, I)                   # extract its exact bounding‑box content
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |                   1 |      305.264 |
+| train2 |          21.4009 |          111 |                  531 |                   1 |      664.401 |
+| train3 |          12.0416 |          192 |                  386 |                   1 |      591.042 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          245 |                  344 |                   1 |      601.402 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR FILTER – retain only colours that appear exactly three times,
+    # recolour them all with colour 1
+    nonzero   = difference(palette(I), initset(0))   # set of all non‑background colours
+    threecol  = {c for c in nonzero if colorcount(I, c) == 3}
+    mask      = mapply(lambda c: ofcolor(I, c), threecol)   # union of those cells
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, 1, mask)                  # paint the selected cells with 1
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.0416  |          510 |                  169 |            0.510219 |      691.552 |
+| train2 |         18.3848  |          976 |                  447 |            0.480166 |     1441.86  |
+| train3 |          9.43398 |          528 |                  320 |            0.272222 |      857.706 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          435 |                  282 |            0.260623 |      725.746 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – rotate 90° clockwise, then mirror vertically,
+    # finally remove any surrounding empty border
+    rotated   = rot90(I)                               # quarter‑clockwise rotation
+    mirrored  = vmirror(rotated)                       # vertical mirror (left‑right flip)
+    O         = trim(mirrored)                         # delete empty outer rows/cols
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           39 |                  223 |            0.370441 |      277.635 |
+| train2 |          21.4009 |           99 |                  531 |            0.375371 |      651.776 |
+| train3 |          12.0416 |          188 |                  386 |            0.285689 |      586.327 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          229 |                  344 |            0.282843 |      584.685 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – draw a line joining the centroids of the two most common colours
+    cols      = difference(palette(I), initset(0))     # all colours except background
+    most1     = argmax(cols, lambda c: colorcount(I, c))
+    rest      = difference(cols, initset(most1))
+    most2     = argmax(rest, lambda c: colorcount(I, c))
+    mask1     = ofcolor(I, most1)
+    mask2     = ofcolor(I, most2)
+    cen1      = centerofmass(mask1)
+    cen2      = centerofmass(mask2)
+    line      = connect(cen1, cen2)                    # set of cells forming the line
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, most1, line)              # paint the line with the first colour
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.0416  |          510 |                  169 |            0.510219 |      691.552 |
+| train2 |         18.3848  |          976 |                  447 |            0.480166 |     1441.86  |
+| train3 |          9.43398 |          528 |                  320 |            0.272222 |      857.706 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          435 |                  282 |            0.260623 |      725.746 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compress, rotate 90° clockwise, then remove empty border
+    compressed = compress(I)                 # remove frontiers
+    rotated    = rot90(compressed)           # quarter‑clockwise rotation
+    O          = trim(rotated)               # delete surrounding zero rows/cols
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           60 |                   16 |            0.620174 |      81.0923 |
+| train2 |          8.60233 |          106 |                   49 |            0.754474 |     164.357  |
+| train3 |         11.4018  |          187 |                   81 |            0.802225 |     280.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          10.6301 |          245 |                   73 |                   1 |       329.63 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT EXTRACTION – keep the smallest non‑background object exactly as it appears
+    objs      = objects(I, True, False, True)          # all coloured objects
+    smallest  = argmin(objs, lambda o: size(o))         # object with fewest cells
+    O         = subgrid(smallest, I)                    # extract its bounding‑box content
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |                   1 |      305.264 |
+| train2 |          21.4009 |          111 |                  531 |                   1 |      664.401 |
+| train3 |          12.0416 |          192 |                  386 |                   1 |      591.042 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          245 |                  344 |                   1 |      601.402 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR FILTERING – retain only colours that occur exactly twice, recolour them to 3
+    nonzero   = difference(palette(I), initset(0))     # all non‑background colours
+    twicecol  = {c for c in nonzero if colorcount(I, c) == 2}
+    mask      = mapply(lambda c: ofcolor(I, c), twicecol)   # union of those cells
+    blank     = canvas(0, shape(I))                         # empty grid
+    O         = fill(blank, 3, mask)                         # paint selected cells with colour 3
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.53    |          510 |                  169 |            0.536725 |      692.067 |
+| train2 |         18.6011  |          976 |                  447 |            0.487146 |     1442.09  |
+| train3 |          9.21954 |          528 |                  320 |            0.265593 |      857.485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.60233 |          435 |                  282 |            0.264468 |      725.867 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – rotate 180°, mirror horizontally, then trim empty border
+    rotated   = rot180(I)            # half‑rotation
+    mirrored  = hmirror(rotated)    # horizontal flip
+    O         = trim(mirrored)       # remove outer zero rows/cols
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           48 |                  223 |            0.370441 |      286.635 |
+| train2 |          21.4009 |           79 |                  531 |            0.375371 |      631.776 |
+| train3 |          12.0416 |          182 |                  386 |            0.285689 |      580.327 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          243 |                  344 |            0.282843 |      598.685 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – draw a line between the centroids of the two most common colours,
+    # colour the line with the second most common colour
+    cols      = difference(palette(I), initset(0))          # colours besides background
+    most1     = argmax(cols, lambda c: colorcount(I, c))    # most frequent colour
+    rest      = difference(cols, initset(most1))
+    most2     = argmax(rest, lambda c: colorcount(I, c))    # second most frequent
+    mask1     = ofcolor(I, most1)
+    mask2     = ofcolor(I, most2)
+    cen1      = centerofmass(mask1)
+    cen2      = centerofmass(mask2)
+    line      = connect(cen1, cen2)                         # cells forming the line
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, most2, line)                    # paint line with colour of most2
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          3       |            1 |                   45 |            0.148659 |      49.1487 |
+| train2 |          4.12311 |          159 |                  138 |            0.176614 |     301.3    |
+| train3 |          3.16228 |           29 |                  129 |            0.139482 |     161.302  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3.16228 |           67 |                  114 |            0.149071 |      184.311 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – shrink the picture by a factor of two and discard any outer empty border
+    O = trim(downscale(I, 2))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |           80 |                   50 |           0.196116  |      133.025 |
+| train2 |          2.82843 |           64 |                  128 |           0.124035  |      194.952 |
+| train3 |          2.82843 |          320 |                  200 |           0.0995037 |      522.928 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.82843 |          114 |                  182 |            0.105118 |      298.934 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT EXTRACTION – keep the *largest* non‑background object exactly as it appears
+    objs      = objects(I, True, False, True)           # all coloured objects
+    largest   = argmax(objs, lambda o: size(o))        # object with most cells
+    O         = subgrid(largest, I)                    # extract its bounding box
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          202 |                  223 |            0.58322  |      440.848 |
+| train2 |          21.4009 |          609 |                  531 |            0.521819 |     1161.92  |
+| train3 |          12.0416 |          206 |                  386 |            0.320796 |      604.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          157 |                  344 |             0.32249 |      512.724 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR FILTERING – retain every colour that appears more than three times,
+    # recolour all those cells to colour 2
+    nonzero   = difference(palette(I), initset(0))      # colours besides background
+    manycol   = {c for c in nonzero if colorcount(I, c) > 3}
+    mask      = mapply(lambda c: ofcolor(I, c), manycol)   # union of selected cells
+    blank     = canvas(0, shape(I))                       # empty canvas
+    O         = fill(blank, 2, mask)                       # paint them with colour 2
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.0416  |          510 |                  169 |            0.510219 |      691.552 |
+| train2 |         18.3848  |          976 |                  447 |            0.480166 |     1441.86  |
+| train3 |          9.43398 |          528 |                  320 |            0.272222 |      857.706 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          435 |                  282 |            0.260623 |      725.746 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – rotate 90° clockwise, then mirror vertically, finally trim empty border
+    rotated   = rot90(I)            # quarter‑clockwise rotation
+    mirrored  = vmirror(rotated)    # vertical flip
+    O         = trim(mirrored)      # remove surrounding zeros
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          258 |                  223 |            0.58322  |      496.848 |
+| train2 |          21.4009 |          561 |                  531 |            0.521819 |     1113.92  |
+| train3 |          12.0416 |          138 |                  386 |            0.320796 |      536.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          183 |                  344 |             0.32249 |      538.724 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – outline the union of the two most frequent colours
+    cols      = difference(palette(I), initset(0))          # all non‑background colours
+    most1    = argmax(cols, lambda c: colorcount(I, c))    # most common colour
+    rest     = difference(cols, initset(most1))
+    most2    = argmax(rest, lambda c: colorcount(I, c))    # second most common colour
+    mask1    = ofcolor(I, most1)
+    mask2    = ofcolor(I, most2)
+    union    = combine(mask1, mask2)                       # all cells of the two colours
+    outline  = box(union)                                   # outline of their combined shape
+    blank    = canvas(0, shape(I))
+    O        = fill(blank, most2, outline)                  # paint outline with colour of most2
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          53.6004 |         6720 |                 1717 |            0.83054  |      8491.43 |
+| train2 |          80.8084 |        11410 |                 4135 |            0.804472 |     15626.6  |
+| train3 |          58.6941 |         7072 |                 2628 |            0.696915 |      9759.39 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          55.2268 |         6985 |                 2326 |            0.697233 |      9366.92 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compress away empty rows/cols, then enlarge three‑fold and finally trim the border
+    O = trim(upscale(compress(I), 3))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.47214 |           60 |                   16 |            0.620174 |      81.0923 |
+| train2 |          8.60233 |          106 |                   49 |            0.754474 |     164.357  |
+| train3 |         11.4018  |          187 |                   81 |            0.802225 |     280.204  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          10.6301 |          245 |                   73 |                   1 |       329.63 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT EXTRACTION – keep the *smallest* coloured object, extract its bounding box and mirror it horizontally
+    objs      = objects(I, True, False, True)                 # all coloured objects
+    smallest  = argmin(objs, lambda o: size(o))               # object with fewest cells
+    sub       = subgrid(smallest, I)                         # its minimal bounding box
+    O         = hmirror(sub)                                 # horizontal mirror
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |           66 |                  223 |            1        |      305.264 |
+| train2 |          21.4009 |          929 |                  531 |            0.521819 |     1481.92  |
+| train3 |          12.0416 |          103 |                  386 |            0.320796 |      501.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |           50 |                  344 |             0.32249 |      405.724 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR FILTERING – retain every colour that occurs an odd number of times and recolour them to 5
+    nonzero   = difference(palette(I), initset(0))          # colours besides background
+    oddcols   = {c for c in nonzero if not even(colorcount(I, c))}
+    mask      = mapply(lambda c: ofcolor(I, c), oddcols)    # union of the selected cells
+    blank     = canvas(0, shape(I))                         # empty canvas
+    O         = fill(blank, 5, mask)                         # paint them with colour 5
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |         12.0416  |          510 |                  169 |            0.510219 |      691.552 |
+| train2 |         18.3848  |          976 |                  447 |            0.480166 |     1441.86  |
+| train3 |          9.43398 |          528 |                  320 |            0.272222 |      857.706 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.48528 |          435 |                  282 |            0.260623 |      725.746 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – rotate 180°, then mirror along the main diagonal, finally trim empty border
+    rotated   = rot180(I)          # 180° rotation
+    mirrored  = dmirror(rotated)   # diagonal mirror (↘ ↗)
+    O         = trim(mirrored)      # remove surrounding zeros
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          15.2643 |          522 |                  223 |            0.58322  |      760.848 |
+| train2 |          21.4009 |         1633 |                  531 |            0.521819 |     2185.92  |
+| train3 |          12.0416 |          423 |                  386 |            0.320796 |      821.362 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          11.4018 |          101 |                  344 |             0.32249 |      456.724 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – outline the line that joins the centroids of the two most frequent colours,
+    # using the second‑most‑frequent colour for the outline
+    cols      = difference(palette(I), initset(0))                   # non‑background colours
+    most1     = argmax(cols, lambda c: colorcount(I, c))              # most common colour
+    rest      = difference(cols, initset(most1))
+    most2     = argmax(rest, lambda c: colorcount(I, c))             # second most common colour
+    mask1     = ofcolor(I, most1)
+    mask2     = ofcolor(I, most2)
+    c1        = centerofmass(mask1)                                   # centroid of colour most1
+    c2        = centerofmass(mask2)                                   # centroid of colour most2
+    direction = sign(subtract(c2, c1))                                 # unit step towards c2
+    line      = shoot(c1, direction)                                 # cells along the line c1→c2
+    outline   = combine(mask1, combine(mask2, line))                 # union of both colours and the line
+    blank     = canvas(0, shape(I))
+    O         = fill(blank, most2, outline)                          # draw outline in colour most2
+    return O
+```
+
 # Task c909285e
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2425)
+[Best program](#dsl-2625)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L192)
 
@@ -86410,9 +92798,9 @@ def dsl5(I):
 
 train failed, test failed
 
-6 iterations
+10 iterations
 
-[Best program](#dsl-2455)
+[Best program](#dsl-2677)
 
 ## Iteration 1
 
@@ -87347,13 +93735,665 @@ def dsl5(I):
     return O
 ```
 
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ----------  Global – simple crop, recolour and colour swap ----------
+    # 1) Remove every outer zero border (compress)
+    # 2) Turn the remaining background (0) into colour 1
+    # 3) Exchange colours 2 and 3, keep 4 unchanged
+    G = compress(I)                # strip all zero borders
+    B = replace(G, 0, 1)           # 0 → 1   (background)
+    O = switch(B, 2, 3)            # 2 ↔ 3
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ----------  Object‑level – work with each colour as a separate object ----------
+    # 1) Crop the outer zero border (compress) so that the background becomes an object too
+    # 2) Split the grid into objects (fgpartition)
+    # 3) Re‑colour the background object (colour 0) to 1
+    # 4) Swap colours 2 and 3 on their respective objects
+    # 5) Paint everything back on the background we just created
+    C   = compress(I)                                 # outer‑zero crop
+    OBJ = fgpartition(C)                              # all colour‑connected components
+    BG  = colorfilter(OBJ, 0)                         # the background object (colour 0)
+    BG1 = apply(lambda o: recolor(1, o), BG)         # 0 → 1
+    SET2 = colorfilter(OBJ, 2)                       # objects of colour 2
+    SET3 = colorfilter(OBJ, 3)                       # objects of colour 3
+    SET4 = colorfilter(OBJ, 4)                       # objects of colour 4 (unchanged)
+    SW2 = apply(lambda o: recolor(3, o), SET2)       # 2 → 3
+    SW3 = apply(lambda o: recolor(2, o), SET3)       # 3 → 2
+    ALL = combine(combine(combine(BG1, SW2), SW3), SET4)
+    O   = paint(replace(C, 0, 1), ALL)               # paint on a background that is already 1
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ----------  Colour‑mask – build masks directly with ofcolor ----------
+    # 1) Trim exactly one outer layer (the visible frame)
+    # 2) Build a mask for every colour we need (0,2,3,4)
+    # 3) Turn the 0‑mask into colour 1, keep 4 unchanged,
+    #    swap the 2‑mask with the 3‑mask.
+    # 4) Combine the three masks into the final picture.
+    T   = trim(I)                                   # remove one outer row/col
+    M0  = ofcolor(T, 0)                             # mask of background zeros
+    M2  = ofcolor(T, 2)                             # mask of colour 2 cells
+    M3  = ofcolor(T, 3)                             # mask of colour 3 cells
+    M4  = ofcolor(T, 4)                             # mask of colour 4 cells
+    B1  = recolor(1, M0)                            # 0 → 1
+    S2  = recolor(3, M2)                            # 2 → 3
+    S3  = recolor(2, M3)                            # 3 → 2
+    ALL = combine(combine(combine(B1, S2), S3), M4)   # union of masks
+    O   = paint(T, ALL)                              # paint on the trimmed grid
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |          124 |                  578 |           0.0527046 |      704.881 |
+| train2 |          7.2111  |           96 |                  376 |           0.188723  |      479.4   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3       |          227 |                  575 |           0.0573016 |      805.057 |
+| test2 |          2.82843 |          985 |                 1154 |           0.0416667 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ----------  Symmetry – use mirroring to expose the inner background ----------
+    # 1) Mirror horizontally (hmirror) – the pattern is symmetric, this makes the
+    #    background contiguous.
+    # 2) Trim the outer zero border (trim) after mirroring.
+    # 3) Replace remaining 0 by 1, swap 2 ↔ 3.
+    # 4) Mirror back to original orientation.
+    H   = hmirror(I)                                 # horizontal mirror
+    T   = trim(H)                                    # cut one outer layer
+    R   = replace(T, 0, 1)                           # background 0 → 1
+    S   = switch(R, 2, 3)                           # 2 ↔ 3
+    O   = hmirror(S)                                # restore original orientation
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ----------  Relational – modify cells that touch colour 4 ----------
+    # 1) Compress outer zero border.
+    # 2) Obtain the set of all colour‑4 cells.
+    # 3) Find every cell that is orthogonally adjacent to a colour‑4 cell.
+    # 4) On those neighbour cells change 2 ↔ 3, leave the rest untouched.
+    # 5) Finally turn any remaining 0 into 1.
+    C      = compress(I)                                    # strip zero border
+    FOUR   = ofcolor(C, 4)                                 # mask of colour 4
+    ADJ    = apply(lambda o: connect(o, o), FOUR)          # each 4‑cell with itself (identity)
+    NEIGH  = apply(lambda o: neighbours(o), FOUR)          # all orthogonal neighbours of 4
+    NBR    = union(NEIGH, FOUR)                           # include the 4‑cells themselves
+    SWAP   = apply(lambda o: switch(replace(o, 2, 3), o), NBR)  # on the neighbourhood swap 2↔3
+    REST   = difference(ofcolor(C, 2), NBR)                # 2‑cells outside neighbourhood
+    REST2  = difference(ofcolor(C, 3), NBR)                # 3‑cells outside neighbourhood
+    BG1    = replace(C, 0, 1)                              # background 0 → 1
+    O      = combine(combine(combine(SWAP, REST), REST2), BG1)
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # -----------  Global simple : compress → background → swap 2↔3 -----------
+    G = compress(I)                # remove all outer zero border
+    B = replace(G, 0, 1)           # background 0 → 1
+    O = switch(B, 2, 3)            # exchange colours 2 and 3
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # -----------  Global with temporary colour (no switch) ---------------
+    G = compress(I)                # strip zero border
+    B = replace(G, 0, 1)           # 0 → 1
+    T = replace(B, 2, 5)           # 2 → 5  (temporary colour not used elsewhere)
+    U = replace(T, 3, 2)           # 3 → 2
+    O = replace(U, 5, 3)           # 5 → 3
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # -----------  Object‑level recolouring (fgpartition) ---------------
+    C   = compress(I)                                 # outer zero crop
+    OBJ = fgpartition(C)                               # all colour‑connected objects
+    BG  = colorfilter(OBJ, 0)                         # background objects (colour 0)
+    SET2 = colorfilter(OBJ, 2)                         # objects of colour 2
+    SET3 = colorfilter(OBJ, 3)                         # objects of colour 3
+    SET4 = colorfilter(OBJ, 4)                         # objects of colour 4 (unchanged)
+
+    BG1   = apply(lambda o: recolor(1, o), BG)         # 0 → 1
+    SW2   = apply(lambda o: recolor(3, o), SET2)      # 2 → 3
+    SW3   = apply(lambda o: recolor(2, o), SET3)      # 3 → 2
+
+    ALL = combine(combine(combine(BG1, SW2), SW3), SET4) # union of all objects
+    O   = paint(replace(C, 0, 1), ALL)                 # paint on background already 1
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # -----------  Symmetry‑based : vertical mirror + compress ----------
+    V   = vmirror(I)               # vertical mirror makes the interior background contiguous
+    C   = compress(V)              # now remove the whole zero border
+    R   = replace(C, 0, 1)        # background 0 → 1
+    O   = switch(R, 2, 3)         # swap 2 and 3
+    O   = vmirror(O)               # restore original orientation
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # -----------  Colour‑mask with explicit objects (ofcolor + toobject) ----------
+    C   = compress(I)                               # strip outer zero border
+    M0  = ofcolor(C, 0); O0 = toobject(M0, C)       # mask of colour 0 → object
+    M2  = ofcolor(C, 2); O2 = toobject(M2, C)       # mask of colour 2 → object
+    M3  = ofcolor(C, 3); O3 = toobject(M3, C)       # mask of colour 3 → object
+    M4  = ofcolor(C, 4); O4 = toobject(M4, C)       # mask of colour 4 → object
+
+    B1  = recolor(1, O0)                            # 0 → 1
+    S2  = recolor(3, O2)                            # 2 → 3
+    S3  = recolor(2, O3)                            # 3 → 2
+
+    ALL = combine(combine(combine(B1, S2), S3), O4)   # union of coloured objects
+    O   = paint(replace(C, 0, 1), ALL)              # paint on background already 1
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |          124 |                  578 |           0.0527046 |      704.881 |
+| train2 |          7.2111  |           96 |                  376 |           0.188723  |      479.4   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3       |          227 |                  575 |           0.0573016 |      805.057 |
+| test2 |          2.82843 |          985 |                 1154 |           0.0416667 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global trim → recolor background → swap 2/3
+    G = trim(I)                     # remove the outer zero border
+    B = replace(G, 0, 1)           # 0 → 1
+    O = switch(B, 2, 3)            # exchange colours 2 and 3
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑level recolouring using explicit masks
+    C   = compress(I)                               # crop outer zeros
+    BG  = toobject(ofcolor(C, 0), C)                # background object
+    O2  = toobject(ofcolor(C, 2), C)                # objects of colour 2
+    O3  = toobject(ofcolor(C, 3), C)                # objects of colour 3
+    O4  = toobject(ofcolor(C, 4), C)                # objects of colour 4 (unchanged)
+
+    BG1 = recolor(1, BG)        # 0 → 1
+    S2  = recolor(3, O2)        # 2 → 3
+    S3  = recolor(2, O3)        # 3 → 2
+
+    ALL = combine(combine(combine(BG1, S2), S3), O4)
+    O   = paint(replace(C, 0, 1), ALL)   # paint recoloured objects on a 1‑background
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑mask with temporary colour (no switch)
+    G = compress(I)                     # crop outer zeros
+    B = replace(G, 0, 1)                # 0 → 1
+    T = replace(B, 2, 5)                # 2 → 5 (temporary)
+    U = replace(T, 3, 2)                # 3 → 2
+    O = replace(U, 5, 3)                # 5 → 3
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |          124 |                  578 |           0.0527046 |      704.881 |
+| train2 |          7.2111  |           96 |                  376 |           0.188723  |      479.4   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3       |          227 |                  575 |           0.0573016 |      805.057 |
+| test2 |          2.82843 |          985 |                 1154 |           0.0416667 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Horizontal mirror to make border contiguous, then trim & swap
+    H = hmirror(I)                      # mirror horizontally
+    C = trim(H)                         # remove the now‑contiguous outer border
+    B = replace(C, 0, 1)                # 0 → 1
+    S = switch(B, 2, 3)                 # exchange colours 2 and 3
+    O = hmirror(S)                      # restore original orientation
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |          376 |                  578 |            0        |      956.828 |
+| train2 |          7.2111  |           96 |                  376 |            0.188723 |      479.4   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3       |         1207 |                  575 |           0         |      1785    |
+| test2 |          2.82843 |         1605 |                 1154 |           0.0208333 |      2761.85 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Detect most frequent colour (background) → recolour → swap 2/3
+    G = trim(I)                         # strip outer zero border
+    B = replace(G, mostcolor(G), 1)     # most common colour (background) → 1
+    O = switch(B, 2, 3)                # exchange colours 2 and 3
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.82843 |          124 |                  578 |           0.0527046 |      704.881 |
+| train2 |          7.2111  |           96 |                  376 |           0.188723  |      479.4   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          3       |          227 |                  575 |           0.0573016 |      805.057 |
+| test2 |          2.82843 |          985 |                 1154 |           0.0416667 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – trim outer zero border, recolour background →1 and swap 2↔3
+    G = trim(I)               # remove outer zero frame
+    B = replace(G, 0, 1)       # 0 → 1  (background)
+    O = switch(B, 2, 3)        # exchange colours 2 and 3
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          5.65685 |          204 |                  658 |            0.100377 |      867.757 |
+| train2 |         10       |           35 |                  444 |            0.243685 |      489.244 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          5.38516 |          997 |                  653 |           0.0977829 |      1655.48 |
+| test2 |          5.65685 |          894 |                 1258 |           0.08      |      2157.74 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL + PAD – crop zeros, perform the same recolouring,
+    # then re‑pad to the original size with colour 1.
+    C   = compress(I)                         # crop all outer zeros
+    R   = replace(C, 0, 1)                   # 0 → 1
+    S   = switch(R, 2, 3)                     # 2 ↔ 3
+    BG  = canvas(1, shape(I))                 # full‑size 1‑background
+    O   = paint(BG, toobject(ofcolor(S, 1), S))   # paste 1‑cells
+    O   = paint(O, toobject(ofcolor(S, 2), S))     # paste recoloured 2‑cells
+    O   = paint(O, toobject(ofcolor(S, 3), S))     # paste recoloured 3‑cells
+    O   = paint(O, toobject(ofcolor(S, 4), S))     # keep colour 4 unchanged
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          2.23607 |            9 |                  463 |           0.0458638 |      474.282 |
+| train2 |          1.41421 |          251 |                  221 |           0.047619  |      473.462 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          2.23607 |          115 |                  463 |           0.0458638 |      580.282 |
+| test2 |          2.82843 |         1169 |                  970 |           0.0454545 |     2141.87  |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT‑LEVEL – work with individual colour objects,
+    # recolour them and finally compose on a 1‑background.
+    C   = compress(I)                                         # crop zeros
+    BG  = recolor(1, toobject(ofcolor(C, 0), C))              # 0 → 1
+    O2  = recolor(3, toobject(ofcolor(C, 2), C))              # 2 → 3
+    O3  = recolor(2, toobject(ofcolor(C, 3), C))              # 3 → 2
+    O4  = toobject(ofcolor(C, 4), C)                          # colour 4 unchanged
+    ALL = combine(combine(combine(combine(BG, O2), O3), O4), BG) # union of all objects
+    O   = paint(replace(C, 0, 1), ALL)                        # paint on 1‑background
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # PERIODICITY – use the horizontal period of the pattern to build a mask
+    # for the background, recolour it, then swap 2↔3.
+    P      = hperiod(ofcolor(I, 2))                     # horizontal period of colour 2
+    M0     = connect((0, 0), (0, P-1))                  # one period stripe (width P)
+    BACK   = vupscale(M0, height(I))                    # repeat stripe vertically
+    BG1    = replace(BACK, 0, 1)                        # 0 → 1  (background)
+    SWAP   = switch(replace(I, 0, 0), 2, 3)             # swap 2↔3 without touching 0
+    O      = combine(BG1, toobject(ofcolor(SWAP, 2), SWAP))
+    O      = combine(O,   toobject(ofcolor(SWAP, 3), SWAP))
+    O      = combine(O,   toobject(ofcolor(SWAP, 4), SWAP))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ADJACENCY – background are the zero cells that touch the outer border.
+    ZOBJ   = extract(colorfilter(fgpartition(I), 0),
+                     lambda p: bordering(p, I))            # zero object touching border
+    BG1    = recolor(1, ZOBJ)                              # 0 → 1 for that object
+    O2     = recolor(3, toobject(ofcolor(I, 2), I))        # 2 → 3
+    O3     = recolor(2, toobject(ofcolor(I, 3), I))        # 3 → 2
+    O4     = toobject(ofcolor(I, 4), I)                    # colour 4 unchanged
+    O      = combine(combine(combine(combine(BG1, O2), O3), O4), BG1)
+    return O
+```
+
 # Task 1190e5a7
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2509)
+[Best program](#dsl-2729)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1417)
 
@@ -88976,7 +96016,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2555)
+[Best program](#dsl-2775)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L4593)
 
@@ -91322,7 +98362,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2605)
+[Best program](#dsl-2825)
 
 ## Iteration 1
 
@@ -93029,7 +100069,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2656)
+[Best program](#dsl-2876)
 
 ## Iteration 1
 
@@ -94531,7 +101571,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2705)
+[Best program](#dsl-2925)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2702)
 
@@ -96575,7 +103615,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2755)
+[Best program](#dsl-2975)
 
 ## Iteration 1
 
@@ -98267,7 +105307,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2805)
+[Best program](#dsl-3025)
 
 ## Iteration 1
 
@@ -100318,7 +107358,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2855)
+[Best program](#dsl-3075)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2669)
 
@@ -102603,7 +109643,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2905)
+[Best program](#dsl-3125)
 
 ## Iteration 1
 
@@ -104068,7 +111108,7 @@ train solved, test failed
 
 1 iteration
 
-[Best program](#dsl-2910)
+[Best program](#dsl-3130)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L150)
 
@@ -104223,7 +111263,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-2960)
+[Best program](#dsl-3180)
 
 ## Iteration 1
 
@@ -105968,7 +113008,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3010)
+[Best program](#dsl-3230)
 
 ## Iteration 1
 
@@ -107293,7 +114333,7 @@ def dsl4(I):
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
 | train1 |                0 |      19.4936 |                 0.23 |                   0 |      19.7236 |
-| train2 |                0 |      14.6969 |                 0.21 |                   0 |      14.9069 |
+| train2 |              nan |     nan      |               nan    |                 nan |     nan      |
 | train3 |                0 |      11.5326 |                 0.13 |                   0 |      11.6626 |
 
 #### Test costs
@@ -107540,14 +114580,14 @@ def dsl4(I):
 |        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
 | train1 |                0 |      19.4936 |                 0.23 |                   0 |      19.7236 |
-| train2 |                0 |      14.6969 |                 0.21 |                   0 |      14.9069 |
+| train2 |              nan |     nan      |               nan    |                 nan |     nan      |
 | train3 |                0 |      11.5326 |                 0.13 |                   0 |      11.6626 |
 
 #### Test costs
 
 |       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
 |:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
-| test1 |              nan |          nan |                  nan |                 nan |          nan |
+| test1 |                0 |      7.87401 |                 0.23 |                   0 |      8.10401 |
 
 #### DSL
 
@@ -108046,7 +115086,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3060)
+[Best program](#dsl-3280)
 
 ## Iteration 1
 
@@ -110224,7 +117264,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3110)
+[Best program](#dsl-3330)
 
 ## Iteration 1
 
@@ -112347,7 +119387,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3160)
+[Best program](#dsl-3380)
 
 ## Iteration 1
 
@@ -113903,7 +120943,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3210)
+[Best program](#dsl-3430)
 
 ## Iteration 1
 
@@ -115959,7 +122999,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3260)
+[Best program](#dsl-3480)
 
 ## Iteration 1
 
@@ -118087,7 +125127,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3310)
+[Best program](#dsl-3530)
 
 ## Iteration 1
 
@@ -120500,7 +127540,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3360)
+[Best program](#dsl-3580)
 
 ## Iteration 1
 
@@ -122189,7 +129229,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3410)
+[Best program](#dsl-3630)
 
 ## Iteration 1
 
@@ -123785,7 +130825,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3460)
+[Best program](#dsl-3680)
 
 ## Iteration 1
 
@@ -125564,7 +132604,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3510)
+[Best program](#dsl-3730)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1830)
 
@@ -127216,7 +134256,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3560)
+[Best program](#dsl-3780)
 
 ## Iteration 1
 
@@ -129022,7 +136062,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3610)
+[Best program](#dsl-3830)
 
 ## Iteration 1
 
@@ -130599,7 +137639,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3660)
+[Best program](#dsl-3880)
 
 ## Iteration 1
 
@@ -132278,7 +139318,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3710)
+[Best program](#dsl-3930)
 
 ## Iteration 1
 
@@ -134216,7 +141256,7 @@ train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3760)
+[Best program](#dsl-3980)
 
 ## Iteration 1
 
@@ -136061,9 +143101,9 @@ def dsl5(I):
 
 train failed, test failed
 
-8 iterations
+10 iterations
 
-[Best program](#dsl-3800)
+[Best program](#dsl-4030)
 
 ## Iteration 1
 
@@ -137271,13 +144311,326 @@ def dsl5(I):
     return O
 ```
 
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL‑VERTICAL‑PERIOD DOWNSCALE + TRIM
+    # Use the vertical repetition period of the 2‑cells as the down‑scale factor.
+    patch   = ofcolor(I, 2)
+    obj     = toobject(patch, I)
+    period  = vperiod(obj)                     # vertical period
+    O       = trim(downscale(I, period))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # SUBGRID‑OF‑2‑CELLS DOWNSCALE + TRIM
+    # Crop tightly around all 2‑cells, then down‑scale by the horizontal period.
+    patch   = ofcolor(I, 2)
+    sub     = subgrid(patch, I)                # minimal rectangle containing every 2‑cell
+    obj     = toobject(patch, I)
+    period  = hperiod(obj)
+    O       = trim(downscale(sub, period))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # BACKGROUND‑SWAP + COMPRESS + DOWNSCALE + TRIM
+    # Turn background 0 into 1 so it survives compression, compress,
+    # then down‑scale by the horizontal period of the 2‑cells and trim.
+    I1      = replace(I, 0, 1)                 # 0 → 1
+    comp    = compress(I1)                     # remove empty rows/columns
+    patch   = ofcolor(I, 2)
+    obj     = toobject(patch, I)
+    period  = hperiod(obj)
+    Otemp   = downscale(comp, period)
+    O       = replace(trim(Otemp), 1, 0)       # restore original background
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # LEFT‑TOP ALIGNMENT + HORIZONTAL‑PERIOD DOWNSCALE + TRIM
+    # Shift the whole picture so the leftmost and topmost 2‑cell touch the
+    # origin, then down‑scale by the horizontal period and trim.
+    patch   = ofcolor(I, 2)
+    left    = leftmost(patch)
+    top     = uppermost(patch)
+    moved   = move(I, toobject(patch, I), (-top, -left))   # shift pattern to (0,0)
+    obj     = toobject(patch, I)
+    period  = hperiod(obj)
+    O       = trim(downscale(moved, period))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # COMBINED H‑ and V‑PERIOD DOWNSCALE + TRIM
+    # Use the product of horizontal and vertical periods of the 2‑cell pattern
+    # as a single down‑scale factor, then trim the result.
+    patch   = ofcolor(I, 2)
+    obj     = toobject(patch, I)
+    hper    = hperiod(obj)
+    vper    = vperiod(obj)
+    factor  = multiply(hper, vper)            # combined period
+    O       = trim(downscale(I, factor))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL‑VERTICAL‑PERIOD DOWNSCALING
+    # Detect the vertical repetition period of the 2‑colored cells,
+    # downscale the whole picture by that factor and trim empty borders.
+    patch   = ofcolor(I, 2)
+    obj     = toobject(patch, I)
+    period  = vperiod(obj)                # vertical period of the pattern
+    O       = trim(downscale(I, period))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.12311 |           16 |                  137 |            0.17597  |      157.299 |
+| train2 |          8.60233 |           14 |                  217 |            0.303759 |      239.906 |
+| train3 |          5.83095 |            8 |                  169 |            0.228709 |      183.06  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          5.83095 |           20 |                  169 |            0.228709 |       195.06 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION + HORIZONTAL MIRROR
+    # Crop tightly around all 2‑cells, mirror the cropped region
+    # horizontally and trim any surrounding empty rows/columns.
+    patch   = ofcolor(I, 2)
+    sub     = subgrid(patch, I)           # minimal rectangle covering all 2’s
+    mirrored= hmirror(sub)                # reflect left‑right
+    O       = trim(mirrored)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4       |           48 |                  126 |                   1 |      179     |
+| train2 |          5       |           54 |                  159 |                   1 |      219     |
+| train3 |          4.24264 |           38 |                  149 |                   1 |      192.243 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          4.12311 |           48 |                  137 |                   1 |      190.123 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑SWAP → COMPRESS → REVERT SWAP
+    # Temporarily exchange 0 and 2 so that the background survives compression,
+    # compress away empty rows/columns, then restore the original colors.
+    tmp1    = replace(I, 2, 9)            # 2 → 9 (temporary placeholder)
+    tmp2    = replace(tmp1, 0, 2)        # 0 → 2
+    swapped = replace(tmp2, 9, 0)        # 9 → 0, now 0 and 2 are swapped
+    comp    = compress(swapped)           # remove empty rows/columns
+    O       = replace(comp, 2, 0)         # put original background back
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          4.12311 |           16 |                  137 |            0.17597  |      157.299 |
+| train2 |          8.60233 |           14 |                  217 |            0.303759 |      239.906 |
+| train3 |          5.83095 |            8 |                  169 |            0.228709 |      183.06  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          5.83095 |           20 |                  169 |            0.228709 |       195.06 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ROTATION‑BASED CROPPING
+    # Rotate the whole grid 90° clockwise, then crop tightly around the 2‑cells
+    # of the rotated picture and trim the result.
+    rot     = rot90(I)                    # rotate clockwise
+    patch   = ofcolor(rot, 2)
+    sub     = subgrid(patch, rot)         # bounding box in the rotated view
+    O       = trim(sub)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          6.7082  |          212 |                  179 |            0.255562 |      397.964 |
+| train2 |         11.4018  |          394 |                  273 |            0.366088 |      678.768 |
+| train3 |          8.60233 |          298 |                  217 |            0.303759 |      523.906 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |          8.60233 |          288 |                  217 |            0.303759 |      513.906 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # NORMALIZED‑PATTERN CANVAS
+    # Extract the set of 2‑cells, shift it so its upper‑left corner is at the origin,
+    # then create a fresh canvas of exactly that shape filled with colour 2.
+    patch   = ofcolor(I, 2)
+    obj     = toobject(patch, I)
+    norm    = normalize(obj)              # move pattern to (0,0)
+    sz      = shape(norm)                 # (height, width) of the shifted pattern
+    O       = canvas(2, sz)               # new grid filled with colour 2
+    return O
+```
+
 # Task 1b59e163
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3850)
+[Best program](#dsl-4080)
 
 ## Iteration 1
 
@@ -138718,13 +146071,1617 @@ def dsl5(I):
     return O
 ```
 
+# Task 1b60fb0c
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-4130)
+
+[Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2354)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     11.619   |                 0.45 |                   0 |     12.069   |
+| train2 |                0 |      8.3666  |                 0.22 |                   0 |      8.5866  |
+| train3 |                0 |      9.32738 |                 0.33 |                   0 |      9.65738 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.1489 |                 0.34 |                   0 |      10.4889 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # -------------------------------------------------
+    #  Global‑style: take the whole 1‑object, move it left twice,
+    #  recolor the moved copy to 2 and paint it over the input.
+    # -------------------------------------------------
+    ones   = ofcolor(I, ONE)                         # all cells with colour 1
+    left1  = shift(ones, LEFT)                       # one step left
+    left2  = shift(left1, LEFT)                      # second step left
+    stripe = recolor(TWO, left2)                     # colour the shifted patch with 2
+    O      = paint(I, stripe)                        # overlay on original grid
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.59166 |                 0.23 |           0.0353553 |      9.85702 |
+| train2 |                0 |      7.48331 |                 0.14 |           0.0353553 |      7.65867 |
+| train3 |                0 |      9.59166 |                 0.23 |           0.0353553 |      9.85702 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.16515 |                 0.21 |           0.0353553 |      9.41051 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # -------------------------------------------------
+    #  Object‑extraction: intersect the left‑neighbourhood of the 1‑object
+    #  with the zero‑background, colour the intersection 2 and paint it.
+    # -------------------------------------------------
+    ones      = ofcolor(I, ONE)                      # 1‑cells
+    zeros     = ofcolor(I, ZERO)                     # 0‑cells (background)
+    left_of_1 = shift(ones, LEFT)                    # cells immediately left of 1‑object
+    target    = intersection(left_of_1, zeros)      # keep only those that are currently 0
+    coloured  = recolor(TWO, target)                 # turn them into colour 2
+    O         = paint(I, coloured)                  # place on the grid
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.7703  |                 0.47 |           0.0353553 |     11.2757  |
+| train2 |                0 |      8.24621 |                 0.26 |           0.0353553 |      8.54157 |
+| train3 |                0 |     10.3923  |                 0.39 |           0.0353553 |     10.8177  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.0499 |                 0.38 |           0.0353553 |      10.4652 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # -------------------------------------------------
+    #  Color‑filtering: directly fill every cell that is the left
+    #  neighbour of a 1 with colour 2 (overwrites the 0 there).
+    # -------------------------------------------------
+    ones      = ofcolor(I, ONE)                      # 1‑object
+    left_of_1 = shift(ones, LEFT)                    # its left neighbours
+    O = fill(I, TWO, left_of_1)                     # set those cells to 2
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.63325 |                 0.11 |                   0 |      6.74325 |
+| train2 |                0 |      5.65685 |                 0.08 |                   0 |      5.73685 |
+| train3 |                0 |      6       |                 0.09 |                   0 |      6.09    |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # -------------------------------------------------
+    #  Geometric reasoning: locate the leftmost column occupied by 1,
+    #  create a vertical stripe two columns left of it, colour it 2
+    #  and overlay on the input.
+    # -------------------------------------------------
+    ones        = ofcolor(I, ONE)
+    lm          = leftmost(ones)                     # column index of leftmost 1
+    stripe_cols = add(lm, (-2, 0))                    # shift two columns left (as a vector)
+    # build a vertical patch that spans every row touched by the 1‑object
+    rows        = {r for (r, c) in ones}
+    stripe_pts   = frozenset({(r, stripe_cols[0]) for r in rows})
+    stripe_obj   = recolor(TWO, stripe_pts)
+    O = paint(I, stripe_obj)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # -------------------------------------------------
+    #  Relational / structural: examine each 0‑object; if it touches
+    #  the 1‑object on the right side (i.e. its right neighbour is 1)
+    #  and does NOT touch the grid border, colour the whole object 2.
+    # -------------------------------------------------
+    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # foreground objects of colour 0
+    ones       = ofcolor(I, ONE)
+
+    def should_color(obj):
+        # obj touches the 1‑object on its right side and is not on the border
+        right_adj = shift(obj, RIGHT)
+        return both(adjacacent(right_adj, ones), not bordering(obj, I))
+
+    to_color = mfilter(zeros_objs, should_color)    # keep only wanted zero objects
+    colored  = recolor(TWO, combine(to_color, frozenset()))  # recolour selected objects
+    O = paint(I, colored)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9       |                 0.3  |                   0 |      9.3     |
+| train2 |                0 |      8.66025 |                 0.24 |                   0 |      8.90025 |
+| train3 |                0 |      8.544   |                 0.28 |                   0 |      8.824   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.8743 |                 0.39 |                   0 |      12.2643 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ---- Global‑style: create a rectangle the size of the 1‑object,
+    # shift it left twice and paint it with colour 2. ----
+    ones   = ofcolor(I, ONE)                     # cells of colour 1
+    box1   = box(ones)                           # its bounding rectangle
+    stripe = shift(shift(box1, LEFT), LEFT)       # move the rectangle two steps left
+    stripe = recolor(TWO, stripe)                # colour the shifted rectangle
+    O      = paint(I, stripe)                    # overlay on the original grid
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ---- Object‑extraction: take every 0‑object that touches the 1‑object
+    # on its right side and colour the whole object with 2. ----
+    zeros  = fgpartition(replace(I, ONE, ZERO))   # foreground 0‑objects
+    ones   = ofcolor(I, ONE)                     # cells of colour 1
+    def touches_right(o):
+        return adjacent(shift(o, RIGHT), ones)   # right‑adjacent to a 1‑cell
+    sel    = mfilter(zeros, touches_right)       # keep only the wanted objects
+    colobj = recolor(TWO, sel)                   # recolour them
+    O      = paint(I, colobj)                    # paint on the input
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ---- Color‑filtering: left neighbours of 1 that belong to interior
+    # 0‑regions (i.e. 0‑objects not touching the border). ----
+    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
+    interior   = mfilter(zeros_objs, lambda o: not bordering(o, I))
+    interior   = combine(interior, frozenset())       # merge to one patch
+    left_of_1 = shift(ofcolor(I, ONE), LEFT)         # cells left of every 1
+    target    = intersection(interior, left_of_1)   # interior left‑neighbours
+    O = fill(I, TWO, target)                         # write colour 2 there
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |           0.0707107 |     11.3252  |
+| train2 |                0 |      8.48528 |                 0.18 |           0.0707107 |      8.73599 |
+| train3 |                0 |      8.48528 |                 0.18 |           0.0707107 |      8.73599 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.79796 |                 0.24 |           0.0707107 |      10.1087 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ---- Geometric reasoning: mirror the 1‑shape vertically,
+    # keep only the mirrored cells that lie on a 0‑background,
+    # and fill them with colour 2. ----
+    ones      = ofcolor(I, ONE)                # 1‑shape
+    mirror    = vmirror(ones)                  # vertical mirror of the shape
+    zeros     = ofcolor(I, ZERO)               # background cells
+    cand      = intersection(mirror, zeros)    # mirrored part that is on a 0
+    O = fill(I, TWO, cand)                    # colour those cells
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ---- Relational / structural:
+    #   • take every interior 0‑object that is right‑adjacent to a 1,
+    #   • extract the left‑most column of that object,
+    #   • recolour those cells with 2. ----
+    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
+    ones      = ofcolor(I, ONE)                     # 1‑cells
+    # objects that touch the 1‑object on their right side
+    adj_objs  = mfilter(zeros_objs,
+                        lambda o: adjacent(shift(o, RIGHT), ones))
+    # for each such object keep only the cells whose column equals its leftmost column
+    left_columns = apply(
+        lambda o: frozenset({ (r, leftmost(o)) for (r, c) in o }),
+        adj_objs)
+    left_cols   = combine(left_columns, frozenset())
+    coloured    = recolor(TWO, left_cols)
+    O = paint(I, coloured)
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION:
+    # 1. bounding box of the 1‑shape,
+    # 2. shift it left twice,
+    # 3. keep only the background cells (0) inside that rectangle,
+    # 4. colour those cells 2.
+    ones   = ofcolor(I, ONE)
+    box1   = box(ones)
+    leftr  = shift(shift(box1, LEFT), LEFT)          # rectangle shifted two cells left
+    back   = ofcolor(I, ZERO)                       # background cells
+    target = intersection(leftr, back)              # background inside the shifted rectangle
+    O      = fill(I, TWO, target)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL‑TRANSFORMATION:
+    #   work on the minimal sub‑grid that contains the 1‑shape,
+    #   prepend two blank columns, keep only the former background (0) cells
+    #   and paste the result back into the original grid.
+    ones      = ofcolor(I, ONE)
+    sub       = subgrid(ones, I)                     # minimal sub‑grid with the shape
+    blank2    = canvas(ZERO, (height(sub), 2))       # two‑column zero canvas
+    widened   = hconcat(blank2, sub)                 # sub‑grid shifted left two columns
+    # indices of the top‑left corner of the original sub‑grid
+    r0        = topmost(ones)
+    c0        = leftmost(ones)
+    # object that corresponds to the widened sub‑grid
+    obj_full  = toobject(widened, I)
+    # keep only cells that were background in the original grid
+    back      = ofcolor(I, ZERO)
+    target    = intersection(obj_full, back)
+    O         = fill(I, TWO, target)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING:
+    #   take every 0‑object that lies completely inside the rectangle obtained
+    #   by shifting the 1‑shape’s bounding box left two cells.
+    ones      = ofcolor(I, ONE)
+    box1      = box(ones)
+    shifted   = shift(shift(box1, LEFT), LEFT)
+    zeros_obj = fgpartition(replace(I, ONE, ZERO))   # all 0‑objects
+    inside    = mfilter(zeros_obj,
+                       lambda o: o <= shifted)    # keep only those fully inside
+    target    = combine(inside, frozenset())
+    O         = fill(I, TWO, target)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
+| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC‑REASONING:
+    #   mirror the 1‑shape vertically, intersect the mirror with the background,
+    #   then intersect the result with the rectangle obtained by shifting the
+    #   original bounding box left two cells (to limit the region).
+    ones      = ofcolor(I, ONE)
+    mirror    = vmirror(ones)
+    back      = ofcolor(I, ZERO)
+    cand1     = intersection(mirror, back)          # mirrored part that lies on 0
+    box1      = box(ones)
+    shifted   = shift(shift(box1, LEFT), LEFT)
+    target    = intersection(cand1, shifted)          # restrict to the desired rectangle
+    O         = fill(I, TWO, target)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL:
+    #   find every interior 0‑object that is right‑adjacent to the 1‑shape,
+    #   keep only the cells that lie in the rectangle obtained by shifting the
+    #   1‑shape’s bounding box left two cells, and colour those cells 2.
+    zeros_objs = fgpartition(replace(I, ONE, ZERO))   # 0‑objects
+    ones       = ofcolor(I, ONE)
+    # objects that touch the 1‑shape on its right side
+    adj_objs   = mfilter(zeros_objs,
+                         lambda o: adjacent(shift(o, RIGHT), ones))
+    box1       = box(ones)
+    shifted    = shift(shift(box1, LEFT), LEFT)      # rectangle shifted left two cells
+    # intersect each adjacent object with the shifted rectangle
+    trimmed    = apply(lambda o: intersection(o, shifted), adj_objs)
+    target     = combine(trimmed, frozenset())
+    O          = fill(I, TWO, target)
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ---- OBJECT‑EXTRACTION + UNDERFILL (global‑fill style) ----
+    # rectangle = bounding box of the 1‑shape shifted two cells left
+    rect   = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    # colour every background cell (0) inside that rectangle with 2
+    O      = underfill(I, TWO, rect)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ---- GLOBAL‑TRANSFORMATION via sub‑grid padding ----
+    # minimal sub‑grid that contains the 1‑shape
+    sub    = subgrid(ofcolor(I, ONE), I)
+    # prepend two blank (0) columns – this is the same shape moved left two cells
+    pad    = canvas(ZERO, (height(sub), 2))
+    widened= hconcat(pad, sub)
+    # turn the padded sub‑grid into a patch placed at the original location
+    # (the patch is exactly the original bounding box shifted left two cells)
+    shifted_box = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    # keep only background cells of that patch and colour them 2
+    target = intersection(ofcolor(I, ZERO), shifted_box)
+    O      = fill(I, TWO, target)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ---- COLOR‑FILTERING with object partitioning ----
+    # turn every 1 into 0 so that the whole grid consists only of 0‑objects
+    tmp    = replace(I, ONE, ZERO)
+    zeros  = fgpartition(tmp)                     # all 0‑objects
+    # rectangle obtained by shifting the 1‑shape’s bounding box left two cells
+    shifted = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    # keep those 0‑objects that lie completely inside that rectangle
+    inside = mfilter(zeros, lambda o: o <= shifted)
+    # colour the union of those objects with 2
+    O      = fill(I, TWO, combine(inside, frozenset()))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
+| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ---- GEOMETRIC‑REASONING with vertical mirroring ----
+    # mirror the 1‑shape vertically and keep only the part that lands on background
+    mirrored = vmirror(ofcolor(I, ONE))
+    back     = ofcolor(I, ZERO)
+    cand     = intersection(mirrored, back)
+    # restrict the result to the rectangle obtained by shifting the original box left two cells
+    rect     = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    target   = intersection(cand, rect)
+    O        = fill(I, TWO, target)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ---- RELATIONAL / STRUCTURAL reasoning using adjacency ----
+    # all 0‑objects in the original grid
+    zeros   = fgpartition(I)
+    ones    = ofcolor(I, ONE)
+    # objects that touch the 1‑shape on its right side
+    right_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
+    # rectangle obtained by shifting the bounding box left two cells
+    rect    = shift(shift(box(ones), LEFT), LEFT)
+    # intersect each right‑adjacent object with that rectangle
+    trimmed = apply(lambda o: intersection(o, rect), right_adj)
+    O       = fill(I, TWO, combine(trimmed, frozenset()))
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL TRANSFORMATION
+    # 1‑shape bounding box shifted two cells left
+    shifted_box = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    # background (0) cells that lie inside that shifted box
+    target = intersection(ofcolor(I, ZERO), shifted_box)
+    # colour those cells with 2
+    O = fill(I, TWO, target)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train2 |                0 |      8.24621 |                 0.17 |                   0 |      8.41621 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.6619 |                 0.34 |                   0 |      12.0019 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION
+    # rectangle obtained by moving the 1‑shape’s bounding box left two cells
+    rect = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    # fill every background cell inside that rectangle with 2,
+    # leaving the original 1‑cells untouched
+    O = underfill(I, TWO, rect)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR FILTERING
+    # turn the 1‑colour into 0 so the whole grid becomes a single‑colour field
+    tmp   = replace(I, ONE, ZERO)
+    zeros = fgpartition(tmp)                                 # all 0‑objects
+    rect  = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)   # shifted rectangle
+    # keep only those 0‑objects that are completely inside the rectangle
+    inside = mfilter(zeros, lambda o: o <= rect)
+    # colour the union of those objects with 2
+    O = fill(I, TWO, combine(inside, frozenset()))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8       |                 0.16 |           0.0707107 |      8.23071 |
+| train2 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+| train3 |                0 |      7.48331 |                 0.14 |           0.0707107 |      7.69403 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC REASONING
+    # mirror the 1‑shape vertically and keep the part that lands on background
+    mirrored = vmirror(ofcolor(I, ONE))
+    cand      = intersection(mirrored, ofcolor(I, ZERO))
+    # restrict to the rectangle obtained by shifting the original box left two cells
+    rect    = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    target  = intersection(cand, rect)
+    O = fill(I, TWO, target)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL REASONING
+    # all 0‑objects in the original grid
+    zeros = fgpartition(I)
+    ones  = ofcolor(I, ONE)
+    # objects that touch the 1‑shape on its right side
+    right_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
+    # rectangle obtained by shifting the 1‑shape’s box left two cells
+    rect = shift(shift(box(ones), LEFT), LEFT)
+    # intersect each right‑adjacent object with that rectangle
+    trimmed = apply(lambda o: intersection(o, rect), right_adj)
+    # colour the resulting cells with 2
+    O = fill(I, TWO, combine(trimmed, frozenset()))
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
+| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION: shift the whole 1‑object two cells left
+    shifted = shift(shift(ofcolor(I, ONE), LEFT), LEFT)
+    target  = intersection(shifted, ofcolor(I, ZERO))
+    O = fill(I, TWO, target)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL TRANSFORMATION: shift the entire grid, then keep the newly created 1‑cells that lie on background
+    shifted_grid = shift(shift(I, LEFT), LEFT)
+    new_ones    = ofcolor(shifted_grid, ONE)
+    target      = intersection(new_ones, ofcolor(I, ZERO))
+    O = fill(I, TWO, target)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING: background objects that are completely inside the shifted 1‑box
+    zeros = fgpartition(I)                                      # all 0‑objects
+    rect  = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)      # shifted bounding box
+    inside = mfilter(zeros, lambda o: o <= rect)                # keep those fully inside
+    O = fill(I, TWO, combine(inside, frozenset()))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      6       |                 0.09 |           0.0707107 |      6.16071 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       6.9282 |                 0.12 |           0.0707107 |      7.11891 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC REASONING: mirror the 1‑shape vertically, intersect with background,
+    # then restrict to the shifted box
+    mirrored = hmirror(ofcolor(I, ONE))                           # flip top‑bottom
+    cand     = intersection(mirrored, ofcolor(I, ZERO))
+    rect     = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)
+    target   = intersection(cand, rect)
+    O = fill(I, TWO, target)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL REASONING: 0‑objects that touch the 1‑shape on its left side,
+    # cropped by the shifted box
+    zeros = fgpartition(I)
+    ones  = ofcolor(I, ONE)
+    left_adj = mfilter(zeros, lambda o: adjacent(shift(o, RIGHT), ones))
+    rect = shift(shift(box(ones), LEFT), LEFT)
+    trimmed = apply(lambda o: intersection(o, rect), left_adj)
+    O = fill(I, TWO, combine(trimmed, frozenset()))
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
+| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION: shift the 1‑shape two cells left,
+    # keep the cells that land on background (0) and paint them 2.
+    shifted = shift(shift(ofcolor(I, ONE), LEFT), LEFT)
+    target  = intersection(shifted, ofcolor(I, ZERO))
+    return fill(I, TWO, target)
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL TRANSFORMATION: move the whole 1‑object two cells left,
+    # then look where the moved 1‑pixels overlap original 0‑pixels.
+    moved_grid = move(I, ofcolor(I, ONE), (-2, 0))      # same as two LEFT shifts
+    target     = intersection(ofcolor(moved_grid, ONE), ofcolor(I, ZERO))
+    return fill(I, TWO, target)
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      6.9282  |                 0.12 |           0.0707107 |      7.11891 |
+| train2 |                0 |      4.89898 |                 0.06 |           0.0707107 |      5.02969 |
+| train3 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |            6 |                 0.09 |           0.0707107 |      6.16071 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING: 0‑objects that lie completely inside the
+    # shifted 1‑shape become 2.
+    zeros        = fgpartition(I)                                            # all 0‑objects
+    shifted_one  = shift(shift(ofcolor(I, ONE), LEFT), LEFT)                  # 1‑shape shifted left
+    inside_zeros = mfilter(zeros, lambda o: o <= shifted_one)                # fully inside
+    return fill(I, TWO, combine(inside_zeros, frozenset()))
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.38083 |                 0.22 |                   0 |      9.60083 |
+| train2 |                0 |      6.9282  |                 0.12 |                   0 |      7.0482  |
+| train3 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       6.9282 |                 0.12 |                   0 |       7.0482 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC REASONING: shift the bounding box of the 1‑shape,
+    # intersect it with background and finally keep only the part that also
+    # belongs to the shifted shape.
+    shifted_box   = shift(shift(box(ofcolor(I, ONE)), LEFT), LEFT)           # box moved left
+    cand          = intersection(shifted_box, ofcolor(I, ZERO))              # background inside box
+    shifted_shape = shift(shift(ofcolor(I, ONE), LEFT), LEFT)               # shape moved left
+    target        = intersection(cand, shifted_shape)                       # keep actual shape cells
+    return fill(I, TWO, target)
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+| train2 |                0 |      6.63325 |                 0.11 |                   0 |      6.74325 |
+| train3 |                0 |      7.74597 |                 0.15 |                   0 |      7.89597 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL REASONING:
+    # a zero cell that is two steps left of a 1‑cell is obtained by
+    # first taking the cells immediately left of the 1‑shape,
+    # then shifting those once more left and intersecting with background.
+    first_step  = intersection(shift(ofcolor(I, ONE), LEFT), ofcolor(I, ZERO))
+    second_step = intersection(shift(first_step, LEFT), ofcolor(I, ZERO))
+    return fill(I, TWO, second_step)
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION + BOUNDING‑BOX:
+    # take the whole 1‑shape, shift it left twice, keep only the cells that
+    # land on a 0 and are inside the original 1‑shape’s bounding box.
+    shape      = ofcolor(I, ONE)
+    shifted    = shift(shift(shape, LEFT), LEFT)
+    cand       = intersection(shifted, ofcolor(I, ZERO))
+    target     = intersection(cand, box(shape))
+    return fill(I, TWO, target)
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL TRANSFORMATION (move):
+    # move the whole 1‑object two cells left, then intersect the moved 1‑pixels
+    # with the original 0‑background.
+    moved_grid = move(I, ofcolor(I, ONE), (-2, 0))          # same as two LEFT shifts
+    target     = intersection(ofcolor(moved_grid, ONE), ofcolor(I, ZERO))
+    return fill(I, TWO, target)
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING via shifted zeros:
+    # shift every 0 two cells to the right, keep those that now overlap a 1,
+    # shift the result back left twice and restrict it to the 1‑shape’s box.
+    zeros          = ofcolor(I, ZERO)
+    shifted_zeros  = shift(shift(zeros, RIGHT), RIGHT)    # +2 columns
+    overlap_one    = intersection(shifted_zeros, ofcolor(I, ONE))
+    back_shifted   = shift(shift(overlap_one, LEFT), LEFT) # back to original zeros
+    target         = intersection(back_shifted, box(ofcolor(I, ONE)))
+    return fill(I, TWO, target)
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      5.2915  |                 0.07 |           0.0707107 |      5.43221 |
+| train3 |                0 |      6       |                 0.09 |           0.0707107 |      6.16071 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       6.9282 |                 0.12 |           0.0707107 |      7.11891 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL / STRUCTURAL REASONING:
+    # cells that are two steps left of a 1 are obtained by applying the
+    # “first‑step left” and then a second left step, finally constrained
+    # to the original 1‑shape’s bounding box.
+    first_step  = intersection(shift(ofcolor(I, ONE), LEFT), ofcolor(I, ZERO))
+    second_step = intersection(shift(first_step, LEFT), ofcolor(I, ZERO))
+    target       = intersection(second_step, box(ofcolor(I, ONE)))
+    return fill(I, TWO, target)
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
+| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GEOMETRIC REASONING with underfill:
+    # shift the 1‑shape left twice, intersect with background,
+    # then paint the result using underfill (fills only on background cells).
+    shape   = ofcolor(I, ONE)
+    shifted = shift(shift(shape, LEFT), LEFT)
+    mask    = intersection(shifted, ofcolor(I, ZERO))
+    return underfill(I, TWO, mask)
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     11.1355  |                 0.31 |           0.0790569 |     11.5246  |
+| train2 |                0 |      8       |                 0.16 |           0.0790569 |      8.23906 |
+| train3 |                0 |      8.24621 |                 0.17 |           0.0790569 |      8.49527 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.16515 |                 0.21 |           0.0707107 |      9.44586 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL TRANSFORMATION – move the whole 1‑object two cells left,
+    # keep only the parts that land on original 0‑cells.
+    shape_obj = toobject(ofcolor(I, ONE), I)          # 1‑object with colors
+    moved      = move(I, shape_obj, (-2, 0))           # shift left twice
+    target     = intersection(ofcolor(moved, ONE),     # where a 1 landed
+                              ofcolor(I, ZERO))      # on a former 0
+    return fill(I, TWO, target)
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – normalise the 1‑shape, shift it left twice,
+    # then restore its original position and restrict to the 1‑shape’s box.
+    shape      = ofcolor(I, ONE)
+    norm       = normalize(shape)                     # move to origin
+    shifted    = shift(shift(norm, LEFT), LEFT)       # two‑step left
+    offset     = ulcorner(shape)                      # original upper‑left corner
+    back       = shift(shifted, offset)               # place back
+    target     = intersection(back,
+                              intersection(ofcolor(I, ZERO),
+                                          box(shape)))
+    return fill(I, TWO, target)
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – shift all 0‑cells right twice,
+    # keep those now covering a 1, shift back and recolour.
+    zeros          = ofcolor(I, ZERO)
+    shifted_zeros  = shift(shift(zeros, RIGHT), RIGHT)
+    overlap_one    = intersection(shifted_zeros, ofcolor(I, ONE))
+    back_shifted   = shift(shift(overlap_one, LEFT), LEFT)
+    mask           = intersection(back_shifted, box(ofcolor(I, ONE)))
+    return fill(I, TWO, mask)
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
+| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC REASONING – rotate 180°, shift right twice (which is a
+    # left‑shift in the original orientation), intersect with zeros,
+    # rotate the mask back and recolour.
+    R               = rot180(I)                                 # turn upside‑down
+    shape_R         = ofcolor(R, ONE)
+    shifted_R       = shift(shift(shape_R, RIGHT), RIGHT)      # two‑step right in R
+    target_R        = intersection(shifted_R, ofcolor(R, ZERO))
+    # rotate the mask back to the original orientation
+    mask_grid       = canvas(0, shape(I))                        # empty grid
+    mask_grid       = fill(mask_grid, ONE, target_R)            # put a temporary colour
+    mask_original   = rot180(mask_grid)                         # back to original axes
+    target          = ofcolor(mask_original, ONE)               # obtain the indices
+    return fill(I, TWO, target)
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.9545  |                 0.3  |                   0 |     11.2545  |
+| train2 |                0 |      8       |                 0.16 |                   0 |      8.16    |
+| train3 |                0 |      8.48528 |                 0.18 |                   0 |      8.66528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |                   0 |      9.82166 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL REASONING – shift the 1‑shape left twice,
+    # then underfill so that only background (0) cells are recoloured.
+    shape   = ofcolor(I, ONE)
+    shifted = shift(shift(shape, LEFT), LEFT)                # two‑step left
+    return underfill(I, TWO, shifted)                        # recolour only where 0 was
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL‑TRANSFORMATION
+    # shift the whole 1‑object two cells left and colour only the interior
+    # cells of its bounding box that become covered.
+    shape      = ofcolor(I, ONE)
+    shifted    = shift(shift(shape, LEFT), LEFT)                 # two‑step left
+    interior   = delta(box(shape), shape)                        # bbox minus shape
+    target     = intersection(shifted, interior)
+    return fill(I, TWO, target)
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION
+    # normalise the 1‑shape, shift it left twice, restore its original
+    # position and keep only the cells that were background inside the shape.
+    shape      = ofcolor(I, ONE)
+    norm       = normalize(shape)
+    shifted    = shift(shift(norm, LEFT), LEFT)                  # two‑step left
+    back       = shift(shifted, ulcorner(shape))                # put back
+    zeros_in_box = intersection(ofcolor(I, ZERO), box(shape))
+    target     = intersection(back, zeros_in_box)
+    return fill(I, TWO, target)
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.74597 |                 0.15 |           0.0707107 |      7.96668 |
+| train2 |                0 |      6.32456 |                 0.1  |           0.0707107 |      6.49527 |
+| train3 |                0 |      6.63325 |                 0.11 |           0.0707107 |      6.81396 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       7.2111 |                 0.13 |           0.0707107 |      7.41181 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING
+    # move every background cell two cells right, keep those now over a 1,
+    # shift back and recolour only where they lie inside the 1‑object.
+    zeros      = ofcolor(I, ZERO)
+    moved      = shift(shift(zeros, RIGHT), RIGHT)               # two‑step right
+    over_one   = intersection(moved, ofcolor(I, ONE))
+    back       = shift(shift(over_one, LEFT), LEFT)             # return
+    mask       = intersection(back, box(ofcolor(I, ONE)))
+    return fill(I, TWO, mask)
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC‑REASONING
+    # rotate the grid, perform a right‑shift on the 1‑shape, intersect with
+    # zeros, rotate the mask back and recolour.
+    R          = rot90(I)                                        # 90° clockwise
+    shape_R    = ofcolor(R, ONE)
+    shifted_R  = shift(shift(shape_R, RIGHT), RIGHT)            # two‑step right in R
+    target_R   = intersection(shifted_R, ofcolor(R, ZERO))
+    mask       = rot270(target_R)                               # undo rotation
+    return fill(I, TWO, mask)
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.79796 |                 0.24 |           0.0707107 |     10.1087  |
+| train2 |                0 |      8.7178  |                 0.19 |           0.0790569 |      8.98685 |
+| train3 |                0 |      8.94427 |                 0.2  |           0.0707107 |      9.21498 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |                 0.23 |           0.0707107 |      9.89237 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL / STRUCTURAL REASONING
+    # colour a background cell when a 1 lies exactly two cells to its right.
+    zeros      = ofcolor(I, ZERO)
+    left_twice = shift(shift(zeros, LEFT), LEFT)                # look two left
+    overlap    = intersection(left_twice, ofcolor(I, ONE))     # 1 two right of a zero
+    mask       = shift(shift(overlap, RIGHT), RIGHT)           # back to original zero
+    target     = intersection(mask, ofcolor(I, ZERO))           # keep only background cells
+    return fill(I, TWO, target)
+```
+
 # Task 1b8318e3
 
 train failed, test failed
 
-6 iterations
+10 iterations
 
-[Best program](#dsl-3880)
+[Best program](#dsl-4180)
 
 ## Iteration 1
 
@@ -139866,13 +148823,812 @@ def dsl5(I):
     return O
 ```
 
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – trim the outer empty border, rotate the trimmed core 90° clockwise,
+    #          and paste that rotated core at the top‑left corner of a blank canvas.
+    C   = trim(I)                                            # core without outer zero‑border
+    R   = rot90(C)                                           # rotate the core
+    idx = asindices(R)                                       # coordinates of the rotated core
+    obj = toobject(idx, R)                                   # coloured object of the rotated core
+    O   = canvas(0, shape(I))                                # blank canvas, same size as input
+    O   = cover(O, obj)                                      # paste the rotated core
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT – keep the largest colour‑object, shift every other object one step
+    #          towards the centre of that largest object.
+    objs     = fgpartition(I)                                 # all colour‑based objects
+    big      = argmax(objs, lambda o: size(o))                # biggest object
+    ctr_big  = center(big)                                    # its centre
+    others   = difference(objs, initset(big))                 # all the remaining objects
+
+    def move_one(o):
+        d   = subtract(ctr_big, center(o))                    # direction to the big centre
+        return toobject(asindices(move(I, o, d)), I)          # moved object (as coloured patch)
+
+    moved    = apply(move_one, others)                        # shifted smaller objects
+    moved_u  = merge(moved)                                   # a single patch containing them
+
+    O = canvas(0, shape(I))
+    O = cover(O, big)                                          # paste biggest unchanged
+    O = cover(O, moved_u)                                      # paste the shifted ones
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTER – swap colours 1↔4 and 2↔7, then erase any non‑zero cell that
+    #                touches a zero‑cell (orthogonal neighbours only).
+    S1 = replace(I, 1, 10)        # temporary colour for 1
+    S2 = replace(S1, 4, 1)
+    S3 = replace(S2,10,4)          # 1 ↔ 4 completed
+
+    T1 = replace(S3, 2, 11)        # temporary colour for 2
+    T2 = replace(T1, 7, 2)
+    O0 = replace(T2,11,7)          # 2 ↔ 7 completed
+
+    zero = ofcolor(O0, 0)                                   # all zero cells
+    # orthogonal neighbours of every zero cell
+    adj  = apply(lambda p: shoot(p, UP) |
+                           shoot(p, DOWN) |
+                           shoot(p, LEFT) |
+                           shoot(p, RIGHT), zero)
+    to_erase = intersection(adj,
+                difference(asindices(O0), zero))               # coloured cells touching a zero
+
+    keep_idx = difference(asindices(O0), to_erase)           # cells that stay
+    keep_obj = toobject(keep_idx, O0)                        # coloured object of the kept cells
+    O = cover(canvas(0, shape(I)), keep_obj)                # repaint only the kept cells
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |               15 |          122 |                  675 |            0.317576 |      812.318 |
+| train2 |               10 |           93 |                  300 |            0.27735  |      403.277 |
+| train3 |               15 |          150 |                  675 |            0.314873 |      840.315 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |               15 |          156 |                  675 |             0.25952 |       846.26 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the whole grid about the main diagonal (transpose)
+    #             and then super‑impose the original and its mirror.
+    M   = dmirror(I)                                          # diagonal mirror
+    O   = combine(I, M)                                       # overlay both grids
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – recolour every non‑zero cell by adding the Manhattan
+    #               distance to the nearest colour‑5 cell (capped at 9).
+    five     = ofcolor(I, 5)                                   # locations of all 5‑cells
+    nonzero  = difference(asindices(I), ofcolor(I, 0))         # all coloured cells
+
+    def recolour_one(idx):
+        d   = manhattan({idx}, five)                          # distance to nearest 5
+        cap = branch(greater(d, 9), 9, d)                      # cap at 9
+        new = add(index(I, idx), cap)                         # original colour + distance
+        return recolor(new, {idx})                            # recoloured single‑cell patch
+
+    patches  = apply(recolour_one, nonzero)                     # recoloured single‑cell patches
+    patches_u = merge(patches)                                 # single patch containing them all
+    O = canvas(0, shape(I))
+    O = cover(O, patches_u)                                    # paint all recoloured cells
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – move every non‑zero, non‑5 cell toward the nearest 5
+    #               stopping one step before touching a 5 (king‑step motion).
+    five      = ofcolor(I, FIVE)                                 # all 5‑cells
+    nonzero   = difference(asindices(I), ofcolor(I, ZERO))       # all coloured cells
+    movers    = difference(nonzero, five)                        # cells that must move
+
+    def relocate(idx):
+        # direction (dx,dy) toward the nearest 5
+        dvec   = gravitate(initset(idx), five)                   # (dx,dy) in {‑1,0,1}
+        dist   = manhattan(initset(idx), five)                   # Manhattan distance
+        steps  = subtract(dist, ONE)                             # distance‑1  (may be 0)
+        offset = multiply(dvec, steps)                           # total king‑step offset
+        newpos = add(idx, offset)                                # target location
+        col    = index(I, idx)                                   # original colour
+        return recolor(col, initset(newpos))                     # coloured patch at new location
+
+    moved_patches = apply(relocate, movers)                      # one patch per moving cell
+    moved_union   = merge(moved_patches)                          # all moved cells together
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))                              # keep the original 5‑objects
+    O = cover(O, moved_union)                                     # paste moved cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |               15 |          122 |                  675 |            0.298715 |      812.299 |
+| train2 |               10 |           93 |                  300 |            0.27735  |      403.277 |
+| train3 |               15 |          150 |                  675 |            0.29584  |      840.296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |               15 |          156 |                  675 |             0.27735 |      846.277 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GEOMETRIC – reflect the whole grid across the horizontal middle line
+    #            and overlay the mirror on top of the original.
+    H = hmirror(I)                                                # flip vertically
+    O = combine(I, H)                                              # super‑impose
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT – keep only the colour‑5 objects, erase everything else.
+    five_objs = fgpartition(I)                                     # all colour‑based objects
+    five_only = colorfilter(five_objs, FIVE)                       # keep those whose colour is 5
+    O        = canvas(ZERO, shape(I))
+    O        = cover(O, combine(*[toobject(o, I) for o in five_only]))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # COLOR‑FILTER – swap colours 1↔4 and 2↔7, then delete any cell that
+    #                is orthogonally adjacent to a zero cell.
+    S1 = replace(I, ONE, TEN)                                     # temp for 1
+    S2 = replace(S1, FOUR, ONE)
+    S3 = replace(S2, TEN, FOUR)                                    # 1 ↔ 4 done
+
+    T1 = replace(S3, TWO, ELEVEN)                                 # temp for 2
+    T2 = replace(T1, SEVEN, TWO)
+    O0 = replace(T2, ELEVEN, SEVEN)                               # 2 ↔ 7 done
+
+    zero   = ofcolor(O0, ZERO)
+    adj    = apply(lambda p: shoot(p, UP) | shoot(p, DOWN) |
+                           shoot(p, LEFT) | shoot(p, RIGHT), zero)
+    erase  = intersection(adj, difference(asindices(O0), zero))
+    keep   = difference(asindices(O0), erase)
+    O      = cover(canvas(ZERO, shape(I)), toobject(keep, O0))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL – compress the grid (remove empty outer border),
+    #          then restore it to the original size filled with zeros.
+    C = trim(I)                                                    # core without outer zeros
+    O = canvas(ZERO, shape(I))                                    # blank canvas of original size
+    O = cover(O, toobject(asindices(C), C))                        # paste the trimmed core at top‑left
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – move every non‑zero, non‑5 cell directly next to the
+    # nearest 5 (king‑step motion), preserving its colour.
+    five    = ofcolor(I, FIVE)                                   # all 5‑cells
+    nonzero = difference(asindices(I), ofcolor(I, ZERO))          # coloured cells
+    movers  = difference(nonzero, five)                         # cells that must move
+
+    relocate = lambda idx: recolor(
+        index(I, idx),                                            # original colour
+        initset(add(
+            idx,
+            multiply(
+                gravitate(initset(idx), five),                    # direction vector
+                subtract(manhattan(initset(idx), five), ONE)     # steps = dist‑1
+            )
+        ))
+    moved = merge(apply(relocate, movers))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))      # keep the original 5‑objects
+    O = cover(O, moved)                   # paste moved cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT – treat each non‑5 connected component as a single object,
+    # compute a direction from one representative cell toward the nearest 5,
+    # and shift the whole object by the full distance‑1 (preserving colours).
+    five      = ofcolor(I, FIVE)
+    objs      = fgpartition(I)                               # all objects
+    five_objs = colorfilter(objs, FIVE)                       # only colour‑5 objects
+    other_objs = difference(objs, five_objs)                # objects to relocate
+
+    relocate_obj = lambda o: (
+        # pick an arbitrary cell of the object as the reference point
+        (lambda rep:
+            merge(apply(
+                lambda idx:
+                    recolor(
+                        index(I, idx),
+                        initset(add(idx,
+                            multiply(
+                                gravitate(initset(rep), five),
+                                subtract(manhattan(initset(rep), five), ONE)
+                            )
+                        )
+                    ),
+                toindices(o)
+            ))
+        )(first(o)[0])                                        # rep = index of the first cell
+    )
+    moved = merge(apply(relocate_obj, other_objs))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))     # keep the original 5‑objects
+    O = cover(O, moved)                  # paste relocated objects
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑STEP – each non‑5 coloured cell steps one king‑move towards the
+    # nearest 5 (if any), keeping its original colour.
+    five    = ofcolor(I, FIVE)
+    others  = difference(asindices(I), five)
+
+    step_one = lambda idx: recolor(
+        index(I, idx),
+        initset(add(idx, gravitate(initset(idx), five)))      # one‑step direction
+    )
+    moved = merge(apply(step_one, others))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))     # keep the original 5‑objects
+    O = cover(O, moved)                 # place the stepped cells
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |               30 |          244 |                  900 |            0.47912  |     1174.48  |
+| train2 |               20 |          186 |                  400 |            0.447772 |      606.448 |
+| train3 |               30 |          300 |                  900 |            0.448206 |     1230.45  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |               30 |          312 |                  900 |            0.447462 |      1242.45 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the whole grid horizontally and vertically
+    # and overlay the three reflections on top of the original.
+    H = hmirror(I)                        # horizontal mirror
+    V = vmirror(I)                        # vertical mirror
+    O = combine(I, H)                     # original + horizontal
+    O = combine(O, V)                      # + vertical
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL – remove the empty outer border (trim) and paste the
+    # remaining core back onto a blank canvas of the original size.
+    core = trim(I)                         # inner region without outer zeros
+    O = canvas(ZERO, shape(I))            # blank canvas of original size
+    O = cover(O, toobject(asindices(core), core))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – each non‑5 coloured cell walks straight toward the nearest 5
+    # and stops one step away (king‑step distance 1). 5‑cells stay put.
+    five      = ofcolor(I, FIVE)                                         # all 5‑cells
+    nonzero   = difference(asindices(I), ofcolor(I, ZERO))               # coloured cells
+    movers    = difference(nonzero, five)                               # cells that must move
+
+    relocate = lambda idx: recolor(
+        index(I, idx),                                                  # original colour
+        initset(add(
+            idx,
+            multiply(
+                gravitate(initset(idx), five),                         # unit direction toward 5
+                subtract(manhattan(initset(idx), five), ONE)            # steps needed to be adjacent
+            )
+        ))
+    moved = merge(apply(relocate, movers))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))      # keep the original 5‑objects
+    O = cover(O, moved)                # paste the displaced cells
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT – treat each non‑5 connected component as a whole and shift it
+    # by the same vector that would bring any of its cells next to the nearest 5.
+    five        = ofcolor(I, FIVE)
+    objs        = fgpartition(I)                                         # all objects
+    five_objs   = colorfilter(objs, FIVE)                                 # only the 5‑objects
+    other_objs  = difference(objs, five_objs)                           # objects to relocate
+
+    relocate_obj = lambda o: (
+        (lambda rep:
+            merge(apply(
+                lambda idx:
+                    recolor(
+                        index(I, idx),
+                        initset(add(
+                            idx,
+                            multiply(
+                                gravitate(initset(rep), five),
+                                subtract(manhattan(initset(rep), five), ONE)
+                            )
+                        )
+                    ),
+                toindices(o)
+            ))
+        )(first(o)[0])                                                  # rep = first cell of the object
+    )
+    moved = merge(apply(relocate_obj, other_objs))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))
+    O = cover(O, moved)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTER – handle each colour (except 0 and 5) separately and move all its
+    # cells toward the nearest 5 exactly as in dsl1, but grouped by colour.
+    five        = ofcolor(I, FIVE)
+    all_colors  = palette(I)
+    other_cols  = difference(all_colors, initset(FIVE))                   # colours other than 5
+
+    relocate_col = lambda col: merge(
+        apply(
+            lambda idx:
+                recolor(
+                    col,
+                    initset(add(
+                        idx,
+                        multiply(
+                            gravitate(initset(idx), five),
+                            subtract(manhattan(initset(idx), five), ONE)
+                        )
+                    ))
+                ,
+            toindices(ofcolor(I, col))
+        )
+    )
+    moved = merge(apply(relocate_col, other_cols))
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))
+    O = cover(O, moved)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – generate a displacement field from every non‑5 cell to the
+    # nearest 5, then apply the field to the whole grid with a single
+    # “shift‑by‑vector‑set” construction.
+    five      = ofcolor(I, FIVE)
+    non_five  = difference(asindices(I), five)
+
+    # for each source cell produce the destination index
+    dest_set = merge(
+        apply(
+            lambda idx:
+                initset(add(
+                    idx,
+                    multiply(
+                        gravitate(initset(idx), five),
+                        subtract(manhattan(initset(idx), five), ONE)
+                    )
+                )),
+            non_five)
+    )
+
+    # build an object that maps each source index to its destination colour
+    moved = merge(
+        apply(
+            lambda src:
+                recolor(
+                    index(I, src),
+                    intersect(initset(src), dest_set)   # the destination index for this source
+                ),
+            non_five)
+    )
+
+    O = canvas(ZERO, shape(I))
+    O = cover(O, toobject(five, I))
+    O = cover(O, moved)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.8596 |             0.124444 |                   1 |      25.9841 |
+| train2 |                0 |      22.0681 |             0.19     |                   1 |      23.2581 |
+| train3 |                0 |      28.6007 |             0.128889 |                   1 |      29.7296 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      30.0666 |             0.128889 |                   1 |      31.1955 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL – first trim away the outer empty border, then inside the trimmed
+    # core move every non‑5 cell one step toward the nearest 5 (as in dsl1);
+    # finally paste the transformed core back onto a blank canvas of the original size.
+    core        = trim(I)                                                # inner region without outer zeros
+    five_core   = ofcolor(core, FIVE)
+    nonzero_core = difference(asindices(core), ofcolor(core, ZERO))
+    movers_core = difference(nonzero_core, five_core)
+
+    relocate = lambda idx: recolor(
+        index(core, idx),
+        initset(add(
+            idx,
+            multiply(
+                gravitate(initset(idx), five_core),
+                subtract(manhattan(initset(idx), five_core), ONE)
+            )
+        ))
+    )
+    moved_core = merge(apply(relocate, movers_core))
+
+    O = canvas(ZERO, shape(I))
+    # paste the (still trimmed) core back at its original location
+    O = cover(O, toobject(five_core, core))
+    O = cover(O, moved_core)
+    # finally overlay any original 5‑cells that were trimmed away (they stay unchanged)
+    O = cover(O, toobject(ofcolor(I, FIVE), I))
+    return O
+```
+
 # Task 1bfc4729
 
 train failed, test failed
 
-5 iterations
+10 iterations
 
-[Best program](#dsl-3905)
+[Best program](#dsl-4230)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L2801)
 
@@ -140731,13 +150487,8563 @@ def dsl5(I):
     return O
 ```
 
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.1572 |                 0.43 |                   0 |      19.5872 |
+| train2 |                0 |      41.2553 |                 0.42 |                   0 |      41.6753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      38.3145 |                 0.43 |                   0 |      38.7445 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL‑CONDITION + OBJECT: one‑colour case uses colour 1,
+    # otherwise each pixel keeps its own colour.
+    colors   = difference(palette(I), initset(ZERO))           # non‑zero colours
+    onecol   = equality(size(colors), ONE)                     # exactly one colour ?
+    objs     = objects(I, False, False, True)                  # each coloured pixel
+
+    def plus(obj):
+        c  = branch(onecol, ONE, color(obj))                  # colour to draw
+        r  = uppermost(obj)                                   # row of the pixel
+        c0 = leftmost(obj)                                    # column of the pixel
+        h  = shoot(astuple(r, ZERO), RIGHT)                  # whole row
+        v  = shoot(astuple(ZERO, c0), DOWN)                   # whole column
+        return recolor(c, combine(h, v))
+
+    O = paint(I, merge(apply(plus, objs)))                     # draw pluses on top
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.1572 |                 0.43 |                   0 |      19.5872 |
+| train2 |                0 |      41.2553 |                 0.42 |                   0 |      41.6753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      38.3145 |                 0.43 |                   0 |      38.7445 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # COLOR‑FILTER + OBJECT: replace the background with the plus colour
+    # (1 if the picture is monochrome, otherwise leave it 0), then draw
+    # a full row/column for each pixel using its own colour.
+    colors   = difference(palette(I), initset(ZERO))
+    mono     = equality(size(colors), ONE)                     # only one colour ?
+    bgcol    = branch(mono, ONE, ZERO)                        # colour for the background‑plus
+    bg       = ofcolor(I, ZERO)                               # background cells
+    base     = fill(canvas(ZERO, shape(I)), bgcol, bg)        # background painted with plus colour
+
+    objs = objects(I, False, False, True)
+
+    def plus(obj):
+        c  = color(obj)
+        r  = uppermost(obj)
+        c0 = leftmost(obj)
+        h  = shoot(astuple(r, ZERO), RIGHT)
+        v  = shoot(astuple(ZERO, c0), DOWN)
+        return recolor(c, combine(h, v))
+
+    O = paint(base, merge(apply(plus, objs)))                  # overlay the pluses
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑LEVEL + OBJECT: for each distinct colour draw a full row
+    # and a full column using that colour.  If the whole picture is
+    # monochrome, the colour used for the plus is forced to 1.
+    cols      = difference(palette(I), initset(ZERO))          # set of colours
+    mono      = equality(size(cols), ONE)                     # single colour ?
+    pluscol   = branch(mono, ONE, NONE)   # dummy – will be ignored because we never use it
+    # we treat every colour separately
+    def draw_for_colour(col):
+        # any one occurrence of the colour
+        pt   = first(ofcolor(I, col))
+        r    = uppermost(toobject({pt}, I))
+        c0   = leftmost(toobject({pt}, I))
+        h    = shoot(astuple(r, ZERO), RIGHT)
+        v    = shoot(astuple(ZERO, c0), DOWN)
+        return recolor(col, combine(h, v))
+
+    rows = apply(draw_for_colour, colors)                      # one plus per colour
+    O = paint(I, merge(rows))                                 # overlay on top of input
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      21.0476 |                 0.52 |            0.229129 |      21.7967 |
+| train2 |                0 |      46.1194 |                 0.52 |            0.141421 |      46.7808 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      42.0951 |                 0.52 |            0.203101 |      42.8182 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC‑SYMMETRY: create a double‑mirrored version of the input
+    # (which already contains full rows and columns of each colour),
+    # then replace the background according to the monochrome rule.
+    V = vmirror(I)
+    H = hmirror(V)                                            # double mirror
+    mono   = equality(size(difference(palette(I), initset(ZERO))), ONE)
+    bgcol  = branch(mono, ONE, ZERO)                          # colour for background‑plus
+    bg     = ofcolor(I, ZERO)
+    base   = fill(canvas(ZERO, shape(I)), bgcol, bg)          # background coloured appropriately
+    O = underpaint(base, asobject(H))                         # double‑mirrored pluses under original background
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.3907 |                 0.44 |                   0 |      19.8307 |
+| train2 |                0 |      41.2795 |                 0.44 |                   0 |      41.7195 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      38.3145 |                 0.43 |                   0 |      38.7445 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL‑PLUS WITH LOCAL BRANCHING: draw a cross for each pixel.
+    # When the picture contains a single colour, the colour of the cross
+    # is forced to 1; otherwise each pixel uses its own colour.
+    colors   = difference(palette(I), initset(ZERO))
+    onecol   = equality(size(colors), ONE)
+    objs     = objects(I, False, False, True)
+
+    def plus(obj):
+        c   = branch(onecol, ONE, color(obj))                # colour to draw
+        r   = uppermost(obj)
+        c0  = leftmost(obj)
+        # vertical line (up and down)
+        vert = combine(shoot(astuple(r, c0), UP),
+                       shoot(astuple(r, c0), DOWN))
+        # horizontal line (left and right)
+        horiz = combine(shoot(astuple(r, c0), LEFT),
+                        shoot(astuple(r, c0), RIGHT))
+        shape = combine(vert, horiz)
+        return recolor(c, shape)
+
+    O = paint(I, merge(apply(plus, objs)))                    # overlay the pluses
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.2873 |                 0.49 |                   0 |      19.7773 |
+| train2 |                0 |      45.8585 |                 0.59 |                   0 |      46.4485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      40.5463 |                  0.5 |                   0 |      41.0463 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – nearest‑pixel (Manhattan) colour assignment
+    # each cell gets the colour of the closest non‑zero pixel.
+    objs   = objects(I, False, False, True)                # single‑pixel objects
+    allidx = asindices(I)                                 # every coordinate
+
+    def cell(loc):
+        # object whose Manhattan distance to loc is minimal
+        nearest = argmin(objs,
+                         lambda o: manhattan(toobject({loc}, I), o))
+        col = color(nearest)
+        return recolor(col, toobject({loc}, I))
+
+    O = paint(canvas(ZERO, shape(I)), merge(apply(cell, allidx)))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.199  |                 0.48 |                   0 |      20.679  |
+| train2 |                0 |      45.1664 |                 0.48 |                   0 |      45.6464 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       40.398 |                 0.48 |                   0 |       40.878 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – build full rows, then colour the rest by
+    # the nearest row (vertical distance).
+    objs = objects(I, False, False, True)
+
+    # 1) horizontal lines (full rows) for every colour
+    def hline(obj):
+        r = uppermost(obj)
+        return recolor(color(obj), shoot(astuple(r, ZERO), RIGHT))
+
+    rows   = merge(apply(hline, objs))
+
+    # 2) for every background cell choose the colour of the nearest row‑object
+    row_objs = objects(paint(canvas(ZERO, shape(I)), rows),
+                       False, False, True)
+
+    def bgcell(loc):
+        nearest = argmin(row_objs,
+                         lambda o: manhattan(toobject({loc}, I), o))
+        col = color(nearest)
+        return recolor(col, toobject({loc}, I))
+
+    bg = merge(apply(bgcell, asindices(I)))
+    O = paint(paint(canvas(ZERO, shape(I)), rows), bg)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GLOBAL‑TRANSFORMATION – colour the whole grid with the
+    # most common non‑zero colour, then overlay full rows for each original colour.
+    cols   = difference(palette(I), initset(ZERO))
+    common = mostcommon(cols)                     # most frequent colour (or ONE if mono)
+    base   = fill(canvas(ZERO, shape(I)), common, ofcolor(I, ZERO))
+
+    objs = objects(I, False, False, True)
+
+    def hline(obj):
+        r = uppermost(obj)
+        return recolor(color(obj), shoot(astuple(r, ZERO), RIGHT))
+
+    O = paint(base, merge(apply(hline, objs)))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the input twice (vertical then horizontal) and
+    # use the mirrored picture as a background plus‑colour, then overlay
+    # the original full rows.
+    V = vmirror(I)
+    H = hmirror(V)                      # double‑mirrored picture
+    bgcol = branch(equality(size(difference(palette(I), initset(ZERO))), ONE, ZERO)
+    bg    = fill(canvas(ZERO, shape(I)), bgcol, ofcolor(I, ZERO))
+
+    objs = objects(I, False, False, True)
+
+    def fullrow(obj):
+        r = uppermost(obj)
+        return recolor(color(obj), shoot(astuple(r, ZERO), RIGHT))
+
+    O = underpaint(paint(bg, merge(apply(fullrow, objs))), asobject(H))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18.9209 |                 0.42 |                   0 |      19.3409 |
+| train2 |                0 |      41.2553 |                 0.42 |                   0 |      41.6753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      37.8418 |                 0.42 |                   0 |      38.2618 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # COLOR‑FILTER – keep only the distinct colours, draw a full
+    # vertical line for each colour (using its column), then draw the
+    # full rows.  This uses a different combination of primitives.
+    objs = objects(I, False, False, True)
+
+    def vline(obj):
+        c = leftmost(obj)
+        return recolor(color(obj), shoot(astuple(ZERO, c), DOWN))
+
+    def hline(obj):
+        r = uppermost(obj)
+        return recolor(color(obj), shoot(astuple(r, ZERO), RIGHT))
+
+    vert = merge(apply(vline, objs))
+    horiz = merge(apply(hline, objs))
+
+    O = paint(paint(canvas(ZERO, shape(I)), vert), horiz)
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.2873 |                 0.49 |                   0 |      19.7773 |
+| train2 |                0 |      44.7102 |                 0.59 |                   0 |      45.3002 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      40.5463 |                  0.5 |                   0 |      41.0463 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – nearest non‑zero pixel (Manhattan) with deterministic tie‑break.
+    # Tie‑break by choosing the smallest colour among equally‑near objects.
+    objs   = objects(I, False, False, True)                # each coloured pixel as an object
+    allidx = asindices(I)
+
+    def colour_of(loc):
+        # distance of each object to the location
+        dists = {o: manhattan(toobject({loc}, I), o) for o in objs}
+        min_d = valmin(dists.values(), lambda x: x)        # smallest Manhattan distance
+        # objects that achieve the minimum distance
+        cand  = {o for o, d in dists.items() if d == min_d}
+        # colour = smallest colour among the candidates
+        col   = valmin({color(o) for o in cand}, lambda x: x)
+        return recolor(col, toobject({loc}, I))
+
+    O = paint(canvas(ZERO, shape(I)), merge(apply(colour_of, allidx)))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.199  |                 0.48 |                   0 |      20.679  |
+| train2 |                0 |      45.1664 |                 0.48 |                   0 |      45.6464 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       40.398 |                 0.48 |                   0 |       40.878 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – build a full row for each original coloured pixel,
+    # then colour the remaining cells with the colour of the nearest row (vertical distance).
+    objs = objects(I, False, False, True)
+
+    # 1) turn each coloured pixel into a full‑length horizontal line at its row
+    def make_row(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    rows = merge(apply(make_row, objs))
+
+    # 2) treat the rows as new objects and colour background cells by nearest row (vertical)
+    row_objs = objects(paint(canvas(ZERO, shape(I)), rows), False, False, True)
+
+    def bg_cell(loc):
+        nearest = argmin(row_objs,
+                         lambda o: manhattan(toobject({loc}, I), o))
+        col = color(nearest)
+        return recolor(col, toobject({loc}, I))
+
+    bg = merge(apply(bg_cell, asindices(I)))
+    O = paint(paint(canvas(ZERO, shape(I)), rows), bg)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GLOBAL‑TRANSFORMATION – colour the whole grid with the most frequent non‑zero colour,
+    # then overlay a full row for every original coloured pixel.
+    nonzero = difference(palette(I), initset(ZERO))
+    common  = mostcolor(nonzero)                           # most common colour present
+    base    = fill(canvas(ZERO, shape(I)), common, ofcolor(I, ZERO))
+
+    objs = objects(I, False, False, True)
+
+    def row_from_obj(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    O = paint(base, merge(apply(row_from_obj, objs)))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – create a double‑mirrored picture, use it as a coloured background,
+    # then draw the original full rows on top.
+    mirrored = hmirror(vmirror(I))                         # vertical then horizontal mirror
+    # background colour: 1 if there is exactly one non‑zero colour, else 0
+    bgcol = branch(equality(size(difference(palette(I), initset(ZERO))), ONE, ZERO)
+    bg    = fill(canvas(ZERO, shape(I)), bgcol, ofcolor(I, ZERO))
+
+    objs = objects(I, False, False, True)
+
+    def full_row(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    rows = merge(apply(full_row, objs))
+    O = underpaint(paint(bg, rows), asobject(mirrored))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18.9209 |                 0.42 |                   0 |      19.3409 |
+| train2 |                0 |      41.2553 |                 0.42 |                   0 |      41.6753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      37.8418 |                 0.42 |                   0 |      38.2618 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # COLOR‑FILTER – for each distinct colour draw a full vertical line at its column
+    # and a full horizontal line at its row, then overlay them.
+    objs = objects(I, False, False, True)
+
+    def v_line(o):
+        c = leftmost(o)
+        return recolor(color(o), shoot(astuple(ZERO, c), DOWN))
+
+    def h_line(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    vert = merge(apply(v_line, objs))
+    horiz = merge(apply(h_line, objs))
+
+    O = paint(paint(canvas(ZERO, shape(I)), vert), horiz)
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.2873 |                 0.49 |                   0 |      19.7773 |
+| train2 |                0 |      44.7102 |                 0.59 |                   0 |      45.3002 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      40.5463 |                  0.5 |                   0 |      41.0463 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – colour every cell by the nearest non‑zero pixel
+    # (Manhattan distance, tie‑break by the smallest colour).
+    objs   = objects(I, False, False, True)                # each coloured pixel as an object
+    allidx = asindices(I)
+
+    def nearest(loc):
+        # distances from the current location to every coloured object
+        dists = {o: manhattan(toobject({loc}, I), o) for o in objs}
+        mind   = valmin(dists.values(), lambda x: x)      # smallest distance
+        cand   = {o for o, d in dists.items() if d == mind}
+        col    = valmin({color(o) for o in cand}, lambda x: x)
+        return recolor(col, toobject({loc}, I))
+
+    O = paint(canvas(ZERO, shape(I)), merge(apply(nearest, allidx)))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.199  |                 0.48 |                   0 |      20.679  |
+| train2 |                0 |      45.1664 |                 0.48 |                   0 |      45.6464 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       40.398 |                 0.48 |                   0 |       40.878 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – turn every coloured pixel into a full‑length
+    # horizontal line on its row, then colour the remaining background
+    # with the colour of the nearest line (vertical distance, tie‑break smallest).
+    objs       = objects(I, False, False, True)
+
+    # 1) full row for each original pixel
+    def make_row(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    rows = merge(apply(make_row, objs))
+
+    # 2) treat the rows as new objects and colour every other cell
+    #    by the nearest row (Manhattan, tie‑break smallest colour)
+    row_objs = objects(paint(canvas(ZERO, shape(I)), rows), False, False, True)
+
+    def colour_bg(loc):
+        nearest = argmin(row_objs,
+                         lambda o: manhattan(toobject({loc}, I), o))
+        col = color(nearest)
+        return recolor(col, toobject({loc}, I))
+
+    bg = merge(apply(colour_bg, asindices(I)))
+    O  = paint(paint(canvas(ZERO, shape(I)), rows), bg)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      18.9209 |                 0.42 |                   0 |      19.3409 |
+| train2 |                0 |      41.2553 |                 0.42 |                   0 |      41.6753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      37.8418 |                 0.42 |                   0 |      38.2618 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTER – for each distinct colour draw a full vertical line
+    # at the leftmost column occupied by that colour and a full horizontal
+    # line at the uppermost row occupied by that colour; then overlay them.
+    objs = objects(I, False, False, True)
+
+    def v_line(o):
+        c = leftmost(o)
+        return recolor(color(o), shoot(astuple(ZERO, c), DOWN))
+
+    def h_line(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    vert = merge(apply(v_line, objs))
+    horiz = merge(apply(h_line, objs))
+    O = paint(paint(canvas(ZERO, shape(I)), vert), horiz)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the whole picture twice (horizontal then vertical)
+    # and use it as a coloured background; finally draw the original
+    # full rows on top of it.
+    mirrored = hmirror(vmirror(I))                     # double‑mirrored picture
+    bgcol    = branch(equality(size(difference(palette(I), initset(ZERO))), ONE, ZERO)
+    bg       = fill(canvas(ZERO, shape(I)), bgcol, ofcolor(I, ZERO))
+
+    objs = objects(I, False, False, True)
+
+    def full_row(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    rows = merge(apply(full_row, objs))
+    O = underpaint(paint(bg, rows), asobject(mirrored))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.2873 |                 0.49 |                   0 |      19.7773 |
+| train2 |                0 |      44.7102 |                 0.59 |                   0 |      45.3002 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      40.5463 |                  0.5 |                   0 |      41.0463 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – colour every cell by the sign of the Manhattan‑distance
+    # difference between the two original coloured pixels.
+    #   negative → colour of the first pixel,
+    #   positive → colour of the second pixel,
+    #   zero      → the smaller colour.
+    objs   = objects(I, False, False, True)                # two single‑pixel objects
+    o1, o2 = tuple(objs)                                   # unpack the two objects
+    c1, c2 = color(o1), color(o2)
+
+    allidx = asindices(I)
+
+    def diff_colour(loc):
+        d1 = manhattan(toobject({loc}, I), o1)
+        d2 = manhattan(toobject({loc}, I), o2)
+        col = branch(equality(d1, d2), valmin({c1, c2}, lambda x: x),
+                     branch(greater(d2, d1), c1, c2))
+        return recolor(col, toobject({loc}, I))
+
+    O = paint(canvas(ZERO, shape(I)), merge(apply(diff_colour, allidx)))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL + OBJECT‑EXTRACTION
+    # – full rows of the original coloured pixels
+    # – all border cells coloured by the nearest original pixel (Manhattan,
+    #   tie‑break by the smaller colour)
+    objs      = objects(I, False, False, True)               # the two single‑pixel objects
+    rows      = merge(apply(lambda o: recolor(color(o),
+                                      shoot(astuple(uppermost(o), ZERO), RIGHT)),
+                     objs)                                 # full rows
+
+    # border = top, bottom, left, right edges of the grid
+    top    = shoot(astuple(ZERO, ZERO), RIGHT)
+    bot    = shoot(astuple(subtract(height(I), ONE), ZERO), RIGHT)
+    left   = shoot(astuple(ZERO, ZERO), DOWN)
+    right  = shoot(astuple(ZERO, subtract(width(I), ONE)), DOWN)
+    border = union(union(top, bot), union(left, right))
+
+    # colour each border cell by the nearest original pixel
+    def nearest(loc):
+        dists = {o: manhattan(toobject({loc}, I), o) for o in objs}
+        mind  = valmin(dists.values(), lambda x: x)
+        cand  = {o for o, d in dists.items() if d == mind}
+        col   = valmin({color(o) for o in cand}, lambda x: x)
+        return recolor(col, toobject({loc}, I))
+
+    border_col = merge(apply(nearest, asindices(paint(canvas(ZERO, shape(I)), border))))
+
+    O = paint(paint(canvas(ZERO, shape(I)), rows), border_col)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL TRANSFORMATION
+    # – colour every cell by the nearest original pixel (full Voronoi map)
+    # – then keep only the border cells and the rows that already contain a pixel
+    objs = objects(I, False, False, True)
+
+    # full Voronoi colouring
+    def vor(loc):
+        dists = {o: manhattan(toobject({loc}, I), o) for o in objs}
+        mind  = valmin(dists.values(), lambda x: x)
+        cand  = {o for o, d in dists.items() if d == mind}
+        col   = valmin({color(o) for o in cand}, lambda x: x)
+        return recolor(col, toobject({loc}, I))
+
+    voronoi = merge(apply(vor, asindices(I)))
+
+    # mask: border cells ∪ rows that contain a pixel
+    rows_of_pixels = merge(apply(lambda o: shoot(astuple(uppermost(o), ZERO), RIGHT), objs))
+    border = union(
+                union(shoot(astuple(ZERO, ZERO), RIGHT),
+                      shoot(astuple(subtract(height(I), ONE), ZERO), RIGHT)),
+                union(shoot(astuple(ZERO, ZERO), DOWN),
+                      shoot(astuple(ZERO, subtract(width(I), ONE)), DOWN))
+            )
+    mask = union(rows_of_pixels, border)
+
+    O = paint(paint(canvas(ZERO, shape(I)), voronoi), mask)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING
+    # – for each colour draw a vertical line at the leftmost column it occupies
+    # – draw a horizontal line at the uppermost row it occupies
+    # – keep only those lines that lie on the grid border (they become the final colour)
+    objs = objects(I, False, False, True)
+
+    def v_line(o):
+        c = leftmost(o)
+        return recolor(color(o), shoot(astuple(ZERO, c), DOWN))
+
+    def h_line(o):
+        r = uppermost(o)
+        return recolor(color(o), shoot(astuple(r, ZERO), RIGHT))
+
+    vert = merge(apply(v_line, objs))
+    horiz = merge(apply(h_line, objs))
+
+    # keep only the parts that touch the outer frame
+    border_verts = keep_if(lambda p: bordering({p}, I), vert)   # primitive not existent → simulated by intersect
+    border_horiz = keep_if(lambda p: bordering({p}, I), horiz)
+
+    O = paint(paint(canvas(ZERO, shape(I)), border_verts), border_horiz))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC
+    # – mirror the original picture twice (horizontal then vertical) to obtain a
+    #   symmetric background; this automatically colours the borders with the
+    #   nearest original pixel colour.
+    # – finally, draw the original full rows on top of that background.
+    bg = hmirror(vmirror(I))                         # double‑mirrored picture
+    rows = merge(apply(lambda o: recolor(color(o),
+                                    shoot(astuple(uppermost(o), ZERO), RIGHT)),
+                 objects(I, False, False, True))
+    O = underpaint(paint(canvas(ZERO, shape(I)), rows), asobject(bg))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – SIGN OF MANHATTAN DIFFERENCE (alternative formulation)
+    # – colour every border cell by the sign of (dist_to_first – dist_to_second)
+    #   (negative → first colour, positive → second colour, zero → smaller colour)
+    # – interior rows that contain a pixel are painted completely with that colour.
+    o1, o2 = tuple(objects(I, False, False, True))
+    c1, c2 = color(o1), color(o2)
+
+    # border cells
+    top    = shoot(astuple(ZERO, ZERO), RIGHT)
+    bot    = shoot(astuple(subtract(height(I), ONE), ZERO), RIGHT)
+    left   = shoot(astuple(ZERO, ZERO), DOWN)
+    right  = shoot(astuple(ZERO, subtract(width(I), ONE)), DOWN)
+    border = union(union(top, bot), union(left, right))
+
+    def sign_colour(loc):
+        d1 = manhattan(toobject({loc}, I), o1)
+        d2 = manhattan(toobject({loc}, I), o2)
+        col = branch(equality(d1, d2), valmin({c1, c2}, lambda x: x),
+                     branch(greater(d2, d1), c1, c2))
+        return recolor(col, toobject({loc}, I))
+
+    border_col = merge(apply(sign_colour, asindices(paint(canvas(ZERO, shape(I)), border))))
+
+    # full rows of the original pixels
+    rows = merge(apply(lambda o: recolor(color(o),
+                                    shoot(astuple(uppermost(o), ZERO), RIGHT)),
+                 {o1, o2}))
+    O = paint(paint(canvas(ZERO, shape(I)), rows), border_col))
+    return O
+```
+
+# Task 1c02dbbe
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-4280)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.1169 |             0.546667 |           0.0471405 |      47.7107 |
+| train2 |                0 |      40.2741 |             0.448889 |           0.122474  |      40.8454 |
+| train3 |                0 |      59.0339 |             0.706667 |           0.0471405 |      59.7877 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.3299 |             0.768889 |           0.0471405 |       66.146 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global transformation: erase the dominant colour 5 from the whole picture.
+    # (replace every 5 with background 0)
+    O = replace(I, FIVE, ZERO)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction strategy: keep only the non‑5 objects and draw them on a blank canvas.
+    # 1) obtain all objects (including background)
+    # 2) filter out the objects whose colour is 5
+    # 3) paint the remaining objects onto a zero‑filled canvas of the same size
+    all_objs   = objects(I, False, False, True)
+    non5_objs  = mfilter(all_objs,
+                         lambda obj: branch(color(obj) != FIVE, obj, frozenset()))
+    blank      = canvas(ZERO, shape(I))
+    O          = underpaint(blank, combine(*non5_objs))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      20.7364 |             0.306667 |                   0 |      21.0431 |
+| train2 |                0 |      19.6977 |             0.195556 |                   0 |      19.8933 |
+| train3 |                0 |      28.3196 |             0.346667 |                   0 |      28.6663 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       39.281 |             0.537778 |                   0 |      39.8188 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering route: keep colour 5 only where it is *not* adjacent to any other non‑5 colour.
+    # Cells of colour 5 that touch a different colour are turned to 0.
+    def is_isolated(pt):
+        neigh = neighbors(pt)
+        return all(index(I, n) == FIVE or index(I, n) == ZERO for n in neigh)
+
+    isolated_5 = frozenset(filter(is_isolated, ofcolor(I, FIVE)))
+    O = fill(canvas(ZERO, shape(I)), FIVE, isolated_5)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      25.4558 |             0.235556 |           0.0235702 |      25.715  |
+| train3 |                0 |      26.2107 |             0.351111 |           0.0235702 |      26.5854 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.3087 |             0.506667 |           0.0235702 |      29.8389 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning: reflect the whole picture over the vertical centre line
+    # and overlay the reflection onto the original (higher colour wins).
+    reflected = vmirror(I)
+    # overlay: keep the maximum colour at each cell
+    O = cellwise(I, reflected, ZERO)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.697  |             0.555556 |           0.0471405 |      48.2997 |
+| train2 |                0 |      40.2244 |             0.444444 |           1         |      41.6688 |
+| train3 |                0 |      59.5567 |             0.72     |           0.0471405 |      60.3238 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.5973 |             0.786667 |           0.0471405 |      66.4311 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational / structural reasoning: move every non‑5 coloured pixel one step
+    # toward the centroid of the large 5‑region, then redraw them on a clean canvas.
+    five_patch   = ofcolor(I, FIVE)
+    centre_five  = centerofmass(five_patch)
+    def move_one(pt):
+        dir_vec = gravitate({pt}, five_patch)             # direction towards the 5‑mass
+        return add(pt, dir_vec)                          # one step in that direction
+    non5_pts = frozenset(p for p in asindices(I) if index(I, p) not in (ZERO, FIVE))
+    moved_pts = frozenset(move_one(p) for p in non5_pts)
+    O = fill(canvas(ZERO, shape(I)), mostcolor(I), moved_pts)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.1169 |             0.546667 |           0.0471405 |      47.7107 |
+| train2 |                0 |      19.4165 |             0.191111 |           0.0333333 |      19.6409 |
+| train3 |                0 |      59.0339 |             0.706667 |           0.0471405 |      59.7877 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.3299 |             0.768889 |           0.0471405 |       66.146 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global transformation: erase the most frequent colour in the whole picture.
+    dom = mostcolor(I)                     # dominant (most common) colour
+    O = replace(I, dom, ZERO)             # turn it into background
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |     nan      |           nan        |                 nan |     nan      |
+| train2 |                0 |      40.2244 |             0.444444 |                   1 |      41.6688 |
+| train3 |              nan |     nan      |           nan        |                 nan |     nan      |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction: keep only the objects whose colour is not 5.
+    all_objs   = objects(I, False, False, True)
+    non5_objs = mfilter(all_objs,
+                        lambda obj: branch(color(obj) != FIVE, obj, frozenset()))
+    blank = canvas(ZERO, shape(I))
+    O = underpaint(blank, merge(non5_objs))   # paint the retained objects
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.8508 |             0.537778 |                   1 |      48.3886 |
+| train2 |                0 |      40.2244 |             0.444444 |                   1 |      41.6688 |
+| train3 |                0 |      58.5833 |             0.693333 |                   1 |      60.2766 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      64.5988 |             0.751111 |                   1 |      66.3499 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering: keep the colour that appears the fewest times.
+    rare = leastcommon(I)                     # the least frequent colour
+    rare_pts = ofcolor(I, rare)               # its locations
+    O = fill(canvas(ZERO, shape(I)), rare, rare_pts)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.7797 |             0.302222 |           0.0235702 |      16.1055 |
+| train2 |                0 |      25.4558 |             0.235556 |           0.0235702 |      25.715  |
+| train3 |                0 |      22.5167 |             0.337778 |           0.0235702 |      22.878  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric reasoning: rotate the picture 90° clockwise and overlay,
+    # keeping the higher colour at each cell.
+    rot = rot90(I)
+    O = cellwise(I, rot, ZERO)               # max colour per cell
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.697  |             0.555556 |           0.0471405 |      48.2997 |
+| train2 |                0 |      40.2244 |             0.444444 |           1         |      41.6688 |
+| train3 |                0 |      59.5567 |             0.72     |           0.0471405 |      60.3238 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.5973 |             0.786667 |           0.0471405 |      66.4311 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational / structural: move every non‑5 coloured pixel one step
+    # toward the centroid of the large 5‑region, then redraw them.
+    five_pts   = ofcolor(I, FIVE)
+    move_one  = lambda pt: add(pt, gravitate({pt}, five_pts))
+    non5_pts  = frozenset(p for p in asindices(I)
+                          if index(I, p) not in (ZERO, FIVE))
+    moved_pts = frozenset(move_one(p) for p in non5_pts)
+    O = fill(canvas(ZERO, shape(I)), mostcolor(I), moved_pts)
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # -------- Global – trim → erase dominant colour → restore size ----------
+    # Remove the outer uniform border, turn the most frequent colour into
+    # background inside the trimmed area, then paste it back into a blank canvas.
+    T = trim(I)                                      # cut away the zero‑border
+    dom = mostcolor(T)                               # dominant colour inside
+    C = replace(T, dom, ZERO)                       # erase it
+    O = underpaint(canvas(ZERO, shape(I)), C)         # restore original dimensions
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # -------- Object‑extraction – keep everything except the dominant block --
+    # Detect all objects, discard those that have the most common colour,
+    # and render the remaining ones on a blank background.
+    dom = mostcolor(I)
+    all_objs   = objects(I, False, False, True)                     # every coloured object
+    non_dom    = mfilter(all_objs,
+                        lambda obj: branch(color(obj) != dom, obj, frozenset()))
+    O = underpaint(canvas(ZERO, shape(I)), merge(non_dom))          # paint kept objects
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.8508 |             0.537778 |                   1 |      48.3886 |
+| train2 |                0 |      40.2244 |             0.444444 |                   1 |      41.6688 |
+| train3 |                0 |      58.5833 |             0.693333 |                   1 |      60.2766 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      64.5988 |             0.751111 |                   1 |      66.3499 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # -------- Colour‑filtering – keep the second most frequent colour -------
+    # Replace the dominant colour by zero, then keep the (now) most frequent
+    # colour, i.e. the second most frequent colour of the original grid.
+    dom = mostcolor(I)
+    without_dom = replace(I, dom, ZERO)                 # erase dominant colour
+    second = mostcolor(without_dom)                     # second most common colour
+    pts = ofcolor(I, second)                            # its locations
+    O = fill(canvas(ZERO, shape(I)), second, pts)      # draw only that colour
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      29.9666 |             0.28     |           0.0333333 |      30.28   |
+| train3 |                0 |      27.0555 |             0.364444 |           0.0333333 |      27.4533 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # -------- Geometric – combine three orthogonal views with max colour ----
+    # Rotate 90°, mirror vertically and horizontally, then keep the highest
+    # colour at each cell among the original and the three transformed copies.
+    r90  = rot90(I)
+    vm   = vmirror(I)
+    hm   = hmirror(I)
+    O1 = cellwise(I,   r90, ZERO)      # original vs. 90° rotation
+    O2 = cellwise(O1,  vm,  ZERO)      # also compare with vertical mirror
+    O  = cellwise(O2,  hm,  ZERO)      # finally compare with horizontal mirror
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # -------- Relational – move every non‑dominant pixel one step toward the
+    # centre of the dominant region, then redraw them with the original colour.
+    dom = mostcolor(I)                                         # dominant colour
+    dom_pts = ofcolor(I, dom)                                   # its cells
+    # all objects that are NOT of the dominant colour
+    all_objs = objects(I, False, False, True)
+    non_dom_objs = mfilter(all_objs,
+                          lambda o: branch(color(o) != dom, o, frozenset()))
+    # set of their coordinates
+    nd_pts = mapply(toindices, non_dom_objs)
+    # one‑step move toward the dominant region
+    step = lambda p: add(p, gravitate({p}, dom_pts))
+    moved = apply(step, nd_pts)
+    # repaint the moved pixels with the dominant colour
+    O = fill(canvas(ZERO, shape(I)), dom, moved)
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.4543 |             0.546667 |           0.0666667 |      47.0676 |
+| train2 |                0 |      40.3733 |             0.457778 |           0.164992  |      40.996  |
+| train3 |                0 |      59.3464 |             0.715556 |           0.062361  |      60.1244 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |       65.192 |                 0.76 |           0.0471405 |      65.9992 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global – trim border, erase the most frequent colour, then put the result
+    # back on a blank canvas of the original size.
+    T   = trim(I)                                 # cut away the zero border
+    dom = mostcolor(T)                            # dominant colour inside the trimmed area
+    C   = replace(T, dom, ZERO)                   # turn the dominant colour into background
+    O   = paint(canvas(ZERO, shape(I)), asobject(C))  # paint the trimmed‑and‑cleaned picture onto a fresh canvas
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – keep every coloured object whose colour is *not* the dominant one.
+    dom      = mostcolor(I)
+    all_objs = objects(I, False, False, True)                # all coloured objects
+    keep     = mfilter(all_objs,
+                       lambda o: branch(color(o) != dom, o, frozenset()))
+    O        = paint(canvas(ZERO, shape(I)), merge(keep))    # render the kept objects on a blank background
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.1169 |             0.546667 |           0.0471405 |      47.7107 |
+| train2 |                0 |      19.4165 |             0.191111 |           0.0333333 |      19.6409 |
+| train3 |                0 |      59.0339 |             0.706667 |           0.0471405 |      59.7877 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.3299 |             0.768889 |           0.0471405 |       66.146 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filtering – erase the dominant colour and retain everything else unchanged.
+    dom = mostcolor(I)
+    O   = replace(I, dom, ZERO)               # replace dominant colour by background, leave the rest as is
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      29.9666 |             0.28     |           0.0333333 |      30.28   |
+| train3 |                0 |      27.0555 |             0.364444 |           0.0333333 |      27.4533 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric – take the maximum colour obtained from the four orthogonal symmetries.
+    r90 = rot90(I)            # 90° rotation
+    vm  = vmirror(I)          # vertical mirror
+    hm  = hmirror(I)          # horizontal mirror
+    O1 = cellwise(I,   r90, ZERO)   # original vs. rotation
+    O2 = cellwise(O1,  vm,  ZERO)   # include vertical mirror
+    O  = cellwise(O2,  hm,  ZERO)   # include horizontal mirror
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational – move every non‑dominant object one step toward the centre of the
+    # dominant colour region and redraw the moved objects with their original colours.
+    dom      = mostcolor(I)                       # dominant colour
+    dom_pts  = ofcolor(I, dom)                    # cells of the dominant colour
+    all_objs = objects(I, False, False, True)    # all coloured objects
+    non_dom  = mfilter(all_objs,
+                       lambda o: branch(color(o) != dom, o, frozenset()))
+    # one‑step shift for each object toward the dominant region
+    shifted = mapply(lambda o: move(I, o,
+                                   gravitate(o, dom_pts)), non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(shifted))   # render the shifted objects
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      47.1169 |             0.546667 |           0.0471405 |      47.7107 |
+| train2 |                0 |      19.4165 |             0.191111 |           0.0333333 |      19.6409 |
+| train3 |                0 |      59.0339 |             0.706667 |           0.0471405 |      59.7877 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      65.3299 |             0.768889 |           0.0471405 |       66.146 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Colour‑filtering – erase the dominant colour, keep everything else.
+    dom = mostcolor(I)
+    O   = replace(I, dom, ZERO)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – render only the objects whose colour is not the dominant one.
+    dom      = mostcolor(I)
+    objs     = objects(I, False, False, True)                 # all coloured objects
+    keep_obs = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    O        = paint(canvas(ZERO, shape(I)), merge(keep_obs))   # draw them on a blank canvas
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      29.9666 |             0.28     |           0.0333333 |      30.28   |
+| train3 |                0 |      27.0555 |             0.364444 |           0.0333333 |      27.4533 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Geometric – keep the maximum colour that appears in any of the four orthogonal symmetries.
+    r90 = rot90(I)
+    vm  = vmirror(I)
+    hm  = hmirror(I)
+    O1 = cellwise(I,  r90, ZERO)
+    O2 = cellwise(O1, vm,  ZERO)
+    O  = cellwise(O2, hm,  ZERO)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Relational – shift every non‑dominant object one step toward the dominant colour region.
+    dom      = mostcolor(I)                         # dominant colour
+    dom_pts  = ofcolor(I, dom)                      # its cells
+    all_obs  = objects(I, False, False, True)      # all coloured objects
+    non_dom  = mfilter(all_obs,
+                       lambda o: branch(color(o) != dom, o, frozenset()))
+    shifted  = mapply(lambda o: move(I, o, gravitate(o, dom_pts)), non_dom)
+    O        = paint(canvas(ZERO, shape(I)), merge(shifted))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Global partition – for each non‑dominant colour fill the whole vertical strip
+    # that lies on the same side of the dominant region.
+    dom   = mostcolor(I)
+    h, w  = shape(I)
+    # objects of colours different from the dominant one
+    non_dom_objs = mfilter(objects(I, False, False, True),
+                           lambda o: branch(color(o) != dom, o, frozenset()))
+    # for every such object, build a vertical strip that reaches the nearest border
+    strips = mapply(
+        lambda o:
+            branch(
+                # is the object on the left side ?
+                leftmost(o) < w // 2,
+                # left strip : columns 0 … leftmost(o)
+                recolor(color(o),
+                        asobject(crop(I, (0, 0), (h, add(leftmost(o), ONE)))),
+                # right strip : columns rightmost(o) … w‑1
+                recolor(color(o),
+                        asobject(crop(I,
+                                      (0, rightmost(o)),
+                                      (h, subtract(w, rightmost(o)))))),
+                frozenset()),
+        non_dom_objs)
+    # start from a blank canvas and paint all strips on it
+    O = paint(canvas(ZERO, shape(I)), merge(strips))
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      30.3809 |             0.284444 |           0.0333333 |      30.6987 |
+| train3 |                0 |      31.4166 |             0.391111 |           0.0408248 |      31.8485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL SYMMETRY  – keep only cells that survive every 90° rotation.
+    O1 = cellwise(I, rot90(I), ZERO)
+    O2 = cellwise(O1, rot180(I), ZERO)
+    O  = cellwise(O2, rot270(I), ZERO)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – draw the exact shapes of all non‑dominant objects.
+    dom    = mostcolor(I)
+    objs   = objects(I, False, False, True)                     # every coloured object
+    keep   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    shapes = mapply(lambda o: asobject(subgrid(o, I)), keep)  # their exact footprints
+    O      = paint(canvas(ZERO, shape(I)), merge(shapes))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – erase the dominant colour, then fill each column that
+    # originally contained a non‑dominant colour with that colour.
+    dom = mostcolor(I)
+    cleared = replace(I, dom, ZERO)                                 # dominant → 0
+    # every column that ever held a non‑dominant colour becomes a solid stripe
+    strips = mapply(
+        lambda c:
+            recolor(index(I, (0, c)),
+                    asobject(crop(I, (0, c), (shape(I)[0], ONE))),
+        ofcolor(I, dom)                                            # columns of former dom
+    )
+    O = paint(cleared, merge(strips))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – each non‑dominant object slides one step toward the dominant
+    # colour region, repeatedly, until it touches it.
+    dom      = mostcolor(I)
+    dom_pts  = ofcolor(I, dom)
+    all_obs  = objects(I, False, False, True)
+    non_dom  = mfilter(all_objs,
+                       lambda o: branch(color(o) != dom, o, frozenset()))
+    # move each object until it becomes adjacent to any dominant cell
+    moved = mapply(
+        lambda o:
+            move(I, o,
+                 gravitate(o, dom_pts)),
+        non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(moved))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # PARTITION – for every non‑dominant colour, colour the whole vertical strip
+    # that lies on the same side of the image as the object's leftmost cell.
+    dom = mostcolor(I)
+    h, w = shape(I)
+    non_dom = mfilter(objects(I, False, False, True),
+                     lambda o: branch(color(o) != dom, o, frozenset()))
+    strips = mapply(
+        lambda o:
+            branch(
+                leftmost(o) < w // 2,
+                # left side: columns 0 … leftmost(o)
+                recolor(color(o),
+                         asobject(crop(I, (0, 0), (h, add(leftmost(o), ONE)))),
+                # right side: columns rightmost(o) … w‑1
+                recolor(color(o),
+                         asobject(crop(I,
+                                       (0, rightmost(o)),
+                                       (h, subtract(w, rightmost(o)))))),
+                frozenset()),
+        non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(strips))
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.4919 |             0.297778 |           0         |      15.7897 |
+| train2 |                0 |      30.3809 |             0.284444 |           0.0333333 |      30.6987 |
+| train3 |                0 |      31.4166 |             0.391111 |           0.0408248 |      31.8485 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      29.2916 |             0.502222 |                   0 |      29.7939 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL‑SYMMETRY – keep only cells that survive every 90° rotation.
+    O1 = cellwise(I, rot90(I), ZERO)
+    O2 = cellwise(O1, rot180(I), ZERO)
+    O  = cellwise(O2, rot270(I), ZERO)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – draw every non‑dominant object on a blank canvas.
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)                     # all coloured objects
+    keep  = mfilter(objs,
+                    lambda o: branch(color(o) != dom, o, frozenset()))
+    O     = paint(canvas(ZERO, shape(I)), merge(keep))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – erase the dominant colour, then turn each column that
+    # originally contained a non‑dominant colour into a solid stripe of that colour.
+    dom      = mostcolor(I)
+    cleared  = replace(I, dom, ZERO)                           # dominant → 0
+    # columns where a non‑dominant colour was present
+    nd_cols  = apply(lambda p: p[1],
+                     difference(ofcolor(I, dom), ofcolor(I, dom)))  # dummy diff to force list of all cols
+    strips   = mapply(
+        lambda c:
+            recolor(index(I, (0, c)),
+                    asobject(crop(I, (0, c), (shape(I)[0], ONE))),
+        nd_cols)
+    O = paint(cleared, merge(strips))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – each non‑dominant object slides step‑by‑step toward the dominant
+    # colour region until it becomes adjacent to it.
+    dom      = mostcolor(I)
+    dom_pts  = ofcolor(I, dom)                                 # all dominant cells
+    all_objs = objects(I, False, False, True)
+    non_dom  = mfilter(all_objs,
+                      lambda o: branch(color(o) != dom, o, frozenset()))
+    moved    = mapply(
+        lambda o: move(I, o, gravitate(o, dom_pts)),
+        non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(moved))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # PARTITION – colour the whole vertical half (left or right) that contains a
+    # non‑dominant object, according to the side of its leftmost cell.
+    dom = mostcolor(I)
+    h, w = shape(I)
+    non_dom = mfilter(objects(I, False, False, True),
+                     lambda o: branch(color(o) != dom, o, frozenset()))
+    strips = mapply(
+        lambda o:
+            branch(
+                leftmost(o) < w // 2,
+                # left side: columns 0 … leftmost(o)
+                recolor(color(o),
+                        asobject(crop(I, (0, 0), (h, add(leftmost(o), ONE)))),
+                # right side: columns rightmost(o) … w‑1
+                recolor(color(o),
+                        asobject(crop(I,
+                                      (0, rightmost(o)),
+                                      (h, subtract(w, rightmost(o)))))),
+        non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(strips))
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION – replace each non‑dominant object by a solid rectangle
+    # that is its own bounding box.
+    dom      = mostcolor(I)
+    objs     = objects(I, False, False, True)
+    non_dom  = mfilter(objs,
+                      lambda o: branch(color(o) != dom, o, frozenset()))
+    rects    = mapply(
+                 lambda o: recolor(
+                             color(o),
+                             asobject(
+                               crop(I,
+                                    (uppermost(o), leftmost(o)),
+                                    (height(o), width(o))))),
+                 non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # COLOR‑FILTERING – erase the dominant colour and turn every remaining
+    # colour into a full‑height vertical stripe that spans the whole grid.
+    dom      = mostcolor(I)
+    objs     = objects(I, False, False, True)
+    non_dom  = mfilter(objs,
+                      lambda o: branch(color(o) != dom, o, frozenset()))
+    stripes  = mapply(
+                 lambda o: recolor(
+                             color(o),
+                             asobject(
+                               crop(I,
+                                    (ZERO, leftmost(o)),
+                                    (shape(I)[0], ONE)))),
+                 non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(stripes))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC – erase the dominant colour and turn every remaining colour
+    # into a full‑width horizontal stripe that spans the whole grid.
+    dom      = mostcolor(I)
+    objs     = objects(I, False, False, True)
+    non_dom  = mfilter(objs,
+                      lambda o: branch(color(o) != dom, o, frozenset()))
+    strips   = mapply(
+                 lambda o: recolor(
+                             color(o),
+                             asobject(
+                               crop(I,
+                                    (uppermost(o), ZERO),
+                                    (ONE, shape(I)[1])))),
+                 non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(strips))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # PARTITION – colour the whole vertical half (left or right) that
+    # contains a non‑dominant object, according to the side of its leftmost cell.
+    dom      = mostcolor(I)
+    h, w    = shape(I)
+    objs     = objects(I, False, False, True)
+    non_dom  = mfilter(objs,
+                      lambda o: branch(color(o) != dom, o, frozenset()))
+    halves   = mapply(
+                 lambda o:
+                     branch(leftmost(o) < w // 2,
+                           recolor(color(o),
+                                   asobject(crop(I,
+                                                  (ZERO, ZERO),
+                                                  (h, add(leftmost(o), ONE)))),
+                           recolor(color(o),
+                                   asobject(crop(I,
+                                                  (ZERO, rightmost(o)),
+                                                  (h, subtract(w, rightmost(o))))))),
+                 non_dom)
+    O = paint(canvas(ZERO, shape(I)), merge(halves))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      46.8508 |             0.537778 |           1         |      48.3886 |
+| train2 |                0 |      30.3809 |             0.284444 |           0.0333333 |      30.6987 |
+| train3 |                0 |      58.5833 |             0.693333 |           1         |      60.2766 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      64.5988 |             0.751111 |                   1 |      66.3499 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL – keep only the cells that survive every 90° rotation,
+    # then erase the dominant colour.
+    O1 = cellwise(I, rot90(I), ZERO)
+    O2 = cellwise(O1, rot180(I), ZERO)
+    O3 = cellwise(O2, rot270(I), ZERO)
+    O  = replace(O3, mostcolor(I), ZERO)
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION (bounding‑box fill per object)
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)
+    non   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE, (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              non)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # COLOR‑LEVEL (one rectangle per non‑dominant colour)
+    dom   = mostcolor(I)
+    cols  = difference(palette(I), initset(dom))
+    rects = mapply(
+              lambda c: recolor(
+                          c,
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE,
+                                             (add(subtract(lowermost(ofcolor(I, c)),
+                                                         uppermost(ofcolor(I, c))),
+                                                   ONE),
+                                             (add(subtract(rightmost(ofcolor(I, c)),
+                                                         leftmost(ofcolor(I, c))),
+                                                   ONE)))),
+                              (uppermost(ofcolor(I, c)), leftmost(ofcolor(I, c))))),
+              cols)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # SYMMETRY‑DIFF: keep cells that differ from the horizontal mirror,
+    # then fill their bounding boxes (as in dsl1)
+    diff   = cellwise(I, hmirror(I), ZERO)          # cells not symmetric left‑right
+    objs   = objects(diff, False, False, True)      # treat each colour as an object
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE, (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              objs)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # SCALE‑FROM‑POINT: build a rectangle by up‑scaling a single cell
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)
+    non   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              vupscale(
+                                hupscale(
+                                  asobject(canvas(color(o), (ONE, ONE))),
+                                  width(o)),
+                                height(o)),
+                              (uppermost(o), leftmost(o))))),
+              non)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # BOX‑AND‑FILL: draw the outline of each non‑dominant object,
+    # then fill the whole bounding box with its colour
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)
+    non   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE,
+                                             (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              non)
+    O = paint(canvas(ZERO, shape(I)), merge(rects))
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # COLOR‑LEVEL: draw a filled bounding‑box for every colour that is NOT the most common one
+    dom   = mostcolor(I)
+    cols  = difference(palette(I), initset(dom))
+    rects = mapply(
+              lambda c: recolor(
+                          c,
+                          toindices(
+                            shift(
+                              asobject(
+                                canvas(
+                                  ONE,
+                                  (add(subtract(lowermost(ofcolor(I, c)),
+                                         uppermost(ofcolor(I, c))),
+                                      ONE),
+                                   add(subtract(rightmost(ofcolor(I, c)),
+                                         leftmost(ofcolor(I, c))),
+                                      ONE)))),
+                              (uppermost(ofcolor(I, c)),
+                               leftmost(ofcolor(I, c)))))),
+              cols)
+    O = paint(I, merge(rects))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑LEVEL: each non‑dominant object is replaced by a solid rectangle of its colour
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)
+    non   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE, (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              non)
+    O = paint(I, merge(rects))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # SYMMETRY‑DIFF: keep cells that differ from the horizontal mirror,
+    # then fill the bounding box of each colour that appears in the difference
+    diff   = cellwise(I, hmirror(I), ZERO)               # keep cells that are NOT symmetric
+    objs   = objects(diff, False, False, True)            # each colour present in the diff
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE, (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              objs)
+    O = paint(I, merge(rects))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # SCALE‑FROM‑POINT: for every non‑dominant colour build a rectangle
+    # by up‑scaling a single cell (using vertical‑ and horizontal‑upscale)
+    dom   = mostcolor(I)
+    cols  = difference(palette(I), initset(dom))
+    rects = mapply(
+              lambda c: recolor(
+                          c,
+                          toindices(
+                            shift(
+                              vupscale(
+                                hupscale(
+                                  asobject(canvas(c, (ONE, ONE))),
+                                  add(subtract(rightmost(ofcolor(I, c)),
+                                           leftmost(ofcolor(I, c))), ONE)),
+                                add(subtract(lowermost(ofcolor(I, c)),
+                                           uppermost(ofcolor(I, c))), ONE)),
+                              (uppermost(ofcolor(I, c)), leftmost(ofcolor(I, c)))))),
+              cols)
+    O = paint(I, merge(rects))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # BOX‑AND‑FILL (using outline then fill): outline every non‑dominant object,
+    # replace the outline by its full bounding box of the same colour
+    dom   = mostcolor(I)
+    objs  = objects(I, False, False, True)
+    non   = mfilter(objs, lambda o: branch(color(o) != dom, o, frozenset()))
+    rects = mapply(
+              lambda o: recolor(
+                          color(o),
+                          toindices(
+                            shift(
+                              asobject(canvas(ONE, (height(o), width(o)))),
+                              (uppermost(o), leftmost(o))))),
+              non)
+    O = paint(I, merge(rects))
+    return O
+```
+
+# Task 1c0d0a4b
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-4330)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # 1️⃣  neighbour expansion (8‑neighbourhood) of the original 8‑cells
+    patch8   = ofcolor(I, 8)                                          # cells that are 8
+    orth     = apply(neighbors, patch8)                               # orthogonal neighbours
+    diag     = apply(dneighbors, patch8)                              # diagonal neighbours
+    region   = combine(orth, diag)                                    # all cells touching an 8
+    cleared  = replace(I, 8, 0)                                       # erase the original 8‑pixels
+    O        = fill(cleared, 2, region)                              # paint the neighbourhood with 2
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 2️⃣  use the bounding box of every 8‑object and keep only its border
+    objs8    = colorfilter(fgpartition(I), 8)                         # each connected 8‑object
+    boxes    = apply(backdrop, objs8)                                 # its bounding‑box (full rectangle)
+    region   = difference(combine(*boxes), ofcolor(I, 8))            # rectangle minus the original 8‑cells
+    cleared  = replace(I, 8, 0)                                       # erase 8‑pixels
+    O        = fill(cleared, 2, region)                              # colour the box‑border with 2
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 3️⃣  extend a ray from every 8‑pixel in the four cardinal directions, stop at the first background cell
+    patch8   = ofcolor(I, 8)
+    up       = apply(lambda p: shoot(p, UP),   patch8)
+    down     = apply(lambda p: shoot(p, DOWN), patch8)
+    left     = apply(lambda p: shoot(p, LEFT), patch8)
+    right    = apply(lambda p: shoot(p, RIGHT),patch8)
+    rays     = combine(up, down, left, right)                        # all cells reached by the rays
+    region   = difference(rays, patch8)                               # keep only the newly reached cells
+    cleared  = replace(I, 8, 0)
+    O        = fill(cleared, 2, region)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     12       |             0.307692 |           0.0316228 |     12.3393  |
+| train2 |                0 |      9.38083 |             0.338462 |           0.0507673 |      9.77006 |
+| train3 |                0 |     10.198   |             0.320988 |           0         |     10.519   |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           16 |             0.378698 |                   0 |      16.3787 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 4️⃣  geometric symmetry: keep cells that are 8 in the original *and* in the horizontal mirror
+    horiz    = hmirror(I)                                            # mirror along the horizontal axis
+    both8    = intersection(ofcolor(I, 8), ofcolor(horiz, 8))         # overlap of the two 8‑patterns
+    region   = both8                                                 # those overlapping cells become 2
+    cleared  = replace(I, 8, 0)
+    O        = fill(cleared, 2, region)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 5️⃣  relational reasoning: for every 8‑pixel, move one step towards the nearest other 8‑pixel (gravitate) and colour that target
+    patch8      = ofcolor(I, 8)
+    # gravitate returns a direction; we shift the source by that direction to obtain the neighbour that is “closer”
+    target_vec = apply(lambda p: gravitate(p, patch8), patch8)
+    targets    = apply(lambda d: add(d, (0,0)), target_vec)          # the positions reached by the gravitate step
+    region     = difference(targets, patch8)                       # exclude the original 8‑pixels
+    cleared    = replace(I, 8, 0)
+    O          = fill(cleared, 2, region)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.94427 |             0.17094  |                   1 |     10.1152  |
+| train2 |                0 |      6.32456 |             0.153846 |                   1 |      7.4784  |
+| train3 |                0 |      8       |             0.197531 |                   1 |      9.19753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.9545 |             0.177515 |                   1 |       12.132 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # 1️⃣  object‑extraction + local neighbour filling
+    # colour‑8 cells → orthogonal neighbours that stay inside the overall 8‑bbox
+    patch8   = ofcolor(I, 8)                                    # all 8‑pixels
+    orth    = apply(neighbors, patch8)                         # 4‑neighbourhood of each 8
+    box     = backdrop(patch8)                                  # bounding rectangle of all 8‑pixels
+    region  = intersection(orth, box)                         # keep only neighbours that lie inside the bbox
+    cleared = replace(I, 8, 0)                                  # erase original 8‑pixels
+    O       = fill(cleared, 2, region)                          # colour the region with 2
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.59166 |            0.196581  |                   0 |      9.78824 |
+| train2 |                0 |      4.89898 |            0.0923077 |                   0 |      4.99129 |
+| train3 |                0 |      7.2111  |            0.160494  |                   0 |      7.3716  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      12.6491 |             0.236686 |                   0 |      12.8858 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 2️⃣  object‑extraction + border of each 8‑component
+    # each connected 8‑object → its full rectangle → keep only the rectangle border
+    objs8   = colorfilter(fgpartition(I), 8)                    # set of connected 8‑objects
+    boxes   = apply(backdrop, objs8)                            # bounding rectangle of every object
+    fullbox = merge(boxes)                                     # union of all rectangles
+    region  = difference(fullbox, ofcolor(I, 8))                # rectangle border (all rectangle cells except the original 8‑pixels)
+    cleared = replace(I, 8, 0)                                  # erase the 8‑pixels
+    O       = fill(cleared, 2, region)                          # paint the borders with 2
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     11.3137  |             0.273504 |           0.0316228 |     11.6188  |
+| train2 |                0 |      7.74597 |             0.230769 |           0.0507673 |      8.0275  |
+| train3 |                0 |      8.48528 |             0.222222 |           0.0555556 |      8.76306 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      14.5602 |             0.313609 |           0.0271964 |       14.901 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 3️⃣  geometric‑symmetry + intersection (horizontal *and* vertical mirrors)
+    # keep only the cells that are 8 both in the original grid and in its two mirrors
+    horiz   = hmirror(I)                                        # horizontal mirror
+    vert    = vmirror(I)                                        # vertical mirror
+    both    = intersection(ofcolor(I, 8), ofcolor(horiz, 8))     # overlap with horizontal mirror
+    both    = intersection(both, ofcolor(vert, 8))              # also overlap with vertical mirror
+    region  = both                                             # these cells become 2
+    cleared = replace(I, 8, 0)                                  # erase the original 8‑pixels
+    O       = fill(cleared, 2, region)                          # colour the symmetric core with 2
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 4️⃣  colour‑filter + periodic‑grid filling
+    # the 8‑pattern is periodic with step 2; fill every empty cell that is on the same parity
+    patch8   = ofcolor(I, 8)
+    period_h = hperiod(patch8)                                  # horizontal period (expected 2)
+    period_v = vperiod(patch8)                                  # vertical period (expected 2)
+    # generate a checkerboard mask of the same size as I:
+    rows    = height(I)
+    cols    = width(I)
+    # mask cell (i,j) is 1 when (i // period_v + j // period_h) is odd → opposite parity to the 8‑cells
+    mask    = canvas(1, (rows, cols))
+    parity  = lambda ij: ((ij[0] // period_v) + (ij[1] // period_h)) % 2
+    mask    = fill(mask, 2, { ij for ij in asindices(I) if parity(ij) == 1 })
+    region  = intersection(ofcolor(mask, 2), ofcolor(I, 0))        # cells of that parity that are currently background
+    cleared = replace(I, 8, 0)                                  # erase the original 8‑pixels
+    O       = fill(cleared, 2, region)                          # colour the periodic cells with 2
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.16515 |             0.179487 |            0.387298 |      9.73194 |
+| train2 |                0 |      6.63325 |             0.169231 |            0.378208 |      7.18069 |
+| train3 |                0 |      8.24621 |             0.209877 |            0.364302 |      8.82039 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      11.1355 |             0.183432 |            0.405217 |      11.7242 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 5️⃣  relational‑reasoning + single‑step gravitation
+    # each 8‑pixel moves one step towards the nearest other 8‑pixel; the destination cells become 2
+    patch8   = ofcolor(I, 8)
+    # turn every single coordinate into a singleton patch so that gravitate can be applied
+    singleton = lambda p: frozenset({(p, (0,0))})                # a patch consisting of one cell at p
+    sources   = apply(singleton, patch8)                        # set of singleton patches
+    # direction from each source towards the whole set of 8‑pixels (excluding itself)
+    dirs      = apply(lambda s: gravitate(s, patch8), sources)
+    # shift each source by its direction (add the vector to the coordinate)
+    targets   = apply(lambda d: add(d, (0,0)), dirs)              # the cells reached after one step
+    region    = difference(targets, patch8)                     # keep only the newly reached cells
+    cleared   = replace(I, 8, 0)                               # erase the original 8‑pixels
+    O         = fill(cleared, 2, region)                       # colour the gravitation targets with 2
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      7.2111  |            0.111111  |                   0 |      7.32221 |
+| train2 |                0 |      4.47214 |            0.0769231 |                   0 |      4.54906 |
+| train3 |                0 |      6.32456 |            0.123457  |                   0 |      6.44801 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      9.59166 |             0.136095 |                   0 |      9.72776 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – cells that have at least two orthogonal 8‑neighbors
+    patch8   = ofcolor(I, 8)
+
+    left  = shift(patch8, LEFT)    # cells left of an 8
+    right = shift(patch8, RIGHT)   # cells right of an 8
+    up    = shift(patch8, UP)      # cells above an 8
+    down  = shift(patch8, DOWN)    # cells below an 8
+
+    # pairwise intersections give cells that are neighbours of two distinct 8’s
+    lr  = intersection(left, right)
+    ud  = intersection(up, down)
+    lu  = intersection(left, up)
+    ld  = intersection(left, down)
+    ru  = intersection(right, up)
+    rd  = intersection(right, down)
+
+    region = combine(lr, ud)
+    region = combine(region, lu)
+    region = combine(region, ld)
+    region = combine(region, ru)
+    region = combine(region, rd)
+
+    region = intersection(region, ofcolor(I, 0))   # keep only background cells
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     11.3137  |             0.273504 |           0.0316228 |     11.6188  |
+| train2 |                0 |      7.74597 |             0.230769 |           0.0507673 |      8.0275  |
+| train3 |                0 |      8.48528 |             0.222222 |           0.0555556 |      8.76306 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      14.5602 |             0.313609 |           0.0271964 |       14.901 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # geometric symmetry – keep the cells that stay 8 after both horizontal
+    # and vertical mirroring, then recolour them with 2
+    horiz   = hmirror(I)
+    vert    = vmirror(I)
+
+    region = intersection(ofcolor(I, 8), ofcolor(horiz, 8))
+    region = intersection(region,        ofcolor(vert, 8))
+
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # colour‑filter + parity – the 8‑pattern is periodic (step 2);
+    # fill the opposite‑parity background cells with 2
+    patch8   = ofcolor(I, 8)
+    period_h = hperiod(patch8)                 # expected 2
+    period_v = vperiod(patch8)                 # expected 2
+
+    rows = height(I)
+    cols = width(I)
+
+    # start from a blank canvas (value 0) and paint the parity cells with 1
+    mask = canvas(0, (rows, cols))
+    parity = lambda ij: ((ij[0] // period_v) + (ij[1] // period_h)) % 2
+    mask = fill(mask, 1, {ij for ij in asindices(I) if parity(ij) == 1})
+
+    region = intersection(ofcolor(mask, 1), ofcolor(I, 0))
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.3923  |             0.230769 |           0.0632456 |     10.6863  |
+| train2 |                0 |      5.65685 |             0.123077 |           0.0879316 |      5.86786 |
+| train3 |                0 |      8.48528 |             0.222222 |           0.0785674 |      8.78607 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.2665 |             0.260355 |           0.0543928 |      13.5812 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # object extraction – fill the interior of the bounding rectangles
+    # of each connected 8‑object (border excluded) with 2
+    objs8   = colorfilter(fgpartition(I), 8)          # set of connected 8‑objects
+    boxes   = apply(backdrop, objs8)                # their bounding rectangles
+    fullbox = merge(boxes)                          # union of all rectangles
+
+    # remove the outline of the union to keep only the interior cells
+    interior = difference(fullbox, box(fullbox))
+    region   = intersection(interior, ofcolor(I, 0))
+
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # global periodicity – downscale then upscale to recover the checker‑board
+    # positions that correspond to 8 in the coarser grid
+    small   = downscale(I, 2)                # compress by factor 2
+    mask_s  = ofcolor(small, 8)              # 8‑cells in the reduced grid
+    mask_b  = upscale(mask_s, 2)              # bring back to original size
+    region  = intersection(ofcolor(mask_b, 8), ofcolor(I, 0))
+
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ---------- Global periodicity ----------
+    # 1) compress the whole picture by a factor of 2,
+    # 2) keep the cells that are 8 in the coarse picture,
+    # 3) bring the mask back to the original size and keep only the
+    #    positions that were background in the original picture.
+    small   = downscale(I, 2)                     # → ½ size
+    mask_s  = ofcolor(small, 8)                  # 8‑cells in the coarse grid
+    mask_b  = upscale(mask_s, 2)                 # back to original resolution
+    region  = intersection(mask_b, ofcolor(I, 0)) # background cells that correspond to a coarse‑grid 8
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.3923  |             0.230769 |           0.0632456 |     10.6863  |
+| train2 |                0 |      5.65685 |             0.123077 |           0.0879316 |      5.86786 |
+| train3 |                0 |      8.48528 |             0.222222 |           0.0785674 |      8.78607 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.2665 |             0.260355 |           0.0543928 |      13.5812 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ---------- Object‑extraction (interior of each 8 component) ----------
+    objs8   = colorfilter(fgpartition(I), 8)               # connected 8‑objects
+    interiors = apply(lambda o: difference(backdrop(o), box(backdrop(o))), objs8)
+    interior = merge(interiors)                               # union of all interiors
+    region   = intersection(interior, ofcolor(I, 0))          # keep only background cells
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.94427 |             0.17094  |                   1 |     10.1152  |
+| train2 |                0 |      6.32456 |             0.153846 |                   1 |      7.4784  |
+| train3 |                0 |      8       |             0.197531 |                   1 |      9.19753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.9545 |             0.177515 |                   1 |       12.132 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ---------- Geometric symmetry ----------
+    # keep the cells that survive BOTH a horizontal and a vertical mirror
+    # and were background in the original picture.
+    horiz   = hmirror(I)
+    vert    = vmirror(I)
+    region  = intersection(ofcolor(I, 8), ofcolor(horiz, 8))
+    region  = intersection(region, ofcolor(vert, 8))
+    region  = intersection(region, ofcolor(I, 0))
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ---------- Relational reasoning (≥ 2 orthogonal 8‑neighbors) ----------
+    # for every background cell compute its orthogonal neighbours;
+    # keep the cell if at least two of those neighbours are 8.
+    background = ofcolor(I, 0)
+    # neighbour‑sets of every background cell
+    nb_sets    = apply(neighbors, background)
+    # predicate: the neighbour‑set shares ≥2 cells with the set of all 8‑cells
+    pred       = lambda s: size(intersection(s, ofcolor(I, 8))) >= 2
+    qualified  = mfilter(nb_sets, pred)               # set of neighbour‑sets that satisfy the predicate
+    # turn the qualified neighbour‑sets back into their centre cells
+    region = { next(iter(s)) for s in qualified }    # each set contains exactly the centre cell’s neighbours,
+                                                    # we retrieve the centre by taking any element’s “origin” –
+                                                    # here the centre is the only element of background that
+                                                    # generated the set, so we simply pick an arbitrary element.
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.94427 |             0.17094  |                   1 |     10.1152  |
+| train2 |                0 |      6.32456 |             0.153846 |                   1 |      7.4784  |
+| train3 |                0 |      8       |             0.197531 |                   1 |      9.19753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.9545 |             0.177515 |                   1 |       12.132 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ---------- Colour‑filter + checkerboard parity ----------
+    # the 8‑cells form a checkerboard with period 2 in both directions;
+    # we colour the opposite‑parity background cells with 2.
+    rows = height(I)
+    cols = width(I)
+    mask = canvas(0, (rows, cols))
+    # parity function (period 2 in each direction)
+    parity = lambda ij: ((ij[0] // 2) + (ij[1] // 2)) % 2
+    mask = fill(mask, 1, {ij for ij in asindices(I) if parity(ij) == 1})
+    region = intersection(mask, ofcolor(I, 0))          # keep only background cells of that parity
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.94427 |             0.17094  |                   1 |     10.1152  |
+| train2 |                0 |      6.32456 |             0.153846 |                   1 |      7.4784  |
+| train3 |                0 |      8       |             0.197531 |                   1 |      9.19753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.9545 |             0.177515 |                   1 |       12.132 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ----------- Global periodicity (down‑scale / up‑scale) -----------
+    # 1) downscale the whole picture by 2,
+    # 2) build a binary mask of the coarse‑grid cells that are 8,
+    # 3) upscale the mask back and keep only those positions that were 0.
+    rows = height(I)
+    cols = width(I)
+    small = downscale(I, 2)                                          # ½ size grid
+    mask_small = canvas(0, (height(small), width(small)))            # empty canvas
+    mask_small = fill(mask_small, 1, ofcolor(small, 8))              # 1 where coarse‑grid 8
+    mask_big = upscale(mask_small, 2)                                # back to original size
+    region = intersection(mask_big, ofcolor(I, 0))                   # background cells under a coarse‑grid 8
+    cleared = replace(I, 8, 0)                                      # erase the 8's
+    O = fill(cleared, 2, region)                                    # colour the region with 2
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      15.8745 |             0.538462 |           0.0632456 |      16.4762 |
+| train2 |                0 |      12.3288 |             0.584615 |           0.0949769 |      13.0084 |
+| train3 |                0 |      13.4164 |             0.555556 |           0.0785674 |      14.0505 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      18.7617 |              0.52071 |           0.0543928 |      19.3368 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ----------- Object‑extraction (interior of background) ----------
+    # interior = background cells that are NOT connected to the outer border
+    bg = ofcolor(I, 0)                                               # all background cells
+    bg_objs = colorfilter(fgpartition(I), 0)                         # connected background components
+    border_objs = mfilter(bg_objs, lambda o: bordering(o, I))        # those that touch the border
+    border_region = merge(border_objs)                               # union of border components
+    interior = difference(bg, border_region)                         # background isolated from the border
+    cleared = replace(I, 8, 0)                                      # erase the 8's
+    O = fill(cleared, 2, interior)                                   # fill interior with 2
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # --------------- Relational reasoning (≥2 orthogonal 8‑neighbours) ---------------
+    # keep a background cell if at least two of its orthogonal neighbours are 8
+    background = ofcolor(I, 0)
+    region = mfilter(
+        background,
+        lambda p: size(intersection(neighbors(p), ofcolor(I, 8))) >= 2
+    )
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.3923  |             0.230769 |           0.0632456 |     10.6863  |
+| train2 |                0 |      5.65685 |             0.123077 |           0.0879316 |      5.86786 |
+| train3 |                0 |      8.48528 |             0.222222 |           0.0785674 |      8.78607 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.2665 |             0.260355 |           0.0543928 |      13.5812 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ------------------ Object‑extraction (box interior of each 8 component) ------------------
+    # for every connected 8‑object compute the interior of its bounding box,
+    # intersect with background and union all these interiors.
+    objs8 = colorfilter(fgpartition(I), 8)
+    interiors = apply(
+        lambda o: difference(backdrop(o), box(backdrop(o))), objs8
+    )
+    interior = merge(interiors)
+    region = intersection(interior, ofcolor(I, 0))
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      8.94427 |             0.17094  |                   1 |     10.1152  |
+| train2 |                0 |      6.32456 |             0.153846 |                   1 |      7.4784  |
+| train3 |                0 |      8       |             0.197531 |                   1 |      9.19753 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      10.9545 |             0.177515 |                   1 |       12.132 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ------------------- Colour‑filter + checkerboard based on pattern period -------------------
+    # the 8‑cells repeat periodically; build a checker‑board of the same period
+    rows = height(I)
+    cols = width(I)
+    all8 = merge(colorfilter(fgpartition(I), 8))
+    hp = hperiod(all8)                     # horizontal period of the 8‑pattern
+    vp = vperiod(all8)                     # vertical period of the 8‑pattern
+    mask = canvas(0, (rows, cols))
+    mask = fill(
+        mask,
+        1,
+        {ij for ij in asindices(I) if ((ij[0] // hp) + (ij[1] // vp)) % 2 == 1}
+    )
+    region = intersection(mask, ofcolor(I, 0))
+    cleared = replace(I, 8, 0)
+    O = fill(cleared, 2, region)
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – count 8‑neighbors in the full 8‑connected neighbourhood
+    bg   = ofcolor(I, 0)
+    neigh = lambda p: combine(neighbors(p), ineighbors(p))
+    region = mfilter(bg,
+                     lambda p: size(intersection(neigh(p), ofcolor(I, 8))) >= 2)
+    O = fill(replace(I, 8, 0), 2, region)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # relational – sum orthogonal and diagonal neighbour counts
+    bg   = ofcolor(I, 0)
+    ort  = lambda p: size(intersection(neighbors(p), ofcolor(I, 8)))
+    diag = lambda p: size(intersection(ineighbors(p), ofcolor(I, 8)))
+    region = mfilter(bg,
+                     lambda p: add(ort(p), diag(p)) >= 2)
+    O = fill(replace(I, 8, 0), 2, region)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     12.1655  |             0.316239 |           0.0547723 |     12.5365  |
+| train2 |                0 |      9.16515 |             0.323077 |           0.0879316 |      9.57616 |
+| train3 |                0 |      9.38083 |             0.271605 |           0.0680414 |      9.72048 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      14.5602 |             0.313609 |           0.0543928 |      14.9282 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # geometric – shift‑mask and keep cells that belong to at least two shifted masks
+    mask8 = ofcolor(I, 8)
+    u  = shift(mask8, UP);        d  = shift(mask8, DOWN)
+    l  = shift(mask8, LEFT);      r  = shift(mask8, RIGHT)
+    ul = shift(mask8, add(UP, LEFT));   ur = shift(mask8, add(UP, RIGHT))
+    dl = shift(mask8, add(DOWN, LEFT)); dr = shift(mask8, add(DOWN, RIGHT))
+
+    # pairwise intersections (all 28 unordered pairs of the 8 directions)
+    p1  = intersection(u, l);   p2  = intersection(u, r);   p3  = intersection(d, l);   p4  = intersection(d, r)
+    p5  = intersection(u, d);   p6  = intersection(l, r)
+    p7  = intersection(ul, ur); p8  = intersection(ul, dl); p9  = intersection(ul, dr)
+    p10 = intersection(ur, dl); p11 = intersection(ur, dr); p12 = intersection(dl, dr)
+    p13 = intersection(u, ul); p14 = intersection(u, ur); p15 = intersection(d, dl); p16 = intersection(d, dr)
+    p17 = intersection(l, ul); p18 = intersection(l, dl); p19 = intersection(r, ur); p20 = intersection(r, dr)
+
+    pair_union = combine(combine(combine(p1, p2), combine(p3, p4)),
+                         combine(combine(p5, p6), combine(p7, p8)))
+    pair_union = combine(pair_union,
+                         combine(combine(combine(p9, p10), combine(p11, p12)),
+                                   combine(combine(p13, p14), combine(p15, p16))))
+    pair_union = combine(pair_union,
+                         combine(combine(p17, p18), combine(p19, p20)))
+
+    region = intersection(pair_union, ofcolor(I, 0))
+    O = fill(replace(I, 8, 0), 2, region)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # object‑extraction – interior of background then neighbour‑count filter
+    bg       = ofcolor(I, 0)
+    border   = merge(mfilter(fgpartition(I), lambda o: bordering(o, I)))
+    interior = difference(bg, border)                     # background not touching border
+    # keep only those interior cells that have ≥2 eight‑neighbors
+    neigh8   = lambda p: size(intersection(combine(neighbors(p), ineighbors(p)),
+                                          ofcolor(I, 8)))
+    region   = mfilter(interior, lambda p: neigh8(p) >= 2)
+    O = fill(replace(I, 8, 0), 2, region)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # geometric – dilate the 8‑mask and keep cells covered by at least two dilations
+    mask8 = ofcolor(I, 8)
+
+    # one‑step dilation in each of the 8 directions
+    d1 = shift(mask8, UP);    d2 = shift(mask8, DOWN)
+    d3 = shift(mask8, LEFT);  d4 = shift(mask8, RIGHT)
+    d5 = shift(mask8, add(UP, LEFT));   d6 = shift(mask8, add(UP, RIGHT))
+    d7 = shift(mask8, add(DOWN, LEFT)); d8 = shift(mask8, add(DOWN, RIGHT))
+
+    dilated = combine(combine(combine(combine(d1, d2), combine(d3, d4)),
+                      combine(combine(d5, d6), combine(d7, d8)))
+
+    # cells that belong to at least two of the eight dilated masks
+    # (intersection of each pair, then union of all those intersections)
+    pair01 = intersection(d1, d2);  pair02 = intersection(d1, d3);  pair03 = intersection(d1, d4)
+    pair04 = intersection(d1, d5);  pair05 = intersection(d1, d6);  pair06 = intersection(d1, d7)
+    pair07 = intersection(d1, d8);  pair12 = intersection(d2, d3);  pair13 = intersection(d2, d4)
+    pair14 = intersection(d2, d5);  pair15 = intersection(d2, d6);  pair16 = intersection(d2, d7)
+    pair17 = intersection(d2, d8);  pair23 = intersection(d3, d4);  pair24 = intersection(d3, d5)
+    pair25 = intersection(d3, d6);  pair26 = intersection(d3, d7);  pair27 = intersection(d3, d8)
+    pair34 = intersection(d4, d5);  pair35 = intersection(d4, d6);  pair36 = intersection(d4, d7)
+    pair37 = intersection(d4, d8);  pair45 = intersection(d5, d6);  pair46 = intersection(d5, d7)
+    pair47 = intersection(d5, d8);  pair56 = intersection(d6, d7);  pair57 = intersection(d6, d8)
+    pair67 = intersection(d7, d8)
+
+    multi = combine(combine(combine(combine(pair01, pair02), combine(pair03, pair04)),
+                    combine(combine(pair05, pair06), combine(pair07, pair12)))
+    multi = combine(multi,
+                    combine(combine(combine(pair13, pair14), combine(pair15, pair16)),
+                              combine(combine(pair17, pair23), combine(pair24, pair25))))
+    multi = combine(multi,
+                    combine(combine(combine(pair26, pair27), combine(pair34, pair35)),
+                              combine(combine(pair36, pair37), combine(pair45, pair46))))
+    multi = combine(multi,
+                    combine(combine(pair47, pair56), combine(pair57, pair67)))
+
+    region = intersection(multi, ofcolor(I, 0))
+    O = fill(replace(I, 8, 0), 2, region)
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – 0‑cells with ≥2 neighbours of colour 8 become 2
+    mask8 = ofcolor(I, 8)
+    bg    = ofcolor(I, 0)
+    neigh = lambda p: combine(neighbors(p), ineighbors(p))
+    region = mfilter(bg, lambda p: size(intersection(neigh(p), mask8)) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # global – work on the trimmed interior, then restore the original size
+    trimmed = trim(I)                                 # remove outer zero border
+    mask8   = ofcolor(trimmed, 8)
+    bg      = ofcolor(trimmed, 0)
+    neigh   = lambda p: combine(neighbors(p), ineighbors(p))
+    region  = mfilter(bg, lambda p: size(intersection(neigh(p), mask8)) >= 2)
+    filled  = underpaint(replace(trimmed, 8, 0), recolor(2, region))
+    O       = vconcat(vconcat(tophalf(I), filled), bottomhalf(I))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # object‑extraction – interior of the background (holes) then neighbour filter
+    bg       = ofcolor(I, 0)
+    border   = merge(mfilter(fgpartition(I), lambda o: bordering(o, I)))
+    interior = difference(bg, border)                     # cells not touching border
+    mask8    = ofcolor(I, 8)
+    neigh    = lambda p: combine(neighbors(p), ineighbors(p))
+    region   = mfilter(interior, lambda p: size(intersection(neigh(p), mask8)) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # colour‑filter – isolate colour‑8 objects, dilate them and keep cells covered twice
+    mask8   = ofcolor(I, 8)
+    dirs    = (UP, DOWN, LEFT, RIGHT,
+               add(UP, LEFT), add(UP, RIGHT),
+               add(DOWN, LEFT), add(DOWN, RIGHT))
+    shifted = apply(lambda d: shift(mask8, d), dirs)          # 8 shifted masks
+    pairs   = mfilter(product(shifted, shifted),
+                     lambda p: p[0] != p[1])                # all unordered pairs
+    twos   = apply(lambda p: intersection(p[0], p[1]), pairs)
+    multi   = apply(lambda s: s, twos)                       # union of all pair‑intersections
+    region  = intersection(multi, ofcolor(I, 0))
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # geometric – combine orthogonal and diagonal shifts, then require ≥2 overlaps
+    mask8 = ofcolor(I, 8)
+    ortho = combine(shift(mask8, UP), shift(mask8, DOWN),
+                    shift(mask8, LEFT), shift(mask8, RIGHT))
+    diag  = combine(shift(mask8, add(UP, LEFT)), shift(mask8, add(UP, RIGHT)),
+                    shift(mask8, add(DOWN, LEFT)), shift(mask8, add(DOWN, RIGHT)))
+    # cells that are reached by at least two different shifts
+    mult_ortho = mfilter(ortho, lambda p: size(intersection(p, ortho)) >= 2)
+    mult_diag  = mfilter(diag,  lambda p: size(intersection(p, diag))  >= 2)
+    region = intersection(combine(mult_ortho, mult_diag), ofcolor(I, 0))
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – a 0‑cell becomes 2 if it has ≥2 neighbours (8‑neighbourhood) of colour 8
+    mask8   = ofcolor(I, 8)                                 # set of (8,idx)
+    neigh   = lambda p: combine(neighbors(p[1]), ineighbors(p[1]))
+    region  = mfilter(ofcolor(I, 0),
+                     lambda p: size(intersection(neigh(p), toindices(mask8))) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # global – work on the interior (trimmed) grid, then restore the original borders
+    trimmed = trim(I)                                       # remove outer zero border
+    mask8   = ofcolor(trimmed, 8)
+    neigh   = lambda p: combine(neighbors(p[1]), ineighbors(p[1]))
+    region  = mfilter(ofcolor(trimmed, 0),
+                     lambda p: size(intersection(neigh(p), toindices(mask8))) >= 2)
+    filled  = underpaint(replace(trimmed, 8, 0), recolor(2, region))
+    O = vconcat(vconcat(tophalf(I), filled), bottomhalf(I))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # object‑extraction – consider only background cells that are not on the outer border
+    bg          = ofcolor(I, 0)
+    border_objs = mfilter(fgpartition(I), lambda o: bordering(o, I))
+    border      = merge(border_objs)                        # all background cells touching the frame
+    interior    = difference(bg, border)                     # background cells strictly inside
+    mask8       = ofcolor(I, 8)
+    neigh       = lambda p: combine(neighbors(p[1]), ineighbors(p[1]))
+    region      = mfilter(interior,
+                         lambda p: size(intersection(neigh(p), toindices(mask8))) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # colour‑filter – dilate the 8‑objects in all 8 directions and keep cells
+    # that are covered by at least two different dilations, then intersect with 0‑background
+    mask8 = ofcolor(I, 8)
+    dirs  = (UP, DOWN, LEFT, RIGHT,
+             add(UP, LEFT), add(UP, RIGHT),
+             add(DOWN, LEFT), add(DOWN, RIGHT))
+    shifted = apply(lambda d: shift(mask8, d), dirs)          # list of shifted 8‑masks
+    # all unordered pairs of distinct shifted masks
+    pairs  = mfilter(product(shifted, shifted),
+                     lambda p: p[0] != p[1])
+    # cells that appear in both masks of a pair
+    overlaps = apply(lambda p: intersection(p[0], p[1]), pairs)
+    # union of all pairwise overlaps (two‑or‑more coverage)
+    multi   = fold_union(overlaps)                           # helper defined below
+    region  = intersection(multi, ofcolor(I, 0))
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     10.3923  |             0.230769 |           0.0316228 |     10.6547  |
+| train2 |                0 |      6.63325 |             0.169231 |           0.107694  |      6.91017 |
+| train3 |                0 |      8.24621 |             0.209877 |           0.0555556 |      8.51164 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      13.4164 |             0.266272 |                   0 |      13.6827 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # geometric – combine orthogonal and diagonal dilations, keeping cells hit by at least two shifts
+    mask8 = ofcolor(I, 8)
+
+    # orthogonal shifts (up/down/left/right)
+    up    = shift(mask8, UP)
+    down  = shift(mask8, DOWN)
+    left  = shift(mask8, LEFT)
+    right = shift(mask8, RIGHT)
+
+    # cells overlapped by a vertical pair or a horizontal pair
+    ortho_v = intersection(up, down)        # vertical overlap
+    ortho_h = intersection(left, right)      # horizontal overlap
+    ortho_multi = combine(ortho_v, ortho_h)
+
+    # diagonal shifts
+    ul = shift(mask8, add(UP, LEFT))
+    ur = shift(mask8, add(UP, RIGHT))
+    dl = shift(mask8, add(DOWN, LEFT))
+    dr = shift(mask8, add(DOWN, RIGHT))
+
+    # cells overlapped by a diagonal pair (two opposite corners)
+    diag1 = intersection(ul, dr)
+    diag2 = intersection(ur, dl)
+    diag_multi = combine(diag1, diag2)
+
+    region = intersection(combine(ortho_multi, diag_multi), ofcolor(I, 0))
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+
+
+# -----------------------------------------------------------------
+# Helper used by dsl4 – union of a collection of patches
+def fold_union(patches):
+    # start with an empty patch (no cells)
+    empty = initset(() )                     # frozenset containing a dummy element
+    # convert the dummy element set to a proper empty patch
+    empty = frozenset()
+    # fold using combine
+    return apply(lambda acc: acc, patches)   # placeholder: DSL runtime will treat this as a union
+# -----------------------------------------------------------------
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – a background cell becomes 2 when it has ≥2 orthogonal neighbours of colour 8
+    mask8   = ofcolor(I, 8)                                   # all 8‑cells
+    region  = mfilter(ofcolor(I, 0),                           # all 0‑cells
+                     lambda p: size(intersection(dneighbors(p[1]),
+                                                  toindices(mask8))) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # global – work on the trimmed interior, then re‑attach the original frame
+    trimmed = trim(I)                                         # cut outer zero border
+    mask8   = ofcolor(trimmed, 8)
+    region  = mfilter(ofcolor(trimmed, 0),
+                     lambda p: size(intersection(dneighbors(p[1]),
+                                                  toindices(mask8))) >= 2)
+    filled  = underpaint(replace(trimmed, 8, 0), recolor(2, region))
+    O = vconcat(vconcat(tophalf(I), filled), bottomhalf(I))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # object‑extraction – consider only interior background cells (not touching the frame)
+    bg          = ofcolor(I, 0)
+    border_objs = mfilter(fgpartition(I), lambda o: bordering(o, I))
+    border      = merge(border_objs)                          # background cells on the frame
+    interior    = difference(bg, border)                       # background cells strictly inside
+    mask8       = ofcolor(I, 8)
+    region      = mfilter(interior,
+                         lambda p: size(intersection(dneighbors(p[1]),
+                                                      toindices(mask8))) >= 2)
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # geometric – explicit pairwise orthogonal overlaps (six unordered pairs)
+    mask8 = ofcolor(I, 8)
+
+    up    = shift(mask8, UP)
+    down  = shift(mask8, DOWN)
+    left  = shift(mask8, LEFT)
+    right = shift(mask8, RIGHT)
+
+    # all unordered pairs of orthogonal shifts
+    ud   = intersection(up, down)      # up‑down overlap
+    lr   = intersection(left, right)   # left‑right overlap
+    ul   = intersection(up, left)       # up‑left overlap
+    ur   = intersection(up, right)      # up‑right overlap
+    dl   = intersection(down, left)     # down‑left overlap
+    dr   = intersection(down, right)    # down‑right overlap
+
+    region = combine(combine(combine(combine(combine(ud, lr), ul), ur), dl)
+    region = combine(region, dr)                     # union of all six overlaps
+    region = intersection(region, ofcolor(I, 0))     # keep only original background cells
+
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # colour‑filter – generate the eight orthogonal‑direction shifts,
+    # keep cells that belong to at least two different shifted masks
+    mask8 = ofcolor(I, 8)
+
+    dirs    = (UP, DOWN, LEFT, RIGHT)
+    shifted = apply(lambda d: shift(mask8, d), dirs)          # set of four shifted masks
+
+    # unordered pairs of distinct shifted masks
+    pairs   = mfilter(product(shifted, shifted), lambda p: p[0] != p[1])
+
+    # cells appearing in both masks of a pair
+    overlaps = apply(lambda p: intersection(p[0], p[1]), pairs)
+
+    # union of all pairwise overlaps (two‑or‑more coverage)
+    multi   = fold_union(overlaps)                            # helper defined below
+
+    region = intersection(multi, ofcolor(I, 0))               # restrict to original 0‑cells
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+
+
+# -----------------------------------------------------------------
+# helper used by dsl5 – union of a collection of patches
+def fold_union(patches):
+    # start with an empty patch
+    empty = frozenset()
+    # iteratively combine each patch with the accumulator
+    return apply(lambda p: combine(p, empty), patches)  # the runtime treats this as a fold
+# -----------------------------------------------------------------
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # relational – a background cell becomes 2 when it has ≥2 orthogonal neighbours of colour 8
+    mask8   = ofcolor(I, 8)                                 # all 8‑cells
+    zeros   = ofcolor(I, 0)                                 # all 0‑cells
+    region  = mfilter(zeros,
+                      lambda p: size(intersection(dneighbors(p), mask8)) >= 2)
+    temp    = replace(I, 8, 0)                              # erase the 8s
+    O       = underpaint(temp, recolor(2, region))           # paint the 2s
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # geometric – cells that belong to the overlap of any two orthogonal shifts of the 8‑mask
+    mask8 = ofcolor(I, 8)
+
+    up    = shift(mask8, UP)
+    down  = shift(mask8, DOWN)
+    left  = shift(mask8, LEFT)
+    right = shift(mask8, RIGHT)
+
+    ud = intersection(up, down)      # up‑down overlap
+    lr = intersection(left, right)  # left‑right overlap
+    ul = intersection(up, left)       # up‑left overlap
+    ur = intersection(up, right)      # up‑right overlap
+    dl = intersection(down, left)    # down‑left overlap
+    dr = intersection(down, right)   # down‑right overlap
+
+    region = combine(combine(combine(combine(combine(combine(ud, lr), ul), ur), dl), dr)
+    region = intersection(region, ofcolor(I, 0))
+
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # object‑extraction – work only on interior background cells (ignore the frame)
+    bg          = ofcolor(I, 0)
+    border_objs = mfilter(fgpartition(I), lambda o: bordering(o, I))
+    border      = merge(border_objs)               # background cells that touch the border
+    interior    = difference(bg, border)           # strictly interior background cells
+
+    mask8   = ofcolor(I, 8)
+    region  = mfilter(interior,
+                      lambda p: size(intersection(dneighbors(p), mask8)) >= 2)
+
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # global – trim the external zero border, apply the relational rule inside, then re‑attach the frame
+    trimmed = trim(I)                                          # remove outer zero border
+    mask8   = ofcolor(trimmed, 8)
+
+    zeros   = ofcolor(trimmed, 0)
+    region  = mfilter(zeros,
+                     lambda p: size(intersection(dneighbors(p), mask8)) >= 2)
+
+    filled  = underpaint(replace(trimmed, 8, 0), recolor(2, region))
+
+    O = vconcat(vconcat(tophalf(I), filled), bottomhalf(I))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # colour‑filter – generate the four orthogonal shifts of the 8‑mask,
+    # keep cells that appear in at least two different shifted masks
+    mask8 = ofcolor(I, 8)
+
+    dirs    = (UP, DOWN, LEFT, RIGHT)
+    shifted = apply(lambda d: shift(mask8, d), dirs)          # four shifted masks
+
+    # unordered pairs of distinct shifted masks
+    pairs = mfilter(product(shifted, shifted), lambda p: p[0] != p[1])
+
+    # cells that belong to both masks of a pair
+    overlaps = apply(lambda p: intersection(p[0], p[1]), pairs)
+
+    # union of all pairwise overlaps
+    # (folded manually because no generic fold primitive is available)
+    # note: there are at most six distinct unordered pairs, so we can chain them
+    ov_list = tuple(overlaps)                                 # convert to a tuple
+    # start with the first overlap (or an empty set if none)
+    base = frozenset() if not ov_list else ov_list[0]
+    region = base
+    # combine the remaining overlaps one by one
+    region = combine(region, ov_list[1]) if len(ov_list) > 1 else region
+    region = combine(region, ov_list[2]) if len(ov_list) > 2 else region
+    region = combine(region, ov_list[3]) if len(ov_list) > 3 else region
+    region = combine(region, ov_list[4]) if len(ov_list) > 4 else region
+    region = combine(region, ov_list[5]) if len(ov_list) > 5 else region
+
+    region = intersection(region, ofcolor(I, 0))
+
+    O = underpaint(replace(I, 8, 0), recolor(2, region))
+    return O
+```
+
+# Task 1c56ad9f
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-4380)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    C = mostcolor(I)                                   # dominant non‑zero colour
+    obj      = ofcolor(I, C)                           # all cells of that colour
+    subgrid  = subgrid(obj, I)                         # smallest rectangle containing it
+    pattern  = upscale(downscale(subgrid, 2), 2)        # 2×2 checker‑board of C
+    pat_obj  = ofcolor(pattern, C)                     # keep only the colour C
+    O = paint(I, pat_obj)                              # overlay on original grid
+    return O
+
+
+# ----------------------------------------------------------------------
+# 2) Object‑extraction + shift‑union:  take the border, shift it by two
+#    cells in the four orthogonal directions and intersect with the interior.
+# ----------------------------------------------------------------------
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    C = mostcolor(I)
+    border     = ofcolor(I, C)                         # outer frame of colour C
+    interior   = delta(border)                         # cells inside the frame
+    sh1 = shift(border, ( 0, 2))
+    sh2 = shift(border, ( 0,-2))
+    sh3 = shift(border, ( 2, 0))
+    sh4 = shift(border, (-2, 0))
+    candidate  = combine(combine(sh1, sh2), combine(sh3, sh4))
+    fill       = intersection(candidate, interior)      # keep only inside the frame
+    O = paint(I, fill)                                 # colour the selected cells C
+    return O
+
+
+# ----------------------------------------------------------------------
+# 3) Pure geometric mirroring:  mirror the border horizontally and vertically;
+#    the union of the two mirrors yields the required interior pattern.
+# ----------------------------------------------------------------------
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    C = mostcolor(I)
+    border = ofcolor(I, C)
+    horiz  = hmirror(border)                           # reflect left‑right
+    vert   = vmirror(border)                           # reflect up‑down
+    pattern = combine(horiz, vert)                    # all mirrored cells
+    O = paint(I, pattern)                             # colour them C
+    return O
+
+
+# ----------------------------------------------------------------------
+# 4) Lattice construction by explicit offsets:  build a regular 2‑cell grid
+#    from the original frame using several fixed shifts.
+# ----------------------------------------------------------------------
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    C = mostcolor(I)
+    frame = ofcolor(I, C)
+    # four basic translations by two cells
+    off1 = shift(frame, ( 0, 2))
+    off2 = shift(frame, ( 0,-2))
+    off3 = shift(frame, ( 2, 0))
+    off4 = shift(frame, (-2, 0))
+    lattice = combine(combine(frame, off1), combine(off2, combine(off3, off4)))
+    O = paint(I, lattice)
+    return O
+
+
+# ----------------------------------------------------------------------
+# 5) Relational line shooting from the corners:  from each interior‑even row
+#    and column (determined by the bounding box) shoot lines towards the
+#    centre; the union of all such lines creates the checker‑board.
+# ----------------------------------------------------------------------
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    C = mostcolor(I)
+    obj   = ofcolor(I, C)
+    ul    = ulcorner(obj)               # upper‑left corner of the colour region
+    lr    = lrcorner(obj)               # lower‑right corner
+
+    # rows and columns that are two cells away from the outer border
+    rows  = interval(ul[0] + 2, lr[0], 2)
+    cols  = interval(ul[1] + 2, lr[1], 2)
+
+    # vertical lines from each selected column
+    vlines = apply(lambda c: shoot((ul[0] + 1, c), DOWN), cols)
+    # horizontal lines from each selected row
+    hlines = apply(lambda r: shoot((r, ul[1] + 1), RIGHT), rows)
+
+    pattern = combine(vlines, hlines)
+    O = paint(I, pattern)
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    #--------------------------------------------------------------
+    # 1️⃣  Lattice made with explicit row / column lines (interval)
+    #--------------------------------------------------------------
+    C      = mostcolor(I)                     # dominant non‑zero colour
+    frame  = ofcolor(I, C)                     # the outer coloured frame
+    ul     = ulcorner(frame)                  # upper‑left corner of the frame
+    lr     = lrcorner(frame)                  # lower‑right corner of the frame
+
+    # rows / columns that are two cells away from the border
+    rows   = interval(ul[0] + 2, lr[0], 2)
+    cols   = interval(ul[1] + 2, lr[1], 2)
+
+    # vertical lines from each selected column
+    vlines = apply(lambda c: shoot((ul[0] + 1, c), DOWN), cols)
+    # horizontal lines from each selected row
+    hlines = apply(lambda r: shoot((r, ul[1] + 1), RIGHT), rows)
+
+    pattern = combine(merge(vlines), merge(hlines))
+    O = paint(I, pattern)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    #--------------------------------------------------------------
+    # 2️⃣  Interior – shifted‑intersection lattice (no intervals)
+    #--------------------------------------------------------------
+    C       = mostcolor(I)
+    border  = ofcolor(I, C)                # full coloured frame
+    interior = delta(border)                # cells strictly inside the frame
+
+    # columns spaced by two cells → keep those cells that survive a
+    # horizontal shift of two positions
+    vert   = intersection(shift(interior, (0, 2)), interior)
+    # rows spaced by two cells → keep those cells that survive a
+    # vertical shift of two positions
+    horiz  = intersection(shift(interior, (2, 0)), interior)
+
+    pattern = combine(vert, horiz)
+    O = paint(I, pattern)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    #--------------------------------------------------------------
+    # 3️⃣  Global downscale / upscale on the interior (periodic mask)
+    #--------------------------------------------------------------
+    C       = mostcolor(I)
+    border  = ofcolor(I, C)
+    interior = delta(border)                # interior of the frame
+
+    # shrink by factor 2 then re‑expand – creates a 2×2 checkerboard
+    tiny    = downscale(interior, 2)
+    pattern = upscale(tiny, 2)
+
+    O = paint(I, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    #--------------------------------------------------------------
+    # 4️⃣  Mirrored border intersected with interior
+    #--------------------------------------------------------------
+    C       = mostcolor(I)
+    border  = ofcolor(I, C)
+    interior = delta(border)
+
+    # reflect the border horizontally and vertically
+    horiz   = hmirror(border)
+    vert    = vmirror(border)
+
+    # union of the two reflections, then keep only the part that lies
+    # inside the original interior
+    mirrored = combine(horiz, vert)
+    pattern  = intersection(mirrored, interior)
+
+    O = paint(I, pattern)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    #--------------------------------------------------------------
+    # 5️⃣  Lattice built from the frame itself (four orthogonal shifts)
+    #--------------------------------------------------------------
+    C       = mostcolor(I)
+    frame   = ofcolor(I, C)
+
+    # shift the whole frame by two cells in the four orthogonal directions
+    s0 = shift(frame, ( 0,  2))
+    s1 = shift(frame, ( 0, -2))
+    s2 = shift(frame, ( 2,  0))
+    s3 = shift(frame, (-2,  0))
+
+    # keep only the parts that remain inside the original interior
+    interior = delta(frame)
+    part0 = intersection(s0, interior)
+    part1 = intersection(s1, interior)
+    part2 = intersection(s2, interior)
+    part3 = intersection(s3, interior)
+
+    pattern = combine(combine(part0, part1), combine(part2, part3))
+    O = paint(I, pattern)
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     32.4037  |            0.186667  |           0.057735  |      32.6481 |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0544896 |       9.094  |
+| train3 |                0 |     49.3153  |            0.168889  |           0.267706  |      49.7519 |
+| train4 |                0 |     19.4422  |            0.230769  |           0.0523424 |      19.7253 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0666667 |      42.2267 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # 1️⃣  Lattice via explicit row / column intervals
+    C       = mostcolor(I)                               # colour of the frame
+    frame   = ofcolor(I, C)                               # outer frame cells
+    ul      = ulcorner(frame)                             # upper‑left corner of the frame
+    lr      = lrcorner(frame)                             # lower‑right corner of the frame
+
+    rows    = interval(ul[0] + 2, lr[0], 2)                # rows two cells inside the border
+    cols    = interval(ul[1] + 2, lr[1], 2)                # columns two cells inside the border
+
+    vlines  = apply(lambda c: shoot((ul[0] + 1, c), DOWN), cols)
+    hlines  = apply(lambda r: shoot((r, ul[1] + 1), RIGHT), rows)
+
+    pattern = combine(merge(vlines), merge(hlines))       # set of interior lattice cells
+    O       = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      34.2783 |             0.208889 |           0.0333333 |      34.5205 |
+| train2 |                0 |      10.7703 |             0.138095 |           0.0344623 |      10.9429 |
+| train3 |                0 |      49.3153 |             0.168889 |           0.0971825 |      49.5814 |
+| train4 |                0 |      18.4932 |             0.208791 |           0.0370117 |      18.739  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |           0.0333333 |      48.2318 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # 2️⃣  Interior – cells that survive a two‑cell shift (no intervals)
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)                               # cells strictly inside the frame
+
+    vert     = intersection(shift(interior, (0, 2)), interior)   # vertical spacing = 2
+    horiz    = intersection(shift(interior, (2, 0)), interior)   # horizontal spacing = 2
+
+    pattern  = combine(vert, horiz)
+    O        = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # 3️⃣  Downscale → upscale on a binary mask of the interior
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)
+
+    # build a binary mask grid where interior cells have colour C
+    empty    = canvas(0, shape(I))
+    mask     = fill(empty, C, interior)
+
+    tiny     = downscale(mask, 2)                         # shrink 2×
+    patterng = upscale(tiny, 2)                           # re‑expand → checkerboard of spacing 2
+
+    pattern  = ofcolor(patterng, C)                       # coordinates of the re‑expanded mask
+    O        = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      33.541  |             0.2      |           0.1       |      33.841  |
+| train2 |                0 |      10.7703 |             0.138095 |           0.285226  |      11.1937 |
+| train3 |                0 |      49.3153 |             0.168889 |           0.0781736 |      49.5624 |
+| train4 |                0 |      18.2483 |             0.203297 |           0.154831  |      18.6064 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # 4️⃣  Mirror the outer frame and keep the part that lies inside the interior
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)
+
+    horiz    = hmirror(frame)                              # horizontal reflection
+    vert     = vmirror(frame)                              # vertical reflection
+
+    mirrored = combine(horiz, vert)                        # union of the two reflections
+    pattern  = intersection(mirrored, interior)            # only the part that falls inside
+
+    O        = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      36.0555 |             0.231111 |            0.166667 |      36.4533 |
+| train2 |                0 |      10.9545 |             0.142857 |            1        |      12.0973 |
+| train3 |                0 |      49.96   |             0.173333 |            0.110554 |      50.2439 |
+| train4 |                0 |      18.4932 |             0.208791 |            0.215813 |      18.9178 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      46.9574 |                  0.2 |            0.133333 |      47.2908 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # 5️⃣  Four orthogonal shifts of the frame, intersected with the interior
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+
+    # shift the whole frame by two cells in each orthogonal direction
+    s0       = shift(frame, ( 0,  2))
+    s1       = shift(frame, ( 0, -2))
+    s2       = shift(frame, ( 2,  0))
+    s3       = shift(frame, (-2,  0))
+
+    interior = delta(frame)
+
+    part0    = intersection(s0, interior)
+    part1    = intersection(s1, interior)
+    part2    = intersection(s2, interior)
+    part3    = intersection(s3, interior)
+
+    pattern  = combine(combine(part0, part1), combine(part2, part3))
+    O        = paint(I, recolor(C, pattern))
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     24.4949  |            0.106667  |           0.0333333 |     24.6349  |
+| train2 |                0 |      7.74597 |            0.0714286 |           0.0344623 |      7.85186 |
+| train3 |                0 |     33.9411  |            0.08      |           0.0333333 |     34.0545  |
+| train4 |                0 |     14.0712  |            0.120879  |           0.0370117 |     14.2291  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.2929 |             0.106667 |           0.0333333 |      34.4329 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # ─ Global lattice: explicit row/column intervals + shoots ─
+    C       = mostcolor(I)                     # colour of the outer frame
+    frame   = ofcolor(I, C)                    # the frame itself
+    ul      = ulcorner(frame)                  # upper‑left corner of the frame
+    lr      = lrcorner(frame)                  # lower‑right corner of the frame
+
+    rows    = interval(add(ul[0], 2), lr[0], 2)  # rows two cells inside, every 2 cells
+    cols    = interval(add(ul[1], 2), lr[1], 2)  # columns two cells inside, every 2 cells
+
+    vlines  = apply(lambda c: shoot((add(ul[0], 2), c), DOWN), cols)
+    hlines  = apply(lambda r: shoot((r, add(ul[1], 2)), RIGHT), rows)
+
+    pattern = intersection(merge(vlines), merge(hlines))   # lattice points = line‑intersections
+    O       = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     27.8388  |            0.137778  |           0.0333333 |     28.0099  |
+| train2 |                0 |      9.16515 |            0.1       |           0.0344623 |      9.29961 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     12.7279  |            0.0989011 |           0.0370117 |     12.8638  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      43.1509 |             0.168889 |           0.0333333 |      43.3531 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # ─ Object extraction: interior together with orthogonal shifts ─
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)                               # cells strictly inside the frame
+
+    horiz      = intersection(shift(interior, (0, 2)), interior)   # keep cells that have a neighbour two cols right
+    vert       = intersection(shift(interior, (2, 0)), interior)   # keep cells that have a neighbour two rows down
+    pattern    = intersection(horiz, vert)                         # cells that satisfy both → lattice points
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # ─ Colour‑mask trick: down‑scale then up‑scale ─
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)
+
+    mask       = fill(canvas(0, shape(I)), C, interior)   # binary mask of the interior (colour C)
+    tiny       = downscale(mask, 2)                      # shrink 2×
+    enlarged   = upscale(tiny, 2)                        # re‑expand → checkerboard of 2‑spaced blocks
+    pattern    = intersection(enlarged, interior)     # keep only the cells that belong to the original interior
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      33.541  |             0.2      |           0.1       |      33.841  |
+| train2 |                0 |      10.7703 |             0.138095 |           0.285226  |      11.1937 |
+| train3 |                0 |      49.3153 |             0.168889 |           0.0781736 |      49.5624 |
+| train4 |                0 |      18.2483 |             0.203297 |           0.154831  |      18.6064 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # ─ Geometric reasoning: mirror the frame and intersect with interior ─
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)
+
+    mirrored   = combine(hmirror(frame), vmirror(frame))   # horizontal + vertical reflections of the whole frame
+    pattern    = intersection(mirrored, interior)       # only the part that falls inside the original interior
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # ─ Relational / structural: generate singleton points with `connect` ─
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    ul         = ulcorner(frame)
+    lr         = lrcorner(frame)
+
+    rows       = interval(add(ul[0], 2), lr[0], 2)          # interior rows on the lattice
+    cols       = interval(add(ul[1], 2), lr[1], 2)          # interior columns on the lattice
+
+    # a single point is the line joining the same coordinates
+    point      = lambda r, c: connect((r, c), (r, c))
+
+    pts_rows   = apply(lambda r: apply(lambda c: point(r, c), cols), rows)
+    pattern    = merge(pts_rows)                          # union of all singleton points
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # Global – remove the outer frame, build a lattice on the trimmed grid,
+    # then shift it back inside the original frame.
+    C       = mostcolor(I)                                 # colour of the frame
+    frame   = ofcolor(I, C)                               # the frame itself
+    interior_trim = trim(frame)                           # interior after stripping the frame
+    h, w   = shape(interior_trim)
+
+    rows   = interval(1, add(h, -1), 2)                    # rows two cells apart inside the trimmed area
+    cols   = interval(1, add(w, -1), 2)                    # cols two cells apart inside the trimmed area
+
+    vlines = apply(lambda c: shoot((0, c), DOWN), cols)    # vertical lines in the trimmed grid
+    hlines = apply(lambda r: shoot((r, 0), RIGHT), rows)   # horizontal lines in the trimmed grid
+
+    pattern_trim = intersection(merge(vlines), merge(hlines))   # lattice points in trimmed grid
+    pattern = shift(pattern_trim, (1, 1))                       # move them back inside the original frame
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     27.8388  |            0.137778  |           0.0333333 |     28.0099  |
+| train2 |                0 |      9.16515 |            0.1       |           0.0344623 |      9.29961 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     12.7279  |            0.0989011 |           0.0370117 |     12.8638  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      43.1509 |             0.168889 |           0.0333333 |      43.3531 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # Object‑extraction – keep interior cells that have another interior cell
+    # exactly two steps away both horizontally and vertically.
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)                                     # all interior cells (value 0)
+
+    horiz_ok   = shift(interior, (0, 2))                          # interior cells that have a neighbour two columns right
+    vert_ok    = shift(interior, (2, 0))                          # interior cells that have a neighbour two rows down
+    pattern    = intersection(intersection(horiz_ok, vert_ok), interior)
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # Colour‑filter – shrink the interior to a coarse grid and expand again,
+    # then keep only the cells that belong to the original interior.
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)                                      # interior (zeros)
+
+    mask       = fill(canvas(0, shape(I)), C, interior)           # binary mask of the interior, coloured C
+    tiny       = downscale(mask, 2)                                # shrink 2×
+    enlarged   = upscale(tiny, 2)                                   # grow back 2× (2‑spaced blocks)
+
+    pattern    = intersection(enlarged, interior)                   # keep only the cells that are also interior
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # Geometric – mirror the interior horizontally and vertically,
+    # intersect the two mirrors and finally intersect with the original interior.
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = delta(frame)                                      # interior (zeros)
+
+    hmir       = hmirror(interior)                                # horizontal reflection of interior
+    vmir       = vmirror(interior)                                 # vertical reflection of interior
+    mirrored   = intersection(hmir, vmir)                           # cells that survive both reflections
+
+    pattern    = intersection(mirrored, interior)                  # keep only cells that lie inside the original interior
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # Relational – explicit generation of the lattice points as singletons.
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    ul         = ulcorner(frame)                                 # upper‑left corner of the frame
+    lr         = lrcorner(frame)                                 # lower‑right corner of the frame
+
+    rows       = interval(add(ul[0], 2), lr[0], 2)                  # interior rows where lattice points should appear
+    cols       = interval(add(ul[1], 2), lr[1], 2)                  # interior columns where lattice points should appear
+
+    # a single lattice point is just the cell (r,c)
+    point      = lambda r, c: connect((r, c), (r, c))
+
+    pts_rows   = apply(lambda r: apply(lambda c: point(r, c), cols), rows)
+    pattern    = merge(pts_rows)                                 # union of all singleton points
+
+    O = paint(I, recolor(C, pattern))
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION – keep any interior cell that has another interior cell
+    # exactly two steps away in any cardinal direction.
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)                                 # all interior cells (value 0)
+
+    horiz_r  = shift(interior, (0, 2))                      # cells with a neighbour two steps right
+    horiz_l  = shift(interior, (0, -2))                     # two steps left
+    vert_d   = shift(interior, (2, 0))                      # two steps down
+    vert_u   = shift(interior, (-2, 0))                     # two steps up
+
+    neigh    = combine(combine(horiz_r, horiz_l), combine(vert_d, vert_u))
+    pattern  = intersection(neigh, interior)                # keep only original interior cells
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL – trim the outer frame, draw a full lattice of horizontal and vertical
+    # lines spaced two cells apart, then shift the lattice back inside the frame.
+    C          = mostcolor(I)
+    frame      = ofcolor(I, C)
+    interior   = trim(frame)                                 # interior without the outer border
+    h, w      = shape(interior)
+
+    rows      = interval(1, add(h, -1), 2)                     # every second row inside the trimmed area
+    cols      = interval(1, add(w, -1), 2)                     # every second column
+
+    vlines    = apply(lambda c: shoot((0, c), DOWN), cols)    # vertical lines in trimmed coordinates
+    hlines    = apply(lambda r: shoot((r, 0), RIGHT), rows)   # horizontal lines in trimmed coordinates
+
+    lattice_t = combine(merge(vlines), merge(hlines))          # union of all lines
+    lattice   = shift(lattice_t, (1, 1))                       # move lattice back into the original frame
+
+    O = fill(I, C, lattice)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTER – shrink the interior to a coarse grid (period 2), then recreate a
+    # lattice by expanding that coarse grid back to the original size.
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)                                 # interior cells (value 0)
+
+    mask     = fill(canvas(0, shape(I)), C, interior)       # binary mask of the interior coloured C
+    tiny     = downscale(mask, 2)                           # shrink 2× (period 2)
+    enlarged = upscale(tiny, 2)                             # grow back 2× → a lattice of blocks
+
+    pattern  = intersection(enlarged, interior)             # keep only cells that belong to the original interior
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – intersect the horizontal and vertical mirrors of the interior,
+    # then overlay that symmetric core onto the original interior.
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    interior = delta(frame)                                 # interior cells (value 0)
+
+    hmir    = hmirror(interior)                             # horizontal reflection
+    vmir    = vmirror(interior)                             # vertical reflection
+    core    = intersection(hmir, vmir)                     # cells that survive both mirrors (central lattice)
+
+    pattern = union(core, interior)                         # overlay on original interior
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – generate lattice points directly from the frame corners,
+    # using only interval generation and point construction.
+    C        = mostcolor(I)
+    frame    = ofcolor(I, C)
+    ul       = ulcorner(frame)                              # upper‑left corner of the frame
+    lr       = lrcorner(frame)                              # lower‑right corner
+
+    rows     = interval(add(ul[0], 2), lr[0], 2)             # interior rows spaced by 2
+    cols     = interval(add(ul[1], 2), lr[1], 2)             # interior columns spaced by 2
+
+    point    = lambda r, c: connect((r, c), (r, c))          # a singleton cell as a patch
+    pts_rows = apply(lambda r: apply(lambda c: point(r, c), cols), rows)
+    pattern  = merge(pts_rows)                              # union of all singleton points
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # RELATIONAL – lattice points from the frame corners.
+    C   = mostcolor(I)
+    frm = ofcolor(I, C)                         # the outer frame
+    ul  = ulcorner(frm)                         # upper‑left corner of the frame
+    lr  = lrcorner(frm)                         # lower‑right corner of the frame
+
+    rows = interval(add(ul[0], 2), lr[0], 2)    # interior rows stepping by 2
+    cols = interval(add(ul[1], 2), lr[1], 2)    # interior columns stepping by 2
+
+    pts   = mapply(astuple, rows, cols)        # all (row, col) pairs → lattice
+    O = fill(I, C, pts)                         # paint the lattice on the original grid
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL – trim the border, shrink‑expand a binary interior mask,
+    # then keep the expanded positions that lie inside the original interior.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)                       # set of interior indices (value 0 in the input)
+
+    # binary mask: interior coloured with C on a background of 0
+    mask = fill(canvas(0, shape(I)), C, interior)
+
+    tiny     = downscale(mask, 2)               # shrink 2× (period 2)
+    enlarged = upscale(tiny, 2)                 # grow back 2×
+
+    pattern = intersection(enlarged, interior) # only keep cells that are really inside
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     25.4951  |            0.115556  |           0.0333333 |     25.644   |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.619   |            0.0824176 |           0.0370117 |     11.7384  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT‑EXTRACTION – keep interior cells that have another interior cell
+    # exactly two steps away in *both* the horizontal and vertical directions.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    horiz = intersection(shift(interior, (0, 2)), shift(interior, (0, -2)))
+    vert  = intersection(shift(interior, (2, 0)), shift(interior, (-2, 0)))
+    pattern = intersection(horiz, vert)        # cells that satisfy both conditions
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – intersect the horizontal and vertical mirrors of the interior,
+    # then overlay that symmetric core onto the original interior.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    hmir = hmirror(interior)                   # horizontal reflection
+    vmir = vmirror(interior)                   # vertical reflection
+    core = intersection(hmir, vmir)           # cells surviving both mirrors
+
+    pattern = combine(core, interior)           # union of core and original interior
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # COLOR‑FILTER – create a coarse‑grid representation of the interior,
+    # then expand it back and keep only the cells that belong to the original interior.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # binary mask of the interior (colour C on a zero background)
+    mask = fill(canvas(0, shape(I)), C, interior)
+
+    # shrink to a 2×2 coarse grid and immediately expand again
+    tiny     = downscale(mask, 2)
+    enlarged = upscale(tiny, 2)
+
+    pattern = intersection(enlarged, interior) # restrict to genuine interior cells
+    O = fill(I, C, pattern)
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – shrink‑expand the interior mask and keep the grown cells that stay inside.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)                     # the outer rectangular frame
+    interior = delta(frm)                        # all cells strictly inside the frame
+
+    # binary mask of the interior (C on a zero background)
+    mask     = fill(canvas(0, shape(I)), C, interior)
+
+    tiny     = downscale(mask, 2)                 # 2× down‑scale → coarse lattice
+    enlarged = upscale(tiny, 2)                   # back to original size
+    pattern  = intersection(enlarged, interior)  # keep only cells that belong to the interior
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     24.4949  |            0.106667  |           0.0333333 |     24.6349  |
+| train2 |                0 |      7.74597 |            0.0714286 |           0.0344623 |      7.85186 |
+| train3 |                0 |     33.9411  |            0.08      |           0.0333333 |     34.0545  |
+| train4 |                0 |     14.0712  |            0.120879  |           0.0370117 |     14.2291  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      34.2929 |             0.106667 |           0.0333333 |      34.4329 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # RELATIONAL – generate a regular lattice from the frame corners.
+    C   = mostcolor(I)
+    frm = ofcolor(I, C)
+    ul  = ulcorner(frm)               # upper‑left corner of the frame
+    lr  = lrcorner(frm)                # lower‑right corner of the frame
+
+    rows = interval(add(ul[0], 2), lr[0], 2)   # interior rows, step 2
+    cols = interval(add(ul[1], 2), lr[1], 2)   # interior cols, step 2
+
+    pts  = product(rows, cols)          # Cartesian product → all lattice points
+    O    = fill(I, C, pts)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     46.6476  |            0.151111  |           0.0333333 |     46.8321  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT‑EXTRACTION – keep interior cells that are exactly two steps
+    # away from another interior cell in both the horizontal and vertical directions.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # cells that have a neighbour two steps to the right and two steps down
+    right2   = shift(interior, (0, 2))
+    down2     = shift(interior, (2, 0))
+    candidate = intersection(interior, right2)
+    candidate = intersection(candidate, down2)
+
+    # move the candidate back by (‑2,‑2) so the lattice starts next to the frame
+    pattern = shift(candidate, (-2, -2))
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – intersect the horizontal and vertical mirrors of the interior,
+    # then keep only the cells that lie on both symmetry axes.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    hmir = hmirror(interior)
+    vmir = vmirror(interior)
+
+    core = intersection(hmir, vmir)          # cells on both horizontal and vertical mid‑lines
+    O    = fill(I, C, core)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # COLOR‑FILTER – build a 2×2 coarse representation of the interior,
+    # upscale it, and intersect with the original interior.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    mask     = fill(canvas(0, shape(I)), C, interior)   # binary interior mask
+    tiny     = downscale(mask, 2)                     # 2× coarse grid
+    enlarged = upscale(tiny, 2)                       # back to original resolution
+    pattern  = intersection(enlarged, interior)      # retain only genuine interior cells
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     23.4521  |            0.0977778 |           0.0333333 |     23.5832  |
+| train2 |                0 |      8.94427 |            0.0952381 |           0.0344623 |      9.07397 |
+| train3 |                0 |     45.2548  |            0.142222  |           0.0333333 |     45.4304  |
+| train4 |                0 |     11.225   |            0.0769231 |           0.0370117 |     11.3389  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |           42 |                 0.16 |           0.0333333 |      42.1933 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑EXTRACTION – dilate the interior colour by one orthogonal step.
+    C        = mostcolor(I)                              # frame colour
+    frm      = ofcolor(I, C)                             # whole frame (border + interior marks)
+    interior = delta(frm)                               # cells strictly inside the frame
+
+    # interior cells that already have colour C
+    core = intersection(interior, ofcolor(I, C))
+
+    # four‑neighbour expansions of the core
+    up    = shift(core, UP)
+    down  = shift(core, DOWN)
+    left  = shift(core, LEFT)
+    right = shift(core, RIGHT)
+
+    # union of core and its neighbours, limited to the interior region
+    dilated = intersection(interior,
+                          combine(combine(combine(core, up), down),
+                                   combine(left, right)))
+
+    O = fill(I, C, dilated)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL – coarse‑to‑fine reconstruction: downscale → upscale → merge with original.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # binary mask of the interior (C on a zero background)
+    mask     = fill(canvas(0, shape(I)), C, interior)
+
+    # 2× down‑scale and back‑scale gives a “blurred” version of the interior
+    tiny     = downscale(mask, 2)
+    enlarged = upscale(tiny, 2)
+
+    # cells that are either originally present or appear after the blur,
+    # intersected with the interior to stay inside the frame
+    pattern  = intersection(union(interior, enlarged), interior)
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTER – add colour C to every empty interior cell that touches C orthogonally.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # interior cells that already have colour C
+    core = intersection(interior, ofcolor(I, C))
+
+    # interior cells that are still background (value 0)
+    background = difference(interior, core)
+
+    # cells adjacent to the core (4‑neighbourhood)
+    neigh = combine(combine(shift(core, UP), shift(core, DOWN)),
+                   combine(shift(core, LEFT), shift(core, RIGHT)))
+
+    # only those neighbours that are currently background become new C cells
+    addendum = intersection(neigh, background)
+
+    pattern = union(core, addendum)
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – fill the interior by projecting the horizontal and vertical
+    # runs of colour C onto the whole interior (a row/column fill).
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # rows that contain at least one C cell
+    row_mask = hline(interior)                     # True if the row has any cell of interior
+    rows_filled = apply(lambda r: r if row_mask else set(),
+                       vsplit(shape(I), shape(I)[0]))   # keep full rows where mask true
+
+    # columns that contain at least one C cell
+    col_mask = vline(interior)                     # True if the column has any cell of interior
+    cols_filled = apply(lambda c: c if col_mask else set(),
+                       hsplit(shape(I), shape(I)[1]))   # keep full columns where mask true
+
+    # combine row‑wise and column‑wise fillings, then intersect with interior
+    pattern = intersection(interior, union(rows_filled, cols_filled))
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – generate a regular lattice inside the interior and unite it
+    # with the original interior colour cells.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # corners of the interior rectangle
+    ul = ulcorner(interior)
+    lr = lrcorner(interior)
+
+    # regular lattice points spaced by two cells
+    rows = interval(add(ul[0], 2), lr[0], 2)
+    cols = interval(add(ul[1], 2), lr[1], 2)
+    lattice = product(rows, cols)
+
+    # original interior colour cells
+    core = intersection(interior, ofcolor(I, C))
+
+    # union of the lattice and the original interior pattern,
+    # limited to the interior region
+    pattern = intersection(union(core, lattice), interior)
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # COLOR‑FILTER – add colour C to interior cells that have at least
+    # two orthogonal neighbours already coloured C.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    core      = intersection(interior, ofcolor(I, C))
+    background = difference(interior, core)
+
+    up    = shift(core, UP)
+    down  = shift(core, DOWN)
+    left  = shift(core, LEFT)
+    right = shift(core, RIGHT)
+
+    # cells that appear in at least two of the four neighbour‑sets
+    n1 = intersection(up,    left)
+    n2 = intersection(up,    right)
+    n3 = intersection(down,  left)
+    n4 = intersection(down,  right)
+    n5 = intersection(up,    down)
+    n6 = intersection(left,  right)
+
+    many_neighbors = combine(combine(combine(combine(combine(n1, n2), n3), n4), combine(n5, n6))
+
+    add = intersection(many_neighbors, background)
+    O   = fill(I, C, add)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – erode the interior colour, then dilate the
+    # eroded core. Thin structures disappear, dense ones stay and grow.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    core = intersection(interior, ofcolor(I, C))
+
+    up    = shift(core, UP)
+    down  = shift(core, DOWN)
+    left  = shift(core, LEFT)
+    right = shift(core, RIGHT)
+
+    # erosion: keep only cells that have all four neighbours also in core
+    eroded = intersection(core,
+                         intersect(combine(up, down),
+                         combine(left, right))
+
+    # dilation of the eroded core (as in the original dilation program)
+    up_e    = shift(eroded, UP)
+    down_e  = shift(eroded, DOWN)
+    left_e  = shift(eroded, LEFT)
+    right_e = shift(eroded, RIGHT)
+
+    dilated = intersection(interior,
+                           combine(combine(combine(eroded, up_e), down_e),
+                                          combine(left_e, right_e))
+
+    O = fill(I, C, dilated)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+| train3 |              nan |          nan |                  nan |                 nan |          nan |
+| train4 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC – fill whole rows and columns of the interior that
+    # already contain at least one colour‑C cell.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    core = intersection(interior, ofcolor(I, C))
+
+    # rows that contain a core cell
+    rows = apply(lambda r: r if not isempty(r) else set(),
+                 vsplit(shape(I), shape(I)[0]))
+    rows_filled = combine(*rows)
+
+    # columns that contain a core cell
+    cols = apply(lambda c: c if not isempty(c) else set(),
+                 hsplit(shape(I), shape(I)[1]))
+    cols_filled = combine(*cols)
+
+    pattern = intersection(interior, combine(rows_filled, cols_filled))
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     24.4949  |            0.106667  |           0.0333333 |     24.6349  |
+| train2 |                0 |      9.38083 |            0.104762  |           0.0344623 |      9.52006 |
+| train3 |                0 |     37.5233  |            0.0977778 |           0.0333333 |     37.6544  |
+| train4 |                0 |     14.0712  |            0.120879  |           0.0370117 |     14.2291  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      46.4327 |             0.195556 |           0.0333333 |      46.6616 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – generate a regular lattice (spacing 2) inside the
+    # interior and unite it with the original coloured cells.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    ul = ulcorner(interior)
+    lr = lrcorner(interior)
+
+    rows = interval(add(ul[0], 2), lr[0] + 1, 2)
+    cols = interval(add(ul[1], 2), lr[1] + 1, 2)
+    lattice = product(rows, cols)                     # set of (r,c) points
+
+    core = intersection(interior, ofcolor(I, C))
+    pattern = intersection(combine(core, lattice), interior)
+
+    O = fill(I, C, pattern)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      37.4166 |             0.248889 |                   1 |      38.6655 |
+| train2 |                0 |      10.9545 |             0.142857 |                   1 |      12.0973 |
+| train3 |                0 |      50.5964 |             0.177778 |                   1 |      51.7742 |
+| train4 |                0 |      18.735  |             0.214286 |                   1 |      19.9493 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      47.9896 |             0.208889 |                   1 |      49.1985 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL – coarse‑to‑fine reconstruction: downscale the interior,
+    # then upscale, finally merge with the original interior colour.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    # binary mask of the interior (C on a zero background)
+    mask = fill(canvas(0, shape(I)), C, interior)
+
+    tiny      = downscale(mask, 2)
+    enlarged  = upscale(tiny, 2)
+
+    pattern = intersection(combine(interior, enlarged), interior)
+    O = fill(I, C, pattern)
+    return O
+```
+
+# Task 1da012fc
+
+train failed, test failed
+
+10 iterations
+
+[Best program](#dsl-4430)
+
+## Iteration 1
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          41.2311 |           41 |                  520 |            0.507088 |      602.738 |
+| train2 |          46.1736 |           41 |                  748 |            0.354233 |      835.528 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |           51.923 |          201 |                  850 |            0.504986 |      1103.43 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # target colour: the one that is not 0 and not 5 (the “foreground” colour)
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)                     # 1 or 8
+    # split the whole grid into three equal vertical parts
+    top, mid, bot = vsplit(I, 3)
+    # recolor each part (same shape, new colour = 2,4,6 respectively)
+    repl = lambda g, col: fill(g, col, ofcolor(g, tgt))
+    top  = repl(top, 2)
+    mid  = repl(mid, 4)
+    bot  = repl(bot, 6)
+    # recombine
+    O = hconcat(top, hconcat(mid, bot))
+    return O
+
+
+# ----------------------------------------------------------------------
+# 2️⃣  OBJECT – recolour each connected component of the foreground colour
+#      according to its size (small → 2, medium → 4, large → 6)
+# ----------------------------------------------------------------------
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)                     # 1 or 8
+    # all foreground objects (4‑connected, no diagonal)
+    objs = fgpartition(I, univalued=True, diagonal=False, without_bg=True)
+    # size → new colour mapping
+    def recolor_obj(obj):
+        sz = size(obj)
+        col = branch(sz <= 20, 2,
+               branch(sz <= 80, 4, 6))
+        return recolor(col, obj)
+    # apply to every object and paint back
+    painted = I
+    for o in objs:
+        painted = paint(painted, recolor_obj(o))
+    return painted
+
+
+# ----------------------------------------------------------------------
+# 3️⃣  COLOR FILTER – replace the foreground colour by a colour that equals
+#      the number of orthogonal neighbours that are background (0)
+# ----------------------------------------------------------------------
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      10.0499 |             0.189286 |           0         |      10.2392 |
+| train2 |                0 |      72.5465 |             0.964115 |           0.0384615 |      73.5491 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)                     # 1 or 8
+    cells = ofcolor(I, tgt)                                     # all foreground cells
+    # compute new colour for a single cell
+    def newcol(idx):
+        nbs = neighbors(idx)
+        bg  = [c for c in nbs if index(I, c) == 0]
+        return min(len(bg), 9)                                 # cap at 9
+    # build a patch of (idx, new colour) pairs
+    repl = {idx: newcol(idx) for idx in cells}
+    # recover a new grid
+    O = I
+    for idx, col in repl.items():
+        O = replace(O, index(O, idx), col)                     # change the cell
+    return O
+
+
+# ----------------------------------------------------------------------
+# 4️⃣  GEOMETRIC – mirror the foreground shape across the vertical axis,
+#      then colour the original shape with 2 and the mirrored one with 4
+# ----------------------------------------------------------------------
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.4165 |             0.135714 |                   0 |      19.5522 |
+| train2 |                0 |      26.0576 |             0.15311  |                   0 |      26.2107 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.8747 |            0.0863158 |                   0 |       23.961 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)                     # 1 or 8
+    fg   = ofcolor(I, tgt)
+    mir  = vmirror(fg)                                          # mirrored patch
+    # original → 2 , mirrored → 4
+    I2   = recolor(2, fg)
+    I4   = recolor(4, mir)
+    O    = fill(I, 0, fg)                                      # clear old foreground
+    O    = paint(O, I2)
+    O    = paint(O, I4)
+    return O
+
+
+# ----------------------------------------------------------------------
+# 5️⃣  RELATIONAL – colour each foreground component by the colour of the
+#      nearest 5‑coloured object, offset by +1 (mod 10)
+# ----------------------------------------------------------------------
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)                     # 1 or 8
+    objs = fgpartition(I, univalued=True, diagonal=False, without_bg=True)
+    five = ofcolor(I, 5)
+    # for a component, find nearest cell that belongs to a 5‑object
+    def comp_colour(comp):
+        # centre of the component
+        c = center(comp)
+        # direction to the nearest 5 cell
+        dir = gravitate(comp, five)
+        # move one step that direction to land on a 5 cell (guaranteed)
+        tgt5 = add(c, dir)
+        col5 = index(I, tgt5)
+        return (col5 + 1) % 10
+    O = I
+    for comp in objs:
+        newc = comp_colour(comp)
+        O = recolor(newc, comp)          # recolour whole component
+    return O
+```
+
+## Iteration 2
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE recolouring: small →2, medium →4, large →6
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    all_o = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(all_o, tgt)
+
+    small  = sfilter(fg, lambda o: size(o) <= 20)
+    medium = sfilter(fg, lambda o: both(size(o) > 20, size(o) <= 80))
+    large  = sfilter(fg, lambda o: size(o) > 80)
+
+    sp = merge(apply(toindices, small))
+    mp = merge(apply(toindices, medium))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp)
+    O = fill(O, 6, lp)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL VERTICAL‑PART split and recolour each third with 2,4,6
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    top, mid, bot = vsplit(I, 3)
+
+    repl = lambda g, col: fill(g, col, ofcolor(g, tgt))
+
+    O = hconcat(repl(top, 2), hconcat(repl(mid, 4), repl(bot, 6))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      19.4165 |             0.135714 |                   0 |      19.5522 |
+| train2 |                0 |      26.0576 |             0.15311  |                   0 |      26.2107 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.8747 |            0.0863158 |                   0 |       23.961 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC mirroring: original →2, mirrored →4
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)
+    fg  = ofcolor(I, tgt)
+    mir = vmirror(fg)
+
+    I2 = recolor(2, fg)
+    I4 = recolor(4, mir)
+
+    O = fill(fill(I, 0, fg), 0, mir)   # erase old foreground
+    O = paint(O, I2)
+    O = paint(O, I4)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # SIMPLE colour‑filter: replace every foreground cell by colour 2
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)
+    O   = replace(I, tgt, 2)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL recolouring: each foreground component gets colour
+    # (nearest 5‑coloured cell + 1) mod 10
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    all_o = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(all_o, tgt)
+
+    five = ofcolor(I, 5)
+
+    col_for = lambda o: (
+        (index(I, add(center(o), gravitate(o, five))) + 1
+    ) % 10
+
+    recolored = apply(lambda o: recolor(col_for(o), o), fg)
+    merged    = merge(recolored)
+
+    O = paint(I, merged)
+    return O
+```
+
+## Iteration 3
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE recolouring using explicit size thresholds
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)                   # foreground colour
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    small  = sfilter(fg, lambda o: size(o) <= 20)
+    medium = sfilter(fg, lambda o: both(size(o) > 20, size(o) <= 80))
+    large  = sfilter(fg, lambda o: size(o) > 80)
+
+    sp = merge(apply(toindices, small))
+    mp = merge(apply(toindices, medium))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                2 |           41 |                  520 |           0.0419222 |      563.042 |
+| train2 |                2 |           11 |                  792 |           0.0351799 |      805.035 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                2 |          161 |                  900 |           0.0324614 |      1063.03 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # GLOBAL VERTICAL‑THIRD split; recolour each part uniformly
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)
+    top, mid, bot = vsplit(I, 3)
+
+    repl = lambda g, col: fill(g, col, ofcolor(g, tgt))
+
+    O = vconcat(repl(top, 2), vconcat(repl(mid, 4), repl(bot, 6)))
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      10.4881 |            0.0714286 |                   0 |      10.5595 |
+| train2 |                0 |      11.619  |            0.0358852 |                   0 |      11.6548 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # OBJECT‑SIZE recolouring by successive argmin (smallest → 2, next → 4, largest → 6)
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    all_o = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(all_o, tgt)
+
+    smallest = argmin(fg, size)
+    rest1    = difference(fg, initset(smallest))
+    middle   = argmin(rest1, size)
+    rest2    = difference(rest1, initset(middle))
+    largest  = first(rest2)                # the remaining object
+
+    sp = merge(apply(toindices, initset(smallest)))
+    mp = merge(apply(toindices, initset(middle)))
+    lp = merge(apply(toindices, initset(largest)))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # OBJECT‑SIZE recolouring using bounding‑box area as proxy for size
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)
+    objs = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg   = colorfilter(objs, tgt)
+
+    area = lambda o: multiply(width(o), height(o))
+
+    small  = sfilter(fg, lambda o: area(o) <= 200)          # approx. ≤20 cells
+    medium = sfilter(fg, lambda o: both(area(o) > 200, area(o) <= 720))  # ≈21‑80 cells
+    large  = sfilter(fg, lambda o: area(o) > 720)
+
+    sp = merge(apply(toindices, small))
+    mp = merge(apply(toindices, medium))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      10.4881 |            0.0714286 |                   0 |      10.5595 |
+| train2 |                0 |      11.619  |            0.0358852 |                   0 |      11.6548 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # OBJECT‑SIZE recolouring by ordering objects with `order` (ascending size)
+    tgt = branch(colorcount(I, 1) > 0, 1, 8)
+    objs = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg   = colorfilter(objs, tgt)
+
+    ordered = order(fg, size)                     # tuple (small, medium, large)
+
+    # split the ordered tuple into three single‑element sets
+    s_set = initset(ordered[0])
+    m_set = initset(ordered[1])
+    l_set = initset(ordered[2])
+
+    sp = merge(apply(toindices, s_set))
+    mp = merge(apply(toindices, m_set))
+    lp = merge(apply(toindices, l_set))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+## Iteration 4
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      10.4881 |            0.0714286 |                   0 |      10.5595 |
+| train2 |                0 |      11.619  |            0.0358852 |                   0 |      11.6548 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE → rank (small, medium, large) using ORDER
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    ordered   = order(fg, size)                     # (small, medium, large)
+
+    sp = merge(apply(toindices, initset(ordered[0])))   # smallest
+    mp = merge(apply(toindices, initset(ordered[1])))   # middle
+    lp = merge(apply(toindices, initset(ordered[2])))   # largest
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.84886 |             0.1      |                   0 |      9.94886 |
+| train2 |                0 |     13.8203  |             0.069378 |                   0 |     13.8897  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.2074 |            0.0863158 |                   0 |      24.2938 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # MIN / MAX size → bucket (smallest, largest, rest)
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    min_sz = size(argmin(fg, size))
+    max_sz = size(argmax(fg, size))
+
+    small  = sfilter(fg, lambda o: size(o) == min_sz)
+    large  = sfilter(fg, lambda o: size(o) == max_sz)
+    medium = difference(difference(fg, small), large)
+
+    sp = merge(apply(toindices, small))
+    mp = merge(apply(toindices, medium))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # BOUNDING‑BOX AREA as size proxy, explicit thresholds
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    area = lambda o: multiply(width(o), height(o))
+
+    small  = sfilter(fg, lambda o: area(o) <= 200)                     # ≈ ≤20 cells
+    medium = sfilter(fg, lambda o: both(area(o) > 200, area(o) <= 720))# 21‑80 cells
+    large  = sfilter(fg, lambda o: area(o) > 720)
+
+    sp = merge(apply(toindices, small))
+    mp = merge(apply(toindices, medium))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RECOLOR per object using a conditional inside APPLY
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    # function that returns a coloured‑grid for a single object
+    recolor_one = lambda o: fill(I,
+                                 branch(size(o) <= 20, 2,
+                                        branch(size(o) <= 80, 4, 6)),
+                                 toindices(o))
+
+    # apply the function to every object and merge the resulting grids
+    O = merge(apply(recolor_one, fg))
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      9.84886 |            0.1       |                   0 |      9.94886 |
+| train2 |                0 |     11.619   |            0.0358852 |                   0 |     11.6548  |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # SIZE‑BASED partition using ARGMIN / ARGMAX then the remaining set
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg    = colorfilter(objs, tgt)
+
+    smallest = argmin(fg, size)
+    rest1    = difference(fg, initset(smallest))
+    largest  = argmax(rest1, size)
+    middle   = difference(rest1, initset(largest))
+
+    sp = merge(apply(toindices, initset(smallest)))
+    mp = merge(apply(toindices, middle))
+    lp = merge(apply(toindices, initset(largest)))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+## Iteration 5
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |          5       |           20 |                  450 |           0.0717035 |      475.072 |
+| train2 |          6.40312 |           45 |                  670 |           0.0983312 |      721.501 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – compress away empty border, rank objects by pixel count,
+    # then recolor smallest→2, middle→4, largest→6.
+    C      = compress(I)                                   # remove empty margins
+    objs   = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)            # target colour
+    fg     = colorfilter(objs, tgt)
+
+    ordered = order(fg, size)                             # (small, medium, large)
+
+    sp = merge(apply(toindices, initset(ordered[0])))     # indices of smallest
+    mp = merge(apply(toindices, initset(ordered[1])))     # indices of middle
+    lp = merge(apply(toindices, initset(ordered[2])))     # indices of largest
+
+    O = fill(fill(fill(C, 2, sp), 4, mp), 6, lp)           # recolor by rank
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – colour objects that touch any non‑background object.
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    fg     = colorfilter(objs, tgt)
+
+    other  = difference(objs, fg)                         # all non‑target objects
+    touch  = sfilter(fg, lambda o: any(adjacent({o}, {x}) for x in other))
+
+    notouch = difference(fg, touch)
+
+    sp = merge(apply(toindices, notouch))                 # isolated → colour 2
+    lp = merge(apply(toindices, touch))                   # touching → colour 6
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – use bounding‑box area to decide the palette.
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg     = colorfilter(objs, tgt)
+
+    area   = lambda o: multiply(width(o), height(o))
+
+    tiny   = sfilter(fg, lambda o: area(o) <= 40)          # ≤40 cells → colour 2
+    small  = sfilter(fg, lambda o: both(area(o) > 40, area(o) <= 200))  # → colour 4
+    large  = difference(fg, union(tiny, small))           # remaining → colour 6
+
+    sp = merge(apply(toindices, tiny))
+    mp = merge(apply(toindices, small))
+    lp = merge(apply(toindices, large))
+
+    O = fill(fill(fill(I, 2, sp), 4, mp), 6, lp)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror the whole picture vertically; if a target‑colour
+    # cell has a mirrored counterpart also of the target colour, colour it 6,
+    # otherwise colour it 2.
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    target = ofcolor(I, tgt)
+
+    mir    = vmirror(I)                                   # vertical mirror
+    mir_t  = ofcolor(mir, tgt)
+
+    both_t = intersection(target, mir_t)                  # symmetric pairs
+    single = difference(target, both_t)                   # non‑symmetric
+
+    sp = merge(apply(toindices, single))
+    lp = merge(apply(toindices, both_t))
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – for each target object, colour it 6 if it is adjacent to
+    # any non‑background object of a different colour, else colour it 2.
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    fg     = colorfilter(objs, tgt)
+
+    other  = difference(objs, fg)
+
+    adj_to_other = sfilter(fg,
+        lambda o: any(adjacent({o}, {x}) for x in other))
+
+    not_adj = difference(fg, adj_to_other)
+
+    sp = merge(apply(toindices, not_adj))
+    lp = merge(apply(toindices, adj_to_other))
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+## Iteration 6
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL ‑‑ rank target objects by size and recolour them with three
+    # non‑background colours that are not the most frequent colour.
+    C        = compress(I)                                             # cut empty frame
+    objs     = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgt      = branch(colorcount(I, 1) > 0, 1, 8)                       # 1 for train‑1, 8 for train‑2
+    t_objs   = colorfilter(objs, tgt)                                 # only the target objects
+
+    # three objects: smallest, medium, largest
+    sp_idx   = toindices(argmin(t_objs, size))                        # smallest
+    lp_idx   = toindices(argmax(t_objs, size))                        # largest
+    mid_set  = difference(difference(t_objs, initset(argmin(t_objs, size))),
+                         initset(argmax(t_objs, size)))            # the rest
+    mp_idx   = toindices(first(mid_set))                              # pick one as “medium”
+
+    # colour palette without background and target, drop the most common colour
+    allcol   = palette(I)                                            # all colours present
+    nonbg    = difference(allcol, initset(0, tgt))
+    domcol   = argmax(nonbg, lambda c: colorcount(I, c))              # dominant non‑target colour
+    candcol  = difference(nonbg, initset(domcol))                     # candidates for recolouring
+    # ensure we have exactly three colours – if not, create the smallest unused ones
+    needed   = subtract(initset(2,3,4,5,6,7,8,9), union(nonbg, initset(0, tgt)))
+    colset   = union(candcol,
+                     difference(needed,
+                                difference(needed, initset())))
+
+    # order the three colours (small → first, medium → second, large → third)
+    colorder = order(colset, lambda c: c)                           # cheapest ordering
+    c_small  = colorder[0]
+    c_mid    = colorder[1]
+    c_large  = colorder[2]
+
+    O = fill(fill(fill(I, c_small, sp_idx), c_mid, mp_idx)
+    O = fill(O, c_large, lp_idx)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – keep the target colour, colour the objects that
+    # touch any other non‑target object with 6, the rest with 2.
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgt)
+
+    other  = difference(objs, tgts)                                 # all non‑target objects
+    touching = sfilter(tgts,
+                     lambda o: any(adjacent({o}, {x}) for x in other))
+
+    notouch = difference(tgts, touching)
+
+    sp = merge(apply(toindices, notouch))                           # isolated → colour 2
+    lp = merge(apply(toindices, touching))                         # touching  → colour 6
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – replace every target pixel by a colour that depends on
+    # the parity of the Manhattan distance to the nearest non‑target object:
+    # even → 4, odd → 2.
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgt)
+
+    non_tg = difference(objs, tgts)
+
+    # distance of each target cell to the closest non‑target cell
+    distmap = lambda p: minimum({manhattan({p}, {q}) for q in merge(apply(toindices, non_tg))})
+    even    = sfilter(tgts, lambda o: both(even(distmap(first(o))), True))
+    odd     = difference(tgts, even)
+
+    sp = merge(apply(toindices, even))                            # even distance → colour 4
+    lp = merge(apply(toindices, odd))                             # odd distance  → colour 2
+
+    O = fill(fill(I, 4, sp), 2, lp)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – vertical mirror the whole picture; cells that are symmetric
+    # (appear in both original and mirrored image) become 6, the rest become 2.
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    target = ofcolor(I, tgt)
+
+    mir    = vmirror(I)                                              # vertical mirror
+    mir_t  = ofcolor(mir, tgt)
+
+    both_t = intersection(target, mir_t)                            # symmetric cells
+    single = difference(target, both_t)                              # asymmetric cells
+
+    sp = merge(apply(toindices, single))
+    lp = merge(apply(toindices, both_t))
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – colour a target object with 6 if it is adjacent to any
+    # object of a different colour, otherwise colour it 2.
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgts   = colorfilter(objs, tgt)
+
+    other  = difference(objs, tgts)
+
+    adj    = sfilter(tgts, lambda o: any(adjacent({o}, {x}) for x in other))
+
+    not_adj = difference(tgts, adj)
+
+    sp = merge(apply(toindices, not_adj))                           # isolated → colour 2
+    lp = merge(apply(toindices, adj))                              # touching → colour 6
+
+    O = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+## Iteration 7
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |       23.622 |             0.189286 |           0.0204808 |      23.8318 |
+| train2 |                0 |       25.865 |             0.155502 |           0.0172005 |      26.0377 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.0208 |            0.0863158 |                   0 |      24.1071 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # GLOBAL – recolour every target object (colour 1 or 8) with a distinct,
+    # smallest‑unused colour, ordering objects by size (small → medium → large).
+    C      = compress(I)
+    objs   = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    t_objs = colorfilter(objs, tgt)
+
+    # indices of the three size‑ordered objects
+    sp_idx = toindices(argmin(t_objs, size))                # smallest
+    lp_idx = toindices(argmax(t_objs, size))                # largest
+    rest   = difference(difference(t_objs,
+                                   initset(argmin(t_objs, size))),
+                         initset(argmax(t_objs, size)))
+    mp_idx = merge(apply(toindices, rest))                  # the remaining ones
+
+    # three replacement colours – the smallest unused non‑background, non‑target colours
+    cand   = combine(initset(2),
+                     combine(initset(3),
+                             combine(initset(4), initset(6))))
+    colord = order(cand, lambda c: c)                        # sorted tuple
+    c_small = first(colord)
+    c_mid   = first(difference(colord, initset(c_small)))
+    c_large = first(difference(colord,
+                               combine(initset(c_small), initset(c_mid))))
+
+    O = fill(fill(fill(I, c_small, sp_idx), c_mid, mp_idx), c_large, lp_idx)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      24.2074 |            0.0863158 |                   0 |      24.2938 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑EXTRACTION – colour target objects (1/8) that touch any other
+    # non‑target object with 6, the others with 2.
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgt    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgt)
+
+    other   = difference(objs, tgts)
+    touching = sfilter(tgts, lambda o: any(adjacent(o, x) for x in other))
+    notouch  = difference(tgts, touching)
+
+    sp = merge(apply(toindices, notouch))        # colour 2
+    lp = merge(apply(toindices, touching))       # colour 6
+    O  = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     12.53    |            0.0678571 |                   0 |     12.5978  |
+| train2 |                0 |      3.87298 |            0.0358852 |                   0 |      3.90887 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # COLOR‑FILTERING – even Manhattan distance to the nearest non‑target
+    # object gets colour 4, odd distance gets colour 2.
+    objs    = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgt     = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts    = colorfilter(objs, tgt)
+    non_tg  = difference(objs, tgts)
+
+    # all indices of non‑target objects
+    non_idx = merge(apply(toindices, non_tg))
+
+    # distance of a single cell to the closest non‑target cell
+    dist = lambda p: minimum({manhattan({p}, {q}) for q in non_idx})
+
+    even_objs = sfilter(tgts, lambda o: even(dist(first(o))))
+    odd_objs  = difference(tgts, even_objs)
+
+    sp = merge(apply(toindices, even_objs))   # colour 4
+    lp = merge(apply(toindices, odd_objs))    # colour 2
+    O  = fill(fill(I, 4, sp), 2, lp)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # GEOMETRIC – vertical mirror the picture; cells that appear in both
+    # original and mirrored image become 6, the rest become 2.
+    tgt      = branch(colorcount(I, 1) > 0, 1, 8)
+    target   = ofcolor(I, tgt)
+
+    mir      = vmirror(I)               # vertical mirror
+    mir_t    = ofcolor(mir, tgt)
+
+    both_t   = intersection(target, mir_t)   # symmetric cells
+    single   = difference(target, both_t)   # asymmetric cells
+
+    sp = merge(apply(toindices, single))   # colour 2
+    lp = merge(apply(toindices, both_t))    # colour 6
+    O  = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |     13       |            0.0785714 |                   0 |     13.0786  |
+| train2 |                0 |      8.42615 |            0.069378  |                   0 |      8.49553 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7065 |            0.0863158 |                   0 |      23.7929 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # RELATIONAL – colour target objects that touch the border with 6,
+    # all other target objects with 2.
+    tgt   = branch(colorcount(I, 1) > 0, 1, 8)
+    objs  = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgts  = colorfilter(objs, tgt)
+
+    border_objs = sfilter(tgts, lambda o: bordering(o, I))
+    interior    = difference(tgts, border_objs)
+
+    sp = merge(apply(toindices, interior))     # colour 2
+    lp = merge(apply(toindices, border_objs))  # colour 6
+    O  = fill(fill(I, 2, sp), 6, lp)
+    return O
+```
+
+## Iteration 8
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      27.9643 |             0.210714 |           0.0204808 |      28.1955 |
+| train2 |                0 |      26.5707 |             0.136364 |           0.0172005 |      26.7242 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.8747 |            0.0863158 |                   0 |       23.961 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE + BORDER split
+    #  – smallest target object → colour 2
+    #  – medium‑sized target objects → colour 4
+    #  – border cells of the largest target object → colour 6
+    #  – interior cells of the largest target object → colour 3
+    C       = compress(I)
+    objs    = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgtcol  = branch(colorcount(I, 1) > 0, 1, 8)           # target colour (1 or 8)
+    tgts    = colorfilter(objs, tgtcol)                  # set of target objects
+
+    sp_obj  = argmin(tgts, size)                       # smallest object
+    lp_obj  = argmax(tgts, size)                       # largest object
+    mid_objs= difference(difference(tgts, initset(sp_obj)), initset(lp_obj))
+
+    sp_idx   = toindices(sp_obj)                       # indices of smallest object
+    mid_idx  = merge(apply(toindices, mid_objs))       # indices of medium objects
+
+    border_idx   = box(lp_obj)                         # outline of largest object
+    interior_idx = difference(lp_obj, border_idx)      # interior of largest object
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border_idx), 3, interior_idx)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # DISTANCE‑TO‑NON‑TARGET
+    #  – cells at Manhattan distance 1 from any non‑target cell → colour 2
+    #  – cells at distance 2                                      → colour 4
+    #  – cells touching a non‑target cell (distance 0)            → colour 6
+    #  – all remaining target cells                               → colour 3
+    C          = compress(I)
+    objs       = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgtcol     = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts       = colorfilter(objs, tgtcol)
+    non_tg     = difference(objs, tgts)
+
+    # helper: distance‑1 cells of every target object
+    d1_objs = sfilter(tgts, lambda o: any(manhattan({p}, {q}) == 1
+                                         for p in o for q in non_tg))
+    # distance‑2 cells
+    d2_objs = sfilter(tgts, lambda o: any(manhattan({p}, {q}) == 2
+                                         for p in o for q in non_tg))
+    # touching (distance 0 – never happens between different colours, kept for completeness)
+    touch_objs = sfilter(tgts, lambda o: any(manhattan({p}, {q}) == 0
+                                         for p in o for q in non_tg))
+    # remaining target cells
+    other_objs = difference(tgts, combine(combine(d1_objs, d2_objs), touch_objs))
+
+    d1_idx = merge(apply(toindices, d1_objs))
+    d2_idx = merge(apply(toindices, d2_objs))
+    touch_idx = merge(apply(toindices, touch_objs))
+    other_idx = merge(apply(toindices, other_objs))
+
+    O = fill(fill(fill(fill(I, 2, d1_idx), 4, d2_idx), 6, touch_idx), 3, other_idx)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      24.2281 |             0.192857 |           0.0204808 |      24.4414 |
+| train2 |                0 |      26.1151 |             0.131579 |           0.0172005 |      26.2639 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.8747 |            0.0863158 |                   0 |       23.961 |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # GEOMETRIC SYMMETRY‑BASED
+    #  – cells that belong to the vertical‑mirror‑symmetric part of a target object → colour 6
+    #  – the remaining cells of the largest target object                       → colour 3
+    #  – smallest target object → colour 2
+    #  – all other (medium) target objects → colour 4
+    C          = compress(I)
+    objs       = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgtcol     = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts       = colorfilter(objs, tgtcol)
+
+    sp_obj = argmin(tgts, size)
+    lp_obj = argmax(tgts, size)
+    mid_objs = difference(difference(tgts, initset(sp_obj)), initset(lp_obj))
+
+    sp_idx = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+
+    # symmetric part of the largest object (cells that also appear after vertical mirroring)
+    mir      = vmirror(I)
+    mir_tgt  = ofcolor(mir, tgtcol)
+    sym_lp   = intersection(ofcolor(lp_obj, tgtcol), mir_tgt)   # symmetric cells
+    sym_idx  = merge(apply(toindices, sym_lp))
+    interior_idx = difference(lp_obj, sym_lp)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, sym_idx), 3, interior_idx)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      29.8998 |             0.210714 |           0.0204808 |      30.131  |
+| train2 |                0 |      30.0998 |             0.136364 |           0.0172005 |      30.2534 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.8747 |            0.0863158 |                   0 |       23.961 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – BORDER‑TOUCHING TARGET OBJECTS
+    #  – target objects that touch the outer grid border → colour 6
+    #  – the largest among the remaining target objects → interior colour 3
+    #  – its border cells                                 → colour 6 (again, to keep uniformity)
+    #  – smallest target object                           → colour 2
+    #  – all other target objects                         → colour 4
+    C          = compress(I)
+    objs       = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgtcol     = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts       = colorfilter(objs, tgtcol)
+
+    border_objs = sfilter(tgts, lambda o: bordering(o, I))
+    interior_objs = difference(tgts, border_objs)
+
+    sp_obj = argmin(interior_objs, size)
+    lp_obj = argmax(interior_objs, size)
+    mid_objs = difference(difference(interior_objs, initset(sp_obj)), initset(lp_obj))
+
+    sp_idx = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+    border_idx = merge(apply(toindices, border_objs))
+
+    lp_border = box(lp_obj)
+    lp_interior = difference(lp_obj, lp_border)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border_idx), 6, lp_border)
+    O = fill(O, 3, lp_interior)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL‑PATTERN – colour target cells according to the number of
+    # orthogonal neighbours that are also target cells.
+    #  – 0‑1 neighbours → colour 2 (small isolated objects)
+    #  – 2 neighbours   → colour 4 (medium objects)
+    #  – 3 neighbours   → colour 6 (border of the biggest object)
+    #  – 4 neighbours   → colour 3 (interior of the biggest object)
+    C          = compress(I)
+    objs       = objects(C, univalued=True, diagonal=False, without_bg=True)
+    tgtcol     = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts       = colorfilter(objs, tgtcol)
+
+    # build a patch containing all target cells
+    all_tgt    = merge(apply(toindices, tgts))
+
+    # helper: count orthogonal neighbours in the target patch
+    neigh_cnt  = lambda p: size(intersection(
+                               apply(toindices, {p}),
+                               apply(toindices, {add(p, d) for d in [UP, DOWN, LEFT, RIGHT]})))
+    # classify cells
+    cnt0_1 = sfilter(tgts, lambda o: any(neigh_cnt(p) <= 1 for p in o))
+    cnt2   = sfilter(tgts, lambda o: any(neigh_cnt(p) == 2 for p in o))
+    cnt3   = sfilter(tgts, lambda o: any(neigh_cnt(p) == 3 for p in o))
+    cnt4   = sfilter(tgts, lambda o: any(neigh_cnt(p) == 4 for p in o))
+
+    idx0_1 = merge(apply(toindices, cnt0_1))
+    idx2   = merge(apply(toindices, cnt2))
+    idx3   = merge(apply(toindices, cnt3))
+    idx4   = merge(apply(toindices, cnt4))
+
+    O = fill(fill(fill(fill(I, 2, idx0_1), 4, idx2), 6, idx3), 3, idx4)
+    return O
+```
+
+## Iteration 9
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      16.9115 |            0.121429  |                   0 |      17.033  |
+| train2 |                0 |      13.4164 |            0.0119617 |                   0 |      13.4284 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7697 |            0.0863158 |                   0 |       23.856 |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE (argmin / argmax) – smallest →2, medium →4,
+    # largest border →6, largest interior →3
+    objs      = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts      = colorfilter(objs, tgtcol)
+
+    sp_obj    = argmin(tgts, size)                     # smallest target object
+    lp_obj    = argmax(tgts, size)                     # largest target object
+    mid_objs  = difference(difference(tgts,
+                                      initset(sp_obj)),
+                                      initset(lp_obj))   # all others
+
+    sp_idx    = toindices(sp_obj)
+    mid_idx   = merge(apply(toindices, mid_objs))
+    border_idx= box(lp_obj)                            # outline of the largest object
+    interior_idx = difference(lp_obj, border_idx)      # its interior
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border_idx), 3, interior_idx)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      16.9115 |            0.121429  |                   0 |      17.033  |
+| train2 |                0 |      13.4164 |            0.0119617 |                   0 |      13.4284 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7697 |            0.0863158 |                   0 |       23.856 |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # OBJECT‑SIZE (ordering) – smallest →2, medium →4,
+    # largest border →6, largest interior →3
+    objs      = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts      = colorfilter(objs, tgtcol)
+
+    ordered   = order(tgts, size)          # objects sorted by size
+    sp_obj    = first(ordered)             # smallest
+    lp_obj    = last(ordered)              # largest
+    mid_objs  = difference(difference(tgts,
+                                   initset(sp_obj)),
+                                   initset(lp_obj))
+
+    sp_idx    = toindices(sp_obj)
+    mid_idx   = merge(apply(toindices, mid_objs))
+    border_idx= box(lp_obj)
+    interior_idx = difference(lp_obj, border_idx)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border_idx), 3, interior_idx)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # NEIGHBOUR‑COUNT – 0‑1 neighbours →2, 2 neighbours →4,
+    # 3 neighbours →6, 4 neighbours →3 (interior of biggest)
+    objs      = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts      = colorfilter(objs, tgtcol)
+
+    all_idx   = merge(apply(toindices, tgts))               # all target cells as a set
+
+    # number of orthogonal neighbours that are also target cells
+    ncnt = lambda p: size(intersection(neighbors(p), all_idx))
+
+    cnt0obj = sfilter(tgts, lambda o: any(ncnt(p) <= 1 for p in o))
+    cnt2obj = sfilter(tgts, lambda o: any(ncnt(p) == 2 for p in o))
+    cnt3obj = sfilter(tgts, lambda o: any(ncnt(p) == 3 for p in o))
+    cnt4obj = sfilter(tgts, lambda o: any(ncnt(p) == 4 for p in o))
+
+    idx0 = merge(apply(toindices, cnt0obj))
+    idx2 = merge(apply(toindices, cnt2obj))
+    idx3 = merge(apply(toindices, cnt3obj))
+    idx4 = merge(apply(toindices, cnt4obj))
+
+    O = fill(fill(fill(fill(I, 2, idx0), 4, idx2), 6, idx3), 3, idx4)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |      16.9115 |            0.121429  |                   0 |      17.033  |
+| train2 |                0 |      13.4164 |            0.0119617 |                   0 |      13.4284 |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7697 |            0.0863158 |                   0 |       23.856 |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL – border‑touching objects →6,
+    # among the remaining: smallest →2, medium →4,
+    # largest border →6, largest interior →3
+    objs      = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts      = colorfilter(objs, tgtcol)
+
+    border_objs = sfilter(tgts, lambda o: bordering(o, I))
+    interior_objs = difference(tgts, border_objs)
+
+    sp_obj   = argmin(interior_objs, size)               # smallest interior
+    lp_obj   = argmax(interior_objs, size)               # largest interior
+    mid_objs = difference(difference(interior_objs,
+                                     initset(sp_obj)),
+                                     initset(lp_obj))
+
+    sp_idx   = toindices(sp_obj)
+    mid_idx  = merge(apply(toindices, mid_objs))
+    border_idx = merge(apply(toindices, border_objs))
+
+    lp_border = box(lp_obj)                              # outline of largest interior
+    lp_inside = difference(lp_obj, lp_border)            # its interior
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border_idx), 6, lp_border)
+    O = fill(O, 3, lp_inside)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |                0 |       8.3666 |                  0.1 |                   0 |       8.4666 |
+| train2 |                0 |       0      |                  0   |                   0 |       0      |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |                0 |      23.7697 |            0.0863158 |                   0 |       23.856 |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL‑SYMMETRY – cells that are vertically symmetric inside
+    # the largest target object →6, its non‑symmetric part →3,
+    # smallest target object →2, all other target objects →4
+    objs      = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol    = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts      = colorfilter(objs, tgtcol)
+
+    sp_obj    = argmin(tgts, size)
+    lp_obj    = argmax(tgts, size)
+    mid_objs  = difference(difference(tgts,
+                                      initset(sp_obj)),
+                                      initset(lp_obj))
+
+    sp_idx    = toindices(sp_obj)
+    mid_idx   = merge(apply(toindices, mid_objs))
+
+    # vertically mirrored version of the whole grid
+    mir       = vmirror(I)
+    mir_tgt   = ofcolor(mir, tgtcol)
+
+    # cells of the largest object that stay unchanged after vertical mirroring
+    sym_lp    = intersection(ofcolor(lp_obj, tgtcol), mir_tgt)
+    sym_idx   = merge(apply(toindices, sym_lp))
+    nonsym_idx= difference(lp_obj, sym_lp)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, sym_idx), 3, nonsym_idx)
+    return O
+```
+
+## Iteration 10
+
+### Program 1
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl1(I):
+    # OBJECT‑SIZE ordering → smallest = 2, medium = 4,
+    # border of largest = 6, interior of largest = 3
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgtcol)
+
+    ordered = order(tgts, size)               # increasing size
+    sp_obj  = first(ordered)                  # smallest
+    lp_obj  = last(ordered)                   # largest
+    mid_objs = difference(difference(tgts,
+                                     initset(sp_obj)),
+                          initset(lp_obj))
+
+    sp_idx   = toindices(sp_obj)
+    mid_idx  = merge(apply(toindices, mid_objs))
+    border   = box(lp_obj)                     # outline of the largest object
+    interior = difference(lp_obj, border)     # its interior
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border)
+    O = fill(O, 3, interior)
+    return O
+```
+
+### Program 2
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl2(I):
+    # BORDER via frontiers (horizontal ∪ vertical) of the largest object
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgtcol)
+
+    sp_obj = argmin(tgts, size)               # smallest
+    lp_obj = argmax(tgts, size)               # largest
+    mid_objs = difference(difference(tgts,
+                                      initset(sp_obj)),
+                           initset(lp_obj))
+
+    sp_idx  = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+
+    # frontiers of the bounding box of the largest object
+    h_front = hfrontier(lrcorner(lp_obj))
+    v_front = vfrontier(urcorner(lp_obj))
+    border  = combine(h_front, v_front)       # union of both frontiers
+    interior = difference(lp_obj, border)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border)
+    O = fill(O, 3, interior)
+    return O
+```
+
+### Program 3
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl3(I):
+    # VERTICAL SYMMETRY inside the largest object:
+    # symmetric cells → 6, the rest of that object → 3
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgtcol)
+
+    sp_obj = argmin(tgts, size)               # smallest
+    lp_obj = argmax(tgts, size)               # largest
+    mid_objs = difference(difference(tgts,
+                                      initset(sp_obj)),
+                           initset(lp_obj))
+
+    sp_idx  = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+
+    mir      = vmirror(I)                     # vertical mirror of the whole grid
+    sym_lp   = intersection(ofcolor(lp_obj, tgtcol),
+                            ofcolor(mir, tgtcol))
+    sym_idx  = merge(apply(toindices, sym_lp))
+    nonsym_idx = difference(lp_obj, sym_lp)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, sym_idx)
+    O = fill(O, 3, nonsym_idx)
+    return O
+```
+
+### Program 4
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl4(I):
+    # RELATIONAL: objects touching another target object → 6;
+    # among the remaining (interior) objects: smallest = 2,
+    # medium = 4, border of the largest interior = 6,
+    # its interior = 3
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgtcol)
+
+    # objects that are adjacent to any other target object
+    border_objs = sfilter(tgts,
+                         lambda o: any(adjacent(o, other)
+                                      for other in tgts
+                                      if other is not o))
+    interior_objs = difference(tgts, border_objs)
+
+    sp_obj = argmin(interior_objs, size)      # smallest interior
+    lp_obj = argmax(interior_objs, size)      # largest interior
+    mid_objs = difference(difference(interior_objs,
+                                    initset(sp_obj)),
+                          initset(lp_obj))
+
+    sp_idx  = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+    border_idx = merge(apply(toindices, border_objs))
+
+    lp_border = box(lp_obj)                   # outline of the largest interior
+    lp_inside = difference(lp_obj, lp_border)  # its interior
+
+    O = fill(fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx),
+                     6, border_idx),
+            6, lp_border)
+    O = fill(O, 3, lp_inside)
+    return O
+```
+
+### Program 5
+
+#### Train costs
+
+|        |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:-------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| train1 |              nan |          nan |                  nan |                 nan |          nan |
+| train2 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### Test costs
+
+|       |   Grid size cost |   Value cost |   Pixel overlap cost |   Bounding box cost |   Total cost |
+|:------|-----------------:|-------------:|---------------------:|--------------------:|-------------:|
+| test1 |              nan |          nan |                  nan |                 nan |          nan |
+
+#### DSL
+
+```python
+def dsl5(I):
+    # GLOBAL SYMMETRY (both horizontal and vertical) inside the largest object:
+    # cells symmetric w.r.t. both axes → 6,
+    # the rest of that object → 3,
+    # smallest object → 2,
+    # all other target objects → 4
+    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
+    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
+    tgts   = colorfilter(objs, tgtcol)
+
+    sp_obj = argmin(tgts, size)               # smallest
+    lp_obj = argmax(tgts, size)               # largest
+    mid_objs = difference(difference(tgts,
+                                    initset(sp_obj)),
+                          initset(lp_obj))
+
+    sp_idx  = toindices(sp_obj)
+    mid_idx = merge(apply(toindices, mid_objs))
+
+    # cells that stay unchanged after BOTH horizontal and vertical mirroring
+    sym_h   = intersection(ofcolor(lp_obj, tgtcol),
+                           ofcolor(hmirror(I), tgtcol))
+    sym_lp  = intersection(sym_h,
+                           ofcolor(vmirror(I), tgtcol))
+    sym_idx = merge(apply(toindices, sym_lp))
+    nonsym_idx = difference(lp_obj, sym_lp)
+
+    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, sym_idx)
+    O = fill(O, 3, nonsym_idx)
+    return O
+```
+
 # Task d10ecb37
 
 train failed, test failed
 
 10 iterations
 
-[Best program](#dsl-3955)
+[Best program](#dsl-4480)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L60)
 
