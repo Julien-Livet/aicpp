@@ -18,6 +18,8 @@ import time
 from tqdm import tqdm
 import traceback
 
+PROGRAM_NUMBER = 5
+
 errors = set()
 #llm = ("claude", "claude-sonnet-4-6")
 llm = ("gpt", "gpt-5")
@@ -398,7 +400,7 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 
     groups = re.findall(r'def (dsl\d)\(I\):\s*(.*?)(?=\ndef dsl\d|\Z)', groups[-1], re.S)
 
-    assert(len(groups) == 5)
+    assert(len(groups) == PROGRAM_NUMBER)
 
     programs = []
 
@@ -409,7 +411,7 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
     return programs
 
 def processTask(folder: str, task: str, withImages: bool = False,
-                initPrograms: list[tuple[float, str]] = [(math.nan, f"""def dsl{i+1}(I):\n    O = I\n    return O""") for i in range(0, 5)],
+                initPrograms: list[tuple[float, str]] = [(math.nan, f"""def dsl{i+1}(I):\n    O = I\n    return O""") for i in range(0, PROGRAM_NUMBER)],
                 debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
@@ -482,7 +484,7 @@ def processTask(folder: str, task: str, withImages: bool = False,
 
             command += "\n---\n\n"
 
-        command += """The goal is to improve the 5 DSL programs incrementally in two phases:
+        command += f"""The goal is to improve the {PROGRAM_NUMBER} DSL programs incrementally in two phases:
 
 --------------------------------
 PHASE 1 — EXPANSION (DISCOVERY)
@@ -604,7 +606,7 @@ Programs should be short, clean, and compositional.
 Prefer minimal and compositional programs.
 
 Important:
-Do NOT generate 5 variations of the same idea.
+Do NOT generate {PROGRAM_NUMBER} variations of the same idea.
 
 Before writing each program, explicitly choose a different reasoning strategy.
 
@@ -620,29 +622,21 @@ unless you can generalize them without increasing their cost.\n"""
         if (nanValues):
             command += "\nnan values correspond to exceptions that are explained by tracebacks and must be corrected by analyzing them.\n"
 
-        command += """\nGenerate 5 new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
+        command += f"""\nGenerate {PROGRAM_NUMBER} new structurally diverse hypotheses of plausible DSL programs exploring different transformations issued from the step 2.
 
 # EXPECTED OUTPUT EXAMPLE WITHOUT ANY FORMATTING AND ANY EXPLANATION
 ```python
-def dsl1(I):
-    # O = ...
-    return O
+"""
+        programs = []
 
-def dsl2(I):
+        for i in range(0, PROGRAM_NUMBER):
+            programs.append(f"""def dsl{i+1}(I):
     # O = ...
-    return O
+    return O""")
 
-def dsl3(I):
-    # O = ...
-    return O
+        command += "\n\n".join(programs)
 
-def dsl4(I):
-    # O = ...
-    return O
-
-def dsl5(I):
-    # O = ...
-    return O
+        command += """
 ```"""
 
         if (not bestProgram[1][0][scoreColumns[-1]].sum(skipna = False)):
