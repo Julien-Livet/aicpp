@@ -54,7 +54,7 @@ def format_example(example):
 """
     }
 
-dataset = load_dataset("json", data_files="dataset.json")
+dataset = load_dataset("json", data_files="dsl_dataset.json")
 
 dataset = dataset.map(format_example)
 

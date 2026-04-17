@@ -1,7 +1,11 @@
+import inspect
 import json
 import numpy as np
+import os
 import random
 import re
+import sys
+import typing
 
 NUM_COLORS = 10
 
@@ -40,6 +44,110 @@ def generate_structured_grid():
             grid[np.random.randint(h), np.random.randint(w)] = np.random.randint(1, NUM_COLORS)
 
     return grid
+
+def generate_dsls(depth: int = 3, maxByDepth: int = 100):
+    with open("arc-dsl/constants.py", "r") as f:
+        lines = f.read().split("\n")
+
+    constants = {}
+    namespace = {}
+    exec("\n".join(lines), namespace)
+    
+    for line in lines:
+        if (not line):
+            continue
+
+        n, v = line.split(" = ")
+        
+        v = namespace[n]
+        t = type(v)
+        
+        if (t == tuple):
+            t = typing.Tuple[int, int]
+
+        constants[n] = (t, v)
+
+    constants["I"] = (typing.Tuple[typing.Tuple[int]], ())
+
+    with open("arc-dsl/arc_types.py", "r") as f:
+        lines = f.read().split("\n")
+
+    source = ""
+    index = 0
+    
+    while (index < len(lines)):
+        if (not lines[index]):
+            break
+        
+        source += lines[index]
+        index += 1
+
+    types = {}
+    index += 1
+    namespace = {}
+    
+    while (index < len(lines) and lines[index]):
+        n, t = lines[index].split(" = ")
+
+        exec(source + f"\n{n} = {t}", namespace)
+        types[n] = namespace[n]
+
+        index += 1
+
+    with open("arc-dsl/dsl.py", "r") as f:
+        lines = f.read().split("\n")
+
+    import test_arc
+
+    arc_types_module = test_arc.load_module("arc_types", "arc-dsl/arc_types.py")
+    constants_module = test_arc.load_module("constants", "arc-dsl/constants.py")
+    dsl_module = test_arc.load_module("dsl", "arc-dsl/dsl.py")
+
+    env = {}
+    env.update(vars(arc_types_module))
+    env.update(vars(constants_module))
+    env.update(vars(dsl_module))
+
+    namespace = {}
+    namespace.update(env)
+    exec("\n".join(lines), namespace)
+    
+    functions = {}
+    
+    for line in lines:
+        if (line.startswith("def ")):
+            name = line[len("def "):line.index("(")]
+            functions[name] = namespace[name]
+
+    from brain import Brain
+    from connection import Connection
+    from neuron import Neuron
+    
+    neurons = {}
+    
+    for n, p in constants.items():
+        neurons[n] = Neuron(n, lambda p = p: p[1], [], p[0])
+
+    for n, f in functions.items():
+        sig = inspect.signature(f)
+
+        parameters = sig.parameters
+        return_annotation = sig.return_annotation
+        inputTypes = []
+
+        for k, v in parameters.items():
+            if (not v.annotation is inspect._empty):
+                inputTypes.append(v.annotation)
+
+        neurons[n] = Neuron(n, lambda f = f: f, inputTypes, return_annotation)
+
+    b = Brain(neurons.values())
+    connectionMapping = b.buildConnectionMapping(depth)
+    connections = connectionMapping[typing.Tuple[typing.Tuple[int]]]
+    dsls = [c.toStr() for c in connections]    
+    dsls = list(filter(lambda x: "(I" in x or ", I" in x, dsls))
+
+    return dsls
 
 def generate_dsl():
     import test_arc
@@ -81,9 +189,21 @@ def generate_example(dsl: str):
 
     for _ in range(random.randint(3, 6)):
         inp = generate_structured_grid()
-        out = runner.run_with_timeout(dsl, "dsl", 5, tuple(map(tuple, inp.tolist())))
+        source = f"def dsl(I):\n    return {dsl}"
+        out = runner.run_with_timeout(source, "dsl", 5, tuple(map(tuple, inp.tolist())))
+
+        if (np.all(inp == out) or np.max(out) > 9):
+            continue
 
         grids.append((inp, out))
+        del inp
+        del source
+        del out
+
+    runner.terminate()
+
+    if (not grids):
+        raise RuntimeError("Empty grids")
 
     return {
         "dsl": dsl,
@@ -108,27 +228,57 @@ def format_example(example):
         "output": f"def dsl(I): return {example['dsl']}"
     }
 
-def generate_dataset(n = 10000, path = "dataset.json"):
+def dumpsDataset(data: list):
+    with open("dsl_dataset.json", "a") as f:
+        for d in data:
+            f.write(json.dumps(d) + "\n")
+        
+def generate_dataset(numSets: int, depth: int, n = 10000, path = "dsl_dataset.json"):
+    filename = f"dsls{depth}.txt"
+
+    if (os.path.exists(filename)):
+        with open(filename, "r") as f:
+            dsls = f.read().split("\n")
+    else:
+        dsls = generate_dsls(depth)
+
+        f = open(filename, "w")
+        f.write("\n".join(dsls))
+        f.close()
+
     data = []
+    dsls = sorted(dsls, key = lambda x: len(x))
+    #random.shuffle(dsls)
 
-    while (len(data) < n):
+    with open("dsl_dataset.json", "w") as f:
+        pass
+
+    count = 0
+
+    for dsl in dsls:
         try:
-            dsl = generate_dsl()
-
-            for _ in range(0, 50):
+            for _ in range(0, numSets):
                 ex = generate_example(dsl)
                 formatted = format_example(ex)
                 data.append(formatted)
+                del ex
+                del formatted
 
-                if (len(data) % 100 == 0):
-                    print(f"{len(data)} examples")
+                count += 1
+
+                if (count % 100 == 0):
+                    print(f"{count} examples")
+
+                if (len(data) % 400 == 0):
+                    dumpsDataset(data)
+                    del data
+                    data = []
+
+                    print("Dataset saved.")
         except Exception:
             pass
 
-    with open(path, "w") as f:
-        json.dump(data, f, indent = 2)
+    dumpsDataset(data)
 
-    print("Dataset saved.")
-    
 if (__name__ == "__main__"):
-    generate_dataset()
+    generate_dataset(int(sys.argv[-1]), int(sys.argv[-2]))

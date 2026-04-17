@@ -21,13 +21,16 @@ nvidia-cuda-nvrtc-cu12==12.4.127
 openai
 openpyxl
 pandas
+pathos
 peft
 plotly
 PyQt5
 pytest
 requests
+sortedcontainers
 tabulate
 tensorflow==2.21.0
+textdistance
 torch
 tqdm
 transformers

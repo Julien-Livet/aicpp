@@ -8,6 +8,7 @@ from networkx.algorithms import community
 import plotly.graph_objects as go
 import random
 import sys
+import view_dsl_graph
 
 def build_graphviz(edge_weights, node_counts):
     dot = Digraph(engine = "sfdp", format = "svg")
@@ -208,7 +209,7 @@ if (__name__ == "__main__"):
     all_asts = {}
 
     for task in dsl_ast.hodelTasks():
-        e, t, n = dsl_ast.taskAst(task)
+        e, t, n = view_dsl_graph.taskAst(task)
         all_asts[task] = n
 
     if ("2d" in sys.argv):

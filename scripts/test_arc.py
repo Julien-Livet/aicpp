@@ -323,7 +323,7 @@ def dslPrompt():
             words = []
         else:
             words.append(lines[i].strip())
-            
+
         finish = ")" in lines[i]
 
     command += "```python\n"

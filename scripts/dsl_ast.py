@@ -57,6 +57,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
+import view_dsl_graph
 
 NUM_COLORS = 10
 PAD_GRID = 11  # valeur de padding pour les grilles
@@ -703,7 +704,7 @@ def taskData(task: str):
         except TimeoutError:
             break
 
-    return (*taskAst(task), pairs)
+    return (*view_dsl_graph.taskAst(task), pairs)
 
 def hodelDataset():
     tasks = hodelTasks()
@@ -737,15 +738,15 @@ if (__name__ == "__main__"):
     """
     import sys
 
-    e, t, n = taskAst(sys.argv[-1], True)
+    e, t, n = view_dsl_graph.taskAst(sys.argv[-1], True)
     print(e)
     pretty_tree(n)
     exit()
     """
 
     """
-    e1, t1, n1 = taskAst("90f3ed37", True)
-    e2, t2, n2 = taskAst("8403a5d5", True)
+    e1, t1, n1 = view_dsl_graph.taskAst("90f3ed37", True)
+    e2, t2, n2 = view_dsl_graph.taskAst("8403a5d5", True)
 
     for fn in [serialize, embedded_serialize, serialize_pretty, serialize_json]:
         diffs = diff_ast(n1, n2, fn)
@@ -899,7 +900,7 @@ if (__name__ == "__main__"):
             break
 
     for task in ["67a3c6ac"]:#, "90f3ed37", "8403a5d5"]:
-        expr, tree, node = taskAst(task)
+        expr, tree, node = view_dsl_graph.taskAst(task)
         true_ast = expr
 
         print(f"Task {task}\nExpected AST :\n{true_ast}")
