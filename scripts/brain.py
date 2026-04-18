@@ -1,6 +1,7 @@
 from connection import Connection
 import copy
 import itertools
+import math
 import multiprocessing
 from neuron import Neuron
 import numpy as np
@@ -179,7 +180,7 @@ class Brain:
         connectionMapping = {}
 
         for l in range(0, level):
-            mapping = copy.deepcopy(connectionMapping)
+            mapping = {k: set(v) for k, v in connectionMapping.items()}
 
             for connection in connections:
                 s = mapping.get(connection.neuron.outputType, set())
@@ -196,17 +197,22 @@ class Brain:
                     for v in l:
                         args[i].append(v)
 
-                        del v
-
                     del l
-
-                product = list(itertools.product(*args))
-                del args
 
                 from pathos.multiprocessing import ProcessingPool as Pool
 
                 with Pool(nodes = multiprocessing.cpu_count()) as p:
-                    s |= set(p.map(connectionWorker, [connection] * len(product), product))
+                    results = p.imap(
+                        lambda p_args: connectionWorker(connection, p_args),
+                        itertools.product(*args),
+                        chunksize = 50
+                    )
+
+                    s |= set(results)
+
+                    del results
+
+                del args
 
                 mapping[connection.neuron.outputType] = s
 
