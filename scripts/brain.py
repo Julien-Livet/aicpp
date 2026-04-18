@@ -196,7 +196,12 @@ class Brain:
                     for v in l:
                         args[i].append(v)
 
+                        del v
+
+                    del l
+
                 product = list(itertools.product(*args))
+                del args
 
                 from pathos.multiprocessing import ProcessingPool as Pool
 
@@ -235,10 +240,14 @@ class Brain:
 
                 args.append(l)
 
+                del l
+
             if (len(args) != len(connectionInputTypes)):
                 continue
 
             connectionParameters[connection] = itertools.product(*args)
+
+            del args
 
         return connectionMapping, conns, connectionParameters
 
