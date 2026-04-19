@@ -7,6 +7,7 @@ from neuron import Neuron
 import numpy as np
 import sympy
 import textdistance
+import time
 
 eps = 1e-6
 
@@ -117,7 +118,6 @@ def worker(eps, connection, bestPair, g, target, processes, processId, connectio
 
     return bestPair
 
-
 class Brain:
     def __init__(self, neurons: list[Neuron]):
         self.neurons = neurons
@@ -136,9 +136,23 @@ class Brain:
 
         return dot
 
-    def buildConnectionMapping(self, level: int = 3):
-        connectionMapping, conns, connectionParameters = self.buildData(level)
+    def buildConnectionMapping(self, ratio: list[tuple[float, float, float]], ratioConns: float = 1.0, debug: bool = False):
+        if (debug):
+            start = time.perf_counter()
+
+            print("Building connection mapping")
+
+        connectionMapping, conns, connectionParameters = self.buildData(ratio, debug = True)
         del connectionMapping
+
+        if (debug):
+            end = time.perf_counter()
+            elapsed = end - start
+
+            print(f"Elapsed time: {elapsed:.6f}s")
+            print("Building applied connection mapping")
+
+            start = end
 
         from collections import defaultdict
         from pathos.multiprocessing import ProcessingPool as Pool
@@ -146,7 +160,12 @@ class Brain:
         appliedConnectionMapping = defaultdict(set)
 
         with Pool(nodes = multiprocessing.cpu_count()) as pool:
-            for conn in conns:
+            if (ratioConns != 1.0):
+                connectionIterator = itertools.islice(conns, int(ratioConns * len(conns)))
+            else:
+                connectionIterator = conns
+
+            for conn in connectionIterator:
                 gen = connectionParameters.get(conn, None)
 
                 if (gen is None):
@@ -163,9 +182,18 @@ class Brain:
 
                     appliedConnectionMapping[result.neuron.outputType].add(result)
 
+        del conns
+        del connectionParameters
+
+        if (debug):
+            end = time.perf_counter()
+            elapsed = end - start
+
+            print(f"Elapsed time: {elapsed:.6f}s")
+
         return appliedConnectionMapping
 
-    def buildData(self, level: int):
+    def buildData(self, ratio: list[tuple[float, float, float]], debug: bool = False):
         parameters = dict()
         connections = set()
 
@@ -179,10 +207,18 @@ class Brain:
 
         connectionMapping = {}
 
-        for l in range(0, level):
+        for l, r in enumerate(ratio):
+            if (debug):
+                print(f"l={l}", f"r={r}")
+
             mapping = {k: set(v) for k, v in connectionMapping.items()}
 
-            for connection in connections:
+            if (r[0] != 1.0):
+                connectionIterator = itertools.islice(connections, int(r[0] * len(connections)))
+            else:
+                connectionIterator = connections
+
+            for connection in connectionIterator:
                 s = mapping.get(connection.neuron.outputType, set())
 
                 connectionInputTypes = connection.inputTypes()
@@ -201,10 +237,15 @@ class Brain:
 
                 from pathos.multiprocessing import ProcessingPool as Pool
 
+                if (r[1] != 1.0):
+                    iterator = itertools.islice(itertools.product(*args), int(r[1] * math.prod(len(a) for a in args)))
+                else:
+                    iterator = itertools.product(*args)
+
                 with Pool(nodes = multiprocessing.cpu_count()) as p:
                     results = p.imap(
                         lambda p_args: connectionWorker(connection, p_args),
-                        itertools.product(*args),
+                        iterator,
                         chunksize = 50
                     )
 
@@ -251,13 +292,18 @@ class Brain:
             if (len(args) != len(connectionInputTypes)):
                 continue
 
-            connectionParameters[connection] = itertools.product(*args)
+            if (r[2] != 1.0):
+                iterator = itertools.islice(itertools.product(*args), int(r[2] * math.prod(len(a) for a in args)))
+            else:
+                iterator = itertools.product(*args)
+
+            connectionParameters[connection] = iterator
 
             del args
 
         return connectionMapping, conns, connectionParameters
 
-    def learn(self, targets: list = [], targetTypes: list = None, level: int = 2, eps: float = 1e-6):
+    def learn(self, targets: list = [], targetTypes: list = None, ratio: list[tuple[float, float, float]] = [(1, 1, 1), (1, 1, 1)], eps: float = 1e-6):
         if (targetTypes == None):
             targetTypes = []
 
@@ -266,7 +312,7 @@ class Brain:
 
         assert(len(targets) == len(targetTypes))
 
-        connectionMapping, conns, connectionParameters = self.buildData(level)
+        connectionMapping, conns, connectionParameters = self.buildData(ratio)
 
         if (len(connectionParameters) == 0):
             return []
@@ -375,4 +421,3 @@ class Brain:
             learnedConnections.append(solutions[0])
 
         return learnedConnections
-

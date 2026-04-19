@@ -45,7 +45,7 @@ def generate_structured_grid():
 
     return grid
 
-def generate_dsls(depth: int = 3, maxByDepth: int = 100):
+def generate_dsls(ratio: list[tuple[float, float, float]], ratioConns: float = 1.0):
     with open("arc-dsl/constants.py", "r") as f:
         lines = f.read().split("\n")
 
@@ -122,9 +122,9 @@ def generate_dsls(depth: int = 3, maxByDepth: int = 100):
     from brain import Brain
     from connection import Connection
     from neuron import Neuron
-    
+
     neurons = {}
-    
+
     for n, p in constants.items():
         neurons[n] = Neuron(n, lambda p = p: p[1], [], p[0])
 
@@ -142,9 +142,18 @@ def generate_dsls(depth: int = 3, maxByDepth: int = 100):
         neurons[n] = Neuron(n, lambda f = f: f, inputTypes, return_annotation)
 
     b = Brain(neurons.values())
-    connectionMapping = b.buildConnectionMapping(depth)
+    connectionMapping = b.buildConnectionMapping(ratio, ratioConns, debug = True)
     connections = connectionMapping[typing.Tuple[typing.Tuple[int]]]
+
+    del connectionMapping
+    del b
+
+    print("Building DSL expressions")
+
     dsls = [c.toStr() for c in connections]    
+
+    del connections
+
     dsls = list(filter(lambda x: "(I" in x or ", I" in x, dsls))
 
     return dsls
@@ -192,7 +201,7 @@ def generate_example(dsl: str):
         source = f"def dsl(I):\n    return {dsl}"
         out = runner.run_with_timeout(source, "dsl", 5, tuple(map(tuple, inp.tolist())))
 
-        if (np.all(inp == out) or np.max(out) > 9):
+        if (np.all(inp == out) or np.max(out) > 9 or np.min(out) < 0):
             continue
 
         grids.append((inp, out))
@@ -232,15 +241,17 @@ def dumpsDataset(data: list):
     with open("dsl_dataset.json", "a") as f:
         for d in data:
             f.write(json.dumps(d) + "\n")
-        
-def generate_dataset(numSets: int, depth: int, n = 10000, path = "dsl_dataset.json"):
+
+def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], ratioConns: float = 1.0, n = 10000, path = "dsl_dataset.json"):
+    depth = len(ratio)
+
     filename = f"dsls{depth}.txt"
 
     if (os.path.exists(filename)):
         with open(filename, "r") as f:
             dsls = f.read().split("\n")
     else:
-        dsls = generate_dsls(depth)
+        dsls = generate_dsls(ratio, ratioConns)
 
         f = open(filename, "w")
         f.write("\n".join(dsls))
@@ -281,4 +292,10 @@ def generate_dataset(numSets: int, depth: int, n = 10000, path = "dsl_dataset.js
     dumpsDataset(data)
 
 if (__name__ == "__main__"):
-    generate_dataset(int(sys.argv[-1]), int(sys.argv[-2]))
+    match (int(sys.argv[-1])):
+        case 1:
+            generate_dataset(50, [(1.0, 1.0, 1.0)], 1.0)
+        case 2:
+            generate_dataset(25, [(0.8, 1.0, 1.0), (0.4, 0.5, 0.5)], 0.75)
+        case 3:
+            generate_dataset(10, [(0.8, 0.8, 0.8), (0.4, 0.4, 0.4), (0.2, 0.2, 0.2)], 0.5)
