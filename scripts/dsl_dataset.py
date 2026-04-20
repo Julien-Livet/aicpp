@@ -155,6 +155,7 @@ def generate_dsls(ratio: list[tuple[float, float, float]], ratioConns: float = 1
     del connections
 
     dsls = list(filter(lambda x: "(I" in x or ", I" in x, dsls))
+    dsls = sorted(dsls, key = lambda x: (len(x), x))
 
     return dsls
 
@@ -211,8 +212,8 @@ def generate_example(dsl: str):
 
     runner.terminate()
 
-    if (not grids):
-        raise RuntimeError("Empty grids")
+    if (len(grids) < 3):
+        raise RuntimeError("Not enough grids")
 
     return {
         "dsl": dsl,
@@ -237,12 +238,12 @@ def format_example(example):
         "output": f"def dsl(I): return {example['dsl']}"
     }
 
-def dumpsDataset(data: list):
-    with open("dsl_dataset.json", "a") as f:
+def dumpsDataset(depth: int, data: list):
+    with open(f"dsl_dataset{depth}.json", "a") as f:
         for d in data:
             f.write(json.dumps(d) + "\n")
 
-def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], ratioConns: float = 1.0, n = 10000, path = "dsl_dataset.json"):
+def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], ratioConns: float = 1.0):
     depth = len(ratio)
 
     filename = f"dsls{depth}.txt"
@@ -258,10 +259,9 @@ def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], rati
         f.close()
 
     data = []
-    dsls = sorted(dsls, key = lambda x: len(x))
     #random.shuffle(dsls)
 
-    with open("dsl_dataset.json", "w") as f:
+    with open(f"dsl_dataset{depth}.json", "w") as f:
         pass
 
     count = 0
@@ -281,7 +281,7 @@ def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], rati
                     print(f"{count} examples")
 
                 if (len(data) % 400 == 0):
-                    dumpsDataset(data)
+                    dumpsDataset(depth, data)
                     del data
                     data = []
 
@@ -289,13 +289,13 @@ def generate_dataset(numSets: int, ratio: list[tuple[float, float, float]], rati
         except Exception:
             pass
 
-    dumpsDataset(data)
+    dumpsDataset(depth, data)
 
 if (__name__ == "__main__"):
     match (int(sys.argv[-1])):
         case 1:
             generate_dataset(50, [(1.0, 1.0, 1.0)], 1.0)
         case 2:
-            generate_dataset(25, [(0.8, 1.0, 1.0), (0.4, 0.5, 0.5)], 0.75)
+            generate_dataset(50, [(0.8, 0.8, 0.8), (0.4, 0.4, 0.4)], 0.1)
         case 3:
-            generate_dataset(10, [(0.8, 0.8, 0.8), (0.4, 0.4, 0.4), (0.2, 0.2, 0.2)], 0.5)
+            generate_dataset(50, [(0.4, 0.4, 0.4), (0.2, 0.2, 0.2), (0.02, 0.02, 0.02)], 0.1)

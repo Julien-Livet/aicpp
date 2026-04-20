@@ -151,6 +151,7 @@ class Brain:
 
             print(f"Elapsed time: {elapsed:.6f}s")
             print("Building applied connection mapping")
+            print(f"ratioConns={ratioConns}")
 
             start = end
 
@@ -161,7 +162,7 @@ class Brain:
 
         with Pool(nodes = multiprocessing.cpu_count()) as pool:
             if (ratioConns != 1.0):
-                connectionIterator = itertools.islice(conns, int(ratioConns * len(conns)))
+                connectionIterator = itertools.islice(conns, max(1, int(ratioConns * len(conns))))
             else:
                 connectionIterator = conns
 
@@ -181,6 +182,8 @@ class Brain:
                         continue
 
                     appliedConnectionMapping[result.neuron.outputType].add(result)
+
+                del results
 
         del conns
         del connectionParameters
@@ -214,7 +217,7 @@ class Brain:
             mapping = {k: set(v) for k, v in connectionMapping.items()}
 
             if (r[0] != 1.0):
-                connectionIterator = itertools.islice(connections, int(r[0] * len(connections)))
+                connectionIterator = itertools.islice(connections, max(1, int(r[0] * len(connections))))
             else:
                 connectionIterator = connections
 
@@ -238,7 +241,7 @@ class Brain:
                 from pathos.multiprocessing import ProcessingPool as Pool
 
                 if (r[1] != 1.0):
-                    iterator = itertools.islice(itertools.product(*args), int(r[1] * math.prod(len(a) for a in args)))
+                    iterator = itertools.islice(itertools.product(*args), max(1, int(r[1] * math.prod(len(a) for a in args))))
                 else:
                     iterator = itertools.product(*args)
 
@@ -293,7 +296,7 @@ class Brain:
                 continue
 
             if (r[2] != 1.0):
-                iterator = itertools.islice(itertools.product(*args), int(r[2] * math.prod(len(a) for a in args)))
+                iterator = itertools.islice(itertools.product(*args), max(1, int(r[2] * math.prod(len(a) for a in args))))
             else:
                 iterator = itertools.product(*args)
 
