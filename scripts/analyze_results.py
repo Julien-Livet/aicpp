@@ -29,6 +29,34 @@ def exportResults(llm: tuple, folder: str, sortedTasks: list):
 
         subResults = []
 
+        with open(f"data/{test_arc.llmPath(llm)}/{folder}/{task}-input-000.md", "r") as f:
+            lines = f.read().split("\n")
+
+        i = 0
+        dsls = []
+
+        while (i < len(lines)):
+            if (lines[i] == "## DSL"):
+                dsl = []
+
+                while (lines[i] != "```python"):
+                    i += 1
+
+                i += 1
+                    
+                while (lines[i] != "```"):
+                    dsl.append(lines[i])
+                    i += 1
+
+                dsls.append("\n".join(dsl))
+                
+            i += 1
+
+        for dsl in dsls:
+            trainPrograms.append((dsl, test_arc.taskResults(dsl, taskPairs[0], "train")))
+            testPrograms.append((dsl, test_arc.taskResults(dsl, taskPairs[1], "test")))
+            subResults.append((trainPrograms, testPrograms))
+
         for file in files:
             taskPairs = test_arc.trainTestPairs(folder, task)
             trainPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[0], "train")
