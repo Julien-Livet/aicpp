@@ -1,33 +1,45 @@
 Thinking...
-We need to produce 5 new DSL programs each using a distinct reasoning strategy, differing core operators. Must be expressed using provided DSL primitives, no loops, etc.
+We need to output five DSL programs each different reasoning strategies. The earlier attempts: dsl1 (global), dsl2 (object-level masking), dsl3 (fails), dsl4 (geometric cropping using lowest 2-cell), dsl5 (relational shift-and-crop). We need to improve them (phase 1 expansion, phase 2 reduction). But final output: five programs with distinct core strategies. Must be correct on training examples.
 
-We have training data: Input grids are 6x3? Actually examples: Input lines 6 rows, 3 columns. Output are 9 rows, 3 columns? Wait output from train1: they show 9 rows lines: appears output repeated pattern: 020,202,020,202,020,202,020,202,020. That's 9 rows. So input 6 rows becomes output 9 rows. They basically insert extra rows, based on pattern that original had alternating 0-1-0 pattern in columns maybe? Let's analyze.
+What's the actual target transformation? Let's analyze data.
 
-Train1 Input grid:
-Row1: 010
-Row2: 101
-Row3: 010
-Row4: 101
-Row5: 010
-Row6: 101
+Training inputs are 6x3? Actually Input grid: 6 rows, 3 columns.
 
-So it's a checkerboard pattern with period 2 rows. Output adds a row of 020 between each existing row? Actually output rows:
+Example train1 input:
+010
+101
+010
+101
+010
+101
 
-1:020
-2:202
-3:020
-4:202
-5:020
-6:202
-7:020
-8:202
-9:020
+So pattern: column 2 is 1 on odd rows? Actually rows: row0 (0-index) 010: middle cell 1; row1 101: ends 1; row2 010; row3 101; row4 010; row5 101.
 
-So pattern is 0 2 0 alternating columns horizontally? Actually each row is length 3, pattern 020 then 202 etc, repeating vertical. So output extends original pattern but with 2 instead of 1. So transformation: replace colour 1 with 2, keep 0 unchanged, then extend grid vertically by repeating pattern to match something? Wait input had 6 rows, output 9 rows. The pattern after replacement would be: original rows with 1->2: row1 becomes 020, row2 202, row3 020, row4 202, row5 020, row6 202. That's exactly first 6 rows of output. Then extra rows 7-9 are 020,202,020 which is continuation of the alternating pattern (like repeating the first row). So maybe they append a copy of the first row at the bottom? Actually after replacement, we have 6 rows; they added three more rows making total 9, which is input rows + (input rows //2?) Input rows=6, extra rows=3 = half of rows. Could be they pad to make square? Input width=3, height=6; output height=9 which equals width*3? Not.
+After recolor 1->2, and then stacking something, output of train1 is 9 rows by 3 columns:
 
-Observations for train2 Input:
+020
+202
+020
+202
+020
+202
+020
+202
+020
 
-Rows 6:
+That's original 6 rows recolored to 2s? Let's compute: Recolored version of input is:
+020
+202
+020
+202
+020
+202
+
+That's first 6 rows of output. Then appended extra rows: appears to be upper half of original (top 3 rows) also recolored: rows 0-2: 020,202,020. Those match appended rows 6-8? Output rows 6-8: 020,202,020. Indeed output is original 6 + top 3.
+
+So rule: recolor 1→2, then concatenate original with top half (upper half) of recolored grid.
+
+Train2 input:
 010
 110
 010
@@ -35,214 +47,243 @@ Rows 6:
 010
 110
 
-Replace 1->2: get
+Let's recolor to 2: 020,220,020,022,020,220.
+
+Upper half = first 3 rows: 020,220,020.
+
+Output given earlier (dsl1) matches: original 6 rows + top half rows (020,220,020). Output they gave: 020 220 020 022 020 220 020 220 020 (9 rows). Indeed matches.
+
+Train3 input:
+010
+110
+010
+010
+110
+010
+
+Recolored: 020,220,020,020,220,020. Upper half rows 0-2: 020,220,020.
+
+Output: original 6 rows + upper half = 020,220,020,020,220,020,020,220,020. Matches.
+
+Thus the rule is exactly the dsl1: recolor 1→2, upper half (first half rows) extracted via vsplit (top part). Then vertical concat of original + top half.
+
+That solved all three training examples with zero cost for train1 and train3, small cost for train2 (value cost maybe because upper half does not match pattern?). Wait dsl1 gave correct output for all three examples, as shown. In the table, train2 had some cost >0, but still produced correct grid? The output shown for dsl1 train2 matches expected? Yes earlier they list output for train2 as:
+
 020
 220
 020
 022
 020
 220
-
-Output shows exactly those 6 rows (same as above) plus extra rows? Output shows 9 rows: after those 6 rows, rows 7-9 are same as rows 1-3? Indeed output rows 7-9: 020,220,020 (mirroring first three). So they append copy of first half (3 rows) at bottom.
-
-Train3 Input:
-010
-110
-010
-010
-110
-010
-
-Replace 1->2: gives
-020
-220
-020
 020
 220
 020
 
-Output: 9 rows with extra rows 7-9: 020,220,020 (again copy of first three rows). So pattern: output = replace 1 with 2, then append top third of rows (ceil? Actually first three rows) to bottom, resulting in height = original height + original height/2 (since original 6, added 3). So general rule: after recolor, extend grid vertically by replicating the top half (first H/2 rows) onto the bottom.
+Which matches expectation. So the cost is not about correctness but some metric.
 
-Thus transformation: recolor 1->2, then vertically concatenate top half of the recolored grid to the original grid. This matches all examples.
+Thus we can keep dsl1; it's correct.
 
-Now we need to produce 5 DSL programs each using distinct reasoning strategies.
+Now we must produce 5 distinct programs that solve the task using different reasoning.
 
-Strategies suggestions:
+We have dsl1 (global transformation). dsl5 also solved correctly (shift-and-crop) gave same output. Indeed dsl5 outputs same as dsl1 (they show outputs identical). Thus different strategy but also correct.
 
-1. Global transformation: Perform recolor then vconcat with top half using vsplit/hupscale? Use vsplit to split grid into top half and bottom half then vconcat top half again.
+We need 5 new programs, each distinct core strategy.
 
-We need primitives: vsplit(grid,n) splits vertically (i.e., horizontal? Actually vertically means split into rows). vsplit returns tuple of grids? Might produce tuple of subgrids. We'll use vsplit(I,2) to split into top and bottom halves? For 6 rows, vsplit(grid,2) splits into two halves each of height 3. So top = first element. Use vconcat to concatenate original grid with top. But we need recolor first. Use switch or replace to recolor. Distinct from existing programs which already used replace etc. Need new core approach: Could use recolor + paint but that's similar to existing. Must be distinct core strategy from earlier five programs (which used recolor+paint, switch, switch+underfill, recolor+max, replace). Need new strategies: maybe use objects detection: find objects of colour 1, then recolor them and then extend grid by vconcat top half; or use cropping and tiling.
+We already have 2 correct distinct strategies: dsl1 (global split) and dsl5 (shift left then crop top half). Need three more distinct strategies, maybe using object-level masking (dsl2) but correct? dsl2 produced extra rows of zeros at bottom, not correct. So need to adjust.
 
-Let's define:
+Potential strategies:
 
-Program1: Global transformation using vsplit and vconcat.
+- Use object extraction: find objects of color 2 after recolor, intersect with mask of rows in upper half via shape and indices, then vconcat.
 
-Implementation steps:
-- R = switch(I, ONE, TWO) (or recolor) to get recolored grid G.
-- top, bottom = vsplit(G, 2)   (split into two equal halves)
-- O = vconcat(G, top)   (concatenate G with top half)
-Return O.
+Maybe similar to dsl3 corrected.
 
-Core operators: switch, vsplit, vconcat.
+We can construct using ofcolor to get all 2 cells, then compute upper half rows indices via bounding box? The upper half rows = rows with index < half height.
 
-Program2: Object extraction: Identify cells of colour 1 as object, recolor them to 2, then overlay onto original? Not; need also vertical extension. Could use objects to get top half mask? Maybe compute top half mask by selecting rows whose index < height/2 using inbox? Not. Perhaps use bounding box of ofcolor(I, ONE) to get region and then replicate using repeat along vertical axis.
+We can compute half height = divide(height, TWO). Use shape (needs size); shape is allowed. We can use vsplit on a mask (canvas) but we need to keep vertical split.
 
-Alternative: Use hperiod/vperiod to decide pattern? Hmm.
+Approach: Create mask of same size where rows < half become 2 else 0, using canvas and vconcat.
 
-But we need distinct core reasoning: Use underfill to keep only colour 2 after switch, then use downscale/upscale? Not.
+But dsl2 used that but intersection of objects gave proper top grid. They then vconcat G and top_grid. It produced extra rows zeros because top_grid built from mask intersect but they included zeros? Actually they did paint(empty, top_obj) where empty is zero canvas. That gives top_grid with zeros elsewhere, but they need only top half rows (others zero) and then vconcat. That's correct: top_grid length 6 rows (full size) with zeros outside top half, but when concatenated, get extra zeros after row9? Wait they vconcat(G, top_grid) gave 12 rows: original 6 + full 6 rows mask (which includes zeros where lower half). Thus wrong. They need to crop top_grid to only upper half rows before concatenating. So algorithm: after constructing top_grid, crop it to top half height.
 
-We could use compress to remove empty rows? Not.
+Alternatively use cellwise with top_mask (which is 2 only for upper half). But need output grid of only upper half rows (no zeros). So we can extract top half rows via vsplit on top_grid or using crop with half height.
 
-We can perhaps achieve same effect via repeat applied to top half rows: use apply with repeat? There's repeat(item, num). Could repeat each row? But need to add rows copy of top half; we could use apply to each row of top half grid and then vconcat? Might be similar.
+Thus we can define program using object-level masking with crop.
 
-Program2: Use crop to extract top half, then use vconcat with original. Use ofcolor to mark rows? Let's define:
+Strategy 2 (Object extraction + crop): Recolor, create mask with 2 in upper half (full grid), intersect to get masked_grid, then crop to upper half rows, then vconcat.
+
+Strategy 3 (Color filtering using vsplit and cellwise corrected) – fix dsl3 error: top_mask is from vsplit returns grid not mask? Actually vsplit returns two grids; top_mask is grid of upper half (same colors as G). But we need mask of 2 values. So need to recolor then intersect with vsplit maybe using cellwise.
+
+Better: Use vsplit after recolor to get top half grid top_half (already recolored). Then use cellwise to keep only 2 where both G and top_half have 2 - but top_half already has 2 only in upper half rows, lower half rows have original values (2 or 0?). Wait original G has 2 in all rows. top_half only contains upper rows, so cells in lower rows are missing (maybe blank). But cellwise expects two grids same dimensions; if top_mask is only upper half rows (size 3x3) and G is 6x3, mismatch leads error. So fix by creating mask of same size via vconcat top half of 2s and bottom half of 0s. Use canvas and vconcat. That's same as before.
+
+Alternative strategy: Use vupscale/dscale? Could use compress to remove bottom half? compress removes fully empty rows/columns? The lower half may have 2s, so not.
+
+Strategy 4 (Geometric reasoning) maybe use lowermost 2 but compute half distance? Not needed.
+
+Could use periodicity: Identify vertical period of pattern of 2s, which is 2 rows? Actually pattern repeats every 2 rows? top half is first 3 rows (not periodic). But we need to extract first half rows; could compute vertical periodicity of objects of 2 (vperiod) then use that to compute top half? The period is 2 maybe, but half length is 3 rows. Not straightforward.
+
+Another distinct approach: Use hsplit then select first piece and then replicate. However need to concatenate original with that piece.
+
+But we can also use vconcat of original with hsplit piece after scaling? That is similar to dsl1.
+
+We need distinct core strategies: e.g., using objects and occurrences.
+
+Strategy: Find occurrences of pattern of top half within the grid (the top half pattern repeats later). Not.
+
+Better: Use bounding box of top half via lowermost row where first occurrence of a row with 0 maybe? Input rows contain at least one 0? In all examples, bottom half rows also have 0 for middle column maybe not.
+
+But we can compute top half based on number of rows: half = divide(height, TWO). Use shape and crop I guess similar to dsl5 but crop directly instead of shift.
+
+Strategy 5: Use crop based on half height directly after recolor: G = switch(...); top = crop(G, (ZERO, ZERO), (divide(shape(G)[0], TWO), shape(G)[1])); O = vconcat(G, top). That's similar to dsl1 but uses crop not vsplit.
+
+That's fairly distinct.
+
+Now we need 5 programs, each distinct core style:
+
+1. dsl1 (global transformation) using vsplit (already okay). Keep.
+
+2. dsl2_new: object-level masking with crop as described.
+
+3. dsl3_new: color filtering with full mask and crop.
+
+4. dsl4_new: geometric cropping using half height via divide and crop (no object detection).
+
+5. dsl5_new: relational shift-and-crop already correct but we may keep as is (though it uses shift). Already distinct.
+
+But need to ensure they all are correct. Let's implement each using DSL primitives.
+
+We need to ensure functions used exist: shape returns tuple (h,w). Must use shape to get dimensions. But shape is a primitive.
+
+We need to use divide to get integer division? divide returns floor division for integers and for tuples. So half = divide(h, TWO). Use crop.
+
+Program 2 (object-level masking): Steps:
+
 - G = switch(I, ONE, TWO)
-- top = crop(G, (0,0), (height(G)//2, width(G)) ; but we don't have height function to compute. However we can use vsplit to get top half; that's same as program1 core.
+- h,w = shape(G)
+- half = divide(h, TWO)
+- # Build mask: upper half 2, lower half 0
+- upper = canvas(TWO, (half, w))
+- lower = canvas(ZERO, (subtract(h, half), w))
+- mask_full = vconcat(upper, lower)
+- # intersect objects
+- objG = asobject(G)
+- objM = asobject(mask_full)
+- top_obj = intersection(objG, objM)
+- top_grid = paint(canvas(ZERO, (h, w)), top_obj)   # reconstruct full-size grid with top only
+- top_cropped = crop(top_grid, (ZERO, ZERO), (half, w))   # keep only upper half rows
+- O = vconcat(G, top_cropped)
 
-Need a different core operation: maybe use hmirror/dmirror? Not.
+Will use asobject, intersection, paint, canvas.
 
-Consider using underpaint: take original zero canvas and underpaint recolored objects (same as recolor+paint) but then extend via vupscale? Wait vupscale scales grid vertically by factor. If we vupscale top half by factor 2? Not.
+Program 3 (color filtering with mask): Similar but use cellwise.
 
-We need distinct strategies: "Object extraction", "Color filtering", "Geometric reasoning", "Relational / structural reasoning". Already used some. So we can craft each program to match these categories.
-
-Program A (Object extraction): Identify object of colour 1, get its bounding box, extract subgrid of that object (should be whole grid? Actually objects of colour 1 appear scattered across entire grid, but we could fill entire grid with its color after recolor. Hard.
-
-Maybe use objects to get all cells of colour 1 as a set, then recolor that set to 2 via recolor and paint onto canvas, then extend via repeat of indices using shift to copy top half indices downwards. To generate extra rows, we can shift the indices of top half by height/2 and add them.
-
-We can get top half indices: use ofcolor(G, TWO) gives all 2 cells. Use subgrid? We can compute upper half mask via uppermost? Not.
-
-Could use split to separate top half vs bottom but already used in program1.
-
-Perhaps we can vary core: use 'compress' to shrink then upscale: compress removes empty border rows/cols. Not helpful.
-
-We could use 'downscale' then 'upscale' to create repeated pattern - downscale by factor 2 (makes 3 rows) then upscale by factor 2 (returns to 6 rows) but we need 9 rows. Not.
-
-Maybe use 'hconcat' to concatenate left/right? Not.
-
-Possible to use 'repeat' to duplicate rows: Use apply to each row of top half (as tuple) and repeat them? Not straightforward.
-
-Given constraints, maybe we can still use vsplit for program1, and use crop for program2 (crop is also extracting top half). The core operation difference: program1 uses vsplit + vconcat; program2 uses crop + vconcat. That's okay.
-
-Program2 steps:
 - G = switch(I, ONE, TWO)
-- top = crop(G, (0,0), (height(G)//2, width(G))) ; need compute height but we can use shape(I) gives (rows, cols). Use astuple? Not. There's shape primitive? Yes shape(piece) returns (height,width). But shape is provided? 'shape' primitive available. So we can compute h = shape(I)[0]; can't index; but we can use interval? Actually we can't manipulate ints? but we can use divide? Might be complicated.
+- h,w = shape(G)
+- half = divide(h, TWO)
+- upper = canvas(TWO, (half, w))
+- lower = canvas(ZERO, (subtract(h, half), w))
+- mask = vconcat(upper, lower)
+- top_grid = cellwise(G, mask, ZERO)   # keep G where mask is 2, else 0
+- top_cropped = crop(top_grid, (ZERO, ZERO), (half, w))
+- O = vconcat(G, top_cropped)
 
-Maybe easier: Use lefthalf? That's horizontal split. Not.
+Program 4 (geometric cropping using half height directly): No mask.
 
-Better to use vsplit as we can get top half directly; that's similar though. But they want distinct core strategy; maybe we can treat as "Object extraction" using objects filter: use objects of colour 2 (after switch) and then repeat them offset.
-
-Define:
 - G = switch(I, ONE, TWO)
-- objs = ofcolor(G, TWO) # set of indices with 2
-- topObjs = versus ... We can compute top half by using bounding boxes? Use uppermost? Actually we can compute top half indices as those with row index < height/2. Use partition by row? Could use filter via sizefilter? Not.
+- h,w = shape(G)
+- half = divide(h, TWO)
+- top = crop(G, (ZERO, ZERO), (half, w))
+- O = vconcat(G, top)
 
-Given time, perhaps provide 5 programs each using a different combination but still valid. The evaluation may just check they run without errors (even if not correct?) Probably they want programs that solve task while being diverse. Hard to guarantee.
+Program 5 (relational shift-and-crop) already correct but we must ensure syntax correct (extra parenthesis). Provide final code.
 
-Given constraints, produce five DSL programs with distinct core primitive usage:
+We need to ensure each program is distinct (different core primitives). dsl1 uses vsplit. dsl2 uses object intersection. dsl3 uses cellwise. dsl4 uses crop directly. dsl5 uses shift.
 
-1. Global: switch + vsplit + vconcat (as earlier).
-2. Object extraction: switch + objects + shift + combine presumably using move? Could use move to place shifted top half onto new bottom area.
+Make sure to avoid duplicated logic between dsl2 and dsl3? They share mask creation but diff core idea: dsl2 uses object intersection; dsl3 uses cellwise.
 
-Plan: Get set of 2 cells top half: use ofcolor(G, TWO) intersect with top half region: topMask = ofcolor(G, TWO) intersection with rows < height/2. Since no direct row filter, we can get top half subgrid via crop then ofcolor. Use crop to get top half grid, then ofcolor to get indices relative to subgrid, then shift them down by height/2 (using shift) then paint onto canvas.
+Now produce final answer with 5 definitions.
 
-Implementation steps:
-- G = switch(I, ONE, TWO)
-- H = shape(G) gives (h,w)
-- half = divide(h, TWO) returns integer? divide returns floor division, works on ints.
-- topgrid = crop(G, (0,0), (half, w))
-- topmask = ofcolor(topgrid, TWO)  # indices within topgrid
-- shifted = shift(topmask, (half, 0)) # shift down by half rows
-- canvas0 = canvas(ZERO, (h+half, w)) maybe need extend grid size; we need new height h+half. We can compute add? Could use add to add tuple? maybe add((h, w), (half, 0)) -> (h+half, w)
-- Z = canvas(ZERO, add(shape(G), (half,0)))  # new canvas larger
-- O = paint(Z, shifted)   # but need also original G painted. Could combine: O1 = paint(Z, ofcolor(G, TWO)) ; O = paint(O1, shifted) . Since paint overwrites? It paints patch onto grid, replacing values at indices with patch's color (which is stored in patch as object with colors). For shifted patch, colors still 2.
+Note: need to import any constants? Already in scope. Use ZERO, ONE, TWO, etc.
 
-Thus program uses switch, shape, divide, crop, ofcolor, shift, add, canvas, paint twice, combine using paint (second overrides). Core operators: shift, divide, add, paint.
+Make sure parentheses balanced.
 
-3. Color filtering: connect to program3 but also includes extension using repeat of pattern using vperiod maybe.
-
-We can do: After switch, compute vperiod of the 2 cells (should be 2 rows). Then use vupscale? Not.
-
-Alternative: Use hperiod? Not.
-
-Simpler: Use repeat of top half rows using apply and repeat.
-
-But maybe variety is enough.
-
-Given time constraints, produce 5 programs with described reasoning.
-
-We'll write them as lambda functions using DSL primitives. Ensure each uses distinct set of core primitives: program1 uses vsplit; program2 uses crop+shift; program3 uses objects detection and underpaint; program4 uses geometric reasoning via vmirror perhaps; program5 uses relational via adjacency.
-
-Will craft plausible code but may not be fully correct.
-
-Given the request likely only expects placeholder programs not execution. So produce code.
+Let's write.
 
 ...done thinking.
 
 ```python
 def dsl1(I):
-    # 1️⃣  Global transformation: recolour 1→2, split the result in half
-    #     and concatenate the upper half to the bottom.
-    G   = switch(I, ONE, TWO)                     # recolour 1 → 2
-    top, _ = vsplit(G, TWO)                      # upper half of the recoloured grid
-    O   = vconcat(G, top)                         # original + copy of the upper half
+    # GLOBAL SPLIT
+    # Recolour 1→2, split the grid vertically into two halves,
+    # take the upper half and stack it below the whole grid.
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    top, _ = vsplit(G, TWO)                     # upper half (same size as half‑height)
+    O = vconcat(G, top)                          # original + upper half
     return O
 
 
 def dsl2(I):
-    # 2️⃣  Object‑extraction: recolour, take the upper half as a patch,
-    #     shift it down, and paint both the original and the shifted patch
-    #     onto a larger zero canvas.
-    G      = switch(I, ONE, TWO)                                 # recolour 1 → 2
-    h, w   = shape(G)                                            # height, width
-    half   = divide(h, TWO)                                      # upper‑half height
-    top    = crop(G, (ZERO, ZERO), (half, w))                    # grid of the upper half
-    mask   = ofcolor(top, TWO)                                    # cells that are 2 in the upper half
-    shifted= shift(mask, (half, ZERO))                           # move them below the original upper half
-    newh   = add(h, half)                                        # new canvas height
-    Z      = canvas(ZERO, (newh, w))                             # zero canvas of the target size
-    Z1     = paint(Z, ofcolor(G, TWO))                           # paint the recoloured whole grid
-    O      = paint(Z1, shifted)                                   # paint the shifted upper‑half patch
+    # OBJECT‑LEVEL INTERSECTION + CROP
+    # Recolour 1→2, build a full‑size mask that is 2 only in the upper half,
+    # intersect this mask with the recoloured grid as objects,
+    # crop the result to the upper half and append it.
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    h, w = shape(G)                             # dimensions
+    half = divide(h, TWO)                       # height of upper half
+    upper = canvas(TWO, (half, w))               # 2‑filled upper half
+    lower = canvas(ZERO, (subtract(h, half), w))# 0‑filled lower half
+    mask = vconcat(upper, lower)                # full‑size mask
+    objG = asobject(G)                         # objects of recoloured grid
+    objM = asobject(mask)                      # objects of mask
+    top_obj = intersection(objG, objM)          # keep only cells that are 2 in both
+    full_top = paint(canvas(ZERO, (h, w)), top_obj)   # reconstruct full‑size grid
+    top_cropped = crop(full_top, (ZERO, ZERO), (half, w))  # keep only upper rows
+    O = vconcat(G, top_cropped)                # stack
     return O
 
 
 def dsl3(I):
-    # 3️⃣  Colour‑filtering + geometric replication:
-    #     keep only colour 2 after swapping, then mirror the top half
-    #     vertically and overlay it on a zero canvas.
-    swapped = switch(I, ONE, TWO)                                 # 1↔2 swap
-    mask2   = ofcolor(swapped, TWO)                               # keep only 2‑cells
-    top     = crop(mask2, (ZERO, ZERO), (divide(shape(swapped)[0], TWO),
-                                        shape(swapped)[1]))   # upper‑half mask
-    mirrored= vmirror(top)                                        # vertical mirror of the upper half
-    Z       = canvas(ZERO, shape(swapped))                       # zero canvas of original size
-    O1      = underfill(swapped, ZERO, mask2)                     # erase everything except the 2‑cells
-    O       = paint(Z, mirrored)                                 # paint the mirrored patch on a clean canvas
-    O       = paint(O, O1)                                        # overlay the original 2‑cells
+    # COLOR‑FILTERING WITH MASK + CROP
+    # Recolour 1→2, create a mask that is 2 in the upper half,
+    # keep the grid values only where the mask is 2,
+    # crop to the upper half and concatenate.
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    h, w = shape(G)
+    half = divide(h, TWO)
+    upper = canvas(TWO, (half, w))
+    lower = canvas(ZERO, (subtract(h, half), w))
+    mask = vconcat(upper, lower)                # 2 only in upper half
+    top_grid = cellwise(G, mask, ZERO)         # keep 2 where mask is 2, else 0
+    top_cropped = crop(top_grid, (ZERO, ZERO), (half, w))
+    O = vconcat(G, top_cropped)
     return O
 
 
 def dsl4(I):
-    # 4️⃣  Geometric reasoning: recolour, reflect the whole pattern
-    #     across the horizontal centre line and stack the reflection
-    #     below the original.
-    G       = switch(I, ONE, TWO)                                 # recolour 1 → 2
-    refl    = hmirror(G)                                          # horizontal mirror of the whole grid
-    O       = vconcat(G, refl)                                    # original + its horizontal mirror
+    # DIRECT CROP OF UPPER HALF
+    # Recolour 1→2, directly crop the upper half of the recoloured grid
+    # and append it beneath the original.
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    h, w = shape(G)
+    half = divide(h, TWO)
+    top = crop(G, (ZERO, ZERO), (half, w))      # upper half of the recoloured grid
+    O = vconcat(G, top)
     return O
 
 
 def dsl5(I):
-    # 5️⃣  Relational / structural: recolour, then duplicate every
-    #     cell that has a neighbour above it (i.e. the upper‑half cells)
-    #     by shifting the upper‑half set downwards.
-    G       = switch(I, ONE, TWO)                                 # recolour 1 → 2
-    upper   = ofcolor(G, TWO)                                    # all 2‑cells
-    above   = shift(upper, (NEG_ONE, ZERO))                      # cells one row above each 2‑cell
-    dup     = intersect(upper, above)                            # cells that have a 2‑cell directly above
-    shifted = shift(dup, (ONE, ZERO))                            # copy them one row lower
-    Z       = canvas(ZERO, shape(G))                             # zero canvas of original size
-    O1      = paint(Z, upper)                                    # paint original 2‑cells
-    O       = paint(O1, shifted)                                 # paint the duplicated lower cells
+    # RELATIONAL SHIFT‑AND‑CROP
+    # Recolour 1→2, shift the pattern left until the left‑most 2 touches the border,
+    # crop the upper half of the shifted grid and concatenate.
+    G = switch(I, ONE, TWO)                                          # 1 → 2
+    cols_with_2 = {c for (_, c) in ofcolor(G, TWO)}                # columns containing 2
+    leftmost = valmin(cols_with_2, lambda x: x)                     # leftmost such column
+    whole_obj = asobject(G)                                         # whole grid as object
+    shifted_obj = shift(whole_obj, (ZERO, -leftmost))                # shift left
+    shifted = paint(canvas(ZERO, shape(G)), shifted_obj)            # rebuilt shifted grid
+    h, w = shape(shifted)
+    half = divide(h, TWO)
+    top = crop(shifted, (ZERO, ZERO), (half, w))                    # upper half after shift
+    O = vconcat(G, top)
     return O
 ```
 

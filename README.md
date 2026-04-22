@@ -86,7 +86,7 @@ python analyze_results.py gpt gpt-5 training
 python view_task.py gpt gpt-5 training 90f3ed37
 python analyze_task.py gpt gpt-5 training 90f3ed37
 python view_dsl_graph.py gpt gpt-5 training
-python -m pytest -sv test_arc.py --mode= --provider=ollama --model=gpt-oss:120b-cloud
+python -m pytest -sv test_arc.py --mode=TDD --provider=ollama --model=gpt-oss:120b-cloud
 python analyze_results.py ollama gpt-oss_120b-cloud training
 ```
 

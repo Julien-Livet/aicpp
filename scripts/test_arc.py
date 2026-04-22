@@ -410,12 +410,46 @@ def outputPrograms(outputFile: str, pairs: list, step: str) -> list:
 
     return programs
 
+def process_dsl(pairs, dsl):
+    results = taskResults(dsl, pairs, "train")
+    df, outputs, tracebacks = results
+    
+    if (tracebacks or math.isnan(df[scoreColumns[-1]].sum(skipna = False))):
+        return None
+
+    l = []
+
+    for i in (0, 3, 2, 1):
+        l.append(df[scoreColumns[i]].sum())
+
+    return (dsl, tuple(l))
+
 def processTask(folder: str, task: str, withImages: bool = False,
-                initPrograms: list[tuple[float, str]] = [(math.nan, f"""def dsl{i+1}(I):\n    O = I\n    return O""") for i in range(0, PROGRAM_NUMBER)],
+                initPrograms: list[str] = None,
                 debug: bool = True) -> list:
     taskPairs = trainTestPairs(folder, task)
     trainPairs = inputOutputPairs(taskPairs[0])
     image_base64 = ""
+    dslMemoryFilename = f"data/{llmPath(llm)}/dsl_memory.pkl"
+
+    if (initPrograms is None):
+        import dsl_memory
+        
+        dsls = list(dsl_memory.load(dslMemoryFilename))
+
+        sortedDsls = []
+        
+        from concurrent.futures import ProcessPoolExecutor
+
+        with ProcessPoolExecutor() as executor:
+            sortedDsls = list(filter(lambda x: x, executor.map(process_dsl, [taskPairs[0]] * len(dsls), dsls)))
+
+        sortedDsls = sorted(sortedDsls, key = lambda x: (x[1], len(x[0]), x[0]))
+
+        while (len(sortedDsls) < PROGRAM_NUMBER):
+            sortedDsls.append(sortedDsls[-1])
+
+        initPrograms = [x[0] for x in sortedDsls[:5]]
 
     if (withImages and os.path.exists(f"data/{folder}/{task}.png")):
         with open(f"data/{folder}/{task}.png", "rb") as f:
@@ -423,7 +457,7 @@ def processTask(folder: str, task: str, withImages: bool = False,
 
     programs = []
 
-    for similarity, dsl in initPrograms:
+    for dsl in initPrograms:
         programs.append((dsl, taskResults(dsl, taskPairs[0], "train")))
 
     index = 0
@@ -483,6 +517,11 @@ def processTask(folder: str, task: str, withImages: bool = False,
                 command += "\n".join([str(x) for x in program[1][2]]) + "\n"
 
             command += "\n---\n\n"
+
+            if (not nanValues):
+                dsls = dsl_memory.load(dslMemoryFilename)
+                dsls.add(program[0])
+                dsl_memory.save(dsls, dslMemoryFilename)
 
         command += f"""The goal is to improve the {PROGRAM_NUMBER} DSL programs incrementally in two phases:
 
