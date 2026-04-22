@@ -81,12 +81,12 @@ docker run --rm aicpp
 cd scripts
 python -m pytest -sxv engine.py
 git clone https://github.com/michaelhodel/arc-dsl.git
-python -m pytest -sv test_arc.py --mode=TDD --provider=gpt --model=gpt-5
+python -m pytest -sv test_arc.py --mode=TDD --provider=gpt --model=gpt-5 --dslMemory=True
 python analyze_results.py gpt gpt-5 training
 python view_task.py gpt gpt-5 training 90f3ed37
 python analyze_task.py gpt gpt-5 training 90f3ed37
 python view_dsl_graph.py gpt gpt-5 training
-python -m pytest -sv test_arc.py --mode=TDD --provider=ollama --model=gpt-oss:120b-cloud
+python -m pytest -sv test_arc.py --mode=TDD --provider=ollama --model=gpt-oss:120b-cloud --dslMemory=True
 python analyze_results.py ollama gpt-oss_120b-cloud training
 ```
 
