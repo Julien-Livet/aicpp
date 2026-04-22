@@ -27,21 +27,25 @@ llm = ("gpt", "gpt-5")
 #llm = ("ollama", "gpt-oss:120b-cloud")
 
 TDD = False
+useDslMemory = False
 
 def llmPath(llm: tuple):
     return f"{llm[0]}/{llm[1].replace(':', '_')}"
 
 def test_arc(request):
-    global TDD, llm
+    global TDD, llm, useDslMemory
 
     mode = request.config.getoption("--mode")
     provider = request.config.getoption("--provider")
     model = request.config.getoption("--model")
+    dslMemory = request.config.getoption("--dslMemory")
 
     llm = (provider, model)
 
     if (mode == "TDD"):
         TDD = True
+
+    useDslMemory = (dslMemory == "True")
 
     for folder in ("training", "evaluation"):
         os.makedirs(f"data/{llmPath(llm)}/{folder}", exist_ok = True)
@@ -432,10 +436,13 @@ def processTask(folder: str, task: str, withImages: bool = False,
     image_base64 = ""
     dslMemoryFilename = f"data/{llmPath(llm)}/dsl_memory.pkl"
 
+    import dsl_memory
+            
     if (initPrograms is None):
-        import dsl_memory
-        
-        dsls = list(dsl_memory.load(dslMemoryFilename))
+        if (useDslMemory):
+            dsls = list(dsl_memory.load(dslMemoryFilename))
+        else:
+            dsls = {"def dsl(I):\n    O = I\n    return O", }
 
         sortedDsls = []
         
@@ -518,7 +525,7 @@ def processTask(folder: str, task: str, withImages: bool = False,
 
             command += "\n---\n\n"
 
-            if (not nanValues):
+            if (not nanValues and useDslMemory):
                 dsls = dsl_memory.load(dslMemoryFilename)
                 dsls.add(program[0])
                 dsl_memory.save(dsls, dslMemoryFilename)
