@@ -12,6 +12,13 @@ def dsl1(I):
     O = replace(I, 7, 5)
     return O
 ```
+training 1cf80156 test 0.0 0.0 0.0 0.0 0.0
+```python
+def dsl1(I):
+    # Global collapse: remove empty outer rows/columns
+    O = compress(I)
+    return O
+```
 training 68b16354 test 0.0 0.0 0.0 0.0 0.0
 ```python
 def dsl1(I):
@@ -186,20 +193,6 @@ def dsl1(I):
         both(equality(width(o),  w),     True))
     target = first(sfilter(objs, full_obj))
     return canvas(color(target), (1, 1))
-```
-training 1cf80156 test 0.0 0.0 0.0 0.0 0.0
-```python
-def dsl1(I):
-    # remove any fully‑zero rows/columns that surround the picture
-    O = trim(I)                 # strip outer empty rows/cols
-    O = compress(O)              # collapse any remaining empty fringe
-    return O
-
-
-# ----------------------------------------------------------------------
-# 2️⃣  OBJECT‑LEVEL EXTRACTION – crop to the bounding box of the
-#      most frequent non‑zero colour
-# ----------------------------------------------------------------------
 ```
 training 25ff71a9 test 0.0 0.0 0.0 0.0 0.0
 ```python
@@ -488,17 +481,20 @@ def dsl1(I):
 ```
 training 0b17323b train 0.0 6.0 0.022222222222222254 0.3999999999057191 6.4222222221279415
 ```python
-def dsl3(I):
-    # COLOR‑FILTERING – build the full main diagonal,
-    # keep only the part that is missing,
-    # and under‑paint it so that 2 fills the background only.
-    full_diag  = shoot(astuple(0, 0), subtract(shape(I), astuple(1, 1)))   # whole (0,0)→bottom‑right diagonal
-    ones       = ofcolor(I, 1)
-    last_one   = astuple(lowermost(ones), rightmost(ones))
-    existing   = shoot(astuple(0, 0), last_one)                         # diagonal that already exists
-    missing    = difference(full_diag, existing)                        # cells that must become 2
-    mask_obj   = recolor(2, missing)                                   # turn them into a 2‑object
-    O          = underpaint(I, mask_obj)                               # paint only where background is 0
+def dsl1(I):
+    O = I
+    return O
+```
+training 1478ab18 train 0.0 10.610201530069254 0.609375 0.0 11.219576530069254
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 90f3ed37 train 0.0 11.652228585557584 0.30666666666666664 0.027735009803569147 11.98663026202782
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 19bb5feb train 0.0 9.788656935474513 2.5 0.0 12.288656935474513
@@ -521,16 +517,6 @@ def dsl4(I):
                wu, initset((1, 1)))
     return O
 ```
-training 90f3ed37 train 0.0 12.679467196254514 0.5533333333333333 0.027735009803569147 13.260535539391416
-```python
-def dsl1(I):
-    # GLOBAL – shoot a horizontal ray to the right from every 8 and colour the
-    # first background cells it meets.
-    rays   = mapply(lambda p: shoot((p[0], p[1] + 1), (0, 1)), ofcolor(I, 8))
-    mask   = intersection(rays, ofcolor(I, 0))
-    O      = paint(I, recolor(1, mask))
-    return O
-```
 training 08ed6ac7 train 0.0 13.926143746267005 0.3456790123456791 0.0 14.271822758612686
 ```python
 def dsl5(I):
@@ -548,11 +534,45 @@ def dsl5(I):
     O = paint(I, merge(recolored))
     return O
 ```
+training 195ba7dc train 0.0 13.640812281839786 1.5666666666666667 0.0 15.207478948506452
+```python
+def dsl5(I):
+    # RELATIONAL DIFFERENCE – subtract the right side (including the bar) from the whole set of 7‑pixels.
+    twos      = ofcolor(I, 2)
+    cut_w     = leftmost(twos)
+    # whole set of 7‑pixels
+    all_sev   = ofcolor(I, 7)
+    # region on the right side (bar + everything to its right)
+    right_grid = crop(I, (0, cut_w), (height(I), subtract(width(I), cut_w)))
+    right_sev  = ofcolor(right_grid, 7)
+    # keep only those 7‑pixels that are not in the right region
+    left_sev   = difference(all_sev, right_sev)
+    O          = paint(canvas(0, (height(I), cut_w)), recolor(1, left_sev))
+    return O
+```
+training 18419cfa train 0.0 16.47213595499958 0.06534555109922757 0.0 16.537481506098807
+```python
+def dsl1(I):
+    O = I
+    return O
+```
 training 18286ef8 train 0.0 16.970562748477143 0.054027777777777675 0.0 17.02459052625492
 ```python
 def dsl1(I):
     # GLOBAL – direct colour substitution everywhere.
     O = replace(I, 6, 9)
+    return O
+```
+training 11e1fe23 train 0.0 17.602814689998944 0.0636363636363636 0.0 17.66645105363531
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1b60fb0c train 0.0 18.151738036178624 0.28 0.21213203428096425 18.64387007045959
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 178fcbfb train 0.0 18.908712114635712 0.26363636363636367 0.0 19.172348478272077
@@ -572,20 +592,36 @@ def dsl3(I):
 
     return O
 ```
-training 0d87d2a6 train 0.0 21.955665197466008 0.6532142857142857 0.0 22.608879483180292
+training 11dc524f train 0.0 19.184603507961064 0.07692307692307687 0.0 19.26152658488414
 ```python
-def dsl5(I):
-    # RELATIONAL – for every 1‑pixel generate its full vertical line,
-    # union all those lines, recolour any touching 2‑object.
-    verticals = merge(
-        apply(lambda p: combine(shoot(p, UP), shoot(p, DOWN)),
-              ofcolor(I, ONE)))
-    band = combine(ofcolor(I, ONE), verticals)
-    O = fill(I, ONE, band)
+def dsl3(I):
+    # COLOR‑FILTERING – compute the (gap‑1) offset with pure sign arithmetic.
+    obj2 = ofcolor(I, 2)
+    obj5 = ofcolor(I, 5)
 
-    twos = {obj for obj in fgpartition(O)
-            if color(obj) == TWO and adjacent(obj, ofcolor(O, ONE))}
-    O = fill(O, ONE, {(r, c) for obj in twos for (_, (r, c)) in obj})
+    h_raw = subtract(leftmost(obj5), rightmost(obj2))
+    v_raw = subtract(uppermost(obj5), lowermost(obj2))
+
+    h_dir = sign(h_raw)
+    v_dir = sign(v_raw)
+
+    h_gap = multiply(h_raw, h_dir)          # |h_raw|
+    v_gap = multiply(v_raw, v_dir)          # |v_raw|
+
+    h_step = branch(greater(h_gap, 0), decrement(h_gap), ZERO)
+    v_step = branch(greater(v_gap, 0), decrement(v_gap), ZERO)
+
+    shift_vec = astuple(multiply(v_step, v_dir), multiply(h_step, h_dir))
+
+    O = fill(I, 7, combine(obj2, obj5))          # background over both objects
+    O = fill(O, 2, shift(obj2, shift_vec))        # moved colour‑2
+    O = fill(O, 5, obj5)                         # restore colour‑5
+    return O
+```
+training 0d87d2a6 train 0.0 20.700105363302715 0.6061813186813186 0.0 21.306286681984034
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 025d127b train 0.0 23.96281913965828 0.09126984126984128 0.03004208839728021 24.0841310693254
@@ -644,6 +680,19 @@ def dsl3(I):
     O = paint(recoloured, toobject(border, I))             # restore border
     return O
 ```
+training 137eaa0f train 0.0 26.050499399249148 2.4444444444444446 0.0 28.49494384369359
+```python
+def dsl2(I):
+    # GLOBAL‑DOWN‑SCALE + ZERO‑FILL
+    trimmed = trim(I)
+    f = max(divide(height(trimmed), THREE), divide(width(trimmed), THREE))
+    raw = downscale(trimmed, f)                                 # 3×3, may contain zeros
+    maincol = argmax(
+        difference(palette(I), initset(ZERO)),
+        lambda c: colorcount(I, c))                             # most common non‑zero colour
+    O = replace(raw, ZERO, maincol)                             # fill zeros
+    return O
+```
 training 182e5d0f train 0.0 28.23562273367665 0.29477134925852877 0.0 28.53039408293518
 ```python
 def dsl3(I):
@@ -656,35 +705,62 @@ def dsl3(I):
     O      = fill(O0, 5, mask)                           # repaint them with colour 5
     return O
 ```
-training 15663ba9 train 0.0 40.09501112411194 0.3795822766976613 0.0 40.4745934008096
-```python
-def dsl1(I):
-    # GLOBAL EXTREME COLUMNS – colour the leftmost non‑zero column with 4
-    # and the rightmost non‑zero column with 2 (whole picture at once).
-    nz      = sfilter(asindices(I), lambda rc: index(I, rc) != 0)
-    left    = leftmost(nz)
-    right   = rightmost(nz)
-    left_m  = recolor(4, sfilter(nz, lambda rc: rc[1] == left))
-    right_m = recolor(2, sfilter(nz, lambda rc: rc[1] == right))
-    O = paint(I, left_m)
-    O = paint(O, right_m)
-    return O
-```
-training 1d61978c train 0.0 40.44994432064365 0.08984375 0.0 40.53978807064365
+training 1b59e163 train 0.0 28.881118916422295 0.15740740740740744 0.0 29.0385263238297
 ```python
 def dsl5(I):
-    # ROTATE‑180 REPLACE: rotate 180°, replace 5→8, rotate back.
-    O = rot180(replace(rot180(I), 5, 8))
+    # Relational – treat all coloured cells as a single patch, erase them,
+    # then shift the whole patch right by one horizontal period and paint the
+    # shifted cells with their original colours.
+    bg = 4
+    objs   = objects(I, False, False, True)                 # all coloured objects
+    patch  = {c for obj in objs for c in obj}               # union of their cells
+    p      = hperiod(patch)                                # basic horizontal period
+    O      = fill(I, bg, patch)                             # clear original coloured cells
+    shifted = shift(patch, (0, p))                          # move them one period to the right
+    O      = fill(O, bg, shifted)                           # place the shifted patch
+    O      = paint(O, toobject(shifted, I))                # restore the original colours
     return O
 ```
-training 1a07d186 train 0.0 40.31369723052605 0.15619256474519627 0.3327917501079515 40.8026815453792
+training 1d61978c train 0.0 31.15549442140351 0.2109375 0.0 31.36643192140351
 ```python
-def dsl4(I):
-    # GEOMETRIC – overlay the grid with its vertical mirror and keep only the
-    # intersecting cells (common part of original and mirror).
-    MIR      = vmirror(I)                                       # vertical mirror
-    INTER    = intersection(asobject(I), asobject(MIR))          # common cells
-    O        = paint(canvas(0, shape(I)), INTER)                # draw intersection
+def dsl1(I):
+    O = I
+    return O
+```
+training 137f0df0 train 0.0 34.911415961767126 1.24 0.2724744870428246 36.42389044880995
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1a07d186 train 0.0 36.47817131228487 0.11203007518796992 0.3279849992228211 36.91818638669566
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 14754a24 train 0.0 36.90300016727839 0.1566311612364245 0.0 37.05963132851482
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 15663ba9 train 0.0 37.831760318526534 0.3358739551047243 0.0 38.167634273631265
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 150deff5 train 0.0 38.72042633005687 0.6690656565656565 0.0 39.389491986622524
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 12eac192 train 0.0 38.72558815868272 1.017063492063492 0.0 39.74265165074621
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 0a2355a6 train 0.0 40.24140528443731 0.8668521954236239 0.0 41.10825747986094
@@ -712,36 +788,16 @@ def dsl4(I):
         merge([recolor(2, interior), recolor(1, border), recolor(3, singles)])
     )
 ```
+training 15113be4 train 0.0 41.39513950544653 0.056710775047258966 0.0 41.45185028049379
+```python
+def dsl1(I):
+    O = I
+    return O
+```
 training 09c534e7 train 0.0 42.05826595696517 0.2059567901234568 0.0 42.26422274708863
 ```python
 def dsl1(I):
-    # colour‑filtering: recolour 1‑cells that lie inside the bounding box
-    # of any colour > 1.
-    seeds   = sfilter(palette(I), lambda c: c > 1)                     # colours to use
-    boxes   = apply(lambda c: box(ofcolor(I, c)), seeds)              # their boxes
-    patches = prapply(lambda c, b: recolor(c,
-                                          intersection(b,
-                                                       ofcolor(I, 1))),
-                     seeds, boxes)                                    # colour the 1‑mask
-    O = paint(I, merge(patches))                                     # paint on top
-    return O
-```
-training 009d5c81 train 0.0 41.581064894786834 0.45408163265306123 0.740060442872642 42.77520697031253
-```python
-def dsl3(I):
-    # COLOR‑FILTER – select the 8‑object, decide colour from its interior,
-    # and wipe any 1‑pixel that lies strictly inside the object’s outline.
-    p8        = ofcolor(I, 8)
-    interior  = intersection(p8, shift(p8, UP))
-    interior  = intersection(interior, shift(p8, DOWN))
-    interior  = intersection(interior, shift(p8, LEFT))
-    interior  = intersection(interior, RIGHT)
-    col = branch(greater(size(interior), 0), 3,
-           branch(greater(size(p8), 50), 7, 2))
-    O = replace(I, 8, col)
-    # cells of colour 1 that are also inside the 8‑object’s outline
-    inside    = intersection(ofcolor(I, 1), p8)
-    O = cover(O, inside)
+    O = I
     return O
 ```
 training 00dbd492 train 0.0 42.68365161422002 0.6844662704003363 0.0 43.368117884620354
@@ -763,36 +819,42 @@ def dsl1(I):
     O = fill(O, 4, rest)
     return O
 ```
-training 14754a24 train 0.0 45.32515153339341 0.2296313700918965 0.0 45.5547829034853
+training 15696249 train 0.0 42.14943835511909 0.8888888888888888 0.5773502689628212 43.615677512970805
 ```python
-def dsl4(I):
-    # ----- GEOMETRIC – use vertical symmetry to locate the “mirrored” 5’s -----
-    # 1. mirror the whole grid vertically (around the horizontal centre)
-    mir = vmirror(I)
-
-    # 2. cells that are 5 both in the original and in the mirrored image
-    common5 = intersection(ofcolor(I, 5), ofcolor(mir, 5))
-
-    # 3. from those, select the ones that are also adjacent (Manhattan‑1) to a 4
-    fours   = ofcolor(I, 4)
-    neigh4  = combine(
-                combine(shift(fours, UP),    shift(fours, DOWN)),
-                combine(shift(fours, LEFT),  shift(fours, RIGHT)))
-    target = intersection(common5, neigh4)
-    return fill(I, 2, toobject(target, I))
+def dsl3(I):
+    # COLOR‑FILTERING: look at the palette of the middle row,
+    # pick any colour present and see if it occurs three times in the whole grid.
+    MID    = crop(I, (ONE, ZERO), (ONE, THREE))
+    COL    = first(palette(MID))                                 # some colour of the row
+    UNIF   = equality(colorcount(I, COL), THREE)                  # appears three times ?
+    OFF    = branch(UNIF, (THREE, ZERO), (ZERO, ZERO))
+    TILE   = hconcat(hconcat(I, I), I)
+    CANV   = canvas(ZERO, (9, 9))
+    O      = move(CANV, asobject(TILE), OFF)
+    return O
 ```
-training 150deff5 train 0.0 48.31235619842196 0.305050505050505 0.0 48.61740670347247
+training 13f06aa5 train 0.0 44.74143209076087 0.45379342879342877 0.0 45.19522551955429
 ```python
-def dsl4(I):
-    # GEOMETRIC REASONING (transpose → horizontal interior)
-    # Transpose the picture, find the interior of horizontal runs (≥3),
-    # then transpose back to obtain the vertical interiors in the original grid.
-    T           = cmirror(I)                                   # transpose
-    five_T      = ofcolor(T, 5)
-    horiz_int_T = intersection(intersection(five_T, shift(five_T, LEFT)),
-                               shift(five_T, RIGHT))         # interior of horizontal runs
-    spine       = cmirror(horiz_int_T)                         # back to original orientation
-    O = fill(replace(I, 5, 8), 2, spine)
+def dsl1(I):
+    O = I
+    return O
+```
+training 0becf7df train 0.0 45.72308974098779 0.57 0.0 46.29308974098779
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 14b8e18c train 0.0 48.2842712474619 0.31999999999999995 0.0 48.6042712474619
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1da012fc train 0.0 50.732859278766455 0.2028708133971292 0.0 50.935730092163595
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 0520fde7 train 9.0 12 27 3.0 51.0
@@ -805,6 +867,12 @@ def dsl4(I):
     base     = canvas(0, shape(I))        # empty canvas with original size
     painted  = fill(base, 2, mirrored)    # draw the mirrored outline in colour 2
     O = compress(painted)                  # crop to minimal occupied area
+    return O
+```
+training 045e512c train 0.0 51.42199198954002 0.20861678004535156 0.6444139582387098 52.27502272782408
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 03560426 train 0.0 52.41209026270125 0.59 0.5439477180475568 53.54603798074881
@@ -820,30 +888,32 @@ def dsl1(I):
 ```
 training 00d62c1b train 0.0 53.72587067194518 0.2930555555555556 0.0 54.018926227500735
 ```python
-def dsl2(I):
-    # 2 – projection intersection:
-    # all cells that lie both in the left‑projection of some 3
-    # and in the right‑projection of some 3 are exactly the cells
-    # that have a 3 on each side.  Intersect with the zero cells.
-    zeros = ofcolor(I, 0)
-    threes = ofcolor(I, 3)
-
-    left_proj  = merge(mapply(lambda p: shoot(p, LEFT),  threes))
-    right_proj = merge(mapply(lambda p: shoot(p, RIGHT), threes))
-
-    interior = intersection(zeros, intersection(left_proj, right_proj))
-    return fill(I, 4, toobject(interior, I))
+def dsl1(I):
+    O = I
+    return O
 ```
-training 14b8e18c train 0.0 54.63348191813314 0.44000000000000006 0.0 55.07348191813314
+training 0962bcdd train 0.0 54.33900150900391 0.33333333333333326 0.11785113016303571 54.79018597250027
 ```python
-def dsl5(I):
-    # RELATIONAL / STRUCTURAL – recolour cells that are sandwiched horizontally
-    # between two 6’s (a 6 on the left and a 6 on the right).
-    six      = ofcolor(I, 6)
-    left     = shift(six, LEFT)
-    right    = shift(six, RIGHT)
-    hpair    = intersection(left, right)                    # cells with a 6 on each side
-    O        = paint(I, recolor(2, hpair))
+def dsl1(I):
+    O = I
+    return O
+```
+training 070dd51e train 0.0 54.71991129788118 0.1466666666666666 0.0 54.866577964547844
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1c02dbbe train 0.0 55.526976727089995 0.8222222222222223 0.1276142374614607 56.47681318677368
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 0607ce86 train 0.0 57.07697654355131 0.2784721865749533 0.3123947131204499 57.66784344324671
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 0e206a2e train 0.0 58.0618056420016 0.16527777777777775 1.6217186728590014 59.84880209263838
@@ -864,21 +934,28 @@ def dsl2(I):
     O       = fill(step1, 4, backdrop({cen8}))           # place a 4 at the centre
     return O
 ```
-training 06df4c85 train 0.0 75.19861594555928 0.22879017013232505 0.0 75.42740611569161
+training 1b8318e3 train 0.0 61.10030564145592 0.2911111111111111 0.07071067810198808 61.462127430669014
 ```python
-def dsl2(I):
-    # OBJECT EXTRACTION – erase the rare‑colour objects and repaint them
-    # with the most common non‑background colour.
-    nonzero   = ofcolor(I, 0)                     # all non‑background cells
-    rare      = leastcolor(nonzero)               # colour that occurs the fewest
-    common    = mostcolor(nonzero)                # colour that occurs the most
-    objs      = objects(I, univalued=True,
-                       diagonal=False,
-                       without_bg=True)       # all colour‑uniform objects
-    rare_objs = colorfilter(objs, rare)           # keep only the rare ones
-    patch     = merge(apply(toindices, rare_objs))  # their cells as a patch
-    O = cover(I, patch)                           # erase them (set to 0)
-    O = paint(O, recolor(common, patch))          # recolour with common colour
+def dsl1(I):
+    O = I
+    return O
+```
+training 1bfc4729 train 0.0 66.71325041455275 1.0 0.3705501408540922 68.08380055540684
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 06df4c85 train 0.0 69.13704857008466 0.18610586011342156 0.0 69.32315443019809
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 103eff5b train 0.0 72.70966944691453 0.31993006993007 0.0 73.0295995168446
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 0e671a1a train 0.0 82.95565727721231 0.42603550295857995 0.0 83.3816927801709
@@ -902,27 +979,56 @@ def dsl1(I):
     paint = difference(combine(path_t, path_r), nz)
     return fill(I, 5, paint)
 ```
+training 05269061 train 0.0 80.93413937868704 2.326530612244898 0.4285714283549673 83.6892414192869
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1c56ad9f train 0.0 85.47030230553636 0.43008547008547005 0.138140602982528 86.03852837860437
+```python
+def dsl4(I):
+    # RELATIONAL – generate a regular lattice (spacing 2) inside the
+    # interior and unite it with the original coloured cells.
+    C        = mostcolor(I)
+    frm      = ofcolor(I, C)
+    interior = delta(frm)
+
+    ul = ulcorner(interior)
+    lr = lrcorner(interior)
+
+    rows = interval(add(ul[0], 2), lr[0] + 1, 2)
+    cols = interval(add(ul[1], 2), lr[1] + 1, 2)
+    lattice = product(rows, cols)                     # set of (r,c) points
+
+    core = intersection(interior, ofcolor(I, C))
+    pattern = intersection(combine(core, lattice), interior)
+
+    O = fill(I, C, pattern)
+    return O
+```
 training 18447a8d train 0.0 84.97320659876738 1.0941999177293296 0.0 86.0674065164967
 ```python
-def dsl3(I):
-    # ---------- 3. Bounding‑box sub‑grid cycle ----------
-    # extract every non‑background component, apply the global
-    # 9‑1‑3 cycle inside its minimal rectangle and paste back
-    objs = {o for o in objects(I,
-                               univalued=False,
-                               diagonal=False,
-                               without_bg=True)
-            if color(o) in {9, 1, 3}}
+def dsl1(I):
     O = I
-    for o in objs:
-        sub = subgrid(o, I)                # smallest rectangle containing o
-        # global cycle on the sub‑grid (same as dsl1 but without placeholders)
-        sub0 = replace(sub, 9, 0)
-        sub1 = replace(sub0, 1, 9)
-        sub2 = replace(sub1, 3, 1)
-        subc = replace(sub2, 0, 3)
-        # put the transformed rectangle back, overwriting only the cells of o
-        O = paint(O, toobject(o, subc))
+    return O
+```
+training 12422b43 train 0.0 85.69591093921868 0.8512393162393164 1.0084762804494918 87.55562653590746
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 17b80ad2 train 0.0 92.664692303632 0.4639862674388703 0.1809856641470599 93.30966423521792
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1d398264 train 0.0 92.35225542535714 0.5563888888888888 0.9614569143926276 93.87010122863866
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 184a9768 train 0.0 94.3501067717822 0.7226406926406928 0.5674316208684692 95.64017908529135
@@ -953,32 +1059,28 @@ def dsl1(I):
     O = paint(I, merge(recoloured))
     return O
 ```
-training 1d398264 train 0.0 97.75526156090751 0.7141666666666666 0.8399209142078068 99.30934914178201
+training 009d5c81 train 0.0 107.51831060398987 0.729591836734694 0.740060442872642 108.9879628835972
 ```python
 def dsl1(I):
-    # DIAGONAL‑TO‑CORNER – for each coloured cell draw a line to the
-    # nearest corner (Manhattan distance) and keep the original cells.
-    h      = decrement(height(I))
-    w      = decrement(width(I))
-    corners = {(0,0), (0,w), (h,0), (h,w)}
-
-    # nearest corner of a point p
-    nearest = lambda p: argmin(corners,
-                              lambda c: add(abs(p[0]-c[0]), abs(p[1]-c[1])))
-    # segment from p to its nearest corner
-    segment = lambda p: connect(p, nearest(p))
-
-    cells   = merge(apply(lambda c: ofcolor(I, c),
-                    difference(palette(I), {0})))
-    segs    = merge(apply(segment, cells))
-    O       = paint(I, asobject(segs))
+    O = I
     return O
 ```
-training 18419cfa train 0.0 101.70025937952066 2.488784907902555 0.45155464636892795 104.64059893379215
+training 1190bc91 train 0.0 106.58896493989263 2.005 0.40784271226413354 109.00180765215676
 ```python
-def dsl4(I):
-    # fill the background (colour 0) with 2 using underfill
-    O = underfill(I, 2, ofcolor(I, 0))
+def dsl1(I):
+    O = I
+    return O
+```
+training 0a938d79 train 0.0 113.59451997931947 1.2373537706255098 1.1157453863965838 115.94761913634156
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 1c0d0a4b train 0.0 117.7436851552917 1.3213675213675213 0.03589790791800031 119.10095058457725
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 10fcaaa3 train 0.0 126.26983536659347 1.3958333333333333 0.11840169937862338 127.78407039930545
@@ -997,46 +1099,30 @@ def dsl3(I):
 
     return underpaint(BG, coloured)
 ```
-training 17b80ad2 train 0.0 133.4535961175839 0.9657887055506736 0.2025539178992487 134.62193874103383
-```python
-def dsl4(I):
-    # GEOMETRIC – mirror the picture first horizontally, then vertically (full 180° flip by composition).
-    O = vmirror(hmirror(I))
-    return O
-```
-training 15113be4 train 0.0 140.56177859032198 0.616257088846881 0.0 141.17803567916886
+training 13713586 train 0.0 155.57454828152072 1.095242214532872 0.0 156.66979049605357
 ```python
 def dsl1(I):
-    # GLOBAL‑REPLACE: replace every 1 with the most frequent non‑{0,1,4} colour.
-    other = sfilter(palette(I), lambda c: c not in {0, 1, 4})
-    main  = argmax(other, lambda c: colorcount(I, c))
-    O = replace(I, 1, main)
+    O = I
     return O
 ```
-training 045e512c train 0.0 156.20270090434946 1.764172335600907 0.42906703040803207 158.39594027035838
+training 0f63c0b9 train 0.0 226.687984517288 1.6888888888888887 0.7257928913524146 229.10266629752925
 ```python
-def dsl5(I):
-    # LOWER‑LEFT‑CORNER anchoring replication of the whole pattern.
-    #   – Upscale the whole coloured pattern 2×.
-    #   – Use the lower‑left corner of the enlarged pattern as the anchor.
-    #   – Paste a copy anchored at every original non‑zero cell.
-    whole   = merge(objects(I, F, F, T))
-    sub     = subgrid(backdrop(whole), I)
-    big     = upscale(sub, TWO)
-    anchor  = llcorner(asobject(big))
-    anchors = merge(apply(lambda c: ofcolor(I, c), palette(I)))   # all coloured cells
-    copies  = apply(lambda p: shift(asobject(big), subtract(p, anchor)), anchors)
-    O = paint(canvas(0, shape(I)), merge(copies))
+def dsl1(I):
+    O = I
     return O
 ```
-training 05a7bcf2 train 0.0 321.5656372004054 1.0755555555555554 0.27105759942289875 322.91225035538383
+training 05a7bcf2 train 0.0 314.7205663211121 0.8222222222222223 0.28284271244128567 315.8256312557756
 ```python
-def dsl3(I):
-    # COLOR‑FILTERING – replace colours then add neighbour cells.
-    O = replace(I, 8, 4)                         # 8 → 4 (left cell)
-    O = fill(O, 4, shift(ofcolor(I, 8), (0, 1))) # right neighbour of 8 → 4
-    O = replace(O, 2, 8)                         # 2 → 8 (left cell)
-    O = fill(O, 3, shift(ofcolor(I, 2), (0, 1))) # right neighbour of 2 → 3
+def dsl1(I):
+    O = I
+    return O
+```
+training 12997ef3 train 24.922336414692815 216 94 3.5352443237113573 338.4575807384042
+```python
+def dsl4(I):
+    # GEOMETRIC – mirror vertically, rotate 90°, erase colour 1,
+    # then compress, down‑scale, repeat rows three times, trim.
+    O = trim(vupscale(downscale(switch(rot90(vmirror(compress(I))), 1, 0), 2), 3))
     return O
 ```
 training 1c786137 train 24.476215473033584 353 146 2.176872136536147 525.6530876095698
@@ -1047,6 +1133,18 @@ def dsl2(I):
     smallest  = argmin(objs, lambda o: size(o))               # object with fewest cells
     sub       = subgrid(smallest, I)                         # its minimal bounding box
     O         = hmirror(sub)                                 # horizontal mirror
+    return O
+```
+training 1990f7a8 train 18.55638278750559 38 523 0.7084372748646549 580.2648200623702
+```python
+def dsl4(I):
+    # ROTATION‑BASED CROPPING
+    # Rotate the whole grid 90° clockwise, then crop tightly around the 2‑cells
+    # of the rotated picture and trim the result.
+    rot     = rot90(I)                    # rotate clockwise
+    patch   = ofcolor(rot, 2)
+    sub     = subgrid(patch, rot)         # bounding box in the rotated view
+    O       = trim(sub)
     return O
 ```
 training c909285e train 20.67017498218515 245 362 0.9525102180569394 628.622685200242
@@ -1065,6 +1163,18 @@ def dsl1(I):
     tile    = crop(O1, anchor, astuple(vp, hp))     # fundamental tile
     fillcol = mostcolor(tile)                       # dominant colour inside the tile
     O       = replace(tile, 0, fillcol)             # restore background with that colour
+    return O
+```
+training d10ecb37 train 24.91246523799996 469 184 1.7679474862916247 679.6804127242917
+```python
+def dsl1(I):
+    O = I
+    return O
+```
+training 0bb8deee train 32.28320249797487 156 651 1.1651349688638812 840.4483374668387
+```python
+def dsl1(I):
+    O = I
     return O
 ```
 training 1be83260 train 3.6502815398728847 260 684 0.09348288734108055 947.7437644272139
@@ -1095,35 +1205,6 @@ def dsl5(I):
     hsize    = branch(equality(hsize,   ZERO), shape(I)[1], hsize)
     O        = canvas(dom, (vsize, hsize))
     return O
-```
-training 0a938d79 train 3.414213562373095 206.87817782917153 1157.5 0.4123281420588456 1368.2047195336036
-```python
-def dsl1(I):
-    # ── GLOBAL‑TRANSFORM ──  compress → pattern → tile both axes
-    slice_ = compress(I)                                   # tight bounding box
-    objs   = objects(slice_, False, False, True)           # objects already relative
-    hb, wb = height(slice_), width(slice_)
-
-    base = canvas(0, (hb, wb))
-
-    rows_pat = merge(apply(
-        lambda o: fill(base,
-                       color(o),
-                       {(r, c) for (r, c) in asindices(base)
-                        if r == center(o)[0]}),
-        objs))
-
-    cols_pat = merge(apply(
-        lambda o: fill(base,
-                       color(o),
-                       {(r, c) for (r, c) in asindices(base)
-                        if c == center(o)[1]}),
-        objs))
-
-    pat = branch(greater(hb, wb), rows_pat, cols_pat)      # orientation by aspect
-    tmp = vupscale(pat, divide(height(I), hb))             # repeat vertically
-    result = hupscale(tmp, divide(width(I), wb))            # repeat horizontally
-    return result
 ```
 training 15660dd6 train 9.857300762134084 1213 287 0.23639329961725675 1510.0936940617516
 ```python
@@ -1156,141 +1237,10 @@ def dsl2(I):
     O   = crop(trimmed, ORIGIN, (vp, hp)) # tile of the trimmed picture
     return O
 ```
-training 05269061 train nan nan nan nan nan
+training 0a1d4ef5 train 115.26483304570058 6458 2724 2.4825571952410286 9299.747390240942
 ```python
 def dsl1(I):
-    # GLOBAL‑TILE:  build a 3×3 colour prototype from the three colours
-    # (ordered by centre‑of‑mass) and repeat it over the whole grid.
-    objs = objects(I, univalued=True, diagonal=False, without_bg=True)
-
-    sum_of = lambda o: add(centerofmass(o)[0], centerofmass(o)[1])
-    o0 = argmin(objs, sum_of)
-    o1 = argmin(difference(objs, {o0}), sum_of)
-    o2 = argmin(difference(objs, {o0, o1}), sum_of)
-
-    c0 = color(o0); c1 = color(o1); c2 = color(o2)
-
-    # all coordinates of a 3×3 square
-    proto_coords = combine(
-        apply(lambda r: apply(lambda c: (r, c), interval(0, 3, 1)),
-        interval(0, 3, 1))
-
-    # masks for (r+c) % 3 == 0,1,2  (using equality with both possible sums)
-    mk0 = merge(apply(
-        lambda rc: branch(either(equality(add(rc[0], rc[1]), 0),
-                           equality(add(rc[0], rc[1]), 3)),
-                       initset(rc), set()),
-        proto_coords))
-
-    mk1 = merge(apply(
-        lambda rc: branch(either(equality(add(rc[0], rc[1]), 1),
-                           equality(add(rc[0], rc[1]), 4)),
-                       initset(rc), set()),
-        proto_coords))
-
-    mk2 = merge(apply(
-        lambda rc: branch(either(equality(add(rc[0], rc[1]), 2),
-                           equality(add(rc[0], rc[1]), 5)),
-                       initset(rc), set()),
-        proto_coords))
-
-    obj0 = recolor(c0, mk0)
-    obj1 = recolor(c1, mk1)
-    obj2 = recolor(c2, mk2)
-
-    empty = canvas(0, (3, 3))
-    proto = paint(paint(paint(empty, obj0), obj1), obj2)
-
-    # tile the prototype
-    row_offs = interval(0, height(I), 3)
-    col_offs = interval(0, width(I), 3)
-    anchors = merge(apply(lambda r: apply(lambda c: (r, c), col_offs), row_offs))
-
-    tiled = apply(lambda off: paint(empty, shift(proto, off)), anchors)
-    O = merge(tiled)
-    return O
-```
-training 0607ce86 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # RELATIONAL – replace each non‑zero, non‑8 row by the most frequent such row
-    zero_row = repeat(0, width(I))
-    rows         = apply(identity, I)                                   # all rows as tuples
-    cand_rows    = mfilter(rows, lambda r: any(c != 0 and c != 8 for c in r))
-    most_common  = mostcommon(cand_rows)                                 # the prototype row
-    O = apply(
-        lambda r: r if any(c == 8 for c in r) else                      # keep rows that contain 8
-                 (most_common if any(c != 0 for c in r) else zero_row), # replace others
-        I)
-    return O
-```
-training 070dd51e train nan nan nan nan nan
-```python
-def dsl1(I):
-    # Object‑level: each non‑background object appears exactly twice.
-    # Connect its two cells with a straight Manhattan segment,
-    # drawing colors in ascending order so later (higher) colors overwrite.
-    C = order(
-            mfilter(palette(I), lambda c: colorcount(I, c) == 2),
-            lambda c: c)                                 # low → high
-    G = canvas(0, shape(I))
-    _ = apply(
-            lambda c:
-                fill(
-                    G, c,
-                    connect(
-                        argmin(corners(toobject(ofcolor(I, c), I)),
-                                lambda p: p[0] + p[1]),
-                        argmax(corners(toobject(ofcolor(I, c), I)),
-                                lambda p: p[0] + p[1]))
-                ),
-            C)
-    return G
-```
-training 0962bcdd train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL PERIODIC TILING OF THE MINIMAL NON‑ZERO PATTERN
-    prim = argmax(difference(palette(I), initset(0)),
-                  lambda c: colorcount(I, c))
-    sec0 = other(difference(palette(I), initset(0)), prim)
-    sec  = branch(equality(sec0, initset(0)), SIX, sec0)
-
-    # minimal pattern (all non‑zero cells)
-    pat   = combine(ofcolor(I, prim), ofcolor(I, sec0))
-
-    # horizontal / vertical periods of that pattern
-    hp    = hperiod(pat)
-    vp    = vperiod(pat)
-
-    # all shifts that tile the whole canvas
-    hs    = interval(0, width(I), hp)
-    vs    = interval(0, height(I), vp)
-
-    # shifted copies of the pattern
-    shifted = mapply(lambda dv, dh: shift(pat, (dv, dh)), vs, hs)
-
-    # union of all copies
-    tiled = merge(shifted)
-
-    O = canvas(0, shape(I))
-    O = fill(O, prim, ofcolor(tiled, prim))
-    O = fill(O, sec , ofcolor(tiled, sec))
-    return O
-```
-training 0a1d4ef5 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # ---------- Global colour‑frequency ----------
-    # 1. Identify the background colour.
-    # 2. Take all other colours.
-    # 3. Count how many cells each colour occupies.
-    # 4. Sort the counts descending and return them as a tuple.
-    bg       = mostcolor(I)
-    cols     = difference(palette(I), initset(bg))
-    cnts     = apply(lambda c: colorcount(I, c), cols)
-    sorted_c = order(cnts, lambda n: -n)
-    O = totuple(sorted_c)
+    O = I
     return O
 ```
 training 0b148d64 test nan nan nan nan nan
@@ -1303,554 +1253,4 @@ def dsl1(I):
     target   = first(sfilter(new_cols, lambda c: c != 0))
     O        = subgrid(ofcolor(I, target), I)
     return O
-```
-training 0bb8deee train nan nan nan nan nan
-```python
-def dsl1(I):
-    # colour that forms a full‑height or full‑width line (the separator)
-    sep = extract(palette(I),
-                  lambda c: either(equality(height(box(ofcolor(I, c))), height(I)),
-                                 equality(width(box(ofcolor(I, c))),  width(I)))
-    # erase the separator
-    cleaned = replace(I, sep, 0)
-
-    # bring the internal zero column to a border, compress, bring it back;
-    # then do the same for a possible internal zero row.
-    step1 = vmirror(cleaned)                     # vertical mirror
-    step2 = compress(step1)                      # remove outer zero columns
-    step3 = vmirror(step2)                       # restore orientation
-    step4 = hmirror(step3)                        # horizontal mirror
-    step5 = compress(step4)                      # remove outer zero rows
-    step6 = hmirror(step5)                       # restore orientation
-
-    O = trim(step6)                              # final border cleanup
-    return O
-
-
-# ----------------------------------------------------------------------
-# 2️⃣  Object‑extraction & side‑by‑side concatenation
-# ----------------------------------------------------------------------
-```
-training 0becf7df train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – cascade two global colour‑swaps with SWITCH
-    C   = palette(I) - {ZERO}
-    a1  = valmax(C, lambda c: colorcount(I, c))
-    r1  = difference(C, initset(a1))
-    a2  = branch(equality(size(r1), ZERO), ZERO,
-                 lambda: valmax(r1, lambda c: colorcount(I, c)))
-    r2  = difference(r1, initset(a2))
-    a3  = branch(equality(size(r2), ZERO), ZERO,
-                 lambda: valmax(r2, lambda c: colorcount(I, c)))
-    r3  = difference(r2, initset(a3))
-    a4  = branch(equality(size(r3), ZERO), ZERO,
-                 lambda: valmax(r3, lambda c: colorcount(I, c)))
-    O1 = switch(I, a1, a2)          # first most‑frequent pair
-    O  = switch(O1, a3, a4)         # second most‑frequent pair
-    return O
-```
-training 0f63c0b9 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – each row gets the colour of its nearest seed row.
-    # Seed rows and the two border rows become completely filled,
-    # all other rows keep only the two border cells.
-    H = height(I); W = len(I[0])
-    S = fgpartition(I)                                      # seed objects
-
-    r   = lambda o: first(toindices(o))[0]                 # row of a seed
-    col = lambda y: color(argmin(S, lambda o: abs(r(o)-y)))  # nearest‑seed colour
-
-    rows      = interval(0, H, 1)                           # all row indices
-    full_rows = combine(combine(apply(r, S), initset(0)), initset(H-1))
-
-    full_patch = lambda y: shift(connect((0, 0), (0, W-1)), (y, 0))
-    edge_patch = lambda y: frozenset({(y, 0), (y, W-1)})
-
-    full_objs = apply(lambda y: recolor(col(y), full_patch(y)), full_rows)
-    edge_objs = apply(lambda y: recolor(col(y), edge_patch(y)), rows)
-
-    O = paint(canvas(0, (H, W)), combine(full_objs, edge_objs))
-    return O
-```
-training 103eff5b train nan nan nan nan nan
-```python
-def dsl1(I):
-    # SCALE‑AND‑CLIP – scale the visible template to the mask size
-    # and keep only the cells that lie inside the original 8‑mask.
-    region8 = ofcolor(I, 8)
-    box8    = backdrop(region8)
-
-    tmpl_objs = {o for o in objects(I, False, True, True) if color(o) != 8}
-    tmpl      = merge(tmpl_objs)
-    box_tmpl  = backdrop(tmpl)
-    tmpl_grid = subgrid(box_tmpl, I)
-
-    vfac = divide(height(box8), height(box_tmpl))
-    hfac = divide(width (box8), width (box_tmpl))
-
-    scaled    = hupscale(vupscale(tmpl_grid, vfac), hfac)
-    scaledobj = toobject(asindices(scaled), scaled)
-
-    # keep only the part that coincides with the mask
-    inside    = intersection(toindices(scaledobj), region8)
-    clipped   = asobject(inside, scaled)
-
-    cleared = cover(I, region8)
-    O = paint(cleared, clipped)
-    return O
-```
-training 1190bc91 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # STRUCTURAL REASONING – fill both diagonals of every coloured cell.
-    # Directions for the four diagonal rays.
-    dr  = astuple( 1,  1)   # down‑right
-    ul  = astuple(-1, -1)   # up‑left
-    dl  = astuple( 1, -1)   # down‑left
-    ur  = astuple(-1,  1)   # up‑right
-
-    # All indices of the input grid.
-    all_idx = asindices(I)
-
-    # For each index, produce the union of the four diagonal rays that
-    # pass through it (including the index itself).
-    def diag_union(p):
-        return union(
-                union(shoot(p, dr), shoot(p, ul)),
-                union(shoot(p, dl), shoot(p, ur))
-        )
-
-    # Apply the above to every coloured cell (value > 0) and collect the
-    # coloured points together with their original colour.
-    coloured = apply(lambda p: recolor(index(I, p), diag_union(p)),
-                     difference(all_idx, ofcolor(I, 0)))
-
-    # Start from a blank canvas and paint every coloured point.
-    O = paint(canvas(0, shape(I)), colored_union(coloured))
-    return O
-```
-training 11dc524f train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – clear both objects, then paint the moved 2 and the unchanged 5.
-    obj2 = ofcolor(I, 2)
-    obj5 = ofcolor(I, 5)
-
-    # direction from 2 to 5 (unit vector)
-    dir_vec = gravitate(obj2, obj5)
-
-    # raw gaps on each axis
-    h_raw = subtract(leftmost(obj5), rightmost(obj2))
-    v_raw = subtract(uppermost(obj5), lowermost(obj2))
-
-    # total Manhattan gap
-    gap = add(multiply(h_raw, sign(h_raw)),
-               multiply(v_raw, sign(v_raw)))
-
-    # distance to move (gap‑1, but not negative)
-    shift_len = branch(greater(gap, 0), decrement(gap), ZERO)
-    shift_vec = multiply(dir_vec, shift_len)
-
-    # erase both objects, then repaint 5 and the shifted 2
-    O = cover(I, combine(obj2, obj5))                 # background where the two objects were
-    O = paint(O, shift(obj2, shift_vec))              # moved colour‑2
-    O = paint(O, obj5)                               # original colour‑5
-    return O
-```
-training 11e1fe23 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # Global – use the full grid dimensions to locate the centre,
-    # then shift every non‑zero cell two steps toward that centre.
-    h, w = shape(I)
-    rc0 = halve(h)
-    rc = subtract(rc0, branch(even(rc0), 0, 1))
-    cc = halve(w)                                   # floor‑mid column
-    nz = difference(asindices(I), ofcolor(I, 0))
-    def mover(p):
-        v  = index(I, p)
-        dr = multiply(sign(subtract(rc, p[0])), 2)
-        dc = multiply(sign(subtract(cc, p[1])), 2)
-        np = add(p, astuple(dr, dc))
-        return (v, np)
-    O = paint(I, apply(mover, nz))
-    O = recolor(5, {(rc, cc)})
-    return O
-```
-training 12422b43 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # OBJECT‑EXTRACTION – rows that contain colour 5 are cleared and tiled vertically
-    anchor      = ofcolor(I, 5)                                            # cells with colour 5
-    rows_set    = { r for r,_ in anchor }                                 # row indices that hold a 5
-    rows_cells  = product(rows_set, interval(ZERO, width(I), ONE))          # full‑width cells of those rows
-    cleared     = recolor(0, anchor)                                      # erase the 5s
-    I0          = paint(I, cleared)                                       # grid with the block cleared
-    pattern_o   = asobject(subgrid(rows_cells, I0))                        # cleared rows as an object
-
-    nz          = difference(asindices(I), ofcolor(I, 0))                  # all non‑zero cells in the original
-    max_nz_row = valmax(nz, lambda p: p[0])                                 # lowest occupied row
-    empty_rows  = subtract(height(I), add(max_nz_row, ONE))                 # rows still empty at the bottom
-    repeat_cnt  = divide(empty_rows, size(rows_set))                       # how many full copies fit
-
-    # vertical offsets for the copies (skip the original block)
-    offsets = mapply(lambda i: astuple(multiply(add(i, ONE), size(rows_set)), ZERO),
-                     interval(ZERO, repeat_cnt, ONE))
-    tiled   = merge(mapply(lambda off: shift(pattern_o, off), offsets))
-
-    O = paint(I, tiled)                                                    # overlay the tiled block
-    return O
-```
-training 12997ef3 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – erase colour 1, compress, down‑scale, repeat rows three times, trim.
-    O = trim(vupscale(downscale(switch(compress(I), 1, 0), 2), 3)
-    return O
-```
-training 12eac192 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – keep colours that appear at least 6 times, everything else → 3
-    cols   = palette(I)                                         # all colours present
-    keep_c = {c for c in cols if greater(colorcount(I, c), FIVE)}  # frequent colours
-    keep   = merge(apply(lambda c: ofcolor(I, c), keep_c)        # their cells
-    rest   = difference(asindices(I), keep)                     # all other cells
-    return fill(I, THREE, rest)
-```
-training 13713586 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # RECTANGLE‑FILL: replace each interior object by the rectangle of its bounding box,
-    # clipped to stay inside the dominant border colour.
-    BG   = mostcommon(I)
-    CAN  = canvas(BG, shape(I))
-    CLS  = difference(palette(I), initset(BG))
-    BC   = argmax(CLS, lambda c: size(ofcolor(I, c)))          # colour of the solid border
-    B    = ofcolor(I, BC)                                     # border cells
-    OBJ  = objects(I, False, False, True)                     # all coloured objects
-    BOBJ = colorfilter(OBJ, BC)                               # border object(s)
-    OTH  = difference(OBJ, BOBJ)                             # interior objects
-    RCT  = apply(lambda o:
-                 recolor(
-                     color(o),
-                     difference(
-                         backdrop(combine(toindices(o), B)),
-                         B)),
-                 OTH)
-    O    = underpaint(CAN, merge(RCT))
-    return O
-```
-training 137eaa0f train nan nan nan nan nan
-```python
-def dsl1(I):
-    # COLOR‑BLOCK‑MAJORITY (non‑zero fallback to 0)
-    f = max(divide(height(I), THREE), divide(width(I), THREE))
-
-    block = lambda r, c: crop(I, (multiply(r, f), multiply(c, f)), (f, f)
-
-    cell = lambda r, c: branch(
-        equal(size(difference(palette(block(r, c)), initset(ZERO))), ZERO,
-        argmax(
-            difference(palette(block(r, c)), initset(ZERO)),
-            lambda col: colorcount(block(r, c), col)))
-    rows = apply(
-        lambda r: tuple(apply(lambda c: cell(r, c),
-                             interval(ZERO, THREE, ONE)),
-        interval(ZERO, THREE, ONE))
-    O = tuple(rows)
-    return O
-```
-training 137f0df0 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – compress the empty border, rotate, work on the rotated view,
-    # fill the interior of the least‑frequent colour (the lattice),
-    # add the outer‑corner mask, rotate back and merge with the original.
-    C   = leastcolor(I)                                 # colour that forms the lattice
-    CMP = compress(I)                                   # strip empty outer border
-    R90 = rot90(CMP)                                    # turn picture 90° clockwise
-    OBJ = ofcolor(R90, C)                               # lattice cells in rotated view
-    BBOX   = backdrop(OBJ)                              # bounding box of the lattice
-    INSIDE = difference(BBOX, OBJ)                      # cells inside the box but not lattice
-    R1 = fill(R90, 2, INSIDE)                          # colour 2 the interior
-    ROWS = merge(apply(lambda p: shoot((p[0], 0), RIGHT), OBJ))
-    COLS = merge(apply(lambda p: shoot((0, p[1]), DOWN),  OBJ))
-    ONE  = intersection(
-              difference(R90, ROWS),
-              intersection(difference(R90, COLS), backdrop(COLS))
-           )                                            # outer‑corner mask
-    R2 = fill(R1, 1, ONE)                              # colour 1 the corners
-    O_rot = rot270(R2)                                  # undo the rotation
-    O = combine(I, O_rot)                               # keep original lattice cells
-    return O
-```
-training 13f06aa5 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # Global – repeat the horizontal pattern of the most frequent colour across the whole grid.
-    bg      = mostcolor(I)
-    obj     = ofcolor(I, {bg})
-    period  = hperiod(obj)                     # smallest horizontal repeat length
-    pat     = crop(I, (0, 0), (height(I), period))
-    factor  = divide(width(I), period)         # integer scaling factor
-    O       = hupscale(pat, factor)
-    return O
-```
-training 1478ab18 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – build the rectangle with interval/merge instead of backdrop
-    five        = ofcolor(I, 5)                                 # cells = {(r,c)...}
-    rows        = {r for r, _ in five}
-    cols        = {c for _, c in five}
-    rmin        = valmin(rows, lambda x: x)                      # topmost row
-    rmax        = valmax(rows, lambda x: x)                      # bottommost row
-    cmin        = valmin(cols, lambda x: x)                      # leftmost column
-    cmax        = valmax(cols, lambda x: x)                      # rightmost column
-    all_rows    = interval(rmin, rmax + ONE, ONE)                # all rows inside bbox
-    rect_cells  = merge(apply(lambda r: shoot((r, cmin), RIGHT), all_rows)  # full rectangle
-    O1          = fill(I, 8, rect_cells)                        # colour rectangle 8
-    O           = paint(O1, toobject(five, O1))                  # restore the 5s
-    return O
-```
-training 15696249 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL‑TRANSFORMATION: split rows, pick the middle one, test uniformity,
-    # tile the whole input horizontally and place it either at top or centre.
-    ROWS   = vsplit(I, THREE)                                    # three 1×3 rows
-    MID    = apply(lambda g: g[ONE], ROWS)                        # the middle row
-    UNIF   = equality(size(palette(MID)), ONE)                    # all three equal ?
-    OFF    = branch(UNIF, (THREE, ZERO), (ZERO, ZERO))           # centre or top
-    TILE   = hconcat(hconcat(I, I), I)                             # 3‑times side‑by‑side
-    CANV   = canvas(ZERO, (9, 9))
-    O      = move(CANV, asobject(TILE), OFF)
-    return O
-```
-training 195ba7dc train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL VERTICAL SPLIT – split the grid at the 2‑bar and keep the left half.
-    twos   = ofcolor(I, 2)
-    cut_w  = leftmost(twos)                                 # column where the bar starts
-    left   = first(vsplit(I, cut_w))                        # left sub‑grid obtained by a vertical split
-    sev    = ofcolor(left, 7)                               # 7‑pixels inside the left part
-    O      = paint(canvas(0, shape(left)), recolor(1, sev))
-    return O
-```
-training 1990f7a8 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL‑VERTICAL‑PERIOD DOWNSCALING
-    # Detect the vertical repetition period of the 2‑colored cells,
-    # downscale the whole picture by that factor and trim empty borders.
-    patch   = ofcolor(I, 2)
-    obj     = toobject(patch, I)
-    period  = vperiod(obj)                # vertical period of the pattern
-    O       = trim(downscale(I, period))
-    return O
-```
-training 1b59e163 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # Global – mirror the left half of the picture onto the right half.
-    bg = 4
-    L = lefthalf(I)               # left‑hand side sub‑grid
-    M = vmirror(L)                # its horizontal mirror (appears on the right side)
-    O = fill(I, bg, L)            # erase coloured cells that were on the left
-    O = underfill(O, bg, M)       # paste the mirrored pattern on the right
-    return O
-```
-training 1b60fb0c train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL‑TRANSFORMATION
-    # shift the whole 1‑object two cells left and colour only the interior
-    # cells of its bounding box that become covered.
-    shape      = ofcolor(I, ONE)
-    shifted    = shift(shift(shape, LEFT), LEFT)                 # two‑step left
-    interior   = delta(box(shape), shape)                        # bbox minus shape
-    target     = intersection(shifted, interior)
-    return fill(I, TWO, target)
-```
-training 1b8318e3 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # RELATIONAL – each non‑5 coloured cell walks straight toward the nearest 5
-    # and stops one step away (king‑step distance 1). 5‑cells stay put.
-    five      = ofcolor(I, FIVE)                                         # all 5‑cells
-    nonzero   = difference(asindices(I), ofcolor(I, ZERO))               # coloured cells
-    movers    = difference(nonzero, five)                               # cells that must move
-
-    relocate = lambda idx: recolor(
-        index(I, idx),                                                  # original colour
-        initset(add(
-            idx,
-            multiply(
-                gravitate(initset(idx), five),                         # unit direction toward 5
-                subtract(manhattan(initset(idx), five), ONE)            # steps needed to be adjacent
-            )
-        ))
-    moved = merge(apply(relocate, movers))
-
-    O = canvas(ZERO, shape(I))
-    O = cover(O, toobject(five, I))      # keep the original 5‑objects
-    O = cover(O, moved)                # paste the displaced cells
-    return O
-```
-training 1bfc4729 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # RELATIONAL + OBJECT‑EXTRACTION
-    # – full rows of the original coloured pixels
-    # – all border cells coloured by the nearest original pixel (Manhattan,
-    #   tie‑break by the smaller colour)
-    objs      = objects(I, False, False, True)               # the two single‑pixel objects
-    rows      = merge(apply(lambda o: recolor(color(o),
-                                      shoot(astuple(uppermost(o), ZERO), RIGHT)),
-                     objs)                                 # full rows
-
-    # border = top, bottom, left, right edges of the grid
-    top    = shoot(astuple(ZERO, ZERO), RIGHT)
-    bot    = shoot(astuple(subtract(height(I), ONE), ZERO), RIGHT)
-    left   = shoot(astuple(ZERO, ZERO), DOWN)
-    right  = shoot(astuple(ZERO, subtract(width(I), ONE)), DOWN)
-    border = union(union(top, bot), union(left, right))
-
-    # colour each border cell by the nearest original pixel
-    def nearest(loc):
-        dists = {o: manhattan(toobject({loc}, I), o) for o in objs}
-        mind  = valmin(dists.values(), lambda x: x)
-        cand  = {o for o, d in dists.items() if d == mind}
-        col   = valmin({color(o) for o in cand}, lambda x: x)
-        return recolor(col, toobject({loc}, I))
-
-    border_col = merge(apply(nearest, asindices(paint(canvas(ZERO, shape(I)), border))))
-
-    O = paint(paint(canvas(ZERO, shape(I)), rows), border_col)
-    return O
-```
-training 1c02dbbe train nan nan nan nan nan
-```python
-def dsl1(I):
-    # COLOR‑LEVEL: draw a filled bounding‑box for every colour that is NOT the most common one
-    dom   = mostcolor(I)
-    cols  = difference(palette(I), initset(dom))
-    rects = mapply(
-              lambda c: recolor(
-                          c,
-                          toindices(
-                            shift(
-                              asobject(
-                                canvas(
-                                  ONE,
-                                  (add(subtract(lowermost(ofcolor(I, c)),
-                                         uppermost(ofcolor(I, c))),
-                                      ONE),
-                                   add(subtract(rightmost(ofcolor(I, c)),
-                                         leftmost(ofcolor(I, c))),
-                                      ONE)))),
-                              (uppermost(ofcolor(I, c)),
-                               leftmost(ofcolor(I, c)))))),
-              cols)
-    O = paint(I, merge(rects))
-    return O
-```
-training 1c0d0a4b train nan nan nan nan nan
-```python
-def dsl1(I):
-    # relational – a background cell becomes 2 when it has ≥2 orthogonal neighbours of colour 8
-    mask8   = ofcolor(I, 8)                                 # all 8‑cells
-    zeros   = ofcolor(I, 0)                                 # all 0‑cells
-    region  = mfilter(zeros,
-                      lambda p: size(intersection(dneighbors(p), mask8)) >= 2)
-    temp    = replace(I, 8, 0)                              # erase the 8s
-    O       = underpaint(temp, recolor(2, region))           # paint the 2s
-    return O
-```
-training 1c56ad9f train nan nan nan nan nan
-```python
-def dsl1(I):
-    # COLOR‑FILTER – add colour C to interior cells that have at least
-    # two orthogonal neighbours already coloured C.
-    C        = mostcolor(I)
-    frm      = ofcolor(I, C)
-    interior = delta(frm)
-
-    core      = intersection(interior, ofcolor(I, C))
-    background = difference(interior, core)
-
-    up    = shift(core, UP)
-    down  = shift(core, DOWN)
-    left  = shift(core, LEFT)
-    right = shift(core, RIGHT)
-
-    # cells that appear in at least two of the four neighbour‑sets
-    n1 = intersection(up,    left)
-    n2 = intersection(up,    right)
-    n3 = intersection(down,  left)
-    n4 = intersection(down,  right)
-    n5 = intersection(up,    down)
-    n6 = intersection(left,  right)
-
-    many_neighbors = combine(combine(combine(combine(combine(n1, n2), n3), n4), combine(n5, n6))
-
-    add = intersection(many_neighbors, background)
-    O   = fill(I, C, add)
-    return O
-```
-training 1da012fc train nan nan nan nan nan
-```python
-def dsl1(I):
-    # OBJECT‑SIZE ordering → smallest = 2, medium = 4,
-    # border of largest = 6, interior of largest = 3
-    objs   = objects(I, univalued=True, diagonal=False, without_bg=True)
-    tgtcol = branch(colorcount(I, 1) > 0, 1, 8)
-    tgts   = colorfilter(objs, tgtcol)
-
-    ordered = order(tgts, size)               # increasing size
-    sp_obj  = first(ordered)                  # smallest
-    lp_obj  = last(ordered)                   # largest
-    mid_objs = difference(difference(tgts,
-                                     initset(sp_obj)),
-                          initset(lp_obj))
-
-    sp_idx   = toindices(sp_obj)
-    mid_idx  = merge(apply(toindices, mid_objs))
-    border   = box(lp_obj)                     # outline of the largest object
-    interior = difference(lp_obj, border)     # its interior
-
-    O = fill(fill(fill(fill(I, 2, sp_idx), 4, mid_idx), 6, border)
-    O = fill(O, 3, interior)
-    return O
-```
-training d10ecb37 train nan nan nan nan nan
-```python
-def dsl1(I):
-    # GLOBAL – count left‑right adjacencies of single cells
-    colors   = palette(I)
-
-    left_of = lambda a, b: size(
-                intersection(
-                    ofcolor(I, a),
-                    shift(ofcolor(I, b), LEFT)))
-
-    pairs   = mfilter(product(colors, colors),
-                     lambda p: p[0] != p[1])
-
-    max1    = valmax(pairs, lambda p: left_of(p[0], p[1]))
-    best1   = extract(pairs,
-                     lambda p: left_of(p[0], p[1]) == max1)
-
-    pairs2  = difference(pairs, initset(best1))
-    max2    = valmax(pairs2, lambda p: left_of(p[0], p[1]))
-    best2   = extract(pairs2,
-                     lambda p: left_of(p[0], p[1]) == max2)
-
-    n1 = add(multiply(best1[0], 10), best1[1])
-    n2 = add(multiply(best2[0], 10), best2[1])
-    return ((n1,), (n2,))
 ```

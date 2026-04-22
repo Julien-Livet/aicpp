@@ -1,6 +1,7 @@
 import anthropic
 import base64
 from concurrent.futures import ThreadPoolExecutor
+import dsl_memory
 import importlib.util
 import json
 import math
@@ -14,6 +15,7 @@ import queue
 import re
 import subprocess
 import sys
+from threading import Lock
 import time
 from tqdm import tqdm
 import traceback
@@ -28,6 +30,7 @@ llm = ("gpt", "gpt-5")
 
 TDD = False
 useDslMemory = False
+lock = Lock()
 
 def llmPath(llm: tuple):
     return f"{llm[0]}/{llm[1].replace(':', '_')}"
@@ -436,37 +439,81 @@ def processTask(folder: str, task: str, withImages: bool = False,
     image_base64 = ""
     dslMemoryFilename = f"data/{llmPath(llm)}/dsl_memory.pkl"
 
-    import dsl_memory
-            
-    if (initPrograms is None):
-        if (useDslMemory):
-            dsls = list(dsl_memory.load(dslMemoryFilename))
-        else:
-            dsls = {"def dsl(I):\n    O = I\n    return O", }
-
-        sortedDsls = []
-        
-        from concurrent.futures import ProcessPoolExecutor
-
-        with ProcessPoolExecutor() as executor:
-            sortedDsls = list(filter(lambda x: x, executor.map(process_dsl, [taskPairs[0]] * len(dsls), dsls)))
-
-        sortedDsls = sorted(sortedDsls, key = lambda x: (x[1], len(x[0]), x[0]))
-
-        while (len(sortedDsls) < PROGRAM_NUMBER):
-            sortedDsls.append(sortedDsls[-1])
-
-        initPrograms = [x[0] for x in sortedDsls[:5]]
-
     if (withImages and os.path.exists(f"data/{folder}/{task}.png")):
         with open(f"data/{folder}/{task}.png", "rb") as f:
             image_base64 = base64.b64encode(f.read()).decode("utf-8")
 
     programs = []
 
+    if (initPrograms is None):
+        if (os.path.exists(f"data/{llmPath(llm)}/{folder}/{task}-input-000.md")):
+            with open(f"data/{llmPath(llm)}/{folder}/{task}-input-000.md", "r") as f:
+                lines = f.read().split("\n")
+
+            i = 0
+            dsls = []
+
+            while (i < len(lines)):
+                if (lines[i] == "## DSL"):
+                    dsl = []
+
+                    while (lines[i] != "```python"):
+                        i += 1
+
+                    i += 1
+                        
+                    while (lines[i] != "```"):
+                        dsl.append(lines[i])
+                        i += 1
+
+                    dsls.append("\n".join(dsl))
+                    
+                i += 1
+
+            initPrograms = dsls
+        else:
+            if (useDslMemory):
+                lock.acquire()
+                dsls = list(dsl_memory.load(dslMemoryFilename))
+                lock.release()
+            else:
+                dsls = {"def dsl(I):\n    O = I\n    return O", }
+
+            sortedDsls = []
+            
+            from concurrent.futures import ProcessPoolExecutor
+
+            with ProcessPoolExecutor() as executor:
+                sortedDsls = list(filter(lambda x: x, executor.map(process_dsl, [taskPairs[0]] * len(dsls), dsls)))
+
+            sortedDsls = sorted(sortedDsls, key = lambda x: (x[1], len(x[0]), x[0]))
+
+            while (len(sortedDsls) < PROGRAM_NUMBER):
+                sortedDsls.append(sortedDsls[-1])
+
+            initPrograms = [x[0] for x in sortedDsls[:5]]
+
+            del sortedDsls
+
     for dsl in initPrograms:
         programs.append((dsl, taskResults(dsl, taskPairs[0], "train")))
 
+    def bestProgramCost(programs: list):
+        bestProgram = programs[0]
+        bestCost = programs[0][1][0][scoreColumns[-1]].sum(skipna = False)
+
+        for program in programs:
+            cost = program[1][0][scoreColumns[-1]].sum(skipna = False)
+
+            if (cost < bestCost):
+                bestCost = cost
+                bestProgram = program
+            elif (cost == bestCost and len(program[0]) < len(bestProgram[0])):
+                bestProgram = program
+                
+        return bestProgram, bestCost
+
+    bestProgram, bestCost = bestProgramCost(programs)
     index = 0
 
     for file in os.listdir(f"data/{llmPath(llm)}/{folder}"):
@@ -479,7 +526,12 @@ def processTask(folder: str, task: str, withImages: bool = False,
     elif (os.path.exists(f"data/{llmPath(llm)}/{folder}/{task}-output-{index-1:03d}.md")):
         programs = outputPrograms(f"data/{llmPath(llm)}/{folder}/{task}-output-{index-1:03d}.md", taskPairs[0], "train")
 
-    bestProgram = programs[0]
+    bp, bc = bestProgramCost(programs)
+
+    if (bc < bestCost):
+        bestProgram = bp
+    elif (bc == bestCost and len(bp[0]) < len(bestProgram[0])):
+        bestProgram = bp
 
     for _ in range(0, 10):
         command = taskPrompt(trainPairs, withImages) + "\n"
@@ -526,9 +578,13 @@ def processTask(folder: str, task: str, withImages: bool = False,
             command += "\n---\n\n"
 
             if (not nanValues and useDslMemory):
+                lock.acquire()
                 dsls = dsl_memory.load(dslMemoryFilename)
                 dsls.add(program[0])
                 dsl_memory.save(dsls, dslMemoryFilename)
+                lock.release()
+
+                del dsls
 
         command += f"""The goal is to improve the {PROGRAM_NUMBER} DSL programs incrementally in two phases:
 
@@ -696,6 +752,8 @@ unless you can generalize them without increasing their cost.\n"""
         f.close()
 
         content = callLLM(command, image_base64)
+        
+        del command
 
         if (len(content) == 0):
             return [bestProgram[0], folder, task, "train"] + [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
@@ -711,7 +769,12 @@ unless you can generalize them without increasing their cost.\n"""
 
         programs = outputPrograms(f"data/{llmPath(llm)}/{folder}/{task}-output-{index:03d}.md", taskPairs[0], "train")
         index += 1
-    
+
+    del programs
+
+    if (image_base64):
+        del image_base64
+
     costs = [bestProgram[1][0][x].sum(skipna = False) for x in scoreColumns]
 
     if (costs[-1]):
