@@ -348,7 +348,7 @@ train3: ((2, 1), (2, 3))
 The goal is to improve the 5 DSL programs incrementally in two phases:
 
 --------------------------------
-PHASE 1 — EXPANSION (DISCOVERY)
+PHASE 1 Â— EXPANSION (DISCOVERY)
 --------------------------------
 
 - Analyze failures and identify missing spatial or relational patterns.
@@ -364,7 +364,7 @@ Guidelines:
 - Avoid hardcoded positional logic or scanning patterns.
 
 --------------------------------
-PHASE 2 — REDUCTION (ABSTRACTION)
+PHASE 2 Â— REDUCTION (ABSTRACTION)
 --------------------------------
 
 - Identify structurally similar transformations.

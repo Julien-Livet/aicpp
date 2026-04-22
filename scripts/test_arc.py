@@ -446,6 +446,8 @@ def processTask(folder: str, task: str, withImages: bool = False,
     programs = []
 
     if (initPrograms is None):
+        dslMemoryInit = False
+
         if (os.path.exists(f"data/{llmPath(llm)}/{folder}/{task}-input-000.md")):
             with open(f"data/{llmPath(llm)}/{folder}/{task}-input-000.md", "r") as f:
                 lines = f.read().split("\n")
@@ -471,7 +473,13 @@ def processTask(folder: str, task: str, withImages: bool = False,
                 i += 1
 
             initPrograms = dsls
+            
+            if (not initPrograms):
+                dslMemoryInit = True
         else:
+            dslMemoryInit = True
+
+        if (dslMemoryInit):
             if (useDslMemory):
                 lock.acquire()
                 dsls = list(dsl_memory.load(dslMemoryFilename))
