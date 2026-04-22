@@ -35,13 +35,13 @@ def plotDataSet(llm: tuple, folder: str, task: str, step: str, costs: list, ncol
     plt.legend()
     mng = plt.get_current_fig_manager()
     mng.full_screen_toggle()
-    plt.savefig(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_{step}_results.png")
+    plt.savefig(f"data/{test_arc.llmPath(llm)}/{folder}_{task}_{step}_results.png")
     plt.show()
 
 def analyzeTask(llm: tuple, folder: str, task: str):
     assert(folder in ("training", "evaluation"))
 
-    files = os.listdir(f"data/{llm[0]}/{llm[1]}/{folder}")
+    files = os.listdir(f"data/{test_arc.llmPath(llm)}/{folder}")
     taskFiles = list(filter(lambda x: task in x, files))
     outputFiles = sorted(filter(lambda x: "output" in x, taskFiles))
 
@@ -50,16 +50,38 @@ def analyzeTask(llm: tuple, folder: str, task: str):
 
     for file in files:
         taskPairs = test_arc.trainTestPairs(folder, task)
-        trainPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[0], "train")
-        testPrograms = test_arc.outputPrograms(f"data/{llm[0]}/{llm[1]}/{folder}/{file}", taskPairs[1], "test")
+        trainPrograms = test_arc.outputPrograms(f"data/{test_arc.llmPath(llm)}/{folder}/{file}", taskPairs[0], "train")
+        testPrograms = test_arc.outputPrograms(f"data/{test_arc.llmPath(llm)}/{folder}/{file}", taskPairs[1], "test")
         results.append((trainPrograms, testPrograms))
 
     n = len(trainPrograms)
     trainPrograms = []
     testPrograms = []
 
-    for i in range(0, n):
-        dsl = f"def dsl{i+1}(I):\n    O = I\n    return O"
+    with open(f"data/{test_arc.llmPath(llm)}/{folder}/{task}-input-000.md", "r") as f:
+        lines = f.read().split("\n")
+
+    i = 0
+    dsls = []
+
+    while (i < len(lines)):
+        if (lines[i] == "## DSL"):
+            dsl = []
+
+            while (lines[i] != "```python"):
+                i += 1
+
+            i += 1
+                
+            while (lines[i] != "```"):
+                dsl.append(lines[i])
+                i += 1
+
+            dsls.append("\n".join(dsl))
+            
+        i += 1
+
+    for dsl in dsls:
         trainPrograms.append((dsl, test_arc.taskResults(dsl, taskPairs[0], "train")))
         testPrograms.append((dsl, test_arc.taskResults(dsl, taskPairs[1], "test")))
 
@@ -128,9 +150,9 @@ def analyzeTask(llm: tuple, folder: str, task: str):
     index = len(results) - 1
 
     if (not costs[0][-1]):
-        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff)\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]+1}-dsl-diff)\n\n"
     else:
-        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff-{costs[0][-1]})\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]+1}-dsl-diff-{costs[0][-1]})\n\n"
 
     try:
         lineIndex = solversLines.index(f"def solve_{task}(I):")
@@ -153,7 +175,7 @@ def analyzeTask(llm: tuple, folder: str, task: str):
             content += f"### Iteration {j+1} DSL diff\n\n"
             content += f"```bash\n{history[i + j * len(results[0])][0]}\n```\n\n"
 
-    f = open(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_history.md", "w")
+    f = open(f"data/{test_arc.llmPath(llm)}/{folder}_{task}_history.md", "w")
     f.write(content)
     f.close()
 
@@ -242,7 +264,7 @@ def analyzeTask(llm: tuple, folder: str, task: str):
     plt.legend()
     mng = plt.get_current_fig_manager()
     mng.full_screen_toggle()
-    plt.savefig(f"data/{llm[0]}/{llm[1]}/{folder}_{task}_program_results.png")
+    plt.savefig(f"data/{test_arc.llmPath(llm)}/{folder}_{task}_program_results.png")
     plt.show()
 
 if (__name__ == "__main__"):

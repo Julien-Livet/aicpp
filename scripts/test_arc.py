@@ -479,8 +479,8 @@ def processTask(folder: str, task: str, withImages: bool = False,
         nanValues = False
 
         for i, program in enumerate(programs):
-            command += f"# Program {i+1}\n"
-            command += "## DSL\n"
+            command += f"# Program {i+1}\n\n"
+            command += "## DSL\n\n"
             command += "```python\n"
             command += program[0] + "\n"
             command += "```\n"
