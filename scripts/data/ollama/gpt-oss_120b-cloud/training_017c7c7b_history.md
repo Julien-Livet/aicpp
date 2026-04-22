@@ -4,7 +4,7 @@ train failed, test solved
 
 10 iterations
 
-[Best program](#iteration-1-dsl-diff)
+[Best program](#iteration-0-dsl-diff)
 
 [Hodel solution](https://github.com/michaelhodel/arc-dsl/blob/main/solvers.py#L1067)
 
@@ -25,6 +25,17 @@ train failed, test solved
 |       | Grid size cost                              | Value cost                                 | Pixel overlap cost                         | Bounding box cost                                           | Total cost                                                |
 |:------|:--------------------------------------------|:-------------------------------------------|:-------------------------------------------|:------------------------------------------------------------|:----------------------------------------------------------|
 | test1 | 0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.0,NaN,NaN,3.0 | 0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.0,NaN,NaN,10 | 0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.0,NaN,NaN,63 | 0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.0,NaN,NaN,0.13736056388579593 | 0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.0,NaN,NaN,76.13736056388579 |
+
+### Iteration 0 DSL diff
+
+```bash
+def dsl3(I):
+    # VERTICAL SPLIT – obtain the upper half via vsplit
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    top = first(vsplit(G, 2))                    # first piece = upper half
+    O = vconcat(G, top)
+    return O
+```
 
 ### Iteration 1 DSL diff
 
@@ -330,6 +341,17 @@ train failed, test solved
 |       | Grid size cost                              | Value cost                            | Pixel overlap cost                       | Bounding box cost                                                          | Total cost                                                              |
 |:------|:--------------------------------------------|:--------------------------------------|:-----------------------------------------|:---------------------------------------------------------------------------|:------------------------------------------------------------------------|
 | test1 | 0.0,0.0,3.0,3.0,0.0,0.0,0.0,0.0,NaN,NaN,3.0 | 0.0,0.0,2,0,0.0,0.0,0.0,0.0,NaN,NaN,6 | 0.0,0.0,63,63,0.0,0.0,0.0,0.0,NaN,NaN,63 | 0.0,0.0,0.0915737092571973,0.0,0.0,0.0,0.0,0.0,NaN,NaN,0.04578685462859865 | 0.0,0.0,68.09157370925719,66.0,0.0,0.0,0.0,0.0,NaN,NaN,72.0457868546286 |
+
+### Iteration 0 DSL diff
+
+```bash
+def dsl1(I):
+    # Global transformation: recolour 1→2, take the upper half and append it below.
+    G   = switch(I, ONE, TWO)                     # 1 → 2
+    top, _ = vsplit(G, TWO)                       # upper half
+    O   = vconcat(G, top)                         # original + upper half
+    return O
+```
 
 ### Iteration 1 DSL diff
 
@@ -639,6 +661,19 @@ train failed, test solved
 |:------|:--------------------------------------------|:---------------------------------------|:---------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
 | test1 | 0.0,3.0,3.0,NaN,0.0,3.0,3.0,NaN,3.0,3.0,3.0 | 0.0,10.0,10,NaN,0.0,26,10,NaN,10,10,10 | 0.0,63.0,63,NaN,0.0,63,45,NaN,45,45,45 | 0.0,0.13736056388579593,0.13736056388579593,NaN,0.0,0.13736056388579593,0.18569533806210933,NaN,0.18569533806210933,0.18569533806210933,0.18569533806210933 | 0.0,76.13736056388579,76.13736056388579,NaN,0.0,92.13736056388579,58.18569533806211,NaN,58.18569533806211,58.18569533806211,58.18569533806211 |
 
+### Iteration 0 DSL diff
+
+```bash
+def dsl1(I):
+    # GLOBAL – recolor then append the original upper half
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    h, w = shape(G)
+    half = divide(h, TWO)
+    top = crop(G, (ZERO, ZERO), (half, w))      # upper half (as grid)
+    O = vconcat(G, top)                          # original + copy of upper half
+    return O
+```
+
 ### Iteration 1 DSL diff
 
 ```bash
@@ -945,6 +980,20 @@ train failed, test solved
 |       | Grid size cost                              | Value cost                                | Pixel overlap cost                        | Bounding box cost                                                           | Total cost                                                              |
 |:------|:--------------------------------------------|:------------------------------------------|:------------------------------------------|:----------------------------------------------------------------------------|:------------------------------------------------------------------------|
 | test1 | 0.0,NaN,3.0,3.0,0.0,NaN,NaN,NaN,NaN,NaN,NaN | 0.0,NaN,10,10,0.0,NaN,NaN,NaN,NaN,NaN,NaN | 0.0,NaN,63,63,0.0,NaN,NaN,NaN,NaN,NaN,NaN | 0.0,NaN,0.13736056388579593,0.13736056388579593,0.0,NaN,NaN,NaN,NaN,NaN,NaN | 0.0,NaN,76.13736056388579,76.13736056388579,0.0,NaN,NaN,NaN,NaN,NaN,NaN |
+
+### Iteration 0 DSL diff
+
+```bash
+def dsl1(I):
+    # GLOBAL TRANSFORMATION
+    # recolour 1→2, then stack the original grid over its own upper half.
+    G = switch(I, ONE, TWO)                     # 1 → 2
+    h, w = shape(G)
+    half = divide(h, TWO)
+    top = crop(G, (ZERO, ZERO), (half, w))     # upper half of the recoloured grid
+    O = vconcat(G, top)                         # original + copied upper half
+    return O
+```
 
 ### Iteration 1 DSL diff
 
@@ -1269,6 +1318,18 @@ train failed, test solved
 |       | Grid size cost                              | Value cost                                | Pixel overlap cost                        | Bounding box cost                                                           | Total cost                                                              |
 |:------|:--------------------------------------------|:------------------------------------------|:------------------------------------------|:----------------------------------------------------------------------------|:------------------------------------------------------------------------|
 | test1 | 0.0,NaN,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,3.0 | 0.0,NaN,0.0,0.0,0.0,10,0.0,0.0,0.0,0.0,10 | 0.0,NaN,0.0,0.0,0.0,63,0.0,0.0,0.0,0.0,63 | 0.0,NaN,0.0,0.0,0.0,0.13736056388579593,0.0,0.0,0.0,0.0,0.13736056388579593 | 0.0,NaN,0.0,0.0,0.0,76.13736056388579,0.0,0.0,0.0,0.0,76.13736056388579 |
+
+### Iteration 0 DSL diff
+
+```bash
+def dsl1(I):
+    # 1️⃣  Global transformation: recolour 1→2, split the result in half
+    #     and concatenate the upper half to the bottom.
+    G   = switch(I, ONE, TWO)                     # recolour 1 → 2
+    top, _ = vsplit(G, TWO)                      # upper half of the recoloured grid
+    O   = vconcat(G, top)                         # original + copy of the upper half
+    return O
+```
 
 ### Iteration 1 DSL diff
 

@@ -150,9 +150,9 @@ def analyzeTask(llm: tuple, folder: str, task: str):
     index = len(results) - 1
 
     if (not costs[0][-1]):
-        content += f"[Best program](#iteration-{costs[0][-2]+1}-dsl-diff)\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff)\n\n"
     else:
-        content += f"[Best program](#iteration-{costs[0][-2]+1}-dsl-diff-{costs[0][-1]})\n\n"
+        content += f"[Best program](#iteration-{costs[0][-2]}-dsl-diff-{costs[0][-1]})\n\n"
 
     try:
         lineIndex = solversLines.index(f"def solve_{task}(I):")
@@ -170,6 +170,9 @@ def analyzeTask(llm: tuple, folder: str, task: str):
         trainPrograms, testPrograms = results[-1]
         content += f"### Test scores\n\n"
         content += testDfs[i].to_markdown() + "\n\n"
+
+        content += f"### Iteration 0 DSL diff\n\n"
+        content += f"```bash\n{dsls[i]}\n```\n\n"
 
         for j in range(0, len(results) - 1):            
             content += f"### Iteration {j+1} DSL diff\n\n"
