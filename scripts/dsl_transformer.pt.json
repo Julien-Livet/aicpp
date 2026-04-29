@@ -1,0 +1,2090 @@
+{
+  "input_vocab": [
+    "<PAD>",
+    "<BOS>",
+    "<EOS>",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "|",
+    ",",
+    "-"
+  ],
+  "output_vocab": [
+    "<PAD>",
+    "<BOS>",
+    "<EOS>",
+    ",",
+    "(",
+    ")",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "DOWN",
+    "DOWN_LEFT",
+    "EIGHT",
+    "F",
+    "FIVE",
+    "FOUR",
+    "I",
+    "LEFT",
+    "NEG_ONE",
+    "NEG_TWO",
+    "NEG_UNITY",
+    "NINE",
+    "ONE",
+    "ORIGIN",
+    "RIGHT",
+    "SEVEN",
+    "SIX",
+    "T",
+    "TEN",
+    "THREE",
+    "THREE_BY_THREE",
+    "TWO",
+    "TWO_BY_TWO",
+    "TWO_BY_ZERO",
+    "UNITY",
+    "UP",
+    "UP_RIGHT",
+    "ZERO",
+    "ZERO_BY_TWO",
+    "add",
+    "adjacent",
+    "apply",
+    "argmax",
+    "argmin",
+    "asindices",
+    "asobject",
+    "astuple",
+    "backdrop",
+    "bordering",
+    "both",
+    "bottomhalf",
+    "box",
+    "branch",
+    "canvas",
+    "cellwise",
+    "center",
+    "centerofmass",
+    "chain",
+    "cmirror",
+    "color",
+    "colorcount",
+    "colorfilter",
+    "combine",
+    "compose",
+    "compress",
+    "connect",
+    "contained",
+    "corners",
+    "cover",
+    "crement",
+    "crop",
+    "decrement",
+    "dedupe",
+    "delta",
+    "difference",
+    "divide",
+    "dmirror",
+    "dneighbors",
+    "double",
+    "downscale",
+    "either",
+    "equality",
+    "even",
+    "extract",
+    "fgpartition",
+    "fill",
+    "first",
+    "flip",
+    "fork",
+    "frontiers",
+    "gravitate",
+    "greater",
+    "halve",
+    "hconcat",
+    "height",
+    "hfrontier",
+    "hline",
+    "hmatching",
+    "hmirror",
+    "hperiod",
+    "hsplit",
+    "hupscale",
+    "identity",
+    "inbox",
+    "increment",
+    "index",
+    "ineighbors",
+    "initset",
+    "insert",
+    "intersection",
+    "interval",
+    "invert",
+    "last",
+    "lbind",
+    "leastcolor",
+    "leastcommon",
+    "lefthalf",
+    "leftmost",
+    "llcorner",
+    "lowermost",
+    "lrcorner",
+    "manhattan",
+    "mapply",
+    "matcher",
+    "maximum",
+    "merge",
+    "mfilter",
+    "minimum",
+    "mostcolor",
+    "mostcommon",
+    "move",
+    "mpapply",
+    "multiply",
+    "neighbors",
+    "normalize",
+    "numcolors",
+    "objects",
+    "occurrences",
+    "ofcolor",
+    "order",
+    "other",
+    "outbox",
+    "paint",
+    "pair",
+    "palette",
+    "papply",
+    "partition",
+    "portrait",
+    "position",
+    "positive",
+    "power",
+    "prapply",
+    "product",
+    "rapply",
+    "rbind",
+    "recolor",
+    "remove",
+    "repeat",
+    "replace",
+    "righthalf",
+    "rightmost",
+    "rot180",
+    "rot270",
+    "rot90",
+    "sfilter",
+    "shape",
+    "shift",
+    "shoot",
+    "sign",
+    "size",
+    "sizefilter",
+    "square",
+    "subgrid",
+    "subtract",
+    "switch",
+    "toindices",
+    "toivec",
+    "tojvec",
+    "toobject",
+    "tophalf",
+    "totuple",
+    "trim",
+    "ulcorner",
+    "underfill",
+    "underpaint",
+    "uppermost",
+    "upscale",
+    "urcorner",
+    "valmax",
+    "valmin",
+    "vconcat",
+    "vfrontier",
+    "vline",
+    "vmatching",
+    "vmirror",
+    "vperiod",
+    "vsplit",
+    "vupscale",
+    "width"
+  ],
+  "dsl_vars": {
+    "F": "Boolean",
+    "T": "Boolean",
+    "ZERO": "Integer",
+    "ONE": "Integer",
+    "TWO": "Integer",
+    "THREE": "Integer",
+    "FOUR": "Integer",
+    "FIVE": "Integer",
+    "SIX": "Integer",
+    "SEVEN": "Integer",
+    "EIGHT": "Integer",
+    "NINE": "Integer",
+    "TEN": "Integer",
+    "NEG_ONE": "Integer",
+    "NEG_TWO": "Integer",
+    "DOWN": "typing.Tuple",
+    "RIGHT": "typing.Tuple",
+    "UP": "typing.Tuple",
+    "LEFT": "typing.Tuple",
+    "ORIGIN": "typing.Tuple",
+    "UNITY": "typing.Tuple",
+    "NEG_UNITY": "typing.Tuple",
+    "UP_RIGHT": "typing.Tuple",
+    "DOWN_LEFT": "typing.Tuple",
+    "ZERO_BY_TWO": "typing.Tuple",
+    "TWO_BY_ZERO": "typing.Tuple",
+    "TWO_BY_TWO": "typing.Tuple",
+    "THREE_BY_THREE": "typing.Tuple",
+    "I": "TupleTuple"
+  },
+  "dsl_prims": {
+    "identity": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "add": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Numerical"
+        },
+        {
+          "name": "b",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "subtract": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Numerical"
+        },
+        {
+          "name": "b",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "multiply": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Numerical"
+        },
+        {
+          "name": "b",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "divide": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Numerical"
+        },
+        {
+          "name": "b",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "invert": {
+      "args": [
+        {
+          "name": "n",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "even": {
+      "args": [
+        {
+          "name": "n",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "double": {
+      "args": [
+        {
+          "name": "n",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "halve": {
+      "args": [
+        {
+          "name": "n",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "flip": {
+      "args": [
+        {
+          "name": "b",
+          "type": "Boolean"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "equality": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Any"
+        },
+        {
+          "name": "b",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "contained": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Any"
+        },
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "combine": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Container"
+        },
+        {
+          "name": "b",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "intersection": {
+      "args": [
+        {
+          "name": "a",
+          "type": "FrozenSet"
+        },
+        {
+          "name": "b",
+          "type": "FrozenSet"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "difference": {
+      "args": [
+        {
+          "name": "a",
+          "type": "FrozenSet"
+        },
+        {
+          "name": "b",
+          "type": "FrozenSet"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "dedupe": {
+      "args": [
+        {
+          "name": "tup",
+          "type": "Tuple"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "order": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "compfunc",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "repeat": {
+      "args": [
+        {
+          "name": "item",
+          "type": "Any"
+        },
+        {
+          "name": "num",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "greater": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Integer"
+        },
+        {
+          "name": "b",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "size": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "merge": {
+      "args": [
+        {
+          "name": "containers",
+          "type": "ContainerContainer"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "maximum": {
+      "args": [
+        {
+          "name": "container",
+          "type": "IntegerSet"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "minimum": {
+      "args": [
+        {
+          "name": "container",
+          "type": "IntegerSet"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "valmax": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "compfunc",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "valmin": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "compfunc",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "argmax": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "compfunc",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "argmin": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "compfunc",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "mostcommon": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "leastcommon": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "initset": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Any"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "both": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Boolean"
+        },
+        {
+          "name": "b",
+          "type": "Boolean"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "either": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Boolean"
+        },
+        {
+          "name": "b",
+          "type": "Boolean"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "increment": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "decrement": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "crement": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "sign": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Numerical"
+        }
+      ],
+      "return_type": "Numerical"
+    },
+    "positive": {
+      "args": [
+        {
+          "name": "x",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "toivec": {
+      "args": [
+        {
+          "name": "i",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "tojvec": {
+      "args": [
+        {
+          "name": "j",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "sfilter": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "condition",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "mfilter": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "function",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "extract": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "condition",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "totuple": {
+      "args": [
+        {
+          "name": "container",
+          "type": "FrozenSet"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "first": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "last": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "insert": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Any"
+        },
+        {
+          "name": "container",
+          "type": "FrozenSet"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "remove": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Any"
+        },
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "other": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "value",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "interval": {
+      "args": [
+        {
+          "name": "start",
+          "type": "Integer"
+        },
+        {
+          "name": "stop",
+          "type": "Integer"
+        },
+        {
+          "name": "step",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "astuple": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Integer"
+        },
+        {
+          "name": "b",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "product": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Container"
+        },
+        {
+          "name": "b",
+          "type": "Container"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "pair": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Tuple"
+        },
+        {
+          "name": "b",
+          "type": "Tuple"
+        }
+      ],
+      "return_type": "TupleTuple"
+    },
+    "branch": {
+      "args": [
+        {
+          "name": "condition",
+          "type": "Boolean"
+        },
+        {
+          "name": "a",
+          "type": "Any"
+        },
+        {
+          "name": "b",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Any"
+    },
+    "compose": {
+      "args": [
+        {
+          "name": "outer",
+          "type": "Callable"
+        },
+        {
+          "name": "inner",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "chain": {
+      "args": [
+        {
+          "name": "h",
+          "type": "Callable"
+        },
+        {
+          "name": "g",
+          "type": "Callable"
+        },
+        {
+          "name": "f",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "matcher": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "target",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "rbind": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "fixed",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "lbind": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "fixed",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "power": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "n",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "fork": {
+      "args": [
+        {
+          "name": "outer",
+          "type": "Callable"
+        },
+        {
+          "name": "a",
+          "type": "Callable"
+        },
+        {
+          "name": "b",
+          "type": "Callable"
+        }
+      ],
+      "return_type": "Callable"
+    },
+    "apply": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "container",
+          "type": "Container"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "rapply": {
+      "args": [
+        {
+          "name": "functions",
+          "type": "Container"
+        },
+        {
+          "name": "value",
+          "type": "Any"
+        }
+      ],
+      "return_type": "Container"
+    },
+    "mapply": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "container",
+          "type": "ContainerContainer"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "papply": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "a",
+          "type": "Tuple"
+        },
+        {
+          "name": "b",
+          "type": "Tuple"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "mpapply": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "a",
+          "type": "Tuple"
+        },
+        {
+          "name": "b",
+          "type": "Tuple"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "prapply": {
+      "args": [
+        {
+          "name": "function",
+          "type": "Callable"
+        },
+        {
+          "name": "a",
+          "type": "Container"
+        },
+        {
+          "name": "b",
+          "type": "Container"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "mostcolor": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "leastcolor": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "height": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "width": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "shape": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "portrait": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "colorcount": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        },
+        {
+          "name": "value",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "colorfilter": {
+      "args": [
+        {
+          "name": "objs",
+          "type": "Objects"
+        },
+        {
+          "name": "value",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Objects"
+    },
+    "sizefilter": {
+      "args": [
+        {
+          "name": "container",
+          "type": "Container"
+        },
+        {
+          "name": "n",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "FrozenSet"
+    },
+    "asindices": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "ofcolor": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "value",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "ulcorner": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "urcorner": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "llcorner": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "lrcorner": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "crop": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "start",
+          "type": "IntegerTuple"
+        },
+        {
+          "name": "dims",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "toindices": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "recolor": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Object"
+    },
+    "shift": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        },
+        {
+          "name": "directions",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Patch"
+    },
+    "normalize": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Patch"
+    },
+    "dneighbors": {
+      "args": [
+        {
+          "name": "loc",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "ineighbors": {
+      "args": [
+        {
+          "name": "loc",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "neighbors": {
+      "args": [
+        {
+          "name": "loc",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "objects": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "univalued",
+          "type": "Boolean"
+        },
+        {
+          "name": "diagonal",
+          "type": "Boolean"
+        },
+        {
+          "name": "without_bg",
+          "type": "Boolean"
+        }
+      ],
+      "return_type": "Objects"
+    },
+    "partition": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Objects"
+    },
+    "fgpartition": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Objects"
+    },
+    "uppermost": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "lowermost": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "leftmost": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "rightmost": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "square": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "vline": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "hline": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "hmatching": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Patch"
+        },
+        {
+          "name": "b",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "vmatching": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Patch"
+        },
+        {
+          "name": "b",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "manhattan": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Patch"
+        },
+        {
+          "name": "b",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "adjacent": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Patch"
+        },
+        {
+          "name": "b",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "bordering": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        },
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Boolean"
+    },
+    "centerofmass": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "palette": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        }
+      ],
+      "return_type": "IntegerSet"
+    },
+    "numcolors": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        }
+      ],
+      "return_type": "IntegerSet"
+    },
+    "color": {
+      "args": [
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "toobject": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        },
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Object"
+    },
+    "asobject": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Object"
+    },
+    "rot90": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "rot180": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "rot270": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "hmirror": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Piece"
+    },
+    "vmirror": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Piece"
+    },
+    "dmirror": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Piece"
+    },
+    "cmirror": {
+      "args": [
+        {
+          "name": "piece",
+          "type": "Piece"
+        }
+      ],
+      "return_type": "Piece"
+    },
+    "fill": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "paint": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "underfill": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "underpaint": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "hupscale": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "factor",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "vupscale": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "factor",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "upscale": {
+      "args": [
+        {
+          "name": "element",
+          "type": "Element"
+        },
+        {
+          "name": "factor",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Element"
+    },
+    "downscale": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "factor",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "hconcat": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Grid"
+        },
+        {
+          "name": "b",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "vconcat": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Grid"
+        },
+        {
+          "name": "b",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "subgrid": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        },
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "hsplit": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "n",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "vsplit": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "n",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Tuple"
+    },
+    "cellwise": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Grid"
+        },
+        {
+          "name": "b",
+          "type": "Grid"
+        },
+        {
+          "name": "fallback",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "replace": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "replacee",
+          "type": "Integer"
+        },
+        {
+          "name": "replacer",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "switch": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "a",
+          "type": "Integer"
+        },
+        {
+          "name": "b",
+          "type": "Integer"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "center": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "position": {
+      "args": [
+        {
+          "name": "a",
+          "type": "Patch"
+        },
+        {
+          "name": "b",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "index": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "loc",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "canvas": {
+      "args": [
+        {
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "name": "dimensions",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "corners": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "connect": {
+      "args": [
+        {
+          "name": "a",
+          "type": "IntegerTuple"
+        },
+        {
+          "name": "b",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "cover": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "trim": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "move": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "obj",
+          "type": "Object"
+        },
+        {
+          "name": "offset",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "tophalf": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "bottomhalf": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "lefthalf": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "righthalf": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "vfrontier": {
+      "args": [
+        {
+          "name": "location",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "hfrontier": {
+      "args": [
+        {
+          "name": "location",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "backdrop": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "delta": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "gravitate": {
+      "args": [
+        {
+          "name": "source",
+          "type": "Patch"
+        },
+        {
+          "name": "destination",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "IntegerTuple"
+    },
+    "inbox": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "outbox": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "box": {
+      "args": [
+        {
+          "name": "patch",
+          "type": "Patch"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "shoot": {
+      "args": [
+        {
+          "name": "start",
+          "type": "IntegerTuple"
+        },
+        {
+          "name": "direction",
+          "type": "IntegerTuple"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "occurrences": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        },
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Indices"
+    },
+    "frontiers": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Objects"
+    },
+    "compress": {
+      "args": [
+        {
+          "name": "grid",
+          "type": "Grid"
+        }
+      ],
+      "return_type": "Grid"
+    },
+    "hperiod": {
+      "args": [
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Integer"
+    },
+    "vperiod": {
+      "args": [
+        {
+          "name": "obj",
+          "type": "Object"
+        }
+      ],
+      "return_type": "Integer"
+    }
+  },
+  "d_model": 64,
+  "n_layers": 2
+}

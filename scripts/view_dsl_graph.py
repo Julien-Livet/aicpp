@@ -183,7 +183,7 @@ def taskAst(task: str, png: bool = False):
     
     return expression, tree, node
 
-def programExpression(program: str):
+def programExpression(program: str) -> str:
     lines = re.split(r'[\n;]+', program)
     programLines = []
     
