@@ -1,3 +1,4 @@
+import copy
 import inspect
 import json
 import numpy as np
@@ -270,15 +271,14 @@ def generate_dataset_from_dsls(numSets: int, depth: str, dsls: list):
     validExpressions = []    
 
     for expression in expressions:
-        numData = 0
+        examples = []
 
         try:
             for _ in range(0, numSets):
                 ex = generate_example(expression)
                 formatted = format_example(ex)
                 data.append(formatted)
-                
-                numData += 1
+                examples.append(ex)
                 
                 del ex
                 del formatted
@@ -297,11 +297,40 @@ def generate_dataset_from_dsls(numSets: int, depth: str, dsls: list):
         except Exception:
             pass
         
-        if (numData):
-            validExpressions.append((expression, numData))
+        if (len(examples)):
+            while (len(examples) < numSets):
+                try:
+                    ex = copy.deepcopy(random.choice(examples))
+                    pairs = ex["pairs"]
 
-            if (numData != numSets):
-                print(expression, numData, numSets)
+                    for i in range(len(pairs)):
+                        x = np.array(pairs[i])
+                        np.random.shuffle(x)
+                        pairs[i] = x
+
+                    formatted = format_example(ex)
+                    data.append(formatted)
+                    examples.append(ex)
+
+                    del ex
+                    del formatted
+
+                    count += 1
+
+                    if (count % 100 == 0):
+                        print(f"{count} examples")
+
+                    if (len(data) % 400 == 0):
+                        dumpsDataset(str(depth), data)
+                        del data
+                        data = []
+
+                        print("Dataset saved.")
+                except Exception:
+                    print(expression, len(examples), numSets)
+                    break
+
+            validExpressions.append((expression, len(examples)))
 
     print(f"{len(validExpressions)} valid expressions")
 
