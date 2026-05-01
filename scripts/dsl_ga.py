@@ -271,57 +271,68 @@ import random
 
 def crossover(parent1: Node, parent2: Node, ts: TypeSystem):
     child1 = copy_ast(parent1)
-    child2 = copy_ast(parent2)
-    
+ 
     nodes1 = get_typed_nodes(child1, ts)
-    nodes2 = get_typed_nodes(child2, ts)
-    
-    random.shuffle(nodes1)
-    
-    for n1, t1, p1, i1 in nodes1:
-        if (p1 is None):
-            continue
-        
-        compatible_nodes = [x for x in nodes2 if x[1] == t1 and x[2] is not None]
-        
-        if (compatible_nodes):
-            n2, t2, p2, i2 = random.choice(compatible_nodes)
-            
-            p1.children[i1], p2.children[i2] = p2.children[i2], p1.children[i1]
+    nodes2 = get_typed_nodes(copy_ast(parent2), ts)
+ 
+    candidates1 = [(n, t, p, i) for n, t, p, i in nodes1 if p is not None]
+    random.shuffle(candidates1)
+ 
+    for n1, t1, p1, i1 in candidates1:
+        compatible = [
+            (n2, t2, p2, i2) for n2, t2, p2, i2 in nodes2
+            if t2 == t1 and p2 is not None and ast_to_expr(n2) != ast_to_expr(n1)
+        ]
 
+        if (compatible):
+            n2, t2, p2, i2 = random.choice(compatible)
+            p1.children[i1] = copy_ast(n2)
             return child1
-            
+ 
     return child1
 
 def parse_expression(expr: str) -> Node:
     expr = expr.strip()
-
+ 
+    if (not expr):
+        return Node("I")
+ 
     if ("(" not in expr):
         return Node(expr)
+ 
+    if (expr.startswith("(")):
+        inner = expr[1:-1]
+        args = _split_args(inner)
 
-    name, rest = expr.split("(", 1)
-    rest = rest[:-1]  # remove )
+        return Node("_tuple", [parse_expression(a) for a in args])
+ 
+    name_end = expr.index("(")
+    name     = expr[:name_end]
+    rest     = expr[name_end+1:-1]
+ 
+    args = _split_args(rest)
 
-    args = []
-    depth = 0
-    current = ""
+    return Node(name, [parse_expression(a) for a in args]) 
+ 
+def _split_args(s: str) -> list:
+    args, depth, current = [], 0, ""
 
-    for c in rest:
+    for c in s:
         if (c == "," and depth == 0):
-            args.append(parse_expression(current))
+            if (current.strip()):
+                args.append(current.strip())
+
             current = ""
         else:
-            if (c == "("):
-                depth += 1
-            elif (c == ")"):
-                depth -= 1
+            if (c in ("(", ))  : depth += 1
+            elif (c in (")",)): depth -= 1
 
             current += c
 
-    if (current):
-        args.append(parse_expression(current))
+    if (current.strip()):
+        args.append(current.strip())
 
-    return Node(name, args)
+    return args
 
 def ast_to_expr(node: Node) -> str:
     if (not node.children):
@@ -362,7 +373,7 @@ class GeneticOptimizer:
         try:
             res = test_arc.taskResults(f"def dsl(I):\n    return {prog_str}", self.task_pairs[0], "train")
 
-            return self.score_func(list(res) + [prog_str])
+            return self.score_func((res[0], prog_str))
         except Exception:
             return (float('inf'), float('inf'), float('inf'), float('inf'), len(prog_str))
 
@@ -375,65 +386,202 @@ class GeneticOptimizer:
 
         return Any
 
-    def mutate(self, parent_ast: Node):
-        child = copy_ast(parent_ast)
+    def mutate(self, parent_ast: Node) -> Node:
+        """
+        Mutation par l'une des 4 stratégies (choisie aléatoirement) :
+          A. Substitution de variable  : remplace un noeud feuille par une variable
+             compatible (avec biais fort vers I pour garantir la dépendance à l'input)
+          B. Substitution de primitive : remplace un noeud interne par une autre
+             primitive de même type de retour, en conservant les enfants compatibles
+          C. Élévation   : remplace un sous-arbre par son enfant Grid le plus proche
+             (simplification — réduit la profondeur)
+          D. Enroulement : enveloppe le sous-arbre dans une primitive compatible
+             (augmentation — augmente la profondeur)
+        """
+        Grid = Tuple[Tuple[int]]
+        child    = copy_ast(parent_ast)
         all_nodes = get_all_nodes(child)
-        target = random.choice(all_nodes)
-        target_type = self.get_node_type(target)
-
-        # Strategy 1: replace by an existant variable of same type
-        valid_vars = self.ts.variablesForType(target_type)
-        # Strategy 2: replace by a declined primitive (prebuilt AST)
-        valid_prims = [self.gene_pool[p] for p in self.ts.primitiveTypes.get(target_type, [])]
-
-        if (target_type is Callable and target.children):
-            valid_vars = []
-
-        options = valid_vars + valid_prims
-
-        if (options):
-            replacement = random.choice(options)
-
-            if (isinstance(replacement, str)): # variable
-                target.name = replacement
+ 
+        # Choisir un noeud cible non vide
+        target   = random.choice(all_nodes)
+        t_type   = self.get_node_type(target)
+        strategy = random.random()
+ 
+        # ── A. Substitution de variable (feuille) ────────────────────────────
+        if strategy < 0.35 or not target.children:
+            valid_vars = self.ts.variablesForType(t_type)
+            if valid_vars:
+                # Biais fort vers I quand le type est Grid
+                if t_type == Grid and "I" in valid_vars:
+                    weights = [5.0 if v == "I" else 1.0 for v in valid_vars]
+                    total   = sum(weights)
+                    r       = random.random() * total
+                    cumul   = 0.0
+                    chosen  = valid_vars[-1]
+                    for v, w in zip(valid_vars, weights):
+                        cumul += w
+                        if r <= cumul:
+                            chosen = v
+                            break
+                else:
+                    chosen = random.choice(valid_vars)
+                target.name     = chosen
                 target.children = []
-            else: # primitive AST
-                target.name = replacement.name
-                target.children = [copy_ast(c) for c in replacement.children]
-        
+ 
+        # ── B. Substitution de primitive ─────────────────────────────────────
+        elif strategy < 0.65 and target.children:
+            same_arity = [
+                name for name, spec in self.ts.dslPrimitives.items()
+                if (self.ts.dslPrimitives[name]["return_type"] == t_type
+                    and len(spec["args"]) == len(target.children)
+                    and name != target.name)
+            ]
+            if same_arity:
+                new_prim       = random.choice(same_arity)
+                target.name    = new_prim
+                # Conserver les enfants existants (déjà de bons types généralement)
+ 
+        # ── C. Élévation (simplification) ────────────────────────────────────
+        elif strategy < 0.80 and target.children:
+            grid_children = [c for c in target.children
+                             if self.get_node_type(c) == Grid]
+            if grid_children and t_type == Grid:
+                chosen_child   = random.choice(grid_children)
+                target.name    = chosen_child.name
+                target.children = chosen_child.children[:]
+ 
+        # ── D. Enroulement (augmentation) ────────────────────────────────────
+        else:
+            wrappers = [
+                name for name, spec in self.ts.dslPrimitives.items()
+                if (spec["return_type"] == t_type
+                    and len(spec["args"]) >= 1
+                    and spec["args"][0]["type"] == t_type)
+            ]
+            if wrappers:
+                wrapper  = random.choice(wrappers)
+                spec     = self.ts.dslPrimitives[wrapper]
+                inner    = copy_ast(target)
+                new_args = [inner]
+                for arg_spec in spec["args"][1:]:
+                    arg_type = arg_spec["type"]
+                    opts     = self.ts.variablesForType(arg_type)
+                    new_args.append(Node(random.choice(opts)) if opts
+                                    else Node(self.gene_pool.get(
+                                        self.ts.primitiveTypes.get(arg_type, ["I"])[0],
+                                        parse_expression("I")).name))
+                target.name     = wrapper
+                target.children = new_args
+ 
         return child
+ 
+    def _random_individual(self, max_depth: int = 4) -> Node:
+        Grid = Tuple[Tuple[int]]
+        grid_prims = [
+            n for n, s in self.ts.dslPrimitives.items()
+            if s["return_type"] == Grid
+        ]
 
-    def evolve(self, seeds, generations = 15, pop_size = 30):
+        if (not grid_prims):
+            return parse_expression("I")
+ 
+        def rand_node(expected_type, depth: int) -> Node:
+            Grid = Tuple[Tuple[int]]
+            vars_ok = self.ts.variablesForType(expected_type)
+            prims_ok = [n for n, s in self.ts.dslPrimitives.items()
+                        if s["return_type"] == expected_type]
+ 
+            if (depth >= max_depth or not prims_ok):
+                if (vars_ok):
+                    if (expected_type == Grid and "I" in vars_ok):
+                        return Node("I")
+
+                    return Node(random.choice(vars_ok))
+
+                return Node("I")
+ 
+            use_prim = random.random() < (0.8 - depth * 0.15)
+
+            if (not use_prim and vars_ok):
+                if (expected_type == Grid and "I" in vars_ok):
+                    return Node("I")
+
+                return Node(random.choice(vars_ok))
+ 
+            prim_name = random.choice(prims_ok)
+            spec      = self.ts.dslPrimitives[prim_name]
+            children  = [rand_node(arg["type"], depth + 1) for arg in spec["args"]]
+
+            return Node(prim_name, children)
+ 
+        return rand_node(Grid, 0)
+ 
+    def evolve(
+        self,
+        seeds       : list,
+        generations : int = 25,
+        pop_size    : int = 40,
+        elite_k     : int = 5,
+        rand_inject : int = 5,
+    ):
         population = [parse_expression(p) for p in seeds]
 
+        while (len(population) < pop_size):
+            population.append(self._random_individual())
+ 
+        best_overall = None
+        best_score   = (float("inf"),) * 5
+ 
         for gen in range(generations):
-            scored = sorted([(p, self.evaluate(p)) for p in population], key = lambda x: x[1])
-            best_fit = scored[0][1]
-                
-            if (sum(best_fit[:4]) == 0): # Perfect solution found
-                return scored[0]
+            scored = sorted(
+                [(p, self.evaluate(p)) for p in population],
+                key = lambda x: x[1],
+            )
+            gen_best_score = scored[0][1]
+            gen_best_expr  = ast_to_expr(scored[0][0])
+ 
+            if (gen_best_score < best_score):
+                best_score   = gen_best_score
+                best_overall = scored[0][0]
+ 
+            print(f"  Gen {gen+1:3d}/{generations}"
+                  f"  score={gen_best_score[:4]}"
+                  f"  prog={gen_best_expr[:60]}")
+ 
+            if (sum(s for s in gen_best_score[:4]) == 0):
+                print("  ✓ Perfect solution found!")
 
+                return best_overall, best_score
+ 
             # Elitism
-            next_gen = [s[0] for s in scored[:5]]
-
+            next_gen = [s[0] for s in scored[:elite_k]]
+ 
+            for _ in range(rand_inject):
+                next_gen.append(self._random_individual())
+ 
             while (len(next_gen) < pop_size):
-                # 70% crossover, 30% pure mutation
-                if (random.random() < 0.7 and len(scored) > 1):
-                    p1 = random.choice(scored[:10])[0]
-                    p2 = random.choice(scored[:10])[0]
+                op = random.random()
+ 
+                if op < 0.55 and len(scored) > 1:
+                    p1    = random.choice(scored[:min(10, len(scored))])[0]
+                    p2    = random.choice(scored[:min(10, len(scored))])[0]
                     child = crossover(p1, p2, self.ts)
 
-                    if (random.random() < 0.2):
+                    if (random.random() < 0.25):
                         child = self.mutate(child)
-                else:
-                    parent = random.choice(scored[:10])[0]
-                    child = self.mutate(parent)
-                
-                next_gen.append(child)
-            
-            population = next_gen
 
-        return scored[0]
+                elif (op < 0.85):
+                    parent = random.choice(scored[:min(10, len(scored))])[0]
+                    child  = self.mutate(parent)
+ 
+                else:
+                    child = self._random_individual()
+ 
+                next_gen.append(child)
+ 
+            population = next_gen
+ 
+        return best_overall, best_score
 
 if (__name__ == "__main__"):
     ts = TypeSystem()
