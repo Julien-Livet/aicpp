@@ -1,6 +1,7 @@
 from collections import defaultdict
 from neuron import Neuron
 from dsl_ga import TypeSystem
+from typing import get_args, get_origin, Union
 
 class Engine:
     def __init__(self):
@@ -38,9 +39,17 @@ class Engine:
             self.primitiveNeurons.append(neuron)
 
         self.sortedPrimitiveNeurons = defaultdict(list)
+        self.typedPrimitiveNeurons = defaultdict(list)
 
         for neuron in self.primitiveNeurons:
             self.sortedPrimitiveNeurons[len(neuron.inputTypes)].append(neuron)
+            
+            if (get_origin(neuron.outputType) is Union):
+                for arg in get_args(neuron.outputType):
+                    self.typedPrimitiveNeurons[arg].append(neuron)
+            else:
+                self.typedPrimitiveNeurons[neuron.outputType].append(neuron)
+
 
 if (__name__ == "__main__"):
     engine = Engine()
@@ -63,3 +72,4 @@ if (__name__ == "__main__"):
     """
 
     #print(engine.sortedPrimitiveNeurons)
+    #print(engine.typedPrimitiveNeurons)
