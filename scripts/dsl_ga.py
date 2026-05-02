@@ -175,7 +175,7 @@ def processTask(llm: tuple, folder: str, task: str):
     import test_arc
 
     taskPairs = test_arc.trainTestPairs(folder, task)
-    """
+
     import dsl_memory
     
     dsls = list(sorted(dsl_memory.load(f"data/{test_arc.llmPath(llm)}/dsl_memory.pkl"), key = lambda x: (len(x), x)))
@@ -189,17 +189,6 @@ def processTask(llm: tuple, folder: str, task: str):
             expressions.add(view_dsl_graph.programExpression(dsl))
         except Exception:
             pass
-    """
-    expressions = ['vconcat(switch(I,ONE,TWO),first(vsplit(switch(I,ONE,TWO),2)))',
-                   'vconcat(switch(I,ONE,TWO),crop(switch(I,ONE,TWO),(uppermost(asobject(switch(I,ONE,TWO))),ZERO),(divide(add(subtract(lowermost(asobject(switch(I,ONE,TWO))),uppermost(asobject(switch(I,ONE,TWO)))),ONE),TWO),width(switch(I,ONE,TWO)))))',
-                   'vconcat(canvas(7,shape(trim(I))),trim(I))',
-                   'vconcat(switch(I,ONE,TWO),paint(canvas(ZERO,shape(switch(I,ONE,TWO))),intersection(asobject(switch(I,ONE,TWO)),asobject(vmirror(switch(I,ONE,TWO))))))',
-                   'vupscale(I,2)',
-                   'combine(I,hmirror(I))',
-                   'vconcat(hmirror(I),I)',
-                   'vconcat(I,hmirror(I))',
-                   'vconcat(I,vmirror(rot180(I)))',
-                   'vconcat(rot180(vmirror(I)),I)']
 
     results = []
 
@@ -225,8 +214,11 @@ def processTask(llm: tuple, folder: str, task: str):
     results = sorted(results, key = score)
     topPrograms = [(x[-1], x[0]) for x in results[:10]]
 
-    print("topPrograms", topPrograms)
+    #print("topPrograms", topPrograms)
+
     seed_expressions = [p[0] for p in topPrograms]
+
+    ts = TypeSystem()
 
     print("\n--- Startig GA (refinement) ---")
     optimizer = GeneticOptimizer(ts, taskPairs, score)
@@ -387,27 +379,15 @@ class GeneticOptimizer:
         return Any
 
     def mutate(self, parent_ast: Node) -> Node:
-        """
-        Mutation par l'une des 4 stratégies (choisie aléatoirement) :
-          A. Substitution de variable  : remplace un noeud feuille par une variable
-             compatible (avec biais fort vers I pour garantir la dépendance à l'input)
-          B. Substitution de primitive : remplace un noeud interne par une autre
-             primitive de même type de retour, en conservant les enfants compatibles
-          C. Élévation   : remplace un sous-arbre par son enfant Grid le plus proche
-             (simplification — réduit la profondeur)
-          D. Enroulement : enveloppe le sous-arbre dans une primitive compatible
-             (augmentation — augmente la profondeur)
-        """
         Grid = Tuple[Tuple[int]]
         child    = copy_ast(parent_ast)
         all_nodes = get_all_nodes(child)
  
-        # Choisir un noeud cible non vide
         target   = random.choice(all_nodes)
         t_type   = self.get_node_type(target)
         strategy = random.random()
  
-        # ── A. Substitution de variable (feuille) ────────────────────────────
+        # A. Variable substitution (leaf)
         if strategy < 0.35 or not target.children:
             valid_vars = self.ts.variablesForType(t_type)
             if valid_vars:
@@ -428,21 +408,20 @@ class GeneticOptimizer:
                 target.name     = chosen
                 target.children = []
  
-        # ── B. Substitution de primitive ─────────────────────────────────────
-        elif strategy < 0.65 and target.children:
+        # B. Primitive substitution
+        elif (strategy < 0.65 and target.children):
             same_arity = [
                 name for name, spec in self.ts.dslPrimitives.items()
                 if (self.ts.dslPrimitives[name]["return_type"] == t_type
                     and len(spec["args"]) == len(target.children)
                     and name != target.name)
             ]
-            if same_arity:
+            if (same_arity):
                 new_prim       = random.choice(same_arity)
                 target.name    = new_prim
-                # Conserver les enfants existants (déjà de bons types généralement)
  
-        # ── C. Élévation (simplification) ────────────────────────────────────
-        elif strategy < 0.80 and target.children:
+        # C. Elevation (simplification)
+        elif (strategy < 0.80 and target.children):
             grid_children = [c for c in target.children
                              if self.get_node_type(c) == Grid]
             if grid_children and t_type == Grid:
@@ -450,7 +429,7 @@ class GeneticOptimizer:
                 target.name    = chosen_child.name
                 target.children = chosen_child.children[:]
  
-        # ── D. Enroulement (augmentation) ────────────────────────────────────
+        # D. Winding (augmentation)
         else:
             wrappers = [
                 name for name, spec in self.ts.dslPrimitives.items()
@@ -458,11 +437,13 @@ class GeneticOptimizer:
                     and len(spec["args"]) >= 1
                     and spec["args"][0]["type"] == t_type)
             ]
-            if wrappers:
+
+            if (wrappers):
                 wrapper  = random.choice(wrappers)
                 spec     = self.ts.dslPrimitives[wrapper]
                 inner    = copy_ast(target)
                 new_args = [inner]
+
                 for arg_spec in spec["args"][1:]:
                     arg_type = arg_spec["type"]
                     opts     = self.ts.variablesForType(arg_type)
@@ -470,6 +451,7 @@ class GeneticOptimizer:
                                     else Node(self.gene_pool.get(
                                         self.ts.primitiveTypes.get(arg_type, ["I"])[0],
                                         parse_expression("I")).name))
+
                 target.name     = wrapper
                 target.children = new_args
  
@@ -584,6 +566,7 @@ class GeneticOptimizer:
         return best_overall, best_score
 
 if (__name__ == "__main__"):
+    """
     ts = TypeSystem()
 
     print("dslVariables", ts.dslVariables)
@@ -591,5 +574,6 @@ if (__name__ == "__main__"):
     print("dslPrimitives", ts.dslPrimitives)
     print("primitiveTypes", ts.primitiveTypes)
     print("declinedPrimitives", ts.declinedPrimitives)
+    """
 
     processTask((sys.argv[-4], sys.argv[-3]), sys.argv[-2], sys.argv[-1])
