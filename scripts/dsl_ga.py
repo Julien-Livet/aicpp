@@ -62,10 +62,12 @@ class TypeSystem:
         exec(content, namespace)
 
         variables = {}
+        self.dslVariableValues = {}
 
         for k, v in namespace.items():
             if (not k in vars(arc_types_module)):
                 variables[k] = types[type(v)]
+                self.dslVariableValues[k] = v
 
         self.dslVariables = {"I": Grid}
         
