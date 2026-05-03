@@ -1,6 +1,7 @@
 from collections import defaultdict
-from neuron import Neuron
+from connection import Connection
 from dsl_ga import TypeSystem
+from neuron import Neuron
 from typing import get_args, get_origin, Union
 
 class Engine:
@@ -43,33 +44,36 @@ class Engine:
 
         for neuron in self.primitiveNeurons:
             self.sortedPrimitiveNeurons[len(neuron.inputTypes)].append(neuron)
-            
+
             if (get_origin(neuron.outputType) is Union):
                 for arg in get_args(neuron.outputType):
                     self.typedPrimitiveNeurons[arg].append(neuron)
             else:
                 self.typedPrimitiveNeurons[neuron.outputType].append(neuron)
 
+def sortedNamedNeurons(neurons: dict) -> dict:
+    result = defaultdict(list)
+
+    for k, v in neurons.items():
+        result[k] += [x.name for x in v]
+
+    for k, v in result.items():
+        result[k] = sorted(v)    
+
+    return result
 
 if (__name__ == "__main__"):
     engine = Engine()
-
-    """
-    neuron = engine.variableNeurons[0]
-    print(neuron.name)
-    print(neuron.outputType)
-    print(neuron.function())
-    """
     
+    def printNeuron(neuron: Neuron, args: list = []):
+        print(neuron.name, neuron.outputType, neuron.function(*args))
+
+    #printNeuron(engine.variableNeurons[0])
     #print(engine.sortedVariableNeurons)
+    #print(sortedNamedNeurons(engine.sortedVariableNeurons))
 
-    """
-    neuron = engine.primitiveNeurons[0]
-    print(neuron.name)
-    print(neuron.inputTypes)
-    print(neuron.outputType)
-    print(neuron.function("a"))
-    """
-
+    #printNeuron(engine.primitiveNeurons[0], ["a"])
     #print(engine.sortedPrimitiveNeurons)
     #print(engine.typedPrimitiveNeurons)
+    #print(sortedNamedNeurons(engine.sortedPrimitiveNeurons))
+    #print(sortedNamedNeurons(engine.typedPrimitiveNeurons))
