@@ -362,9 +362,20 @@ class Engine:
                     del space
                 #if (nameFunction == "add"): #TODO: to remove
                 #    input("here")
-                    
+
             for connection in addedConnections:
-                if (get_origin(connection.neuron.outputType) is Union):
+                if (connection.neuron.outputType is Any):
+                    for v in self.typedConnections.values():
+                        v.append(connection)
+                elif (connection.neuron.outputType is typing.Container):
+                    for k, v in self.typedConnections.items():
+                        if (is_container_type(k)):
+                            v.append(connection)
+                elif (connection.neuron.outputType is typing.Container[typing.Container]):
+                    for k, v in self.typedConnections.items():
+                        if (is_container_of_container(k)):
+                            v.append(connection)
+                elif (get_origin(connection.neuron.outputType) is Union):
                     for arg in get_args(connection.neuron.outputType):
                         self.typedConnections[arg].append(connection)
                 else:

@@ -1,3 +1,4 @@
+from connection import Connection
 import copy
 import dsl_engine
 import numpy as np
@@ -73,10 +74,22 @@ def processTask(folder: str, task: str):
 
     taskPairs = test_arc.trainTestPairs(folder, task)
     results = []
+    connection: Connection = None
     
     for inp, out in taskPairs[0]:
         inputNeuron.function = lambda inp = inp: inp
-        results.append(dslEngine.learn(out))
+        process = True
+
+        if (connection):
+            output = connection.output()
+            cost = dsl_engine.heuristic(output, out)
+            process = cost
+
+        if (process):
+            result = dslEngine.learn(out)
+            connection, args, cost = result
+
+        results.append(result)
 
     sortedResults = []
     
