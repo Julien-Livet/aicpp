@@ -1,5 +1,46 @@
 from neuron import Neuron
 import typing
+from typing import Any, Container, get_args, get_origin, Union
+
+def is_container_type(tp):
+    origin = get_origin(tp)
+
+    return origin in (list, tuple, set, frozenset)
+
+def is_container_of_container(tp):
+    origin = get_origin(tp)
+
+    if (origin is None):
+        return False
+    
+    if (not issubclass(origin, Container)):
+        return False
+    
+    args = get_args(tp)
+
+    if (not args):
+        return False
+    
+    inner = args[0]
+    inner_origin = get_origin(inner) or inner
+
+    return issubclass(inner_origin, Container)
+
+def compatibleType(target: type, expected: type) -> bool:
+    if (expected is Any):
+        return True
+    elif (expected is typing.Container):
+        if (is_container_type(target)):
+            return True
+    elif (expected is typing.Container[typing.Container]):
+        if (is_container_of_container(target)):
+            return True
+    elif (get_origin(expected) is Union):
+        for arg in get_args(expected):
+            if (target == arg):
+                return True
+
+    return target == expected
 
 class Connection:
     def __init__(self, neuron: Neuron, inputs: list):
@@ -72,13 +113,13 @@ class Connection:
             else:
                 if (index < len(inputs)):
                     if (isinstance(inputs[index], Connection)):
-                        assert(inputs[index].neuron.outputType == self.neuron.inputTypes[i])
+                        assert(compatibleType(inputs[index].neuron.outputType, self.neuron.inputTypes[i]))
                     elif (isinstance(inputs[index], Neuron)):
-                        assert(inputs[index].outputType == self.neuron.inputTypes[i])
+                        assert(compatibleType(inputs[index].outputType, self.neuron.inputTypes[i]))
                     elif (inputs[index] == typing.Any):
                         pass
                     elif (isinstance(inputs[index], type)):
-                        assert(inputs[index] == self.neuron.inputTypes[i])
+                        assert(compatibleType(inputs[index], self.neuron.inputTypes[i]))
                     elif (typing.get_origin(inputs[index]) is not None):
                         assert(inputs[index] == self.neuron.inputTypes[i])
 
@@ -89,6 +130,8 @@ class Connection:
 
                     index += 1
 
+        return self
+    
     def output(self, inputs: list = None):
         args = []
         index = 0

@@ -27,10 +27,15 @@ plotly
 PyQt5
 pytest
 requests
+scikit-learn
+scipy
+sentencepiece
 sortedcontainers
+sympy
 tabulate
 tensorflow==2.21.0
 textdistance
+tiktoken
 torch
 tqdm
 transformers
