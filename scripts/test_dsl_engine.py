@@ -3,20 +3,23 @@ import dsl_engine
 import numpy as np
 from neuron import Neuron
 from typing import Tuple
+import time
 
 dslEngine: dsl_engine.Engine = dsl_engine.Engine()
 Grid = Tuple[Tuple[int]]
 I = np.random.randint(0, 10, (4, 4))
 inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
 dslEngine.addVariableNeuron(inputNeuron)
-    
+
 def learnInt(engine: dsl_engine.Engine, expression: str):
+    t = time.time()
     print(f"Target expression: {expression} = {eval(expression)}")
     c, args, cost = engine.learn(eval(expression))
     print("Found connection:", c.toStr())
     connnection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
     print("Applied connection:", connnection.toStr())
     print(f"Args: {args}, output: {connnection.output()}, cost: {cost}")
+    print(f"Duration: {time.time() - t} s")
 
     assert(not cost)
 

@@ -27,19 +27,6 @@ def expected_improvement(mu, sigma, y_best, xi = 0.01):
 
     return ei
 
-_space_cache = {}
-
-def _cached_heuristic(op, x, target):
-    key = x
-
-    if (key not in _space_cache):
-        try:
-            _space_cache[key] = heuristic(op(x), target)
-        except Exception:
-            _space_cache[key] = 999.0
-
-    return _space_cache[key]
-
 def heuristic(val, target):
     if (isinstance(target, str)):
         s = val
@@ -120,7 +107,7 @@ def encode_output_space_discrete(points: list, op: Callable, space: tuple, targe
 
     for point in points:
         try:
-            v = _cached_heuristic(op, point, target)
+            v = heuristic(op(point), target)
             subresult = [v]
 
             for i, x in enumerate(point):
@@ -149,6 +136,7 @@ def bayesian_optimization_discrete(
     n_init: int = 5,
     top_k: int = 3,
     xi: float = 0.01,
+    count_max: int = 10
 ) -> tuple[object, object]:
     obs_x = []
     obs_y = []
@@ -218,7 +206,7 @@ def bayesian_optimization_discrete(
             previous_best_y = best_y
             count = 0
 
-        if (best_y == 0 or count > 10):
+        if (best_y == 0 or count > count_max):
             break
 
         count += 1
@@ -359,7 +347,7 @@ class Engine:
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, space, 10, 5)
+                        result = bayesian_optimization_discrete(op, target, space, n_init = 10, top_k = 5, count_max = 20)
                         self.connections[connection.toStr()] = tuple([connection] + list(result))
                         addedConnections.append(connection)
                         #print(result) #TODO: to remove
