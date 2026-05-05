@@ -27,6 +27,19 @@ def expected_improvement(mu, sigma, y_best, xi = 0.01):
 
     return ei
 
+_space_cache = {}
+
+def _cached_heuristic(op, x, target):
+    key = x
+
+    if (key not in _space_cache):
+        try:
+            _space_cache[key] = heuristic(op(x), target)
+        except Exception:
+            _space_cache[key] = 999.0
+
+    return _space_cache[key]
+
 def heuristic(val, target):
     if (isinstance(target, str)):
         s = val
@@ -107,7 +120,7 @@ def encode_output_space_discrete(points: list, op: Callable, space: tuple, targe
 
     for point in points:
         try:
-            v = heuristic(op(point), target)
+            v = _cached_heuristic(op, point, target)
             subresult = [v]
 
             for i, x in enumerate(point):
@@ -171,6 +184,7 @@ def bayesian_optimization_discrete(
     count = 0
     previous_best_y = math.inf
     #iteration = 0 #TODO: to remove
+    best_candidates = None
 
     while (True):
         X_enc = scaler.transform(encode_output_space_discrete(obs_x, op, space, target))
@@ -181,7 +195,7 @@ def bayesian_optimization_discrete(
         unobserved = [x for x in space if x not in obs_set]
 
         if (not unobserved):
-            return best_x, best_y
+            break
 
         C_enc = scaler.transform(encode_output_space_discrete(unobserved, op, space, target))
         mu, sigma = gp.predict(C_enc, return_std = True)
@@ -205,10 +219,24 @@ def bayesian_optimization_discrete(
             count = 0
 
         if (best_y == 0 or count > 10):
-            return best_x, best_y
+            break
 
         count += 1
         #iteration += 1 #TODO: to remove
+
+    del X_space_enc
+    del X_enc
+    del Y
+    del obs_x
+    del obs_y
+    del gp
+    del unobserved
+    del obs_set
+
+    if (best_candidates):
+        del best_candidates
+ 
+    return best_x, best_y
 
 class Engine:
     def __init__(self):
@@ -313,6 +341,9 @@ class Engine:
                 for value in space:
                     newConnections.append(Connection(n, n.inputTypes).applyInputs(value))
                 #input("space") #TODO: to remove
+                del combinations
+                del space
+                
                 for connection in newConnections:
                     combinations = []
                     
@@ -338,6 +369,9 @@ class Engine:
                         heapq.heappush(frontier, (result[1], connection.toStr()))
                     except Exception:
                         pass
+
+                    del combinations
+                    del space
                 #if (nameFunction == "add"): #TODO: to remove
                 #    input("here")
                     
@@ -406,8 +440,3 @@ if (__name__ == "__main__"):
     #print(engine.typedPrimitiveNeurons)
     #print(sortedNamedNeurons(engine.sortedPrimitiveNeurons))
     #print(sortedNamedNeurons(engine.typedPrimitiveNeurons))
-
-    Grid = Tuple[Tuple[int]]    
-    I = np.random.randint(0, 10, (4, 4))
-    inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
-    engine.addVariableNeuron(inputNeuron)

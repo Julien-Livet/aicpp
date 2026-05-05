@@ -1,7 +1,15 @@
 import copy
 import dsl_engine
+import numpy as np
 from neuron import Neuron
+from typing import Tuple
 
+dslEngine: dsl_engine.Engine = dsl_engine.Engine()
+Grid = Tuple[Tuple[int]]
+I = np.random.randint(0, 10, (4, 4))
+inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
+dslEngine.addVariableNeuron(inputNeuron)
+    
 def learnInt(engine: dsl_engine.Engine, v: int):
     c, args, cost = engine.learn(v)
     print("Found connection:", c.toStr())
@@ -53,3 +61,52 @@ def test_operations():
     learnInt(engine, 7 + 8)
     learnInt(engine, 5 + 7 + 8)
     learnInt(engine, 5 + 7 * 8)
+
+def processTask(folder: str, task: str):
+    import test_arc
+
+    taskPairs = test_arc.trainTestPairs(folder, task)
+    results = []
+    
+    for inp, out in taskPairs[0]:
+        inputNeuron.function = lambda inp = inp: inp
+        results.append(dslEngine.learn(out))
+
+    sortedResults = []
+    
+    for result in results:
+        c, args, cost = result
+        totalCost: float = 0
+        connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+
+        for inp, out in taskPairs[0]:
+            inputNeuron.function = lambda inp = inp: inp
+            output = connection.output()
+            totalCost += dsl_engine.heuristic(output, out)
+
+        sortedResults.append((totalCost, result))
+
+    sortedResults = sorted(sortedResults, key = lambda x: x[0])
+    testCost: float = 0
+    trainCost, result = sortedResults[0]
+    c, args, cost = result
+    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+
+    for inp, out in taskPairs[1]:
+        inputNeuron.function = lambda inp = inp: inp
+        output = connection.output()
+        testCost += dsl_engine.heuristic(output, out)
+
+    return (trainCost, testCost, connection.toStr())
+
+def passTask(folder: str, task: str, debug: bool = False):
+    trainCost, testCost, dsl = processTask(folder, task)
+
+    if (debug):
+        print(f"Train cost: {trainCost}, test cost: {testCost}, dsl: {dsl}")
+
+    assert(not (trainCost + testCost))
+"""
+def test_task3c9b0459(): #Flip left/right and flip up/down
+    passTask("training", "3c9b0459", True)
+"""
