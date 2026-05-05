@@ -102,19 +102,19 @@ def heuristic(val, target):
 
     return 999.0
 
-def encode_output_space_discrete(points: list, op: Callable, space: tuple, target: object) -> np.ndarray:
+def encode_output_space_discrete(points: list, op: Callable, space: tuple, target: object, heuristicFunction) -> np.ndarray:
     result = []
 
     for point in points:
         try:
-            v = heuristic(op(point), target)
+            v = heuristicFunction(op(point), target)
             subresult = [v]
 
             for i, x in enumerate(point):
                 values = list(filter(lambda value, i = i, x = x: value[i] == x, space))
 
                 try:
-                    neighbors = [heuristic(op(x), target) for x in values]
+                    neighbors = [heuristicFunction(op(x), target) for x in values]
                     subresult += [np.mean(neighbors),
                                 np.std(neighbors),
                                 min(neighbors),
@@ -133,10 +133,11 @@ def bayesian_optimization_discrete(
     op: Callable,
     target: object,
     space: list,
+    heuristicFunction,
     n_init: int = 5,
     top_k: int = 3,
     xi: float = 0.01,
-    count_max: int = 10
+    count_max: int = 10,
 ) -> tuple[object, object]:
     obs_x = []
     obs_y = []
@@ -147,7 +148,7 @@ def bayesian_optimization_discrete(
         s.remove(x)
 
         try:
-            obs_y.append(heuristic(target, op(x)))
+            obs_y.append(heuristicFunction(target, op(x)))
             obs_x.append(x)
         except Exception:
             pass
@@ -160,7 +161,7 @@ def bayesian_optimization_discrete(
         input("lol")
     """
 
-    X_space_enc = encode_output_space_discrete(space, op, space, target)
+    X_space_enc = encode_output_space_discrete(space, op, space, target, heuristicFunction)
     scaler = StandardScaler().fit(X_space_enc)
 
     kernel = ConstantKernel(1.0) * RBF(length_scale = 1.0)
@@ -175,7 +176,7 @@ def bayesian_optimization_discrete(
     best_candidates = None
 
     while (True):
-        X_enc = scaler.transform(encode_output_space_discrete(obs_x, op, space, target))
+        X_enc = scaler.transform(encode_output_space_discrete(obs_x, op, space, target, heuristicFunction))
         Y = np.array(obs_y, dtype = float)
         gp.fit(X_enc, Y)
 
@@ -185,14 +186,14 @@ def bayesian_optimization_discrete(
         if (not unobserved):
             break
 
-        C_enc = scaler.transform(encode_output_space_discrete(unobserved, op, space, target))
+        C_enc = scaler.transform(encode_output_space_discrete(unobserved, op, space, target, heuristicFunction))
         mu, sigma = gp.predict(C_enc, return_std = True)
         ei = expected_improvement(mu, sigma, np.min(Y), xi = xi)
         best_candidates = [unobserved[i] for i in np.argsort(-ei)[:top_k]]
 
         for x in best_candidates:
             try:
-                obs_y.append(heuristic(target, op(x)))
+                obs_y.append(heuristicFunction(target, op(x)))
                 obs_x.append(x)
             except Exception:
                 pass
@@ -227,7 +228,8 @@ def bayesian_optimization_discrete(
     return best_x, best_y
 
 class Engine:
-    def __init__(self):
+    def __init__(self, heuristicFunction = heuristic):
+        self.heuristicFunction = heuristicFunction
         self.typeSystem: TypeSystem = TypeSystem()
         self.variableNeurons: dict = dict()
 
@@ -347,7 +349,7 @@ class Engine:
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, space, n_init = 10, top_k = 5, count_max = 20)
+                        result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
                         self.connections[connection.toStr()] = tuple([connection] + list(result))
                         addedConnections.append(connection)
                         #print(result) #TODO: to remove
