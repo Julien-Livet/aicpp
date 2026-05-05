@@ -294,9 +294,9 @@ class Engine:
             for k, n in self.primitiveNeurons.items():
                 if (not compatibleType(type(target), n.outputType)):
                     continue
-                print(n.name) #TODO: to remove
-                global nameFunction
-                nameFunction = n.name
+                #print(n.name) #TODO: to remove
+                global nameFunction #TODO: to remove
+                nameFunction = n.name #TODO: to remove
                 combinations: list = []
 
                 for inputType in n.inputTypes:

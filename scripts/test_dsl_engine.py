@@ -4,12 +4,10 @@ from neuron import Neuron
 
 def learnInt(engine: dsl_engine.Engine, v: int):
     c, args, cost = engine.learn(v)
-    print(c.toStr())
+    print("Found connection:", c.toStr())
     connnection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
-    print(connnection.toStr())
-    print(args)
-    print(connnection.output())
-    print(cost)
+    print("Applied connection:", connnection.toStr())
+    print(f"Args: {args}, output: {connnection.output()}, cost: {cost}")
 
 def buildSimplifiedEngine(ops: set = {"add", "sub", "mul"}):
     engine: dsl_engine.Engine = dsl_engine.Engine()
@@ -44,3 +42,14 @@ def test_one_addition():
 def test_three_addition():
     engine = buildSimplifiedEngine({"add"})
     learnInt(engine, 5 + 7 + 8)
+
+def test_simple_operation():
+    engine = buildSimplifiedEngine({"add", "mul"})
+    learnInt(engine, 5 + 7 * 8)
+
+def test_operations():
+    engine = buildSimplifiedEngine({"add", "mul"})
+    learnInt(engine, 5)
+    learnInt(engine, 7 + 8)
+    learnInt(engine, 5 + 7 + 8)
+    learnInt(engine, 5 + 7 * 8)
