@@ -10,12 +10,15 @@ I = np.random.randint(0, 10, (4, 4))
 inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
 dslEngine.addVariableNeuron(inputNeuron)
     
-def learnInt(engine: dsl_engine.Engine, v: int):
-    c, args, cost = engine.learn(v)
+def learnInt(engine: dsl_engine.Engine, expression: str):
+    print(f"Target expression: {expression} = {eval(expression)}")
+    c, args, cost = engine.learn(eval(expression))
     print("Found connection:", c.toStr())
     connnection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
     print("Applied connection:", connnection.toStr())
     print(f"Args: {args}, output: {connnection.output()}, cost: {cost}")
+
+    assert(not cost)
 
 def buildSimplifiedEngine(ops: set = {"add", "sub", "mul"}):
     engine: dsl_engine.Engine = dsl_engine.Engine()
@@ -41,26 +44,26 @@ def buildSimplifiedEngine(ops: set = {"add", "sub", "mul"}):
 
 def test_digit():
     engine = buildSimplifiedEngine()
-    learnInt(engine, 5)
+    learnInt(engine, "5")
 
 def test_one_addition():
     engine = buildSimplifiedEngine()
-    learnInt(engine, 7 + 8)
+    learnInt(engine, "7 + 8")
 
 def test_three_addition():
     engine = buildSimplifiedEngine({"add"})
-    learnInt(engine, 5 + 7 + 8)
+    learnInt(engine, "5 + 7 + 8")
 
 def test_simple_operation():
     engine = buildSimplifiedEngine({"add", "mul"})
-    learnInt(engine, 5 + 7 * 8)
+    learnInt(engine, "5 + 7 * 8")
 
 def test_operations():
     engine = buildSimplifiedEngine({"add", "mul"})
-    learnInt(engine, 5)
-    learnInt(engine, 7 + 8)
-    learnInt(engine, 5 + 7 + 8)
-    learnInt(engine, 5 + 7 * 8)
+    learnInt(engine, "5")
+    learnInt(engine, "7 + 8")
+    learnInt(engine, "5 + 7 + 8")
+    learnInt(engine, "5 + 7 * 8")
 
 def processTask(folder: str, task: str):
     import test_arc
