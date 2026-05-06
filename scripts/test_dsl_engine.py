@@ -86,12 +86,12 @@ def processTask(folder: str, task: str):
     connection: Connection = None
     
     for inp, out in taskPairs[0]:
-        inputNeuron.function = lambda inp = inp: inp
+        inputNeuron.function = lambda inp = inp: tuple(map(tuple, inp))
         process = True
 
         if (connection):
             output = connection.output()
-            cost = dsl_engine.heuristic(output, out)
+            cost = dsl_engine.heuristic(output, tuple(map(tuple, out)))
             process = cost
 
         if (process):
@@ -107,11 +107,11 @@ def processTask(folder: str, task: str):
         totalCost: float = 0
 
         for inp, out in taskPairs[0]:
-            inputNeuron.function = lambda inp = inp: inp
+            inputNeuron.function = lambda inp = inp: tuple(map(tuple, inp))
             c, args, cost = result
             connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
             output = connection.output()
-            totalCost += dslEngine.heuristicFunction(output, out)
+            totalCost += dslEngine.heuristicFunction(output, tuple(map(tuple, out)))
 
         sortedResults.append((totalCost, result))
 
@@ -120,11 +120,11 @@ def processTask(folder: str, task: str):
     trainCost, result = sortedResults[0]
 
     for inp, out in taskPairs[1]:
-        inputNeuron.function = lambda inp = inp: inp
+        inputNeuron.function = lambda inp = inp: tuple(map(tuple, inp))
         c, args, cost = result
         connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
         output = connection.output()
-        testCost += dslEngine.heuristicFunction(output, out)
+        testCost += dslEngine.heuristicFunction(output, tuple(map(tuple, out)))
 
     c, args, cost = result
     inputNeuron.function = lambda: "I"
@@ -140,5 +140,18 @@ def passTask(folder: str, task: str, debug: bool = False):
 
     assert(not (trainCost + testCost))
 
-def test_task3c9b0459(): #Flip left/right and flip up/down
-    passTask("training", "3c9b0459", True)
+def test_hodel_tasks():
+    with open("arc-dsl/solvers.py", "r") as f:
+        lines = f.read().split("\n")
+
+    tasks = list(filter(lambda x: x.startswith("def solve_"), lines))
+    tasks = [x[x.index("_")+1:x.index("(")] for x in tasks]
+
+    # Tasks with one step of DSL
+    for task in tasks[:14]:
+        print("training", task)
+        passTask("training", task, True)
+"""
+def test_task0d3d703e(): #Color mapping
+    passTask("training", "0d3d703e", True)
+"""

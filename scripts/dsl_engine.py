@@ -413,7 +413,7 @@ class Engine:
 
         self.typedVariableNeurons: dict = defaultdict(list)
 
-        for name, neuron in self.variableNeurons.items():
+        for neuron in self.variableNeurons.values():
             self.typedVariableNeurons[neuron.outputType].append(neuron)
 
         for k, v in self.typedVariableNeurons.items():
@@ -452,10 +452,10 @@ class Engine:
         addedConnections: dict = {}
 
         def explore():
-            for k, n in self.primitiveNeurons.items():
+            for n in self.primitiveNeurons.values():
                 if (not compatibleType(targetType, n.outputType)):
                     continue
-
+                #print("n.name", n.name) #TODO: to remove
                 combinations: list = []
 
                 for inputType in n.inputTypes:
@@ -483,7 +483,7 @@ class Engine:
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
+                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 500, top_k = 50, count_max = 20)
                         s = connection.toStr()
                         self.connections[s] = tuple([connection] + list(result))
                         addedConnections[s] = connection
@@ -506,7 +506,7 @@ class Engine:
 
         while (frontier):
             cost, length, name = heapq.heappop(frontier)
-
+            #print("name", name) #TODO: to remove
             if (not cost):
                 break
 
