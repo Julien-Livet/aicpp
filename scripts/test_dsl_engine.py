@@ -153,11 +153,13 @@ def test_hodel_tasks():
     for k, v in steps.items():
         t1 = time.time()
 
-        for task in tasks[:14]:
+        for task in tasks[previousIndex:previousIndex+v]:
             print("training", task)
             t2 = time.time()
             passTask("training", task, True)
             print(f"Duration: {time.time() - t2} s")
+
+        previousIndex = v
 
         print(f"Duration for {k} step of DSL ({v} tasks): {time.time() - t1} s")
 """
