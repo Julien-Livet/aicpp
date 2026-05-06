@@ -147,10 +147,19 @@ def test_hodel_tasks():
     tasks = list(filter(lambda x: x.startswith("def solve_"), lines))
     tasks = [x[x.index("_")+1:x.index("(")] for x in tasks]
 
-    # Tasks with one step of DSL
-    for task in tasks[:14]:
-        print("training", task)
-        passTask("training", task, True)
+    previousIndex = 0
+    steps = {1: 14}#, 2: 9, 3: 16}
+
+    for k, v in steps.items():
+        t1 = time.time()
+
+        for task in tasks[:14]:
+            print("training", task)
+            t2 = time.time()
+            passTask("training", task, True)
+            print(f"Duration: {time.time() - t2} s")
+
+        print(f"Duration for {k} step of DSL ({v} tasks): {time.time() - t1} s")
 """
 def test_task0d3d703e(): #Color mapping
     passTask("training", "0d3d703e", True)
