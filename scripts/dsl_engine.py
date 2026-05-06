@@ -15,9 +15,7 @@ from sklearn.preprocessing import StandardScaler
 import sympy
 import textdistance
 import typing
-from typing import Any, Callable, get_args, get_origin, Union, Tuple
-
-nameFunction = "" #TODO: to remove
+from typing import Any, Callable, get_args, get_origin, Iterator, Union, Tuple
 
 def expected_improvement(mu, sigma, y_best, xi = 0.01):
     improvement = y_best - mu - xi
@@ -102,135 +100,278 @@ def heuristic(val, target):
 
     return 999.0
 
-def encode_output_space_discrete(points: list, op: Callable, space: tuple, target: object, heuristicFunction) -> np.ndarray:
+def space_size(combinations: list) -> int:
+    s = 1
+
+    for c in combinations:
+        s *= len(c)
+
+    return s
+
+def sample_space(
+    combinations : list,
+    n            : int,
+    strategy     : str = "mixed",
+    exclude      : set | None = None,
+) -> list:
+    """
+    strategy :
+      "random" — uniform draw
+      "grid"   — latin hypercube approximation (good uniform coverage)
+      "mixed"  — 50% grid + 50% random  (recommanded)
+    """
+    if (exclude is None):
+        exclude = set()
+
+    size = space_size(combinations)
+
+    n    = min(n, max(0, size - len(exclude)))
+
+    if (n <= 0):
+        return []
+
+    samples: set = set()
+
+    # Latin hypercube approximate
+    if (strategy in ("grid", "mixed")):
+        n_grid  = n if strategy == "grid" else max(1, n // 2)
+        indices = []
+    
+        for dim_vals in combinations:
+            k    = len(dim_vals)
+            step = max(1, k // n_grid)
+            idx  = list(range(0, k, step))[:n_grid]
+    
+            while (len(idx) < n_grid):
+                idx.append(random.randrange(k))
+
+            random.shuffle(idx)
+            indices.append(idx)
+
+        for row in zip(*indices):
+            pt = tuple(combinations[d][row[d]] for d in range(len(combinations)))
+            
+            if (pt not in exclude):
+                samples.add(pt)
+
+    # Complete with random draw
+    attempts     = 0
+    max_attempts = n * 30
+    
+    while (len(samples) < n and attempts < max_attempts):
+        pt = tuple(random.choice(dim_vals) for dim_vals in combinations)
+        
+        if (pt not in exclude):
+            samples.add(pt)
+
+        attempts += 1
+
+    return list(samples)
+
+def iter_space(combinations: list, shuffle: bool = True) -> Iterator:
+    if (shuffle):
+        shuffled = [list(c) for c in combinations]
+
+        for c in shuffled:
+            random.shuffle(c)
+
+        yield from itertools.product(*shuffled)
+    else:
+        yield from itertools.product(*combinations)
+
+def _sampled_neighbors(
+    point        : tuple,
+    dim          : int,
+    combinations : list,
+    k            : int,
+) -> list:
+    dim_vals   = combinations[dim]
+    cur        = point[dim]
+    other_vals = [v for v in dim_vals if v != cur]
+
+    if (not other_vals):
+        return []
+
+    chosen = random.sample(other_vals, min(k, len(other_vals)))
+    result = []
+
+    for v in chosen:
+        nb       = list(point)
+        nb[dim]  = v
+        result.append(tuple(nb))
+
+    return result
+
+def encode_output_space_discrete(points: list, op: Callable, combinations: list, target: object,
+                                 heuristicFunction: Callable, k_neighbors: int = 8) -> np.ndarray:
+    D      = len(combinations)
     result = []
 
     for point in points:
-        if True:#try:
-            v = heuristicFunction(op(point), target)
-            subresult = [v]
+        v         = heuristicFunction(op(point), target)
+        subresult = [v]
 
-            for i, x in enumerate(point):
-                values = list(filter(lambda value, i = i, x = x: value[i] == x, space))
+        for dim in range(D):
+            nbs    = _sampled_neighbors(point, dim, combinations, k_neighbors)
+            scores = [heuristicFunction(op(nb), target) for nb in nbs] if nbs else [v]
+            subresult += [
+                float(np.mean(scores)),
+                float(np.std(scores)) if len(scores) > 1 else 0.0,
+                float(min(scores)),
+                float(max(scores)),
+                float(v - np.mean(scores)),
+            ]
 
-                try:
-                    neighbors = [heuristicFunction(op(x), target) for x in values]
-                    subresult += [np.mean(neighbors),
-                                np.std(neighbors),
-                                min(neighbors),
-                                max(neighbors),
-                                v - np.mean(neighbors)]
-                except Exception:
-                    pass
+        result.append(subresult)
 
-            result.append(subresult)
-        #except Exception:
-        #    pass
+    if (not result):
+        return np.zeros((0, 1 + D * 5), dtype = float)
 
-    return np.array(result, dtype = float)
+    max_len = max(len(r) for r in result)
+
+    for r in result:
+        while (len(r) < max_len):
+            r.append(0.0)
+
+    return np.array(result, dtype=float)
 
 def bayesian_optimization_discrete(
     op: Callable,
     target: object,
-    space: list,
-    heuristicFunction,
+    combinations: list,
+    heuristicFunction: Callable,
     n_init: int = 5,
     top_k: int = 3,
     xi: float = 0.01,
     count_max: int = 10,
+    n_sample: int = 200,
+    k_neighbors: int = 8,
+    threshold: float = 0.0
 ) -> tuple[object, object]:
-    obs_x = []
-    obs_y = []
-    s = set(space)
+    size: int = space_size(combinations)
+    
+    init_pts = sample_space(combinations, n_init, strategy = "mixed")
+    obs_x    = []
+    obs_y    = []
 
-    while (s and len(obs_x) < n_init):
-        x = random.choice(list(s))
-        s.remove(x)
-
+    for x in init_pts:
         try:
-            obs_y.append(heuristicFunction(target, op(x)))
+            y = float(heuristicFunction(op(x), target))
             obs_x.append(x)
+            obs_y.append(y)
+
+            if (y <= threshold):
+                return x, y
         except Exception:
             pass
+    
+    if (not obs_x):
+        first = next(iter_space(combinations), None)
 
-    """
-    #TODO: to remove
-    if (nameFunction == "add"):
-        for x, y in zip(obs_x, obs_y):
-            print(x, y)
-        input("lol")
-    """
+        return (first, 999.0) if first else ((), 999.0)
+    
+    best_x    = obs_x[int(np.argmin(obs_y))]
+    best_y    = min(obs_y)
+    prev_best = float("inf")
+    count     = 0
+    C_enc = None
+    candidates = None
 
-    X_space_enc = encode_output_space_discrete(space, op, space, target, heuristicFunction)
-    scaler = StandardScaler().fit(X_space_enc)
-
-    kernel = ConstantKernel(1.0) * RBF(length_scale = 1.0)
-    gp = GaussianProcessRegressor(
-        kernel = kernel, n_restarts_optimizer = 5,
-        normalize_y = True, alpha = 1e-2,
+    kernel = ConstantKernel(1.0) * RBF(length_scale=1.0)
+    gp     = GaussianProcessRegressor(
+        kernel=kernel, n_restarts_optimizer=3,
+        normalize_y=True, alpha=1e-2,
     )
 
-    count = 0
-    previous_best_y = math.inf
-    #iteration = 0 #TODO: to remove
-    best_candidates = None
-
     while (True):
-        X_enc = scaler.transform(encode_output_space_discrete(obs_x, op, space, target, heuristicFunction))
-        Y = np.array(obs_y, dtype = float)
-        gp.fit(X_enc, Y)
-
         obs_set = set(obs_x)
-        unobserved = [x for x in space if x not in obs_set]
 
-        if (not unobserved):
-            best_idx = np.argmin(obs_y)
-            best_x, best_y = obs_x[best_idx], obs_y[best_idx]
+        X_enc = encode_output_space_discrete(obs_x, op, combinations, target, heuristicFunction, k_neighbors)
+        Y = np.array(obs_y, dtype = float)
+
+        if (X_enc.shape[0] < 2):
             break
 
-        C_enc = scaler.transform(encode_output_space_discrete(unobserved, op, space, target, heuristicFunction))
-        mu, sigma = gp.predict(C_enc, return_std = True)
-        ei = expected_improvement(mu, sigma, np.min(Y), xi = xi)
-        best_candidates = [unobserved[i] for i in np.argsort(-ei)[:top_k]]
+        try:
+            scaler  = StandardScaler().fit(X_enc)
+            X_sc    = scaler.transform(X_enc)
+            gp.fit(X_sc, Y)
+        except Exception:
+            break
 
-        for x in best_candidates:
+        candidates = sample_space(
+            combinations, n_sample, strategy = "mixed", exclude=obs_set
+        )
+
+        if (not candidates):
+            break
+
+        C_enc = encode_output_space_discrete(candidates, op, combinations, target, heuristicFunction, k_neighbors)
+
+        if (C_enc.shape[0] == 0):
+            break
+
+        # Align dimensions (security if X_enc and C_enc are different)
+        n_cols  = min(X_sc.shape[1], C_enc.shape[1])
+
+        try:
+            scaler2 = StandardScaler().fit(X_enc[:, :n_cols])
+            C_sc    = scaler2.transform(C_enc[:, :n_cols])
+            mu, sigma = gp.predict(C_sc, return_std=True)
+        except Exception:
+            break
+
+        ei          = expected_improvement(mu, sigma, float(np.min(Y)), xi = xi)
+        top_idx     = np.argsort(-ei)[:top_k]
+        top_cands   = [candidates[i] for i in top_idx]
+
+        improved = False
+
+        for x in top_cands:
             try:
-                obs_y.append(heuristicFunction(target, op(x)))
+                y = float(heuristicFunction(op(x), target))
                 obs_x.append(x)
+                obs_y.append(y)
+
+                if (y <= threshold):
+                    return x, y
+
+                if (y < best_y):
+                    best_x   = x
+                    best_y   = y
+                    improved = True
             except Exception:
                 pass
 
-        best_idx = np.argmin(obs_y)
-        best_x, best_y = obs_x[best_idx], obs_y[best_idx]
+        if (best_y < prev_best):
+            prev_best = best_y
+            count     = 0
+        elif (not improved):
+            count += 1
 
-        #print(f"[Iter {iteration+1:2d}] Best: x={best_x}, op={op(best_x):.2f}, heuristic={best_y:.4f}") #TODO: to remove
-
-        if (best_y < previous_best_y):
-            previous_best_y = best_y
-            count = 0
-
-        if (best_y == 0 or count > count_max):
+        if (count >= count_max):
             break
 
-        count += 1
-        #iteration += 1 #TODO: to remove
+        if (len(obs_x) >= size):
+            break
 
-    del X_space_enc
     del X_enc
     del Y
     del obs_x
     del obs_y
     del gp
-    del unobserved
     del obs_set
 
-    if (best_candidates):
-        del best_candidates
- 
+    if (np.all(C_enc)):
+        del C_enc
+
+    if (candidates):
+        del candidates
+
     return best_x, best_y
 
 class Engine:
-    def __init__(self, heuristicFunction = heuristic):
+    def __init__(self, heuristicFunction: Callable = heuristic):
         self.heuristicFunction = heuristicFunction
         self.typeSystem: TypeSystem = TypeSystem()
         self.variableNeurons: dict = dict()
@@ -314,51 +455,41 @@ class Engine:
 
         def explore():
             for k, n in self.primitiveNeurons.items():
-                #print(n.name) #TODO: to remove
                 if (not compatibleType(targetType, n.outputType)):
                     continue
-                #print(n.name) #TODO: to remove
-                global nameFunction #TODO: to remove
-                nameFunction = n.name #TODO: to remove
+
                 combinations: list = []
 
                 for inputType in n.inputTypes:
                     possibleConnections = self.valuesForType(self.typedConnections, inputType)
                     combinations.append([inputType] + possibleConnections)
 
-                space = list(itertools.product(*combinations))
+                product = itertools.product(*combinations)
 
-                if (not space):
+                if (not combinations):
                     continue
 
-                newConnections = []
-                #print(space) #TODO: to remove
-                for value in space:
-                    newConnections.append(Connection(n, n.inputTypes).applyInputs(value))
-                #input("space") #TODO: to remove
                 del combinations
-                del space
-                
-                for connection in newConnections:
+
+                for value in product:
+                    connection = Connection(n, n.inputTypes).applyInputs(value)
                     combinations = []
                     
                     for inputType in connection.inputTypes():
                         possibleConnections = self.valuesForType(self.typedVariableNeurons, inputType)
                         combinations.append([n.name for n in possibleConnections])
 
-                    space = list(itertools.product(*combinations))
-
-                    if (not space):
+                    if (not combinations):
                         continue
-                    #print(connection.toStr(), len(space)) #TODO: to remove
+
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
+                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
                         s = connection.toStr()
                         self.connections[s] = tuple([connection] + list(result))
                         addedConnections[s] = connection
-                        #print(result) #TODO: to remove
+
                         if (not result[1]):
                             return self.connections[s]
 
@@ -367,9 +498,6 @@ class Engine:
                         pass
 
                     del combinations
-                    del space
-                #if (nameFunction == "add"): #TODO: to remove
-                #    input("here")
 
             return None
 

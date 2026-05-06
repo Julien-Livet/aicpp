@@ -76,6 +76,10 @@ def test_operations():
     learnInt(engine, "5 + 7 + 8")
     learnInt(engine, "5 + 7 * 8")
 
+def test_three_levels():
+    engine = buildSimplifiedEngine({"add", "mul", "sub"})
+    learnInt(engine, "(3 + 4) * (8 - 2)")
+
 def processTask(folder: str, task: str):
     taskPairs = test_arc.trainTestPairs(folder, task)
     results = []
