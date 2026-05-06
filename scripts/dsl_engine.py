@@ -1,11 +1,9 @@
 from collections import defaultdict
 from connection import compatibleType, Connection, is_container_of_container, is_container_type
-import copy
 from dsl_ga import TypeSystem
 import heapq
 import itertools
 from neuron import Neuron
-import math
 import numpy as np
 import random
 from scipy.stats import norm
@@ -15,7 +13,7 @@ from sklearn.preprocessing import StandardScaler
 import sympy
 import textdistance
 import typing
-from typing import Any, Callable, get_args, get_origin, Iterator, Union, Tuple
+from typing import Any, Callable, get_args, get_origin, Iterator, Union
 
 def expected_improvement(mu, sigma, y_best, xi = 0.01):
     improvement = y_best - mu - xi
