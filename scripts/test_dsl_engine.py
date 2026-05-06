@@ -1,3 +1,4 @@
+from collections import defaultdict
 from connection import Connection
 import copy
 import dsl_engine
@@ -142,26 +143,37 @@ def passTask(folder: str, task: str, debug: bool = False):
 
 def test_hodel_tasks():
     with open("arc-dsl/solvers.py", "r") as f:
-        lines = f.read().split("\n")
+        lines: list = f.read().split("\n")
 
-    tasks = list(filter(lambda x: x.startswith("def solve_"), lines))
+    tasks: list = list(filter(lambda x: x.startswith("def solve_"), lines))
     tasks = [x[x.index("_")+1:x.index("(")] for x in tasks]
+    tasksByStep: dict = defaultdict(list)
 
-    previousIndex = 0
-    steps = {1: 14}#, 2: 9, 3: 16}
+    for task in tasks:
+        i = lines.index(f"def solve_{task}(I):") + 1
+        count = 0
 
-    for k, v in steps.items():
+        while (i < len(lines) and not lines[i].startswith("def solve_")):
+            if (lines[i].strip() and not lines[i].strip().startswith("return")):
+                count += 1
+
+            i += 1
+
+        tasksByStep[count].append(task)
+
+    for k, v in tasksByStep.items():
+        if (k != 1):
+            continue
+
         t1 = time.time()
 
-        for task in tasks[previousIndex:previousIndex+v]:
+        for task in v:
             print("training", task)
             t2 = time.time()
             passTask("training", task, True)
             print(f"Duration: {time.time() - t2} s")
 
-        previousIndex = v
-
-        print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({v} tasks): {time.time() - t1} s")
+        print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
 """
 def test_task0d3d703e(): #Color mapping
     passTask("training", "0d3d703e", True)
