@@ -81,7 +81,7 @@ def test_three_levels():
     engine = buildSimplifiedEngine({"add", "mul", "sub"})
     learnInt(engine, "(3 + 4) * (8 - 2)")
 
-def processTask(folder: str, task: str):
+def processTask(folder: str, task: str) -> tuple:
     taskPairs = test_arc.trainTestPairs(folder, task)
     results = []
     connection: Connection = None
@@ -128,8 +128,7 @@ def processTask(folder: str, task: str):
         testCost += dslEngine.heuristicFunction(output, tuple(map(tuple, out)))
 
     c, args, cost = result
-    inputNeuron.function = lambda: "I"
-    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].name for n in args])
 
     return (trainCost, testCost, connection.toStr())
 

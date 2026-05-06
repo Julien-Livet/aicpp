@@ -483,7 +483,7 @@ class Engine:
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 500, top_k = 50, count_max = 20)
+                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 1000, top_k = 100, count_max = 20)
                         s = connection.toStr()
                         self.connections[s] = tuple([connection] + list(result))
                         addedConnections[s] = connection
