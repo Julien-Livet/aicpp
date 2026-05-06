@@ -4,7 +4,6 @@ import copy
 import dsl_engine
 import numpy as np
 from neuron import Neuron
-import test_arc
 from typing import Tuple
 import time
 
@@ -12,7 +11,7 @@ def arcHeuristic(x: tuple, y: tuple):
     x_ = np.array(x)
     y_ = np.array(y)
 
-    return test_arc.size_cost(x_, y_) + test_arc.bounding_box_cost(x_, y_) + test_arc.pixel_overlap_cost(x_, y_) + test_arc.value_cost(x_, y_)
+    return dsl_engine.size_cost(x_, y_) + dsl_engine.bounding_box_cost(x_, y_) + dsl_engine.pixel_overlap_cost(x_, y_) + dsl_engine.value_cost(x_, y_)
 
 dslEngine: dsl_engine.Engine = dsl_engine.Engine(arcHeuristic)
 Grid = Tuple[Tuple[int]]
@@ -82,8 +81,8 @@ def test_three_levels():
     learnInt(engine, "(3 + 4) * (8 - 2)")
 
 def processTask(folder: str, task: str) -> tuple:
-    taskPairs = test_arc.trainTestPairs(folder, task)
-    results = []
+    taskPairs = dsl_engine.trainTestPairs(folder, task)
+    results: list = []
     connection: Connection = None
     
     for inp, out in taskPairs[0]:
@@ -128,7 +127,7 @@ def processTask(folder: str, task: str) -> tuple:
         testCost += dslEngine.heuristicFunction(output, tuple(map(tuple, out)))
 
     c, args, cost = result
-    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].name for n in args])
+    connection = copy.deepcopy(c).applyInputs(args)
 
     return (trainCost, testCost, connection.toStr())
 

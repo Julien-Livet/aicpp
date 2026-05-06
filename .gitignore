@@ -171,7 +171,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-tf_gpu_env
 
 # Spyder project settings
 .spyderproject
@@ -211,6 +210,3 @@ cython_debug/
 .pypirc
 
 CMakeLists.txt.user
-include/aicpp/partials.h
-src/engine.cpp
-scripts/frames

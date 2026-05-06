@@ -1,8 +1,10 @@
+import ast
 from collections import defaultdict
 from connection import compatibleType, Connection, is_container_of_container, is_container_type
-from dsl_ga import TypeSystem
 import heapq
+import importlib.util
 import itertools
+import json
 from neuron import Neuron
 import numpy as np
 import random
@@ -11,9 +13,283 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel
 from sklearn.preprocessing import StandardScaler
 import sympy
+import sys
 import textdistance
 import typing
-from typing import Any, Callable, get_args, get_origin, Iterator, Union
+from typing import Any, Callable, Dict, get_args, get_origin, Iterator, Tuple, Union
+
+Grid = Tuple[Tuple[int]]
+
+def trainTestPairs(folder: str, task: str) -> tuple:
+    assert(folder in ("training", "evaluation"))
+
+    with open(f"../ARC-AGI-2/data/{folder}/{task}.json", "r") as file:
+        data = json.loads(file.read())
+
+    train = data["train"]
+    trainPairs = []
+
+    for v in train:
+        trainPairs.append((np.array(v["input"]), np.array(v["output"])))
+
+    test = data["test"]
+    testPairs = []
+
+    for v in test:
+        testPairs.append((np.array(v["input"]), np.array(v["output"])))
+
+    return (trainPairs, testPairs)
+
+def getDslVariables() -> Dict[str, str]:
+    arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
+
+    with open("arc-dsl/constants.py", "r") as f:
+        content = f.read()
+
+    namespace = {}
+    namespace.update(vars(arc_types_module))
+
+    types = {}
+
+    for k, v in namespace.items():
+        if (not k.startswith("_")):
+            types[v] = k
+
+    from typing import Tuple
+
+    types[tuple] = Tuple
+
+    exec(content, namespace)
+
+    variables = {}
+
+    for k, v in namespace.items():
+        if (not k in vars(arc_types_module)):
+            variables[k] = types[type(v)]
+
+    variables["I"] = types[Tuple[Tuple]]
+
+    return variables
+
+def getDslPrimitives() -> Dict[str, dict]:
+    with open("arc-dsl/dsl.py", "r") as f:
+        lines = f.read().split("\n")
+
+    i = 0
+    definition = ""
+    primitives = {}
+    
+    while (i < len(lines)):
+        if (lines[i].startswith("def ")):
+            definition = lines[i]        
+
+        if (definition.endswith(":")):
+            definition = definition.replace("def", "").replace(" ", "")[:-1]
+
+            sig = "def " + definition + ": pass"
+
+            tree = ast.parse(sig)
+            func = tree.body[0]
+
+            args = []
+
+            for arg in func.args.args:
+                args.append({"name": arg.arg, "type": ast.unparse(arg.annotation)})
+
+            primitives[func.name] = {"args": args, "return_type": ast.unparse(func.returns)}
+
+            definition = ""
+        elif (len(definition) and not lines[i].startswith("def ")):
+            definition += lines[i]
+
+        i += 1
+
+    return primitives
+
+def load_module(name: str, path: str):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    sys.modules[name] = module
+    
+    return module
+
+def size_cost(x: np.ndarray, y: np.ndarray) -> float:
+    return np.linalg.norm(np.array(x.shape) - np.array(y.shape))
+
+def value_cost(x: np.ndarray, y: np.ndarray) -> float:
+    if (x.shape == y.shape):
+        return np.linalg.norm(x - y)
+        
+    return abs(sum(sum(x)) - sum(sum(y)))
+
+def pixel_overlap_cost(x: np.ndarray, y: np.ndarray) -> float:
+    if (x.shape != y.shape):
+        return np.prod(x.shape) + np.prod(y.shape)
+
+    total = x.size
+    matches = np.sum(x == y)
+
+    return 1.0 - (matches / total)
+
+def bounding_box(arr: np.ndarray):
+    coords = np.argwhere(arr != 0)
+    
+    if (coords.size == 0):
+        return None
+
+    y_min, x_min = coords.min(axis = 0)
+    y_max, x_max = coords.max(axis = 0)
+
+    return (y_min, x_min, y_max, x_max)
+
+def bounding_box_cost(x: np.ndarray, y: np.ndarray) -> float:
+    box_x = bounding_box(x)
+    box_y = bounding_box(y)
+
+    if (box_x is None and box_y is None):
+        return 0.0
+
+    if (box_x is None or box_y is None):
+        return 1.0
+
+    diff = np.linalg.norm(np.array(box_x) - np.array(box_y))
+    norm = np.linalg.norm(np.array(x.shape) + np.array(y.shape))
+
+    return diff / (norm + 1e-8)
+
+class TypeSystem:
+    def __init__(self):
+        arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
+
+        with open("arc-dsl/constants.py", "r") as f:
+            content = f.read()
+
+        namespace = {}
+        namespace.update(vars(arc_types_module))
+
+        types = {}
+
+        for k, v in namespace.items():
+            if (not k.startswith("_")):
+                types[v] = k
+
+        from typing import Tuple
+
+        Integer = int
+        types[tuple] = Tuple[Integer, Integer]
+
+        exec(content, namespace)
+
+        variables = {}
+        self.dslVariableValues = {}
+
+        for k, v in namespace.items():
+            if (not k in vars(arc_types_module)):
+                variables[k] = types[type(v)]
+                self.dslVariableValues[k] = v
+
+        self.dslVariables = {"I": Grid}
+        
+        exec("import typing", namespace)
+
+        for k, v in variables.items():
+            exec(f"variable = {v}", namespace)
+            self.dslVariables[k] = namespace["variable"]
+
+        for i in range(10):
+            self.dslVariables[str(i)] = Integer
+
+        self.dslPrimitives = getDslPrimitives()
+
+        for name in self.dslPrimitives.keys():
+            self.dslVariables[name] = Callable
+
+        self.variableTypes = defaultdict(list)
+
+        for k, v in self.dslVariables.items():
+            self.variableTypes[v].append(k)
+
+        for k1, v1 in self.dslPrimitives.items():
+            for arg in v1["args"]:
+                exec(f"arg = {arg['type']}", namespace)
+                arg["type"] = namespace["arg"]
+
+            exec(f"arg = {v1['return_type']}", namespace)
+            v1["return_type"] = namespace["arg"]
+
+        self.primitiveTypes = defaultdict(list)
+
+        for k, v in self.dslPrimitives.items():
+            expected = v["return_type"]
+
+            if (get_origin(expected) is Union):
+                for arg in get_args(expected):
+                    self.primitiveTypes[arg].append(k)
+            else:
+                self.primitiveTypes[expected].append(k)
+
+        self.declinedPrimitives = {}
+
+        for name in self.dslPrimitives.keys():
+            self.declinedPrimitives[name] = self.declinedPrimitive(name)
+
+        self.declinedPrimitives = dict(sorted(self.declinedPrimitives.items()))
+
+    def declinedPrimitive(self, name: str) -> str:
+        args = []
+            
+        for arg in self.dslPrimitives[name]["args"]:
+            expected = arg["type"]
+            result = self.variablesForType(expected)
+
+            if (result):
+                args.append(result[-1])
+            else:
+                result = []
+                
+                if (expected is typing.Container):
+                    for k, v in self.primitiveTypes.items():
+                        if (is_container_type(k)):
+                            result += v
+                elif (expected is typing.Container[typing.Container]):
+                    for k, v in self.primitiveTypes.items():
+                        if (is_container_of_container(k)):
+                            result += v
+                elif (get_origin(expected) is Union):
+                    for arg in get_args(expected):
+                        result += self.primitiveTypes[arg]
+                else:
+                    result = self.primitiveTypes[expected]
+                
+                if (result):
+                    args.append(self.declinedPrimitive(result[-1]))
+                else:
+                    args.append(f"{expected}:unknown")
+
+        return f"{name}({','.join(args)})"
+
+    def variablesForType(self, expected: type) -> list:
+        result = []
+
+        if (expected is Any):
+            for v in self.variableTypes.values():
+                result += v
+        elif (expected is typing.Container):
+            for k, v in self.variableTypes.items():
+                if (is_container_type(k)):
+                    result += v
+        elif (expected is typing.Container[typing.Container]):
+            for k, v in self.variableTypes.items():
+                if (is_container_of_container(k)):
+                    result += v
+        elif (get_origin(expected) is Union):
+            for arg in get_args(expected):
+                result += self.variableTypes[arg]
+        else:
+            result = self.variableTypes[expected]
+
+        return result
 
 def expected_improvement(mu, sigma, y_best, xi = 0.01):
     improvement = y_best - mu - xi
@@ -275,10 +551,10 @@ def bayesian_optimization_discrete(
     C_enc = None
     candidates = None
 
-    kernel = ConstantKernel(1.0) * RBF(length_scale=1.0)
+    kernel = ConstantKernel(1.0) * RBF(length_scale = 1.0)
     gp     = GaussianProcessRegressor(
-        kernel=kernel, n_restarts_optimizer=3,
-        normalize_y=True, alpha=1e-2,
+        kernel = kernel, n_restarts_optimizer = 3,
+        normalize_y = True, alpha = 1e-2,
     )
 
     while (True):
@@ -378,9 +654,7 @@ class Engine:
             neuron: Neuron = Neuron(k, lambda v = v: v, [], self.typeSystem.dslVariables[k])
             self.variableNeurons[k] = neuron
 
-        import test_arc
-
-        arc_types_module = test_arc.load_module("arc_types", "arc-dsl/arc_types.py")
+        arc_types_module = load_module("arc_types", "arc-dsl/arc_types.py")
 
         with open("arc-dsl/dsl.py", "r") as f:
             content = f.read()
