@@ -31,4 +31,12 @@ Features:
 
 Links:
 
-- Python: [https://github.com/Julien-Livet/aicpp/tree/dev](https://github.com/Julien-Livet/aicpp/tree/dev)
+- Python: [https://github.com/Julien-Livet/aicpp/tree/dev/scripts/test_arc.py](https://github.com/Julien-Livet/aicpp/tree/dev/scripts/test_arc.py)
+
+## Iteration 4
+
+Object: **LLM-free program synthesis combining a DSL, a cost heuristic, a type compatibility and an A\* algorithm**
+
+Links:
+
+- Python: [https://github.com/Julien-Livet/aicpp/tree/dev/scripts/test_dsl_engine.py](https://github.com/Julien-Livet/aicpp/tree/dev/scripts/test_dsl_engine.py)
