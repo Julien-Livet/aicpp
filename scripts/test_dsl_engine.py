@@ -161,7 +161,7 @@ def test_hodel_tasks():
 
         previousIndex = v
 
-        print(f"Duration for {k} step of DSL ({v} tasks): {time.time() - t1} s")
+        print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({v} tasks): {time.time() - t1} s")
 """
 def test_task0d3d703e(): #Color mapping
     passTask("training", "0d3d703e", True)
