@@ -116,10 +116,11 @@ class Connection:
                         assert(compatibleType(inputs[index].neuron.outputType, self.neuron.inputTypes[i]))
                     elif (isinstance(inputs[index], Neuron)):
                         assert(compatibleType(inputs[index].outputType, self.neuron.inputTypes[i]))
-                    elif (inputs[index] == typing.Any):
-                        pass
                     elif (isinstance(inputs[index], type)):
-                        assert(compatibleType(inputs[index], self.neuron.inputTypes[i]))
+                        if (inputs[index] == typing.Any):
+                            pass
+                        else:
+                            assert(compatibleType(inputs[index], self.neuron.inputTypes[i]))
                     elif (typing.get_origin(inputs[index]) is not None):
                         assert(inputs[index] == self.neuron.inputTypes[i])
 

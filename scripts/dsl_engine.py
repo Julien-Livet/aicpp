@@ -106,7 +106,7 @@ def encode_output_space_discrete(points: list, op: Callable, space: tuple, targe
     result = []
 
     for point in points:
-        try:
+        if True:#try:
             v = heuristicFunction(op(point), target)
             subresult = [v]
 
@@ -124,8 +124,8 @@ def encode_output_space_discrete(points: list, op: Callable, space: tuple, targe
                     pass
 
             result.append(subresult)
-        except Exception:
-            pass
+        #except Exception:
+        #    pass
 
     return np.array(result, dtype = float)
 
@@ -143,7 +143,7 @@ def bayesian_optimization_discrete(
     obs_y = []
     s = set(space)
 
-    while (len(obs_x) < n_init):
+    while (s and len(obs_x) < n_init):
         x = random.choice(list(s))
         s.remove(x)
 
@@ -184,6 +184,8 @@ def bayesian_optimization_discrete(
         unobserved = [x for x in space if x not in obs_set]
 
         if (not unobserved):
+            best_idx = np.argmin(obs_y)
+            best_x, best_y = obs_x[best_idx], obs_y[best_idx]
             break
 
         C_enc = scaler.transform(encode_output_space_discrete(unobserved, op, space, target, heuristicFunction))
@@ -257,7 +259,7 @@ class Engine:
             neuron: Neuron = Neuron(k, lambda v = v: v, [], Callable)
             self.variableNeurons[k] = neuron
 
-        self.primitiveNeurons = dict(sorted(self.primitiveNeurons.items(), key = lambda x: x[0]))
+        self.primitiveNeurons = dict(sorted(self.primitiveNeurons.items(), key = lambda x: (len(x[1].inputTypes), x[0])))
         self.sortedPrimitiveNeurons: dict = defaultdict(list)
         self.typedPrimitiveNeurons: dict = defaultdict(list)
 
@@ -303,14 +305,17 @@ class Engine:
 
         return result
 
-    def learn(self, target: object) -> tuple[Connection, object, object]:
-        frontier = []
+    def learn(self, target: object, targetType: type = None) -> tuple[Connection, object, object]:
+        if (not targetType):
+            targetType = type(target)
+
+        frontier: list = []
+        addedConnections: dict = {}
 
         def explore():
-            addedConnections = []
-
             for k, n in self.primitiveNeurons.items():
-                if (not compatibleType(type(target), n.outputType)):
+                #print(n.name) #TODO: to remove
+                if (not compatibleType(targetType, n.outputType)):
                     continue
                 #print(n.name) #TODO: to remove
                 global nameFunction #TODO: to remove
@@ -348,40 +353,34 @@ class Engine:
                     #print(connection.toStr(), len(space)) #TODO: to remove
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
-                    try:
+                    if (n.name == "rot180"):
                         result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
-                        self.connections[connection.toStr()] = tuple([connection] + list(result))
-                        addedConnections.append(connection)
+                        s = connection.toStr()
+                        self.connections[s] = tuple([connection] + list(result))
+                        addedConnections[s] = connection
                         #print(result) #TODO: to remove
                         if (not result[1]):
-                            return self.connections[connection.toStr()]
+                            return self.connections[s]
 
-                        heapq.heappush(frontier, (result[1], connection.toStr()))
-                    except Exception:
-                        pass
+                        heapq.heappush(frontier, (result[1], len(s), s))
+                    else:
+                        try:
+                            result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
+                            s = connection.toStr()
+                            self.connections[s] = tuple([connection] + list(result))
+                            addedConnections[s] = connection
+                            #print(result) #TODO: to remove
+                            if (not result[1]):
+                                return self.connections[s]
+
+                            heapq.heappush(frontier, (result[1], len(s), s))
+                        except Exception:
+                            pass
 
                     del combinations
                     del space
                 #if (nameFunction == "add"): #TODO: to remove
                 #    input("here")
-
-            for connection in addedConnections:
-                if (connection.neuron.outputType is Any):
-                    for v in self.typedConnections.values():
-                        v.append(connection)
-                elif (connection.neuron.outputType is typing.Container):
-                    for k, v in self.typedConnections.items():
-                        if (is_container_type(k)):
-                            v.append(connection)
-                elif (connection.neuron.outputType is typing.Container[typing.Container]):
-                    for k, v in self.typedConnections.items():
-                        if (is_container_of_container(k)):
-                            v.append(connection)
-                elif (get_origin(connection.neuron.outputType) is Union):
-                    for arg in get_args(connection.neuron.outputType):
-                        self.typedConnections[arg].append(connection)
-                else:
-                    self.typedConnections[connection.neuron.outputType].append(connection)
 
             return None
 
@@ -391,10 +390,30 @@ class Engine:
             return result
 
         while (frontier):
-            cost, name = heapq.heappop(frontier)
+            cost, length, name = heapq.heappop(frontier)
 
             if (not cost):
                 break
+
+            connection = addedConnections[name]
+            del addedConnections[name]
+
+            if (connection.neuron.outputType is Any):
+                for v in self.typedConnections.values():
+                    v.append(connection)
+            elif (connection.neuron.outputType is typing.Container):
+                for k, v in self.typedConnections.items():
+                    if (is_container_type(k)):
+                        v.append(connection)
+            elif (connection.neuron.outputType is typing.Container[typing.Container]):
+                for k, v in self.typedConnections.items():
+                    if (is_container_of_container(k)):
+                        v.append(connection)
+            elif (get_origin(connection.neuron.outputType) is Union):
+                for arg in get_args(connection.neuron.outputType):
+                    self.typedConnections[arg].append(connection)
+            else:
+                self.typedConnections[connection.neuron.outputType].append(connection)
 
             result = explore()
 

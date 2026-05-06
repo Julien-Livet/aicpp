@@ -3,10 +3,17 @@ import copy
 import dsl_engine
 import numpy as np
 from neuron import Neuron
+import test_arc
 from typing import Tuple
 import time
 
-dslEngine: dsl_engine.Engine = dsl_engine.Engine()
+def arcHeuristic(x: tuple, y: tuple):
+    x_ = np.array(x)
+    y_ = np.array(y)
+
+    return test_arc.size_cost(x_, y_) + test_arc.bounding_box_cost(x_, y_) + test_arc.pixel_overlap_cost(x_, y_) + test_arc.value_cost(x_, y_)
+
+dslEngine: dsl_engine.Engine = dsl_engine.Engine(arcHeuristic)
 Grid = Tuple[Tuple[int]]
 I = np.random.randint(0, 10, (4, 4))
 inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
@@ -70,8 +77,6 @@ def test_operations():
     learnInt(engine, "5 + 7 * 8")
 
 def processTask(folder: str, task: str):
-    import test_arc
-
     taskPairs = test_arc.trainTestPairs(folder, task)
     results = []
     connection: Connection = None
@@ -86,35 +91,40 @@ def processTask(folder: str, task: str):
             process = cost
 
         if (process):
-            result = dslEngine.learn(out)
-            connection, args, cost = result
+            result = dslEngine.learn(out, Grid)
+            c, args, cost = result
+            connnection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
 
         results.append(result)
 
     sortedResults = []
     
     for result in results:
-        c, args, cost = result
         totalCost: float = 0
-        connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
 
         for inp, out in taskPairs[0]:
             inputNeuron.function = lambda inp = inp: inp
+            c, args, cost = result
+            connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
             output = connection.output()
-            totalCost += dsl_engine.heuristic(output, out)
+            totalCost += dslEngine.heuristicFunction(output, out)
 
         sortedResults.append((totalCost, result))
 
     sortedResults = sorted(sortedResults, key = lambda x: x[0])
     testCost: float = 0
     trainCost, result = sortedResults[0]
-    c, args, cost = result
-    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
 
     for inp, out in taskPairs[1]:
         inputNeuron.function = lambda inp = inp: inp
+        c, args, cost = result
+        connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
         output = connection.output()
-        testCost += dsl_engine.heuristic(output, out)
+        testCost += dslEngine.heuristicFunction(output, out)
+
+    c, args, cost = result
+    inputNeuron.function = lambda: "I"
+    connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
 
     return (trainCost, testCost, connection.toStr())
 
@@ -125,7 +135,6 @@ def passTask(folder: str, task: str, debug: bool = False):
         print(f"Train cost: {trainCost}, test cost: {testCost}, dsl: {dsl}")
 
     assert(not (trainCost + testCost))
-"""
+
 def test_task3c9b0459(): #Flip left/right and flip up/down
     passTask("training", "3c9b0459", True)
-"""
