@@ -353,7 +353,7 @@ class Engine:
                     #print(connection.toStr(), len(space)) #TODO: to remove
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
-                    if (n.name == "rot180"):
+                    try:
                         result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
                         s = connection.toStr()
                         self.connections[s] = tuple([connection] + list(result))
@@ -363,19 +363,8 @@ class Engine:
                             return self.connections[s]
 
                         heapq.heappush(frontier, (result[1], len(s), s))
-                    else:
-                        try:
-                            result = bayesian_optimization_discrete(op, target, space, self.heuristicFunction, n_init = 10, top_k = 5, count_max = 20)
-                            s = connection.toStr()
-                            self.connections[s] = tuple([connection] + list(result))
-                            addedConnections[s] = connection
-                            #print(result) #TODO: to remove
-                            if (not result[1]):
-                                return self.connections[s]
-
-                            heapq.heappush(frontier, (result[1], len(s), s))
-                        except Exception:
-                            pass
+                    except Exception:
+                        pass
 
                     del combinations
                     del space
