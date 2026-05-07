@@ -27,7 +27,7 @@ namespace hdl
     typedef std::variant<Grid, Patch> Piece;
     typedef std::pair<UnsignedInteger, UnsignedInteger> Size;
     typedef IntegerTuple Direction;
-    
+
     Boolean constexpr F = false;
     Boolean constexpr T = true;
 

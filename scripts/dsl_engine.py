@@ -645,8 +645,12 @@ def bayesian_optimization_discrete(
     return best_x, best_y
 
 class Engine:
-    def __init__(self, heuristicFunction: Callable = heuristic):
+    def __init__(self, heuristicFunction: Callable = heuristic,
+                 bo_n_init: int = 1000, bo_top_k: int = 100, bo_count_max: int = 20):
         self.heuristicFunction = heuristicFunction
+        self.bo_n_init = bo_n_init
+        self.bo_top_k = bo_top_k
+        self.bo_count_max = bo_count_max
         self.typeSystem: TypeSystem = TypeSystem()
         self.variableNeurons: dict = dict()
 
@@ -736,11 +740,10 @@ class Engine:
                     possibleConnections = self.valuesForType(self.typedConnections, inputType)
                     combinations.append([inputType] + possibleConnections)
 
-                product = itertools.product(*combinations)
-
                 if (not combinations):
                     continue
 
+                product = itertools.product(*combinations)
                 del combinations
 
                 for value in product:
@@ -757,7 +760,7 @@ class Engine:
                     op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
 
                     try:
-                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = 1000, top_k = 100, count_max = 20)
+                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = self.bo_n_init, top_k = self.bo_top_k, count_max = self.bo_count_max)
                         s = connection.toStr()
                         self.connections[s] = tuple([connection] + list(result))
                         addedConnections[s] = connection
