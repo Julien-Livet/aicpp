@@ -813,7 +813,7 @@ class Engine:
                 return result
 
         return self.connections[name]
-    
+
     def addVariableNeuron(self, neuron: Neuron):
         self.variableNeurons[neuron.name] = neuron
         self.typedVariableNeurons[neuron.outputType].append(neuron)

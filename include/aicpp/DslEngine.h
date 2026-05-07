@@ -20,7 +20,7 @@ namespace aicpp
             DslEngine(std::function<double(std::any, std::any)> const heuristic = [] (auto const& x, auto const& y) { return utility::heuristic(x, y); },
                       size_t bo_n_init = 1000, size_t bo_top_k = 100, size_t bo_count_max = 20);
 
-            template <typename T> Connection learn(T const& target)
+            template <typename T> std::tuple<Connection, std::vector<std::string>, double> learn(T const& target)
             {
                 struct CustomLess
                 {
@@ -47,8 +47,8 @@ namespace aicpp
                     {
                         for (auto const& [k, n] : primitiveNeurons_)
                         {
-                            if (typeid(target) != n.outputType)
-                                continue
+                            if (typeid(target) != n.outputType())
+                                continue;
 
                             std::vector<std::vector<std::any> > combinations;
 
@@ -65,11 +65,12 @@ namespace aicpp
                             if (combinations.empty())
                                 continue;
 
-                            auto const product{utility::cartesianProduct(combinations)};
+                            auto product{utility::cartesianProduct(combinations)};
 
                             for (auto const& value : product)
                             {
-                                connection = Connection(n, n.inputTypes()).applyInputs(value);
+                                Connection connection{n, n.inputTypes()};
+                                connection.applyInputs(value);
 
                                 std::vector<std::vector<std::string> > combos;
 
@@ -78,7 +79,7 @@ namespace aicpp
                                     std::vector<std::string> combo;
 
                                     for (auto const& n : typedVariableNeurons_[inputType])
-                                        combination.emplace_back(n.name());
+                                        combo.emplace_back(n.name());
                                     
                                     combos.emplace_back(combo);
                                 }
@@ -88,7 +89,7 @@ namespace aicpp
 
                                 auto const op{[this, connection] (auto const& x) -> std::any
                                     {
-                                        auto const c{connection};
+                                        auto c{connection};
                                         std::vector<std::any> inputs;
                                         inputs.reserve(x.size());
 
@@ -99,20 +100,20 @@ namespace aicpp
 
                                         return c.output();
                                     }
-                                }
+                                };
 
                                 try
-                                {
-                                    auto const result{bayesian_optimization_discrete(op, target, combinations, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_);
+                                {/*
+                                    auto const result{bayesian_optimization_discrete(op, target, combinations, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_)};
                                     auto const s{connection.toStr()};
 
-                                    self.connections[s] = std::make_tuple(connection, result.first, result.second);
+                                    connections_[s] = std::make_tuple(connection, result.first, result.second);
                                     addedConnections[s] = connection;
 
                                     if (!result.second)
                                         return connections_[s];
 
-                                    frontier.push(std::make_tuple(result.second, s.size(), s));
+                                    frontier.push(std::make_tuple(result.second, s.size(), s));*/
                                 }
                                 catch (std::exception const&)
                                 {
@@ -129,27 +130,39 @@ namespace aicpp
                 if (result.has_value())
                     return result.value();
 
+                double cost{0.0};
+                size_t length{0};
+                std::string name;
+
                 while (!frontier.empty())
                 {
-                    auto const [cost, length, name] = frontier.pop();
+                    auto const t{frontier.pop()};
+                    cost = std::get<0>(t);
+                    length = std::get<1>(t);
+                    name = std::get<2>(t);
 
-                    if (not cost)
-                        break
+                    if (!cost)
+                        break;
 
                     auto const it{addedConnections.find(name)};
-                    connection = it->second;
+                    auto const connection{it->second};
                     addedConnections.erase(it);
 
-                    typedConnections[connection.neuron().outputType()].emplace_back(connection);
+                    typedConnections_[connection.neuron().outputType()].emplace_back(connection);
 
                     result = explore();
 
                     if (result.has_value())
-                        return result.value():
+                        return result.value();
                 }
 
-                return self.connections[name]
+                return connections_.at(name);
             }
+
+            void clearVariableNeurons();
+            void clearPrimitiveNeurons();
+            void addVariableNeuron(Neuron const& neuron, std::string name = std::string{});
+            void addPrimitiveNeuron(Neuron const& neuron, std::string name = std::string{});
         
         private:
             std::function<double(std::any, std::any)> heuristic_;

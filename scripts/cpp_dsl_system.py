@@ -58,14 +58,14 @@ for definition in variableDefinitions:
     spaceList = affectationList[0].split(" ")
     name = spaceList[-1]
 
-    content += f'    neurons["{name}"]'
-    content += " = Neuron{"
+    content += f'    neurons.emplace("{name}"'
+    content += ", Neuron{"
     content += f'"{name}"'
     content += ", [] (std::vector<std::any> const&) -> std::any { return hdl::"
     content += name
     content += "; }, std::vector<std::type_index>{}, typeid(hdl::"
     content += variableType
-    content += ")};\n"
+    content += ")});\n"
 
 content += """
     return neurons;
@@ -113,15 +113,15 @@ for definition in primitiveDefinitions:
 
         tt = [f"typeid(hdl::{x})" for x in p[:1]]
 
-        content += f'    neurons["{n}"]'
-        content += " = Neuron{"
+        content += f'    neurons.emplace("{n}"'
+        content += ", Neuron{"
         content += f'"{name}"'
         content += f", hdl::{name}"
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
         content += "}, typeid(hdl::"
         content += p[0]
-        content += ")};\n"
+        content += ")});\n"
 
 content += """
     return neurons;

@@ -8,6 +8,7 @@
 
 #include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
+#include "aicpp/DslEngine.h"
 #include "aicpp/utility.h"
 
 using namespace boost::json;
@@ -364,4 +365,27 @@ std::pair<std::vector<Eigen::MatrixXi>, std::vector<Eigen::MatrixXi> > inputOutp
     }
 
     return std::make_pair(inputs, outputs);
+}
+
+DslEngine buildSimplifiedEngine(std::set<std::string> const& ops = std::set<std::string>{"add", "sub", "mul"})
+{
+    DslEngine engine;
+
+    engine.clearVariableNeurons();
+    
+    for (size_t i{0}; i < 10; ++i)
+        engine.addVariableNeuron(Neuron(std::to_string(i), [i] (std::vector<std::any> const&) -> std::any { return i; }, std::vector<std::type_index>{}, typeid(int)));
+
+    engine.clearPrimitiveNeurons();
+
+    if (ops.contains("add"))
+        engine.addPrimitiveNeuron(Neuron("add", [] (std::vector<std::any> const& args) -> std::any { return std::any_cast<int>(args[0]) + std::any_cast<int>(args[1]); }, std::vector<std::type_index>{typeid(int), typeid(int)}, typeid(int)));
+
+    if (ops.contains("sub"))
+        engine.addPrimitiveNeuron(Neuron("sub", [] (std::vector<std::any> const& args) -> std::any { return std::any_cast<int>(args[0]) - std::any_cast<int>(args[1]); }, std::vector<std::type_index>{typeid(int), typeid(int)}, typeid(int)));
+
+    if (ops.contains("mul"))
+        engine.addPrimitiveNeuron(Neuron("mul", [] (std::vector<std::any> const& args) -> std::any { return std::any_cast<int>(args[0]) * std::any_cast<int>(args[1]); }, std::vector<std::type_index>{typeid(int), typeid(int)}, typeid(int)));
+
+    return engine;
 }

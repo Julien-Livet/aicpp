@@ -43,3 +43,34 @@ DslEngine::DslEngine(std::function<double(std::any, std::any)> const heuristic,
     for (const auto& [name, neuron] : variableNeurons_)
         typedVariableNeurons_[neuron.outputType()].emplace_back(neuron);
 }
+
+void DslEngine::clearVariableNeurons()
+{
+    variableNeurons_.clear();
+    typedVariableNeurons_.clear();
+}
+
+void DslEngine::clearPrimitiveNeurons()
+{
+    primitiveNeurons_.clear();
+    typedPrimitiveNeurons_.clear();
+}
+
+void DslEngine::addVariableNeuron(Neuron const& neuron, std::string name)
+{
+    if (name.empty())
+        name = neuron.name();
+
+    variableNeurons_.emplace(name, neuron);
+    typedVariableNeurons_[neuron.outputType()].emplace_back(neuron);
+}
+
+void DslEngine::addPrimitiveNeuron(Neuron const& neuron, std::string name)
+{
+    if (name.empty())
+        name = neuron.name();
+
+    primitiveNeurons_.emplace(name, neuron);
+    typedPrimitiveNeurons_[neuron.outputType()].emplace_back(neuron);
+}
+
