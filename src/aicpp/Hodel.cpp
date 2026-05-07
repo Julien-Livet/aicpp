@@ -5,6 +5,47 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::any first_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        if (x.size())
+            return *x.begin();
+    }
+
+    return std::any{};
+}
+
+template<typename T>
+static std::any last_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        if (x.size())
+            return *x.rbegin();
+    }
+
+    return std::any{};
+}
+
+template<typename T>
+static std::any vector_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        return std::vector<typename T::value_type>{x.begin(), x.end()};
+    }
+
+    return std::any{};
+}
+
+template<typename T>
 static std::any difference_sets(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -457,10 +498,156 @@ std::any hdl::crement(std::any const& x)
     return std::any{};
 }
 
+std::any hdl::sign(std::any const& x)
+{
+    if (x.type() == typeid(Numerical))
+    {
+        auto const y{std::any_cast<Numerical>(x)};
+
+        if (std::holds_alternative<Integer>(y))
+        {
+            auto const z{std::get<Integer>(y)};
+
+            if (!z)
+                return Numerical{0};
+            else if (z > 0)
+                return Numerical{1};
+            else
+                return Numerical{-1};
+        }
+        else if (std::holds_alternative<IntegerTuple>(y))
+        {
+            auto const z{std::get<IntegerTuple>(y)};
+            IntegerTuple result{std::make_pair<Integer, Integer>(0, 0)};
+
+            if (!z.first)
+                result.first = 0;
+            else if (z.first > 0)
+                result.first = 1;
+            else
+                result.first = -1;
+
+            if (!z.second)
+                result.second = 0;
+            else if (z.second > 0)
+                result.second = 1;
+            else
+                result.second = -1;
+
+            return Numerical{result};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hdl::positive(std::any const& x)
 {
     if (x.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(x) > 0};
+
+    return std::any{};
+}
+
+std::any hdl::toivec(std::any const& i)
+{
+    if (i.type() == typeid(Integer))
+        return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(i), 0)};
+
+    return std::any{};
+}
+
+std::any hdl::tojvec(std::any const& j)
+{
+    if (j.type() == typeid(Integer))
+        return IntegerTuple{std::make_pair<Integer, Integer>(0, std::any_cast<Integer>(j))};
+
+    return std::any{};
+}
+
+std::any hdl::totuple(std::any const& container)
+{
+    if (auto r = vector_set<IntegerSet>(container); r.has_value()) return r;
+    if (auto r = vector_set<Object>    (container); r.has_value()) return r;
+    if (auto r = vector_set<Objects>   (container); r.has_value()) return r;
+    if (auto r = vector_set<Indices>   (container); r.has_value()) return r;
+    if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
+
+    return std::any{};
+}
+
+std::any hdl::first(std::any const& container)
+{
+    if (auto r = first_set<IntegerSet>(container); r.has_value()) return r;
+    if (auto r = first_set<Object>    (container); r.has_value()) return r;
+    if (auto r = first_set<Objects>   (container); r.has_value()) return r;
+    if (auto r = first_set<Indices>   (container); r.has_value()) return r;
+    if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
+
+    if (container.type() == typeid(Grid))
+    {
+        auto const x{std::any_cast<Grid>(container)};
+        
+        return x.front();
+    }
+
+    return std::any{};
+}
+
+std::any hdl::last(std::any const& container)
+{
+    if (auto r = last_set<IntegerSet>(container); r.has_value()) return r;
+    if (auto r = last_set<Object>    (container); r.has_value()) return r;
+    if (auto r = last_set<Objects>   (container); r.has_value()) return r;
+    if (auto r = last_set<Indices>   (container); r.has_value()) return r;
+    if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
+
+    if (container.type() == typeid(Grid))
+    {
+        auto const x{std::any_cast<Grid>(container)};
+        
+        return x.front();
+    }
+
+    return std::any{};
+}
+
+std::any hdl::interval(std::any const& start, std::any const& stop, std::any const& step)
+{
+    if (start.type() == typeid(Integer) && stop.type() == typeid(Integer))
+    {
+        auto start_{std::any_cast<Integer>(start)};
+        auto const stop_{std::any_cast<Integer>(stop)};
+
+        if (step.type() == typeid(Integer))
+        {
+            auto const step_{std::any_cast<Integer>(step)};
+            std::vector<Integer> result;
+
+            for (; start_ != stop_; start_ += step_)
+                result.emplace_back(start_);
+
+            return result;
+        }
+        else if (step.type() == typeid(UnsignedInteger))
+        {
+            auto const step_{std::any_cast<UnsignedInteger>(step)};
+            std::vector<Integer> result;
+
+            for (; start_ != stop_; start_ += step_)
+                result.emplace_back(start_);
+
+            return result;
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hdl::astuple(std::any const& a, std::any const& b)
+{
+    if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
+        return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
 
     return std::any{};
 }

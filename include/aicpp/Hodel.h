@@ -80,7 +80,15 @@ namespace hdl
     std::any increment(std::any const& x);
     std::any decrement(std::any const& x);
     std::any crement(std::any const& x);
+    std::any sign(std::any const& x);
     std::any positive(std::any const& x);
+    std::any toivec(std::any const& i);
+    std::any tojvec(std::any const& j);
+    std::any totuple(std::any const& container);
+    std::any first(std::any const& container);
+    std::any last(std::any const& container);
+    std::any interval(std::any const& start, std::any const& stop, std::any const& step);
+    std::any astuple(std::any const& a, std::any const& b);
 }
 
 #endif // AICPP_HODEL_H
