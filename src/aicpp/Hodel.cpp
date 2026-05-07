@@ -5,6 +5,24 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::any repeat(std::any const& item, hdl::UnsignedInteger const& n)
+{
+    if (item.type() == typeid(T))
+        return std::vector<T>(n, std::any_cast<T>(item));
+
+    return std::any{};
+}
+
+template<typename T>
+static std::any equality(std::any const& a, std::any const& b)
+{
+    if (a.type() == typeid(T) && b.type() == typeid(T))
+        return hdl::Boolean{std::any_cast<T>(a) == std::any_cast<T>(b)};
+
+    return std::any{};
+}
+
+template<typename T>
 static std::any size_set(std::any const& value)
 {
     if (value.type() == typeid(T))
@@ -259,6 +277,29 @@ std::any hdl::flip(std::any const& b)
     return std::any{};
 }
 
+std::any hdl::equality(std::any const& a, std::any const& b)
+{
+    if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Integer>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<UnsignedInteger>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<IntegerSet>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Grid>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Cell>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Object>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Objects>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Indices>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<IndicesSet>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Patch>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Element>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Size>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<Direction>(a, b); r.has_value()) return r;
+
+    return std::any{};
+}
+
 std::any hdl::contained(std::any const& value, std::any const& container)
 {
     if (value.type()     == typeid(Integer)    &&
@@ -420,8 +461,11 @@ std::any hdl::repeat(std::any const& item, std::any const& num)
     {
         auto const n{std::any_cast<UnsignedInteger>(num)};
        
-        if (item.type() == typeid(Integer))
-            return std::vector<Integer>(n, std::any_cast<Integer>(item));
+        if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
     }
 
     return std::any{};
