@@ -77,6 +77,9 @@ namespace hdl
     std::any order(std::any const& container, std::any const& compfunc);
     std::any repeat(std::any const& item, std::any const& num);
     std::any greater(std::any const& a, std::any const& b);
+    std::any size(std::any const& container);
+    std::any maximum(std::any const& container);
+    std::any minimum(std::any const& container);
     std::any initset(std::any const& value);
     std::any both(std::any const& a, std::any const& b);
     std::any either(std::any const& a, std::any const& b);

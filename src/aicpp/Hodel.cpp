@@ -5,12 +5,19 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::any size_set(std::any const& value)
+{
+    if (value.type() == typeid(T))
+        return static_cast<hdl::UnsignedInteger>(std::any_cast<T>(value).size());
+
+    return std::any{};
+}
+
+template<typename T>
 static std::any init_set(std::any const& value)
 {
     if (value.type() == typeid(typename T::value_type))
-    {
         return T{std::any_cast<typename T::value_type>(value)};
-    }
 
     return std::any{};
 }
@@ -424,6 +431,54 @@ std::any hdl::greater(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(a) > std::any_cast<Integer>(b)};
+
+    return std::any{};
+}
+
+std::any hdl::size(std::any const& container)
+{
+    if (auto r = size_set<IntegerSet>(container); r.has_value()) return r;
+    if (auto r = size_set<Object>    (container); r.has_value()) return r;
+    if (auto r = size_set<Objects>   (container); r.has_value()) return r;
+    if (auto r = size_set<Indices>   (container); r.has_value()) return r;
+    if (auto r = size_set<IndicesSet>(container); r.has_value()) return r;
+
+    if (container.type() == typeid(Grid))
+    {
+        auto const x{std::any_cast<Grid>(container)};
+        
+        return static_cast<UnsignedInteger>(x.size());
+    }
+
+    return std::any{};
+}
+
+std::any hdl::maximum(std::any const& container)
+{
+    if (container.type() == typeid(IntegerSet))
+    {
+        auto const set{std::any_cast<IntegerSet>(container)};
+
+        if (set.empty())
+            return Integer{0};
+        
+        return *std::max_element(set.begin(), set.end());
+    }
+
+    return std::any{};
+}
+
+std::any hdl::minimum(std::any const& container)
+{
+    if (container.type() == typeid(IntegerSet))
+    {
+        auto const set{std::any_cast<IntegerSet>(container)};
+
+        if (set.empty())
+            return Integer{0};
+        
+        return *std::min_element(set.begin(), set.end());
+    }
 
     return std::any{};
 }
