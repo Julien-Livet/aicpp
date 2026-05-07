@@ -21,8 +21,8 @@ find_package(Eigen3 REQUIRED)
 
 include_directories(include)
 
-set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp)
-set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h)
+set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/Hodel.cpp)
+set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h include/aicpp/Hodel.h)
 
 enable_testing()
 add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})
