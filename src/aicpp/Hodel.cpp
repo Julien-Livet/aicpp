@@ -5,6 +5,17 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::any init_set(std::any const& value)
+{
+    if (value.type() == typeid(typename T::value_type))
+    {
+        return T{std::any_cast<typename T::value_type>(value)};
+    }
+
+    return std::any{};
+}
+
+template<typename T>
 static std::any first_set(std::any const& container)
 {
     if (container.type() == typeid(T))
@@ -411,8 +422,35 @@ std::any hdl::repeat(std::any const& item, std::any const& num)
 
 std::any hdl::greater(std::any const& a, std::any const& b)
 {
-    if (a.type() == typeid(Integer) && a.type() == typeid(Integer))
+    if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(a) > std::any_cast<Integer>(b)};
+
+    return std::any{};
+}
+
+std::any hdl::initset(std::any const& value)
+{
+    if (auto r = init_set<IntegerSet>(value); r.has_value()) return r;
+    if (auto r = init_set<Object>    (value); r.has_value()) return r;
+    if (auto r = init_set<Objects>   (value); r.has_value()) return r;
+    if (auto r = init_set<Indices>   (value); r.has_value()) return r;
+    if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
+
+    return std::any{};
+}
+
+std::any hdl::both(std::any const& a, std::any const& b)
+{
+    if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
+        return Boolean{std::any_cast<Boolean>(a) && std::any_cast<Boolean>(b)};
+
+    return std::any{};
+}
+
+std::any hdl::either(std::any const& a, std::any const& b)
+{
+    if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
+        return Boolean{std::any_cast<Boolean>(a) || std::any_cast<Boolean>(b)};
 
     return std::any{};
 }
