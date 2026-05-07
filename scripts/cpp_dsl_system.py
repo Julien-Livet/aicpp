@@ -1,8 +1,44 @@
-with open("../include/aicpp/Hodel.h", "r") as f:
-    lines = f.read().split("\n")
+from collections import defaultdict
+import itertools
 
-variableDefinitions = list(filter(lambda x: " = " in x, lines))
-primitiveDefinitions = list(filter(lambda x: x.startswith("    std::any "), lines))
+with open("../include/aicpp/Hodel.h", "r") as f:
+    lines: list = f.read().split("\n")
+
+typeDefinitions: list = list(filter(lambda x: x.strip().startswith("typedef "), lines))
+variableDefinitions: list = list(filter(lambda x: " = " in x, lines))
+primitiveDefinitions: list = list(filter(lambda x: x.strip().startswith("std::any "), lines))
+
+dslTypes: dict = defaultdict(list)
+nativeTypes: dict = {}
+
+for definition in typeDefinitions:
+    definition = definition.strip()
+    dslType = definition[definition.rindex(" ")+1:-1]
+    dslTypes[dslType].append(dslType)
+    spaceList = definition.split(" ")
+    nativeTypes[dslType] = spaceList[1]
+
+frozenSetTypes = []
+
+for k, v in nativeTypes.items():
+    if (v.startswith("std::set") or v.startswith("std::vector")):
+        frozenSetTypes += dslTypes[k]
+
+dslTypes["FrozenSet"] = frozenSetTypes
+
+containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"]
+
+dslTypes["Container"] = containerTypes
+
+anyTypes = []
+
+for v in dslTypes.values():
+    anyTypes += v
+
+dslTypes["Any"] = anyTypes
+
+for k, v in dslTypes.items():
+    v = tuple(sorted(v))
 
 content = """#include "aicpp/DslSystem.h"
 #include "aicpp/Hodel.h"
@@ -54,21 +90,38 @@ for definition in primitiveDefinitions:
     return_type = signature[:i]
     args = signature[i+1:signature.index(")")]
     arg_types = [x.strip() for x in args.split(",")]
-    print(name)
-    print(comment)
-    print(signature)
-    print(return_type)
-    print(arg_types)
-    args = [f"typeid(hdl::{x})" for x in arg_types]
-    content += f'    neurons["{name}"]'
-    content += " = Neuron{"
-    content += f'"{name}"'
-    content += f", hdl::{name}"
-    content += ", std::vector<std::type_index>{"
-    content += ", ".join(args)
-    content += "}, typeid(hdl::"
-    content += return_type
-    content += ")};\n"
+
+    pattern: list = [dslTypes[return_type]]
+
+    for arg in arg_types:
+        pattern.append(dslTypes[arg])
+
+    unique: list = list(dict.fromkeys(map(id, pattern)))
+
+    objects: dict = {id(lst): lst for lst in pattern}
+    products: set = set()
+
+    for vals in itertools.product(*(objects[i] for i in unique)):
+        d: dict = dict(zip(unique, vals))
+        products.add(tuple(d[id(lst)] for lst in pattern))
+
+    for i, p in enumerate(products):
+        n = name
+
+        if (len(products) > 1):
+            n += str(i)
+
+        tt = [f"typeid(hdl::{x})" for x in p[:1]]
+
+        content += f'    neurons["{n}"]'
+        content += " = Neuron{"
+        content += f'"{name}"'
+        content += f", hdl::{name}"
+        content += ", std::vector<std::type_index>{"
+        content += ", ".join(tt)
+        content += "}, typeid(hdl::"
+        content += p[0]
+        content += ")};\n"
 
 content += """
     return neurons;
