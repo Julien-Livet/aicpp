@@ -167,33 +167,49 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hdl::Integer(
     return std::any{};
 }
 
-std::any hdl::identity(std::any const& x)
+std::any hdl::identity(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     return x;
 }
 
-std::any hdl::add(std::any const& a, std::any const& b)
+std::any hdl::add(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     return do_op(a, b, std::plus<Integer>{});
 }
 
-std::any hdl::subtract(std::any const& a, std::any const& b)
+std::any hdl::subtract(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     return do_op(a, b, std::minus<Integer>{});
 }
 
-std::any hdl::multiply(std::any const& a, std::any const& b)
+std::any hdl::multiply(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     return do_op(a, b, std::multiplies<Integer>{});
 }
 
-std::any hdl::divide(std::any const& a, std::any const& b)
+std::any hdl::divide(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     return do_op(a, b, std::divides<Integer>{});
 }
 
-std::any hdl::invert(std::any const& n)
+std::any hdl::invert(std::vector<std::any> const& args)
 {
+    auto const n{args.front()};
+
     if (n.type() == typeid(hdl::Numerical))
     {
         auto const x{std::any_cast<hdl::Numerical>(n)};
@@ -215,16 +231,20 @@ std::any hdl::invert(std::any const& n)
     return std::any{};
 }
 
-std::any hdl::even(std::any const& n)
+std::any hdl::even(std::vector<std::any> const& args)
 {
+    auto const n{args.front()};
+
     if (n.type() == typeid(hdl::Integer))
         return Boolean{std::any_cast<Integer>(n) % 2 == 0};
 
     return std::any{};
 }
 
-std::any hdl::double_(std::any const& n)
+std::any hdl::double_(std::vector<std::any> const& args)
 {
+    auto const n{args.front()};
+
     if (n.type() == typeid(hdl::Numerical))
     {
         auto const x{std::any_cast<hdl::Numerical>(n)};
@@ -246,8 +266,10 @@ std::any hdl::double_(std::any const& n)
     return std::any{};
 }
 
-std::any hdl::halve(std::any const& n)
+std::any hdl::halve(std::vector<std::any> const& args)
 {
+    auto const n{args.front()};
+
     if (n.type() == typeid(hdl::Numerical))
     {
         auto const x{std::any_cast<hdl::Numerical>(n)};
@@ -269,16 +291,21 @@ std::any hdl::halve(std::any const& n)
     return std::any{};
 }
 
-std::any hdl::flip(std::any const& b)
+std::any hdl::flip(std::vector<std::any> const& args)
 {
+    auto const b{args.front()};
+
     if (b.type() == typeid(Boolean))
         return Boolean{!std::any_cast<Boolean>(b)};
 
     return std::any{};
 }
 
-std::any hdl::equality(std::any const& a, std::any const& b)
+std::any hdl::equality(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Integer>(a, b); r.has_value()) return r;
     if (auto r = ::equality<UnsignedInteger>(a, b); r.has_value()) return r;
@@ -300,8 +327,11 @@ std::any hdl::equality(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-std::any hdl::contained(std::any const& value, std::any const& container)
+std::any hdl::contained(std::vector<std::any> const& args)
 {
+    auto const value{args[0]};
+    auto const container{args[1]};
+
     if (value.type()     == typeid(Integer)    &&
         container.type() == typeid(IntegerSet))
     {
@@ -370,8 +400,11 @@ std::any hdl::contained(std::any const& value, std::any const& container)
     return std::any{};
 }
 
-std::any hdl::combine(std::any const& a, std::any const& b)
+std::any hdl::combine(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (auto r = combine_sets<IntegerSet>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<Object>    (a, b); r.has_value()) return r;
     if (auto r = combine_sets<Objects>   (a, b); r.has_value()) return r;
@@ -392,8 +425,11 @@ std::any hdl::combine(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-std::any hdl::intersection(std::any const& a, std::any const& b)
+std::any hdl::intersection(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (auto r = intersection_sets<IntegerSet>(a, b); r.has_value()) return r;
     if (auto r = intersection_sets<Object>    (a, b); r.has_value()) return r;
     if (auto r = intersection_sets<Objects>   (a, b); r.has_value()) return r;
@@ -403,8 +439,11 @@ std::any hdl::intersection(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-std::any hdl::difference(std::any const& a, std::any const& b)
+std::any hdl::difference(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (auto r = difference_sets<IntegerSet>(a, b); r.has_value()) return r;
     if (auto r = difference_sets<Object>    (a, b); r.has_value()) return r;
     if (auto r = difference_sets<Objects>   (a, b); r.has_value()) return r;
@@ -414,21 +453,23 @@ std::any hdl::difference(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-std::any hdl::dedupe(std::any const& tup)
+std::any hdl::dedupe(std::vector<std::any> const& args)
 {
+    auto const tup{args.front()};
+
     if (tup.type() == typeid(Element))
     {
         auto const x{std::any_cast<Element>(tup)};
 
         if (std::holds_alternative<Grid>(x))
-            return dedupe(std::get<Grid>(x));
+            return dedupe(std::vector<std::any>{std::get<Grid>(x)});
     }
     else if (tup.type() == typeid(Piece))
     {
         auto const x{std::any_cast<Piece>(tup)};
 
         if (std::holds_alternative<Grid>(x))
-            return dedupe(std::get<Grid>(x));
+            return dedupe(std::vector<std::any>{std::get<Grid>(x)});
     }
     else if (tup.type() == typeid(Grid))
     {
@@ -448,15 +489,21 @@ std::any hdl::dedupe(std::any const& tup)
     return std::any{};
 }
 
-std::any hdl::order(std::any const& container, std::any const& compfunc)
+std::any hdl::order(std::vector<std::any> const& args)
 {
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
     //...
 
     return std::any{};
 }
 
-std::any hdl::repeat(std::any const& item, std::any const& num)
+std::any hdl::repeat(std::vector<std::any> const& args)
 {
+    auto const item{args[0]};
+    auto const num{args[1]};
+
     if (num.type() == typeid(UnsignedInteger))
     {
         auto const n{std::any_cast<UnsignedInteger>(num)};
@@ -471,16 +518,21 @@ std::any hdl::repeat(std::any const& item, std::any const& num)
     return std::any{};
 }
 
-std::any hdl::greater(std::any const& a, std::any const& b)
+std::any hdl::greater(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(a) > std::any_cast<Integer>(b)};
 
     return std::any{};
 }
 
-std::any hdl::size(std::any const& container)
+std::any hdl::size(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (auto r = size_set<IntegerSet>(container); r.has_value()) return r;
     if (auto r = size_set<Object>    (container); r.has_value()) return r;
     if (auto r = size_set<Objects>   (container); r.has_value()) return r;
@@ -497,8 +549,10 @@ std::any hdl::size(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::maximum(std::any const& container)
+std::any hdl::maximum(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (container.type() == typeid(IntegerSet))
     {
         auto const set{std::any_cast<IntegerSet>(container)};
@@ -512,8 +566,10 @@ std::any hdl::maximum(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::minimum(std::any const& container)
+std::any hdl::minimum(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (container.type() == typeid(IntegerSet))
     {
         auto const set{std::any_cast<IntegerSet>(container)};
@@ -527,8 +583,10 @@ std::any hdl::minimum(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::initset(std::any const& value)
+std::any hdl::initset(std::vector<std::any> const& args)
 {
+    auto const value{args.front()};
+
     if (auto r = init_set<IntegerSet>(value); r.has_value()) return r;
     if (auto r = init_set<Object>    (value); r.has_value()) return r;
     if (auto r = init_set<Objects>   (value); r.has_value()) return r;
@@ -538,24 +596,32 @@ std::any hdl::initset(std::any const& value)
     return std::any{};
 }
 
-std::any hdl::both(std::any const& a, std::any const& b)
+std::any hdl::both(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
         return Boolean{std::any_cast<Boolean>(a) && std::any_cast<Boolean>(b)};
 
     return std::any{};
 }
 
-std::any hdl::either(std::any const& a, std::any const& b)
+std::any hdl::either(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
         return Boolean{std::any_cast<Boolean>(a) || std::any_cast<Boolean>(b)};
 
     return std::any{};
 }
 
-std::any hdl::increment(std::any const& x)
+std::any hdl::increment(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     if (x.type() == typeid(Numerical))
     {
         auto const y{std::any_cast<Numerical>(x)};
@@ -573,8 +639,10 @@ std::any hdl::increment(std::any const& x)
     return std::any{};
 }
 
-std::any hdl::decrement(std::any const& x)
+std::any hdl::decrement(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     if (x.type() == typeid(Numerical))
     {
         auto const y{std::any_cast<Numerical>(x)};
@@ -592,8 +660,10 @@ std::any hdl::decrement(std::any const& x)
     return std::any{};
 }
 
-std::any hdl::crement(std::any const& x)
+std::any hdl::crement(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     if (x.type() == typeid(Numerical))
     {
         auto const y{std::any_cast<Numerical>(x)};
@@ -605,9 +675,9 @@ std::any hdl::crement(std::any const& x)
             if (!z)
                 return Numerical{z};
             else if (z > 0)
-                return increment(x);
+                return increment(args);
             else
-                return decrement(x);
+                return decrement(args);
         }
         else if (std::holds_alternative<IntegerTuple>(y))
         {
@@ -635,8 +705,10 @@ std::any hdl::crement(std::any const& x)
     return std::any{};
 }
 
-std::any hdl::sign(std::any const& x)
+std::any hdl::sign(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     if (x.type() == typeid(Numerical))
     {
         auto const y{std::any_cast<Numerical>(x)};
@@ -678,32 +750,40 @@ std::any hdl::sign(std::any const& x)
     return std::any{};
 }
 
-std::any hdl::positive(std::any const& x)
+std::any hdl::positive(std::vector<std::any> const& args)
 {
+    auto const x{args.front()};
+
     if (x.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(x) > 0};
 
     return std::any{};
 }
 
-std::any hdl::toivec(std::any const& i)
+std::any hdl::toivec(std::vector<std::any> const& args)
 {
+    auto const i{args.front()};
+
     if (i.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(i), 0)};
 
     return std::any{};
 }
 
-std::any hdl::tojvec(std::any const& j)
+std::any hdl::tojvec(std::vector<std::any> const& args)
 {
+    auto const j{args.front()};
+
     if (j.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(0, std::any_cast<Integer>(j))};
 
     return std::any{};
 }
 
-std::any hdl::totuple(std::any const& container)
+std::any hdl::totuple(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (auto r = vector_set<IntegerSet>(container); r.has_value()) return r;
     if (auto r = vector_set<Object>    (container); r.has_value()) return r;
     if (auto r = vector_set<Objects>   (container); r.has_value()) return r;
@@ -713,8 +793,10 @@ std::any hdl::totuple(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::first(std::any const& container)
+std::any hdl::first(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (auto r = first_set<IntegerSet>(container); r.has_value()) return r;
     if (auto r = first_set<Object>    (container); r.has_value()) return r;
     if (auto r = first_set<Objects>   (container); r.has_value()) return r;
@@ -731,8 +813,10 @@ std::any hdl::first(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::last(std::any const& container)
+std::any hdl::last(std::vector<std::any> const& args)
 {
+    auto const container{args.front()};
+
     if (auto r = last_set<IntegerSet>(container); r.has_value()) return r;
     if (auto r = last_set<Object>    (container); r.has_value()) return r;
     if (auto r = last_set<Objects>   (container); r.has_value()) return r;
@@ -749,8 +833,12 @@ std::any hdl::last(std::any const& container)
     return std::any{};
 }
 
-std::any hdl::interval(std::any const& start, std::any const& stop, std::any const& step)
+std::any hdl::interval(std::vector<std::any> const& args)
 {
+    auto const start{args[0]};
+    auto const stop{args[1]};
+    auto const step{args[2]};
+
     if (start.type() == typeid(Integer) && stop.type() == typeid(Integer))
     {
         auto start_{std::any_cast<Integer>(start)};
@@ -781,8 +869,11 @@ std::any hdl::interval(std::any const& start, std::any const& stop, std::any con
     return std::any{};
 }
 
-std::any hdl::astuple(std::any const& a, std::any const& b)
+std::any hdl::astuple(std::vector<std::any> const& args)
 {
+    auto const a{args[0]};
+    auto const b{args[1]};
+
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
 
