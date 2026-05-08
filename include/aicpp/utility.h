@@ -4,6 +4,7 @@
 #include <any>
 #include <generator>
 #include <map>
+#include <random>
 #include <set>
 #include <typeindex>
 #include <vector>
@@ -317,69 +318,154 @@ namespace aicpp
 
             return 1000.0; //return std::abs(std::hash<S>() - std::hash<T>());
         }
-    }
 
-    inline std::string anyToString(std::any const& v)
-    {
-        if (v.type() == typeid(char))
-            return std::string{std::any_cast<char>(v)};
-        else if (v.type() == typeid(double))
-            return std::to_string(std::any_cast<double>(v));
-        else if (v.type() == typeid(float))
-            return std::to_string(std::any_cast<float>(v));
-        else if (v.type() == typeid(int))
-            return std::to_string(std::any_cast<int>(v));
-        else if (v.type() == typeid(long))
-            return std::to_string(std::any_cast<long>(v));
-        else if (v.type() == typeid(std::string))
-            return std::any_cast<std::string>(v);
-        else if (v.type() == typeid(std::type_index))
-            return std::any_cast<std::type_index>(v).name();
-
-        return std::string{};
-    }
-
-    inline std::any stringToAny(std::string const& type, std::string const& value)
-    {
-        if (type == typeid(char).name())
-            return value[0];
-        else if (type == typeid(double).name())
-            return std::stod(value);
-        else if (type == typeid(float).name())
-            return std::stof(value);
-        else if (type == typeid(int).name())
-            return std::stoi(value);
-        else if (type == typeid(long).name())
-            return std::stol(value);
-        else if (type == typeid(std::string).name())
-            return value;
-        else if (type == typeid(std::type_index).name())
+        inline std::string anyToString(std::any const& v)
         {
-            if (value == typeid(bool).name())
-                return std::type_index{typeid(bool)};
-            else if (value == typeid(double).name())
-                return std::type_index{typeid(double)};
-            else if (value == typeid(Eigen::MatrixXd).name())
-                return std::type_index{typeid(Eigen::MatrixXd)};
-            else if (value == typeid(Eigen::MatrixXf).name())
-                return std::type_index{typeid(Eigen::MatrixXf)};
-            else if (value == typeid(Eigen::MatrixXi).name())
-                return std::type_index{typeid(Eigen::MatrixXi)};
-            else if (value == typeid(float).name())
-                return std::type_index{typeid(float)};
-            else if (value == typeid(int).name())
-                return std::type_index{typeid(int)};
-            else if (value == typeid(long).name())
-                return std::type_index{typeid(long)};
-            else if (value == typeid(std::map<int, int>).name())
-                return std::type_index{typeid(std::map<int, int>)};
-            else if (value == typeid(std::pair<int, int>).name())
-                return std::type_index{typeid(std::pair<int, int>)};
-            else if (value == typeid(std::string).name())
-                return std::type_index{typeid(std::string)};
+            if (v.type() == typeid(char))
+                return std::string{std::any_cast<char>(v)};
+            else if (v.type() == typeid(double))
+                return std::to_string(std::any_cast<double>(v));
+            else if (v.type() == typeid(float))
+                return std::to_string(std::any_cast<float>(v));
+            else if (v.type() == typeid(int))
+                return std::to_string(std::any_cast<int>(v));
+            else if (v.type() == typeid(long))
+                return std::to_string(std::any_cast<long>(v));
+            else if (v.type() == typeid(std::string))
+                return std::any_cast<std::string>(v);
+            else if (v.type() == typeid(std::type_index))
+                return std::any_cast<std::type_index>(v).name();
+
+            return std::string{};
         }
 
-        return std::any{};
+        inline std::any stringToAny(std::string const& type, std::string const& value)
+        {
+            if (type == typeid(char).name())
+                return value[0];
+            else if (type == typeid(double).name())
+                return std::stod(value);
+            else if (type == typeid(float).name())
+                return std::stof(value);
+            else if (type == typeid(int).name())
+                return std::stoi(value);
+            else if (type == typeid(long).name())
+                return std::stol(value);
+            else if (type == typeid(std::string).name())
+                return value;
+            else if (type == typeid(std::type_index).name())
+            {
+                if (value == typeid(bool).name())
+                    return std::type_index{typeid(bool)};
+                else if (value == typeid(double).name())
+                    return std::type_index{typeid(double)};
+                else if (value == typeid(Eigen::MatrixXd).name())
+                    return std::type_index{typeid(Eigen::MatrixXd)};
+                else if (value == typeid(Eigen::MatrixXf).name())
+                    return std::type_index{typeid(Eigen::MatrixXf)};
+                else if (value == typeid(Eigen::MatrixXi).name())
+                    return std::type_index{typeid(Eigen::MatrixXi)};
+                else if (value == typeid(float).name())
+                    return std::type_index{typeid(float)};
+                else if (value == typeid(int).name())
+                    return std::type_index{typeid(int)};
+                else if (value == typeid(long).name())
+                    return std::type_index{typeid(long)};
+                else if (value == typeid(std::map<int, int>).name())
+                    return std::type_index{typeid(std::map<int, int>)};
+                else if (value == typeid(std::pair<int, int>).name())
+                    return std::type_index{typeid(std::pair<int, int>)};
+                else if (value == typeid(std::string).name())
+                    return std::type_index{typeid(std::string)};
+            }
+
+            return std::any{};
+        }
+
+        template <typename T>
+        size_t space_size(std::vector<std::vector<T> > const& combinations)
+        {
+            size_t s{1};
+
+            for (auto const& c : combinations)
+                s *= c.size();
+
+            return s;
+        }
+
+        template <typename T>
+        std::vector<std::vector<T> > sample_space(
+            std::vector<std::vector<T> > const& combinations,
+            size_t n,
+            std::string const& strategy = "mixed",
+            std::set<std::vector<T> > const& exclude = std::set<std::vector<T> >{})
+        {
+            auto const size{space_size(combinations)};
+
+            n = std::min(n, std::max(0, size - exclude.size()));
+
+            if (n <= 0)
+                return std::vector<std::vector<T> >{};
+
+            std::set<std::vector<T> > samples;
+            std::random_device rd;
+
+            // Latin hypercube approximate
+            if (std::set<std::string>{"grid", "mixed"}.contains(strategy))
+            {
+                size_t const n_grid{strategy == "grid" ? n : std::max(size_t{1}, n / 2)};
+                std::vector<std::vector<size_t> > indices;
+            
+                for (auto const& dim_vals : combinations)
+                {
+                    size_t const k{dim_vals.size()};
+                    size_t const step{std::max(size_t{1}, k / n_grid)};
+
+                    std::vector<size_t> idx;
+
+                    for (size_t i{0}; i < k && idx.size() < n_grid; i += step)
+                        idx.emplace_back(i);
+
+                    while (idx.size() < n_grid)
+                        idx.emplace_back(std::uniform_int_distribution<size_t>{0, k - 1}(rd));
+
+                    std::shuffle(idx.begin(), idx.end(), rd);
+                    indices.emplace_back(std::move(idx));
+                }
+
+                for (size_t row{0}; row < n_grid; ++row)
+                {
+                    std::vector<T> pt;
+                    pt.reserve(combinations.size());
+
+                    for (size_t d{0}; d < combinations.size(); ++d)
+                        pt.emplace_back(combinations[d][indices[d][row]]);
+
+                    if (!exclude.contains(pt))
+                        samples.insert(std::move(pt));
+                }
+            }
+
+            // Complete with random draw
+            size_t attempts{0};
+            size_t const max_attempts{n * 30};
+            
+            while (samples.size() < n && attempts < max_attempts)
+            {
+                std::vector<T> pt;
+                pt.reserve(combinations.size());
+
+                for (auto const& dim_vals : combinations)
+                    pt.emplace_back(dim_vals[std::uniform_int_distribution<size_t>{0, dim_vals.size() - 1}(rd)]);
+
+                if (!exclude.contains(pt))
+                    samples.insert(std::move(pt));
+
+                ++attempts;
+            }
+
+            return std::vector<std::vector<T> >{samples.begin(), samples.end()};
+        }
     }
 }
 

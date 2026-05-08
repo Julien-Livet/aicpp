@@ -70,7 +70,7 @@ std::string Connection::string() const
     args.reserve(v.size());
 
     for (auto const& x : v)
-        args.emplace_back(anyToString(x));
+        args.emplace_back(utility::anyToString(x));
 
     auto s{name_};
 
@@ -203,7 +203,7 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
 
     try
     {
-        value = anyToString(output());
+        value = utility::anyToString(output());
     }
     catch (std::bad_any_cast const&)
     {
@@ -322,7 +322,7 @@ boost::json::value Connection::toJson() const
         if (input.type() == typeid(Connection))
             inputs.emplace_back(std::any_cast<Connection>(input).toJson());
         else
-            inputs.emplace_back(anyToString(input));
+            inputs.emplace_back(utility::anyToString(input));
     }
 
     obj["types"] = std::move(types);
@@ -364,7 +364,7 @@ std::string Connection::expression() const
         if (input.type() == typeid(Connection))
             args.emplace_back(std::any_cast<Connection>(input).expression());
         else
-            args.emplace_back(anyToString(input));
+            args.emplace_back(utility::anyToString(input));
     }
 
     auto s{neuron_.get().name()};

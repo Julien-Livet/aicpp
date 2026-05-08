@@ -104,7 +104,7 @@ namespace aicpp
 
                                 try
                                 {/*
-                                    auto const result{bayesian_optimization_discrete(op, target, combinations, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_)};
+                                    auto const result{utility::bayesian_optimization_discrete(op, target, combinations, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_)};
                                     auto const s{connection.toStr()};
 
                                     connections_[s] = std::make_tuple(connection, result.first, result.second);

@@ -414,7 +414,7 @@ Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<
         if (types[j].as_string() == typeid(Connection).name())
             connectionInputs.emplace_back(buildConnection_(map, inputs[j]));
         else
-            connectionInputs.emplace_back(stringToAny(types[j].as_string().c_str(), inputs[j].as_string().c_str()));
+            connectionInputs.emplace_back(utility::stringToAny(types[j].as_string().c_str(), inputs[j].as_string().c_str()));
     }
 
     assert(connectionInputs.size() == types.size());
