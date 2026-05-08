@@ -37,8 +37,8 @@ for v in dslTypes.values():
 
 dslTypes["Any"] = anyTypes
 
-for k, v in dslTypes.items():
-    v = tuple(sorted(v))
+for k in dslTypes.keys():
+    dslTypes[k] = tuple(sorted(dslTypes[k]))
 
 content = """#include "aicpp/DslSystem.h"
 #include "aicpp/Hodel.h"
@@ -111,7 +111,7 @@ for definition in primitiveDefinitions:
         if (len(products) > 1):
             n += str(i)
 
-        tt = [f"typeid(hdl::{x})" for x in p[:1]]
+        tt = [f"typeid(hdl::{x})" for x in p[1:]]
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
