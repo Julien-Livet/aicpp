@@ -74,3 +74,22 @@ void DslEngine::addPrimitiveNeuron(Neuron const& neuron, std::string name)
     typedPrimitiveNeurons_[neuron.outputType()].emplace_back(neuron);
 }
 
+std::map<std::string, Neuron> const& DslEngine::variableNeurons() const
+{
+    return variableNeurons_;
+}
+
+Neuron& DslEngine::variableNeuron(std::string const& name)
+{
+    return variableNeurons_.at(name);
+}
+
+std::map<std::string, Neuron> const& DslEngine::primitiveNeurons() const
+{
+    return primitiveNeurons_;
+}
+
+std::function<double(std::any, std::any)> const& DslEngine::heuristic() const
+{
+    return heuristic_;
+}

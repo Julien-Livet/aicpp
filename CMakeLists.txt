@@ -18,6 +18,7 @@ FetchContent_MakeAvailable(googletest)
 
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(dlib REQUIRED)
 
 include_directories(include)
 
@@ -30,9 +31,9 @@ add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})
 target_include_directories(test_aicpp PRIVATE include)
 
 if (WIN32)
-    target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
+    target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
 else()
-    target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
+    target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
 endif()
 
 add_test(NAME TestAiCpp COMMAND test_aicpp)

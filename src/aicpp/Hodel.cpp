@@ -839,31 +839,17 @@ std::any hdl::interval(std::vector<std::any> const& args)
     auto const stop{args[1]};
     auto const step{args[2]};
 
-    if (start.type() == typeid(Integer) && stop.type() == typeid(Integer))
+    if (start.type() == typeid(Integer) && stop.type() == typeid(Integer) && step.type() == typeid(Integer))
     {
         auto start_{std::any_cast<Integer>(start)};
         auto const stop_{std::any_cast<Integer>(stop)};
+        auto const step_{std::any_cast<Integer>(step)};
+        std::vector<Integer> result;
 
-        if (step.type() == typeid(Integer))
-        {
-            auto const step_{std::any_cast<Integer>(step)};
-            std::vector<Integer> result;
+        for (; start_ != stop_; start_ += step_)
+            result.emplace_back(start_);
 
-            for (; start_ != stop_; start_ += step_)
-                result.emplace_back(start_);
-
-            return result;
-        }
-        else if (step.type() == typeid(UnsignedInteger))
-        {
-            auto const step_{std::any_cast<UnsignedInteger>(step)};
-            std::vector<Integer> result;
-
-            for (; start_ != stop_; start_ += step_)
-                result.emplace_back(start_);
-
-            return result;
-        }
+        return result;
     }
 
     return std::any{};

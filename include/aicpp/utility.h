@@ -1,8 +1,13 @@
 #ifndef AICPP_UTILITY_H
 #define AICPP_UTILITY_H
 
+#include <algorithm>
 #include <any>
+#include <cmath>
+#include <functional>
 #include <generator>
+#include <limits>
+#include <numeric>
 #include <map>
 #include <random>
 #include <set>
@@ -12,6 +17,11 @@
 #include <Eigen/Core>
 
 #include <boost/algorithm/string.hpp>
+
+#include <dlib/matrix.h>
+#include <dlib/statistics.h>
+#include <dlib/svm.h>
+#include <dlib/global_optimization.h>
 
 namespace aicpp
 {
@@ -402,7 +412,7 @@ namespace aicpp
         {
             auto const size{space_size(combinations)};
 
-            n = std::min(n, std::max(0, size - exclude.size()));
+            n = std::min(n, static_cast<size_t>(std::max(0, static_cast<int>(size) - static_cast<int>(exclude.size()))));
 
             if (n <= 0)
                 return std::vector<std::vector<T> >{};
@@ -465,6 +475,532 @@ namespace aicpp
             }
 
             return std::vector<std::vector<T> >{samples.begin(), samples.end()};
+        }
+        template <typename T>
+        class CartesianProductIterator
+        {
+            public:
+                using iterator_category = std::input_iterator_tag;
+                using value_type        = std::vector<T>;
+                using difference_type   = std::ptrdiff_t;
+                using pointer           = value_type const*;
+                using reference         = value_type const&;
+
+                CartesianProductIterator() : done{true} {}
+
+                explicit CartesianProductIterator(std::vector<std::vector<T>> const& dims)
+                    : pools{dims}, indices(dims.size(), 0), done{dims.empty()}
+                {
+                    if (!done)
+                        build_current();
+                }
+
+                reference operator*()  const { return current; }
+                pointer   operator->() const { return &current; }
+
+                CartesianProductIterator& operator++()
+                {
+                    for (int i{static_cast<int>(indices.size()) - 1}; i >= 0; --i)
+                    {
+                        if (++indices[i] < pools[i].size())
+                        {
+                            build_current();
+                            return *this;
+                        }
+                        indices[i] = 0;
+                    }
+
+                    done = true;
+                    
+                    return *this;
+                }
+
+                bool operator==(CartesianProductIterator const& o) const
+                {
+                    if (done && o.done) 
+                        return true;
+                    if (done != o.done)
+                        return false;
+                    
+                        return indices == o.indices;
+                }
+
+                bool operator!=(CartesianProductIterator const& o) const { return !(*this == o); }
+
+            private:
+                void build_current()
+                {
+                    current.resize(pools.size());
+                    
+                    for (size_t i{0}; i < pools.size(); ++i)
+                        current[i] = pools[i][indices[i]];
+                }
+
+                std::vector<std::vector<T>> pools;
+                std::vector<size_t>         indices;
+                value_type                  current;
+                bool                        done;
+        };
+
+        template <typename T>
+        class CartesianProductRange
+        {
+            public:
+                explicit CartesianProductRange(std::vector<std::vector<T>> dims)
+                    : pools{std::move(dims)} {}
+
+                CartesianProductIterator<T> begin() const { return CartesianProductIterator<T>{pools}; }
+                CartesianProductIterator<T> end()   const { return CartesianProductIterator<T>{}; }
+
+            private:
+                std::vector<std::vector<T>> pools;
+        };
+
+        template <typename T>
+        CartesianProductRange<T> iter_space(
+            std::vector<std::vector<T>> combinations,
+            bool                        shuffle = true)
+        {
+            std::random_device rd;
+
+            if (shuffle)
+            {
+                for (auto& c : combinations)
+                    std::shuffle(c.begin(), c.end(), rd);
+            }
+
+            return CartesianProductRange<T>{std::move(combinations)};
+        }
+
+        template <typename T>
+        std::vector<std::vector<T> > sampled_neighbors(
+            std::vector<T> const&            point,
+            size_t                           dim,
+            std::vector<std::vector<T>> const& combinations,
+            size_t                           k)
+        {
+            std::random_device rd;
+
+            auto const& dim_vals{combinations[dim]};
+            auto const& cur{point[dim]};
+
+            std::vector<T> other_vals;
+            other_vals.reserve(dim_vals.size());
+
+            for (auto const& v : dim_vals)
+                if (v != cur)
+                    other_vals.push_back(v);
+
+            if (other_vals.empty())
+                return {};
+
+            size_t const n_chosen{std::min(k, other_vals.size())};
+
+            for (size_t i{0}; i < n_chosen; ++i)
+            {
+                size_t j{std::uniform_int_distribution<size_t>{i, other_vals.size() - 1}(rd)};
+                std::swap(other_vals[i], other_vals[j]);
+            }
+
+            std::vector<std::vector<T>> result;
+            result.reserve(n_chosen);
+
+            for (size_t i{0}; i < n_chosen; ++i)
+            {
+                auto nb{point};
+                nb[dim] = other_vals[i];
+                result.emplace_back(std::move(nb));
+            }
+
+            return result;
+        }
+
+        using sample_type = dlib::matrix<double, 0, 1>;
+        using kernel_type = dlib::radial_basis_kernel<sample_type>;
+
+        struct StandardScaler
+        {
+            dlib::matrix<double, 1, 0> mean, std_dev;
+
+            void fit(std::vector<sample_type> const& X)
+            {
+                long const n{static_cast<long>(X.size())};
+                long const d{X[0].size()};
+
+                mean    = dlib::zeros_matrix<double>(1, d);
+                std_dev = dlib::zeros_matrix<double>(1, d);
+
+                for (auto const& x : X)
+                    mean += dlib::trans(x);
+                mean /= n;
+
+                for (auto const& x : X)
+                {
+                    dlib::matrix<double, 1, 0> diff = dlib::trans(x) - mean;
+                    std_dev += dlib::pointwise_multiply(diff, diff);
+                }
+                std_dev /= n;
+
+                for (long j{0}; j < d; ++j)
+                {
+                    std_dev(j) = std::sqrt(std_dev(j));
+                    if (std_dev(j) < 1e-8) std_dev(j) = 1.0;
+                }
+            }
+
+            sample_type transform(sample_type const& x) const
+            {
+                long const d{x.size()};
+                sample_type out(d);
+
+                for (long j{0}; j < d; ++j)
+                    out(j) = (x(j) - mean(j)) / std_dev(j);
+
+                return out;
+            }
+
+            std::vector<sample_type> transform(std::vector<sample_type> const& X) const
+            {
+                std::vector<sample_type> out;
+                out.reserve(X.size());
+
+                for (auto const& x : X)
+                    out.emplace_back(transform(x));
+
+                return out;
+            }
+        };
+
+        inline double standard_normal_pdf(double z)
+        {
+            return std::exp(-0.5 * z * z) / std::sqrt(2.0 * M_PI);
+        }
+
+        inline double standard_normal_cdf(double z)
+        {
+            return 0.5 * std::erfc(-z / std::sqrt(2.0));
+        }
+
+        inline std::vector<double> expected_improvement(
+            std::vector<double> const& mu,
+            std::vector<double> const& sigma,
+            double                     best_y,
+            double                     xi = 0.01)
+        {
+            std::vector<double> ei(mu.size());
+
+            for (size_t i{0}; i < mu.size(); ++i)
+            {
+                double s{sigma[i]};
+
+                if (s < 1e-9) { ei[i] = 0.0; continue; }
+
+                double Z{(best_y - mu[i] - xi) / s};
+                ei[i] = (best_y - mu[i] - xi) * standard_normal_cdf(Z)
+                        + s * standard_normal_pdf(Z);
+
+                if (ei[i] < 0.0) ei[i] = 0.0;
+            }
+
+            return ei;
+        }
+
+        template <typename T>
+        std::vector<sample_type> encode_output_space_discrete(
+            std::vector<std::vector<std::string> > const&               points,
+            std::function<std::any(std::vector<std::string> const&)>    op,
+            std::vector<std::vector<std::string> > const&               combinations,
+            T const&                                                    target,
+            std::function<double(std::any const&, std::any const&)>     heuristicFunction,
+            size_t                                                      k_neighbors = 8)
+        {
+            size_t const D{combinations.size()};
+            size_t const n_features{1 + D * 5};
+
+            std::vector<sample_type> result;
+            result.reserve(points.size());
+
+            for (auto const& point : points)
+            {
+                double v{heuristicFunction(op(point), target)};
+                sample_type row(static_cast<long>(n_features));
+                row = 0.0;
+                row(0) = v;
+
+                for (size_t dim{0}; dim < D; ++dim)
+                {
+                    auto nbs = sampled_neighbors(point, dim, combinations, k_neighbors);
+
+                    std::vector<double> scores;
+                    scores.reserve(nbs.empty() ? 1 : nbs.size());
+
+                    if (nbs.empty())
+                        scores.emplace_back(v);
+                    else
+                    {
+                        for (auto const& nb : nbs)
+                            scores.emplace_back(heuristicFunction(op(nb), target));
+                    }
+
+                    double mean_s{std::accumulate(scores.begin(), scores.end(), 0.0)
+                                / static_cast<double>(scores.size())};
+                    double std_s{0.0};
+
+                    if (scores.size() > 1)
+                    {
+                        double sq{0.0};
+
+                        for (double s : scores)
+                            sq += (s - mean_s) * (s - mean_s);
+
+                        std_s = std::sqrt(sq / static_cast<double>(scores.size()));
+                    }
+
+                    double min_s{*std::min_element(scores.begin(), scores.end())};
+                    double max_s{*std::max_element(scores.begin(), scores.end())};
+
+                    long base{static_cast<long>(1 + dim * 5)};
+                    row(base + 0) = mean_s;
+                    row(base + 1) = std_s;
+                    row(base + 2) = min_s;
+                    row(base + 3) = max_s;
+                    row(base + 4) = v - mean_s;
+                }
+
+                result.emplace_back(std::move(row));
+            }
+
+            return result;
+        }
+
+        template <typename T>
+        std::pair<std::vector<std::string>, double> bayesian_optimization_discrete(
+            std::function<std::any(std::vector<std::string> const&)>    op,
+            T const&                                                    target,
+            std::vector<std::vector<std::string> > const&               combinations,
+            std::function<double(std::any const&, std::any const&)>     heuristicFunction,
+            size_t   n_init      = 5,
+            size_t   top_k       = 3,
+            size_t   count_max   = 10,
+            double   xi          = 0.01,
+            size_t   n_sample    = 200,
+            size_t   k_neighbors = 8,
+            double   threshold   = 0.0)
+        {
+            size_t const size{space_size(combinations)};
+            auto init_pts = sample_space(combinations, n_init, "mixed");
+
+            std::vector<std::vector<std::string> > obs_x;
+            std::vector<double>         obs_y;
+
+            for (auto const& x : init_pts)
+            {
+                try
+                {
+                    double y{heuristicFunction(op(x), target)};
+                    obs_x.emplace_back(x);
+                    obs_y.emplace_back(y);
+
+                    if (y <= threshold)
+                        return {x, y};
+                }
+                catch (...)
+                {
+                }
+            }
+
+            if (obs_x.empty())
+            {
+                auto range = iter_space(combinations, false);
+                auto it    = range.begin();
+
+                if (it != range.end())
+                    return {*it, 999.0};
+
+                return {{}, 999.0};
+            }
+
+            size_t best_idx{static_cast<size_t>(std::min_element(obs_y.begin(), obs_y.end()) - obs_y.begin())};
+            auto   best_x{obs_x[best_idx]};
+            double best_y{obs_y[best_idx]};
+            double prev_best{std::numeric_limits<double>::infinity()};
+            size_t count{0};
+
+            // dlib GP (krls = kernel recursive least squares — used as GP surrogate)
+            // gamma = 1 / (2 * length_scale²)  →  length_scale=1  →  gamma=0.5
+            kernel_type                  kernel{0.5};
+            dlib::krls<kernel_type>      gp{kernel, 1e-2};  // 1e-2 = tolerance (alpha jitter)
+            std::vector<sample_type>     C_enc;
+            std::vector<std::vector<std::string> > candidates;
+
+            while (true)
+            {
+                std::set<std::vector<std::string> > obs_set(obs_x.begin(), obs_x.end());
+
+                auto X_raw = encode_output_space_discrete(
+                    obs_x, op, combinations, target, heuristicFunction, k_neighbors);
+
+                if (static_cast<long>(X_raw.size()) < 2)
+                    break;
+
+                // StandardScaler on training data
+                StandardScaler scaler;
+
+                try
+                {
+                    scaler.fit(X_raw);
+                }
+                catch (...)
+                {
+                    break;
+                }
+
+                auto X_sc = scaler.transform(X_raw);
+
+                // Fit dlib GP (krls trains online; re-init each iteration for clean fit)
+                gp = dlib::krls<kernel_type>{kernel, 1e-2};
+
+                try
+                {
+                    for (size_t i{0}; i < X_sc.size(); ++i)
+                        gp.train(X_sc[i], obs_y[i]);
+                }
+                catch (...)
+                {
+                    break;
+                }
+
+                candidates = sample_space(combinations, n_sample, "mixed", obs_set);
+
+                if (candidates.empty())
+                    break;
+
+                auto C_raw = encode_output_space_discrete(
+                    candidates, op, combinations, target, heuristicFunction, k_neighbors);
+
+                if (C_raw.empty())
+                    break;
+
+                // Align columns
+                long n_cols{std::min(X_raw[0].size(), C_raw[0].size())};
+
+                // Scale candidates with a fresh scaler fitted on (aligned) training data
+                std::vector<sample_type> X_aligned;
+                X_aligned.reserve(X_raw.size());
+
+                for (auto const& x : X_raw)
+                {
+                    sample_type s(n_cols);
+
+                    for (long j{0}; j < n_cols; ++j)
+                        s(j) = x(j);
+
+                    X_aligned.push_back(s);
+                }
+
+                StandardScaler scaler2;
+                try
+                {
+                    scaler2.fit(X_aligned);
+                }
+                catch (...)
+                {
+                    break;
+                }
+
+                // Predict: dlib krls has no built-in std; approximate via leave-one-out
+                // variance estimate using the kernel diagonal (common GP surrogate trick).
+                // k(x*,x*) - k_vec^T K^{-1} k_vec  is unavailable directly in krls,
+                // so we use the squared residual on training data as a local proxy,
+                // then interpolate for candidates (conservative but functional).
+                //
+                // For a production use, replace krls with dlib::gaussian_process directly
+                // (available in dlib ≥ 19.24 as dlib::gp_regression) or with mlpack's GP.
+
+                double train_rss{0.0};
+
+                for (size_t i{0}; i < X_sc.size(); ++i)
+                {
+                    double r{obs_y[i] - gp(X_sc[i])};
+                    train_rss += r * r;
+                }
+
+                double global_sigma{std::sqrt(train_rss / std::max<size_t>(1, X_sc.size()))};
+
+                std::vector<double> mu_vec, sigma_vec;
+                mu_vec.reserve(C_raw.size());
+                sigma_vec.reserve(C_raw.size());
+
+                C_enc.clear();
+                C_enc.reserve(C_raw.size());
+
+                for (auto const& c : C_raw)
+                {
+                    sample_type aligned(n_cols);
+
+                    for (long j{0}; j < n_cols; ++j)
+                        aligned(j) = c(j);
+
+                    sample_type c_sc = scaler2.transform(aligned);
+                    C_enc.emplace_back(c_sc);
+
+                    mu_vec.emplace_back(gp(c_sc));
+                    sigma_vec.emplace_back(global_sigma);  // homoscedastic proxy
+                }
+
+                double best_obs{*std::min_element(obs_y.begin(), obs_y.end())};
+                auto   ei = expected_improvement(mu_vec, sigma_vec, best_obs, xi);
+
+                // top_k by descending EI
+                std::vector<size_t> idx(ei.size());
+                std::iota(idx.begin(), idx.end(), 0);
+                size_t k{std::min(top_k, ei.size())};
+                std::partial_sort(idx.begin(), idx.begin() + k, idx.end(),
+                    [&ei](size_t a, size_t b){ return ei[a] > ei[b]; });
+
+                bool improved{false};
+
+                for (size_t i{0}; i < k; ++i)
+                {
+                    auto const& x{candidates[idx[i]]};
+
+                    try
+                    {
+                        double y{heuristicFunction(op(x), target)};
+                        obs_x.emplace_back(x);
+                        obs_y.emplace_back(y);
+
+                        if (y <= threshold)
+                            return {x, y};
+
+                        if (y < best_y)
+                        {
+                            best_x   = x;
+                            best_y   = y;
+                            improved = true;
+                        }
+                    }
+                    catch (...)
+                    {
+                    }
+                }
+
+                if (best_y < prev_best)
+                {
+                    prev_best = best_y;
+                    count     = 0;
+                }
+                else if (!improved)
+                    ++count;
+
+                if (count >= count_max)
+                    break;
+
+                if (obs_x.size() >= size)
+                    break;
+            }
+
+            return {best_x, best_y};
         }
     }
 }

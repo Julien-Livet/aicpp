@@ -1,4 +1,7 @@
+#include <cassert>
+#include <chrono>
 #include <fstream>
+#include <print>
 
 #include <boost/json.hpp>
 
@@ -9,11 +12,50 @@
 #include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
 #include "aicpp/DslEngine.h"
+#include "aicpp/Hodel.h"
 #include "aicpp/utility.h"
 
 using namespace boost::json;
 
 using namespace aicpp;
+
+using Matrix = std::vector<std::vector<int>>;
+using BoundingBox = std::tuple<int, int, int, int>;
+
+Eigen::MatrixXi to_eigen(Matrix const& v)
+{
+    if (v.empty())
+        return Eigen::MatrixXi{};
+
+    int const rows = static_cast<int>(v.size());
+    int const cols = static_cast<int>(v[0].size());
+
+    Eigen::MatrixXi mat(rows, cols);
+
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+            mat(i, j) = v[i][j];
+    }
+
+    return mat;
+}
+
+Matrix to_std_vector(Eigen::MatrixXi const& mat)
+{
+    std::vector<std::vector<int>> result(
+        mat.rows(),
+        std::vector<int>(mat.cols())
+    );
+
+    for (int i = 0; i < mat.rows(); ++i)
+    {
+        for (int j = 0; j < mat.cols(); ++j)
+            result[i][j] = mat(i, j);
+    }
+
+    return result;
+}
 
 std::string const path{"../ARC-AGI-2/data"};
 
@@ -300,6 +342,10 @@ Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 std::pair<std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> >,
           std::vector<std::pair<Eigen::MatrixXi, Eigen::MatrixXi> > > trainTestPairs(std::string const& folder, std::string const& task)
 {
+    std::set<std::string> const s{"training", "evaluation"};
+
+    assert(s.contains(folder));
+
     std::ifstream ifs{path + "/" + folder + "/" + task + ".json"};
 
     std::string content;
@@ -389,3 +435,461 @@ DslEngine buildSimplifiedEngine(std::set<std::string> const& ops = std::set<std:
 
     return engine;
 }
+
+void learnInt(DslEngine& engine, std::string const& expression, int target)
+{
+    auto const t{std::chrono::high_resolution_clock::now()};
+
+    std::println("Target expression: {0} = {1}", expression, target);
+
+    auto const [c, args, cost] = engine.learn(target);
+
+    std::println("Found connection: {0}", c.string());
+
+    auto connnection{c};
+    std::vector<std::any> inputs;
+    inputs.reserve(args.size());
+
+    for (auto const& n : args)
+        inputs.emplace_back(engine.variableNeurons().at(n).function()(std::vector<std::any>{}));
+
+    connnection.applyInputs(inputs);
+
+    std::println("Applied connection: {0}", connnection.string());
+    std::println("Args: {0}, output: {1}, cost: {2}", args, std::any_cast<int>(connnection.output()), cost);
+    std::println("Duration: {0} s", std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - t).count());
+
+    EXPECT_FALSE(cost);
+}
+/*
+TEST(TestAiCpp, LearnDigit)
+{
+    DslEngine engine{buildSimplifiedEngine()};
+
+    learnInt(engine, "5", 5);
+}
+
+TEST(TestAiCpp, LearnOneAddition)
+{
+    DslEngine engine{buildSimplifiedEngine()};
+
+    learnInt(engine, "7 + 8", 7 + 8);
+}
+
+TEST(TestAiCpp, LearnThreeAdditions)
+{
+    DslEngine engine{buildSimplifiedEngine(std::set<std::string>{"add"})};
+
+    learnInt(engine, "5 + 7 + 8", 5 + 7 + 8);
+}
+
+TEST(TestAiCpp, LearnSimpleOperation)
+{
+    DslEngine engine{buildSimplifiedEngine(std::set<std::string>{"add", "mul"})};
+
+    learnInt(engine, "5 + 7 * 8", 5 + 7 * 8);
+}
+
+TEST(TestAiCpp, LearnOperations)
+{
+    DslEngine engine{buildSimplifiedEngine(std::set<std::string>{"add", "mul"})};
+
+    learnInt(engine, "5", 5);
+    learnInt(engine, "7 + 8", 7 + 8);
+    learnInt(engine, "5 + 7 + 8", 5 + 7 + 8);
+    learnInt(engine, "5 + 7 * 8", 5 + 7 * 8);
+}
+
+TEST(TestAiCpp, LearnThreeLevels)
+{
+    DslEngine engine{buildSimplifiedEngine(std::set<std::string>{"add", "mul", "sub"})};
+
+    learnInt(engine, "(3 + 4) * (8 - 2)", (3 + 4) * (8 - 2));
+}
+*/
+double size_cost(Matrix const& x, Matrix const& y)
+{
+    Eigen::MatrixXi const xs{static_cast<int>(x.size()), static_cast<int>(x[0].size())};
+    Eigen::MatrixXi const ys{static_cast<int>(y.size()), static_cast<int>(y[0].size())};
+
+    return (xs - ys).norm();
+}
+
+int total_sum(Matrix const& v)
+{
+    int s{0};
+
+    for (const auto& row : v)
+        s += std::accumulate(row.begin(), row.end(), 0);
+
+    return s;
+}
+
+double value_cost(Matrix const& x, Matrix const& y)
+{
+    Eigen::MatrixXi const xs{static_cast<int>(x.size()), static_cast<int>(x[0].size())};
+    Eigen::MatrixXi const ys{static_cast<int>(y.size()), static_cast<int>(y[0].size())};
+
+    if (xs == ys)
+    {
+        auto const x_{to_eigen(x)};
+        auto const y_{to_eigen(y)};
+
+        return (x_ - y_).norm();
+    }
+
+    return static_cast<double>(std::abs(total_sum(x) - total_sum(y)));
+}
+
+double pixel_overlap_cost(Matrix const& x, Matrix const& y)
+{
+     if (x.size() != y.size())
+     {
+        std::size_t sx = 0;
+        std::size_t sy = 0;
+
+        for (const auto& row : x)
+            sx += row.size();
+
+        for (const auto& row : y)
+            sy += row.size();
+
+        return static_cast<double>(sx + sy);
+    }
+
+    if (!x.empty())
+    {
+        for (std::size_t i = 0; i < x.size(); ++i)
+        {
+            if (x[i].size() != y[i].size())
+            {
+                std::size_t sx = 0;
+                std::size_t sy = 0;
+
+                for (const auto& row : x)
+                    sx += row.size();
+
+                for (const auto& row : y)
+                    sy += row.size();
+
+                return static_cast<double>(sx + sy);
+            }
+        }
+    }
+
+    int total   = 0;
+    int matches = 0;
+
+    for (std::size_t i = 0; i < x.size(); ++i)
+    {
+        for (std::size_t j = 0; j < x[i].size(); ++j)
+        {
+            ++total;
+
+            if (x[i][j] == y[i][j])
+                ++matches;
+        }
+    }
+
+    return 1.0 - (static_cast<double>(matches) / total);
+}
+
+std::optional<BoundingBox> bounding_box(const Matrix& arr)
+{
+    bool found = false;
+    int y_min = 0;
+    int x_min = 0;
+    int y_max = 0;
+    int x_max = 0;
+
+    for (int y = 0; y < static_cast<int>(arr.size()); ++y)
+    {
+        for (int x = 0; x < static_cast<int>(arr[y].size()); ++x)
+        {
+            if (arr[y][x] != 0)
+            {
+
+                if (!found)
+                {
+
+                    y_min = y_max = y;
+                    x_min = x_max = x;
+
+                    found = true;
+                }
+                else
+                {
+
+                    y_min = std::min(y_min, y);
+                    x_min = std::min(x_min, x);
+
+                    y_max = std::max(y_max, y);
+                    x_max = std::max(x_max, x);
+                }
+            }
+        }
+    }
+
+    if (!found)
+        return std::nullopt;
+
+    return BoundingBox{y_min, x_min, y_max, x_max};
+}
+
+double bounding_box_cost(const Matrix& x, const Matrix& y)
+{
+    auto box_x = bounding_box(x);
+    auto box_y = bounding_box(y);
+
+    if (!box_x.has_value() && !box_y.has_value())
+        return 0.0;
+
+    if (!box_x.has_value() || !box_y.has_value())
+        return 1.0;
+
+    auto [y1a, x1a, y2a, x2a] = *box_x;
+    auto [y1b, x1b, y2b, x2b] = *box_y;
+
+    double const diff =
+        std::sqrt(
+            std::pow(y1a - y1b, 2) +
+            std::pow(x1a - x1b, 2) +
+            std::pow(y2a - y2b, 2) +
+            std::pow(x2a - x2b, 2)
+        );
+
+    int const x_rows = static_cast<int>(x.size());
+    int const x_cols = x.empty() ? 0 : static_cast<int>(x[0].size());
+
+    int const y_rows = static_cast<int>(y.size());
+    int const y_cols = y.empty() ? 0 : static_cast<int>(y[0].size());
+
+    double const norm =
+        std::sqrt(
+            std::pow(x_rows + y_rows, 2) +
+            std::pow(x_cols + y_cols, 2)
+        );
+
+    return diff / (norm + 1e-8);
+}
+
+double arcHeuristic(std::any const& x, std::any const& y)
+{
+    auto const x_{std::vector<std::vector<int> >{std::any_cast<std::vector<std::vector<int> > >(x)}};
+    auto const y_{std::vector<std::vector<int> >{std::any_cast<std::vector<std::vector<int> > >(y)}};
+
+    return size_cost(x_, y_) + bounding_box_cost(x_, y_) + pixel_overlap_cost(x_, y_) + value_cost(x_, y_);
+}
+
+DslEngine dslEngine(arcHeuristic);
+
+TEST(TestAiCpp, InitDslEngine)
+{
+    dslEngine.addVariableNeuron(Neuron{"I", [] (const std::vector<std::any>&) { return std::any{}; }, std::vector<std::type_index>{}, typeid(hdl::Grid)});
+}
+
+std::tuple<double, double, std::string> processTask(std::string const& folder, std::string const& task)
+{
+    auto const taskPairs{trainTestPairs(folder, task)};
+    std::vector<std::tuple<Connection, std::vector<std::string>, double> > results;
+    std::unique_ptr<Connection> connection;
+    std::unique_ptr<std::tuple<Connection, std::vector<std::string>, double> > result;
+
+    for (auto const& [inp, out] : taskPairs.first)
+    {
+        dslEngine.variableNeuron("I").function() = [inp] (std::vector<std::any> const&) -> std::any { return to_std_vector(inp); };
+        bool process{true};
+
+        if (connection)
+        {
+            auto const output{connection->output()};
+            auto const cost{dslEngine.heuristic()(output, to_std_vector(out))};
+            process = cost;
+        }
+
+        if (process)
+        {
+            result = std::make_unique<std::tuple<Connection, std::vector<std::string>, double> >(std::move(dslEngine.learn(to_std_vector(out))));
+            auto const& [c, args, cost] = *result;
+            auto connectionTmp{c};
+            std::vector<std::any> inputs;
+            inputs.reserve(args.size());
+
+            for (auto const& n : args)
+                inputs.emplace_back(dslEngine.variableNeuron("n").function());
+
+            connectionTmp.applyInputs(inputs);
+            connection = std::make_unique<Connection>(std::move(connectionTmp));
+        }
+        
+        results.emplace_back(*result);
+    }
+
+    std::vector<std::pair<double, std::reference_wrapper<const std::tuple<Connection, std::vector<std::string>, double> > > > sortedResults;
+    sortedResults.reserve(results.size());
+
+    for (auto const& r : results)
+    {
+        double totalCost{0};
+
+        for (auto const& [inp, out] : taskPairs.first)
+        {
+            dslEngine.variableNeuron("I").function() = [inp] (std::vector<std::any> const&) -> std::any { return to_std_vector(inp); };
+            auto const& [c, args, cost] = r;
+            auto connectionTmp{c};
+            std::vector<std::any> inputs;
+            inputs.reserve(args.size());
+
+            for (auto const& n : args)
+                inputs.emplace_back(dslEngine.variableNeuron("n").function());
+
+            connectionTmp.applyInputs(inputs);
+            auto const output{connectionTmp.output()};
+            totalCost += dslEngine.heuristic()(output, to_std_vector(out));
+        }
+
+        sortedResults.emplace_back(totalCost, std::cref(r));
+    }
+
+    std::sort(sortedResults.begin(), sortedResults.end(), [] (auto const& a, auto const& b) { return a.first < b.first; });
+    double testCost{0};
+    auto const& [trainCost, resultTmp] = sortedResults.front();
+
+    for (auto const& [inp, out] : taskPairs.second)
+    {
+        dslEngine.variableNeuron("I").function() = [inp] (std::vector<std::any> const&) -> std::any { return to_std_vector(inp); };
+        auto const& [c, args, cost] = resultTmp.get();
+        auto connectionTmp{c};
+        std::vector<std::any> inputs;
+        inputs.reserve(args.size());
+
+        for (auto const& n : args)
+            inputs.emplace_back(dslEngine.variableNeuron("n").function());
+
+        connectionTmp.applyInputs(inputs);
+        auto const output{connectionTmp.output()};
+        testCost += dslEngine.heuristic()(output, to_std_vector(out));
+    }
+
+    auto const& [c, args, cost] = resultTmp.get();
+    auto connectionTmp{c};
+
+    std::vector<std::any> inputs;
+    inputs.reserve(args.size());
+
+    for (auto const& arg : args)
+        inputs.emplace_back(arg);
+
+    connectionTmp.applyInputs(inputs);
+
+    return std::make_tuple(trainCost, testCost, connectionTmp.string());
+}
+
+void passTask(std::string const& folder, std::string const& task, bool debug = false)
+{
+    auto const [trainCost, testCost, dsl] = processTask(folder, task);
+
+    if (debug)
+        std::println("Train cost: {0}, test cost: {1}, dsl: {2}", trainCost, testCost, dsl);
+
+    EXPECT_FALSE(trainCost + testCost);
+}
+
+std::vector<std::string> read_lines(std::string const& filename)
+{
+    std::ifstream file(filename);
+    std::vector<std::string> lines;
+    std::string line;
+
+    while (std::getline(file, line))
+        lines.emplace_back(line);
+
+    return lines;
+}
+
+std::string trim(const std::string& s)
+{
+    const auto begin = s.find_first_not_of(" \t\r\n");
+
+    if (begin == std::string::npos)
+        return "";
+
+    const auto end = s.find_last_not_of(" \t\r\n");
+
+    return s.substr(begin, end - begin + 1);
+}
+/*
+TEST(TestAiCpp, TestHodelTasks)
+{
+    std::vector<std::string> const lines{read_lines("arc-dsl/solvers.py")};
+    std::vector<std::string> tasks;
+
+    for (const auto& line : lines)
+    {
+        if (line.starts_with("def solve_"))
+        {
+            std::size_t const start{line.find('_') + 1};
+            std::size_t const end{line.find('(')};
+
+            tasks.emplace_back(line.substr(start, end - start));
+        }
+    }
+
+    std::map<int, std::vector<std::string> > tasksByStep;
+
+    for (const auto& task : tasks)
+    {
+        std::string const signature{"def solve_" + task + "(I):"};
+
+        auto const it{std::find(lines.begin(), lines.end(), signature)};
+
+        if (it == lines.end())
+            continue;
+
+        int i{static_cast<int>(std::distance(lines.begin(), it)) + 1};
+        int count{0};
+
+        while (i < static_cast<int>(lines.size()) && !lines[i].starts_with("def solve_"))
+        {
+            auto const t{trim(lines[i])};
+
+            if (!t.empty() && !t.starts_with("return"))
+                ++count;
+
+            ++i;
+        }
+
+        tasksByStep[count].emplace_back(task);
+    }
+
+    for (const auto& [k, v] : tasksByStep)
+    {
+        if (k != 1)
+            continue;
+
+        auto const t1{std::chrono::high_resolution_clock::now()};
+
+        for (const auto& task : v)
+        {
+            std::println("training {0}", task);
+
+            auto const t2{std::chrono::high_resolution_clock::now()};
+
+            passTask("training", task, true);
+
+            auto const duration{std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - t2).count()};
+
+            std::println("Duration: {0} s", duration);
+        }
+
+        auto const total_duration{std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - t1).count()};
+
+        std::println("Duration for {0} step{1} of DSL ({2} tasks): {3} s", k, (k > 1 ? "s" : ""), v.size(), total_duration);
+    }
+}
+
+TEST(TestAicpp, TestTask0d3d703e) //Color mapping
+{
+    passTask("training", "0d3d703e", true);
+}
+*/

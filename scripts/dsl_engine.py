@@ -722,6 +722,14 @@ class Engine:
 
         return result
 
+    def clearVariableNeurons(self):
+        self.variableNeurons.clear()
+        self.typedVariableNeurons.clear()
+
+    def clearPrimitiveNeurons(self):
+        self.primitiveNeurons.clear()
+        self.typedPrimitiveNeurons.clear()
+
     def learn(self, target: object, targetType: type = None) -> tuple[Connection, object, object]:
         if (not targetType):
             targetType = type(target)

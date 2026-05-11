@@ -13,14 +13,23 @@ RUN apt-get update && apt-get install -y \
     python3-requests \
     python3-pip \
     pybind11-dev \
+    pkg-config \
+    libx11-dev \
+    libopenblas-dev \
+    liblapack-dev \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /opt
+RUN git clone https://github.com/davisking/dlib.git
+WORKDIR /opt/dlib
+RUN mkdir build && cd build && \
+    cmake .. && \
+    cmake --build . -j$(nproc) && \
+    cmake --install .
+
 WORKDIR /app
-
 COPY . /app/aicpp
-
 WORKDIR /app/aicpp
-
 RUN mkdir -p build
 RUN cmake -S . -B build
 RUN cmake --build build --target test_aicpp -- -j$(nproc)

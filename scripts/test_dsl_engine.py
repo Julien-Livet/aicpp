@@ -24,23 +24,21 @@ def learnInt(engine: dsl_engine.Engine, expression: str):
     print(f"Target expression: {expression} = {eval(expression)}")
     c, args, cost = engine.learn(eval(expression))
     print("Found connection:", c.toStr())
-    connnection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
-    print("Applied connection:", connnection.toStr())
-    print(f"Args: {args}, output: {connnection.output()}, cost: {cost}")
+    connection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
+    print("Applied connection:", connection.toStr())
+    print(f"Args: {args}, output: {connection.output()}, cost: {cost}")
     print(f"Duration: {time.time() - t} s")
 
     assert(not cost)
 
 def buildSimplifiedEngine(ops: set = {"add", "sub", "mul"}):
     engine: dsl_engine.Engine = dsl_engine.Engine()
-    engine.variableNeurons.clear()
-    engine.typedVariableNeurons.clear()
+    engine.clearVariableNeurons()
     
     for i in range(10):
         engine.addVariableNeuron(Neuron(str(i), lambda i = i: i, [], int))
 
-    engine.primitiveNeurons.clear()
-    engine.typedPrimitiveNeurons.clear()
+    engine.clearPrimitiveNeurons()
 
     if ("add" in ops):
         engine.addPrimitiveNeuron(Neuron("add", lambda x, y: x + y, [int, int], int))
@@ -61,7 +59,7 @@ def test_one_addition():
     engine = buildSimplifiedEngine()
     learnInt(engine, "7 + 8")
 
-def test_three_addition():
+def test_three_additions():
     engine = buildSimplifiedEngine({"add"})
     learnInt(engine, "5 + 7 + 8")
 
@@ -97,7 +95,7 @@ def processTask(folder: str, task: str) -> tuple:
         if (process):
             result = dslEngine.learn(out, Grid)
             c, args, cost = result
-            connnection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+            connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
 
         results.append(result)
 
