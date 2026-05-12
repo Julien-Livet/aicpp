@@ -506,8 +506,8 @@ TEST(TestAiCpp, LearnThreeLevels)
 
 double size_cost(Matrix const& x, Matrix const& y)
 {
-    Eigen::MatrixXi const xs{static_cast<int>(x.size()), static_cast<int>(x[0].size())};
-    Eigen::MatrixXi const ys{static_cast<int>(y.size()), static_cast<int>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), static_cast<double>(x[0].size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), static_cast<double>(y[0].size())};
 
     return (xs - ys).norm();
 }
@@ -524,8 +524,8 @@ int total_sum(Matrix const& v)
 
 double value_cost(Matrix const& x, Matrix const& y)
 {
-    Eigen::MatrixXi const xs{static_cast<int>(x.size()), static_cast<int>(x[0].size())};
-    Eigen::MatrixXi const ys{static_cast<int>(y.size()), static_cast<int>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), static_cast<double>(x[0].size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), static_cast<double>(y[0].size())};
 
     if (xs == ys)
     {
@@ -605,21 +605,16 @@ std::optional<BoundingBox> bounding_box(const Matrix& arr)
         {
             if (arr[y][x] != 0)
             {
-
                 if (!found)
                 {
-
                     y_min = y_max = y;
                     x_min = x_max = x;
-
                     found = true;
                 }
                 else
                 {
-
                     y_min = std::min(y_min, y);
                     x_min = std::min(x_min, x);
-
                     y_max = std::max(y_max, y);
                     x_max = std::max(x_max, x);
                 }
@@ -655,11 +650,10 @@ double bounding_box_cost(const Matrix& x, const Matrix& y)
             std::pow(x2a - x2b, 2)
         );
 
-    int const x_rows = static_cast<int>(x.size());
-    int const x_cols = x.empty() ? 0 : static_cast<int>(x[0].size());
-
-    int const y_rows = static_cast<int>(y.size());
-    int const y_cols = y.empty() ? 0 : static_cast<int>(y[0].size());
+    auto const x_rows = static_cast<int>(x.size());
+    auto const x_cols = x.empty() ? 0 : static_cast<int>(x[0].size());
+    auto const y_rows = static_cast<int>(y.size());
+    auto const y_cols = y.empty() ? 0 : static_cast<int>(y[0].size());
 
     double const norm =
         std::sqrt(
@@ -672,8 +666,8 @@ double bounding_box_cost(const Matrix& x, const Matrix& y)
 
 double arcHeuristic(std::any const& x, std::any const& y)
 {
-    auto const x_{std::vector<std::vector<int> >{std::any_cast<std::vector<std::vector<int> > >(x)}};
-    auto const y_{std::vector<std::vector<int> >{std::any_cast<std::vector<std::vector<int> > >(y)}};
+    auto const x_{std::any_cast<std::vector<std::vector<int> > >(x)};
+    auto const y_{std::any_cast<std::vector<std::vector<int> > >(y)};
 
     return size_cost(x_, y_) + bounding_box_cost(x_, y_) + pixel_overlap_cost(x_, y_) + value_cost(x_, y_);
 }
@@ -806,12 +800,12 @@ std::vector<std::string> read_lines(std::string const& filename)
 
 std::string trim(const std::string& s)
 {
-    const auto begin = s.find_first_not_of(" \t\r\n");
+    auto const begin = s.find_first_not_of(" \t\r\n");
 
     if (begin == std::string::npos)
         return "";
 
-    const auto end = s.find_last_not_of(" \t\r\n");
+    auto const end = s.find_last_not_of(" \t\r\n");
 
     return s.substr(begin, end - begin + 1);
 }
@@ -821,7 +815,7 @@ TEST(TestAiCpp, TestHodelTasks)
     std::vector<std::string> const lines{read_lines("../scripts/arc-dsl/solvers.py")};
     std::vector<std::string> tasks;
 
-    for (const auto& line : lines)
+    for (auto const& line : lines)
     {
         if (line.starts_with("def solve_"))
         {

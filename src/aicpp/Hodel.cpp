@@ -170,6 +170,9 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hdl::Integer(
 
 std::any hdl::identity(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     return x;
@@ -177,6 +180,9 @@ std::any hdl::identity(std::vector<std::any> const& args)
 
 std::any hdl::add(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -185,6 +191,9 @@ std::any hdl::add(std::vector<std::any> const& args)
 
 std::any hdl::subtract(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -193,6 +202,9 @@ std::any hdl::subtract(std::vector<std::any> const& args)
 
 std::any hdl::multiply(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -201,6 +213,9 @@ std::any hdl::multiply(std::vector<std::any> const& args)
 
 std::any hdl::divide(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -209,6 +224,9 @@ std::any hdl::divide(std::vector<std::any> const& args)
 
 std::any hdl::invert(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const n{args.front()};
 
     if (n.type() == typeid(hdl::Numerical))
@@ -234,6 +252,9 @@ std::any hdl::invert(std::vector<std::any> const& args)
 
 std::any hdl::even(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const n{args.front()};
 
     if (n.type() == typeid(hdl::Integer))
@@ -244,6 +265,9 @@ std::any hdl::even(std::vector<std::any> const& args)
 
 std::any hdl::double_(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const n{args.front()};
 
     if (n.type() == typeid(hdl::Numerical))
@@ -269,6 +293,9 @@ std::any hdl::double_(std::vector<std::any> const& args)
 
 std::any hdl::halve(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const n{args.front()};
 
     if (n.type() == typeid(hdl::Numerical))
@@ -294,6 +321,9 @@ std::any hdl::halve(std::vector<std::any> const& args)
 
 std::any hdl::flip(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const b{args.front()};
 
     if (b.type() == typeid(Boolean))
@@ -304,6 +334,9 @@ std::any hdl::flip(std::vector<std::any> const& args)
 
 std::any hdl::equality(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -329,6 +362,9 @@ std::any hdl::equality(std::vector<std::any> const& args)
 
 std::any hdl::contained(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const value{args[0]};
     auto const container{args[1]};
 
@@ -390,6 +426,9 @@ std::any hdl::contained(std::vector<std::any> const& args)
 
 std::any hdl::combine(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -415,6 +454,9 @@ std::any hdl::combine(std::vector<std::any> const& args)
 
 std::any hdl::intersection(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -429,6 +471,9 @@ std::any hdl::intersection(std::vector<std::any> const& args)
 
 std::any hdl::difference(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -443,6 +488,9 @@ std::any hdl::difference(std::vector<std::any> const& args)
 
 std::any hdl::dedupe(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const tup{args.front()};
 
     if (tup.type() == typeid(Element))
@@ -479,6 +527,9 @@ std::any hdl::dedupe(std::vector<std::any> const& args)
 
 std::any hdl::order(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
@@ -489,6 +540,9 @@ std::any hdl::order(std::vector<std::any> const& args)
 
 std::any hdl::repeat(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const item{args[0]};
     auto const num{args[1]};
 
@@ -508,6 +562,9 @@ std::any hdl::repeat(std::vector<std::any> const& args)
 
 std::any hdl::greater(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -519,6 +576,9 @@ std::any hdl::greater(std::vector<std::any> const& args)
 
 std::any hdl::size(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (auto r = size_set<IntegerSet>(container); r.has_value()) return r;
@@ -539,6 +599,9 @@ std::any hdl::size(std::vector<std::any> const& args)
 
 std::any hdl::maximum(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (container.type() == typeid(IntegerSet))
@@ -556,6 +619,9 @@ std::any hdl::maximum(std::vector<std::any> const& args)
 
 std::any hdl::minimum(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (container.type() == typeid(IntegerSet))
@@ -573,6 +639,9 @@ std::any hdl::minimum(std::vector<std::any> const& args)
 
 std::any hdl::initset(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const value{args.front()};
 
     if (auto r = init_set<IntegerSet>(value); r.has_value()) return r;
@@ -586,6 +655,9 @@ std::any hdl::initset(std::vector<std::any> const& args)
 
 std::any hdl::both(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -597,6 +669,9 @@ std::any hdl::both(std::vector<std::any> const& args)
 
 std::any hdl::either(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -608,6 +683,9 @@ std::any hdl::either(std::vector<std::any> const& args)
 
 std::any hdl::increment(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     if (x.type() == typeid(Numerical))
@@ -629,6 +707,9 @@ std::any hdl::increment(std::vector<std::any> const& args)
 
 std::any hdl::decrement(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     if (x.type() == typeid(Numerical))
@@ -650,6 +731,9 @@ std::any hdl::decrement(std::vector<std::any> const& args)
 
 std::any hdl::crement(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     if (x.type() == typeid(Numerical))
@@ -695,6 +779,9 @@ std::any hdl::crement(std::vector<std::any> const& args)
 
 std::any hdl::sign(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     if (x.type() == typeid(Numerical))
@@ -740,6 +827,9 @@ std::any hdl::sign(std::vector<std::any> const& args)
 
 std::any hdl::positive(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const x{args.front()};
 
     if (x.type() == typeid(Integer))
@@ -750,6 +840,9 @@ std::any hdl::positive(std::vector<std::any> const& args)
 
 std::any hdl::toivec(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const i{args.front()};
 
     if (i.type() == typeid(Integer))
@@ -760,6 +853,9 @@ std::any hdl::toivec(std::vector<std::any> const& args)
 
 std::any hdl::tojvec(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const j{args.front()};
 
     if (j.type() == typeid(Integer))
@@ -770,6 +866,9 @@ std::any hdl::tojvec(std::vector<std::any> const& args)
 
 std::any hdl::totuple(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (auto r = vector_set<IntegerSet>(container); r.has_value()) return r;
@@ -783,6 +882,9 @@ std::any hdl::totuple(std::vector<std::any> const& args)
 
 std::any hdl::first(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (auto r = first_set<IntegerSet>(container); r.has_value()) return r;
@@ -803,6 +905,9 @@ std::any hdl::first(std::vector<std::any> const& args)
 
 std::any hdl::last(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const container{args.front()};
 
     if (auto r = last_set<IntegerSet>(container); r.has_value()) return r;
@@ -823,6 +928,9 @@ std::any hdl::last(std::vector<std::any> const& args)
 
 std::any hdl::interval(std::vector<std::any> const& args)
 {
+    if (args.size() != 3)
+        return std::any{};
+
     auto const start{args[0]};
     auto const stop{args[1]};
     auto const step{args[2]};
@@ -845,6 +953,9 @@ std::any hdl::interval(std::vector<std::any> const& args)
 
 std::any hdl::astuple(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -856,6 +967,9 @@ std::any hdl::astuple(std::vector<std::any> const& args)
 
 std::any hdl::ulcorner(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const patch{args[0]};
 
     if (patch.type() == typeid(Patch))
@@ -885,6 +999,9 @@ std::any hdl::ulcorner(std::vector<std::any> const& args)
 
 std::any hdl::urcorner(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const patch{args[0]};
 
     if (patch.type() == typeid(Patch))
@@ -915,6 +1032,9 @@ std::any hdl::urcorner(std::vector<std::any> const& args)
 
 std::any hdl::llcorner(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const patch{args[0]};
 
     if (patch.type() == typeid(Patch))
@@ -944,6 +1064,9 @@ std::any hdl::llcorner(std::vector<std::any> const& args)
 
 std::any hdl::lrcorner(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const patch{args[0]};
 
     if (patch.type() == typeid(Patch))
@@ -973,6 +1096,9 @@ std::any hdl::lrcorner(std::vector<std::any> const& args)
 
 std::any hdl::crop(std::vector<std::any> const& args)
 {
+    if (args.size() != 3)
+        return std::any{};
+
     auto const grid{args[0]};
     auto const start{args[1]};
     auto const dims{args[2]};
@@ -1003,6 +1129,9 @@ std::any hdl::crop(std::vector<std::any> const& args)
 
 std::any hdl::toindices(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const patch{args[0]};
 
     if (patch.type() == typeid(Patch))
@@ -1030,6 +1159,9 @@ std::any hdl::toindices(std::vector<std::any> const& args)
 
 std::any hdl::rot90(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1058,6 +1190,9 @@ std::any hdl::rot90(std::vector<std::any> const& args)
 
 std::any hdl::rot180(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1086,6 +1221,9 @@ std::any hdl::rot180(std::vector<std::any> const& args)
 
 std::any hdl::rot270(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1114,6 +1252,9 @@ std::any hdl::rot270(std::vector<std::any> const& args)
 
 std::any hdl::hmirror(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const piece{args[0]};
 
     if (piece.type() == typeid(Piece))
@@ -1166,6 +1307,9 @@ std::any hdl::hmirror(std::vector<std::any> const& args)
 
 std::any hdl::vmirror(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const piece{args[0]};
 
     if (piece.type() == typeid(Piece))
@@ -1218,6 +1362,9 @@ std::any hdl::vmirror(std::vector<std::any> const& args)
 
 std::any hdl::dmirror(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const piece{args[0]};
 
     if (piece.type() == typeid(Piece))
@@ -1280,6 +1427,9 @@ std::any hdl::dmirror(std::vector<std::any> const& args)
 
 std::any hdl::cmirror(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const piece{args[0]};
 
     if (piece.type() == typeid(Piece))
@@ -1306,6 +1456,9 @@ std::any hdl::cmirror(std::vector<std::any> const& args)
 
 std::any hdl::hupscale(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const grid{args[0]};
     auto const factor{args[1]};
 
@@ -1338,6 +1491,9 @@ std::any hdl::hupscale(std::vector<std::any> const& args)
 
 std::any hdl::vupscale(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const grid{args[0]};
     auto const factor{args[1]};
 
@@ -1363,6 +1519,9 @@ std::any hdl::vupscale(std::vector<std::any> const& args)
 
 std::any hdl::hconcat(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -1393,6 +1552,9 @@ std::any hdl::hconcat(std::vector<std::any> const& args)
 
 std::any hdl::vconcat(std::vector<std::any> const& args)
 {
+    if (args.size() != 2)
+        return std::any{};
+
     auto const a{args[0]};
     auto const b{args[1]};
 
@@ -1415,6 +1577,9 @@ std::any hdl::vconcat(std::vector<std::any> const& args)
 
 std::any hdl::replace(std::vector<std::any> const& args)
 {
+    if (args.size() != 3)
+        return std::any{};
+
     auto const grid{args[0]};
     auto const replacee{args[1]};
     auto const replacer{args[2]};
@@ -1444,6 +1609,9 @@ std::any hdl::replace(std::vector<std::any> const& args)
 
 std::any hdl::switch_(std::vector<std::any> const& args)
 {
+    if (args.size() != 3)
+        return std::any{};
+
     auto const grid{args[0]};
     auto const a{args[1]};
     auto const b{args[2]};
@@ -1475,6 +1643,9 @@ std::any hdl::switch_(std::vector<std::any> const& args)
 
 std::any hdl::tophalf(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1490,6 +1661,9 @@ std::any hdl::tophalf(std::vector<std::any> const& args)
 
 std::any hdl::bottomhalf(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1505,6 +1679,9 @@ std::any hdl::bottomhalf(std::vector<std::any> const& args)
 
 std::any hdl::lefthalf(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
@@ -1515,6 +1692,9 @@ std::any hdl::lefthalf(std::vector<std::any> const& args)
 
 std::any hdl::righthalf(std::vector<std::any> const& args)
 {
+    if (args.size() != 1)
+        return std::any{};
+
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
