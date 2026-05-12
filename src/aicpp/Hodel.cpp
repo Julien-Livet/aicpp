@@ -322,7 +322,6 @@ std::any hdl::equality(std::vector<std::any> const& args)
     if (auto r = ::equality<Element>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Size>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Direction>(a, b); r.has_value()) return r;
 
     return std::any{};
 }
@@ -862,6 +861,120 @@ std::any hdl::astuple(std::vector<std::any> const& args)
 
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
+
+    return std::any{};
+}
+
+std::any hdl::crop(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+    auto const start{args[1]};
+    auto const dims{args[2]};
+
+    if (grid.type() == typeid(Grid) && start.type() == typeid(IntegerTuple) && dims.type() == typeid(Size))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const start_{std::any_cast<IntegerTuple>(start)};
+        auto const dims_{std::any_cast<Size>(dims)};
+
+        Grid result;
+
+        for (size_t i{0}; i < dims_.first; ++i)
+        {
+            std::vector<Integer> row;
+
+            for (size_t j{0}; j < dims_.second; ++j)
+                row.emplace_back(grid_[start_.first + i][start_.second + j]); 
+
+            result.emplace_back(row);
+        }
+
+        return result;
+    }
+    
+    return std::any{};
+}
+
+std::any hdl::rot90(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        if (grid_.empty())
+            return std::any{};
+
+        auto const rows{static_cast<int>(grid_.size())};
+        auto const cols{static_cast<int>(grid_[0].size())};
+
+        Grid result(cols, std::vector<int>(rows));
+
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < cols; ++j)
+                result[j][rows - 1 - i] = grid_[i][j];
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::rot180(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        if (grid_.empty())
+            return std::any{};
+
+        auto const rows{static_cast<int>(grid_.size())};
+        auto const cols{static_cast<int>(grid_[0].size())};
+
+        Grid result(cols, std::vector<int>(rows));
+
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < cols; ++j)
+                result[rows - 1 - i][cols - 1 - j] = grid_[i][j];
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::rot270(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        if (grid_.empty())
+            return std::any{};
+
+        auto const rows{static_cast<int>(grid_.size())};
+        auto const cols{static_cast<int>(grid_[0].size())};
+
+        Grid result(cols, std::vector<int>(rows));
+
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < cols; ++j)
+                result[cols - 1 - j][i] = grid_[i][j];
+        }
+
+        return result;
+    }
 
     return std::any{};
 }

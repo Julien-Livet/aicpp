@@ -822,12 +822,18 @@ class Engine:
 
         return self.connections[name]
 
-    def addVariableNeuron(self, neuron: Neuron):
-        self.variableNeurons[neuron.name] = neuron
+    def addVariableNeuron(self, neuron: Neuron, name: str = None):
+        if (not name):
+            name = neuron.name
+
+        self.variableNeurons[name] = neuron
         self.typedVariableNeurons[neuron.outputType].append(neuron)
 
-    def addPrimitiveNeuron(self, neuron: Neuron):
-        self.primitiveNeurons[neuron.name] = neuron
+    def addPrimitiveNeuron(self, neuron: Neuron, name: str = None):
+        if (not name):
+            name = neuron.name
+
+        self.primitiveNeurons[name] = neuron
         self.typedPrimitiveNeurons[neuron.outputType].append(neuron)
 
 def sortedNamedNeurons(neurons: dict) -> dict:

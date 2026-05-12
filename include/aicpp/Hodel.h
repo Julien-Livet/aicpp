@@ -26,7 +26,6 @@ namespace hdl
     typedef std::variant<Object, Grid> Element;
     typedef std::variant<Grid, Patch> Piece;
     typedef std::pair<UnsignedInteger, UnsignedInteger> Size;
-    typedef IntegerTuple Direction;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -43,16 +42,16 @@ namespace hdl
     Integer constexpr NINE = 9;
     Integer constexpr TEN = 10;
 
-    Direction constexpr DOWN = std::make_pair<Integer, Integer>(1, 0);
-    Direction constexpr RIGHT = std::make_pair<Integer, Integer>(0, 1);
-    Direction constexpr UP = std::make_pair<Integer, Integer>(-1, 0);
-    Direction constexpr LEFT = std::make_pair<Integer, Integer>(0, -1);
+    IntegerTuple constexpr DOWN = std::make_pair<Integer, Integer>(1, 0);
+    IntegerTuple constexpr RIGHT = std::make_pair<Integer, Integer>(0, 1);
+    IntegerTuple constexpr UP = std::make_pair<Integer, Integer>(-1, 0);
+    IntegerTuple constexpr LEFT = std::make_pair<Integer, Integer>(0, -1);
 
-    Direction constexpr ORIGIN = std::make_pair<Integer, Integer>(0, 0);
-    Direction constexpr UNITY = std::make_pair<Integer, Integer>(1, 1);
-    Direction constexpr NEG_UNITY = std::make_pair<Integer, Integer>(-1, -1);
-    Direction constexpr UP_RIGHT = std::make_pair<Integer, Integer>(-1, 1);
-    Direction constexpr DOWN_LEFT = std::make_pair<Integer, Integer>(1, -1);
+    IntegerTuple constexpr ORIGIN = std::make_pair<Integer, Integer>(0, 0);
+    IntegerTuple constexpr UNITY = std::make_pair<Integer, Integer>(1, 1);
+    IntegerTuple constexpr NEG_UNITY = std::make_pair<Integer, Integer>(-1, -1);
+    IntegerTuple constexpr UP_RIGHT = std::make_pair<Integer, Integer>(-1, 1);
+    IntegerTuple constexpr DOWN_LEFT = std::make_pair<Integer, Integer>(1, -1);
 
     Size constexpr ZERO_BY_TWO = std::make_pair<UnsignedInteger, UnsignedInteger>(0, 2);
     Size constexpr TWO_BY_ZERO = std::make_pair<Integer, UnsignedInteger>(2, 0);
@@ -96,6 +95,26 @@ namespace hdl
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
     std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
+    std::any crop(std::vector<std::any> const& args); //Grid(IntegerTuple, Size): subgrid specified by start and dimension
+    std::any rot90(std::vector<std::any> const& args); //Grid(Grid): quarter clockwise rotation
+    std::any rot180(std::vector<std::any> const& args); //Grid(Grid): half rotation
+    std::any rot270(std::vector<std::any> const& args); //Grid(Grid): quarter anticlockwise rotation
+/*
+    std::any hmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along horizontal
+    std::any vmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along vertical
+    std::any dmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along diagonal
+    std::any cmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along counterdiagonal
+    std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid horizontally
+    std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid vertically
+    std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
+    std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
+    std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution
+    std::any switch_(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color switching
+    std::any tophalf(std::vector<std::any> const& args); //Grid(Grid): upper half of grid
+    std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
+    std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
+    std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
+*/
 }
 
 #endif // AICPP_HODEL_H
