@@ -17,7 +17,7 @@ namespace hdl
     typedef std::variant<Integer, IntegerTuple> Numerical;
     typedef std::set<Integer> IntegerSet;
     typedef std::vector<std::vector<Integer> > Grid;
-    typedef std::variant<Integer, IntegerTuple> Cell;
+    typedef std::pair<Integer, IntegerTuple> Cell;
     typedef std::set<Cell> Object;
     typedef std::set<Object> Objects;
     typedef std::set<IntegerTuple> Indices;
@@ -95,11 +95,15 @@ namespace hdl
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
     std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
+    std::any ulcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper left corner
+    std::any urcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper right corner
+    std::any llcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower left corner
+    std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
     std::any crop(std::vector<std::any> const& args); //Grid(IntegerTuple, Size): subgrid specified by start and dimension
+    std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
     std::any rot90(std::vector<std::any> const& args); //Grid(Grid): quarter clockwise rotation
     std::any rot180(std::vector<std::any> const& args); //Grid(Grid): half rotation
     std::any rot270(std::vector<std::any> const& args); //Grid(Grid): quarter anticlockwise rotation
-/*
     std::any hmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along horizontal
     std::any vmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along vertical
     std::any dmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along diagonal
@@ -114,7 +118,6 @@ namespace hdl
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
     std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
     std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
-*/
 }
 
 #endif // AICPP_HODEL_H

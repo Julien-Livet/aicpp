@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <numeric>
 #include <ranges>
 #include <unordered_set>
 
@@ -343,19 +344,7 @@ std::any hdl::contained(std::vector<std::any> const& args)
     {
         auto const c{std::any_cast<Object>(container)};
 
-        if (value.type() == typeid(Integer))
-        {
-            Cell const v{std::any_cast<Integer>(value)};
-
-            return static_cast<Boolean>(c.count(v) > 0);
-        }
-        else if (value.type() == typeid(IntegerTuple))
-        {
-            Cell const v{std::any_cast<IntegerTuple>(value)};
-
-            return static_cast<Boolean>(c.count(v) > 0);
-        }
-        else if (value.type() == typeid(Cell))
+        if (value.type() == typeid(Cell))
         {
             auto const v{std::any_cast<Cell>(value)};
 
@@ -865,6 +854,123 @@ std::any hdl::astuple(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hdl::ulcorner(std::vector<std::any> const& args)
+{
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+            return ulcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(toindices(args))}});
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+            auto min_y = std::numeric_limits<Integer>::max();
+            auto min_x = std::numeric_limits<Integer>::max();
+
+            for (const auto& [y, x] : indices)
+            {
+                min_y = std::min(min_y, y);
+                min_x = std::min(min_x, x);
+            }
+
+            return IntegerTuple{min_y, min_x};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hdl::urcorner(std::vector<std::any> const& args)
+{
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+            return urcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(toindices(args))}});
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+            auto min_y = std::numeric_limits<Integer>::max();
+            auto max_x = std::numeric_limits<Integer>::lowest();
+
+            for (const auto& [y, x] : indices)
+            {
+
+                min_y = std::min(min_y, y);
+                max_x = std::max(max_x, x);
+            }
+
+            return IntegerTuple{min_y, max_x};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hdl::llcorner(std::vector<std::any> const& args)
+{
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+            return llcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(toindices(args))}});
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+            auto max_y = std::numeric_limits<Integer>::lowest();
+            auto min_x = std::numeric_limits<Integer>::max();
+
+            for (const auto& [y, x] : indices)
+            {
+                max_y = std::max(max_y, y);
+                min_x = std::min(min_x, x);
+            }
+
+            return IntegerTuple{max_y, min_x};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hdl::lrcorner(std::vector<std::any> const& args)
+{
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+            return lrcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(toindices(args))}});
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+            auto max_y = std::numeric_limits<Integer>::lowest();
+            auto max_x = std::numeric_limits<Integer>::lowest();
+
+            for (const auto& [y, x] : indices)
+            {
+                max_y = std::max(max_y, y);
+                max_x = std::max(max_x, x);
+            }
+
+            return IntegerTuple{max_y, max_x};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hdl::crop(std::vector<std::any> const& args)
 {
     auto const grid{args[0]};
@@ -892,6 +998,33 @@ std::any hdl::crop(std::vector<std::any> const& args)
         return result;
     }
     
+    return std::any{};
+}
+
+std::any hdl::toindices(std::vector<std::any> const& args)
+{
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Indices>(patch_))
+            return std::get<Indices>(patch_);
+
+        auto const& obj = std::get<Object>(patch_);
+
+        if (obj.empty())
+            return std::any{};
+
+        Indices result;
+
+        for (auto const& cell : obj)
+            result.insert(cell.second);
+
+        return result;
+    }
+
     return std::any{};
 }
 
@@ -975,6 +1108,417 @@ std::any hdl::rot270(std::vector<std::any> const& args)
 
         return result;
     }
+
+    return std::any{};
+}
+
+std::any hdl::hmirror(std::vector<std::any> const& args)
+{
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto grid = std::get<Grid>(piece_);
+
+            std::reverse(grid.begin(), grid.end());
+
+            return Piece{grid};
+        }
+
+        auto patch = std::get<Patch>(piece_);
+        auto const ulc = std::any_cast<IntegerTuple>(ulcorner(std::vector<std::any>{patch}));
+        auto const lrc = std::any_cast<IntegerTuple>(lrcorner(std::vector<std::any>{patch}));
+
+        auto const d = ulc.first + lrc.first;
+
+        if (std::holds_alternative<Object>(patch))
+        {
+            auto const& obj = std::get<Object>(patch);
+
+            Object result;
+
+            for (const auto& [v, pos] : obj)
+            {
+                auto [i, j] = pos;
+
+                result.insert({v, {d - i, j}});
+            }
+
+            return Piece{Patch(result)};
+        }
+
+        auto const& indices = std::get<Indices>(patch);
+
+        Indices result;
+
+        for (const auto& [i, j] : indices)
+            result.insert({d - i, j});
+
+        return Piece{Patch(result)};
+    }
+
+    return std::any{};
+}
+
+std::any hdl::vmirror(std::vector<std::any> const& args)
+{
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto grid = std::get<Grid>(piece_);
+
+            std::reverse(grid.begin(), grid.end());
+
+            return Piece{grid};
+        }
+
+        auto patch = std::get<Patch>(piece_);
+        auto const ulc = std::any_cast<IntegerTuple>(ulcorner(std::vector<std::any>{patch}));
+        auto const lrc = std::any_cast<IntegerTuple>(lrcorner(std::vector<std::any>{patch}));
+
+        auto const d = ulc.second + lrc.second;
+
+        if (std::holds_alternative<Object>(patch))
+        {
+            auto const& obj = std::get<Object>(patch);
+
+            Object result;
+
+            for (const auto& [v, pos] : obj)
+            {
+                auto [i, j] = pos;
+
+                result.insert({v, {i, d - j}});
+            }
+
+            return Piece{Patch(result)};
+        }
+
+        auto const& indices = std::get<Indices>(patch);
+
+        Indices result;
+
+        for (const auto& [i, j] : indices)
+            result.insert({i, d - j});
+
+        return Piece{Patch(result)};
+    }
+
+    return std::any{};
+}
+
+std::any hdl::dmirror(std::vector<std::any> const& args)
+{
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto const& grid = std::get<Grid>(piece_);
+
+            if (grid.empty())
+                return Piece{Grid{}};
+
+            auto const rows = static_cast<int>(grid.size());
+            auto const cols = static_cast<int>(grid[0].size());
+
+            Grid result(cols, std::vector<int>(rows));
+
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int j = 0; j < cols; ++j)
+                    result[j][i] = grid[i][j];
+            }
+
+            return result;
+        }
+
+        Patch patch = std::get<Patch>(piece_);
+
+        auto [a, b] = std::any_cast<IntegerTuple>(ulcorner(std::vector<std::any>{patch}));
+
+        if (std::holds_alternative<Object>(patch))
+        {
+            auto const& obj = std::get<Object>(patch);
+
+            Object result;
+
+            for (const auto& [v, pos] : obj)
+            {
+                auto [i, j] = pos;
+
+                result.insert({v, {j - b + a, i - a + b}});
+            }
+
+            return Piece{Patch(result)};
+        }
+
+        auto const& indices = std::get<Indices>(patch);
+
+        Indices result;
+
+        for (const auto& [i, j] : indices)
+            result.insert({j - b + a, i - a + b});
+
+        return Piece{Patch(result)};
+    }
+
+    return std::any{};
+}
+
+std::any hdl::cmirror(std::vector<std::any> const& args)
+{
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto grid = std::get<Grid>(piece_);
+
+            std::reverse(grid.begin(), grid.end());
+
+            for (auto& row : grid)
+                std::reverse(row.begin(), row.end());
+
+            return dmirror(std::vector<std::any>{Piece{grid}});
+        }
+
+        return vmirror(std::vector<std::any>{dmirror(std::vector<std::any>{vmirror(args)})});
+    }
+
+    return std::any{};
+}
+
+std::any hdl::hupscale(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+    auto const factor{args[1]};
+
+    if (grid.type() == typeid(Grid) && factor.type() == typeid(UnsignedInteger))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+
+        Grid result;
+
+        for (const auto& row : grid_)
+        {
+            std::vector<Integer> new_row;
+            new_row.reserve(row.size() * factor_);
+
+            for (const auto& cell : row)
+            {
+                for (UnsignedInteger i{0}; i < factor_; ++i)
+                    new_row.emplace_back(cell);
+            }
+
+            result.emplace_back(new_row);
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::vupscale(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+    auto const factor{args[1]};
+
+    if (grid.type() == typeid(Grid) && factor.type() == typeid(UnsignedInteger))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+
+        Grid result;
+        result.reserve(grid_.size() * factor_);
+
+        for (const auto& row : grid_)
+        {
+            for (UnsignedInteger k = 0; k < factor_; ++k)
+                result.emplace_back(row);
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::hconcat(std::vector<std::any> const& args)
+{
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
+    {
+        auto const a_{std::any_cast<Grid>(a)};
+        auto const b_{std::any_cast<Grid>(b)};
+
+        Grid result;
+        auto const rows = std::min(a_.size(), b_.size());
+        result.reserve(rows);
+
+        for (size_t i = 0; i < rows; ++i)
+        {
+            std::vector<Integer> row;
+            row.reserve(a_[i].size() + b_[i].size());
+
+            row.insert(row.end(), a_[i].begin(), a_[i].end());
+            row.insert(row.end(), b_[i].begin(), b_[i].end());
+            result.emplace_back(std::move(row));
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::vconcat(std::vector<std::any> const& args)
+{
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
+    {
+        auto const a_{std::any_cast<Grid>(a)};
+        auto const b_{std::any_cast<Grid>(b)};
+
+        Grid result;
+        result.reserve(a_.size() + b_.size());
+
+        result.insert(result.end(), a_.begin(), a_.end());
+        result.insert(result.end(), b_.begin(), b_.end());
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::replace(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+    auto const replacee{args[1]};
+    auto const replacer{args[2]};
+
+    if (grid.type() == typeid(Grid) && replacee.type() == typeid(Integer) && replacer.type() == typeid(Integer))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const replacee_{std::any_cast<Integer>(replacee)};
+        auto const replacer_{std::any_cast<Integer>(replacer)};
+
+        Grid result = grid_;
+
+        for (auto& row : result)
+        {
+            for (auto& v : row)
+            {
+                if (v == replacee_)
+                    v = replacer_;
+            }
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::switch_(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+    auto const a{args[1]};
+    auto const b{args[2]};
+
+    if (grid.type() == typeid(Grid) && a.type() == typeid(Integer) && b.type() == typeid(Integer))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const a_{std::any_cast<Integer>(a)};
+        auto const b_{std::any_cast<Integer>(b)};
+
+        Grid result = grid_;
+
+        for (auto& row : result)
+        {
+            for (auto& v : row)
+            {
+                if (v == a_)
+                    v = b_;
+                else if (v == b_)
+                    v = a_;
+            }
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hdl::tophalf(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const mid = grid_.size() / 2;
+
+        return Grid(grid_.begin(), grid_.begin() + mid);
+    }
+
+    return std::any{};
+}
+
+std::any hdl::bottomhalf(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const mid = grid_.size() / 2 + grid_.size() % 2;
+
+        return Grid(grid_.begin() + mid, grid_.end());
+    }
+
+    return std::any{};
+}
+
+std::any hdl::lefthalf(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+        return rot270(std::vector<std::any>{tophalf(std::vector<std::any>{rot90(args)})});
+
+    return std::any{};
+}
+
+std::any hdl::righthalf(std::vector<std::any> const& args)
+{
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+        return rot270(std::vector<std::any>{bottomhalf(std::vector<std::any>{rot90(args)})});
 
     return std::any{};
 }
