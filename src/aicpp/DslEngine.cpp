@@ -4,6 +4,22 @@
 
 using namespace aicpp;
 
+template <typename T>
+void get_variant_types(std::vector<std::type_index>& out) {
+    [&out]<typename... Ts>(std::variant<Ts...>*) {
+        (out.emplace_back(typeid(Ts)), ...);
+    }((T*)nullptr);
+}
+
+template <typename T>
+void addRule(std::unordered_map<std::type_index, std::vector<std::type_index> >& map)
+{
+    std::vector<std::type_index> types;
+    get_variant_types<T>(types);
+
+    map[typeid(T)] = std::move(types);
+}
+
 DslEngine::DslEngine(std::function<double(std::any, std::any)> const heuristic,
                      size_t bo_n_init, size_t bo_top_k, size_t bo_count_max) : heuristic_{heuristic}, bo_n_init_{bo_n_init}, bo_top_k_{bo_top_k}, bo_count_max_{bo_count_max}
 {
@@ -11,13 +27,11 @@ DslEngine::DslEngine(std::function<double(std::any, std::any)> const heuristic,
     primitiveNeurons_ = dslPrimitiveNeurons();
 
     //TODO: see if there is a way to do it more generic
-    std::unordered_map<std::type_index, std::vector<std::type_index> > const conversionRules = {
-        {typeid(hdl::Numerical),   {typeid(hdl::Integer), typeid(hdl::IntegerTuple)}},
-        {typeid(hdl::Cell),        {typeid(hdl::Integer), typeid(hdl::IntegerTuple)}},
-        {typeid(hdl::Patch),       {typeid(hdl::Object), typeid(hdl::Indices)}},
-        {typeid(hdl::Element),     {typeid(hdl::Object), typeid(hdl::Grid)}},
-        {typeid(hdl::Piece),       {typeid(hdl::Grid), typeid(hdl::Patch)}}
-    };
+    std::unordered_map<std::type_index, std::vector<std::type_index> > conversionRules;
+    addRule<hdl::Numerical>(conversionRules);
+    addRule<hdl::Patch>(conversionRules);
+    addRule<hdl::Element>(conversionRules);
+    addRule<hdl::Piece>(conversionRules);
 
     for (const auto& [name, neuron] : primitiveNeurons_)
     {
