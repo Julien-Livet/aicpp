@@ -804,7 +804,7 @@ namespace aicpp
                     if (y <= threshold)
                         return {x, y};
                 }
-                catch (...)
+                catch (std::exception const&)
                 {
                 }
             }
@@ -850,7 +850,7 @@ namespace aicpp
                 {
                     scaler.fit(X_raw);
                 }
-                catch (...)
+                catch (std::exception const&)
                 {
                     break;
                 }
@@ -865,7 +865,7 @@ namespace aicpp
                     for (size_t i{0}; i < X_sc.size(); ++i)
                         gp.train(X_sc[i], obs_y[i]);
                 }
-                catch (...)
+                catch (std::exception const&)
                 {
                     break;
                 }
@@ -903,7 +903,7 @@ namespace aicpp
                 {
                     scaler2.fit(X_aligned);
                 }
-                catch (...)
+                catch (std::exception const&)
                 {
                     break;
                 }

@@ -19,7 +19,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-using Matrix = std::vector<std::vector<int>>;
+using Matrix = std::vector<std::vector<int> >;
 using BoundingBox = std::tuple<int, int, int, int>;
 
 Eigen::MatrixXi to_eigen(Matrix const& v)
@@ -27,8 +27,8 @@ Eigen::MatrixXi to_eigen(Matrix const& v)
     if (v.empty())
         return Eigen::MatrixXi{};
 
-    int const rows = static_cast<int>(v.size());
-    int const cols = static_cast<int>(v[0].size());
+    auto const rows = static_cast<int>(v.size());
+    auto const cols = static_cast<int>(v[0].size());
 
     Eigen::MatrixXi mat(rows, cols);
 
@@ -43,10 +43,7 @@ Eigen::MatrixXi to_eigen(Matrix const& v)
 
 Matrix to_std_vector(Eigen::MatrixXi const& mat)
 {
-    std::vector<std::vector<int>> result(
-        mat.rows(),
-        std::vector<int>(mat.cols())
-    );
+    std::vector<std::vector<int> > result(mat.rows(), std::vector<int>(mat.cols()));
 
     for (int i = 0; i < mat.rows(); ++i)
     {
@@ -323,16 +320,16 @@ TEST(TestAiCpp, Str)
 
 Eigen::MatrixXi boostJsonToEigenMatrix(array const& arr)
 {
-    std::size_t const rows = arr.size();
-    std::size_t const cols = arr.at(0).as_array().size();
+    auto const rows = arr.size();
+    auto const cols = arr.at(0).as_array().size();
 
     Eigen::MatrixXi mat(rows, cols);
 
-    for (std::size_t i = 0; i < rows; ++i)
+    for (size_t i = 0; i < rows; ++i)
     {
         auto const& row = arr[i].as_array();
 
-        for (std::size_t j = 0; j < cols; ++j)
+        for (size_t j = 0; j < cols; ++j)
             mat(i, j) = (int)row[j].as_int64();
     }
 
@@ -418,8 +415,8 @@ DslEngine buildSimplifiedEngine(std::set<std::string> const& ops = std::set<std:
     DslEngine engine;
 
     engine.clearVariableNeurons();
-    
-    for (size_t i{0}; i < 10; ++i)
+
+    for (int i{0}; i < 10; ++i)
         engine.addVariableNeuron(Neuron(std::to_string(i), [i] (std::vector<std::any> const&) -> std::any { return i; }, std::vector<std::type_index>{}, typeid(int)));
 
     engine.clearPrimitiveNeurons();
@@ -461,7 +458,7 @@ void learnInt(DslEngine& engine, std::string const& expression, int target)
 
     EXPECT_FALSE(cost);
 }
-/*
+
 TEST(TestAiCpp, LearnDigit)
 {
     DslEngine engine{buildSimplifiedEngine()};
@@ -506,7 +503,7 @@ TEST(TestAiCpp, LearnThreeLevels)
 
     learnInt(engine, "(3 + 4) * (8 - 2)", (3 + 4) * (8 - 2));
 }
-*/
+
 double size_cost(Matrix const& x, Matrix const& y)
 {
     Eigen::MatrixXi const xs{static_cast<int>(x.size()), static_cast<int>(x[0].size())};
@@ -545,13 +542,13 @@ double pixel_overlap_cost(Matrix const& x, Matrix const& y)
 {
      if (x.size() != y.size())
      {
-        std::size_t sx = 0;
-        std::size_t sy = 0;
+        size_t sx = 0;
+        size_t sy = 0;
 
-        for (const auto& row : x)
+        for (auto const& row : x)
             sx += row.size();
 
-        for (const auto& row : y)
+        for (auto const& row : y)
             sy += row.size();
 
         return static_cast<double>(sx + sy);
@@ -559,17 +556,17 @@ double pixel_overlap_cost(Matrix const& x, Matrix const& y)
 
     if (!x.empty())
     {
-        for (std::size_t i = 0; i < x.size(); ++i)
+        for (size_t i = 0; i < x.size(); ++i)
         {
             if (x[i].size() != y[i].size())
             {
-                std::size_t sx = 0;
-                std::size_t sy = 0;
+                size_t sx = 0;
+                size_t sy = 0;
 
-                for (const auto& row : x)
+                for (auto const& row : x)
                     sx += row.size();
 
-                for (const auto& row : y)
+                for (auto const& row : y)
                     sy += row.size();
 
                 return static_cast<double>(sx + sy);
@@ -580,9 +577,9 @@ double pixel_overlap_cost(Matrix const& x, Matrix const& y)
     int total   = 0;
     int matches = 0;
 
-    for (std::size_t i = 0; i < x.size(); ++i)
+    for (size_t i = 0; i < x.size(); ++i)
     {
-        for (std::size_t j = 0; j < x[i].size(); ++j)
+        for (size_t j = 0; j < x[i].size(); ++j)
         {
             ++total;
 
@@ -780,7 +777,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
     for (auto const& arg : args)
         inputs.emplace_back(arg);
 
-    connectionTmp.applyInputs(inputs);
+    connectionTmp.applyInputs(inputs, false);
 
     return std::make_tuple(trainCost, testCost, connectionTmp.string());
 }
@@ -821,15 +818,15 @@ std::string trim(const std::string& s)
 /*
 TEST(TestAiCpp, TestHodelTasks)
 {
-    std::vector<std::string> const lines{read_lines("arc-dsl/solvers.py")};
+    std::vector<std::string> const lines{read_lines("../scripts/arc-dsl/solvers.py")};
     std::vector<std::string> tasks;
 
     for (const auto& line : lines)
     {
         if (line.starts_with("def solve_"))
         {
-            std::size_t const start{line.find('_') + 1};
-            std::size_t const end{line.find('(')};
+            auto const start{line.find('_') + 1};
+            auto const end{line.find('(')};
 
             tasks.emplace_back(line.substr(start, end - start));
         }

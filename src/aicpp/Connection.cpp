@@ -110,7 +110,7 @@ std::vector<std::type_index> Connection::inputTypes() const
     return types;
 }
 
-void Connection::applyInputs(std::vector<std::any> const& inputs)
+void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkTypes)
 {
     assert(inputs.size() == inputTypes().size());
 
@@ -141,10 +141,13 @@ void Connection::applyInputs(std::vector<std::any> const& inputs)
         {
             if (index < inputs.size())
             {
-                if (inputs[index].type() == typeid(std::type_index))
-                    assert(neuron_.get().inputTypes()[i] == std::any_cast<std::type_index>(inputs[index]));
-                else if (inputs[index].type() != typeid(Connection))
-                    assert(neuron_.get().inputTypes()[i] == inputs[index].type());
+                if (checkTypes)
+                {
+                    if (inputs[index].type() == typeid(std::type_index))
+                        assert(neuron_.get().inputTypes()[i] == std::any_cast<std::type_index>(inputs[index]));
+                    else if (inputs[index].type() != typeid(Connection))
+                        assert(neuron_.get().inputTypes()[i] == inputs[index].type());
+                }
 
                 input = inputs[index];
                 ++index;

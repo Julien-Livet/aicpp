@@ -17,7 +17,7 @@ namespace aicpp
             size_t depth(size_t d = 0) const;
             std::string string() const;
             std::vector<std::type_index> inputTypes() const;
-            void applyInputs(std::vector<std::any> const& inputs);
+            void applyInputs(std::vector<std::any> const& inputs, bool checkTypes = true);
             std::pair<std::string, size_t> dot(size_t index = 0) const;
             std::any output() const;
             size_t hash() const;

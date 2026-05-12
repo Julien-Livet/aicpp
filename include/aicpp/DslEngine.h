@@ -63,7 +63,7 @@ namespace aicpp
 
                                 for (auto const& v : typedConnections_[inputType])
                                     combination.emplace_back(v);
-                                
+
                                 combinations.emplace_back(combination);
                             }
 
@@ -119,8 +119,8 @@ namespace aicpp
                                     auto const result{utility::bayesian_optimization_discrete(op, target, combos, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_)};
                                     auto const s{connection.string()};
 
-                                    connections_.emplace(std::make_pair(s, std::make_tuple(connection, result.first, result.second)));
-                                    addedConnections.emplace(std::make_pair(s, connection));
+                                    connections_.emplace(s, std::make_tuple(connection, result.first, result.second));
+                                    addedConnections.emplace(s, connection);
 
                                     if (!result.second)
                                         return connections_.at(s);
