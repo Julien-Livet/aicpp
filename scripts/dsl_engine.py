@@ -20,6 +20,24 @@ from typing import Any, Callable, Dict, get_args, get_origin, Iterator, Tuple, U
 
 Grid = Tuple[Tuple[int]]
 
+def updateTypedConnections(typedConnections: dict, connection: Connection):
+    if (connection.neuron.outputType is Any):
+        for v in typedConnections.values():
+            v.append(connection)
+    elif (connection.neuron.outputType is typing.Container):
+        for k, v in typedConnections.items():
+            if (is_container_type(k)):
+                v.append(connection)
+    elif (connection.neuron.outputType is typing.Container[typing.Container]):
+        for k, v in typedConnections.items():
+            if (is_container_of_container(k)):
+                v.append(connection)
+    elif (get_origin(connection.neuron.outputType) is Union):
+        for arg in get_args(connection.neuron.outputType):
+            typedConnections[arg].append(connection)
+    else:
+        typedConnections[connection.neuron.outputType].append(connection)
+
 def trainTestPairs(folder: str, task: str) -> tuple:
     assert(folder in ("training", "evaluation"))
 
@@ -798,22 +816,7 @@ class Engine:
             connection = addedConnections[name]
             del addedConnections[name]
 
-            if (connection.neuron.outputType is Any):
-                for v in self.typedConnections.values():
-                    v.append(connection)
-            elif (connection.neuron.outputType is typing.Container):
-                for k, v in self.typedConnections.items():
-                    if (is_container_type(k)):
-                        v.append(connection)
-            elif (connection.neuron.outputType is typing.Container[typing.Container]):
-                for k, v in self.typedConnections.items():
-                    if (is_container_of_container(k)):
-                        v.append(connection)
-            elif (get_origin(connection.neuron.outputType) is Union):
-                for arg in get_args(connection.neuron.outputType):
-                    self.typedConnections[arg].append(connection)
-            else:
-                self.typedConnections[connection.neuron.outputType].append(connection)
+            updateTypedConnections(self.typedConnections, connection)
 
             result = explore()
 
