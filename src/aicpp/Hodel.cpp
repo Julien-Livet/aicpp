@@ -1422,7 +1422,7 @@ std::any hdl::rot180(std::vector<std::any> const& args)
         auto const rows{static_cast<int>(grid_.size())};
         auto const cols{static_cast<int>(grid_[0].size())};
 
-        Grid result(cols, std::vector<int>(rows));
+        Grid result(rows, std::vector<int>(cols));
 
         for (int i = 0; i < rows; ++i)
         {

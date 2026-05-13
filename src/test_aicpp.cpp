@@ -719,6 +719,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
     std::vector<std::tuple<Connection, std::vector<std::string>, double> > results;
     std::unique_ptr<Connection> connection;
     std::unique_ptr<std::tuple<Connection, std::vector<std::string>, double> > result;
+    std::vector<std::string> args;
 
     for (auto const& [inp, out] : taskPairs.first)
     {
@@ -727,16 +728,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
 
         if (connection)
         {
-            auto const output{connection->output()};
-            auto const cost{dslEngine.heuristic()(output, to_std_vector(out))};
-            process = cost;
-        }
-
-        if (process)
-        {
-            result = std::make_unique<std::tuple<Connection, std::vector<std::string>, double> >(std::move(dslEngine.learn(to_std_vector(out))));
-            auto const& [c, args, cost] = *result;
-            auto connectionTmp{c};
+            auto connectionTmp{*connection};
             std::vector<std::any> inputs;
             inputs.reserve(args.size());
 
@@ -744,7 +736,18 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
                 inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
             connectionTmp.applyInputs(inputs);
-            connection = std::make_unique<Connection>(std::move(connectionTmp));
+
+            auto const output{connectionTmp.output()};
+            auto const cost{dslEngine.heuristic()(output, to_std_vector(out))};
+            process = cost;
+        }
+
+        if (process)
+        {
+            result = std::make_unique<std::tuple<Connection, std::vector<std::string>, double> >(std::move(dslEngine.learn(to_std_vector(out))));
+            auto const& [c, a, cost] = *result;
+            args = a;
+            connection = std::make_unique<Connection>(std::move(c));
         }
         
         results.emplace_back(*result);
@@ -760,12 +763,12 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
         for (auto const& [inp, out] : taskPairs.first)
         {
             dslEngine.variableNeuron("I").function() = [inp] (std::vector<std::any> const&) -> std::any { return to_std_vector(inp); };
-            auto const& [c, args, cost] = r;
+            auto const& [c, arguments, cost] = r;
             auto connectionTmp{c};
             std::vector<std::any> inputs;
-            inputs.reserve(args.size());
+            inputs.reserve(arguments.size());
 
-            for (auto const& n : args)
+            for (auto const& n : arguments)
                 inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
             connectionTmp.applyInputs(inputs);
@@ -783,12 +786,12 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
     for (auto const& [inp, out] : taskPairs.second)
     {
         dslEngine.variableNeuron("I").function() = [inp] (std::vector<std::any> const&) -> std::any { return to_std_vector(inp); };
-        auto const& [c, args, cost] = resultTmp.get();
+        auto const& [c, arguments, cost] = resultTmp.get();
         auto connectionTmp{c};
         std::vector<std::any> inputs;
-        inputs.reserve(args.size());
+        inputs.reserve(arguments.size());
 
-        for (auto const& n : args)
+        for (auto const& n : arguments)
             inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
         connectionTmp.applyInputs(inputs);
@@ -796,13 +799,13 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
         testCost += dslEngine.heuristic()(output, to_std_vector(out));
     }
 
-    auto const& [c, args, cost] = resultTmp.get();
+    auto const& [c, arguments, cost] = resultTmp.get();
     auto connectionTmp{c};
 
     std::vector<std::any> inputs;
-    inputs.reserve(args.size());
+    inputs.reserve(arguments.size());
 
-    for (auto const& arg : args)
+    for (auto const& arg : arguments)
         inputs.emplace_back(arg);
 
     connectionTmp.applyInputs(inputs, false);
@@ -843,7 +846,7 @@ std::string trim(const std::string& s)
 
     return s.substr(begin, end - begin + 1);
 }
-/*
+
 TEST(TestAiCpp, TestHodelTasks)
 {
     std::vector<std::string> const lines{read_lines("../scripts/arc-dsl/solvers.py")};
@@ -912,7 +915,7 @@ TEST(TestAiCpp, TestHodelTasks)
         std::println("Duration for {0} step{1} of DSL ({2} tasks): {3} s", k, (k > 1 ? "s" : ""), v.size(), total_duration);
     }
 }
-
+/*
 TEST(TestAicpp, TestTask0d3d703e) //Color mapping
 {
     passTask("training", "0d3d703e", true);

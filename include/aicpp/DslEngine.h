@@ -48,6 +48,8 @@ namespace aicpp
                                     CustomLess> frontier;
                 std::map<std::string, Connection> addedConnections;
 
+                connections_.clear();
+
                 auto const explore{[&, this] () -> std::optional<std::tuple<Connection, std::vector<std::string>, double> >
                     {
                         for (auto const& [k, n] : primitiveNeurons_)
@@ -147,7 +149,7 @@ namespace aicpp
                                     auto const result{utility::bayesian_optimization_discrete(op, target, combos, heuristic_, bo_n_init_, bo_top_k_, bo_count_max_)};
                                     auto const s{connection.string()};
 
-                                    connections_.emplace(s, std::make_tuple(connection, result.first, result.second));
+                                    connections_.insert_or_assign(s, std::make_tuple(connection, result.first, result.second));
                                     addedConnections.emplace(s, connection);
 
                                     if (!result.second)
