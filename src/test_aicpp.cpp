@@ -506,8 +506,8 @@ TEST(TestAiCpp, LearnThreeLevels)
 
 double size_cost(Matrix const& x, Matrix const& y)
 {
-    Eigen::Vector2d const xs{static_cast<double>(x.size()), static_cast<double>(x[0].size())};
-    Eigen::Vector2d const ys{static_cast<double>(y.size()), static_cast<double>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
 
     return (xs - ys).norm();
 }
@@ -524,8 +524,8 @@ int total_sum(Matrix const& v)
 
 double value_cost(Matrix const& x, Matrix const& y)
 {
-    Eigen::Vector2d const xs{static_cast<double>(x.size()), static_cast<double>(x[0].size())};
-    Eigen::Vector2d const ys{static_cast<double>(y.size()), static_cast<double>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
 
     if (xs == ys)
     {
@@ -666,8 +666,42 @@ double bounding_box_cost(const Matrix& x, const Matrix& y)
 
 double arcHeuristic(std::any const& x, std::any const& y)
 {
-    auto const x_{std::any_cast<std::vector<std::vector<int> > >(x)};
-    auto const y_{std::any_cast<std::vector<std::vector<int> > >(y)};
+    std::vector<std::vector<int> > x_;
+    std::vector<std::vector<int> > y_;
+
+    if (x.type() == typeid(hdl::Grid))
+        x_ = std::any_cast<hdl::Grid>(x);
+    else if (x.type() == typeid(hdl::Piece))
+    {
+        auto const& piece = std::any_cast<hdl::Piece>(x);
+        
+        if (std::holds_alternative<hdl::Grid>(piece))
+            x_ = std::get<hdl::Grid>(piece);
+    }
+    else if (x.type() == typeid(hdl::Element))
+    {
+        auto const& element = std::any_cast<hdl::Element>(x);
+        
+        if (std::holds_alternative<hdl::Grid>(element))
+            x_ = std::get<hdl::Grid>(element);
+    }
+
+    if (y.type() == typeid(hdl::Grid))
+        y_ = std::any_cast<hdl::Grid>(y);
+    else if (y.type() == typeid(hdl::Piece))
+    {
+        auto const& piece = std::any_cast<hdl::Piece>(y);
+        
+        if (std::holds_alternative<hdl::Grid>(piece))
+            y_ = std::get<hdl::Grid>(piece);
+    }
+    else if (y.type() == typeid(hdl::Element))
+    {
+        auto const& element = std::any_cast<hdl::Element>(y);
+        
+        if (std::holds_alternative<hdl::Grid>(element))
+            y_ = std::get<hdl::Grid>(element);
+    }
 
     return size_cost(x_, y_) + bounding_box_cost(x_, y_) + pixel_overlap_cost(x_, y_) + value_cost(x_, y_);
 }
@@ -676,7 +710,7 @@ DslEngine dslEngine(arcHeuristic);
 
 TEST(TestAiCpp, InitDslEngine)
 {
-    dslEngine.addVariableNeuron(Neuron{"I", [] (const std::vector<std::any>&) { return std::any{}; }, std::vector<std::type_index>{}, typeid(hdl::Grid)});
+    dslEngine.addVariableNeuron(Neuron{"I", [] (std::vector<std::any> const&) { return std::any{}; }, std::vector<std::type_index>{}, typeid(hdl::Grid)});
 }
 
 std::tuple<double, double, std::string> processTask(std::string const& folder, std::string const& task)
@@ -707,7 +741,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
             inputs.reserve(args.size());
 
             for (auto const& n : args)
-                inputs.emplace_back(dslEngine.variableNeuron("n").function());
+                inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
             connectionTmp.applyInputs(inputs);
             connection = std::make_unique<Connection>(std::move(connectionTmp));
@@ -732,7 +766,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
             inputs.reserve(args.size());
 
             for (auto const& n : args)
-                inputs.emplace_back(dslEngine.variableNeuron("n").function());
+                inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
             connectionTmp.applyInputs(inputs);
             auto const output{connectionTmp.output()};
@@ -755,7 +789,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
         inputs.reserve(args.size());
 
         for (auto const& n : args)
-            inputs.emplace_back(dslEngine.variableNeuron("n").function());
+            inputs.emplace_back(dslEngine.variableNeuron(n).function()(std::vector<std::any>{}));
 
         connectionTmp.applyInputs(inputs);
         auto const output{connectionTmp.output()};
@@ -828,7 +862,7 @@ TEST(TestAiCpp, TestHodelTasks)
 
     std::map<int, std::vector<std::string> > tasksByStep;
 
-    for (const auto& task : tasks)
+    for (auto const& task : tasks)
     {
         std::string const signature{"def solve_" + task + "(I):"};
 
@@ -853,14 +887,14 @@ TEST(TestAiCpp, TestHodelTasks)
         tasksByStep[count].emplace_back(task);
     }
 
-    for (const auto& [k, v] : tasksByStep)
+    for (auto const& [k, v] : tasksByStep)
     {
         if (k != 1)
             continue;
 
         auto const t1{std::chrono::high_resolution_clock::now()};
 
-        for (const auto& task : v)
+        for (auto const& task : v)
         {
             std::println("training {0}", task);
 

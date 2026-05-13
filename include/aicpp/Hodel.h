@@ -42,6 +42,17 @@ namespace hdl
     Integer constexpr NINE = 9;
     Integer constexpr TEN = 10;
 
+    UnsignedInteger constexpr U_ONE = 1;
+    UnsignedInteger constexpr U_TWO = 2;
+    UnsignedInteger constexpr U_THREE = 3;
+    UnsignedInteger constexpr U_FOUR = 4;
+    UnsignedInteger constexpr U_FIVE = 5;
+    UnsignedInteger constexpr U_SIX = 6;
+    UnsignedInteger constexpr U_SEVEN = 7;
+    UnsignedInteger constexpr U_EIGHT = 8;
+    UnsignedInteger constexpr U_NINE = 9;
+    UnsignedInteger constexpr U_TEN = 10;
+
     IntegerTuple constexpr DOWN = std::make_pair<Integer, Integer>(1, 0);
     IntegerTuple constexpr RIGHT = std::make_pair<Integer, Integer>(0, 1);
     IntegerTuple constexpr UP = std::make_pair<Integer, Integer>(-1, 0);
@@ -99,7 +110,7 @@ namespace hdl
     std::any urcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper right corner
     std::any llcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower left corner
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
-    std::any crop(std::vector<std::any> const& args); //Grid(IntegerTuple, Size): subgrid specified by start and dimension
+    std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, Size): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
     std::any uppermost(std::vector<std::any> const& args); //Integer(Patch): row index of uppermost occupied cell

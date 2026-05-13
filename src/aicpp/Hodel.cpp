@@ -1163,6 +1163,9 @@ std::any hdl::crop(std::vector<std::any> const& args)
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const dims_{std::any_cast<Size>(dims)};
 
+        if (start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_[0].size())
+            return std::any{};
+
         Grid result;
 
         for (size_t i{0}; i < dims_.first; ++i)
@@ -1763,7 +1766,7 @@ std::any hdl::upscale(std::vector<std::any> const& args)
 
         if (std::holds_alternative<Grid>(element_))
         {
-            auto const& grid =std::get<Grid>(element_);
+            auto const& grid = std::get<Grid>(element_);
 
             Grid result;
 
