@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
+    gdb \
     git \
     libboost-all-dev \
     libeigen3-dev \
@@ -29,6 +30,10 @@ RUN mkdir build && cd build && \
 
 WORKDIR /app
 COPY . /app/aicpp
+WORKDIR /app/aicpp
+RUN [ -e ARC-AGI-2 ] || git clone https://github.com/arcprize/ARC-AGI-2.git
+WORKDIR /app/aicpp/scripts
+RUN [ -e arc-dsl ] || git clone https://github.com/Julien-Livet/arc-dsl.git
 WORKDIR /app/aicpp
 RUN mkdir -p build
 RUN cmake -S . -B build

@@ -70,6 +70,20 @@ namespace aicpp
                             if (combinations.empty())
                                 continue;
 
+                            bool loop{false};
+
+                            for (auto const& c : combinations)
+                            {
+                                if (c.empty())
+                                {
+                                    loop = true;
+                                    break;
+                                }
+                            }
+
+                            if (loop)
+                                continue;
+
                             auto product{utility::cartesianProduct(combinations)};
 
                             for (auto const& value : product)
@@ -97,6 +111,20 @@ namespace aicpp
                                 }
 
                                 if (combos.empty())
+                                    continue;
+
+                                bool loop{false};
+
+                                for (auto const& c : combos)
+                                {
+                                    if (c.empty())
+                                    {
+                                        loop = true;
+                                        break;
+                                    }
+                                }
+
+                                if (loop)
                                     continue;
 
                                 auto const op{[this, connection] (std::vector<std::string> const& x) -> std::any

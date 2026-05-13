@@ -101,6 +101,11 @@ namespace hdl
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
     std::any crop(std::vector<std::any> const& args); //Grid(IntegerTuple, Size): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
+    std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
+    std::any uppermost(std::vector<std::any> const& args); //Integer(Patch): row index of uppermost occupied cell
+    std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
+    std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
+    std::any rightmost(std::vector<std::any> const& args); //Integer(Patch): column index of rightmost occupied cell
     std::any rot90(std::vector<std::any> const& args); //Grid(Grid): quarter clockwise rotation
     std::any rot180(std::vector<std::any> const& args); //Grid(Grid): half rotation
     std::any rot270(std::vector<std::any> const& args); //Grid(Grid): quarter anticlockwise rotation
@@ -110,6 +115,8 @@ namespace hdl
     std::any cmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along counterdiagonal
     std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid horizontally
     std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid vertically
+    std::any upscale(std::vector<std::any> const& args); //Element(Element, UnsignedInteger): upscale object or grid
+    std::any downscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): downscale object or grid
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
     std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution

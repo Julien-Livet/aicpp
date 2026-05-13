@@ -14,9 +14,15 @@ nativeTypes: dict = {}
 for definition in typeDefinitions:
     definition = definition.strip()
     dslType = definition[definition.rindex(" ")+1:-1]
-    dslTypes[dslType].append(dslType)
+    
     spaceList = definition.split(" ")
-    nativeTypes[dslType] = spaceList[1]
+    nativeTypes[dslType] = " ".join(spaceList[1:-1])
+    
+    if (nativeTypes[dslType].startswith("std::variant<")):
+        s = nativeTypes[dslType].replace("std::variant<", "").rstrip(">")
+        dslTypes[dslType] += [x.strip() for x in s.split(",")]
+    else:
+        dslTypes[dslType].append(dslType)
 
 frozenSetTypes = []
 

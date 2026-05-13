@@ -546,20 +546,20 @@ namespace aicpp
         class CartesianProductRange
         {
             public:
-                explicit CartesianProductRange(std::vector<std::vector<T>> dims)
+                explicit CartesianProductRange(std::vector<std::vector<T> > dims)
                     : pools{std::move(dims)} {}
 
                 CartesianProductIterator<T> begin() const { return CartesianProductIterator<T>{pools}; }
                 CartesianProductIterator<T> end()   const { return CartesianProductIterator<T>{}; }
 
             private:
-                std::vector<std::vector<T>> pools;
+                std::vector<std::vector<T> > pools;
         };
 
         template <typename T>
         CartesianProductRange<T> iter_space(
-            std::vector<std::vector<T>> combinations,
-            bool                        shuffle = true)
+            std::vector<std::vector<T> >    combinations,
+            bool                            shuffle = true)
         {
             std::random_device rd;
 
@@ -574,10 +574,10 @@ namespace aicpp
 
         template <typename T>
         std::vector<std::vector<T> > sampled_neighbors(
-            std::vector<T> const&            point,
-            size_t                           dim,
-            std::vector<std::vector<T>> const& combinations,
-            size_t                           k)
+            std::vector<T> const&               point,
+            size_t                              dim,
+            std::vector<std::vector<T> > const& combinations,
+            size_t                              k)
         {
             std::random_device rd;
 
@@ -811,8 +811,8 @@ namespace aicpp
 
             if (obs_x.empty())
             {
-                auto range = iter_space(combinations, false);
-                auto it    = range.begin();
+                auto const range = iter_space(combinations, false);
+                auto const it    = range.begin();
 
                 if (it != range.end())
                     return {*it, 999.0};
