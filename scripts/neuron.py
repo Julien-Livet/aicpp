@@ -1,7 +1,7 @@
 from typing import Callable
 
 class Neuron:
-    def __init__(self, name: str, function: Callable[..., object], inputTypes: tuple[type], outputType: type, subgoal: Callable[type, ..., object] = None):
+    def __init__(self, name: str, function: Callable[[...], object], inputTypes: tuple[type], outputType: type, subgoal: Callable[[type, ...], object] = None):
         self.name = name
         self.function = function
         self.inputTypes = inputTypes

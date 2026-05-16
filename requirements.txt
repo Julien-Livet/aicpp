@@ -1,3 +1,4 @@
+joblib
 numpy
 pytest
 pytest-profiling
