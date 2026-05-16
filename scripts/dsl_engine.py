@@ -21,7 +21,7 @@ from typing import Any, Callable, Dict, get_args, get_origin, Iterator, Tuple, U
 
 Grid = Tuple[Tuple[int]]
 
-def updateTypedConnections(typedConnections: Dict[set], connection: Connection):
+def updateTypedConnections(typedConnections: Dict[type, set], connection: Connection):
     if (connection.neuron.outputType is Any):
         for k, v in typedConnections.items():
             typedConnections[k].add(connection)
