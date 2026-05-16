@@ -666,62 +666,6 @@ def bayesian_optimization_discrete(
 
     return best_x, best_y
 
-def valueWorker(engine: DslEngine, n: Neuron, value: list, typedConnections: dict, target: object) -> tuple[int, str, Connection, list, float]:
-    connection = Connection(n, n.inputTypes).applyInputs(value)
-    combos: list = []
-    results: list = []
-    connections: dict = []
-
-    for inputType in connection.inputTypes():
-        possibleConnections = engine.valuesForType(engine.typedVariableNeurons, inputType)
-        combos.append([n.name for n in possibleConnections])
-
-    op = lambda x, engine = engine, connection = connection: connection.output([engine.variableNeurons[n].function() for n in x])
-    result = bayesian_optimization_discrete(op, target, combos, engine.heuristicFunction, n_init = engine.bo_n_init, top_k = engine.bo_top_k, count_max = engine.bo_count_max)
-    s = connection.toStr()
-    
-    del combos
-
-    return (len(s), s, connection, *result)
-
-def neuronWorker(engine: DslEngine, n: Neuron, typedConnections: dict, target: object, timeout: float) -> list:
-    combinations: list = []
-
-    for inputType in n.inputTypes:
-        possibleConnections = engine.valuesForType(typedConnections, inputType)
-        combinations.append([inputType] + possibleConnections)
-
-    if (not combinations):
-        return []
-
-    product = list(itertools.product(*combinations))
-    results: list = []
-    if (len(product) // os.cpu_count() > os.cpu_count()):
-        from joblib import Parallel, delayed
-
-        def work(engine, n, value, typedConnections, target):
-            try:
-                return valueWorker(engine, n, value, typedConnections, target)
-            except Exception:
-                return None
-
-        try:
-            results_list = Parallel(n_jobs = -1, batch_size = len(product) // os.cpu_count(), timeout = timeout)(delayed(work)(engine, n, value, typedConnections, target) for value in product)
-
-            for result in results_list:
-                if (result):
-                    results.append(result)
-        except Exception:
-            pass
-    else:
-        for value in product:
-            try:
-                results.append(valueWorker(engine, n, value, typedConnections, target))
-            except Exception:
-                pass
-
-    return results
-
 class Engine:
     def __init__(self, heuristicFunction: Callable = heuristic,
                  bo_n_init: int = 1000, bo_top_k: int = 100, bo_count_max: int = 20):
@@ -948,6 +892,63 @@ class Engine:
 
         self.primitiveNeurons[name] = neuron
         self.typedPrimitiveNeurons[neuron.outputType].append(neuron)
+
+def valueWorker(engine: Engine, n: Neuron, value: list, typedConnections: dict, target: object) -> tuple[int, str, Connection, list, float]:
+    connection = Connection(n, n.inputTypes).applyInputs(value)
+    combos: list = []
+    results: list = []
+    connections: dict = []
+
+    for inputType in connection.inputTypes():
+        possibleConnections = engine.valuesForType(engine.typedVariableNeurons, inputType)
+        combos.append([n.name for n in possibleConnections])
+
+    op = lambda x, engine = engine, connection = connection: connection.output([engine.variableNeurons[n].function() for n in x])
+    result = bayesian_optimization_discrete(op, target, combos, engine.heuristicFunction, n_init = engine.bo_n_init, top_k = engine.bo_top_k, count_max = engine.bo_count_max)
+    s = connection.toStr()
+    
+    del combos
+
+    return (len(s), s, connection, *result)
+
+def neuronWorker(engine: Engine, n: Neuron, typedConnections: dict, target: object, timeout: float) -> list:
+    combinations: list = []
+
+    for inputType in n.inputTypes:
+        possibleConnections = engine.valuesForType(typedConnections, inputType)
+        combinations.append([inputType] + possibleConnections)
+
+    if (not combinations):
+        return []
+
+    product = list(itertools.product(*combinations))
+    results: list = []
+
+    if (len(product) // os.cpu_count() > os.cpu_count()):
+        from joblib import Parallel, delayed
+
+        def work(engine, n, value, typedConnections, target):
+            try:
+                return valueWorker(engine, n, value, typedConnections, target)
+            except Exception:
+                return None
+
+        try:
+            results_list = Parallel(n_jobs = -1, batch_size = len(product) // os.cpu_count(), timeout = timeout)(delayed(work)(engine, n, value, typedConnections, target) for value in product)
+
+            for result in results_list:
+                if (result):
+                    results.append(result)
+        except Exception:
+            pass
+    else:
+        for value in product:
+            try:
+                results.append(valueWorker(engine, n, value, typedConnections, target))
+            except Exception:
+                pass
+
+    return results
 
 def sortedNamedNeurons(neurons: dict) -> dict:
     result: dict = defaultdict(list)
