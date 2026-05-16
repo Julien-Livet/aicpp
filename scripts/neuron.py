@@ -1,9 +1,12 @@
+from typing import Callable
+
 class Neuron:
-    def __init__(self, name, function, inputTypes: tuple[type], outputType: type):
+    def __init__(self, name: str, function: Callable[..., object], inputTypes: tuple[type], outputType: type, subgoal: Callable[type, ..., object] = None):
         self.name = name
         self.function = function
         self.inputTypes = inputTypes
         self.outputType = outputType
+        self.subgoal = subgoal
 
     def dot(self, index: int = 0):
         s = ""

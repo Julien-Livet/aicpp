@@ -7,6 +7,7 @@ import itertools
 import json
 from neuron import Neuron
 import numpy as np
+import os
 import random
 from scipy.stats import norm
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -20,23 +21,23 @@ from typing import Any, Callable, Dict, get_args, get_origin, Iterator, Tuple, U
 
 Grid = Tuple[Tuple[int]]
 
-def updateTypedConnections(typedConnections: dict, connection: Connection):
+def updateTypedConnections(typedConnections: Dict[set], connection: Connection):
     if (connection.neuron.outputType is Any):
-        for v in typedConnections.values():
-            v.append(connection)
+        for k, v in typedConnections.items():
+            typedConnections[k].add(connection)
     elif (connection.neuron.outputType is typing.Container):
         for k, v in typedConnections.items():
             if (is_container_type(k)):
-                v.append(connection)
+                typedConnections[k].add(connection)
     elif (connection.neuron.outputType is typing.Container[typing.Container]):
         for k, v in typedConnections.items():
             if (is_container_of_container(k)):
-                v.append(connection)
+                typedConnections[k].add(connection)
     elif (get_origin(connection.neuron.outputType) is Union):
         for arg in get_args(connection.neuron.outputType):
-            typedConnections[arg].append(connection)
+            typedConnections[arg].add(connection)
     else:
-        typedConnections[connection.neuron.outputType].append(connection)
+        typedConnections[connection.neuron.outputType].add(connection)
 
 def trainTestPairs(folder: str, task: str) -> tuple:
     assert(folder in ("training", "evaluation"))
@@ -203,6 +204,9 @@ class TypeSystem:
         self.dslVariableValues = {}
 
         for k, v in namespace.items():
+            if (k.startswith("__")):
+                continue
+
             if (not k in vars(arc_types_module)):
                 variables[k] = types[type(v)]
                 self.dslVariableValues[k] = v
@@ -662,6 +666,62 @@ def bayesian_optimization_discrete(
 
     return best_x, best_y
 
+def valueWorker(engine: DslEngine, n: Neuron, value: list, typedConnections: dict, target: object) -> tuple[int, str, Connection, list, float]:
+    connection = Connection(n, n.inputTypes).applyInputs(value)
+    combos: list = []
+    results: list = []
+    connections: dict = []
+
+    for inputType in connection.inputTypes():
+        possibleConnections = engine.valuesForType(engine.typedVariableNeurons, inputType)
+        combos.append([n.name for n in possibleConnections])
+
+    op = lambda x, engine = engine, connection = connection: connection.output([engine.variableNeurons[n].function() for n in x])
+    result = bayesian_optimization_discrete(op, target, combos, engine.heuristicFunction, n_init = engine.bo_n_init, top_k = engine.bo_top_k, count_max = engine.bo_count_max)
+    s = connection.toStr()
+    
+    del combos
+
+    return (len(s), s, connection, *result)
+
+def neuronWorker(engine: DslEngine, n: Neuron, typedConnections: dict, target: object, timeout: float) -> list:
+    combinations: list = []
+
+    for inputType in n.inputTypes:
+        possibleConnections = engine.valuesForType(typedConnections, inputType)
+        combinations.append([inputType] + possibleConnections)
+
+    if (not combinations):
+        return []
+
+    product = list(itertools.product(*combinations))
+    results: list = []
+    if (len(product) // os.cpu_count() > os.cpu_count()):
+        from joblib import Parallel, delayed
+
+        def work(engine, n, value, typedConnections, target):
+            try:
+                return valueWorker(engine, n, value, typedConnections, target)
+            except Exception:
+                return None
+
+        try:
+            results_list = Parallel(n_jobs = -1, batch_size = len(product) // os.cpu_count(), timeout = timeout)(delayed(work)(engine, n, value, typedConnections, target) for value in product)
+
+            for result in results_list:
+                if (result):
+                    results.append(result)
+        except Exception:
+            pass
+    else:
+        for value in product:
+            try:
+                results.append(valueWorker(engine, n, value, typedConnections, target))
+            except Exception:
+                pass
+
+    return results
+
 class Engine:
     def __init__(self, heuristicFunction: Callable = heuristic,
                  bo_n_init: int = 1000, bo_top_k: int = 100, bo_count_max: int = 20):
@@ -694,6 +754,18 @@ class Engine:
             neuron: Neuron = Neuron(k, lambda v = v: v, [], Callable)
             self.variableNeurons[k] = neuron
 
+        self.primitiveNeurons["add"].subgoal = lambda y, x: y - x
+        self.primitiveNeurons["subtract"].subgoal = lambda y, x: y + x
+        self.primitiveNeurons["multiply"].subgoal = lambda y, x: y / x
+        self.primitiveNeurons["divide"].subgoal = lambda y, x: y * x
+        self.primitiveNeurons["rot180"].subgoal = lambda y, x, self = self: self.primitiveNeurons["rot180"].function(y)
+        self.primitiveNeurons["rot90"].subgoal = lambda y, x, self = self: self.primitiveNeurons["rot270"].function(y)
+        self.primitiveNeurons["rot270"].subgoal = lambda y, x, self = self: self.primitiveNeurons["rot90"].function(y)
+        self.primitiveNeurons["hmirror"].subgoal = lambda y, x, self = self: self.primitiveNeurons["hmirror"].function(y)
+        self.primitiveNeurons["vmirror"].subgoal = lambda y, x, self = self: self.primitiveNeurons["vmirror"].function(y)
+        self.primitiveNeurons["dmirror"].subgoal = lambda y, x, self = self: self.primitiveNeurons["dmirror"].function(y)
+        self.primitiveNeurons["cmirror"].subgoal = lambda y, x, self = self: self.primitiveNeurons["cmirror"].function(y)
+
         self.primitiveNeurons = dict(sorted(self.primitiveNeurons.items(), key = lambda x: (len(x[1].inputTypes), x[0])))
         self.sortedPrimitiveNeurons: dict = defaultdict(list)
         self.typedPrimitiveNeurons: dict = defaultdict(list)
@@ -715,9 +787,6 @@ class Engine:
         for k, v in self.typedVariableNeurons.items():
             self.typedVariableNeurons[k] = sorted(v, key = lambda x: x.name)
 
-        self.connections: dict = dict()
-        self.typedConnections: dict = defaultdict(list)
-
     def valuesForType(self, typedValues: dict, expected: type) -> list:
         result = []
 
@@ -734,9 +803,9 @@ class Engine:
                     result += v
         elif (get_origin(expected) is Union):
             for arg in get_args(expected):
-                result += typedValues[arg]
+                result += list(typedValues[arg])
         else:
-            result = typedValues[expected]
+            result = list(typedValues[expected])
 
         return result
 
@@ -748,82 +817,123 @@ class Engine:
         self.primitiveNeurons.clear()
         self.typedPrimitiveNeurons.clear()
 
-    def learn(self, target: object, targetType: type = None) -> tuple[Connection, object, object]:
+    def learn(self, target: object, targetType: type = None, level: int = 0, maxLevel: int = 3, timeout: float = 5.0) -> tuple[Connection, object, object]:
         if (not targetType):
             targetType = type(target)
 
+        for n in self.typedVariableNeurons[targetType]:
+            try:
+                result = n.function()
+
+                if (not self.heuristicFunction(result, target)):
+                    return Connection(n, []), [], 0.0
+            except Exception:
+                pass
+
+        typedConnections: dict = defaultdict(set)
+
+        for n in self.primitiveNeurons.values():
+            if (compatibleType(n.outputType, targetType)):
+                continue
+
+            connection = Connection(n, n.inputTypes)
+            updateTypedConnections(typedConnections, connection)
+
         frontier: list = []
-        addedConnections: dict = {}
+        connections: dict = dict()
+        results: list = []
 
-        def explore():
-            for n in self.primitiveNeurons.values():
-                if (not compatibleType(targetType, n.outputType)):
-                    continue
-                #print("n.name", n.name) #TODO: to remove
-                combinations: list = []
+        if (len(self.typedPrimitiveNeurons[targetType]) // os.cpu_count() > os.cpu_count()):
+            from joblib import Parallel, delayed
 
-                for inputType in n.inputTypes:
-                    possibleConnections = self.valuesForType(self.typedConnections, inputType)
-                    combinations.append([inputType] + possibleConnections)
+            results_list = Parallel(n_jobs = -1)(
+                delayed(neuronWorker)(self, n, typedConnections, target, timeout) 
+                for n in self.typedPrimitiveNeurons[targetType]
+            )
 
-                if (not combinations):
-                    continue
+            results = list(itertools.chain.from_iterable(results_list))
+        else:
+            for n in self.typedPrimitiveNeurons[targetType]:
+                results += neuronWorker(self, n, typedConnections, target, timeout)
 
-                product = itertools.product(*combinations)
-                del combinations
+        for result in results:
+            l, n, connection, a, c = result
+            heapq.heappush(frontier, (c, l, n))
+            connections[n] = (connection, a, c)
 
-                for value in product:
-                    connection = Connection(n, n.inputTypes).applyInputs(value)
-                    combinations = []
-                    
-                    for inputType in connection.inputTypes():
-                        possibleConnections = self.valuesForType(self.typedVariableNeurons, inputType)
-                        combinations.append([n.name for n in possibleConnections])
-
-                    if (not combinations):
-                        continue
-
-                    op = lambda x, self = self, connection = connection: connection.output([self.variableNeurons[n].function() for n in x])
-
-                    try:
-                        result = bayesian_optimization_discrete(op, target, combinations, self.heuristicFunction, n_init = self.bo_n_init, top_k = self.bo_top_k, count_max = self.bo_count_max)
-                        s = connection.toStr()
-                        self.connections[s] = tuple([connection] + list(result))
-                        addedConnections[s] = connection
-
-                        if (not result[1]):
-                            return self.connections[s]
-
-                        heapq.heappush(frontier, (result[1], len(s), s))
-                    except Exception:
-                        pass
-
-                    del combinations
-
-            return None
-
-        result = explore()
-
-        if (result):
-            return result
+        goals: list = []
 
         while (frontier):
-            cost, length, name = heapq.heappop(frontier)
-            #print("name", name) #TODO: to remove
+            costLengthName = heapq.heappop(frontier)
+            cost, length, name = costLengthName
+
             if (not cost):
-                break
+                return connections[name]
 
-            connection = addedConnections[name]
-            del addedConnections[name]
+            connection, args, _ = connections[name]
+            subgoals: list = []
 
-            updateTypedConnections(self.typedConnections, connection)
+            try:
+                goal = connection.output([self.variableNeurons[n].function() for n in args])
 
-            result = explore()
+                for n in self.typedPrimitiveNeurons[targetType]:
+                    if (n.subgoal):
+                        try:
+                            subgoal = n.subgoal(target, goal)
+                            subgoals.append((n, subgoal))
+                        except Exception:
+                            pass
+            except Exception:
+                pass
 
-            if (result):
-                return result
+            #subgoals.sort(key = lambda x: x[1])
 
-        return self.connections[name]
+            if (subgoals):
+                goals.append((costLengthName, subgoals))
+
+        if (level >= maxLevel):
+            costLengthName, subgoals = goals[0]
+            cost, length, name = costLengthName
+
+            return connections[name]
+
+        results: list = []
+
+        for goal in goals:
+            costLengthName, subgoals = goal
+            cost, length, name = costLengthName
+
+            subresults: list = []
+
+            for x in subgoals:
+                n, subgoal = x
+                sub_connection, sub_args, sub_cost = self.learn(subgoal, targetType, level + 1, maxLevel)
+                subresults.append((x, sub_connection, sub_args, sub_cost))
+
+            subresults.sort(key = lambda x: (x[3], len(x[1].toStr()), x[1]))
+            results.append((goal, subresults, (subresults[0][3], cost)))
+
+        results.sort(key = lambda x: x[2])
+
+        if (not results):
+            if (not goals):
+                raise RuntimeError("No connection found")
+
+            costLengthName, subgoals = goals[0]
+            cost, length, name = costLengthName
+
+            return connections[name]
+
+        goal, subresults, total_cost = results[0]
+        costLengthName, subgoals = goal
+        cost, length, name = costLengthName
+        x, sub_connection, sub_args, sub_cost = subresults[0]
+        n, subgoal = x
+        connection, args, c = connections[name]
+        connectionTmp = Connection(n, n.inputTypes).applyInputs([connection, sub_connection])
+        arguments = list(args) + list(sub_args)
+
+        return connectionTmp, arguments, self.heuristicFunction(connectionTmp.output([self.variableNeurons[n].function() for n in arguments]), target)
 
     def addVariableNeuron(self, neuron: Neuron, name: str = None):
         if (not name):

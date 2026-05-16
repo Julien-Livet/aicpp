@@ -19,10 +19,10 @@ I = np.random.randint(0, 10, (4, 4))
 inputNeuron = Neuron("I", lambda I = I: I, [], Grid)
 dslEngine.addVariableNeuron(inputNeuron)
 
-def learnInt(engine: dsl_engine.Engine, expression: str):
+def learnInt(engine: dsl_engine.Engine, expression: str, maxLevel: int = 3):
     t = time.time()
     print(f"Target expression: {expression} = {eval(expression)}")
-    c, args, cost = engine.learn(eval(expression))
+    c, args, cost = engine.learn(eval(expression), maxLevel = maxLevel)
     print("Found connection:", c.toStr())
     connection = copy.deepcopy(c).applyInputs([engine.variableNeurons[n].function() for n in args])
     print("Applied connection:", connection.toStr())
@@ -41,13 +41,19 @@ def buildSimplifiedEngine(ops: set = {"add", "sub", "mul"}):
     engine.clearPrimitiveNeurons()
 
     if ("add" in ops):
-        engine.addPrimitiveNeuron(Neuron("add", lambda x, y: x + y, [int, int], int))
+        engine.addPrimitiveNeuron(Neuron("add", lambda x, y: x + y, [int, int], int, lambda y, x: y - x))
 
     if ("sub" in ops):
-        engine.addPrimitiveNeuron(Neuron("sub", lambda x, y: x - y, [int, int], int))
+        engine.addPrimitiveNeuron(Neuron("sub", lambda x, y: x - y, [int, int], int, lambda y, x: y + x))
 
     if ("mul" in ops):
-        engine.addPrimitiveNeuron(Neuron("mul", lambda x, y: x * y, [int, int], int))
+        engine.addPrimitiveNeuron(Neuron("mul", lambda x, y: x * y, [int, int], int, lambda y, x: y / x))
+
+    if ("neg" in ops):
+        engine.addPrimitiveNeuron(Neuron("neg", lambda x: -x, [int], int))
+
+    #if ("div" in ops):
+    #    engine.addPrimitiveNeuron(Neuron("div", lambda x, y: x / y, [int, int], float, lambda y, x: y * x))
 
     return engine
 
@@ -64,15 +70,15 @@ def test_three_additions():
     learnInt(engine, "5 + 7 + 8")
 
 def test_simple_operation():
-    engine = buildSimplifiedEngine({"add", "mul"})
-    learnInt(engine, "5 + 7 * 8")
+    engine = buildSimplifiedEngine({"add", "mul", "neg"})
+    learnInt(engine, "5 + 7 * 8", maxLevel = 1)
 
 def test_operations():
-    engine = buildSimplifiedEngine({"add", "mul"})
+    engine = buildSimplifiedEngine({"add", "mul", "neg"})
     learnInt(engine, "5")
     learnInt(engine, "7 + 8")
     learnInt(engine, "5 + 7 + 8")
-    learnInt(engine, "5 + 7 * 8")
+    learnInt(engine, "5 + 7 * 8", maxLevel = 1)
 
 def test_three_levels():
     engine = buildSimplifiedEngine({"add", "mul", "sub"})
@@ -88,14 +94,15 @@ def processTask(folder: str, task: str) -> tuple:
         process = True
 
         if (connection):
-            output = connection.output()
+            connectionTmp = copy.deepcopy(connection).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+            output = connectionTmp.output()
             cost = dsl_engine.heuristic(output, tuple(map(tuple, out)))
             process = cost
 
         if (process):
             result = dslEngine.learn(out, Grid)
             c, args, cost = result
-            connection = copy.deepcopy(c).applyInputs([dslEngine.variableNeurons[n].function() for n in args])
+            connection = c
 
         results.append(result)
 

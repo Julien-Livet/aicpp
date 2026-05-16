@@ -1,3 +1,4 @@
+import itertools
 from neuron import Neuron
 import typing
 from typing import Any, Container, get_args, get_origin, Union
@@ -27,20 +28,32 @@ def is_container_of_container(tp):
     return issubclass(inner_origin, Container)
 
 def compatibleType(target: type, expected: type) -> bool:
-    if (expected is Any):
-        return True
-    elif (expected is typing.Container):
-        if (is_container_type(target)):
-            return True
-    elif (expected is typing.Container[typing.Container]):
-        if (is_container_of_container(target)):
-            return True
-    elif (get_origin(expected) is Union):
-        for arg in get_args(expected):
-            if (target == arg):
-                return True
+    targetTypes = get_args(target) if get_origin(target) is Union else [target]
+    expectedTypes = get_args(expected) if get_origin(expected) is Union else [expected]
 
-    return target == expected
+    product = list(itertools.product(targetTypes, expectedTypes))
+
+    if (len(product) == 1):
+        if (expected == target):
+            return True
+        elif (expected is Any or target is Any):
+            return True
+        elif (expected is typing.Container):
+            if (is_container_type(target)):
+                return True
+        elif (expected is typing.Container[typing.Container]):
+            if (is_container_of_container(target)):
+                return True
+        elif (target is typing.Container):
+            return compatibleType(expected, target)
+        elif (target is typing.Container[typing.Container]):
+            return compatibleType(expected, target)
+    else:
+        for t, e in product:
+            if (compatibleType(t, e)):
+                return True
+    
+    return False
 
 class Connection:
     def __init__(self, neuron: Neuron, inputs: list):
@@ -220,3 +233,5 @@ class Connection:
 
         return s
 
+    def __str__(self):
+        return self.toStr()
