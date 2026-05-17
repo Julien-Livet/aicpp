@@ -950,7 +950,7 @@ def neuronWorker(engine: Engine, n: Neuron, typedConnections: dict, target: obje
 
     return results
 
-def sortedNamedNeurons(neurons: dict) -> dict:
+def sortedNamedNeurons(neurons: Dict[str, Neuron]) -> Dict[str, list]:
     result: dict = defaultdict(list)
 
     for k, v in neurons.items():
