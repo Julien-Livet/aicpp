@@ -13,15 +13,15 @@ def is_container_of_container(tp):
 
     if (origin is None):
         return False
-    
+
     if (not issubclass(origin, Container)):
         return False
-    
+
     args = get_args(tp)
 
     if (not args):
         return False
-    
+
     inner = args[0]
     inner_origin = get_origin(inner) or inner
 
@@ -35,6 +35,8 @@ def compatibleType(target: type, expected: type) -> bool:
 
     if (len(product) == 1):
         if (expected == target):
+            return True
+        elif (get_origin(expected) is frozenset and get_origin(target) is frozenset):
             return True
         elif (expected is Any or target is Any):
             return True

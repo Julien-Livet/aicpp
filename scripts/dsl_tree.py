@@ -1,8 +1,7 @@
-import ast
 import collections.abc
 from connection import compatibleType
 from dsl_engine import load_module, getDslPrimitives
-from typing import get_args, get_origin, List, Dict, Tuple, Union
+from typing import Callable, get_args, get_origin, List, Dict, Tuple, Union
 
 def dslVocabulary() -> Dict[str, Tuple[type, object]]:
     vocabulary: Dict[str, Tuple[type, object]] = {}
@@ -63,22 +62,23 @@ def args(target: type) -> List[str]:
         if (compatibleType(target, t)):
             result.append(k)
 
-    return result
+    return sorted(result)
 
 def root(name: str) -> Tuple[str, type, object]:
     return (name, *vocabulary[name])
 
 class Tree:
-    def __init__(self, root: Tuple[str, type, object], args: List[Union[Tree, type]]):
+    def __init__(self, root: Tuple[str, type, object], types: List[type]):
         self.root = root
-        self.args = args
+        self.types = types
+        self.args = types
 
     def __str__(self):
         n, t, v = self.root
 
         s = n
 
-        if (get_origin(t) is collections.abc.Callable):
+        if (get_origin(t) is collections.abc.Callable and self.types):
             s += f"({', '.join([str(a) for a in self.args])})"
 
         return s
@@ -122,16 +122,13 @@ class Tree:
             return self.root[2]
 
         inputs = []
-        print(self.root, self.args)
+
         for a in self.args:
             if (type(a) is Tree):
                 inputs.append(a.eval())
             else:
                 inputs.append(a)
-            print(inputs)
-            input("hit")
-        print(self.root, inputs)
-        print(*inputs)
+
         return self.root[2](*inputs)
 
 def tree(name: str) -> Tree:
@@ -140,7 +137,16 @@ def tree(name: str) -> Tree:
     return Tree(root(name), get_args(t)[0] if get_origin(t) is collections.abc.Callable else [])
 
 if (__name__ == "__main__"):
-    print(vocabulary)
+    #print(vocabulary)
+
+    import numpy as np
+    import random
+
+    seed = 0
+    random.seed(seed)
+    np.random.seed(seed)
+
+    vocabulary["I"] = (Tuple[Tuple[int]], tuple(map(tuple, np.random.randint(0, 10, (3, 3)).tolist())))
 
     t = tree("fill")
     print(t, t.isFinished(), t.nextType())
@@ -154,27 +160,18 @@ if (__name__ == "__main__"):
     t2.applyNextType(tree("I"))
     t.applyNextType(t2)
     print(t, t.isFinished(), t.nextType())
+    print(t.eval())
+
+    depth = 0
+    maxDepth = 0
 
     t = tree("fill")
     #print(t)
 
-    import numpy as np
-    import random
-
-    seed = 0
-    random.seed(seed)
-    np.random.seed(seed)
-
-    vocabulary["I"] = (Tuple[Tuple[int]], tuple(map(tuple, np.random.randint(0, 10, (3, 3)))))
-    depth = 0
-    maxDepth = 1
-
     while (not t.isFinished()):
         names = args(t.nextType())
         name = random.choice(names)
-        
         tp, v = vocabulary[name]
-        depth += 1
 
         if (depth >= maxDepth):
             s = set()
@@ -193,7 +190,12 @@ if (__name__ == "__main__"):
             name = random.choice(names)
             depth = 0
 
-        t.applyNextType(tree(name))
+        tp, v = vocabulary[name]
+        
+        if (not get_origin(t.nextType()) is collections.abc.Callable and get_origin(tp) is collections.abc.Callable):
+            depth += 1
+
+        t.applyNextType(Tree(root(name), []) if get_origin(t.nextType()) is collections.abc.Callable else tree(name))
         #print(t)
 
     print(t)
