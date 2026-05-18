@@ -41,7 +41,7 @@ def dslVocabulary() -> Dict[str, Tuple[type, object]]:
     primitives = getDslPrimitives()
 
     for k, v in primitives.items():
-        code = f"t = Callable[[{str([x["type"] for x in v["args"]]).replace("'", "")}], {v["return_type"]}]"
+        code = f"t = Callable[[{', '.join([x["type"] for x in v["args"]])}], {v["return_type"]}]"
         exec(code, namespace)
         vocabulary[k] = (namespace["t"], namespace[k])
 
@@ -83,17 +83,57 @@ class Tree:
 
         return s
 
+    def isFinished(self) -> bool:
+        for a in self.args:
+            if (type(a) is Tree):
+                if (not a.isFinished()):
+                    return False
+            else:
+                return False
+
+        return True
+
+    def nextType(self) -> type:
+        for a in self.args:
+            if (type(a) is Tree):
+                t = a.nextType()
+
+                if (t):
+                    return t
+            else:
+                return a
+
+        return None
+
+    def applyNextType(self, value: object) -> bool:
+        for i in range(0, len(self.args)):
+            if (type(self.args[i]) is Tree):
+                if (self.args[i].applyNextType(value)):
+                    return True
+            else:
+                self.args[i] = value
+
+                return True
+
+        return False
+
+def tree(name: str) -> Tree:
+    t, v = vocabulary[name]
+
+    return Tree(root(name), get_args(t)[0] if get_origin(t) is collections.abc.Callable else [])
+
 if (__name__ == "__main__"):
     print(vocabulary)
 
-    fillType, fillValue = vocabulary["fill"]
-    fillArgs, fillReturn = get_args(fillType)
-    mostcolorType, mostcolorValue = vocabulary["mostcolor"]
-    mostcolorArgs, mostcolorReturn = get_args(mostcolorType)
-    asobjectType, asobjectValue = vocabulary["asobject"]
-    asobjectArgs, asobjectReturn = get_args(asobjectType)
-    tree = Tree(root("fill"), fillArgs)
-    tree.args[0] = Tree(root("I"), [])
-    tree.args[1] = Tree(root("mostcolor"), [Tree(root("I"), [])])
-    tree.args[2] = Tree(root("asobject"), [Tree(root("I"), [])])
-    print(tree)
+    t = tree("fill")
+    print(t, t.isFinished(), t.nextType())
+    t.applyNextType(tree("I"))
+    print(t, t.isFinished(), t.nextType())
+    t1 = tree("mostcolor")
+    t1.applyNextType(tree("I"))
+    t.applyNextType(t1)
+    print(t, t.isFinished(), t.nextType())
+    t2 = tree("asobject")
+    t2.applyNextType(tree("I"))
+    t.applyNextType(t2)
+    print(t, t.isFinished(), t.nextType())
