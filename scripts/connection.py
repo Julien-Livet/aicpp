@@ -36,7 +36,7 @@ def compatibleType(target: type, expected: type) -> bool:
     if (len(product) == 1):
         if (expected == target):
             return True
-        elif (get_origin(expected) is frozenset and get_origin(target) is frozenset):
+        elif (get_origin(expected) is frozenset and get_origin(target) is frozenset and not get_args(expected)):
             return True
         elif (expected is Any or target is Any):
             return True
