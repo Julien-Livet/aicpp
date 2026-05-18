@@ -117,6 +117,23 @@ class Tree:
 
         return False
 
+    def eval(self):
+        if (not self.args):
+            return self.root[2]
+
+        inputs = []
+        print(self.root, self.args)
+        for a in self.args:
+            if (type(a) is Tree):
+                inputs.append(a.eval())
+            else:
+                inputs.append(a)
+            print(inputs)
+            input("hit")
+        print(self.root, inputs)
+        print(*inputs)
+        return self.root[2](*inputs)
+
 def tree(name: str) -> Tree:
     t, v = vocabulary[name]
 
@@ -141,9 +158,14 @@ if (__name__ == "__main__"):
     t = tree("fill")
     #print(t)
 
+    import numpy as np
     import random
 
-    random.seed(0)
+    seed = 0
+    random.seed(seed)
+    np.random.seed(seed)
+
+    vocabulary["I"] = (Tuple[Tuple[int]], tuple(map(tuple, np.random.randint(0, 10, (3, 3)))))
     depth = 0
     maxDepth = 1
 
@@ -175,3 +197,4 @@ if (__name__ == "__main__"):
         #print(t)
 
     print(t)
+    print(t.eval())
