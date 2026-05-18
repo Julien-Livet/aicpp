@@ -1,7 +1,7 @@
 import itertools
 from neuron import Neuron
 import typing
-from typing import Any, Container, get_args, get_origin, Union
+from typing import Any, Container, get_args, get_origin, Tuple, Union
 
 def is_container_type(tp):
     origin = get_origin(tp)
@@ -37,6 +37,8 @@ def compatibleType(target: type, expected: type) -> bool:
         if (expected == target):
             return True
         elif (get_origin(expected) is frozenset and get_origin(target) is frozenset and not get_args(expected)):
+            return True
+        elif (get_origin(expected) is tuple and target is tuple):
             return True
         elif (expected is Any or target is Any):
             return True
