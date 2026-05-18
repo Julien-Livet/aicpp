@@ -137,3 +137,41 @@ if (__name__ == "__main__"):
     t2.applyNextType(tree("I"))
     t.applyNextType(t2)
     print(t, t.isFinished(), t.nextType())
+
+    t = tree("fill")
+    #print(t)
+
+    import random
+
+    random.seed(0)
+    depth = 0
+    maxDepth = 1
+
+    while (not t.isFinished()):
+        names = args(t.nextType())
+        name = random.choice(names)
+        
+        tp, v = vocabulary[name]
+        depth += 1
+
+        if (depth >= maxDepth):
+            s = set()
+
+            for n in names:
+                tp, v = vocabulary[n]
+
+                if (get_origin(tp) is collections.abc.Callable):
+                    s.add(n)
+
+            newNames = sorted(list(set(names) - s))
+
+            if (newNames):
+                names = newNames
+
+            name = random.choice(names)
+            depth = 0
+
+        t.applyNextType(tree(name))
+        #print(t)
+
+    print(t)
