@@ -1,6 +1,7 @@
 from __future__ import annotations
 import collections
 from connection import compatibleType
+import dsl_engine
 from dsl_tree import vocabulary, args, tree, root, Tree
 import json
 import math
@@ -9,6 +10,7 @@ import os
 from pathlib import Path
 import random
 import sys
+from test_dsl_engine import arcHeuristic
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -483,22 +485,22 @@ class BatchTreeStateManager:
         for s in self.states:
             s.reset()
 
+import dsl_engine
+
+arc_types = dsl_engine.load_module("arc_types", "arc-dsl/arc_types.py")
+constants = dsl_engine.load_module("constants",  "arc-dsl/constants.py")
+dsl       = dsl_engine.load_module("dsl",        "arc-dsl/dsl.py")
+ns = {}
+ns.update(vars(arc_types))
+ns.update(vars(constants))
+ns.update(vars(dsl))
+
 def execute_dsl(program: str, input_grid: List) -> Optional[List]:
     try:
-        import dsl_engine
-
-        arc_types = dsl_engine.load_module("arc_types", "arc-dsl/arc_types.py")
-        constants = dsl_engine.load_module("constants",  "arc-dsl/constants.py")
-        dsl       = dsl_engine.load_module("dsl",        "arc-dsl/dsl.py")
-        ns = {}
-        ns.update(vars(arc_types))
-        ns.update(vars(constants))
-        ns.update(vars(dsl))
         ns["I"] = tuple(map(tuple, input_grid))
         result = eval(program, {"__builtins__": {}}, ns)
 
-        if (isinstance(result, (list, tuple))):
-            return [list(r) for r in result]
+        return result
     except Exception:
         pass
 
@@ -516,13 +518,8 @@ def compute_reward(
         return 0.0, {"cost": float("inf"), "length": 0, "r_cost": 0.0, "r_len": 0.0, "reward": 0.0}
 
     if (execute_fn is None or cost_fn is None):
-        try:
-            _exec = execute_dsl
-            from test_dsl_engine import arcHeuristic as _cost
-            execute_fn = execute_fn or _exec
-            cost_fn    = cost_fn    or _cost
-        except ImportError:
-            return 0.0, {"cost": float("inf"), "length": 0, "r_cost": 0.0, "r_len": 0.0, "reward": 0.0}
+        execute_fn = execute_fn or execute_dsl
+        cost_fn    = cost_fn    or arcHeuristic
 
     total_cost = 0.0
 
@@ -565,12 +562,7 @@ def reward_batch(
         rewards.append(r)
         details.append(d)
     
-    try:
-        return torch.tensor(np.array(rewards), dtype=torch.float32), details
-    except Exception as e:
-        print(rewards)
-        print(e)
-        exit()
+    return torch.tensor(np.array(rewards), dtype=torch.float32), details
 
 @torch.no_grad()
 def sample_with_tree_mask(
