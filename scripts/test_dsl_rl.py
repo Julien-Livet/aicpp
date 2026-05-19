@@ -58,7 +58,7 @@ def passTask(folder: str, task: str, debug: bool = False):
     trainCost, testCost, dsl = processTask(folder, task)
 
     if (debug):
-        print(f"Train cost: {trainCost}, test cost: {testCost}, dsl: {dsl}")
+        print(f"Train cost: {trainCost}, test cost: {testCost}, DSL: {dsl}")
 
     assert(not (trainCost + testCost))
 
@@ -112,7 +112,6 @@ def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
         print(folder, task)
         t2 = time.time()
         results[task] = passTask(folder, task, True)
-        print(results[task])
         print(f"Duration: {time.time() - t2} s")
 
     print(f"Duration for {folder} ({len(v)} tasks): {time.time() - t1} s")
