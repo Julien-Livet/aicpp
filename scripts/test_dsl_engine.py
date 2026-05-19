@@ -7,11 +7,14 @@ from neuron import Neuron
 from typing import Tuple
 import time
 
-def arcHeuristic(x: tuple, y: tuple):
-    x_ = np.array(x)
-    y_ = np.array(y)
+def arcHeuristic(x: tuple, y: tuple) -> float:
+    try:
+        x_ = np.array(x)
+        y_ = np.array(y)
 
-    return dsl_engine.size_cost(x_, y_) + dsl_engine.bounding_box_cost(x_, y_) + dsl_engine.pixel_overlap_cost(x_, y_) + dsl_engine.value_cost(x_, y_)
+        return dsl_engine.size_cost(x_, y_) + dsl_engine.bounding_box_cost(x_, y_) + dsl_engine.pixel_overlap_cost(x_, y_) + dsl_engine.value_cost(x_, y_)
+    except Exception:
+        return float("inf")
 
 dslEngine: dsl_engine.Engine = dsl_engine.Engine(arcHeuristic)
 Grid = Tuple[Tuple[int]]
