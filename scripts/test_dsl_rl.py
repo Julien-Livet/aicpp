@@ -114,7 +114,7 @@ def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
         results[task] = passTask(folder, task, True)
         print(f"Duration: {time.time() - t2} s")
 
-    print(f"Duration for {folder} ({len(v)} tasks): {time.time() - t1} s")
+    print(f"Duration for {folder} ({len(tasks)} tasks): {time.time() - t1} s")
 
     rows = [
         [task, trainCost, testCost, dsl]
