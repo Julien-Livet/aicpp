@@ -895,13 +895,17 @@ if (__name__ == "__main__"):
     print(f"After 'rot90(I)', finished={state2.is_finished()}, valid: {valid}")
 
     device = "cuda"
+    modelName = "dsl_rl.pt"
 
-    if ("train" in sys.argv):
+    if (os.path.exists(modelName)):
+        model = load_model(modelName, device)
+    else:
         d_model = 128
-        modelName = "dsl_rl.pt"
-        model   = RLDSLTransformer(d_model = d_model).to(device)
+        model = RLDSLTransformer(d_model = d_model).to(device)
         n_param = sum(p.numel() for p in model.parameters())
         print(f"[Model] {n_param:,} parameters d_model={d_model}")
+
+    if ("train" in sys.argv):
         dataset = ARCDataset("../ARC-AGI-2/data/training")
         train_rl(
             model, dataset,
@@ -916,14 +920,13 @@ if (__name__ == "__main__"):
     n = 10
     temp = 0.5
     max_depth = 6
-    model            = load_model(modelName, device)
     grids, pad_mask, pairs = load_task(task, "..")
     print(f"Task {task} — {len(pairs)} train pairs")
     results = []
 
     for i in range(n):
         generated, log_probs, programs = sample_with_tree_mask(
-            model, vocab, grids, pad_mask,
+            model, VOCAB, grids, pad_mask,
             temperature=temp, max_depth=max_depth, device=device,
         )
         prog    = programs[0]
