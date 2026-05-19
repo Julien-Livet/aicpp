@@ -1,5 +1,9 @@
+from collections import defaultdict
 import dsl_rl
+import json
 from tabulate import tabulate
+import time
+import test_dsl_engine
 from typing import Dict, List, Tuple
 
 device = "cuda"
@@ -28,11 +32,11 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
 
     for i in range(n):
         generated, log_probs, programs = dsl_rl.sample_with_tree_mask(
-            model, vocab, grids, pad_mask,
+            model, dsl_rl.VOCAB, grids, pad_mask,
             temperature=temp, max_depth=max_depth, device=device,
         )
         prog    = programs[0]
-        r       = compute_reward(prog, pairs)
+        r       = dsl_rl.compute_reward(prog, pairs)
         results.append((r, prog))
 
     best_r, best_p = max(results, key=lambda x: x[0])
@@ -44,7 +48,7 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
 
         for inp, out in trainPairs:
             result = dsl_rl.execute_dsl(best_p, inp)
-            total_cost += cost_fn(result, out)
+            total_cost += test_dsl_engine.arcHeuristic(result, out)
 
         return total_cost
 
@@ -87,7 +91,7 @@ def test_hodel_tasks():
         for task in v:
             print("training", task)
 
-            if (not v in trainingTasks):
+            if (not task in trainingTasks):
                 print("Skipped")
                 continue
 
