@@ -134,13 +134,22 @@ def load_module(name: str, path: str):
     return module
 
 def size_cost(x: np.ndarray, y: np.ndarray) -> float:
-    return np.linalg.norm(np.array(x.shape) - np.array(y.shape))
+    if (not x.shape):
+        return np.linalg.norm(np.array(y.shape))
+
+    try:
+        return np.linalg.norm(np.array(x.shape) - np.array(y.shape))
+    except Exception:
+        return float("inf")
 
 def value_cost(x: np.ndarray, y: np.ndarray) -> float:
     if (x.shape == y.shape):
         return np.linalg.norm(x - y)
-        
-    return abs(sum(sum(x)) - sum(sum(y)))
+
+    try:
+        return abs(sum(sum(x)) - sum(sum(y)))
+    except Exception:
+        return float("inf")
 
 def pixel_overlap_cost(x: np.ndarray, y: np.ndarray) -> float:
     if (x.shape != y.shape):
