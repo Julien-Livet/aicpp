@@ -618,11 +618,22 @@ def sample_with_tree_mask(
         )
         finished = finished | eos_mask | tree_done
 
-        #if (finished.all()):
-        #    break
+        if (finished.all()):
+            break
 
     log_probs_t = torch.stack(log_probs, dim=1)  # [B, L-1]
     programs    = manager.programs()
+
+    max_actual_len = generated.size(1)
+
+    if (max_actual_len < max_len):
+        padded_log_probs = torch.zeros(B, max_len-1, device=device)
+        padded_log_probs[:, :max_actual_len-1] = log_probs_t
+        log_probs_t = padded_log_probs
+
+        padded_generated = torch.full((B, max_len), vocab.PAD, dtype=torch.long, device=device)
+        padded_generated[:, :max_actual_len] = generated
+        generated = padded_generated
 
     return generated, log_probs_t, programs
 
@@ -909,9 +920,10 @@ if (__name__ == "__main__"):
 
         tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
         dataset = ARCDataset("../ARC-AGI-2/data/training")
-        epochs: int = 100
+        epochs: int = 1000
         lr: float = 3e-4
         temperature: float = 1.0
+        min_temp: float = 1.0
         k_samples: int = 4
         log_every: int = 1
 
@@ -935,7 +947,7 @@ if (__name__ == "__main__"):
                 k_samples = k_samples,
                 device = device, ckpt_path = modelName,
                 log_every = log_every,
-                max_depth = k - 1,
+                max_depth = k - 1, min_temp = min_temp
             )
 
         batch_size: int = 50
