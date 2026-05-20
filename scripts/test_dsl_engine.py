@@ -12,7 +12,12 @@ def arcHeuristic(x: tuple, y: tuple) -> float:
         x_ = np.array(x)
         y_ = np.array(y)
 
-        return dsl_engine.size_cost(x_, y_) + dsl_engine.bounding_box_cost(x_, y_) + dsl_engine.pixel_overlap_cost(x_, y_) + dsl_engine.value_cost(x_, y_)
+        cost = dsl_engine.size_cost(x_, y_) + dsl_engine.bounding_box_cost(x_, y_) + dsl_engine.pixel_overlap_cost(x_, y_) + dsl_engine.value_cost(x_, y_)
+
+        if (not type(cost) is float and not type(cost) is np.float64):
+            return float("inf")
+        
+        return cost
     except Exception:
         return float("inf")
 

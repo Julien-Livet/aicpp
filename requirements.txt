@@ -7,4 +7,5 @@ scipy
 sympy
 tabulate
 textdistance
+torch
 tqdm

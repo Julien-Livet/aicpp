@@ -781,8 +781,6 @@ def save_model(model: RLDSLTransformer, path: str):
     with open(meta, "w") as f:
         json.dump({
             "vocab_tokens": VOCAB.tokens,
-            "dsl_vars"    : _make_serializable(VOCAB.dsl_variables),
-            "dsl_prims"   : _make_serializable(VOCAB.dsl_primitives),
             "d_model"     : model.d_model,
         }, f, indent=2)
 
@@ -831,7 +829,7 @@ if (__name__ == "__main__"):
 
     print("=== Test TreeState ===")
 
-    state = TreeState(max_depth=4)
+    state = TreeState(max_depth = 4)
     print(f"Initial state: {state.state}")
     print(f"Valid tokens: {state.valid_names()[:5]}...")
 
@@ -894,13 +892,13 @@ if (__name__ == "__main__"):
     valid = [t for t, i in token2id.items() if mask[i]]
     print(f"After 'rot90(I)', finished={state2.is_finished()}, valid: {valid}")
 
-    device = "cuda"
-    modelName = "dsl_rl.pt"
+    device: str = "cuda"
+    modelName: str = "dsl_rl.pt"
 
     if (os.path.exists(modelName)):
         model = load_model(modelName, device)
     else:
-        d_model = 128
+        d_model: int = 128
         model = RLDSLTransformer(d_model = d_model).to(device)
         n_param = sum(p.numel() for p in model.parameters())
         print(f"[Model] {n_param:,} parameters d_model={d_model}")
@@ -910,27 +908,29 @@ if (__name__ == "__main__"):
         train_rl(
             model, dataset,
             VOCAB,
-            epochs=100, batch_size=8,
-            lr=3e-4, temperature=1.0,
-            k_samples=4,
-            device=device, ckpt_path=modelName,
+            epochs = 100, batch_size = 8,
+            lr = 3e-4, temperature = 1.0,
+            k_samples = 4,
+            device = device, ckpt_path = modelName,
+            log_every = 1,
+            max_depth = 2,
         )
 
-    task = "67a3c6ac"
-    n = 10
-    temp = 0.5
-    max_depth = 6
+    task: str = "67a3c6ac"
+    n: int = 10
+    temp: float = 0.5
+    max_depth: int = 2
     grids, pad_mask, pairs = load_task(task, "..")
     print(f"Task {task} — {len(pairs)} train pairs")
-    results = []
+    results: list = []
 
     for i in range(n):
         generated, log_probs, programs = sample_with_tree_mask(
             model, VOCAB, grids, pad_mask,
-            temperature=temp, max_depth=max_depth, device=device,
+            temperature = temp, max_depth = max_depth, device = device,
         )
         prog    = programs[0]
-        r       = compute_reward(prog, pairs)
+        r, d    = compute_reward(prog, pairs)
         results.append((r, prog))
         print(f"  [{i+1:2d}] reward={r:.4f}  {prog[:70]}")
 
