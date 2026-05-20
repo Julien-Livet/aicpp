@@ -23,12 +23,12 @@ def load_task(folder: str, task: str) -> Tuple[List, List]:
     return trainPairs, testPairs
 
 def processTask(folder: str, task: str) -> Tuple[float, float, str]:
-    n = 10
-    temp = 0.5
-    max_depth = 6
+    n: int = 10
+    temp: float = 0.5
+    max_depth: int = 0
     model = dsl_rl.load_model(modelName, device)
     grids, pad_mask, pairs = dsl_rl.load_task(task, "..")
-    results = []
+    results: list = []
 
     for i in range(n):
         generated, log_probs, programs = dsl_rl.sample_with_tree_mask(
@@ -63,24 +63,7 @@ def passTask(folder: str, task: str, debug: bool = False):
     assert(not (trainCost + testCost))
 
 def test_hodel_tasks():
-    with open("arc-dsl/solvers.py", "r") as f:
-        lines: list = f.read().split("\n")
-
-    tasks: list = list(filter(lambda x: x.startswith("def solve_"), lines))
-    tasks = [x[x.index("_")+1:x.index("(")] for x in tasks]
-    tasksByStep: dict = defaultdict(list)
-
-    for task in tasks:
-        i = lines.index(f"def solve_{task}(I):") + 1
-        count = 0
-
-        while (i < len(lines) and not lines[i].startswith("def solve_")):
-            if (lines[i].strip() and not lines[i].strip().startswith("return")):
-                count += 1
-
-            i += 1
-
-        tasksByStep[count].append(task)
+    tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
 
     with open("../ARC-AGI-2/data/training.txt", "r") as f:
         trainingTasks = f.read().split("\n")
