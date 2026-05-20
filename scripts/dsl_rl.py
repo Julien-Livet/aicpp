@@ -904,16 +904,51 @@ if (__name__ == "__main__"):
         print(f"[Model] {n_param:,} parameters d_model={d_model}")
 
     if ("train" in sys.argv):
+        import copy
+        import test_dsl_engine
+
+        tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
         dataset = ARCDataset("../ARC-AGI-2/data/training")
+        epochs: int = 100
+        lr: float = 3e-4
+        temperature: float = 1.0
+        k_samples: int = 4
+        log_every: int = 1
+
+        for k, v in tasksByStep.items():
+            subdataset = copy.deepcopy(dataset)
+            tasks: list = []
+
+            for task in subdataset.tasks:
+                if (task["id"] in v):
+                    tasks.append(task)
+
+            subdataset.tasks = tasks
+            
+            print(f"[Subdataset] {len(tasks)} Hodel ARC tasks of {k} step{'s' if k > 1 else ''} of DSL")
+
+            train_rl(
+                model, subdataset,
+                VOCAB,
+                epochs = epochs, batch_size = len(tasks),
+                lr = lr, temperature = temperature,
+                k_samples = k_samples,
+                device = device, ckpt_path = modelName,
+                log_every = log_every,
+                max_depth = k - 1,
+            )
+
+        batch_size: int = 50
+
         train_rl(
             model, dataset,
             VOCAB,
-            epochs = 100, batch_size = 8,
-            lr = 3e-4, temperature = 1.0,
-            k_samples = 4,
+            epochs = epochs, batch_size = batch_size,
+            lr = lr, temperature = temperature,
+            k_samples = k_samples,
             device = device, ckpt_path = modelName,
-            log_every = 1,
-            max_depth = 2,
+            log_every = log_every,
+            max_depth = 32,
         )
 
     task: str = "67a3c6ac"
