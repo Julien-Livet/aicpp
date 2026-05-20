@@ -33,7 +33,7 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
     for i in range(n):
         generated, log_probs, programs = dsl_rl.sample_with_tree_mask(
             model, dsl_rl.VOCAB, grids, pad_mask,
-            temperature=temp, max_depth=max_depth, device=device,
+            temperature = temp, max_depth = max_depth, device = device,
         )
         prog    = programs[0]
         r       = dsl_rl.compute_reward(prog, pairs)
@@ -46,7 +46,7 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
     def pairCost(pairs: list):
         total_cost = 0.0
 
-        for inp, out in trainPairs:
+        for inp, out in pairs:
             result = dsl_rl.execute_dsl(best_p, inp)
             total_cost += test_dsl_engine.arcHeuristic(result, out)
 
@@ -88,7 +88,7 @@ def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
     with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as f:
         tasks = f.read().split("\n")
 
-    result: dict = {}
+    results: dict = {}
     t1 = time.time()
 
     for task in tasks:
