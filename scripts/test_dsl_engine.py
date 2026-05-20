@@ -4,7 +4,7 @@ import copy
 import dsl_engine
 import numpy as np
 from neuron import Neuron
-from typing import Tuple
+from typing import Dict, List, Tuple
 import time
 
 def arcHeuristic(x: tuple, y: tuple) -> float:
@@ -152,10 +152,10 @@ def passTask(folder: str, task: str, debug: bool = False):
 
     assert(not (trainCost + testCost))
 
-def test_hodel_tasks():
+def hodelTasksByStep() -> Dict[str, List[str]]:
     with open("arc-dsl/solvers.py", "r") as f:
         lines: list = f.read().split("\n")
-
+    
     tasks: list = list(filter(lambda x: x.startswith("def solve_"), lines))
     tasks = [x[x.index("_")+1:x.index("(")] for x in tasks]
     tasksByStep: dict = defaultdict(list)
@@ -171,6 +171,11 @@ def test_hodel_tasks():
             i += 1
 
         tasksByStep[count].append(task)
+        
+    return tasksByStep
+
+def test_hodel_tasks():
+    tasksByStep: dict = hodelTasksByStep()
 
     for k, v in tasksByStep.items():
         if (k != 1):
