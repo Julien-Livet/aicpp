@@ -1,4 +1,3 @@
-from collections import defaultdict
 import dsl_rl
 import json
 from tabulate import tabulate
@@ -6,7 +5,7 @@ import time
 import test_dsl_engine
 from typing import Dict, List, Tuple
 
-device = "cuda"
+device = "cpu"
 modelName = "dsl_rl.pt"
 n = 10
 temp = 0.5
