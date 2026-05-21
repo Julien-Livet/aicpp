@@ -16,9 +16,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Categorical
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-from typing import Dict, List, Optional, Tuple
-
+from torch.utils.data import DataLoader, Dataset
+from typing import get_args, get_origin, Dict, List, Optional, Tuple
 class DSLVocab:
     SPECIAL = ["<PAD>", "<BOS>", "<EOS>"]
 
@@ -178,8 +177,6 @@ class TreeState:
 
     def valid_names(self) -> List[str]:
         if (self.state == "EXPECT_ROOT"):
-            from typing import get_origin, get_args
-            Grid = __import__("typing").Tuple[__import__("typing").Tuple[int]]
             candidates = []
 
             for name, (t, _) in vocabulary.items():
@@ -201,7 +198,6 @@ class TreeState:
             candidates = args(next_type)
 
             if (self.depth >= self.max_depth):
-                from typing import get_origin
                 candidates = [
                     n for n in candidates
                     if not (get_origin(vocabulary[n][0]) is collections.abc.Callable)
@@ -230,7 +226,6 @@ class TreeState:
             return True
 
         if (self.state == "EXPECT_ARG"):
-            from typing import get_origin
             t_name, (t_type, _) = token_name, vocabulary[token_name]
             next_type           = self.tree_root.nextType()
 
@@ -575,9 +570,6 @@ def sample_with_tree_mask(
     max_depth  : int   = 6,
     device     : str   = "cpu",
 ) -> Tuple[torch.Tensor, torch.Tensor, List[str]]:
-    import torch.nn.functional as F
-    from torch.distributions import Categorical
-
     model.eval()
     B      = grids.size(0)
     memory = model.encode(grids.to(device), pad_mask.to(device))
@@ -648,7 +640,7 @@ def collate_rl(batch: List[dict]) -> dict:
 def reinforce_loss(
     log_probs  : torch.Tensor,   # [B, L]  log-proba of eachc token
     rewards    : torch.Tensor,   # [B]     total reward by program
-    baselines  : torch.Tensor,   # [B]     guessed reward (criticak)
+    baselines  : torch.Tensor,   # [B]     guessed reward (critical)
     mask       : torch.Tensor,   # [B, L]  True = valid token (no PAD/EOS)
 ) -> torch.Tensor:
     advantage = (rewards - baselines).detach()  # [B]  — no gradient on b
@@ -680,10 +672,6 @@ def train_rl(
     alpha: float = 0.02,
     log_every   : int   = 10,
 ):
-    from torch.utils.data import DataLoader
-    import torch.optim as optim
-    import torch.nn as nn
-
     model = model.to(device)
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True,
                         collate_fn=collate_rl, num_workers=2,
@@ -727,7 +715,7 @@ def train_rl(
                 rewards_t = rewards_t.to(device)
 
                 for d in details:
-                    if (d["reward"] >= 0.99):
+                    if (d["reward"] >= 1.0):
                         n_perfect += 1
 
                 L    = log_probs.size(1)
@@ -835,7 +823,6 @@ def load_task(task_id: str, arc_root: str = "..",
     return grids, pad_mask, pairs
 
 if (__name__ == "__main__"):
-    import random
     random.seed(0)
 
     print("=== Test TreeState ===")
@@ -864,7 +851,6 @@ if (__name__ == "__main__"):
 
     print("\n=== Test reward ===")
 
-    import numpy as np
     np.random.seed(0)
 
     inp = np.random.randint(0, 5, (4, 4)).tolist()
@@ -936,7 +922,7 @@ if (__name__ == "__main__"):
                     tasks.append(task)
 
             subdataset.tasks = tasks
-            
+
             print(f"[Subdataset] {len(tasks)} Hodel ARC tasks of {k} step{'s' if k > 1 else ''} of DSL")
 
             train_rl(
