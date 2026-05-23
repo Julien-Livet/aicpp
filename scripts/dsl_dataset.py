@@ -1,6 +1,7 @@
 import collections
 from connection import compatibleType
 from dsl_tree import args, tree, Tree, vocabulary
+import math
 from multiprocess import Pool
 import numpy as np
 import os
@@ -74,7 +75,7 @@ def dslProgram(n: int, depth: int) -> set:
 
         O = execute_dsl(program, I)
 
-        if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple):
+        if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple and I != O and len(O) > 1):
             s.add(program)
 
     return s
@@ -91,5 +92,57 @@ def buildDataset(n: int = 200, maxDepth: int = 8):
     with open("dsl_dataset.txt", "w") as f:
         f.write("\n".join(dataset))
 
+def randomTrajectory() -> list:
+    with open("dsl_dataset.txt", "r") as f:
+        programs = f.read().split("\n")
+
+    programs.append("I")
+
+    choosedProgram = random.choice(programs)
+    gridPairs: list = []
+
+    for _ in range(3):
+        I = tuple(map(tuple, np.random.randint(0, 10, (3, 3)).tolist()))
+        O = execute_dsl(choosedProgram, I)
+        gridPairs.append((I, O))
+
+    sortedPrograms: list = []
+
+    from test_dsl_engine import arcHeuristic
+
+    for program in programs:
+        cost: float = 0
+
+        for pairs in gridPairs:
+            cost += arcHeuristic(pairs[1], execute_dsl(program, pairs[0]))
+
+        if (not math.isinf(cost)):
+            sortedPrograms.append((cost, program))
+
+    sortedPrograms.sort(key = lambda x: x[0], reverse = True)
+
+    trajectory: list = []
+
+    while (sortedPrograms):
+        c, p = sortedPrograms.pop(0)
+        
+        if (p == "I"):
+            trajectory.append((c, p))
+            break
+
+    cost: float = trajectory[0][0]
+
+    while (sortedPrograms):
+        c, p = sortedPrograms.pop(0)
+
+        if (c < cost):
+            cost = c
+            trajectory.append((c, p))
+
+    with open("dsl_random_trajectory.txt", "w") as f:
+        f.write(choosedProgram + "\n")
+        f.write("\n".join([str(x) for x in trajectory]))
+
 if (__name__ == "__main__"):
-    buildDataset()
+    #buildDataset()
+    randomTrajectory()
