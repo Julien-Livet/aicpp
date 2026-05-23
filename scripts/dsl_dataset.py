@@ -9,6 +9,8 @@ import random
 from typing import get_args, get_origin, Tuple
 import dsl_engine
 
+GRID_SIZE = (10, 10)
+
 arc_types = dsl_engine.load_module("arc_types", "arc-dsl/arc_types.py")
 constants = dsl_engine.load_module("constants",  "arc-dsl/constants.py")
 dsl       = dsl_engine.load_module("dsl",        "arc-dsl/dsl.py")
@@ -28,7 +30,7 @@ def execute_dsl(program: str, input_grid: List) -> Optional[List]:
 
     return None
 
-def randomDslTree(maxDepth: int):
+def randomDslTree(maxDepth: int) -> Tree:
     roots: list = []
 
     for name, (t, v) in vocabulary.items():
@@ -64,7 +66,7 @@ def randomDslTree(maxDepth: int):
 
 def dslProgram(n: int, depth: int) -> set:
     s = set()
-    I = tuple(map(tuple, np.random.randint(0, 10, (3, 3)).tolist()))
+    I = tuple(map(tuple, np.random.randint(0, 10, GRID_SIZE).tolist()))
 
     while (len(s) < n):
         tr = randomDslTree(depth)
@@ -80,7 +82,7 @@ def dslProgram(n: int, depth: int) -> set:
 
     return s
 
-def buildDataset(n: int = 200, maxDepth: int = 8):
+def buildDataset(n: int = 200, maxDepth: int = 8) -> list:
     args = [(n, depth) for depth in range(1, maxDepth + 1)]
 
     with Pool(os.cpu_count()) as pool:
@@ -89,8 +91,7 @@ def buildDataset(n: int = 200, maxDepth: int = 8):
     dataset = set().union(*list_of_sets)
     dataset = sorted(list(dataset))
 
-    with open("dsl_dataset.txt", "w") as f:
-        f.write("\n".join(dataset))
+    return dataset
 
 def randomTrajectory() -> list:
     with open("dsl_dataset.txt", "r") as f:
@@ -102,7 +103,7 @@ def randomTrajectory() -> list:
     gridPairs: list = []
 
     for _ in range(3):
-        I = tuple(map(tuple, np.random.randint(0, 10, (3, 3)).tolist()))
+        I = tuple(map(tuple, np.random.randint(0, 10, GRID_SIZE).tolist()))
         O = execute_dsl(choosedProgram, I)
         gridPairs.append((I, O))
 
@@ -139,10 +140,16 @@ def randomTrajectory() -> list:
             cost = c
             trajectory.append((c, p))
 
+    return choosedProgram, trajectory
+
+if (__name__ == "__main__"):
+    dataset = buildDataset()
+
+    with open("dsl_dataset.txt", "w") as f:
+        f.write("\n".join(dataset))
+
+    choosedProgram, trajectory = randomTrajectory()
+
     with open("dsl_random_trajectory.txt", "w") as f:
         f.write(choosedProgram + "\n")
         f.write("\n".join([str(x) for x in trajectory]))
-
-if (__name__ == "__main__"):
-    #buildDataset()
-    randomTrajectory()
