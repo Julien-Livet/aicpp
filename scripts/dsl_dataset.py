@@ -64,7 +64,6 @@ def randomDslTree(maxDepth: int):
 def dslProgram(n: int, depth: int) -> set:
     s = set()
     I = tuple(map(tuple, np.random.randint(0, 10, (3, 3)).tolist()))
-    count = 0
 
     while (len(s) < n):
         tr = randomDslTree(depth)
@@ -77,12 +76,6 @@ def dslProgram(n: int, depth: int) -> set:
 
         if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple):
             s.add(program)
-            count = 0
-        else:
-            count += 1
-
-        #if (count > 100):
-        #    break
 
     return s
 
