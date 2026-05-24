@@ -77,8 +77,11 @@ def dslProgram(n: int, depth: int) -> set:
 
         O = execute_dsl(program, I)
 
-        if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple and I != O and len(O) > 1):
-            s.add(program)
+        try:
+            if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple and I != O and len(O) > 1 and np.min(O) >= 0 and np.max(O) <= 9):
+                s.add(program)
+        except Exception:
+            pass
 
     return s
 
@@ -144,8 +147,12 @@ def randomTrajectory() -> list:
 
 if (__name__ == "__main__"):
     dataset = buildDataset()
+    datasetFilename: str = "dsl_dataset.txt"
 
-    with open("dsl_dataset.txt", "w") as f:
+    with open(datasetFilename, "r") as f:
+        dataset = sorted(set(dataset + f.read().split("\n")))
+
+    with open(datasetFilename, "w") as f:
         f.write("\n".join(dataset))
 
     choosedProgram, trajectory = randomTrajectory()
