@@ -71,45 +71,55 @@ class Tree:
     def __init__(self, root: Tuple[str, type, object], types: List[type]):
         self.root = root
         self.types = types
-        self.args = types
+        self.args = list(types)
 
     def __str__(self):
         n, t, v = self.root
-
-        s = n
+        s = str(n)
 
         if (get_origin(t) is collections.abc.Callable and self.types):
-            s += f"({', '.join([str(a) for a in self.args])})"
+            arguments: list = []
+
+            for i in range(len(self.args)):
+                if (type(self.args[i]) is Tree and self.types[i] is Callable):
+                    arguments.append(self.args[i].root[0])
+                else:
+                    arguments.append(self.args[i])
+
+            s += f"({', '.join([str(a) for a in arguments])})"
 
         return s
 
     def isFinished(self) -> bool:
-        for a in self.args:
-            if (type(a) is Tree):
-                if (not a.isFinished()):
-                    return False
+        for i in range(len(self.args)):
+            if (type(self.args[i]) is Tree):
+                if (not self.types[i] is Callable):
+                    if (not self.args[i].isFinished()):
+                        return False
             else:
                 return False
 
         return True
 
     def nextType(self) -> type:
-        for a in self.args:
-            if (type(a) is Tree):
-                t = a.nextType()
+        for i in range(len(self.args)):
+            if (type(self.args[i]) is Tree):
+                if (not self.types[i] is Callable):
+                    t = self.args[i].nextType()
 
-                if (t):
-                    return t
+                    if (t):
+                        return t
             else:
-                return a
+                return self.args[i]
 
         return None
 
     def applyNextType(self, value: object) -> bool:
         for i in range(0, len(self.args)):
             if (type(self.args[i]) is Tree):
-                if (self.args[i].applyNextType(value)):
-                    return True
+                if (not self.types[i] is Callable):
+                    if (self.args[i].applyNextType(value)):
+                        return True
             else:
                 self.args[i] = value
 
