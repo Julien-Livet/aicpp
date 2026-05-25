@@ -10,6 +10,45 @@ from typing import get_args, get_origin, Tuple
 import dsl_engine
 
 GRID_SIZE = (10, 10)
+NUM_COLORS = 10
+
+def generate_structured_grid():
+    kind = np.random.choice(['stripes', 'blocks', 'pattern', 'gradient', 'sparse', 'random'])
+    h = np.random.randint(4, 15)
+    w = np.random.randint(4, 15)
+
+    if (kind == 'stripes'):
+        grid = np.zeros((h, w), dtype = int)
+
+        for i in range(h):
+            if (np.random.rand() > 0.5):
+                grid[i, :] = np.random.randint(1, NUM_COLORS)
+    elif (kind == 'blocks'):
+        grid = np.zeros((h, w), dtype = int)
+
+        for _ in range(np.random.randint(2, 6)):
+            r1, r2 = sorted(np.random.randint(0, h, 2))
+            c1, c2 = sorted(np.random.randint(0, w, 2))
+            grid[r1:r2+1, c1:c2+1] = np.random.randint(1, NUM_COLORS)
+    elif (kind == 'pattern'):
+        base_h = np.random.randint(2, max(3, h // 2))
+        base_w = np.random.randint(2, max(3, w // 2))
+        base   = np.random.randint(0, NUM_COLORS, (base_h, base_w))
+        grid   = np.tile(base, (h // base_h + 1, w // base_w + 1))[:h, :w]
+    elif (kind == 'gradient'):
+        grid = np.zeros((h, w), dtype = int)
+
+        for i in range(h):
+            grid[i, :] = int(i * (NUM_COLORS - 1) / max(h - 1, 1))
+    elif (kind == 'random'):
+        grid = np.random.randint(0, NUM_COLORS, (h, w))
+    else:  # sparse
+        grid = np.zeros((h, w), dtype = int)
+
+        for _ in range(np.random.randint(3, 10)):
+            grid[np.random.randint(h), np.random.randint(w)] = np.random.randint(1, NUM_COLORS)
+
+    return tuple(map(tuple, grid.tolist()))
 
 arc_types = dsl_engine.load_module("arc_types", "arc-dsl/arc_types.py")
 constants = dsl_engine.load_module("constants",  "arc-dsl/constants.py")
@@ -66,7 +105,7 @@ def randomDslTree(maxDepth: int) -> Tree:
 
 def dslProgram(n: int, depth: int) -> set:
     s = set()
-    I = tuple(map(tuple, np.random.randint(0, 10, GRID_SIZE).tolist()))
+    I = generate_structured_grid()
 
     while (len(s) < n):
         tr = randomDslTree(depth)
@@ -85,7 +124,7 @@ def dslProgram(n: int, depth: int) -> set:
 
     return s
 
-def buildDataset(n: int = 200, maxDepth: int = 8) -> list:
+def buildDataset(n: int = 25, maxDepth: int = 8) -> list:
     args = [(n, depth) for depth in range(1, maxDepth + 1)]
 
     with Pool(os.cpu_count()) as pool:
@@ -106,7 +145,7 @@ def randomTrajectory() -> list:
     gridPairs: list = []
 
     for _ in range(3):
-        I = tuple(map(tuple, np.random.randint(0, 10, GRID_SIZE).tolist()))
+        I = generate_structured_grid()
         O = execute_dsl(choosedProgram, I)
         gridPairs.append((I, O))
 
@@ -146,14 +185,19 @@ def randomTrajectory() -> list:
     return choosedProgram, trajectory
 
 if (__name__ == "__main__"):
-    dataset = buildDataset()
     datasetFilename: str = "dsl_dataset.txt"
+    loop: bool = True
 
-    with open(datasetFilename, "r") as f:
-        dataset = sorted(set(dataset + f.read().split("\n")))
+    while (loop):
+        dataset = buildDataset()
 
-    with open(datasetFilename, "w") as f:
-        f.write("\n".join(dataset))
+        with open(datasetFilename, "r") as f:
+            dataset = sorted(set(dataset + f.read().split("\n")))
+
+        with open(datasetFilename, "w") as f:
+            f.write("\n".join(dataset))
+
+        loop = len(dataset) < 100_000
 
     choosedProgram, trajectory = randomTrajectory()
 
