@@ -162,7 +162,7 @@ def randomTrajectory() -> list:
         if (not math.isinf(cost)):
             sortedPrograms.append((cost, program))
 
-    sortedPrograms.sort(key = lambda x: (x[0], len(x[1])), reverse = True)
+    sortedPrograms.sort(key = lambda x: (-x[0], len(x[1])))
 
     trajectory: list = []
 
