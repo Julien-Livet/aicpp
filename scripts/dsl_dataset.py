@@ -6,7 +6,7 @@ from multiprocess import Pool
 import numpy as np
 import os
 import random
-from typing import get_args, get_origin, Tuple
+from typing import get_args, get_origin, List, Optional, Tuple
 import dsl_engine
 
 GRID_SIZE = (10, 10)
@@ -124,7 +124,7 @@ def dslProgram(n: int, depth: int) -> set:
 
     return s
 
-def buildDataset(n: int = 25, maxDepth: int = 8) -> list:
+def buildDataset(n: int = 25, maxDepth: int = 10) -> list:
     args = [(n, depth) for depth in range(1, maxDepth + 1)]
 
     with Pool(os.cpu_count()) as pool:
@@ -197,7 +197,7 @@ if (__name__ == "__main__"):
         with open(datasetFilename, "w") as f:
             f.write("\n".join(dataset))
 
-        loop = len(dataset) < 100_000
+        loop = len(dataset) < 250_000
 
     choosedProgram, trajectory = randomTrajectory()
 
