@@ -1,4 +1,5 @@
 joblib
+multiprocess
 numpy
 pytest
 pytest-profiling
