@@ -1,21 +1,24 @@
 import collections
 from connection import compatibleType
+import dsl_engine
 from dsl_tree import args, tree, Tree, vocabulary
+import json
 import math
 from multiprocess import Pool
 import numpy as np
 import os
 import random
+import sys
+import time
 from typing import get_args, get_origin, List, Optional, Tuple
-import dsl_engine
 
 GRID_SIZE = (10, 10)
 NUM_COLORS = 10
 
-def generate_structured_grid():
+def generate_structured_grid(minSize: Tuple[int, int] = (4, 4), maxSize: Tuple[int, int] = (30, 30)) -> Tuple[Tuple[int]]:
     kind = np.random.choice(['stripes', 'blocks', 'pattern', 'gradient', 'sparse', 'random'])
-    h = np.random.randint(4, 15)
-    w = np.random.randint(4, 15)
+    h = np.random.randint(minSize[0], maxSize[0])
+    w = np.random.randint(minSize[1], maxSize[1])
 
     if (kind == 'stripes'):
         grid = np.zeros((h, w), dtype = int)
@@ -48,7 +51,10 @@ def generate_structured_grid():
         for _ in range(np.random.randint(3, 10)):
             grid[np.random.randint(h), np.random.randint(w)] = np.random.randint(1, NUM_COLORS)
 
-    return tuple(map(tuple, grid.tolist()))
+    t = tuple(map(tuple, grid.tolist()))
+    del grid
+
+    return t
 
 arc_types = dsl_engine.load_module("arc_types", "arc-dsl/arc_types.py")
 constants = dsl_engine.load_module("constants",  "arc-dsl/constants.py")
@@ -122,6 +128,12 @@ def dslProgram(n: int, depth: int) -> set:
         except Exception:
             pass
 
+        del O
+        del program
+        del tr
+
+    del I
+
     return s
 
 def buildDataset(n: int = 25, maxDepth: int = 10) -> list:
@@ -129,7 +141,7 @@ def buildDataset(n: int = 25, maxDepth: int = 10) -> list:
 
     with Pool(os.cpu_count()) as pool:
         list_of_sets = pool.starmap(dslProgram, args)
-    
+
     dataset = set().union(*list_of_sets)
     dataset = sorted(list(dataset))
 
@@ -184,23 +196,95 @@ def randomTrajectory() -> list:
 
     return choosedProgram, trajectory
 
+def isValidGrid(program: str, I: Tuple[Tuple[int]]) -> bool:
+    O = execute_dsl(program, I)
+
+    try:
+        if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple and I != O and len(O) > 1 and np.min(O) >= 0 and np.max(O) <= 9):
+            del O
+
+            return True
+    except Exception:
+        pass
+
+    del O
+
+    return False
+
+def programGrids(program: str) -> tuple:
+    grids: list = []
+    N: int = random.randint(3, 6)
+
+    t = time.time()
+
+    while (len(grids) < N):
+        loop: bool = True
+        I = 0
+
+        while (loop):
+            del I
+
+            if (time.time() - t > 5):
+                del grids
+
+                return None
+
+            I = generate_structured_grid()
+            loop = not isValidGrid(program, I)
+
+        grids.append(I)
+
+        for f in (np.fliplr, np.flipud, lambda x: np.rot90(x, 1), lambda x: np.rot90(x, 2), lambda x: np.rot90(x, 3)):
+            J = f(I)
+
+            if (isValidGrid(program, J)):
+                grids.append(J)
+
+            del J
+
+        del I
+
+    random.shuffle(grids)
+    t = tuple(grids[:N])
+    del grids
+
+    return t
+
 if (__name__ == "__main__"):
     datasetFilename: str = "dsl_dataset.txt"
-    loop: bool = True
 
-    while (loop):
-        dataset = buildDataset()
+    if ("dsl_dataset" in sys.argv):
+        loop: bool = True
 
+        while (loop):
+            dataset = buildDataset()
+
+            with open(datasetFilename, "r") as f:
+                dataset = sorted(set(dataset + f.read().split("\n")))
+
+            with open(datasetFilename, "w") as f:
+                f.write("\n".join(dataset))
+
+            loop = len(dataset) < 250_000
+    elif ("dsl_random_trajectory" in sys.argv):
+        choosedProgram, trajectory = randomTrajectory()
+
+        with open("dsl_random_trajectory.txt", "w") as f:
+            f.write(choosedProgram + "\n")
+            f.write("\n".join([str(x) for x in trajectory]))
+    elif ("model_dataset" in sys.argv):
         with open(datasetFilename, "r") as f:
-            dataset = sorted(set(dataset + f.read().split("\n")))
+            programs = f.read().split("\n")
 
-        with open(datasetFilename, "w") as f:
-            f.write("\n".join(dataset))
+        with open("model_dataset.jsonl", "w") as f:
+            pass
 
-        loop = len(dataset) < 250_000
+        with Pool(os.cpu_count()) as pool:
+            results = pool.imap(programGrids, programs)
 
-    choosedProgram, trajectory = randomTrajectory()
+            for program, grids in zip(programs, results):
+                if (grids is None):
+                    continue
 
-    with open("dsl_random_trajectory.txt", "w") as f:
-        f.write(choosedProgram + "\n")
-        f.write("\n".join([str(x) for x in trajectory]))
+                with open("model_dataset.jsonl", "a") as f:
+                    f.write(json.dumps({"program": program, "grids": grids}) + "\n")
