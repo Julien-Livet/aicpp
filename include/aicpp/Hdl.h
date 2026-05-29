@@ -41,6 +41,9 @@ namespace hdl
     Integer constexpr NINE = 9;
     Integer constexpr TEN = 10;
 
+    Integer constexpr NEG_ONE = -1;
+    Integer constexpr NEG_TWO = -2;
+
     UnsignedInteger constexpr U_ONE = 1;
     UnsignedInteger constexpr U_TWO = 2;
     UnsignedInteger constexpr U_THREE = 3;
