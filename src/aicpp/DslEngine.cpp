@@ -102,3 +102,13 @@ std::function<double(std::any, std::any)> const& DslEngine::heuristic() const
 {
     return heuristic_;
 }
+
+std::map<std::type_index, std::vector<Neuron> > const& DslEngine::typedVariableNeurons() const
+{
+    return typedVariableNeurons_;
+}
+
+std::map<std::type_index, std::vector<Neuron> > const& DslEngine::typedPrimitiveNeurons() const
+{
+    return typedPrimitiveNeurons_;
+}

@@ -24,6 +24,8 @@ namespace aicpp
             Neuron& variableNeuron(std::string const& name);
             std::map<std::string, Neuron> const& primitiveNeurons() const;
             std::function<double(std::any, std::any)> const& heuristic() const;
+            std::map<std::type_index, std::vector<Neuron> > const& typedVariableNeurons() const;
+            std::map<std::type_index, std::vector<Neuron> > const& typedPrimitiveNeurons() const;
 
             template <typename T> std::tuple<Connection, std::vector<std::string>, double> learn(T const& target)
             {
