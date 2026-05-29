@@ -82,6 +82,9 @@ if (__name__ == "__main__"):
         while (costs[0][0] != "I"):
             costs.pop(0)
 
+        while (costs[-1][0] != k):
+            costs.pop()
+
         costs = dict(costs)
 
         try:
@@ -92,6 +95,7 @@ if (__name__ == "__main__"):
             print(list(costs.keys())[-1], costs[list(costs.keys())[-1]])
         except Exception:
             pass
+
         input("hit")
 
         del costs
