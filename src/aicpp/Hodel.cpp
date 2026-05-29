@@ -6,7 +6,7 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
-static std::any repeat(std::any const& item, hdl::UnsignedInteger const& n)
+static std::any repeat(std::any const& item, hodel::UnsignedInteger const& n)
 {
     if (item.type() == typeid(T))
         return std::vector<T>(n, std::any_cast<T>(item));
@@ -18,7 +18,7 @@ template<typename T>
 static std::any equality(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
-        return hdl::Boolean{std::any_cast<T>(a) == std::any_cast<T>(b)};
+        return hodel::Boolean{std::any_cast<T>(a) == std::any_cast<T>(b)};
 
     return std::any{};
 }
@@ -27,7 +27,7 @@ template<typename T>
 static std::any size_set(std::any const& value)
 {
     if (value.type() == typeid(T))
-        return static_cast<hdl::UnsignedInteger>(std::any_cast<T>(value).size());
+        return static_cast<hodel::UnsignedInteger>(std::any_cast<T>(value).size());
 
     return std::any{};
 }
@@ -133,60 +133,60 @@ static std::any combine_sets(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-std::any do_op(std::any const& a, std::any const& b, std::function<hdl::Integer(hdl::Integer, hdl::Integer)> const& op)
+std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Integer(hodel::Integer, hodel::Integer)> const& op)
 {
-    if (a.type() == typeid(hdl::Numerical) && b.type() == typeid(hdl::Numerical))
+    if (a.type() == typeid(hodel::Numerical) && b.type() == typeid(hodel::Numerical))
     {
-        auto const x{std::any_cast<hdl::Numerical>(a)};
-        auto const y{std::any_cast<hdl::Numerical>(b)};
+        auto const x{std::any_cast<hodel::Numerical>(a)};
+        auto const y{std::any_cast<hodel::Numerical>(b)};
 
-        if (std::holds_alternative<hdl::Integer>(x) && std::holds_alternative<hdl::Integer>(y))
-            return hdl::Numerical{op(std::get<hdl::Integer>(x), std::get<hdl::Integer>(y))};
-        else if (std::holds_alternative<hdl::IntegerTuple>(x) && std::holds_alternative<hdl::IntegerTuple>(y))
+        if (std::holds_alternative<hodel::Integer>(x) && std::holds_alternative<hodel::Integer>(y))
+            return hodel::Numerical{op(std::get<hodel::Integer>(x), std::get<hodel::Integer>(y))};
+        else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
         {
-            auto const& c{std::get<hdl::IntegerTuple>(x)};
-            auto const& d{std::get<hdl::IntegerTuple>(y)};
+            auto const& c{std::get<hodel::IntegerTuple>(x)};
+            auto const& d{std::get<hodel::IntegerTuple>(y)};
 
-            return hdl::Numerical{std::make_pair<hdl::Integer, hdl::Integer>(op(c.first, d.first), op(c.second, d.second))};
+            return hodel::Numerical{std::make_pair<hodel::Integer, hodel::Integer>(op(c.first, d.first), op(c.second, d.second))};
         }
-        else if (std::holds_alternative<hdl::Integer>(x) && std::holds_alternative<hdl::IntegerTuple>(y))
+        else if (std::holds_alternative<hodel::Integer>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
         {
-            auto const& c{std::get<hdl::Integer>(x)};
-            auto const& d{std::get<hdl::IntegerTuple>(y)};
+            auto const& c{std::get<hodel::Integer>(x)};
+            auto const& d{std::get<hodel::IntegerTuple>(y)};
 
-            return hdl::Numerical{std::make_pair<hdl::Integer, hdl::Integer>(op(c, d.first), op(c, d.second))};
+            return hodel::Numerical{std::make_pair<hodel::Integer, hodel::Integer>(op(c, d.first), op(c, d.second))};
         }
-        else if (std::holds_alternative<hdl::IntegerTuple>(x) && std::holds_alternative<hdl::Integer>(y))
+        else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::Integer>(y))
         {
-            auto const& c{std::get<hdl::IntegerTuple>(x)};
-            auto const& d{std::get<hdl::Integer>(y)};
+            auto const& c{std::get<hodel::IntegerTuple>(x)};
+            auto const& d{std::get<hodel::Integer>(y)};
 
-            return hdl::Numerical{std::make_pair<hdl::Integer, hdl::Integer>(op(c.first, d), op(c.second, d))};
+            return hodel::Numerical{std::make_pair<hodel::Integer, hodel::Integer>(op(c.first, d), op(c.second, d))};
         }
     }
-    else if (a.type() == typeid(hdl::Integer))
+    else if (a.type() == typeid(hodel::Integer))
     {
-        auto const x{std::any_cast<hdl::Integer>(a)};
+        auto const x{std::any_cast<hodel::Integer>(a)};
 
-        if (b.type() == typeid(hdl::Integer))
-            return do_op(hdl::Numerical{x}, hdl::Numerical{std::any_cast<hdl::Integer>(b)}, op);
-        else if (b.type() == typeid(hdl::IntegerTuple))
-            return do_op(hdl::Numerical{x}, hdl::Numerical{std::any_cast<hdl::IntegerTuple>(b)}, op);
+        if (b.type() == typeid(hodel::Integer))
+            return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::Integer>(b)}, op);
+        else if (b.type() == typeid(hodel::IntegerTuple))
+            return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::IntegerTuple>(b)}, op);
     }
-    else if (a.type() == typeid(hdl::IntegerTuple))
+    else if (a.type() == typeid(hodel::IntegerTuple))
     {
-        auto const& x{std::any_cast<hdl::IntegerTuple>(a)};
+        auto const& x{std::any_cast<hodel::IntegerTuple>(a)};
 
-        if (b.type() == typeid(hdl::Integer))
-            return do_op(hdl::Numerical{x}, hdl::Numerical{std::any_cast<hdl::Integer>(b)}, op);
-        else if (b.type() == typeid(hdl::IntegerTuple))
-            return do_op(hdl::Numerical{x}, hdl::Numerical{std::any_cast<hdl::IntegerTuple>(b)}, op);
+        if (b.type() == typeid(hodel::Integer))
+            return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::Integer>(b)}, op);
+        else if (b.type() == typeid(hodel::IntegerTuple))
+            return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::IntegerTuple>(b)}, op);
     }
 
     return std::any{};
 }
 
-std::any hdl::identity(std::vector<std::any> const& args)
+std::any hodel::identity(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -196,7 +196,7 @@ std::any hdl::identity(std::vector<std::any> const& args)
     return x;
 }
 
-std::any hdl::add(std::vector<std::any> const& args)
+std::any hodel::add(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -207,7 +207,7 @@ std::any hdl::add(std::vector<std::any> const& args)
     return do_op(a, b, std::plus<Integer>{});
 }
 
-std::any hdl::subtract(std::vector<std::any> const& args)
+std::any hodel::subtract(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -218,7 +218,7 @@ std::any hdl::subtract(std::vector<std::any> const& args)
     return do_op(a, b, std::minus<Integer>{});
 }
 
-std::any hdl::multiply(std::vector<std::any> const& args)
+std::any hodel::multiply(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -229,7 +229,7 @@ std::any hdl::multiply(std::vector<std::any> const& args)
     return do_op(a, b, std::multiplies<Integer>{});
 }
 
-std::any hdl::divide(std::vector<std::any> const& args)
+std::any hodel::divide(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -240,7 +240,7 @@ std::any hdl::divide(std::vector<std::any> const& args)
     return do_op(a, b, std::divides<Integer>{});
 }
 
-std::any hdl::invert(std::vector<std::any> const& args)
+std::any hodel::invert(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -272,29 +272,29 @@ std::any hdl::invert(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::even(std::vector<std::any> const& args)
+std::any hodel::even(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
 
     auto const n{args.front()};
 
-    if (n.type() == typeid(hdl::Integer))
+    if (n.type() == typeid(hodel::Integer))
         return Boolean{std::any_cast<Integer>(n) % 2 == 0};
 
     return std::any{};
 }
 
-std::any hdl::double_(std::vector<std::any> const& args)
+std::any hodel::double_(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
 
     auto const n{args.front()};
 
-    if (n.type() == typeid(hdl::Numerical))
+    if (n.type() == typeid(hodel::Numerical))
     {
-        auto const x{std::any_cast<hdl::Numerical>(n)};
+        auto const x{std::any_cast<hodel::Numerical>(n)};
 
         if (std::holds_alternative<Integer>(x))
         {
@@ -317,16 +317,16 @@ std::any hdl::double_(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::halve(std::vector<std::any> const& args)
+std::any hodel::halve(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
 
     auto const n{args.front()};
 
-    if (n.type() == typeid(hdl::Numerical))
+    if (n.type() == typeid(hodel::Numerical))
     {
-        auto const x{std::any_cast<hdl::Numerical>(n)};
+        auto const x{std::any_cast<hodel::Numerical>(n)};
 
         if (std::holds_alternative<Integer>(x))
         {
@@ -349,7 +349,7 @@ std::any hdl::halve(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::flip(std::vector<std::any> const& args)
+std::any hodel::flip(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -362,7 +362,7 @@ std::any hdl::flip(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::equality(std::vector<std::any> const& args)
+std::any hodel::equality(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -390,7 +390,7 @@ std::any hdl::equality(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::contained(std::vector<std::any> const& args)
+std::any hodel::contained(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -454,7 +454,7 @@ std::any hdl::contained(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::combine(std::vector<std::any> const& args)
+std::any hodel::combine(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -482,7 +482,7 @@ std::any hdl::combine(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::intersection(std::vector<std::any> const& args)
+std::any hodel::intersection(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -499,7 +499,7 @@ std::any hdl::intersection(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::difference(std::vector<std::any> const& args)
+std::any hodel::difference(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -516,7 +516,7 @@ std::any hdl::difference(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::dedupe(std::vector<std::any> const& args)
+std::any hodel::dedupe(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -555,7 +555,7 @@ std::any hdl::dedupe(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::order(std::vector<std::any> const& args)
+std::any hodel::order(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -568,7 +568,7 @@ std::any hdl::order(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::repeat(std::vector<std::any> const& args)
+std::any hodel::repeat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -590,7 +590,7 @@ std::any hdl::repeat(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::greater(std::vector<std::any> const& args)
+std::any hodel::greater(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -604,7 +604,7 @@ std::any hdl::greater(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::size(std::vector<std::any> const& args)
+std::any hodel::size(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -627,7 +627,7 @@ std::any hdl::size(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::maximum(std::vector<std::any> const& args)
+std::any hodel::maximum(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -647,7 +647,7 @@ std::any hdl::maximum(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::minimum(std::vector<std::any> const& args)
+std::any hodel::minimum(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -667,7 +667,7 @@ std::any hdl::minimum(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::initset(std::vector<std::any> const& args)
+std::any hodel::initset(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -683,7 +683,7 @@ std::any hdl::initset(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::both(std::vector<std::any> const& args)
+std::any hodel::both(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -697,7 +697,7 @@ std::any hdl::both(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::either(std::vector<std::any> const& args)
+std::any hodel::either(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -711,7 +711,7 @@ std::any hdl::either(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::increment(std::vector<std::any> const& args)
+std::any hodel::increment(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -737,7 +737,7 @@ std::any hdl::increment(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::decrement(std::vector<std::any> const& args)
+std::any hodel::decrement(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -763,7 +763,7 @@ std::any hdl::decrement(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::crement(std::vector<std::any> const& args)
+std::any hodel::crement(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -813,7 +813,7 @@ std::any hdl::crement(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::sign(std::vector<std::any> const& args)
+std::any hodel::sign(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -863,7 +863,7 @@ std::any hdl::sign(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::positive(std::vector<std::any> const& args)
+std::any hodel::positive(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -876,7 +876,7 @@ std::any hdl::positive(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::toivec(std::vector<std::any> const& args)
+std::any hodel::toivec(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -889,7 +889,7 @@ std::any hdl::toivec(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::tojvec(std::vector<std::any> const& args)
+std::any hodel::tojvec(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -902,7 +902,7 @@ std::any hdl::tojvec(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::totuple(std::vector<std::any> const& args)
+std::any hodel::totuple(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -918,7 +918,7 @@ std::any hdl::totuple(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::first(std::vector<std::any> const& args)
+std::any hodel::first(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -941,7 +941,7 @@ std::any hdl::first(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::last(std::vector<std::any> const& args)
+std::any hodel::last(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -964,7 +964,7 @@ std::any hdl::last(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::interval(std::vector<std::any> const& args)
+std::any hodel::interval(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
         return std::any{};
@@ -989,7 +989,7 @@ std::any hdl::interval(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::astuple(std::vector<std::any> const& args)
+std::any hodel::astuple(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1003,7 +1003,7 @@ std::any hdl::astuple(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::ulcorner(std::vector<std::any> const& args)
+std::any hodel::ulcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1039,7 +1039,7 @@ std::any hdl::ulcorner(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::urcorner(std::vector<std::any> const& args)
+std::any hodel::urcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1076,7 +1076,7 @@ std::any hdl::urcorner(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::llcorner(std::vector<std::any> const& args)
+std::any hodel::llcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1112,7 +1112,7 @@ std::any hdl::llcorner(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::lrcorner(std::vector<std::any> const& args)
+std::any hodel::lrcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1148,7 +1148,7 @@ std::any hdl::lrcorner(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::crop(std::vector<std::any> const& args)
+std::any hodel::crop(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
         return std::any{};
@@ -1184,7 +1184,7 @@ std::any hdl::crop(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::toindices(std::vector<std::any> const& args)
+std::any hodel::toindices(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1218,7 +1218,7 @@ std::any hdl::toindices(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::shift(std::vector<std::any> const& args)
+std::any hodel::shift(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1270,7 +1270,7 @@ std::any hdl::shift(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::uppermost(std::vector<std::any> const& args)
+std::any hodel::uppermost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1296,7 +1296,7 @@ std::any hdl::uppermost(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::lowermost(std::vector<std::any> const& args)
+std::any hodel::lowermost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1322,7 +1322,7 @@ std::any hdl::lowermost(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::leftmost(std::vector<std::any> const& args)
+std::any hodel::leftmost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1348,7 +1348,7 @@ std::any hdl::leftmost(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::rightmost(std::vector<std::any> const& args)
+std::any hodel::rightmost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1374,7 +1374,7 @@ std::any hdl::rightmost(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::rot90(std::vector<std::any> const& args)
+std::any hodel::rot90(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1405,7 +1405,7 @@ std::any hdl::rot90(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::rot180(std::vector<std::any> const& args)
+std::any hodel::rot180(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1436,7 +1436,7 @@ std::any hdl::rot180(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::rot270(std::vector<std::any> const& args)
+std::any hodel::rot270(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1467,7 +1467,7 @@ std::any hdl::rot270(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::hmirror(std::vector<std::any> const& args)
+std::any hodel::hmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1526,7 +1526,7 @@ std::any hdl::hmirror(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::vmirror(std::vector<std::any> const& args)
+std::any hodel::vmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1586,7 +1586,7 @@ std::any hdl::vmirror(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::dmirror(std::vector<std::any> const& args)
+std::any hodel::dmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1655,7 +1655,7 @@ std::any hdl::dmirror(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::cmirror(std::vector<std::any> const& args)
+std::any hodel::cmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -1688,7 +1688,7 @@ std::any hdl::cmirror(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::hupscale(std::vector<std::any> const& args)
+std::any hodel::hupscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1723,7 +1723,7 @@ std::any hdl::hupscale(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::vupscale(std::vector<std::any> const& args)
+std::any hodel::vupscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1751,7 +1751,7 @@ std::any hdl::vupscale(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::upscale(std::vector<std::any> const& args)
+std::any hodel::upscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1823,7 +1823,7 @@ std::any hdl::upscale(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::downscale(std::vector<std::any> const& args)
+std::any hodel::downscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1871,7 +1871,7 @@ std::any hdl::downscale(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::hconcat(std::vector<std::any> const& args)
+std::any hodel::hconcat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1904,7 +1904,7 @@ std::any hdl::hconcat(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::vconcat(std::vector<std::any> const& args)
+std::any hodel::vconcat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         return std::any{};
@@ -1929,7 +1929,7 @@ std::any hdl::vconcat(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::replace(std::vector<std::any> const& args)
+std::any hodel::replace(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
         return std::any{};
@@ -1961,7 +1961,7 @@ std::any hdl::replace(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::switch_(std::vector<std::any> const& args)
+std::any hodel::switch_(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
         return std::any{};
@@ -1995,7 +1995,7 @@ std::any hdl::switch_(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::tophalf(std::vector<std::any> const& args)
+std::any hodel::tophalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -2013,7 +2013,7 @@ std::any hdl::tophalf(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::bottomhalf(std::vector<std::any> const& args)
+std::any hodel::bottomhalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -2031,7 +2031,7 @@ std::any hdl::bottomhalf(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::lefthalf(std::vector<std::any> const& args)
+std::any hodel::lefthalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};
@@ -2044,7 +2044,7 @@ std::any hdl::lefthalf(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hdl::righthalf(std::vector<std::any> const& args)
+std::any hodel::righthalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
         return std::any{};

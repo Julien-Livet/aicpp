@@ -67,9 +67,9 @@ for definition in variableDefinitions:
     content += f'    neurons.emplace("{name}"'
     content += ", Neuron{"
     content += f'"{name}"'
-    content += ", [] (std::vector<std::any> const&) -> std::any { return hdl::"
+    content += ", [] (std::vector<std::any> const&) -> std::any { return hodel::"
     content += name
-    content += "; }, std::vector<std::type_index>{}, typeid(hdl::"
+    content += "; }, std::vector<std::type_index>{}, typeid(hodel::"
     content += variableType
     content += ")});\n"
 
@@ -117,15 +117,15 @@ for definition in primitiveDefinitions:
         if (len(products) > 1):
             n += str(i)
 
-        tt = [f"typeid(hdl::{x})" for x in p[1:]]
+        tt = [f"typeid(hodel::{x})" for x in p[1:]]
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
         content += f'"{name}"'
-        content += f", hdl::{name}"
+        content += f", hodel::{name}"
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
-        content += "}, typeid(hdl::"
+        content += "}, typeid(hodel::"
         content += p[0]
         content += ")});\n"
 

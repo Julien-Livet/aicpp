@@ -28,10 +28,10 @@ DslEngine::DslEngine(std::function<double(std::any, std::any)> const heuristic,
 
     //TODO: see if there is a way to do it more generic
     std::unordered_map<std::type_index, std::vector<std::type_index> > conversionRules;
-    addRule<hdl::Numerical>(conversionRules);
-    addRule<hdl::Patch>(conversionRules);
-    addRule<hdl::Element>(conversionRules);
-    addRule<hdl::Piece>(conversionRules);
+    addRule<hodel::Numerical>(conversionRules);
+    addRule<hodel::Patch>(conversionRules);
+    addRule<hodel::Element>(conversionRules);
+    addRule<hodel::Piece>(conversionRules);
 
     for (const auto& [name, neuron] : primitiveNeurons_)
     {

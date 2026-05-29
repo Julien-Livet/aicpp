@@ -8,7 +8,7 @@
 #include <variant>
 #include <vector>
 
-namespace hdl
+namespace hodel
 {
     typedef bool Boolean;
     typedef int Integer;
@@ -75,9 +75,9 @@ namespace hdl
     std::any multiply(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): multiplication
     std::any divide(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): floor division
     std::any invert(std::vector<std::any> const& args); //Numerical(Numerical): inversion with respect to addition
-    std::any even(std::vector<std::any> const& args); //Integer(Boolean): evenness
-    std::any double_(std::vector<std::any> const& args); //Integer(Integer): scaling by two
-    std::any halve(std::vector<std::any> const& args); //Integer(Integer): scaling by one half
+    std::any even(std::vector<std::any> const& args); //Boolean(Integer): evenness
+    std::any double_(std::vector<std::any> const& args); //Numerical(Numerical): scaling by two
+    std::any halve(std::vector<std::any> const& args); //Numerical(Numerical): scaling by one half
     std::any flip(std::vector<std::any> const& args); //Boolean(Boolean): logical not
     std::any equality(std::vector<std::any> const& args); //Any(Any): equality
     std::any contained(std::vector<std::any> const& args); //Boolean(Any, Container): element of
@@ -98,7 +98,7 @@ namespace hdl
     std::any decrement(std::vector<std::any> const& args); //Numerical(Numerical): decrementing
     std::any crement(std::vector<std::any> const& args); //Numerical(Numerical): incrementing positive and decrementing negative
     std::any sign(std::vector<std::any> const& args); //Numerical(Numerical): sign
-    std::any positive(std::vector<std::any> const& args); //Boolean(Numerical): positive
+    std::any positive(std::vector<std::any> const& args); //Boolean(Integer): positive
     std::any toivec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing vertically
     std::any tojvec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing horizontally
     std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
