@@ -9,4 +9,5 @@ sympy
 tabulate
 textdistance
 torch
+torch-geometric
 tqdm
