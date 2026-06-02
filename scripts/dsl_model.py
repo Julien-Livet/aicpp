@@ -531,16 +531,6 @@ if (__name__ == "__main__"):
     candidatePrograms: list = ["I"] * 5
 
     for k, v in modelDataset.items():
-        graph = builder.build(k)
-        print(graph)
-        graph.batch = torch.zeros(
-            graph.x.size(0),
-            dtype=torch.long
-        )
-
-        z_ast = astModel(graph)
-        print(z_ast.shape)
-
         outputs: list = []
         
         for grid in v:
@@ -581,23 +571,30 @@ if (__name__ == "__main__"):
         candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+            z_asts: list = []
             z_costs: list = []
             
             for program, df in candidates:
+                graph = builder.build(program)
+                graph.batch = torch.zeros(
+                    graph.x.size(0),
+                    dtype=torch.long
+                )
+                z_asts.append(astModel(graph))
                 cost_tensor = dataframe_to_cost_tensor(df)
                 z_cost = costModel(cost_tensor)
                 z_costs.append(z_cost)
 
-            #program = model(z_ast, z_grids, z_costs, costs[0][0])
+            #program = model(z_grids, z_asts, z_costs, costs[0][0])
             df = programCosts(k, [program], v)[0]
-            
-            if (df.sum(axis = 0, skipna = False)["Total cost"] < costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
-                costs.pop(0)
+
+            if (df.sum(axis = 0, skipna = False)["Total cost"] < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]):
                 candidates.pop(0)
                 candidates.insert(0, (program, df))
                 candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
-            
-            pass
+
+                while (len(costs) and df.sum(axis = 0, skipna = False)["Total cost"] <= costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
+                    costs.pop(0)
         """
 
         input("hit")
