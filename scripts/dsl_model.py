@@ -528,6 +528,8 @@ if (__name__ == "__main__"):
         d_model=256
     )
 
+    candidatePrograms: list = ["I"] * 5
+
     for k, v in modelDataset.items():
         graph = builder.build(k)
         print(graph)
@@ -536,8 +538,8 @@ if (__name__ == "__main__"):
             dtype=torch.long
         )
 
-        z = astModel(graph)
-        print(z.shape)
+        z_ast = astModel(graph)
+        print(z_ast.shape)
 
         outputs: list = []
         
@@ -560,22 +562,43 @@ if (__name__ == "__main__"):
         while (costs[-1][0] != k):
             costs.pop()
 
-        df = costs[0][1]
-        cost_tensor = dataframe_to_cost_tensor(df)
-        z_cost = costModel(cost_tensor)
-        print(z_cost.shape)
-
-        costs = dict(costs)
+        searchedCosts = dict(costs)
 
         try:
             print(k)
-            keys = list(costs.keys())
-            print(keys[0], costs[keys[0]])
-            print(keys[1], costs[keys[1]])
-            print(keys[-2], costs[keys[-2]])
-            print(keys[-1], costs[keys[-1]])
+            keys = list(searchedCosts.keys())
+            print(keys[0], searchedCosts[keys[0]])
+            print(keys[1], searchedCosts[keys[1]])
+            print(keys[-2], searchedCosts[keys[-2]])
+            print(keys[-1], searchedCosts[keys[-1]])
         except Exception:
             pass
+
+        del searchedCosts
+        """
+        costs.pop(0)
+        candidates = dict(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
+        candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+
+        while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+            z_costs: list = []
+            
+            for program, df in candidates:
+                cost_tensor = dataframe_to_cost_tensor(df)
+                z_cost = costModel(cost_tensor)
+                z_costs.append(z_cost)
+
+            #program = model(z_ast, z_grids, z_costs, costs[0][0])
+            df = programCosts(k, [program], v)[0]
+            
+            if (df.sum(axis = 0, skipna = False)["Total cost"] < costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
+                costs.pop(0)
+                candidates.pop(0)
+                candidates.insert(0, (program, df))
+                candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+            
+            pass
+        """
 
         input("hit")
 
