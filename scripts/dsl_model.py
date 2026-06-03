@@ -19,7 +19,7 @@ from typing import List, Tuple
 Grid = Tuple[Tuple[int]]
 
 scoreFunctions = [size_cost, bounding_box_cost, pixel_overlap_cost, value_cost]
-scoreColumns = ["Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost", "Total cost"]
+scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
 
 def dataframe_to_cost_tensor(df):
     """
@@ -224,6 +224,7 @@ class ARCGridEncoder(nn.Module):
         num_colors=10,
         d_model=256,
         cnn_dim=64,
+        device: str = "cpu"
     ):
         super().__init__()
 
@@ -232,9 +233,9 @@ class ARCGridEncoder(nn.Module):
         # 1 diff
         # 1 valid_mask
         in_channels = num_colors * 2 + 2
+        self.device = device
 
         self.conv_net = nn.Sequential(
-
             nn.Conv2d(
                 in_channels,
                 cnn_dim,
@@ -310,9 +311,9 @@ class ARCGridEncoder(nn.Module):
             out_oh,
             diff,
             valid_mask
-        ], dim=1)
+        ], dim=1).to(self.device)
         x = self.conv_net(x)
-        mask = valid_mask.float()
+        mask = valid_mask.float().to(self.device)
         x = x * mask
         x_sum = x.sum(dim=[2, 3])
         mask_sum = mask.sum(dim=[2, 3])
@@ -322,12 +323,12 @@ class ARCGridEncoder(nn.Module):
         return z_grid
 
 class ARCContextEncoder(nn.Module):
-
-    def __init__(self, d_model=256):
+    def __init__(self, d_model=256, device: str = "cpu"):
         super().__init__()
 
         self.grid_encoder = ARCGridEncoder(
-            d_model=d_model
+            d_model=d_model,
+            device=device
         )
 
         self.attn_pool = nn.Sequential(
@@ -344,7 +345,6 @@ class ARCContextEncoder(nn.Module):
         """
 
         B, N, H, W = inputs.shape
-
         z_list = []
 
         for i in range(N):
@@ -455,6 +455,462 @@ def arc_pairs_to_tensors(arc_pairs: List[Tuple[Grid, Grid]]):
 
     return inputs, outputs, masks
 
+class DSLModel(nn.Module):
+    def __init__(
+        self,
+        vocab_size   : int,
+        d_model      : int   = 256,
+        n_heads      : int   = 8,
+        n_dec_layers : int   = 4,
+        dropout      : float = 0.1,
+        max_len      : int   = 128,
+        device       : str   = "cpu"
+    ):
+        super().__init__()
+        self.d_model = d_model
+
+        self.grid_encoder = ARCContextEncoder(d_model=d_model, device=device)
+        self.prog_encoder = DSLProgramEncoder(vocab_size=vocab_size, d_model=d_model)
+        self.cost_encoder = CostEncoder(input_dim=5, d_model=d_model)
+
+        self.prog_attn = nn.MultiheadAttention(
+            d_model, n_heads, dropout=dropout, batch_first=True
+        )
+        self.fusion_norm = nn.LayerNorm(d_model)
+        self.fusion_proj = nn.Sequential(
+            nn.Linear(d_model * 2, d_model),
+            nn.GELU(),
+            nn.Linear(d_model, d_model),
+        )
+
+        self.decoder = DSLDecoder(
+            vocab_size  = vocab_size,
+            d_model     = d_model,
+            n_heads     = n_heads,
+            n_layers    = n_dec_layers,
+            ff_dim      = d_model * 2,
+            dropout     = dropout,
+            max_len     = max_len,
+        )
+
+    def encode_context(
+        self,
+        inputs       : torch.Tensor,          # [B, N, H, W]
+        outputs      : torch.Tensor,           # [B, N, H, W]
+        masks        : torch.Tensor,           # [B, N, H, W]
+        prog_graphs  : List[Data],             # M graphes GNN (un par programme)
+        cost_tensors : List[torch.Tensor],     # M tenseurs [B, N_grids, 5]
+    ) -> torch.Tensor:
+        B = inputs.size(0)
+        M = len(prog_graphs)
+        z_grids = self.grid_encoder(inputs, outputs, masks)   # [B, D]
+        z_progs = []
+
+        for m in range(M):
+            graph_m = prog_graphs[m]
+            z_prog_m = self.prog_encoder(graph_m)              # [B, D]
+            z_cost_m = self.cost_encoder(cost_tensors[m])      # [B, D]
+            z_progs.append(z_prog_m + z_cost_m)               # [B, D]
+
+        # Stack : [B, M, D]
+        z_progs_stack = torch.stack(z_progs, dim=1)
+        z_grids_q = z_grids.unsqueeze(1)                      # [B, 1, D]
+        z_attended, _ = self.prog_attn(
+            z_grids_q, z_progs_stack, z_progs_stack
+        )                                                       # [B, 1, D]
+        z_attended = z_attended.squeeze(1)                     # [B, D]
+        z_fused  = self.fusion_norm(z_grids + z_attended)
+        z_context = self.fusion_proj(
+            torch.cat([z_grids, z_attended], dim=-1)
+        )                                                       # [B, D]
+
+        return z_context
+
+    def forward(
+        self,
+        inputs       : torch.Tensor,
+        outputs      : torch.Tensor,
+        masks        : torch.Tensor,
+        prog_graphs  : List[Data],
+        cost_tensors : List[torch.Tensor],
+        tgt          : torch.Tensor,           # [B, L]  teacher forcing
+    ) -> torch.Tensor:
+        z_context = self.encode_context(
+            inputs, outputs, masks, prog_graphs, cost_tensors
+        )
+
+        return self.decoder(tgt, z_context)
+
+class DSLDecoder(nn.Module):
+    def __init__(
+        self,
+        vocab_size  : int,
+        d_model     : int   = 256,
+        n_heads     : int   = 8,
+        n_layers    : int   = 4,
+        ff_dim      : int   = 512,
+        dropout     : float = 0.1,
+        max_len     : int   = 128,
+    ):
+        super().__init__()
+        self.d_model    = d_model
+        self.vocab_size = vocab_size
+        self.max_len    = max_len
+
+        self.context_proj = nn.Linear(d_model, d_model)
+
+        self.token_embed = nn.Embedding(vocab_size, d_model, padding_idx=0)
+        self.pos_enc     = PositionalEncoding(d_model, max_len, dropout)
+
+        dec_layer = nn.TransformerDecoderLayer(
+            d_model        = d_model,
+            nhead          = n_heads,
+            dim_feedforward= ff_dim,
+            dropout        = dropout,
+            batch_first    = True,
+            norm_first     = True,
+        )
+        self.decoder     = nn.TransformerDecoder(dec_layer, num_layers=n_layers)
+        self.output_proj = nn.Linear(d_model, vocab_size)
+
+        self._init_weights()
+
+    def _init_weights(self):
+        for p in self.parameters():
+            if (p.dim() > 1):
+                nn.init.xavier_uniform_(p)
+
+    def forward(
+        self,
+        tgt         : torch.Tensor,   # [B, L]
+        z_context   : torch.Tensor,   # [B, D]
+    ) -> torch.Tensor:
+        B, L = tgt.shape
+
+        memory = self.context_proj(z_context).unsqueeze(1)   # [B, 1, D]
+        causal = nn.Transformer.generate_square_subsequent_mask(L, device=tgt.device)
+
+        x = self.token_embed(tgt) * math.sqrt(self.d_model)
+        x = self.pos_enc(x)
+        x = self.decoder(x, memory, tgt_mask=causal)         # [B, L, D]
+
+        return self.output_proj(x)                            # [B, L, V]
+
+    def decode_step(
+        self,
+        generated   : torch.Tensor,   # [B, t]
+        z_context   : torch.Tensor,   # [B, D]
+    ) -> torch.Tensor:
+        logits = self.forward(generated, z_context)
+
+        return logits[:, -1, :]   # [B, V]  only last step
+
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model: int, max_len: int = 256, dropout: float = 0.1):
+        super().__init__()
+        self.dropout = nn.Dropout(dropout)
+        pe  = torch.zeros(max_len, d_model)
+        pos = torch.arange(max_len).unsqueeze(1).float()
+        div = torch.exp(
+            torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model)
+        )
+        pe[:, 0::2] = torch.sin(pos * div)
+        pe[:, 1::2] = torch.cos(pos * div)
+        self.register_buffer("pe", pe.unsqueeze(0))   # [1, max_len, d_model]
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.dropout(x + self.pe[:, :x.size(1)])
+
+class TreeStateMask:
+    def __init__(self, vocab, max_depth: int = 6):
+        self.vocab     = vocab
+        self.max_depth = max_depth
+        self._reset()
+
+    def _reset(self):
+        from dsl_tree import vocabulary, args, tree, Tree
+        import collections.abc
+        from typing import get_origin, get_args
+
+        self._vocabulary = vocabulary
+        self._args_fn    = args
+        self._tree_fn    = tree
+        self._Tree       = Tree
+        self._abc        = collections.abc
+        self._get_origin = get_origin
+        self._get_args   = get_args
+
+        self.current_tree  = None
+        self.depth         = 0
+        self.state         = "EXPECT_ROOT"   # EXPECT_ROOT | EXPECT_ARG | DONE | ERROR
+
+    def reset(self):
+        self._reset()
+
+    def _grid_roots(self) -> List[str]:
+        candidates = []
+
+        for name, (t, v) in self._vocabulary.items():
+            if (not isinstance(name, str)):
+                continue
+
+            if (self._get_origin(t) is self._abc.Callable):
+                ret = self._get_args(t)[1]
+
+                if (self._is_grid(ret)):
+                    candidates.append(name)
+
+        return sorted(candidates)
+
+    def _is_grid(self, t) -> bool:
+        s = str(t)
+
+        return any(g in s for g in ["typing.Tuple[typing.Tuple", "Grid", "tuple"])
+
+    def valid_tokens(self) -> List[str]:
+        if (self.state == "DONE" or self.state == "ERROR"):
+            return []
+
+        if (self.state == "EXPECT_ROOT"):
+            return self._grid_roots()
+
+        if (self.state == "EXPECT_ARG" and self.current_tree is not None):
+            next_type = self.current_tree.nextType()
+
+            if (next_type is None):
+                self.state = "DONE"
+
+                return []
+
+            candidates = self._args_fn(next_type)
+
+            candidates = [
+                n for n in candidates
+                if isinstance(n, str) and n in self._vocabulary
+            ]
+
+            if (self.depth >= self.max_depth):
+                candidates = [
+                    n for n in candidates
+                    if not (self._get_origin(
+                        self._vocabulary[n][0]) is self._abc.Callable)
+                ]
+
+            return candidates
+
+        return []
+
+    def valid_mask(self, device="cpu") -> torch.Tensor:
+        mask     = torch.zeros(len(self.vocab.token2id), dtype=torch.bool)
+        valid    = self.valid_tokens()
+
+        for name in valid:
+            if (name in self.vocab.token2id):
+                mask[self.vocab.token2id[name]] = True
+
+        if (not mask.any()):
+            eos_id = self.vocab.token2id.get("<EOS>", 2)
+            mask[eos_id] = True
+
+        return mask.to(device)
+
+    def apply_token(self, token_name: str) -> bool:
+        if (self.state in ("DONE", "ERROR")):
+            return False
+
+        valid = self.valid_tokens()
+
+        if (token_name not in valid):
+            self.state = "ERROR"
+
+            return False
+
+        if (self.state == "EXPECT_ROOT"):
+            self.current_tree = self._tree_fn(token_name)
+            self.state        = "EXPECT_ARG"
+
+            if (self.current_tree.isFinished()):
+                self.state = "DONE"
+
+            return True
+
+        if (self.state == "EXPECT_ARG"):
+            next_type = self.current_tree.nextType()
+            t_type, _ = self._vocabulary[token_name]
+
+            if (not self._get_origin(next_type) is self._abc.Callable
+                    and self._get_origin(t_type) is self._abc.Callable):
+                self.depth += 1
+
+            if (self._get_origin(next_type) is self._abc.Callable):
+                node = self._Tree(
+                    (token_name, *self._vocabulary[token_name]), []
+                )
+            else:
+                node = self._tree_fn(token_name)
+
+            self.current_tree.applyNextType(node)
+
+            if (self.current_tree.isFinished()):
+                self.state = "DONE"
+
+            return True
+
+        return False
+
+    def is_done(self) -> bool:
+        return self.state == "DONE"
+
+    def program(self) -> str:
+        if (self.current_tree is None):
+            return ""
+
+        return str(self.current_tree)
+
+@torch.no_grad()
+def generate(
+    model       : DSLModel,
+    vocab,
+    z_context   : torch.Tensor,   # [1, D]
+    beam_width  : int   = 5,
+    max_len     : int   = 128,
+    temperature : float = 1.0,
+    max_depth   : int   = 6,
+    device      : str   = "cuda",
+) -> List[Tuple[float, str]]:
+    model.eval()
+
+    BOS = vocab.token2id.get("<BOS>", 1)
+    EOS = vocab.token2id.get("<EOS>", 2)
+    PAD = vocab.token2id.get("<PAD>", 0)
+
+    beams = [(0.0, [BOS], TreeStateMask(vocab, max_depth))]
+
+    import copy
+
+    for step in range(max_len - 1):
+        all_candidates = []
+
+        for score, ids, ts in beams:
+            if (ids[-1] == EOS or ts.is_done()):
+                all_candidates.append((score, ids, ts))
+                continue
+
+            tgt    = torch.tensor([ids], dtype=torch.long, device=device)
+            logits = model.decoder.decode_step(tgt, z_context)  # [1, V]
+            logits = logits[0] / max(temperature, 1e-6)          # [V]
+            mask = ts.valid_mask(device=device)   # [V]
+
+            if (mask.any()):
+                logits = logits.masked_fill(~mask, float("-inf"))
+
+            log_probs = F.log_softmax(logits, dim=-1)
+
+            # Top-k tokens
+            top_lp, top_ids = log_probs.topk(
+                min(beam_width * 2, mask.sum().item() or 1)
+            )
+
+            for lp, tok_id in zip(top_lp.tolist(), top_ids.tolist()):
+                tok_name = vocab.id2token.get(tok_id, "<PAD>")
+
+                if (tok_name in ("<PAD>", "<BOS>")):
+                    continue
+
+                ts_new = copy.deepcopy(ts)
+
+                if (tok_name == "<EOS>" or ts_new.is_done()):
+                    all_candidates.append(
+                        (score + lp, ids + [tok_id], ts_new)
+                    )
+                    continue
+
+                if (ts_new.apply_token(tok_name)):
+                    all_candidates.append(
+                        (score + lp, ids + [tok_id], ts_new)
+                    )
+
+        all_candidates.sort(key=lambda x: -x[0])
+
+        selected   = []
+        seen_progs = set()
+
+        for s, ids, ts in all_candidates:
+            prog = ts.program()
+
+            if (prog not in seen_progs):
+                seen_progs.add(prog)
+                selected.append((s, ids, ts))
+
+            if (len(selected) >= beam_width):
+                break
+
+        beams = selected
+
+        if (all(b[1][-1] == EOS or b[2].is_done() for b in beams)):
+            break
+
+    results = []
+
+    for score, ids, ts in beams:
+        prog = ts.program()
+        depth = prog.count("(") - prog.count(")")
+        prog  = prog + ")" * max(0, depth)
+
+        if (prog and "I" in prog):
+            results.append((score, prog))
+
+    return results if results else [(float("-inf"), "I")]
+
+@torch.no_grad()
+def generate_one(
+    model       : DSLModel,
+    vocab,
+    z_context   : torch.Tensor,
+    temperature : float = 1.0,
+    max_depth   : int   = 6,
+    device      : str   = "cuda",
+) -> str:
+    model.eval()
+
+    BOS = vocab.token2id.get("<BOS>", 1)
+    EOS = vocab.token2id.get("<EOS>", 2)
+
+    ids = [BOS]
+    ts  = TreeStateMask(vocab, max_depth)
+
+    for _ in range(128):
+        if (ids[-1] == EOS or ts.is_done()):
+            break
+
+        tgt = torch.tensor([ids], dtype=torch.long, device=device)
+        logits = model.decoder.decode_step(tgt, z_context)[0]
+        logits = logits / max(temperature, 1e-6)
+        mask = ts.valid_mask(device=device)
+
+        if (mask.any()):
+            logits = logits.masked_fill(~mask, float("-inf"))
+
+        probs  = F.softmax(logits, dim=-1)
+        tok_id = torch.multinomial(probs, 1).item()
+        tok    = vocab.id2token.get(tok_id, "<PAD>")
+
+        if (tok in ("<PAD>", "<BOS>")):
+            break
+
+        if (tok == "<EOS>" or ts.is_done()):
+            break
+
+        if (ts.apply_token(tok)):
+            ids.append(tok_id)
+        else:
+            break
+
+    prog  = ts.program()
+    depth = prog.count("(") - prog.count(")")
+
+    return prog + ")" * max(0, depth)
+
 def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
     scores: list = []
         
@@ -479,7 +935,7 @@ def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
 
         del O
 
-        scores.append(score + [sum(score)])
+        scores.append([sum(score)] + score)
 
     df = pd.DataFrame(scores, index = [f"grid{i+1}" for i in range(len(pairs))], columns = scoreColumns)
 
@@ -497,8 +953,47 @@ def programCosts(targetProgram: str, programs: List[str], inputs: Tuple[Tuple[in
 
     with Pool(os.cpu_count()) as pool:
         dfs = pool.starmap(programDf, [(program, pairs) for program in programs])
-    
+
     return dfs
+
+def build_prog_graph(program: str, vocab, device: str = "cpu") -> Data:
+    builder = DSLGraphBuilder(vocab.token2id)
+
+    try:
+        graph       = builder.build(program)
+        graph.batch = torch.zeros(graph.x.size(0), dtype=torch.long, device=device)
+
+        return graph.to(device)
+    except Exception:
+        x          = torch.tensor([vocab.token2id.get("I", 0)], dtype=torch.long, device=device)
+        edge_index = torch.empty((2, 0), dtype=torch.long, device=device)
+        g          = Data(x=x, edge_index=edge_index)
+        g.batch    = torch.zeros(1, dtype=torch.long, device=device)
+
+        return g
+
+def encode_program_tokens(program: str, vocab, max_len: int = 128) -> torch.Tensor:
+    ids     = [vocab.token2id.get("<BOS>", 1)]
+    known   = sorted(
+        [t for t in vocab.token2id if t not in ("<PAD>","<BOS>","<EOS>")],
+        key=len, reverse=True
+    )
+    i = 0
+
+    while (i < len(program)):
+        for tok in known:
+            if (program[i:i+len(tok)] == tok):
+                ids.append(vocab.token2id[tok])
+                i += len(tok)
+                break
+        else:
+            i += 1
+
+    ids.append(vocab.token2id.get("<EOS>", 2))
+    ids = ids[:max_len]
+    ids += [vocab.token2id.get("<PAD>", 0)] * (max_len - len(ids))
+
+    return torch.tensor(ids, dtype=torch.long)
 
 if (__name__ == "__main__"):
     with open("model_dataset.jsonl", "r") as f:
@@ -527,21 +1022,34 @@ if (__name__ == "__main__"):
         input_dim=5,
         d_model=256
     )
+    device = "cuda"
+    temperature = 1.0
+    dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
+    model = dslModel.to(device)
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=1e-4
+    )
+    modelFilename: str = "dsl_model.pt"
 
-    candidatePrograms: list = ["I"] * 5
+    if (os.path.exists(modelFilename)):
+        checkpoint = torch.load(modelFilename, map_location=device)
+        model.load_state_dict(checkpoint["model_state"])
 
     for k, v in modelDataset.items():
+        candidatePrograms: list = ["I"] * 5
         outputs: list = []
         
         for grid in v:
             outputs.append(execute_dsl(k, grid))
-        
+
         pairs = list(zip(v, outputs))
 
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
+        inputs = inputs.to(device)
+        outputs = outputs.to(device)
+        masks = masks.to(device)
         z_grids = gridModel(inputs, outputs, masks)
-
-        print(z_grids.shape)
 
         costs = dict(zip(modelDataset.keys(), programCosts(k, modelDataset.keys(), v)))
         costs = sorted(costs.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
@@ -552,51 +1060,97 @@ if (__name__ == "__main__"):
         while (costs[-1][0] != k):
             costs.pop()
 
-        searchedCosts = dict(costs)
+        cost = costs[0][1].sum(axis = 0, skipna = False)["Total cost"]
 
-        try:
-            print(k)
-            keys = list(searchedCosts.keys())
-            print(keys[0], searchedCosts[keys[0]])
-            print(keys[1], searchedCosts[keys[1]])
-            print(keys[-2], searchedCosts[keys[-2]])
-            print(keys[-1], searchedCosts[keys[-1]])
-        except Exception:
-            pass
+        while (len(costs) and cost == costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
+            costs.pop(0)
 
-        del searchedCosts
-        """
-        costs.pop(0)
         candidates = dict(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
         candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-        while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
-            z_asts: list = []
-            z_costs: list = []
-            
-            for program, df in candidates:
-                graph = builder.build(program)
-                graph.batch = torch.zeros(
-                    graph.x.size(0),
-                    dtype=torch.long
-                )
-                z_asts.append(astModel(graph))
-                cost_tensor = dataframe_to_cost_tensor(df)
-                z_cost = costModel(cost_tensor)
-                z_costs.append(z_cost)
+        print(f"Target program: {k}")
+        show: bool = True
 
-            #program = model(z_grids, z_asts, z_costs, costs[0][0])
+        while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+            if (show):
+                print(f"  Searched program: {costs[0][0]}")
+                show = False
+
+            prog_graphs: list  = []
+            cost_tensors: list = []
+
+            for program, df in candidates:
+                g = build_prog_graph(program, VOCAB, device)
+                prog_graphs.append(g)
+                cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
+
+            model.eval()
+
+            with torch.no_grad():
+                z_context = model.encode_context(
+                    inputs, outputs, masks,
+                    prog_graphs, cost_tensors
+                )   # [1, D]
+
+            program = generate_one(
+                model, VOCAB, z_context,
+                temperature = temperature,
+                device = device,
+                max_depth = costs[0][0].count("(") - 1
+            )
             df = programCosts(k, [program], v)[0]
 
-            if (df.sum(axis = 0, skipna = False)["Total cost"] < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]):
+            model.train()
+            optimizer.zero_grad()
+            target_ids = encode_program_tokens(costs[0][0], VOCAB).to(device)
+            decoder_input = target_ids[:-1]
+            decoder_target = target_ids[1:]
+            logits = model.decoder(decoder_input.unsqueeze(0), z_context)
+            L_tokens = F.cross_entropy(
+                logits.reshape(
+                    -1,
+                    logits.size(-1)
+                ),
+                decoder_target.reshape(-1)
+            )
+            generated_cost = torch.tensor(
+                df["Total cost"].sum(),
+                dtype=torch.float32,
+                device=device
+            )
+            target_cost = torch.tensor(
+                costs[0][1]["Total cost"].sum(),
+                dtype=torch.float32,
+                device=device
+            )
+            L_cost = torch.log1p(
+                torch.abs(
+                    generated_cost
+                    - target_cost
+                )
+            )
+            L_total = (
+                1.0 * L_tokens
+                + 0.05 * L_cost
+            )
+            L_total.backward()
+            optimizer.step()
+
+            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"] and not program in [c[0] for c in candidates]):
+                torch.save({
+                    "model_state": model.state_dict(),
+                    "d_model"    : model.decoder.d_model,
+                    "vocab_size" : model.decoder.vocab_size,
+                }, modelFilename)
+
+                print(f"  Found program: {program}")
+                show = True
+
                 candidates.pop(0)
                 candidates.insert(0, (program, df))
-                candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+                candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
                 while (len(costs) and df.sum(axis = 0, skipna = False)["Total cost"] <= costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
                     costs.pop(0)
-        """
 
-        input("hit")
-
-        del costs
+        print(f"Found program: {candidates[-1][0]}")
