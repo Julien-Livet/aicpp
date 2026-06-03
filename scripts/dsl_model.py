@@ -1,4 +1,5 @@
 import ast
+from connection import compatibleType
 from dsl_engine import size_cost, bounding_box_cost, pixel_overlap_cost, value_cost
 from dsl_dataset import execute_dsl
 from dsl_rl import VOCAB
@@ -14,7 +15,7 @@ import torch.nn.functional as F
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
-from typing import List, Tuple
+from typing import Callable, List, Tuple
 
 Grid = Tuple[Tuple[int]]
 
@@ -657,15 +658,10 @@ class TreeStateMask:
             if (self._get_origin(t) is self._abc.Callable):
                 ret = self._get_args(t)[1]
 
-                if (self._is_grid(ret)):
+                if (compatibleType(ret, Tuple[Tuple[int]])):
                     candidates.append(name)
 
         return sorted(candidates)
-
-    def _is_grid(self, t) -> bool:
-        s = str(t)
-
-        return any(g in s for g in ["typing.Tuple[typing.Tuple", "Grid", "tuple"])
 
     def valid_tokens(self) -> List[str]:
         if (self.state == "DONE" or self.state == "ERROR"):
@@ -693,7 +689,7 @@ class TreeStateMask:
                 candidates = [
                     n for n in candidates
                     if not (self._get_origin(
-                        self._vocabulary[n][0]) is self._abc.Callable)
+                        self._vocabulary[n][0]) is self._abc.Callable and next_type != Callable)
                 ]
 
             return candidates
