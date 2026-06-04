@@ -1,5 +1,6 @@
 import dsl_rl
 import json
+import os
 from tabulate import tabulate
 import time
 import test_dsl_engine
@@ -11,7 +12,9 @@ modelName: str = "dsl_rl.pt"
 n: int = 10
 temp: float = 0.5
 max_depth: int = 32
-model = dsl_rl.load_model(modelName, device)
+
+if (os.path.exists(modelName)):
+    model = dsl_rl.load_model(modelName, device)
 
 def load_task(folder: str, task: str) -> Tuple[List, List]:
     with open(f"../ARC-AGI-2/data/{folder}/{task}.json") as f:
