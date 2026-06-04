@@ -20,6 +20,7 @@ from torch_geometric.nn import global_mean_pool
 from typing import get_origin, get_args, Callable, List, Tuple
 
 Grid = Tuple[Tuple[int]]
+M: int = 5
 
 scoreFunctions = [size_cost, bounding_box_cost, pixel_overlap_cost, value_cost]
 scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
@@ -997,7 +998,7 @@ if (__name__ == "__main__"):
 
     modelDataset["I"] = modelDataset[list(modelDataset.keys())[-1]]
     modelDataset = dict(sorted(modelDataset.items(), key = lambda x: (len(x[0]), x[0])))
-    modelDataset = dict(list(modelDataset.items())[:100])
+    modelDataset = dict(list(modelDataset.items())[:1000])
 
     builder = DSLGraphBuilder(VOCAB.token2id)
     gridModel = ARCContextEncoder(d_model=256)
@@ -1023,7 +1024,7 @@ if (__name__ == "__main__"):
         model.load_state_dict(checkpoint["model_state"])
 
     for k, v in modelDataset.items():
-        candidatePrograms: list = ["I"] * 5
+        candidatePrograms: list = ["I"] * M
         outputs: list = []
         
         for grid in v:
@@ -1056,12 +1057,12 @@ if (__name__ == "__main__"):
         print(f"Target program: {k}")
         show: bool = True
         computeGraphs: bool = True
-        previousProgram: str = ""
         temperature: float = 1.0
+        testedPrograms = set()
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  Searched program: {costs[0][0]}")
+                print(f"  Searched program: {costs[0][0]}, cost: {costs[0][1].sum(axis = 0, skipna = False)['Total cost']}")
                 show = False
 
             if (computeGraphs):
@@ -1075,13 +1076,13 @@ if (__name__ == "__main__"):
 
                 computeGraphs = False
 
-            model.eval()
+                model.eval()
 
-            with torch.no_grad():
-                z_context = model.encode_context(
-                    inputs, outputs, masks,
-                    prog_graphs, cost_tensors
-                )   # [1, D]
+                with torch.no_grad():
+                    z_context = model.encode_context(
+                        inputs, outputs, masks,
+                        prog_graphs, cost_tensors
+                    )   # [1, D]
 
             program = generate_one(
                 model, VOCAB, z_context,
@@ -1104,31 +1105,36 @@ if (__name__ == "__main__"):
                 ),
                 decoder_target.reshape(-1)
             )
-            generated_cost = torch.tensor(
-                df["Total cost"].sum(),
-                dtype=torch.float32,
-                device=device
-            )
-            target_cost = torch.tensor(
-                costs[0][1]["Total cost"].sum(),
-                dtype=torch.float32,
-                device=device
-            )
-            L_cost = torch.log1p(
-                torch.abs(
-                    generated_cost
-                    - target_cost
-                )
-            )
-            L_total = 0.75 * L_tokens + 1.0 * L_cost
-            L_total.backward()
-            optimizer.step()
             
-            if (program != previousProgram):
-                temperature = max(1.0, temperature * 0.95)
-                previousProgram = program
+            if (np.isinf(df["Total cost"].sum(skipna = False))):
+                L_total = L_tokens
             else:
-                temperature = min(2.0, temperature * 1.05)
+                generated_cost = torch.tensor(
+                    df["Total cost"].sum(skipna = False),
+                    dtype=torch.float32,
+                    device=device
+                )
+                target_cost = torch.tensor(
+                    costs[0][1]["Total cost"].sum(skipna = False),
+                    dtype=torch.float32,
+                    device=device
+                )
+                L_cost = torch.log1p(
+                    torch.abs(
+                        generated_cost
+                        - target_cost
+                    )
+                )
+                L_total = 1.0 * L_tokens + 0.5 * L_cost
+
+            if (not program in testedPrograms):
+                temperature = max(1.0, temperature * 0.95)
+                testedPrograms.add(program)
+
+                L_total.backward()
+                optimizer.step()
+            else:
+                temperature = min(5.0, temperature * 1.05)
 
             if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not program in [c[0] for c in candidates]):
@@ -1138,7 +1144,7 @@ if (__name__ == "__main__"):
                     "vocab_size" : model.decoder.vocab_size,
                 }, modelFilename)
 
-                print(f"  Found program: {program}")
+                print(f"  Found program: {program}, cost: {df.sum(axis = 0, skipna = False)['Total cost']}")
                 show = True
                 computeGraphs = True
 
