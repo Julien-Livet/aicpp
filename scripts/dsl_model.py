@@ -1010,7 +1010,6 @@ if (__name__ == "__main__"):
         d_model=256
     )
     device = "cuda"
-    temperature = 1.0
     dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
     model = dslModel.to(device)
     optimizer = torch.optim.AdamW(
@@ -1057,6 +1056,8 @@ if (__name__ == "__main__"):
         print(f"Target program: {k}")
         show: bool = True
         computeGraphs: bool = True
+        previousProgram: str = ""
+        temperature: float = 1.0
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
@@ -1086,7 +1087,7 @@ if (__name__ == "__main__"):
                 model, VOCAB, z_context,
                 temperature = temperature,
                 device = device,
-                #max_depth = costs[0][0].count("(") - 1
+                max_depth = costs[0][0].count("(") - 1
             )
             df = programCosts(k, [program], v)[0]
 
@@ -1119,9 +1120,15 @@ if (__name__ == "__main__"):
                     - target_cost
                 )
             )
-            L_total = 1.0 * L_tokens + 0.1 * L_cost
+            L_total = 0.75 * L_tokens + 1.0 * L_cost
             L_total.backward()
             optimizer.step()
+            
+            if (program != previousProgram):
+                temperature = max(1.0, temperature * 0.95)
+                previousProgram = program
+            else:
+                temperature = min(2.0, temperature * 1.05)
 
             if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not program in [c[0] for c in candidates]):
