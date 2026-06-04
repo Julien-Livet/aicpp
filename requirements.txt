@@ -1,6 +1,7 @@
 joblib
 multiprocess
 numpy
+pandas
 pytest
 pytest-profiling
 scikit-learn
