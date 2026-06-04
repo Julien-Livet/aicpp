@@ -1,8 +1,10 @@
 import ast
+import collections.abc
 from connection import compatibleType
 from dsl_engine import size_cost, bounding_box_cost, pixel_overlap_cost, value_cost
 from dsl_dataset import execute_dsl
 from dsl_rl import VOCAB
+from dsl_tree import vocabulary, args, tree, Tree
 import math
 from multiprocessing import Pool
 import numpy as np
@@ -15,7 +17,7 @@ import torch.nn.functional as F
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
-from typing import Callable, List, Tuple
+from typing import get_origin, get_args, Callable, List, Tuple
 
 Grid = Tuple[Tuple[int]]
 
@@ -629,18 +631,7 @@ class TreeStateMask:
         self._reset()
 
     def _reset(self):
-        from dsl_tree import vocabulary, args, tree, Tree
-        import collections.abc
-        from typing import get_origin, get_args
-
         self._vocabulary = vocabulary
-        self._args_fn    = args
-        self._tree_fn    = tree
-        self._Tree       = Tree
-        self._abc        = collections.abc
-        self._get_origin = get_origin
-        self._get_args   = get_args
-
         self.current_tree  = None
         self.depth         = 0
         self.state         = "EXPECT_ROOT"   # EXPECT_ROOT | EXPECT_ARG | DONE | ERROR
@@ -655,8 +646,8 @@ class TreeStateMask:
             if (not isinstance(name, str)):
                 continue
 
-            if (self._get_origin(t) is self._abc.Callable):
-                ret = self._get_args(t)[1]
+            if (get_origin(t) is collections.abc.Callable):
+                ret = get_args(t)[1]
 
                 if (compatibleType(ret, Tuple[Tuple[int]])):
                     candidates.append(name)
@@ -678,7 +669,7 @@ class TreeStateMask:
 
                 return []
 
-            candidates = self._args_fn(next_type)
+            candidates = args(next_type)
 
             candidates = [
                 n for n in candidates
@@ -688,8 +679,8 @@ class TreeStateMask:
             if (self.depth >= self.max_depth):
                 candidates = [
                     n for n in candidates
-                    if not (self._get_origin(
-                        self._vocabulary[n][0]) is self._abc.Callable and next_type != Callable)
+                    if not (get_origin(
+                        self._vocabulary[n][0]) is collections.abc.Callable and next_type != Callable)
                 ]
 
             return candidates
@@ -722,7 +713,7 @@ class TreeStateMask:
             return False
 
         if (self.state == "EXPECT_ROOT"):
-            self.current_tree = self._tree_fn(token_name)
+            self.current_tree = tree(token_name)
             self.state        = "EXPECT_ARG"
 
             if (self.current_tree.isFinished()):
@@ -734,16 +725,16 @@ class TreeStateMask:
             next_type = self.current_tree.nextType()
             t_type, _ = self._vocabulary[token_name]
 
-            if (not self._get_origin(next_type) is self._abc.Callable
-                    and self._get_origin(t_type) is self._abc.Callable):
+            if (not get_origin(next_type) is collections.abc.Callable
+                    and get_origin(t_type) is collections.abc.Callable):
                 self.depth += 1
 
-            if (self._get_origin(next_type) is self._abc.Callable):
-                node = self._Tree(
+            if (get_origin(next_type) is collections.abc.Callable):
+                node = Tree(
                     (token_name, *self._vocabulary[token_name]), []
                 )
             else:
-                node = self._tree_fn(token_name)
+                node = tree(token_name)
 
             self.current_tree.applyNextType(node)
 
@@ -813,7 +804,7 @@ def generate(
                 if (tok_name in ("<PAD>", "<BOS>")):
                     continue
 
-                ts_new = copy.copy(ts)
+                ts_new = copy.deepcopy(ts)
 
                 if (tok_name == "<EOS>" or ts_new.is_done()):
                     all_candidates.append(
@@ -856,7 +847,7 @@ def generate(
         if (prog and "I" in prog):
             results.append((score, prog))
 
-    return results if results else [(float("-inf"), "I")]
+    return results if results else [(float("inf"), "I")]
 
 @torch.no_grad()
 def generate_one(
@@ -1060,24 +1051,28 @@ if (__name__ == "__main__"):
         while (len(costs) and cost == costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
             costs.pop(0)
 
-        candidates = dict(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
-        candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+        candidates = list(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
+        candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
         print(f"Target program: {k}")
         show: bool = True
+        computeGraphs: bool = True
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
                 print(f"  Searched program: {costs[0][0]}")
                 show = False
 
-            prog_graphs: list  = []
-            cost_tensors: list = []
+            if (computeGraphs):
+                prog_graphs: list  = []
+                cost_tensors: list = []
 
-            for program, df in candidates:
-                g = build_prog_graph(program, VOCAB, device)
-                prog_graphs.append(g)
-                cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
+                for program, df in candidates:
+                    g = build_prog_graph(program, VOCAB, device)
+                    prog_graphs.append(g)
+                    cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
+
+                computeGraphs = False
 
             model.eval()
 
@@ -1091,7 +1086,7 @@ if (__name__ == "__main__"):
                 model, VOCAB, z_context,
                 temperature = temperature,
                 device = device,
-                max_depth = costs[0][0].count("(") - 1
+                #max_depth = costs[0][0].count("(") - 1
             )
             df = programCosts(k, [program], v)[0]
 
@@ -1124,14 +1119,12 @@ if (__name__ == "__main__"):
                     - target_cost
                 )
             )
-            L_total = (
-                1.0 * L_tokens
-                + 0.05 * L_cost
-            )
+            L_total = 1.0 * L_tokens + 0.1 * L_cost
             L_total.backward()
             optimizer.step()
 
-            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"] and not program in [c[0] for c in candidates]):
+            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                and not program in [c[0] for c in candidates]):
                 torch.save({
                     "model_state": model.state_dict(),
                     "d_model"    : model.decoder.d_model,
@@ -1140,9 +1133,10 @@ if (__name__ == "__main__"):
 
                 print(f"  Found program: {program}")
                 show = True
+                computeGraphs = True
 
                 candidates.pop(0)
-                candidates.insert(0, (program, df))
+                candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
                 while (len(costs) and df.sum(axis = 0, skipna = False)["Total cost"] <= costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
