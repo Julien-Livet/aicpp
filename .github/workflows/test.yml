@@ -12,4 +12,4 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install -r requirements.txt
       - name: Run tests
-        run: docker run aicpp && cd scripts && git clone https://github.com/Julien-Livet/arc-dsl.git && python -m pytest --profile -sxv test_dsl_engine.py
+        run: docker run aicpp && cd scripts && git clone https://github.com/Julien-Livet/arc-dsl.git && python -m pytest --profile -sxv test_dsl_model.py

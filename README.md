@@ -60,7 +60,7 @@ docker build -t aicpp .
 docker run --rm aicpp
 cd scripts
 git clone https://github.com/Julien-Livet/arc-dsl.git
-python -m pytest --profile -sxv test_dsl_engine.py
+python -m pytest --profile -sxv test_dsl_model.py
 ```
 
 ---
