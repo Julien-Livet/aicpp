@@ -813,7 +813,7 @@ def generate(
                 if (tok_name in ("<PAD>", "<BOS>")):
                     continue
 
-                ts_new = copy.deepcopy(ts)
+                ts_new = copy.copy(ts)
 
                 if (tok_name == "<EOS>" or ts_new.is_done()):
                     all_candidates.append(
@@ -1045,7 +1045,6 @@ if (__name__ == "__main__"):
         inputs = inputs.to(device)
         outputs = outputs.to(device)
         masks = masks.to(device)
-        z_grids = gridModel(inputs, outputs, masks)
 
         costs = dict(zip(modelDataset.keys(), programCosts(k, modelDataset.keys(), v)))
         costs = sorted(costs.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
