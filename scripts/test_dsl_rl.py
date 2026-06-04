@@ -3,13 +3,14 @@ import json
 from tabulate import tabulate
 import time
 import test_dsl_engine
+import torch
 from typing import Dict, List, Tuple
 
-device = "cpu"
-modelName = "dsl_rl.pt"
-n = 10
-temp = 0.5
-max_depth = 6
+device: str = "cpu"
+modelName: str = "dsl_rl.pt"
+n: int = 10
+temp: float = 0.5
+max_depth: int = 32
 model = dsl_rl.load_model(modelName, device)
 
 def load_task(folder: str, task: str) -> Tuple[List, List]:
@@ -22,18 +23,15 @@ def load_task(folder: str, task: str) -> Tuple[List, List]:
     return trainPairs, testPairs
 
 def processTask(folder: str, task: str) -> Tuple[float, float, str]:
-    n: int = 10
-    temp: float = 0.5
-    max_depth: int = 0
-    model = dsl_rl.load_model(modelName, device)
     grids, pad_mask, pairs = dsl_rl.load_task(task, "..")
     results: list = []
 
     for i in range(n):
-        generated, log_probs, programs = dsl_rl.sample_with_tree_mask(
-            model, dsl_rl.VOCAB, grids, pad_mask,
-            temperature = temp, max_depth = max_depth, device = device,
-        )
+        with torch.no_grad():
+            generated, log_probs, programs = dsl_rl.sample_with_tree_mask(
+                model, dsl_rl.VOCAB, grids, pad_mask,
+                temperature = temp, max_depth = max_depth, device = device,
+            )
         prog    = programs[0]
         r       = dsl_rl.compute_reward(prog, pairs)
         results.append((r, prog))
@@ -82,7 +80,7 @@ def test_hodel_tasks():
             print(f"Duration: {time.time() - t2} s")
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
-        
+
 def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
     with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as f:
         tasks = f.read().split("\n")
