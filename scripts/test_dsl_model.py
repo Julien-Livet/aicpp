@@ -28,7 +28,6 @@ costModel = dsl_model.CostEncoder(
     input_dim = 5,
     d_model = 256
 )
-temperature = 1.0
 
 def programCosts(programs: List[str], pairs: List[Tuple[Tuple[Tuple[int]], Tuple[Tuple[int]]]]) -> List[pd.DataFrame]:
     with Pool(os.cpu_count()) as pool:
@@ -41,20 +40,24 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
     inputs = inputs.to(device)
     outputs = outputs.to(device)
     masks = masks.to(device)
-    candidatePrograms: list = ["I"] * 5
-    
-    candidates = dict(zip(candidatePrograms, programCosts(candidatePrograms, trainPairs)))
-    candidates = sorted(candidates.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
-    count = 0
+    candidatePrograms: list = ["I"] * 10
+
+    candidates = list(zip(candidatePrograms, programCosts(candidatePrograms, trainPairs)))
+    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+    count: int = 0
+    computeGraphs: bool = True
 
     while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"] and count < 10):
-        prog_graphs: list  = []
-        cost_tensors: list = []
+        if (computeGraphs):
+            prog_graphs: list  = []
+            cost_tensors: list = []
 
-        for program, df in candidates:
-            g = dsl_model.build_prog_graph(program, dsl_rl.VOCAB, device)
-            prog_graphs.append(g)
-            cost_tensors.append(dsl_model.dataframe_to_cost_tensor(df).to(device))
+            for program, df in candidates:
+                g = dsl_model.build_prog_graph(program, dsl_rl.VOCAB, device)
+                prog_graphs.append(g)
+                cost_tensors.append(dsl_model.dataframe_to_cost_tensor(df).to(device))
+
+            computeGraphs = False
 
         model.eval()
 
@@ -66,30 +69,38 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
 
         programs = [p for s, p in dsl_model.generate(
             model, dsl_rl.VOCAB, z_context,
-            temperature = temperature,
+            temperature = 0.5,
             device = device,
+            beam_width = 100,
         )]
         dfs = programCosts(programs, trainPairs)
 
         for program, df in zip(programs, dfs):
-            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"] and not program in [c[0] for c in candidates]):
-                candidates.pop(0)
-                candidates.insert(0, (program, df))
+            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                and not program in [c[0] for c in candidates]):
+                print(f"  Found program: {program}") #TODO: to remove
+                candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
                 count = 0
+                computeGraphs = True
 
         count += 1
+
+    candidate = candidates[-1]
+
+    while (len(candidates) and not candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+        candidate = candidates.pop()
 
     def pairCost(pairs: list):
         total_cost = 0.0
 
         for inp, out in pairs:
-            result = dsl_dataset.execute_dsl(candidates[-1][0], inp)
+            result = dsl_dataset.execute_dsl(candidate[0], inp)
             total_cost += test_dsl_engine.arcHeuristic(result, out)
 
         return total_cost
 
-    return pairCost(trainPairs), pairCost(testPairs), candidates[-1][0]
+    return pairCost(trainPairs), pairCost(testPairs), candidate[0]
 
 def passTask(folder: str, task: str, debug: bool = False):
     trainCost, testCost, dsl = processTask(folder, task)
