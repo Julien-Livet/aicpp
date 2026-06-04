@@ -40,12 +40,14 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
     inputs = inputs.to(device)
     outputs = outputs.to(device)
     masks = masks.to(device)
-    candidatePrograms: list = ["I"] * 10
+    candidatePrograms: list = ["I"] * dsl_model.M
 
     candidates = list(zip(candidatePrograms, programCosts(candidatePrograms, trainPairs)))
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
+
+    model.eval()
 
     while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"] and count < 10):
         if (computeGraphs):
@@ -59,19 +61,17 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
 
             computeGraphs = False
 
-        model.eval()
-
-        with torch.no_grad():
-            z_context = model.encode_context(
-                inputs, outputs, masks,
-                prog_graphs, cost_tensors
-            )   # [1, D]
+            with torch.no_grad():
+                z_context = model.encode_context(
+                    inputs, outputs, masks,
+                    prog_graphs, cost_tensors
+                )   # [1, D]
 
         programs = [p for s, p in dsl_model.generate(
             model, dsl_rl.VOCAB, z_context,
-            temperature = 0.5,
+            temperature = 1.0,
             device = device,
-            beam_width = 20,
+            beam_width = 30,
         )]
         dfs = programCosts(programs, trainPairs)
 
