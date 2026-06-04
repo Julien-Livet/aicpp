@@ -12,7 +12,7 @@ import torch
 from typing import Dict, List, Tuple
 
 modelFilename = "dsl_model.pt"
-device = "cpu"
+device = "cuda" if torch.cuda.is_available() else "cpu"
 dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
 model = dslModel.to(device)
 checkpoint = torch.load(modelFilename, map_location = device)
@@ -71,14 +71,13 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
             model, dsl_rl.VOCAB, z_context,
             temperature = 0.5,
             device = device,
-            beam_width = 100,
+            beam_width = 20,
         )]
         dfs = programCosts(programs, trainPairs)
 
         for program, df in zip(programs, dfs):
             if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not program in [c[0] for c in candidates]):
-                print(f"  Found program: {program}") #TODO: to remove
                 candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
                 count = 0
@@ -118,7 +117,7 @@ def test_task68b16354():
 
 def test_task74dd1130():
     passTask("training", "74dd1130", True)
-
+"""
 def test_hodel_tasks():
     tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
 
@@ -140,7 +139,7 @@ def test_hodel_tasks():
             print(f"Duration: {time.time() - t2} s")
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
-
+"""
 def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
     with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as f:
         tasks = f.read().split("\n")
