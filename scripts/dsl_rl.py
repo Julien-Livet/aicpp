@@ -37,7 +37,7 @@ class DSLVocab:
         ids: list = [self.BOS]
         known = sorted([t for t in self.tokens if t not in self.SPECIAL],
                        key = len, reverse = True)
-        i = 0
+        i: int = 0
 
         while (i < len(program)):
             for tok in known:
@@ -138,7 +138,7 @@ class MultiPairEncoder(nn.Module):
 
         seq = torch.cat(all_embs, dim=1)  # [B, P*(2HW+1), D]
 
-        if pad_mask is not None:
+        if (pad_mask is not None):
             cells = 2 * H * W + 1
             cmask = pad_mask.unsqueeze(-1).expand(-1, -1, cells).reshape(B, -1)
         else:
@@ -320,7 +320,7 @@ class ARCDataset(Dataset):
         pairs   = task["train"][:self.max_pairs]
         n_real  = len(pairs)
 
-        grids_list = []
+        grids_list: list = []
 
         for inp, out in pairs:
             grids_list.append(torch.stack([
@@ -382,7 +382,7 @@ class RLDSLTransformer(nn.Module):
 
     def _init_weights(self):
         for p in self.parameters():
-            if p.dim() > 1:
+            if (p.dim() > 1):
                 nn.init.xavier_uniform_(p)
 
     def encode(self, grids: torch.Tensor,
@@ -396,51 +396,13 @@ class RLDSLTransformer(nn.Module):
         x = self.out_embed(tgt) * math.sqrt(self.d_model)
         x = self.out_pe(x)
         x = self.decoder(x, memory, tgt_mask=causal)
+
         return self.output_proj(x)
 
     def baseline(self, memory: torch.Tensor) -> torch.Tensor:
         ctx = memory.mean(dim=1)  # [B, D]
+
         return self.baseline_net(ctx).squeeze(-1)  # [B]
-
-    @torch.no_grad()
-    def sample(
-        self,
-        grids      : torch.Tensor,
-        pad_mask   : Optional[torch.Tensor] = None,
-        temperature: float = 1.0,
-        max_len    : int   = 128,
-        device     : str   = "cpu",
-    ) -> Tuple[List[List[int]], torch.Tensor]:
-        self.eval()
-        B       = grids.size(0)
-        memory  = self.encode(grids.to(device), pad_mask)
-
-        generated = torch.full((B, 1), VOCAB.BOS, dtype=torch.long, device=device)
-        log_probs = []
-        finished  = torch.zeros(B, dtype=torch.bool, device=device)
-
-        for _ in range(max_len - 1):
-            logits     = self.decode_step(generated, memory)[:, -1, :]  # [B, V]
-            logits     = logits / max(temperature, 1e-6)
-            probs      = F.softmax(logits, dim=-1)
-            dist       = Categorical(probs)
-            next_tok   = dist.sample()                    # [B]
-            lp         = dist.log_prob(next_tok)          # [B]
-
-            next_tok = next_tok.masked_fill(finished, VOCAB.PAD)
-            lp       = lp.masked_fill(finished, 0.0)
-
-            generated  = torch.cat([generated, next_tok.unsqueeze(1)], dim=1)
-            log_probs.append(lp)
-
-            finished = finished | (next_tok == VOCAB.EOS)
-
-            if (finished.all()):
-                break
-
-        log_probs = torch.stack(log_probs, dim=1)  # [B, L-1]
-
-        return generated, log_probs
 
     def forward(self, grids: torch.Tensor, tgt: torch.Tensor,
                 pad_mask: Optional[torch.Tensor] = None) -> torch.Tensor:
@@ -559,7 +521,6 @@ def reward_batch(
     
     return torch.tensor(np.array(rewards), dtype=torch.float32), details
 
-@torch.no_grad()
 def sample_with_tree_mask(
     model,                          # RLDSLTransformer
     vocab,                          # DSLVocab (with .token2id, .BOS, .EOS, .PAD)
@@ -637,16 +598,39 @@ def collate_rl(batch: List[dict]) -> dict:
         "task_ids": [b["task_id"] for b in batch],
     }
 
+def reinforce_loss_clipped(
+    log_probs_new : torch.Tensor,   # [B, L]
+    log_probs_old : torch.Tensor,   # [B, L]
+    rewards       : torch.Tensor,   # [B]
+    baselines     : torch.Tensor,   # [B]
+    mask          : torch.Tensor,   # [B, L]
+    clip_eps      : float = 0.2,
+) -> torch.Tensor:
+    advantage = (rewards - baselines).detach()
+    advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
+    advantage = advantage.unsqueeze(1)  # [B, 1]
+
+    ratio = torch.exp(log_probs_new - log_probs_old.detach())  # [B, L]
+
+    loss_unclipped = -ratio * advantage
+    loss_clipped   = -torch.clamp(ratio, 1 - clip_eps, 1 + clip_eps) * advantage
+
+    loss = torch.max(loss_unclipped, loss_clipped)
+
+    return (loss * mask.float()).sum() / mask.float().sum().clamp(min=1)
+
 def reinforce_loss(
-    log_probs  : torch.Tensor,   # [B, L]  log-proba of eachc token
+    log_probs  : torch.Tensor,   # [B, L]  log-proba of each token
     rewards    : torch.Tensor,   # [B]     total reward by program
     baselines  : torch.Tensor,   # [B]     guessed reward (critical)
     mask       : torch.Tensor,   # [B, L]  True = valid token (no PAD/EOS)
 ) -> torch.Tensor:
     advantage = (rewards - baselines).detach()  # [B]  — no gradient on b
     advantage = advantage.unsqueeze(1)           # [B, 1] for broadcast
+    advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
 
     weighted  = -log_probs * advantage * mask.float()
+
     return weighted.sum() / mask.float().sum().clamp(min=1)
 
 def baseline_loss(
@@ -699,32 +683,48 @@ def train_rl(
             with torch.no_grad():
                 memory = model.encode(grids, pad_mask)
 
-            all_lp, all_rw, all_mk = [], [], []
+            all_lp_new, all_lp_old, all_rw, all_mk, all_entropy = [], [], [], [], []
 
             for _ in range(k_samples):
                 model.eval()
-                generated, log_probs, programs = sample_with_tree_mask(
-                    model, vocab, grids, pad_mask,
-                    temperature=temp, max_depth=max_depth, device=device,
-                )
+
+                with torch.no_grad():
+                    generated, log_probs_old, programs = sample_with_tree_mask(
+                        model, vocab, grids, pad_mask,
+                        temperature=temp, max_depth=max_depth, device=device,
+                    )
+
                 model.train()
 
-                rewards_t, details = reward_batch(
-                    programs, all_pairs, alpha=alpha,
-                )
+                tgt_in    = generated[:, :-1]
+                tgt_out   = generated[:, 1:]
+                logits    = model(grids, tgt_in, pad_mask)
+                log_probs_new = F.log_softmax(logits, dim=-1)
+                tgt_ids   = tgt_out.unsqueeze(-1)
+                lp_new    = log_probs_new.gather(-1, tgt_ids).squeeze(-1)
+
+                # Entropie
+                entropy = -(F.softmax(logits, dim=-1) * log_probs_new).sum(-1).mean()
+
+                all_lp_new.append(lp_new)
+                all_lp_old.append(log_probs_old.detach())
+
+                rewards_t, details = reward_batch(programs, all_pairs, alpha=alpha)
                 rewards_t = rewards_t.to(device)
 
                 for d in details:
                     if (d["reward"] >= 1.0):
                         n_perfect += 1
 
-                L    = log_probs.size(1)
-                mask = (generated[:, 1:1+L] != vocab.PAD)
-                all_lp.append(log_probs)
+                L    = lp_new.size(1)
+                mask = (generated[:, 1:1+L] != vocab.PAD)        # [B, L-1]
+
                 all_rw.append(rewards_t)
                 all_mk.append(mask)
+                all_entropy.append(entropy)
 
-            lp_cat = torch.cat(all_lp, dim=0)
+            lp_new_cat = torch.cat(all_lp_new, dim=0)
+            lp_old_cat = torch.cat(all_lp_old, dim=0)
             rw_cat = torch.cat(all_rw, dim=0)
             mk_cat = torch.cat(all_mk, dim=0)
 
@@ -734,13 +734,14 @@ def train_rl(
             mem_rep      = model.encode(grids_rep, pad_mask_rep)
             bl_pred      = model.baseline(mem_rep)
 
-            loss_rl = reinforce_loss(lp_cat, rw_cat, bl_pred.detach(), mk_cat)
+            loss_rl = reinforce_loss_clipped(lp_new_cat, lp_old_cat, rw_cat, bl_pred.detach(), mk_cat)
             loss_bl = baseline_loss(bl_pred, rw_cat)
-            loss    = loss_rl + 0.5 * loss_bl
+            entropy_mean = torch.stack(all_entropy).mean()
+            loss = loss_rl + 0.5 * loss_bl - 0.01 * entropy_mean
 
             optimizer.zero_grad()
             loss.backward()
-            nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            nn.utils.clip_grad_norm_(model.parameters(), 0.5)
             optimizer.step()
 
             epoch_reward += rw_cat.mean().item()
@@ -901,17 +902,18 @@ if (__name__ == "__main__"):
         print(f"[Model] {n_param:,} parameters d_model={d_model}")
 
     if ("train" in sys.argv):
-        import copy
         import test_dsl_engine
 
         tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
         dataset = ARCDataset("../ARC-AGI-2/data/training")
-        epochs: int = 1000
+        epochs: int = 100
         lr: float = 3e-4
         temperature: float = 1.0
-        min_temp: float = 1.0
+        min_temp: float = 0.3
         k_samples: int = 4
         log_every: int = 1
+
+        import copy
 
         for k, v in tasksByStep.items():
             subdataset = copy.deepcopy(dataset)
@@ -936,7 +938,7 @@ if (__name__ == "__main__"):
                 max_depth = k - 1, min_temp = min_temp
             )
 
-        batch_size: int = 50
+        batch_size: int = 25
 
         train_rl(
             model, dataset,
