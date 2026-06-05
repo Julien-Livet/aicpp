@@ -2,6 +2,7 @@ import dsl_dataset
 import dsl_model
 import dsl_rl
 from multiprocessing import Pool
+import numpy as np
 import os
 import pandas as pd
 import test_dsl_engine
@@ -33,7 +34,7 @@ def programCosts(programs: List[str], pairs: List[Tuple[Tuple[Tuple[int]], Tuple
     with Pool(os.cpu_count()) as pool:
         return pool.starmap(dsl_model.programDf, [(program, pairs) for program in programs])
 
-def processTask(folder: str, task: str) -> Tuple[float, float, str]:
+def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, str]:
     trainPairs, testPairs = test_dsl_rl.load_task(folder, task)
 
     inputs, outputs, masks = dsl_model.arc_pairs_to_tensors(trainPairs)
@@ -72,11 +73,14 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
             temperature = 1.0,
             device = device,
             beam_width = 30,
+            max_depth = depth - 1
         )]
         dfs = programCosts(programs, trainPairs)
 
         for program, df in zip(programs, dfs):
-            if (df.sum(axis = 0, skipna = False)["Total cost"] <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+            cost = df.sum(axis = 0, skipna = False)["Total cost"]
+
+            if (not np.isinf(cost).any() and cost <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not program in [c[0] for c in candidates]):
                 candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
@@ -101,8 +105,8 @@ def processTask(folder: str, task: str) -> Tuple[float, float, str]:
 
     return pairCost(trainPairs), pairCost(testPairs), candidate[0]
 
-def passTask(folder: str, task: str, debug: bool = False):
-    trainCost, testCost, dsl = processTask(folder, task)
+def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
+    trainCost, testCost, dsl = processTask(folder, task, depth)
 
     if (debug):
         print(f"Train cost: {trainCost}, test cost: {testCost}, dsl: {dsl}")
@@ -110,13 +114,13 @@ def passTask(folder: str, task: str, debug: bool = False):
     assert(not (trainCost + testCost))
 
 def test_task67a3c6ac():
-    passTask("training", "67a3c6ac", True)
+    passTask("training", "67a3c6ac", True, 2)
 
 def test_task68b16354():
-    passTask("training", "68b16354", True)
+    passTask("training", "68b16354", True, 2)
 
 def test_task74dd1130():
-    passTask("training", "74dd1130", True)
+    passTask("training", "74dd1130", True, 2)
 """
 def test_hodel_tasks():
     tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
@@ -135,7 +139,7 @@ def test_hodel_tasks():
                 continue
 
             t2 = time.time()
-            passTask("training", task, True)
+            passTask("training", task, True, k)
             print(f"Duration: {time.time() - t2} s")
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
