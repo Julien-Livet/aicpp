@@ -1,8 +1,8 @@
 """
 Usage :
-  python analyze_dsl_model.py --dataset dsl_dataset.txt --n 100 --method tsne
-  python analyze_dsl_model.py --dataset dsl_dataset.txt --n 100 --method umap
-  python analyze_dsl_model.py --dataset dsl_dataset.txt --n 100 --method both
+  python analyze_dsl_model.py --n 100 --method tsne
+  python analyze_dsl_model.py --n 100 --method umap
+  python analyze_dsl_model.py --n 100 --method both
 ================================================================================
 """
 
@@ -53,7 +53,6 @@ def extract_embeddings(
                     z = prog_encoder(graph)   # [1, D]
                 embeddings.append(z.squeeze(0).cpu().numpy())
             else:
-                # Proxy : moyenne des token embeddings (sans GNN)
                 token_ids = graph.x.cpu().numpy()
                 emb = np.mean(
                     np.eye(max(vocab.values()) + 1)[token_ids], axis=0
@@ -82,7 +81,7 @@ def build_graph(program_str: str, vocab: dict, device: str = "cpu") -> Data:
             idx  = add_node(name)
             if parent_idx is not None:
                 edges.append([parent_idx, idx])
-                edges.append([idx, parent_idx])   # bidirectionnel
+                edges.append([idx, parent_idx])
             for arg in node.args:
                 visit(arg, idx)
             return idx
@@ -421,13 +420,13 @@ def main():
 
         if model_path.exists():
             try:
-                from dsl_model import DSLProgramEncoder
-                ckpt         = torch.load(args.model, map_location=args.device,
-                                          weights_only=True)
-                prog_encoder = DSLProgramEncoder(
-                    vocab_size=len(vocab), d_model=256
-                ).to(args.device)
-                prog_encoder.load_state_dict(ckpt.get("prog_encoder", ckpt))
+                import dsl_model
+                import dsl_rl
+                dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = args.device)
+                model = dslModel.to(args.device)
+                checkpoint = torch.load(args.model, map_location = args.device)
+                model.load_state_dict(checkpoint["model_state"])
+                prog_encoder = dslModel.prog_encoder
                 prog_encoder.eval()
                 print(f"[Model] Encoder GNN loaded from {args.model}")
             except Exception as e:
@@ -438,7 +437,7 @@ def main():
     else:
         print("[Mode] Proxy token-embedding (--model not specified)")
 
-    print(f"[Extract] Computation of embeddings fo {len(programs)} programs...")
+    print(f"[Extract] Embedding computation for {len(programs)} programs...")
     embeddings = extract_embeddings(programs, prog_encoder, vocab, args.device)
     print(f"  Shape : {embeddings.shape}")
 
