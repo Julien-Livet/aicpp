@@ -2,7 +2,7 @@ import ast
 import collections.abc
 from connection import compatibleType
 from dsl_engine import size_cost, bounding_box_cost, pixel_overlap_cost, value_cost
-from dsl_dataset import execute_dsl
+from dsl_dataset import execute_dsl, isValidGrid
 from dsl_rl import VOCAB
 from dsl_tree import vocabulary, args, tree, Tree
 import math
@@ -1023,7 +1023,7 @@ if (__name__ == "__main__"):
         checkpoint = torch.load(modelFilename, map_location=device)
         model.load_state_dict(checkpoint["model_state"])
 
-    for k, v in modelDataset.items():
+    for i, (k, v) in enumerate(modelDataset.items()):
         candidatePrograms: list = ["I"] * M
         outputs: list = []
         
@@ -1054,7 +1054,7 @@ if (__name__ == "__main__"):
         candidates = list(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
         candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-        print(f"Target program: {k}")
+        print(f"{i+1}/{len(modelDataset)} Target program: {k}")
         show: bool = True
         computeGraphs: bool = True
         temperature: float = 1.0
@@ -1090,7 +1090,20 @@ if (__name__ == "__main__"):
                 device = device,
                 max_depth = costs[0][0].count("(") - 1
             )
-            df = programCosts(k, [program], v)[0]
+
+            checked: list = []
+
+            for inp in v:
+                checked.append(isValidGrid(program, inp))
+
+            if ("I" in program and any(checked)):
+                try:
+                    df = programCosts(k, [program], v)[0]
+                    cost = df["Total cost"].sum(skipna = False)
+                except Exception:
+                    cost = math.inf
+            else:
+                cost = math.inf
 
             model.train()
             optimizer.zero_grad()
@@ -1105,11 +1118,6 @@ if (__name__ == "__main__"):
                 ),
                 decoder_target.reshape(-1)
             )
-
-            try:
-                cost = df["Total cost"].sum(skipna = False)
-            except Exception:
-                continue
 
             if (np.isinf(cost).any()):
                 L_total = L_tokens
