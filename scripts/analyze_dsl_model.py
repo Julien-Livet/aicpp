@@ -286,7 +286,7 @@ def plot_embeddings(
             print("  [Info] pip install mplcursors for interactive tooltips")
 
     ax.set_title(
-        f"Embeddings DSL — {method} ({N} programs)",
+        f"DSL embeddings — {method} ({N} programs)",
         fontsize=14, color="white", pad=15
     )
     ax.set_xlabel(f"{method} dimension 1", color="#aaaaaa", fontsize=10)

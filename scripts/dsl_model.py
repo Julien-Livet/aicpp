@@ -502,8 +502,8 @@ class DSLModel(nn.Module):
         inputs       : torch.Tensor,          # [B, N, H, W]
         outputs      : torch.Tensor,           # [B, N, H, W]
         masks        : torch.Tensor,           # [B, N, H, W]
-        prog_graphs  : List[Data],             # M graphes GNN (un par programme)
-        cost_tensors : List[torch.Tensor],     # M tenseurs [B, N_grids, 5]
+        prog_graphs  : List[Data],             # M graphs GNN (one per program)
+        cost_tensors : List[torch.Tensor],     # M tensors [B, N_grids, 5]
     ) -> torch.Tensor:
         B = inputs.size(0)
         M = len(prog_graphs)
