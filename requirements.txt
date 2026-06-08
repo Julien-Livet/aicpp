@@ -1,4 +1,6 @@
 joblib
+matplotlib
+mplcursors
 multiprocess
 numpy
 pandas
@@ -12,3 +14,4 @@ textdistance
 torch
 torch-geometric
 tqdm
+umap-learn
