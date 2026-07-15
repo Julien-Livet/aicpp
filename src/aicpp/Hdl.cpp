@@ -93,7 +93,7 @@ namespace hdl
 
 /*
 template<typename T>
-static std::any repeat(std::any const& item, hdl::UnsignedInteger const& n)
+static std::any repeat(std::any const& item, hdl::Integer const& n)
 {
     if (item.type() == typeid(T))
         return std::vector<T>(n, std::any_cast<T>(item));
@@ -109,16 +109,13 @@ static std::any equality(std::any const& a, std::any const& b)
 
     return std::any{};
 }
-
+*/
 template<typename T>
-static std::any size_set(std::any const& value)
+static hdl::Integer size_set(T const& value)
 {
-    if (value.type() == typeid(T))
-        return static_cast<hdl::UnsignedInteger>(std::any_cast<T>(value).size());
-
-    return std::any{};
+    return static_cast<hdl::Integer>(value.size());
 }
-
+/*
 template<typename T>
 static std::any init_set(std::any const& value)
 {
@@ -155,71 +152,43 @@ static std::any last_set(std::any const& container)
 
     return std::any{};
 }
-
-template<typename T>
-static std::any vector_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        return std::vector<typename T::value_type>{x.begin(), x.end()};
-    }
-
-    return std::any{};
-}
-
-template<typename T>
-static std::any difference_sets(std::any const& a, std::any const& b)
-{
-    if (a.type() == typeid(T) && b.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(a)};
-        auto const y{std::any_cast<T>(b)};
-        std::vector<typename T::value_type> v;
-
-        std::set_difference(x.begin(), x.end(), y.begin(), y.end(), std::back_inserter(v));
-
-        return T{v.begin(), v.end()};
-    }
-
-    return std::any{};
-}
-
-template<typename T>
-static std::any intersection_sets(std::any const& a, std::any const& b)
-{
-    if (a.type() == typeid(T) && b.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(a)};
-        auto const y{std::any_cast<T>(b)};
-        std::vector<typename T::value_type> v;
-
-        std::set_intersection(x.begin(), x.end(), y.begin(), y.end(), std::back_inserter(v));
-
-        return T{v.begin(), v.end()};
-    }
-
-    return std::any{};
-}
-
-template<typename T>
-static std::any combine_sets(std::any const& a, std::any const& b)
-{
-    if (a.type() == typeid(T) && b.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(a)};
-        auto const y{std::any_cast<T>(b)};
-        T result{x};
-
-        result.insert(y.begin(), y.end());
-
-        return result;
-    }
-
-    return std::any{};
-}
 */
+template<typename T>
+static std::vector<typename T::value_type> vector_set(T const& container)
+{
+    return std::vector<typename T::value_type>{container.begin(), container.end()};
+}
+
+template<typename T>
+static T difference_sets(T const& a, T const& b)
+{
+    std::vector<typename T::value_type> v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return T{v.begin(), v.end()};
+}
+
+template<typename T>
+static T intersection_sets(T const& a, T const& b)
+{
+    std::vector<typename T::value_type> v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return T{v.begin(), v.end()};
+}
+
+template<typename T>
+static T combine_sets(T const& a, T const& b)
+{
+    T result{a};
+
+    result.insert(b.begin(), b.end());
+
+    return result;
+}
+
 hdl::Numerical do_op(hdl::Numerical const& a, hdl::Numerical const& b, std::function<hdl::Integer(hdl::Integer, hdl::Integer)> const& op)
 {
     if (std::holds_alternative<hdl::Integer>(a) && std::holds_alternative<hdl::Integer>(b))
@@ -345,7 +314,6 @@ std::any hdl::equality(std::vector<std::any> const& args)
 
     if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Integer>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<UnsignedInteger>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerSet>(a, b); r.has_value()) return r;
@@ -426,108 +394,112 @@ std::any hdl::contained(std::vector<std::any> const& args)
 
     return std::any{};
 }
-
-std::any hdl::combine(std::vector<std::any> const& args)
+*/
+hdl::Container hdl::combine(Container const& a, Container const& b)
 {
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const a{args[0]};
-    auto const b{args[1]};
-
-    if (auto r = combine_sets<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<Object>    (a, b); r.has_value()) return r;
-    if (auto r = combine_sets<Objects>   (a, b); r.has_value()) return r;
-    if (auto r = combine_sets<Indices>   (a, b); r.has_value()) return r;
-    if (auto r = combine_sets<IndicesSet>(a, b); r.has_value()) return r;
-
-    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
+    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
+        return combine_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
+    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
+        return combine_sets(std::get<Object>(a), std::get<Object>(b));
+    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
+        return combine_sets(std::get<Objects>(a), std::get<Objects>(b));
+    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
+        return combine_sets(std::get<Indices>(a), std::get<Indices>(b));
+    else if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
+        return combine_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
+    else //if (std::holds_alternative<Grid>(a) && std::holds_alternative<Grid>(b))
     {
-        auto const x{std::any_cast<Grid>(a)};
-        auto const y{std::any_cast<Grid>(b)};
+        auto const x{std::get<Grid>(a)};
+        auto const y{std::get<Grid>(b)};
         Grid result{x};
 
         result.insert(result.end(), y.begin(), y.end());
 
         return result;
     }
-
-    return std::any{};
 }
 
-std::any hdl::intersection(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const a{args[0]};
-    auto const b{args[1]};
-
-    if (auto r = intersection_sets<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<Object>    (a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<Objects>   (a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<Indices>   (a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<IndicesSet>(a, b); r.has_value()) return r;
-
-    return std::any{};
+hdl::FrozenSet hdl::intersection(FrozenSet const& a, FrozenSet const& b)
+{   
+    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
+        return intersection_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
+    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
+        return intersection_sets(std::get<Object>(a), std::get<Object>(b));
+    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
+        return intersection_sets(std::get<Objects>(a), std::get<Objects>(b));
+    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
+        return intersection_sets(std::get<Indices>(a), std::get<Indices>(b));
+    else //if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
+        return intersection_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
 }
 
-std::any hdl::difference(std::vector<std::any> const& args)
+hdl::FrozenSet hdl::difference(FrozenSet const& a, FrozenSet const& b)
 {
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const a{args[0]};
-    auto const b{args[1]};
-
-    if (auto r = difference_sets<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = difference_sets<Object>    (a, b); r.has_value()) return r;
-    if (auto r = difference_sets<Objects>   (a, b); r.has_value()) return r;
-    if (auto r = difference_sets<Indices>   (a, b); r.has_value()) return r;
-    if (auto r = difference_sets<IndicesSet>(a, b); r.has_value()) return r;
-
-    return std::any{};
+    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
+        return difference_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
+    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
+        return difference_sets(std::get<Object>(a), std::get<Object>(b));
+    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
+        return difference_sets(std::get<Objects>(a), std::get<Objects>(b));
+    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
+        return difference_sets(std::get<Indices>(a), std::get<Indices>(b));
+    else //if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
+        return difference_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
 }
 
-std::any hdl::dedupe(std::vector<std::any> const& args)
+template <typename T>
+static T dedupe_vector(T const& v)
 {
-    if (args.size() != 1)
-        return std::any{};
+    T result;
+    result.reserve(v.size());
 
-    auto const tup{args.front()};
-
-    if (tup.type() == typeid(Element))
+    for (size_t i{0}; i < v.size(); ++i)
     {
-        auto const x{std::any_cast<Element>(tup)};
+        auto const r{std::ranges::find_end(v, std::views::single(v[i]))};
 
-        if (std::holds_alternative<Grid>(x))
-            return dedupe(std::vector<std::any>{std::get<Grid>(x)});
-    }
-    else if (tup.type() == typeid(Piece))
-    {
-        auto const x{std::any_cast<Piece>(tup)};
-
-        if (std::holds_alternative<Grid>(x))
-            return dedupe(std::vector<std::any>{std::get<Grid>(x)});
-    }
-    else if (tup.type() == typeid(Grid))
-    {
-        auto const x{std::any_cast<Grid>(tup)};
-        Grid y;
-        y.reserve(x.size());
-
-        for (size_t i{0}; i < x.size(); ++i)
-        {
-            auto const result{std::ranges::find_end(x, std::views::single(x[i]))};
-
-            if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
-                y.emplace_back(x[i]);
-        }
+        if (r.begin() != v.end() && std::distance(v.begin(), r.begin()) == i)
+            result.emplace_back(v[i]);
     }
 
-    return std::any{};
+    return result;
 }
 
+hdl::Tuple hdl::dedupe(Tuple const& tup)
+{
+    if (std::holds_alternative<Element>(tup))
+    {
+        auto const& element{std::get<Element>(tup)};
+
+        if (std::holds_alternative<Grid>(element))
+            return dedupe(std::get<Grid>(element));
+        else
+            return element;
+    }
+    else if (std::holds_alternative<Piece>(tup))
+    {
+        auto const& piece{std::get<Piece>(tup)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return dedupe(std::get<Grid>(piece));
+        else
+            return piece;
+    }
+    else if (std::holds_alternative<std::vector<Integer> >(tup))
+        return dedupe_vector(std::get<std::vector<Integer> >(tup));
+    else if (std::holds_alternative<std::vector<Integer> >(tup))
+        return dedupe_vector(std::get<std::vector<Integer> >(tup));
+    else if (std::holds_alternative<std::vector<Cell> >(tup))
+        return dedupe_vector(std::get<std::vector<Cell> >(tup));
+    else if (std::holds_alternative<std::vector<std::vector<Cell> > >(tup))
+        return dedupe_vector(std::get<std::vector<std::vector<Cell> > >(tup));
+    else if (std::holds_alternative<std::vector<IntegerTuple> >(tup))
+        return dedupe_vector(std::get<std::vector<IntegerTuple> >(tup));
+    else if (std::holds_alternative<std::vector<std::vector<IntegerTuple> > >(tup))
+        return dedupe_vector(std::get<std::vector<std::vector<IntegerTuple> > >(tup));
+    else //if (std::holds_alternative<Grid>(tup))
+        return dedupe_vector(std::get<Grid>(tup));
+}
+/*
 std::any hdl::order(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -549,12 +521,11 @@ std::any hdl::repeat(std::vector<std::any> const& args)
     auto const item{args[0]};
     auto const num{args[1]};
 
-    if (num.type() == typeid(UnsignedInteger))
+    if (num.type() == typeid(Integer))
     {
-        auto const n{std::any_cast<UnsignedInteger>(num)};
+        auto const n{std::any_cast<Integer>(num)};
        
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
@@ -567,30 +538,27 @@ hdl::Boolean hdl::greater(Integer const& a, Integer const& b)
 {
     return Boolean{a > b};
 }
-/*
-std::any hdl::size(std::vector<std::any> const& args)
+
+hdl::Integer hdl::size(Container const& container)
 {
-    if (args.size() != 1)
-        return std::any{};
-
-    auto const container{args.front()};
-
-    if (auto r = size_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = size_set<Object>    (container); r.has_value()) return r;
-    if (auto r = size_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = size_set<Indices>   (container); r.has_value()) return r;
-    if (auto r = size_set<IndicesSet>(container); r.has_value()) return r;
-
-    if (container.type() == typeid(Grid))
+    if (std::holds_alternative<IntegerSet>(container))
+        return size_set(std::get<IntegerSet>(container));
+    else if (std::holds_alternative<Object>(container))
+        return size_set(std::get<Object>(container));
+    else if (std::holds_alternative<Objects>(container))
+        return size_set(std::get<Objects>(container));
+    else if (std::holds_alternative<Indices>(container))
+        return size_set(std::get<Indices>(container));
+    else if (std::holds_alternative<IndicesSet>(container))
+        return size_set(std::get<IndicesSet>(container));
+    else //if (std::holds_alternative<Grid>(container))
     {
-        auto const x{std::any_cast<Grid>(container)};
-        
-        return static_cast<UnsignedInteger>(x.size());
-    }
+        auto const x{std::get<Grid>(container)};
 
-    return std::any{};
+        return static_cast<Integer>(x.size());
+    }
 }
-*/
+
 hdl::Integer hdl::maximum(IntegerSet const& container)
 {
     if (container.empty())
@@ -673,7 +641,7 @@ hdl::Numerical hdl::crement(Numerical const& x)
     //else if (std::holds_alternative<IntegerTuple>(x))
     {
         auto const z{std::get<IntegerTuple>(x)};
-        IntegerTuple result{std::make_pair<Integer, Integer>(0, 0)};
+        IntegerTuple result{0, 0};
 
         if (!z.first)
             result.first = z.first;
@@ -743,23 +711,37 @@ hdl::IntegerTuple hdl::tojvec(Integer const& j)
 {
     return IntegerTuple{0, j};
 }
-/*
-std::any hdl::totuple(std::vector<std::any> const& args)
+
+hdl::Tuple hdl::totuple(FrozenSet const& container)
 {
-    if (args.size() != 1)
-        return std::any{};
+    if (std::holds_alternative<IntegerSet>(container))
+        return vector_set(std::get<IntegerSet>(container));
+    else if (std::holds_alternative<Object>(container))
+        return vector_set(std::get<Object>(container));
+    else if (std::holds_alternative<Objects>(container))
+    {
+        auto const& objects{std::get<Objects>(container)};
+        std::vector<std::vector<Cell> > c;
 
-    auto const container{args.front()};
+        for (auto const& v : objects)
+            c.emplace_back(v.begin(), v.end());
 
-    if (auto r = vector_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = vector_set<Object>    (container); r.has_value()) return r;
-    if (auto r = vector_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = vector_set<Indices>   (container); r.has_value()) return r;
-    if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
+        return vector_set(c);
+    }
+    else if (std::holds_alternative<Indices>(container))
+        return vector_set(std::get<Indices>(container));
+    else //if (std::holds_alternative<IndicesSet>(container))
+    {
+        auto const& indicesSet{std::get<IndicesSet>(container)};
+        std::vector<std::vector<IntegerTuple> > c;
 
-    return std::any{};
+        for (auto const& v : indicesSet)
+            c.emplace_back(v.begin(), v.end());
+
+        return vector_set(c);
+    }
 }
-
+/*
 std::any hdl::first(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -902,7 +884,7 @@ hdl::IntegerTuple hdl::lrcorner(Patch const& patch)
     }
 }
 
-hdl::Grid hdl::crop(Grid const& grid, IntegerTuple const& start, Size const& dims)
+hdl::Grid hdl::crop(Grid const& grid, IntegerTuple const& start, IntegerTuple const& dims)
 {
     Grid result;
 
@@ -1232,7 +1214,7 @@ hdl::Piece hdl::cmirror(hdl::Piece const& piece)
     return vmirror(dmirror(vmirror(piece)));
 }
 
-hdl::Grid hdl::hupscale(Grid const& grid, UnsignedInteger const& factor)
+hdl::Grid hdl::hupscale(Grid const& grid, Integer const& factor)
 {
     Grid result;
 
@@ -1243,7 +1225,7 @@ hdl::Grid hdl::hupscale(Grid const& grid, UnsignedInteger const& factor)
 
         for (const auto& cell : row)
         {
-            for (UnsignedInteger i{0}; i < factor; ++i)
+            for (Integer i{0}; i < factor; ++i)
                 new_row.emplace_back(cell);
         }
 
@@ -1253,21 +1235,21 @@ hdl::Grid hdl::hupscale(Grid const& grid, UnsignedInteger const& factor)
     return result;
 }
 
-hdl::Grid hdl::vupscale(Grid const& grid, UnsignedInteger const& factor)
+hdl::Grid hdl::vupscale(Grid const& grid, Integer const& factor)
 {
     Grid result;
     result.reserve(grid.size() * factor);
 
     for (const auto& row : grid)
     {
-        for (UnsignedInteger k = 0; k < factor; ++k)
+        for (Integer k = 0; k < factor; ++k)
             result.emplace_back(row);
     }
 
     return result;
 }
 
-hdl::Element hdl::upscale(Element const& element, UnsignedInteger const& factor)
+hdl::Element hdl::upscale(Element const& element, Integer const& factor)
 {
     if (std::holds_alternative<Grid>(element))
     {
@@ -1321,7 +1303,7 @@ hdl::Element hdl::upscale(Element const& element, UnsignedInteger const& factor)
     return std::get<Object>(shift(result, IntegerTuple{di_inv, dj_inv}));
 }
 
-hdl::Grid hdl::downscale(Grid const& grid, UnsignedInteger const& factor)
+hdl::Grid hdl::downscale(Grid const& grid, Integer const& factor)
 {
     if (grid.empty())
         return grid;

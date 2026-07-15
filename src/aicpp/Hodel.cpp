@@ -582,6 +582,8 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
                 y.emplace_back(x[i]);
         }
+
+        return y;
     }
 
     return std::any{};
