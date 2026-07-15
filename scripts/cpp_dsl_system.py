@@ -35,6 +35,7 @@ dslTypes["FrozenSet"] = frozenSetTypes
 containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"]
 
 dslTypes["Container"] = containerTypes
+dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
 
 anyTypes = []
 
@@ -72,6 +73,23 @@ for definition in variableDefinitions:
     content += "; }, std::vector<std::type_index>{}, typeid(hodel::"
     content += variableType
     content += ")});\n"
+
+for definition in primitiveDefinitions:
+    definition = definition.strip()
+    i1 = definition.index(" ")
+    i2 = definition.index("(")
+    name = definition[i1+1:i2]
+    trueName = name
+
+    if (trueName.endswith("_")):
+        trueName = trueName[:-1]
+
+    content += f'    neurons.emplace("{trueName}"'
+    content += ", Neuron{"
+    content += f'"{trueName}"'
+    content += ", &hodel::"
+    content += name
+    content += ", std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)));\n"
 
 content += """
     return neurons;
@@ -112,7 +130,12 @@ for definition in primitiveDefinitions:
         products.add(tuple(d[id(lst)] for lst in pattern))
 
     for i, p in enumerate(products):
-        n = name
+        trueName = name
+
+        if (trueName.endswith("_")):
+            trueName = trueName[:-1]
+
+        n = trueName
 
         if (len(products) > 1):
             n += str(i)
@@ -121,7 +144,7 @@ for definition in primitiveDefinitions:
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
-        content += f'"{name}"'
+        content += f'"{trueName}"'
         content += f", hodel::{name}"
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
