@@ -237,6 +237,38 @@ std::any hodel::divide(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
+    if (b.type() == typeid(hodel::Numerical))
+    {
+        auto const y{std::any_cast<hodel::Numerical>(b)};
+
+        if (std::holds_alternative<hodel::Integer>(y))
+        {
+            if (!std::get<hodel::Integer>(y))
+                return std::any{};
+        }
+        else if (std::holds_alternative<hodel::IntegerTuple>(y))
+        {
+            auto const& d{std::get<hodel::IntegerTuple>(y)};
+
+            if (!d.first || !d.second)
+                return std::any{};
+        }
+    }
+    else if (b.type() == typeid(hodel::Integer))
+    {
+        auto const y{std::any_cast<hodel::Integer>(b)};
+
+        if (!y)
+            return std::any{};
+    }
+    else if (b.type() == typeid(hodel::IntegerTuple))
+    {
+        auto const& y{std::any_cast<hodel::IntegerTuple>(b)};
+
+        if (!y.first || !y.second)
+            return std::any{};
+    }
+
     return do_op(a, b, std::divides<Integer>{});
 }
 
@@ -580,6 +612,19 @@ std::any hodel::repeat(std::vector<std::any> const& args)
     {
         auto const n{std::any_cast<UnsignedInteger>(num)};
        
+        if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
+    }
+    else if (num.type() == typeid(Integer))
+    {
+        auto const n{std::any_cast<Integer>(num)};
+       
+        if (n < 0)
+            return std::any{};
+
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
@@ -999,6 +1044,75 @@ std::any hodel::astuple(std::vector<std::any> const& args)
 
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
+
+    return std::any{};
+}
+
+std::any hodel::matcher(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const function{args[0]};
+    auto const target{args[1]};
+
+    if (function.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[f, target] (std::vector<std::any> const& args) -> std::any
+        {
+            return equality(std::vector<std::any>{f(args), target});
+        }};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::rbind(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const function{args[0]};
+    auto const fixed{args[1]};
+
+    if (function.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[f, fixed] (std::vector<std::any> const& args) -> std::any
+        {
+            std::vector<std::any> new_args{args};
+            new_args.emplace_back(fixed);
+
+            return f(new_args);
+        }};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::lbind(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const function{args[0]};
+    auto const fixed{args[1]};
+
+    if (function.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[f, fixed] (std::vector<std::any> const& args) -> std::any
+        {
+            std::vector<std::any> new_args{fixed};
+            new_args.insert(new_args.end(), args.begin(), args.end());
+
+            return f(new_args);
+        }};
+    }
 
     return std::any{};
 }

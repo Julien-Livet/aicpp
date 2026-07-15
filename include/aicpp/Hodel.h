@@ -94,6 +94,12 @@ namespace hodel
     std::any size(std::vector<std::any> const& args); //UnsignedInteger(Container): cardinality
     std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
+    //std::any valmax(std::vector<std::any> const& args); //(): 
+    //std::any valmin(std::vector<std::any> const& args); //(): 
+    //std::any argmax(std::vector<std::any> const& args); //(): 
+    //std::any argmin(std::vector<std::any> const& args); //(): 
+    //std::any mostcommon(std::vector<std::any> const& args); //(): 
+    //std::any leastcommon(std::vector<std::any> const& args); //(): 
     std::any initset(std::vector<std::any> const& args); //FrozenSet(Any): initialize container
     std::any both(std::vector<std::any> const& args); //Boolean(Boolean, Boolean): logical and
     std::any either(std::vector<std::any> const& args); //Boolean(Boolean, Boolean): logical or
@@ -104,22 +110,75 @@ namespace hodel
     std::any positive(std::vector<std::any> const& args); //Boolean(Integer): positive
     std::any toivec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing vertically
     std::any tojvec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing horizontally
+    //std::any sfilter(std::vector<std::any> const& args); //(): 
+    //std::any mfilter(std::vector<std::any> const& args); //(): 
+    //std::any extract(std::vector<std::any> const& args); //(): 
     std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
     std::any first(std::vector<std::any> const& args); //Any(Container): first item of container
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
+    //std::any insert(std::vector<std::any> const& args); //(): 
+    //std::any remove(std::vector<std::any> const& args); //(): 
+    //std::any other(std::vector<std::any> const& args); //(): 
     std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
+    //std::any product(std::vector<std::any> const& args); //(): 
+    //std::any pair(std::vector<std::any> const& args); //(): 
+    //std::any branch(std::vector<std::any> const& args); //(): 
+    //std::any compose(std::vector<std::any> const& args); //(): 
+    //std::any chain(std::vector<std::any> const& args); //(): 
+    std::any matcher(std::vector<std::any> const& args); //Callable(Callable, Any): construction of equality function
+    std::any rbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the rightmost argument
+    std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
+    //std::any power(std::vector<std::any> const& args); //(): 
+    //std::any fork(std::vector<std::any> const& args); //(): 
+    //std::any apply(std::vector<std::any> const& args); //(): 
+    //std::any rapply(std::vector<std::any> const& args); //(): 
+    //std::any mapply(std::vector<std::any> const& args); //(): 
+    //std::any prapply(std::vector<std::any> const& args); //(): 
+    //std::any mostcolor(std::vector<std::any> const& args); //(): 
+    //std::any leastcolor(std::vector<std::any> const& args); //(): 
+    //std::any height(std::vector<std::any> const& args); //(): 
+    //std::any width(std::vector<std::any> const& args); //(): 
+    //std::any shape(std::vector<std::any> const& args); //(): 
+    //std::any portrait(std::vector<std::any> const& args); //(): 
+    //std::any colorcount(std::vector<std::any> const& args); //(): 
+    //std::any colorfilter(std::vector<std::any> const& args); //(): 
+    //std::any sizefilter(std::vector<std::any> const& args); //(): 
+    //std::any asindices(std::vector<std::any> const& args); //(): 
+    //std::any ofcolor(std::vector<std::any> const& args); //(): 
     std::any ulcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper left corner
     std::any urcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper right corner
     std::any llcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower left corner
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
     std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, Size): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
+    //std::any recolor(std::vector<std::any> const& args); //(): 
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
+    //std::any normalize(std::vector<std::any> const& args); //(): 
+    //std::any dneighbors(std::vector<std::any> const& args); //(): 
+    //std::any ineighbors(std::vector<std::any> const& args); //(): 
+    //std::any neighbors(std::vector<std::any> const& args); //(): 
+    //std::any objects(std::vector<std::any> const& args); //(): 
+    //std::any partition(std::vector<std::any> const& args); //(): 
+    //std::any fgpartition(std::vector<std::any> const& args); //(): 
     std::any uppermost(std::vector<std::any> const& args); //Integer(Patch): row index of uppermost occupied cell
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
     std::any rightmost(std::vector<std::any> const& args); //Integer(Patch): column index of rightmost occupied cell
+    //std::any square(std::vector<std::any> const& args); //(): 
+    //std::any vline(std::vector<std::any> const& args); //(): 
+    //std::any hline(std::vector<std::any> const& args); //(): 
+    //std::any hmatching(std::vector<std::any> const& args); //(): 
+    //std::any vmatching(std::vector<std::any> const& args); //(): 
+    //std::any manhattan(std::vector<std::any> const& args); //(): 
+    //std::any adjacent(std::vector<std::any> const& args); //(): 
+    //std::any bordering(std::vector<std::any> const& args); //(): 
+    //std::any centerofmass(std::vector<std::any> const& args); //(): 
+    //std::any palette(std::vector<std::any> const& args); //(): 
+    //std::any numcolors(std::vector<std::any> const& args); //(): 
+    //std::any color(std::vector<std::any> const& args); //(): 
+    //std::any toobject(std::vector<std::any> const& args); //(): 
+    //std::any asobject(std::vector<std::any> const& args); //(): 
     std::any rot90(std::vector<std::any> const& args); //Grid(Grid): quarter clockwise rotation
     std::any rot180(std::vector<std::any> const& args); //Grid(Grid): half rotation
     std::any rot270(std::vector<std::any> const& args); //Grid(Grid): quarter anticlockwise rotation
@@ -127,18 +186,48 @@ namespace hodel
     std::any vmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along vertical
     std::any dmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along diagonal
     std::any cmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along counterdiagonal
+    //std::any fill(std::vector<std::any> const& args); //(): 
+    //std::any paint(std::vector<std::any> const& args); //(): 
+    //std::any underfill(std::vector<std::any> const& args); //(): 
+    //std::any underpaint(std::vector<std::any> const& args); //(): 
     std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid horizontally
     std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid vertically
     std::any upscale(std::vector<std::any> const& args); //Element(Element, UnsignedInteger): upscale object or grid
     std::any downscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): downscale object or grid
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
+    //std::any subgrid(std::vector<std::any> const& args); //(): 
+    //std::any hsplit(std::vector<std::any> const& args); //(): 
+    //std::any vsplit(std::vector<std::any> const& args); //(): 
+    //std::any cellwise(std::vector<std::any> const& args); //(): 
     std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution
     std::any switch_(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color switching
+    //std::any center(std::vector<std::any> const& args); //(): 
+    //std::any position(std::vector<std::any> const& args); //(): 
+    //std::any index(std::vector<std::any> const& args); //(): 
+    //std::any canvas(std::vector<std::any> const& args); //(): 
+    //std::any corners(std::vector<std::any> const& args); //(): 
+    //std::any connect(std::vector<std::any> const& args); //(): 
+    //std::any cover(std::vector<std::any> const& args); //(): 
+    //std::any trim(std::vector<std::any> const& args); //(): 
+    //std::any move(std::vector<std::any> const& args); //(): 
     std::any tophalf(std::vector<std::any> const& args); //Grid(Grid): upper half of grid
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
     std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
     std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
+    //std::any vfrontier(std::vector<std::any> const& args); //(): 
+    //std::any hfrontier(std::vector<std::any> const& args); //(): 
+    //std::any backdrop(std::vector<std::any> const& args); //(): 
+    //std::any delta(std::vector<std::any> const& args); //(): 
+    //std::any gravitate(std::vector<std::any> const& args); //(): 
+    //std::any inbox(std::vector<std::any> const& args); //(): 
+    //std::any outbox(std::vector<std::any> const& args); //(): 
+    //std::any shoot(std::vector<std::any> const& args); //(): 
+    //std::any occurences(std::vector<std::any> const& args); //(): 
+    //std::any frontiers(std::vector<std::any> const& args); //(): 
+    //std::any compress(std::vector<std::any> const& args); //(): 
+    //std::any hperiod(std::vector<std::any> const& args); //(): 
+    //std::any vperiod(std::vector<std::any> const& args); //(): 
 }
 
 #endif // AICPP_HODEL_H
