@@ -3,12 +3,185 @@
 
 #include <functional>
 #include <set>
+#include <stdexcept>
 #include <utility>
 #include <variant>
 #include <vector>
 
 namespace hdl
 {
+    namespace typed
+    {
+        typedef bool Boolean;
+        typedef int Integer;
+        typedef unsigned int UnsignedInteger;
+        
+        struct IntegerTuple : public std::pair<Integer, Integer>
+        {
+            constexpr IntegerTuple(Integer const& first, Integer const& second) : std::pair<Integer, Integer>(first, second)
+            {
+            }
+
+            constexpr IntegerTuple() : std::pair<Integer, Integer>(0, 0)
+            {
+            }
+
+            constexpr IntegerTuple(IntegerTuple const& other) : std::pair<Integer, Integer>(other.first, other.second)
+            {
+            }
+
+            IntegerTuple& operator=(IntegerTuple const& other)
+            {
+                this->first = other.first;
+                this->second = other.second;
+
+                return *this;
+            }
+
+            IntegerTuple& operator+=(IntegerTuple const& other)
+            {
+                this->first += other.first;
+                this->second += other.second;
+
+                return *this;
+            }
+
+            IntegerTuple& operator*=(IntegerTuple const& other)
+            {
+                this->first *= other.first;
+                this->second *= other.second;
+
+                return *this;
+            }
+
+            IntegerTuple& operator/=(IntegerTuple const& other)
+            {
+                if (!other.first || !other.second)
+                    throw std::invalid_argument("Division by zero in IntegerTuple division.");
+
+                this->first /= other.first;
+                this->second /= other.second;
+
+                return *this;
+            }
+
+            IntegerTuple& operator-=(IntegerTuple const& other)
+            {
+                this->first -= other.first;
+                this->second -= other.second;
+
+                return *this;
+            }
+
+            IntegerTuple& operator+=(Integer const& n)
+            {
+                this->first += n;
+                this->second += n;
+
+                return *this;
+            }
+
+            IntegerTuple& operator-=(Integer const& n)
+            {
+                this->first -= n;
+                this->second -= n;
+
+                return *this;
+            }
+
+            IntegerTuple& operator*=(Integer const& n)
+            {
+                this->first *= n;
+                this->second *= n;
+
+                return *this;
+            }
+
+            IntegerTuple& operator/=(Integer const& n)
+            {
+                if (!n)
+                    throw std::invalid_argument("Division by zero in IntegerTuple division.");
+
+                this->first /= n;
+                this->second /= n;
+
+                return *this;
+            }
+        };
+
+        typedef std::set<Integer> IntegerSet;
+        typedef std::vector<std::vector<Integer> > Grid;
+        typedef std::pair<Integer, IntegerTuple> Cell;
+        typedef std::set<Cell> Object;
+        typedef std::set<Object> Objects;
+        typedef std::set<IntegerTuple> Indices;
+        typedef std::set<Indices> IndicesSet;
+        typedef std::pair<UnsignedInteger, UnsignedInteger> Size;
+
+        Boolean constexpr F = false;
+        Boolean constexpr T = true;
+
+        Integer constexpr ZERO = 0;
+        Integer constexpr ONE = 1;
+        Integer constexpr TWO = 2;
+        Integer constexpr THREE = 3;
+        Integer constexpr FOUR = 4;
+        Integer constexpr FIVE = 5;
+        Integer constexpr SIX = 6;
+        Integer constexpr SEVEN = 7;
+        Integer constexpr EIGHT = 8;
+        Integer constexpr NINE = 9;
+        Integer constexpr TEN = 10;
+
+        Integer constexpr NEG_ONE = -1;
+        Integer constexpr NEG_TWO = -2;
+
+        UnsignedInteger constexpr U_ONE = 1;
+        UnsignedInteger constexpr U_TWO = 2;
+        UnsignedInteger constexpr U_THREE = 3;
+        UnsignedInteger constexpr U_FOUR = 4;
+        UnsignedInteger constexpr U_FIVE = 5;
+        UnsignedInteger constexpr U_SIX = 6;
+        UnsignedInteger constexpr U_SEVEN = 7;
+        UnsignedInteger constexpr U_EIGHT = 8;
+        UnsignedInteger constexpr U_NINE = 9;
+        UnsignedInteger constexpr U_TEN = 10;
+
+        IntegerTuple constexpr DOWN(1, 0);
+        IntegerTuple constexpr RIGHT(0, 1);
+        IntegerTuple constexpr UP(-1, 0);
+        IntegerTuple constexpr LEFT(0, -1);
+
+        IntegerTuple constexpr ORIGIN(0, 0);
+        IntegerTuple constexpr UNITY(1, 1);
+        IntegerTuple constexpr NEG_UNITY(-1, -1);
+        IntegerTuple constexpr UP_RIGHT(-1, 1);
+        IntegerTuple constexpr DOWN_LEFT(1, -1);
+
+        Size constexpr ZERO_BY_TWO = std::make_pair<UnsignedInteger, UnsignedInteger>(0, 2);
+        Size constexpr TWO_BY_ZERO = std::make_pair<Integer, UnsignedInteger>(2, 0);
+        Size constexpr TWO_BY_TWO = std::make_pair<UnsignedInteger, UnsignedInteger>(2, 2);
+        Size constexpr THREE_BY_THREE = std::make_pair<UnsignedInteger, UnsignedInteger>(3, 3);
+
+        // Definitions
+        Integer add(Integer const& a, Integer const& b);
+        IntegerTuple add(IntegerTuple const& a, Integer const& b);
+        IntegerTuple add(Integer const& a, IntegerTuple const& b);
+        IntegerTuple add(IntegerTuple const& a, IntegerTuple const& b);
+        Integer subtract(Integer const& a, Integer const& b);
+        IntegerTuple subtract(IntegerTuple const& a, Integer const& b);
+        IntegerTuple subtract(Integer const& a, IntegerTuple const& b);
+        IntegerTuple subtract(IntegerTuple const& a, IntegerTuple const& b);
+        Integer multiply(Integer const& a, Integer const& b);
+        IntegerTuple multiply(IntegerTuple const& a, Integer const& b);
+        IntegerTuple multiply(Integer const& a, IntegerTuple const& b);
+        IntegerTuple multiply(IntegerTuple const& a, IntegerTuple const& b);
+        Integer divide(Integer const& a, Integer const& b);
+        IntegerTuple divide(IntegerTuple const& a, Integer const& b);
+        IntegerTuple divide(Integer const& a, IntegerTuple const& b);
+        IntegerTuple divide(IntegerTuple const& a, IntegerTuple const& b);
+    }
+
     typedef bool Boolean;
     typedef int Integer;
     typedef unsigned int UnsignedInteger;

@@ -4,6 +4,93 @@
 #include <unordered_set>
 
 #include "aicpp/Hdl.h"
+
+namespace hdl
+{
+    namespace typed
+    {
+        Integer add(Integer const& a, Integer const& b)
+        {
+            return a + b;
+        }
+
+        IntegerTuple add(IntegerTuple const& a, Integer const& b)
+        {
+            return IntegerTuple{a} += b;
+        }
+
+        IntegerTuple add(Integer const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{b} += a;
+        }
+
+        IntegerTuple add(IntegerTuple const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{a} += b;
+        }
+        
+        Integer subtract(Integer const& a, Integer const& b)
+        {
+            return a - b;
+        }
+
+        IntegerTuple subtract(IntegerTuple const& a, Integer const& b)
+        {
+            return IntegerTuple{a} -= b;
+        }
+
+        IntegerTuple subtract(Integer const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{b} -= a;
+        }
+
+        IntegerTuple subtract(IntegerTuple const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{a} -= b;
+        }
+        
+        Integer multiply(Integer const& a, Integer const& b)
+        {
+            return a * b;
+        }
+
+        IntegerTuple multiply(IntegerTuple const& a, Integer const& b)
+        {
+            return IntegerTuple{a} *= b;
+        }
+
+        IntegerTuple multiply(Integer const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{b} *= a;
+        }
+
+        IntegerTuple multiply(IntegerTuple const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{a} *= b;
+        }
+        
+        Integer divide(Integer const& a, Integer const& b)
+        {
+            return a / b;
+        }
+
+        IntegerTuple divide(IntegerTuple const& a, Integer const& b)
+        {
+            return IntegerTuple{a} /= b;
+        }
+
+        IntegerTuple divide(Integer const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{a, a} /= b;
+        }
+
+        IntegerTuple divide(IntegerTuple const& a, IntegerTuple const& b)
+        {
+            return IntegerTuple{a} /= b;
+        }
+    }
+}
+
 /*
 template<typename T>
 static std::any repeat(std::any const& item, hdl::UnsignedInteger const& n)
