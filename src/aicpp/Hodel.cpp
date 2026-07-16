@@ -1116,6 +1116,127 @@ std::any hodel::lbind(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::fork(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        return std::any{};
+
+    auto const outer{args[0]};
+    auto const a{args[1]};
+    auto const b{args[1]};
+
+    if (outer.type() == typeid(std::function<std::any(std::vector<std::any> const&)>)
+        && a.type() == typeid(std::function<std::any(std::vector<std::any> const&)>)
+        && b.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const outer_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(outer)};
+        auto const a_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(a)};
+        auto const b_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(b)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[outer_, a_, b_] (std::vector<std::any> const& args) -> std::any
+        {
+            return outer_({a_(args), b_(args)});
+        }};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::height(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto const grid{std::get<Grid>(piece_)};
+
+            if (grid.size() == 0)
+                return 0;
+
+            return grid.size();
+        }
+        else if (std::holds_alternative<Patch>(piece_))
+        {
+            auto const lm{std::any_cast<Integer>(lowermost(args))};
+            auto const um{std::any_cast<Integer>(uppermost(args))};
+
+            return lm - um + 1;
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::width(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const piece_{std::any_cast<Piece>(piece)};
+
+        if (std::holds_alternative<Grid>(piece_))
+        {
+            auto const grid{std::get<Grid>(piece_)};
+
+            if (grid.size() == 0)
+                return 0;
+
+            return grid[0].size();
+        }
+        else if (std::holds_alternative<Patch>(piece_))
+        {
+            auto const rm{std::any_cast<Integer>(rightmost(args))};
+            auto const lm{std::any_cast<Integer>(leftmost(args))};
+
+            return rm - lm + 1;
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::shape(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+        return IntegerTuple{std::any_cast<Integer>(height(args)), std::any_cast<Integer>(width(args))};
+
+    return std::any{};
+}
+
+std::any hodel::portrait(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        auto const h{std::any_cast<Integer>(height(args))};
+        auto const w{std::any_cast<Integer>(width(args))};
+
+        return static_cast<Boolean>(h > w);
+    }
+
+    return std::any{};
+}
+
 std::any hodel::ulcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
