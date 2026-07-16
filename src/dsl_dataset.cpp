@@ -1,12 +1,49 @@
 #include <cassert>
+#include <iostream>
 #include <mutex>
 #include <random>
 #include <thread>
+#include <unordered_set>
 
 #include "aicpp/Connection.h"
+#include "aicpp/Hodel.h"
+#include "aicpp/Neuron.h"
 #include "aicpp/DslSystem.h"
 
 using namespace aicpp;
+
+Connection buildConnection(std::map<std::type_index, std::vector<Neuron> > const& variableNeuronsByOutputType,
+                           std::map<std::type_index, std::vector<Neuron> > const& primitiveNeuronsByOutputType,
+                           size_t depth, std::type_index const& type)
+{
+    std::random_device rd;
+
+    if (!depth)
+    {
+        std::uniform_int_distribution<size_t> dist(0, variableNeuronsByOutputType.at(type).size() - 1);
+        Neuron const& neuron{variableNeuronsByOutputType.at(type).at(dist(rd))};
+
+        assert(neuron.inputTypes().empty());
+
+        return Connection{neuron, {}};
+    }
+
+    std::map<std::type_index, std::vector<Neuron> > neuronsByOutputType{variableNeuronsByOutputType};
+    neuronsByOutputType.insert(primitiveNeuronsByOutputType.begin(), primitiveNeuronsByOutputType.end());
+
+    std::uniform_int_distribution<size_t> dist(0, neuronsByOutputType.at(type).size() - 1);
+    Neuron const& neuron{neuronsByOutputType.at(type).at(dist(rd))};
+
+    std::vector<std::any> inputs;
+
+    for (auto const& inputType : neuron.inputTypes())
+    {
+        Connection const& inputConnection{buildConnection(variableNeuronsByOutputType, primitiveNeuronsByOutputType, depth - 1, inputType)};
+        inputs.emplace_back(inputConnection);
+    }
+
+    return Connection{neuron, inputs};
+}
 
 int main(int argc, char* argv[])
 {
@@ -33,47 +70,16 @@ int main(int argc, char* argv[])
     for (auto const& primitive : primitives)
         primitiveNeuronsByOutputType[primitive.second.outputType()].emplace_back(primitive.second);
 
-    std::set<Connection> connections;
-
-    auto const buildConnection = [variableNeuronsByOutputType, primitiveNeuronsByOutputType] (size_t depth, std::type_index const& type) -> Connection {
-        std::random_device rd;
-
-        if (!depth)
-        {
-            std::uniform_int_distribution<size_t> dist(0, variableNeuronsByOutputType.at(type).size() - 1);
-            Neuron const& neuron{variableNeuronsByOutputType.at(type).at(dist(rd))};
-
-            assert(neuron.inputTypes().empty());
-
-            return Connection{neuron, {}};
-        }
-
-        std::map<std::type_index, std::vector<Connection> > neuronsByOutputType{variableNeuronsByOutputType};
-        neuronsByOutputType.insert(primitiveNeuronsByOutputType.begin(), primitiveNeuronsByOutputType.end());
-
-        std::uniform_int_distribution<size_t> dist(0, neuronsByOutputType.at(type).size() - 1);
-        Neuron const& neuron{neuronsByOutputType.at(type).at(dist(rd))};
-
-        std::vector<std::any> inputs;
-
-        for (auto const& inputType : neuron.inputTypes())
-        {
-            Connection const& inputConnection{buildConnection(depth - 1, inputType)};
-            inputs.emplace_back(inputConnection);
-        }
-
-        return Connection{neuron, inputs};
-    };
-
+    std::unordered_set<Connection> connections;
     std::mutex mutex;
 
-    auto const addConnection = [&mutex, &connections, depth, count] () {
+    auto const addConnection = [&mutex, &connections, variableNeuronsByOutputType, primitiveNeuronsByOutputType, depth, count] () {
         if (connections.size() >= count)
             return;
 
         try
         {
-            auto const connection{buildConnection(depth, typeid(Hodel::Grid))};
+            auto const connection{buildConnection(variableNeuronsByOutputType, primitiveNeuronsByOutputType, depth, typeid(hodel::Grid))};
 
             //...Check connection result
 
