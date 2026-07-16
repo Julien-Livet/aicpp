@@ -223,42 +223,47 @@ int main(int argc, char* argv[])
 
             iNeuron.function() = [] (std::vector<std::any> const&) -> std::any { return generateStructuredGrid(); };
 
-            auto const output{std::any_cast<hodel::Grid>(connection.output())};
+            auto const output{connection.output()};
 
-            bool add{true};
+            if (output.has_value())
+            {
+                auto const grid{std::any_cast<hodel::Grid>(output)};
 
-            if (output == std::any_cast<hodel::Grid>(iNeuron.function()({})))
-                add = false;
+                bool add{true};
 
-            auto const minReducer = [](hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
-            auto const minTransformer = [](const std::vector<hodel::Integer>& row) {
-                return row.empty()
-                    ? std::numeric_limits<hodel::Integer>::max()
-                    : *std::min_element(row.begin(), row.end());
-            };
-            auto const maxReducer = [](hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
-            auto const maxTransformer = [](const std::vector<hodel::Integer>& row) {
-                return row.empty()
-                    ? std::numeric_limits<hodel::Integer>::min()
-                    : *std::max_element(row.begin(), row.end());
-            };
+                if (grid == std::any_cast<hodel::Grid>(iNeuron.function()({})))
+                    add = false;
 
-            auto const min = std::transform_reduce(
-                output.begin(), output.end(),
-                std::numeric_limits<hodel::Integer>::max(),
-                minReducer,
-                minTransformer);
-            auto const max = std::transform_reduce(
-                output.begin(), output.end(),
-                std::numeric_limits<hodel::Integer>::min(),
-                maxReducer,
-                maxTransformer);
+                auto const minReducer = [](hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                auto const minTransformer = [](const std::vector<hodel::Integer>& row) {
+                    return row.empty()
+                        ? std::numeric_limits<hodel::Integer>::max()
+                        : *std::min_element(row.begin(), row.end());
+                };
+                auto const maxReducer = [](hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                auto const maxTransformer = [](const std::vector<hodel::Integer>& row) {
+                    return row.empty()
+                        ? std::numeric_limits<hodel::Integer>::min()
+                        : *std::max_element(row.begin(), row.end());
+                };
 
-            if (min < 0 || max > 9)
-                add = false;
+                auto const min = std::transform_reduce(
+                    grid.begin(), grid.end(),
+                    std::numeric_limits<hodel::Integer>::max(),
+                    minReducer,
+                    minTransformer);
+                auto const max = std::transform_reduce(
+                    grid.begin(), grid.end(),
+                    std::numeric_limits<hodel::Integer>::min(),
+                    maxReducer,
+                    maxTransformer);
 
-            if (add)
-                connections.emplace(std::move(connection));
+                if (min < 0 || max > 9)
+                    add = false;
+
+                if (add)
+                    connections.emplace(std::move(connection));
+            }
         }
         catch (std::exception const&)
         {
@@ -269,10 +274,17 @@ int main(int argc, char* argv[])
 
     while (connections.size() < count)
     {
-        if (threads.size() < std::thread::hardware_concurrency())
-            threads.emplace_back(addConnection);
-    }
+        if (threads.size() == std::thread::hardware_concurrency())
+        {
+            for (auto& thread : threads)
+                thread.join();
 
+            threads.clear();
+        }
+
+        threads.emplace_back(addConnection);
+    }
+    
     for (auto& thread : threads)
         thread.join();
 
