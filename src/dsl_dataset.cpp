@@ -13,9 +13,9 @@
 
 using namespace aicpp;
 
-Connection buildConnection(std::map<std::type_index, std::vector<Neuron> > const& variableNeuronsByOutputType,
-                           std::map<std::type_index, std::vector<Neuron> > const& primitiveNeuronsByOutputType,
-                           std::map<std::type_index, std::vector<Neuron> > const& neuronsByOutputType,
+Connection buildConnection(std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& variableNeuronsByOutputType,
+                           std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& primitiveNeuronsByOutputType,
+                           std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& neuronsByOutputType,
                            size_t depth, std::type_index const& type)
 {
     std::random_device rd;
@@ -52,6 +52,126 @@ struct ConnectionLess
     }
 };
 
+ int NUM_COLORS = 10;
+
+hodel::Grid generateStructuredGrid(
+    std::pair<size_t, size_t> minSize = {4, 4},
+    std::pair<size_t, size_t> maxSize = {30, 30})
+{
+    std::random_device rd;
+
+    const std::vector<std::string> kinds = {
+        "stripes", "blocks", "pattern",
+        "gradient", "sparse", "random"
+    };
+
+    std::uniform_int_distribution<size_t> kindDist(0, kinds.size() - 1);
+    auto const kind = kinds[kindDist(rd)];
+
+    std::uniform_int_distribution<size_t> hDist(minSize.first, maxSize.first - 1);
+    std::uniform_int_distribution<size_t> wDist(minSize.second, maxSize.second - 1);
+
+    auto const h = hDist(rd);
+    auto const w = wDist(rd);
+
+    hodel::Grid grid(h, std::vector<hodel::Integer>(w, 0));
+
+    std::uniform_int_distribution<hodel::Integer> colorDist(1, NUM_COLORS - 1);
+    std::uniform_int_distribution<hodel::Integer> anyColorDist(0, NUM_COLORS - 1);
+    std::uniform_real_distribution<double> realDist(0.0, 1.0);
+
+    if (kind == "stripes")
+    {
+        for (size_t i = 0; i < h; ++i)
+        {
+            if (realDist(rd) > 0.5)
+            {
+                auto const color = colorDist(rd);
+                std::fill(grid[i].begin(), grid[i].end(), color);
+            }
+        }
+    }
+    else if (kind == "blocks")
+    {
+        std::uniform_int_distribution<size_t> blockCountDist(2, 5);
+        auto const blockCount = blockCountDist(rd);
+
+        std::uniform_int_distribution<size_t> rowDist(0, h - 1);
+        std::uniform_int_distribution<size_t> colDist(0, w - 1);
+
+        for (int b = 0; b < blockCount; ++b)
+        {
+            auto r1 = rowDist(rd);
+            auto r2 = rowDist(rd);
+
+            if (r1 > r2)
+                std::swap(r1, r2);
+
+            auto c1 = colDist(rd);
+            auto c2 = colDist(rd);
+
+            if (c1 > c2)
+                std::swap(c1, c2);
+
+            auto const color = colorDist(rd);
+
+            for (size_t i = r1; i <= r2; ++i)
+                for (size_t j = c1; j <= c2; ++j)
+                    grid[i][j] = color;
+        }
+    }
+    else if (kind == "pattern")
+    {
+        auto const maxBaseH = std::max(3ul, h / 2);
+        auto const maxBaseW = std::max(3ul, w / 2);
+
+        std::uniform_int_distribution<size_t> baseHDist(2, maxBaseH - 1);
+        std::uniform_int_distribution<size_t> baseWDist(2, maxBaseW - 1);
+
+        auto const baseH = baseHDist(rd);
+        auto const baseW = baseWDist(rd);
+
+        std::vector<std::vector<hodel::Integer> > base(baseH, std::vector<hodel::Integer>(baseW));
+
+        for (int i = 0; i < baseH; ++i)
+            for (int j = 0; j < baseW; ++j)
+                base[i][j] = anyColorDist(rd);
+
+        for (int i = 0; i < h; ++i)
+            for (int j = 0; j < w; ++j)
+                grid[i][j] = base[i % baseH][j % baseW];
+    }
+    else if (kind == "gradient")
+    {
+        for (size_t i = 0; i < h; ++i)
+        {
+            auto const value = (i * (NUM_COLORS - 1)) / std::max(h - 1, 1ul);
+            std::fill(grid[i].begin(), grid[i].end(), value);
+        }
+    }
+    else if (kind == "random")
+    {
+        for (size_t i = 0; i < h; ++i)
+            for (size_t j = 0; j < w; ++j)
+                grid[i][j] = anyColorDist(rd);
+    }
+    else // sparse
+    {
+        std::uniform_int_distribution<size_t> countDist(3, 9);
+        std::uniform_int_distribution<size_t> rowDist(0, h - 1);
+        std::uniform_int_distribution<size_t> colDist(0, w - 1);
+
+        auto const count = countDist(rd);
+
+        for (size_t k = 0; k < count; ++k)
+        {
+            grid[rowDist(rd)][colDist(rd)] = colorDist(rd);
+        }
+    }
+
+    return grid;
+}
+
 int main(int argc, char* argv[])
 {
     if (argc < 3)
@@ -67,7 +187,7 @@ int main(int argc, char* argv[])
     auto const variables{dslVariableNeurons()};
     auto const primitives{dslPrimitiveNeurons()};
 
-    std::map<std::type_index, std::vector<Neuron> > variableNeuronsByOutputType;
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > variableNeuronsByOutputType;
 
     for (auto const& variable : variables)
         variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
@@ -76,12 +196,12 @@ int main(int argc, char* argv[])
 
     variableNeuronsByOutputType[iNeuron.outputType()].emplace_back(iNeuron);
 
-    std::map<std::type_index, std::vector<Neuron> > primitiveNeuronsByOutputType;
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > primitiveNeuronsByOutputType;
 
     for (auto const& primitive : primitives)
         primitiveNeuronsByOutputType[primitive.second.outputType()].emplace_back(primitive.second);
 
-    std::map<std::type_index, std::vector<Neuron> > neuronsByOutputType{variableNeuronsByOutputType};
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > neuronsByOutputType{variableNeuronsByOutputType};
 
     for (auto const& [i, v] : primitiveNeuronsByOutputType)
         neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
@@ -89,7 +209,7 @@ int main(int argc, char* argv[])
     std::set<Connection, ConnectionLess> connections;
     std::mutex mutex;
 
-    auto const addConnection = [&mutex, &connections, &variableNeuronsByOutputType, &primitiveNeuronsByOutputType, &neuronsByOutputType, depth, count] () {
+    auto const addConnection = [&mutex, &connections, &variableNeuronsByOutputType, &primitiveNeuronsByOutputType, &neuronsByOutputType, &iNeuron, depth, count] () {
         if (connections.size() >= count)
             return;
 
@@ -97,10 +217,48 @@ int main(int argc, char* argv[])
         {
             auto const connection{buildConnection(variableNeuronsByOutputType, primitiveNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid))};
 
-            //...Check connection result
+            assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
             std::lock_guard<std::mutex> lock(mutex);
-            connections.emplace(std::move(connection));
+
+            iNeuron.function() = [] (std::vector<std::any> const&) -> std::any { return generateStructuredGrid(); };
+
+            auto const output{std::any_cast<hodel::Grid>(connection.output())};
+
+            bool add{true};
+
+            if (output == std::any_cast<hodel::Grid>(iNeuron.function()({})))
+                add = false;
+
+            auto const minReducer = [](hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+            auto const minTransformer = [](const std::vector<hodel::Integer>& row) {
+                return row.empty()
+                    ? std::numeric_limits<hodel::Integer>::max()
+                    : *std::min_element(row.begin(), row.end());
+            };
+            auto const maxReducer = [](hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+            auto const maxTransformer = [](const std::vector<hodel::Integer>& row) {
+                return row.empty()
+                    ? std::numeric_limits<hodel::Integer>::min()
+                    : *std::max_element(row.begin(), row.end());
+            };
+
+            auto const min = std::transform_reduce(
+                output.begin(), output.end(),
+                std::numeric_limits<hodel::Integer>::max(),
+                minReducer,
+                minTransformer);
+            auto const max = std::transform_reduce(
+                output.begin(), output.end(),
+                std::numeric_limits<hodel::Integer>::min(),
+                maxReducer,
+                maxTransformer);
+
+            if (min < 0 || max > 9)
+                add = false;
+
+            if (add)
+                connections.emplace(std::move(connection));
         }
         catch (std::exception const&)
         {
