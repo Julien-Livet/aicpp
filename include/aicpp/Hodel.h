@@ -110,9 +110,9 @@ namespace hodel
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
     //std::any product(std::vector<std::any> const& args); //(): 
     //std::any pair(std::vector<std::any> const& args); //(): 
-    //std::any branch(std::vector<std::any> const& args); //(): 
-    //std::any compose(std::vector<std::any> const& args); //(): 
-    //std::any chain(std::vector<std::any> const& args); //(): 
+    std::any branch(std::vector<std::any> const& args); //Any(Boolean, Any, Any): if else branching
+    std::any compose(std::vector<std::any> const& args); //Callable(Callable, Callable): function composition
+    std::any chain(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): function composition with three functions
     std::any matcher(std::vector<std::any> const& args); //Callable(Callable, Any): construction of equality function
     std::any rbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the rightmost argument
     std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
