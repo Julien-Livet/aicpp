@@ -982,6 +982,9 @@ std::any hodel::first(std::vector<std::any> const& args)
     {
         auto const x{std::any_cast<Grid>(container)};
         
+        if (x.empty())
+            return std::any{};
+
         return x.front();
     }
 
@@ -1004,8 +1007,11 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (container.type() == typeid(Grid))
     {
         auto const x{std::any_cast<Grid>(container)};
-        
-        return x.front();
+
+        if (x.empty())
+            return std::any{};
+
+        return x.back();
     }
 
     return std::any{};
@@ -1509,10 +1515,17 @@ std::any hodel::rot90(std::vector<std::any> const& args)
 
         Grid result(cols, std::vector<int>(rows));
 
-        for (int i = 0; i < rows; ++i)
+        try
         {
-            for (int j = 0; j < cols; ++j)
-                result[j][rows - 1 - i] = grid_[i][j];
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int j = 0; j < cols; ++j)
+                    result[j][rows - 1 - i] = grid_[i][j];
+            }
+        }
+        catch(const std::exception&)
+        {
+            return std::any{};
         }
 
         return result;
@@ -1540,10 +1553,17 @@ std::any hodel::rot180(std::vector<std::any> const& args)
 
         Grid result(rows, std::vector<int>(cols));
 
-        for (int i = 0; i < rows; ++i)
+        try
         {
-            for (int j = 0; j < cols; ++j)
-                result[rows - 1 - i][cols - 1 - j] = grid_[i][j];
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int j = 0; j < cols; ++j)
+                    result[rows - 1 - i][cols - 1 - j] = grid_[i][j];
+            }
+        }
+        catch(const std::exception&)
+        {
+            return std::any{};
         }
 
         return result;
@@ -1571,10 +1591,17 @@ std::any hodel::rot270(std::vector<std::any> const& args)
 
         Grid result(cols, std::vector<int>(rows));
 
-        for (int i = 0; i < rows; ++i)
+        try
         {
-            for (int j = 0; j < cols; ++j)
-                result[cols - 1 - j][i] = grid_[i][j];
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int j = 0; j < cols; ++j)
+                    result[cols - 1 - j][i] = grid_[i][j];
+            }
+        }
+        catch(const std::exception&)
+        {
+            return std::any{};
         }
 
         return result;
