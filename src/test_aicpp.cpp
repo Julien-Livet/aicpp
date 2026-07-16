@@ -2,6 +2,7 @@
 #include <chrono>
 #include <fstream>
 #include <print>
+#include <ranges>
 
 #include <boost/json.hpp>
 
@@ -452,8 +453,14 @@ void learnInt(DslEngine& engine, std::string const& expression, int target)
 
     connnection.applyInputs(inputs);
 
+    auto const joined{args | std::views::join_with(std::string(", "))};
+    std::string s;
+
+    for (char const& c : joined)
+        s.push_back(c);
+
     std::println("Applied connection: {0}", connnection.string());
-    std::println("Args: {0}, output: {1}, cost: {2}", args, std::any_cast<int>(connnection.output()), cost);
+    std::println("Args: {0}, output: {1}, cost: {2}", s, std::any_cast<int>(connnection.output()), cost);
     std::println("Duration: {0} s", std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - t).count());
 
     EXPECT_FALSE(cost);
