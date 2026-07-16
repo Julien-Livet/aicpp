@@ -13,7 +13,7 @@ namespace aicpp
 {
     namespace typed
     {
-        void addType(boost::json::array& inputs)
+        inline void addType(boost::json::array& inputs)
         {
         }
 
@@ -24,7 +24,7 @@ namespace aicpp
             addType<Args...>(inputs);
         }
  
-        std::string typeDot(size_t startIndex, size_t& index, size_t count)
+        inline std::string typeDot(size_t startIndex, size_t& index, size_t count)
         {
             return std::string{};
         }
@@ -100,7 +100,7 @@ namespace aicpp
             private:
                 std::string name_;
                 std::function<T(Args...)> function_;
-        }
+        };
     }
 
     class Neuron
