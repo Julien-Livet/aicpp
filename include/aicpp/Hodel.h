@@ -24,7 +24,6 @@ namespace hodel
     typedef std::variant<Object, Indices> Patch;
     typedef std::variant<Object, Grid> Element;
     typedef std::variant<Grid, Patch> Piece;
-    typedef std::pair<Integer, Integer> Size;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -55,10 +54,10 @@ namespace hodel
     IntegerTuple constexpr UP_RIGHT{1, 1};
     IntegerTuple constexpr DOWN_LEFT{1, -1};
 
-    Size constexpr ZERO_BY_TWO{0, 2};
-    Size constexpr TWO_BY_ZERO{2, 0};
-    Size constexpr TWO_BY_TWO{2, 2};
-    Size constexpr THREE_BY_THREE{3, 3};
+    IntegerTuple constexpr ZERO_BY_TWO{0, 2};
+    IntegerTuple constexpr TWO_BY_ZERO{2, 0};
+    IntegerTuple constexpr TWO_BY_TWO{2, 2};
+    IntegerTuple constexpr THREE_BY_THREE{3, 3};
 
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
     std::any add(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): addition
@@ -138,7 +137,7 @@ namespace hodel
     std::any urcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper right corner
     std::any llcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower left corner
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
-    std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, Size): subgrid specified by start and dimension
+    std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, IntegerTuple): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
     //std::any recolor(std::vector<std::any> const& args); //(): 
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
