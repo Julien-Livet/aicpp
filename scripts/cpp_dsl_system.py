@@ -131,6 +131,8 @@ for definition in primitiveDefinitions:
         d: dict = dict(zip(unique, vals))
         products.add(tuple(d[id(lst)] for lst in pattern))
 
+    products = sorted(products)
+
     for i, p in enumerate(products):
         if (p[0].startswith("std::")):
             continue
