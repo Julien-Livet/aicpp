@@ -254,10 +254,12 @@ if (__name__ == "__main__"):
     datasetFilename: str = "dsl_dataset.txt"
 
     if ("dsl_dataset" in sys.argv):
+        depth: int = int(sys.argv[-2])
+        count: int = int(sys.argv[-1])
         loop: bool = True
 
         while (loop):
-            dataset = buildDataset()
+            dataset = buildDataset(maxDepth = depth)
 
             with open(datasetFilename, "r") as f:
                 dataset = sorted(set(dataset + f.read().split("\n")))
@@ -265,7 +267,7 @@ if (__name__ == "__main__"):
             with open(datasetFilename, "w") as f:
                 f.write("\n".join(dataset))
 
-            loop = len(dataset) < 250_000
+            loop = len(dataset) < count
     elif ("dsl_random_trajectory" in sys.argv):
         choosedProgram, trajectory = randomTrajectory()
 
