@@ -419,7 +419,6 @@ std::any hodel::equality(std::vector<std::any> const& args)
     if (auto r = ::equality<Patch>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Element>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Size>(a, b); r.has_value()) return r;
 
     return std::any{};
 }
@@ -1391,25 +1390,32 @@ std::any hodel::crop(std::vector<std::any> const& args)
     auto const start{args[1]};
     auto const dims{args[2]};
 
-    if (grid.type() == typeid(Grid) && start.type() == typeid(IntegerTuple) && dims.type() == typeid(Size))
+    if (grid.type() == typeid(Grid) && start.type() == typeid(IntegerTuple) && dims.type() == typeid(IntegerTuple))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const start_{std::any_cast<IntegerTuple>(start)};
-        auto const dims_{std::any_cast<Size>(dims)};
+        auto const dims_{std::any_cast<IntegerTuple>(dims)};
 
-        if (start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_[0].size())
+        if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_[0].size())
             return std::any{};
 
         Grid result;
 
-        for (size_t i{0}; i < dims_.first; ++i)
+        try
         {
-            std::vector<Integer> row;
+            for (size_t i{0}; i < dims_.first; ++i)
+            {
+                std::vector<Integer> row;
 
-            for (size_t j{0}; j < dims_.second; ++j)
-                row.emplace_back(grid_[start_.first + i][start_.second + j]); 
+                for (size_t j{0}; j < dims_.second; ++j)
+                    row.emplace_back(grid_.at(start_.first + i).at(start_.second + j)); 
 
-            result.emplace_back(row);
+                result.emplace_back(row);
+            }
+        }
+        catch (const std::exception&)
+        {
+            return std::any{};
         }
 
         return result;
@@ -1632,10 +1638,10 @@ std::any hodel::rot90(std::vector<std::any> const& args)
             for (int i = 0; i < rows; ++i)
             {
                 for (int j = 0; j < cols; ++j)
-                    result[j][rows - 1 - i] = grid_[i][j];
+                    result.at(j).at(rows - 1 - i) = grid_.at(i).at(j);
             }
         }
-        catch(const std::exception&)
+        catch (const std::exception&)
         {
             return std::any{};
         }
@@ -1670,10 +1676,10 @@ std::any hodel::rot180(std::vector<std::any> const& args)
             for (int i = 0; i < rows; ++i)
             {
                 for (int j = 0; j < cols; ++j)
-                    result[rows - 1 - i][cols - 1 - j] = grid_[i][j];
+                    result.at(rows - 1 - i).at(cols - 1 - j) = grid_.at(i).at(j);
             }
         }
-        catch(const std::exception&)
+        catch (const std::exception&)
         {
             return std::any{};
         }
@@ -1708,10 +1714,10 @@ std::any hodel::rot270(std::vector<std::any> const& args)
             for (int i = 0; i < rows; ++i)
             {
                 for (int j = 0; j < cols; ++j)
-                    result[cols - 1 - j][i] = grid_[i][j];
+                    result.at(cols - 1 - j).at(i) = grid_.at(i).at(j);
             }
         }
-        catch(const std::exception&)
+        catch (const std::exception&)
         {
             return std::any{};
         }
@@ -1869,7 +1875,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                 for (int i = 0; i < rows; ++i)
                 {
                     for (int j = 0; j < cols; ++j)
-                        result[j][i] = grid[i][j];
+                        result.at(j).at(i) = grid.at(i).at(j);
                 }
             }
             catch (std::exception const&)
