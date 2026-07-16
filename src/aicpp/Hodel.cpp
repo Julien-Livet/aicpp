@@ -6,8 +6,11 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
-static std::any repeat(std::any const& item, hodel::UnsignedInteger const& n)
+static std::any repeat(std::any const& item, hodel::Integer const& n)
 {
+    if (n < 0)
+        return std::any{};
+
     if (item.type() == typeid(T))
         return std::vector<T>(n, std::any_cast<T>(item));
 
@@ -27,7 +30,7 @@ template<typename T>
 static std::any size_set(std::any const& value)
 {
     if (value.type() == typeid(T))
-        return static_cast<hodel::UnsignedInteger>(std::any_cast<T>(value).size());
+        return static_cast<hodel::Integer>(std::any_cast<T>(value).size());
 
     return std::any{};
 }
@@ -404,7 +407,6 @@ std::any hodel::equality(std::vector<std::any> const& args)
 
     if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Integer>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<UnsignedInteger>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerSet>(a, b); r.has_value()) return r;
@@ -610,17 +612,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
     auto const item{args[0]};
     auto const num{args[1]};
 
-    if (num.type() == typeid(UnsignedInteger))
-    {
-        auto const n{std::any_cast<UnsignedInteger>(num)};
-       
-        if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
-    }
-    else if (num.type() == typeid(Integer))
+    if (num.type() == typeid(Integer))
     {
         auto const n{std::any_cast<Integer>(num)};
        
@@ -628,7 +620,6 @@ std::any hodel::repeat(std::vector<std::any> const& args)
             return std::any{};
 
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<UnsignedInteger>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
@@ -668,7 +659,7 @@ std::any hodel::size(std::vector<std::any> const& args)
     {
         auto const x{std::any_cast<Grid>(container)};
         
-        return static_cast<UnsignedInteger>(x.size());
+        return static_cast<Integer>(x.size());
     }
 
     return std::any{};
@@ -1752,10 +1743,17 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
             Grid result(cols, std::vector<int>(rows));
 
-            for (int i = 0; i < rows; ++i)
+            try
             {
-                for (int j = 0; j < cols; ++j)
-                    result[j][i] = grid[i][j];
+                for (int i = 0; i < rows; ++i)
+                {
+                    for (int j = 0; j < cols; ++j)
+                        result[j][i] = grid[i][j];
+                }
+            }
+            catch (std::exception const&)
+            {
+                return std::any{};
             }
 
             return result;
@@ -1839,10 +1837,13 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
     auto const grid{args[0]};
     auto const factor{args[1]};
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(UnsignedInteger))
+    if (grid.type() == typeid(Grid) && factor.type() == typeid(Integer))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
-        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+        auto const factor_{std::any_cast<Integer>(factor)};
+
+        if (factor_ < 0)
+            return std::any{};
 
         Grid result;
 
@@ -1853,7 +1854,7 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
 
             for (const auto& cell : row)
             {
-                for (UnsignedInteger i{0}; i < factor_; ++i)
+                for (Integer i{0}; i < factor_; ++i)
                     new_row.emplace_back(cell);
             }
 
@@ -1874,17 +1875,20 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
     auto const grid{args[0]};
     auto const factor{args[1]};
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(UnsignedInteger))
+    if (grid.type() == typeid(Grid) && factor.type() == typeid(Integer))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
-        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+        auto const factor_{std::any_cast<Integer>(factor)};
+
+        if (factor_ < 0)
+            return std::any{};
 
         Grid result;
         result.reserve(grid_.size() * factor_);
 
         for (const auto& row : grid_)
         {
-            for (UnsignedInteger k = 0; k < factor_; ++k)
+            for (Integer k = 0; k < factor_; ++k)
                 result.emplace_back(row);
         }
 
@@ -1902,10 +1906,13 @@ std::any hodel::upscale(std::vector<std::any> const& args)
     auto const element{args[0]};
     auto const factor{args[1]};
 
-    if (element.type() == typeid(Element) && factor.type() == typeid(UnsignedInteger))
+    if (element.type() == typeid(Element) && factor.type() == typeid(Integer))
     {
         auto const element_{std::any_cast<Element>(element)};
-        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+        auto const factor_{std::any_cast<Integer>(factor)};
+
+        if (factor_ < 0)
+            return std::any{};
 
         if (std::holds_alternative<Grid>(element_))
         {
@@ -1974,10 +1981,13 @@ std::any hodel::downscale(std::vector<std::any> const& args)
     auto const grid{args[0]};
     auto const factor{args[1]};
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(UnsignedInteger))
+    if (grid.type() == typeid(Grid) && factor.type() == typeid(Integer))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
-        auto const factor_{std::any_cast<UnsignedInteger>(factor)};
+        auto const factor_{std::any_cast<Integer>(factor)};
+
+        if (factor_ <= 0)
+            return std::any{};
 
         if (grid_.empty())
             return grid_;
