@@ -74,6 +74,8 @@ for definition in variableDefinitions:
     content += variableType
     content += ")});\n"
 
+content += "\n"
+
 for definition in primitiveDefinitions:
     definition = definition.strip()
     i1 = definition.index(" ")
@@ -87,9 +89,9 @@ for definition in primitiveDefinitions:
     content += f'    neurons.emplace("{trueName}"'
     content += ", Neuron{"
     content += f'"{trueName}"'
-    content += ", &hodel::"
+    content += ", hodel::"
     content += name
-    content += ", std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)));\n"
+    content += ", std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});\n"
 
 content += """
     return neurons;
@@ -130,6 +132,19 @@ for definition in primitiveDefinitions:
         products.add(tuple(d[id(lst)] for lst in pattern))
 
     for i, p in enumerate(products):
+        if (p[0].startswith("std::")):
+            continue
+
+        b = False
+
+        for v in p[1:]:
+            if (v.startswith("std::")):
+                b = True
+                break
+
+        if (b):
+            continue
+
         trueName = name
 
         if (trueName.endswith("_")):
