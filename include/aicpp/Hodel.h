@@ -12,7 +12,6 @@ namespace hodel
 {
     typedef bool Boolean;
     typedef int Integer;
-    typedef unsigned int UnsignedInteger;
     typedef std::pair<Integer, Integer> IntegerTuple;
     typedef std::variant<Integer, IntegerTuple> Numerical;
     typedef std::set<Integer> IntegerSet;
@@ -25,7 +24,7 @@ namespace hodel
     typedef std::variant<Object, Indices> Patch;
     typedef std::variant<Object, Grid> Element;
     typedef std::variant<Grid, Patch> Piece;
-    typedef std::pair<UnsignedInteger, UnsignedInteger> Size;
+    typedef std::pair<Integer, Integer> Size;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -45,32 +44,21 @@ namespace hodel
     Integer constexpr NEG_ONE = -1;
     Integer constexpr NEG_TWO = -2;
 
-    UnsignedInteger constexpr U_ONE = 1;
-    UnsignedInteger constexpr U_TWO = 2;
-    UnsignedInteger constexpr U_THREE = 3;
-    UnsignedInteger constexpr U_FOUR = 4;
-    UnsignedInteger constexpr U_FIVE = 5;
-    UnsignedInteger constexpr U_SIX = 6;
-    UnsignedInteger constexpr U_SEVEN = 7;
-    UnsignedInteger constexpr U_EIGHT = 8;
-    UnsignedInteger constexpr U_NINE = 9;
-    UnsignedInteger constexpr U_TEN = 10;
+    IntegerTuple constexpr DOWN{1, 0};
+    IntegerTuple constexpr RIGHT{0, 1};
+    IntegerTuple constexpr UP{-1, 0};
+    IntegerTuple constexpr LEFT{0, -1};
 
-    IntegerTuple constexpr DOWN = std::make_pair<Integer, Integer>(1, 0);
-    IntegerTuple constexpr RIGHT = std::make_pair<Integer, Integer>(0, 1);
-    IntegerTuple constexpr UP = std::make_pair<Integer, Integer>(-1, 0);
-    IntegerTuple constexpr LEFT = std::make_pair<Integer, Integer>(0, -1);
+    IntegerTuple constexpr ORIGIN{0, 0};
+    IntegerTuple constexpr UNITY{1, 1};
+    IntegerTuple constexpr NEG_UNITY{1, -1};
+    IntegerTuple constexpr UP_RIGHT{1, 1};
+    IntegerTuple constexpr DOWN_LEFT{1, -1};
 
-    IntegerTuple constexpr ORIGIN = std::make_pair<Integer, Integer>(0, 0);
-    IntegerTuple constexpr UNITY = std::make_pair<Integer, Integer>(1, 1);
-    IntegerTuple constexpr NEG_UNITY = std::make_pair<Integer, Integer>(-1, -1);
-    IntegerTuple constexpr UP_RIGHT = std::make_pair<Integer, Integer>(-1, 1);
-    IntegerTuple constexpr DOWN_LEFT = std::make_pair<Integer, Integer>(1, -1);
-
-    Size constexpr ZERO_BY_TWO = std::make_pair<UnsignedInteger, UnsignedInteger>(0, 2);
-    Size constexpr TWO_BY_ZERO = std::make_pair<Integer, UnsignedInteger>(2, 0);
-    Size constexpr TWO_BY_TWO = std::make_pair<UnsignedInteger, UnsignedInteger>(2, 2);
-    Size constexpr THREE_BY_THREE = std::make_pair<UnsignedInteger, UnsignedInteger>(3, 3);
+    Size constexpr ZERO_BY_TWO{0, 2};
+    Size constexpr TWO_BY_ZERO{2, 0};
+    Size constexpr TWO_BY_TWO{2, 2};
+    Size constexpr THREE_BY_THREE{3, 3};
 
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
     std::any add(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): addition
@@ -91,7 +79,7 @@ namespace hodel
     std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
     std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
-    std::any size(std::vector<std::any> const& args); //UnsignedInteger(Container): cardinality
+    std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
     std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
     //std::any valmax(std::vector<std::any> const& args); //(): 
@@ -190,10 +178,10 @@ namespace hodel
     //std::any paint(std::vector<std::any> const& args); //(): 
     //std::any underfill(std::vector<std::any> const& args); //(): 
     //std::any underpaint(std::vector<std::any> const& args); //(): 
-    std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid horizontally
-    std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): upscale grid vertically
-    std::any upscale(std::vector<std::any> const& args); //Element(Element, UnsignedInteger): upscale object or grid
-    std::any downscale(std::vector<std::any> const& args); //Grid(Grid, UnsignedInteger): downscale object or grid
+    std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid horizontally
+    std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid vertically
+    std::any upscale(std::vector<std::any> const& args); //Element(Element, Integer): upscale object or grid
+    std::any downscale(std::vector<std::any> const& args); //Grid(Grid, Integer): downscale object or grid
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
     //std::any subgrid(std::vector<std::any> const& args); //(): 
