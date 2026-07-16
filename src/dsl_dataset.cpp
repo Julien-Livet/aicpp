@@ -82,7 +82,9 @@ int main(int argc, char* argv[])
         primitiveNeuronsByOutputType[primitive.second.outputType()].emplace_back(primitive.second);
 
     std::map<std::type_index, std::vector<Neuron> > neuronsByOutputType{variableNeuronsByOutputType};
-    neuronsByOutputType.insert(primitiveNeuronsByOutputType.begin(), primitiveNeuronsByOutputType.end());
+
+    for (auto const& [i, v] : primitiveNeuronsByOutputType)
+        neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
 
     std::set<Connection, ConnectionLess> connections;
     std::mutex mutex;
