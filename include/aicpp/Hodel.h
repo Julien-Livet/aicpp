@@ -118,17 +118,17 @@ namespace hodel
     std::any rbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the rightmost argument
     std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
     //std::any power(std::vector<std::any> const& args); //(): 
-    //std::any fork(std::vector<std::any> const& args); //(): 
+    std::any fork(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): creates a wrapper function
     //std::any apply(std::vector<std::any> const& args); //(): 
     //std::any rapply(std::vector<std::any> const& args); //(): 
     //std::any mapply(std::vector<std::any> const& args); //(): 
     //std::any prapply(std::vector<std::any> const& args); //(): 
     //std::any mostcolor(std::vector<std::any> const& args); //(): 
     //std::any leastcolor(std::vector<std::any> const& args); //(): 
-    //std::any height(std::vector<std::any> const& args); //(): 
-    //std::any width(std::vector<std::any> const& args); //(): 
-    //std::any shape(std::vector<std::any> const& args); //(): 
-    //std::any portrait(std::vector<std::any> const& args); //(): 
+    std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
+    std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
+    std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
+    std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
     //std::any colorcount(std::vector<std::any> const& args); //(): 
     //std::any colorfilter(std::vector<std::any> const& args); //(): 
     //std::any sizefilter(std::vector<std::any> const& args); //(): 
