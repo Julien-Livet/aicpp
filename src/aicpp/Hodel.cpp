@@ -1046,6 +1046,74 @@ std::any hodel::astuple(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::branch(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        return std::any{};
+
+    auto const condition{args[0]};
+    auto const a{args[1]};
+    auto const b{args[2]};
+
+    if (condition.type() == typeid(Boolean))
+    {
+        auto const condition_{std::any_cast<Boolean>(condition)};
+
+        return condition_ ? a : b;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::compose(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const outer{args[0]};
+    auto const inner{args[1]};
+
+    if (outer.type() == typeid(std::function<std::any(std::vector<std::any> const&)>)
+        && inner.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const outer_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(outer)};
+        auto const inner_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(inner)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[outer_, inner_] (std::vector<std::any> const& args) -> std::any
+        {
+            return outer_({inner_(args)});
+        }};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::chain(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        return std::any{};
+
+    auto const h{args[0]};
+    auto const g{args[1]};
+    auto const f{args[2]};
+
+    if (h.type() == typeid(std::function<std::any(std::vector<std::any> const&)>)
+        && g.type() == typeid(std::function<std::any(std::vector<std::any> const&)>)
+        && f.type() == typeid(std::function<std::any(std::vector<std::any> const&)>))
+    {
+        auto const h_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(h)};
+        auto const g_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(g)};
+        auto const f_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(f)};
+
+        return std::function<std::any(std::vector<std::any> const&)>{[h_, g_, f_] (std::vector<std::any> const& args) -> std::any
+        {
+            return h_({g_({f_(args)})});
+        }};
+    }
+
+    return std::any{};
+}
+
 std::any hodel::matcher(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
