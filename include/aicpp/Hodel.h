@@ -186,7 +186,7 @@ namespace hodel
     std::any subgrid(std::vector<std::any> const& args); //Grid(Patch, Grid): smallest subgrid containing object
     //std::any hsplit(std::vector<std::any> const& args); //(): 
     //std::any vsplit(std::vector<std::any> const& args); //(): 
-    //std::any cellwise(std::vector<std::any> const& args); //(): 
+    std::any cellwise(std::vector<std::any> const& args); //Grid(Grid, Grid, Integer): cellwise match of two grids
     std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution
     std::any switch_(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color switching
     std::any center(std::vector<std::any> const& args); //IntegerTuple(Patch): center of the patch
