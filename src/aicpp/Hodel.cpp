@@ -2401,6 +2401,107 @@ std::any hodel::switch_(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::center(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        try
+        {
+            auto const um{std::any_cast<Integer>(uppermost(args))};
+            auto const h{std::any_cast<Integer>(height(args))};
+            auto const lm{std::any_cast<Integer>(leftmost(args))};
+            auto const w{std::any_cast<Integer>(width(args))};
+
+            return IntegerTuple{um + h / 2, lm + w / 2};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::position(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
+    {
+        auto const a_{std::any_cast<Patch>(a)};
+        auto const b_{std::any_cast<Patch>(b)};
+
+        try
+        {
+            auto const [ia, ib] = std::any_cast<IntegerTuple>(center({toindices({a_})}));
+            auto const [ja, jb] = std::any_cast<IntegerTuple>(center({toindices({b_})}));
+
+            if (ia == ib)
+                return IntegerTuple{0, ja < jb ? 1 : -1};
+            else if (ja == jb)
+                return IntegerTuple{ia < ib ? 1: -1, 0};
+            else if (ia < ib)
+                return IntegerTuple{1, ja < jb ? 1 : -1};
+            else if (ia > ib)
+                return IntegerTuple{-1, ja < jb ? 1 : -1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::index(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const grid{args[0]};
+    auto const loc{args[1]};
+
+    if (grid.type() == typeid(Grid) && loc.type() == typeid(IntegerTuple))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const loc_{std::any_cast<IntegerTuple>(loc)};
+
+        if (grid_.empty() || grid_[0].empty())
+            return std::any{};
+
+        auto const& [i, j] = loc_;
+        auto const h{static_cast<Integer>(grid_.size())};
+        auto const w{static_cast<Integer>(grid_[0].size())};
+
+        if (!(0 <= i && i < h && 0 <= j && j < w))
+            return std::any{};
+
+        try
+        {
+            return grid_.at(i).at(j);
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
