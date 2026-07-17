@@ -2502,6 +2502,28 @@ std::any hodel::index(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::canvas(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const value{args[0]};
+    auto const dimensions{args[1]};
+
+    if (value.type() == typeid(Integer) && dimensions.type() == typeid(IntegerTuple))
+    {
+        auto const value_{std::any_cast<Integer>(value)};
+        auto const dimensions_{std::any_cast<IntegerTuple>(dimensions)};
+
+        if (dimensions_.first < 0 || dimensions_.second < 0)
+            return std::any{};
+
+        return Grid(dimensions_.first, std::vector<Integer>(dimensions_.second, value_));
+    }
+
+    return std::any{};
+}
+
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
