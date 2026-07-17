@@ -131,8 +131,8 @@ namespace hodel
     //std::any colorcount(std::vector<std::any> const& args); //(): 
     //std::any colorfilter(std::vector<std::any> const& args); //(): 
     //std::any sizefilter(std::vector<std::any> const& args); //(): 
-    //std::any asindices(std::vector<std::any> const& args); //(): 
-    //std::any ofcolor(std::vector<std::any> const& args); //(): 
+    std::any asindices(std::vector<std::any> const& args); //Indices(Grid): indices of all grid cells
+    std::any ofcolor(std::vector<std::any> const& args); //Indices(Grid, Integer): indices of all grid cells with value
     std::any ulcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper left corner
     std::any urcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper right corner
     std::any llcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower left corner
