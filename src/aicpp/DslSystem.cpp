@@ -71,6 +71,8 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("width", Neuron{"width", hodel::width, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("shape", Neuron{"shape", hodel::shape, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("portrait", Neuron{"portrait", hodel::portrait, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("asindices", Neuron{"asindices", hodel::asindices, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("ofcolor", Neuron{"ofcolor", hodel::ofcolor, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("ulcorner", Neuron{"ulcorner", hodel::ulcorner, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("urcorner", Neuron{"urcorner", hodel::urcorner, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("llcorner", Neuron{"llcorner", hodel::llcorner, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
@@ -472,6 +474,8 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("shape1", Neuron{"shape", hodel::shape, std::vector<std::type_index>{typeid(hodel::Patch)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("portrait0", Neuron{"portrait", hodel::portrait, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Boolean)});
     neurons.emplace("portrait1", Neuron{"portrait", hodel::portrait, std::vector<std::type_index>{typeid(hodel::Patch)}, typeid(hodel::Boolean)});
+    neurons.emplace("asindices", Neuron{"asindices", hodel::asindices, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Indices)});
+    neurons.emplace("ofcolor", Neuron{"ofcolor", hodel::ofcolor, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::Integer)}, typeid(hodel::Indices)});
     neurons.emplace("crop", Neuron{"crop", hodel::crop, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::Grid)});
     neurons.emplace("toindices0", Neuron{"toindices", hodel::toindices, std::vector<std::type_index>{typeid(hodel::Indices)}, typeid(hodel::Indices)});
     neurons.emplace("toindices1", Neuron{"toindices", hodel::toindices, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Indices)});
