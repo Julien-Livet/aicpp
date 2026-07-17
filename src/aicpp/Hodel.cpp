@@ -2349,6 +2349,45 @@ std::any hodel::subgrid(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::cellwise(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+    auto const fallback{args[2]};
+
+    if (a.type() == typeid(Grid) && b.type() == typeid(Grid) && fallback.type() == typeid(Integer))
+    {
+        auto const a_{std::any_cast<Grid>(a)};
+        auto const b_{std::any_cast<Grid>(b)};
+        auto const fallback_{std::any_cast<Integer>(fallback)};
+
+        try
+        {
+            auto const h{static_cast<Integer>(a_.size())};
+            auto const w{static_cast<Integer>(a_.at(0).size())};
+
+            Grid result(h, std::vector<Integer>(w));
+
+            for (Integer i{0}; i < h; ++i)
+            {
+                for (Integer j{0}; j < w; ++j)
+                    result.at(i).at(j) = (a_.at(i).at(j) == b_.at(i).at(j)) ? a_.at(i).at(j) : fallback_;
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::replace(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
