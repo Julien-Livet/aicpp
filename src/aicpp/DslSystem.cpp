@@ -97,6 +97,7 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("vconcat", Neuron{"vconcat", hodel::vconcat, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("replace", Neuron{"replace", hodel::replace, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("switch", Neuron{"switch", hodel::switch_, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("trim", Neuron{"trim", hodel::trim, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("tophalf", Neuron{"tophalf", hodel::tophalf, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("bottomhalf", Neuron{"bottomhalf", hodel::bottomhalf, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("lefthalf", Neuron{"lefthalf", hodel::lefthalf, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
@@ -504,6 +505,7 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("vconcat", Neuron{"vconcat", hodel::vconcat, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("replace", Neuron{"replace", hodel::replace, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::Integer), typeid(hodel::Integer)}, typeid(hodel::Grid)});
     neurons.emplace("switch", Neuron{"switch", hodel::switch_, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::Integer), typeid(hodel::Integer)}, typeid(hodel::Grid)});
+    neurons.emplace("trim", Neuron{"trim", hodel::trim, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("tophalf", Neuron{"tophalf", hodel::tophalf, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("bottomhalf", Neuron{"bottomhalf", hodel::bottomhalf, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("lefthalf", Neuron{"lefthalf", hodel::lefthalf, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
