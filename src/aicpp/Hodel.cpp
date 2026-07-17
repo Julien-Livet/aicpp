@@ -1740,6 +1740,36 @@ std::any hodel::rightmost(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::bordering(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const patch{args[0]};
+    auto const grid{args[1]};
+
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        try
+        {
+            auto const urm{std::any_cast<Integer>(uppermost({patch}))};
+            auto const ltm{std::any_cast<Integer>(leftmost({patch}))};
+            auto const lrm{std::any_cast<Integer>(lowermost({patch}))};
+            auto const rtm{std::any_cast<Integer>(rightmost({patch}))};
+
+            return Boolean{urm == 0 || ltm == 0 || lrm == static_cast<Integer>(grid_.size()) - 1 || rtm == static_cast<Integer>(grid_.at(0).size()) - 1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::rot90(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
