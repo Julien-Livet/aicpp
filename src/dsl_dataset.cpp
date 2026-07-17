@@ -261,6 +261,11 @@ int main(int argc, char* argv[])
                 if (min < 0 || max > 9)
                     add = false;
 
+                auto const program{connection.string()};
+
+                if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+                    add = false;
+
                 if (add)
                     connections.emplace(std::move(connection));
             }
