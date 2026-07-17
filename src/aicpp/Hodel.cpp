@@ -1304,6 +1304,64 @@ std::any hodel::portrait(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::asindices(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        Indices indices;
+
+        if (grid_.empty())
+            return indices;
+
+        for (Integer i{0}; i < static_cast<Integer>(grid_.size()); ++i)
+        {
+            for (Integer j{0}; j < static_cast<Integer>(grid_[0].size()); ++j)
+                indices.emplace(i, j);
+        }
+
+        return indices;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::ofcolor(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const grid{args[0]};
+    auto const value{args[1]};
+
+    if (grid.type() == typeid(Grid) && value.type() == typeid(Integer))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const value_{std::any_cast<Integer>(value)};
+
+        Indices indices;
+
+        for (Integer i{0}; i < static_cast<Integer>(grid_.size()); ++i)
+        {
+            for (Integer j{0}; j < static_cast<Integer>(grid_[i].size()); ++j)
+            {
+                if (grid_[i][j] == value_)
+                    indices.emplace(i, j);
+            }
+        }
+
+        return indices;
+    }
+
+    return std::any{};
+}
+
 std::any hodel::ulcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
