@@ -2343,6 +2343,31 @@ std::any hodel::switch_(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::trim(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        Grid result;
+
+        if (grid_.size() <= 2 || grid_.front().size() <= 2)
+            return result;
+
+        for (size_t i{1}; i + 1 < grid_.size(); ++i)
+            result.emplace_back(grid_[i].begin() + 1, grid_[i].end() - 1);
+
+        return result;
+    }
+
+    return std::any{};
+}
+
 std::any hodel::tophalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
