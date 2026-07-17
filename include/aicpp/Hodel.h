@@ -183,7 +183,7 @@ namespace hodel
     std::any downscale(std::vector<std::any> const& args); //Grid(Grid, Integer): downscale object or grid
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
-    //std::any subgrid(std::vector<std::any> const& args); //(): 
+    std::any subgrid(std::vector<std::any> const& args); //Grid(Patch, Grid): smallest subgrid containing object
     //std::any hsplit(std::vector<std::any> const& args); //(): 
     //std::any vsplit(std::vector<std::any> const& args); //(): 
     //std::any cellwise(std::vector<std::any> const& args); //(): 
