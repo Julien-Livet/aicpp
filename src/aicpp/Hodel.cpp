@@ -2524,6 +2524,35 @@ std::any hodel::canvas(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::corners(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        try
+        {
+            auto const ulc{std::any_cast<IntegerTuple>(ulcorner(args))};
+            auto const urc{std::any_cast<IntegerTuple>(urcorner(args))};
+            auto const llc{std::any_cast<IntegerTuple>(llcorner(args))};
+            auto const lrc{std::any_cast<IntegerTuple>(lrcorner(args))};
+
+            return Indices{ulc, urc, llc, lrc};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
