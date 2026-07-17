@@ -196,7 +196,7 @@ namespace hodel
     //std::any corners(std::vector<std::any> const& args); //(): 
     //std::any connect(std::vector<std::any> const& args); //(): 
     //std::any cover(std::vector<std::any> const& args); //(): 
-    //std::any trim(std::vector<std::any> const& args); //(): 
+    std::any trim(std::vector<std::any> const& args); //Grid(Grid): trim border of grid
     //std::any move(std::vector<std::any> const& args); //(): 
     std::any tophalf(std::vector<std::any> const& args); //Grid(Grid): upper half of grid
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
@@ -212,7 +212,7 @@ namespace hodel
     //std::any shoot(std::vector<std::any> const& args); //(): 
     //std::any occurences(std::vector<std::any> const& args); //(): 
     //std::any frontiers(std::vector<std::any> const& args); //(): 
-    //std::any compress(std::vector<std::any> const& args); //(): 
+    //std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
     //std::any hperiod(std::vector<std::any> const& args); //(): 
     //std::any vperiod(std::vector<std::any> const& args); //(): 
 }
