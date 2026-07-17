@@ -159,7 +159,7 @@ namespace hodel
     //std::any vmatching(std::vector<std::any> const& args); //(): 
     //std::any manhattan(std::vector<std::any> const& args); //(): 
     //std::any adjacent(std::vector<std::any> const& args); //(): 
-    //std::any bordering(std::vector<std::any> const& args); //(): 
+    std::any bordering(std::vector<std::any> const& args); //Boolean(Patch, Grid): whether a patch is adjacent to a grid border
     //std::any centerofmass(std::vector<std::any> const& args); //(): 
     //std::any palette(std::vector<std::any> const& args); //(): 
     //std::any numcolors(std::vector<std::any> const& args); //(): 
