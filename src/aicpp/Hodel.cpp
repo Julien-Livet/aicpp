@@ -2335,6 +2335,20 @@ std::any hodel::vconcat(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::subgrid(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const patch{args[0]};
+    auto const grid{args[1]};
+
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+        return crop({grid, ulcorner({patch}), shape({patch})});
+
+    return std::any{};
+}
+
 std::any hodel::replace(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
