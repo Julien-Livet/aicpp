@@ -192,7 +192,7 @@ namespace hodel
     std::any center(std::vector<std::any> const& args); //IntegerTuple(Patch): center of the patch
     std::any position(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): relative position between two patches
     std::any index(std::vector<std::any> const& args); //Integer(Grid, IntegerTuple): color at location
-    //std::any canvas(std::vector<std::any> const& args); //(): 
+    std::any canvas(std::vector<std::any> const& args); //Grid(Integer, IntegerTuple): grid construction
     //std::any corners(std::vector<std::any> const& args); //(): 
     //std::any connect(std::vector<std::any> const& args); //(): 
     //std::any cover(std::vector<std::any> const& args); //(): 
