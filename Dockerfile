@@ -25,7 +25,7 @@ RUN git clone https://github.com/davisking/dlib.git
 WORKDIR /opt/dlib
 RUN mkdir build && cd build && \
     cmake .. && \
-    cmake --build . -j$(nproc) && \
+    cmake --build . -j$(nproc) --config Release --target all && \
     cmake --install .
 
 WORKDIR /app
@@ -37,7 +37,7 @@ RUN [ -e arc-dsl ] || git clone https://github.com/Julien-Livet/arc-dsl.git
 WORKDIR /app/aicpp
 RUN mkdir -p build
 RUN cmake -S . -B build
-RUN cmake --build build --target test_aicpp -- -j$(nproc)
+RUN cmake --build build --config Release --target all -- -j$(nproc)
 
 ENTRYPOINT ["/bin/bash"]
 
