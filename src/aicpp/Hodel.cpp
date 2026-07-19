@@ -2275,33 +2275,40 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         if (grid_.empty())
             return grid_;
 
-        auto const h = static_cast<Integer>(grid_.size());
-        auto const w = static_cast<Integer>(grid_[0].size());
-
-        Grid temp;
-
-        for (Integer i = 0; i < h; ++i)
+        try
         {
-            std::vector<Integer> row;
+            auto const h = static_cast<Integer>(grid_.size());
+            auto const w = static_cast<Integer>(grid_.at(0).size());
 
-            for (Integer j = 0; j < w; ++j)
+            Grid temp;
+
+            for (Integer i = 0; i < h; ++i)
             {
-                if (j % factor_ == 0)
-                    row.emplace_back(grid_[i][j]);
+                std::vector<Integer> row;
+
+                for (Integer j = 0; j < w; ++j)
+                {
+                    if (j % factor_ == 0)
+                        row.emplace_back(grid_.at(i).at(j));
+                }
+
+                temp.emplace_back(row);
             }
 
-            temp.emplace_back(row);
+            Grid result;
+
+            for (Integer i = 0; i < static_cast<Integer>(temp.size()); ++i)
+            {
+                if (i % factor_ == 0)
+                    result.emplace_back(temp.at(i));
+            }
+
+            return result;
         }
-
-        Grid result;
-
-        for (Integer i = 0; i < static_cast<Integer>(temp.size()); ++i)
+        catch (std::exception const&)
         {
-            if (i % factor_ == 0)
-                result.emplace_back(temp[i]);
+            return std::any{};
         }
-
-        return result;
     }
 
     return std::any{};
