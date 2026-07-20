@@ -750,7 +750,10 @@ std::any hodel::valmax(std::vector<std::any> const& args)
 
     try
     {
-        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); } )};
+        for (auto& v : values)
+            v = f({v});
+
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({x, y})); } )};
 
         if (it != values.end())
             return *it;
@@ -785,7 +788,10 @@ std::any hodel::valmin(std::vector<std::any> const& args)
 
     try
     {
-        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); } )};
+        for (auto& v : values)
+            v = f({v});
+
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({x, y})); } )};
 
         if (it != values.end())
             return *it;
@@ -793,6 +799,154 @@ std::any hodel::valmin(std::vector<std::any> const& args)
     catch (std::exception const&)
     {
         return std::any{};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::argmax(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
+    if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
+
+    std::vector<std::any> values;
+
+    if (container.type() == typeid(IntegerSet))
+        values = toVector(std::any_cast<IntegerSet>(container));
+    else if (container.type() == typeid(std::vector<Integer>))
+        values = toVector(std::any_cast<std::vector<Integer> >(container));
+
+    try
+    {
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({f({x}), f({y})})); } )};
+
+        if (it != values.end())
+            return *it;
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::argmin(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
+    if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
+
+    std::vector<std::any> values;
+
+    if (container.type() == typeid(IntegerSet))
+        values = toVector(std::any_cast<IntegerSet>(container));
+    else if (container.type() == typeid(std::vector<Integer>))
+        values = toVector(std::any_cast<std::vector<Integer> >(container));
+
+    try
+    {
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({f({x}), f({y})})); } )};
+
+        if (it != values.end())
+            return *it;
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::mostcommon(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const container{args[0]};
+
+    if (container.type() == typeid(std::vector<Integer>))
+    {
+        auto const container_{std::any_cast<std::vector<Integer> >(container)};
+
+        if (container_.empty())
+            return std::any{};
+
+        std::unordered_map<Integer, Integer> counts;
+
+        for (auto const& value : container_)
+            ++counts[value];
+
+        auto result{container_.front()};
+        auto maxCount{counts[result]};
+
+        for (auto const& value : container_)
+        {
+            auto const& count{counts[value]};
+
+            if (count > maxCount)
+            {
+                maxCount = count;
+                result = value;
+            }
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::leastcommon(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const container{args[0]};
+
+    if (container.type() == typeid(std::vector<Integer>))
+    {
+        auto const container_{std::any_cast<std::vector<Integer> >(container)};
+
+        if (container_.empty())
+            return std::any{};
+
+        std::unordered_map<Integer, Integer> counts;
+
+        for (auto const& value : container_)
+            ++counts[value];
+
+        auto result{container_.front()};
+        auto minCount{counts[result]};
+
+        for (auto const& value : container_)
+        {
+            auto const& count{counts[value]};
+
+            if (count < minCount)
+            {
+                minCount = count;
+                result = value;
+            }
+        }
+
+        return result;
     }
 
     return std::any{};
