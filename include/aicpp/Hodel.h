@@ -75,7 +75,7 @@ namespace hodel
     std::any intersection(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): returns the intersection of two containers
     std::any difference(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): set difference
     std::any dedupe(std::vector<std::any> const& args); //Tuple(Tuple): remove duplicates
-    //std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
+    std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
     std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
