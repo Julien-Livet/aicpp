@@ -39,6 +39,7 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("intersection", Neuron{"intersection", hodel::intersection, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("difference", Neuron{"difference", hodel::difference, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("dedupe", Neuron{"dedupe", hodel::dedupe, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("order", Neuron{"order", hodel::order, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("repeat", Neuron{"repeat", hodel::repeat, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("greater", Neuron{"greater", hodel::greater, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("size", Neuron{"size", hodel::size, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
