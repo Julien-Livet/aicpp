@@ -103,6 +103,12 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
 
 """
 
+def typeName(x: str) -> str:
+    if (x.startswith("std::")):
+        return x.replace("std::vector<", "std::vector<hodel::")
+    else:
+        return "hodel::" + x
+
 for definition in primitiveDefinitions:
     definition = definition.strip()
     i1 = definition.index(" ")
@@ -134,13 +140,13 @@ for definition in primitiveDefinitions:
     products = sorted(products)
 
     for i, p in enumerate(products):
-        if (p[0].startswith("std::")):
+        if (p[0].startswith("std::function")):
             continue
 
         b = False
 
         for v in p[1:]:
-            if (v.startswith("std::")):
+            if (v.startswith("std::function")):
                 b = True
                 break
 
@@ -157,7 +163,7 @@ for definition in primitiveDefinitions:
         if (len(products) > 1):
             n += str(i)
 
-        tt = [f"typeid(hodel::{x})" for x in p[1:]]
+        tt = [f"typeid({typeName(x)})" for x in p[1:]]
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
@@ -165,8 +171,8 @@ for definition in primitiveDefinitions:
         content += f", hodel::{name}"
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
-        content += "}, typeid(hodel::"
-        content += p[0]
+        content += "}, typeid("
+        content += typeName(p[0])
         content += ")});\n"
 
 content += """
