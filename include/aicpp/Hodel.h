@@ -75,14 +75,14 @@ namespace hodel
     std::any intersection(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): returns the intersection of two containers
     std::any difference(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): set difference
     std::any dedupe(std::vector<std::any> const& args); //Tuple(Tuple): remove duplicates
-    std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
+    //std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
     std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
     std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
-    //std::any valmax(std::vector<std::any> const& args); //(): 
-    //std::any valmin(std::vector<std::any> const& args); //(): 
+    std::any valmax(std::vector<std::any> const& args); //Integer(Container, Callable): maximum by custom function
+    std::any valmin(std::vector<std::any> const& args); //Integer(Container, Callable): minimum by custom function
     //std::any argmax(std::vector<std::any> const& args); //(): 
     //std::any argmin(std::vector<std::any> const& args); //(): 
     //std::any mostcommon(std::vector<std::any> const& args); //(): 
