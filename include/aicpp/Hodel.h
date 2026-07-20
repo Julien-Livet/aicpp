@@ -24,6 +24,7 @@ namespace hodel
     typedef std::variant<Object, Indices> Patch;
     typedef std::variant<Object, Grid> Element;
     typedef std::variant<Grid, Patch> Piece;
+    //typedef std::variant<std::vector<Integer>, std::vector<Element>, std::vector<Piece>, std::vector<Grid> > Tuple;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -83,10 +84,10 @@ namespace hodel
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
     std::any valmax(std::vector<std::any> const& args); //Integer(Container, Callable): maximum by custom function
     std::any valmin(std::vector<std::any> const& args); //Integer(Container, Callable): minimum by custom function
-    //std::any argmax(std::vector<std::any> const& args); //(): 
-    //std::any argmin(std::vector<std::any> const& args); //(): 
-    //std::any mostcommon(std::vector<std::any> const& args); //(): 
-    //std::any leastcommon(std::vector<std::any> const& args); //(): 
+    std::any argmax(std::vector<std::any> const& args); //Any(Container, Callable): largest item by custom order
+    std::any argmin(std::vector<std::any> const& args); //Any(Container, Callable): smallest item by custom order
+    std::any mostcommon(std::vector<std::any> const& args); //Any(Container): most common item
+    std::any leastcommon(std::vector<std::any> const& args); //Any(Container): least common item
     std::any initset(std::vector<std::any> const& args); //FrozenSet(Any): initialize container
     std::any both(std::vector<std::any> const& args); //Boolean(Boolean, Boolean): logical and
     std::any either(std::vector<std::any> const& args); //Boolean(Boolean, Boolean): logical or
