@@ -6,6 +6,18 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::vector<std::any> toVector(T const& container)
+{
+    std::vector<std::any> values;
+    values.reserve(container.size());
+
+    for (auto const& v : container)
+        values.emplace_back(v);
+
+    return values;
+}
+
+template<typename T>
 static std::any repeat(std::any const& item, hodel::Integer const& n)
 {
     if (n < 0)
@@ -590,19 +602,6 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
     return std::any{};
 }
 
-std::any hodel::order(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const container{args[0]};
-    auto const compfunc{args[1]};
-
-    //...
-
-    return std::any{};
-}
-
 std::any hodel::repeat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -699,6 +698,76 @@ std::any hodel::minimum(std::vector<std::any> const& args)
             return Integer{0};
         
         return *std::min_element(set.begin(), set.end());
+    }
+
+    return std::any{};
+}
+
+std::any hodel::valmax(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
+    if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
+
+    std::vector<std::any> values;
+
+    if (container.type() == typeid(IntegerSet))
+        values = toVector(std::any_cast<IntegerSet>(container));
+    else if (container.type() == typeid(std::vector<Integer>))
+        values = toVector(std::any_cast<std::vector<Integer> >(container));
+
+    try
+    {
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); } )};
+
+        if (it != values.end())
+            return *it;
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::valmin(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
+    if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
+
+    std::vector<std::any> values;
+
+    if (container.type() == typeid(IntegerSet))
+        values = toVector(std::any_cast<IntegerSet>(container));
+    else if (container.type() == typeid(std::vector<Integer>))
+        values = toVector(std::any_cast<std::vector<Integer> >(container));
+
+    try
+    {
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); } )};
+
+        if (it != values.end())
+            return *it;
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
     }
 
     return std::any{};
