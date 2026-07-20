@@ -602,6 +602,31 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::order(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const container{args[0]};
+    auto const compfunc{args[1]};
+
+    if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
+
+    std::vector<std::any> values;
+
+    if (container.type() == typeid(IntegerSet))
+        values = toVector(std::any_cast<IntegerSet>(container));
+    else if (container.type() == typeid(std::vector<Integer>))
+        values = toVector(std::any_cast<std::vector<Integer> >(container));
+
+    std::sort(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); });
+
+    return values;
+}
+
 std::any hodel::repeat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
