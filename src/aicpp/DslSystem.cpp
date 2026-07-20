@@ -39,12 +39,13 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("intersection", Neuron{"intersection", hodel::intersection, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("difference", Neuron{"difference", hodel::difference, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("dedupe", Neuron{"dedupe", hodel::dedupe, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
-    neurons.emplace("order", Neuron{"order", hodel::order, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("repeat", Neuron{"repeat", hodel::repeat, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("greater", Neuron{"greater", hodel::greater, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("size", Neuron{"size", hodel::size, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("maximum", Neuron{"maximum", hodel::maximum, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("minimum", Neuron{"minimum", hodel::minimum, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("valmax", Neuron{"valmax", hodel::valmax, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("valmin", Neuron{"valmin", hodel::valmin, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("initset", Neuron{"initset", hodel::initset, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("both", Neuron{"both", hodel::both, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("either", Neuron{"either", hodel::either, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
