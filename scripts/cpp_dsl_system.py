@@ -34,7 +34,7 @@ dslTypes["FrozenSet"] = frozenSetTypes
 
 containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"]
 
-dslTypes["Container"] = containerTypes
+dslTypes["Container"] = containerTypes + ["std::vector<Integer>"]
 dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
 
 anyTypes = []
