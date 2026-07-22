@@ -24,7 +24,7 @@ namespace hodel
     typedef std::variant<Object, Indices> Patch;
     typedef std::variant<Object, Grid> Element;
     typedef std::variant<Grid, Patch> Piece;
-    //typedef std::variant<std::vector<Integer>, std::vector<Element>, std::vector<Piece>, std::vector<Grid> > Tuple;
+    typedef std::variant<std::vector<Integer>, std::vector<Element>, std::vector<Piece>, std::vector<Grid> > Tuple;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
