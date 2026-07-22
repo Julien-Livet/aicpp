@@ -221,7 +221,8 @@ int main(int argc, char* argv[])
 
             std::lock_guard<std::mutex> lock(mutex);
 
-            iNeuron.function() = [] (std::vector<std::any> const&) -> std::any { return generateStructuredGrid(); };
+            auto const input{generateStructuredGrid()};
+            iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
             auto const output{connection.output()};
 
@@ -231,7 +232,7 @@ int main(int argc, char* argv[])
 
                 bool add{true};
 
-                if (grid == std::any_cast<hodel::Grid>(iNeuron.function()({})))
+                if (grid == input)
                     add = false;
 
                 auto const minReducer = [](hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
