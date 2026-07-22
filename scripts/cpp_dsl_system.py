@@ -104,7 +104,9 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
 """
 
 def typeName(x: str) -> str:
-    if (x.startswith("std::")):
+    if (x.startswith("std::function")):
+        return x
+    elif (x.startswith("std::vector")):
         return x.replace("std::vector<", "std::vector<hodel::")
     else:
         return "hodel::" + x
@@ -140,19 +142,6 @@ for definition in primitiveDefinitions:
     products = sorted(products)
 
     for i, p in enumerate(products):
-        if (p[0].startswith("std::function")):
-            continue
-
-        b = False
-
-        for v in p[1:]:
-            if (v.startswith("std::function")):
-                b = True
-                break
-
-        if (b):
-            continue
-
         trueName = name
 
         if (trueName.endswith("_")):
