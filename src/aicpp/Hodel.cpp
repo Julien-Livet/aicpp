@@ -6,6 +6,28 @@
 #include "aicpp/Hodel.h"
 
 template<typename T>
+static std::any apply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& container)
+{
+    if (container.type() != typeid(T))
+        return std::any{};
+
+    auto const container_{std::any_cast<T>(container)};
+
+    std::vector<typename T::value_type> values;
+    values.reserve(container_.size());
+
+    for (auto const& v : container_)
+    {
+        auto const o{function({v})};
+
+        if (o.type() == typeid(typename T::value_type))
+            values.emplace_back(std::any_cast<typename T::value_type>(o));
+    }
+
+    return T{values.begin(), values.end()};
+}
+
+template<typename T>
 static std::vector<std::any> toVector(T const& container)
 {
     std::vector<std::any> values;
@@ -1462,6 +1484,29 @@ std::any hodel::fork(std::vector<std::any> const& args)
             return outer_({a_(args), b_(args)});
         }};
     }
+
+    return std::any{};
+}
+
+std::any hodel::apply(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const function{args[0]};
+    auto const container{args[1]};
+
+    if (function.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        return std::any{};
+
+    auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+    if (auto r = ::apply<IntegerSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Object>    (function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects>   (function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Indices>   (function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<Integer> >(function_, container); r.has_value()) return r;
 
     return std::any{};
 }
