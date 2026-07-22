@@ -73,6 +73,7 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("rbind", Neuron{"rbind", hodel::rbind, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("lbind", Neuron{"lbind", hodel::lbind, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("fork", Neuron{"fork", hodel::fork, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("apply", Neuron{"apply", hodel::apply, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("height", Neuron{"height", hodel::height, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("width", Neuron{"width", hodel::width, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("shape", Neuron{"shape", hodel::shape, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
@@ -1302,6 +1303,13 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("lbind14", Neuron{"lbind", hodel::lbind, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(std::vector<hodel::Integer>)}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("lbind15", Neuron{"lbind", hodel::lbind, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(std::vector<hodel::Piece>)}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("fork", Neuron{"fork", hodel::fork, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(std::function<std::any(std::vector<std::any> const&)>)}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("apply0", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::Grid)}, typeid(hodel::Grid)});
+    neurons.emplace("apply1", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::Indices)}, typeid(hodel::Indices)});
+    neurons.emplace("apply2", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::IndicesSet)}, typeid(hodel::IndicesSet)});
+    neurons.emplace("apply3", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::IntegerSet)}, typeid(hodel::IntegerSet)});
+    neurons.emplace("apply4", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::Object)}, typeid(hodel::Object)});
+    neurons.emplace("apply5", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(hodel::Objects)}, typeid(hodel::Objects)});
+    neurons.emplace("apply6", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::function<std::any(std::vector<std::any> const&)>), typeid(std::vector<hodel::Integer>)}, typeid(std::vector<hodel::Integer>)});
     neurons.emplace("height0", Neuron{"height", hodel::height, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Integer)});
     neurons.emplace("height1", Neuron{"height", hodel::height, std::vector<std::type_index>{typeid(hodel::Patch)}, typeid(hodel::Integer)});
     neurons.emplace("width0", Neuron{"width", hodel::width, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Integer)});
