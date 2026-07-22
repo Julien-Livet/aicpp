@@ -431,6 +431,7 @@ std::any hodel::equality(std::vector<std::any> const& args)
     if (auto r = ::equality<Patch>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Element>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<std::vector<Integer> >(a, b); r.has_value()) return r;
 
     return std::any{};
 }
@@ -677,6 +678,7 @@ std::any hodel::size(std::vector<std::any> const& args)
     if (auto r = size_set<Objects>   (container); r.has_value()) return r;
     if (auto r = size_set<Indices>   (container); r.has_value()) return r;
     if (auto r = size_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = size_set<std::vector<Integer> >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -964,6 +966,7 @@ std::any hodel::initset(std::vector<std::any> const& args)
     if (auto r = init_set<Objects>   (value); r.has_value()) return r;
     if (auto r = init_set<Indices>   (value); r.has_value()) return r;
     if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
+    if (auto r = init_set<std::vector<Integer> >(value); r.has_value()) return r;
 
     return std::any{};
 }
@@ -1199,6 +1202,7 @@ std::any hodel::totuple(std::vector<std::any> const& args)
     if (auto r = vector_set<Objects>   (container); r.has_value()) return r;
     if (auto r = vector_set<Indices>   (container); r.has_value()) return r;
     if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = vector_set<std::vector<Integer> >(container); r.has_value()) return r;
 
     return std::any{};
 }
@@ -1215,6 +1219,7 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (auto r = first_set<Objects>   (container); r.has_value()) return r;
     if (auto r = first_set<Indices>   (container); r.has_value()) return r;
     if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<Integer> >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -1241,6 +1246,7 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (auto r = last_set<Objects>   (container); r.has_value()) return r;
     if (auto r = last_set<Indices>   (container); r.has_value()) return r;
     if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Integer> >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
