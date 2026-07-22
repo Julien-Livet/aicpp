@@ -119,7 +119,7 @@ namespace hodel
     std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
     //std::any power(std::vector<std::any> const& args); //(): 
     std::any fork(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): creates a wrapper function
-    //std::any apply(std::vector<std::any> const& args); //(): 
+    std::any apply(std::vector<std::any> const& args); //Container(Callable, Container): apply function to each item in container
     //std::any rapply(std::vector<std::any> const& args); //(): 
     //std::any mapply(std::vector<std::any> const& args); //(): 
     //std::any prapply(std::vector<std::any> const& args); //(): 
