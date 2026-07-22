@@ -1274,7 +1274,7 @@ std::any hodel::interval(std::vector<std::any> const& args)
         if ((step_ >= 0 && stop_ < start_) || (step_ <= 0 && stop_ > start_))
             return std::any{};
 
-        for (; start_ != stop_; start_ += step_)
+        for (; step_ >= 0 ? start_ < stop_ : start_ > stop_; start_ += step_)
             result.emplace_back(start_);
 
         return result;
