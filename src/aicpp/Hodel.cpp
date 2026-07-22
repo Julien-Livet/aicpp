@@ -1271,6 +1271,9 @@ std::any hodel::interval(std::vector<std::any> const& args)
         auto const step_{std::any_cast<Integer>(step)};
         std::vector<Integer> result;
 
+        if ((step_ >= 0 && stop_ < start_) || (step_ <= 0 && stop_ > start_))
+            return std::any{};
+
         for (; start_ != stop_; start_ += step_)
             result.emplace_back(start_);
 
