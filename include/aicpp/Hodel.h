@@ -153,13 +153,13 @@ namespace hodel
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
     std::any rightmost(std::vector<std::any> const& args); //Integer(Patch): column index of rightmost occupied cell
-    //std::any square(std::vector<std::any> const& args); //(): 
-    //std::any vline(std::vector<std::any> const& args); //(): 
-    //std::any hline(std::vector<std::any> const& args); //(): 
-    //std::any hmatching(std::vector<std::any> const& args); //(): 
-    //std::any vmatching(std::vector<std::any> const& args); //(): 
-    //std::any manhattan(std::vector<std::any> const& args); //(): 
-    //std::any adjacent(std::vector<std::any> const& args); //(): 
+    std::any square(std::vector<std::any> const& args); //Boolean(Piece): whether the piece forms a square
+    std::any vline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a vertical line
+    std::any hline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a horizontal line
+    std::any hmatching(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether there exists a row for which both patches have cells
+    std::any vmatching(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether there exists a column for which both patches have cells
+    std::any manhattan(std::vector<std::any> const& args); //Integer(Patch, Patch):  closest manhattan distance between two patches
+    std::any adjacent(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether two patches are adjacent
     std::any bordering(std::vector<std::any> const& args); //Boolean(Patch, Grid): whether a patch is adjacent to a grid border
     //std::any centerofmass(std::vector<std::any> const& args); //(): 
     //std::any palette(std::vector<std::any> const& args); //(): 
@@ -213,7 +213,7 @@ namespace hodel
     //std::any shoot(std::vector<std::any> const& args); //(): 
     //std::any occurences(std::vector<std::any> const& args); //(): 
     //std::any frontiers(std::vector<std::any> const& args); //(): 
-    //std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
+    std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
     //std::any hperiod(std::vector<std::any> const& args); //(): 
     //std::any vperiod(std::vector<std::any> const& args); //(): 
 }
