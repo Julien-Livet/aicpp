@@ -139,6 +139,7 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("righthalf", Neuron{"righthalf", hodel::righthalf, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("vfrontier", Neuron{"vfrontier", hodel::vfrontier, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("hfrontier", Neuron{"hfrontier", hodel::hfrontier, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("shoot", Neuron{"shoot", hodel::shoot, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("compress", Neuron{"compress", hodel::compress, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
 
     return neurons;
@@ -1431,6 +1432,7 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("righthalf", Neuron{"righthalf", hodel::righthalf, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("vfrontier", Neuron{"vfrontier", hodel::vfrontier, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::Indices)});
     neurons.emplace("hfrontier", Neuron{"hfrontier", hodel::hfrontier, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::Indices)});
+    neurons.emplace("shoot", Neuron{"shoot", hodel::shoot, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::Indices)});
     neurons.emplace("compress", Neuron{"compress", hodel::compress, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
 
     return neurons;
