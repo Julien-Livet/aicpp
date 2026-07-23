@@ -146,9 +146,9 @@ namespace hodel
     std::any recolor(std::vector<std::any> const& args); //Object(Integer, Patch): recolor patch
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
     //std::any normalize(std::vector<std::any> const& args); //Patch(Patch): moves upper left corner to origin
-    //std::any dneighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): directly adjacent indices
-    //std::any ineighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): diagonally adjacent indices
-    //std::any neighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): adjacent indices
+    std::any dneighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): directly adjacent indices
+    std::any ineighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): diagonally adjacent indices
+    std::any neighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): adjacent indices
     //std::any objects(std::vector<std::any> const& args); //Objects(Grid, Boolean, Boolean, Boolean): objects occurring on the grid
     //std::any partition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object
     //std::any fgpartition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object without background
