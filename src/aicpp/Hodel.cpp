@@ -1698,6 +1698,45 @@ std::any hodel::portrait(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::colorcount(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const element{args[0]};
+    auto const value{args[1]};
+
+    if (element.type() == typeid(Element) && value.type() == typeid(Integer))
+    {
+        auto const element_{std::any_cast<Element>(element)};
+        auto const value_{std::any_cast<Integer>(value)};
+
+        Integer count = 0;
+
+        if (std::holds_alternative<Grid>(element_))
+        {
+            auto const grid{std::get<Grid>(element_)};
+
+            for (auto const& row : grid)
+                count += static_cast<Integer>(std::count(row.begin(), row.end(), value_));
+        }
+        else
+        {
+            auto const& object{std::get<Object>(element_)};
+
+            for (auto const& [color, position] : object)
+            {
+                if (color == value_)
+                    ++count;
+            }
+        }
+
+        return count;
+    }
+
+    return std::any{};
+}
+
 std::any hodel::asindices(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
