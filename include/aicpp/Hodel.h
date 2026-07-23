@@ -80,6 +80,7 @@ namespace hodel
     std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
+    //std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
     std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
     std::any valmax(std::vector<std::any> const& args); //Integer(Container, Callable): maximum by custom function
@@ -131,7 +132,7 @@ namespace hodel
     std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
     std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
     std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
-    //std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
+    std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
     //std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
     //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
     std::any asindices(std::vector<std::any> const& args); //Indices(Grid): indices of all grid cells
@@ -218,7 +219,7 @@ namespace hodel
     //std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
     std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
     //std::any hperiod(std::vector<std::any> const& args); //Integer(Object): horizontal periodicity
-    //std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity 
+    //std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity
 }
 
 #endif // AICPP_HODEL_H
