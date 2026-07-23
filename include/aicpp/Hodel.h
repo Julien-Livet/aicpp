@@ -98,40 +98,42 @@ namespace hodel
     std::any positive(std::vector<std::any> const& args); //Boolean(Integer): positive
     std::any toivec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing vertically
     std::any tojvec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing horizontally
-    //std::any sfilter(std::vector<std::any> const& args); //(): 
-    //std::any mfilter(std::vector<std::any> const& args); //(): 
-    //std::any extract(std::vector<std::any> const& args); //(): 
+    //std::any sfilter(std::vector<std::any> const& args); //Container(Container, Callable): keep elements in container that satisfy condition
+    //std::any mfilter(std::vector<std::any> const& args); //FrozenSet(Container, Callable): filter and merge
+    //std::any extract(std::vector<std::any> const& args); //Any(Container, Callable): first element of container that satisfies condition
     std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
     std::any first(std::vector<std::any> const& args); //Any(Container): first item of container
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
-    //std::any insert(std::vector<std::any> const& args); //(): 
-    //std::any remove(std::vector<std::any> const& args); //(): 
-    //std::any other(std::vector<std::any> const& args); //(): 
+    //std::any insert(std::vector<std::any> const& args); //FrozenSet(Any, FrozenSet): insert item into container
+    //std::any remove(std::vector<std::any> const& args); //Container(Any, Container): remove item from container
+    //std::any other(std::vector<std::any> const& args); //Any(Container, Any): other value in the container
     std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
-    //std::any product(std::vector<std::any> const& args); //(): 
-    //std::any pair(std::vector<std::any> const& args); //(): 
+    //std::any product(std::vector<std::any> const& args); //FrozenSet(Container, Container): cartesian product
+    //std::any pair(std::vector<std::any> const& args); //TupleTuple(Tuple, Tuple): zipping of two tuples
     std::any branch(std::vector<std::any> const& args); //Any(Boolean, Any, Any): if else branching
     std::any compose(std::vector<std::any> const& args); //Callable(Callable, Callable): function composition
     std::any chain(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): function composition with three functions
     std::any matcher(std::vector<std::any> const& args); //Callable(Callable, Any): construction of equality function
     std::any rbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the rightmost argument
     std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
-    //std::any power(std::vector<std::any> const& args); //(): 
+    //std::any power(std::vector<std::any> const& args); //Callable(Callable, Integer): power of function
     std::any fork(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): creates a wrapper function
     std::any apply(std::vector<std::any> const& args); //Container(Callable, Container): apply function to each item in container
-    //std::any rapply(std::vector<std::any> const& args); //(): 
-    //std::any mapply(std::vector<std::any> const& args); //(): 
-    //std::any prapply(std::vector<std::any> const& args); //(): 
-    //std::any mostcolor(std::vector<std::any> const& args); //(): 
-    //std::any leastcolor(std::vector<std::any> const& args); //(): 
+    //std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
+    //std::any mapply(std::vector<std::any> const& args); //FrozenSet(Callable, ContainerContainer): apply and merge
+    //std::any papply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors
+    //std::any mpapply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors and merge
+    //std::any prapply(std::vector<std::any> const& args); //FrozenSet(Callable, Container, Container): apply function on cartesian product
+    //std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
+    //std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
     std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
     std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
     std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
     std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
-    //std::any colorcount(std::vector<std::any> const& args); //(): 
-    //std::any colorfilter(std::vector<std::any> const& args); //(): 
-    //std::any sizefilter(std::vector<std::any> const& args); //(): 
+    //std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
+    //std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
+    //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
     std::any asindices(std::vector<std::any> const& args); //Indices(Grid): indices of all grid cells
     std::any ofcolor(std::vector<std::any> const& args); //Indices(Grid, Integer): indices of all grid cells with value
     std::any ulcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper left corner
@@ -140,15 +142,15 @@ namespace hodel
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
     std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, IntegerTuple): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
-    //std::any recolor(std::vector<std::any> const& args); //(): 
+    //std::any recolor(std::vector<std::any> const& args); //Object(Integer, Patch): recolor patch
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
-    //std::any normalize(std::vector<std::any> const& args); //(): 
-    //std::any dneighbors(std::vector<std::any> const& args); //(): 
-    //std::any ineighbors(std::vector<std::any> const& args); //(): 
-    //std::any neighbors(std::vector<std::any> const& args); //(): 
-    //std::any objects(std::vector<std::any> const& args); //(): 
-    //std::any partition(std::vector<std::any> const& args); //(): 
-    //std::any fgpartition(std::vector<std::any> const& args); //(): 
+    //std::any normalize(std::vector<std::any> const& args); //Patch(Patch): moves upper left corner to origin
+    //std::any dneighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): directly adjacent indices
+    //std::any ineighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): diagonally adjacent indices
+    //std::any neighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): adjacent indices
+    //std::any objects(std::vector<std::any> const& args); //Objects(Grid, Boolean, Boolean, Boolean): objects occurring on the grid
+    //std::any partition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object
+    //std::any fgpartition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object without background
     std::any uppermost(std::vector<std::any> const& args); //Integer(Patch): row index of uppermost occupied cell
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
@@ -161,12 +163,12 @@ namespace hodel
     std::any manhattan(std::vector<std::any> const& args); //Integer(Patch, Patch):  closest manhattan distance between two patches
     std::any adjacent(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether two patches are adjacent
     std::any bordering(std::vector<std::any> const& args); //Boolean(Patch, Grid): whether a patch is adjacent to a grid border
-    //std::any centerofmass(std::vector<std::any> const& args); //(): 
-    //std::any palette(std::vector<std::any> const& args); //(): 
-    //std::any numcolors(std::vector<std::any> const& args); //(): 
-    //std::any color(std::vector<std::any> const& args); //(): 
-    //std::any toobject(std::vector<std::any> const& args); //(): 
-    //std::any asobject(std::vector<std::any> const& args); //(): 
+    std::any centerofmass(std::vector<std::any> const& args); //IntegerTuple(Patch): center of mass
+    std::any palette(std::vector<std::any> const& args); //IntegerSet(Element):  colors occurring in object or grid
+    std::any numcolors(std::vector<std::any> const& args); //Integer(Element): number of colors occurring in object or grid
+    std::any color(std::vector<std::any> const& args); //Integer(Object): color of object
+    std::any toobject(std::vector<std::any> const& args); //Object(Patch, Grid): object from patch and grid
+    std::any asobject(std::vector<std::any> const& args); //Object(Grid): conversion of grid to object
     std::any rot90(std::vector<std::any> const& args); //Grid(Grid): quarter clockwise rotation
     std::any rot180(std::vector<std::any> const& args); //Grid(Grid): half rotation
     std::any rot270(std::vector<std::any> const& args); //Grid(Grid): quarter anticlockwise rotation
@@ -174,10 +176,10 @@ namespace hodel
     std::any vmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along vertical
     std::any dmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along diagonal
     std::any cmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along counterdiagonal
-    //std::any fill(std::vector<std::any> const& args); //(): 
-    //std::any paint(std::vector<std::any> const& args); //(): 
-    //std::any underfill(std::vector<std::any> const& args); //(): 
-    //std::any underpaint(std::vector<std::any> const& args); //(): 
+    //std::any fill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices
+    //std::any paint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid
+    //std::any underfill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices that are background
+    //std::any underpaint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid where there is background
     std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid horizontally
     std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid vertically
     std::any upscale(std::vector<std::any> const& args); //Element(Element, Integer): upscale object or grid
@@ -185,8 +187,8 @@ namespace hodel
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
     std::any subgrid(std::vector<std::any> const& args); //Grid(Patch, Grid): smallest subgrid containing object
-    //std::any hsplit(std::vector<std::any> const& args); //(): 
-    //std::any vsplit(std::vector<std::any> const& args); //(): 
+    std::any hsplit(std::vector<std::any> const& args); //Tuple(Grid, Integer): split grid horizontally
+    std::any vsplit(std::vector<std::any> const& args); //Tuple(Grid, Integer): split grid vertically
     std::any cellwise(std::vector<std::any> const& args); //Grid(Grid, Grid, Integer): cellwise match of two grids
     std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution
     std::any switch_(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color switching
@@ -195,27 +197,28 @@ namespace hodel
     std::any index(std::vector<std::any> const& args); //Integer(Grid, IntegerTuple): color at location
     std::any canvas(std::vector<std::any> const& args); //Grid(Integer, IntegerTuple): grid construction
     std::any corners(std::vector<std::any> const& args); //Indices(Patch): indices of corners
-    //std::any connect(std::vector<std::any> const& args); //(): 
-    //std::any cover(std::vector<std::any> const& args); //(): 
+    //std::any connect(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line between two points
+    //std::any cover(std::vector<std::any> const& args); //Grid(Grid, Patch): remove object from grid
     std::any trim(std::vector<std::any> const& args); //Grid(Grid): trim border of grid
-    //std::any move(std::vector<std::any> const& args); //(): 
+    //std::any move(std::vector<std::any> const& args); //Grid(Grid, Object, IntegerTuple): move object on grid
     std::any tophalf(std::vector<std::any> const& args); //Grid(Grid): upper half of grid
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
     std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
     std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
-    //std::any vfrontier(std::vector<std::any> const& args); //(): 
-    //std::any hfrontier(std::vector<std::any> const& args); //(): 
-    //std::any backdrop(std::vector<std::any> const& args); //(): 
-    //std::any delta(std::vector<std::any> const& args); //(): 
-    //std::any gravitate(std::vector<std::any> const& args); //(): 
-    //std::any inbox(std::vector<std::any> const& args); //(): 
-    //std::any outbox(std::vector<std::any> const& args); //(): 
-    //std::any shoot(std::vector<std::any> const& args); //(): 
-    //std::any occurences(std::vector<std::any> const& args); //(): 
-    //std::any frontiers(std::vector<std::any> const& args); //(): 
+    //std::any vfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): vertical frontier
+    //std::any hfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): horizontal frontier
+    //std::any backdrop(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box of patch
+    //std::any delta(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box but not part of patch
+    //std::any gravitate(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): direction to move source until adjacent to destination
+    //std::any inbox(std::vector<std::any> const& args); //Indices(Patch): inbox for patch
+    //std::any outbox(std::vector<std::any> const& args); //Indices(Patch): outbox for patch
+    //std::any box(std::vector<std::any> const& args); //Indices(Patch): outline of patch
+    //std::any shoot(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line from starting point and direction
+    //std::any occurences(std::vector<std::any> const& args); //Indices(Grid, Object): locations of occurrences of object in grid
+    //std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
     std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
-    //std::any hperiod(std::vector<std::any> const& args); //(): 
-    //std::any vperiod(std::vector<std::any> const& args); //(): 
+    //std::any hperiod(std::vector<std::any> const& args); //Integer(Object): horizontal periodicity
+    //std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity 
 }
 
 #endif // AICPP_HODEL_H
