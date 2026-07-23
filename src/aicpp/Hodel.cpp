@@ -1683,7 +1683,7 @@ std::any hodel::ulcorner(std::vector<std::any> const& args)
             auto min_y = std::numeric_limits<Integer>::max();
             auto min_x = std::numeric_limits<Integer>::max();
 
-            for (const auto& [y, x] : indices)
+            for (auto const& [y, x] : indices)
             {
                 min_y = std::min(min_y, y);
                 min_x = std::min(min_x, x);
@@ -1719,7 +1719,7 @@ std::any hodel::urcorner(std::vector<std::any> const& args)
             auto min_y = std::numeric_limits<Integer>::max();
             auto max_x = std::numeric_limits<Integer>::lowest();
 
-            for (const auto& [y, x] : indices)
+            for (auto const& [y, x] : indices)
             {
 
                 min_y = std::min(min_y, y);
@@ -1756,7 +1756,7 @@ std::any hodel::llcorner(std::vector<std::any> const& args)
             auto max_y = std::numeric_limits<Integer>::lowest();
             auto min_x = std::numeric_limits<Integer>::max();
 
-            for (const auto& [y, x] : indices)
+            for (auto const& [y, x] : indices)
             {
                 max_y = std::max(max_y, y);
                 min_x = std::min(min_x, x);
@@ -1792,7 +1792,7 @@ std::any hodel::lrcorner(std::vector<std::any> const& args)
             auto max_y = std::numeric_limits<Integer>::lowest();
             auto max_x = std::numeric_limits<Integer>::lowest();
 
-            for (const auto& [y, x] : indices)
+            for (auto const& [y, x] : indices)
             {
                 max_y = std::max(max_y, y);
                 max_x = std::max(max_x, x);
@@ -2155,10 +2155,10 @@ std::any hodel::hmatching(std::vector<std::any> const& args)
         {
             std::set<Integer> rows;
 
-            for (const auto& [i, j] : std::any_cast<Indices>(toindices({a})))
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({a})))
                 rows.insert(i);
 
-            for (const auto& [i, j] : std::any_cast<Indices>(toindices({b})))
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({b})))
             {
                 if (rows.count(i))
                     return Boolean{true};
@@ -2189,10 +2189,10 @@ std::any hodel::vmatching(std::vector<std::any> const& args)
         {
             std::set<Integer> cols;
 
-            for (const auto& [i, j] : std::any_cast<Indices>(toindices({a})))
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({a})))
                 cols.insert(j);
 
-            for (const auto& [i, j] : std::any_cast<Indices>(toindices({b})))
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({b})))
             {
                 if (cols.count(j))
                     return Boolean{true};
@@ -2223,9 +2223,9 @@ std::any hodel::manhattan(std::vector<std::any> const& args)
         {
             auto dmin{std::numeric_limits<Integer>::max()};
 
-            for (const auto& [ai, aj] : std::any_cast<Indices>(toindices({a})))
+            for (auto const& [ai, aj] : std::any_cast<Indices>(toindices({a})))
             {
-                for (const auto& [bi, bj] : std::any_cast<Indices>(toindices({b})))
+                for (auto const& [bi, bj] : std::any_cast<Indices>(toindices({b})))
                 {
                     Integer const d{std::abs(ai - bi) + std::abs(aj - bj)};
                     dmin = std::min(dmin, d);
@@ -2286,6 +2286,188 @@ std::any hodel::bordering(std::vector<std::any> const& args)
             auto const rtm{std::any_cast<Integer>(rightmost({patch}))};
 
             return Boolean{urm == 0 || ltm == 0 || lrm == static_cast<Integer>(grid_.size()) - 1 || rtm == static_cast<Integer>(grid_.at(0).size()) - 1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::centerofmass(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+        auto const l{static_cast<Integer>(std::holds_alternative<Object>(patch_) ? std::get<Object>(patch_).size() : std::get<Indices>(patch_).size())};
+
+        try
+        {
+            Integer sumRow{0};
+            Integer sumCol{0};
+
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices(args)))
+            {
+                sumRow += i;
+                sumCol += j;
+            }
+
+            return IntegerTuple{sumRow / l, sumCol / l};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::palette(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const element{args[0]};
+
+    if (element.type() == typeid(Element))
+    {
+        auto const element_{std::any_cast<Element>(element)};
+
+        IntegerSet colors;
+
+        if (std::holds_alternative<Grid>(element_))
+        {
+            auto const& grid{std::get<Grid>(element_)};
+
+            for (auto const& row : grid)
+                colors.insert(row.begin(), row.end());
+        }
+        else if (std::holds_alternative<Object>(element_))
+        {
+            auto const& object{std::get<Object>(element_)};
+
+            for (auto const& [color, position] : object)
+                colors.insert(color);
+        }
+
+        return colors;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::numcolors(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const element{args[0]};
+
+    if (element.type() == typeid(Element))
+    {
+        try
+        {
+            return static_cast<Integer>(std::any_cast<IntegerSet>(palette(args)).size());
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::color(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const object{args[0]};
+
+    if (object.type() == typeid(Object))
+    {
+        auto const& object_{std::any_cast<Object>(object)};
+
+        if (object_.empty())
+            return std::any{};
+
+        return object_.begin()->first;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::toobject(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const patch{args[0]};
+    auto const grid{args[1]};
+
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+    {
+        auto const& patch_{std::any_cast<Patch>(patch)};
+        auto const& grid_{std::any_cast<Grid>(grid)};
+
+        try
+        {
+            auto const h{std::any_cast<Integer>(grid_.size())};
+            auto const w{std::any_cast<Integer>(grid_.at(0).size())};
+
+            Object object;
+
+            if (grid_.empty())
+                return object;
+
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({patch})))
+            {
+                if (0 <= i && i < h && 0 <= j && j < w)
+                    object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+            }
+
+            return object;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::asobject(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const& grid_{std::any_cast<Grid>(grid)};
+
+        try
+        {
+            Object object;
+
+            for (Integer i = 0; i < static_cast<Integer>(grid_.size()); ++i)
+            {
+                for (Integer j = 0; j < static_cast<Integer>(grid_.at(i).size()); ++j)
+                    object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+            }
+
+            return object;
         }
         catch (std::exception const&)
         {
@@ -2442,7 +2624,7 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
             Object result;
 
-            for (const auto& [v, pos] : obj)
+            for (auto const& [v, pos] : obj)
             {
                 auto [i, j] = pos;
 
@@ -2456,7 +2638,7 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
         Indices result;
 
-        for (const auto& [i, j] : indices)
+        for (auto const& [i, j] : indices)
             result.insert({d - i, j});
 
         return Piece{Patch(result)};
@@ -2502,7 +2684,7 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
             Object result;
 
-            for (const auto& [v, pos] : obj)
+            for (auto const& [v, pos] : obj)
             {
                 auto [i, j] = pos;
 
@@ -2516,7 +2698,7 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
         Indices result;
 
-        for (const auto& [i, j] : indices)
+        for (auto const& [i, j] : indices)
             result.insert({i, d - j});
 
         return Piece{Patch(result)};
@@ -2578,7 +2760,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
             Object result;
 
-            for (const auto& [v, pos] : obj)
+            for (auto const& [v, pos] : obj)
             {
                 auto [i, j] = pos;
 
@@ -2592,7 +2774,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
         Indices result;
 
-        for (const auto& [i, j] : indices)
+        for (auto const& [i, j] : indices)
             result.insert({j - b + a, i - a + b});
 
         return Piece{Patch(result)};
@@ -2656,12 +2838,12 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
 
         Grid result;
 
-        for (const auto& row : grid_)
+        for (auto const& row : grid_)
         {
             std::vector<Integer> new_row;
             new_row.reserve(row.size() * factor_);
 
-            for (const auto& cell : row)
+            for (auto const& cell : row)
             {
                 for (Integer i{0}; i < factor_; ++i)
                     new_row.emplace_back(cell);
@@ -2695,7 +2877,7 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         Grid result;
         result.reserve(grid_.size() * factor_);
 
-        for (const auto& row : grid_)
+        for (auto const& row : grid_)
         {
             for (Integer k = 0; k < factor_; ++k)
                 result.emplace_back(row);
@@ -2729,7 +2911,7 @@ std::any hodel::upscale(std::vector<std::any> const& args)
 
             Grid result;
 
-            for (const auto& row : grid)
+            for (auto const& row : grid)
             {
                 std::vector<Integer> upscaled_row;
 
@@ -2908,6 +3090,84 @@ std::any hodel::subgrid(std::vector<std::any> const& args)
 
     if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
         return crop({grid, ulcorner({patch}), shape({patch})});
+
+    return std::any{};
+}
+
+std::any hodel::hsplit(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const grid{args[0]};
+    auto const n{args[1]};
+
+    if (grid.type() == typeid(Grid) && n.type() == typeid(Integer))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const n_{std::any_cast<Integer>(n)};
+
+        if (grid_.empty() || n_ <= 0)
+            return std::any{};
+
+        try
+        {
+            auto const h{static_cast<Integer>(grid_.size())};
+            auto const w{static_cast<Integer>(grid_.at(0).size()) / n_};
+            Integer const offset{(grid_.at(0).size() % n_ != 0)};
+
+            std::vector<Grid> result;
+            result.reserve(n_);
+
+            for (Integer i = 0; i < n_; ++i)
+                result.emplace_back(std::any_cast<Grid>(crop({grid_, IntegerTuple{0, w * i + i * offset}, IntegerTuple{h, w}})));
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }        
+    }
+
+    return std::any{};
+}
+
+std::any hodel::vsplit(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const grid{args[0]};
+    auto const n{args[1]};
+
+    if (grid.type() == typeid(Grid) && n.type() == typeid(Integer))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const n_{std::any_cast<Integer>(n)};
+
+        if (grid_.empty() || n_ <= 0)
+            return std::any{};
+
+        try
+        {
+            auto const h{static_cast<Integer>(grid_.size()) / n_};
+            auto const w{static_cast<Integer>(grid_.at(0).size())};
+            Integer const offset{(grid_.size() % n_ != 0)};
+
+            std::vector<Grid> result;
+            result.reserve(n_);
+
+            for (Integer i = 0; i < n_; ++i)
+                result.emplace_back(std::any_cast<Grid>(crop({grid_, IntegerTuple{h * i + i * offset, 0}, IntegerTuple{h, w}})));
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }        
+    }
 
     return std::any{};
 }
