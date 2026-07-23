@@ -219,12 +219,16 @@ int main(int argc, char* argv[])
 
             assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
-            std::lock_guard<std::mutex> lock(mutex);
-
+            std::any output;
             auto const input{generateStructuredGrid()};
-            iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
-            auto const output{connection.output()};
+            {
+                std::lock_guard<std::mutex> lock(mutex);
+
+                iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                output = connection.output();
+            }
 
             if (output.has_value())
             {
@@ -268,7 +272,11 @@ int main(int argc, char* argv[])
                     add = false;
 
                 if (add)
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+
                     connections.emplace(std::move(connection));
+                }
             }
         }
         catch (std::exception const&)
