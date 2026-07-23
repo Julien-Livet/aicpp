@@ -125,8 +125,8 @@ namespace hodel
     //std::any papply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors
     //std::any mpapply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors and merge
     //std::any prapply(std::vector<std::any> const& args); //FrozenSet(Callable, Container, Container): apply function on cartesian product
-    //std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
-    //std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
+    std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
+    std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
     std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
     std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
     std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
@@ -197,7 +197,7 @@ namespace hodel
     std::any index(std::vector<std::any> const& args); //Integer(Grid, IntegerTuple): color at location
     std::any canvas(std::vector<std::any> const& args); //Grid(Integer, IntegerTuple): grid construction
     std::any corners(std::vector<std::any> const& args); //Indices(Patch): indices of corners
-    //std::any connect(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line between two points
+    std::any connect(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line between two points
     //std::any cover(std::vector<std::any> const& args); //Grid(Grid, Patch): remove object from grid
     std::any trim(std::vector<std::any> const& args); //Grid(Grid): trim border of grid
     //std::any move(std::vector<std::any> const& args); //Grid(Grid, Object, IntegerTuple): move object on grid
@@ -205,8 +205,8 @@ namespace hodel
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
     std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
     std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
-    //std::any vfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): vertical frontier
-    //std::any hfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): horizontal frontier
+    std::any vfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): vertical frontier
+    std::any hfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): horizontal frontier
     //std::any backdrop(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box of patch
     //std::any delta(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box but not part of patch
     //std::any gravitate(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): direction to move source until adjacent to destination
