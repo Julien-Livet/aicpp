@@ -118,7 +118,7 @@ namespace hodel
     std::any matcher(std::vector<std::any> const& args); //Callable(Callable, Any): construction of equality function
     std::any rbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the rightmost argument
     std::any lbind(std::vector<std::any> const& args); //Callable(Callable, Any): fix the leftmost argument
-    //std::any power(std::vector<std::any> const& args); //Callable(Callable, Integer): power of function
+    std::any power(std::vector<std::any> const& args); //Callable(Callable, Integer): power of function
     std::any fork(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): creates a wrapper function
     std::any apply(std::vector<std::any> const& args); //Container(Callable, Container): apply function to each item in container
     //std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
