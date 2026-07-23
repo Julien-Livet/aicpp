@@ -2042,6 +2042,230 @@ std::any hodel::rightmost(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::square(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const piece{args[0]};
+
+    if (piece.type() == typeid(Piece))
+    {
+        try
+        {
+            auto const piece_{std::any_cast<Piece>(piece)};
+            
+            if (std::holds_alternative<Grid>(piece_))
+            {
+                auto const grid{std::get<Grid>(piece_)};
+
+                try
+                {
+                    return Boolean{grid.size() == grid.at(0).size()};
+                }
+                catch (std::exception const&)
+                {
+                    return std::any{};
+                }
+            }
+            else
+            {
+                auto const h{std::any_cast<Integer>(height(args))};
+                auto const w{std::any_cast<Integer>(width(args))};
+                auto const patch{std::get<Patch>(piece_)};
+                auto const l{static_cast<Integer>(std::holds_alternative<Object>(patch) ? std::get<Object>(patch).size() : std::get<Indices>(patch).size())};
+
+                return Boolean{h * w == l and h == w};
+            }
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::vline(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        try
+        {
+            auto const h{std::any_cast<Integer>(height(args))};
+            auto const w{std::any_cast<Integer>(width(args))};
+            auto const patch_{std::any_cast<Patch>(patch)};
+            auto const l{static_cast<Integer>(std::holds_alternative<Object>(patch_) ? std::get<Object>(patch_).size() : std::get<Indices>(patch_).size())};
+
+            return Boolean{h == l && w == 1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::hline(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        try
+        {
+            auto const h{std::any_cast<Integer>(height(args))};
+            auto const w{std::any_cast<Integer>(width(args))};
+            auto const patch_{std::any_cast<Patch>(patch)};
+            auto const l{static_cast<Integer>(std::holds_alternative<Object>(patch_) ? std::get<Object>(patch_).size() : std::get<Indices>(patch_).size())};
+
+            return Boolean{w == l && h == 1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::hmatching(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
+    {
+        try
+        {
+            std::set<Integer> rows;
+
+            for (const auto& [i, j] : std::any_cast<Indices>(toindices({a})))
+                rows.insert(i);
+
+            for (const auto& [i, j] : std::any_cast<Indices>(toindices({b})))
+            {
+                if (rows.count(i))
+                    return Boolean{true};
+            }
+
+            return Boolean{false};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::vmatching(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
+    {
+        try
+        {
+            std::set<Integer> cols;
+
+            for (const auto& [i, j] : std::any_cast<Indices>(toindices({a})))
+                cols.insert(j);
+
+            for (const auto& [i, j] : std::any_cast<Indices>(toindices({b})))
+            {
+                if (cols.count(j))
+                    return Boolean{true};
+            }
+
+            return Boolean{false};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::manhattan(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
+    {
+        try
+        {
+            auto dmin{std::numeric_limits<Integer>::max()};
+
+            for (const auto& [ai, aj] : std::any_cast<Indices>(toindices({a})))
+            {
+                for (const auto& [bi, bj] : std::any_cast<Indices>(toindices({b})))
+                {
+                    Integer const d{std::abs(ai - bi) + std::abs(aj - bj)};
+                    dmin = std::min(dmin, d);
+                }
+            }
+
+            return dmin;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
+std::any hodel::adjacent(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
+    {
+        try
+        {
+            return Boolean{std::any_cast<Integer>(manhattan(args)) == 1};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::bordering(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -3028,6 +3252,90 @@ std::any hodel::righthalf(std::vector<std::any> const& args)
 
     if (grid.type() == typeid(Grid))
         return rot270(std::vector<std::any>{bottomhalf(std::vector<std::any>{rot90(args)})});
+
+    return std::any{};
+}
+
+std::any hodel::compress(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        if (grid_.empty())
+            return {};
+
+        try
+        {
+            auto const h{static_cast<Integer>(grid_.size())};
+            auto const w{static_cast<Integer>(grid_.at(0).size())};
+
+            std::vector<bool> removeRow(h, false);
+
+            for (Integer i = 0; i < h; ++i)
+            {
+                bool uniform{true};
+
+                for (Integer j = 1; j < w; ++j)
+                {
+                    if (grid_.at(i).at(j) != grid_.at(i).at(0))
+                    {
+                        uniform = false;
+                        break;
+                    }
+                }
+
+                removeRow[i] = uniform;
+            }
+
+            std::vector<bool> removeCol(w, false);
+
+            for (Integer j = 0; j < w; ++j)
+            {
+                bool uniform{true};
+
+                for (Integer i = 1; i < h; ++i)
+                {
+                    if (grid_.at(i).at(j) != grid_.at(0).at(j))
+                    {
+                        uniform = false;
+                        break;
+                    }
+                }
+
+                removeCol[j] = uniform;
+            }
+
+            Grid result;
+
+            for (Integer i = 0; i < h; ++i)
+            {
+                if (removeRow[i])
+                    continue;
+
+                std::vector<Integer> row;
+
+                for (Integer j = 0; j < w; ++j)
+                {
+                    if (!removeCol[j])
+                        row.emplace_back(grid_.at(i).at(j));
+                }
+
+                result.emplace_back(std::move(row));
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
 
     return std::any{};
 }
