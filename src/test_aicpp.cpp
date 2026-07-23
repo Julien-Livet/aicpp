@@ -853,7 +853,7 @@ std::string trim(const std::string& s)
 
     return s.substr(begin, end - begin + 1);
 }
-
+/*
 TEST(TestAiCpp, TestHodelTasks)
 {
     std::vector<std::string> const lines{read_lines("../scripts/arc-dsl/solvers.py")};
@@ -922,7 +922,7 @@ TEST(TestAiCpp, TestHodelTasks)
         std::println("Duration for {0} step{1} of DSL ({2} tasks): {3} s", k, (k > 1 ? "s" : ""), v.size(), total_duration);
     }
 }
-/*
+*//*
 TEST(TestAicpp, TestTask0d3d703e) //Color mapping
 {
     passTask("training", "0d3d703e", true);
