@@ -1978,6 +1978,36 @@ std::any hodel::toindices(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::recolor(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const value{args[0]};
+    auto const patch{args[1]};
+
+    if (value.type() == typeid(Integer) && patch.type() == typeid(Patch))
+    {
+        auto const value_{std::any_cast<Integer>(value)};
+
+        try
+        {
+            Object object;
+
+            for (auto const& index : std::any_cast<Indices>(toindices({patch})))
+                object.emplace(value_, index);
+
+            return object;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::shift(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
