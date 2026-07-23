@@ -213,7 +213,7 @@ namespace hodel
     //std::any inbox(std::vector<std::any> const& args); //Indices(Patch): inbox for patch
     //std::any outbox(std::vector<std::any> const& args); //Indices(Patch): outbox for patch
     //std::any box(std::vector<std::any> const& args); //Indices(Patch): outline of patch
-    //std::any shoot(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line from starting point and direction
+    std::any shoot(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line from starting point and direction
     //std::any occurences(std::vector<std::any> const& args); //Indices(Grid, Object): locations of occurrences of object in grid
     //std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
     std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
