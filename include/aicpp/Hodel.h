@@ -142,7 +142,7 @@ namespace hodel
     std::any lrcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of lower right corner
     std::any crop(std::vector<std::any> const& args); //Grid(Grid, IntegerTuple, IntegerTuple): subgrid specified by start and dimension
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
-    //std::any recolor(std::vector<std::any> const& args); //Object(Integer, Patch): recolor patch
+    std::any recolor(std::vector<std::any> const& args); //Object(Integer, Patch): recolor patch
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
     //std::any normalize(std::vector<std::any> const& args); //Patch(Patch): moves upper left corner to origin
     //std::any dneighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): directly adjacent indices
