@@ -1,9 +1,41 @@
 #include <algorithm>
+#include <map>
 #include <numeric>
 #include <ranges>
 #include <unordered_set>
 
 #include "aicpp/Hodel.h"
+
+constexpr hodel::Integer MAX_SIZE = 30;
+using IntegerCountMap = std::map<hodel::Integer, hodel::Integer>;
+
+IntegerCountMap colorCounts(hodel::Element const& element)
+{
+    IntegerCountMap counts;
+
+    std::visit(
+        [&] (auto const& value)
+        {
+            using T = std::decay_t<decltype(value)>;
+
+            if constexpr (std::is_same_v<T, hodel::Grid>)
+            {
+                for (auto const& row : value)
+                {
+                    for (auto const& color : row)
+                        ++counts[color];
+                }
+            }
+            else
+            {
+                for (auto const& [color, position] : value)
+                    ++counts[color];
+            }
+        },
+        element);
+
+    return counts;
+}
 
 template<typename T>
 static std::any apply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& container)
@@ -1507,6 +1539,66 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Indices>   (function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<Integer> >(function_, container); r.has_value()) return r;
+
+    return std::any{};
+}
+
+std::any hodel::mostcolor(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const element{args[0]};
+
+    if (element.type() != typeid(Element))
+    {
+        auto const element_{std::any_cast<Element>(element)};
+
+        auto const counts{colorCounts(element_)};
+
+        auto const it = std::max_element(
+            counts.begin(),
+            counts.end(),
+            [] (auto const& a, auto const& b)
+            {
+                return a.second < b.second;
+            });
+
+        if (it == counts.end())
+            return std::any{};
+
+        return it->first;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::leastcolor(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const element{args[0]};
+
+    if (element.type() != typeid(Element))
+    {
+        auto const element_{std::any_cast<Element>(element)};
+
+        auto const counts{colorCounts(element_)};
+
+        auto const it = std::min_element(
+            counts.begin(),
+            counts.end(),
+            [] (auto const& a, auto const& b)
+            {
+                return a.second < b.second;
+            });
+
+        if (it == counts.end())
+            return std::any{};
+
+        return it->first;
+    }
 
     return std::any{};
 }
@@ -3429,6 +3521,59 @@ std::any hodel::corners(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::connect(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const a{args[0]};
+    auto const b{args[0]};
+
+    if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
+    {
+        auto const a_{std::any_cast<IntegerTuple>(a)};
+        auto const b_{std::any_cast<IntegerTuple>(b)};
+
+        auto const& [ai, aj] = a_;
+        auto const& [bi, bj] = b_;
+
+        Integer di{0};
+        Integer dj{0};
+
+        if (ai == bi)
+            dj = (bj > aj ? 1 : -1);
+        else if (aj == bj)
+            di = (bi > ai ? 1 : -1);
+        else if (std::abs(bi - ai) == std::abs(bj - aj))
+        {
+            di = (bi > ai ? 1 : -1);
+            dj = (bj > aj ? 1 : -1);
+        }
+        else
+            return Indices{};
+
+        Indices result;
+
+        auto i{ai};
+        auto j{aj};
+
+        while (true)
+        {
+            result.emplace(i, j);
+
+            if (i == bi && j == bj)
+                break;
+
+            i += di;
+            j += dj;
+        }
+
+        return result;
+    }
+
+    return std::any{};
+}
+
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -3512,6 +3657,50 @@ std::any hodel::righthalf(std::vector<std::any> const& args)
 
     if (grid.type() == typeid(Grid))
         return rot270(std::vector<std::any>{bottomhalf(std::vector<std::any>{rot90(args)})});
+
+    return std::any{};
+}
+
+std::any hodel::vfrontier(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const location{args[0]};
+
+    if (location.type() == typeid(IntegerTuple))
+    {
+        auto const location_{std::any_cast<IntegerTuple>(location)};
+
+        Indices result;
+
+        for (Integer i{0}; i < MAX_SIZE; ++i)
+            result.emplace(i, location_.second);
+
+        return result;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::hfrontier(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const location{args[0]};
+
+    if (location.type() == typeid(IntegerTuple))
+    {
+        auto const location_{std::any_cast<IntegerTuple>(location)};
+
+        Indices result;
+
+        for (Integer j{0}; j < MAX_SIZE; ++j)
+            result.emplace(location_.first, j);
+
+        return result;
+    }
 
     return std::any{};
 }
