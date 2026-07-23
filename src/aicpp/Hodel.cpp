@@ -3527,7 +3527,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
         return std::any{};
 
     auto const a{args[0]};
-    auto const b{args[0]};
+    auto const b{args[1]};
 
     if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
     {
@@ -3700,6 +3700,25 @@ std::any hodel::hfrontier(std::vector<std::any> const& args)
             result.emplace(location_.first, j);
 
         return result;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::shoot(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const start{args[0]};
+    auto const direction{args[1]};
+
+    if (start.type() == typeid(IntegerTuple) && direction.type() == typeid(IntegerTuple))
+    {
+        auto const start_{std::any_cast<IntegerTuple>(start)};
+        auto const direction_{std::any_cast<IntegerTuple>(direction)};
+
+        return connect({start_, IntegerTuple{start_.first + 42 * direction_.first, start_.second + 42 * direction_.second}});
     }
 
     return std::any{};
