@@ -1494,6 +1494,30 @@ std::any hodel::lbind(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::power(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        return std::any{};
+
+    auto const function{args[0]};
+    auto const n{args[1]};
+
+    if (function.type() == typeid(std::function<std::any(std::vector<std::any> const&)>) && n.type() == typeid(Integer))
+    {
+        auto const n_{std::any_cast<Integer>(n)};
+
+        if (n_ <= 0)
+            return std::any{};
+
+        if (n_ == 1)
+            return function;
+
+        return compose({function, power({function, n_ - 1})});
+    }
+
+    return std::any{};
+}
+
 std::any hodel::fork(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
