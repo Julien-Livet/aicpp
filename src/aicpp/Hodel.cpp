@@ -2123,6 +2123,77 @@ std::any hodel::shift(std::vector<std::any> const& args)
     return std::any{};
 }
 
+std::any hodel::dneighbors(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const loc{args[0]};
+
+    if (loc.type() == typeid(IntegerTuple))
+    {
+        auto const loc_{std::any_cast<IntegerTuple>(loc)};
+
+        return Indices{
+            {loc_.first - 1, loc_.second},
+            {loc_.first + 1, loc_.second},
+            {loc_.first,     loc_.second - 1},
+            {loc_.first,     loc_.second + 1}
+        };
+    }
+
+    return std::any{};
+}
+
+std::any hodel::ineighbors(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const loc{args[0]};
+
+    if (loc.type() == typeid(IntegerTuple))
+    {
+        auto const loc_{std::any_cast<IntegerTuple>(loc)};
+
+        return Indices{
+            {loc_.first - 1, loc_.second - 1},
+            {loc_.first - 1, loc_.second + 1},
+            {loc_.first + 1, loc_.second - 1},
+            {loc_.first + 1, loc_.second + 1}
+        };
+    }
+
+    return std::any{};
+}
+
+std::any hodel::neighbors(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        return std::any{};
+
+    auto const loc{args[0]};
+
+    if (loc.type() == typeid(IntegerTuple))
+    {
+        try
+        {
+            auto result{std::any_cast<Indices>(dneighbors({loc}))};
+            auto const diagonal{std::any_cast<Indices>(ineighbors({loc}))};
+
+            result.insert(diagonal.begin(), diagonal.end());
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
+    }
+
+    return std::any{};
+}
+
 std::any hodel::uppermost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
