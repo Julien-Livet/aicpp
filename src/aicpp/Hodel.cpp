@@ -288,7 +288,7 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
     }
     else if (a.type() == typeid(hodel::IntegerTuple))
     {
-        auto const& x{std::any_cast<hodel::IntegerTuple>(a)};
+        auto const x{std::any_cast<hodel::IntegerTuple>(a)};
 
         if (b.type() == typeid(hodel::Integer))
             return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::Integer>(b)}, op);
@@ -376,7 +376,7 @@ std::any hodel::divide(std::vector<std::any> const& args)
     }
     else if (b.type() == typeid(hodel::IntegerTuple))
     {
-        auto const& y{std::any_cast<hodel::IntegerTuple>(b)};
+        auto const y{std::any_cast<hodel::IntegerTuple>(b)};
 
         if (!y.first || !y.second)
             return std::any{};
