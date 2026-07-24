@@ -37,7 +37,63 @@ IntegerCountMap colorCounts(hodel::Element const& element)
     return counts;
 }
 
-template<typename T>
+template <typename T>
+static std::vector<std::any> toVector(T const& container)
+{
+    std::vector<std::any> values;
+    values.reserve(container.size());
+
+    for (auto const& v : container)
+        values.emplace_back(v);
+
+    return values;
+}
+
+template <typename T>
+static std::vector<typename T::value_type> toVector(std::any const& container)
+{
+    if (container.type() != typeid(T))
+        return std::vector<typename T::value_type>{};
+
+    auto const container_{std::any_cast<T>(container)};
+
+    return std::vector<typename T::value_type>{container_.begin(), container_.end()};
+}
+
+template <typename T>
+static std::any order(std::any const& container, std::function<std::any(std::vector<std::any> const&)> const& function)
+{
+    std::vector<typename T::value_type> values;
+
+    if (container.type() == typeid(hodel::IntegerSet))
+        values = toVector<hodel::IntegerSet>(container);
+    else if (container.type() == typeid(std::vector<hodel::Integer>))
+        values = toVector<std::vector<hodel::Integer> >(container);
+
+    try
+    {
+        std::sort(values.begin(), values.end(),
+                  [function] (auto const& x, auto const& y) -> auto
+                  {
+                      try
+                      {
+                          return !std::any_cast<hodel::Boolean>(hodel::greater({function({x}), function({y})}));
+                      }
+                      catch (std::exception const&)
+                      {
+                          return false;
+                      }
+                  });
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return values;
+}
+
+template <typename T>
 static std::any apply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& container)
 {
     if (container.type() != typeid(T))
@@ -59,19 +115,7 @@ static std::any apply(std::function<std::any(std::vector<std::any> const&)> cons
     return T{values.begin(), values.end()};
 }
 
-template<typename T>
-static std::vector<std::any> toVector(T const& container)
-{
-    std::vector<std::any> values;
-    values.reserve(container.size());
-
-    for (auto const& v : container)
-        values.emplace_back(v);
-
-    return values;
-}
-
-template<typename T>
+template <typename T>
 static std::any repeat(std::any const& item, hodel::Integer const& n)
 {
     if (n < 0)
@@ -83,7 +127,7 @@ static std::any repeat(std::any const& item, hodel::Integer const& n)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any equality(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -92,7 +136,7 @@ static std::any equality(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any size_set(std::any const& value)
 {
     if (value.type() == typeid(T))
@@ -101,7 +145,7 @@ static std::any size_set(std::any const& value)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any init_set(std::any const& value)
 {
     if (value.type() == typeid(typename T::value_type))
@@ -110,7 +154,7 @@ static std::any init_set(std::any const& value)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any first_set(std::any const& container)
 {
     if (container.type() == typeid(T))
@@ -124,7 +168,7 @@ static std::any first_set(std::any const& container)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any last_set(std::any const& container)
 {
     if (container.type() == typeid(T))
@@ -138,7 +182,7 @@ static std::any last_set(std::any const& container)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any vector_set(std::any const& container)
 {
     if (container.type() == typeid(T))
@@ -151,7 +195,7 @@ static std::any vector_set(std::any const& container)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any difference_sets(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -168,7 +212,7 @@ static std::any difference_sets(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any intersection_sets(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -185,7 +229,7 @@ static std::any intersection_sets(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-template<typename T>
+template <typename T>
 static std::any combine_sets(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -656,7 +700,7 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
     return std::any{};
 }
-
+#include <iostream>
 std::any hodel::order(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -670,23 +714,10 @@ std::any hodel::order(std::vector<std::any> const& args)
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
-    std::vector<std::any> values;
+    if (auto r = ::order<IntegerSet>(container, f); r.has_value()) return r;
+    if (auto r = ::order<std::vector<Integer> >(container, f); r.has_value()) return r;
 
-    if (container.type() == typeid(IntegerSet))
-        values = toVector(std::any_cast<IntegerSet>(container));
-    else if (container.type() == typeid(std::vector<Integer>))
-        values = toVector(std::any_cast<std::vector<Integer> >(container));
-
-    try
-    {
-        std::sort(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); });
-    }
-    catch (std::exception const&)
-    {
-        return std::any{};
-    }
-
-    return values;
+    return std::any{};
 }
 
 std::any hodel::repeat(std::vector<std::any> const& args)
@@ -708,6 +739,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<Grid>(item, n); r.has_value()) return r;
     }
 
     return std::any{};
