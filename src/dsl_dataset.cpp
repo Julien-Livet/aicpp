@@ -233,7 +233,6 @@ int main(int argc, char* argv[])
             if (output.has_value())
             {
                 auto const grid{std::any_cast<hodel::Grid>(output)};
-
                 bool add{true};
 
                 if (grid == input)
