@@ -42,6 +42,8 @@ anyTypes = []
 for v in dslTypes.values():
     anyTypes += v
 
+anyTypes.remove("std::function<std::any(std::vector<std::any> const&)>")
+
 dslTypes["Any"] = anyTypes
 
 for k in dslTypes.keys():
