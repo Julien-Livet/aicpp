@@ -677,7 +677,14 @@ std::any hodel::order(std::vector<std::any> const& args)
     else if (container.type() == typeid(std::vector<Integer>))
         values = toVector(std::any_cast<std::vector<Integer> >(container));
 
-    std::sort(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); });
+    try
+    {
+        std::sort(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(f({x, y})); });
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
 
     return values;
 }
