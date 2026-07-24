@@ -75,14 +75,7 @@ static std::any order(std::any const& container, std::function<std::any(std::vec
         std::sort(values.begin(), values.end(),
                   [function] (auto const& x, auto const& y) -> auto
                   {
-                      try
-                      {
-                          return !std::any_cast<hodel::Boolean>(hodel::greater({function({x}), function({y})}));
-                      }
-                      catch (std::exception const&)
-                      {
-                          return false;
-                      }
+                      return std::any_cast<hodel::Boolean>(hodel::greater({function({y}), function({x})}));
                   });
     }
     catch (std::exception const&)
@@ -119,7 +112,7 @@ template <typename T>
 static std::any repeat(std::any const& item, hodel::Integer const& n)
 {
     if (n < 0)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     if (item.type() == typeid(T))
         return std::vector<T>(n, std::any_cast<T>(item));
@@ -296,13 +289,13 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
             return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::IntegerTuple>(b)}, op);
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::identity(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
@@ -312,7 +305,7 @@ std::any hodel::identity(std::vector<std::any> const& args)
 std::any hodel::add(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -323,7 +316,7 @@ std::any hodel::add(std::vector<std::any> const& args)
 std::any hodel::subtract(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -334,7 +327,7 @@ std::any hodel::subtract(std::vector<std::any> const& args)
 std::any hodel::multiply(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -345,7 +338,7 @@ std::any hodel::multiply(std::vector<std::any> const& args)
 std::any hodel::divide(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -357,14 +350,14 @@ std::any hodel::divide(std::vector<std::any> const& args)
         if (std::holds_alternative<hodel::Integer>(y))
         {
             if (!std::get<hodel::Integer>(y))
-                return std::any{};
+                throw std::runtime_error{"Wrong value"};
         }
         else if (std::holds_alternative<hodel::IntegerTuple>(y))
         {
             auto const& d{std::get<hodel::IntegerTuple>(y)};
 
             if (!d.first || !d.second)
-                return std::any{};
+                throw std::runtime_error{"Wrong value"};
         }
     }
     else if (b.type() == typeid(hodel::Integer))
@@ -372,14 +365,14 @@ std::any hodel::divide(std::vector<std::any> const& args)
         auto const y{std::any_cast<hodel::Integer>(b)};
 
         if (!y)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
     }
     else if (b.type() == typeid(hodel::IntegerTuple))
     {
         auto const y{std::any_cast<hodel::IntegerTuple>(b)};
 
         if (!y.first || !y.second)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
     }
 
     return do_op(a, b, std::divides<Integer>{});
@@ -388,7 +381,7 @@ std::any hodel::divide(std::vector<std::any> const& args)
 std::any hodel::invert(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const n{args.front()};
 
@@ -414,26 +407,26 @@ std::any hodel::invert(std::vector<std::any> const& args)
     else if (n.type() == typeid(IntegerTuple))
         return invert(std::vector<std::any>{Numerical{std::any_cast<IntegerTuple>(n)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::even(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const n{args.front()};
 
     if (n.type() == typeid(hodel::Integer))
         return Boolean{std::any_cast<Integer>(n) % 2 == 0};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::double_(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const n{args.front()};
 
@@ -459,13 +452,13 @@ std::any hodel::double_(std::vector<std::any> const& args)
     else if (n.type() == typeid(IntegerTuple))
         return double_(std::vector<std::any>{Numerical{std::any_cast<IntegerTuple>(n)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::halve(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const n{args.front()};
 
@@ -491,26 +484,26 @@ std::any hodel::halve(std::vector<std::any> const& args)
     else if (n.type() == typeid(IntegerTuple))
         return halve(std::vector<std::any>{Numerical{std::any_cast<IntegerTuple>(n)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::flip(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const b{args.front()};
 
     if (b.type() == typeid(Boolean))
         return Boolean{!std::any_cast<Boolean>(b)};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::equality(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -531,13 +524,13 @@ std::any hodel::equality(std::vector<std::any> const& args)
     if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
     if (auto r = ::equality<std::vector<Integer> >(a, b); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::contained(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const value{args[0]};
     auto const container{args[1]};
@@ -595,13 +588,13 @@ std::any hodel::contained(std::vector<std::any> const& args)
             return static_cast<Boolean>(c.count(std::get<Object>(p)) > 0);
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::combine(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -623,13 +616,13 @@ std::any hodel::combine(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::intersection(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -640,13 +633,13 @@ std::any hodel::intersection(std::vector<std::any> const& args)
     if (auto r = intersection_sets<Indices>   (a, b); r.has_value()) return r;
     if (auto r = intersection_sets<IndicesSet>(a, b); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::difference(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -657,13 +650,13 @@ std::any hodel::difference(std::vector<std::any> const& args)
     if (auto r = difference_sets<Indices>   (a, b); r.has_value()) return r;
     if (auto r = difference_sets<IndicesSet>(a, b); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::dedupe(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const tup{args.front()};
 
@@ -698,32 +691,32 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
         return y;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
-#include <iostream>
+
 std::any hodel::order(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
     if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
     if (auto r = ::order<IntegerSet>(container, f); r.has_value()) return r;
     if (auto r = ::order<std::vector<Integer> >(container, f); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::repeat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const item{args[0]};
     auto const num{args[1]};
@@ -733,7 +726,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
         auto const n{std::any_cast<Integer>(num)};
        
         if (n < 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
@@ -742,13 +735,13 @@ std::any hodel::repeat(std::vector<std::any> const& args)
         if (auto r = ::repeat<Grid>(item, n); r.has_value()) return r;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::greater(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -756,13 +749,13 @@ std::any hodel::greater(std::vector<std::any> const& args)
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(a) > std::any_cast<Integer>(b)};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::size(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -780,13 +773,13 @@ std::any hodel::size(std::vector<std::any> const& args)
         return static_cast<Integer>(x.size());
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::maximum(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -800,13 +793,13 @@ std::any hodel::maximum(std::vector<std::any> const& args)
         return *std::max_element(set.begin(), set.end());
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::minimum(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -820,19 +813,19 @@ std::any hodel::minimum(std::vector<std::any> const& args)
         return *std::min_element(set.begin(), set.end());
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::valmax(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
     if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
@@ -848,29 +841,29 @@ std::any hodel::valmax(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({x, y})); } )};
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
     }
     catch (std::exception const&)
     {
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::valmin(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
     if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
@@ -886,29 +879,29 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({x, y})); } )};
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
     }
     catch (std::exception const&)
     {
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::argmax(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
     if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
@@ -921,29 +914,29 @@ std::any hodel::argmax(std::vector<std::any> const& args)
 
     try
     {
-        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({f({x}), f({y})})); } )};
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
             return *it;
     }
     catch (std::exception const&)
     {
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::argmin(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
     auto const compfunc{args[1]};
 
     if (compfunc.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const f{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(compfunc)};
 
@@ -956,23 +949,23 @@ std::any hodel::argmin(std::vector<std::any> const& args)
 
     try
     {
-        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return !std::any_cast<Boolean>(greater({f({x}), f({y})})); } )};
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
             return *it;
     }
     catch (std::exception const&)
     {
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::mostcommon(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
 
@@ -981,7 +974,7 @@ std::any hodel::mostcommon(std::vector<std::any> const& args)
         auto const container_{std::any_cast<std::vector<Integer> >(container)};
 
         if (container_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         std::unordered_map<Integer, Integer> counts;
 
@@ -1005,13 +998,13 @@ std::any hodel::mostcommon(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::leastcommon(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args[0]};
 
@@ -1020,7 +1013,7 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
         auto const container_{std::any_cast<std::vector<Integer> >(container)};
 
         if (container_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         std::unordered_map<Integer, Integer> counts;
 
@@ -1044,13 +1037,13 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::initset(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const value{args.front()};
 
@@ -1061,13 +1054,13 @@ std::any hodel::initset(std::vector<std::any> const& args)
     if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<Integer> >(value); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::both(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -1075,13 +1068,13 @@ std::any hodel::both(std::vector<std::any> const& args)
     if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
         return Boolean{std::any_cast<Boolean>(a) && std::any_cast<Boolean>(b)};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::either(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -1089,13 +1082,13 @@ std::any hodel::either(std::vector<std::any> const& args)
     if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
         return Boolean{std::any_cast<Boolean>(a) || std::any_cast<Boolean>(b)};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::increment(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
@@ -1115,13 +1108,13 @@ std::any hodel::increment(std::vector<std::any> const& args)
     else if (x.type() == typeid(Integer))
         return increment(std::vector<std::any>{Numerical{std::any_cast<Integer>(x)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::decrement(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
@@ -1141,13 +1134,13 @@ std::any hodel::decrement(std::vector<std::any> const& args)
     else if (x.type() == typeid(Integer))
         return decrement(std::vector<std::any>{Numerical{std::any_cast<Integer>(x)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::crement(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
@@ -1191,13 +1184,13 @@ std::any hodel::crement(std::vector<std::any> const& args)
     else if (x.type() == typeid(Integer))
         return crement(std::vector<std::any>{Numerical{std::any_cast<Integer>(x)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::sign(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
@@ -1241,52 +1234,52 @@ std::any hodel::sign(std::vector<std::any> const& args)
     else if (x.type() == typeid(Integer))
         return sign(std::vector<std::any>{Numerical{std::any_cast<Integer>(x)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::positive(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const x{args.front()};
 
     if (x.type() == typeid(Integer))
         return Boolean{std::any_cast<Integer>(x) > 0};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::toivec(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const i{args.front()};
 
     if (i.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(i), 0)};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::tojvec(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const j{args.front()};
 
     if (j.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(0, std::any_cast<Integer>(j))};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::totuple(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -1297,13 +1290,13 @@ std::any hodel::totuple(std::vector<std::any> const& args)
     if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = vector_set<std::vector<Integer> >(container); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::first(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -1319,18 +1312,18 @@ std::any hodel::first(std::vector<std::any> const& args)
         auto const x{std::any_cast<Grid>(container)};
         
         if (x.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return x.front();
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::last(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const container{args.front()};
 
@@ -1346,18 +1339,18 @@ std::any hodel::last(std::vector<std::any> const& args)
         auto const x{std::any_cast<Grid>(container)};
 
         if (x.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return x.back();
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::interval(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const start{args[0]};
     auto const stop{args[1]};
@@ -1371,7 +1364,7 @@ std::any hodel::interval(std::vector<std::any> const& args)
         std::vector<Integer> result;
 
         if ((step_ >= 0 && stop_ < start_) || (step_ <= 0 && stop_ > start_))
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         for (; step_ >= 0 ? start_ < stop_ : start_ > stop_; start_ += step_)
             result.emplace_back(start_);
@@ -1379,13 +1372,13 @@ std::any hodel::interval(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::astuple(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -1393,13 +1386,13 @@ std::any hodel::astuple(std::vector<std::any> const& args)
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::branch(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const condition{args[0]};
     auto const a{args[1]};
@@ -1412,13 +1405,13 @@ std::any hodel::branch(std::vector<std::any> const& args)
         return condition_ ? a : b;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::compose(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const outer{args[0]};
     auto const inner{args[1]};
@@ -1435,13 +1428,13 @@ std::any hodel::compose(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::chain(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const h{args[0]};
     auto const g{args[1]};
@@ -1461,13 +1454,13 @@ std::any hodel::chain(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::matcher(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function{args[0]};
     auto const target{args[1]};
@@ -1482,13 +1475,13 @@ std::any hodel::matcher(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::rbind(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function{args[0]};
     auto const fixed{args[1]};
@@ -1506,13 +1499,13 @@ std::any hodel::rbind(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::lbind(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function{args[0]};
     auto const fixed{args[1]};
@@ -1530,13 +1523,13 @@ std::any hodel::lbind(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::power(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function{args[0]};
     auto const n{args[1]};
@@ -1546,7 +1539,7 @@ std::any hodel::power(std::vector<std::any> const& args)
         auto const n_{std::any_cast<Integer>(n)};
 
         if (n_ <= 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         if (n_ == 1)
             return function;
@@ -1554,13 +1547,13 @@ std::any hodel::power(std::vector<std::any> const& args)
         return compose({function, power({function, n_ - 1})});
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::fork(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const outer{args[0]};
     auto const a{args[1]};
@@ -1580,19 +1573,19 @@ std::any hodel::fork(std::vector<std::any> const& args)
         }};
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::apply(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function{args[0]};
     auto const container{args[1]};
 
     if (function.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
 
@@ -1604,13 +1597,13 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::vector<Integer> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid>(function_, container); r.has_value()) return r;
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::mostcolor(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
 
@@ -1629,18 +1622,18 @@ std::any hodel::mostcolor(std::vector<std::any> const& args)
             });
 
         if (it == counts.end())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return it->first;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::leastcolor(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
 
@@ -1659,18 +1652,18 @@ std::any hodel::leastcolor(std::vector<std::any> const& args)
             });
 
         if (it == counts.end())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return it->first;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::height(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -1696,13 +1689,13 @@ std::any hodel::height(std::vector<std::any> const& args)
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::width(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -1728,26 +1721,26 @@ std::any hodel::width(std::vector<std::any> const& args)
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::shape(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
     if (piece.type() == typeid(Piece))
         return IntegerTuple{std::any_cast<Integer>(height(args)), std::any_cast<Integer>(width(args))};
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::portrait(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -1759,13 +1752,13 @@ std::any hodel::portrait(std::vector<std::any> const& args)
         return static_cast<Boolean>(h > w);
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::colorcount(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
     auto const value{args[1]};
@@ -1798,13 +1791,13 @@ std::any hodel::colorcount(std::vector<std::any> const& args)
         return count;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::asindices(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -1826,13 +1819,13 @@ std::any hodel::asindices(std::vector<std::any> const& args)
         return indices;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::ofcolor(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const value{args[1]};
@@ -1856,13 +1849,13 @@ std::any hodel::ofcolor(std::vector<std::any> const& args)
         return indices;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::ulcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -1892,13 +1885,13 @@ std::any hodel::ulcorner(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return ulcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::urcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -1929,13 +1922,13 @@ std::any hodel::urcorner(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return urcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::llcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -1965,13 +1958,13 @@ std::any hodel::llcorner(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return llcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::lrcorner(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2001,13 +1994,13 @@ std::any hodel::lrcorner(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return lrcorner(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::crop(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const start{args[1]};
@@ -2020,7 +2013,7 @@ std::any hodel::crop(std::vector<std::any> const& args)
         auto const dims_{std::any_cast<IntegerTuple>(dims)};
 
         if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_[0].size())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         Grid result;
 
@@ -2038,19 +2031,19 @@ std::any hodel::crop(std::vector<std::any> const& args)
         }
         catch (const std::exception&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
 
         return result;
     }
     
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::toindices(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2064,7 +2057,7 @@ std::any hodel::toindices(std::vector<std::any> const& args)
         auto const& obj = std::get<Object>(patch_);
 
         if (obj.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         Indices result;
 
@@ -2078,13 +2071,13 @@ std::any hodel::toindices(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return toindices(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::recolor(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const value{args[0]};
     auto const patch{args[1]};
@@ -2104,17 +2097,17 @@ std::any hodel::recolor(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::shift(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
     auto const directions{args[1]};
@@ -2160,13 +2153,13 @@ std::any hodel::shift(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return shift(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}, directions});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::dneighbors(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const loc{args[0]};
 
@@ -2182,13 +2175,13 @@ std::any hodel::dneighbors(std::vector<std::any> const& args)
         };
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::ineighbors(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const loc{args[0]};
 
@@ -2204,13 +2197,13 @@ std::any hodel::ineighbors(std::vector<std::any> const& args)
         };
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::neighbors(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const loc{args[0]};
 
@@ -2227,17 +2220,17 @@ std::any hodel::neighbors(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::uppermost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2257,13 +2250,13 @@ std::any hodel::uppermost(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return shift(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::lowermost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2283,13 +2276,13 @@ std::any hodel::lowermost(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return shift(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::leftmost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2309,13 +2302,13 @@ std::any hodel::leftmost(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return shift(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::rightmost(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2335,13 +2328,13 @@ std::any hodel::rightmost(std::vector<std::any> const& args)
     else if (patch.type() == typeid(Indices))
         return shift(std::vector<std::any>{Patch{std::any_cast<Indices>(patch)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::square(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -2361,7 +2354,7 @@ std::any hodel::square(std::vector<std::any> const& args)
                 }
                 catch (std::exception const&)
                 {
-                    return std::any{};
+                    throw std::runtime_error{"Wrong value"};
                 }
             }
             else
@@ -2376,17 +2369,17 @@ std::any hodel::square(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vline(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2403,17 +2396,17 @@ std::any hodel::vline(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hline(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2430,17 +2423,17 @@ std::any hodel::hline(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hmatching(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -2464,17 +2457,17 @@ std::any hodel::hmatching(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vmatching(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -2498,17 +2491,17 @@ std::any hodel::vmatching(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::manhattan(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -2532,17 +2525,17 @@ std::any hodel::manhattan(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::adjacent(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -2555,17 +2548,17 @@ std::any hodel::adjacent(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::bordering(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
     auto const grid{args[1]};
@@ -2585,17 +2578,17 @@ std::any hodel::bordering(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::centerofmass(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -2619,17 +2612,17 @@ std::any hodel::centerofmass(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::palette(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
 
@@ -2657,13 +2650,13 @@ std::any hodel::palette(std::vector<std::any> const& args)
         return colors;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::numcolors(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
 
@@ -2675,17 +2668,17 @@ std::any hodel::numcolors(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::color(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const object{args[0]};
 
@@ -2694,18 +2687,18 @@ std::any hodel::color(std::vector<std::any> const& args)
         auto const& object_{std::any_cast<Object>(object)};
 
         if (object_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return object_.begin()->first;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::toobject(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
     auto const grid{args[1]};
@@ -2735,17 +2728,17 @@ std::any hodel::toobject(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::asobject(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -2767,17 +2760,17 @@ std::any hodel::asobject(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::rot90(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -2786,7 +2779,7 @@ std::any hodel::rot90(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
 
         if (grid_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         auto const rows{static_cast<int>(grid_.size())};
         auto const cols{static_cast<int>(grid_[0].size())};
@@ -2803,19 +2796,19 @@ std::any hodel::rot90(std::vector<std::any> const& args)
         }
         catch (const std::exception&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
 
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::rot180(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -2824,7 +2817,7 @@ std::any hodel::rot180(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
 
         if (grid_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         auto const rows{static_cast<int>(grid_.size())};
         auto const cols{static_cast<int>(grid_[0].size())};
@@ -2841,19 +2834,19 @@ std::any hodel::rot180(std::vector<std::any> const& args)
         }
         catch (const std::exception&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
 
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::rot270(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -2862,7 +2855,7 @@ std::any hodel::rot270(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
 
         if (grid_.empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         auto const rows{static_cast<int>(grid_.size())};
         auto const cols{static_cast<int>(grid_[0].size())};
@@ -2879,19 +2872,19 @@ std::any hodel::rot270(std::vector<std::any> const& args)
         }
         catch (const std::exception&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
 
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -2944,13 +2937,13 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return hmirror(std::vector<std::any>{Piece{std::any_cast<Patch>(piece)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -3004,13 +2997,13 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return vmirror(std::vector<std::any>{Piece{std::any_cast<Patch>(piece)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::dmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -3040,7 +3033,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
             }
             catch (std::exception const&)
             {
-                return std::any{};
+                throw std::runtime_error{"Wrong value"};
             }
 
             return result;
@@ -3080,13 +3073,13 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return dmirror(std::vector<std::any>{Piece{std::any_cast<Patch>(piece)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::cmirror(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const piece{args[0]};
 
@@ -3113,13 +3106,13 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return cmirror(std::vector<std::any>{Piece{std::any_cast<Patch>(piece)}});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hupscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const factor{args[1]};
@@ -3130,7 +3123,7 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
         auto const factor_{std::any_cast<Integer>(factor)};
 
         if (factor_ < 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         Grid result;
 
@@ -3151,13 +3144,13 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vupscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const factor{args[1]};
@@ -3168,7 +3161,7 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         auto const factor_{std::any_cast<Integer>(factor)};
 
         if (factor_ < 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         Grid result;
         result.reserve(grid_.size() * factor_);
@@ -3182,13 +3175,13 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::upscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
     auto const factor{args[1]};
@@ -3199,7 +3192,7 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         auto const factor_{std::any_cast<Integer>(factor)};
 
         if (factor_ < 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         if (std::holds_alternative<Grid>(element_))
         {
@@ -3257,13 +3250,13 @@ std::any hodel::upscale(std::vector<std::any> const& args)
     else if (element.type() == typeid(Object))
         return upscale(std::vector<std::any>{Element{std::any_cast<Object>(element)}, factor});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::downscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const factor{args[1]};
@@ -3274,7 +3267,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         auto const factor_{std::any_cast<Integer>(factor)};
 
         if (factor_ <= 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         if (grid_.empty())
             return grid_;
@@ -3311,17 +3304,17 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hconcat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -3348,13 +3341,13 @@ std::any hodel::hconcat(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vconcat(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -3373,13 +3366,13 @@ std::any hodel::vconcat(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::subgrid(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
     auto const grid{args[1]};
@@ -3387,13 +3380,13 @@ std::any hodel::subgrid(std::vector<std::any> const& args)
     if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
         return crop({grid, ulcorner({patch}), shape({patch})});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hsplit(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const n{args[1]};
@@ -3404,7 +3397,7 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
         auto const n_{std::any_cast<Integer>(n)};
 
         if (grid_.empty() || n_ <= 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         try
         {
@@ -3422,17 +3415,17 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }        
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vsplit(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const n{args[1]};
@@ -3443,7 +3436,7 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
         auto const n_{std::any_cast<Integer>(n)};
 
         if (grid_.empty() || n_ <= 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         try
         {
@@ -3461,17 +3454,17 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }        
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::cellwise(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -3500,17 +3493,17 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::replace(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const replacee{args[1]};
@@ -3536,13 +3529,13 @@ std::any hodel::replace(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::switch_(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const a{args[1]};
@@ -3570,13 +3563,13 @@ std::any hodel::switch_(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::center(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -3595,17 +3588,17 @@ std::any hodel::center(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::position(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -3631,17 +3624,17 @@ std::any hodel::position(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::index(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
     auto const loc{args[1]};
@@ -3652,14 +3645,14 @@ std::any hodel::index(std::vector<std::any> const& args)
         auto const loc_{std::any_cast<IntegerTuple>(loc)};
 
         if (grid_.empty() || grid_[0].empty())
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         auto const& [i, j] = loc_;
         auto const h{static_cast<Integer>(grid_.size())};
         auto const w{static_cast<Integer>(grid_[0].size())};
 
         if (!(0 <= i && i < h && 0 <= j && j < w))
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         try
         {
@@ -3667,17 +3660,17 @@ std::any hodel::index(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::canvas(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const value{args[0]};
     auto const dimensions{args[1]};
@@ -3688,18 +3681,18 @@ std::any hodel::canvas(std::vector<std::any> const& args)
         auto const dimensions_{std::any_cast<IntegerTuple>(dimensions)};
 
         if (dimensions_.first < 0 || dimensions_.second < 0)
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
 
         return Grid(dimensions_.first, std::vector<Integer>(dimensions_.second, value_));
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::corners(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
 
@@ -3718,17 +3711,17 @@ std::any hodel::corners(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::connect(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const a{args[0]};
     auto const b{args[1]};
@@ -3775,13 +3768,13 @@ std::any hodel::connect(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -3800,13 +3793,13 @@ std::any hodel::trim(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::tophalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -3818,13 +3811,13 @@ std::any hodel::tophalf(std::vector<std::any> const& args)
         return Grid(grid_.begin(), grid_.begin() + mid);
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::bottomhalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -3836,39 +3829,39 @@ std::any hodel::bottomhalf(std::vector<std::any> const& args)
         return Grid(grid_.begin() + mid, grid_.end());
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::lefthalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
         return rot270(std::vector<std::any>{tophalf(std::vector<std::any>{rot90(args)})});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::righthalf(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
     if (grid.type() == typeid(Grid))
         return rot270(std::vector<std::any>{bottomhalf(std::vector<std::any>{rot90(args)})});
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::vfrontier(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const location{args[0]};
 
@@ -3884,13 +3877,13 @@ std::any hodel::vfrontier(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::hfrontier(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const location{args[0]};
 
@@ -3906,13 +3899,13 @@ std::any hodel::hfrontier(std::vector<std::any> const& args)
         return result;
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::shoot(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const start{args[0]};
     auto const direction{args[1]};
@@ -3925,13 +3918,13 @@ std::any hodel::shoot(std::vector<std::any> const& args)
         return connect({start_, IntegerTuple{start_.first + 42 * direction_.first, start_.second + 42 * direction_.second}});
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
 
 std::any hodel::compress(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
-        return std::any{};
+        throw std::runtime_error{"Wrong value"};
 
     auto const grid{args[0]};
 
@@ -4005,9 +3998,9 @@ std::any hodel::compress(std::vector<std::any> const& args)
         }
         catch (std::exception const&)
         {
-            return std::any{};
+            throw std::runtime_error{"Wrong value"};
         }
     }
 
-    return std::any{};
+    throw std::runtime_error{"Wrong value"};
 }
