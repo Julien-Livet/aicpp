@@ -1563,6 +1563,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Indices>   (function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<Integer> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Grid>(function_, container); r.has_value()) return r;
 
     return std::any{};
 }
