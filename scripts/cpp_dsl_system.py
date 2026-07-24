@@ -89,9 +89,9 @@ for definition in primitiveDefinitions:
     content += f'    neurons.emplace("{trueName}"'
     content += ", Neuron{"
     content += f'"{trueName}"'
-    content += ", hodel::"
+    content += ", [] (std::vector<std::any> const& args) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::"
     content += name
-    content += ", std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});\n"
+    content += "); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});\n"
 
 content += """
     return neurons;
