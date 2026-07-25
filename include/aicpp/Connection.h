@@ -44,7 +44,7 @@ namespace aicpp
 template<>
 struct std::hash<aicpp::Connection>
 {
-    std::size_t operator()(const aicpp::Connection& c) const noexcept
+    std::size_t operator()(aicpp::Connection const& c) const noexcept
     {
         return c.hash();
     }

@@ -238,14 +238,14 @@ int main(int argc, char* argv[])
                 if (grid == input)
                     add = false;
 
-                auto const minReducer = [](hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
-                auto const minTransformer = [](const std::vector<hodel::Integer>& row) {
+                auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                auto const minTransformer = [] (auto const& row) {
                     return row.empty()
                         ? std::numeric_limits<hodel::Integer>::max()
                         : *std::min_element(row.begin(), row.end());
                 };
-                auto const maxReducer = [](hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
-                auto const maxTransformer = [](const std::vector<hodel::Integer>& row) {
+                auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                auto const maxTransformer = [] (auto const& row) {
                     return row.empty()
                         ? std::numeric_limits<hodel::Integer>::min()
                         : *std::max_element(row.begin(), row.end());
@@ -287,7 +287,7 @@ int main(int argc, char* argv[])
 
     while (connections.size() < count)
     {
-        if (threads.size() == std::thread::hardware_concurrency())
+        if (threads.size() == std::thread::hardware_concurrency() / 2 + 1)
         {
             for (auto& thread : threads)
                 thread.join();
@@ -297,7 +297,7 @@ int main(int argc, char* argv[])
 
         threads.emplace_back(addConnection);
     }
-    
+
     for (auto& thread : threads)
         thread.join();
 

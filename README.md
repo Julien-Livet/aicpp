@@ -58,6 +58,7 @@ git clone https://github.com/arcprize/ARC-AGI-2.git
 pip install -r requirements.txt
 docker build -t aicpp .
 docker run --rm aicpp
+docker run --rm aicpp -c "time ./build/dsl_dataset 10 100"
 cd scripts
 git clone https://github.com/Julien-Livet/arc-dsl.git
 python -m pytest --profile -sxv test_dsl_model.py
