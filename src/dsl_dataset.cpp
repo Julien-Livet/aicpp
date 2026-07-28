@@ -1,4 +1,5 @@
 #include <cassert>
+#include <fstream>
 #include <iostream>
 #include <mutex>
 #include <print>
@@ -6,6 +7,7 @@
 #include <set>
 #include <thread>
 
+#include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
 #include "aicpp/Hodel.h"
 #include "aicpp/Neuron.h"
@@ -44,11 +46,12 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
     return Connection{neuron, inputs};
 }
 
-struct ConnectionLess
+using Pair = std::pair<hodel::Grid, Connection>;
+struct PairLess
 {
-    bool operator()(Connection const& x, Connection const& y) const
+    bool operator()(Pair const& x, Pair const& y) const
     {
-        return x.hash() < y.hash();
+        return x.second.hash() < y.second.hash();
     }
 };
 
@@ -206,11 +209,11 @@ int main(int argc, char* argv[])
     for (auto const& [i, v] : primitiveNeuronsByOutputType)
         neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
 
-    std::set<Connection, ConnectionLess> connections;
+    std::set<Pair, PairLess> pairs;
     std::mutex mutex;
 
-    auto const addConnection = [&mutex, &connections, &variableNeuronsByOutputType, &primitiveNeuronsByOutputType, &neuronsByOutputType, &iNeuron, depth, count] () {
-        if (connections.size() >= count)
+    auto const addConnection = [&mutex, &pairs, &variableNeuronsByOutputType, &primitiveNeuronsByOutputType, &neuronsByOutputType, &iNeuron, depth, count] () {
+        if (pairs.size() >= count)
             return;
 
         try
@@ -274,7 +277,7 @@ int main(int argc, char* argv[])
                 {
                     std::lock_guard<std::mutex> lock(mutex);
 
-                    connections.emplace(std::move(connection));
+                    pairs.emplace(input, std::move(connection));
                 }
             }
         }
@@ -285,9 +288,9 @@ int main(int argc, char* argv[])
 
     std::vector<std::thread> threads;
 
-    while (connections.size() < count)
+    while (pairs.size() < count)
     {
-        if (threads.size() == std::thread::hardware_concurrency() / 2 + 1)
+        if (threads.size() == std::thread::hardware_concurrency())
         {
             for (auto& thread : threads)
                 thread.join();
@@ -301,8 +304,72 @@ int main(int argc, char* argv[])
     for (auto& thread : threads)
         thread.join();
 
-    for (auto const& connection : connections)
-        std::println("{0}", connection.string());
+    for (auto const& pair : pairs)
+        std::println("{0}", pair.second.string());
+
+    std::vector<std::reference_wrapper<Neuron const> > neurons;
+
+    for (auto const& [type, v] : variableNeuronsByOutputType)
+        neurons.insert(neurons.end(), v.begin(), v.end());
+
+    for (auto const& [type, v] : primitiveNeuronsByOutputType)
+        neurons.insert(neurons.end(), v.begin(), v.end());
+
+    Brain brain{neurons};
+
+    for (auto const& pair : pairs)
+        brain.addConnection(pair.second);
+
+    {
+        auto const value{brain.toJson()};
+
+        std::ofstream ofs{"dsl_dataset_connections.json"};
+
+        ofs << boost::json::serialize(value);
+    }
+
+    {
+        std::vector<hodel::Grid> grids;
+
+        for (auto const& connection : brain.connections())
+        {
+            for (auto const& pair : pairs)
+            {
+                if (pair.second == connection)
+                {
+                    grids.emplace_back(pair.first);
+                    break;
+                }
+            }
+        }        
+
+        boost::json::object obj;
+        boost::json::array json_grids;
+
+        for (auto const& grid : grids)
+        {
+            boost::json::array json_grid;
+
+            for (auto const& row : grid)
+            {
+                boost::json::array json_row;
+
+                for (auto const& val : row)
+                    json_row.push_back(val);
+
+                json_grid.push_back(json_row);
+            }
+
+            json_grids.push_back(json_grid);
+        }
+
+        obj["grids"] = json_grids;
+        boost::json::value const value = obj;
+
+        std::ofstream ofs{"dsl_dataset_grids.json"};
+
+        ofs << boost::json::serialize(value);
+    }
 
     return 0;
 }
