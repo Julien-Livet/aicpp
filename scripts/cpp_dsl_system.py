@@ -32,7 +32,7 @@ for k, v in nativeTypes.items():
 
 dslTypes["FrozenSet"] = frozenSetTypes
 
-containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"]
+containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"] + dslTypes["IntegerTuple"]
 
 dslTypes["Container"] = containerTypes + ["std::vector<Integer>"]
 dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
