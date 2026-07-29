@@ -44,21 +44,21 @@ namespace hodel
     Integer constexpr NEG_ONE = -1;
     Integer constexpr NEG_TWO = -2;
 
-    IntegerTuple constexpr DOWN{1, 0};
-    IntegerTuple constexpr RIGHT{0, 1};
-    IntegerTuple constexpr UP{-1, 0};
-    IntegerTuple constexpr LEFT{0, -1};
+    IntegerTuple constexpr DOWN = IntegerTuple{1, 0};
+    IntegerTuple constexpr RIGHT = IntegerTuple{0, 1};
+    IntegerTuple constexpr UP = IntegerTuple{-1, 0};
+    IntegerTuple constexpr LEFT = IntegerTuple{0, -1};
 
-    IntegerTuple constexpr ORIGIN{0, 0};
-    IntegerTuple constexpr UNITY{1, 1};
-    IntegerTuple constexpr NEG_UNITY{1, -1};
-    IntegerTuple constexpr UP_RIGHT{1, 1};
-    IntegerTuple constexpr DOWN_LEFT{1, -1};
+    IntegerTuple constexpr ORIGIN = IntegerTuple{0, 0};
+    IntegerTuple constexpr UNITY = IntegerTuple{1, 1};
+    IntegerTuple constexpr NEG_UNITY = IntegerTuple{1, -1};
+    IntegerTuple constexpr UP_RIGHT = IntegerTuple{1, 1};
+    IntegerTuple constexpr DOWN_LEFT = IntegerTuple{1, -1};
 
-    IntegerTuple constexpr ZERO_BY_TWO{0, 2};
-    IntegerTuple constexpr TWO_BY_ZERO{2, 0};
-    IntegerTuple constexpr TWO_BY_TWO{2, 2};
-    IntegerTuple constexpr THREE_BY_THREE{3, 3};
+    IntegerTuple constexpr ZERO_BY_TWO = IntegerTuple{0, 2};
+    IntegerTuple constexpr TWO_BY_ZERO = IntegerTuple{2, 0};
+    IntegerTuple constexpr TWO_BY_TWO = IntegerTuple{2, 2};
+    IntegerTuple constexpr THREE_BY_THREE = IntegerTuple{3, 3};
 
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
     std::any add(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): addition
