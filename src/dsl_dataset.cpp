@@ -96,8 +96,18 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
         return Connection{neuron, {}};
     }
 
-    std::uniform_int_distribution<size_t> dist(0, neuronsByOutputType.at(type).size() - 1);
-    Neuron const& neuron{neuronsByOutputType.at(type).at(dist(rd))};
+    std::map<std::string, std::vector<std::reference_wrapper<Neuron const> > > namedNeurons;
+
+    for (auto const& neuron : neuronsByOutputType.at(type))
+        namedNeurons[neuron.get().name()].emplace_back(neuron);
+
+    std::uniform_int_distribution<size_t> dist1(0, namedNeurons.size() - 1);
+    auto it{namedNeurons.begin()};
+
+    std::advance(it, dist1(rd));
+
+    std::uniform_int_distribution<size_t> dist2(0, it->second.size() - 1);
+    Neuron const& neuron{it->second.at(dist2(rd))};
 
     std::vector<std::any> inputs;
 
