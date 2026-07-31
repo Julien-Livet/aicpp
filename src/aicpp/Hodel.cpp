@@ -764,7 +764,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
     {
         auto const n{std::any_cast<Integer>(num)};
        
-        if (n < 0)
+        if (n < 0 || n > 100)
             throw std::runtime_error{"Wrong value"};
 
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
@@ -1468,6 +1468,9 @@ std::any hodel::interval(std::vector<std::any> const& args)
         if ((step_ >= 0 && stop_ < start_) || (step_ <= 0 && stop_ > start_))
             throw std::runtime_error{"Wrong value"};
 
+        if (std::abs(start_ - stop_) > 100)
+            throw std::runtime_error{"Wrong value"};
+
         for (; step_ >= 0 ? start_ < stop_ : start_ > stop_; start_ += step_)
             result.emplace_back(start_);
 
@@ -1640,7 +1643,7 @@ std::any hodel::power(std::vector<std::any> const& args)
     {
         auto const n_{std::any_cast<Integer>(n)};
 
-        if (n_ <= 0)
+        if (n_ <= 0 || n_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         if (n_ == 1)
@@ -2767,6 +2770,9 @@ std::any hodel::centerofmass(std::vector<std::any> const& args)
     {
         auto const patch_{std::any_cast<Patch>(patch)};
         auto const l{static_cast<Integer>(std::holds_alternative<Object>(patch_) ? std::get<Object>(patch_).size() : std::get<Indices>(patch_).size())};
+
+        if (!l)
+            throw std::runtime_error{"Wrong value"};
 
         try
         {
@@ -4088,6 +4094,9 @@ std::any hodel::connect(std::vector<std::any> const& args)
         Integer di{0};
         Integer dj{0};
 
+        if (std::abs(bi - ai) > 100 || std::abs(bj - aj) > 100)
+            throw std::runtime_error{"Wrong value"};
+
         if (ai == bi)
             dj = (bj > aj ? 1 : -1);
         else if (aj == bj)
@@ -4098,7 +4107,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
             dj = (bj > aj ? 1 : -1);
         }
         else
-            return Indices{};
+            throw std::runtime_error{"Wrong value"};
 
         Indices result;
 
@@ -4305,6 +4314,9 @@ std::any hodel::shoot(std::vector<std::any> const& args)
     {
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const direction_{std::any_cast<IntegerTuple>(direction)};
+
+        if (direction_.first * direction_.first + direction_.second * direction_.second > 100)
+            throw std::runtime_error{"Wrong value"};
 
         return connect({start_, IntegerTuple{start_.first + 42 * direction_.first, start_.second + 42 * direction_.second}});
     }
