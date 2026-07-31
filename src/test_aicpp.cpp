@@ -20,7 +20,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-using Matrix = std::vector<std::vector<int> >;
+using Matrix = hodel::Grid;
 using BoundingBox = std::tuple<int, int, int, int>;
 
 Eigen::MatrixXi to_eigen(Matrix const& v)
@@ -44,7 +44,7 @@ Eigen::MatrixXi to_eigen(Matrix const& v)
 
 Matrix to_std_vector(Eigen::MatrixXi const& mat)
 {
-    std::vector<std::vector<int> > result(mat.rows(), std::vector<int>(mat.cols()));
+    hodel::Grid result(mat.rows(), std::vector<hodel::Integer>(mat.cols()));
 
     for (int i = 0; i < mat.rows(); ++i)
     {
@@ -673,8 +673,8 @@ double bounding_box_cost(const Matrix& x, const Matrix& y)
 
 double arcHeuristic(std::any const& x, std::any const& y)
 {
-    std::vector<std::vector<int> > x_;
-    std::vector<std::vector<int> > y_;
+    hodel::Grid x_;
+    hodel::Grid y_;
 
     if (x.type() == typeid(hodel::Grid))
         x_ = std::any_cast<hodel::Grid>(x);
