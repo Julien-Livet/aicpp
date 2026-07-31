@@ -1299,11 +1299,11 @@ std::any hodel::sign(std::vector<std::any> const& args)
             auto const z{std::get<Integer>(y)};
 
             if (!z)
-                return Numerical{0};
+                return Integer{0};
             else if (z > 0)
-                return Numerical{1};
+                return Integer{1};
             else
-                return Numerical{-1};
+                return Integer{-1};
         }
         else if (std::holds_alternative<IntegerTuple>(y))
         {
@@ -1324,7 +1324,7 @@ std::any hodel::sign(std::vector<std::any> const& args)
             else
                 result.second = -1;
 
-            return Numerical{result};
+            return result;
         }
     }
     else if (x.type() == typeid(Integer))
@@ -2982,16 +2982,16 @@ std::any hodel::rot90(std::vector<std::any> const& args)
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
 
-        auto const rows{static_cast<int>(grid_.size())};
-        auto const cols{static_cast<int>(grid_.at(0).size())};
+        auto const rows{grid_.size()};
+        auto const cols{grid_.at(0).size()};
 
-        Grid result(cols, std::vector<int>(rows));
+        Grid result(cols, std::vector<Integer>(rows));
 
         try
         {
-            for (int i = 0; i < rows; ++i)
+            for (size_t i = 0; i < rows; ++i)
             {
-                for (int j = 0; j < cols; ++j)
+                for (size_t j = 0; j < cols; ++j)
                     result.at(j).at(rows - 1 - i) = grid_.at(i).at(j);
             }
         }
@@ -3028,16 +3028,16 @@ std::any hodel::rot180(std::vector<std::any> const& args)
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
 
-        auto const rows{static_cast<int>(grid_.size())};
-        auto const cols{static_cast<int>(grid_.at(0).size())};
+        auto const rows{grid_.size()};
+        auto const cols{grid_.at(0).size()};
 
-        Grid result(rows, std::vector<int>(cols));
+        Grid result(rows, std::vector<Integer>(cols));
 
         try
         {
-            for (int i = 0; i < rows; ++i)
+            for (size_t i = 0; i < rows; ++i)
             {
-                for (int j = 0; j < cols; ++j)
+                for (size_t j = 0; j < cols; ++j)
                     result.at(rows - 1 - i).at(cols - 1 - j) = grid_.at(i).at(j);
             }
         }
@@ -3074,16 +3074,16 @@ std::any hodel::rot270(std::vector<std::any> const& args)
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
 
-        auto const rows{static_cast<int>(grid_.size())};
-        auto const cols{static_cast<int>(grid_.at(0).size())};
+        auto const rows{grid_.size()};
+        auto const cols{grid_.at(0).size()};
 
-        Grid result(cols, std::vector<int>(rows));
+        Grid result(cols, std::vector<Integer>(rows));
 
         try
         {
-            for (int i = 0; i < rows; ++i)
+            for (size_t i = 0; i < rows; ++i)
             {
-                for (int j = 0; j < cols; ++j)
+                for (size_t j = 0; j < cols; ++j)
                     result.at(cols - 1 - j).at(i) = grid_.at(i).at(j);
             }
         }
@@ -3235,16 +3235,16 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
             if (grid.empty())
                 return Piece{Grid{}};
 
-            auto const rows = static_cast<int>(grid.size());
-            auto const cols = static_cast<int>(grid.at(0).size());
+            auto const rows = static_cast<Integer>(grid.size());
+            auto const cols = static_cast<Integer>(grid.at(0).size());
 
-            Grid result(cols, std::vector<int>(rows));
+            Grid result(cols, std::vector<Integer>(rows));
 
             try
             {
-                for (int i = 0; i < rows; ++i)
+                for (Integer i = 0; i < rows; ++i)
                 {
-                    for (int j = 0; j < cols; ++j)
+                    for (Integer j = 0; j < cols; ++j)
                         result.at(j).at(i) = grid.at(i).at(j);
                 }
             }
@@ -3347,7 +3347,7 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0)
+        if (factor_ < 0 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         Grid result;
@@ -3393,7 +3393,7 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0)
+        if (factor_ < 0 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         Grid result;
@@ -3424,7 +3424,7 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         auto const element_{std::any_cast<Element>(element)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0)
+        if (factor_ < 0 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         if (std::holds_alternative<Grid>(element_))
@@ -4314,6 +4314,9 @@ std::any hodel::shoot(std::vector<std::any> const& args)
     {
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const direction_{std::any_cast<IntegerTuple>(direction)};
+
+        if (std::abs(start_.first) > 100 || std::abs(start_.second) > 100)
+            throw std::runtime_error{"Wrong value"};
 
         if (direction_.first * direction_.first + direction_.second * direction_.second > 100)
             throw std::runtime_error{"Wrong value"};
