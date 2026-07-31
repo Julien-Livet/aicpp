@@ -60,11 +60,15 @@ namespace hodel
     IntegerTuple constexpr TWO_BY_TWO = IntegerTuple{2, 2};
     IntegerTuple constexpr THREE_BY_THREE = IntegerTuple{3, 3};
 
+    typedef Numerical Numerical1;
+    typedef Numerical Numerical2;
+    typedef Numerical Numerical3;
+
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
-    std::any add(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): addition
-    std::any subtract(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): subtraction
-    std::any multiply(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): multiplication
-    std::any divide(std::vector<std::any> const& args); //Numerical(Numerical, Numerical): floor division
+    std::any add(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): addition
+    std::any subtract(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): subtraction
+    std::any multiply(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): multiplication
+    std::any divide(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): floor division
     std::any invert(std::vector<std::any> const& args); //Numerical(Numerical): inversion with respect to addition
     std::any even(std::vector<std::any> const& args); //Boolean(Integer): evenness
     std::any double_(std::vector<std::any> const& args); //Numerical(Numerical): scaling by two
@@ -72,7 +76,7 @@ namespace hodel
     std::any flip(std::vector<std::any> const& args); //Boolean(Boolean): logical not
     std::any equality(std::vector<std::any> const& args); //Any(Any): equality
     std::any contained(std::vector<std::any> const& args); //Boolean(Any, Container): element of
-    std::any combine(std::vector<std::any> const& args); //Container(Container, Container): union
+    std::any combine(std::vector<std::any> const& args); //Container1(Container1, Container2): union
     std::any intersection(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): returns the intersection of two containers
     std::any difference(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): set difference
     std::any dedupe(std::vector<std::any> const& args); //Tuple(Tuple): remove duplicates
