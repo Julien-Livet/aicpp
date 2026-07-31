@@ -20,9 +20,18 @@ for definition in typeDefinitions:
     
     if (nativeTypes[dslType].startswith("std::variant<")):
         s = nativeTypes[dslType].replace("std::variant<", "").rstrip(">")
-        dslTypes[dslType] += [x.strip() for x in s.split(",")]
+        types = [x.strip() for x in s.split(",")]
+
+        for t in types:
+            if (t in dslTypes):
+                dslTypes[dslType] += dslTypes[t]
+            else:    
+                dslTypes[dslType].append(t)
     else:
-        dslTypes[dslType].append(dslType)
+        if (nativeTypes[dslType] in dslTypes):
+            dslTypes[dslType] += dslTypes[nativeTypes[dslType]]
+        else:
+            dslTypes[dslType].append(dslType)
 
 frozenSetTypes = []
 
@@ -36,6 +45,8 @@ containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"] + dslTypes["IntegerTup
 
 dslTypes["Container"] = containerTypes + ["std::vector<Integer>"]
 dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
+dslTypes["Container1"] = dslTypes["Container"]
+dslTypes["Container2"] = dslTypes["Container"]
 
 anyTypes = []
 
