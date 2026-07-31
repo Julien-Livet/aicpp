@@ -48,6 +48,7 @@ Connection buildNamedConnection(std::map<std::type_index, std::vector<std::refer
 
     std::uniform_int_distribution<size_t> dist(0, neuronsByOutputType.at(type).size() - 1);
     auto const& neurons{neuronsByOutputType.at(type)};
+    auto const originalNames{names};
 
     for (auto const& n : neurons)
     {
@@ -59,23 +60,24 @@ Connection buildNamedConnection(std::map<std::type_index, std::vector<std::refer
 
             std::vector<std::any> inputs;
 
-            for (auto const& inputType : neuron.inputTypes())
+            try
             {
-                Connection const& inputConnection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth - 1, inputType, names)};
-                inputs.emplace_back(inputConnection);
-            }
+                for (auto const& inputType : neuron.inputTypes())
+                {
+                    Connection const& inputConnection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth - 1, inputType, names)};
+                    inputs.emplace_back(inputConnection);
+                }
 
-            return Connection{neuron, inputs};
+                return Connection{neuron, inputs};
+            }
+            catch (std::exception const&)
+            {
+                names = originalNames;
+            }
         }
     }
 
-    std::cout << names.back() << std::endl;
-    std::cout << type.name() << std::endl;
-
-    for (auto const& n : neurons)
-        std::cout << n.get().name() << std::endl;
-
-    assert(0);
+    throw std::runtime_error{"Wrong connection"};
 }
 
 Connection buildConnection(std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& variableNeuronsByOutputType,
@@ -271,11 +273,11 @@ int main(int argc, char* argv[])
     for (auto const& [i, v] : primitiveNeuronsByOutputType)
         neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
 /*
-    std::vector<std::string> names{"bottomhalf", "bottomhalf", "rot90", "hconcat", "trim", "downscale", "hconcat", "rot270", "lefthalf", "switch", "I", "SIX", "FIVE", "I", "FOUR", "I"};
+    //std::vector<std::string> names{"bottomhalf", "bottomhalf", "rot90", "hconcat", "trim", "downscale", "hconcat", "rot270", "lefthalf", "switch", "I", "SIX", "FIVE", "I", "FOUR", "I"};
     //std::vector<std::string> names{"cellwise", "lefthalf", "I", "I", "EIGHT"};
     //std::vector<std::string> names{"downscale", "I", "lowermost", "neighbors", "astuple", "TEN", "increment", "FIVE"};
     //std::vector<std::string> names{"bottomhalf", "hmirror", "hupscale", "dmirror", "vupscale", "righthalf", "trim", "dmirror", "I", "EIGHT", "leastcolor", "vmirror", "I"};
-    //std::vector<std::string> names{"lefthalf", "rot90", "lefthalf", "vconcat", "subgrid", "ineighbors", "combine", "UP_RIGHT", "TWO_BY_TWO", "I", "I"};
+    std::vector<std::string> names{"lefthalf", "rot90", "lefthalf", "vconcat", "subgrid", "ineighbors", "combine", "UP_RIGHT", "TWO_BY_TWO", "I", "I"};
     std::reverse(names.begin(), names.end());
 
     auto const connection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid), names)};
