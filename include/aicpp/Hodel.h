@@ -11,7 +11,7 @@
 namespace hodel
 {
     typedef bool Boolean;
-    typedef int Integer;
+    typedef int8_t Integer;
     typedef std::pair<Integer, Integer> IntegerTuple;
     typedef std::variant<Integer, IntegerTuple> Numerical;
     typedef std::set<Integer> IntegerSet;
