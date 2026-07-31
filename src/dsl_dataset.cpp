@@ -287,7 +287,8 @@ int main(int argc, char* argv[])
     //std::vector<std::string> names{"cellwise", "lefthalf", "I", "I", "EIGHT"};
     //std::vector<std::string> names{"downscale", "I", "lowermost", "neighbors", "astuple", "TEN", "increment", "FIVE"};
     //std::vector<std::string> names{"bottomhalf", "hmirror", "hupscale", "dmirror", "vupscale", "righthalf", "trim", "dmirror", "I", "EIGHT", "leastcolor", "vmirror", "I"};
-    std::vector<std::string> names{"lefthalf", "rot90", "lefthalf", "vconcat", "subgrid", "ineighbors", "combine", "UP_RIGHT", "TWO_BY_TWO", "I", "I"};
+    //std::vector<std::string> names{"lefthalf", "rot90", "lefthalf", "vconcat", "subgrid", "ineighbors", "combine", "UP_RIGHT", "TWO_BY_TWO", "I", "I"};
+    std::vector<std::string> names{"apply", "tophalf", "compress", "rot270", "upscale", "dmirror", "upscale", "rot270", "upscale", "upscale", "identity", "I", "THREE", "NINE", "EIGHT", "double", "THREE"};
     std::reverse(names.begin(), names.end());
 
     auto const connection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid), names)};
