@@ -331,7 +331,7 @@ void Brain::clearConnections()
 }
 
 
-bool Brain::fromJson(boost::json::value const& value)
+std::vector<Connection> Brain::fromJson(boost::json::value const& value)
 {
     std::map<std::string, std::reference_wrapper<Neuron const> > map;
     std::unordered_set<boost::json::value> neuronValues;
@@ -366,19 +366,18 @@ bool Brain::fromJson(boost::json::value const& value)
 
     connections_.clear();
 
+    std::vector<Connection> conns;
+    conns.reserve(connections.size());
+
     for (size_t i{0}; i < connections.size(); ++i)
     {
-        try
-        {
-            connections_.emplace(buildConnection_(map, connections[i]));
-        }
-        catch (std::runtime_error const&)
-        {
-            return false;
-        }
+        auto const connection{buildConnection_(map, connections[i])};
+
+        conns.emplace_back(connection);
+        connections_.emplace(connection);
     }
 
-    return true;
+    return conns;
 }
 
 Connection Brain::buildConnection_(std::map<std::string, std::reference_wrapper<Neuron const> > const& map, boost::json::value const& value) const
