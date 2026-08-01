@@ -300,11 +300,11 @@ TEST(TestAiCpp, Str)
 
     brain.clearConnections();
 
-    EXPECT_TRUE(brain.fromJson(value));
+    auto const loadedConnections{brain.fromJson(value)};
 
-    EXPECT_EQ(brain.connections().size(), 1);
+    EXPECT_EQ(loadedConnections.size(), 1);
 
-    auto const c{*brain.connections().begin()};
+    auto const c{loadedConnections.front()};
 
     EXPECT_EQ(c.string(), std::string{"addAndStr("} + typeid(int).name() + ", " + typeid(int).name() + ")");
 
