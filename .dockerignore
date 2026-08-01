@@ -1,0 +1,7 @@
+.git
+.github
+.pytest_cache
+.qtcreator
+.venv
+*build
+doc
