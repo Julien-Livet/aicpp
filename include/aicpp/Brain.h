@@ -18,7 +18,7 @@ namespace aicpp
             void addConnection(Connection const& connection);
             void removeConnection(Connection const& connection);
             void clearConnections();
-            bool fromJson(boost::json::value const& value);
+            std::vector<Connection> fromJson(boost::json::value const& value);
             boost::json::value toJson() const;
 
         private:
