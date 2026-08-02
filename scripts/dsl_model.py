@@ -1,3 +1,4 @@
+from aicpppy import Engine
 import ast
 import collections.abc
 from connection import compatibleType
@@ -10,7 +11,6 @@ from multiprocessing import Pool
 import numpy as np
 import os
 import pandas as pd
-import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -901,7 +901,7 @@ def generate_one(
 
 def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
     scores: list = []
-        
+
     for pair in pairs:
         O = execute_dsl(program, pair[0])
 
@@ -933,10 +933,10 @@ def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
 
 def programCosts(targetProgram: str, programs: List[str], inputs: Tuple[Tuple[int]]) -> List[pd.DataFrame]:
     outputs: list = []
-    
+
     for grid in inputs:
         outputs.append(execute_dsl(targetProgram, grid))
-    
+
     pairs = list(zip(inputs, outputs))
 
     with Pool(os.cpu_count()) as pool:
@@ -984,22 +984,6 @@ def encode_program_tokens(program: str, vocab, max_len: int = 128) -> torch.Tens
     return torch.tensor(ids, dtype=torch.long)
 
 if (__name__ == "__main__"):
-    with open("model_dataset.jsonl", "r") as f:
-        lines = f.read().split("\n")
-
-    modelDataset: dict = {}
-
-    for line in lines:
-        try:
-            o = json.loads(line)
-            modelDataset[o["program"]] = tuple([tuple(map(tuple, x)) for x in o["grids"]])
-        except Exception:
-            pass
-
-    modelDataset["I"] = modelDataset[list(modelDataset.keys())[-1]]
-    modelDataset = dict(sorted(modelDataset.items(), key = lambda x: (len(x[0]), x[0])))
-    modelDataset = dict(list(modelDataset.items())[:1000])
-
     builder = DSLGraphBuilder(VOCAB.token2id)
     gridModel = ARCContextEncoder(d_model=256)
     astModel = DSLProgramEncoder(
@@ -1023,38 +1007,32 @@ if (__name__ == "__main__"):
         checkpoint = torch.load(modelFilename, map_location=device)
         model.load_state_dict(checkpoint["model_state"])
 
-    for i, (k, v) in enumerate(modelDataset.items()):
+    engine = Engine("dsl_dataset")
+    n = engine.count()
+
+    for i in range(0, n):
+        trajectory = engine.trajectory(i)
+        targetProgram: str = engine.program(i)
+        grids = engine.grids(i)
         candidatePrograms: list = ["I"] * M
         outputs: list = []
-        
-        for grid in v:
-            outputs.append(execute_dsl(k, grid))
 
-        pairs = list(zip(v, outputs))
+        for grid in grids:
+            outputs.append(execute_dsl(targetProgram, grid))
+
+        pairs = list(zip(grids, outputs))
 
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
         inputs = inputs.to(device)
         outputs = outputs.to(device)
         masks = masks.to(device)
 
-        costs = dict(zip(modelDataset.keys(), programCosts(k, modelDataset.keys(), v)))
-        costs = sorted(costs.items(), key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+        costs = reversed(trajectory)
 
-        while (costs[0][0] != "I"):
-            costs.pop(0)
-
-        while (costs[-1][0] != k):
-            costs.pop()
-
-        cost = costs[0][1].sum(axis = 0, skipna = False)["Total cost"]
-
-        while (len(costs) and cost == costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
-            costs.pop(0)
-
-        candidates = list(zip(candidatePrograms, programCosts(k, candidatePrograms, v)))
+        candidates = list(zip(candidatePrograms, programCosts(targetProgram, candidatePrograms, grids)))
         candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-        print(f"{i+1}/{len(modelDataset)} Target program: {k}")
+        print(f"{i+1}/{n} Target program: {targetProgram}")
         show: bool = True
         computeGraphs: bool = True
         temperature: float = 1.0
