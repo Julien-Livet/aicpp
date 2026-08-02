@@ -1,4 +1,3 @@
-from aicpppy import Engine
 import ast
 import collections.abc
 from connection import compatibleType
@@ -994,7 +993,7 @@ if (__name__ == "__main__"):
         input_dim=5,
         d_model=256
     )
-    device = "cuda"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
     model = dslModel.to(device)
     optimizer = torch.optim.AdamW(
@@ -1006,6 +1005,8 @@ if (__name__ == "__main__"):
     if (os.path.exists(modelFilename)):
         checkpoint = torch.load(modelFilename, map_location=device)
         model.load_state_dict(checkpoint["model_state"])
+
+    from aicpppy import Engine
 
     engine = Engine("dsl_dataset")
     n = engine.count()
