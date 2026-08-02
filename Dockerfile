@@ -24,7 +24,7 @@ WORKDIR /opt
 RUN git clone https://github.com/davisking/dlib.git
 WORKDIR /opt/dlib
 RUN mkdir build && cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release .. && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fPIC" .. && \
     cmake --build . -j$(nproc) --config Release --target all && \
     cmake --install .
 
