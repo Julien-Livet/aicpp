@@ -208,14 +208,14 @@ double arcHeuristic(std::any const& x, std::any const& y)
     else if (x.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(x);
-        
+
         if (std::holds_alternative<hodel::Grid>(piece))
             x_ = std::get<hodel::Grid>(piece);
     }
     else if (x.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(x);
-        
+
         if (std::holds_alternative<hodel::Grid>(element))
             x_ = std::get<hodel::Grid>(element);
     }
@@ -225,14 +225,14 @@ double arcHeuristic(std::any const& x, std::any const& y)
     else if (y.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(y);
-        
+
         if (std::holds_alternative<hodel::Grid>(piece))
             y_ = std::get<hodel::Grid>(piece);
     }
     else if (y.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(y);
-        
+
         if (std::holds_alternative<hodel::Grid>(element))
             y_ = std::get<hodel::Grid>(element);
     }
@@ -297,22 +297,22 @@ class Engine
 
             {
                 std::ifstream ifs{dataString + "_connections.json"};
-                std::string data;
+                std::ostringstream buffer;
 
-                ifs >> data;
+                buffer << ifs.rdbuf();
 
-                boost::json::value value = boost::json::parse(data);
+                boost::json::value value = boost::json::parse(buffer.str());
 
                 connections_ = brain_->fromJson(value);
             }
-            
+
             {
                 std::ifstream ifs{dataString + "_grids.json"};
-                std::string data;
+                std::ostringstream buffer;
 
-                ifs >> data;
+                buffer << ifs.rdbuf();
 
-                boost::json::value value = boost::json::parse(data);
+                boost::json::value value = boost::json::parse(buffer.str());
 
                 grids_.clear();
                 std::set<size_t> indexes;
@@ -320,11 +320,15 @@ class Engine
                 {
                     size_t i{0};
 
-                    for (auto const& json_grid : value.as_array())
+                    auto const json_grids = value.is_object() ? value.at("grids").as_array() : value.as_array()[0].at("grids").as_array();
+
+                    for (auto const& json_grid : json_grids)
                     {
+                        auto const json_rows = json_grid.as_array();
+
                         hodel::Grid grid;
 
-                        for (auto const& json_row : json_grid.as_array())
+                        for (auto const& json_row : json_rows)
                         {
                             std::vector<hodel::Integer> row;
 
@@ -342,7 +346,7 @@ class Engine
                         for (auto const& f1 : functions)
                         {
                             for (auto const& f2 : functions)
-                                inputs.emplace(std::any_cast<hodel::Grid>(f1({std::any_cast<hodel::Grid>(f2({grid}))})));
+                                inputs.emplace(std::any_cast<hodel::Grid>(f1({f2({grid})})));
                         }
 
                         for (auto const& input : inputs)
@@ -351,7 +355,7 @@ class Engine
                             {
                                 iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
-                                auto const output{std::any_cast<hodel::Grid>(connections_[i].output())};
+                                auto const output{std::any_cast<hodel::Grid>(connections_.at(i).output())};
 
                                 if (output != input)
                                     outputs.emplace_back(input);
@@ -474,6 +478,11 @@ class Engine
             return grids_.at(i);
         }
 
+        std::string program(size_t i) const
+        {
+            return connections_.at(i).string();
+        }
+
     private:
         std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
         std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
@@ -490,5 +499,6 @@ PYBIND11_MODULE(aicpppy, m)
         .def(py::init<std::string const&>())
         .def("count", &Engine::count)
         .def("trajectory", &Engine::trajectory)
-        .def("grids", &Engine::grids);
+        .def("grids", &Engine::grids)
+        .def("program", &Engine::program);
 }
