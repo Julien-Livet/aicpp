@@ -229,7 +229,7 @@ static std::any combine_sets(std::any const& a, std::any const& b)
     {
         auto const x{std::any_cast<T>(a)};
         auto const y{std::any_cast<S>(b)};
-        
+
         std::vector<typename T::value_type> v{x.begin(), x.end()};
         v.insert(v.end(), y.begin(), y.end());
 
@@ -763,7 +763,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
     if (num.type() == typeid(Integer))
     {
         auto const n{std::any_cast<Integer>(num)};
-       
+
         if (n < 0 || n > 100)
             throw std::runtime_error{"Wrong value"};
 
@@ -811,7 +811,7 @@ std::any hodel::size(std::vector<std::any> const& args)
     if (container.type() == typeid(Grid))
     {
         auto const x{std::any_cast<Grid>(container)};
-        
+
         return static_cast<Integer>(x.size());
     }
 
@@ -831,7 +831,7 @@ std::any hodel::maximum(std::vector<std::any> const& args)
 
         if (set.empty())
             return Integer{0};
-        
+
         return *std::max_element(set.begin(), set.end());
     }
 
@@ -851,7 +851,7 @@ std::any hodel::minimum(std::vector<std::any> const& args)
 
         if (set.empty())
             return Integer{0};
-        
+
         return *std::min_element(set.begin(), set.end());
     }
 
@@ -1409,7 +1409,7 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (container.type() == typeid(Grid))
     {
         auto const x{std::any_cast<Grid>(container)};
-        
+
         if (x.empty())
             throw std::runtime_error{"Wrong value"};
 
@@ -2190,7 +2190,7 @@ std::any hodel::crop(std::vector<std::any> const& args)
                 std::vector<Integer> row;
 
                 for (size_t j{0}; j < dims_.second; ++j)
-                    row.emplace_back(grid_.at(start_.first + i).at(start_.second + j)); 
+                    row.emplace_back(grid_.at(start_.first + i).at(start_.second + j));
 
                 result.emplace_back(row);
             }
@@ -2202,7 +2202,7 @@ std::any hodel::crop(std::vector<std::any> const& args)
 
         return result;
     }
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -2509,7 +2509,7 @@ std::any hodel::square(std::vector<std::any> const& args)
         try
         {
             auto const piece_{std::any_cast<Piece>(piece)};
-            
+
             if (std::holds_alternative<Grid>(piece_))
             {
                 auto const grid{std::get<Grid>(piece_)};
@@ -3115,7 +3115,7 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
             std::reverse(grid.begin(), grid.end());
 
-            return Piece{grid};
+            return grid;
         }
 
         auto patch = std::get<Patch>(piece_);
@@ -3137,7 +3137,7 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
                 result.insert({v, {d - i, j}});
             }
 
-            return Piece{Patch(result)};
+            return result;
         }
 
         auto const& indices = std::get<Indices>(patch);
@@ -3147,7 +3147,7 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
         for (auto const& [i, j] : indices)
             result.insert({d - i, j});
 
-        return Piece{Patch(result)};
+        return result;
     }
     else if (piece.type() == typeid(Grid))
         return hmirror({Piece{std::any_cast<Grid>(piece)}});
@@ -3175,7 +3175,7 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
             for (auto& row : grid)
                 std::reverse(row.begin(), row.end());
 
-            return Piece{grid};
+            return grid;
         }
 
         auto patch = std::get<Patch>(piece_);
@@ -3197,7 +3197,7 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
                 result.insert({v, {i, d - j}});
             }
 
-            return Piece{Patch(result)};
+            return result;
         }
 
         auto const& indices = std::get<Indices>(patch);
@@ -3207,7 +3207,7 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
         for (auto const& [i, j] : indices)
             result.insert({i, d - j});
 
-        return Piece{Patch(result)};
+        return result;
     }
     else if (piece.type() == typeid(Grid))
         return vmirror({Piece{std::any_cast<Grid>(piece)}});
@@ -3233,7 +3233,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
             auto const& grid = std::get<Grid>(piece_);
 
             if (grid.empty())
-                return Piece{Grid{}};
+                return Grid{};
 
             auto const rows = static_cast<Integer>(grid.size());
             auto const cols = static_cast<Integer>(grid.at(0).size());
@@ -3273,7 +3273,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                 result.insert({v, {j - b + a, i - a + b}});
             }
 
-            return Piece{Patch(result)};
+            return result;
         }
 
         auto const& indices = std::get<Indices>(patch);
@@ -3283,7 +3283,7 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
         for (auto const& [i, j] : indices)
             result.insert({j - b + a, i - a + b});
 
-        return Piece{Patch(result)};
+        return result;
     }
     else if (piece.type() == typeid(Grid))
         return dmirror({Piece{std::any_cast<Grid>(piece)}});
@@ -3720,7 +3720,7 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
         catch (std::exception const&)
         {
             throw std::runtime_error{"Wrong value"};
-        }        
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -3767,7 +3767,7 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
         catch (std::exception const&)
         {
             throw std::runtime_error{"Wrong value"};
-        }        
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
