@@ -24,9 +24,6 @@ find_package(pybind11 REQUIRED)
 
 include_directories(include)
 
-add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
-pybind11_add_module(aicpppy src/aicpppy.cpp)
-
 set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/Hdl.cpp src/aicpp/Hodel.cpp src/aicpp/DslEngine.cpp src/aicpp/DslSystem.cpp)
 set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h include/aicpp/Hdl.h include/aicpp/Hodel.h include/aicpp/DslEngine.h include/aicpp/DslSystem.h)
 
@@ -34,8 +31,12 @@ enable_testing()
 add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})
 add_executable(dsl_dataset src/dsl_dataset.cpp ${SRCS} ${HEADERS})
 
+add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
+pybind11_add_module(aicpppy src/aicpppy.cpp ${SRCS} ${HEADERS})
+
 target_include_directories(test_aicpp PRIVATE include)
 target_include_directories(dsl_dataset PRIVATE include)
+target_include_directories(aicpppy PRIVATE include)
 
 if (WIN32)
     target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
