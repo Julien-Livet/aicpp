@@ -4962,6 +4962,64 @@ std::any hodel::delta(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::gravitate(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const source{args[0]};
+    auto const destination{args[1]};
+
+    if (source.type() == typeid(Patch) && destination.type() == typeid(Patch))
+    {
+        auto const source_{std::any_cast<Patch>(source)};
+        auto const destination_{std::any_cast<Patch>(destination)};
+
+        Patch current = source_;
+
+        try
+        {
+            auto const [si, sj] = std::any_cast<IntegerTuple>(center({current}));
+            auto const [di, dj] = std::any_cast<IntegerTuple>(center({destination_}));
+
+            Integer stepI = 0;
+            Integer stepJ = 0;
+
+            if (std::any_cast<Boolean>(vmatching({current, destination})))
+                stepI = (si < di) ? 1 : -1;
+            else
+                stepJ = (sj < dj) ? 1 : -1;
+
+            auto moveI = stepI;
+            auto moveJ = stepJ;
+            Integer count = 0;
+
+            while (!std::any_cast<Boolean>(adjacent({current, destination})) && count < 42)
+            {
+                ++count;
+
+                moveI += stepI;
+                moveJ += stepJ;
+
+                auto const v = shift({current, IntegerTuple{stepI, stepJ}});
+
+                if (v.type() == typeid(Object))
+                    current = Patch{std::any_cast<Object>(v)};
+                else
+                    current = Patch{std::any_cast<Indices>(v)};
+            }
+
+            return IntegerTuple{moveI - stepI, moveJ - stepJ};
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::inbox(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -5129,6 +5187,164 @@ std::any hodel::shoot(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::occurrences(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const obj{args[1]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return occurrences({std::get<Grid>(piece), obj});
+    }
+
+    if (grid.type() == typeid(Grid) && obj.type() == typeid(Object))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const obj_{std::any_cast<Object>(obj)};
+
+        if (grid_.empty() || obj_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            Indices occs;
+            auto const normed = std::any_cast<Object>(normalize({obj_}));
+
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+
+            auto const [oh, ow] = std::any_cast<IntegerTuple>(shape({obj_}));
+
+            for (size_t i = 0; i <= h - oh; ++i)
+            {
+                for (size_t j = 0; j <= w - ow; ++j)
+                {
+                    bool ok = true;
+
+                    for (auto const& [value, pos] : normed)
+                    {
+                        size_t const a = pos.first + i;
+                        size_t const b = pos.second + j;
+
+                        if (grid_.at(a).at(b) != value)
+                        {
+                            ok = false;
+                            break;
+                        }
+                    }
+
+                    if (ok)
+                        occs.emplace(i, j);
+                }
+            }
+
+            return occs;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::frontiers(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return frontiers({std::get<Grid>(piece)});
+    }
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            Objects result;
+
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+
+            for (size_t i = 0; i < h; ++i)
+            {
+                auto const color = grid_.at(i).at(0);
+                bool uniform = true;
+
+                for (size_t j = 1; j < w; ++j)
+                {
+                    if (grid_.at(i).at(j) != color)
+                    {
+                        uniform = false;
+                        break;
+                    }
+                }
+
+                if (uniform)
+                {
+                    Object object;
+
+                    for (size_t j = 0; j < w; ++j)
+                        object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+
+                    result.insert(std::move(object));
+                }
+            }
+
+            for (size_t j = 0; j < w; ++j)
+            {
+                auto const color = grid_.at(0).at(j);
+                bool uniform = true;
+
+                for (size_t i = 1; i < h; ++i)
+                {
+                    if (grid_.at(i).at(j) != color)
+                    {
+                        uniform = false;
+                        break;
+                    }
+                }
+
+                if (uniform)
+                {
+                    Object object;
+
+                    for (size_t i = 0; i < h; ++i)
+                        object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+
+                    result.insert(std::move(object));
+                }
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::compress(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -5149,7 +5365,7 @@ std::any hodel::compress(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
 
         if (grid_.empty())
-            return {};
+            throw std::runtime_error{"Wrong value"};
 
         try
         {
