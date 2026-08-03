@@ -214,13 +214,13 @@ namespace hodel
     std::any hfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): horizontal frontier
     std::any backdrop(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box of patch
     std::any delta(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box but not part of patch
-    //std::any gravitate(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): direction to move source until adjacent to destination
+    std::any gravitate(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): direction to move source until adjacent to destination
     std::any inbox(std::vector<std::any> const& args); //Indices(Patch): inbox for patch
     std::any outbox(std::vector<std::any> const& args); //Indices(Patch): outbox for patch
     std::any box(std::vector<std::any> const& args); //Indices(Patch): outline of patch
     std::any shoot(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line from starting point and direction
-    //std::any occurences(std::vector<std::any> const& args); //Indices(Grid, Object): locations of occurrences of object in grid
-    //std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
+    std::any occurrences(std::vector<std::any> const& args); //Indices(Grid, Object): locations of occurrences of object in grid
+    std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
     std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
     std::any hperiod(std::vector<std::any> const& args); //Integer(Object): horizontal periodicity
     std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity
