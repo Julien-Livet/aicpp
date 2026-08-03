@@ -101,23 +101,45 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
     for (auto const& neuron : neuronsByOutputType.at(type))
         namedNeurons[neuron.get().name()].emplace_back(neuron);
 
-    std::uniform_int_distribution<size_t> dist1(0, namedNeurons.size() - 1);
-    auto it{namedNeurons.begin()};
+    std::vector<std::vector<std::reference_wrapper<Neuron const> > > nn;
+    nn.reserve(namedNeurons.size());
 
-    std::advance(it, dist1(rd));
+    for (auto const& [n, v] : namedNeurons)
+        nn.emplace_back(v);
 
-    std::uniform_int_distribution<size_t> dist2(0, it->second.size() - 1);
-    Neuron const& neuron{it->second.at(dist2(rd))};
-
-    std::vector<std::any> inputs;
-
-    for (auto const& inputType : neuron.inputTypes())
+    std::shuffle(nn.begin(), nn.end(), rd);
+    
+    while (nn.size())
     {
-        Connection const& inputConnection{buildConnection(variableNeuronsByOutputType, neuronsByOutputType, depth - 1, inputType)};
-        inputs.emplace_back(inputConnection);
+        auto neurons{nn.back()};
+        nn.pop_back();
+
+        std::shuffle(neurons.begin(), neurons.end(), rd);
+
+        while (neurons.size())
+        {
+            auto const neuron{neurons.back()};
+            neurons.pop_back();
+
+            try
+            {
+                std::vector<std::any> inputs;
+
+                for (auto const& inputType : neuron.get().inputTypes())
+                {
+                    Connection const& inputConnection{buildConnection(variableNeuronsByOutputType, neuronsByOutputType, depth - 1, inputType)};
+                    inputs.emplace_back(inputConnection);
+                }
+
+                return Connection{neuron.get(), inputs};
+            }
+            catch (std::exception const&)
+            {
+            }
+        }
     }
 
-    return Connection{neuron, inputs};
+    throw std::runtime_error{"Wrong connection"};
 }
 
 using Pair = std::pair<hodel::Grid, Connection>;
