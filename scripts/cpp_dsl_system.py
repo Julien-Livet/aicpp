@@ -47,6 +47,7 @@ dslTypes["Container"] = containerTypes + ["std::vector<Integer>"]
 dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
 dslTypes["Container1"] = dslTypes["Container"]
 dslTypes["Container2"] = dslTypes["Container"]
+dslTypes["ContainerContainer"] = dslTypes["Objects"] + dslTypes["IndicesSet"] # + dslTypes["Grid"]
 
 anyTypes = []
 
