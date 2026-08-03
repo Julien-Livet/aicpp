@@ -84,7 +84,7 @@ namespace hodel
     std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
-    //std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
+    std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
     std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
     std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
     std::any valmax(std::vector<std::any> const& args); //Integer(Container, Callable): maximum by custom function
@@ -103,8 +103,8 @@ namespace hodel
     std::any positive(std::vector<std::any> const& args); //Boolean(Integer): positive
     std::any toivec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing vertically
     std::any tojvec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing horizontally
-    //std::any sfilter(std::vector<std::any> const& args); //Container(Container, Callable): keep elements in container that satisfy condition
-    //std::any mfilter(std::vector<std::any> const& args); //FrozenSet(Container, Callable): filter and merge
+    std::any sfilter(std::vector<std::any> const& args); //Container(Container, Callable): keep elements in container that satisfy condition
+    std::any mfilter(std::vector<std::any> const& args); //FrozenSet(Container, Callable): filter and merge
     //std::any extract(std::vector<std::any> const& args); //Any(Container, Callable): first element of container that satisfies condition
     std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
     std::any first(std::vector<std::any> const& args); //Any(Container): first item of container
