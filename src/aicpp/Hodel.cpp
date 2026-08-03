@@ -9,6 +9,25 @@
 constexpr hodel::Integer MAX_SIZE = 30;
 using IntegerCountMap = std::map<hodel::Integer, hodel::Integer>;
 
+hodel::Indices rectangleOutline(hodel::Integer si, hodel::Integer sj, hodel::Integer ei, hodel::Integer ej)
+{
+    hodel::Indices result;
+
+    for (hodel::Integer i = si; i <= ei; ++i)
+    {
+        result.emplace(i, sj);
+        result.emplace(i, ej);
+    }
+
+    for (hodel::Integer j = sj; j <= ej; ++j)
+    {
+        result.emplace(si, j);
+        result.emplace(ei, j);
+    }
+
+    return result;
+}
+
 IntegerCountMap colorCounts(hodel::Element const& element)
 {
     IntegerCountMap counts;
@@ -1936,6 +1955,33 @@ std::any hodel::colorcount(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::colorfilter(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const objs{args[0]};
+    auto const value{args[1]};
+
+    if (objs.type() == typeid(Objects) && value.type() == typeid(Integer))
+    {
+        auto const objs_{std::any_cast<Objects>(objs)};
+        auto const value_{std::any_cast<Integer>(value)};
+
+        Objects result;
+
+        for (auto const& obj : objs_)
+        {
+            if (!obj.empty() && obj.begin()->first == value_)
+                result.emplace(obj);
+        }
+
+        return result;
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::asindices(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -2322,6 +2368,60 @@ std::any hodel::shift(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::normalize(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const& obj = std::get<Object>(patch_);
+
+            if (obj.empty())
+                return obj;
+
+            try
+            {
+                return shift({obj, IntegerTuple{-std::any_cast<Integer>(uppermost({obj})), -std::any_cast<Integer>(leftmost({obj}))}});
+        
+            }
+            catch (std::exception const&)
+            {
+                throw std::runtime_error{"Wrong value"};
+            }
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                return indices;
+
+            try
+            {
+                return shift({indices, IntegerTuple{-std::any_cast<Integer>(uppermost({indices})), -std::any_cast<Integer>(leftmost({indices}))}});
+        
+            }
+            catch (std::exception const&)
+            {
+                throw std::runtime_error{"Wrong value"};
+            }
+        }
+    }
+    else if (patch.type() == typeid(Object))
+        return normalize({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return normalize({Patch{std::any_cast<Indices>(patch)}});
+    
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::dneighbors(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -2381,6 +2481,214 @@ std::any hodel::neighbors(std::vector<std::any> const& args)
             auto const diagonal{std::any_cast<Indices>(ineighbors({loc}))};
 
             result.insert(diagonal.begin(), diagonal.end());
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::objects(std::vector<std::any> const& args)
+{
+    if (args.size() != 4)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const univalued{args[1]};
+    auto const diagonal{args[2]};
+    auto const without_bg{args[3]};
+    
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return objects({std::get<Grid>(piece), univalued, diagonal, without_bg});
+    }
+
+    if (univalued.type() == typeid(Boolean) && diagonal.type() == typeid(Boolean) && without_bg.type() == typeid(Boolean))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const univalued_{std::any_cast<Boolean>(univalued)};
+        auto const diagonal_{std::any_cast<Boolean>(diagonal)};
+        auto const without_bg_{std::any_cast<Boolean>(without_bg)};
+
+        Objects objs;
+
+        if (grid_.empty())
+            return objs;
+
+        try
+        {
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+
+            auto const bg = without_bg_ ? std::any_cast<Integer>(mostcolor({grid})) : Integer{-1};
+
+            Indices occupied;
+            Indices unvisited = std::any_cast<Indices>(asindices({grid}));
+
+            for (auto const& loc : unvisited)
+            {
+                if (occupied.count(loc))
+                    continue;
+
+                auto const val = grid_.at(loc.first).at(loc.second);
+
+                if (without_bg_ && val == bg)
+                    continue;
+
+                Object obj;
+                Indices candidates{loc};
+
+                while (!candidates.empty())
+                {
+                    Indices neighborhood;
+
+                    for (auto const& cand : candidates)
+                    {
+                        if (occupied.count(cand))
+                            continue;
+
+                        auto const v = grid_.at(cand.first).at(cand.second);
+
+                        if ((univalued_ && v == val) ||
+                            (!univalued_ && (!without_bg_ || v != bg)))
+                        {
+                            obj.emplace(v, cand);
+                            occupied.insert(cand);
+
+                            auto const neigh = std::any_cast<Indices>(diagonal_ ? neighbors({cand}) : dneighbors({cand}));
+
+                            for (auto const& p : neigh)
+                            {
+                                auto const i = p.first;
+                                auto const j = p.second;
+
+                                if (0 <= i && i < h && 0 <= j && j < w)
+                                    neighborhood.insert(p);
+                            }
+                        }
+                    }
+
+                    candidates.clear();
+
+                    for (const auto& p : neighborhood)
+                    {
+                        if (!occupied.count(p))
+                            candidates.insert(p);
+                    }
+                }
+
+                objs.insert(std::move(obj));
+            }
+
+            return objs;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::partition(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return partition({std::get<Grid>(piece)});
+    }
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        std::map<Integer, Object> objectsByColor;
+
+        try
+        {
+            for (size_t i = 0; i < grid_.size(); ++i)
+            {
+                for (size_t j = 0; j < grid_.at(i).size(); ++j)
+                {
+                    auto const color = grid_.at(i).at(j);
+                    objectsByColor[color].emplace(color, IntegerTuple{i, j});
+                }
+            }
+
+            Objects result;
+
+            for (auto& [color, object] : objectsByColor)
+            {
+                result.insert(std::move(object));
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::fgpartition(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return partition({std::get<Grid>(piece)});
+    }
+
+    if (grid.type() == typeid(Grid))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+
+        std::map<Integer, Object> objectsByColor;
+
+        try
+        {
+            for (size_t i = 0; i < grid_.size(); ++i)
+            {
+                for (size_t j = 0; j < grid_.at(i).size(); ++j)
+                {
+                    auto const color = grid_.at(i).at(j);
+                    objectsByColor[color].emplace(color, IntegerTuple{i, j});
+                }
+            }
+
+            Objects result;
+            auto const bg{std::any_cast<Integer>(mostcolor({grid_}))};
+
+            for (auto& [color, object] : objectsByColor)
+            {
+                if (color != bg)
+                    result.insert(std::move(object));
+            }
 
             return result;
         }
@@ -3326,6 +3634,208 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::fill(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const value{args[1]};
+    auto const patch{args[2]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return fill({std::get<Grid>(piece), value, patch});
+    }
+
+    if (grid.type() == typeid(Grid) && value.type() == typeid(Integer) && patch.type() == typeid(Patch))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const value_{std::any_cast<Integer>(value)};
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+
+            Grid result = grid_;
+
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({patch})))
+            {
+                if (0 <= i && i < h && 0 <= j && j < w)
+                    result.at(i).at(j) = value_;
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+    
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::paint(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const obj{args[1]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return paint({std::get<Grid>(piece), obj});
+    }
+
+    if (grid.type() == typeid(Grid) && obj.type() == typeid(Object))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const obj_{std::any_cast<Object>(obj)};
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+
+            Grid result = grid_;
+
+            for (auto const& [value, location] : obj_)
+            {
+                auto const& [i, j] = location;
+
+                if (0 <= i && i < h && 0 <= j && j < w)
+                    result.at(i).at(j) = value;
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+    
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::underfill(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const value{args[1]};
+    auto const patch{args[2]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return underfill({std::get<Grid>(piece), value, patch});
+    }
+
+    if (grid.type() == typeid(Grid) && value.type() == typeid(Integer) && patch.type() == typeid(Patch))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const value_{std::any_cast<Integer>(value)};
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+            auto const bg = std::any_cast<Integer>(mostcolor({grid_}));
+
+            Grid result = grid_;
+
+            for (auto const& [i, j] : std::any_cast<Indices>(toindices({patch})))
+            {
+                if (0 <= i && i < h && 0 <= j && j < w && result.at(i).at(j) == bg)
+                    result.at(i).at(j) = value_;
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+    
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::underpaint(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const obj{args[1]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return underpaint({std::get<Grid>(piece), obj});
+    }
+
+    if (grid.type() == typeid(Grid) && obj.type() == typeid(Object))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const obj_{std::any_cast<Object>(obj)};
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        try
+        {
+            auto const h = grid_.size();
+            auto const w = grid_.at(0).size();
+            auto const bg = std::any_cast<Integer>(mostcolor({grid_}));
+
+            Grid result = grid_;
+
+            for (auto const& [value, location] : obj_)
+            {
+                auto const& [i, j] = location;
+
+                if (0 <= i && i < h && 0 <= j && j < w && result.at(i).at(j) == bg)
+                    result.at(i).at(j) = value;
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+    
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::hupscale(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -4131,6 +4641,33 @@ std::any hodel::connect(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::cover(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const patch{args[1]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return cover({std::get<Grid>(piece), patch});
+    }
+
+    if (grid.type() == typeid(Grid) && patch.type() == typeid(Patch))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        return fill({grid, mostcolor({grid}), toindices({patch})});
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::trim(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -4159,6 +4696,35 @@ std::any hodel::trim(std::vector<std::any> const& args)
             result.emplace_back(grid_[i].begin() + 1, grid_[i].end() - 1);
 
         return result;
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::move(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const grid{args[0]};
+    auto const obj{args[1]};
+    auto const offset{args[2]};
+
+    if (grid.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(grid)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return move({std::get<Grid>(piece), obj, offset});
+    }
+
+    if (grid.type() == typeid(Grid) && obj.type() == typeid(Object) && offset.type() == typeid(IntegerTuple))
+    {
+        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const obj_{std::any_cast<Object>(obj)};
+        auto const offset_{std::any_cast<IntegerTuple>(offset)};
+
+        return paint({cover({grid, obj}), shift({obj, offset})});
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -4302,6 +4868,242 @@ std::any hodel::hfrontier(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::backdrop(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const obj{std::get<Object>(patch_)};
+
+            if (obj.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+
+        try
+        {
+            auto const ulc{std::any_cast<IntegerTuple>(ulcorner({patch_}))};
+            auto const lrc{std::any_cast<IntegerTuple>(lrcorner({patch_}))};
+
+            Indices result;
+
+            for (Integer i = ulc.first; i <= lrc.first; ++i)
+            {
+                for (Integer j = ulc.second; j <= lrc.second; ++j)
+                    result.emplace(i, j);
+            }
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::delta(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+    
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const obj{std::get<Object>(patch_)};
+
+            if (obj.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+
+        try
+        {
+            auto result = std::any_cast<Indices>(backdrop({patch_}));
+
+            for (const auto& p : std::any_cast<Indices>(toindices({patch_})))
+                result.erase(p);
+
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::inbox(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+    
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const obj{std::get<Object>(patch_)};
+
+            if (obj.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+
+        try
+        {
+            auto const ai = std::any_cast<Integer>(uppermost({patch})) + 1;
+            auto const aj = std::any_cast<Integer>(leftmost({patch})) + 1;
+            auto const bi = std::any_cast<Integer>(lowermost({patch})) - 1;
+            auto const bj = std::any_cast<Integer>(rightmost({patch})) - 1;
+
+            return rectangleOutline(
+                std::min(ai, bi),
+                std::min(aj, bj),
+                std::max(ai, bi),
+                std::max(aj, bj));
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::outbox(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+    
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const obj{std::get<Object>(patch_)};
+
+            if (obj.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+
+        try
+        {
+            auto const ai = std::any_cast<Integer>(uppermost({patch})) + 1;
+            auto const aj = std::any_cast<Integer>(leftmost({patch})) + 1;
+            auto const bi = std::any_cast<Integer>(lowermost({patch})) - 1;
+            auto const bj = std::any_cast<Integer>(rightmost({patch})) - 1;
+
+            return rectangleOutline(
+                std::min(ai, bi),
+                std::min(aj, bj),
+                std::max(ai, bi),
+                std::max(aj, bj));
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::box(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const patch{args[0]};
+
+    if (patch.type() == typeid(Patch))
+    {
+        auto const patch_{std::any_cast<Patch>(patch)};
+    
+        if (std::holds_alternative<Object>(patch_))
+        {
+            auto const obj{std::get<Object>(patch_)};
+
+            if (obj.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+        else if (std::holds_alternative<Indices>(patch_))
+        {
+            auto const indices{std::get<Indices>(patch_)};
+
+            if (indices.empty())
+                throw std::runtime_error{"Wrong value"};
+        }
+
+        try
+        {
+            auto const [ai, aj] = std::any_cast<IntegerTuple>(ulcorner({patch}));
+            auto const [bi, bj] = std::any_cast<IntegerTuple>(lrcorner({patch}));
+
+            return rectangleOutline(
+                std::min(ai, bi),
+                std::min(aj, bj),
+                std::max(ai, bi),
+                std::max(aj, bj));
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::shoot(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -4409,6 +5211,100 @@ std::any hodel::compress(std::vector<std::any> const& args)
             }
 
             return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::hperiod(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const obj{args[0]};
+
+    if (obj.type() == typeid(Object))
+    {
+        try
+        {
+            auto const normalized = std::any_cast<Object>(normalize({obj}));
+            auto const w = std::any_cast<Integer>(width({normalized}));
+
+            for (Integer p = 1; p < w; ++p)
+            {
+                auto const offsetted = std::any_cast<Object>(shift({normalized, IntegerTuple{0, -p}}));
+
+                Object pruned;
+
+                for (const auto& [color, pos] : offsetted)
+                {
+                    if (pos.second >= 0)
+                    {
+                        pruned.emplace(color, pos);
+                    }
+                }
+
+                if (std::includes(
+                        normalized.begin(), normalized.end(),
+                        pruned.begin(), pruned.end()))
+                {
+                    return p;
+                }
+            }
+
+            return w;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::vperiod(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const obj{args[0]};
+
+    if (obj.type() == typeid(Object))
+    {
+        try
+        {
+            auto const normalized = std::any_cast<Object>(normalize({obj}));
+            auto const h = std::any_cast<Integer>(height({normalized}));
+
+            for (Integer p = 1; p < h; ++p)
+            {
+                auto const offsetted = std::any_cast<Object>(shift({normalized, IntegerTuple{-p, 0}}));
+
+                Object pruned;
+
+                for (const auto& [color, pos] : offsetted)
+                {
+                    if (pos.first >= 0)
+                    {
+                        pruned.emplace(color, pos);
+                    }
+                }
+
+                if (std::includes(
+                        normalized.begin(), normalized.end(),
+                        pruned.begin(), pruned.end()))
+                {
+                    return p;
+                }
+            }
+
+            return h;
         }
         catch (std::exception const&)
         {
