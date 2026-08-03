@@ -171,10 +171,13 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     neurons.emplace("hfrontier", Neuron{"hfrontier", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::hfrontier); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("backdrop", Neuron{"backdrop", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::backdrop); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("delta", Neuron{"delta", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::delta); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("gravitate", Neuron{"gravitate", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::gravitate); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("inbox", Neuron{"inbox", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::inbox); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("outbox", Neuron{"outbox", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::outbox); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("box", Neuron{"box", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::box); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("shoot", Neuron{"shoot", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::shoot); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("occurrences", Neuron{"occurrences", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::occurrences); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("frontiers", Neuron{"frontiers", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::frontiers); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("compress", Neuron{"compress", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::compress); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("hperiod", Neuron{"hperiod", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::hperiod); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("vperiod", Neuron{"vperiod", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::vperiod); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
@@ -1562,6 +1565,8 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("backdrop1", Neuron{"backdrop", hodel::backdrop, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Indices)});
     neurons.emplace("delta0", Neuron{"delta", hodel::delta, std::vector<std::type_index>{typeid(hodel::Indices)}, typeid(hodel::Indices)});
     neurons.emplace("delta1", Neuron{"delta", hodel::delta, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Indices)});
+    neurons.emplace("gravitate0", Neuron{"gravitate", hodel::gravitate, std::vector<std::type_index>{typeid(hodel::Indices), typeid(hodel::Indices)}, typeid(hodel::IntegerTuple)});
+    neurons.emplace("gravitate1", Neuron{"gravitate", hodel::gravitate, std::vector<std::type_index>{typeid(hodel::Object), typeid(hodel::Object)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("inbox0", Neuron{"inbox", hodel::inbox, std::vector<std::type_index>{typeid(hodel::Indices)}, typeid(hodel::Indices)});
     neurons.emplace("inbox1", Neuron{"inbox", hodel::inbox, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Indices)});
     neurons.emplace("outbox0", Neuron{"outbox", hodel::outbox, std::vector<std::type_index>{typeid(hodel::Indices)}, typeid(hodel::Indices)});
@@ -1569,6 +1574,8 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
     neurons.emplace("box0", Neuron{"box", hodel::box, std::vector<std::type_index>{typeid(hodel::Indices)}, typeid(hodel::Indices)});
     neurons.emplace("box1", Neuron{"box", hodel::box, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Indices)});
     neurons.emplace("shoot", Neuron{"shoot", hodel::shoot, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::Indices)});
+    neurons.emplace("occurrences", Neuron{"occurrences", hodel::occurrences, std::vector<std::type_index>{typeid(hodel::Grid), typeid(hodel::Object)}, typeid(hodel::Indices)});
+    neurons.emplace("frontiers", Neuron{"frontiers", hodel::frontiers, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Objects)});
     neurons.emplace("compress", Neuron{"compress", hodel::compress, std::vector<std::type_index>{typeid(hodel::Grid)}, typeid(hodel::Grid)});
     neurons.emplace("hperiod", Neuron{"hperiod", hodel::hperiod, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Integer)});
     neurons.emplace("vperiod", Neuron{"vperiod", hodel::vperiod, std::vector<std::type_index>{typeid(hodel::Object)}, typeid(hodel::Integer)});
