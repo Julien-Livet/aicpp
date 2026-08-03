@@ -24,8 +24,8 @@ find_package(pybind11 REQUIRED)
 
 include_directories(include)
 
-set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/Hdl.cpp src/aicpp/Hodel.cpp src/aicpp/DslEngine.cpp src/aicpp/DslSystem.cpp)
-set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h include/aicpp/Hdl.h include/aicpp/Hodel.h include/aicpp/DslEngine.h include/aicpp/DslSystem.h)
+set(SRCS src/aicpp/Brain.cpp src/aicpp/Connection.cpp src/aicpp/Neuron.cpp src/aicpp/Hodel.cpp src/aicpp/DslEngine.cpp src/aicpp/DslSystem.cpp)
+set(HEADERS include/aicpp/Brain.h include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h include/aicpp/Hodel.h include/aicpp/DslEngine.h include/aicpp/DslSystem.h)
 
 enable_testing()
 add_executable(test_aicpp src/test_aicpp.cpp ${SRCS} ${HEADERS})
