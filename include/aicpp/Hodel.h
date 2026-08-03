@@ -137,7 +137,7 @@ namespace hodel
     std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
     std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
     std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
-    //std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
+    std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
     //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
     std::any asindices(std::vector<std::any> const& args); //Indices(Grid): indices of all grid cells
     std::any ofcolor(std::vector<std::any> const& args); //Indices(Grid, Integer): indices of all grid cells with value
@@ -149,13 +149,13 @@ namespace hodel
     std::any toindices(std::vector<std::any> const& args); //Indices(Patch): indices of object cells
     std::any recolor(std::vector<std::any> const& args); //Object(Integer, Patch): recolor patch
     std::any shift(std::vector<std::any> const& args); //Patch(Patch, IntegerTuple): shift patch
-    //std::any normalize(std::vector<std::any> const& args); //Patch(Patch): moves upper left corner to origin
+    std::any normalize(std::vector<std::any> const& args); //Patch(Patch): moves upper left corner to origin
     std::any dneighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): directly adjacent indices
     std::any ineighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): diagonally adjacent indices
     std::any neighbors(std::vector<std::any> const& args); //Indices(IntegerTuple): adjacent indices
-    //std::any objects(std::vector<std::any> const& args); //Objects(Grid, Boolean, Boolean, Boolean): objects occurring on the grid
-    //std::any partition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object
-    //std::any fgpartition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object without background
+    std::any objects(std::vector<std::any> const& args); //Objects(Grid, Boolean, Boolean, Boolean): objects occurring on the grid
+    std::any partition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object
+    std::any fgpartition(std::vector<std::any> const& args); //Objects(Grid): each cell with the same value part of the same object without background
     std::any uppermost(std::vector<std::any> const& args); //Integer(Patch): row index of uppermost occupied cell
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
@@ -181,10 +181,10 @@ namespace hodel
     std::any vmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along vertical
     std::any dmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along diagonal
     std::any cmirror(std::vector<std::any> const& args); //Piece(Piece): mirroring along counterdiagonal
-    //std::any fill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices
-    //std::any paint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid
-    //std::any underfill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices that are background
-    //std::any underpaint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid where there is background
+    std::any fill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices
+    std::any paint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid
+    std::any underfill(std::vector<std::any> const& args); //Grid(Grid, Integer, Patch): fill value at indices that are background
+    std::any underpaint(std::vector<std::any> const& args); //Grid(Grid, Object): paint object to grid where there is background
     std::any hupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid horizontally
     std::any vupscale(std::vector<std::any> const& args); //Grid(Grid, Integer): upscale grid vertically
     std::any upscale(std::vector<std::any> const& args); //Element(Element, Integer): upscale object or grid
@@ -203,27 +203,27 @@ namespace hodel
     std::any canvas(std::vector<std::any> const& args); //Grid(Integer, IntegerTuple): grid construction
     std::any corners(std::vector<std::any> const& args); //Indices(Patch): indices of corners
     std::any connect(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line between two points
-    //std::any cover(std::vector<std::any> const& args); //Grid(Grid, Patch): remove object from grid
+    std::any cover(std::vector<std::any> const& args); //Grid(Grid, Patch): remove object from grid
     std::any trim(std::vector<std::any> const& args); //Grid(Grid): trim border of grid
-    //std::any move(std::vector<std::any> const& args); //Grid(Grid, Object, IntegerTuple): move object on grid
+    std::any move(std::vector<std::any> const& args); //Grid(Grid, Object, IntegerTuple): move object on grid
     std::any tophalf(std::vector<std::any> const& args); //Grid(Grid): upper half of grid
     std::any bottomhalf(std::vector<std::any> const& args); //Grid(Grid): lower half of grid
     std::any lefthalf(std::vector<std::any> const& args); //Grid(Grid): left half of grid
     std::any righthalf(std::vector<std::any> const& args); //Grid(Grid): right half of grid
     std::any vfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): vertical frontier
     std::any hfrontier(std::vector<std::any> const& args); //Indices(IntegerTuple): horizontal frontier
-    //std::any backdrop(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box of patch
-    //std::any delta(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box but not part of patch
+    std::any backdrop(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box of patch
+    std::any delta(std::vector<std::any> const& args); //Indices(Patch): indices in bounding box but not part of patch
     //std::any gravitate(std::vector<std::any> const& args); //IntegerTuple(Patch, Patch): direction to move source until adjacent to destination
-    //std::any inbox(std::vector<std::any> const& args); //Indices(Patch): inbox for patch
-    //std::any outbox(std::vector<std::any> const& args); //Indices(Patch): outbox for patch
-    //std::any box(std::vector<std::any> const& args); //Indices(Patch): outline of patch
+    std::any inbox(std::vector<std::any> const& args); //Indices(Patch): inbox for patch
+    std::any outbox(std::vector<std::any> const& args); //Indices(Patch): outbox for patch
+    std::any box(std::vector<std::any> const& args); //Indices(Patch): outline of patch
     std::any shoot(std::vector<std::any> const& args); //Indices(IntegerTuple, IntegerTuple): line from starting point and direction
     //std::any occurences(std::vector<std::any> const& args); //Indices(Grid, Object): locations of occurrences of object in grid
     //std::any frontiers(std::vector<std::any> const& args); //Objects(Grid): set of frontiers
     std::any compress(std::vector<std::any> const& args); //Grid(Grid): removes frontiers from grid
-    //std::any hperiod(std::vector<std::any> const& args); //Integer(Object): horizontal periodicity
-    //std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity
+    std::any hperiod(std::vector<std::any> const& args); //Integer(Object): horizontal periodicity
+    std::any vperiod(std::vector<std::any> const& args); //Integer(Object): vertical periodicity
 }
 
 #endif // AICPP_HODEL_H
