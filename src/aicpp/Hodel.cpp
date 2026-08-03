@@ -7,6 +7,7 @@
 #include "aicpp/Hodel.h"
 
 constexpr hodel::Integer MAX_SIZE = 30;
+
 using IntegerCountMap = std::map<hodel::Integer, hodel::Integer>;
 
 hodel::Indices rectangleOutline(hodel::Integer si, hodel::Integer sj, hodel::Integer ei, hodel::Integer ej)
@@ -837,6 +838,58 @@ std::any hodel::size(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+std::any hodel::merge(std::vector<std::any> const& args)
+{
+    if (args.size() != 1)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const containers{args.front()};
+
+    if (containers.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(containers)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return merge({std::get<Grid>(piece)});
+    }
+
+    if (containers.type() == typeid(Objects))
+    {
+        auto const containers_{std::any_cast<Objects>(containers)};
+
+        Object result;
+
+        for (auto const& container : containers_)
+            result.insert(container.begin(), container.end());
+
+        return result;
+    }
+    else if (containers.type() == typeid(IndicesSet))
+    {
+        auto const containers_{std::any_cast<IndicesSet>(containers)};
+
+        Indices result;
+
+        for (auto const& container : containers_)
+            result.insert(container.begin(), container.end());
+
+        return result;
+    }
+    else if (containers.type() == typeid(Grid))
+    {
+        auto const containers_{std::any_cast<Grid>(containers)};
+
+        std::vector<Integer> result;
+
+        for (auto const& container : containers_)
+            result.insert(result.end(), container.begin(), container.end());
+
+        return result;
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::maximum(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -1389,6 +1442,76 @@ std::any hodel::tojvec(std::vector<std::any> const& args)
         return IntegerTuple{std::make_pair<Integer, Integer>(0, std::any_cast<Integer>(j))};
 
     throw std::runtime_error{"Wrong value"};
+}
+
+template <typename Container>
+std::any sfilter(std::any const& container, std::function<std::any(std::vector<std::any> const&)> const& condition)
+{
+    if (container.type() != typeid(Container))
+        return std::any{};
+
+    auto const container_{std::any_cast<Container>(container)};
+    Container result;
+
+    try
+    {
+        for (const auto& element : container_)
+        {
+            if (std::any_cast<hodel::Boolean>(condition({element})))
+                result.insert(result.end(), element);
+        }
+
+        return result;
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return std::any{};
+}
+
+std::any hodel::sfilter(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const condition{args[1]};
+
+    if (condition.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+       throw std::runtime_error{"Wrong value"};
+
+    auto const condition_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(condition)};
+    auto const container{args[0]};
+
+    if (container.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(container)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return sfilter({std::get<Grid>(piece), condition});
+    }
+
+    if (auto r = ::sfilter<IntegerSet>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<Object>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<Objects>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<Indices>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<IndicesSet>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<Grid>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<std::vector<Integer> >(container, condition_); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::mfilter(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const container{args[0]};
+    auto const condition{args[1]};
+
+    return merge({sfilter({container, condition})});
 }
 
 std::any hodel::totuple(std::vector<std::any> const& args)
@@ -2502,7 +2625,7 @@ std::any hodel::objects(std::vector<std::any> const& args)
     auto const univalued{args[1]};
     auto const diagonal{args[2]};
     auto const without_bg{args[3]};
-    
+
     if (grid.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(grid)};
