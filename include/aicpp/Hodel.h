@@ -44,9 +44,9 @@ namespace hodel
     Integer constexpr NEG_ONE = -1;
     Integer constexpr NEG_TWO = -2;
 
-    IntegerTuple constexpr DOWN = IntegerTuple{1, 0};
+    IntegerTuple constexpr DOWN = IntegerTuple{-1, 0};
     IntegerTuple constexpr RIGHT = IntegerTuple{0, 1};
-    IntegerTuple constexpr UP = IntegerTuple{-1, 0};
+    IntegerTuple constexpr UP = IntegerTuple{1, 0};
     IntegerTuple constexpr LEFT = IntegerTuple{0, -1};
 
     IntegerTuple constexpr ORIGIN = IntegerTuple{0, 0};
@@ -64,6 +64,8 @@ namespace hodel
     typedef Numerical Numerical2;
     typedef Numerical Numerical3;
 
+    typedef std::variant<Piece, Object> PieceObject;
+
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
     std::any add(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): addition
     std::any subtract(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): subtraction
@@ -74,7 +76,7 @@ namespace hodel
     std::any double_(std::vector<std::any> const& args); //Numerical(Numerical): scaling by two
     std::any halve(std::vector<std::any> const& args); //Numerical(Numerical): scaling by one half
     std::any flip(std::vector<std::any> const& args); //Boolean(Boolean): logical not
-    std::any equality(std::vector<std::any> const& args); //Any(Any): equality
+    std::any equality(std::vector<std::any> const& args); //Boolean(Any, Any): equality
     std::any contained(std::vector<std::any> const& args); //Boolean(Any, Container): element of
     std::any combine(std::vector<std::any> const& args); //Container1(Container1, Container2): union
     std::any intersection(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): returns the intersection of two containers
@@ -85,8 +87,8 @@ namespace hodel
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
     std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
-    std::any maximum(std::vector<std::any> const& args); //Integer(IntegerSet): maximum
-    std::any minimum(std::vector<std::any> const& args); //Integer(IntegerSet): minimum
+    std::any maximum(std::vector<std::any> const& args); //Integer(Container): maximum
+    std::any minimum(std::vector<std::any> const& args); //Integer(Container): minimum
     std::any valmax(std::vector<std::any> const& args); //Integer(Container, Callable): maximum by custom function
     std::any valmin(std::vector<std::any> const& args); //Integer(Container, Callable): minimum by custom function
     std::any argmax(std::vector<std::any> const& args); //Any(Container, Callable): largest item by custom order
@@ -132,8 +134,8 @@ namespace hodel
     //std::any prapply(std::vector<std::any> const& args); //FrozenSet(Callable, Container, Container): apply function on cartesian product
     std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
     std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
-    std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
-    std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
+    std::any height(std::vector<std::any> const& args); //Integer(PieceObject): height of grid or patch
+    std::any width(std::vector<std::any> const& args); //Integer(PieceObject): width of grid or patch
     std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
     std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
     std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
