@@ -304,73 +304,216 @@ int main(int argc, char* argv[])
 
     for (auto const& [i, v] : primitiveNeuronsByOutputType)
         neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
-/*
-    //std::vector<std::string> names{"bottomhalf", "bottomhalf", "rot90", "hconcat", "trim", "downscale", "hconcat", "rot270", "lefthalf", "switch", "I", "SIX", "FIVE", "I", "FOUR", "I"};
-    //std::vector<std::string> names{"cellwise", "lefthalf", "I", "I", "EIGHT"};
-    //std::vector<std::string> names{"downscale", "I", "lowermost", "neighbors", "astuple", "TEN", "increment", "FIVE"};
-    //std::vector<std::string> names{"bottomhalf", "hmirror", "hupscale", "dmirror", "vupscale", "righthalf", "trim", "dmirror", "I", "EIGHT", "leastcolor", "vmirror", "I"};
-    //std::vector<std::string> names{"lefthalf", "rot90", "lefthalf", "vconcat", "subgrid", "ineighbors", "combine", "UP_RIGHT", "TWO_BY_TWO", "I", "I"};
-    std::vector<std::string> names{"apply", "tophalf", "compress", "rot270", "upscale", "dmirror", "upscale", "rot270", "upscale", "upscale", "identity", "I", "THREE", "NINE", "EIGHT", "double", "THREE"};
-    std::reverse(names.begin(), names.end());
-
-    auto const connection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid), names)};
-    std::cout << connection.string() << std::endl;
-
+/**/
+    std::vector<std::vector<std::string> > allNames{/*
+        {"apply", "identity", "cmirror", "righthalf", "I"},
+        {"rot270", "hconcat", "vconcat", "crop", "canvas", "add", "size", "TWO_BY_ZERO", "FIVE", "astuple", "FIVE", "FIVE", "UP", "ORIGIN", "I", "I"},
+        {"lefthalf", "downscale", "rot180", "righthalf", "rot90", "remove", "mostcommon", "subtract", "LEFT", "SIX", "I", "NEG_ONE"},
+        {"replace", "I", "ONE", "multiply", "height", "hmirror", "I", "ONE"},
+        {"compress", "rot90", "righthalf", "vmirror", "vconcat", "switch", "I", "divide", "ONE", "NEG_ONE", "NEG_ONE", "I"},
+        {"replace", "I", "ONE", "invert", "TWO"},
+        {"branch", "even", "ZERO", "hmirror", "I", "vmirror", "I"},
+        {"replace", "I", "ONE", "double", "TWO"},
+        {"replace", "I", "ONE", "halve", "SIX"},
+        {"branch", "flip", "even", "ZERO", "hmirror", "I", "vmirror", "I"},
+        {"branch", "equality", "TWO", "ZERO", "hmirror", "I", "vmirror", "I"},
+        {"branch", "contained", "TWO", "merge", "I", "hmirror", "I", "vmirror", "I"},
+        {"tophalf", "combine", "upscale", "I", "THREE", "I"},
+        {"paint", "vmirror", "I", "first", "intersection", "objects", "I", "F", "F", "T", "objects", "I", "F", "F", "T"},
+        {"paint", "vmirror", "I", "first", "difference", "objects", "I", "F", "F", "T", "partition", "I"},
+        {"first", "dedupe", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO"},
+        {"first", "order", "initset", "trim", "I", "mostcommon"},
+        {"replace", "I", "ONE", "last", "repeat", "TWO", "THREE"},
+        {"branch", "greater", "THREE", "TWO", "hmirror", "I", "vmirror", "I"},
+        {"replace", "I", "ONE", "size", "I"},
+        {"merge", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO"},
+        {"branch", "equality", "maximum", "interval", "ZERO", "TWO", "ONE", "ZERO", "hmirror", "I", "vmirror", "I"},
+        {"branch", "equality", "minimum", "interval", "ZERO", "TWO", "ONE", "ZERO", "hmirror", "I", "vmirror", "I"},
+        {"replace", "I", "ONE", "valmax", "objects", "I", "F", "F", "T", "hperiod"},
+        {"replace", "I", "ONE", "valmin", "objects", "I", "F", "F", "T", "hperiod"},
+        {"argmax", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO", "size"},
+        {"argmin", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO", "size"},
+        {"first", "order", "initset", "trim", "I", "mostcommon"},
+        {"first", "order", "initset", "trim", "I", "leastcommon"},
+        {"first", "initset", "trim", "I"},
+        {"branch", "both", "T", "F", "hmirror", "I", "vmirror", "I"},
+        {"branch", "either", "T", "F", "hmirror", "I", "vmirror", "I"},
+        {"replace", "I", "ONE", "increment", "THREE"},
+        {"replace", "I", "ONE", "decrement", "THREE"},
+        {"replace", "I", "ONE", "crement", "THREE"},
+        {"replace", "I", "TWO", "multiply", "NEG_ONE", "sign", "NEG_ONE"},
+        {"replace", "I", "ONE", "first", "toivec", "THREE"},*/
+        {"replace", "I", "ONE", "last", "tojvec", "FOUR"},/*
+        {"replace", "I", "TWO", "first", "sfilter", "combine", "trim", "I", "compress", "I", "positive"},
+        {"subgrid", "dneighbors", "first", "righthalf", "I", "I"},
+        {"trim", "trim", "vconcat", "dmirror", "apply", "last", "canvas", "mostcolor", "I", "UP", "I"},
+        {"vupscale", "bottomhalf", "vconcat", "remove", "invert", "RIGHT", "dedupe", "interval", "last", "UNITY", "THREE", "ONE", "I", "NINE"},
+        {"righthalf", "subgrid", "dneighbors", "astuple", "first", "TWO_BY_ZERO", "THREE", "I"},
+        {"canvas", "divide", "FOUR", "branch", "greater", "index", "replace", "hconcat", "dmirror", "I", "I", "SEVEN", "EIGHT", "TWO_BY_ZERO", "EIGHT", "ONE", "THREE_BY_THREE", "TWO_BY_TWO"},
+        {"subgrid", "branch", "F", "compose", "last", "argmin", "lefthalf", "I", "I"},
+        {"cmirror", "rot270", "lefthalf", "remove", "chain", "first", "fork", "other", "I"},
+        {"upscale", "hmirror", "branch", "T", "lefthalf", "I", "matcher", "leastcommon", "centerofmass", "connect", "UP", "TWO_BY_TWO", "SIX"},
+        {"cmirror", "rot180", "remove", "fork", "extract", "first", "rbind", "I"},
+        {"move", "tophalf", "I", "prapply", "lbind", "crop", "rot180", "canvas", "width", "I", "ZERO_BY_TWO", "DOWN", "UNITY", "DOWN", "DOWN_LEFT"},
+        {"remove", "power", "lbind", "FIVE", "hconcat", "branch", "flip", "branch", "contained", "asobject", "I", "NEG_UNITY", "UP_RIGHT", "RIGHT", "T", "I", "I"},
+        {"righthalf", "remove", "fork", "mostcommon", "power", "matcher", "rot90", "I"},
+        {"tophalf", "rot270", "vconcat", "switch", "upscale", "apply", "extract", "colorfilter", "fgpartition", "I", "TEN", "NEG_ONE", "ONE", "SEVEN", "I"},
+        {"lefthalf", "vupscale", "canvas", "mostcolor", "compress", "I", "TWO_BY_TWO", "EIGHT"},
+        {"upscale", "canvas", "other", "other", "normalize", "neighbors", "sign", "NEG_UNITY", "leastcolor", "I", "FOUR", "TWO_BY_TWO", "SEVEN"},
+        {"rot270", "upscale", "I", "height", "backdrop", "connect", "NEG_UNITY", "ORIGIN"},
+        {"compress", "vupscale", "dmirror", "I", "width", "neighbors", "DOWN"},
+        {"canvas", "multiply", "double", "center", "neighbors", "THREE_BY_THREE", "sign", "RIGHT", "shape", "asobject", "I"},
+        {"dmirror", "remove", "flip", "portrait", "hmirror", "rot90", "cmirror", "cellwise", "I", "I", "ZERO", "I"},
+        {"rot270", "canvas", "colorcount", "prapply", "first", "connect", "astuple", "width", "I", "FOUR", "UP_RIGHT", "UP_RIGHT", "TWO", "TWO_BY_TWO"},
+        {"canvas", "width", "asindices", "bottomhalf", "crop", "I", "UP_RIGHT", "UNITY", "TWO_BY_TWO"},
+        {"lefthalf", "subgrid", "box", "toindices", "ofcolor", "rot180", "I", "EIGHT", "I"},
+        {"switch", "rot90", "bottomhalf", "vconcat", "identity", "ulcorner", "neighbors", "DOWN_LEFT", "I", "FIVE", "SIX"},
+        {"trim", "remove", "urcorner", "asindices", "I", "I"},
+        {"rot180", "switch", "subgrid", "backdrop", "vfrontier", "llcorner", "asindices", "vconcat", "I", "I", "I", "SEVEN", "NEG_TWO"},
+        {"rot270", "rot180", "canvas", "identity", "F", "lrcorner", "hmirror", "I"},
+        {"vupscale", "crop", "rot270", "rot180", "hconcat", "vconcat", "downscale", "vmirror", "I", "THREE", "I", "I", "TWO_BY_ZERO", "DOWN_LEFT", "SEVEN"},
+        {"dmirror", "toindices", "hmirror", "I"},
+        {"subgrid", "recolor", "ZERO", "vfrontier", "increment", "multiply", "TWO", "TWO_BY_TWO", "I"},
+        {"subgrid", "shift", "inbox", "outbox", "toobject", "asindices", "cmirror", "I", "I", "ORIGIN", "I"},
+        {"upscale", "rot90", "subgrid", "initset", "tojvec", "NEG_TWO", "subgrid", "dneighbors", "TWO_BY_TWO", "I", "EIGHT"},
+        {"underfill", "hmirror", "I", "FOUR", "corners", "ineighbors", "DOWN_LEFT"},
+        {"trim", "compress", "bottomhalf", "cover", "I", "box", "dneighbors", "ORIGIN"},
+        {"canvas", "uppermost", "hfrontier", "combine", "THREE_BY_THREE", "shape", "replace", "I", "FIVE", "SIX", "TWO_BY_TWO"},
+        {"vupscale", "identity", "hmirror", "dneighbors", "THREE_BY_THREE", "lowermost", "vfrontier", "shape", "I"},
+        {"righthalf", "canvas", "leftmost", "shift", "ofcolor", "I", "TWO", "UP_RIGHT", "TWO_BY_TWO"},
+        {"vupscale", "I", "rightmost", "neighbors", "THREE_BY_THREE"},
+        {"rot180", "cmirror", "branch", "square", "vfrontier", "combine", "UP_RIGHT", "ZERO_BY_TWO", "RIGHT", "I"},
+        {"upscale", "righthalf", "vmirror", "tophalf", "branch", "vline", "other", "hsplit", "I", "EIGHT", "TWO_BY_TWO", "I", "ONE", "SIX"},
+        {"replace", "vupscale", "switch", "branch", "hline", "vfrontier", "DOWN", "UP", "I", "FOUR", "FIVE", "NINE", "FOUR", "TEN"},
+        {"bottomhalf", "branch", "hmatching", "ineighbors", "DOWN", "toindices", "delta", "delta", "hfrontier", "RIGHT", "SIX", "I"},
+        {"tophalf", "branch", "vmatching", "ineighbors", "TWO_BY_TWO", "hfrontier", "DOWN", "lefthalf", "rot270", "downscale", "I", "TWO", "NEG_ONE"},
+        {"merge", "canvas", "subtract", "manhattan", "vfrontier", "NEG_UNITY", "dneighbors", "subtract", "index", "I", "THREE_BY_THREE", "TWO_BY_ZERO", "TWO_BY_TWO", "TWO_BY_TWO"},
+        {"branch", "adjacent", "hfrontier", "UP", "inbox", "recolor", "EIGHT", "dmirror", "neighbors", "TWO_BY_ZERO", "NEG_ONE", "tophalf", "I"},
+        {"rot90", "vconcat", "trim", "branch", "bordering", "connect", "DOWN_LEFT", "DOWN", "I", "DOWN_LEFT", "UP_RIGHT", "I"},
+        {"vconcat", "subgrid", "hfrontier", "centerofmass", "hmirror", "rot180", "I", "I", "I"},
+        {"rot90", "switch", "combine", "initset", "UNITY", "palette", "upscale", "upscale", "I", "NEG_ONE", "NINE", "ZERO", "NEG_ONE"},
+        {"hupscale", "remove", "numcolors", "rot180", "crop", "branch", "F", "SIX", "I", "RIGHT", "LEFT", "I", "TEN"},
+        {"replace", "cmirror", "delta", "ofcolor", "I", "SEVEN", "ONE", "EIGHT"},
+        {"hconcat", "upscale", "subgrid", "cmirror", "toobject", "vfrontier", "ORIGIN", "cmirror", "I", "I", "FIVE", "I"},
+        {"move", "lefthalf", "hupscale", "I", "SIX", "asobject", "compress", "lefthalf", "hmirror", "I", "TWO_BY_ZERO"},
+        {"vupscale", "rot90", "rot90", "vconcat", "I", "I", "EIGHT"},
+        {"rot180", "switch", "I", "NEG_TWO", "NEG_ONE"},
+        {"rot270", "subgrid", "hfrontier", "RIGHT", "I"},
+        {"hconcat", "subgrid", "neighbors", "mostcommon", "I", "hmirror", "vupscale", "rot180", "I", "SIX", "I"},
+        {"vmirror", "trim", "cellwise", "I", "hupscale", "other", "initset", "righthalf", "branch", "F", "UNITY", "I", "ORIGIN", "NINE", "FOUR"},
+        {"dmirror", "hupscale", "downscale", "lefthalf", "vmirror", "I", "EIGHT", "FIVE"},
+        {"vmirror", "hconcat", "combine", "cellwise", "hconcat", "hupscale", "cmirror", "bottomhalf", "I", "NEG_TWO", "I", "I", "SEVEN", "ORIGIN", "I"},
+        {"rot270", "hupscale", "cmirror", "I", "EIGHT"},
+        {"compress", "vupscale", "vconcat", "rot180", "I", "I", "SIX"},
+        {"hupscale", "I", "increment", "FIVE"},
+        {"downscale", "hconcat", "rot270", "dmirror", "I", "I", "THREE"},
+        {"rot90", "hconcat", "replace", "I", "ZERO", "TWO", "I"},
+        {"vmirror", "rot180", "replace", "vconcat", "canvas", "NEG_ONE", "RIGHT", "I", "ONE", "NEG_ONE"},
+        {"downscale", "subgrid", "hmirror", "identity", "vconcat", "leastcommon", "canvas", "add", "FIVE", "ORIGIN", "THREE_BY_THREE", "I", "I", "SIX"},
+        {"leastcommon", "hsplit", "replace", "rot90", "downscale", "I", "TWO", "TEN", "TWO", "THREE"},
+        {"crop", "cellwise", "branch", "T", "hupscale", "identity", "vsplit", "downscale", "vconcat", "I", "I", "SIX", "TWO", "THREE", "NINE", "I", "EIGHT", "ZERO_BY_TWO", "THREE_BY_THREE"},
+        {"vupscale", "dmirror", "bottomhalf", "dmirror", "cellwise", "compress", "tophalf", "switch", "I", "TWO", "EIGHT", "I", "EIGHT", "SIX"},
+        {"replace", "rot270", "downscale", "cmirror", "rot90", "I", "SEVEN", "NEG_ONE", "SEVEN"},
+        {"rot90", "last", "vsplit", "switch", "I", "THREE", "NINE", "TWO"},
+        {"canvas", "decrement", "TEN", "centerofmass", "identity", "I"},
+        {"vconcat", "vmirror", "replace", "I", "halve", "position", "vfrontier", "DOWN_LEFT", "vfrontier", "TWO_BY_ZERO", "ZERO", "I"},
+        {"hupscale", "switch", "subgrid", "ofcolor", "sfilter", "dmirror", "rot270", "I", "mostcommon", "index", "I", "RIGHT", "I", "EIGHT", "TWO", "SIX"},
+        {"dmirror", "hconcat", "canvas", "increment", "UP_RIGHT", "DOWN_LEFT", "I"},
+        {"hconcat", "subgrid", "corners", "box", "ineighbors", "divide", "TEN", "TWO_BY_TWO", "I", "I"},
+        {"hconcat", "vmirror", "connect", "ZERO_BY_TWO", "invert", "merge", "switch", "I", "NEG_ONE", "THREE", "I"},
+        {"cmirror", "tophalf", "trim", "rot180", "vconcat", "righthalf", "hconcat", "dmirror", "I", "I", "I"},
+        {"move", "hmirror", "tophalf", "lefthalf", "I", "upscale", "cmirror", "rot270", "I", "NEG_ONE", "ORIGIN"},
+        {"dmirror", "compress", "bottomhalf", "remove", "first", "TWO_BY_ZERO", "switch", "I", "EIGHT", "SIX"},
+        {"lefthalf", "hupscale", "righthalf", "I", "ONE"},
+        {"cmirror", "cellwise", "righthalf", "I", "I", "EIGHT"},
+        {"hupscale", "I", "size", "vfrontier", "DOWN_LEFT"},
+        {"rot270", "lefthalf", "replace", "subgrid", "toindices", "hfrontier", "DOWN_LEFT", "I", "SIX", "THREE"},
+        {"subgrid", "shoot", "astuple", "minimum", "first", "I", "EIGHT", "THREE_BY_THREE", "I"},
+        {"hmirror", "replace", "vupscale", "compress", "trim", "rot270", "vupscale", "I", "SIX", "TWO", "FOUR", "ONE"}*/};
+    
+    for (auto names : allNames)
     {
-        assert(connection.neuron().outputType() == typeid(hodel::Grid));
+        std::reverse(names.begin(), names.end());
+/*
+        try
+        {*/
+            auto const connection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid), names)};
 
-        std::any output;
-        auto const input{generateStructuredGrid({30, 30}, {30, 30})};
+            assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
-        iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-        output = connection.output();
+            std::any output;
+            auto const input{generateStructuredGrid({30, 30}, {30, 30})};
 
-        if (output.has_value())
-        {
-            auto const grid{std::any_cast<hodel::Grid>(output)};
-            bool add{true};
+            iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+/*
+            try
+            {*/
+                output = connection.output();
 
-            if (grid == input)
-                add = false;
+                if (output.has_value())
+                {
+                    auto const grid{std::any_cast<hodel::Grid>(output)};
+                    bool add{true};
 
-            auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
-            auto const minTransformer = [] (auto const& row) {
-                return row.empty()
-                    ? std::numeric_limits<hodel::Integer>::max()
-                    : *std::min_element(row.begin(), row.end());
-            };
-            auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
-            auto const maxTransformer = [] (auto const& row) {
-                return row.empty()
-                    ? std::numeric_limits<hodel::Integer>::min()
-                    : *std::max_element(row.begin(), row.end());
-            };
+                    if (grid == input)
+                        add = false;
 
-            auto const min = std::transform_reduce(
-                grid.begin(), grid.end(),
-                std::numeric_limits<hodel::Integer>::max(),
-                minReducer,
-                minTransformer);
-            auto const max = std::transform_reduce(
-                grid.begin(), grid.end(),
-                std::numeric_limits<hodel::Integer>::min(),
-                maxReducer,
-                maxTransformer);
+                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                    auto const minTransformer = [] (auto const& row) {
+                        return row.empty()
+                            ? std::numeric_limits<hodel::Integer>::max()
+                            : *std::min_element(row.begin(), row.end());
+                    };
+                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                    auto const maxTransformer = [] (auto const& row) {
+                        return row.empty()
+                            ? std::numeric_limits<hodel::Integer>::min()
+                            : *std::max_element(row.begin(), row.end());
+                    };
 
-            if (min < 0 || max > 9)
-                add = false;
+                    auto const min = std::transform_reduce(
+                        grid.begin(), grid.end(),
+                        std::numeric_limits<hodel::Integer>::max(),
+                        minReducer,
+                        minTransformer);
+                    auto const max = std::transform_reduce(
+                        grid.begin(), grid.end(),
+                        std::numeric_limits<hodel::Integer>::min(),
+                        maxReducer,
+                        maxTransformer);
 
-            auto const program{connection.string()};
+                    if (min < 0 || max > 9)
+                        add = false;
 
-            if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
-                add = false;
+                    auto const program{connection.string()};
 
-            std::cout << add << std::endl;
+                    if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+                        add = false;
+
+                    if (!add)
+                        std::cout << "Failed to add: " << connection.string() << std::endl;
+                }/*
+            }
+            catch (std::exception const&)
+            {
+                std::cout << "Failed connection: " << connection.string() << std::endl;
+            }
         }
+        catch (std::exception const&)
+        {
+            std::reverse(names.begin(), names.end());
+
+            std::cout << "Unknown symbol(s): ";
+
+            for (auto const& name : names)
+                std::cout << name << ", ";
+
+            std::cout << std::endl;
+        }*/
     }
 
     return 0;
-*/
+/**/
     std::set<Pair, PairLess> pairs;
     std::mutex mutex;
 
