@@ -157,15 +157,6 @@ static std::any size_set(std::any const& value)
 }
 
 template <typename T>
-static std::any init_set(std::any const& value)
-{
-    if (value.type() == typeid(typename T::value_type))
-        return T{std::any_cast<typename T::value_type>(value)};
-
-    return std::any{};
-}
-
-template <typename T>
 static std::any first_set(std::any const& container)
 {
     if (container.type() == typeid(T))
@@ -1325,6 +1316,15 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+template <typename T>
+static std::any init_set(std::any const& value)
+{
+    if (value.type() == typeid(typename T::value_type))
+        return T{std::any_cast<typename T::value_type>(value)};
+
+    return std::any{};
+}
+
 std::any hodel::initset(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -1576,21 +1576,21 @@ std::any sfilter(std::any const& container, std::function<std::any(std::vector<s
 
     auto const container_{std::any_cast<Container>(container)};
     Container result;
-
+/*
     try
-    {
+    {*/
         for (const auto& element : container_)
         {
             if (std::any_cast<hodel::Boolean>(condition({element})))
                 result.insert(result.end(), element);
         }
 
-        return result;
+        return result;/*
     }
     catch (std::exception const&)
     {
         return std::any{};
-    }
+    }*/
 
     return std::any{};
 }
@@ -1965,7 +1965,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
         auto const container_{std::any_cast<IntegerTuple>(container)};
         std::vector<Integer> const v{container_.first, container_.second};
 
-        return order({function, container});
+        return apply({function, v});
     }
 
     auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
@@ -2093,6 +2093,8 @@ std::any hodel::height(std::vector<std::any> const& args)
             return Integer{lm - um + 1};
         }
     }
+    else if (piece.type() == typeid(Grid))
+        return height({Piece{std::any_cast<Grid>(piece)}});
     else if (piece.type() == typeid(Object))
     {
         auto const object{std::any_cast<Object>(piece)};
@@ -4126,7 +4128,7 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0 || factor_ > 10)
+        if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         Grid result;
@@ -4172,7 +4174,7 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0 || factor_ > 10)
+        if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         Grid result;
@@ -4203,7 +4205,7 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         auto const element_{std::any_cast<Element>(element)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ < 0 || factor_ > 10)
+        if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
         if (std::holds_alternative<Grid>(element_))
