@@ -271,41 +271,11 @@ hodel::Grid generateStructuredGrid(
     return grid;
 }
 
-int main(int argc, char* argv[])
+void checkConnections(std::map<std::string, Neuron> const& variables, std::map<std::string, Neuron> const& primitives, Neuron& iNeuron,
+                      std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& variableNeuronsByOutputType,
+                      std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& neuronsByOutputType)
 {
-    if (argc < 3)
-    {
-        std::cerr << "Usage: " << argv[0] << " <depth> <count>" << std::endl;
-
-        return 1;
-    }
-
-    size_t const depth{static_cast<size_t>(std::stoi(argv[1]))};
-    size_t const count{static_cast<size_t>(std::stoi(argv[2]))};
-
-    auto const variables{dslVariableNeurons()};
-    auto const primitives{dslPrimitiveNeurons()};
-
-    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > variableNeuronsByOutputType;
-
-    for (auto const& variable : variables)
-        variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
-
-    Neuron iNeuron{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
-
-    variableNeuronsByOutputType[iNeuron.outputType()].emplace_back(iNeuron);
-
-    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > primitiveNeuronsByOutputType;
-
-    for (auto const& primitive : primitives)
-        primitiveNeuronsByOutputType[primitive.second.outputType()].emplace_back(primitive.second);
-
-    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > neuronsByOutputType{variableNeuronsByOutputType};
-
-    for (auto const& [i, v] : primitiveNeuronsByOutputType)
-        neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
-/**/
-    std::vector<std::vector<std::string> > allNames{/*
+    std::vector<std::vector<std::string> > allNames{
         {"apply", "identity", "cmirror", "righthalf", "I"},
         {"rot270", "hconcat", "vconcat", "crop", "canvas", "add", "size", "TWO_BY_ZERO", "FIVE", "astuple", "FIVE", "FIVE", "UP", "ORIGIN", "I", "I"},
         {"lefthalf", "downscale", "rot180", "righthalf", "rot90", "remove", "mostcommon", "subtract", "LEFT", "SIX", "I", "NEG_ONE"},
@@ -342,10 +312,11 @@ int main(int argc, char* argv[])
         {"replace", "I", "ONE", "decrement", "THREE"},
         {"replace", "I", "ONE", "crement", "THREE"},
         {"replace", "I", "TWO", "multiply", "NEG_ONE", "sign", "NEG_ONE"},
-        {"replace", "I", "ONE", "first", "toivec", "THREE"},*/
-        {"replace", "I", "ONE", "last", "tojvec", "FOUR"},/*
-        {"replace", "I", "TWO", "first", "sfilter", "combine", "trim", "I", "compress", "I", "positive"},
-        {"subgrid", "dneighbors", "first", "righthalf", "I", "I"},
+        {"replace", "I", "ONE", "first", "toivec", "THREE"},
+        {"replace", "I", "ONE", "last", "tojvec", "FOUR"},
+        {"replace", "I", "TWO", "first", "sfilter", "interval", "invert", "SIX", "SIX", "ONE", "positive"},/*
+        //{"mfilter"}, //cf. below
+        //{"extract"},
         {"trim", "trim", "vconcat", "dmirror", "apply", "last", "canvas", "mostcolor", "I", "UP", "I"},
         {"vupscale", "bottomhalf", "vconcat", "remove", "invert", "RIGHT", "dedupe", "interval", "last", "UNITY", "THREE", "ONE", "I", "NINE"},
         {"righthalf", "subgrid", "dneighbors", "astuple", "first", "TWO_BY_ZERO", "THREE", "I"},
@@ -430,74 +401,37 @@ int main(int argc, char* argv[])
         {"rot270", "lefthalf", "replace", "subgrid", "toindices", "hfrontier", "DOWN_LEFT", "I", "SIX", "THREE"},
         {"subgrid", "shoot", "astuple", "minimum", "first", "I", "EIGHT", "THREE_BY_THREE", "I"},
         {"hmirror", "replace", "vupscale", "compress", "trim", "rot270", "vupscale", "I", "SIX", "TWO", "FOUR", "ONE"}*/};
-    
+
+    std::vector<Connection> connections;
+/*
+    {
+        Connection const width{variables.at("width"), {}};
+        Connection const greater{variables.at("greater"), {}};
+        Connection const ONE{variables.at("ONE"), {}};
+        Connection const rbind{primitives.at("rbind5"), {greater, ONE}};
+        Connection const compose{primitives.at("compose"), {rbind, width}};
+        Connection const I{iNeuron, {}};
+        Connection const F{variables.at("F"), {}};
+        Connection const T{variables.at("T"), {}};
+        Connection const objects{primitives.at("objects"), {I, F, F, T}};
+        Connection const mfilter{primitives.at("mfilter42"), {objects, compose}};
+        Connection const hmirror{primitives.at("hmirror0"), {I}};
+        Connection const paint{primitives.at("paint"), {hmirror, mfilter}};
+
+        auto const input{generateStructuredGrid({30, 30}, {30, 30})}; //TODO: to remove
+        iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; }; //TODO: to remove
+        auto const o = mfilter.output(); //TODO: to remove
+
+        connections.emplace_back(paint);
+    }
+*/
     for (auto names : allNames)
     {
         std::reverse(names.begin(), names.end());
-/*
+
         try
-        {*/
-            auto const connection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid), names)};
-
-            assert(connection.neuron().outputType() == typeid(hodel::Grid));
-
-            std::any output;
-            auto const input{generateStructuredGrid({30, 30}, {30, 30})};
-
-            iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-/*
-            try
-            {*/
-                output = connection.output();
-
-                if (output.has_value())
-                {
-                    auto const grid{std::any_cast<hodel::Grid>(output)};
-                    bool add{true};
-
-                    if (grid == input)
-                        add = false;
-
-                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
-                    auto const minTransformer = [] (auto const& row) {
-                        return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::max()
-                            : *std::min_element(row.begin(), row.end());
-                    };
-                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
-                    auto const maxTransformer = [] (auto const& row) {
-                        return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::min()
-                            : *std::max_element(row.begin(), row.end());
-                    };
-
-                    auto const min = std::transform_reduce(
-                        grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::max(),
-                        minReducer,
-                        minTransformer);
-                    auto const max = std::transform_reduce(
-                        grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::min(),
-                        maxReducer,
-                        maxTransformer);
-
-                    if (min < 0 || max > 9)
-                        add = false;
-
-                    auto const program{connection.string()};
-
-                    if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
-                        add = false;
-
-                    if (!add)
-                        std::cout << "Failed to add: " << connection.string() << std::endl;
-                }/*
-            }
-            catch (std::exception const&)
-            {
-                std::cout << "Failed connection: " << connection.string() << std::endl;
-            }
+        {
+            connections.emplace_back(buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, static_cast<size_t>(-1), typeid(hodel::Grid), names));
         }
         catch (std::exception const&)
         {
@@ -509,11 +443,111 @@ int main(int argc, char* argv[])
                 std::cout << name << ", ";
 
             std::cout << std::endl;
-        }*/
+        }
     }
 
+    for (auto& connection : connections)
+    {
+        assert(connection.neuron().outputType() == typeid(hodel::Grid));
+
+        std::any output;
+        auto const input{generateStructuredGrid({30, 30}, {30, 30})};
+
+        iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+/*
+        try
+        {*/
+            output = connection.output();
+
+            if (output.has_value())
+            {
+                auto const grid{std::any_cast<hodel::Grid>(output)};
+                bool add{true};
+
+                if (grid == input)
+                    add = false;
+
+                auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                auto const minTransformer = [] (auto const& row) {
+                    return row.empty()
+                        ? std::numeric_limits<hodel::Integer>::max()
+                        : *std::min_element(row.begin(), row.end());
+                };
+                auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                auto const maxTransformer = [] (auto const& row) {
+                    return row.empty()
+                        ? std::numeric_limits<hodel::Integer>::min()
+                        : *std::max_element(row.begin(), row.end());
+                };
+
+                auto const min = std::transform_reduce(
+                    grid.begin(), grid.end(),
+                    std::numeric_limits<hodel::Integer>::max(),
+                    minReducer,
+                    minTransformer);
+                auto const max = std::transform_reduce(
+                    grid.begin(), grid.end(),
+                    std::numeric_limits<hodel::Integer>::min(),
+                    maxReducer,
+                    maxTransformer);
+
+                if (min < 0 || max > 9)
+                    add = false;
+
+                auto const program{connection.string()};
+
+                if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+                    add = false;
+
+                if (!add)
+                    std::cout << "Failed to add: " << connection.string() << std::endl;
+            }/*
+        }
+        catch (std::exception const&)
+        {
+            std::cout << "Failed connection: " << connection.string() << std::endl;
+        }*/
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    if (argc < 3)
+    {
+        std::cerr << "Usage: " << argv[0] << " <depth> <count>" << std::endl;
+
+        return 1;
+    }
+
+    size_t const depth{static_cast<size_t>(std::stoi(argv[1]))};
+    size_t const count{static_cast<size_t>(std::stoi(argv[2]))};
+
+    auto const variables{dslVariableNeurons()};
+    auto const primitives{dslPrimitiveNeurons()};
+
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > variableNeuronsByOutputType;
+
+    for (auto const& variable : variables)
+        variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
+
+    Neuron iNeuron{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
+
+    variableNeuronsByOutputType[iNeuron.outputType()].emplace_back(iNeuron);
+
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > primitiveNeuronsByOutputType;
+
+    for (auto const& primitive : primitives)
+        primitiveNeuronsByOutputType[primitive.second.outputType()].emplace_back(primitive.second);
+
+    std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > neuronsByOutputType{variableNeuronsByOutputType};
+
+    for (auto const& [i, v] : primitiveNeuronsByOutputType)
+        neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
+/*
+    checkConnections(variables, primitives, iNeuron, variableNeuronsByOutputType, neuronsByOutputType);
+
     return 0;
-/**/
+*/
     std::set<Pair, PairLess> pairs;
     std::mutex mutex;
 
