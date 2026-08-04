@@ -1865,7 +1865,7 @@ std::any hodel::rbind(std::vector<std::any> const& args)
 
         return std::function<std::any(std::vector<std::any> const&)>{[f, fixed] (std::vector<std::any> const& args) -> std::any
         {
-            std::vector<std::any> new_args{args};
+            auto new_args = args;
             new_args.emplace_back(fixed);
 
             return f(new_args);
@@ -4288,7 +4288,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const factor_{std::any_cast<Integer>(factor)};
 
-        if (factor_ <= 0)
+        if (factor_ <= 1)
             throw std::runtime_error{"Wrong value"};
 
         if (grid_.empty())
