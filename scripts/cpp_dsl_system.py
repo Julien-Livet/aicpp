@@ -43,11 +43,11 @@ dslTypes["FrozenSet"] = frozenSetTypes
 
 containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"] + dslTypes["IntegerTuple"]
 
-dslTypes["Container"] = containerTypes + ["std::vector<Integer>"]
+dslTypes["Container"] = containerTypes + ["std::vector<Integer>"] + ["std::vector<Grid>"]
 dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
 dslTypes["Container1"] = dslTypes["Container"]
 dslTypes["Container2"] = dslTypes["Container"]
-dslTypes["ContainerContainer"] = dslTypes["Objects"] + dslTypes["IndicesSet"] # + dslTypes["Grid"]
+dslTypes["ContainerContainer"] = dslTypes["Objects"] + dslTypes["IndicesSet"] + dslTypes["Grid"] + ["std::vector<Grid>"]
 
 anyTypes = []
 
