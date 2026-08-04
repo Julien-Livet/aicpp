@@ -403,7 +403,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"hmirror", "replace", "vupscale", "compress", "trim", "rot270", "vupscale", "I", "SIX", "TWO", "FOUR", "ONE"}*/};
 
     std::vector<Connection> connections;
-/*
+
     {
         Connection const width{variables.at("width"), {}};
         Connection const greater{variables.at("greater"), {}};
@@ -418,13 +418,13 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint"), {hmirror, mfilter}};
 
-        auto const input{generateStructuredGrid({30, 30}, {30, 30})}; //TODO: to remove
+        hodel::Grid const input{{1, 1}, {3, 4}, {2, 2}, {5, 6}}; //TODO: to remove
         iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; }; //TODO: to remove
         auto const o = mfilter.output(); //TODO: to remove
 
         connections.emplace_back(paint);
     }
-*/
+
     for (auto names : allNames)
     {
         std::reverse(names.begin(), names.end());
