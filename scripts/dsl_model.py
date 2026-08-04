@@ -1,6 +1,7 @@
 import ast
 import collections.abc
 from connection import compatibleType
+import datetime
 from dsl_engine import size_cost, bounding_box_cost, pixel_overlap_cost, value_cost
 from dsl_dataset import execute_dsl, isValidGrid
 from dsl_rl import VOCAB
@@ -1038,10 +1039,11 @@ if (__name__ == "__main__"):
         computeGraphs: bool = True
         temperature: float = 1.0
         testedPrograms = set()
+        count: int = 1
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  Searched program: {costs[0][0]}, cost: {costs[0][1].sum(axis = 0, skipna = False)['Total cost']}")
+                print(f"  {datetime.datetime.now()} #{count} Searched program: {costs[0][0]}, cost: {costs[0][1].sum(axis = 0, skipna = False)['Total cost']}")
                 show = False
 
             if (computeGraphs):
@@ -1117,7 +1119,12 @@ if (__name__ == "__main__"):
                         - target_cost
                     )
                 )
-                L_total = 0.25 * L_tokens + 0.75 * L_cost
+                L_total_cost = torch.log1p(generated_cost)
+
+                if (generated_cost < target_cost):
+                    L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
+                else:
+                    L_total = 0.0 * L_tokens + 0.25 * L_cost + 0.75 * L_total_cost
 
             if (not program in testedPrograms):
                 temperature = max(1.0, temperature * 0.95)
@@ -1136,7 +1143,7 @@ if (__name__ == "__main__"):
                     "vocab_size" : model.decoder.vocab_size,
                 }, modelFilename)
 
-                print(f"  Found program: {program}, cost: {cost}")
+                print(f"    Found program: {program}, cost: {cost}")
                 show = True
                 computeGraphs = True
 
@@ -1147,4 +1154,6 @@ if (__name__ == "__main__"):
                 while (len(costs) and cost <= costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
                     costs.pop(0)
 
-        print(f"Found program: {candidates[-1][0]}")
+            count += 1
+
+        print(f"Found program: {candidates[-1][0]} ({count} iterations)")
