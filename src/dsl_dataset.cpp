@@ -19,35 +19,12 @@ using namespace aicpp;
 
 Connection buildNamedConnection(std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& variableNeuronsByOutputType,
                                 std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& neuronsByOutputType,
-                                size_t depth, std::type_index const& type,
+                                std::type_index const& type,
                                 std::vector<std::string>& names)
 {
     assert(names.size());
 
     std::random_device rd;
-
-    if (!depth)
-    {
-        std::uniform_int_distribution<size_t> dist(0, variableNeuronsByOutputType.at(type).size() - 1);
-        auto const& neurons{variableNeuronsByOutputType.at(type)};
-
-        for (auto const& n : neurons)
-        {
-            auto const& neuron{n.get()};
-
-            if (neuron.name() == names.back())
-            {
-                names.pop_back();
-
-                assert(neuron.inputTypes().empty());
-
-                return Connection{neuron, {}};
-            }
-        }
-
-        assert(0);
-    }
-
     std::uniform_int_distribution<size_t> dist(0, neuronsByOutputType.at(type).size() - 1);
     auto const& neurons{neuronsByOutputType.at(type)};
     auto const originalNames{names};
@@ -66,7 +43,7 @@ Connection buildNamedConnection(std::map<std::type_index, std::vector<std::refer
             {
                 for (auto const& inputType : neuron.inputTypes())
                 {
-                    Connection const& inputConnection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, depth - 1, inputType, names)};
+                    Connection const& inputConnection{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, inputType, names)};
                     inputs.emplace_back(inputConnection);
                 }
 
@@ -343,12 +320,19 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"crop", "I", "divide", "shape", "I", "TWO", "astuple", "FOUR", "FIVE"},
         {"branch", "portrait", "I", "hmirror", "I", "cmirror", "I"},
         {"replace", "I", "mostcolor", "I", "colorcount", "I", "leastcolor", "I"},
-        {"paint", "vmirror", "I", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I"},
-        {"paint", "vmirror", "I", "toobject", "asindices", "cmirror", "I", "cmirror", "I"},
-        {"paint", "vmirror", "I", "toobject", "ofcolor", "I", "mostcolor", "I", "I"},
+        {"underpaint", "cmirror", "I", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I"},
+        {"paint", "dmirror", "I", "toobject", "asindices", "cmirror", "I", "cmirror", "I"},
+        {"underpaint", "hmirror", "I", "toobject", "ofcolor", "I", "mostcolor", "I", "I"},
         {"paint", "vmirror", "I", "toobject", "toindices", "asobject", "vmirror", "I", "vmirror", "I"},
-        {"paint", "vmirror", "I", "recolor", "leastcolor", "I", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I"},
-        {"paint", "vmirror", "I", "recolor", "leastcolor", "I", "shift", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I", "UNITY"},};
+        {"underpaint", "cmirror", "I", "recolor", "leastcolor", "I", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I"},
+        {"paint", "dmirror", "I", "recolor", "leastcolor", "I", "shift", "first", "colorfilter", "objects", "I", "T", "F", "F", "mostcolor", "I", "UNITY"},
+        {"underpaint", "hmirror", "I", "toobject", "normalize", "asindices", "trim", "I", "I"},
+        {"paint", "vmirror", "I", "toobject", "dneighbors", "center", "asindices", "I", "I"},
+        {"underpaint", "cmirror", "I", "toobject", "ineighbors", "center", "asindices", "I", "I"},
+        {"paint", "dmirror", "I", "toobject", "neighbors", "center", "asindices", "I", "I"},
+        {"underpaint", "hmirror", "I", "first", "fgpartition", "I"},
+        {"branch", "square", "I", "hmirror", "I", "cmirror", "I"},
+    };
 
     std::vector<Connection> connections;
 
@@ -392,7 +376,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
         try
         {
-            connections.emplace_back(buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, static_cast<size_t>(-1), typeid(hodel::Grid), names));
+            connections.emplace_back(buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, typeid(hodel::Grid), names));
         }
         catch (std::exception const&)
         {
@@ -410,6 +394,15 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
     for (auto& connection : connections)
     {
         assert(connection.neuron().outputType() == typeid(hodel::Grid));
+
+        auto const program{connection.string()};
+
+        if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+        {
+            std::cout << "Failed to add: " << connection.string() << std::endl;
+
+            continue;
+        }
 
         std::any output;
         bool add{true};
@@ -458,11 +451,6 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
                     if (min < 0 || max > 9)
                         add = false;
-
-                    auto const program{connection.string()};
-
-                    if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
-                        continue;
 
                     if (add)
                         break;
@@ -530,6 +518,11 @@ int main(int argc, char* argv[])
 
             assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
+            auto const program{connection.string()};
+
+            if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+                return;
+
             std::any output;
             auto const input{generateStructuredGrid()};
 
@@ -577,11 +570,6 @@ int main(int argc, char* argv[])
 
                     if (min < 0 || max > 9)
                         add = false;
-
-                    auto const program{connection.string()};
-
-                    if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
-                        continue;
 
                     if (add)
                     {
