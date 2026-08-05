@@ -51,8 +51,8 @@ namespace hodel
 
     IntegerTuple constexpr ORIGIN = IntegerTuple{0, 0};
     IntegerTuple constexpr UNITY = IntegerTuple{1, 1};
-    IntegerTuple constexpr NEG_UNITY = IntegerTuple{1, -1};
-    IntegerTuple constexpr UP_RIGHT = IntegerTuple{1, 1};
+    IntegerTuple constexpr NEG_UNITY = IntegerTuple{-1, -1};
+    IntegerTuple constexpr UP_RIGHT = IntegerTuple{-1, 1};
     IntegerTuple constexpr DOWN_LEFT = IntegerTuple{1, -1};
 
     IntegerTuple constexpr ZERO_BY_TWO = IntegerTuple{0, 2};
@@ -136,8 +136,8 @@ namespace hodel
     std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
     std::any height(std::vector<std::any> const& args); //Integer(PieceObject): height of grid or patch
     std::any width(std::vector<std::any> const& args); //Integer(PieceObject): width of grid or patch
-    std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
-    std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
+    std::any shape(std::vector<std::any> const& args); //IntegerTuple(PieceObject): height and width of grid or patch 
+    std::any portrait(std::vector<std::any> const& args); //Boolean(PieceObject): whether height is greater than width
     std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
     std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
     //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
