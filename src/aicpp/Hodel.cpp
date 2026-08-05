@@ -157,47 +157,6 @@ static std::any size_set(std::any const& value)
 }
 
 template <typename T>
-static std::any first_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        if (x.size())
-            return *x.begin();
-    }
-
-    return std::any{};
-}
-
-template <typename T>
-static std::any last_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        if (x.size())
-            return *x.rbegin();
-    }
-
-    return std::any{};
-}
-
-template <typename T>
-static std::any vector_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        return std::vector<typename T::value_type>{x.begin(), x.end()};
-    }
-
-    return std::any{};
-}
-
-template <typename T>
 static std::any difference_sets(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
@@ -1576,21 +1535,21 @@ std::any sfilter(std::any const& container, std::function<std::any(std::vector<s
 
     auto const container_{std::any_cast<Container>(container)};
     Container result;
-/*
+
     try
-    {*/
+    {
         for (const auto& element : container_)
         {
             if (std::any_cast<hodel::Boolean>(condition({element})))
                 result.insert(result.end(), element);
         }
 
-        return result;/*
+        return result;
     }
     catch (std::exception const&)
     {
         return std::any{};
-    }*/
+    }
 
     return std::any{};
 }
@@ -1639,6 +1598,19 @@ std::any hodel::mfilter(std::vector<std::any> const& args)
     return merge({sfilter({container, condition})});
 }
 
+template <typename T>
+static std::any vector_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        return std::vector<typename T::value_type>{x.begin(), x.end()};
+    }
+
+    return std::any{};
+}
+
 std::any hodel::totuple(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -1652,8 +1624,25 @@ std::any hodel::totuple(std::vector<std::any> const& args)
     if (auto r = vector_set<Indices>   (container); r.has_value()) return r;
     if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = vector_set<std::vector<Integer> >(container); r.has_value()) return r;
+    if (auto r = vector_set<std::vector<Grid> >(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
+}
+
+template <typename T>
+static std::any first_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        if (x.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        return *x.begin();
+    }
+
+    return std::any{};
 }
 
 std::any hodel::first(std::vector<std::any> const& args)
@@ -1667,10 +1656,15 @@ std::any hodel::first(std::vector<std::any> const& args)
         return std::any_cast<IntegerTuple>(container).first;
 
     if (auto r = first_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = first_set<Object>    (container); r.has_value()) return r;
-    if (auto r = first_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = first_set<Indices>   (container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<Integer> >(container); r.has_value()) return r;
+    if (auto r = first_set<Object>(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<Cell> >(container); r.has_value()) return r;
+    if (auto r = first_set<Objects>(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<Object> >(container); r.has_value()) return r;
+    if (auto r = first_set<Indices>(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<IntegerTuple> >(container); r.has_value()) return r;
     if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<Indices> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Integer> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Grid> >(container); r.has_value()) return r;
 
@@ -1687,6 +1681,22 @@ std::any hodel::first(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+template <typename T>
+static std::any last_set(std::any const& container)
+{
+    if (container.type() == typeid(T))
+    {
+        auto const x{std::any_cast<T>(container)};
+
+        if (x.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        return *x.rbegin();
+    }
+
+    return std::any{};
+}
+
 std::any hodel::last(std::vector<std::any> const& args)
 {
     if (args.size() != 1)
@@ -1698,11 +1708,17 @@ std::any hodel::last(std::vector<std::any> const& args)
         return std::any_cast<IntegerTuple>(container).second;
 
     if (auto r = last_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = last_set<Object>    (container); r.has_value()) return r;
-    if (auto r = last_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = last_set<Indices>   (container); r.has_value()) return r;
-    if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Integer> >(container); r.has_value()) return r;
+    if (auto r = last_set<Object>(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Cell> >(container); r.has_value()) return r;
+    if (auto r = last_set<Objects>(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Object> >(container); r.has_value()) return r;
+    if (auto r = last_set<Indices>(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<IntegerTuple> >(container); r.has_value()) return r;
+    if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Indices> >(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Integer> >(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<Grid> >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -2163,7 +2179,7 @@ std::any hodel::shape(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return shape({Piece(std::any_cast<Patch>(piece))});
 
-    if (piece.type() == typeid(Piece))
+    if (piece.type() == typeid(Piece) || piece.type() == typeid(Object))
         return IntegerTuple{std::any_cast<Integer>(height(args)), std::any_cast<Integer>(width(args))};
 
     throw std::runtime_error{"Wrong value"};
@@ -2176,7 +2192,12 @@ std::any hodel::portrait(std::vector<std::any> const& args)
 
     auto const piece{args[0]};
 
-    if (piece.type() == typeid(Piece))
+    if (piece.type() == typeid(Grid))
+        return portrait({Piece(std::any_cast<Grid>(piece))});
+    else if (piece.type() == typeid(Patch))
+        return portrait({Piece(std::any_cast<Patch>(piece))});
+
+    if (piece.type() == typeid(Piece) || piece.type() == typeid(Object))
     {
         auto const h{std::any_cast<Integer>(height(args))};
         auto const w{std::any_cast<Integer>(width(args))};
@@ -2194,6 +2215,11 @@ std::any hodel::colorcount(std::vector<std::any> const& args)
 
     auto const element{args[0]};
     auto const value{args[1]};
+
+    if (element.type() == typeid(Grid))
+        return colorcount({Element(std::any_cast<Grid>(element)), value});
+    else if (element.type() == typeid(Object))
+        return colorcount({Element(std::any_cast<Object>(element)), value});
 
     if (element.type() == typeid(Element) && value.type() == typeid(Integer))
     {
@@ -2564,6 +2590,11 @@ std::any hodel::recolor(std::vector<std::any> const& args)
 
     auto const value{args[0]};
     auto const patch{args[1]};
+
+    if (patch.type() == typeid(Object))
+        return recolor({value, Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return recolor({value, Patch{std::any_cast<Indices>(patch)}});
 
     if (value.type() == typeid(Integer) && patch.type() == typeid(Patch))
     {
@@ -3467,6 +3498,11 @@ std::any hodel::toobject(std::vector<std::any> const& args)
             return toobject({patch, std::get<Grid>(piece)});
     }
 
+    if (patch.type() == typeid(Object))
+        return toobject({Patch{std::any_cast<Object>(patch)}, grid});
+    else if (patch.type() == typeid(Indices))
+        return toobject({Patch{std::any_cast<Indices>(patch)}, grid});
+
     if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
     {
         auto const& patch_{std::any_cast<Patch>(patch)};
@@ -3474,13 +3510,13 @@ std::any hodel::toobject(std::vector<std::any> const& args)
 
         try
         {
-            auto const h{std::any_cast<Integer>(grid_.size())};
-            auto const w{std::any_cast<Integer>(grid_.at(0).size())};
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
             Object object;
 
             if (grid_.empty())
-                return object;
+                throw std::runtime_error{"Wrong value"};
 
             for (auto const& [i, j] : std::any_cast<Indices>(toindices({patch})))
             {
