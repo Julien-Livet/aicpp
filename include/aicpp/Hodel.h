@@ -64,8 +64,6 @@ namespace hodel
     typedef Numerical Numerical2;
     typedef Numerical Numerical3;
 
-    typedef std::variant<Piece, Object> PieceObject;
-
     std::any identity(std::vector<std::any> const& args); //Any(Any): identity function
     std::any add(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): addition
     std::any subtract(std::vector<std::any> const& args); //Numerical1(Numerical2, Numerical3): subtraction
@@ -134,10 +132,10 @@ namespace hodel
     //std::any prapply(std::vector<std::any> const& args); //FrozenSet(Callable, Container, Container): apply function on cartesian product
     std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
     std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
-    std::any height(std::vector<std::any> const& args); //Integer(PieceObject): height of grid or patch
-    std::any width(std::vector<std::any> const& args); //Integer(PieceObject): width of grid or patch
-    std::any shape(std::vector<std::any> const& args); //IntegerTuple(PieceObject): height and width of grid or patch 
-    std::any portrait(std::vector<std::any> const& args); //Boolean(PieceObject): whether height is greater than width
+    std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
+    std::any width(std::vector<std::any> const& args); //Integer(Piece): width of grid or patch
+    std::any shape(std::vector<std::any> const& args); //IntegerTuple(Piece): height and width of grid or patch 
+    std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
     std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
     std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
     //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
@@ -162,7 +160,7 @@ namespace hodel
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
     std::any rightmost(std::vector<std::any> const& args); //Integer(Patch): column index of rightmost occupied cell
-    std::any square(std::vector<std::any> const& args); //Boolean(PieceObject): whether the piece forms a square
+    std::any square(std::vector<std::any> const& args); //Boolean(Piece): whether the piece forms a square
     std::any vline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a vertical line
     std::any hline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a horizontal line
     std::any hmatching(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether there exists a row for which both patches have cells
