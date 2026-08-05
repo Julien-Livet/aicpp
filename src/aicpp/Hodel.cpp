@@ -3183,6 +3183,10 @@ std::any hodel::vline(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
+    else if (patch.type() == typeid(Object))
+        return vline({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return vline({Patch{std::any_cast<Indices>(patch)}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -3210,6 +3214,10 @@ std::any hodel::hline(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
+    else if (patch.type() == typeid(Object))
+        return hline({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return hline({Patch{std::any_cast<Indices>(patch)}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -3219,8 +3227,35 @@ std::any hodel::hmatching(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const a{args[0]};
-    auto const b{args[1]};
+    auto a{args[0]};
+    auto b{args[1]};
+
+    bool recall{false};
+
+    if (a.type() == typeid(Object))
+    {
+        a = Patch{std::any_cast<Object>(a)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        a = Patch{std::any_cast<Indices>(a)};
+        recall = true;
+    }
+
+    if (b.type() == typeid(Object))
+    {
+        b = Patch{std::any_cast<Object>(b)};
+        recall = true;
+    }
+    else if (b.type() == typeid(Indices))
+    {
+        b = Patch{std::any_cast<Indices>(b)};
+        recall = true;
+    }
+
+    if (recall)
+        return hmatching({a, b});
 
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
@@ -3253,8 +3288,35 @@ std::any hodel::vmatching(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const a{args[0]};
-    auto const b{args[1]};
+    auto a{args[0]};
+    auto b{args[1]};
+
+    bool recall{false};
+
+    if (a.type() == typeid(Object))
+    {
+        a = Patch{std::any_cast<Object>(a)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        a = Patch{std::any_cast<Indices>(a)};
+        recall = true;
+    }
+
+    if (b.type() == typeid(Object))
+    {
+        b = Patch{std::any_cast<Object>(b)};
+        recall = true;
+    }
+    else if (b.type() == typeid(Indices))
+    {
+        b = Patch{std::any_cast<Indices>(b)};
+        recall = true;
+    }
+
+    if (recall)
+        return vmatching({a, b});
 
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
@@ -3287,8 +3349,35 @@ std::any hodel::manhattan(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const a{args[0]};
-    auto const b{args[1]};
+    auto a{args[0]};
+    auto b{args[1]};
+
+    bool recall{false};
+
+    if (a.type() == typeid(Object))
+    {
+        a = Patch{std::any_cast<Object>(a)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        a = Patch{std::any_cast<Indices>(a)};
+        recall = true;
+    }
+
+    if (b.type() == typeid(Object))
+    {
+        b = Patch{std::any_cast<Object>(b)};
+        recall = true;
+    }
+    else if (b.type() == typeid(Indices))
+    {
+        b = Patch{std::any_cast<Indices>(b)};
+        recall = true;
+    }
+
+    if (recall)
+        return manhattan({a, b});
 
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
@@ -3321,8 +3410,35 @@ std::any hodel::adjacent(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const a{args[0]};
-    auto const b{args[1]};
+    auto a{args[0]};
+    auto b{args[1]};
+
+    bool recall{false};
+
+    if (a.type() == typeid(Object))
+    {
+        a = Patch{std::any_cast<Object>(a)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        a = Patch{std::any_cast<Indices>(a)};
+        recall = true;
+    }
+
+    if (b.type() == typeid(Object))
+    {
+        b = Patch{std::any_cast<Object>(b)};
+        recall = true;
+    }
+    else if (b.type() == typeid(Indices))
+    {
+        b = Patch{std::any_cast<Indices>(b)};
+        recall = true;
+    }
+
+    if (recall)
+        return adjacent({a, b});
 
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
@@ -3355,6 +3471,11 @@ std::any hodel::bordering(std::vector<std::any> const& args)
             return bordering({patch, std::get<Grid>(piece)});
     }
 
+    if (patch.type() == typeid(Object))
+        return bordering({Patch{std::any_cast<Object>(patch)}, grid});
+    else if (patch.type() == typeid(Indices))
+        return bordering({Patch{std::any_cast<Indices>(patch)}, grid});
+
     if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
@@ -3383,6 +3504,11 @@ std::any hodel::centerofmass(std::vector<std::any> const& args)
         throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
+
+    if (patch.type() == typeid(Object))
+        return centerofmass({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return centerofmass({Patch{std::any_cast<Indices>(patch)}});
 
     if (patch.type() == typeid(Patch))
     {
@@ -3421,6 +3547,11 @@ std::any hodel::palette(std::vector<std::any> const& args)
 
     auto const element{args[0]};
 
+    if (element.type() == typeid(Object))
+        return palette({Element{std::any_cast<Object>(element)}});
+    else if (element.type() == typeid(Grid))
+        return palette({Element{std::any_cast<Grid>(element)}});
+
     if (element.type() == typeid(Element))
     {
         auto const element_{std::any_cast<Element>(element)};
@@ -3454,6 +3585,11 @@ std::any hodel::numcolors(std::vector<std::any> const& args)
         throw std::runtime_error{"Wrong value"};
 
     auto const element{args[0]};
+
+    if (element.type() == typeid(Object))
+        return numcolors({Element{std::any_cast<Object>(element)}});
+    else if (element.type() == typeid(Grid))
+        return numcolors({Element{std::any_cast<Grid>(element)}});
 
     if (element.type() == typeid(Element))
     {
@@ -3966,6 +4102,11 @@ std::any hodel::fill(std::vector<std::any> const& args)
             return fill({std::get<Grid>(piece), value, patch});
     }
 
+    if (patch.type() == typeid(Object))
+        return fill({grid, value, Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return fill({grid, value, Patch{std::any_cast<Indices>(patch)}});
+
     if (grid.type() == typeid(Grid) && value.type() == typeid(Integer) && patch.type() == typeid(Patch))
     {
         auto const grid_{std::any_cast<Grid>(grid)};
@@ -4065,6 +4206,11 @@ std::any hodel::underfill(std::vector<std::any> const& args)
         if (std::holds_alternative<Grid>(piece))
             return underfill({std::get<Grid>(piece), value, patch});
     }
+
+    if (patch.type() == typeid(Object))
+        return underfill({grid, value, Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return underfill({grid, value, Patch{std::any_cast<Indices>(patch)}});
 
     if (grid.type() == typeid(Grid) && value.type() == typeid(Integer) && patch.type() == typeid(Patch))
     {
@@ -4800,7 +4946,7 @@ std::any hodel::position(std::vector<std::any> const& args)
         b = Patch{std::any_cast<Object>(b)};
         recall = true;
     }
-    else if (a.type() == typeid(Indices))
+    else if (b.type() == typeid(Indices))
     {
         b = Patch{std::any_cast<Indices>(b)};
         recall = true;
@@ -4808,7 +4954,7 @@ std::any hodel::position(std::vector<std::any> const& args)
 
     if (recall)
         return position({a, b});
-    
+
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
         auto const a_{std::any_cast<Patch>(a)};
@@ -5008,6 +5154,11 @@ std::any hodel::cover(std::vector<std::any> const& args)
         if (std::holds_alternative<Grid>(piece))
             return cover({std::get<Grid>(piece), patch});
     }
+
+    if (patch.type() == typeid(Indices))
+        return cover({grid, Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return cover({grid, Patch(std::any_cast<Object>(patch))});
 
     if (grid.type() == typeid(Grid) && patch.type() == typeid(Patch))
     {
@@ -5233,6 +5384,11 @@ std::any hodel::backdrop(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
 
+    if (patch.type() == typeid(Indices))
+        return backdrop({Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return backdrop({Patch(std::any_cast<Object>(patch))});
+
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
@@ -5283,6 +5439,11 @@ std::any hodel::delta(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
 
+    if (patch.type() == typeid(Indices))
+        return delta({Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return delta({Patch(std::any_cast<Object>(patch))});
+
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
@@ -5325,8 +5486,35 @@ std::any hodel::gravitate(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const source{args[0]};
-    auto const destination{args[1]};
+    auto source{args[0]};
+    auto destination{args[1]};
+
+    bool recall{false};
+
+    if (source.type() == typeid(Object))
+    {
+        source = Patch{std::any_cast<Object>(source)};
+        recall = true;
+    }
+    else if (source.type() == typeid(Indices))
+    {
+        source = Patch{std::any_cast<Indices>(source)};
+        recall = true;
+    }
+
+    if (destination.type() == typeid(Object))
+    {
+        destination = Patch{std::any_cast<Object>(destination)};
+        recall = true;
+    }
+    else if (destination.type() == typeid(Indices))
+    {
+        destination = Patch{std::any_cast<Indices>(destination)};
+        recall = true;
+    }
+
+    if (recall)
+        return gravitate({source, destination});
 
     if (source.type() == typeid(Patch) && destination.type() == typeid(Patch))
     {
@@ -5385,6 +5573,11 @@ std::any hodel::inbox(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
 
+    if (patch.type() == typeid(Indices))
+        return inbox({Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return inbox({Patch(std::any_cast<Object>(patch))});
+
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
@@ -5433,6 +5626,11 @@ std::any hodel::outbox(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
 
+    if (patch.type() == typeid(Indices))
+        return outbox({Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return outbox({Patch(std::any_cast<Object>(patch))});
+
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
@@ -5480,6 +5678,11 @@ std::any hodel::box(std::vector<std::any> const& args)
         throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
+
+    if (patch.type() == typeid(Indices))
+        return box({Patch(std::any_cast<Indices>(patch))});
+    else if (patch.type() == typeid(Object))
+        return box({Patch(std::any_cast<Object>(patch))});
 
     if (patch.type() == typeid(Patch))
     {
