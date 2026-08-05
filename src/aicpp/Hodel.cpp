@@ -2111,6 +2111,8 @@ std::any hodel::height(std::vector<std::any> const& args)
     }
     else if (piece.type() == typeid(Grid))
         return height({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(Patch))
+        return height({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(Object))
     {
         auto const object{std::any_cast<Object>(piece)};
@@ -2154,6 +2156,8 @@ std::any hodel::width(std::vector<std::any> const& args)
     }
     else if (piece.type() == typeid(Grid))
         return width({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(Patch))
+        return width({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(Object))
     {
         auto const object{std::any_cast<Object>(piece)};
@@ -3148,6 +3152,10 @@ std::any hodel::square(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
+    else if (piece.type() == typeid(Grid))
+        return square({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(Patch))
+        return square({Piece{std::any_cast<Patch>(piece)}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -4739,6 +4747,11 @@ std::any hodel::center(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
 
+    if (patch.type() == typeid(Object))
+        return center({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return center({Patch{std::any_cast<Indices>(patch)}});
+
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
@@ -4766,9 +4779,36 @@ std::any hodel::position(std::vector<std::any> const& args)
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
-    auto const a{args[0]};
-    auto const b{args[1]};
+    auto a{args[0]};
+    auto b{args[1]};
 
+    bool recall{false};
+
+    if (a.type() == typeid(Object))
+    {
+        a = Patch{std::any_cast<Object>(a)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        a = Patch{std::any_cast<Indices>(a)};
+        recall = true;
+    }
+
+    if (b.type() == typeid(Object))
+    {
+        b = Patch{std::any_cast<Object>(b)};
+        recall = true;
+    }
+    else if (a.type() == typeid(Indices))
+    {
+        b = Patch{std::any_cast<Indices>(b)};
+        recall = true;
+    }
+
+    if (recall)
+        return position({a, b});
+    
     if (a.type() == typeid(Patch) && b.type() == typeid(Patch))
     {
         auto const a_{std::any_cast<Patch>(a)};
@@ -4869,6 +4909,11 @@ std::any hodel::corners(std::vector<std::any> const& args)
         throw std::runtime_error{"Wrong value"};
 
     auto const patch{args[0]};
+
+    if (patch.type() == typeid(Object))
+        return corners({Patch{std::any_cast<Object>(patch)}});
+    else if (patch.type() == typeid(Indices))
+        return corners({Patch{std::any_cast<Indices>(patch)}});
 
     if (patch.type() == typeid(Patch))
     {
@@ -5057,6 +5102,9 @@ std::any hodel::tophalf(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const mid = grid_.size() / 2;
 
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
+
         return Grid(grid_.begin(), grid_.begin() + mid);
     }
 
@@ -5082,6 +5130,9 @@ std::any hodel::bottomhalf(std::vector<std::any> const& args)
     {
         auto const grid_{std::any_cast<Grid>(grid)};
         auto const mid = grid_.size() / 2 + grid_.size() % 2;
+
+        if (grid_.empty())
+            throw std::runtime_error{"Wrong value"};
 
         return Grid(grid_.begin() + mid, grid_.end());
     }
