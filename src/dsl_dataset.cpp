@@ -114,14 +114,18 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
             }
             catch (std::exception const&)
             {
+                break; //TODO: to remove?
             }
         }
+
+        break; //TODO: to remove?
     }
 
     throw std::runtime_error{"Wrong connection"};
 }
 
 using Pair = std::pair<hodel::Grid, Connection>;
+
 struct PairLess
 {
     bool operator()(Pair const& x, Pair const& y) const
