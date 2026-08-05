@@ -162,7 +162,7 @@ namespace hodel
     std::any lowermost(std::vector<std::any> const& args); //Integer(Patch): row index of lowermost occupied cell
     std::any leftmost(std::vector<std::any> const& args); //Integer(Patch): column index of leftmost occupied cell
     std::any rightmost(std::vector<std::any> const& args); //Integer(Patch): column index of rightmost occupied cell
-    std::any square(std::vector<std::any> const& args); //Boolean(Piece): whether the piece forms a square
+    std::any square(std::vector<std::any> const& args); //Boolean(PieceObject): whether the piece forms a square
     std::any vline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a vertical line
     std::any hline(std::vector<std::any> const& args); //Boolean(Patch): whether the piece forms a horizontal line
     std::any hmatching(std::vector<std::any> const& args); //Boolean(Patch, Patch): whether there exists a row for which both patches have cells
