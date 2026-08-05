@@ -134,7 +134,7 @@ struct PairLess
     }
 };
 
- int NUM_COLORS = 10;
+int constexpr NUM_COLORS = 10;
 
 hodel::Grid generateStructuredGrid(
     std::pair<size_t, size_t> minSize = {4, 4},
