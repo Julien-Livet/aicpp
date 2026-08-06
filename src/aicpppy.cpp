@@ -425,7 +425,7 @@ class Engine
 
             for (auto const& input : inputs)
             {
-                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+                iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
                 outputs.emplace_back(std::any_cast<hodel::Grid>(connections_.at(i).output()));
             }
 
@@ -512,11 +512,19 @@ class Engine
 
         std::vector<size_t> orderedIndexes() const
         {
+            std::vector<std::future<std::string> > futures;
+            futures.reserve(connections_.size());
+
+            auto const compute{[] (Connection const& connection) -> std::string { return connection.string(); }};
+
+            for (auto const& connection : connections_)
+                futures.emplace_back(std::async(std::launch::async, compute, connection));
+
             std::vector<std::pair<size_t, std::string> > v;
             v.reserve(connections_.size());
 
-            for (size_t i{0}; i < connections_.size(); ++i)
-                v.emplace_back(i, connections_.at(i).string());
+            for (size_t i{0}; i < futures.size(); ++i)
+                v.emplace_back(i, futures.at(i).get());
 
             std::sort(v.begin(), v.end(),
                       [] (auto const& x, auto const& y) -> bool
