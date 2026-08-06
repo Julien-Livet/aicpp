@@ -510,6 +510,32 @@ class Engine
             return connections_.at(i).string();
         }
 
+        std::vector<size_t> orderedIndexes() const
+        {
+            std::vector<std::pair<size_t, std::string> > v;
+            v.reserve(connections_.size());
+
+            for (size_t i{0}; i < connections_.size(); ++i)
+                v.emplace_back(i, connections_.at(i).string());
+
+            std::sort(v.begin(), v.end(),
+                      [] (auto const& x, auto const& y) -> bool
+                      {
+                          if (x.second.size() == y.second.size())
+                              return x.second < y.second;
+
+                          return x.second.size() < y.second.size();
+                      });
+
+            std::vector<size_t> indexes;
+            indexes.reserve(v.size());
+
+            for (auto const& p : v)
+                indexes.emplace_back(p.first);
+
+            return indexes;
+        }
+
     private:
         std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
         std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
@@ -527,5 +553,6 @@ PYBIND11_MODULE(aicpppy, m)
         .def("count", &Engine::count)
         .def("trajectory", &Engine::trajectory)
         .def("grids", &Engine::grids)
-        .def("program", &Engine::program);
+        .def("program", &Engine::program)
+        .def("orderedIndexes", &Engine::orderedIndexes);
 }
