@@ -109,8 +109,8 @@ namespace hodel
     std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
     std::any first(std::vector<std::any> const& args); //Any(Container): first item of container
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
-    //std::any insert(std::vector<std::any> const& args); //FrozenSet(Any, FrozenSet): insert item into container
-    //std::any remove(std::vector<std::any> const& args); //Container(Any, Container): remove item from container
+    std::any insert(std::vector<std::any> const& args); //Container(Any, Container): insert item into container
+    std::any remove(std::vector<std::any> const& args); //Container(Any, Container): remove item from container
     //std::any other(std::vector<std::any> const& args); //Any(Container, Any): other value in the container
     std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
