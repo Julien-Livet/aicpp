@@ -29,6 +29,7 @@ namespace aicpp
             void setName(std::string const& name);
             std::string expression() const;
             std::vector<std::any> leafInputs() const;
+            bool replace(Neuron const& neuron);
 
         private:
             size_t computeHash_() const;
