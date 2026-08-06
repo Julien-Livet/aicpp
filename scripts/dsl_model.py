@@ -1011,11 +1011,13 @@ if (__name__ == "__main__"):
 
     engine = Engine("dsl_dataset")
     n = engine.count()
+    indexes = engine.orderedIndexes()
 
-    for i in range(0, n):
-        trajectory = engine.trajectory(i)
-        targetProgram: str = engine.program(i)
-        grids = engine.grids(i)
+    for i in range(n):
+        j = indexes[i]
+        trajectory = engine.trajectory(j)
+        targetProgram: str = engine.program(j)
+        grids = engine.grids(j)
         candidatePrograms: list = ["I"] * M
         outputs: list = []
 
