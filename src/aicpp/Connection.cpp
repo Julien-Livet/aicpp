@@ -398,3 +398,31 @@ std::vector<std::any> Connection::leafInputs() const
 
     return inputs;
 }
+
+bool Connection::replace(Neuron const& neuron)
+{
+    bool ok = false;
+
+    if (neuron.name() == neuron_.get().name() && neuron.inputTypes() == neuron_.get().inputTypes() && neuron.outputType() == neuron_.get().outputType())
+    {    
+        ok = true;
+        neuron_ = neuron;
+    }
+
+    for (auto& input : inputs_)
+    {
+        if (input.type() == typeid(Connection))
+        {
+            auto connection{std::any_cast<Connection>(input)};
+
+            auto const valid{connection.replace(neuron)};
+
+            ok |= valid;
+
+            if (valid)
+                input = connection;
+        }
+    }
+
+    return ok;
+}
