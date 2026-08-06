@@ -1733,6 +1733,86 @@ std::any hodel::last(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+template <typename Container>
+std::any insert(std::any const& value, std::any const& container)
+{
+    if (!(value.type() == typeid(typename Container::value_type) && container.type() == typeid(Container)))
+        return std::any{};
+
+    auto const value_{std::any_cast<typename Container::value_type>(value)};
+    auto container_{std::any_cast<Container>(container)};
+
+    container_.insert(container_.end(), value_);
+
+    return container_;
+}
+
+std::any hodel::insert(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const value{args[0]};
+    auto const container{args[1]};
+
+    if (auto r = ::insert<IntegerSet>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Integer> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<Object>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Cell> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<Objects>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Object> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<Indices>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<IntegerTuple> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<IndicesSet>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Indices> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Integer> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Grid> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<Grid>(value, container); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+template <typename Container>
+std::any remove(std::any const& value, std::any const& container)
+{
+    if (!(value.type() == typeid(typename Container::value_type) && container.type() == typeid(Container)))
+        return std::any{};
+
+    auto const value_{std::any_cast<typename Container::value_type>(value)};
+    auto container_{std::any_cast<Container>(container)};
+    auto const it{std::find(container_.begin(), container_.end(), value_)};
+
+    if (it != container_.end())
+        container_.erase(it);
+
+    return container_;
+}
+
+std::any hodel::remove(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const value{args[0]};
+    auto const container{args[1]};
+
+    if (auto r = ::remove<IntegerSet>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Integer> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<Object>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Cell> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<Objects>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Object> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<Indices>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<IntegerTuple> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<IndicesSet>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Indices> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Integer> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Grid> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<Grid>(value, container); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 std::any hodel::interval(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
