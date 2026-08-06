@@ -391,11 +391,19 @@ class Engine
                 }
 
                 std::vector<Connection> newConnections;
+                newConnections.reserve(connections_.size());
+                iNeurons_.reserve(connections_.size());
 
                 for (size_t i = 0; i < connections_.size(); ++i)
                 {
                     if (!indexes.contains(i))
+                    {
+                        iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid));
+
+                        assert(connections_[i].replace(iNeurons_.back()));
+
                         newConnections.emplace_back(connections_[i]);
+                    }
                 }
 
                 connections_ = newConnections;
@@ -421,7 +429,7 @@ class Engine
                 outputs.emplace_back(std::any_cast<hodel::Grid>(connections_.at(i).output()));
             }
 
-            auto const compute{[inputs, outputs] (std::reference_wrapper<Connection> connection) -> std::optional<std::pair<double, std::string> >
+            auto const compute{[inputs, outputs] (std::reference_wrapper<Connection> connection, std::reference_wrapper<Neuron> iNeuron) -> std::optional<std::pair<double, std::string> >
                 {
                     double cost{0.0};
 
@@ -430,9 +438,7 @@ class Engine
                         auto const& input{inputs[j]};
                         auto const& output{outputs[j]};
 
-                        Neuron iNeuron{"I", [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
-
-                        assert(connection.get().replace(iNeuron));
+                        iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::Grid);
 
                         try
                         {
@@ -456,8 +462,8 @@ class Engine
             std::vector<std::future<std::optional<std::pair<double, std::string> > > > futures;
             futures.reserve(connections_.size());
 
-            for (auto& connection : connections_)
-                futures.emplace_back(std::async(std::launch::async, compute, std::ref(connection)));
+            for (size_t i{0}; i < connections_.size(); ++i)
+                futures.emplace_back(std::async(std::launch::async, compute, std::ref(connections_.at(i)), std::ref(iNeurons_.at(i))));
 
             std::vector<std::pair<double, std::string> > result;
             result.reserve(connections_.size());
@@ -508,7 +514,7 @@ class Engine
         std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
         std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
         Neuron iNeuron_{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
-
+        std::vector<Neuron> iNeurons_;
         std::unique_ptr<Brain> brain_;
         std::vector<Connection> connections_;
         std::vector<std::vector<hodel::Grid> > grids_;
