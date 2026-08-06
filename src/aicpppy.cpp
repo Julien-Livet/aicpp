@@ -1,6 +1,9 @@
 #include <fstream>
 #include <functional>
+#include <future>
+#include <optional>
 #include <random>
+#include <thread>
 
 #include <Eigen/Core>
 
@@ -408,8 +411,6 @@ class Engine
         {
             assert(i < connections_.size());
 
-            std::vector<std::pair<double, std::string> > result;
-
             auto const inputs{grids(i)};
             std::vector<hodel::Grid> outputs;
             outputs.reserve(inputs.size());
@@ -420,33 +421,53 @@ class Engine
                 outputs.emplace_back(std::any_cast<hodel::Grid>(connections_.at(i).output()));
             }
 
-            for (auto const& connection : connections_)
-            {
-                double cost{0.0};
-
-                for (size_t j{0}; j < inputs.size(); ++j)
+            auto const compute{[inputs, outputs] (std::reference_wrapper<Connection> connection) -> std::optional<std::pair<double, std::string> >
                 {
-                    auto const& input{inputs[j]};
-                    auto const& output{outputs[j]};
+                    double cost{0.0};
 
-                    iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-
-                    try
+                    for (size_t j{0}; j < inputs.size(); ++j)
                     {
-                        auto const o{std::any_cast<hodel::Grid>(connection.output())};
+                        auto const& input{inputs[j]};
+                        auto const& output{outputs[j]};
 
-                        cost += arcHeuristic(o, output);
+                        Neuron iNeuron{"I", [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
+
+                        assert(connection.get().replace(iNeuron));
+
+                        try
+                        {
+                            auto const o{std::any_cast<hodel::Grid>(connection.get().output())};
+
+                            cost += arcHeuristic(o, output);
+                        }
+                        catch (std::exception const&)
+                        {
+                            cost = -1.0;
+                        }
                     }
-                    catch (std::exception const&)
-                    {
-                        cost = -1.0;
-                    }
+
+                    if (cost < 0.0)
+                        return {};
+
+                    return std::make_pair(cost, connection.get().string());
                 }
+            };
 
-                if (cost < 0.0)
-                    continue;
+            std::vector<std::future<std::optional<std::pair<double, std::string> > > > futures;
+            futures.reserve(connections_.size());
 
-                result.emplace_back(cost, connection.string());
+            for (auto& connection : connections_)
+                futures.emplace_back(std::async(std::launch::async, compute, std::ref(connection)));
+
+            std::vector<std::pair<double, std::string> > result;
+            result.reserve(connections_.size());
+
+            for (auto& future : futures)
+            {
+                auto const o{future.get()};
+
+                if (o.has_value())
+                    result.emplace_back(o.value());
             }
 
             double identityCost{0.0};
