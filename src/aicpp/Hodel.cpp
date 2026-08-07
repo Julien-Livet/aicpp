@@ -105,28 +105,6 @@ static std::any order(std::any const& container, std::function<std::any(std::vec
 }
 
 template <typename T>
-static std::any apply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& container)
-{
-    if (container.type() != typeid(T))
-        return std::any{};
-
-    auto const container_{std::any_cast<T>(container)};
-
-    std::vector<typename T::value_type> values;
-    values.reserve(container_.size());
-
-    for (auto const& v : container_)
-    {
-        auto const o{function({v})};
-
-        if (o.type() == typeid(typename T::value_type))
-            values.emplace_back(std::any_cast<typename T::value_type>(o));
-    }
-
-    return T{values.begin(), values.end()};
-}
-
-template <typename T>
 static std::any repeat(std::any const& item, hodel::Integer const& n)
 {
     if (n < 0)
@@ -1298,6 +1276,8 @@ std::any hodel::initset(std::vector<std::any> const& args)
     if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<Integer> >(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<Grid> >(value); r.has_value()) return r;
+    if (auto r = init_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(value); r.has_value()) return r;
+    if (auto r = init_set<std::vector<Boolean> >(value); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1598,6 +1578,57 @@ std::any hodel::mfilter(std::vector<std::any> const& args)
     return merge({sfilter({container, condition})});
 }
 
+template <typename Container>
+std::any extract(std::any const& container, std::function<std::any(std::vector<std::any> const)> const& condition)
+{
+    if (container.type() != typeid(Container))
+        return std::any{};
+
+    auto const container_{std::any_cast<Container>(container)};
+
+    if (container_.empty())
+        throw std::runtime_error{"Wrong value"};
+
+    for (auto it{container_.begin()}; it != container_.end(); ++it)
+    {
+        if (std::any_cast<hodel::Boolean>(condition({*it})))
+            return *it;
+    }
+
+    return std::any{};
+}
+
+std::any hodel::extract(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const container{args[0]};
+    auto const condition{args[1]};
+
+    if (condition.type() != typeid(std::function<std::any(std::vector<std::any> const)>))
+        throw std::runtime_error{"Wrong value"}; 
+
+    auto const condition_{std::any_cast<std::function<std::any(std::vector<std::any> const)> >(condition)};
+
+    if (auto r = ::extract<IntegerSet>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Integer> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<Object>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Cell> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<Objects>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Object> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<Indices>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<IntegerTuple> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<IndicesSet>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Indices> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Integer> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Grid> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<Grid>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container, condition_); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
 template <typename T>
 static std::any vector_set(std::any const& container)
 {
@@ -1667,6 +1698,7 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (auto r = first_set<std::vector<Indices> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Integer> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Grid> >(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -1719,6 +1751,7 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (auto r = last_set<std::vector<Indices> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Integer> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Grid> >(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -1768,6 +1801,8 @@ std::any hodel::insert(std::vector<std::any> const& args)
     if (auto r = ::insert<std::vector<Integer> >(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<Grid> >(value, container); r.has_value()) return r;
     if (auto r = ::insert<Grid>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<Boolean> >(value, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1809,8 +1844,20 @@ std::any hodel::remove(std::vector<std::any> const& args)
     if (auto r = ::remove<std::vector<Integer> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<Grid> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<Grid>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<Boolean> >(value, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::other(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const container{args[0]};
+    auto const value{args[1]};
+
+    return first({remove({value, container})});
 }
 
 std::any hodel::interval(std::vector<std::any> const& args)
@@ -1854,6 +1901,65 @@ std::any hodel::astuple(std::vector<std::any> const& args)
 
     if (a.type() == typeid(Integer) && b.type() == typeid(Integer))
         return IntegerTuple{std::make_pair<Integer, Integer>(std::any_cast<Integer>(a), std::any_cast<Integer>(b))};
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::product(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(std::vector<Integer>) && b.type() == typeid(std::vector<IntegerTuple>))
+    {
+        auto const a_{std::any_cast<std::vector<Integer> >(a)};
+        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+
+        Object result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(i, j);
+        }
+
+        return result;
+    }
+    else if (a.type() == typeid(std::vector<Integer>) && b.type() == typeid(std::vector<Integer>))
+    {
+        auto const a_{std::any_cast<std::vector<Integer> >(a)};
+        auto const b_{std::any_cast<std::vector<Integer> >(b)};
+
+        Indices result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(i, j);
+        }
+
+        return result;
+    }
+    //TODO: add other cases
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::pair(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const a{args[0]};
+    auto const b{args[1]};
+
+    if (a.type() == typeid(std::vector<Integer>) && b.type() == typeid(std::vector<Integer>))
+        return Grid{std::any_cast<std::vector<Integer> >(a), std::any_cast<std::vector<Integer> >(b)};
+    else if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
+        return std::vector<IntegerTuple>{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2045,6 +2151,23 @@ std::any hodel::fork(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+template <typename T, typename S = typename T::value_type>
+static std::any apply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& container)
+{
+    if (container.type() != typeid(T))
+        return std::any{};
+
+    auto const container_{std::any_cast<T>(container)};
+
+    std::vector<S> values;
+    values.reserve(container_.size());
+
+    for (auto const& v : container_)
+        values.emplace_back(std::any_cast<S>(function({v})));
+
+    return T{values.begin(), values.end()};
+}
+
 std::any hodel::apply(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -2073,6 +2196,181 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<Integer> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid>(function_, container); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+template <typename Container, typename T = typename Container::value_type>
+std::any rapply(std::vector<std::function<std::any(std::vector<std::any> const&)> > const& functions, std::any const& value)
+{
+    if (value.type() != typeid(T))
+        return std::any{};
+
+    Container result;
+
+    for (auto const& function : functions)
+        result.insert(result.end(), std::any_cast<T>(function({value})));
+
+    return result;
+}
+
+std::any hodel::rapply(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const functions{args[0]};
+    auto const value{args[1]};
+
+    if (functions.type() != typeid(std::vector<std::function<std::any(std::vector<std::any> const&)> >))
+        throw std::runtime_error{"Wrong value"};
+
+    auto const functions_{std::any_cast<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(functions)};
+
+    if (auto r = ::rapply<std::vector<Boolean> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<std::vector<Integer> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<std::vector<IntegerTuple> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<Grid>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<Indices>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<IndicesSet>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<Objects>(functions_, value); r.has_value()) return r;
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::mapply(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function{args[0]};
+    auto const container{args[1]};
+
+    return merge({apply({function, container})});
+}
+
+std::any hodel::papply(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function{args[0]};
+    auto const a{args[1]};
+    auto const b{args[2]};
+
+    if (function.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+    if (a.type() == typeid(std::vector<Integer>) && b.type() == typeid(std::vector<IntegerTuple>))
+    {
+        auto const a_{std::any_cast<std::vector<Integer> >(a)};
+        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+
+        if (a_.size() != b_.size() || a_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        Object result;
+
+        for (size_t i{0}; i < a_.size(); ++i)
+            result.emplace(a_[i], b_[i]);
+
+        return result;
+    }
+    else if (a.type() == typeid(std::vector<Integer>) && b.type() == typeid(std::vector<Integer>))
+    {
+        auto const a_{std::any_cast<std::vector<Integer> >(a)};
+        auto const b_{std::any_cast<std::vector<Integer> >(b)};
+
+        if (a_.size() != b_.size() || a_.empty())
+            throw std::runtime_error{"Wrong value"};
+
+        Indices result;
+
+        for (size_t i{0}; i < a_.size(); ++i)
+            result.emplace(a_[i], b_[i]);
+
+        return result;
+    }
+    //TODO: add other cases?
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any hodel::mpapply(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function{args[0]};
+    auto const a{args[1]};
+    auto const b{args[2]};
+
+    return merge({papply({function, a, b})});
+}
+
+template <typename T, typename S, typename U>
+std::any prapply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& a, std::any const& b)
+{
+    if (!(a.type() == typeid(T) && b.type() == typeid(S)))
+        return std::any{};
+
+    auto const a_{std::any_cast<T>(a)};
+    auto const b_{std::any_cast<S>(b)};
+
+    if (a_.size() != b_.size())
+        throw std::runtime_error{"Wrong value"};
+
+    std::vector<U> result;
+    result.reserve(a_.size());
+
+    auto itA{a_.begin()};
+    auto itB{b_.begin()};
+
+    for (; itA != a_.end() && itB != b_.end(); ++itA, ++itB)
+        result.emplace_back(std::any_cast<U>(function({*itA, *itB})));
+
+    return result;
+}
+
+std::any hodel::prapply(std::vector<std::any> const& args)
+{
+    if (args.size() != 3)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function{args[0]};
+    auto const a{args[1]};
+    auto const b{args[2]};
+
+    if (function.type() != typeid(std::function<std::any(std::vector<std::any> const&)>))
+        throw std::runtime_error{"Wrong value"};
+
+    auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
+
+    if (auto r = ::prapply<std::vector<Indices>, std::vector<Indices>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Indices>, std::vector<Indices>, Integer>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Object>, std::vector<Object>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Object>, std::vector<Object>, Integer>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&)> >, std::vector<Boolean>,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<Integer>,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<IntegerTuple>,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, Grid,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<Grid>,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, Object,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, Objects,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, Indices,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, IndicesSet,
+                           std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
+    //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2359,6 +2657,57 @@ std::any hodel::colorfilter(std::vector<std::any> const& args)
 
         return result;
     }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+template <typename ContainerContainer>
+std::any sizefilter(std::any const& container, hodel::Integer n)
+{
+    if (container.type() != typeid(ContainerContainer))
+        return std::any{};
+
+    auto const container_{std::any_cast<ContainerContainer>(container)};
+
+    ContainerContainer result;
+
+    for (auto const& v : container_)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
+
+std::any hodel::sizefilter(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const container{args[0]};
+    auto const n{args[1]};
+
+    if (n.type() != typeid(Integer))
+        throw std::runtime_error{"Wrong value"};
+
+    auto const n_{std::any_cast<Integer>(n)};
+
+    if (n_ < 0)
+        throw std::runtime_error{"Wrong value"};
+
+    if (container.type() == typeid(Piece))
+    {
+        auto const piece{std::any_cast<Piece>(container)};
+
+        if (std::holds_alternative<Grid>(piece))
+            return sizefilter({std::get<Grid>(piece), n});
+    }
+
+    if (auto r = ::sizefilter<Objects>(container, n_); r.has_value()) return r;
+    if (auto r = ::sizefilter<IndicesSet>(container, n_); r.has_value()) return r;
+    if (auto r = ::sizefilter<Grid>(container, n_); r.has_value()) return r;
+    if (auto r = ::sizefilter<std::vector<Grid> >(container, n_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
