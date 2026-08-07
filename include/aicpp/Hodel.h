@@ -79,9 +79,9 @@ namespace hodel
     std::any combine(std::vector<std::any> const& args); //Container1(Container1, Container2): union
     std::any intersection(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): returns the intersection of two containers
     std::any difference(std::vector<std::any> const& args); //FrozenSet(FrozenSet, FrozenSet): set difference
-    std::any dedupe(std::vector<std::any> const& args); //Tuple(Tuple): remove duplicates
-    std::any order(std::vector<std::any> const& args); //Tuple(Container, Callable): order container by custom key
-    std::any repeat(std::vector<std::any> const& args); //Tuple(Any, Integer): repetition of item within vector
+    std::any dedupe(std::vector<std::any> const& args); //Container(Container): remove duplicates
+    std::any order(std::vector<std::any> const& args); //Container(Container, Callable): order container by custom key
+    std::any repeat(std::vector<std::any> const& args); //Container(Any, Integer): repetition of item within vector
     std::any greater(std::vector<std::any> const& args); //Boolean(Integer, Integer): greater
     std::any size(std::vector<std::any> const& args); //Integer(Container): cardinality
     std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
@@ -105,17 +105,17 @@ namespace hodel
     std::any tojvec(std::vector<std::any> const& args); //IntegerTuple(Integer): vector pointing horizontally
     std::any sfilter(std::vector<std::any> const& args); //Container(Container, Callable): keep elements in container that satisfy condition
     std::any mfilter(std::vector<std::any> const& args); //FrozenSet(Container, Callable): filter and merge
-    //std::any extract(std::vector<std::any> const& args); //Any(Container, Callable): first element of container that satisfies condition
-    std::any totuple(std::vector<std::any> const& args); //Tuple(FrozenSet): conversion to tuple
+    std::any extract(std::vector<std::any> const& args); //Any(Container, Callable): first element of container that satisfies condition
+    std::any totuple(std::vector<std::any> const& args); //Container(FrozenSet): conversion to tuple
     std::any first(std::vector<std::any> const& args); //Any(Container): first item of container
     std::any last(std::vector<std::any> const& args); //Any(Container): last item of container
     std::any insert(std::vector<std::any> const& args); //Container(Any, Container): insert item into container
     std::any remove(std::vector<std::any> const& args); //Container(Any, Container): remove item from container
-    //std::any other(std::vector<std::any> const& args); //Any(Container, Any): other value in the container
-    std::any interval(std::vector<std::any> const& args); //Tuple(Integer, Integer, Integer): range
+    std::any other(std::vector<std::any> const& args); //Any(Container, Any): other value in the container
+    std::any interval(std::vector<std::any> const& args); //Container(Integer, Integer, Integer): range
     std::any astuple(std::vector<std::any> const& args); //IntegerTuple(Integer, Integer): constructs a tuple
-    //std::any product(std::vector<std::any> const& args); //FrozenSet(Container, Container): cartesian product
-    //std::any pair(std::vector<std::any> const& args); //TupleTuple(Tuple, Tuple): zipping of two tuples
+    std::any product(std::vector<std::any> const& args); //Container1(Container2, Container3): cartesian product
+    std::any pair(std::vector<std::any> const& args); //ContainerContainer(Container, Container): zipping of two tuples
     std::any branch(std::vector<std::any> const& args); //Any(Boolean, Any, Any): if else branching
     std::any compose(std::vector<std::any> const& args); //Callable(Callable, Callable): function composition
     std::any chain(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): function composition with three functions
@@ -125,11 +125,11 @@ namespace hodel
     std::any power(std::vector<std::any> const& args); //Callable(Callable, Integer): power of function
     std::any fork(std::vector<std::any> const& args); //Callable(Callable, Callable, Callable): creates a wrapper function
     std::any apply(std::vector<std::any> const& args); //Container(Callable, Container): apply function to each item in container
-    //std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
-    //std::any mapply(std::vector<std::any> const& args); //FrozenSet(Callable, ContainerContainer): apply and merge
-    //std::any papply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors
-    //std::any mpapply(std::vector<std::any> const& args); //Tuple(Callable, Tuple, Tuple): apply function on two vectors and merge
-    //std::any prapply(std::vector<std::any> const& args); //FrozenSet(Callable, Container, Container): apply function on cartesian product
+    std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
+    std::any mapply(std::vector<std::any> const& args); //Container(Callable, ContainerContainer): apply and merge
+    std::any papply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container3): apply function on two vectors
+    std::any mpapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on two vectors and merge
+    std::any prapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on cartesian product
     std::any mostcolor(std::vector<std::any> const& args); //Integer(Element): most common color
     std::any leastcolor(std::vector<std::any> const& args); //Integer(Element): least common color
     std::any height(std::vector<std::any> const& args); //Integer(Piece): height of grid or patch
@@ -138,7 +138,7 @@ namespace hodel
     std::any portrait(std::vector<std::any> const& args); //Boolean(Piece): whether height is greater than width
     std::any colorcount(std::vector<std::any> const& args); //Integer(Element, Integer): number of cells with color
     std::any colorfilter(std::vector<std::any> const& args); //Objects(Objects, Integer): filter objects by color
-    //std::any sizefilter(std::vector<std::any> const& args); //FrozenSet(Container, Integer): filter items by size
+    std::any sizefilter(std::vector<std::any> const& args); //ContainerContainer(ContainerContainer, Integer): filter items by size
     std::any asindices(std::vector<std::any> const& args); //Indices(Grid): indices of all grid cells
     std::any ofcolor(std::vector<std::any> const& args); //Indices(Grid, Integer): indices of all grid cells with value
     std::any ulcorner(std::vector<std::any> const& args); // IntegerTuple(Patch): index of upper left corner
@@ -192,8 +192,8 @@ namespace hodel
     std::any hconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids horizontally
     std::any vconcat(std::vector<std::any> const& args); //Grid(Grid, Grid): concatenate two grids vertically
     std::any subgrid(std::vector<std::any> const& args); //Grid(Patch, Grid): smallest subgrid containing object
-    std::any hsplit(std::vector<std::any> const& args); //Tuple(Grid, Integer): split grid horizontally
-    std::any vsplit(std::vector<std::any> const& args); //Tuple(Grid, Integer): split grid vertically
+    std::any hsplit(std::vector<std::any> const& args); //Container(Grid, Integer): split grid horizontally
+    std::any vsplit(std::vector<std::any> const& args); //Container(Grid, Integer): split grid vertically
     std::any cellwise(std::vector<std::any> const& args); //Grid(Grid, Grid, Integer): cellwise match of two grids
     std::any replace(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color substitution
     std::any switch_(std::vector<std::any> const& args); //Grid(Grid, Integer, Integer): color switching
