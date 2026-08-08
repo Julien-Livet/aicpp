@@ -157,9 +157,7 @@ for definition in primitiveDefinitions:
             trueName = trueName[:-1]
 
         n = trueName
-
-        if (len(products) > 1):
-            n += str(indices.get(name, 0) + i)
+        n += str(indices.get(name, 0) + i)
 
         tt: list = []
 
@@ -176,7 +174,7 @@ for definition in primitiveDefinitions:
         content += return_type.replace(returnArgs[0], typeName(p[0]))
         content += ")});\n"
 
-    indices[name] = indices.get(name, 0) + i
+    indices[name] = indices.get(name, 0) + i + 1
 
 content += """
     return neurons;
