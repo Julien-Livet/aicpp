@@ -66,12 +66,14 @@ namespace hodel
     typedef std::function<std::any(std::vector<std::any> const&)> Callable;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, Grid, Cell, ObjectType, Objects, IndicesType, IndicesSet, Callable, std::vector<IntegerType>, std::vector<Grid>, std::vector<Boolean>, std::vector<ObjectType>, std::vector<Objects>, std::vector<IndicesType>, std::vector<IndicesSet>, std::vector<Callable> > AnyIdentity;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, Grid, Cell, ObjectType, Objects, IndicesType, IndicesSet, std::vector<Grid>, std::vector<Boolean>, std::vector<Objects> > AnyEquality;
-    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, Grid, Objects, Callable> AnyVector1;
+    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, Grid, ObjectType, IndicesType, Objects, Callable> AnyVector1;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, Grid, Objects> AnyVector2;
     typedef std::tuple<IntegerType, Cell, ObjectType, IntegerTuple, IndicesType> AnySet1;
     typedef std::vector<IntegerType> IntegerVector;
     typedef std::vector<Grid> GridVector;
-
+    typedef std::tuple<IntegerVector, Grid> AnyVector3;
+    typedef std::tuple<ObjectType, IndicesType> AnySet2;
+    
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
     //Num1 add(Num2, Num3)
@@ -97,7 +99,21 @@ namespace hodel
     //Boolean contained(AnyVector, std::vector<AnyVector>)
     //Boolean contained(AnySet1, std::set<AnySet1>)
     std::any contained(std::vector<std::any> const& args); //element of
-    std::any combine(std::vector<std::any> const& args); //Container1(Container1, Container2): union
+    //IntegerTuple combine(IntegerType, IntegerType)
+    //IntegerSet combine(IntegerSet, IntegerSet)
+    //std::vector<IntegerType> combine(std::vector<IntegerType>, IntegerSet)
+    //IntegerSet combine(IntegerSet, std::vector<IntegerType>)
+    //std::vector<ObjectType> combine(ObjectType, ObjectType)
+    //std::vector<Objects> combine(Objects, Objects)
+    //IndicesType combine(IndicesType, IndicesType)
+    //std::vector<IntegerTuple> combine(std::vector<IntegerTuple>, IndicesType)
+    //IndicesType combine(IndicesType, std::vector<IntegerTuple>)
+    //IndicesSet combine(IndicesSet, IndicesSet)
+    //std::vector<IntegerTuple> combine(std::vector<IntegerTuple>, std::vector<IntegerTuple>)
+    //std::vector<IntegerType> combine(std::vector<IntegerType>, std::vector<IntegerType>)
+    //Grid combine(Grid, Grid)
+    //std::vector<Grid> combine(std::vector<Grid>, std::vector<Grid>)
+    std::any combine(std::vector<std::any> const& args); //union
     //std::vector<AnyVector1> intersection(std::vector<AnyVector1>, std::vector<AnyVector1>)
     //std::set<AnySet1> intersection(std::set<AnySet1>, std::set<AnySet1>)
     std::any intersection(std::vector<std::any> const& args); //returns the intersection of two containers
@@ -114,8 +130,11 @@ namespace hodel
     std::any greater(std::vector<std::any> const& args); //greater
     //IntegerType size(std::vector<AnyVector1>)
     //IntegerType size(std::set<AnySet1>)
+    //IntegerType size(IntegerTuple)
     std::any size(std::vector<std::any> const& args); //cardinality
-    std::any merge(std::vector<std::any> const& args); //Container(ContainerContainer): merging
+    //AnyVector3 merge(std::vector<AnyVector3>)
+    //AnySet2 merge(std::set<AnySet2>)
+    std::any merge(std::vector<std::any> const& args); //merging
     //IntegerType maximum(std::vector<AnyVector1>)
     //IntegerType maximum(std::set<AnySet1>)
     std::any maximum(std::vector<std::any> const& args); //maximum
@@ -124,9 +143,15 @@ namespace hodel
     std::any minimum(std::vector<std::any> const& args); //minimum
     //IntegerType valmax(IntegerVector, Callable)
     //IntegerType valmax(IntegerSet, Callable)
+    //IntegerType valmax(std::vector<Grid>, Callable)
+    //IntegerType valmax(Objects, Callable)
+    //IntegerType valmax(IndicesSet, Callable)
     std::any valmax(std::vector<std::any> const& args); //maximum by custom function
     //IntegerType valmin(IntegerVector, Callable)
     //IntegerType valmin(IntegerSet, Callable)
+    //IntegerType valmin(std::vector<Grid>, Callable)
+    //IntegerType valmin(Objects, Callable)
+    //IntegerType valmin(IndicesSet, Callable)
     std::any valmin(std::vector<std::any> const& args); //minimum by custom function
     //AnyVector1 argmax(std::vector<AnyVector1>, Callable)
     //AnySet1 argmax(std::set<AnySet1>, Callable)
@@ -162,17 +187,21 @@ namespace hodel
     //AnyVector1 sfilter(std::vector<AnyVector1>, Callable)
     //AnySet1 sfilter(std::set<AnySet1>, Callable)
     std::any sfilter(std::vector<std::any> const& args); //keep elements in container that satisfy condition
-    std::any mfilter(std::vector<std::any> const& args); //FrozenSet(Container, Callable): filter and merge
+    //AnyVector3 mfilter(std::vector<AnyVector3>, Callable)
+    //AnySet2 mfilter(std::set<AnySet2>, Callable)
+    std::any mfilter(std::vector<std::any> const& args); //filter and merge
     //AnyVector1 extract(std::vector<AnyVector1>, Callable)
     //AnySet1 extract(std::set<AnySet1>, Callable)
     std::any extract(std::vector<std::any> const& args); //first element of container that satisfies condition
     //std::vector<AnySet1> totuple(std::set<AnySet1>)
-    std::any totuple(std::vector<std::any> const& args); //Container(FrozenSet): conversion to tuple
+    std::any totuple(std::vector<std::any> const& args); //conversion to tuple
     //AnyVector1 first(std::vector<AnyVector1>)
-    //AnySet1 first(std::vector<AnySet1>)
+    //AnySet1 first(std::set<AnySet1>)
+    //IntegerType first(IntegerTuple)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
-    //AnySet1 last(std::vector<AnySet1>)
+    //AnySet1 last(std::set<AnySet1>)
+    //IntegerType last(IntegerTuple)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -205,7 +234,12 @@ namespace hodel
     std::any power(std::vector<std::any> const& args); //power of function
     //Callable fork(Callable, Callable, Callable)
     std::any fork(std::vector<std::any> const& args); //creates a wrapper function
-    std::any apply(std::vector<std::any> const& args); //Container(Callable, Container): apply function to each item in container
+    //std::vector<Boolean> apply(Callable, std::vector<Boolean>)
+    //std::vector<Boolean> apply(Callable, std::vector<Grid>)
+    //std::vector<IntegerType> apply(Callable, std::vector<IntegerType>)
+    //std::vector<IntegerType> apply(Callable, std::vector<Grid>)
+    //std::vector<IntegerType> apply(Callable, Objects)
+    std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
     std::any mapply(std::vector<std::any> const& args); //Container(Callable, ContainerContainer): apply and merge
     std::any papply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container3): apply function on two vectors
@@ -227,7 +261,9 @@ namespace hodel
     std::any colorcount(std::vector<std::any> const& args); //number of cells with color
     //Objects colorfilter(Objects, IntegerType)
     std::any colorfilter(std::vector<std::any> const& args); //filter object by color
-    std::any sizefilter(std::vector<std::any> const& args); //ContainerContainer(ContainerContainer, IntegerType): filter items by size
+    //std::vector<AnyVector3> sizefilter(std::vector<AnyVector3>, IntegerType)
+    //std::set<AnySet2> sizefilter(std::set<AnySet2>, IntegerType)
+    std::any sizefilter(std::vector<std::any> const& args); //filter items by size
     //IndicesType asindices(Grid)
     std::any asindices(std::vector<std::any> const& args); //indices of all grid cells
     //IndicesType ofcolor(Grid, IntegerType)
@@ -324,7 +360,7 @@ namespace hodel
     std::any hupscale(std::vector<std::any> const& args); //upscale grid horizontally
     //Grid vupscale(Grid, IntegerType)
     std::any vupscale(std::vector<std::any> const& args); //upscale grid vertically
-    //Element downscale(Element, IntegerType)
+    //Element upscale(Element, IntegerType)
     std::any upscale(std::vector<std::any> const& args); //upscale object or grid
     //Grid downscale(Grid, IntegerType)
     std::any downscale(std::vector<std::any> const& args); //downscale object or grid
