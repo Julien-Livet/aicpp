@@ -6,7 +6,7 @@ with open("../include/aicpp/Hodel.h", "r") as f:
 
 typeDefinitions: list = list(filter(lambda x: x.strip().startswith("typedef "), lines))
 variableDefinitions: list = list(filter(lambda x: " = " in x, lines))
-primitiveDefinitions: list = list(filter(lambda x: x.strip().startswith("std::any "), lines))
+primitiveDefinitions: list = list(filter(lambda x: x.strip().startswith("//"), lines))
 
 dslTypes: dict = defaultdict(list)
 nativeTypes: dict = {}
@@ -27,35 +27,20 @@ for definition in typeDefinitions:
                 dslTypes[dslType] += dslTypes[t]
             else:    
                 dslTypes[dslType].append(t)
+    elif (nativeTypes[dslType].startswith("std::tuple")):
+        s = nativeTypes[dslType].replace("std::tuple<", "").rstrip(">")
+        types = [x.strip() for x in s.split(",")]
+
+        for t in types:
+            if (t in dslTypes):
+                dslTypes[dslType] += dslTypes[t]
+            else:
+                dslTypes[dslType].append(t)
     else:
         if (nativeTypes[dslType] in dslTypes):
             dslTypes[dslType] += dslTypes[nativeTypes[dslType]]
         else:
             dslTypes[dslType].append(dslType)
-
-frozenSetTypes = []
-
-for k, v in nativeTypes.items():
-    if (v.startswith("std::set") or v.startswith("std::vector")):
-        frozenSetTypes += dslTypes[k]
-
-dslTypes["FrozenSet"] = frozenSetTypes
-
-containerTypes = dslTypes["FrozenSet"] + dslTypes["Grid"] + dslTypes["IntegerTuple"]
-
-dslTypes["Container"] = containerTypes + ["std::vector<Integer>"] + ["std::vector<Grid>"] + ["std::vector<Object>"] + ["std::vector<IntegerTuple>"] + ["std::vector<Cell>"] + ["std::vector<Indices>"] + ["std::vector<std::function<std::any(std::any const&)> >"]
-dslTypes["ContainerContainer"] = dslTypes["Objects"] + dslTypes["IndicesSet"] + dslTypes["Grid"] + ["std::vector<Grid>"]
-dslTypes["Callable"] = ["std::function<std::any(std::vector<std::any> const&)>"]
-dslTypes["Container1"] = dslTypes["Container"]
-dslTypes["Container2"] = dslTypes["Container"]
-dslTypes["Container3"] = dslTypes["Container"]
-
-anyTypes = []
-
-for v in dslTypes.values():
-    anyTypes += v
-
-dslTypes["Any"] = anyTypes
 
 for k in dslTypes.keys():
     dslTypes[k] = tuple(sorted(dslTypes[k]))
@@ -117,31 +102,42 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
 """
 
 def typeName(x: str) -> str:
-    if (x.startswith("std::function")):
-        return x
-    elif (x.startswith("std::vector")):
+    if (x.startswith("std::vector")):
         return x.replace("std::vector<", "std::vector<hodel::")
+    elif (x.startswith("std::set")):
+        return x.replace("std::set<", "std::set<hodel::")
     else:
         return "hodel::" + x
 
+indices: dict = {}
+
 for definition in primitiveDefinitions:
     definition = definition.strip()
-    i1 = definition.index(" ")
-    i2 = definition.index("(")
-    name = definition[i1+1:i2]
-    i1 = definition.index("//") + 2
-    i2 = definition.rindex(":")
-    signature = definition[i1:i2]
-    comment = definition[i2+2:]
-    i = signature.index("(")
-    return_type = signature[:i]
-    args = signature[i+1:signature.index(")")]
+    return_type = definition[len("//"):definition.index(" ")]
+    i = definition.index("(")
+    name = definition[definition.index(" ")+1:i]
+    args = definition[i+1:definition.index(")")]
     arg_types = [x.strip() for x in args.split(",")]
 
-    pattern: list = [dslTypes[return_type]]
+    pattern: list = []
+    returnArgs: list = []
+
+    for k in dslTypes:
+        if (k in return_type):
+            returnArgs.append(k)
+
+    for arg in returnArgs:
+        pattern.append(dslTypes[arg])
+
+    args: list = []
 
     for arg in arg_types:
-        pattern.append(dslTypes[arg])
+        for k in dslTypes:
+            if (k in arg):
+                args.append(k)
+
+    for arg in args:
+        pattern.append(dslTypes[arg]) 
 
     unique: list = list(dict.fromkeys(map(id, pattern)))
 
@@ -163,9 +159,12 @@ for definition in primitiveDefinitions:
         n = trueName
 
         if (len(products) > 1):
-            n += str(i)
+            n += str(indices.get(name, 0) + i)
 
-        tt = [f"typeid({typeName(x)})" for x in p[1:]]
+        tt: list = []
+
+        for x, y, z in zip(arg_types, args, p[1:]):
+            tt.append(f"typeid({x.replace(y, typeName(z))})")
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
@@ -174,15 +173,15 @@ for definition in primitiveDefinitions:
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
         content += "}, typeid("
-        content += typeName(p[0])
+        content += return_type.replace(returnArgs[0], typeName(p[0]))
         content += ")});\n"
+
+    indices[name] = indices.get(name, 0) + i
 
 content += """
     return neurons;
 }
 """
-
-content = content.replace("hodel::std::function", "std::function")
 
 with open("../src/aicpp/DslSystem.cpp", "w") as f:
     f.write(content)
