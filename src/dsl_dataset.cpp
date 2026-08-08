@@ -156,10 +156,10 @@ hodel::Grid generateStructuredGrid(
     auto const h = hDist(rd);
     auto const w = wDist(rd);
 
-    hodel::Grid grid(h, std::vector<hodel::Integer>(w, 0));
+    hodel::Grid grid(h, std::vector<hodel::IntegerType>(w, 0));
 
-    std::uniform_int_distribution<hodel::Integer> colorDist(1, NUM_COLORS - 1);
-    std::uniform_int_distribution<hodel::Integer> anyColorDist(0, NUM_COLORS - 1);
+    std::uniform_int_distribution<hodel::IntegerType> colorDist(1, NUM_COLORS - 1);
+    std::uniform_int_distribution<hodel::IntegerType> anyColorDist(0, NUM_COLORS - 1);
     std::uniform_real_distribution<double> realDist(0.0, 1.0);
 
     if (kind == "stripes")
@@ -213,7 +213,7 @@ hodel::Grid generateStructuredGrid(
         auto const baseH = baseHDist(rd);
         auto const baseW = baseWDist(rd);
 
-        std::vector<std::vector<hodel::Integer> > base(baseH, std::vector<hodel::Integer>(baseW));
+        std::vector<std::vector<hodel::IntegerType> > base(baseH, std::vector<hodel::IntegerType>(baseW));
 
         for (int i = 0; i < baseH; ++i)
             for (int j = 0; j < baseW; ++j)
@@ -429,27 +429,27 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                     if (grid == input)
                         add = false;
 
-                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                    auto const minReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::min(a, b); };
                     auto const minTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::max()
+                            ? std::numeric_limits<hodel::IntegerType>::max()
                             : *std::min_element(row.begin(), row.end());
                     };
-                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                    auto const maxReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::max(a, b); };
                     auto const maxTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::min()
+                            ? std::numeric_limits<hodel::IntegerType>::min()
                             : *std::max_element(row.begin(), row.end());
                     };
 
                     auto const min = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::max(),
+                        std::numeric_limits<hodel::IntegerType>::max(),
                         minReducer,
                         minTransformer);
                     auto const max = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::min(),
+                        std::numeric_limits<hodel::IntegerType>::min(),
                         maxReducer,
                         maxTransformer);
 
@@ -548,27 +548,27 @@ int main(int argc, char* argv[])
                     if (grid == input)
                         add = false;
 
-                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
+                    auto const minReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::min(a, b); };
                     auto const minTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::max()
+                            ? std::numeric_limits<hodel::IntegerType>::max()
                             : *std::min_element(row.begin(), row.end());
                     };
-                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
+                    auto const maxReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::max(a, b); };
                     auto const maxTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::Integer>::min()
+                            ? std::numeric_limits<hodel::IntegerType>::min()
                             : *std::max_element(row.begin(), row.end());
                     };
 
                     auto const min = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::max(),
+                        std::numeric_limits<hodel::IntegerType>::max(),
                         minReducer,
                         minTransformer);
                     auto const max = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::Integer>::min(),
+                        std::numeric_limits<hodel::IntegerType>::min(),
                         maxReducer,
                         maxTransformer);
 
