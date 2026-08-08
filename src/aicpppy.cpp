@@ -333,7 +333,7 @@ class Engine
 
                         for (auto const& json_row : json_rows)
                         {
-                            std::vector<hodel::Integer> row;
+                            std::vector<hodel::IntegerType> row;
 
                             for (auto const& json_val : json_row.as_array())
                                 row.emplace_back(json_val.as_int64());
