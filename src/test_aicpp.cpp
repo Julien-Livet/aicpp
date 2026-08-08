@@ -44,7 +44,7 @@ Eigen::MatrixXi to_eigen(Matrix const& v)
 
 Matrix to_std_vector(Eigen::MatrixXi const& mat)
 {
-    hodel::Grid result(mat.rows(), std::vector<hodel::Integer>(mat.cols()));
+    hodel::Grid result(mat.rows(), std::vector<hodel::IntegerType>(mat.cols()));
 
     for (int i = 0; i < mat.rows(); ++i)
     {
