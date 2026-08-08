@@ -259,7 +259,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                       std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > const& neuronsByOutputType)
 {
     std::vector<std::vector<std::string> > allNames{
-        {"apply", "identity", "cmirror", "righthalf", "I"},
+        {"cmirror", "identity", "vmirror", "I"},
         {"rot270", "hconcat", "vconcat", "crop", "canvas", "add", "size", "TWO_BY_ZERO", "FIVE", "astuple", "FIVE", "FIVE", "UP", "ORIGIN", "I", "I"},
         {"replace", "I", "ONE", "subtract", "NINE", "FOUR"},
         {"replace", "I", "ONE", "multiply", "TWO", "THREE"},
@@ -284,8 +284,8 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"branch", "equality", "minimum", "interval", "ZERO", "TWO", "ONE", "ZERO", "hmirror", "I", "vmirror", "I"},
         {"replace", "I", "ONE", "valmax", "objects", "I", "F", "F", "T", "hperiod"},
         {"replace", "I", "ONE", "valmin", "objects", "I", "F", "F", "T", "hperiod"},
-        {"argmax", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO", "size"},
-        {"argmin", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO", "size"},
+        {"paint", "cmirror", "I", "argmax", "objects", "I", "F", "F", "T", "size"},
+        {"paint", "cmirror", "I", "argmin", "objects", "I", "F", "F", "T", "size"},
         {"first", "order", "initset", "trim", "I", "mostcommon"},
         {"first", "order", "initset", "trim", "I", "leastcommon"},
         {"first", "initset", "trim", "I"},
@@ -312,7 +312,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"lbind"}, //cf. below
         //{"power"},
         //{"fork"},
-        {"apply", "first", "combine", "hmirror", "I", "vmirror", "I"},
+        {"replace", "I", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
         //{"rapply"},
         //{"mapply"},
         //{"papply"},
@@ -344,15 +344,15 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const width{variables.at("width"), {}};
         Connection const greater{variables.at("greater"), {}};
         Connection const ONE{variables.at("ONE"), {}};
-        Connection const rbind{primitives.at("rbind5"), {greater, ONE}};
-        Connection const compose{primitives.at("compose"), {rbind, width}};
+        Connection const rbind{primitives.at("rbind8"), {greater, ONE}};
+        Connection const compose{primitives.at("compose0"), {rbind, width}};
         Connection const I{iNeuron, {}};
         Connection const F{variables.at("F"), {}};
         Connection const T{variables.at("T"), {}};
-        Connection const objects{primitives.at("objects"), {I, F, F, T}};
-        Connection const mfilter{primitives.at("mfilter58"), {objects, compose}};
+        Connection const objects{primitives.at("objects0"), {I, F, F, T}};
+        Connection const mfilter{primitives.at("mfilter3"), {objects, compose}};
         Connection const hmirror{primitives.at("hmirror0"), {I}};
-        Connection const paint{primitives.at("paint"), {hmirror, mfilter}};
+        Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
         connections.emplace_back(paint);
     }
@@ -361,15 +361,15 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const width{variables.at("width"), {}};
         Connection const greater{variables.at("greater"), {}};
         Connection const ONE{variables.at("ONE"), {}};
-        Connection const lbind{primitives.at("lbind5"), {greater, ONE}};
-        Connection const compose{primitives.at("compose"), {lbind, width}};
+        Connection const lbind{primitives.at("lbind8"), {greater, ONE}};
+        Connection const compose{primitives.at("compose0"), {lbind, width}};
         Connection const I{iNeuron, {}};
         Connection const F{variables.at("F"), {}};
         Connection const T{variables.at("T"), {}};
-        Connection const objects{primitives.at("objects"), {I, F, F, T}};
-        Connection const mfilter{primitives.at("mfilter58"), {objects, compose}};
+        Connection const objects{primitives.at("objects0"), {I, F, F, T}};
+        Connection const mfilter{primitives.at("mfilter3"), {objects, compose}};
         Connection const hmirror{primitives.at("hmirror0"), {I}};
-        Connection const paint{primitives.at("paint"), {hmirror, mfilter}};
+        Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
         connections.emplace_back(paint);
     }
