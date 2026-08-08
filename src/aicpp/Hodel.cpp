@@ -168,23 +168,6 @@ static std::any intersection_sets(std::any const& a, std::any const& b)
     return std::any{};
 }
 
-template <typename T, typename S>
-static std::any combine_sets(std::any const& a, std::any const& b)
-{
-    if (a.type() == typeid(T) && b.type() == typeid(S))
-    {
-        auto const x{std::any_cast<T>(a)};
-        auto const y{std::any_cast<S>(b)};
-
-        std::vector<typename T::value_type> v{x.begin(), x.end()};
-        v.insert(v.end(), y.begin(), y.end());
-
-        return T{v.begin(), v.end()};
-    }
-
-    return std::any{};
-}
-
 std::any do_op(std::any const& a, std::any const& b, std::function<hodel::IntegerType(hodel::IntegerType, hodel::IntegerType)> const& op)
 {
     if (a.type() == typeid(hodel::Numerical) && b.type() == typeid(hodel::Numerical))
@@ -545,6 +528,23 @@ std::any hodel::contained(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
+template <typename T, typename S>
+static std::any combine_sets(std::any const& a, std::any const& b)
+{
+    if (a.type() == typeid(T) && b.type() == typeid(S))
+    {
+        auto const x{std::any_cast<T>(a)};
+        auto const y{std::any_cast<S>(b)};
+
+        std::vector<typename T::value_type> v{x.begin(), x.end()};
+        v.insert(v.end(), y.begin(), y.end());
+
+        return T{v.begin(), v.end()};
+    }
+
+    return std::any{};
+}
+
 std::any hodel::combine(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -589,18 +589,8 @@ std::any hodel::combine(std::vector<std::any> const& args)
     if (auto r = combine_sets<IndicesSet, IndicesSet>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<std::vector<IntegerTuple>, std::vector<IntegerTuple> >(a, b); r.has_value()) return r;
     if (auto r = combine_sets<std::vector<IntegerType>, std::vector<IntegerType> >(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<Grid, Grid>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<std::vector<Grid>, std::vector<Grid> >(a, b); r.has_value()) return r;
-
-    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
-    {
-        auto const x{std::any_cast<Grid>(a)};
-        auto const y{std::any_cast<Grid>(b)};
-        Grid result{x};
-
-        result.insert(result.end(), y.begin(), y.end());
-
-        return result;
-    }
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1668,7 +1658,7 @@ static std::any first_set(std::any const& container)
         auto const x{std::any_cast<T>(container)};
 
         if (x.empty())
-            throw std::runtime_error{"Wrong value"};
+            return std::any{};
 
         return *x.begin();
     }
@@ -1721,7 +1711,7 @@ static std::any last_set(std::any const& container)
         auto const x{std::any_cast<T>(container)};
 
         if (x.empty())
-            throw std::runtime_error{"Wrong value"};
+            return std::any{};
 
         return *x.rbegin();
     }
@@ -1956,7 +1946,11 @@ std::any hodel::pair(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    if (a.type() == typeid(std::vector<IntegerType>) && b.type() == typeid(std::vector<IntegerType>))
+    if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
+        return IntegerTuple{std::any_cast<IntegerType>(a), std::any_cast<IntegerType>(b)};
+    else if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerTuple))
+        return Cell{std::any_cast<IntegerType>(a), std::any_cast<IntegerTuple>(b)};
+    else if (a.type() == typeid(std::vector<IntegerType>) && b.type() == typeid(std::vector<IntegerType>))
         return Grid{std::any_cast<std::vector<IntegerType> >(a), std::any_cast<std::vector<IntegerType> >(b)};
     else if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
         return std::vector<IntegerTuple>{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
@@ -2162,10 +2156,17 @@ static std::any apply(std::function<std::any(std::vector<std::any> const&)> cons
     std::vector<S> values;
     values.reserve(container_.size());
 
-    for (auto const& v : container_)
-        values.emplace_back(std::any_cast<S>(function({v})));
+    try
+    {
+        for (auto const& v : container_)
+            values.emplace_back(std::any_cast<S>(function({v})));
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
 
-    return T{values.begin(), values.end()};
+    return values;
 }
 
 std::any hodel::apply(std::vector<std::any> const& args)
@@ -2189,13 +2190,11 @@ std::any hodel::apply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
 
-    if (auto r = ::apply<IntegerSet>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<ObjectType>    (function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects>   (function_, container); r.has_value()) return r;
-    if (auto r = ::apply<IndicesType>   (function_, container); r.has_value()) return r;
-    if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerType> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Grid>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<Boolean> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<Grid>, Boolean>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerType>, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<Grid>, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IntegerType>(function_, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2320,7 +2319,7 @@ std::any prapply(std::function<std::any(std::vector<std::any> const&)> const& fu
     auto const b_{std::any_cast<S>(b)};
 
     if (a_.size() != b_.size())
-        throw std::runtime_error{"Wrong value"};
+        return std::any{};
 
     std::vector<U> result;
     result.reserve(a_.size());
@@ -2328,9 +2327,16 @@ std::any prapply(std::function<std::any(std::vector<std::any> const&)> const& fu
     auto itA{a_.begin()};
     auto itB{b_.begin()};
 
-    for (; itA != a_.end() && itB != b_.end(); ++itA, ++itB)
-        result.emplace_back(std::any_cast<U>(function({*itA, *itB})));
-
+    try
+    {
+        for (; itA != a_.end() && itB != b_.end(); ++itA, ++itB)
+            result.emplace_back(std::any_cast<U>(function({*itA, *itB})));
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+    
     return result;
 }
 
