@@ -70,6 +70,7 @@ namespace hodel
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, Grid, Objects> AnyVector2;
     typedef std::tuple<IntegerType, Cell, ObjectType, IntegerTuple, IndicesType> AnySet1;
     typedef std::vector<IntegerType> IntegerVector;
+    typedef std::vector<Grid> GridVector;
 
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
@@ -225,12 +226,12 @@ namespace hodel
     //IntegerType colorcount(Element, IntegerType)
     std::any colorcount(std::vector<std::any> const& args); //number of cells with color
     //Objects colorfilter(Objects, IntegerType)
-    std::any colorfilter(std::vector<std::any> const& args); //filter Objects by color
+    std::any colorfilter(std::vector<std::any> const& args); //filter object by color
     std::any sizefilter(std::vector<std::any> const& args); //ContainerContainer(ContainerContainer, IntegerType): filter items by size
     //IndicesType asindices(Grid)
-    std::any asindices(std::vector<std::any> const& args); //IndicesType of all grid cells
+    std::any asindices(std::vector<std::any> const& args); //indices of all grid cells
     //IndicesType ofcolor(Grid, IntegerType)
-    std::any ofcolor(std::vector<std::any> const& args); //IndicesType of all grid cells with value
+    std::any ofcolor(std::vector<std::any> const& args); //indices of all grid cells with value
     //IntegerTuple ulcorner(Patch)
     std::any ulcorner(std::vector<std::any> const& args); //index of upper left corner
     //IntegerTuple urcorner(Patch)
@@ -242,7 +243,7 @@ namespace hodel
     //Grid crop(Grid, IntegerTuple, IntegerTuple)
     std::any crop(std::vector<std::any> const& args); //subgrid specified by start and dimension
     //IndicesType toindices(Patch)
-    std::any toindices(std::vector<std::any> const& args); //IndicesType of ObjectType cells
+    std::any toindices(std::vector<std::any> const& args); //indices of object cells
     //ObjectType recolor(IntegerType, Patch)
     std::any recolor(std::vector<std::any> const& args); //recolor patch
     //Patch shift(Patch, IntegerTuple)
@@ -250,17 +251,17 @@ namespace hodel
     //Patch normalize(Patch)
     std::any normalize(std::vector<std::any> const& args); //moves upper left corner to origin
     //IndicesType dneighbors(IntegerTuple)
-    std::any dneighbors(std::vector<std::any> const& args); //directly adjacent IndicesType
+    std::any dneighbors(std::vector<std::any> const& args); //directly adjacent indices
     //IndicesType ineighbors(IntegerTuple)
-    std::any ineighbors(std::vector<std::any> const& args); //diagonally adjacent IndicesType
+    std::any ineighbors(std::vector<std::any> const& args); //diagonally adjacent indices
     //IndicesType neighbors(IntegerTuple)
-    std::any neighbors(std::vector<std::any> const& args); //adjacent IndicesType
+    std::any neighbors(std::vector<std::any> const& args); //adjacent indices
     //Objects objects(Grid, Boolean, Boolean, Boolean)
     std::any objects(std::vector<std::any> const& args); //Objects occurring on the grid
     //Objects partition(Grid)
-    std::any partition(std::vector<std::any> const& args); //each cell with the same value part of the same ObjectType
+    std::any partition(std::vector<std::any> const& args); //each cell with the same value part of the same object
     //Objects fgpartition(Grid)
-    std::any fgpartition(std::vector<std::any> const& args); //each cell with the same value part of the same ObjectType without background
+    std::any fgpartition(std::vector<std::any> const& args); //each cell with the same value part of the same object without background
     //IntegerType uppermost(Patch)
     std::any uppermost(std::vector<std::any> const& args); //row index of uppermost occupied cell
     //IntegerType lowermost(Patch)
@@ -288,15 +289,15 @@ namespace hodel
     //IntegerTuple centerofmass(Patch)
     std::any centerofmass(std::vector<std::any> const& args); //center of mass
     //IntegerSet palette(Element)
-    std::any palette(std::vector<std::any> const& args); //colors occurring in ObjectType or grid
+    std::any palette(std::vector<std::any> const& args); //colors occurring in object or grid
     //IntegerType numcolors(Element)
-    std::any numcolors(std::vector<std::any> const& args); //number of colors occurring in ObjectType or grid
+    std::any numcolors(std::vector<std::any> const& args); //number of colors occurring in object or grid
     //IntegerType color(ObjectType)
-    std::any color(std::vector<std::any> const& args); //color of ObjectType
+    std::any color(std::vector<std::any> const& args); //color of object
     //ObjectType toobject(Patch, Grid)
-    std::any toobject(std::vector<std::any> const& args); //ObjectType from patch and grid
+    std::any toobject(std::vector<std::any> const& args); //object from patch and grid
     //ObjectType asobject(Grid)
-    std::any asobject(std::vector<std::any> const& args); //conversion of grid to ObjectType
+    std::any asobject(std::vector<std::any> const& args); //conversion of grid to object
     //Grid rot90(Grid)
     std::any rot90(std::vector<std::any> const& args); //quarter clockwise rotation
     //Grid rot180(Grid)
@@ -312,31 +313,33 @@ namespace hodel
     //Piece cmirror(Piece)
     std::any cmirror(std::vector<std::any> const& args); //mirroring along counterdiagonal
     //Grid fill(Grid, IntegerType, Patch)
-    std::any fill(std::vector<std::any> const& args); //fill value at IndicesType
+    std::any fill(std::vector<std::any> const& args); //fill value at indices
     //Grid paint(Grid, ObjectType)
-    std::any paint(std::vector<std::any> const& args); //paint ObjectType to grid
+    std::any paint(std::vector<std::any> const& args); //paint object to grid
     //Grid underfill(Grid, IntegerType, Patch)
-    std::any underfill(std::vector<std::any> const& args); //fill value at IndicesType that are background
+    std::any underfill(std::vector<std::any> const& args); //fill value at indices that are background
     //Grid underpaint(Grid, ObjectType)
-    std::any underpaint(std::vector<std::any> const& args); //paint ObjectType to grid where there is background
+    std::any underpaint(std::vector<std::any> const& args); //paint object to grid where there is background
     //Grid hupscale(Grid, IntegerType)
     std::any hupscale(std::vector<std::any> const& args); //upscale grid horizontally
     //Grid vupscale(Grid, IntegerType)
     std::any vupscale(std::vector<std::any> const& args); //upscale grid vertically
     //Element downscale(Element, IntegerType)
-    std::any upscale(std::vector<std::any> const& args); //upscale ObjectType or grid
+    std::any upscale(std::vector<std::any> const& args); //upscale object or grid
     //Grid downscale(Grid, IntegerType)
-    std::any downscale(std::vector<std::any> const& args); //downscale ObjectType or grid
+    std::any downscale(std::vector<std::any> const& args); //downscale object or grid
     //Grid hconcat(Grid, Grid)
     std::any hconcat(std::vector<std::any> const& args); //concatenate two grids horizontally
     //Grid vconcat(Grid, Grid)
     std::any vconcat(std::vector<std::any> const& args); //concatenate two grids vertically
     //Grid subgrid(Patch, Grid)
-    std::any subgrid(std::vector<std::any> const& args); //smallest subgrid containing ObjectType
-    std::any hsplit(std::vector<std::any> const& args); //Container(Grid, IntegerType): split grid horizontally
-    std::any vsplit(std::vector<std::any> const& args); //Container(Grid, IntegerType): split grid vertically
+    std::any subgrid(std::vector<std::any> const& args); //smallest subgrid containing object
+    //GridVector hsplit(Grid, IntegerType)
+    std::any hsplit(std::vector<std::any> const& args); //split grid horizontally
+    //GridVector vsplit(Grid, IntegerType)
+    std::any vsplit(std::vector<std::any> const& args); //split grid vertically
     //Grid cellwise(Grid, Grid, IntegerType)
-    std::any cellwise(std::vector<std::any> const& args); //Grid(Grid, Grid, IntegerType): cellwise match of two grids
+    std::any cellwise(std::vector<std::any> const& args); //cellwise match of two grids
     //Grid replace(Grid, IntegerType, IntegerType)
     std::any replace(std::vector<std::any> const& args); //color substitution
     //Grid switch_(Grid, IntegerType, IntegerType)
@@ -350,11 +353,11 @@ namespace hodel
     //Grid canvas(IntegerTuple, IntegerTuple)
     std::any canvas(std::vector<std::any> const& args); //grid construction
     //IndicesType corners(Patch)
-    std::any corners(std::vector<std::any> const& args); //IndicesType of corners
+    std::any corners(std::vector<std::any> const& args); //indices of corners
     //IndicesType connect(IntegerTuple, IntegerTuple)
     std::any connect(std::vector<std::any> const& args); //line between two points
     //Grid cover(Grid, Patch)
-    std::any cover(std::vector<std::any> const& args); //remove ObjectType from grid
+    std::any cover(std::vector<std::any> const& args); //remove object from grid
     //Grid trim(Grid)
     std::any trim(std::vector<std::any> const& args); //trim border of grid
     //Grid move(Grid, ObjectType, IntegerTuple)
@@ -372,9 +375,9 @@ namespace hodel
     //IndicesType hfrontier(IntegerTuple)
     std::any hfrontier(std::vector<std::any> const& args); //horizontal frontier
     //IndicesType backdrop(Patch)
-    std::any backdrop(std::vector<std::any> const& args); //IndicesType in bounding box of patch
+    std::any backdrop(std::vector<std::any> const& args); //indices in bounding box of patch
     //IndicesType delta(Patch)
-    std::any delta(std::vector<std::any> const& args); //IndicesType in bounding box but not part of patch
+    std::any delta(std::vector<std::any> const& args); //indices in bounding box but not part of patch
     //IntegerTuple gravitate(Patch, Patch)
     std::any gravitate(std::vector<std::any> const& args); //direction to move source until adjacent to destination
     //IndicesType inbox(Patch)
@@ -386,7 +389,7 @@ namespace hodel
     //IndicesType shoot(IntegerTuple, IntegerTuple)
     std::any shoot(std::vector<std::any> const& args); //line from starting point and direction
     //IndicesType occurrences(Grid, ObjectType)
-    std::any occurrences(std::vector<std::any> const& args); //locations of occurrences of ObjectType in grid
+    std::any occurrences(std::vector<std::any> const& args); //locations of occurrences of object in grid
     //Objects frontiers(Grid)
     std::any frontiers(std::vector<std::any> const& args); //set of frontiers
     //Grid compress(Grid)
