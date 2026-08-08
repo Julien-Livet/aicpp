@@ -74,11 +74,19 @@ for definition in variableDefinitions:
 
 content += "\n"
 
+addedNames = set()
+
 for definition in primitiveDefinitions:
     definition = definition.strip()
     i1 = definition.index(" ")
     i2 = definition.index("(")
     name = definition[i1+1:i2]
+
+    if (name in addedNames):
+        continue
+
+    addedNames.add(name)
+
     trueName = name
 
     if (trueName.endswith("_")):
