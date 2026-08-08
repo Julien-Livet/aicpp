@@ -107,8 +107,8 @@ static std::any order(std::any const& container, std::function<std::any(std::vec
 template <typename T>
 static std::any repeat(std::any const& item, hodel::IntegerType const& n)
 {
-    if (n < 0)
-        throw std::runtime_error{"Wrong value"};
+    if (n <= 0)
+        return std::any{};
 
     if (item.type() == typeid(T))
         return std::vector<T>(n, std::any_cast<T>(item));
@@ -728,7 +728,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
     {
         auto const n{std::any_cast<IntegerType>(num)};
 
-        if (n < 0 || n > 100)
+        if (n <= 0 || n > 100)
             throw std::runtime_error{"Wrong value"};
 
         if (auto r = ::repeat<IntegerType>(item, n); r.has_value()) return r;
