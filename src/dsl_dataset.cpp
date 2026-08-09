@@ -312,7 +312,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"power"},
         //{"fork"}, //OK
         {"crop", "I", "astuple", "ZERO", "ZERO", "astuple", "halve", "halve", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "halve", "halve", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
-        //{"rapply"},
+        {"first", "rapply", "insert", "trim", "initset", "hmirror", "I"},
         //{"mapply"},
         //{"papply"},
         //{"mpapply"},
