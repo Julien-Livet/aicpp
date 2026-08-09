@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <mutex>
+#include <optional>
 #include <print>
 #include <random>
 #include <set>
@@ -356,7 +357,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"gravitate"},
     };
 
-    std::vector<Connection> connections;
+    std::vector<std::pair<Connection, std::optional<hodel::GridType> > > programs;
 
     {
         Connection const width{variables.at("width"), {}};
@@ -372,7 +373,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
-        connections.emplace_back(paint);
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
     }
 
     {
@@ -389,7 +390,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
-        connections.emplace_back(paint);
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
     }
 
     for (auto names : allNames)
@@ -398,7 +399,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
         try
         {
-            connections.emplace_back(buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, typeid(hodel::GridType), names));
+            programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, typeid(hodel::GridType), names), {}});
         }
         catch (std::exception const&)
         {
@@ -413,13 +414,15 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         }
     }
 
-    for (auto& connection : connections)
+    for (auto& program : programs)
     {
+        auto& connection{program.first};
+
         assert(connection.neuron().outputType() == typeid(hodel::GridType));
 
-        auto const program{connection.string()};
+        auto const dslProgram{connection.string()};
 
-        if (!program.contains("(I)") && !program.contains("(I, ") && !program.contains(", I,") && !program.contains(", I)"))
+        if (!dslProgram.contains("(I)") && !dslProgram.contains("(I, ") && !dslProgram.contains(", I,") && !dslProgram.contains(", I)"))
         {
             std::cout << "Failed to add: " << connection.string() << std::endl;
 
@@ -429,9 +432,9 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         std::any output;
         bool add{true};
 
-        for (size_t i{0}; i < gridTrials; ++i)
+        for (size_t i{0}; i < program.second.has_value() ? 1 : gridTrials; ++i)
         {
-            auto const input{generateStructuredGrid({30, 30}, {30, 30})};
+            auto const input{program.second.has_value() ? program.second.value() : generateStructuredGrid({30, 30}, {30, 30})};
 
             iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
