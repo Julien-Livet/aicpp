@@ -255,7 +255,9 @@ namespace hodel
     //std::vector<ObjectType> rapply(std::vector<Callable>, ObjectType)
     //std::vector<IntegerType> rapply(std::vector<Callable>, ObjectType)
     std::any rapply(std::vector<std::any> const& args); //apply each function in container to value
-    std::any mapply(std::vector<std::any> const& args); //Container(Callable, ContainerContainer): apply and merge
+    //GridType mapply(Callable, std::vector<GridType>)
+    //IntegerVector mapply(Callable, GridType)
+    std::any mapply(std::vector<std::any> const& args); //apply and merge
     std::any papply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container3): apply function on two vectors
     std::any mpapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on two vectors and merge
     std::any prapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on cartesian product
