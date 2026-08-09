@@ -120,7 +120,7 @@ namespace hodel
     //std::vector<AnyVector1> difference(std::vector<AnyVector1>, std::vector<AnyVector1>)
     //std::set<AnySet1> difference(std::set<AnySet1>, std::set<AnySet1>)
     std::any difference(std::vector<std::any> const& args); //set difference
-    //std::vector<AnyVector1> dedupe(std::vector<AnyVector1>, std::vector<AnyVector1>)
+    //std::vector<AnyVector1> dedupe(std::vector<AnyVector1>)
     std::any dedupe(std::vector<std::any> const& args); //remove duplicates
     //std::vector<AnyVector1> order(std::vector<AnyVector1>, Callable)
     std::any order(std::vector<std::any> const& args); //order container by custom key
@@ -184,8 +184,8 @@ namespace hodel
     std::any toivec(std::vector<std::any> const& args); //vector pointing vertically
     //IntegerTuple tojvec(IntegerType)
     std::any tojvec(std::vector<std::any> const& args); //vector pointing horizontally
-    //AnyVector1 sfilter(std::vector<AnyVector1>, Callable)
-    //AnySet1 sfilter(std::set<AnySet1>, Callable)
+    //std::vector<AnyVector1> sfilter(std::vector<AnyVector1>, Callable)
+    //std::set<AnySet1> sfilter(std::set<AnySet1>, Callable)
     std::any sfilter(std::vector<std::any> const& args); //keep elements in container that satisfy condition
     //AnyVector3 mfilter(std::vector<AnyVector3>, Callable)
     //AnySet2 mfilter(std::set<AnySet2>, Callable)
