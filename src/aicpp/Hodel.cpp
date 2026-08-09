@@ -809,6 +809,17 @@ std::any hodel::merge(std::vector<std::any> const& args)
 
         return result;
     }
+    else if (containers.type() == typeid(std::vector<ObjectType>))
+    {
+        auto const containers_{std::any_cast<std::vector<ObjectType> >(containers)};
+
+        ObjectType result;
+
+        for (auto const& container : containers_)
+            result.insert(container.begin(), container.end());
+
+        return result;
+    }
     else if (containers.type() == typeid(IndicesSet))
     {
         auto const containers_{std::any_cast<IndicesSet>(containers)};
@@ -2264,6 +2275,34 @@ std::any hodel::mapply(std::vector<std::any> const& args)
     return merge({apply({function, container})});
 }
 
+template <typename T, typename S, typename U>
+std::any papply(std::function<std::any(std::vector<std::any> const&)> const& function, std::any const& a, std::any const& b)
+{
+    if (!(a.type() == typeid(T) && b.type() == typeid(S)))
+        return std::any{};
+
+    auto const a_{std::any_cast<T>(a)};
+    auto const b_{std::any_cast<S>(b)};
+
+    if (a_.size() != b_.size()|| a_.empty())
+        return std::any{};
+
+    std::vector<U> result;
+    result.reserve(a_.size());
+
+    try
+    {
+        for (size_t i{0}; i < a_.size(); ++i)
+            result.emplace_back(std::any_cast<U>(function({a_[i], b_[i]})));
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
+
+    return result;
+}
+
 std::any hodel::papply(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
@@ -2278,36 +2317,34 @@ std::any hodel::papply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
 
-    if (a.type() == typeid(std::vector<IntegerType>) && b.type() == typeid(std::vector<IntegerTuple>))
-    {
-        auto const a_{std::any_cast<std::vector<IntegerType> >(a)};
-        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
-
-        if (a_.size() != b_.size() || a_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        ObjectType result;
-
-        for (size_t i{0}; i < a_.size(); ++i)
-            result.emplace(a_[i], b_[i]);
-
-        return result;
-    }
-    else if (a.type() == typeid(std::vector<IntegerType>) && b.type() == typeid(std::vector<IntegerType>))
-    {
-        auto const a_{std::any_cast<std::vector<IntegerType> >(a)};
-        auto const b_{std::any_cast<std::vector<IntegerType> >(b)};
-
-        if (a_.size() != b_.size() || a_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        IndicesType result;
-
-        for (size_t i{0}; i < a_.size(); ++i)
-            result.emplace(a_[i], b_[i]);
-
-        return result;
-    }
+    if (auto r = ::papply<std::vector<Boolean>, std::vector<Boolean>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IntegerType>, std::vector<IntegerType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<GridType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<GridType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<GridType>, std::vector<ObjectType>, GridType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<GridType>, std::vector<IntegerType>, GridType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<GridType>, std::vector<IntegerType>, IndicesType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IntegerType>, std::vector<ObjectType>, ObjectType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IntegerType>, std::vector<IndicesType>, ObjectType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<Objects>, std::vector<IntegerType>, Objects>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<Callable>, std::vector<GridType>, IntegerVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<GridType>, std::vector<GridType>, GridVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IntegerVector>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IntegerSet>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<Objects>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesSet>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
