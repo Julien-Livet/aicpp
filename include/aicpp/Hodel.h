@@ -217,7 +217,9 @@ namespace hodel
     //IntegerTuple astuple(IntegerType, IntegerType)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
     std::any product(std::vector<std::any> const& args); //Container1(Container2, Container3): cartesian product
-    std::any pair(std::vector<std::any> const& args); //ContainerContainer(Container, Container): zipping of two tuples
+    //std::vector<IntegerTuple> pair(IntegerTuple, IntegerTuple)
+    //GridType pair(IntegerVector, IntegerVector)
+    std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(Boolean, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
     //Callable compose(Callable, Callable)
@@ -240,7 +242,21 @@ namespace hodel
     //std::vector<IntegerType> apply(Callable, std::vector<GridType>)
     //std::vector<IntegerType> apply(Callable, Objects)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
-    std::any rapply(std::vector<std::any> const& args); //Container(Container, Any): apply each function in container to value
+    //std::vector<Boolean> rapply(std::vector<Boolean>, Callable)
+    //std::vector<Boolean> rapply(std::vector<IntegerType>, Callable)
+    //std::vector<IntegerType> rapply(std::vector<IntegerType>, Callable)
+    //std::vector<IntegerTuple> rapply(std::vector<IntegerTuple>, Callable)
+    //std::vector<IntegerType> rapply(std::vector<IntegerTuple>, Callable)
+    //std::vector<GridType> rapply(std::vector<GridType>, Callable)
+    //std::vector<Boolean> rapply(std::vector<GridType>, Callable)
+    //std::vector<IntegerTuple> rapply(IndicesType, Callable)
+    //std::vector<IntegerType> rapply(IndicesType, Callable)
+    //std::vector<IndicesSet> rapply(std::vector<IndicesSet>, Callable)
+    //std::vector<ObjectType> rapply(Objects, Callable)
+    //std::vector<IntegerType> rapply(Objects, Callable)
+    //std::vector<ObjectType> rapply(std::vector<ObjectType>, Callable)
+    //std::vector<IntegerType> rapply(std::vector<ObjectType>, Callable)
+    std::any rapply(std::vector<std::any> const& args); //apply each function in container to value
     std::any mapply(std::vector<std::any> const& args); //Container(Callable, ContainerContainer): apply and merge
     std::any papply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container3): apply function on two vectors
     std::any mpapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on two vectors and merge
