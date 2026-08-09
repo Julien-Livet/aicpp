@@ -7,6 +7,7 @@
 #include "aicpp/Hodel.h"
 
 constexpr hodel::IntegerType MAX_SIZE = 30;
+constexpr size_t SHOOT_DISTANCE = 42;
 
 using IntegerCountMap = std::map<hodel::IntegerType, hodel::IntegerType>;
 
@@ -38,7 +39,7 @@ IntegerCountMap colorCounts(hodel::Element const& element)
         {
             using T = std::decay_t<decltype(value)>;
 
-            if constexpr (std::is_same_v<T, hodel::Grid>)
+            if constexpr (std::is_same_v<T, hodel::GridType>)
             {
                 for (auto const& row : value)
                 {
@@ -442,7 +443,7 @@ std::any hodel::equality(std::vector<std::any> const& args)
     if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Grid>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<GridType>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Cell>(a, b); r.has_value()) return r;
     if (auto r = ::equality<ObjectType>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Objects>(a, b); r.has_value()) return r;
@@ -589,8 +590,8 @@ std::any hodel::combine(std::vector<std::any> const& args)
     if (auto r = combine_sets<IndicesSet, IndicesSet>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<std::vector<IntegerTuple>, std::vector<IntegerTuple> >(a, b); r.has_value()) return r;
     if (auto r = combine_sets<std::vector<IntegerType>, std::vector<IntegerType> >(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<Grid, Grid>(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<std::vector<Grid>, std::vector<Grid> >(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<GridType, GridType>(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<std::vector<GridType>, std::vector<GridType> >(a, b); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -640,20 +641,20 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
     {
         auto const x{std::any_cast<Element>(tup)};
 
-        if (std::holds_alternative<Grid>(x))
-            return dedupe({std::get<Grid>(x)});
+        if (std::holds_alternative<GridType>(x))
+            return dedupe({std::get<GridType>(x)});
     }
     else if (tup.type() == typeid(Piece))
     {
         auto const x{std::any_cast<Piece>(tup)};
 
-        if (std::holds_alternative<Grid>(x))
-            return dedupe({std::get<Grid>(x)});
+        if (std::holds_alternative<GridType>(x))
+            return dedupe({std::get<GridType>(x)});
     }
-    else if (tup.type() == typeid(Grid))
+    else if (tup.type() == typeid(GridType))
     {
-        auto const x{std::any_cast<Grid>(tup)};
-        Grid y;
+        auto const x{std::any_cast<GridType>(tup)};
+        GridType y;
         y.reserve(x.size());
 
         for (size_t i{0}; i < x.size(); ++i)
@@ -666,10 +667,10 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         return y;
     }
-    else if (tup.type() == typeid(std::vector<Grid>))
+    else if (tup.type() == typeid(std::vector<GridType>))
     {
-        auto const x{std::any_cast<std::vector<Grid> >(tup)};
-        std::vector<Grid> y;
+        auto const x{std::any_cast<std::vector<GridType> >(tup)};
+        std::vector<GridType> y;
         y.reserve(x.size());
 
         for (size_t i{0}; i < x.size(); ++i)
@@ -709,7 +710,7 @@ std::any hodel::order(std::vector<std::any> const& args)
 
     if (auto r = ::order<IntegerSet>(container, f); r.has_value()) return r;
     if (auto r = ::order<std::vector<IntegerType> >(container, f); r.has_value()) return r;
-    if (auto r = ::order<std::vector<Grid> >(container, f); r.has_value()) return r;
+    if (auto r = ::order<std::vector<GridType> >(container, f); r.has_value()) return r;
     if (auto r = ::order<Objects>(container, f); r.has_value()) return r;
     if (auto r = ::order<IndicesSet>(container, f); r.has_value()) return r;
 
@@ -735,7 +736,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Grid>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<GridType>(item, n); r.has_value()) return r;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -772,9 +773,9 @@ std::any hodel::size(std::vector<std::any> const& args)
     if (auto r = size_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = size_set<std::vector<IntegerType> >(container); r.has_value()) return r;
 
-    if (container.type() == typeid(Grid))
+    if (container.type() == typeid(GridType))
     {
-        auto const x{std::any_cast<Grid>(container)};
+        auto const x{std::any_cast<GridType>(container)};
 
         return static_cast<IntegerType>(x.size());
     }
@@ -793,8 +794,8 @@ std::any hodel::merge(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(containers)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return merge({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return merge({std::get<GridType>(piece)});
     }
 
     if (containers.type() == typeid(Objects))
@@ -819,9 +820,9 @@ std::any hodel::merge(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (containers.type() == typeid(Grid))
+    else if (containers.type() == typeid(GridType))
     {
-        auto const containers_{std::any_cast<Grid>(containers)};
+        auto const containers_{std::any_cast<GridType>(containers)};
 
         std::vector<IntegerType> result;
 
@@ -830,11 +831,11 @@ std::any hodel::merge(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (containers.type() == typeid(std::vector<Grid>))
+    else if (containers.type() == typeid(std::vector<GridType>))
     {
-        auto const containers_{std::any_cast<std::vector<Grid> >(containers)};
+        auto const containers_{std::any_cast<std::vector<GridType> >(containers)};
 
-        Grid result;
+        GridType result;
 
         for (auto const& container : containers_)
             result.insert(result.end(), container.begin(), container.end());
@@ -930,8 +931,8 @@ std::any hodel::valmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IntegerSet>(container));
     else if (container.type() == typeid(std::vector<IntegerType>))
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
-    else if (container.type() == typeid(std::vector<Grid>))
-        values = toVector(std::any_cast<std::vector<Grid> >(container));
+    else if (container.type() == typeid(std::vector<GridType>))
+        values = toVector(std::any_cast<std::vector<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -982,8 +983,8 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IntegerSet>(container));
     else if (container.type() == typeid(std::vector<IntegerType>))
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
-    else if (container.type() == typeid(std::vector<Grid>))
-        values = toVector(std::any_cast<std::vector<Grid> >(container));
+    else if (container.type() == typeid(std::vector<GridType>))
+        values = toVector(std::any_cast<std::vector<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -1034,8 +1035,8 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IntegerSet>(container));
     else if (container.type() == typeid(std::vector<IntegerType>))
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
-    else if (container.type() == typeid(std::vector<Grid>))
-        values = toVector(std::any_cast<std::vector<Grid> >(container));
+    else if (container.type() == typeid(std::vector<GridType>))
+        values = toVector(std::any_cast<std::vector<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -1083,8 +1084,8 @@ std::any hodel::argmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IntegerSet>(container));
     else if (container.type() == typeid(std::vector<IntegerType>))
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
-    else if (container.type() == typeid(std::vector<Grid>))
-        values = toVector(std::any_cast<std::vector<Grid> >(container));
+    else if (container.type() == typeid(std::vector<GridType>))
+        values = toVector(std::any_cast<std::vector<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -1182,8 +1183,8 @@ std::any hodel::mostcommon(std::vector<std::any> const& args)
     }
 
     if (auto r = ::mostcommon<std::vector<IntegerType> >(container); r.has_value()) return r;
-    if (auto r = ::mostcommon<std::vector<Grid> >(container); r.has_value()) return r;
-    if (auto r = ::mostcommon<Grid>(container); r.has_value()) return r;
+    if (auto r = ::mostcommon<std::vector<GridType> >(container); r.has_value()) return r;
+    if (auto r = ::mostcommon<GridType>(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1237,8 +1238,8 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
     }
 
     if (auto r = ::leastcommon<std::vector<IntegerType> >(container); r.has_value()) return r;
-    if (auto r = ::leastcommon<std::vector<Grid> >(container); r.has_value()) return r;
-    if (auto r = ::leastcommon<Grid>(container); r.has_value()) return r;
+    if (auto r = ::leastcommon<std::vector<GridType> >(container); r.has_value()) return r;
+    if (auto r = ::leastcommon<GridType>(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1265,7 +1266,7 @@ std::any hodel::initset(std::vector<std::any> const& args)
     if (auto r = init_set<IndicesType>   (value); r.has_value()) return r;
     if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<IntegerType> >(value); r.has_value()) return r;
-    if (auto r = init_set<std::vector<Grid> >(value); r.has_value()) return r;
+    if (auto r = init_set<std::vector<GridType> >(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<Boolean> >(value); r.has_value()) return r;
 
@@ -1541,8 +1542,8 @@ std::any hodel::sfilter(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(container)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return sfilter({std::get<Grid>(piece), condition});
+        if (std::holds_alternative<GridType>(piece))
+            return sfilter({std::get<GridType>(piece), condition});
     }
 
     if (auto r = ::sfilter<IntegerSet>(container, condition_); r.has_value()) return r;
@@ -1550,9 +1551,9 @@ std::any hodel::sfilter(std::vector<std::any> const& args)
     if (auto r = ::sfilter<Objects>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<IndicesType>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<IndicesSet>(container, condition_); r.has_value()) return r;
-    if (auto r = ::sfilter<Grid>(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<GridType>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<std::vector<IntegerType> >(container, condition_); r.has_value()) return r;
-    if (auto r = ::sfilter<std::vector<Grid> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<std::vector<GridType> >(container, condition_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1612,8 +1613,8 @@ std::any hodel::extract(std::vector<std::any> const& args)
     if (auto r = ::extract<IndicesSet>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<std::vector<IndicesType> >(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<std::vector<IntegerType> >(container, condition_); r.has_value()) return r;
-    if (auto r = ::extract<std::vector<Grid> >(container, condition_); r.has_value()) return r;
-    if (auto r = ::extract<Grid>(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<GridType> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<GridType>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container, condition_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -1645,7 +1646,7 @@ std::any hodel::totuple(std::vector<std::any> const& args)
     if (auto r = vector_set<IndicesType>   (container); r.has_value()) return r;
     if (auto r = vector_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = vector_set<std::vector<IntegerType> >(container); r.has_value()) return r;
-    if (auto r = vector_set<std::vector<Grid> >(container); r.has_value()) return r;
+    if (auto r = vector_set<std::vector<GridType> >(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1687,12 +1688,12 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<IndicesType> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<IntegerType> >(container); r.has_value()) return r;
-    if (auto r = first_set<std::vector<Grid> >(container); r.has_value()) return r;
+    if (auto r = first_set<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container); r.has_value()) return r;
 
-    if (container.type() == typeid(Grid))
+    if (container.type() == typeid(GridType))
     {
-        auto const x{std::any_cast<Grid>(container)};
+        auto const x{std::any_cast<GridType>(container)};
 
         if (x.empty())
             throw std::runtime_error{"Wrong value"};
@@ -1740,12 +1741,12 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<IndicesType> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<IntegerType> >(container); r.has_value()) return r;
-    if (auto r = last_set<std::vector<Grid> >(container); r.has_value()) return r;
+    if (auto r = last_set<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(container); r.has_value()) return r;
 
-    if (container.type() == typeid(Grid))
+    if (container.type() == typeid(GridType))
     {
-        auto const x{std::any_cast<Grid>(container)};
+        auto const x{std::any_cast<GridType>(container)};
 
         if (x.empty())
             throw std::runtime_error{"Wrong value"};
@@ -1789,8 +1790,8 @@ std::any hodel::insert(std::vector<std::any> const& args)
     if (auto r = ::insert<IndicesSet>(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<IndicesType> >(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<IntegerType> >(value, container); r.has_value()) return r;
-    if (auto r = ::insert<std::vector<Grid> >(value, container); r.has_value()) return r;
-    if (auto r = ::insert<Grid>(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<GridType> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<GridType>(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<Boolean> >(value, container); r.has_value()) return r;
 
@@ -1832,8 +1833,8 @@ std::any hodel::remove(std::vector<std::any> const& args)
     if (auto r = ::remove<IndicesSet>(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<IndicesType> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<IntegerType> >(value, container); r.has_value()) return r;
-    if (auto r = ::remove<std::vector<Grid> >(value, container); r.has_value()) return r;
-    if (auto r = ::remove<Grid>(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<GridType> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<GridType>(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<Boolean> >(value, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -1951,7 +1952,7 @@ std::any hodel::pair(std::vector<std::any> const& args)
     else if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerTuple))
         return Cell{std::any_cast<IntegerType>(a), std::any_cast<IntegerTuple>(b)};
     else if (a.type() == typeid(std::vector<IntegerType>) && b.type() == typeid(std::vector<IntegerType>))
-        return Grid{std::any_cast<std::vector<IntegerType> >(a), std::any_cast<std::vector<IntegerType> >(b)};
+        return GridType{std::any_cast<std::vector<IntegerType> >(a), std::any_cast<std::vector<IntegerType> >(b)};
     else if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
         return std::vector<IntegerTuple>{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
 
@@ -2191,9 +2192,9 @@ std::any hodel::apply(std::vector<std::any> const& args)
     auto const function_{std::any_cast<std::function<std::any(std::vector<std::any> const&)> >(function)};
 
     if (auto r = ::apply<std::vector<Boolean> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<Grid>, Boolean>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, Boolean>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IntegerType>, IntegerType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<Grid>, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, IntegerType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IntegerType>(function_, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -2229,7 +2230,7 @@ std::any hodel::rapply(std::vector<std::any> const& args)
     if (auto r = ::rapply<std::vector<Boolean> >(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<std::vector<IntegerType> >(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<std::vector<IntegerTuple> >(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<Grid>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<GridType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IndicesType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IndicesSet>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<Objects>(functions_, value); r.has_value()) return r;
@@ -2364,9 +2365,9 @@ std::any hodel::prapply(std::vector<std::any> const& args)
                            std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<IntegerTuple>,
                            std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, Grid,
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, GridType,
                            std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<Grid>,
+    if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, std::vector<GridType>,
                            std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<std::function<std::any(std::vector<std::any> const&) > >, ObjectType,
                            std::function<std::any(std::vector<std::any> const&)> >(function_, a, b); r.has_value()) return r;
@@ -2390,14 +2391,14 @@ std::any hodel::mostcolor(std::vector<std::any> const& args)
 
     if (element.type() == typeid(ObjectType))
         return mostcolor({Element{std::any_cast<ObjectType>(element)}});
-    else if (element.type() == typeid(Grid))
-        return mostcolor({Element{std::any_cast<Grid>(element)}});
+    else if (element.type() == typeid(GridType))
+        return mostcolor({Element{std::any_cast<GridType>(element)}});
     else if (element.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(element)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return leastcolor({Element{std::get<Grid>(piece)}});
+        if (std::holds_alternative<GridType>(piece))
+            return leastcolor({Element{std::get<GridType>(piece)}});
     }
 
     if (element.type() == typeid(Element))
@@ -2432,14 +2433,14 @@ std::any hodel::leastcolor(std::vector<std::any> const& args)
 
     if (element.type() == typeid(ObjectType))
         return leastcolor({Element{std::any_cast<ObjectType>(element)}});
-    else if (element.type() == typeid(Grid))
-        return leastcolor({Element{std::any_cast<Grid>(element)}});
+    else if (element.type() == typeid(GridType))
+        return leastcolor({Element{std::any_cast<GridType>(element)}});
     else if (element.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(element)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return leastcolor({Element{std::get<Grid>(piece)}});
+        if (std::holds_alternative<GridType>(piece))
+            return leastcolor({Element{std::get<GridType>(piece)}});
     }
 
     if (element.type() == typeid(Element))
@@ -2476,9 +2477,9 @@ std::any hodel::height(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto const grid{std::get<Grid>(piece_)};
+            auto const grid{std::get<GridType>(piece_)};
 
             if (grid.size() == 0)
                 return IntegerType{0};
@@ -2493,8 +2494,8 @@ std::any hodel::height(std::vector<std::any> const& args)
             return IntegerType{lm - um + 1};
         }
     }
-    else if (piece.type() == typeid(Grid))
-        return height({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return height({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return height({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(ObjectType))
@@ -2521,9 +2522,9 @@ std::any hodel::width(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto const grid{std::get<Grid>(piece_)};
+            auto const grid{std::get<GridType>(piece_)};
 
             if (grid.size() == 0)
                 return IntegerType{0};
@@ -2538,8 +2539,8 @@ std::any hodel::width(std::vector<std::any> const& args)
             return IntegerType{rm - lm + 1};
         }
     }
-    else if (piece.type() == typeid(Grid))
-        return width({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return width({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return width({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(ObjectType))
@@ -2562,8 +2563,8 @@ std::any hodel::shape(std::vector<std::any> const& args)
 
     auto const piece{args[0]};
 
-    if (piece.type() == typeid(Grid))
-        return shape({Piece(std::any_cast<Grid>(piece))});
+    if (piece.type() == typeid(GridType))
+        return shape({Piece(std::any_cast<GridType>(piece))});
     else if (piece.type() == typeid(Patch))
         return shape({Piece(std::any_cast<Patch>(piece))});
 
@@ -2580,8 +2581,8 @@ std::any hodel::portrait(std::vector<std::any> const& args)
 
     auto const piece{args[0]};
 
-    if (piece.type() == typeid(Grid))
-        return portrait({Piece(std::any_cast<Grid>(piece))});
+    if (piece.type() == typeid(GridType))
+        return portrait({Piece(std::any_cast<GridType>(piece))});
     else if (piece.type() == typeid(Patch))
         return portrait({Piece(std::any_cast<Patch>(piece))});
 
@@ -2604,8 +2605,8 @@ std::any hodel::colorcount(std::vector<std::any> const& args)
     auto const element{args[0]};
     auto const value{args[1]};
 
-    if (element.type() == typeid(Grid))
-        return colorcount({Element(std::any_cast<Grid>(element)), value});
+    if (element.type() == typeid(GridType))
+        return colorcount({Element(std::any_cast<GridType>(element)), value});
     else if (element.type() == typeid(ObjectType))
         return colorcount({Element(std::any_cast<ObjectType>(element)), value});
 
@@ -2616,9 +2617,9 @@ std::any hodel::colorcount(std::vector<std::any> const& args)
 
         IntegerType count = 0;
 
-        if (std::holds_alternative<Grid>(element_))
+        if (std::holds_alternative<GridType>(element_))
         {
-            auto const grid{std::get<Grid>(element_)};
+            auto const grid{std::get<GridType>(element_)};
 
             for (auto const& row : grid)
                 count += static_cast<IntegerType>(std::count(row.begin(), row.end(), value_));
@@ -2706,14 +2707,14 @@ std::any hodel::sizefilter(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(container)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return sizefilter({std::get<Grid>(piece), n});
+        if (std::holds_alternative<GridType>(piece))
+            return sizefilter({std::get<GridType>(piece), n});
     }
 
     if (auto r = ::sizefilter<Objects>(container, n_); r.has_value()) return r;
     if (auto r = ::sizefilter<IndicesSet>(container, n_); r.has_value()) return r;
-    if (auto r = ::sizefilter<Grid>(container, n_); r.has_value()) return r;
-    if (auto r = ::sizefilter<std::vector<Grid> >(container, n_); r.has_value()) return r;
+    if (auto r = ::sizefilter<GridType>(container, n_); r.has_value()) return r;
+    if (auto r = ::sizefilter<std::vector<GridType> >(container, n_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2729,13 +2730,13 @@ std::any hodel::asindices(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return asindices({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return asindices({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         IndicesType indices;
 
@@ -2766,13 +2767,13 @@ std::any hodel::ofcolor(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return ofcolor({std::get<Grid>(piece), value});
+        if (std::holds_alternative<GridType>(piece))
+            return ofcolor({std::get<GridType>(piece), value});
     }
 
-    if (grid.type() == typeid(Grid) && value.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && value.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const value_{std::any_cast<IntegerType>(value)};
 
         IndicesType indices;
@@ -2950,20 +2951,20 @@ std::any hodel::crop(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return crop({std::get<Grid>(piece), start, dims});
+        if (std::holds_alternative<GridType>(piece))
+            return crop({std::get<GridType>(piece), start, dims});
     }
 
-    if (grid.type() == typeid(Grid) && start.type() == typeid(IntegerTuple) && dims.type() == typeid(IntegerTuple))
+    if (grid.type() == typeid(GridType) && start.type() == typeid(IntegerTuple) && dims.type() == typeid(IntegerTuple))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const dims_{std::any_cast<IntegerTuple>(dims)};
 
         if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
             throw std::runtime_error{"Wrong value"};
 
-        Grid result;
+        GridType result;
 
         try
         {
@@ -3248,13 +3249,13 @@ std::any hodel::objects(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return objects({std::get<Grid>(piece), univalued, diagonal, without_bg});
+        if (std::holds_alternative<GridType>(piece))
+            return objects({std::get<GridType>(piece), univalued, diagonal, without_bg});
     }
 
     if (univalued.type() == typeid(Boolean) && diagonal.type() == typeid(Boolean) && without_bg.type() == typeid(Boolean))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const univalued_{std::any_cast<Boolean>(univalued)};
         auto const diagonal_{std::any_cast<Boolean>(diagonal)};
         auto const without_bg_{std::any_cast<Boolean>(without_bg)};
@@ -3351,13 +3352,13 @@ std::any hodel::partition(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return partition({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return partition({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         std::map<IntegerType, ObjectType> objectsByColor;
 
@@ -3401,13 +3402,13 @@ std::any hodel::fgpartition(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return partition({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return partition({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         std::map<IntegerType, ObjectType> objectsByColor;
 
@@ -3559,9 +3560,9 @@ std::any hodel::square(std::vector<std::any> const& args)
         {
             auto const piece_{std::any_cast<Piece>(piece)};
 
-            if (std::holds_alternative<Grid>(piece_))
+            if (std::holds_alternative<GridType>(piece_))
             {
-                auto const grid{std::get<Grid>(piece_)};
+                auto const grid{std::get<GridType>(piece_)};
 
                 try
                 {
@@ -3587,8 +3588,8 @@ std::any hodel::square(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
-    else if (piece.type() == typeid(Grid))
-        return square({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return square({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return square({Piece{std::any_cast<Patch>(piece)}});
 
@@ -3902,8 +3903,8 @@ std::any hodel::bordering(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return bordering({patch, std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return bordering({patch, std::get<GridType>(piece)});
     }
 
     if (patch.type() == typeid(ObjectType))
@@ -3911,9 +3912,9 @@ std::any hodel::bordering(std::vector<std::any> const& args)
     else if (patch.type() == typeid(IndicesType))
         return bordering({Patch{std::any_cast<IndicesType>(patch)}, grid});
 
-    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         try
         {
@@ -3984,8 +3985,8 @@ std::any hodel::palette(std::vector<std::any> const& args)
 
     if (element.type() == typeid(ObjectType))
         return palette({Element{std::any_cast<ObjectType>(element)}});
-    else if (element.type() == typeid(Grid))
-        return palette({Element{std::any_cast<Grid>(element)}});
+    else if (element.type() == typeid(GridType))
+        return palette({Element{std::any_cast<GridType>(element)}});
 
     if (element.type() == typeid(Element))
     {
@@ -3993,9 +3994,9 @@ std::any hodel::palette(std::vector<std::any> const& args)
 
         IntegerSet colors;
 
-        if (std::holds_alternative<Grid>(element_))
+        if (std::holds_alternative<GridType>(element_))
         {
-            auto const& grid{std::get<Grid>(element_)};
+            auto const& grid{std::get<GridType>(element_)};
 
             for (auto const& row : grid)
                 colors.insert(row.begin(), row.end());
@@ -4023,8 +4024,8 @@ std::any hodel::numcolors(std::vector<std::any> const& args)
 
     if (element.type() == typeid(ObjectType))
         return numcolors({Element{std::any_cast<ObjectType>(element)}});
-    else if (element.type() == typeid(Grid))
-        return numcolors({Element{std::any_cast<Grid>(element)}});
+    else if (element.type() == typeid(GridType))
+        return numcolors({Element{std::any_cast<GridType>(element)}});
 
     if (element.type() == typeid(Element))
     {
@@ -4073,8 +4074,8 @@ std::any hodel::toobject(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return toobject({patch, std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return toobject({patch, std::get<GridType>(piece)});
     }
 
     if (patch.type() == typeid(ObjectType))
@@ -4082,10 +4083,10 @@ std::any hodel::toobject(std::vector<std::any> const& args)
     else if (patch.type() == typeid(IndicesType))
         return toobject({Patch{std::any_cast<IndicesType>(patch)}, grid});
 
-    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(GridType))
     {
         auto const& patch_{std::any_cast<Patch>(patch)};
-        auto const& grid_{std::any_cast<Grid>(grid)};
+        auto const& grid_{std::any_cast<GridType>(grid)};
 
         try
         {
@@ -4125,13 +4126,13 @@ std::any hodel::asobject(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return asobject({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return asobject({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const& grid_{std::any_cast<Grid>(grid)};
+        auto const& grid_{std::any_cast<GridType>(grid)};
 
         try
         {
@@ -4165,13 +4166,13 @@ std::any hodel::rot90(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return rot90({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return rot90({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
@@ -4179,7 +4180,7 @@ std::any hodel::rot90(std::vector<std::any> const& args)
         auto const rows{grid_.size()};
         auto const cols{grid_.at(0).size()};
 
-        Grid result(cols, std::vector<IntegerType>(rows));
+        GridType result(cols, std::vector<IntegerType>(rows));
 
         try
         {
@@ -4211,13 +4212,13 @@ std::any hodel::rot180(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return rot180({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return rot180({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
@@ -4225,7 +4226,7 @@ std::any hodel::rot180(std::vector<std::any> const& args)
         auto const rows{grid_.size()};
         auto const cols{grid_.at(0).size()};
 
-        Grid result(rows, std::vector<IntegerType>(cols));
+        GridType result(rows, std::vector<IntegerType>(cols));
 
         try
         {
@@ -4257,13 +4258,13 @@ std::any hodel::rot270(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return rot270({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return rot270({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
@@ -4271,7 +4272,7 @@ std::any hodel::rot270(std::vector<std::any> const& args)
         auto const rows{grid_.size()};
         auto const cols{grid_.at(0).size()};
 
-        Grid result(cols, std::vector<IntegerType>(rows));
+        GridType result(cols, std::vector<IntegerType>(rows));
 
         try
         {
@@ -4303,9 +4304,9 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto grid = std::get<Grid>(piece_);
+            auto grid = std::get<GridType>(piece_);
 
             std::reverse(grid.begin(), grid.end());
 
@@ -4343,8 +4344,8 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (piece.type() == typeid(Grid))
-        return hmirror({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return hmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return hmirror({Piece{std::any_cast<Patch>(piece)}});
 
@@ -4362,9 +4363,9 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto grid = std::get<Grid>(piece_);
+            auto grid = std::get<GridType>(piece_);
 
             for (auto& row : grid)
                 std::reverse(row.begin(), row.end());
@@ -4403,8 +4404,8 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (piece.type() == typeid(Grid))
-        return vmirror({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return vmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return vmirror({Piece{std::any_cast<Patch>(piece)}});
 
@@ -4422,17 +4423,17 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto const& grid = std::get<Grid>(piece_);
+            auto const& grid = std::get<GridType>(piece_);
 
             if (grid.empty())
-                return Grid{};
+                return GridType{};
 
             auto const rows = static_cast<IntegerType>(grid.size());
             auto const cols = static_cast<IntegerType>(grid.at(0).size());
 
-            Grid result(cols, std::vector<IntegerType>(rows));
+            GridType result(cols, std::vector<IntegerType>(rows));
 
             try
             {
@@ -4479,8 +4480,8 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (piece.type() == typeid(Grid))
-        return dmirror({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return dmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return dmirror({Piece{std::any_cast<Patch>(piece)}});
 
@@ -4498,9 +4499,9 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
     {
         auto const piece_{std::any_cast<Piece>(piece)};
 
-        if (std::holds_alternative<Grid>(piece_))
+        if (std::holds_alternative<GridType>(piece_))
         {
-            auto grid = std::get<Grid>(piece_);
+            auto grid = std::get<GridType>(piece_);
 
             std::reverse(grid.begin(), grid.end());
 
@@ -4512,8 +4513,8 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
 
         return vmirror({dmirror({vmirror(args)})});
     }
-    else if (piece.type() == typeid(Grid))
-        return cmirror({Piece{std::any_cast<Grid>(piece)}});
+    else if (piece.type() == typeid(GridType))
+        return cmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return cmirror({Piece{std::any_cast<Patch>(piece)}});
 
@@ -4533,8 +4534,8 @@ std::any hodel::fill(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return fill({std::get<Grid>(piece), value, patch});
+        if (std::holds_alternative<GridType>(piece))
+            return fill({std::get<GridType>(piece), value, patch});
     }
 
     if (patch.type() == typeid(ObjectType))
@@ -4542,9 +4543,9 @@ std::any hodel::fill(std::vector<std::any> const& args)
     else if (patch.type() == typeid(IndicesType))
         return fill({grid, value, Patch{std::any_cast<IndicesType>(patch)}});
 
-    if (grid.type() == typeid(Grid) && value.type() == typeid(IntegerType) && patch.type() == typeid(Patch))
+    if (grid.type() == typeid(GridType) && value.type() == typeid(IntegerType) && patch.type() == typeid(Patch))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const value_{std::any_cast<IntegerType>(value)};
         auto const patch_{std::any_cast<Patch>(patch)};
 
@@ -4556,7 +4557,7 @@ std::any hodel::fill(std::vector<std::any> const& args)
             auto const h = grid_.size();
             auto const w = grid_.at(0).size();
 
-            Grid result = grid_;
+            GridType result = grid_;
 
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({patch})))
             {
@@ -4587,13 +4588,13 @@ std::any hodel::paint(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return paint({std::get<Grid>(piece), obj});
+        if (std::holds_alternative<GridType>(piece))
+            return paint({std::get<GridType>(piece), obj});
     }
 
-    if (grid.type() == typeid(Grid) && obj.type() == typeid(ObjectType))
+    if (grid.type() == typeid(GridType) && obj.type() == typeid(ObjectType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
 
         if (grid_.empty())
@@ -4604,7 +4605,7 @@ std::any hodel::paint(std::vector<std::any> const& args)
             auto const h = grid_.size();
             auto const w = grid_.at(0).size();
 
-            Grid result = grid_;
+            GridType result = grid_;
 
             for (auto const& [value, location] : obj_)
             {
@@ -4638,8 +4639,8 @@ std::any hodel::underfill(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return underfill({std::get<Grid>(piece), value, patch});
+        if (std::holds_alternative<GridType>(piece))
+            return underfill({std::get<GridType>(piece), value, patch});
     }
 
     if (patch.type() == typeid(ObjectType))
@@ -4647,9 +4648,9 @@ std::any hodel::underfill(std::vector<std::any> const& args)
     else if (patch.type() == typeid(IndicesType))
         return underfill({grid, value, Patch{std::any_cast<IndicesType>(patch)}});
 
-    if (grid.type() == typeid(Grid) && value.type() == typeid(IntegerType) && patch.type() == typeid(Patch))
+    if (grid.type() == typeid(GridType) && value.type() == typeid(IntegerType) && patch.type() == typeid(Patch))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const value_{std::any_cast<IntegerType>(value)};
         auto const patch_{std::any_cast<Patch>(patch)};
 
@@ -4662,7 +4663,7 @@ std::any hodel::underfill(std::vector<std::any> const& args)
             auto const w = grid_.at(0).size();
             auto const bg = std::any_cast<IntegerType>(mostcolor({grid_}));
 
-            Grid result = grid_;
+            GridType result = grid_;
 
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({patch})))
             {
@@ -4693,13 +4694,13 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return underpaint({std::get<Grid>(piece), obj});
+        if (std::holds_alternative<GridType>(piece))
+            return underpaint({std::get<GridType>(piece), obj});
     }
 
-    if (grid.type() == typeid(Grid) && obj.type() == typeid(ObjectType))
+    if (grid.type() == typeid(GridType) && obj.type() == typeid(ObjectType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
 
         if (grid_.empty())
@@ -4711,7 +4712,7 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
             auto const w = grid_.at(0).size();
             auto const bg = std::any_cast<IntegerType>(mostcolor({grid_}));
 
-            Grid result = grid_;
+            GridType result = grid_;
 
             for (auto const& [value, location] : obj_)
             {
@@ -4744,19 +4745,19 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return hupscale({std::get<Grid>(piece), factor});
+        if (std::holds_alternative<GridType>(piece))
+            return hupscale({std::get<GridType>(piece), factor});
     }
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && factor.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
         if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
-        Grid result;
+        GridType result;
 
         for (auto const& row : grid_)
         {
@@ -4790,19 +4791,19 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return vupscale({std::get<Grid>(piece), factor});
+        if (std::holds_alternative<GridType>(piece))
+            return vupscale({std::get<GridType>(piece), factor});
     }
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && factor.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
         if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
-        Grid result;
+        GridType result;
         result.reserve(grid_.size() * factor_);
 
         for (auto const& row : grid_)
@@ -4833,11 +4834,11 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
 
-        if (std::holds_alternative<Grid>(element_))
+        if (std::holds_alternative<GridType>(element_))
         {
-            auto const& grid = std::get<Grid>(element_);
+            auto const& grid = std::get<GridType>(element_);
 
-            Grid result;
+            GridType result;
 
             for (auto const& row : grid)
             {
@@ -4884,8 +4885,8 @@ std::any hodel::upscale(std::vector<std::any> const& args)
 
         return shift({Patch{result}, IntegerTuple{di_inv, dj_inv}});
     }
-    else if (element.type() == typeid(Grid))
-        return upscale({Element{std::any_cast<Grid>(element)}, factor});
+    else if (element.type() == typeid(GridType))
+        return upscale({Element{std::any_cast<GridType>(element)}, factor});
     else if (element.type() == typeid(ObjectType))
         return upscale({Element{std::any_cast<ObjectType>(element)}, factor});
 
@@ -4904,13 +4905,13 @@ std::any hodel::downscale(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return downscale({std::get<Grid>(piece), factor});
+        if (std::holds_alternative<GridType>(piece))
+            return downscale({std::get<GridType>(piece), factor});
     }
 
-    if (grid.type() == typeid(Grid) && factor.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && factor.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
         if (factor_ <= 1)
@@ -4924,7 +4925,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
             auto const h = static_cast<IntegerType>(grid_.size());
             auto const w = static_cast<IntegerType>(grid_.at(0).size());
 
-            Grid temp;
+            GridType temp;
 
             for (IntegerType i = 0; i < h; ++i)
             {
@@ -4939,7 +4940,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
                 temp.emplace_back(row);
             }
 
-            Grid result;
+            GridType result;
 
             for (IntegerType i = 0; i < static_cast<IntegerType>(temp.size()); ++i)
             {
@@ -4972,27 +4973,27 @@ std::any hodel::hconcat(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(a)};
 
-        if (std::holds_alternative<Grid>(piece))
-            a = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            a = std::get<GridType>(piece);
     }
 
     if (b.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(b)};
 
-        if (std::holds_alternative<Grid>(piece))
-            b = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            b = std::get<GridType>(piece);
     }
 
     if (recall)
         return hconcat({a, b});
 
-    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
+    if (a.type() == typeid(GridType) && b.type() == typeid(GridType))
     {
-        auto const a_{std::any_cast<Grid>(a)};
-        auto const b_{std::any_cast<Grid>(b)};
+        auto const a_{std::any_cast<GridType>(a)};
+        auto const b_{std::any_cast<GridType>(b)};
 
-        Grid result;
+        GridType result;
         auto const rows = std::min(a_.size(), b_.size());
         result.reserve(rows);
 
@@ -5026,27 +5027,27 @@ std::any hodel::vconcat(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(a)};
 
-        if (std::holds_alternative<Grid>(piece))
-            a = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            a = std::get<GridType>(piece);
     }
 
     if (b.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(b)};
 
-        if (std::holds_alternative<Grid>(piece))
-            b = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            b = std::get<GridType>(piece);
     }
 
     if (recall)
         return hconcat({a, b});
 
-    if (a.type() == typeid(Grid) && b.type() == typeid(Grid))
+    if (a.type() == typeid(GridType) && b.type() == typeid(GridType))
     {
-        auto const a_{std::any_cast<Grid>(a)};
-        auto const b_{std::any_cast<Grid>(b)};
+        auto const a_{std::any_cast<GridType>(a)};
+        auto const b_{std::any_cast<GridType>(b)};
 
-        Grid result;
+        GridType result;
         result.reserve(a_.size() + b_.size());
 
         result.insert(result.end(), a_.begin(), a_.end());
@@ -5070,8 +5071,8 @@ std::any hodel::subgrid(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return subgrid({patch, std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return subgrid({patch, std::get<GridType>(piece)});
     }
 
     if (patch.type() == typeid(IndicesType))
@@ -5079,7 +5080,7 @@ std::any hodel::subgrid(std::vector<std::any> const& args)
     else if (patch.type() == typeid(ObjectType))
         return subgrid({Patch(std::any_cast<ObjectType>(patch)), grid});
 
-    if (patch.type() == typeid(Patch) && grid.type() == typeid(Grid))
+    if (patch.type() == typeid(Patch) && grid.type() == typeid(GridType))
         return crop({grid, ulcorner({patch}), shape({patch})});
 
     throw std::runtime_error{"Wrong value"};
@@ -5097,13 +5098,13 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return hsplit({std::get<Grid>(piece), n});
+        if (std::holds_alternative<GridType>(piece))
+            return hsplit({std::get<GridType>(piece), n});
     }
 
-    if (grid.type() == typeid(Grid) && n.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && n.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const n_{std::any_cast<IntegerType>(n)};
 
         if (grid_.empty() || n_ <= 0)
@@ -5115,11 +5116,11 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
             auto const w{static_cast<IntegerType>(grid_.at(0).size()) / n_};
             IntegerType const offset{(grid_.at(0).size() % n_ != 0)};
 
-            std::vector<Grid> result;
+            std::vector<GridType> result;
             result.reserve(n_);
 
             for (IntegerType i = 0; i < n_; ++i)
-                result.emplace_back(std::any_cast<Grid>(crop({grid_, IntegerTuple{0, w * i + i * offset}, IntegerTuple{h, w}})));
+                result.emplace_back(std::any_cast<GridType>(crop({grid_, IntegerTuple{0, w * i + i * offset}, IntegerTuple{h, w}})));
 
             return result;
         }
@@ -5144,13 +5145,13 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return vsplit({std::get<Grid>(piece), n});
+        if (std::holds_alternative<GridType>(piece))
+            return vsplit({std::get<GridType>(piece), n});
     }
 
-    if (grid.type() == typeid(Grid) && n.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && n.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const n_{std::any_cast<IntegerType>(n)};
 
         if (grid_.empty() || n_ <= 0)
@@ -5162,11 +5163,11 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
             auto const w{static_cast<IntegerType>(grid_.at(0).size())};
             IntegerType const offset{(grid_.size() % n_ != 0)};
 
-            std::vector<Grid> result;
+            std::vector<GridType> result;
             result.reserve(n_);
 
             for (IntegerType i = 0; i < n_; ++i)
-                result.emplace_back(std::any_cast<Grid>(crop({grid_, IntegerTuple{h * i + i * offset, 0}, IntegerTuple{h, w}})));
+                result.emplace_back(std::any_cast<GridType>(crop({grid_, IntegerTuple{h * i + i * offset, 0}, IntegerTuple{h, w}})));
 
             return result;
         }
@@ -5194,25 +5195,25 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(a)};
 
-        if (std::holds_alternative<Grid>(piece))
-            a = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            a = std::get<GridType>(piece);
     }
 
     if (b.type() == typeid(Piece))
     {
         auto const piece{std::any_cast<Piece>(b)};
 
-        if (std::holds_alternative<Grid>(piece))
-            b = std::get<Grid>(piece);
+        if (std::holds_alternative<GridType>(piece))
+            b = std::get<GridType>(piece);
     }
 
     if (recall)
         return cellwise({a, b, fallback});
 
-    if (a.type() == typeid(Grid) && b.type() == typeid(Grid) && fallback.type() == typeid(IntegerType))
+    if (a.type() == typeid(GridType) && b.type() == typeid(GridType) && fallback.type() == typeid(IntegerType))
     {
-        auto const a_{std::any_cast<Grid>(a)};
-        auto const b_{std::any_cast<Grid>(b)};
+        auto const a_{std::any_cast<GridType>(a)};
+        auto const b_{std::any_cast<GridType>(b)};
         auto const fallback_{std::any_cast<IntegerType>(fallback)};
 
         try
@@ -5220,7 +5221,7 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
             auto const h{static_cast<IntegerType>(a_.size())};
             auto const w{static_cast<IntegerType>(a_.at(0).size())};
 
-            Grid result(h, std::vector<IntegerType>(w));
+            GridType result(h, std::vector<IntegerType>(w));
 
             for (IntegerType i{0}; i < h; ++i)
             {
@@ -5252,17 +5253,17 @@ std::any hodel::replace(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return replace({std::get<Grid>(piece), replacee, replacer});
+        if (std::holds_alternative<GridType>(piece))
+            return replace({std::get<GridType>(piece), replacee, replacer});
     }
 
-    if (grid.type() == typeid(Grid) && replacee.type() == typeid(IntegerType) && replacer.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && replacee.type() == typeid(IntegerType) && replacer.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const replacee_{std::any_cast<IntegerType>(replacee)};
         auto const replacer_{std::any_cast<IntegerType>(replacer)};
 
-        Grid result = grid_;
+        GridType result = grid_;
 
         for (auto& row : result)
         {
@@ -5292,17 +5293,17 @@ std::any hodel::switch_(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return switch_({std::get<Grid>(piece), a, b});
+        if (std::holds_alternative<GridType>(piece))
+            return switch_({std::get<GridType>(piece), a, b});
     }
 
-    if (grid.type() == typeid(Grid) && a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
+    if (grid.type() == typeid(GridType) && a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const a_{std::any_cast<IntegerType>(a)};
         auto const b_{std::any_cast<IntegerType>(b)};
 
-        Grid result = grid_;
+        GridType result = grid_;
 
         for (auto& row : result)
         {
@@ -5430,13 +5431,13 @@ std::any hodel::index(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return index({std::get<Grid>(piece), loc});
+        if (std::holds_alternative<GridType>(piece))
+            return index({std::get<GridType>(piece), loc});
     }
 
-    if (grid.type() == typeid(Grid) && loc.type() == typeid(IntegerTuple))
+    if (grid.type() == typeid(GridType) && loc.type() == typeid(IntegerTuple))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const loc_{std::any_cast<IntegerTuple>(loc)};
 
         if (grid_.empty() || grid_.at(0).empty())
@@ -5478,7 +5479,7 @@ std::any hodel::canvas(std::vector<std::any> const& args)
         if (dimensions_.first < 0 || dimensions_.second < 0)
             throw std::runtime_error{"Wrong value"};
 
-        return Grid(dimensions_.first, std::vector<IntegerType>(dimensions_.second, value_));
+        return GridType(dimensions_.first, std::vector<IntegerType>(dimensions_.second, value_));
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -5537,7 +5538,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
         IntegerType di{0};
         IntegerType dj{0};
 
-        if (std::abs(bi - ai) > 100 || std::abs(bj - aj) > 100)
+        if (std::abs(bi - ai) > SHOOT_DISTANCE * MAX_SIZE || std::abs(bj - aj) > SHOOT_DISTANCE * MAX_SIZE)
             throw std::runtime_error{"Wrong value"};
 
         if (ai == bi)
@@ -5586,8 +5587,8 @@ std::any hodel::cover(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return cover({std::get<Grid>(piece), patch});
+        if (std::holds_alternative<GridType>(piece))
+            return cover({std::get<GridType>(piece), patch});
     }
 
     if (patch.type() == typeid(IndicesType))
@@ -5595,9 +5596,9 @@ std::any hodel::cover(std::vector<std::any> const& args)
     else if (patch.type() == typeid(ObjectType))
         return cover({grid, Patch(std::any_cast<ObjectType>(patch))});
 
-    if (grid.type() == typeid(Grid) && patch.type() == typeid(Patch))
+    if (grid.type() == typeid(GridType) && patch.type() == typeid(Patch))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const patch_{std::any_cast<Patch>(patch)};
 
         return fill({grid, mostcolor({grid}), toindices({patch})});
@@ -5617,15 +5618,15 @@ std::any hodel::trim(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return trim({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return trim({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
-        Grid result;
+        GridType result;
 
         if (grid_.size() <= 2 || grid_.front().size() <= 2)
             return result;
@@ -5652,13 +5653,13 @@ std::any hodel::move(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return move({std::get<Grid>(piece), obj, offset});
+        if (std::holds_alternative<GridType>(piece))
+            return move({std::get<GridType>(piece), obj, offset});
     }
 
-    if (grid.type() == typeid(Grid) && obj.type() == typeid(ObjectType) && offset.type() == typeid(IntegerTuple))
+    if (grid.type() == typeid(GridType) && obj.type() == typeid(ObjectType) && offset.type() == typeid(IntegerTuple))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
         auto const offset_{std::any_cast<IntegerTuple>(offset)};
 
@@ -5679,19 +5680,19 @@ std::any hodel::tophalf(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return tophalf({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return tophalf({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const mid = grid_.size() / 2;
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
 
-        return Grid(grid_.begin(), grid_.begin() + mid);
+        return GridType(grid_.begin(), grid_.begin() + mid);
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -5708,19 +5709,19 @@ std::any hodel::bottomhalf(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return bottomhalf({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return bottomhalf({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const mid = grid_.size() / 2 + grid_.size() % 2;
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
 
-        return Grid(grid_.begin() + mid, grid_.end());
+        return GridType(grid_.begin() + mid, grid_.end());
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -5737,11 +5738,11 @@ std::any hodel::lefthalf(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return lefthalf({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return lefthalf({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
         return rot270({tophalf({rot90(args)})});
 
     throw std::runtime_error{"Wrong value"};
@@ -5758,11 +5759,11 @@ std::any hodel::righthalf(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return righthalf({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return righthalf({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
         return rot270({bottomhalf({rot90(args)})});
 
     throw std::runtime_error{"Wrong value"};
@@ -6174,10 +6175,13 @@ std::any hodel::shoot(std::vector<std::any> const& args)
         if (std::abs(start_.first) > 100 || std::abs(start_.second) > 100)
             throw std::runtime_error{"Wrong value"};
 
-        if (direction_.first * direction_.first + direction_.second * direction_.second > 100)
+        auto const fd{static_cast<size_t>(direction_.first)};
+        auto const sd{static_cast<size_t>(direction_.second)};
+
+        if (fd * fd + sd * sd > 2 * MAX_SIZE * MAX_SIZE)
             throw std::runtime_error{"Wrong value"};
 
-        return connect({start_, IntegerTuple{start_.first + 42 * direction_.first, start_.second + 42 * direction_.second}});
+        return connect({start_, IntegerTuple{start_.first + SHOOT_DISTANCE * direction_.first, start_.second + SHOOT_DISTANCE * direction_.second}});
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -6195,13 +6199,13 @@ std::any hodel::occurrences(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return occurrences({std::get<Grid>(piece), obj});
+        if (std::holds_alternative<GridType>(piece))
+            return occurrences({std::get<GridType>(piece), obj});
     }
 
-    if (grid.type() == typeid(Grid) && obj.type() == typeid(ObjectType))
+    if (grid.type() == typeid(GridType) && obj.type() == typeid(ObjectType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
 
         if (grid_.empty() || obj_.empty())
@@ -6262,13 +6266,13 @@ std::any hodel::frontiers(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return frontiers({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return frontiers({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
@@ -6352,13 +6356,13 @@ std::any hodel::compress(std::vector<std::any> const& args)
     {
         auto const piece{std::any_cast<Piece>(grid)};
 
-        if (std::holds_alternative<Grid>(piece))
-            return compress({std::get<Grid>(piece)});
+        if (std::holds_alternative<GridType>(piece))
+            return compress({std::get<GridType>(piece)});
     }
 
-    if (grid.type() == typeid(Grid))
+    if (grid.type() == typeid(GridType))
     {
-        auto const grid_{std::any_cast<Grid>(grid)};
+        auto const grid_{std::any_cast<GridType>(grid)};
 
         if (grid_.empty())
             throw std::runtime_error{"Wrong value"};
@@ -6404,7 +6408,7 @@ std::any hodel::compress(std::vector<std::any> const& args)
                 removeCol[j] = uniform;
             }
 
-            Grid result;
+            GridType result;
 
             for (IntegerType i = 0; i < h; ++i)
             {
