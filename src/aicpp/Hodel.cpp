@@ -2203,6 +2203,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::vector<GridType>, Boolean>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IntegerType>, IntegerType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, GridType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IntegerType>(function_, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
