@@ -258,8 +258,40 @@ namespace hodel
     //GridType mapply(Callable, std::vector<GridType>)
     //IntegerVector mapply(Callable, GridType)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
-    std::any papply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container3): apply function on two vectors
-    std::any mpapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on two vectors and merge
+    //Boolean papply(Callable, std::vector<Boolean>, std::vector<Boolean>)
+    //IntegerTuple papply(Callable, std::vector<IntegerType>, std::vector<IntegerType>)
+    //Boolean papply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
+    //Boolean papply(Callable, std::vector<IndicesType>, std::vector<ObjectType>)
+    //Boolean papply(Callable, std::vector<ObjectType>, std::vector<IndicesType>)
+    //Boolean papply(Callable, std::vector<ObjectType>, std::vector<ObjectType>)
+    //IntegerType papply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
+    //IntegerType papply(Callable, std::vector<IndicesType>, std::vector<ObjectType>)
+    //IntegerType papply(Callable, std::vector<ObjectType>, std::vector<IndicesType>)
+    //IntegerType papply(Callable, std::vector<ObjectType>, std::vector<ObjectType>)
+    //IntegerTuple papply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
+    //IntegerTuple papply(Callable, std::vector<IndicesType>, std::vector<ObjectType>)
+    //IntegerTuple papply(Callable, std::vector<ObjectType>, std::vector<IndicesType>)
+    //IntegerTuple papply(Callable, std::vector<ObjectType>, std::vector<ObjectType>)
+    //Boolean papply(Callable, std::vector<IndicesType>, std::vector<GridType>)
+    //Boolean papply(Callable, std::vector<ObjectType>, std::vector<GridType>)
+    //GridType papply(Callable, std::vector<GridType>, std::vector<ObjectType>)
+    //GridType papply(Callable, std::vector<GridType>, std::vector<IntegerType>)
+    //IndicesType papply(Callable, std::vector<GridType>, std::vector<IntegerType>)
+    //ObjectType papply(Callable, std::vector<IntegerType>, std::vector<ObjectType>)
+    //ObjectType papply(Callable, std::vector<IntegerType>, std::vector<IndicesType>)
+    //Objects papply(Callable, std::vector<Objects>, std::vector<IntegerType>)
+    //IntegerVector papply(Callable, std::vector<Callable>, std::vector<GridType>)
+    //GridVector papply(Callable, std::vector<GridType>, std::vector<GridType>)
+    //IntegerType papply(Callable, std::vector<IntegerVector>, std::vector<Callable>)
+    //IntegerType papply(Callable, std::vector<IntegerSet>, std::vector<Callable>)
+    //IntegerType papply(Callable, std::vector<Objects>, std::vector<Callable>)
+    //IntegerType papply(Callable, std::vector<IndicesSet>, std::vector<Callable>)
+    std::any papply(std::vector<std::any> const& args); //apply function on two vectors
+    //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<GridType>)
+    //ObjectType mpapply(Callable, std::vector<Objects>, std::vector<IntegerType>)
+    //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<ObjectType>)
+    //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<IntegerType>)
+    std::any mpapply(std::vector<std::any> const& args); //apply function on two vectors and merge
     std::any prapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
