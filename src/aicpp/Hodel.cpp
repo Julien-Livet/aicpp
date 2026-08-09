@@ -943,7 +943,7 @@ std::any hodel::valmax(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
+        auto const it{std::max_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
@@ -995,7 +995,7 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
+        auto const it{std::min_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
@@ -1044,6 +1044,9 @@ std::any hodel::argmax(std::vector<std::any> const& args)
 
     try
     {
+        if (values.size() == 1)
+            f({*values.begin()});
+
         auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
@@ -1093,6 +1096,9 @@ std::any hodel::argmin(std::vector<std::any> const& args)
 
     try
     {
+        if (values.size() == 1)
+            f({*values.begin()});
+
         auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
