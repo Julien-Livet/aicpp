@@ -216,7 +216,9 @@ namespace hodel
     std::any interval(std::vector<std::any> const& args); //range
     //IntegerTuple astuple(IntegerType, IntegerType)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
-    std::any product(std::vector<std::any> const& args); //Container1(Container2, Container3): cartesian product
+    //ObjectType product(IntegerType, IntegerTuple)
+    //IndicesType product(IntegerType, IntegerType)
+    std::any product(std::vector<std::any> const& args); //cartesian product
     //std::vector<IntegerTuple> pair(IntegerTuple, IntegerTuple)
     //GridType pair(IntegerVector, IntegerVector)
     //GridVector pair(GridType, GridType)
@@ -292,7 +294,20 @@ namespace hodel
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<ObjectType>)
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<IntegerType>)
     std::any mpapply(std::vector<std::any> const& args); //apply function on two vectors and merge
-    std::any prapply(std::vector<std::any> const& args); //Container1(Callable, Container2, Container2): apply function on cartesian product
+    //std::vector<Boolean> prapply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
+    //std::vector<IntegerType> prapply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
+    //std::vector<Boolean> prapply(Callable, std::vector<ObjectType>, std::vector<ObjectType>)
+    //std::vector<IntegerType> prapply(Callable, std::vector<ObjectType>, std::vector<ObjectType>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<Boolean>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<IntegerType>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<IntegerTuple>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, GridType)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<GridType>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, ObjectType)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, Objects)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesType)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesSet)
+    std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
     //IntegerType leastcolor(Element)
