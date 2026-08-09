@@ -2212,10 +2212,17 @@ std::any rapply(std::vector<std::function<std::any(std::vector<std::any> const&)
     if (value.type() != typeid(T))
         return std::any{};
 
-    Container result;
+    std::vector<T> result;
 
-    for (auto const& function : functions)
-        result.insert(result.end(), std::any_cast<T>(function({value})));
+    try
+    {
+        for (auto const& function : functions)
+            result.emplace_back(std::any_cast<T>(function({value})));
+    }
+    catch (std::exception const&)
+    {
+        return std::any{};
+    }
 
     return result;
 }
@@ -2234,12 +2241,19 @@ std::any hodel::rapply(std::vector<std::any> const& args)
     auto const functions_{std::any_cast<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(functions)};
 
     if (auto r = ::rapply<std::vector<Boolean> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<std::vector<IntegerType>, Boolean>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<std::vector<IntegerType> >(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<std::vector<IntegerTuple> >(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<GridType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<GridType, IntegerType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<GridType, Boolean>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IndicesType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<IndicesType, IntegerType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IndicesSet>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<Objects>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<Objects, IntegerType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<std::vector<ObjectType> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<std::vector<ObjectType>, IntegerType>(functions_, value); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
