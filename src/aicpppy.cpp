@@ -20,7 +20,7 @@ namespace py = pybind11;
 
 using namespace aicpp;
 
-Eigen::MatrixXi to_eigen(hodel::Grid const& v)
+Eigen::MatrixXi to_eigen(hodel::GridType const& v)
 {
     if (v.empty())
         return Eigen::MatrixXi{};
@@ -39,7 +39,7 @@ Eigen::MatrixXi to_eigen(hodel::Grid const& v)
     return mat;
 }
 
-double size_cost(hodel::Grid const& x, hodel::Grid const& y)
+double size_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
     Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
     Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
@@ -47,7 +47,7 @@ double size_cost(hodel::Grid const& x, hodel::Grid const& y)
     return (xs - ys).norm();
 }
 
-int total_sum(hodel::Grid const& v)
+int total_sum(hodel::GridType const& v)
 {
     int s{0};
 
@@ -57,7 +57,7 @@ int total_sum(hodel::Grid const& v)
     return s;
 }
 
-double value_cost(hodel::Grid const& x, hodel::Grid const& y)
+double value_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
     Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
     Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
@@ -73,7 +73,7 @@ double value_cost(hodel::Grid const& x, hodel::Grid const& y)
     return static_cast<double>(std::abs(total_sum(x) - total_sum(y)));
 }
 
-double pixel_overlap_cost(hodel::Grid const& x, hodel::Grid const& y)
+double pixel_overlap_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
      if (x.size() != y.size())
      {
@@ -128,7 +128,7 @@ double pixel_overlap_cost(hodel::Grid const& x, hodel::Grid const& y)
 
 using BoundingBox = std::tuple<int, int, int, int>;
 
-std::optional<BoundingBox> bounding_box(hodel::Grid const& arr)
+std::optional<BoundingBox> bounding_box(hodel::GridType const& arr)
 {
     bool found = false;
     int y_min = 0;
@@ -165,7 +165,7 @@ std::optional<BoundingBox> bounding_box(hodel::Grid const& arr)
     return BoundingBox{y_min, x_min, y_max, x_max};
 }
 
-double bounding_box_cost(hodel::Grid const& x, hodel::Grid const& y)
+double bounding_box_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
     auto box_x = bounding_box(x);
     auto box_y = bounding_box(y);
@@ -203,41 +203,41 @@ double bounding_box_cost(hodel::Grid const& x, hodel::Grid const& y)
 
 double arcHeuristic(std::any const& x, std::any const& y)
 {
-    hodel::Grid x_;
-    hodel::Grid y_;
+    hodel::GridType x_;
+    hodel::GridType y_;
 
-    if (x.type() == typeid(hodel::Grid))
-        x_ = std::any_cast<hodel::Grid>(x);
+    if (x.type() == typeid(hodel::GridType))
+        x_ = std::any_cast<hodel::GridType>(x);
     else if (x.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(x);
 
-        if (std::holds_alternative<hodel::Grid>(piece))
-            x_ = std::get<hodel::Grid>(piece);
+        if (std::holds_alternative<hodel::GridType>(piece))
+            x_ = std::get<hodel::GridType>(piece);
     }
     else if (x.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(x);
 
-        if (std::holds_alternative<hodel::Grid>(element))
-            x_ = std::get<hodel::Grid>(element);
+        if (std::holds_alternative<hodel::GridType>(element))
+            x_ = std::get<hodel::GridType>(element);
     }
 
-    if (y.type() == typeid(hodel::Grid))
-        y_ = std::any_cast<hodel::Grid>(y);
+    if (y.type() == typeid(hodel::GridType))
+        y_ = std::any_cast<hodel::GridType>(y);
     else if (y.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(y);
 
-        if (std::holds_alternative<hodel::Grid>(piece))
-            y_ = std::get<hodel::Grid>(piece);
+        if (std::holds_alternative<hodel::GridType>(piece))
+            y_ = std::get<hodel::GridType>(piece);
     }
     else if (y.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(y);
 
-        if (std::holds_alternative<hodel::Grid>(element))
-            y_ = std::get<hodel::Grid>(element);
+        if (std::holds_alternative<hodel::GridType>(element))
+            y_ = std::get<hodel::GridType>(element);
     }
 
     return size_cost(x_, y_) + bounding_box_cost(x_, y_) + pixel_overlap_cost(x_, y_) + value_cost(x_, y_);
@@ -329,7 +329,7 @@ class Engine
                     {
                         auto const json_rows = json_grid.as_array();
 
-                        hodel::Grid grid;
+                        hodel::GridType grid;
 
                         for (auto const& json_row : json_rows)
                         {
@@ -341,15 +341,15 @@ class Engine
                             grid.emplace_back(row);
                         }
 
-                        std::unordered_set<hodel::Grid> inputs;
-                        std::vector<hodel::Grid> outputs;
+                        std::unordered_set<hodel::GridType> inputs;
+                        std::vector<hodel::GridType> outputs;
 
                         std::vector<std::function<std::any(std::vector<std::any>)> > const functions{hodel::identity, hodel::rot90, hodel::rot180, hodel::rot270, hodel::hmirror, hodel::vmirror, hodel::cmirror, hodel::dmirror};
 
                         for (auto const& f1 : functions)
                         {
                             for (auto const& f2 : functions)
-                                inputs.emplace(std::any_cast<hodel::Grid>(f1({f2({grid})})));
+                                inputs.emplace(std::any_cast<hodel::GridType>(f1({f2({grid})})));
                         }
 
                         for (auto const& input : inputs)
@@ -358,7 +358,7 @@ class Engine
                             {
                                 iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
-                                auto const output{std::any_cast<hodel::Grid>(connections_.at(i).output())};
+                                auto const output{std::any_cast<hodel::GridType>(connections_.at(i).output())};
 
                                 if (output != input)
                                     outputs.emplace_back(input);
@@ -378,7 +378,7 @@ class Engine
 
                             std::uniform_int_distribution<size_t> dist(3, std::min(outputs.size(), decltype(outputs.size())(6)));
 
-                            std::vector<hodel::Grid> selectedOutputs;
+                            std::vector<hodel::GridType> selectedOutputs;
 
                             for (size_t j = 0; j < dist(rd); ++j)
                                 selectedOutputs.emplace_back(outputs[j]);
@@ -398,7 +398,7 @@ class Engine
                 {
                     if (!indexes.contains(i))
                     {
-                        iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid));
+                        iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));
 
                         assert(connections_[i].replace(iNeurons_.back()));
 
@@ -420,13 +420,13 @@ class Engine
             assert(i < connections_.size());
 
             auto const inputs{grids(i)};
-            std::vector<hodel::Grid> outputs;
+            std::vector<hodel::GridType> outputs;
             outputs.reserve(inputs.size());
 
             for (auto const& input : inputs)
             {
                 iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-                outputs.emplace_back(std::any_cast<hodel::Grid>(connections_.at(i).output()));
+                outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
             }
 
             auto const compute{[inputs, outputs] (std::reference_wrapper<Connection> connection, std::reference_wrapper<Neuron> iNeuron) -> std::optional<std::pair<double, std::string> >
@@ -438,11 +438,11 @@ class Engine
                         auto const& input{inputs[j]};
                         auto const& output{outputs[j]};
 
-                        iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::Grid);
+                        iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::GridType);
 
                         try
                         {
-                            auto const o{std::any_cast<hodel::Grid>(connection.get().output())};
+                            auto const o{std::any_cast<hodel::GridType>(connection.get().output())};
 
                             cost += arcHeuristic(o, output);
                         }
@@ -486,7 +486,7 @@ class Engine
 
                 iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
-                auto const o{std::any_cast<hodel::Grid>(identityConnection.output())};
+                auto const o{std::any_cast<hodel::GridType>(identityConnection.output())};
 
                 identityCost += arcHeuristic(o, output);
             }
@@ -500,7 +500,7 @@ class Engine
             return result;
         }
 
-        std::vector<hodel::Grid> const& grids(size_t i) const
+        std::vector<hodel::GridType> const& grids(size_t i) const
         {
             return grids_.at(i);
         }
@@ -547,11 +547,11 @@ class Engine
     private:
         std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
         std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
-        Neuron iNeuron_{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
+        Neuron iNeuron_{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType)};
         std::vector<Neuron> iNeurons_;
         std::unique_ptr<Brain> brain_;
         std::vector<Connection> connections_;
-        std::vector<std::vector<hodel::Grid> > grids_;
+        std::vector<std::vector<hodel::GridType> > grids_;
 };
 
 PYBIND11_MODULE(aicpppy, m)
