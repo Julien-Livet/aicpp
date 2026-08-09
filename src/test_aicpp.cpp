@@ -20,7 +20,7 @@ using namespace boost::json;
 
 using namespace aicpp;
 
-using Matrix = hodel::Grid;
+using Matrix = hodel::GridType;
 using BoundingBox = std::tuple<int, int, int, int>;
 
 Eigen::MatrixXi to_eigen(Matrix const& v)
@@ -44,7 +44,7 @@ Eigen::MatrixXi to_eigen(Matrix const& v)
 
 Matrix to_std_vector(Eigen::MatrixXi const& mat)
 {
-    hodel::Grid result(mat.rows(), std::vector<hodel::IntegerType>(mat.cols()));
+    hodel::GridType result(mat.rows(), std::vector<hodel::IntegerType>(mat.cols()));
 
     for (int i = 0; i < mat.rows(); ++i)
     {
@@ -673,41 +673,41 @@ double bounding_box_cost(const Matrix& x, const Matrix& y)
 
 double arcHeuristic(std::any const& x, std::any const& y)
 {
-    hodel::Grid x_;
-    hodel::Grid y_;
+    hodel::GridType x_;
+    hodel::GridType y_;
 
-    if (x.type() == typeid(hodel::Grid))
-        x_ = std::any_cast<hodel::Grid>(x);
+    if (x.type() == typeid(hodel::GridType))
+        x_ = std::any_cast<hodel::GridType>(x);
     else if (x.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(x);
         
-        if (std::holds_alternative<hodel::Grid>(piece))
-            x_ = std::get<hodel::Grid>(piece);
+        if (std::holds_alternative<hodel::GridType>(piece))
+            x_ = std::get<hodel::GridType>(piece);
     }
     else if (x.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(x);
         
-        if (std::holds_alternative<hodel::Grid>(element))
-            x_ = std::get<hodel::Grid>(element);
+        if (std::holds_alternative<hodel::GridType>(element))
+            x_ = std::get<hodel::GridType>(element);
     }
 
-    if (y.type() == typeid(hodel::Grid))
-        y_ = std::any_cast<hodel::Grid>(y);
+    if (y.type() == typeid(hodel::GridType))
+        y_ = std::any_cast<hodel::GridType>(y);
     else if (y.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(y);
         
-        if (std::holds_alternative<hodel::Grid>(piece))
-            y_ = std::get<hodel::Grid>(piece);
+        if (std::holds_alternative<hodel::GridType>(piece))
+            y_ = std::get<hodel::GridType>(piece);
     }
     else if (y.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(y);
         
-        if (std::holds_alternative<hodel::Grid>(element))
-            y_ = std::get<hodel::Grid>(element);
+        if (std::holds_alternative<hodel::GridType>(element))
+            y_ = std::get<hodel::GridType>(element);
     }
 
     return size_cost(x_, y_) + bounding_box_cost(x_, y_) + pixel_overlap_cost(x_, y_) + value_cost(x_, y_);
@@ -717,7 +717,7 @@ DslEngine dslEngine(arcHeuristic);
 
 TEST(TestAiCpp, InitDslEngine)
 {
-    dslEngine.addVariableNeuron(Neuron{"I", [] (std::vector<std::any> const&) { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)});
+    dslEngine.addVariableNeuron(Neuron{"I", [] (std::vector<std::any> const&) { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType)});
 }
 
 std::tuple<double, double, std::string> processTask(std::string const& folder, std::string const& task)
