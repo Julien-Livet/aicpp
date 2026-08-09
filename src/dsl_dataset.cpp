@@ -270,16 +270,16 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"replace", "I", "ONE", "halve", "SIX"},
         {"branch", "flip", "even", "ZERO", "hmirror", "I", "vmirror", "I"},
         {"branch", "equality", "TWO", "ZERO", "hmirror", "I", "vmirror", "I"},
-        {"branch", "contained", "TWO", "merge", "I", "hmirror", "I", "vmirror", "I"},
+        {"mostcommon", "order", "initset", "bottomhalf", "I", "contained"},
         {"tophalf", "combine", "upscale", "I", "THREE", "I"},
         {"paint", "vmirror", "I", "first", "intersection", "objects", "I", "F", "F", "T", "objects", "I", "F", "F", "T"},
         {"paint", "vmirror", "I", "first", "difference", "objects", "I", "F", "F", "T", "partition", "I"},
-        {"first", "dedupe", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO"},
+        {"last", "dedupe", "insert", "trim", "I", "insert", "cmirror", "I", "initset", "trim", "I"},
         {"first", "order", "initset", "trim", "I", "mostcommon"},
         {"replace", "I", "ONE", "last", "repeat", "TWO", "THREE"},
         {"branch", "greater", "THREE", "TWO", "hmirror", "I", "vmirror", "I"},
         {"replace", "I", "ONE", "divide", "size", "I", "SIX"},
-        {"merge", "combine", "hsplit", "trim", "I", "FOUR", "vsplit", "I", "TWO"},
+        {"bottomhalf", "merge", "insert", "cmirror", "I", "initset", "I"},
         {"branch", "equality", "maximum", "interval", "ZERO", "TWO", "ONE", "ZERO", "hmirror", "I", "vmirror", "I"},
         {"branch", "equality", "minimum", "interval", "ZERO", "TWO", "ONE", "ZERO", "hmirror", "I", "vmirror", "I"},
         {"replace", "I", "ONE", "valmax", "objects", "I", "F", "F", "T", "hperiod"},
@@ -301,9 +301,8 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"mfilter"}, //cf. below
         //{"extract"},
         {"paint", "vmirror", "I", "first", "totuple", "objects", "I", "F", "F", "T"},
-        //{"insert"},
-        //{"remove"},
-        //{"other"},
+        {"first", "remove", "trim", "I", "insert", "trim", "I", "insert", "cmirror", "I", "initset", "trim", "I"},
+        {"other", "insert", "trim", "I", "insert", "cmirror", "I", "initset", "cmirror", "I", "trim", "I"},
         {"crop", "I", "astuple", "FOUR", "FIVE", "astuple", "SIX", "SEVEN"},
         //{"product"},
         //{"pair"},
@@ -311,8 +310,8 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"matcher"},
         //{"lbind"}, //cf. below
         //{"power"},
-        //{"fork"},
-        {"replace", "I", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
+        //{"fork"}, //OK
+        {"replace", "I", "halve", "halve", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "halve", "halve", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
         //{"rapply"},
         //{"mapply"},
         //{"papply"},
@@ -416,9 +415,9 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
             auto const input{generateStructuredGrid({30, 30}, {30, 30})};
 
             iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-/*
+
             try
-            {*/
+            {
                 output = connection.output();
 
                 if (output.has_value())
@@ -458,12 +457,12 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
                     if (add)
                         break;
-                }/*
+                }
             }
             catch (std::exception const&)
             {
                 std::cout << "Failed connection: " << connection.string() << std::endl;
-            }*/
+            }
         }
 
         if (!add)
@@ -504,11 +503,9 @@ int main(int argc, char* argv[])
 
     for (auto const& [i, v] : primitiveNeuronsByOutputType)
         neuronsByOutputType[i].insert(neuronsByOutputType[i].end(), v.begin(), v.end());
-/*
+
     checkConnections(variables, primitives, iNeuron, variableNeuronsByOutputType, neuronsByOutputType);
 
-    return 0;
-*/
     std::set<Pair, PairLess> pairs;
     std::mutex mutex;
 
