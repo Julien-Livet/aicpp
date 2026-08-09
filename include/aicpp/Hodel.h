@@ -241,6 +241,7 @@ namespace hodel
     //std::vector<Boolean> apply(Callable, std::vector<GridType>)
     //std::vector<IntegerType> apply(Callable, std::vector<IntegerType>)
     //std::vector<IntegerType> apply(Callable, std::vector<GridType>)
+    //std::vector<GridType> apply(Callable, std::vector<GridType>)
     //std::vector<IntegerType> apply(Callable, Objects)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
