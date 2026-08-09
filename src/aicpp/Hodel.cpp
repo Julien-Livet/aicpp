@@ -1961,6 +1961,8 @@ std::any hodel::pair(std::vector<std::any> const& args)
         return GridType{std::any_cast<std::vector<IntegerType> >(a), std::any_cast<std::vector<IntegerType> >(b)};
     else if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
         return std::vector<IntegerTuple>{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
+    else if (a.type() == typeid(GridType) && b.type() == typeid(GridType))
+        return std::vector<GridType>{std::any_cast<GridType>(a), std::any_cast<GridType>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2206,7 +2208,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
-template <typename Container, typename T = typename Container::value_type>
+template <typename T>
 std::any rapply(std::vector<std::function<std::any(std::vector<std::any> const&)> > const& functions, std::any const& value)
 {
     if (value.type() != typeid(T))
@@ -2240,20 +2242,12 @@ std::any hodel::rapply(std::vector<std::any> const& args)
 
     auto const functions_{std::any_cast<std::vector<std::function<std::any(std::vector<std::any> const&)> > >(functions)};
 
-    if (auto r = ::rapply<std::vector<Boolean> >(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<std::vector<IntegerType>, Boolean>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<std::vector<IntegerType> >(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<std::vector<IntegerTuple> >(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<Boolean>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<IntegerType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<IntegerTuple>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<GridType>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<GridType, IntegerType>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<GridType, Boolean>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<IndicesType>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<IndicesType, IntegerType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IndicesSet>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<Objects>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<Objects, IntegerType>(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<std::vector<ObjectType> >(functions_, value); r.has_value()) return r;
-    if (auto r = ::rapply<std::vector<ObjectType>, IntegerType>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<ObjectType>(functions_, value); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
