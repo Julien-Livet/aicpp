@@ -305,7 +305,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"other", "insert", "trim", "I", "insert", "cmirror", "I", "initset", "cmirror", "I", "trim", "I"},
         {"crop", "I", "astuple", "FOUR", "FIVE", "astuple", "SIX", "SEVEN"},
         //{"product"},
-        //{"pair"},
+        //{"pair"}, //OK
         //{"chain"}, //OK
         //{"matcher"},
         //{"lbind"}, //cf. below
@@ -335,8 +335,8 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"paint", "dmirror", "I", "toobject", "neighbors", "center", "asindices", "I", "I"},
         {"underpaint", "hmirror", "I", "first", "fgpartition", "I"},
         {"branch", "square", "I", "hmirror", "I", "cmirror", "I"},
-        //{"vline"}, OK
-        //{"hline"}, OK
+        //{"vline"},
+        //{"hline"},
         //{"hmatching"},
         //{"vmatching"},
         //{"manhattan"}, OK
