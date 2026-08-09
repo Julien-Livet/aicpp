@@ -311,6 +311,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"lbind"}, //cf. below
         //{"power"},
         //{"fork"}, //OK
+        {"first", "apply", "trim", "pair", "I", "hmirror", "I"},
         {"crop", "I", "astuple", "ZERO", "ZERO", "astuple", "halve", "halve", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "halve", "halve", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
         {"first", "rapply", "insert", "trim", "initset", "hmirror", "I"},
         //{"mapply"},
