@@ -306,19 +306,16 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"other", "insert", "trim", "I", "insert", "cmirror", "I", "initset", "cmirror", "I", "trim", "I"},
         {"crop", "I", "astuple", "FOUR", "FIVE", "astuple", "SIX", "SEVEN"},
         //{"product"},
-        //{"pair"}, //OK
         //{"chain"}, //OK
-        //{"matcher"},
+        //{"matcher"}, //cf. below
         //{"lbind"}, //cf. below
-        //{"power"},
+        //{"power"}, //cf. below
         //{"fork"}, //OK
-        {"first", "apply", "trim", "pair", "I", "hmirror", "I"},
         {"crop", "I", "astuple", "ZERO", "ZERO", "astuple", "halve", "halve", "last", "apply", "size", "objects", "vmirror", "I", "F", "F", "T", "halve", "halve", "first", "apply", "size", "objects", "vmirror", "I", "F", "F", "T"},
         {"first", "rapply", "insert", "trim", "initset", "hmirror", "I"},
-        {"mapply", "trim", "pair", "I", "hmirror", "I"},
-        //{"papply"},
-        //{"mpapply"},
-        //{"prapply"},
+        //{"papply"}, //cf. below
+        //{"mpapply"}, //cf. below
+        //{"prapply"}, //cf. below
         {"righthalf", "subgrid", "dneighbors", "astuple", "first", "TWO_BY_ZERO", "THREE", "I"},
         {"replace", "I", "leastcolor", "I", "mostcolor", "I"},
         {"crop", "I", "astuple", "divide", "height", "I", "TWO", "divide", "width", "I", "TWO", "astuple", "FOUR", "FIVE"},
@@ -337,13 +334,13 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"paint", "dmirror", "I", "toobject", "neighbors", "center", "asindices", "I", "I"},
         {"underpaint", "hmirror", "I", "first", "fgpartition", "I"},
         {"branch", "square", "I", "hmirror", "I", "cmirror", "I"},
-        //{"vline"},
-        //{"hline"},
-        //{"hmatching"},
-        //{"vmatching"},
+        //{"vline"}, //cf. below
+        //{"hline"}, //cf. below
+        //{"hmatching"}, //cf. below
+        //{"vmatching"}, //cf. below
         //{"manhattan"}, OK
-        //{"adjacent"},
-        //{"bordering"},
+        //{"adjacent"}, //cf. below
+        //{"bordering"}, //cf. below
         {"paint", "I", "toobject", "shoot", "centerofmass", "first", "objects", "I", "F", "F", "T", "astuple", "TWO", "TWO", "cmirror", "I"},
         //{"palette"}, OK
         //{"numcolors"}, OK
@@ -354,11 +351,12 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         {"first", "vsplit", "cmirror", "I", "THREE"},
         {"combine", "I", "canvas", "TWO", "astuple", "FOUR", "FIVE"},
         {"move", "I", "first", "objects", "I", "F", "F", "T", "astuple", "TWO", "THREE"},
-        //{"gravitate"},
+        //{"gravitate"}, //cf. below
     };
 
     std::vector<std::pair<Connection, std::optional<hodel::GridType> > > programs;
 
+    //rbind
     {
         Connection const width{variables.at("width"), {}};
         Connection const greater{variables.at("greater"), {}};
@@ -369,13 +367,14 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const F{variables.at("F"), {}};
         Connection const T{variables.at("T"), {}};
         Connection const objects{primitives.at("objects0"), {I, F, F, T}};
-        Connection const mfilter{primitives.at("mfilter3"), {objects, compose}};
+        Connection const mfilter{primitives.at("mfilter4"), {objects, compose}};
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
         programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
     }
 
+    //lbind
     {
         Connection const width{variables.at("width"), {}};
         Connection const greater{variables.at("greater"), {}};
@@ -386,13 +385,222 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const F{variables.at("F"), {}};
         Connection const T{variables.at("T"), {}};
         Connection const objects{primitives.at("objects0"), {I, F, F, T}};
-        Connection const mfilter{primitives.at("mfilter3"), {objects, compose}};
+        Connection const mfilter{primitives.at("mfilter4"), {objects, compose}};
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
         programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
     }
 
+    //matcher: 39a8645d
+    {
+        Connection const I{iNeuron, {}};
+        Connection const F{variables.at("F"), {}};
+        Connection const T{variables.at("T"), {}};
+        Connection const objects{primitives.at("objects0"), {I, T, T, T}};
+        Connection const totuple{primitives.at("totuple4"), {objects}};
+        Connection const color{variables.at("color"), {}};
+        Connection const apply{primitives.at("apply6"), {color, totuple}};
+        Connection const mostcommon{primitives.at("mostcommon5"), {apply}};
+        Connection const matcher{primitives.at("matcher8"), {color, mostcommon}};
+        Connection const extract{primitives.at("extract14"), {objects, matcher}};
+        Connection const subgrid{primitives.at("subgrid1"), {extract, I}};
+
+        hodel::GridType const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0},
+                                   {0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 8, 0, 8, 0, 0, 0, 2, 0, 2, 0, 0},
+                                   {0, 0, 0, 0, 8, 0, 0, 0, 0, 2, 0, 2, 0, 0},
+                                   {0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 2, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+                        
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{subgrid, grid});
+    }
+
+    //power: 1f876c06
+    {
+        Connection const I{iNeuron, {}};
+        Connection const fgpartition{primitives.at("fgpartition0"), {I}};
+        Connection const last{variables.at("last"), {}};
+        Connection const first{variables.at("first"), {}};
+        Connection const compose{primitives.at("compose0"), {last, first}};
+        Connection const TWO{variables.at("TWO"), {}};
+        Connection const power{primitives.at("power0"), {last, TWO}};
+        Connection const connect{variables.at("connect"), {}};
+        Connection const fork1{primitives.at("fork0"), {connect, compose, power}};
+        Connection const recolor{variables.at("recolor"), {}};
+        Connection const color{variables.at("color"), {}};
+        Connection const fork2{primitives.at("fork0"), {recolor, color, fork1}};
+        Connection const mapply{primitives.at("mapply2"), {fork2, fgpartition}};
+        Connection const paint{primitives.at("paint0"), {I, mapply}};
+
+        hodel::GridType const grid{{0, 0, 2, 0, 0, 6, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
+                                   {0, 0, 0, 4, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 4, 0, 0}};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, grid});
+    }
+
+    //papply: 73251a56
+    {
+        Connection const I{iNeuron, {}};
+        Connection const dmirror{primitives.at("dmirror0"), {I}};
+        Connection const pair{variables.at("pair"), {}};
+        Connection const papply{primitives.at("papply28"), {pair, I, dmirror}};
+        Connection const maximum{variables.at("maximum"), {}};
+        Connection const apply{variables.at("apply"), {}};
+        Connection const lbind{primitives.at("lbind1"), {apply, maximum}};
+        Connection const apply1{primitives.at("apply9"), {lbind, papply}};
+        Connection const mostcolor{primitives.at("mostcolor0"), {apply1}};
+        Connection const ZERO{variables.at("ZERO"), {}};
+        Connection const replace{primitives.at("replace0"), {apply1, ZERO, mostcolor}};
+        Connection const ORIGIN{variables.at("ORIGIN"), {}};
+        Connection const UNITY{variables.at("UNITY"), {}};
+        Connection const index{primitives.at("index0"), {replace, UNITY}};
+        Connection const shoot{primitives.at("shoot0"), {ORIGIN, UNITY}};
+        Connection const fill{primitives.at("fill0"), {replace, index, shoot}};
+
+        hodel::GridType const grid{{4, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 1, 1, 2, 2, 3, 3, 4},
+                                   {3, 4, 3, 3, 4, 4, 4, 5, 5, 5, 0, 0, 6, 7, 7, 7, 8, 8, 8, 9, 9},
+                                   {4, 3, 4, 3, 3, 3, 4, 4, 4, 4, 0, 0, 5, 5, 6, 6, 6, 6, 7, 7, 7},
+                                   {4, 3, 3, 4, 3, 3, 3, 3, 4, 4, 0, 0, 4, 5, 5, 5, 5, 5, 6, 6, 6},
+                                   {5, 4, 3, 3, 4, 3, 3, 3, 3, 3, 0, 0, 4, 4, 4, 4, 5, 5, 5, 5, 5},
+                                   {5, 4, 3, 3, 3, 4, 3, 3, 3, 3, 0, 0, 4, 4, 4, 4, 4, 4, 4, 5, 5},
+                                   {6, 4, 4, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4},
+                                   {6, 5, 4, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4},
+                                   {0, 0, 0, 0, 0, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4},
+                                   {0, 0, 0, 0, 0, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4},
+                                   {8, 6, 5, 4, 4, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+                                   {8, 6, 5, 4, 4, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+                                   {9, 6, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3},
+                                   {9, 7, 5, 5, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3},
+                                   {1, 7, 6, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3},
+                                   {1, 7, 6, 5, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3},
+                                   {2, 8, 6, 5, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3},
+                                   {2, 8, 6, 5, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3},
+                                   {3, 8, 7, 6, 5, 4, 4, 4, 4, 3, 3, 3, 0, 0, 0, 0, 0, 3, 4, 3, 3},
+                                   {3, 9, 7, 6, 5, 5, 4, 4, 4, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 4, 3},
+                                   {4, 9, 7, 6, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4}};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{fill, grid});
+    }
+
+    //mpapply: 08ed6ac7
+    {
+        Connection const I{iNeuron, {}};
+        Connection const F{variables.at("F"), {}};
+        Connection const T{variables.at("T"), {}};
+        Connection const objects{primitives.at("objects0"), {I, T, F, T}};
+        Connection const totuple{primitives.at("totuple4"), {objects}};
+        Connection const height{variables.at("height"), {}};
+        Connection const order{primitives.at("order14"), {objects, height}};
+        Connection const size{primitives.at("size6"), {totuple}};
+        Connection const ZERO{variables.at("ZERO"), {}};
+        Connection const NEG_ONE{variables.at("NEG_ONE"), {}};
+        Connection const interval{primitives.at("interval0"), {size, ZERO, NEG_ONE}};
+        Connection const recolor{variables.at("recolor"), {}};
+        Connection const mpapply{primitives.at("mpapply5"), {recolor, interval, order}};
+        Connection const paint{primitives.at("paint0"), {I, mpapply}};
+
+        hodel::GridType const grid{{0, 0, 0, 0, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 0, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 0, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 0, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 5, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 5, 0},
+                                   {0, 5, 0, 5, 0, 5, 0, 5, 0}};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, grid});
+    }
+
+    //prapply: 253bf280
+    {/*
+        Connection const prapply{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //vline: 8e1813be
+    {/*
+        Connection const vline{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //hline: 22eb0ac0
+    {/*
+        Connection const hline{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //hmatching: d43fd935
+    {/*
+        Connection const hmatching{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //vmatching: ddf7fa4f
+    {/*
+        Connection const vmatching{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //adjacent: 48d8fb45
+    {/*
+        Connection const adjacent{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //bordering: 6f8cd79b
+    {/*
+        Connection const bordering{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+
+    //gravitate: 05f2a901
+    {/*
+        Connection const gravitate{};
+
+        hodel::GridType const grid{};
+
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{, grid});*/
+    }
+/**
     for (auto names : allNames)
     {
         std::reverse(names.begin(), names.end());
@@ -413,7 +621,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
             std::cout << std::endl;
         }
     }
-
+**/
     for (auto& program : programs)
     {
         auto& connection{program.first};
@@ -437,9 +645,9 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
             auto const input{program.second.has_value() ? program.second.value() : generateStructuredGrid({30, 30}, {30, 30})};
 
             iNeuron.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-
+/*
             try
-            {
+            {*/
                 output = connection.output();
 
                 if (output.has_value())
@@ -479,12 +687,12 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
                     if (add)
                         break;
-                }
+                }/*
             }
             catch (std::exception const&)
             {
                 std::cout << "Failed connection: " << connection.string() << std::endl;
-            }
+            }*/
         }
 
         if (!add)
