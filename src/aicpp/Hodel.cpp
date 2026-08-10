@@ -2,7 +2,6 @@
 #include <map>
 #include <numeric>
 #include <ranges>
-#include <unordered_set>
 
 #include "aicpp/Hodel.h"
 
@@ -1981,7 +1980,7 @@ std::any hodel::product(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-#include <iostream>
+
 std::any hodel::pair(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -2203,7 +2202,7 @@ std::any hodel::fork(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
-template <typename T, typename S = typename T::value_type>
+template <typename T, typename S = std::vector<typename T::value_type> >
 static std::any apply(hodel::Callable const& function, std::any const& container)
 {
     if (container.type() != typeid(T))
@@ -2211,26 +2210,22 @@ static std::any apply(hodel::Callable const& function, std::any const& container
 
     auto const container_{std::any_cast<T>(container)};
 
-    std::vector<S> values;
+    std::vector<typename S::value_type> values;
     values.reserve(container_.size());
 
     try
     {
         for (auto const& v : container_)
-            values.emplace_back(std::any_cast<S>(function({v})));
-    }/*
+            values.emplace_back(std::any_cast<typename S::value_type>(function({v})));
+    }
     catch (std::exception const&)
-    {
-        return std::any{};
-    }*/
-    catch (std::bad_any_cast const&)
     {
         return std::any{};
     }
 
-    return values;
+    return S{values.begin(), values.end()};
 }
-#include <iostream>
+
 std::any hodel::apply(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -2253,16 +2248,18 @@ std::any hodel::apply(std::vector<std::any> const& args)
     auto const function_{std::any_cast<Callable>(function)};
 
     if (auto r = ::apply<std::vector<Boolean> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<GridType>, Boolean>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerType>, IntegerType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<GridType>, IntegerType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<GridType>, GridType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, std::vector<Boolean> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerType>, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, std::vector<GridType> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<ObjectType> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<ObjectType>, IntegerType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<TupleVector>, IntegerVector>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<TupleVector, IntegerType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<ObjectType>, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<TupleVector>, GridType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<TupleVector, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesType, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesSet, IndicesType>(function_, container); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2427,23 +2424,27 @@ std::any prapply(hodel::Callable const& function, std::any const& a, std::any co
     if (a_.size() != b_.size())
         return std::any{};
 
-    std::vector<U> result;
-    result.reserve(a_.size());
+    std::vector<typename U::value_type> result;
+    result.reserve(a_.size() * b_.size());
 
     auto itA{a_.begin()};
-    auto itB{b_.begin()};
 
     try
     {
-        for (; itA != a_.end() && itB != b_.end(); ++itA, ++itB)
-            result.emplace_back(std::any_cast<U>(function({*itA, *itB})));
+        for (; itA != a_.end(); ++itA)
+        {
+            auto itB{b_.begin()};
+
+            for (; itB != b_.end(); ++itB)
+                result.emplace_back(std::any_cast<typename U::value_type>(function({*itA, *itB})));
+        }
     }
     catch (std::exception const&)
     {
         return std::any{};
     }
     
-    return result;
+    return U{result.begin(), result.end()};
 }
 
 std::any hodel::prapply(std::vector<std::any> const& args)
@@ -2460,19 +2461,20 @@ std::any hodel::prapply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<Callable>(function)};
 
-    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, IntegerType>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, IntegerType>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<Boolean>, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerType>, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerTuple>, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, GridType, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<GridType>, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, ObjectType, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, Objects, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, IndicesType, Callable>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, IndicesSet, Callable>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, std::vector<Boolean> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, std::vector<IntegerType> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, std::vector<Boolean> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, std::vector<IntegerType> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, std::vector<Boolean>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerType>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerTuple>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, GridType, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, std::vector<GridType>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, ObjectType, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, Objects, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, IndicesType, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, IndicesSet, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesType, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
