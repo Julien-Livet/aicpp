@@ -255,6 +255,8 @@ namespace hodel
     //std::vector<ObjectType> apply(Callable, std::vector<ObjectType>)
     //GridType apply(Callable, std::vector<TupleVector>)
     //IntegerVector apply(Callable, TupleVector)
+    //IndicesSet apply(Callable, IndicesType)
+    //IndicesType apply(Callable, IndicesSet)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
     //std::vector<Boolean> rapply(std::vector<Callable>, IntegerType)
@@ -322,6 +324,7 @@ namespace hodel
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, Objects)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesType)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesSet)
+    //IndicesSet prapply(Callable, IndicesType, IndicesType)
     std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
