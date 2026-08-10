@@ -66,13 +66,14 @@ namespace hodel
     typedef std::function<std::any(std::vector<std::any> const&)> Callable;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, GridType, Cell, ObjectType, Objects, IndicesType, IndicesSet, Callable, std::vector<IntegerType>, std::vector<GridType>, std::vector<Boolean>, std::vector<ObjectType>, std::vector<Objects>, std::vector<IndicesType>, std::vector<IndicesSet>, std::vector<Callable> > AnyIdentity;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, GridType, Cell, ObjectType, Objects, IndicesType, IndicesSet, std::vector<GridType>, std::vector<Boolean>, std::vector<Objects> > AnyEquality;
-    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, GridType, ObjectType, IndicesType, Objects, Callable> AnyVector1;
+    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, GridType, ObjectType, IndicesType, Objects, Callable, std::vector<IntegerTuple> > AnyVector1;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, GridType, Objects> AnyVector2;
     typedef std::tuple<IntegerType, Cell, ObjectType, IntegerTuple, IndicesType> AnySet1;
     typedef std::vector<IntegerType> IntegerVector;
     typedef std::vector<GridType> GridVector;
-    typedef std::tuple<IntegerVector, GridType> AnyVector3;
+    typedef std::tuple<IntegerVector, GridType, ObjectType> AnyVector3;
     typedef std::tuple<ObjectType, IndicesType> AnySet2;
+    typedef std::vector<IntegerTuple> TupleVector;
     
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
@@ -123,6 +124,7 @@ namespace hodel
     //std::vector<AnyVector1> dedupe(std::vector<AnyVector1>)
     std::any dedupe(std::vector<std::any> const& args); //remove duplicates
     //std::vector<AnyVector1> order(std::vector<AnyVector1>, Callable)
+    //std::set<AnySet1> order(std::set<AnySet1>, Callable)
     std::any order(std::vector<std::any> const& args); //order container by custom key
     //std::vector<AnyVector1> repeat(AnyVector1, IntegerType)
     std::any repeat(std::vector<std::any> const& args); //repetition of item within vector
@@ -135,11 +137,13 @@ namespace hodel
     //AnyVector3 merge(std::vector<AnyVector3>)
     //AnySet2 merge(std::set<AnySet2>)
     std::any merge(std::vector<std::any> const& args); //merging
-    //IntegerType maximum(std::vector<AnyVector1>)
-    //IntegerType maximum(std::set<AnySet1>)
+    //IntegerType maximum(std::vector<IntegerType>)
+    //IntegerType maximum(std::set<IntegerType>)
+    //IntegerType maximum(IntegerTuple)
     std::any maximum(std::vector<std::any> const& args); //maximum
-    //IntegerType minimum(std::vector<AnyVector1>)
-    //IntegerType minimum(std::set<AnySet1>)
+    //IntegerType minimum(std::vector<IntegerType>)
+    //IntegerType minimum(std::set<IntegerType>)
+    //IntegerType minimum(IntegerTuple)
     std::any minimum(std::vector<std::any> const& args); //minimum
     //IntegerType valmax(IntegerVector, Callable)
     //IntegerType valmax(IntegerSet, Callable)
@@ -194,14 +198,17 @@ namespace hodel
     //AnySet1 extract(std::set<AnySet1>, Callable)
     std::any extract(std::vector<std::any> const& args); //first element of container that satisfies condition
     //std::vector<AnySet1> totuple(std::set<AnySet1>)
+    //std::vector<IntegerType> totuple(IntegerTuple)
     std::any totuple(std::vector<std::any> const& args); //conversion to tuple
     //AnyVector1 first(std::vector<AnyVector1>)
     //AnySet1 first(std::set<AnySet1>)
     //IntegerType first(IntegerTuple)
+    //IntegerType first(Cell)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
     //AnySet1 last(std::set<AnySet1>)
     //IntegerType last(IntegerTuple)
+    //IntegerTuple last(Cell)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -219,9 +226,7 @@ namespace hodel
     //ObjectType product(IntegerType, IntegerTuple)
     //IndicesType product(IntegerType, IntegerType)
     std::any product(std::vector<std::any> const& args); //cartesian product
-    //std::vector<IntegerTuple> pair(IntegerTuple, IntegerTuple)
     //GridType pair(IntegerVector, IntegerVector)
-    //GridVector pair(GridType, GridType)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(Boolean, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
@@ -245,6 +250,11 @@ namespace hodel
     //std::vector<IntegerType> apply(Callable, std::vector<GridType>)
     //std::vector<GridType> apply(Callable, std::vector<GridType>)
     //std::vector<IntegerType> apply(Callable, Objects)
+    //std::vector<IntegerType> apply(Callable, std::vector<ObjectType>)
+    //std::vector<ObjectType> apply(Callable, Objects)
+    //std::vector<ObjectType> apply(Callable, std::vector<ObjectType>)
+    //GridType apply(Callable, std::vector<TupleVector>)
+    //IntegerVector apply(Callable, TupleVector)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
     //std::vector<Boolean> rapply(std::vector<Callable>, IntegerType)
@@ -259,6 +269,8 @@ namespace hodel
     std::any rapply(std::vector<std::any> const& args); //apply each function in container to value
     //GridType mapply(Callable, std::vector<GridType>)
     //IntegerVector mapply(Callable, GridType)
+    //ObjectType mapply(Callable, Objects)
+    //ObjectType mapply(Callable, std::vector<ObjectType>)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
     //Boolean papply(Callable, std::vector<Boolean>, std::vector<Boolean>)
     //IntegerTuple papply(Callable, std::vector<IntegerType>, std::vector<IntegerType>)
@@ -288,11 +300,14 @@ namespace hodel
     //IntegerType papply(Callable, std::vector<IntegerSet>, std::vector<Callable>)
     //IntegerType papply(Callable, std::vector<Objects>, std::vector<Callable>)
     //IntegerType papply(Callable, std::vector<IndicesSet>, std::vector<Callable>)
+    //std::vector<TupleVector> papply(Callable, GridType, GridType)
     std::any papply(std::vector<std::any> const& args); //apply function on two vectors
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<GridType>)
     //ObjectType mpapply(Callable, std::vector<Objects>, std::vector<IntegerType>)
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<ObjectType>)
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<IntegerType>)
+    //ObjectType mpapply(Callable, std::vector<IntegerType>, std::vector<ObjectType>)
+    //ObjectType mpapply(Callable, std::vector<IntegerType>, Objects)
     std::any mpapply(std::vector<std::any> const& args); //apply function on two vectors and merge
     //std::vector<Boolean> prapply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
     //std::vector<IntegerType> prapply(Callable, std::vector<IndicesType>, std::vector<IndicesType>)
