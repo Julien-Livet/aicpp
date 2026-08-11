@@ -1030,8 +1030,7 @@ if (__name__ == "__main__"):
         inputs = inputs.to(device)
         outputs = outputs.to(device)
         masks = masks.to(device)
-
-        costs = reversed(trajectory)
+        costs = list(reversed(trajectory))
 
         candidates = list(zip(candidatePrograms, programCosts(targetProgram, candidatePrograms, grids)))
         candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
@@ -1045,7 +1044,7 @@ if (__name__ == "__main__"):
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  {datetime.datetime.now()} #{count} Searched program: {costs[0][0]}, cost: {costs[0][1].sum(axis = 0, skipna = False)['Total cost']}")
+                print(f"  {datetime.datetime.now()} #{count} Searched program: {costs[0][1]}, cost: {costs[0][0]}")
                 show = False
 
             if (computeGraphs):
@@ -1071,17 +1070,17 @@ if (__name__ == "__main__"):
                 model, VOCAB, z_context,
                 temperature = temperature,
                 device = device,
-                max_depth = costs[0][0].count("(") - 1
+                max_depth = costs[0][1].count("(") - 1
             )
 
             checked: list = []
 
-            for inp in v:
+            for inp in grids:
                 checked.append(isValidGrid(program, inp))
 
             if ("I" in program and any(checked)):
                 try:
-                    df = programCosts(k, [program], v)[0]
+                    df = programCosts(targetProgram, [program], grids)[0]
                     cost = df["Total cost"].sum(skipna = False)
                 except Exception:
                     cost = math.inf
@@ -1090,7 +1089,7 @@ if (__name__ == "__main__"):
 
             model.train()
             optimizer.zero_grad()
-            target_ids = encode_program_tokens(costs[0][0], VOCAB).to(device)
+            target_ids = encode_program_tokens(costs[0][1], VOCAB).to(device)
             decoder_input = target_ids[:-1]
             decoder_target = target_ids[1:]
             logits = model.decoder(decoder_input.unsqueeze(0), z_context)
@@ -1111,7 +1110,7 @@ if (__name__ == "__main__"):
                     device=device
                 )
                 target_cost = torch.tensor(
-                    costs[0][1]["Total cost"].sum(skipna = False),
+                    costs[0][0],
                     dtype=torch.float32,
                     device=device
                 )
@@ -1153,7 +1152,7 @@ if (__name__ == "__main__"):
                 candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-                while (len(costs) and cost <= costs[0][1].sum(axis = 0, skipna = False)["Total cost"]):
+                while (len(costs) and cost <= costs[0][0]):
                     costs.pop(0)
 
             count += 1
