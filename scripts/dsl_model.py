@@ -1031,6 +1031,7 @@ if (__name__ == "__main__"):
         outputs = outputs.to(device)
         masks = masks.to(device)
         costs = list(reversed(trajectory))
+        costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
 
         candidates = list(zip(candidatePrograms, programCosts(targetProgram, candidatePrograms, grids)))
         candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
