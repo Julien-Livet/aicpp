@@ -491,7 +491,14 @@ class Engine
                 identityCost += arcHeuristic(o, output);
             }
 
-            std::sort(result.begin(), result.end(), [] (auto const& a, auto const& b) { return a.first + a.second.size() < b.first + b.second.size(); });
+            std::sort(result.begin(), result.end(),
+                      [] (auto const& a, auto const& b)
+                      {
+                          if (a.first == b.first)
+                              return a.second.size() < b.second.size();
+
+                          return a.first < b.first;
+                      });
 
             auto const it{std::lower_bound(result.begin(), result.end(), identityCost, [] (auto const& a, double val) { return a.first < val; })};;
 
