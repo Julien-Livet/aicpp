@@ -400,7 +400,9 @@ class Engine
                     {
                         iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));
 
-                        assert(connections_[i].replace(iNeurons_.back()));
+                        auto const ok{connections_[i].replace(iNeurons_.back())};
+                        
+                        assert(ok);
 
                         newConnections.emplace_back(connections_[i]);
                     }
