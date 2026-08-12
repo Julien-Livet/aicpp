@@ -1137,11 +1137,13 @@ if (__name__ == "__main__"):
                 )
                 L_total_cost = torch.log1p(generated_cost)
 
-                #if (generated_cost < target_cost):
-                #    L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
-                #else:
-                #    L_total = 0.5 * L_tokens + 0.1 * L_cost + 0.4 * L_total_cost
-                L_total = 1.0 * L_tokens + 0.0 * L_total_cost
+                try:
+                    if (generated_cost < target_cost):
+                        L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
+                    else:
+                        L_total = 0.0 * L_tokens + 0.25 * L_cost + 0.75 * L_total_cost
+                except RuntimeError:
+                    L_total = L_tokens
 
             if (not program in testedPrograms):
                 temperature = max(1.0, temperature * 0.95)
@@ -1152,7 +1154,7 @@ if (__name__ == "__main__"):
             else:
                 temperature = min(5.0, temperature * 1.05)
 
-            if (not np.isinf(cost).any() and cost <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+            if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not program in [c[0] for c in candidates]):
                 torch.save({
                     "model_state": model.state_dict(),
