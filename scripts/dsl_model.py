@@ -983,6 +983,20 @@ def encode_program_tokens(program: str, vocab, max_len: int = 128) -> torch.Tens
 
     return torch.tensor(ids, dtype=torch.long)
 
+def programDepth(program: str):
+    count = 0
+    n = 0
+
+    for c in program:
+        if (c == "("):
+            n += 1
+        elif (c == ")"):
+            n -= 1
+
+        count = max(count, n)
+
+    return count
+
 if (__name__ == "__main__"):
     builder = DSLGraphBuilder(VOCAB.token2id)
     gridModel = ARCContextEncoder(d_model=256)
@@ -1071,7 +1085,7 @@ if (__name__ == "__main__"):
                 model, VOCAB, z_context,
                 temperature = temperature,
                 device = device,
-                max_depth = costs[0][1].count("(") - 1
+                max_depth = programDepth(costs[0][1])
             )
 
             checked: list = []
@@ -1123,10 +1137,11 @@ if (__name__ == "__main__"):
                 )
                 L_total_cost = torch.log1p(generated_cost)
 
-                if (generated_cost < target_cost):
-                    L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
-                else:
-                    L_total = 0.0 * L_tokens + 0.25 * L_cost + 0.75 * L_total_cost
+                #if (generated_cost < target_cost):
+                #    L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
+                #else:
+                #    L_total = 0.5 * L_tokens + 0.1 * L_cost + 0.4 * L_total_cost
+                L_total = 1.0 * L_tokens + 0.0 * L_total_cost
 
             if (not program in testedPrograms):
                 temperature = max(1.0, temperature * 0.95)
