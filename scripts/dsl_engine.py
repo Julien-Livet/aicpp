@@ -135,10 +135,10 @@ def load_module(name: str, path: str):
 
 def size_cost(x: np.ndarray, y: np.ndarray) -> float:
     if (not x.shape):
-        return np.linalg.norm(np.array(y.shape))
+        return np.linalg.norm(np.array(y.shape, dtype = float))
 
     try:
-        return np.linalg.norm(np.array(x.shape) - np.array(y.shape))
+        return np.linalg.norm(np.array(x.shape, dtype = float) - np.array(y.shape, dtype = float))
     except Exception:
         return float("inf")
 
@@ -181,8 +181,8 @@ def bounding_box_cost(x: np.ndarray, y: np.ndarray) -> float:
     if (box_x is None or box_y is None):
         return 1.0
 
-    diff = np.linalg.norm(np.array(box_x) - np.array(box_y))
-    norm = np.linalg.norm(np.array(x.shape) + np.array(y.shape))
+    diff = np.linalg.norm(np.array(box_x, dtype = float) - np.array(box_y, dtype = float))
+    norm = np.linalg.norm(np.array(x.shape, dtype = float) + np.array(y.shape, dtype = float))
 
     return diff / (norm + 1e-8)
 
