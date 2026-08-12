@@ -912,8 +912,8 @@ def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
             a2 = 0
 
             try:
-                a1 = np.array(O)
-                a2 = np.array(pair[1])
+                a1 = np.array(O, dtype = float)
+                a2 = np.array(pair[1], dtype = float)
                 score[i] = scoreFunctions[i](a1, a2)
             except:
                 score[i] = math.inf
@@ -1154,24 +1154,27 @@ if (__name__ == "__main__"):
             else:
                 temperature = min(5.0, temperature * 1.05)
 
-            if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
-                and not program in [c[0] for c in candidates]):
-                torch.save({
-                    "model_state": model.state_dict(),
-                    "d_model"    : model.decoder.d_model,
-                    "vocab_size" : model.decoder.vocab_size,
-                }, modelFilename)
+            try:
+                if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                    and not program in [c[0] for c in candidates]):
+                    torch.save({
+                        "model_state": model.state_dict(),
+                        "d_model"    : model.decoder.d_model,
+                        "vocab_size" : model.decoder.vocab_size,
+                    }, modelFilename)
 
-                print(f"    Found program: {program}, cost: {cost}")
-                show = True
-                computeGraphs = True
+                    print(f"    Found program: {program}, cost: {cost}")
+                    show = True
+                    computeGraphs = True
 
-                candidates.pop(0)
-                candidates.append((program, df))
-                candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+                    candidates.pop(0)
+                    candidates.append((program, df))
+                    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-                while (len(costs) and cost <= costs[0][0]):
-                    costs.pop(0)
+                    while (len(costs) and cost <= costs[0][0]):
+                        costs.pop(0)
+            except ValueError:
+                pass
 
             count += 1
 
