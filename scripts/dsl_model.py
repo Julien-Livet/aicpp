@@ -1085,7 +1085,7 @@ if (__name__ == "__main__"):
                 model, VOCAB, z_context,
                 temperature = temperature,
                 device = device,
-                max_depth = programDepth(costs[0][1])
+                max_depth = programDepth(costs[0][1]) - 1
             )
 
             checked: list = []
