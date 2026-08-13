@@ -20,7 +20,7 @@ namespace py = pybind11;
 
 using namespace aicpp;
 
-Eigen::MatrixXcd to_eigen(hodel::GridType const& v)
+Eigen::MatrixXd to_eigen(hodel::GridType const& v)
 {
     if (v.empty())
         return Eigen::MatrixXd{};
