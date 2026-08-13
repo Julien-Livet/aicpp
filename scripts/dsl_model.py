@@ -1056,6 +1056,8 @@ if (__name__ == "__main__"):
         temperature: float = 1.0
         testedPrograms = set()
         count: int = 1
+        minAlpha: float = 0.1
+        alpha: float = minAlpha
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
@@ -1137,22 +1139,21 @@ if (__name__ == "__main__"):
                 )
                 L_total_cost = torch.log1p(generated_cost)
 
-                try:
-                    if (generated_cost < target_cost):
-                        L_total = 0.0 * L_tokens + 0.0 * L_cost + 1.0 * L_total_cost
-                    else:
-                        L_total = 0.0 * L_tokens + 0.25 * L_cost + 0.75 * L_total_cost
-                except RuntimeError:
-                    L_total = L_tokens
+                L_total = alpha * L_tokens + (1.0 - alpha) * L_total_cost
 
             if (not program in testedPrograms):
-                temperature = max(1.0, temperature * 0.95)
-                testedPrograms.add(program)
+                try:
+                    L_total.backward()
+                    optimizer.step()
 
-                L_total.backward()
-                optimizer.step()
+                    temperature = max(1.0, temperature * 0.95)
+                    alpha = max(minAlpha, alpha * 0.9)
+                    testedPrograms.add(program)
+                except RuntimeError:
+                    pass
             else:
-                temperature = min(5.0, temperature * 1.05)
+                temperature = min(2.0, temperature * 1.05)
+                alpha = min(1.0, alpha * 1.5)
 
             try:
                 if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
@@ -1171,7 +1172,7 @@ if (__name__ == "__main__"):
                     candidates.append((program, df))
                     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-                    while (len(costs) and cost <= costs[0][0]):
+                    while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
                         costs.pop(0)
             except ValueError:
                 pass
