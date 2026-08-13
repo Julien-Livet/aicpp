@@ -894,6 +894,9 @@ def generate_one(
         else:
             break
 
+    if (not ts.is_done()):
+        return None
+
     prog  = ts.program()
     depth = prog.count("(") - prog.count(")")
 
@@ -1050,14 +1053,14 @@ if (__name__ == "__main__"):
         candidates = list(zip(candidatePrograms, programCosts(targetProgram, candidatePrograms, grids)))
         candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-        print(f"{i+1}/{n} Target program: {targetProgram}")
+        print(f"{i+1}/{n} Target program: {targetProgram} (trajectory: {len(costs)} programs)")
         show: bool = True
         computeGraphs: bool = True
         temperature: float = 1.0
         testedPrograms = set()
         count: int = 1
         minAlpha: float = 0.1
-        alpha: float = minAlpha
+        alpha: float = 1.0
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
@@ -1095,7 +1098,7 @@ if (__name__ == "__main__"):
             for inp in grids:
                 checked.append(isValidGrid(program, inp))
 
-            if ("I" in program and any(checked)):
+            if (program and "I" in program and any(checked)):
                 try:
                     df = programCosts(targetProgram, [program], grids)[0]
                     cost = df["Total cost"].sum(skipna = False)
@@ -1152,7 +1155,7 @@ if (__name__ == "__main__"):
                 except RuntimeError:
                     pass
             else:
-                temperature = min(2.0, temperature * 1.05)
+                temperature = min(10.0, temperature * 1.05)
                 alpha = min(1.0, alpha * 1.5)
 
             try:
@@ -1167,6 +1170,8 @@ if (__name__ == "__main__"):
                     print(f"    Found program: {program}, cost: {cost}")
                     show = True
                     computeGraphs = True
+                    #temperature = 1.0
+                    #alpha = minAlpha
 
                     candidates.pop(0)
                     candidates.append((program, df))
