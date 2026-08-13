@@ -1065,7 +1065,7 @@ if (__name__ == "__main__"):
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  {datetime.datetime.now()} #{count} Searched program: {costs[0][1]}, cost: {costs[0][0]}")
+                print(f"  {datetime.datetime.now()} #{validCount}/{count} Searched program: {costs[0][1]}, cost: {costs[0][0]}")
                 show = False
 
             if (computeGraphs):
@@ -1157,7 +1157,7 @@ if (__name__ == "__main__"):
                 except RuntimeError:
                     pass
             else:
-                temperature = min(10.0, temperature * 1.05)
+                temperature = min(5.0, temperature * 1.05)
                 alpha = min(1.0, alpha * 1.5)
 
             try:
