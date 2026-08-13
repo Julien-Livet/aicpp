@@ -200,7 +200,7 @@ def isValidGrid(program: str, I: Tuple[Tuple[int]]) -> bool:
     O = execute_dsl(program, I)
 
     try:
-        if (O and compatibleType(type(O), Tuple[Tuple[int]]) and type(O[0]) is tuple and I != O and len(O) > 1 and np.min(O) >= 0 and np.max(O) <= 9):
+        if (O and compatibleType(type(O), tuple) and compatibleType(type(O[0]), tuple) and I != O and len(O) > 1 and np.min(O) >= 0 and np.max(O) <= 9):
             del O
 
             return True
