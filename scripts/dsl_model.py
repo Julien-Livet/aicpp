@@ -1061,6 +1061,7 @@ if (__name__ == "__main__"):
         count: int = 1
         minAlpha: float = 0.1
         alpha: float = 1.0
+        validCount: int = 0
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
@@ -1102,6 +1103,7 @@ if (__name__ == "__main__"):
                 try:
                     df = programCosts(targetProgram, [program], grids)[0]
                     cost = df["Total cost"].sum(skipna = False)
+                    validCount += 1
                 except Exception:
                     cost = math.inf
             else:
@@ -1184,4 +1186,4 @@ if (__name__ == "__main__"):
 
             count += 1
 
-        print(f"Found program: {candidates[-1][0]} ({count} iterations)")
+        print(f"Found program: {candidates[-1][0]} ({validCount}/{count} iterations)")
