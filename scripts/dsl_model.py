@@ -1062,10 +1062,12 @@ if (__name__ == "__main__"):
         minAlpha: float = 0.1
         alpha: float = 1.0
         validCount: int = 0
+        numPrograms: int = len(costs)
+        programCount: int = 1
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  {datetime.datetime.now()} #{validCount}/{count} Searched program: {costs[0][1]}, cost: {costs[0][0]}")
+                print(f"  {datetime.datetime.now()} #{validCount}/{count} Searched program ({programCount}/{numPrograms}): {costs[0][1]}, cost: {costs[0][0]}")
                 show = False
 
             if (computeGraphs):
@@ -1175,8 +1177,6 @@ if (__name__ == "__main__"):
                     print(f"    Found program: {program}, cost: {cost}")
                     show = True
                     computeGraphs = True
-                    #temperature = 1.0
-                    #alpha = minAlpha
 
                     candidates.pop(0)
                     candidates.append((program, df))
@@ -1184,9 +1184,10 @@ if (__name__ == "__main__"):
 
                     while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
                         costs.pop(0)
+                        programCount += 1
             except ValueError:
                 pass
 
             count += 1
 
-        print(f"Found program: {candidates[-1][0]} ({validCount}/{count} iterations)")
+        print(f"Found program: {candidates[-1][0]} ({validCount}/{count - 1} iterations)")
