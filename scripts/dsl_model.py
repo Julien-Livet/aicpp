@@ -1099,7 +1099,10 @@ if (__name__ == "__main__"):
             for inp in grids:
                 checked.append(isValidGrid(program, inp))
 
-            if (program and "I" in program and any(checked)):
+            if (program):
+                ok = "(I)" in program or "(I, " in program or ", I," in program or ", I)" in program
+
+            if (program and ok and any(checked)):
                 try:
                     df = programCosts(targetProgram, [program], grids)[0]
                     cost = df["Total cost"].sum(skipna = False)
