@@ -38,7 +38,7 @@ def compatibleType(target: type, expected: type) -> bool:
             return True
         elif (get_origin(expected) is frozenset and get_origin(target) is frozenset and not get_args(expected)):
             return True
-        elif (get_origin(expected) is tuple and target is tuple):
+        elif (get_origin(expected) is tuple and get_origin(target) is tuple):
             return True
         elif (expected is Any or target is Any):
             return True
