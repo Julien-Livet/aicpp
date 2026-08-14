@@ -1064,10 +1064,11 @@ if (__name__ == "__main__"):
         validCount: int = 0
         numPrograms: int = len(costs)
         programCount: int = 1
+        uniqueCount: int = 0
 
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
             if (show):
-                print(f"  {datetime.datetime.now()} #{validCount}/{count} Searched program ({programCount}/{numPrograms}): {costs[0][1]}, cost: {costs[0][0]}")
+                print(f"  {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): {costs[0][1]}, cost: {costs[0][0]}")
                 show = False
 
             if (computeGraphs):
@@ -1109,6 +1110,9 @@ if (__name__ == "__main__"):
                     df = programCosts(targetProgram, [program], grids)[0]
                     cost = df["Total cost"].sum(skipna = False)
                     validCount += 1
+
+                    if (not program in testedPrograms):
+                        uniqueCount += 1
                 except Exception:
                     cost = math.inf
             else:
@@ -1166,28 +1170,31 @@ if (__name__ == "__main__"):
                 alpha = min(1.0, alpha * 1.5)
 
             try:
-                if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
-                    and not program in [c[0] for c in candidates]):
-                    torch.save({
-                        "model_state": model.state_dict(),
-                        "d_model"    : model.decoder.d_model,
-                        "vocab_size" : model.decoder.vocab_size,
-                    }, modelFilename)
+                if (not np.isinf(cost).any()):
+                    if (cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                        and not program in [c[0] for c in candidates]):
+                        torch.save({
+                            "model_state": model.state_dict(),
+                            "d_model"    : model.decoder.d_model,
+                            "vocab_size" : model.decoder.vocab_size,
+                        }, modelFilename)
 
-                    print(f"    Found program: {program}, cost: {cost}")
-                    show = True
-                    computeGraphs = True
+                        print(f"    Found better program: {program}, cost: {cost}")
+                        show = True
+                        computeGraphs = True
 
-                    candidates.pop(0)
-                    candidates.append((program, df))
-                    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+                        candidates.pop(0)
+                        candidates.append((program, df))
+                        candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
 
-                    while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
-                        costs.pop(0)
-                        programCount += 1
+                        while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
+                            costs.pop(0)
+                            programCount += 1
+                    elif (not program in testedPrograms):
+                        print(f"    Found worst program: {program}, cost: {cost}")
             except ValueError:
                 pass
 
             count += 1
 
-        print(f"Found program: {candidates[-1][0]} ({validCount}/{count - 1} iterations)")
+        print(f"Found program: {candidates[-1][0]} ({validCount}({uniqueCount})/{count - 1} iterations)")
