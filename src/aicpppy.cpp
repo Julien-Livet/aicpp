@@ -271,6 +271,181 @@ struct std::hash<std::vector<T> >
     }
 };
 
+class ConnectionBuilder
+{
+    public:
+        ConnectionBuilder(std::map<std::string, Neuron> const& variableNeurons,
+                          std::map<std::string, Neuron> const& primitiveNeurons) : variableNeurons_{variableNeurons}, primitiveNeurons_{primitiveNeurons}
+        {
+        }
+
+        std::vector<std::string> validNames(std::type_index const& type) const
+        {
+            std::set<std::string> names;
+
+            if (iNeuron_.outputType() == type)
+                names.emplace(iNeuron_.name());
+
+            for (auto const& [name, neuron] : variableNeurons_)
+            {
+                if (neuron.outputType() == type)
+                    names.emplace(neuron.name());
+            }
+
+            if (depth_)
+            {
+                if (!connection_ || connection_->depth() < depth_)
+                {
+                    for (auto const& [name, neuron] : primitiveNeurons_)
+                    {
+                        if (neuron.outputType() == type)
+                            names.emplace(neuron.name());
+                    }
+                }
+            }
+
+            return std::vector<std::string>{names.begin(), names.end()};
+        }
+
+        std::vector<std::string> availableNames() const
+        {
+            if (done())
+                return {};
+
+            return validNames(nextType().value());
+        }
+
+        void reset(size_t depth)
+        {
+            depth_ = depth;
+            connection_.reset();
+        }
+
+        std::optional<std::type_index> nextType() const
+        {
+            if (!connection_)
+                return typeid(hodel::GridType);
+
+            auto const inputs(connection_->leafInputs());
+
+            if (inputs.empty())
+                return {};
+
+            return std::any_cast<std::type_index>(inputs.front());
+        }
+
+        bool done() const
+        {
+            return !nextType().has_value();
+        }
+
+        std::string program() const
+        {
+            if (!connection_)
+                return {};
+
+            return connection_->string();
+        }
+
+        bool applyName(std::string const& name)
+        {
+            if (done())
+                return false;
+
+            std::vector<std::reference_wrapper<Neuron const> > neurons;
+
+            if (name == iNeuron_.name())
+                neurons.emplace_back(iNeuron_);
+
+            for (auto const& [n, neuron] : variableNeurons_)
+            {
+                if (name == neuron.name())
+                    neurons.emplace_back(neuron);
+            }
+
+            if (depth_)
+            {
+                if (!connection_ || connection_->depth() < depth_)
+                {
+                    for (auto const& [n, neuron] : primitiveNeurons_)
+                    {
+                        if (name == neuron.name())
+                            neurons.emplace_back(neuron);
+                    }
+                }
+            }
+
+            decltype(neurons) result;
+            result.reserve(neurons.size());
+            auto const type{nextType()};
+
+            for (auto const& neuron : neurons)
+            {
+                if (type == neuron.get().outputType())
+                    result.emplace_back(neuron);
+            }
+
+            if (result.empty())
+                return false;
+
+            std::random_device rd;
+
+            std::shuffle(result.begin(), result.end(), rd);
+
+            if (!connection_)
+            {
+                auto const& inputTypes(result.front().get().inputTypes());
+                std::vector<std::any> inp;
+                inp.reserve(inputTypes.size());
+
+                for (auto const& type : inputTypes)
+                    inp.emplace_back(type);
+                
+                connection_ = std::make_unique<Connection>(result.front().get(), inp);
+                    
+                return true;
+            }
+
+            auto const& inputTypes(result.front().get().inputTypes());
+            std::vector<std::any> inp;
+            inp.reserve(inputTypes.size());
+
+            for (auto const& type : inputTypes)
+                inp.emplace_back(type);
+
+            auto const ok{connection_->applyNextLeaf(Connection{result.front().get(), inp})};
+
+            assert(ok);
+
+            return true;
+        }
+        
+        Connection& connection() const
+        {
+            if (!connection_)
+                throw std::runtime_error{"Invalid connection"};
+
+            return *connection_;
+        }
+
+        bool valid() const
+        {
+            if (!done())
+                return false;
+
+            auto const s{connection_->string()};
+            
+            return s.contains("(I)") || s.contains(", I)") || s.contains(", I,") || s.contains(", I)"); 
+        }
+
+    private:
+        std::map<std::string, Neuron> const& variableNeurons_;
+        std::map<std::string, Neuron> const& primitiveNeurons_;
+        std::unique_ptr<Connection> connection_;
+        Neuron iNeuron_{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType)};
+        size_t depth_;
+};
+
 class Engine
 {
     public:
@@ -412,6 +587,11 @@ class Engine
             }
         }
 
+        ConnectionBuilder& connectionBuilder()
+        {
+            return connectionBuilder_;
+        }
+
         size_t count() const
         {
             return connections_.size();
@@ -478,21 +658,6 @@ class Engine
                     result.emplace_back(o.value());
             }
 
-            double identityCost{0.0};
-            Connection const identityConnection{iNeuron_, {}};
-
-            for (size_t j{0}; j < inputs.size(); ++j)
-            {
-                auto const& input{inputs[j]};
-                auto const& output{outputs[j]};
-
-                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-
-                auto const o{std::any_cast<hodel::GridType>(identityConnection.output())};
-
-                identityCost += arcHeuristic(o, output);
-            }
-
             std::sort(result.begin(), result.end(),
                       [] (auto const& a, auto const& b)
                       {
@@ -501,6 +666,12 @@ class Engine
 
                           return a.first < b.first;
                       });
+
+            auto const df = dfIdentity(i);
+            double identityCost{0.0};
+
+            for (auto const& row : df)
+                identityCost += row.front();
 
             auto const it{std::lower_bound(result.begin(), result.end(), identityCost, [] (auto const& a, double val) { return a.first < val; })};;
 
@@ -553,6 +724,92 @@ class Engine
             return indexes;
         }
 
+        std::vector<std::vector<double> > dfConnectionBuilder(size_t i)
+        {
+            assert(i < connections_.size());
+
+            auto const inputs{grids(i)};
+            std::vector<hodel::GridType> outputs;
+            outputs.reserve(inputs.size());
+
+            for (auto const& input : inputs)
+            {
+                iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+                outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
+            }
+
+            auto connection{connectionBuilder_.connection()};
+
+            auto const ok{connection.replace(iNeurons_.at(i))};
+
+            assert(ok);
+
+            std::vector<std::vector<double> > result;
+
+            for (size_t j{0}; j < inputs.size(); ++j)
+            {
+                auto const& input{inputs[j]};
+                auto const& output{outputs[j]};
+
+                iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                auto const o{std::any_cast<hodel::GridType>(connection.output())};
+
+                result.emplace_back(std::vector<double>{arcHeuristic(o, output), size_cost(o, output), bounding_box_cost(o, output), pixel_overlap_cost(o, output), value_cost(o, output)});
+            }
+
+            return result;
+        }
+
+        std::vector<std::vector<double> > dfIdentity(size_t i)
+        {
+            assert(i < connections_.size());
+
+            auto const inputs{grids(i)};
+            std::vector<hodel::GridType> outputs;
+            outputs.reserve(inputs.size());
+
+            for (auto const& input : inputs)
+            {
+                iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+                outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
+            }
+
+            std::vector<std::vector<double> > result;
+            Connection const identityConnection{iNeuron_, {}};
+
+            for (size_t j{0}; j < inputs.size(); ++j)
+            {
+                auto const& input{inputs[j]};
+                auto const& output{outputs[j]};
+
+                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                auto const o{std::any_cast<hodel::GridType>(identityConnection.output())};
+
+                result.emplace_back(std::vector<double>{arcHeuristic(o, output), size_cost(o, output), bounding_box_cost(o, output), pixel_overlap_cost(o, output), value_cost(o, output)});
+            }
+
+            return result;
+        }
+
+        std::vector<hodel::GridType> outputs(size_t i)
+        {
+            assert(i < connections_.size());
+
+            auto const inputs{grids(i)};
+            std::vector<hodel::GridType> outputs;
+            outputs.reserve(inputs.size());
+
+            for (auto const& input : inputs)
+            {
+                iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+                outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
+            }
+
+            return outputs;
+        }
+
     private:
         std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
         std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
@@ -561,6 +818,7 @@ class Engine
         std::unique_ptr<Brain> brain_;
         std::vector<Connection> connections_;
         std::vector<std::vector<hodel::GridType> > grids_;
+        ConnectionBuilder connectionBuilder_{variableNeurons_, primitiveNeurons_};
 };
 
 PYBIND11_MODULE(aicpppy, m)
@@ -571,5 +829,19 @@ PYBIND11_MODULE(aicpppy, m)
         .def("trajectory", &Engine::trajectory)
         .def("grids", &Engine::grids)
         .def("program", &Engine::program)
-        .def("orderedIndexes", &Engine::orderedIndexes);
+        .def("orderedIndexes", &Engine::orderedIndexes)
+        .def("connectionBuilder", &Engine::connectionBuilder, py::return_value_policy::reference)
+        .def("dfConnectionBuilder", &Engine::dfConnectionBuilder)
+        .def("dfIdentity", &Engine::dfIdentity)
+        .def("outputs", &Engine::outputs);
+
+    py::class_<ConnectionBuilder>(m, "ConnectionBuilder")
+        .def("validNames", &ConnectionBuilder::validNames)
+        .def("availableNames", &ConnectionBuilder::availableNames)
+        .def("reset", &ConnectionBuilder::reset)
+        .def("nextType", &ConnectionBuilder::nextType)
+        .def("done", &ConnectionBuilder::done)
+        .def("program", &ConnectionBuilder::program)
+        .def("applyName", &ConnectionBuilder::applyName)
+        .def("valid", &ConnectionBuilder::valid);
 }
