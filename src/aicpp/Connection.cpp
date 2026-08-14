@@ -158,6 +158,32 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
     hash_ = computeHash_();
 }
 
+bool Connection::applyNextLeaf(std::any const& input)
+{
+    for (auto& i : inputs_)
+    {
+        if (i.type() == typeid(Connection))
+        {
+            auto connection{std::any_cast<Connection>(i)};
+            auto const ok{connection.applyNextLeaf(input)};
+            
+            if (ok)
+            {
+                i = connection;
+
+                return true;
+            }
+        }
+        else
+        {
+            i = input;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 std::pair<std::string, size_t> Connection::dot(size_t index) const
 {
     std::string s;
