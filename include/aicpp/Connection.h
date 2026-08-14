@@ -18,6 +18,7 @@ namespace aicpp
             std::string string() const;
             std::vector<std::type_index> inputTypes() const;
             void applyInputs(std::vector<std::any> const& inputs, bool checkTypes = true);
+            bool applyNextLeaf(std::any const& input);
             std::pair<std::string, size_t> dot(size_t index = 0) const;
             std::any output() const;
             size_t hash() const;
