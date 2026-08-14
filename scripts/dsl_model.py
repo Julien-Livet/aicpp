@@ -1,13 +1,7 @@
 import ast
-import collections.abc
-from connection import compatibleType
 import datetime
-from dsl_engine import size_cost, bounding_box_cost, pixel_overlap_cost, value_cost
-from dsl_dataset import execute_dsl, isValidGrid
 from dsl_rl import VOCAB
-from dsl_tree import vocabulary, args, tree, Tree
 import math
-from multiprocessing import Pool
 import numpy as np
 import os
 import pandas as pd
@@ -17,12 +11,11 @@ import torch.nn.functional as F
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
-from typing import get_origin, get_args, Callable, List, Tuple
+from typing import List, Tuple
 
 Grid = Tuple[Tuple[int]]
 M: int = 5
 
-scoreFunctions = [size_cost, bounding_box_cost, pixel_overlap_cost, value_cost]
 scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
 
 def dataframe_to_cost_tensor(df):
@@ -625,136 +618,6 @@ class PositionalEncoding(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.dropout(x + self.pe[:, :x.size(1)])
 
-class TreeStateMask:
-    def __init__(self, vocab, max_depth: int = 6):
-        self.vocab     = vocab
-        self.max_depth = max_depth
-        self._reset()
-
-    def _reset(self):
-        self._vocabulary = vocabulary
-        self.current_tree  = None
-        self.depth         = 0
-        self.state         = "EXPECT_ROOT"   # EXPECT_ROOT | EXPECT_ARG | DONE | ERROR
-
-    def reset(self):
-        self._reset()
-
-    def _grid_roots(self) -> List[str]:
-        candidates = []
-
-        for name, (t, v) in self._vocabulary.items():
-            if (not isinstance(name, str)):
-                continue
-
-            if (get_origin(t) is collections.abc.Callable):
-                ret = get_args(t)[1]
-
-                if (compatibleType(ret, Tuple[Tuple[int]])):
-                    candidates.append(name)
-
-        return sorted(candidates)
-
-    def valid_tokens(self) -> List[str]:
-        if (self.state == "DONE" or self.state == "ERROR"):
-            return []
-
-        if (self.state == "EXPECT_ROOT"):
-            return self._grid_roots()
-
-        if (self.state == "EXPECT_ARG" and self.current_tree is not None):
-            next_type = self.current_tree.nextType()
-
-            if (next_type is None):
-                self.state = "DONE"
-
-                return []
-
-            candidates = args(next_type)
-
-            candidates = [
-                n for n in candidates
-                if isinstance(n, str) and n in self._vocabulary
-            ]
-
-            if (self.depth >= self.max_depth):
-                candidates = [
-                    n for n in candidates
-                    if not (get_origin(
-                        self._vocabulary[n][0]) is collections.abc.Callable and next_type != Callable)
-                ]
-
-            return candidates
-
-        return []
-
-    def valid_mask(self, device="cpu") -> torch.Tensor:
-        mask     = torch.zeros(len(self.vocab.token2id), dtype=torch.bool)
-        valid    = self.valid_tokens()
-
-        for name in valid:
-            if (name in self.vocab.token2id):
-                mask[self.vocab.token2id[name]] = True
-
-        if (not mask.any()):
-            eos_id = self.vocab.token2id.get("<EOS>", 2)
-            mask[eos_id] = True
-
-        return mask.to(device)
-
-    def apply_token(self, token_name: str) -> bool:
-        if (self.state in ("DONE", "ERROR")):
-            return False
-
-        valid = self.valid_tokens()
-
-        if (token_name not in valid):
-            self.state = "ERROR"
-
-            return False
-
-        if (self.state == "EXPECT_ROOT"):
-            self.current_tree = tree(token_name)
-            self.state        = "EXPECT_ARG"
-
-            if (self.current_tree.isFinished()):
-                self.state = "DONE"
-
-            return True
-
-        if (self.state == "EXPECT_ARG"):
-            next_type = self.current_tree.nextType()
-            t_type, _ = self._vocabulary[token_name]
-
-            if (not get_origin(next_type) is collections.abc.Callable
-                    and get_origin(t_type) is collections.abc.Callable):
-                self.depth += 1
-
-            if (get_origin(next_type) is collections.abc.Callable):
-                node = Tree(
-                    (token_name, *self._vocabulary[token_name]), []
-                )
-            else:
-                node = tree(token_name)
-
-            self.current_tree.applyNextType(node)
-
-            if (self.current_tree.isFinished()):
-                self.state = "DONE"
-
-            return True
-
-        return False
-
-    def is_done(self) -> bool:
-        return self.state == "DONE"
-
-    def program(self) -> str:
-        if (self.current_tree is None):
-            return ""
-
-        return str(self.current_tree)
-
 @torch.no_grad()
 def generate(
     model       : DSLModel,
@@ -855,6 +718,8 @@ def generate_one(
     model       : DSLModel,
     vocab,
     z_context   : torch.Tensor,
+    engine,
+    j: int,
     temperature : float = 1.0,
     max_depth   : int   = 6,
     device      : str   = "cuda",
@@ -865,16 +730,29 @@ def generate_one(
     EOS = vocab.token2id.get("<EOS>", 2)
 
     ids = [BOS]
-    ts  = TreeStateMask(vocab, max_depth)
+    connectionBuilder = engine.connectionBuilder()
+    connectionBuilder.reset(max_depth)
 
     for _ in range(128):
-        if (ids[-1] == EOS or ts.is_done()):
+        if (ids[-1] == EOS or connectionBuilder.done()):
             break
 
         tgt = torch.tensor([ids], dtype=torch.long, device=device)
         logits = model.decoder.decode_step(tgt, z_context)[0]
         logits = logits / max(temperature, 1e-6)
-        mask = ts.valid_mask(device=device)
+
+        mask     = torch.zeros(len(vocab.token2id), dtype=torch.bool)
+        valid    = connectionBuilder.availableNames()
+
+        for name in valid:
+            if (name in vocab.token2id):
+                mask[vocab.token2id[name]] = True
+
+        if (not mask.any()):
+            eos_id = vocab.token2id.get("<EOS>", 2)
+            mask[eos_id] = True
+
+        mask = mask.to(device)
 
         if (mask.any()):
             logits = logits.masked_fill(~mask, float("-inf"))
@@ -886,66 +764,18 @@ def generate_one(
         if (tok in ("<PAD>", "<BOS>")):
             break
 
-        if (tok == "<EOS>" or ts.is_done()):
+        if (tok == "<EOS>" or connectionBuilder.done()):
             break
 
-        if (ts.apply_token(tok)):
+        if (connectionBuilder.applyName(tok)):
             ids.append(tok_id)
         else:
             break
 
-    if (not ts.is_done()):
+    if (not connectionBuilder.valid()):
         return None
 
-    prog  = ts.program()
-    depth = prog.count("(") - prog.count(")")
-
-    return prog + ")" * max(0, depth)
-
-def programDf(program: str, pairs: List[Tuple[Grid, Grid]]) -> pd.DataFrame:
-    scores: list = []
-
-    for pair in pairs:
-        O = execute_dsl(program, pair[0])
-
-        score: list = [0] * len(scoreFunctions)
-
-        for i in range(0, len(scoreFunctions)):
-            a1 = 0
-            a2 = 0
-
-            try:
-                a1 = np.array(O, dtype = float)
-                a2 = np.array(pair[1], dtype = float)
-                score[i] = scoreFunctions[i](a1, a2)
-            except:
-                score[i] = math.inf
-
-            del a1
-            del a2
-
-        del O
-
-        scores.append([sum(score)] + score)
-
-    df = pd.DataFrame(scores, index = [f"grid{i+1}" for i in range(len(pairs))], columns = scoreColumns)
-
-    del scores
-
-    return df
-
-def programCosts(targetProgram: str, programs: List[str], inputs: Tuple[Tuple[int]]) -> List[pd.DataFrame]:
-    outputs: list = []
-
-    for grid in inputs:
-        outputs.append(execute_dsl(targetProgram, grid))
-
-    pairs = list(zip(inputs, outputs))
-
-    with Pool(os.cpu_count()) as pool:
-        dfs = pool.starmap(programDf, [(program, pairs) for program in programs])
-
-    return dfs
+    return connectionBuilder.program()
 
 def build_prog_graph(program: str, vocab, device: str = "cpu") -> Data:
     builder = DSLGraphBuilder(vocab.token2id)
@@ -1035,11 +865,7 @@ if (__name__ == "__main__"):
         trajectory = engine.trajectory(j)
         targetProgram: str = engine.program(j)
         grids = engine.grids(j)
-        candidatePrograms: list = ["I"] * M
-        outputs: list = []
-
-        for grid in grids:
-            outputs.append(execute_dsl(targetProgram, grid))
+        outputs = engine.outputs(j)
 
         pairs = list(zip(grids, outputs))
 
@@ -1049,9 +875,7 @@ if (__name__ == "__main__"):
         masks = masks.to(device)
         costs = list(reversed(trajectory))
         costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
-
-        candidates = list(zip(candidatePrograms, programCosts(targetProgram, candidatePrograms, grids)))
-        candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+        candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
 
         print(f"{i+1}/{n} Target program: {targetProgram} (trajectory: {len(costs)} programs)")
         show: bool = True
@@ -1091,32 +915,23 @@ if (__name__ == "__main__"):
                     )   # [1, D]
 
             program = generate_one(
-                model, VOCAB, z_context,
+                model, VOCAB, z_context, engine, j,
                 temperature = temperature,
                 device = device,
-                max_depth = programDepth(costs[0][1]) - 1
+                max_depth = programDepth(costs[0][1]),
             )
 
-            checked: list = []
-
-            for inp in grids:
-                checked.append(isValidGrid(program, inp))
-
             if (program):
-                ok = "(I)" in program or "(I, " in program or ", I," in program or ", I)" in program
-
-            if (program and ok and any(checked)):
                 try:
-                    df = programCosts(targetProgram, [program], grids)[0]
+                    df = pd.DataFrame(engine.dfConnectionBuilder(j), columns = scoreColumns)
                     cost = df["Total cost"].sum(skipna = False)
                     validCount += 1
 
                     if (not program in testedPrograms):
                         uniqueCount += 1
-                except Exception:
+
+                except RuntimeError:
                     cost = math.inf
-            else:
-                cost = math.inf
 
             model.train()
             optimizer.zero_grad()
@@ -1132,7 +947,7 @@ if (__name__ == "__main__"):
                 decoder_target.reshape(-1)
             )
 
-            if (np.isinf(cost).any()):
+            if (not program or math.isinf(cost)):
                 L_total = L_tokens
             else:
                 generated_cost = torch.tensor(
@@ -1170,7 +985,7 @@ if (__name__ == "__main__"):
                 alpha = min(1.0, alpha * 1.5)
 
             try:
-                if (not np.isinf(cost).any()):
+                if (program):
                     if (cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                         and not program in [c[0] for c in candidates]):
                         torch.save({
