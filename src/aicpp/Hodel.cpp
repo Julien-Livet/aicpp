@@ -2624,10 +2624,15 @@ std::any hodel::width(std::vector<std::any> const& args)
         {
             auto const grid{std::get<GridType>(piece_)};
 
-            if (grid.size() == 0)
-                return IntegerType{0};
-
-            return static_cast<IntegerType>(grid.at(0).size());
+            try
+            {
+                return static_cast<IntegerType>(grid.at(0).size());
+            }
+            catch (std::exception const&)
+            {
+                throw std::runtime_error{"Wrong value"};
+            }
+            
         }
         else if (std::holds_alternative<Patch>(piece_))
         {
@@ -2838,13 +2843,17 @@ std::any hodel::asindices(std::vector<std::any> const& args)
 
         IndicesType indices;
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        for (IntegerType i{0}; i < static_cast<IntegerType>(grid_.size()); ++i)
+        try
         {
-            for (IntegerType j{0}; j < static_cast<IntegerType>(grid_.at(0).size()); ++j)
-                indices.emplace(i, j);
+            for (size_t i{0}; i < grid_.size(); ++i)
+            {
+                for (size_t j{0}; j < grid_.at(0).size(); ++j)
+                    indices.emplace(i, j);
+            }
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
         }
 
         return indices;
@@ -2876,9 +2885,9 @@ std::any hodel::ofcolor(std::vector<std::any> const& args)
 
         IndicesType indices;
 
-        for (IntegerType i{0}; i < static_cast<IntegerType>(grid_.size()); ++i)
+        for (size_t i{0}; i < grid_.size(); ++i)
         {
-            for (IntegerType j{0}; j < static_cast<IntegerType>(grid_[i].size()); ++j)
+            for (size_t j{0}; j < grid_[i].size(); ++j)
             {
                 if (grid_[i][j] == value_)
                     indices.emplace(i, j);
@@ -4019,7 +4028,7 @@ std::any hodel::bordering(std::vector<std::any> const& args)
             auto const lrm{std::any_cast<IntegerType>(lowermost({patch}))};
             auto const rtm{std::any_cast<IntegerType>(rightmost({patch}))};
 
-            return Boolean{urm == 0 || ltm == 0 || lrm == static_cast<IntegerType>(grid_.size()) - 1 || rtm == static_cast<IntegerType>(grid_.at(0).size()) - 1};
+            return Boolean{urm == 0 || ltm == 0 || lrm == grid_.size() - 1 || rtm == grid_.at(0).size() - 1};
         }
         catch (std::exception const&)
         {
@@ -4234,9 +4243,9 @@ std::any hodel::asobject(std::vector<std::any> const& args)
         {
             ObjectType ObjectType;
 
-            for (IntegerType i = 0; i < static_cast<IntegerType>(grid_.size()); ++i)
+            for (size_t i = 0; i < grid_.size(); ++i)
             {
-                for (IntegerType j = 0; j < static_cast<IntegerType>(grid_.at(i).size()); ++j)
+                for (size_t j = 0; j < grid_.at(i).size(); ++j)
                     ObjectType.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
             }
 
@@ -4270,28 +4279,25 @@ std::any hodel::rot90(std::vector<std::any> const& args)
     {
         auto const grid_{std::any_cast<GridType>(grid)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        auto const rows{grid_.size()};
-        auto const cols{grid_.at(0).size()};
-
-        GridType result(cols, std::vector<IntegerType>(rows));
-
         try
         {
+            auto const rows{grid_.size()};
+            auto const cols{grid_.at(0).size()};
+
+            GridType result(cols, std::vector<IntegerType>(rows));
+
             for (size_t i = 0; i < rows; ++i)
             {
                 for (size_t j = 0; j < cols; ++j)
                     result.at(j).at(rows - 1 - i) = grid_.at(i).at(j);
             }
+
+            return result;
         }
         catch (const std::exception&)
         {
             throw std::runtime_error{"Wrong value"};
         }
-
-        return result;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -4316,28 +4322,25 @@ std::any hodel::rot180(std::vector<std::any> const& args)
     {
         auto const grid_{std::any_cast<GridType>(grid)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        auto const rows{grid_.size()};
-        auto const cols{grid_.at(0).size()};
-
-        GridType result(rows, std::vector<IntegerType>(cols));
-
         try
         {
+            auto const rows{grid_.size()};
+            auto const cols{grid_.at(0).size()};
+
+            GridType result(rows, std::vector<IntegerType>(cols));
+
             for (size_t i = 0; i < rows; ++i)
             {
                 for (size_t j = 0; j < cols; ++j)
                     result.at(rows - 1 - i).at(cols - 1 - j) = grid_.at(i).at(j);
             }
+
+            return result;
         }
         catch (const std::exception&)
         {
             throw std::runtime_error{"Wrong value"};
         }
-
-        return result;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -4362,28 +4365,25 @@ std::any hodel::rot270(std::vector<std::any> const& args)
     {
         auto const grid_{std::any_cast<GridType>(grid)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
-        auto const rows{grid_.size()};
-        auto const cols{grid_.at(0).size()};
-
-        GridType result(cols, std::vector<IntegerType>(rows));
-
         try
         {
+            auto const rows{grid_.size()};
+            auto const cols{grid_.at(0).size()};
+
+            GridType result(cols, std::vector<IntegerType>(rows));
+
             for (size_t i = 0; i < rows; ++i)
             {
                 for (size_t j = 0; j < cols; ++j)
                     result.at(cols - 1 - j).at(i) = grid_.at(i).at(j);
             }
+
+            return result;
         }
         catch (const std::exception&)
         {
             throw std::runtime_error{"Wrong value"};
         }
-
-        return result;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -4523,28 +4523,25 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
         {
             auto const& grid = std::get<GridType>(piece_);
 
-            if (grid.empty())
-                return GridType{};
-
-            auto const rows = static_cast<IntegerType>(grid.size());
-            auto const cols = static_cast<IntegerType>(grid.at(0).size());
-
-            GridType result(cols, std::vector<IntegerType>(rows));
-
             try
             {
-                for (IntegerType i = 0; i < rows; ++i)
+                auto const rows{grid.size()};
+                auto const cols{grid.at(0).size()};
+
+                GridType result(cols, std::vector<IntegerType>(rows));
+
+                for (size_t i = 0; i < rows; ++i)
                 {
-                    for (IntegerType j = 0; j < cols; ++j)
+                    for (size_t j = 0; j < cols; ++j)
                         result.at(j).at(i) = grid.at(i).at(j);
                 }
+
+                return result;
             }
             catch (std::exception const&)
             {
                 throw std::runtime_error{"Wrong value"};
             }
-
-            return result;
         }
 
         Patch patch = std::get<Patch>(piece_);
@@ -4645,13 +4642,10 @@ std::any hodel::fill(std::vector<std::any> const& args)
         auto const value_{std::any_cast<IntegerType>(value)};
         auto const patch_{std::any_cast<Patch>(patch)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
-            auto const h = grid_.size();
-            auto const w = grid_.at(0).size();
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
             GridType result = grid_;
 
@@ -4693,15 +4687,12 @@ std::any hodel::paint(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
-            auto const h = grid_.size();
-            auto const w = grid_.at(0).size();
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
-            GridType result = grid_;
+            GridType result{grid_};
 
             for (auto const& [value, location] : obj_)
             {
@@ -4750,16 +4741,13 @@ std::any hodel::underfill(std::vector<std::any> const& args)
         auto const value_{std::any_cast<IntegerType>(value)};
         auto const patch_{std::any_cast<Patch>(patch)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
-            auto const h = grid_.size();
-            auto const w = grid_.at(0).size();
-            auto const bg = std::any_cast<IntegerType>(mostcolor({grid_}));
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
+            auto const bg{std::any_cast<IntegerType>(mostcolor({grid_}))};
 
-            GridType result = grid_;
+            GridType result{grid_};
 
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({patch})))
             {
@@ -4799,16 +4787,13 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const obj_{std::any_cast<ObjectType>(obj)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
-            auto const h = grid_.size();
-            auto const w = grid_.at(0).size();
-            auto const bg = std::any_cast<IntegerType>(mostcolor({grid_}));
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
+            auto const bg{std::any_cast<IntegerType>(mostcolor({grid_}))};
 
-            GridType result = grid_;
+            GridType result{grid_};
 
             for (auto const& [value, location] : obj_)
             {
@@ -5013,21 +4998,18 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         if (factor_ <= 1)
             throw std::runtime_error{"Wrong value"};
 
-        if (grid_.empty())
-            return grid_;
-
         try
         {
-            auto const h = static_cast<IntegerType>(grid_.size());
-            auto const w = static_cast<IntegerType>(grid_.at(0).size());
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
             GridType temp;
 
-            for (IntegerType i = 0; i < h; ++i)
+            for (size_t i = 0; i < h; ++i)
             {
                 std::vector<IntegerType> row;
 
-                for (IntegerType j = 0; j < w; ++j)
+                for (size_t j = 0; j < w; ++j)
                 {
                     if (j % factor_ == 0)
                         row.emplace_back(grid_.at(i).at(j));
@@ -5038,7 +5020,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
 
             GridType result;
 
-            for (IntegerType i = 0; i < static_cast<IntegerType>(temp.size()); ++i)
+            for (size_t i = 0; i < temp.size(); ++i)
             {
                 if (i % factor_ == 0)
                     result.emplace_back(temp.at(i));
@@ -5203,13 +5185,13 @@ std::any hodel::hsplit(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const n_{std::any_cast<IntegerType>(n)};
 
-        if (grid_.empty() || n_ <= 0)
+        if (n_ <= 0)
             throw std::runtime_error{"Wrong value"};
 
         try
         {
-            auto const h{static_cast<IntegerType>(grid_.size())};
-            auto const w{static_cast<IntegerType>(grid_.at(0).size()) / n_};
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size() / n_};
             IntegerType const offset{(grid_.at(0).size() % n_ != 0)};
 
             std::vector<GridType> result;
@@ -5250,13 +5232,13 @@ std::any hodel::vsplit(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const n_{std::any_cast<IntegerType>(n)};
 
-        if (grid_.empty() || n_ <= 0)
+        if (n_ <= 0)
             throw std::runtime_error{"Wrong value"};
 
         try
         {
-            auto const h{static_cast<IntegerType>(grid_.size()) / n_};
-            auto const w{static_cast<IntegerType>(grid_.at(0).size())};
+            auto const h{grid_.size() / n_};
+            auto const w{grid_.at(0).size()};
             IntegerType const offset{(grid_.size() % n_ != 0)};
 
             std::vector<GridType> result;
@@ -5314,8 +5296,8 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
 
         try
         {
-            auto const h{static_cast<IntegerType>(a_.size())};
-            auto const w{static_cast<IntegerType>(a_.at(0).size())};
+            auto const h{a_.size()};
+            auto const w{a_.at(0).size()};
 
             GridType result(h, std::vector<IntegerType>(w));
 
@@ -5536,18 +5518,15 @@ std::any hodel::index(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const loc_{std::any_cast<IntegerTuple>(loc)};
 
-        if (grid_.empty() || grid_.at(0).empty())
-            throw std::runtime_error{"Wrong value"};
-
-        auto const& [i, j] = loc_;
-        auto const h{static_cast<IntegerType>(grid_.size())};
-        auto const w{static_cast<IntegerType>(grid_.at(0).size())};
-
-        if (!(0 <= i && i < h && 0 <= j && j < w))
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
+            auto const& [i, j] = loc_;
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
+
+            if (!(0 <= i && i < h && 0 <= j && j < w))
+                throw std::runtime_error{"Wrong value"};
+
             return grid_.at(i).at(j);
         }
         catch (std::exception const&)
@@ -5724,11 +5703,15 @@ std::any hodel::trim(std::vector<std::any> const& args)
 
         GridType result;
 
-        if (grid_.size() <= 2 || grid_.front().size() <= 2)
-            return result;
-
-        for (size_t i{1}; i + 1 < grid_.size(); ++i)
-            result.emplace_back(grid_[i].begin() + 1, grid_[i].end() - 1);
+        try
+        {
+            for (size_t i{1}; i + 1 < grid_.size(); ++i)
+                result.emplace_back(grid_.at(i).begin() + 1, grid_.at(i).end() - 1);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
 
         return result;
     }
@@ -6312,8 +6295,8 @@ std::any hodel::occurrences(std::vector<std::any> const& args)
             IndicesType occs;
             auto const normed = std::any_cast<ObjectType>(normalize({obj_}));
 
-            auto const h = grid_.size();
-            auto const w = grid_.at(0).size();
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
             auto const [oh, ow] = std::any_cast<IntegerTuple>(shape({obj_}));
 
@@ -6369,9 +6352,6 @@ std::any hodel::frontiers(std::vector<std::any> const& args)
     if (grid.type() == typeid(GridType))
     {
         auto const grid_{std::any_cast<GridType>(grid)};
-
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
 
         try
         {
@@ -6460,13 +6440,10 @@ std::any hodel::compress(std::vector<std::any> const& args)
     {
         auto const grid_{std::any_cast<GridType>(grid)};
 
-        if (grid_.empty())
-            throw std::runtime_error{"Wrong value"};
-
         try
         {
-            auto const h{static_cast<IntegerType>(grid_.size())};
-            auto const w{static_cast<IntegerType>(grid_.at(0).size())};
+            auto const h{grid_.size()};
+            auto const w{grid_.at(0).size()};
 
             std::vector<bool> removeRow(h, false);
 
