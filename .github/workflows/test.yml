@@ -9,7 +9,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Docker
         run: git clone https://github.com/arcprize/ARC-AGI-2.git && docker build -t aicpp .
-      - name: Install Python dependencies
-        run: python -m pip install -r requirements.txt
       - name: Run tests
-        run: docker run aicpp && cd scripts && git clone https://github.com/Julien-Livet/arc-dsl.git && python -m pytest --profile -sxv test_dsl_model.py
+        run: docker run aicpp && docker run aicpp -c "source .venv/bin/activate && cd scripts && python -m pytest --profile -sxv test_dsl_model.py"
