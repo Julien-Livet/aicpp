@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libboost-all-dev \
     libeigen3-dev \
     python3 \
+    python3-venv \
     python3-numpy \
     python3-requests \
     python3-pip \
@@ -38,6 +39,7 @@ WORKDIR /app/aicpp
 RUN mkdir -p build
 RUN cmake -S . -B build
 RUN cmake --build build --config Release --target all -- -j$(nproc)
+RUN python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requirements.txt
 RUN cd scripts && ln -s ../build/aicpppy*.so
  
 ENTRYPOINT ["/bin/bash"]
