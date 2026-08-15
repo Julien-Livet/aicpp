@@ -1,16 +1,15 @@
-import dsl_dataset
+from aicpppy import Engine
 import dsl_model
 import dsl_rl
-from multiprocessing import Pool
+import math
 import numpy as np
-import os
 import pandas as pd
 import test_dsl_engine
 import test_dsl_rl
 import tabulate
 import time
 import torch
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 modelFilename = "dsl_model.pt"
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -29,10 +28,7 @@ costModel = dsl_model.CostEncoder(
     input_dim = 5,
     d_model = 256
 )
-
-def programCosts(programs: List[str], pairs: List[Tuple[Tuple[Tuple[int]], Tuple[Tuple[int]]]]) -> List[pd.DataFrame]:
-    with Pool(os.cpu_count()) as pool:
-        return pool.starmap(dsl_model.programDf, [(program, pairs) for program in programs])
+engine = Engine("dsl_dataset")
 
 def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, str]:
     trainPairs, testPairs = test_dsl_rl.load_task(folder, task)
@@ -41,9 +37,8 @@ def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, s
     inputs = inputs.to(device)
     outputs = outputs.to(device)
     masks = masks.to(device)
-    candidatePrograms: list = ["I"] * dsl_model.M
 
-    candidates = list(zip(candidatePrograms, programCosts(candidatePrograms, trainPairs)))
+    candidates: list = [("I", pd.DataFrame(engine.dfIdentityVsPairs(trainPairs[0], trainPairs[1]), columns = dsl_model.scoreColumns), pd.DataFrame(engine.dfIdentityVsPairs(testPairs[0], testPairs[1]), columns = dsl_model.scoreColumns))] * dsl_model.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
@@ -68,24 +63,28 @@ def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, s
                     prog_graphs, cost_tensors
                 )   # [1, D]
 
-        programs = [p for s, p in dsl_model.generate(
-            model, dsl_rl.VOCAB, z_context,
+        program = [p for s, p in dsl_model.generate_one(
+            model, dsl_rl.VOCAB, z_context, engine,
             temperature = 1.0,
             device = device,
-            beam_width = 30,
+            beam_width = 100,
             max_depth = depth - 1
         )]
-        dfs = programCosts(programs, trainPairs)
 
-        for program, df in zip(programs, dfs):
-            cost = df.sum(axis = 0, skipna = False)["Total cost"]
+        if (program):
+            try:
+                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(trainPairs[0], trainPairs[1]), columns = dsl_model.scoreColumns)
+                dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(testPairs[0], testPairs[1]), columns = dsl_model.scoreColumns)
+                cost = dfTrain["Total cost"].sum(skipna = False)
+            except RuntimeError:
+                cost = math.inf
 
-            if (not np.isinf(cost).any() and cost <= candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
-                and not program in [c[0] for c in candidates]):
-                candidates.append((program, df))
-                candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
-                count = 0
-                computeGraphs = True
+        if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+            and not program in [c[0] for c in candidates]):
+            candidates.append((program, dfTrain, dfTest))
+            candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+            count = 0
+            computeGraphs = True
 
         count += 1
 
@@ -94,16 +93,7 @@ def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, s
     while (len(candidates) and not candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
         candidate = candidates.pop()
 
-    def pairCost(pairs: list):
-        total_cost = 0.0
-
-        for inp, out in pairs:
-            result = dsl_dataset.execute_dsl(candidate[0], inp)
-            total_cost += test_dsl_engine.arcHeuristic(result, out)
-
-        return total_cost
-
-    return pairCost(trainPairs), pairCost(testPairs), candidate[0]
+    return candidate[1]["Total cost"].sum(skipna = False), candidate[2]["Total cost"].sum(skipna = False), candidate[0]
 
 def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
     trainCost, testCost, dsl = processTask(folder, task, depth)
@@ -121,7 +111,7 @@ def test_task68b16354():
 
 def test_task74dd1130():
     passTask("training", "74dd1130", True, 2)
-"""
+
 def test_hodel_tasks():
     tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
 
@@ -129,6 +119,9 @@ def test_hodel_tasks():
         trainingTasks = f.read().split("\n")
 
     for k, v in tasksByStep.items():
+        if (k == 3):
+            break
+
         t1 = time.time()
 
         for task in v:
@@ -143,7 +136,7 @@ def test_hodel_tasks():
             print(f"Duration: {time.time() - t2} s")
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
-"""
+
 def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
     with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as f:
         tasks = f.read().split("\n")
