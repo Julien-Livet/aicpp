@@ -619,107 +619,11 @@ class PositionalEncoding(nn.Module):
         return self.dropout(x + self.pe[:, :x.size(1)])
 
 @torch.no_grad()
-def generate(
-    model       : DSLModel,
-    vocab,
-    z_context   : torch.Tensor,   # [1, D]
-    beam_width  : int   = 5,
-    max_len     : int   = 128,
-    temperature : float = 1.0,
-    max_depth   : int   = 6,
-    device      : str   = "cuda",
-) -> List[Tuple[float, str]]:
-    model.eval()
-
-    BOS = vocab.token2id.get("<BOS>", 1)
-    EOS = vocab.token2id.get("<EOS>", 2)
-    PAD = vocab.token2id.get("<PAD>", 0)
-
-    beams = [(0.0, [BOS], TreeStateMask(vocab, max_depth))]
-
-    import copy
-
-    for step in range(max_len - 1):
-        all_candidates = []
-
-        for score, ids, ts in beams:
-            if (ids[-1] == EOS or ts.is_done()):
-                all_candidates.append((score, ids, ts))
-                continue
-
-            tgt    = torch.tensor([ids], dtype=torch.long, device=device)
-            logits = model.decoder.decode_step(tgt, z_context)  # [1, V]
-            logits = logits[0] / max(temperature, 1e-6)          # [V]
-            mask = ts.valid_mask(device=device)   # [V]
-
-            if (mask.any()):
-                logits = logits.masked_fill(~mask, float("-inf"))
-
-            log_probs = F.log_softmax(logits, dim=-1)
-
-            # Top-k tokens
-            top_lp, top_ids = log_probs.topk(
-                min(beam_width * 2, mask.sum().item() or 1)
-            )
-
-            for lp, tok_id in zip(top_lp.tolist(), top_ids.tolist()):
-                tok_name = vocab.id2token.get(tok_id, "<PAD>")
-
-                if (tok_name in ("<PAD>", "<BOS>")):
-                    continue
-
-                ts_new = copy.deepcopy(ts)
-
-                if (tok_name == "<EOS>" or ts_new.is_done()):
-                    all_candidates.append(
-                        (score + lp, ids + [tok_id], ts_new)
-                    )
-                    continue
-
-                if (ts_new.apply_token(tok_name)):
-                    all_candidates.append(
-                        (score + lp, ids + [tok_id], ts_new)
-                    )
-
-        all_candidates.sort(key=lambda x: -x[0])
-
-        selected   = []
-        seen_progs = set()
-
-        for s, ids, ts in all_candidates:
-            prog = ts.program()
-
-            if (prog not in seen_progs):
-                seen_progs.add(prog)
-                selected.append((s, ids, ts))
-
-            if (len(selected) >= beam_width):
-                break
-
-        beams = selected
-
-        if (all(b[1][-1] == EOS or b[2].is_done() for b in beams)):
-            break
-
-    results = []
-
-    for score, ids, ts in beams:
-        prog = ts.program()
-        depth = prog.count("(") - prog.count(")")
-        prog  = prog + ")" * max(0, depth)
-
-        if (prog and "I" in prog):
-            results.append((score, prog))
-
-    return results if results else [(float("inf"), "I")]
-
-@torch.no_grad()
 def generate_one(
     model       : DSLModel,
     vocab,
     z_context   : torch.Tensor,
     engine,
-    j: int,
     temperature : float = 1.0,
     max_depth   : int   = 6,
     device      : str   = "cuda",
@@ -880,7 +784,9 @@ if (__name__ == "__main__"):
         print(f"{i+1}/{n} Target program: {targetProgram} (trajectory: {len(costs)} programs)")
         show: bool = True
         computeGraphs: bool = True
-        temperature: float = 1.0
+        minTemperature: float = 1.0
+        maxTemperature: float = 10.0
+        temperature: float = minTemperature
         testedPrograms = set()
         count: int = 1
         minAlpha: float = 0.1
@@ -915,7 +821,7 @@ if (__name__ == "__main__"):
                     )   # [1, D]
 
             program = generate_one(
-                model, VOCAB, z_context, engine, j,
+                model, VOCAB, z_context, engine,
                 temperature = temperature,
                 device = device,
                 max_depth = programDepth(costs[0][1]),
@@ -929,7 +835,6 @@ if (__name__ == "__main__"):
 
                     if (not program in testedPrograms):
                         uniqueCount += 1
-
                 except RuntimeError:
                     cost = math.inf
 
@@ -949,6 +854,9 @@ if (__name__ == "__main__"):
 
             if (not program or math.isinf(cost)):
                 L_total = L_tokens
+
+                temperature = min(maxTemperature, temperature * 1.05)
+                alpha = min(1.0, alpha * 1.5)
             else:
                 generated_cost = torch.tensor(
                     cost,
@@ -970,18 +878,20 @@ if (__name__ == "__main__"):
 
                 L_total = alpha * L_tokens + (1.0 - alpha) * L_total_cost
 
-            if (not program in testedPrograms):
-                try:
-                    L_total.backward()
-                    optimizer.step()
-
-                    temperature = max(1.0, temperature * 0.95)
+                if (cost < target_cost):
+                    temperature = max(minTemperature, temperature * 0.95)
                     alpha = max(minAlpha, alpha * 0.9)
-                    testedPrograms.add(program)
-                except RuntimeError:
-                    pass
+                else:
+                    temperature = min(maxTemperature, temperature * 1.05)
+                    alpha = min(1.0, alpha * 1.5)
+
+            if (program and not program in testedPrograms):
+                L_total.backward()
+                optimizer.step()
+
+                testedPrograms.add(program)
             else:
-                temperature = min(5.0, temperature * 1.05)
+                temperature = min(maxTemperature, temperature * 1.05)
                 alpha = min(1.0, alpha * 1.5)
 
             try:
