@@ -205,6 +205,8 @@ class Connection:
         for input_ in self.inputs:
             if (isinstance(input_, Connection)):
                 de = max(de, input_.depth(d + 1))
+            else:
+                de = max(de, d + 1)
 
         return de
 
