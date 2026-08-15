@@ -30,27 +30,45 @@ costModel = dsl_model.CostEncoder(
 )
 engine = Engine("dsl_dataset")
 
+MAX_COUNT = 500
+
 def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, str]:
     trainPairs, testPairs = test_dsl_rl.load_task(folder, task)
+
+    inputsTrain: list = []
+    outputsTrain: list = []
+
+    for i, o in trainPairs:
+        inputsTrain.append(i)
+        outputsTrain.append(o)
+
+    inputsTest: list = []
+    outputsTest: list = []
+
+    for i, o in testPairs:
+        inputsTest.append(i)
+        outputsTest.append(o)
 
     inputs, outputs, masks = dsl_model.arc_pairs_to_tensors(trainPairs)
     inputs = inputs.to(device)
     outputs = outputs.to(device)
     masks = masks.to(device)
 
-    candidates: list = [("I", pd.DataFrame(engine.dfIdentityVsPairs(trainPairs[0], trainPairs[1]), columns = dsl_model.scoreColumns), pd.DataFrame(engine.dfIdentityVsPairs(testPairs[0], testPairs[1]), columns = dsl_model.scoreColumns))] * dsl_model.M
+    candidates: list = [("I",
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns),
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTest, outputsTest), columns = dsl_model.scoreColumns))] * dsl_model.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
 
     model.eval()
 
-    while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"] and count < 10):
+    while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"] and count < MAX_COUNT):
         if (computeGraphs):
             prog_graphs: list  = []
             cost_tensors: list = []
 
-            for program, df in candidates:
+            for program, df, _ in candidates:
                 g = dsl_model.build_prog_graph(program, dsl_rl.VOCAB, device)
                 prog_graphs.append(g)
                 cost_tensors.append(dsl_model.dataframe_to_cost_tensor(df).to(device))
@@ -63,21 +81,22 @@ def processTask(folder: str, task: str, depth: int = 6) -> Tuple[float, float, s
                     prog_graphs, cost_tensors
                 )   # [1, D]
 
-        program = [p for s, p in dsl_model.generate_one(
+        program = dsl_model.generate_one(
             model, dsl_rl.VOCAB, z_context, engine,
-            temperature = 1.0,
+            temperature = 5.0,
             device = device,
-            beam_width = 100,
-            max_depth = depth - 1
-        )]
+            max_depth = depth
+        )
 
         if (program):
             try:
-                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(trainPairs[0], trainPairs[1]), columns = dsl_model.scoreColumns)
-                dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(testPairs[0], testPairs[1]), columns = dsl_model.scoreColumns)
+                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns)
+                dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTest, outputsTest), columns = dsl_model.scoreColumns)
                 cost = dfTrain["Total cost"].sum(skipna = False)
             except RuntimeError:
                 cost = math.inf
+        else:
+            cost = math.inf
 
         if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
             and not program in [c[0] for c in candidates]):
@@ -111,7 +130,7 @@ def test_task68b16354():
 
 def test_task74dd1130():
     passTask("training", "74dd1130", True, 2)
-
+"""
 def test_hodel_tasks():
     tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
 
@@ -136,7 +155,7 @@ def test_hodel_tasks():
             print(f"Duration: {time.time() - t2} s")
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
-
+"""
 def processTasks(folder: str) -> Dict[str, Tuple[float, float, str]]:
     with open(f"../ARC-AGI-2/data/{folder}.txt", "r") as f:
         tasks = f.read().split("\n")
