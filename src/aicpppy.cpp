@@ -294,7 +294,9 @@ class ConnectionBuilder
 
             if (depth_)
             {
-                if (!connection_ || connection_->depth() < depth_)
+                bool finish{false};
+
+                if (!connection_ || connection_->nextLeafDepth(0, finish) < depth_)
                 {
                     for (auto const& [name, neuron] : primitiveNeurons_)
                     {
@@ -365,7 +367,9 @@ class ConnectionBuilder
 
             if (depth_)
             {
-                if (!connection_ || connection_->depth() < depth_)
+                bool finish{false};
+
+                if (!connection_ || connection_->nextLeafDepth(0, finish) < depth_)
                 {
                     for (auto const& [n, neuron] : primitiveNeurons_)
                     {
@@ -761,6 +765,33 @@ class Engine
             return result;
         }
 
+        std::vector<std::vector<double> > dfConnectionBuilderVsPairs(std::vector<hodel::GridType> const& inputs, std::vector<hodel::GridType> const& outputs)
+        {
+            assert(inputs.size() == outputs.size());
+
+            auto connection{connectionBuilder_.connection()};
+
+            auto const ok{connection.replace(iNeuron_)};
+
+            assert(ok);
+
+            std::vector<std::vector<double> > result;
+
+            for (size_t j{0}; j < inputs.size(); ++j)
+            {
+                auto const& input{inputs[j]};
+                auto const& output{outputs[j]};
+
+                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                auto const o{std::any_cast<hodel::GridType>(connection.output())};
+
+                result.emplace_back(std::vector<double>{arcHeuristic(o, output), size_cost(o, output), bounding_box_cost(o, output), pixel_overlap_cost(o, output), value_cost(o, output)});
+            }
+
+            return result;
+        }
+
         std::vector<std::vector<double> > dfIdentity(size_t i)
         {
             assert(i < connections_.size());
@@ -774,6 +805,28 @@ class Engine
                 iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
                 outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
             }
+
+            std::vector<std::vector<double> > result;
+            Connection const identityConnection{iNeuron_, {}};
+
+            for (size_t j{0}; j < inputs.size(); ++j)
+            {
+                auto const& input{inputs[j]};
+                auto const& output{outputs[j]};
+
+                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                auto const o{std::any_cast<hodel::GridType>(identityConnection.output())};
+
+                result.emplace_back(std::vector<double>{arcHeuristic(o, output), size_cost(o, output), bounding_box_cost(o, output), pixel_overlap_cost(o, output), value_cost(o, output)});
+            }
+
+            return result;
+        }
+
+        std::vector<std::vector<double> > dfIdentityVsPairs(std::vector<hodel::GridType> const& inputs, std::vector<hodel::GridType> const& outputs)
+        {
+            assert(inputs.size() == outputs.size());
 
             std::vector<std::vector<double> > result;
             Connection const identityConnection{iNeuron_, {}};
@@ -832,7 +885,9 @@ PYBIND11_MODULE(aicpppy, m)
         .def("orderedIndexes", &Engine::orderedIndexes)
         .def("connectionBuilder", &Engine::connectionBuilder, py::return_value_policy::reference)
         .def("dfConnectionBuilder", &Engine::dfConnectionBuilder)
+        .def("dfConnectionBuilderVsPairs", &Engine::dfConnectionBuilderVsPairs)
         .def("dfIdentity", &Engine::dfIdentity)
+        .def("dfIdentityVsPairs", &Engine::dfIdentityVsPairs)
         .def("outputs", &Engine::outputs);
 
     py::class_<ConnectionBuilder>(m, "ConnectionBuilder")
