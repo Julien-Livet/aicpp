@@ -38,7 +38,8 @@ WORKDIR /app/aicpp
 RUN mkdir -p build
 RUN cmake -S . -B build
 RUN cmake --build build --config Release --target all -- -j$(nproc)
-
+RUN cd ../scripts && ln -s ../build/aicpppy*
+ 
 ENTRYPOINT ["/bin/bash"]
 
 CMD ["-c", "cd build && ./test_aicpp"]
