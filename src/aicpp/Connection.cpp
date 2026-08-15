@@ -55,6 +55,32 @@ size_t Connection::depth(size_t d) const
     {
         if (input.type() == typeid(Connection))
             de = std::max(de, std::any_cast<Connection>(input).depth(d + 1));
+        else
+            de = std::max(de, d + 1);
+    }
+
+    return de;
+}
+
+size_t Connection::nextLeafDepth(size_t d, bool& finish) const
+{
+    size_t de{d};
+
+    for (auto const& input : inputs_)
+    {
+        if (input.type() == typeid(Connection))
+        {
+            auto const depth{std::any_cast<Connection>(input).nextLeafDepth(d + 1, finish)};
+
+            if (finish)
+                return depth;
+        }
+        else
+        {
+            finish = true;
+
+            return d + 1;
+        }
     }
 
     return de;
