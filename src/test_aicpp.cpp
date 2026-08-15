@@ -114,7 +114,7 @@ TEST(TestAiCpp, ValidConnections)
 
     EXPECT_EQ(conn1.string(), "add(2, 3)");
     EXPECT_EQ(std::any_cast<int>(conn1.output()), 5);
-    EXPECT_EQ(conn1.depth(), 0);
+    EXPECT_EQ(conn1.depth(), 1);
     EXPECT_EQ(conn1.cost(), 2);
 
     Connection conn2{mulNeuron, std::vector<std::any>{conn1, 4}};
@@ -124,7 +124,7 @@ TEST(TestAiCpp, ValidConnections)
 
     EXPECT_EQ(conn2.string(), "mul(add(2, 3), 4)");
     EXPECT_EQ(std::any_cast<int>(conn2.output()), 20);
-    EXPECT_EQ(conn2.depth(), 1);
+    EXPECT_EQ(conn2.depth(), 2);
     EXPECT_EQ(conn2.cost(), 4);
 
     std::vector<std::type_index> const inputTypes{typeid(int), typeid(int), typeid(int)};
@@ -144,7 +144,7 @@ TEST(TestAiCpp, ValidConnections)
     std::string const intStr{typeid(int).name()};
 
     EXPECT_EQ(conn3.string(), "sub(" + intStr + ", " + intStr + ")");
-    EXPECT_EQ(conn3.depth(), 0);
+    EXPECT_EQ(conn3.depth(), 1);
     EXPECT_EQ(conn3.cost(), 2);
 
     Connection conn4{mulNeuron, std::vector<std::any>{conn3, std::type_index{typeid(int)}}};
@@ -162,7 +162,7 @@ TEST(TestAiCpp, ValidConnections)
     conn5.applyInputs(std::vector<std::any>{std::type_index{typeid(int)}, conn3});
 
     EXPECT_EQ(conn5.string(), "add(" + intStr + ", sub(" + intStr + ", " + intStr + "))");
-    EXPECT_EQ(conn5.depth(), 1);
+    EXPECT_EQ(conn5.depth(), 2);
     EXPECT_EQ(conn5.cost(), 4);
 
     p = conn5.dot(p.second);
