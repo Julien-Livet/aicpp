@@ -31,7 +31,7 @@ A deterministic C++ engine:
 - Orders by cost
 - Returns explicit symbolic solutions
 
-C++ engine = deterministic solver  
+C++ engine = deterministic solver
 
 ---
 
@@ -71,16 +71,16 @@ python -m pytest --profile -sxv test_dsl_model.py
 The system consists of:
 
 1. Primitives (C++)
-    - Typed transformation functions
+   - Typed transformation functions
 2. Neuron
-    - Wraps a primitive function
-    - Defines input/output types
+   - Wraps a primitive function
+   - Defines input/output types
 3. Connection
-    - Composed graph of neurons
-    - Brain
-    - Manages search space
-    - Performs cost-ordered exploration
-    - Serializes discovered structures
+   - Composed graph of neurons
+   - Brain
+   - Manages search space
+   - Performs cost-ordered exploration
+   - Serializes discovered structures
 
 ## 🧪 Example (ARC Flip Task)
 
