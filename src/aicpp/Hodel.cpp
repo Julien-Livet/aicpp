@@ -634,10 +634,10 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         for (size_t i{0}; i < x.size(); ++i)
         {
-            auto const result{std::ranges::find_end(x, std::views::single(x[i]))};
+            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
 
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
-                y.emplace_back(x[i]);
+                y.emplace_back(x.at(i));
         }
 
         return y;
@@ -650,10 +650,10 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         for (size_t i{0}; i < x.size(); ++i)
         {
-            auto const result{std::ranges::find_end(x, std::views::single(x[i]))};
+            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
 
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
-                y.emplace_back(x[i]);
+                y.emplace_back(x.at(i));
         }
 
         return y;
@@ -2883,18 +2883,25 @@ std::any hodel::ofcolor(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const value_{std::any_cast<IntegerType>(value)};
 
-        IndicesType indices;
-
-        for (size_t i{0}; i < grid_.size(); ++i)
+        try
         {
-            for (size_t j{0}; j < grid_[i].size(); ++j)
+            IndicesType indices;
+            
+            for (size_t i{0}; i < grid_.size(); ++i)
             {
-                if (grid_[i][j] == value_)
-                    indices.emplace(i, j);
+                for (size_t j{0}; j < grid_.at(i).size(); ++j)
+                {
+                    if (grid_.at(i).at(j) == value_)
+                        indices.emplace(i, j);
+                }
             }
-        }
 
-        return indices;
+            return indices;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -5078,10 +5085,10 @@ std::any hodel::hconcat(std::vector<std::any> const& args)
         for (size_t i = 0; i < rows; ++i)
         {
             std::vector<IntegerType> row;
-            row.reserve(a_[i].size() + b_[i].size());
+            row.reserve(a_.at(i).size() + b_.at(i).size());
 
-            row.insert(row.end(), a_[i].begin(), a_[i].end());
-            row.insert(row.end(), b_[i].begin(), b_[i].end());
+            row.insert(row.end(), a_.at(i).begin(), a_.at(i).end());
+            row.insert(row.end(), b_.at(i).begin(), b_.at(i).end());
             result.emplace_back(std::move(row));
         }
 
