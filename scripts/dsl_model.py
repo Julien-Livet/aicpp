@@ -784,8 +784,8 @@ if (__name__ == "__main__"):
         print(f"{i+1}/{n} Target program: {targetProgram} (trajectory: {len(costs)} programs)")
         show: bool = True
         computeGraphs: bool = True
-        minTemperature: float = 1.0
-        maxTemperature: float = 10.0
+        minTemperature: float = 0.1
+        maxTemperature: float = 5.0
         temperature: float = minTemperature
         testedPrograms = set()
         count: int = 1
@@ -827,7 +827,9 @@ if (__name__ == "__main__"):
                 max_depth = programDepth(costs[0][1]),
             )
 
-            if (program):
+            if (not program):
+                cost = math.inf
+            else:
                 try:
                     df = pd.DataFrame(engine.dfConnectionBuilder(j), columns = scoreColumns)
                     cost = df["Total cost"].sum(skipna = False)
@@ -885,14 +887,14 @@ if (__name__ == "__main__"):
                     temperature = min(maxTemperature, temperature * 1.05)
                     alpha = min(1.0, alpha * 1.5)
 
-            if (program and not program in testedPrograms):
+            if (not program):
+                L_total.backward()
+                optimizer.step()
+            elif (not program in testedPrograms):
                 L_total.backward()
                 optimizer.step()
 
                 testedPrograms.add(program)
-            else:
-                temperature = min(maxTemperature, temperature * 1.05)
-                alpha = min(1.0, alpha * 1.5)
 
             try:
                 if (program):
