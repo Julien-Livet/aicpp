@@ -768,7 +768,7 @@ if (__name__ == "__main__"):
     n = engine.count()
     indexes = engine.orderedIndexes()
 
-    outputFilename: str = "dsl_model.MD"
+    outputFilename: str = "dsl_model.md"
 
     with open(outputFilename, "w") as _:
         pass
@@ -822,10 +822,10 @@ if (__name__ == "__main__"):
                 iters_since_improvement += 1
 
             if (count > MAX_ITERATIONS_PER_TARGET or iters_since_improvement > PLATEAU_PATIENCE):
-                addOutput(outputFilename, f"[Abort] Target to difficult after {count} iterations, "
-                      f"best cost found: {best_seen_cost}")
+                addOutput(outputFilename, f"\n**[Abort] Target to difficult after {count} iterations, "
+                      f"best cost found: {best_seen_cost}**")
                 break
-            
+
             if (show):
                 addOutput(outputFilename, f"- {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): `{costs[0][1]}`, cost: `{costs[0][0]}`")
                 show = False
@@ -929,7 +929,7 @@ if (__name__ == "__main__"):
                             "vocab_size" : model.decoder.vocab_size,
                         }, modelFilename)
 
-                        addOutput(outputFilename, f"    - Found *better* program: `{program}`, cost: `{cost}`")
+                        addOutput(outputFilename, f"    - *Found better program:* `{program}`, cost: `{cost}`")
                         show = True
                         computeGraphs = True
 
@@ -941,7 +941,7 @@ if (__name__ == "__main__"):
                             costs.pop(0)
                             programCount += 1
                     elif (not program in testedPrograms):
-                        addOutput(outputFilename, f"    - Found **worst** program: `{program}`, cost: `{cost}`")
+                        addOutput(outputFilename, f"    - **Found worst program:** `{program}`, cost: `{cost}`")
             except ValueError:
                 pass
 
