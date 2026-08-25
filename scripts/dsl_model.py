@@ -822,7 +822,7 @@ if (__name__ == "__main__"):
                 iters_since_improvement += 1
 
             if (count > MAX_ITERATIONS_PER_TARGET or iters_since_improvement > PLATEAU_PATIENCE):
-                addOutput(outputFilename, f"\n**[Abort] Target to difficult after {count} iterations, "
+                addOutput(outputFilename, f"\n**[Abort] Target too difficult after {count} iterations, "
                       f"best cost found: {best_seen_cost}**")
                 break
 
