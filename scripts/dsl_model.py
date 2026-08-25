@@ -14,7 +14,7 @@ from torch_geometric.nn import global_mean_pool
 from typing import List, Tuple
 
 Grid = Tuple[Tuple[int]]
-M: int = 5
+M: int = 10
 
 scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
 
@@ -817,7 +817,6 @@ if (__name__ == "__main__"):
 
             if (current_best < best_seen_cost):
                 best_seen_cost = current_best
-                iters_since_improvement = 0
             else:
                 iters_since_improvement += 1
 
@@ -922,6 +921,7 @@ if (__name__ == "__main__"):
                     addOutput(outputFilename, f"    - *Found better program:* `{program}`, cost: `{cost}`")
                     show = True
                     computeGraphs = True
+                    iters_since_improvement = 0
 
                     candidates.pop(0)
                     candidates.append((program, df))
@@ -932,6 +932,7 @@ if (__name__ == "__main__"):
                         programCount += 1
                 elif (not math.isinf(cost) and not program in testedPrograms):
                     addOutput(outputFilename, f"    - **Found worst program:** `{program}`, cost: `{cost}`")
+                    iters_since_improvement = 0 #TODO: to remove?
 
             if (not program):
                 L_total.backward()
