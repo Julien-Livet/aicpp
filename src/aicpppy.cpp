@@ -539,7 +539,7 @@ class Engine
 
                                 auto const output{std::any_cast<hodel::GridType>(connections_.at(i).output())};
 
-                                if (output != input)
+                                if (output != input && !output.empty())
                                     outputs.emplace_back(input);
                             }
                             catch (std::exception const&)
