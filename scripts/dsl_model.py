@@ -827,6 +827,11 @@ if (__name__ == "__main__"):
 
             if (show):
                 addOutput(outputFilename, f"- {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): `{costs[0][1]}`, cost: `{costs[0][0]}`")
+                addOutput(outputFilename, "    - Program pool")
+
+                for candidate in candidates:
+                    addOutput(outputFilename, f"        - Program: `{candidate[0]}`, cost: `{candidate[1].sum(axis=0, skipna=False)["Total cost"]}`")
+
                 show = False
 
             if (computeGraphs):
