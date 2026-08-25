@@ -910,6 +910,29 @@ if (__name__ == "__main__"):
 
                 L_total = alpha * L_tokens + (1.0 - alpha) * L_semantic
 
+            if (program):
+                if (cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                    and not program in [c[0] for c in candidates]):
+                    torch.save({
+                        "model_state": model.state_dict(),
+                        "d_model"    : model.decoder.d_model,
+                        "vocab_size" : model.decoder.vocab_size,
+                    }, modelFilename)
+
+                    addOutput(outputFilename, f"    - *Found better program:* `{program}`, cost: `{cost}`")
+                    show = True
+                    computeGraphs = True
+
+                    candidates.pop(0)
+                    candidates.append((program, df))
+                    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+
+                    while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
+                        costs.pop(0)
+                        programCount += 1
+                elif (not math.isinf(cost) and not program in testedPrograms):
+                    addOutput(outputFilename, f"    - **Found worst program:** `{program}`, cost: `{cost}`")
+
             if (not program):
                 L_total.backward()
                 optimizer.step()
@@ -918,32 +941,6 @@ if (__name__ == "__main__"):
                 optimizer.step()
 
                 testedPrograms.add(program)
-
-            try:
-                if (program):
-                    if (cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
-                        and not program in [c[0] for c in candidates]):
-                        torch.save({
-                            "model_state": model.state_dict(),
-                            "d_model"    : model.decoder.d_model,
-                            "vocab_size" : model.decoder.vocab_size,
-                        }, modelFilename)
-
-                        addOutput(outputFilename, f"    - *Found better program:* `{program}`, cost: `{cost}`")
-                        show = True
-                        computeGraphs = True
-
-                        candidates.pop(0)
-                        candidates.append((program, df))
-                        candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
-
-                        while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
-                            costs.pop(0)
-                            programCount += 1
-                    elif (not program in testedPrograms):
-                        addOutput(outputFilename, f"    - **Found worst program:** `{program}`, cost: `{cost}`")
-            except ValueError:
-                pass
 
             count += 1
 
