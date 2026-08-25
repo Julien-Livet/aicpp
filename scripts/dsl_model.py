@@ -796,7 +796,26 @@ if (__name__ == "__main__"):
         programCount: int = 1
         uniqueCount: int = 0
 
+        MAX_ITERATIONS_PER_TARGET: int = 100000
+        PLATEAU_PATIENCE: int = 10000
+
+        best_seen_cost = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+        iters_since_improvement = 0
+
         while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+            current_best = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+
+            if (current_best < best_seen_cost):
+                best_seen_cost = current_best
+                iters_since_improvement = 0
+            else:
+                iters_since_improvement += 1
+
+            if (count > MAX_ITERATIONS_PER_TARGET or iters_since_improvement > PLATEAU_PATIENCE):
+                print(f" [Abort] Target to difficult after {count} iterations, "
+                      f"best cost found: {best_seen_cost}")
+                break
+            
             if (show):
                 print(f"  {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): {costs[0][1]}, cost: {costs[0][0]}")
                 show = False
@@ -859,33 +878,27 @@ if (__name__ == "__main__"):
 
                 temperature = min(maxTemperature, temperature * 1.05)
                 alpha = min(1.0, alpha * 1.5)
+
             else:
-                generated_cost = torch.tensor(
-                    cost,
-                    dtype=torch.float32,
-                    device=device
-                )
-                target_cost = torch.tensor(
-                    costs[0][0],
-                    dtype=torch.float32,
-                    device=device
-                )
-                L_cost = torch.log1p(
-                    torch.abs(
-                        generated_cost
-                        - target_cost
+                if (cost <= costs[0][0]):
+                    gen_ids = encode_program_tokens(program, VOCAB).to(device)
+                    gen_input, gen_target = gen_ids[:-1], gen_ids[1:]
+
+                    logits_self = model.decoder(gen_input.unsqueeze(0), z_context)
+                    L_semantic = F.cross_entropy(
+                        logits_self.reshape(-1, logits_self.size(-1)),
+                        gen_target.reshape(-1)
                     )
-                )
-                L_total_cost = torch.log1p(generated_cost)
 
-                L_total = alpha * L_tokens + (1.0 - alpha) * L_total_cost
-
-                if (cost < target_cost):
                     temperature = max(minTemperature, temperature * 0.95)
                     alpha = max(minAlpha, alpha * 0.9)
                 else:
+                    L_semantic = L_tokens
+
                     temperature = min(maxTemperature, temperature * 1.05)
                     alpha = min(1.0, alpha * 1.5)
+
+                L_total = alpha * L_tokens + (1.0 - alpha) * L_semantic
 
             if (not program):
                 L_total.backward()
