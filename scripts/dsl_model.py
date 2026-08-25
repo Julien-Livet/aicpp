@@ -734,6 +734,10 @@ def programDepth(program: str):
 
     return count
 
+def addOutput(filename: str, line: str):
+    with open(filename, "a") as f:
+        f.write(line + "\n")
+
 if (__name__ == "__main__"):
     builder = DSLGraphBuilder(VOCAB.token2id)
     gridModel = ARCContextEncoder(d_model=256)
@@ -764,6 +768,11 @@ if (__name__ == "__main__"):
     n = engine.count()
     indexes = engine.orderedIndexes()
 
+    outputFilename: str = "dsl_model.MD"
+
+    with open(outputFilename, "w") as _:
+        pass
+
     for i in range(n):
         j = indexes[i]
         trajectory = engine.trajectory(j)
@@ -781,7 +790,8 @@ if (__name__ == "__main__"):
         costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
         candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
 
-        print(f"{i+1}/{n} Target program: {targetProgram} (trajectory: {len(costs)} programs)")
+        addOutput(outputFilename, f"# {i+1}/{n} Target program: `{targetProgram}` (trajectory: {len(costs)} programs)")
+
         show: bool = True
         computeGraphs: bool = True
         minTemperature: float = 0.1
@@ -812,12 +822,12 @@ if (__name__ == "__main__"):
                 iters_since_improvement += 1
 
             if (count > MAX_ITERATIONS_PER_TARGET or iters_since_improvement > PLATEAU_PATIENCE):
-                print(f" [Abort] Target to difficult after {count} iterations, "
+                addOutput(outputFilename, f"[Abort] Target to difficult after {count} iterations, "
                       f"best cost found: {best_seen_cost}")
                 break
             
             if (show):
-                print(f"  {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): {costs[0][1]}, cost: {costs[0][0]}")
+                addOutput(outputFilename, f"- {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): `{costs[0][1]}`, cost: `{costs[0][0]}`")
                 show = False
 
             if (computeGraphs):
@@ -919,7 +929,7 @@ if (__name__ == "__main__"):
                             "vocab_size" : model.decoder.vocab_size,
                         }, modelFilename)
 
-                        print(f"    Found better program: {program}, cost: {cost}")
+                        addOutput(outputFilename, f"    - Found *better* program: `{program}`, cost: `{cost}`")
                         show = True
                         computeGraphs = True
 
@@ -931,10 +941,10 @@ if (__name__ == "__main__"):
                             costs.pop(0)
                             programCount += 1
                     elif (not program in testedPrograms):
-                        print(f"    Found worst program: {program}, cost: {cost}")
+                        addOutput(outputFilename, f"    - Found **worst** program: `{program}`, cost: `{cost}`")
             except ValueError:
                 pass
 
             count += 1
 
-        print(f"Found program: {candidates[-1][0]} ({validCount}({uniqueCount})/{count - 1} iterations)")
+        addOutput(outputFilename, f"\nFound program: `{candidates[-1][0]}` ({validCount}({uniqueCount})/{count - 1} iterations)")
