@@ -826,7 +826,7 @@ int main(int argc, char* argv[])
                     auto const grid{std::any_cast<hodel::GridType>(output)};
                     bool add{true};
 
-                    if (grid == input)
+                    if (grid == input || grid.empty())
                         add = false;
 
                     auto const minReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::min(a, b); };
