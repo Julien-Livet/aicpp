@@ -123,6 +123,9 @@ double pixel_overlap_cost(hodel::GridType const& x, hodel::GridType const& y)
         }
     }
 
+    if (!total)
+        return 0.0;
+
     return 1.0 - (static_cast<double>(matches) / total);
 }
 
