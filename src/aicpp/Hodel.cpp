@@ -3075,13 +3075,13 @@ std::any hodel::crop(std::vector<std::any> const& args)
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const dims_{std::any_cast<IntegerTuple>(dims)};
 
-        if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
-            throw std::runtime_error{"Wrong value"};
-
         GridType result;
 
         try
         {
+            if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
+                throw std::runtime_error{"Wrong value"};
+
             for (size_t i{0}; i < dims_.first; ++i)
             {
                 std::vector<IntegerType> row;
