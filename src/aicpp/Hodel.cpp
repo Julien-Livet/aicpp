@@ -6383,12 +6383,12 @@ std::any hodel::frontiers(std::vector<std::any> const& args)
 
                 if (uniform)
                 {
-                    ObjectType ObjectType;
+                    ObjectType object;
 
                     for (size_t j = 0; j < w; ++j)
-                        ObjectType.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+                        object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
 
-                    result.insert(std::move(ObjectType));
+                    result.insert(std::move(object));
                 }
             }
 
@@ -6408,12 +6408,12 @@ std::any hodel::frontiers(std::vector<std::any> const& args)
 
                 if (uniform)
                 {
-                    ObjectType ObjectType;
+                    ObjectType object;
 
                     for (size_t i = 0; i < h; ++i)
-                        ObjectType.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+                        object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
 
-                    result.insert(std::move(ObjectType));
+                    result.insert(std::move(object));
                 }
             }
 
