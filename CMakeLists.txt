@@ -38,6 +38,11 @@ target_include_directories(test_aicpp PRIVATE include)
 target_include_directories(dsl_dataset PRIVATE include)
 target_include_directories(aicpppy PRIVATE include)
 
+set_target_properties(aicpppy PROPERTIES
+    BUILD_RPATH "$ORIGIN"
+    INSTALL_RPATH "$ORIGIN"
+)
+
 if (WIN32)
     target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
     target_link_libraries(dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
