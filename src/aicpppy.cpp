@@ -306,6 +306,9 @@ class ConnectionBuilder
                 }
             }
 
+            if (type != typeid(hodel::Callable) && names.contains("identity"))
+                names.erase("identity");
+
             return std::vector<std::string>{names.begin(), names.end()};
         }
 
