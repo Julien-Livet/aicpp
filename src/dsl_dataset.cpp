@@ -81,6 +81,9 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
     for (auto const& neuron : neuronsByOutputType.at(type))
         namedNeurons[neuron.get().name()].emplace_back(neuron);
 
+    if (type != typeid(hodel::Callable) && namedNeurons.contains("identity"))
+        namedNeurons.erase("identity");
+
     std::vector<std::vector<std::reference_wrapper<Neuron const> > > nn;
     nn.reserve(namedNeurons.size());
 
