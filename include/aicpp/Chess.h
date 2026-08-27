@@ -83,6 +83,9 @@ namespace chess
     Integer constexpr Twenty_six = 26;
     Integer constexpr Twenty_seven = 27;
 
+    Color constexpr White = true;
+    Color constexpr Black = false;
+
     //Board initialBoard();
     std::any initialBoard(std::vector<std::any> const& args);
     //std::set<Piece> inPlayerSet(Board, Color)
