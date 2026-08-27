@@ -11,17 +11,17 @@ std::any chess::initialBoard(std::vector<std::any> const& args)
 
     for (Color color{true}; color; color = !color)
     {
-        for (Integer i = A; i < H + 1; ++i)
-            board.first.emplace(Piece{color, Pawn, Position{Column{i}, Row{color ? 2 : 7}}});
+        for (Integer i = Types::A; i < Types::H + 1; ++i)
+            board.first.emplace(Piece{color, Types::Pawn, Position{Types::Column{i}, Types::Row{color ? 2u : 7u}}});
 
-        board.first.emplace(Piece{color, Rook, Position{A, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Rook, Position{H, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Knight, Position{B, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Knight, Position{G, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Bishop, Position{C, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Bishop, Position{F, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, Queen, Position{D, Row{color ? 1 : 8}}});
-        board.first.emplace(Piece{color, King, Position{E, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Types::Rook, Position{Types::A, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Rook, Position{Types::H, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Knight, Position{Types::B, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Knight, Position{Types::G, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Bishop, Position{Types::C, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Bishop, Position{Types::F, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::Queen, Position{Types::D, Types::Row{color ? 1u : 8u}}});
+        board.first.emplace(Piece{color, Types::King, Position{Types::E, Types::Row{color ? 1u : 8u}}});
     }
 
     return board;
@@ -103,27 +103,27 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
 
         switch (kind)
         {
-            case Pawn:
+            case Types::Pawn:
                 //TODO: ...
                 break;
 
-            case Knight:
+            case Types::Knight:
                 //TODO: ...
                 break;
 
-            case Bishop:
+            case Types::Bishop:
                 //TODO: ...
                 break;
 
-            case Rook:
+            case Types::Rook:
                 //TODO: ...
                 break;
 
-            case Queen:
+            case Types::Queen:
                 //TODO: ...
                 break;
 
-            case King:
+            case Types::King:
                 //TODO: ...
                 break;
 
@@ -179,6 +179,51 @@ std::any chess::movePiece(std::vector<std::any> const& args)
         board_.first.emplace(std::get<0>(piece_), std::get<1>(piece_), position_);
 
         return board_;
+    }
+
+    throw std::runtime_error{"Wrong value"};
+}
+
+std::any chess::at(std::vector<std::any> const& args)
+{
+    if (args.size() != 2)
+        throw std::runtime_error{"Wrong value"};
+
+    auto const container{args[0]};
+    auto const index{args[1]};
+
+    if (index.type() != typeid(Integer))
+        throw std::runtime_error{"Wrong value"};
+
+    auto const index_{std::any_cast<Integer>(index)};
+
+    if (container.type() == typeid(std::set<Piece>))
+    {
+        auto const pieces_{std::any_cast<std::set<Piece> >(container)};
+        std::vector<Piece> const v{pieces_.begin(), pieces_.end()};
+
+        try
+        {
+            return v.at(index_);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+    }
+    else if (container.type() == typeid(std::set<Position>))
+    {
+        auto const positions_{std::any_cast<std::set<Position> >(container)};
+        std::vector<Position> const v{positions_.begin(), positions_.end()};
+
+        try
+        {
+            return v.at(index_);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
