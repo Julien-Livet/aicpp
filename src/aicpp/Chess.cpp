@@ -124,7 +124,26 @@ std::any chess::movePiece(std::vector<std::any> const& args)
         if (!moves.contains(position_))
             throw std::runtime_error{"Wrong value"};
 
-        //TODO: ...
+
+        auto const itPiece{board_.first.find(piece_)};
+
+        if (itPiece == board_.first.end())
+            throw std::runtime_error{"Wrong value"};
+
+        board_.first.erase(piece_);
+
+        for (auto it{board_.first.begin()}; it != board_.first.end(); ++it)
+        {
+            if (std::get<2>(*it) == position_)
+            {
+                board_.second.emplace(*it);
+                board_.first.erase(it);
+
+                break;
+            }
+        }
+
+        board_.first.emplace(std::get<0>(piece_), std::get<1>(piece_),position_);
 
         return board_;
     }
