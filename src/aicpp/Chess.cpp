@@ -12,16 +12,16 @@ std::any chess::initialBoard(std::vector<std::any> const& args)
     for (Color color{true}; color; color = !color)
     {
         for (Integer i = A; i < H + 1; ++i)
-            board.first.emplace(Piece{color, Pawn, Position{i, color ? 2 : 7}});
+            board.first.emplace(Piece{color, Pawn, Position{Column{i}, Row{color ? 2 : 7}}});
 
-        board.first.emplace(Piece{color, Rook, Position{A, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Rook, Position{H, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Knight, Position{B, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Knight, Position{G, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Bishop, Position{C, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Bishop, Position{F, color ? 1 : 8}});
-        board.first.emplace(Piece{color, Queen, Position{D, color ? 1 : 8}});
-        board.first.emplace(Piece{color, King, Position{E, color ? 1 : 8}});
+        board.first.emplace(Piece{color, Rook, Position{A, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Rook, Position{H, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Knight, Position{B, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Knight, Position{G, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Bishop, Position{C, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Bishop, Position{F, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, Queen, Position{D, Row{color ? 1 : 8}}});
+        board.first.emplace(Piece{color, King, Position{E, Row{color ? 1 : 8}}});
     }
 
     return board;
@@ -93,10 +93,43 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
     {
         auto const board_{std::any_cast<Board>(board)};
         auto const piece_{std::any_cast<Piece>(piece)};
+        auto const& color{std::get<0>(piece_)};
+        auto const& kind{std::get<1>(piece_)};
+        auto const& position{std::get<2>(piece_)};
 
         std::set<Position> positions;
 
         //TODO: ...
+
+        switch (kind)
+        {
+            case Pawn:
+                //TODO: ...
+                break;
+
+            case Knight:
+                //TODO: ...
+                break;
+
+            case Bishop:
+                //TODO: ...
+                break;
+
+            case Rook:
+                //TODO: ...
+                break;
+
+            case Queen:
+                //TODO: ...
+                break;
+
+            case King:
+                //TODO: ...
+                break;
+
+            default:
+                throw std::runtime_error{"Wrong value"};
+        }
 
         return positions;
     }
@@ -143,7 +176,7 @@ std::any chess::movePiece(std::vector<std::any> const& args)
             }
         }
 
-        board_.first.emplace(std::get<0>(piece_), std::get<1>(piece_),position_);
+        board_.first.emplace(std::get<0>(piece_), std::get<1>(piece_), position_);
 
         return board_;
     }
