@@ -35,6 +35,8 @@ std::map<std::string, Neuron> aicpp::chessDslVariableNeurons()
     neurons.emplace("Twenty_five", Neuron{"Twenty_five", [] (std::vector<std::any> const&) -> std::any { return chess::Twenty_five; }, std::vector<std::type_index>{}, typeid(chess::Integer)});
     neurons.emplace("Twenty_six", Neuron{"Twenty_six", [] (std::vector<std::any> const&) -> std::any { return chess::Twenty_six; }, std::vector<std::type_index>{}, typeid(chess::Integer)});
     neurons.emplace("Twenty_seven", Neuron{"Twenty_seven", [] (std::vector<std::any> const&) -> std::any { return chess::Twenty_seven; }, std::vector<std::type_index>{}, typeid(chess::Integer)});
+    neurons.emplace("White", Neuron{"White", [] (std::vector<std::any> const&) -> std::any { return chess::White; }, std::vector<std::type_index>{}, typeid(chess::Color)});
+    neurons.emplace("Black", Neuron{"Black", [] (std::vector<std::any> const&) -> std::any { return chess::Black; }, std::vector<std::type_index>{}, typeid(chess::Color)});
 
     neurons.emplace("initialBoard", Neuron{"initialBoard", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::initialBoard); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("inPlayerSet", Neuron{"inPlayerSet", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::inPlayerSet); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
