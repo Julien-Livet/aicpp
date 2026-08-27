@@ -1,9 +1,9 @@
-#include "aicpp/DslSystem.h"
+#include "aicpp/HodelDslSystem.h"
 #include "aicpp/Hodel.h"
 
 using namespace aicpp;
 
-std::map<std::string, Neuron> aicpp::dslVariableNeurons()
+std::map<std::string, Neuron> aicpp::hodelDslVariableNeurons()
 {
     std::map<std::string, Neuron> neurons;
 
@@ -200,7 +200,7 @@ std::map<std::string, Neuron> aicpp::dslVariableNeurons()
     return neurons;
 }
 
-std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
+std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
 {
     std::map<std::string, Neuron> neurons;
 

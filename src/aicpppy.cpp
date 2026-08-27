@@ -13,7 +13,7 @@
 
 #include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
-#include "aicpp/DslSystem.h"
+#include "aicpp/HodelDslSystem.h"
 #include "aicpp/Hodel.h"
 
 namespace py = pybind11;
@@ -870,8 +870,8 @@ class Engine
         }
 
     private:
-        std::map<std::string, Neuron> const variableNeurons_{dslVariableNeurons()};
-        std::map<std::string, Neuron> const primitiveNeurons_{dslPrimitiveNeurons()};
+        std::map<std::string, Neuron> const variableNeurons_{hodelDslVariableNeurons()};
+        std::map<std::string, Neuron> const primitiveNeurons_{hodelDslPrimitiveNeurons()};
         Neuron iNeuron_{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType)};
         std::vector<Neuron> iNeurons_;
         std::unique_ptr<Brain> brain_;

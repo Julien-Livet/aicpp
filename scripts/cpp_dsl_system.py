@@ -1,7 +1,10 @@
 from collections import defaultdict
 import itertools
+import sys
 
-with open("../include/aicpp/Hodel.h", "r") as f:
+dslName = sys.argv[-1]
+
+with open(f"../include/aicpp/{dslName}.h", "r") as f:
     lines: list = f.read().split("\n")
 
 typeDefinitions: list = list(filter(lambda x: x.strip().startswith("typedef "), lines))
@@ -45,12 +48,12 @@ for definition in typeDefinitions:
 for k in dslTypes.keys():
     dslTypes[k] = tuple(sorted(dslTypes[k]))
 
-content = """#include "aicpp/DslSystem.h"
-#include "aicpp/Hodel.h"
+content = f'#include "aicpp/{dslName}DslSystem.h"' + """
+#include "aicpp/""" + dslName + """.h"
 
 using namespace aicpp;
 
-std::map<std::string, Neuron> aicpp::dslVariableNeurons()
+std::map<std::string, Neuron> aicpp::""" + f'{dslName.lower()}DslVariableNeurons()' + """
 {
     std::map<std::string, Neuron> neurons;
 
@@ -66,9 +69,9 @@ for definition in variableDefinitions:
     content += f'    neurons.emplace("{name}"'
     content += ", Neuron{"
     content += f'"{name}"'
-    content += ", [] (std::vector<std::any> const&) -> std::any { return hodel::"
+    content += ", [] (std::vector<std::any> const&) -> std::any { return " + dslName.lower() + "::"
     content += name
-    content += "; }, std::vector<std::type_index>{}, typeid(hodel::"
+    content += "; }, std::vector<std::type_index>{}, typeid(" + dslName.lower() + "::"
     content += variableType
     content += ")});\n"
 
@@ -95,7 +98,7 @@ for definition in primitiveDefinitions:
     content += f'    neurons.emplace("{trueName}"'
     content += ", Neuron{"
     content += f'"{trueName}"'
-    content += ", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(hodel::"
+    content += ", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(" + dslName.lower() + "::"
     content += name
     content += "); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});\n"
 
@@ -103,7 +106,7 @@ content += """
     return neurons;
 }
 
-std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
+""" + f'std::map<std::string, Neuron> aicpp::{dslName.lower()}DslPrimitiveNeurons()' + """
 {
     std::map<std::string, Neuron> neurons;
 
@@ -111,11 +114,11 @@ std::map<std::string, Neuron> aicpp::dslPrimitiveNeurons()
 
 def typeName(x: str) -> str:
     if (x.startswith("std::vector")):
-        return x.replace("std::vector<", "std::vector<hodel::")
+        return x.replace("std::vector<", f"std::vector<{dslName.lower()}::")
     elif (x.startswith("std::set")):
-        return x.replace("std::set<", "std::set<hodel::")
+        return x.replace("std::set<", f"std::set<{dslName.lower()}::")
     else:
-        return "hodel::" + x
+        return f"{dslName.lower()}::" + x
 
 indices: dict = {}
 
@@ -175,7 +178,7 @@ for definition in primitiveDefinitions:
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
         content += f'"{trueName}"'
-        content += f", hodel::{name}"
+        content += f", {dslName.lower()}::{name}"
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
         content += "}, typeid("
@@ -189,6 +192,6 @@ content += """
 }
 """
 
-with open("../src/aicpp/DslSystem.cpp", "w") as f:
+with open(f"../src/aicpp/{dslName}DslSystem.cpp", "w") as f:
     f.write(content)
 

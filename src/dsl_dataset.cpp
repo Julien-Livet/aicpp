@@ -12,7 +12,7 @@
 #include "aicpp/Connection.h"
 #include "aicpp/Hodel.h"
 #include "aicpp/Neuron.h"
-#include "aicpp/DslSystem.h"
+#include "aicpp/HodelDslSystem.h"
 
 size_t constexpr gridTrials = 100;
 
@@ -769,8 +769,8 @@ int main(int argc, char* argv[])
     size_t const depth{static_cast<size_t>(std::stoi(argv[1]))};
     size_t const count{static_cast<size_t>(std::stoi(argv[2]))};
 
-    auto const variables{dslVariableNeurons()};
-    auto const primitives{dslPrimitiveNeurons()};
+    auto const variables{hodelDslVariableNeurons()};
+    auto const primitives{hodelDslPrimitiveNeurons()};
 
     std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > variableNeuronsByOutputType;
 
