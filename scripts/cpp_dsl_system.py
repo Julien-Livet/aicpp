@@ -8,7 +8,7 @@ with open(f"../include/aicpp/{dslName}.h", "r") as f:
     lines: list = f.read().split("\n")
 
 typeDefinitions: list = list(filter(lambda x: x.strip().startswith("typedef "), lines))
-variableDefinitions: list = list(filter(lambda x: " = " in x and x.endswith(";"), lines))
+variableDefinitions: list = list(filter(lambda x: " = " in x and not x.strip().startswith("using"), lines))
 primitiveDefinitions: list = list(filter(lambda x: x.strip().startswith("//"), lines))
 
 dslTypes: dict = defaultdict(list)
