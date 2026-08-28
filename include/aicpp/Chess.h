@@ -11,94 +11,77 @@ namespace chess
 {
     typedef uint Integer;
 
-    namespace Types
+    enum Kind_ : Integer
     {
-        enum Kind : Integer
-        {
-            Pawn = 0,
-            Knight,
-            Bishop,
-            Rook,
-            Queen,
-            King
-        };
+        Pawn = 0,
+        Knight = 1,
+        Bishop = 2,
+        Rook = 3,
+        Queen = 4,
+        King = 5
+    };
 
-        enum Column : Integer
-        {
-            A = 1,
-            B,
-            C,
-            D,
-            E,
-            F,
-            G,
-            H
-        };
+    enum Column_ : Integer
+    {
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6,
+        G = 7,
+        H = 8
+    };
 
-        enum Row : Integer
-        {
-            One = 1,
-            Two,
-            Three,
-            Four,
-            Five,
-            Six,
-            Seven,
-            Eight
-        };
-    }
+    enum Row_ : Integer
+    {
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5,
+        Six = 6,
+        Seven = 7,
+        Eight = 8
+    };
 
-    typedef std::pair<Types::Column, Types::Row> Position;
-    typedef bool Color;
-    typedef std::tuple<Color, Types::Kind, Position> Piece;
-    typedef std::set<Piece> Set;
-    typedef std::pair<Set, Set> Board;
+    enum Color_ : bool
+    {
+        White = true,
+        Black = false
+    };
 
-    Integer constexpr Zero = 0;
-    Integer constexpr One = 1;
-    Integer constexpr Two = 2;
-    Integer constexpr Three = 3;
-    Integer constexpr Four = 4;
-    Integer constexpr Five = 5;
-    Integer constexpr Six = 6;
-    Integer constexpr Seven = 7;
-    Integer constexpr Eight = 8;
-    Integer constexpr Nine = 9;
-    Integer constexpr Ten = 10;
-    Integer constexpr Eleven = 11;
-    Integer constexpr Twelve = 12;
-    Integer constexpr Thirteen = 13;
-    Integer constexpr Fourteen = 14;
-    Integer constexpr Fifteen = 15;
-    Integer constexpr sixteen = 16;
-    Integer constexpr seventeen = 17;
-    Integer constexpr eighteen = 18;
-    Integer constexpr nineteen = 19;
-    Integer constexpr Twenty = 20;
-    Integer constexpr Twenty_one = 21;
-    Integer constexpr Twenty_two = 22;
-    Integer constexpr Twenty_three = 23;
-    Integer constexpr Twenty_four = 24;
-    Integer constexpr Twenty_five = 25;
-    Integer constexpr Twenty_six = 26;
-    Integer constexpr Twenty_seven = 27;
+    typedef Column_ Column;
+    typedef Row_ Row;
+    typedef Color_ Color;
+    typedef Kind_ Kind;
 
-    Color constexpr White = true;
-    Color constexpr Black = false;
+    using Position_ = std::pair<Column, Row>;
+
+    typedef Position_ Position;
+
+    using Piece_ = std::tuple<Color, Kind, Position>;
+
+    typedef Piece_ Piece;
+
+    using Set = std::set<Piece>;
+    using Board_ = std::pair<Set, Set>;
+
+    typedef Board_ Board;
+
+    Piece piece(Board const& board, Color const& color, Kind const& kind);
+    std::set<Piece> movablePieces(Board const& board, Color const& color);
 
     //Board initialBoard();
     std::any initialBoard(std::vector<std::any> const& args);
-    //std::set<Piece> inPlayerSet(Board, Color)
-    std::any inPlayerSet(std::vector<std::any> const& args);
-    //std::set<Piece> outPlayerSet(Board, Color)
-    std::any outPlayerSet(std::vector<std::any> const& args);
-    //std::set<Position> pieceMoves(Board, Piece)
+    //Position position(Column, Row)
+    std::any position(std::vector<std::any> const& args);
+    //std::set<Piece> removedPieces(Board, Color)
+    std::any removedPieces(std::vector<std::any> const& args);
+    //std::set<Position> pieceMoves(Board, Color, Kind)
     std::any pieceMoves(std::vector<std::any> const& args);
-    //Board movePiece(Board, Piece, Position)
+    //Board movePiece(Board, Color, Kind, Position)
     std::any movePiece(std::vector<std::any> const& args);
-    //Piece at(std::set<Piece>, Integer)
-    //Position at(std::set<Position>, Integer)
-    std::any at(std::vector<std::any> const& args);
 }
 
 #endif // AICPP_CHESS_H
