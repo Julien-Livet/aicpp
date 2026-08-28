@@ -2,6 +2,223 @@
 
 #include "aicpp/Chess.h"
 
+bool isInside(chess::Integer x, chess::Integer y)
+{
+    return x >= 1 && x <= 8 && y >= 1 && y <= 8;
+}
+
+chess::Position makePosition(chess::Integer x, chess::Integer y)
+{
+    if (!isInside(x, y))
+        throw std::runtime_error{"Invalid position"};
+
+    return {static_cast<chess::Column>(x), static_cast<chess::Row>(y)};
+}
+
+chess::Set pieces(chess::Board const& board, chess::Color color)
+{
+    chess::Set pieces;
+
+    for (auto const& piece : board.first)
+    {
+        if (std::get<0>(piece) == color)
+            pieces.emplace(piece);
+    }
+
+    return pieces;
+}
+
+chess::Piece const* findPiece(chess::Board const& board, chess::Position const& position, chess::Color color)
+{
+    auto const& set = pieces(board, color);
+
+    for (auto const& piece : set)
+    {
+        if (std::get<2>(piece) == position)
+            return &piece;
+    }
+
+    return nullptr;
+}
+
+bool chess::clearLine(chess::Board const& board, Position const& from, Position const& to)
+{
+    auto const x0 = static_cast<Integer>(from.first);
+    auto const y0 = static_cast<Integer>(from.second);
+    auto const x1 = static_cast<Integer>(to.first);
+    auto const y1 = static_cast<Integer>(to.second);
+    auto const dx = x1 - x0;
+    auto const dy = y1 - y0;
+    auto const sx = (dx > 0) - (dx < 0);
+    auto const sy = (dy > 0) - (dy < 0);
+
+    auto x = x0 + sx;
+    auto y = y0 + sy;
+
+    while (x != x1 || y != y1)
+    {
+        auto const p = makePosition(x, y);
+
+        if (findPiece(board, p, White) ||
+            findPiece(board, p, Black))
+            return false;
+
+        x += sx;
+        y += sy;
+    }
+
+    return true;
+}
+
+bool chess::isAttacked(Board const& board, Position const& target, Color byColor)
+{
+    auto const& enemy = pieces(board, byColor);
+
+    for (auto const& piece : enemy)
+    {
+        auto const kind = std::get<1>(piece);
+        auto const position = std::get<2>(piece);
+        auto const x0 = static_cast<Integer>(position.first);
+        auto const y0 = static_cast<Integer>(position.second);
+        auto const x1 = static_cast<Integer>(target.first);
+        auto const y1 = static_cast<Integer>(target.second);
+        auto const dx = x1 - x0;
+        auto const dy = y1 - y0;
+        auto const ax = dx < 0 ? -dx : dx;
+        auto const ay = dy < 0 ? -dy : dy;
+
+        switch (kind)
+        {
+            case Pawn:
+            {
+                auto const direction = byColor ? 1 : -1;
+
+                if (dy == direction && (dx == 1 || dx == -1))
+                    return true;
+
+                break;
+            }
+
+            case Knight:
+            {
+                if ((ax == 1 && ay == 2) || (ax == 2 && ay == 1))
+                    return true;
+
+                break;
+            }
+
+            case King:
+            {
+                if (ax <= 1 && ay <= 1 && (ax != 0 || ay != 0))
+                    return true;
+
+                break;
+            }
+
+            case Bishop:
+            {
+                if (ax == ay && clearLine(board, position, target))
+                    return true;
+
+                break;
+            }
+
+            case Rook:
+                if ((dx == 0 || dy == 0) && clearLine(board, position, target))
+                    return true;
+                
+                break;
+
+            case Queen:
+                if (((dx == 0 || dy == 0) || (ax == ay)) && clearLine(board, position, target))
+                    return true;
+
+                break;
+        }
+    }
+
+    return false;
+}
+
+chess::Position findKing( chess::Board const& board, chess::Color color)
+{
+    for (auto const& piece : pieces(board, color))
+    {
+        if (std::get<1>(piece) == chess::King)
+            return std::get<2>(piece);
+    }
+
+    throw std::runtime_error{"King not found"};
+}
+
+bool chess::inCheck(Board const& board, Color color)
+{
+    auto const king = findKing(board, color);
+
+    return isAttacked(board, king, Color{!static_cast<bool>(color)});
+}
+
+void castleMoves(chess::Board const& board, chess::Piece const& king, std::set<chess::Position>& positions)
+{
+    auto const color = std::get<0>(king);
+
+    if (inCheck(board, color))
+        return;
+
+    using namespace chess;
+
+    if (color == White)
+    {
+        // e1-g1
+        if (board.whiteKingSideCastle &&
+            findPiece(board, {H, One}, White) &&
+            !findPiece(board, {F, One}, White) &&
+            !findPiece(board, {G, One}, White) &&
+            !isAttacked(board, {F, One}, Black) &&
+            !isAttacked(board, {G, One}, Black))
+        {
+            positions.insert({G, One});
+        }
+
+        // e1-c1
+        if (board.whiteQueenSideCastle &&
+            findPiece(board, {A, One}, White) &&
+            !findPiece(board, {B, One}, White) &&
+            !findPiece(board, {C, One}, White) &&
+            !findPiece(board, {D, One}, White) &&
+            !isAttacked(board, {D, One}, Black) &&
+            !isAttacked(board, {C, One}, Black))
+        {
+            positions.insert({C, One});
+        }
+    }
+    else
+    {
+        // e8-g8
+        if (board.blackKingSideCastle &&
+            findPiece(board, {H, Eight}, Black) &&
+            !findPiece(board, {F, Eight}, Black) &&
+            !findPiece(board, {G, Eight}, Black) &&
+            !isAttacked(board, {F, Eight}, White) &&
+            !isAttacked(board, {G, Eight}, White))
+        {
+            positions.insert({G, Eight});
+        }
+
+        // e8-c8
+        if (board.blackQueenSideCastle &&
+            findPiece(board, {A, Eight}, Black) &&
+            !findPiece(board, {B, Eight}, Black) &&
+            !findPiece(board, {C, Eight}, Black) &&
+            !findPiece(board, {D, Eight}, Black) &&
+            !isAttacked(board, {D, Eight}, White) &&
+            !isAttacked(board, {C, Eight}, White))
+        {
+            positions.insert({C, Eight});
+        }
+    }
+}
+
 chess::Piece chess::piece(Board const& board, Position const& position)
 {
     for (auto const& p : board.first)
@@ -234,6 +451,18 @@ std::any chess::mvs(std::vector<std::any> const& args)
                         positions.emplace(candidate);
                 }
 
+                if (board_.enPassantTarget)
+                {
+                    auto const x = static_cast<Integer>(position_.first);
+                    auto const y = static_cast<Integer>(position_.second);
+                    auto const target = *board_.enPassantTarget;
+                    auto const targetX = static_cast<Integer>(target.first);
+                    auto const targetY = static_cast<Integer>(target.second);
+
+                    if (targetY == y + direction && (targetX == x - 1 || targetX == x + 1))
+                        positions.insert(target);
+                }
+
                 break;
             }
 
@@ -309,10 +538,116 @@ std::any chess::mvs(std::vector<std::any> const& args)
                 throw std::runtime_error{"Wrong value"};
         }
 
-        return positions;
+        std::set<Position> legal;
+
+        for (auto const& destination : positions)
+        {
+            try
+            {
+                auto const next = move(board_, std::get<2>(p), destination, false);
+
+                if (!inCheck(next, color_))
+                    legal.insert(destination);
+            }
+            catch (...)
+            {
+            }
+        }
+    
+        return legal;
     }
 
     throw std::runtime_error{"Wrong value"};
+}
+
+bool isEnPassant(chess::Board const& board, chess::Piece const& piece, chess::Position const& destination)
+{
+    using namespace chess;
+
+    if (std::get<1>(piece) != Pawn)
+        return false;
+
+    if (!board.enPassantTarget || destination != *board.enPassantTarget)
+        return false;
+
+    auto const color = std::get<0>(piece);
+    auto const position = std::get<2>(piece);
+
+    if (position.first == destination.first)
+        return false;
+
+    Position const capturedPosition{destination.first, position.second};
+
+    Piece const captured{Color{!static_cast<bool>(color)}, Pawn, capturedPosition};
+
+    auto const opponent = pieces(board, Color{!static_cast<bool>(color)});
+
+    return opponent.contains(captured);
+}
+
+chess::Board chess::move(Board board, Position const& from, Position const& to, bool check)
+{
+    auto const p{piece(board, from)};
+
+    if (check)
+    {
+        auto const moves{std::any_cast<std::set<Position> >(mvs({board, from}))};
+
+        if (!moves.contains(to))
+            throw std::runtime_error{"Wrong value"};
+    }
+
+    auto const itPiece{board.first.find(p)};
+
+    if (itPiece == board.first.end())
+        throw std::runtime_error{"Wrong value"};
+
+    board.first.erase(p);
+
+    for (auto it{board.first.begin()}; it != board.first.end(); ++it)
+    {
+        if (std::get<2>(*it) == to)
+        {
+            board.second.emplace(*it);
+            board.first.erase(it);
+
+            break;
+        }
+    }
+
+    board.first.emplace(std::get<0>(p), std::get<1>(p), to);
+
+    auto const& position = from;
+    auto const& destination = to;
+
+    if (isEnPassant(board, p, destination))
+    {
+        Position const capturedPosition{destination.first, std::get<2>(p).second};
+        auto const& color = std::get<0>(p);
+        Piece const capturedPiece{Color{!static_cast<bool>(color)}, Pawn, capturedPosition};
+
+        board.second.emplace(capturedPiece);
+        board.first.erase(capturedPiece);
+    }
+
+    board.enPassantTarget.reset();
+
+    auto const& kind = std::get<1>(p);
+
+    if (kind == Pawn)
+    {
+        auto const y0 = static_cast<int>(position.second);
+        auto const y1 = static_cast<int>(destination.second);
+
+        if (std::abs(y1 - y0) == 2)
+        {
+            auto middle = (y0 + y1) / 2;
+
+            board.enPassantTarget = makePosition(static_cast<Integer>(position.first), middle);
+        }
+    }
+
+    return board;
 }
 
 std::any chess::mv(std::vector<std::any> const& args)
@@ -326,36 +661,11 @@ std::any chess::mv(std::vector<std::any> const& args)
 
     if (board.type() == typeid(Board) && from.type() == typeid(Position) && to.type() == typeid(Position))
     {
-        auto board_{std::any_cast<Board>(board)};
+        auto const board_{std::any_cast<Board>(board)};
         auto const from_{std::any_cast<Position>(from)};
         auto const to_{std::any_cast<Position>(to)};
-        auto const p{piece(board_, from_)};
-        auto const moves{std::any_cast<std::set<Position> >(mvs({board, from_}))};
-
-        if (!moves.contains(to_))
-            throw std::runtime_error{"Wrong value"};
-
-        auto const itPiece{board_.first.find(p)};
-
-        if (itPiece == board_.first.end())
-            throw std::runtime_error{"Wrong value"};
-
-        board_.first.erase(p);
-
-        for (auto it{board_.first.begin()}; it != board_.first.end(); ++it)
-        {
-            if (std::get<2>(*it) == to_)
-            {
-                board_.second.emplace(*it);
-                board_.first.erase(it);
-
-                break;
-            }
-        }
-
-        board_.first.emplace(std::get<0>(p), std::get<1>(p), to_);
-
-        return board_;
+        
+        return move(board_, from_, to_);
     }
 
     throw std::runtime_error{"Wrong value"};

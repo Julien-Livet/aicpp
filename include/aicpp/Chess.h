@@ -3,6 +3,7 @@
 
 #include <any>
 #include <cstdint>
+#include <optional>
 #include <set>
 #include <utility>
 #include <vector>
@@ -65,12 +66,30 @@ namespace chess
     typedef Piece_ Piece;
 
     using Set = std::set<Piece>;
-    using Board_ = std::pair<Set, Set>;
+
+    struct Board_
+    {
+        Set first; //in
+        Set second; //out
+
+        bool whiteKingSideCastle{true};
+        bool whiteQueenSideCastle{true};
+        bool blackKingSideCastle{true};
+        bool blackQueenSideCastle{true};
+
+        std::optional<Position> enPassantTarget{};
+
+        bool operator==(Board_ const& other) const = default;
+    };
 
     typedef Board_ Board;
 
     Piece piece(Board const& board, Position const& position);
     std::set<Position> movablePieces(Board const& board, Color const& color);
+    bool clearLine(chess::Board const& board, Position const& from, Position const& to);
+    bool isAttacked(Board const& board, Position const& target, Color byColor);
+    Board move(Board board, Position const& from, Position const& to, bool check = true);
+    bool inCheck(Board const& board, Color color);
 
     //Board initialBoard();
     std::any initialBoard(std::vector<std::any> const& args);

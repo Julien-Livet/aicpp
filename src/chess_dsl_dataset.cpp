@@ -139,13 +139,15 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
 
                     auto const positions{chess::movablePieces(board, color)};
 
+                    if (positions.empty() || chess::inCheck(board, chess::Color{!static_cast<bool>(color)}))
+                        throw std::runtime_error{"Wrong connection"};
+
                     std::uniform_int_distribution<size_t> distribution1(0, positions.size() - 1);
 
                     auto it1{positions.begin()};
                     std::advance(it1, distribution1(rd));
 
                     auto const from{*it1};
-
                     auto const moves{std::any_cast<std::set<chess::Position> >(chess::mvs({board, from}))};
 
                     std::uniform_int_distribution<size_t> distribution2(0, moves.size() - 1);
