@@ -48,8 +48,8 @@ std::map<std::string, Neuron> aicpp::chessDslPrimitiveNeurons()
     neurons.emplace("initialBoard0", Neuron{"initialBoard", chess::initialBoard, std::vector<std::type_index>{}, typeid(chess::Board)});
     neurons.emplace("position0", Neuron{"position", chess::position, std::vector<std::type_index>{typeid(chess::Column), typeid(chess::Row)}, typeid(chess::Position)});
     neurons.emplace("removedPieces0", Neuron{"removedPieces", chess::removedPieces, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Color)}, typeid(std::set<chess::Piece>)});
-    neurons.emplace("pieceMoves0", Neuron{"pieceMoves", chess::pieceMoves, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Color), typeid(chess::Kind)}, typeid(std::set<chess::Position>)});
-    neurons.emplace("movePiece0", Neuron{"movePiece", chess::movePiece, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Color), typeid(chess::Kind), typeid(chess::Position)}, typeid(chess::Board)});
+    neurons.emplace("pieceMoves0", Neuron{"pieceMoves", chess::pieceMoves, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position)}, typeid(std::set<chess::Position>)});
+    neurons.emplace("movePiece0", Neuron{"movePiece", chess::movePiece, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position), typeid(chess::Position)}, typeid(chess::Board)});
 
     return neurons;
 }
