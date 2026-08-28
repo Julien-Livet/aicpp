@@ -33,10 +33,10 @@ std::map<std::string, Neuron> aicpp::chessDslVariableNeurons()
     neurons.emplace("Black", Neuron{"Black", [] (std::vector<std::any> const&) -> std::any { return chess::Black; }, std::vector<std::type_index>{}, typeid(chess::Black)});
 
     neurons.emplace("initialBoard", Neuron{"initialBoard", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::initialBoard); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
-    neurons.emplace("position", Neuron{"position", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::position); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("pos", Neuron{"pos", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::pos); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
     neurons.emplace("removedPieces", Neuron{"removedPieces", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::removedPieces); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
-    neurons.emplace("pieceMoves", Neuron{"pieceMoves", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::pieceMoves); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
-    neurons.emplace("movePiece", Neuron{"movePiece", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::movePiece); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("mvs", Neuron{"mvs", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::mvs); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
+    neurons.emplace("mv", Neuron{"mv", [] (std::vector<std::any> const&) -> std::any { return std::function<std::any(std::vector<std::any> const&)>(chess::mv); }, std::vector<std::type_index>{}, typeid(std::function<std::any(std::vector<std::any> const&)>)});
 
     return neurons;
 }
@@ -46,10 +46,10 @@ std::map<std::string, Neuron> aicpp::chessDslPrimitiveNeurons()
     std::map<std::string, Neuron> neurons;
 
     neurons.emplace("initialBoard0", Neuron{"initialBoard", chess::initialBoard, std::vector<std::type_index>{}, typeid(chess::Board)});
-    neurons.emplace("position0", Neuron{"position", chess::position, std::vector<std::type_index>{typeid(chess::Column), typeid(chess::Row)}, typeid(chess::Position)});
+    neurons.emplace("pos0", Neuron{"pos", chess::pos, std::vector<std::type_index>{typeid(chess::Column), typeid(chess::Row)}, typeid(chess::Position)});
     neurons.emplace("removedPieces0", Neuron{"removedPieces", chess::removedPieces, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Color)}, typeid(std::set<chess::Piece>)});
-    neurons.emplace("pieceMoves0", Neuron{"pieceMoves", chess::pieceMoves, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position)}, typeid(std::set<chess::Position>)});
-    neurons.emplace("movePiece0", Neuron{"movePiece", chess::movePiece, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position), typeid(chess::Position)}, typeid(chess::Board)});
+    neurons.emplace("mvs0", Neuron{"mvs", chess::mvs, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position)}, typeid(std::set<chess::Position>)});
+    neurons.emplace("mv0", Neuron{"mv", chess::mv, std::vector<std::type_index>{typeid(chess::Board), typeid(chess::Position), typeid(chess::Position)}, typeid(chess::Board)});
 
     return neurons;
 }

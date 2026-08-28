@@ -127,7 +127,7 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
 
             try
             {
-                if (neuron.get().name() == "movePiece")
+                if (neuron.get().name() == "mv")
                 {
                     std::vector<std::any> inputs;
 
@@ -146,7 +146,7 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
 
                     auto const from{*it1};
 
-                    auto const moves{std::any_cast<std::set<chess::Position> >(chess::pieceMoves({board, from}))};
+                    auto const moves{std::any_cast<std::set<chess::Position> >(chess::mvs({board, from}))};
 
                     std::uniform_int_distribution<size_t> distribution2(0, moves.size() - 1);
 
@@ -188,7 +188,7 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
 
                         for (auto const& neuron : neuronsByOutputType.at(typeid(chess::Position)))
                         {
-                            if (neuron.get().name() == "position")
+                            if (neuron.get().name() == "pos")
                             {
                                 positionNeuron = &neuron.get();
                                 break;
@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
     for (auto const& variable : variables)
         variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
 
-    Neuron boardNeuron{"board", chess::initialBoard, std::vector<std::type_index>{}, typeid(chess::Board)};
+    Neuron boardNeuron{"b", chess::initialBoard, std::vector<std::type_index>{}, typeid(chess::Board)};
 
     //printBoard(std::any_cast<chess::Board>(boardNeuron.function()({})));
 
@@ -283,7 +283,7 @@ int main(int argc, char* argv[])
 
             auto const program{connection.string()};
 
-            if (!program.contains("(board)") && !program.contains("(board, ") && !program.contains(", I,") && !program.contains(", board)"))
+            if (!program.contains("(b)") && !program.contains("(b, ") && !program.contains(", b,") && !program.contains(", b)"))
                 return;
 
             auto const output{connection.output()};

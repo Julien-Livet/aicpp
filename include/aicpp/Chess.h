@@ -74,14 +74,14 @@ namespace chess
 
     //Board initialBoard();
     std::any initialBoard(std::vector<std::any> const& args);
-    //Position position(Column, Row)
-    std::any position(std::vector<std::any> const& args);
+    //Position pos(Column, Row)
+    std::any pos(std::vector<std::any> const& args);
     //std::set<Piece> removedPieces(Board, Color)
     std::any removedPieces(std::vector<std::any> const& args);
-    //std::set<Position> pieceMoves(Board, Position)
-    std::any pieceMoves(std::vector<std::any> const& args);
-    //Board movePiece(Board, Position, Position)
-    std::any movePiece(std::vector<std::any> const& args);
+    //std::set<Position> mvs(Board, Position)
+    std::any mvs(std::vector<std::any> const& args);
+    //Board mv(Board, Position, Position)
+    std::any mv(std::vector<std::any> const& args);
 }
 
 #endif // AICPP_CHESS_H

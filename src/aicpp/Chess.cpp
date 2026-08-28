@@ -27,7 +27,7 @@ std::set<chess::Position> chess::movablePieces(Board const& board, Color const& 
     {
         if (std::get<0>(piece) == color)
         {
-            if (!std::any_cast<std::set<Position> >(pieceMoves({board, std::get<2>(piece)})).empty())
+            if (!std::any_cast<std::set<Position> >(mvs({board, std::get<2>(piece)})).empty())
                 positions.emplace(std::get<2>(piece));
         }
     }
@@ -62,7 +62,7 @@ std::any chess::initialBoard(std::vector<std::any> const& args)
     return board;
 }
 
-std::any chess::position(std::vector<std::any> const& args)
+std::any chess::pos(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
@@ -108,7 +108,7 @@ std::any chess::removedPieces(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
-std::any chess::pieceMoves(std::vector<std::any> const& args)
+std::any chess::mvs(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
@@ -315,7 +315,7 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
     throw std::runtime_error{"Wrong value"};
 }
 
-std::any chess::movePiece(std::vector<std::any> const& args)
+std::any chess::mv(std::vector<std::any> const& args)
 {
     if (args.size() != 3)
         throw std::runtime_error{"Wrong value"};
@@ -330,7 +330,7 @@ std::any chess::movePiece(std::vector<std::any> const& args)
         auto const from_{std::any_cast<Position>(from)};
         auto const to_{std::any_cast<Position>(to)};
         auto const p{piece(board_, from_)};
-        auto const moves{std::any_cast<std::set<Position> >(pieceMoves({board, from_}))};
+        auto const moves{std::any_cast<std::set<Position> >(mvs({board, from_}))};
 
         if (!moves.contains(to_))
             throw std::runtime_error{"Wrong value"};
