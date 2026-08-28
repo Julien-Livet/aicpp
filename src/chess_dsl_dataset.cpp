@@ -91,6 +91,62 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
     throw std::runtime_error{"Wrong connection"};
 }
 
+void printBoard(chess::Board const& board)
+{
+    std::vector<std::vector<char> > grid(8, std::vector<char>(8, '.'));
+
+    for (auto const& piece : board.first)
+    {
+        char c{'.'};
+
+        switch (std::get<1>(piece))
+        {
+            case chess::Pawn:
+                c = 'P';
+                break;
+
+            case chess::Knight:
+                c = 'K';
+                break;
+
+            case chess::Bishop:
+                c = 'B';
+                break;
+
+
+            case chess::Rook:
+                c = 'R';
+                break;
+
+            case chess::Queen:
+                c = 'Q';
+                break;
+
+
+            case chess::King:
+                c = 'X';
+                break;
+        }
+
+        if (std::get<0>(piece) == chess::Black)
+            c = std::tolower(c);
+
+        auto const position{std::get<2>(piece)};
+
+        grid[std::get<1>(position) - 1][std::get<0>(position) - 1] = c;
+    }
+
+    std::reverse(grid.begin(), grid.end());
+
+    for (auto const& row : grid)
+    {
+        for (auto const& c : row)
+            std::cout << c;
+
+        std::cout << std::endl;
+    }
+}
+
 int main(int argc, char* argv[])
 {
     if (argc < 3)
@@ -112,6 +168,8 @@ int main(int argc, char* argv[])
         variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
 
     Neuron boardNeuron{"board", chess::initialBoard, std::vector<std::type_index>{}, typeid(chess::Board)};
+
+    //printBoard(std::any_cast<chess::Board>(boardNeuron.function()({})));
 
     variableNeuronsByOutputType[boardNeuron.outputType()].emplace_back(boardNeuron);
 
