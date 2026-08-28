@@ -69,7 +69,7 @@ namespace chess
 
     typedef Board_ Board;
 
-    Piece piece(Board const& board, Color const& color, Kind const& kind);
+    Piece piece(Board const& board, Position const& position);
     std::set<Piece> movablePieces(Board const& board, Color const& color);
 
     //Board initialBoard();
@@ -78,9 +78,9 @@ namespace chess
     std::any position(std::vector<std::any> const& args);
     //std::set<Piece> removedPieces(Board, Color)
     std::any removedPieces(std::vector<std::any> const& args);
-    //std::set<Position> pieceMoves(Board, Color, Kind)
+    //std::set<Position> pieceMoves(Board, Position)
     std::any pieceMoves(std::vector<std::any> const& args);
-    //Board movePiece(Board, Color, Kind, Position)
+    //Board movePiece(Board, Position, Position)
     std::any movePiece(std::vector<std::any> const& args);
 }
 
