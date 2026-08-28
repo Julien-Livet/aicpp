@@ -2,17 +2,17 @@
 
 #include "aicpp/Chess.h"
 
-chess::Piece chess::piece(Board const& board, Color const& color, Kind const& kind)
+chess::Piece chess::piece(Board const& board, Position const& position)
 {
     for (auto const& p : board.first)
     {
-        if (std::get<0>(p) == color && std::get<1>(p) == kind)
+        if (std::get<2>(p) == position)
             return p;
     }
 
     for (auto const& p : board.second)
     {
-        if (std::get<0>(p) == color && std::get<1>(p) == kind)
+        if (std::get<2>(p) == position)
             return p;
     }
 
@@ -110,20 +110,19 @@ std::any chess::removedPieces(std::vector<std::any> const& args)
 
 std::any chess::pieceMoves(std::vector<std::any> const& args)
 {
-    if (args.size() != 3)
+    if (args.size() != 2)
         throw std::runtime_error{"Wrong value"};
 
     auto const board{args[0]};
-    auto const color{args[1]};
-    auto const kind{args[2]};
+    auto const position{args[1]};
 
-    if (board.type() == typeid(Board) && color.type() == typeid(Color) && kind.type() == typeid(Kind))
+    if (board.type() == typeid(Board) && position.type() == typeid(Position))
     {
         auto const board_{std::any_cast<Board>(board)};
-        auto const color_{std::any_cast<Color>(color)};
-        auto const kind_{std::any_cast<Kind>(kind)};
-        auto const p{piece(board_, color_, kind_)};
-        auto const& position{std::get<2>(p)};
+        auto const position_{std::any_cast<Position>(position)};
+        auto const p{piece(board_, position_)};
+        auto const color_{std::get<0>(p)};
+        auto const kind_{std::get<1>(p)};
 
         std::set<Position> positions;
 
@@ -161,8 +160,8 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
 
         auto addRay = [&] (int dc, int dr)
         {
-            int column = static_cast<int>(std::get<0>(position));
-            int row = static_cast<int>(std::get<1>(position));
+            int column = static_cast<int>(std::get<0>(position_));
+            int row = static_cast<int>(std::get<1>(position_));
 
             while (true)
             {
@@ -188,8 +187,8 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
             }
         };
 
-        int const column = static_cast<int>(std::get<0>(position));
-        int const row = static_cast<int>(std::get<1>(position));
+        int const column = static_cast<int>(std::get<0>(position_));
+        int const row = static_cast<int>(std::get<1>(position_));
 
         switch (kind_)
         {
@@ -318,24 +317,22 @@ std::any chess::pieceMoves(std::vector<std::any> const& args)
 
 std::any chess::movePiece(std::vector<std::any> const& args)
 {
-    if (args.size() != 4)
+    if (args.size() != 3)
         throw std::runtime_error{"Wrong value"};
 
     auto const board{args[0]};
-    auto const color{args[1]};
-    auto const kind{args[2]};
-    auto const position{args[3]};
+    auto const from{args[1]};
+    auto const to{args[2]};
 
-    if (board.type() == typeid(Board) && color.type() == typeid(Color) && kind.type() == typeid(Kind) && position.type() == typeid(Position))
+    if (board.type() == typeid(Board) && from.type() == typeid(Position) && to.type() == typeid(Position))
     {
         auto board_{std::any_cast<Board>(board)};
-        auto const color_{std::any_cast<Color>(color)};
-        auto const kind_{std::any_cast<Kind>(kind)};
-        auto const position_{std::any_cast<Position>(position)};
-        auto const p{piece(board_, color_, kind_)};
-        auto const moves{std::any_cast<std::set<Position> >(pieceMoves({board, color, kind}))};
+        auto const from_{std::any_cast<Position>(from)};
+        auto const to_{std::any_cast<Position>(to)};
+        auto const p{piece(board_, from_)};
+        auto const moves{std::any_cast<std::set<Position> >(pieceMoves({board, from_}))};
 
-        if (!moves.contains(position_))
+        if (!moves.contains(to_))
             throw std::runtime_error{"Wrong value"};
 
         auto const itPiece{board_.first.find(p)};
@@ -347,7 +344,7 @@ std::any chess::movePiece(std::vector<std::any> const& args)
 
         for (auto it{board_.first.begin()}; it != board_.first.end(); ++it)
         {
-            if (std::get<2>(*it) == position_)
+            if (std::get<2>(*it) == to_)
             {
                 board_.second.emplace(*it);
                 board_.first.erase(it);
@@ -356,7 +353,7 @@ std::any chess::movePiece(std::vector<std::any> const& args)
             }
         }
 
-        board_.first.emplace(std::get<0>(p), std::get<1>(p), position_);
+        board_.first.emplace(std::get<0>(p), std::get<1>(p), to_);
 
         return board_;
     }
