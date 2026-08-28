@@ -19,20 +19,20 @@ chess::Piece chess::piece(Board const& board, Position const& position)
     throw std::runtime_error{"Wrong value"};
 }
 
-std::set<chess::Piece> chess::movablePieces(Board const& board, Color const& color)
+std::set<chess::Position> chess::movablePieces(Board const& board, Color const& color)
 {
-    Set set;
+    std::set<chess::Position> positions;
 
-    for (auto const& piece : board.second)
+    for (auto const& piece : board.first)
     {
         if (std::get<0>(piece) == color)
         {
-            if (!std::any_cast<std::set<Position> >(pieceMoves({board, piece})).empty())
-                set.emplace(piece);
+            if (!std::any_cast<std::set<Position> >(pieceMoves({board, std::get<2>(piece)})).empty())
+                positions.emplace(std::get<2>(piece));
         }
     }
 
-    return set;
+    return positions;
 }
 
 std::any chess::initialBoard(std::vector<std::any> const& args)
