@@ -70,7 +70,7 @@ namespace chess
     typedef Board_ Board;
 
     Piece piece(Board const& board, Position const& position);
-    std::set<Piece> movablePieces(Board const& board, Color const& color);
+    std::set<Position> movablePieces(Board const& board, Color const& color);
 
     //Board initialBoard();
     std::any initialBoard(std::vector<std::any> const& args);
