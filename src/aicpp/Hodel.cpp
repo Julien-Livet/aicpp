@@ -3080,10 +3080,10 @@ std::any hodel::crop(std::vector<std::any> const& args)
         auto const start_{std::any_cast<IntegerTuple>(start)};
         auto const dims_{std::any_cast<IntegerTuple>(dims)};
 
-        GridType result;
-
         try
         {
+            GridType result;
+
             if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
                 throw std::runtime_error{"Wrong value"};
 
@@ -3096,13 +3096,16 @@ std::any hodel::crop(std::vector<std::any> const& args)
 
                 result.emplace_back(row);
             }
+                
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
+            return result;
         }
         catch (const std::exception&)
         {
             throw std::runtime_error{"Wrong value"};
         }
-
-        return result;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -4637,16 +4640,45 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
         if (std::holds_alternative<GridType>(piece_))
         {
             auto grid = std::get<GridType>(piece_);
+            auto const grid_ = grid;
 
             std::reverse(grid.begin(), grid.end());
 
             for (auto& row : grid)
                 std::reverse(row.begin(), row.end());
 
-            return dmirror({Piece{grid}});
+            auto const result = std::any_cast<GridType>(dmirror({Piece{grid}}));
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
+            return result;
         }
 
-        return vmirror({dmirror({vmirror(args)})});
+        auto const result = vmirror({dmirror({vmirror(args)})});
+
+        if (std::holds_alternative<GridType>(piece_))
+        {
+            if (std::get<GridType>(piece_) == std::any_cast<GridType>(result))
+                throw std::runtime_error{"Wrong value"};
+        }
+        else
+        {
+            auto const patch{std::get<Patch>(piece_)};
+
+            if (std::holds_alternative<ObjectType>(patch))
+            {
+                if (std::get<ObjectType>(patch) == std::any_cast<ObjectType>(result))
+                    throw std::runtime_error{"Wrong value"};
+            }
+            else if (std::holds_alternative<IndicesType>(patch))
+            {
+                if (std::get<IndicesType>(patch) == std::any_cast<IndicesType>(result))
+                    throw std::runtime_error{"Wrong value"};
+            }
+        }
+
+        return result;
     }
     else if (piece.type() == typeid(GridType))
         return cmirror({Piece{std::any_cast<GridType>(piece)}});
@@ -5418,6 +5450,9 @@ std::any hodel::replace(std::vector<std::any> const& args)
             }
         }
 
+        if (result == grid_)
+            throw std::runtime_error{"Wrong value"};
+
         return result;
     }
 
@@ -5459,6 +5494,9 @@ std::any hodel::switch_(std::vector<std::any> const& args)
                     v = a_;
             }
         }
+
+        if (result == grid_)
+            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -6564,6 +6602,9 @@ std::any hodel::compress(std::vector<std::any> const& args)
 
                 result.emplace_back(std::move(row));
             }
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
