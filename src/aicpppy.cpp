@@ -534,7 +534,15 @@ class Engine
                         for (auto const& f1 : functions)
                         {
                             for (auto const& f2 : functions)
-                                inputs.emplace(std::any_cast<hodel::GridType>(f1({f2({grid})})));
+                            {
+                                try
+                                {
+                                    inputs.emplace(std::any_cast<hodel::GridType>(f1({f2({grid})})));
+                                }
+                                catch (std::exception const&)
+                                {
+                                }
+                            }
                         }
 
                         for (auto const& input : inputs)
