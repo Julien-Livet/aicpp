@@ -453,7 +453,7 @@ void learnInt(DslEngine& engine, std::string const& expression, int target)
 
     connnection.applyInputs(inputs);
 
-    auto const joined{args | std::views::join_with(std::string(", "))};
+    auto const joined{std::views::join_with(args, std::string(", "))};
     std::string s;
 
     for (char const& c : joined)
@@ -681,14 +681,14 @@ double arcHeuristic(std::any const& x, std::any const& y)
     else if (x.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(x);
-        
+
         if (std::holds_alternative<hodel::GridType>(piece))
             x_ = std::get<hodel::GridType>(piece);
     }
     else if (x.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(x);
-        
+
         if (std::holds_alternative<hodel::GridType>(element))
             x_ = std::get<hodel::GridType>(element);
     }
@@ -698,14 +698,14 @@ double arcHeuristic(std::any const& x, std::any const& y)
     else if (y.type() == typeid(hodel::Piece))
     {
         auto const& piece = std::any_cast<hodel::Piece>(y);
-        
+
         if (std::holds_alternative<hodel::GridType>(piece))
             y_ = std::get<hodel::GridType>(piece);
     }
     else if (y.type() == typeid(hodel::Element))
     {
         auto const& element = std::any_cast<hodel::Element>(y);
-        
+
         if (std::holds_alternative<hodel::GridType>(element))
             y_ = std::get<hodel::GridType>(element);
     }
@@ -756,7 +756,7 @@ std::tuple<double, double, std::string> processTask(std::string const& folder, s
             args = a;
             connection = std::make_unique<Connection>(std::move(c));
         }
-        
+
         results.emplace_back(*result);
     }
 
