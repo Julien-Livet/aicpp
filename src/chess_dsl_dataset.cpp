@@ -243,7 +243,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    size_t const depth{static_cast<size_t>(std::stoi(argv[1]))};
+    size_t depth{static_cast<size_t>(std::stoi(argv[1]))};
+    depth += (depth + 1) % 2;
     size_t const count{static_cast<size_t>(std::stoi(argv[2]))};
 
     auto const variables{chessDslVariableNeurons()};
@@ -280,6 +281,9 @@ int main(int argc, char* argv[])
         try
         {
             auto const connection{buildConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(chess::Board))};
+
+            if (connection.depth() % 2)
+                return;
 
             assert(connection.neuron().outputType() == typeid(chess::Board));
 
