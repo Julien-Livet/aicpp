@@ -640,6 +640,9 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
                 y.emplace_back(x.at(i));
         }
 
+        if (x == y)
+            throw std::runtime_error{"Wrong value"};
+
         return y;
     }
     else if (tup.type() == typeid(std::vector<GridType>))
@@ -1851,7 +1854,9 @@ std::any remove(std::any const& value, std::any const& container)
     auto const it{std::find(container_.begin(), container_.end(), value_)};
 
     if (it != container_.end())
-        container_.erase(it);
+        return std::any{};
+
+    container_.erase(it);
 
     return container_;
 }
@@ -4299,6 +4304,9 @@ std::any hodel::rot90(std::vector<std::any> const& args)
                     result.at(j).at(rows - 1 - i) = grid_.at(i).at(j);
             }
 
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
         catch (const std::exception&)
@@ -4342,6 +4350,9 @@ std::any hodel::rot180(std::vector<std::any> const& args)
                     result.at(rows - 1 - i).at(cols - 1 - j) = grid_.at(i).at(j);
             }
 
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
         catch (const std::exception&)
@@ -4384,6 +4395,9 @@ std::any hodel::rot270(std::vector<std::any> const& args)
                 for (size_t j = 0; j < cols; ++j)
                     result.at(cols - 1 - j).at(i) = grid_.at(i).at(j);
             }
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4435,6 +4449,9 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
                 result.insert({v, {d - i, j}});
             }
 
+            if (result == obj)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
 
@@ -4444,6 +4461,9 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({d - i, j});
+
+        if (result == indices)
+            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4495,6 +4515,9 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
                 result.insert({v, {i, d - j}});
             }
 
+            if (result == obj)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
 
@@ -4504,6 +4527,9 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({i, d - j});
+
+        if (result == indices)
+            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4543,6 +4569,9 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                         result.at(j).at(i) = grid.at(i).at(j);
                 }
 
+                if (result == grid)
+                    throw std::runtime_error{"Wrong value"};
+
                 return result;
             }
             catch (std::exception const&)
@@ -4568,6 +4597,9 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                 result.insert({v, {j - b + a, i - a + b}});
             }
 
+            if (result == obj)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
 
@@ -4577,6 +4609,9 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({j - b + a, i - a + b});
+
+        if (result == indices)
+            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4662,6 +4697,9 @@ std::any hodel::fill(std::vector<std::any> const& args)
                     result.at(i).at(j) = value_;
             }
 
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
         catch (std::exception const&)
@@ -4708,6 +4746,9 @@ std::any hodel::paint(std::vector<std::any> const& args)
                 if (0 <= i && i < h && 0 <= j && j < w)
                     result.at(i).at(j) = value;
             }
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4762,6 +4803,9 @@ std::any hodel::underfill(std::vector<std::any> const& args)
                     result.at(i).at(j) = value_;
             }
 
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
         catch (std::exception const&)
@@ -4809,6 +4853,9 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
                 if (0 <= i && i < h && 0 <= j && j < w && result.at(i).at(j) == bg)
                     result.at(i).at(j) = value;
             }
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4861,6 +4908,9 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
             result.emplace_back(new_row);
         }
 
+        if (result == grid_)
+            throw std::runtime_error{"Wrong value"};
+
         return result;
     }
 
@@ -4899,6 +4949,9 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
             for (IntegerType k = 0; k < factor_; ++k)
                 result.emplace_back(row);
         }
+
+        if (result == grid_)
+            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4943,6 +4996,9 @@ std::any hodel::upscale(std::vector<std::any> const& args)
                 for (IntegerType k = 0; k < factor_; ++k)
                     result.emplace_back(upscaled_row);
             }
+
+            if (result == grid)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -5032,6 +5088,9 @@ std::any hodel::downscale(std::vector<std::any> const& args)
                 if (i % factor_ == 0)
                     result.emplace_back(temp.at(i));
             }
+
+            if (result == grid_)
+                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
