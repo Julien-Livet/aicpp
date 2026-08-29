@@ -410,9 +410,9 @@ class ConnectionBuilder
 
                 for (auto const& type : inputTypes)
                     inp.emplace_back(type);
-                
+
                 connection_ = std::make_unique<Connection>(result.front().get(), inp);
-                    
+
                 return true;
             }
 
@@ -429,7 +429,7 @@ class ConnectionBuilder
 
             return true;
         }
-        
+
         Connection& connection() const
         {
             if (!connection_)
@@ -444,8 +444,8 @@ class ConnectionBuilder
                 return false;
 
             auto const s{connection_->string()};
-            
-            return s.contains("(I)") || s.contains(", I)") || s.contains(", I,") || s.contains(", I)"); 
+
+            return s.contains("(I)") || s.contains(", I)") || s.contains(", I,") || s.contains(", I)");
         }
 
     private:
@@ -586,7 +586,7 @@ class Engine
                         iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));
 
                         auto const ok{connections_[i].replace(iNeurons_.back())};
-                        
+
                         assert(ok);
 
                         newConnections.emplace_back(connections_[i]);
@@ -630,7 +630,7 @@ class Engine
                         auto const& input{inputs[j]};
                         auto const& output{outputs[j]};
 
-                        iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; }, std::vector<std::type_index>{}, typeid(hodel::GridType);
+                        iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
                         try
                         {
