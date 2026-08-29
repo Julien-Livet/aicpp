@@ -1853,7 +1853,7 @@ std::any remove(std::any const& value, std::any const& container)
     auto container_{std::any_cast<Container>(container)};
     auto const it{std::find(container_.begin(), container_.end(), value_)};
 
-    if (it != container_.end())
+    if (it == container_.end())
         return std::any{};
 
     container_.erase(it);
