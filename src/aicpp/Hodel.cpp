@@ -298,7 +298,7 @@ std::any hodel::invert(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerType>(x)};
 
-            return IntegerType{-y};
+            return static_cast<IntegerType>(-y);
         }
         else if (std::holds_alternative<IntegerTuple>(x))
         {
@@ -343,7 +343,7 @@ std::any hodel::double_(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerType>(x)};
 
-            return IntegerType{y * 2};
+            return y * IntegerType{2};
         }
         else if (std::holds_alternative<IntegerTuple>(x))
         {
@@ -375,7 +375,7 @@ std::any hodel::halve(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerType>(x)};
 
-            return IntegerType{y / 2};
+            return y / IntegerType{2};
         }
         else if (std::holds_alternative<IntegerTuple>(x))
         {
@@ -1346,12 +1346,12 @@ std::any hodel::increment(std::vector<std::any> const& args)
         auto const y{std::any_cast<Numerical>(x)};
 
         if (std::holds_alternative<IntegerType>(y))
-            return IntegerType{std::get<IntegerType>(y) + 1};
+            return std::get<IntegerType>(y) + IntegerType{1};
         else if (std::holds_alternative<IntegerTuple>(y))
         {
             auto const z{std::get<IntegerTuple>(y)};
 
-            return IntegerTuple{z.first + 1, z.second + 1};
+            return IntegerTuple{z.first + IntegerType{1}, z.second + IntegerType{1}};
         }
     }
 
@@ -1374,12 +1374,12 @@ std::any hodel::decrement(std::vector<std::any> const& args)
         auto const y{std::any_cast<Numerical>(x)};
 
         if (std::holds_alternative<IntegerType>(y))
-            return IntegerType{std::get<IntegerType>(y) - 1};
+            return std::get<IntegerType>(y) - IntegerType{1};
         else if (std::holds_alternative<IntegerTuple>(y))
         {
             auto const z{std::get<IntegerTuple>(y)};
 
-            return IntegerTuple{z.first - 1, z.second - 1};
+            return IntegerTuple{z.first - IntegerType{1}, z.second - IntegerType{1}};
         }
     }
 
@@ -1627,7 +1627,7 @@ std::any hodel::extract(std::vector<std::any> const& args)
     auto const condition{args[1]};
 
     if (condition.type() != typeid(Callable))
-        throw std::runtime_error{"Wrong value"}; 
+        throw std::runtime_error{"Wrong value"};
 
     auto const condition_{std::any_cast<Callable>(condition)};
 
@@ -2166,13 +2166,13 @@ std::any hodel::power(std::vector<std::any> const& args)
     {
         auto const n_{std::any_cast<IntegerType>(n)};
 
-        if (n_ <= 0 || n_ > 10)
+        if (n_ <= IntegerType{0} || n_ > IntegerType{10})
             throw std::runtime_error{"Wrong value"};
 
-        if (n_ == 1)
+        if (n_ == IntegerType{1})
             return function;
 
-        return compose({function, power({function, IntegerType{n_ - 1}})});
+        return compose({function, power({function, n_ - IntegerType{1}})});
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -2443,7 +2443,7 @@ std::any prapply(hodel::Callable const& function, std::any const& a, std::any co
     {
         return std::any{};
     }
-    
+
     return U{result.begin(), result.end()};
 }
 
@@ -2589,7 +2589,7 @@ std::any hodel::height(std::vector<std::any> const& args)
             auto const lm{std::any_cast<IntegerType>(lowermost({std::get<Patch>(piece_)}))};
             auto const um{std::any_cast<IntegerType>(uppermost({std::get<Patch>(piece_)}))};
 
-            return IntegerType{lm - um + 1};
+            return lm - um + IntegerType{1};
         }
     }
     else if (piece.type() == typeid(GridType))
@@ -2603,7 +2603,7 @@ std::any hodel::height(std::vector<std::any> const& args)
         auto const lm{std::any_cast<IntegerType>(rightmost({object}))};
         auto const um{std::any_cast<IntegerType>(leftmost({object}))};
 
-        return IntegerType{lm - um + 1};
+        return lm - um + IntegerType{1};
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -2632,14 +2632,14 @@ std::any hodel::width(std::vector<std::any> const& args)
             {
                 throw std::runtime_error{"Wrong value"};
             }
-            
+
         }
         else if (std::holds_alternative<Patch>(piece_))
         {
             auto const rm{std::any_cast<IntegerType>(rightmost({std::get<Patch>(piece_)}))};
             auto const lm{std::any_cast<IntegerType>(leftmost({std::get<Patch>(piece_)}))};
 
-            return IntegerType{rm - lm + 1};
+            return rm - lm + IntegerType{1};
         }
     }
     else if (piece.type() == typeid(GridType))
@@ -2653,7 +2653,7 @@ std::any hodel::width(std::vector<std::any> const& args)
         auto const rm{std::any_cast<IntegerType>(rightmost({object}))};
         auto const lm{std::any_cast<IntegerType>(leftmost({object}))};
 
-        return IntegerType{rm - lm + 1};
+        return rm - lm + IntegerType{1};
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -2886,7 +2886,7 @@ std::any hodel::ofcolor(std::vector<std::any> const& args)
         try
         {
             IndicesType indices;
-            
+
             for (size_t i{0}; i < grid_.size(); ++i)
             {
                 for (size_t j{0}; j < grid_.at(i).size(); ++j)
@@ -3245,7 +3245,7 @@ std::any hodel::normalize(std::vector<std::any> const& args)
             try
             {
                 return shift({obj, IntegerTuple{-std::any_cast<IntegerType>(uppermost({obj})), -std::any_cast<IntegerType>(leftmost({obj}))}});
-        
+
             }
             catch (std::exception const&)
             {
@@ -3262,7 +3262,7 @@ std::any hodel::normalize(std::vector<std::any> const& args)
             try
             {
                 return shift({indices, IntegerTuple{-std::any_cast<IntegerType>(uppermost({indices})), -std::any_cast<IntegerType>(leftmost({indices}))}});
-        
+
             }
             catch (std::exception const&)
             {
@@ -3274,7 +3274,7 @@ std::any hodel::normalize(std::vector<std::any> const& args)
         return normalize({Patch{std::any_cast<ObjectType>(patch)}});
     else if (patch.type() == typeid(IndicesType))
         return normalize({Patch{std::any_cast<IndicesType>(patch)}});
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -3937,8 +3937,8 @@ std::any hodel::manhattan(std::vector<std::any> const& args)
             {
                 for (auto const& [bi, bj] : std::any_cast<IndicesType>(toindices({b})))
                 {
-                    IntegerType const d{std::abs(ai - bi) + std::abs(aj - bj)};
-                    dmin = std::min(dmin, d);
+                    auto const d{std::abs(static_cast<int>(ai) - static_cast<int>(bi)) + std::abs(static_cast<int>(aj) - static_cast<int>(bj))};
+                    dmin = static_cast<IntegerType>(std::min(static_cast<int>(dmin), d));
                 }
             }
 
@@ -4669,7 +4669,7 @@ std::any hodel::fill(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -4716,7 +4716,7 @@ std::any hodel::paint(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -4769,7 +4769,7 @@ std::any hodel::underfill(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -4817,7 +4817,7 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
     }
-    
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -5969,7 +5969,7 @@ std::any hodel::delta(std::vector<std::any> const& args)
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
-    
+
         if (std::holds_alternative<ObjectType>(patch_))
         {
             auto const obj{std::get<ObjectType>(patch_)};
@@ -6103,7 +6103,7 @@ std::any hodel::inbox(std::vector<std::any> const& args)
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
-    
+
         if (std::holds_alternative<ObjectType>(patch_))
         {
             auto const obj{std::get<ObjectType>(patch_)};
@@ -6156,7 +6156,7 @@ std::any hodel::outbox(std::vector<std::any> const& args)
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
-    
+
         if (std::holds_alternative<ObjectType>(patch_))
         {
             auto const obj{std::get<ObjectType>(patch_)};
@@ -6209,7 +6209,7 @@ std::any hodel::box(std::vector<std::any> const& args)
     if (patch.type() == typeid(Patch))
     {
         auto const patch_{std::any_cast<Patch>(patch)};
-    
+
         if (std::holds_alternative<ObjectType>(patch_))
         {
             auto const obj{std::get<ObjectType>(patch_)};
