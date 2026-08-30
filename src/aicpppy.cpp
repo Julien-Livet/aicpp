@@ -529,7 +529,7 @@ class Engine
                         std::unordered_set<hodel::GridType> inputs;
                         std::vector<hodel::GridType> outputs;
 
-                        std::vector<std::function<std::any(std::vector<std::any>)> > const functions{hodel::identity, hodel::rot90, hodel::rot180, hodel::rot270, hodel::hmirror, hodel::vmirror, hodel::cmirror, hodel::dmirror};
+                        std::vector<std::function<std::any(std::vector<std::any>)> > const functions{hodel::rot90, hodel::rot180, hodel::rot270, hodel::hmirror, hodel::vmirror, hodel::cmirror, hodel::dmirror};
 
                         for (auto const& f1 : functions)
                         {
