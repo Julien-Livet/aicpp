@@ -779,6 +779,31 @@ class Engine
             return result;
         }
 
+        std::vector<hodel::GridType> dfConnectionBuilderOutputs(std::vector<hodel::GridType> const& inputs)
+        {
+            auto connection{connectionBuilder_.connection()};
+
+            auto const ok{connection.replace(iNeuron_)};
+
+            assert(ok);
+
+            std::vector<hodel::GridType> outputs;
+            outputs.reserve(inputs.size());
+
+            for (size_t j{0}; j < inputs.size(); ++j)
+            {
+                auto const& input{inputs[j]};
+
+                iNeuron_.function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
+
+                auto const o{std::any_cast<hodel::GridType>(connection.output())};
+
+                outputs.emplace_back(o);
+            }
+
+            return outputs;
+        }
+
         std::vector<std::vector<double> > dfConnectionBuilderVsPairs(std::vector<hodel::GridType> const& inputs, std::vector<hodel::GridType> const& outputs)
         {
             assert(inputs.size() == outputs.size());
@@ -899,6 +924,7 @@ PYBIND11_MODULE(aicpppy, m)
         .def("orderedIndexes", &Engine::orderedIndexes)
         .def("connectionBuilder", &Engine::connectionBuilder, py::return_value_policy::reference)
         .def("dfConnectionBuilder", &Engine::dfConnectionBuilder)
+        .def("dfConnectionBuilderOutputs", &Engine::dfConnectionBuilderOutputs)
         .def("dfConnectionBuilderVsPairs", &Engine::dfConnectionBuilderVsPairs)
         .def("dfIdentity", &Engine::dfIdentity)
         .def("dfIdentityVsPairs", &Engine::dfIdentityVsPairs)
