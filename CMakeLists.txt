@@ -4,8 +4,6 @@ project(aicpp)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-cmake_policy(SET CMP0148 NEW)
-
 set(gtest_force_shared_crt on)
 
 include(FetchContent)
