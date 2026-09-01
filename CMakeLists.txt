@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(gtest_force_shared_crt on)
 
-set(USE_TESTS "FALSE")
+set(USE_TESTS "FALSE" CACHE STRING "Enable or disable tests")
 
 if(USE_TESTS STREQUAL "TRUE")
     include(FetchContent)
