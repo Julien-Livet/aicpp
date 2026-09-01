@@ -6,13 +6,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(gtest_force_shared_crt on)
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG main
-)
-FetchContent_MakeAvailable(googletest)
+set(USE_TESTS "FALSE")
+
+if(USE_TESTS STREQUAL "TRUE")
+    include(FetchContent)
+    FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG main
+    )
+    FetchContent_MakeAvailable(googletest)
+endif()
 
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -25,12 +29,15 @@ include_directories(include)
 set(SRCS src/aicpp/Connection.cpp src/aicpp/Neuron.cpp)
 set(HEADERS include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h)
 
-enable_testing()
-add_executable(test_aicpp
-               src/test_aicpp.cpp
-               src/aicpp/Brain.cpp src/aicpp/DslEngine.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
-               include/aicpp/Brain.h include/aicpp/HodelDslSystem.h include/aicpp/Hodel.h include/aicpp/DslEngine.h
-               ${SRCS} ${HEADERS})
+if(USE_TESTS STREQUAL "TRUE")
+    enable_testing()
+    add_executable(test_aicpp
+                src/test_aicpp.cpp
+                src/aicpp/Brain.cpp src/aicpp/DslEngine.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
+                include/aicpp/Brain.h include/aicpp/HodelDslSystem.h include/aicpp/Hodel.h include/aicpp/DslEngine.h
+                ${SRCS} ${HEADERS})
+endif()
+
 add_executable(dsl_dataset
                src/dsl_dataset.cpp
                src/aicpp/Brain.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
@@ -49,7 +56,10 @@ pybind11_add_module(aicpppy
                     include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
                     ${SRCS} ${HEADERS})
 
-target_include_directories(test_aicpp PRIVATE include)
+if(USE_TESTS STREQUAL "TRUE")
+    target_include_directories(test_aicpp PRIVATE include)
+endif()
+
 target_include_directories(dsl_dataset PRIVATE include)
 target_include_directories(aicpppy PRIVATE include)
 target_include_directories(chess_dsl_dataset PRIVATE include)
@@ -60,23 +70,31 @@ set_target_properties(aicpppy PROPERTIES
 )
 
 if (WIN32)
-    target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+    if(USE_TESTS STREQUAL "TRUE")
+        target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+    endif()
+
     target_link_libraries(dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(aicpppy PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 else()
-    target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+    if(USE_TESTS STREQUAL "TRUE")
+        target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+    endif()
+
     target_link_libraries(dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(aicpppy PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 endif()
 
-add_test(NAME TestAiCpp COMMAND test_aicpp)
+if(USE_TESTS STREQUAL "TRUE")
+    add_test(NAME TestAiCpp COMMAND test_aicpp)
 
-if (WIN32)
-else()
-include(GoogleTest)
-gtest_discover_tests(test_aicpp)
+    if (WIN32)
+    else()
+    include(GoogleTest)
+    gtest_discover_tests(test_aicpp)
+    endif()
 endif()
 
 install(TARGETS aicpppy LIBRARY DESTINATION .)
