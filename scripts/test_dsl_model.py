@@ -17,18 +17,7 @@ dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device 
 model = dslModel.to(device)
 checkpoint = torch.load(modelFilename, map_location = device)
 model.load_state_dict(checkpoint["model_state"])
-gridModel = dsl_model.ARCContextEncoder(d_model = 256)
-builder = dsl_model.DSLGraphBuilder(dsl_rl.VOCAB.token2id)
-gridModel = dsl_model.ARCContextEncoder(d_model = 256)
-astModel = dsl_model.DSLProgramEncoder(
-    vocab_size = len(dsl_rl.VOCAB.token2id),
-    d_model = 256
-)
-costModel = dsl_model.CostEncoder(
-    input_dim = 5,
-    d_model = 256
-)
-engine = Engine("dsl_dataset")
+engine = Engine("")
 
 MAX_COUNT = 500
 
