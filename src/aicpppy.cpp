@@ -461,6 +461,9 @@ class Engine
     public:
         Engine(std::string const& dataString)
         {
+            if (dataString.empty())
+                return;
+
             std::map<std::type_index, std::vector<std::reference_wrapper<Neuron const> > > variableNeuronsByOutputType;
 
             for (auto const& variable : variableNeurons_)
