@@ -10,7 +10,7 @@ import pandas as pd
 import test_dsl_model
 import torch
 
-def processTask(engine, model, data, depth: int = 6):
+def processTask(engine, model, id_, data, depth: int = 6):
     inputsTest: list = [(ex["input"]) for ex in data["test"]]
     trainPairs: list = [(ex["input"], ex["output"]) for ex in data["train"]]
 
@@ -84,7 +84,7 @@ def processTask(engine, model, data, depth: int = 6):
     while (len(candidates) and not candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
         candidate = candidates.pop()
 
-    print(f'{datetime.datetime.now()} #{id} Found program: {program}, cost: {df.sum(axis = 0, skipna = False)["Total cost"]}')
+    print(f'{datetime.datetime.now()} #{id_} Found program: {candidate[0]}, cost: {candidate[1].sum(axis = 0, skipna = False)["Total cost"]}')
 
     return candidate
 
@@ -97,10 +97,10 @@ def processTasks(tasks):
 
     results = {}
 
-    for id, arc_data in tasks:
-        program, df, testOutputs = processTask(engine, model, arc_data)
+    for id_, arc_data in tasks:
+        program, df, testOutputs = processTask(engine, model, id_, arc_data)
 
-        results[id] = [{"attempt_1": testOutputs, "attempt_2": testOutputs}]
+        results[id_] = [{"attempt_1": testOutputs, "attempt_2": testOutputs}]
 
     return results
 
@@ -113,14 +113,14 @@ if (__name__ == "__main__"):
     outputFilename: str = "submission.json"
     submission: dict = {}
 
-    #tasks: list = np.array_split(list(data.items()), os.cpu_count())
+    tasks: list = np.array_split(list(data.items()), os.cpu_count())
 
-    #from multiprocessing import Pool
+    import multiprocessing
 
-    #with Pool(os.cpu_count()) as pool:
-    #    results: list = pool.map(processTasks, tasks)
+    multiprocessing.set_start_method("spawn", force = True)
 
-    results = processTasks(data.items())
+    with multiprocessing.Pool(os.cpu_count()) as pool:
+        results: list = pool.map(processTasks, tasks)
 
     submission: dict = {}
 
