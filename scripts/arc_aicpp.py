@@ -100,7 +100,12 @@ def processTasks(tasks):
     for id_, arc_data in tasks:
         program, df, testOutputs = processTask(engine, model, id_, arc_data)
 
-        results[id_] = [{"attempt_1": testOutputs, "attempt_2": testOutputs}]
+        l: list = []
+
+        for output in testOutputs:
+            l.append({"attempt_1": output, "attempt_2": output})
+
+        results[id_] = l
 
     return results
 
