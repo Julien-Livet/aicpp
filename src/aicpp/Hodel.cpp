@@ -4426,11 +4426,15 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
         if (std::holds_alternative<GridType>(piece_))
         {
-            auto grid = std::get<GridType>(piece_);
+            auto const grid = std::get<GridType>(piece_);
+            auto result{grid};
 
-            std::reverse(grid.begin(), grid.end());
+            std::reverse(result.begin(), result.end());
 
-            return grid;
+            if (result == grid)
+                throw std::runtime_error{"Wrong value"};
+
+            return result;
         }
 
         auto patch = std::get<Patch>(piece_);
@@ -4491,12 +4495,16 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
         if (std::holds_alternative<GridType>(piece_))
         {
-            auto grid = std::get<GridType>(piece_);
+            auto const grid = std::get<GridType>(piece_);
+            auto result{grid};
 
-            for (auto& row : grid)
+            for (auto& row : result)
                 std::reverse(row.begin(), row.end());
 
-            return grid;
+            if (result == grid)
+                throw std::runtime_error{"Wrong value"};
+
+            return result;
         }
 
         auto patch = std::get<Patch>(piece_);
