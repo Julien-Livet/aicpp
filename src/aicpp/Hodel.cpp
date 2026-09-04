@@ -659,6 +659,9 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
                 y.emplace_back(x.at(i));
         }
 
+        if (x == y)
+            throw std::runtime_error{"Wrong value"};
+
         return y;
     }
 
