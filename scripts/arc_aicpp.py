@@ -93,7 +93,7 @@ def processTasks(tasks):
     model = dslModel.to(test_dsl_model.device)
     checkpoint = torch.load(test_dsl_model.modelFilename, map_location = test_dsl_model.device)
     model.load_state_dict(checkpoint["model_state"])
-    engine = Engine("")
+    engine = Engine()
 
     results = {}
 
