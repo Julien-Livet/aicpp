@@ -122,7 +122,7 @@ def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
     assert(not (trainCost + testCost))
 
     return program, trainCost, testCost
-"""
+
 def test_task67a3c6ac():
     passTask("training", "67a3c6ac", True, 2)
 
@@ -131,7 +131,6 @@ def test_task68b16354():
 
 def test_task74dd1130():
     passTask("training", "74dd1130", True, 2)
-"""
 """
 def test_hodel_tasks():
     tasksByStep: dict = test_dsl_engine.hodelTasksByStep()
@@ -158,7 +157,6 @@ def test_hodel_tasks():
 
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
 """
-
 def passTasks(tasks, debug: bool = True):
     dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
@@ -244,7 +242,6 @@ def test_subtraining_tasks():
 def test_training_tasks():
     processTasks("training", debug = True)
 """
-#"""
+
 def test_evaluation_tasks():
     processTasks("evaluation", debug = True)
-#"""
