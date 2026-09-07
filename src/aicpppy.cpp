@@ -459,7 +459,7 @@ class ConnectionBuilder
 class Engine
 {
     public:
-        Engine(std::string const& dataString)
+        Engine(std::string const& dataString = std::string())
         {
             if (dataString.empty())
                 return;
@@ -920,6 +920,7 @@ PYBIND11_MODULE(aicpppy, m)
 {
     py::class_<Engine>(m, "Engine")
         .def(py::init<std::string const&>())
+        .def(py::init<>())
         .def("count", &Engine::count)
         .def("trajectory", &Engine::trajectory)
         .def("grids", &Engine::grids)
