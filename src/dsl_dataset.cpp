@@ -8,6 +8,8 @@
 #include <set>
 #include <thread>
 
+#include <boost/timer/progress_display.hpp>
+
 #include "aicpp/Brain.h"
 #include "aicpp/Connection.h"
 #include "aicpp/Hodel.h"
@@ -796,7 +798,9 @@ int main(int argc, char* argv[])
     std::set<Pair, PairLess> pairs;
     std::mutex mutex;
 
-    auto const addConnection = [&mutex, &pairs, &variableNeuronsByOutputType, &neuronsByOutputType, &iNeuron, depth, count] () {
+    boost::timer::progress_display progress(count, std::cout);
+
+    auto const addConnection = [&progress, &mutex, &pairs, &variableNeuronsByOutputType, &neuronsByOutputType, &iNeuron, depth, count] () {
         if (pairs.size() >= count)
             return;
 
@@ -863,7 +867,10 @@ int main(int argc, char* argv[])
                     {
                         std::lock_guard<std::mutex> lock(mutex);
 
-                        pairs.emplace(input, std::move(connection));
+                        auto const p{pairs.emplace(input, std::move(connection))};
+
+                        if (p.second)
+                            ++progress;
 
                         break;
                     }
