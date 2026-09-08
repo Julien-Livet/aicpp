@@ -208,6 +208,8 @@ def processTasks(folder: str, taskIds = set(), debug: bool = True) -> Dict[str, 
         for task, (program, dfTrain, dfTest) in results.items()
     ]
 
+    rows = sorted(rows, key = lambda x: x[0])
+
     md = tabulate.tabulate(
         rows,
         headers = ["Task", "Train cost", "Test cost", "Program"],
