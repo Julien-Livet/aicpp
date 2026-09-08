@@ -13,8 +13,8 @@ def loadFolder(folder: str) -> dict:
     
     return data
 
-def processTask(lines: str, functions: set) -> str:
-    content: str = "{\n    Connection const I{iNeuron, {}};\n"
+def processTask(task: str, lines: str, functions: set) -> str:
+    content: str = "{\n    //" + task + "\n\n    Connection const I{iNeuron, {}};\n"
 
     symbols = set()
 
@@ -102,6 +102,6 @@ if (__name__ == "__main__"):
     content: str = ""
 
     for id_, lines in tasks.items():
-        content += processTask(lines, functions)
+        content += processTask(id_, lines, functions)
 
     print(content)
