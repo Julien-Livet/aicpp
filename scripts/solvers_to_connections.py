@@ -14,7 +14,7 @@ def loadFolder(folder: str) -> dict:
     return data
 
 def processTask(task: str, data: dict, lines: str, functions: set) -> str:
-    content: str = "{\n    //" + task + "\n\n    Connection const I{iNeuron_, {}};\n    std::vector<hodel::GridType> grids;\n"
+    content: str = "{\n    //" + task + "\n\n    std::vector<hodel::GridType> grids;\n"
 
     trainPairs: list = [(ex["input"], ex["output"]) for ex in data["train"]]
 
@@ -24,6 +24,8 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
         content += "    grids.emplace_back(hodel::GridType" + str(i).replace("[", "{").replace("]", "}") + ");\n"
 
     content += "    grids_.emplace_back(grids);\n\n"
+    content += '    iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));\n'
+    content += "    Connection const I{iNeurons_.back(), {}};\n"
 
     symbols = list()
 
@@ -69,11 +71,11 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
             rightSymbol += "_"
 
         if (l[0] in functions):
-            content += f"    Connection const {rightSymbol}" + '{primitiveNeurons_.at("' + l[0] + 'X")'
-            content += ", {" + s + "}}"
+            content += f"    Connection const {rightSymbol}" + '{buildConnection("' + l[0] + '"'
+            content += ", {" + s + "})}"
         else:
-            content += f"    Connection const {rightSymbol}" + '{primitiveNeurons_.at("lbindX")'
-            content += ", {" + l[0] + ", " + s + "}}"
+            content += f"    Connection const {rightSymbol}" + '{buildConnection("lbind"'
+            content += ", {" + l[0] + ", " + s + "})}"
 
         content += ";\n"
 
@@ -113,8 +115,5 @@ if (__name__ == "__main__"):
 
     for id_, lines in tasks.items():
         content += processTask(id_, data[id_], lines, functions)
-
-    content += "for (size_t i{0}; i < " + f"{len(tasks)}; ++i)\n"
-    content += '    iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));\n'
 
     print(content)
