@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 project(aicpp)
 
+option(WITHOUT_HODEL_TASKS "Do not use Hodel tasks" OFF)
+
+if(WITHOUT_HODEL_TASKS)
+    add_definitions(-DWITHOUT_HODEL_TASKS)
+endif()
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
