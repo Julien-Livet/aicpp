@@ -273,6 +273,7 @@ namespace hodel
     //IntegerVector mapply(Callable, GridType)
     //ObjectType mapply(Callable, Objects)
     //ObjectType mapply(Callable, std::vector<ObjectType>)
+    //ObjectType mapply(Callable, IndicesType)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
     //Boolean papply(Callable, std::vector<Boolean>, std::vector<Boolean>)
     //IntegerTuple papply(Callable, std::vector<IntegerType>, std::vector<IntegerType>)
