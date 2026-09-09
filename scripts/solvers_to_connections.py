@@ -13,25 +13,23 @@ def loadFolder(folder: str) -> dict:
     
     return data
 
-def processTask(task: str, lines: str, functions: set) -> str:
-    content: str = "{\n    //" + task + "\n\n    Connection const I{iNeuron, {}};\n"
+def processTask(task: str, data: dict, lines: str, functions: set) -> str:
+    content: str = "{\n    //" + task + "\n\n    Connection const I{iNeuron_, {}};\n    std::vector<hodel::GridType> grids;\n"
 
-    symbols = set()
+    trainPairs: list = [(ex["input"], ex["output"]) for ex in data["train"]]
+
+    content += f"    grids.reserve({len(trainPairs)});\n"
+
+    for i, _ in trainPairs:
+        content += "    grids.emplace_back(hodel::GridType" + str(i).replace("[", "{").replace("]", "}") + ");\n"
+
+    content += "    grids_.emplace_back(grids);\n\n"
+
+    symbols = list()
 
     for line in lines:
         l = line.split(" = ")
-        symbols.add((l[0].strip(), l[1]))
-
-    indices: dict = {}
-    
-    for symbol, _ in symbols:
-        for i, line in enumerate(lines):
-            if (symbol in line):
-                indices[symbol] = i
-                break
-    
-    indices["O"] = len(lines) - 1
-    indices = sorted(indices.items(), key = lambda x: x[1])
+        symbols.append((l[0].strip(), l[1]))
 
     onlySymbols = set(s for s, _ in symbols)
     otherSymbols = set()
@@ -50,24 +48,36 @@ def processTask(task: str, lines: str, functions: set) -> str:
         if (symbol == "I"):
             continue
 
-        content += f"    Connection const {symbol}" + '{variables.at("' + symbol + '"), {}};\n'
+        rightSymbol = symbol
+        
+        if (symbol in ("double", "switch")):
+            rightSymbol += "_"
+
+        content += f"    Connection const {rightSymbol}" + '{variableNeurons_.at("' + symbol + '"), {}};\n'
 
     symbols = dict(symbols)
 
-    for symbol, _ in indices:
-        l = symbols[symbol].split("(")
+    for symbol, definition in symbols.items():
+        l = definition.split("(")
         s = l[1].replace(")", "")
+
+        s = s.replace("double", "double_").replace("switch", "switch_")
+
+        rightSymbol = symbol
         
+        if (symbol in ("double", "switch")):
+            rightSymbol += "_"
+
         if (l[0] in functions):
-            content += f"    Connection const {symbol}" + '{primitives.at("' + l[0] + 'X")'
+            content += f"    Connection const {rightSymbol}" + '{primitiveNeurons_.at("' + l[0] + 'X")'
             content += ", {" + s + "}}"
         else:
-            content += f"    Connection {symbol}" + "{" + l[0] + "};\n"
-            content += f"    {symbol}.applyInputs(" + "{" + s + "})"
+            content += f"    Connection const {rightSymbol}" + '{primitiveNeurons_.at("lbindX")'
+            content += ", {" + l[0] + ", " + s + "}}"
 
         content += ";\n"
 
-    content += "}\n"
+    content += "\n    connections_.emplace_back(O);\n}\n\n"
 
     return content
 
@@ -102,6 +112,9 @@ if (__name__ == "__main__"):
     content: str = ""
 
     for id_, lines in tasks.items():
-        content += processTask(id_, lines, functions)
+        content += processTask(id_, data[id_], lines, functions)
+
+    content += "for (size_t i{0}; i < " + f"{len(tasks)}; ++i)\n"
+    content += '    iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));\n'
 
     print(content)
