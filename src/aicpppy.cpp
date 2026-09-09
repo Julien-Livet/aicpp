@@ -633,6 +633,7 @@ class Engine
 
         void addHodelTasks()
         {
+#ifndef WITHOUT_HODEL_TASKS
             {
                 //67a3c6ac
 
@@ -14714,6 +14715,7 @@ class Engine
 
                 connections_.emplace_back(O);
             }
+#endif // WITHOUT_HODEL_TASKS
         }
 
         ConnectionBuilder& connectionBuilder()
