@@ -27,13 +27,13 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
     content += '    iNeurons_.emplace_back("I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType));\n'
     content += "    Connection const I{iNeurons_.back(), {}};\n"
 
-    symbols = list()
+    symbols: list = []
 
     for line in lines:
         l = line.split(" = ")
         symbols.append((l[0].strip(), l[1]))
 
-    onlySymbols = set(s for s, _ in symbols)
+    onlySymbols = {s for s, _ in symbols}
     otherSymbols = set()
 
     for line in lines:
@@ -85,7 +85,7 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
 
 if (__name__ == "__main__"):
     data: dict = loadFolder("training")
-    data.update(loadFolder("evaluation"))
+    #data.update(loadFolder("evaluation"))
 
     with open("arc-dsl/solvers.py", "r") as f:
         content = f.read()
