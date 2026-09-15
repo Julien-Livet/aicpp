@@ -14,7 +14,7 @@ from torch_geometric.nn import global_mean_pool
 from typing import List, Tuple
 
 Grid = Tuple[Tuple[int]]
-M: int = 10
+M: int = 50
 
 scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
 
@@ -791,8 +791,8 @@ if (__name__ == "__main__"):
         programCount: int = 1
         uniqueCount: int = 0
 
-        MAX_ITERATIONS_PER_TARGET: int = 100000
-        PLATEAU_PATIENCE: int = 10000
+        MAX_ITERATIONS_PER_TARGET: int = 500000
+        PLATEAU_PATIENCE: int = 50000
 
         best_seen_cost = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
         iters_since_improvement = 0
@@ -814,8 +814,17 @@ if (__name__ == "__main__"):
                 addOutput(outputFilename, f"- {datetime.datetime.now()} #{validCount}({uniqueCount})/{count} Searched program ({programCount}/{numPrograms}): `{costs[0][1]}`, cost: `{costs[0][0]}`")
                 addOutput(outputFilename, "    - Program pool")
 
+                iAdded: bool = False
+
                 for candidate in candidates:
-                    addOutput(outputFilename, f"        - Program: `{candidate[0]}`, cost: `{candidate[1].sum(axis=0, skipna=False)["Total cost"]}`")
+                    add: bool = True
+
+                    if (candidate[0] == "I"):
+                        add = not iAdded
+                        iAdded = True
+
+                    if (add):
+                        addOutput(outputFilename, f"        - Program: `{candidate[0]}`, cost: `{candidate[1].sum(axis=0, skipna=False)["Total cost"]}`")
 
                 show = False
 
