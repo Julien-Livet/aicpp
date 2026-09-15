@@ -766,24 +766,13 @@ if (__name__ == "__main__"):
         targetProgram: str = engine.program(j)
         grids = engine.grids(j)
         outputs = engine.outputs(j)
-
-        if (programDepth(targetProgram) != 1): #TODO: to remove
-            continue #TODO: to remove
-
         pairs = list(zip(grids, outputs))
-
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
         inputs = inputs.to(device)
         outputs = outputs.to(device)
         masks = masks.to(device)
         costs = list(reversed(trajectory))
         costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
-
-        costs = list(filter(lambda x: programDepth(x[1]) == 1, costs)) #TODO: to remove
-
-        if (len(costs) == 0): #TODO: to remove
-            continue #TODO: to remove
-
         candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
 
         addOutput(outputFilename, f"# {i+1}/{n} Target program: `{targetProgram}` (trajectory: {len(costs)} programs)")
