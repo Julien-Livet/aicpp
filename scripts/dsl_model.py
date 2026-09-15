@@ -363,28 +363,17 @@ class ARCContextEncoder(nn.Module):
         return z_grids
 
 def pad_grid(grid, max_h, max_w, pad_value=0):
-    h = len(grid)
-    w = len(grid[0])
-
     padded = [
-        list(row) + [pad_value] * (max_w - w)
+        list(row) + [pad_value] * (max_w - len(row))
         for row in grid
     ]
-
-    padded += [
-        [pad_value] * max_w
-        for _ in range(max_h - h)
-    ]
+    padded += [[pad_value] * max_w for _ in range(max_h - len(grid))]
 
     mask = [
-        [1] * w + [0] * (max_w - w)
-        for _ in range(h)
+        [1] * len(row) + [0] * (max_w - len(row))
+        for row in grid
     ]
-
-    mask += [
-        [0] * max_w
-        for _ in range(max_h - h)
-    ]
+    mask += [[0] * max_w for _ in range(max_h - len(grid))]
 
     return padded, mask
 
@@ -406,11 +395,9 @@ def arc_pairs_to_tensors(arc_pairs: List[Tuple[Grid, Grid]]):
             len(out)
         )
 
-        max_w = max(
-            max_w,
-            len(inp[0]),
-            len(out[0])
-        )
+        max_w = max(max_w,
+                    max((len(r) for r in inp), default=0),
+                    max((len(r) for r in out), default=0))
 
     input_tensors = []
     output_tensors = []
@@ -567,7 +554,7 @@ class DSLDecoder(nn.Module):
             batch_first    = True,
             norm_first     = True,
         )
-        self.decoder     = nn.TransformerDecoder(dec_layer, num_layers=n_layers)
+        self.decoder     = nn.TransformerDecoder(dec_layer, num_layers=n_layers, norm=nn.LayerNorm(d_model))
         self.output_proj = nn.Linear(d_model, vocab_size)
 
         self._init_weights()
@@ -780,6 +767,9 @@ if (__name__ == "__main__"):
         grids = engine.grids(j)
         outputs = engine.outputs(j)
 
+        if (programDepth(targetProgram) != 1): #TODO: to remove
+            continue #TODO: to remove
+
         pairs = list(zip(grids, outputs))
 
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
@@ -788,6 +778,12 @@ if (__name__ == "__main__"):
         masks = masks.to(device)
         costs = list(reversed(trajectory))
         costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
+
+        costs = list(filter(lambda x: programDepth(x[1]) == 1, costs)) #TODO: to remove
+
+        if (len(costs) == 0): #TODO: to remove
+            continue #TODO: to remove
+
         candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
 
         addOutput(outputFilename, f"# {i+1}/{n} Target program: `{targetProgram}` (trajectory: {len(costs)} programs)")
@@ -879,6 +875,7 @@ if (__name__ == "__main__"):
             decoder_input = target_ids[:-1]
             decoder_target = target_ids[1:]
             logits = model.decoder(decoder_input.unsqueeze(0), z_context)
+
             L_tokens = F.cross_entropy(
                 logits.reshape(
                     -1,
@@ -930,7 +927,7 @@ if (__name__ == "__main__"):
 
                     candidates.pop(0)
                     candidates.append((program, df))
-                    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
+                    candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
 
                     while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
                         costs.pop(0)
