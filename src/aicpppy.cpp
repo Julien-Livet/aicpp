@@ -26,14 +26,17 @@ Eigen::MatrixXd to_eigen(hodel::GridType const& v)
         return Eigen::MatrixXd{};
 
     auto const rows = static_cast<int>(v.size());
-    auto const cols = static_cast<int>(v[0].size());
+    int cols = 0;
+
+    for (auto const& row : v)
+        cols = std::max(cols, static_cast<int>(row.size()));
 
     Eigen::MatrixXd mat(rows, cols);
 
     for (int i = 0; i < rows; ++i)
     {
         for (int j = 0; j < cols; ++j)
-            mat(i, j) = v[i][j];
+            mat(i, j) = v.at(i).at(j);
     }
 
     return mat;
@@ -14748,8 +14751,8 @@ class Engine
 
                     for (size_t j{0}; j < inputs.size(); ++j)
                     {
-                        auto const& input{inputs[j]};
-                        auto const& output{outputs[j]};
+                        auto const& input{inputs.at(j)};
+                        auto const& output{outputs.at(j)};
 
                         iNeuron.get().function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
 
@@ -14761,12 +14764,9 @@ class Engine
                         }
                         catch (std::exception const&)
                         {
-                            cost = -1.0;
+                            return {};
                         }
                     }
-
-                    if (cost < 0.0)
-                        return {};
 
                     return std::make_pair(cost, connection.get().string());
                 }
