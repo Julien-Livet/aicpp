@@ -5966,7 +5966,15 @@ std::any hodel::lefthalf(std::vector<std::any> const& args)
     }
 
     if (grid.type() == typeid(GridType))
-        return rot270({tophalf({rot90(args)})});
+    {
+        auto const grid_{std::any_cast<GridType>(grid)};
+        auto const result{std::any_cast<GridType>(rot270({tophalf({rot90(args)})}))};
+
+        if (grid_ == result)
+            throw std::runtime_error{"Wrong value"};
+
+        return result;
+    }
 
     throw std::runtime_error{"Wrong value"};
 }
