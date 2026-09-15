@@ -35,7 +35,7 @@ Eigen::MatrixXd to_eigen(hodel::GridType const& v)
 
     for (int i = 0; i < rows; ++i)
     {
-        for (int j = 0; j < cols; ++j)
+        for (int j = 0; j < static_cast<int>(v.at(i).size()); ++j)
             mat(i, j) = v.at(i).at(j);
     }
 
