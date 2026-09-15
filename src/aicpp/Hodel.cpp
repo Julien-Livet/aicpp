@@ -5180,21 +5180,28 @@ std::any hodel::hconcat(std::vector<std::any> const& args)
         auto const a_{std::any_cast<GridType>(a)};
         auto const b_{std::any_cast<GridType>(b)};
 
-        GridType result;
-        auto const rows = std::min(a_.size(), b_.size());
-        result.reserve(rows);
-
-        for (size_t i = 0; i < rows; ++i)
+        try
         {
-            std::vector<IntegerType> row;
-            row.reserve(a_.at(i).size() + b_.at(i).size());
+            GridType result;
+            auto const rows = std::min(a_.size(), b_.size());
+            result.reserve(rows);
 
-            row.insert(row.end(), a_.at(i).begin(), a_.at(i).end());
-            row.insert(row.end(), b_.at(i).begin(), b_.at(i).end());
-            result.emplace_back(std::move(row));
+            for (size_t i = 0; i < rows; ++i)
+            {
+                std::vector<IntegerType> row;
+                row.reserve(a_.at(i).size() + b_.at(i).size());
+
+                row.insert(row.end(), a_.at(i).begin(), a_.at(i).end());
+                row.insert(row.end(), b_.at(i).begin(), b_.at(i).end());
+                result.emplace_back(std::move(row));
+            }
+
+            return result;
         }
-
-        return result;
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -5234,13 +5241,20 @@ std::any hodel::vconcat(std::vector<std::any> const& args)
         auto const a_{std::any_cast<GridType>(a)};
         auto const b_{std::any_cast<GridType>(b)};
 
-        GridType result;
-        result.reserve(a_.size() + b_.size());
+        try
+        {
+            GridType result;
+            result.reserve(a_.size() + b_.size());
 
-        result.insert(result.end(), a_.begin(), a_.end());
-        result.insert(result.end(), b_.begin(), b_.end());
+            result.insert(result.end(), a_.begin(), a_.end());
+            result.insert(result.end(), b_.begin(), b_.end());
 
-        return result;
+            return result;
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
     }
 
     throw std::runtime_error{"Wrong value"};
