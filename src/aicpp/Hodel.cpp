@@ -5227,7 +5227,7 @@ std::any hodel::vconcat(std::vector<std::any> const& args)
     }
 
     if (recall)
-        return hconcat({a, b});
+        return vconcat({a, b});
 
     if (a.type() == typeid(GridType) && b.type() == typeid(GridType))
     {
