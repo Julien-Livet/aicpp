@@ -512,10 +512,17 @@ static std::any combine_sets(std::any const& a, std::any const& b)
         auto const x{std::any_cast<T>(a)};
         auto const y{std::any_cast<S>(b)};
 
-        std::vector<typename T::value_type> v{x.begin(), x.end()};
-        v.insert(v.end(), y.begin(), y.end());
+        try
+        {
+            std::vector<typename T::value_type> v{x.begin(), x.end()};
+            v.insert(v.end(), y.begin(), y.end());
 
-        return T{v.begin(), v.end()};
+            return T{v.begin(), v.end()};
+        }
+        catch (std::exception const&)
+        {
+            return std::any{};
+        }
     }
 
     return std::any{};
@@ -551,7 +558,14 @@ std::any hodel::combine(std::vector<std::any> const& args)
     {
         auto const result{std::any_cast<std::vector<IntegerType> >(combine({a, b}))};
 
-        return IntegerTuple{result.at(0), result.at(1)};
+        try
+        {
+            return IntegerTuple{result.at(0), result.at(1)};
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
     }
 
     if (auto r = combine_sets<IntegerSet, IntegerSet>(a, b); r.has_value()) return r;
@@ -3087,7 +3101,8 @@ std::any hodel::crop(std::vector<std::any> const& args)
         {
             GridType result;
 
-            if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0 || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
+            if (dims_.first < 0 || dims_.second < 0 || start_.first < 0 || start_.second < 0
+                || start_.first + dims_.first > grid_.size() || start_.second + dims_.second > grid_.at(0).size())
                 throw std::runtime_error{"Wrong value"};
 
             for (size_t i{0}; i < dims_.first; ++i)
