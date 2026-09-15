@@ -17,7 +17,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 MAX_COUNT = 500
 
-def processTask(engine, model, id_, data, depth: int = 6, debug: bool = True):
+def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
     testPairs: list = [(ex["input"], ex["output"]) for ex in data["test"]]
     trainPairs: list = [(ex["input"], ex["output"]) for ex in data["train"]]
 
