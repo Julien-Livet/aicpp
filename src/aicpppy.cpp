@@ -448,7 +448,7 @@ class ConnectionBuilder
 
             auto const s{connection_->string()};
 
-            return s.contains("(I)") || s.contains(", I)") || s.contains(", I,") || s.contains(", I)");
+            return s.contains("(I, ") || s.contains("(I)") || s.contains(", I)") || s.contains(", I,") || s.contains(", I)");
         }
 
     private:
