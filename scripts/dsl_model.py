@@ -910,5 +910,5 @@ if (__name__ == "__main__"):
     n = engine.count()
     indexes = engine.orderedIndexes()
 
-    with multiprocessing.Pool(os.cpu_count() // 3) as pool:
+    with multiprocessing.Pool(os.cpu_count() // 3 + 1) as pool:
         list(tqdm(pool.imap_unordered(worker, [indexes[i] for i in range(n)]), total = n))
