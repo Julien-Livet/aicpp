@@ -191,13 +191,19 @@
     }
 
     /* ============================================================
-   ALIGNEMENT SIDEBAR / CONTENU
+   AICPP LAYOUT
    ============================================================ */
+
     .aicpp-layout {
         display: flex;
         align-items: flex-start;
         width: 100%;
     }
+
+
+    /* ============================================================
+   SIDEBAR
+   ============================================================ */
 
     .aicpp-sidebar {
         width: 250px;
@@ -214,17 +220,26 @@
         box-sizing: border-box;
     }
 
+
+    /* ============================================================
+   MAIN
+   ============================================================ */
+
     .aicpp-main {
         flex: 1;
         min-width: 0;
 
+        /*
+   * Cayman met normalement :
+   *   max-width: 64rem;
+   *   margin: 0 auto;
+   *
+   * On les neutralise uniquement pour permettre
+   * la présence de la sidebar.
+   */
+
         max-width: none;
         margin: 0;
-    }
-
-    /* Le contenu Markdown commence au même niveau que la sidebar */
-    .aicpp-main>#page-content> :first-child {
-        margin-top: 0;
     }
 
     .aicpp-nav ul {

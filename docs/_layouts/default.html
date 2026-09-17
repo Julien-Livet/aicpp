@@ -105,24 +105,21 @@
                         <ul>
 
                             <li>
-                                <a href="{{ '/research.html' | relative_url }}"
-                                    class="{% if page.path == 'research.md' %}active{% endif %}">
+                                <a href="{{ '/research.html' | relative_url }}">
                                     Research
                                 </a>
                             </li>
 
                             <li>
                                 <a
-                                    href="{{ '/architecture.html' | relative_url }}"
-                                    class="{% if page.path == 'architecture.md' %}active{% endif %}">
+                                    href="{{ '/architecture.html' | relative_url }}">
                                     Architecture
                                 </a>
                             </li>
 
                             <li>
                                 <a
-                                    href="{{ '/methodology.html' | relative_url }}"
-                                    class="{% if page.path == 'methodology.md' %}active{% endif %}">
+                                    href="{{ '/methodology.html' | relative_url }}">
                                     Methodology
                                 </a>
                             </li>
@@ -143,30 +140,27 @@
 
                             <li>
                                 <a
-                                    href="{{ '/experiments.html' | relative_url }}"
-                                    class="{% if page.path == 'experiments.md' %}active{% endif %}">
+                                    href="{{ '/experiments.html' | relative_url }}">
                                     Experiments
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ '/results.html' | relative_url }}"
-                                    class="{% if page.path == 'results.md' %}active{% endif %}">
+                                <a href="{{ '/results.html' | relative_url }}">
                                     Results
                                 </a>
                             </li>
 
                             <li>
                                 <a
-                                    href="{{ '/embeddings.html' | relative_url }}"
-                                    class="{% if page.path == 'embeddings.md' %}active{% endif %}">
+                                    href="{{ '/embeddings.html' | relative_url }}">
                                     Program Embeddings
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ '/arc-agi-2.html' | relative_url }}"
-                                    class="{% if page.path == 'arc-agi-2.md' %}active{% endif %}">
+                                <a
+                                    href="{{ '/arc-agi-2.html' | relative_url }}">
                                     ARC-AGI-2
                                 </a>
                             </li>
@@ -187,16 +181,14 @@
 
                             <li>
                                 <a
-                                    href="{{ '/publications.html' | relative_url }}"
-                                    class="{% if page.path == 'publications.md' %}active{% endif %}">
+                                    href="{{ '/publications.html' | relative_url }}">
                                     Publications
                                 </a>
                             </li>
 
                             <li>
                                 <a
-                                    href="{{ '/perspectives.html' | relative_url }}"
-                                    class="{% if page.path == 'perspectives.md' %}active{% endif %}">
+                                    href="{{ '/perspectives.html' | relative_url }}">
                                     Perspectives
                                 </a>
                             </li>
@@ -229,18 +221,11 @@
          CAYMAN MAIN CONTENT
          ======================================================= -->
 
-            <section class="main-content aicpp-main"
+            <main id="content"
+                class="main-content aicpp-main"
                 role="main">
 
-                <div id="page-content">
-
-                    {{ content }}
-
-                </div>
-
-                <!-- =====================================================
-           CAYMAN FOOTER
-           ===================================================== -->
+                {{ content }}
 
                 <footer class="site-footer">
 
@@ -267,80 +252,117 @@
 
                 </footer>
 
-            </section>
+            </main>
 
         </div>
 
         <!-- =========================================================
        AUTOMATIC "ON THIS PAGE" TOC
        ========================================================= -->
-
         <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-      const content =
-        document.getElementById("page-content");
+  /*
+   * ==========================================================
+   * ACTIVE PAGE
+   * ==========================================================
+   */
 
-      const toc =
-        document.getElementById("toc-list");
+  const currentPath =
+    window.location.pathname.replace(/\/$/, "");
 
-      const tocContainer =
-        document.getElementById("page-toc");
+  document
+    .querySelectorAll(".aicpp-nav a")
+    .forEach(function (link) {
 
-      if (!content || !toc || !tocContainer) {
-        return;
+      const linkPath =
+        new URL(link.href, window.location.origin)
+          .pathname
+          .replace(/\/$/, "");
+
+      if (linkPath === currentPath) {
+        link.classList.add("active");
       }
-
-      const headings =
-        content.querySelectorAll("h2, h3");
-
-      if (headings.length === 0) {
-        tocContainer.style.display = "none";
-        return;
-      }
-
-      headings.forEach(function (heading) {
-
-        /*
-         * Kramdown génère normalement déjà l'id.
-         */
-
-        if (!heading.id) {
-
-          heading.id =
-            heading.textContent
-              .toLowerCase()
-              .trim()
-              .replace(/[^\w\s-]/g, "")
-              .replace(/\s+/g, "-");
-
-        }
-
-        const li =
-          document.createElement("li");
-
-        const link =
-          document.createElement("a");
-
-        link.href =
-          "#" + heading.id;
-
-        link.textContent =
-          heading.textContent;
-
-        if (heading.tagName === "H3") {
-          li.classList.add("toc-h3");
-        }
-
-        li.appendChild(link);
-        toc.appendChild(li);
-
-      });
 
     });
 
-  </script>
+
+  /*
+   * ==========================================================
+   * ON THIS PAGE
+   * ==========================================================
+   */
+
+  const content =
+    document.getElementById("content");
+
+  const toc =
+    document.getElementById("toc-list");
+
+  const tocContainer =
+    document.getElementById("page-toc");
+
+  if (!content || !toc || !tocContainer) {
+    return;
+  }
+
+
+  const headings =
+    content.querySelectorAll("h2, h3");
+
+
+  if (headings.length === 0) {
+    tocContainer.style.display = "none";
+    return;
+  }
+
+
+  headings.forEach(function (heading) {
+
+    /*
+     * Kramdown génère normalement déjà l'id.
+     */
+
+    if (!heading.id) {
+
+      heading.id =
+        heading.textContent
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/\s+/g, "-");
+
+    }
+
+
+    const li =
+      document.createElement("li");
+
+    const link =
+      document.createElement("a");
+
+
+    link.href =
+      "#" + heading.id;
+
+    link.textContent =
+      heading.textContent;
+
+
+    if (heading.tagName === "H3") {
+      li.classList.add("toc-h3");
+    }
+
+
+    li.appendChild(link);
+    toc.appendChild(li);
+
+  });
+
+});
+
+</script>
 
     </body>
 </html>
