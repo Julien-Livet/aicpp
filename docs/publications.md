@@ -10,6 +10,7 @@
 
 ### Citation
 
+{% raw %}
 ```bibtex
 @article{colelough2025neurosymbolic,
   title   = {Neuro-Symbolic {AI} in 2024: A Systematic Review},
@@ -95,6 +96,7 @@
   year      = {2023}
 }
 ```
+{% endraw %}
 
 ### Related work
 
