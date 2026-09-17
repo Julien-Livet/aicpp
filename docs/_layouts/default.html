@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'fr-FR' }}">
+    <head>
+        <meta charset="UTF-8">
+
+        {% seo %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+    </head>
+
+    <body>
+
+        <div class="site-wrapper">
+
+            <!-- =====================================================
+         Navigation latérale
+         ===================================================== -->
+
+            <aside class="sidebar">
+                <div class="sidebar-inner">
+
+                    <a class="site-title" href="{{ '/' | relative_url }}">
+                        {{ site.title }}
+                    </a>
+
+                    <nav class="site-nav" aria-label="Navigation principale">
+
+                        <!-- =========================
+                RESEARCH
+                ========================= -->
+
+                        <div class="nav-section">
+
+                            <div class="nav-title">Research</div>
+
+                            <ul>
+                                <li>
+                                    <a
+                                        href="{{ '/research.html' | relative_url }}"
+                                        class="{% if page.url == '/research.html' %}active{% endif %}">
+                                        Research
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/architecture.html' | relative_url }}"
+                                        class="{% if page.url == '/architecture.html' %}active{% endif %}">
+                                        Architecture
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/methodology.html' | relative_url }}"
+                                        class="{% if page.url == '/methodology.html' %}active{% endif %}">
+                                        Methodology
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <!-- =========================
+                EXPERIMENTS
+                ========================= -->
+
+                        <div class="nav-section">
+
+                            <div class="nav-title">Experiments</div>
+
+                            <ul>
+                                <li>
+                                    <a
+                                        href="{{ '/experiments.html' | relative_url }}"
+                                        class="{% if page.url == '/experiments.html' %}active{% endif %}">
+                                        Experiments
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/results.html' | relative_url }}"
+                                        class="{% if page.url == '/results.html' %}active{% endif %}">
+                                        Results
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/embeddings.html' | relative_url }}"
+                                        class="{% if page.url == '/embeddings.html' %}active{% endif %}">
+                                        Program Embeddings
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/arc-agi-2.html' | relative_url }}"
+                                        class="{% if page.url == '/arc-agi-2.html' %}active{% endif %}">
+                                        ARC-AGI-2
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <!-- =========================
+                PUBLICATIONS
+                ========================= -->
+
+                        <div class="nav-section">
+
+                            <div class="nav-title">Publications</div>
+
+                            <ul>
+                                <li>
+                                    <a
+                                        href="{{ '/publications.html' | relative_url }}"
+                                        class="{% if page.url == '/publications.html' %}active{% endif %}">
+                                        Publications
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        href="{{ '/perspectives.html' | relative_url }}"
+                                        class="{% if page.url == '/perspectives.html' %}active{% endif %}">
+                                        Perspectives
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </nav>
+
+                    <!-- =========================
+                SOMMAIRE DE LA PAGE
+                ========================= -->
+
+                    <nav
+                        id="page-toc"
+                        class="page-toc"
+                        aria-label="Sommaire de la page">
+
+                        <div class="nav-title">On this page</div>
+
+                        <ul id="toc-list"></ul>
+
+                    </nav>
+
+                </div>
+            </aside>
+
+            <!-- =====================================================
+         Contenu
+         ===================================================== -->
+
+            <main class="main-content">
+
+                <div class="content-inner" id="content">
+
+                    {{ content }}
+
+                </div>
+
+            </main>
+
+        </div>
+
+        <!-- =====================================================
+       Génération automatique du sommaire
+       ===================================================== -->
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const content = document.getElementById("content");
+      const toc = document.getElementById("toc-list");
+      const tocContainer = document.getElementById("page-toc");
+
+      if (!content || !toc) {
+        return;
+      }
+
+      /*
+       * On récupère les titres ## et ###.
+       *
+       * Le h1 correspond généralement au titre principal
+       * de la page et n'est donc pas inclus dans le sommaire.
+       */
+      const headings = content.querySelectorAll("h2, h3");
+
+      if (headings.length === 0) {
+        tocContainer.style.display = "none";
+        return;
+      }
+
+      headings.forEach(function (heading) {
+
+        /*
+         * Kramdown génère normalement déjà un id pour les titres.
+         * On en crée un si nécessaire.
+         */
+        if (!heading.id) {
+
+          const id = heading.textContent
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, "-");
+
+          heading.id = id;
+        }
+
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        a.href = "#" + heading.id;
+        a.textContent = heading.textContent;
+
+        if (heading.tagName === "H3") {
+          li.classList.add("toc-h3");
+        }
+
+        li.appendChild(a);
+        toc.appendChild(li);
+      });
+
+    });
+  </script>
+
+    </body>
+</html>
