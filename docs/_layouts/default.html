@@ -5,26 +5,27 @@
 <html lang="{{ site.lang | default: 'en-US' }}">
 
     <head>
+
         {% if site.google_analytics %}
         <script>
-      (function(i,s,o,g,r,a,m){
-        i['GoogleAnalyticsObject']=r;
-        i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)
-        },
-        i[r].l=1*new Date();
-        a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];
-        a.async=1;
-        a.src=g;
-        m.parentNode.insertBefore(a,m)
-      })(window,document,'script',
-        'https://www.google-analytics.com/analytics.js',
-        'ga');
+    (function(i,s,o,g,r,a,m){
+      i['GoogleAnalyticsObject']=r;
+      i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)
+      },
+      i[r].l=1*new Date();
+      a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];
+      a.async=1;
+      a.src=g;
+      m.parentNode.insertBefore(a,m)
+    })(window,document,'script',
+      'https://www.google-analytics.com/analytics.js',
+      'ga');
 
-      ga('create', '{{ site.google_analytics }}', 'auto');
-      ga('send', 'pageview');
-    </script>
+    ga('create', '{{ site.google_analytics }}', 'auto');
+    ga('send', 'pageview');
+  </script>
         {% endif %}
 
         <meta charset="UTF-8">
@@ -36,13 +37,14 @@
 
         <link rel="stylesheet"
             href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+
     </head>
 
     <body>
 
-        <!-- =====================================================
-       Header Cayman
-       ===================================================== -->
+        <!-- =========================================================
+       CAYMAN HEADER
+       ========================================================= -->
 
         <section class="page-header">
 
@@ -77,185 +79,208 @@
 
         </section>
 
-        <!-- =====================================================
-       Sidebar + contenu
-       ===================================================== -->
+        <!-- =========================================================
+       SIDEBAR + MAIN CONTENT
+       ========================================================= -->
 
-        <div class="site-wrapper">
+        <div class="aicpp-layout">
 
-            <!-- =========================
-         Sidebar
-         ========================= -->
+            <!-- =======================================================
+         SIDEBAR
+         ======================================================= -->
 
             <aside class="aicpp-sidebar">
 
-                <div class="aicpp-sidebar-inner">
+                <nav class="aicpp-nav"
+                    aria-label="Navigation principale">
 
-                    <nav class="aicpp-nav"
-                        aria-label="Navigation principale">
+                    <!-- RESEARCH -->
 
-                        <!-- RESEARCH -->
+                    <div class="aicpp-nav-section">
 
-                        <div class="aicpp-nav-section">
-
-                            <div class="aicpp-nav-title">
-                                Research
-                            </div>
-
-                            <ul>
-
-                                <li>
-                                    <a
-                                        href="{{ '/research.html' | relative_url }}"
-                                        class="{% if page.url == '/research.html' %}active{% endif %}">
-                                        Research
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a
-                                        href="{{ '/architecture.html' | relative_url }}"
-                                        class="{% if page.url == '/architecture.html' %}active{% endif %}">
-                                        Architecture
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a
-                                        href="{{ '/methodology.html' | relative_url }}"
-                                        class="{% if page.url == '/methodology.html' %}active{% endif %}">
-                                        Methodology
-                                    </a>
-                                </li>
-
-                            </ul>
-
+                        <div class="aicpp-nav-title">
+                            Research
                         </div>
 
-                        <!-- EXPERIMENTS -->
+                        <ul>
 
-                        <div class="aicpp-nav-section">
+                            <li>
+                                <a href="{{ '/research.html' | relative_url }}"
+                                    class="{% if page.url == '/research.html' %}active{% endif %}">
+                                    Research
+                                </a>
+                            </li>
 
-                            <div class="aicpp-nav-title">
-                                Experiments
-                            </div>
+                            <li>
+                                <a
+                                    href="{{ '/architecture.html' | relative_url }}"
+                                    class="{% if page.url == '/architecture.html' %}active{% endif %}">
+                                    Architecture
+                                </a>
+                            </li>
 
-                            <ul>
+                            <li>
+                                <a
+                                    href="{{ '/methodology.html' | relative_url }}"
+                                    class="{% if page.url == '/methodology.html' %}active{% endif %}">
+                                    Methodology
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a
-                                        href="{{ '/experiments.html' | relative_url }}"
-                                        class="{% if page.url == '/experiments.html' %}active{% endif %}">
-                                        Experiments
-                                    </a>
-                                </li>
+                        </ul>
 
-                                <li>
-                                    <a
-                                        href="{{ '/results.html' | relative_url }}"
-                                        class="{% if page.url == '/results.html' %}active{% endif %}">
-                                        Results
-                                    </a>
-                                </li>
+                    </div>
 
-                                <li>
-                                    <a
-                                        href="{{ '/embeddings.html' | relative_url }}"
-                                        class="{% if page.url == '/embeddings.html' %}active{% endif %}">
-                                        Program Embeddings
-                                    </a>
-                                </li>
+                    <!-- EXPERIMENTS -->
 
-                                <li>
-                                    <a
-                                        href="{{ '/arc-agi-2.html' | relative_url }}"
-                                        class="{% if page.url == '/arc-agi-2.html' %}active{% endif %}">
-                                        ARC-AGI-2
-                                    </a>
-                                </li>
+                    <div class="aicpp-nav-section">
 
-                            </ul>
-
+                        <div class="aicpp-nav-title">
+                            Experiments
                         </div>
 
-                        <!-- PUBLICATIONS -->
+                        <ul>
 
-                        <div class="aicpp-nav-section">
+                            <li>
+                                <a
+                                    href="{{ '/experiments.html' | relative_url }}"
+                                    class="{% if page.url == '/experiments.html' %}active{% endif %}">
+                                    Experiments
+                                </a>
+                            </li>
 
-                            <div class="aicpp-nav-title">
-                                Publications
-                            </div>
+                            <li>
+                                <a href="{{ '/results.html' | relative_url }}"
+                                    class="{% if page.url == '/results.html' %}active{% endif %}">
+                                    Results
+                                </a>
+                            </li>
 
-                            <ul>
+                            <li>
+                                <a
+                                    href="{{ '/embeddings.html' | relative_url }}"
+                                    class="{% if page.url == '/embeddings.html' %}active{% endif %}">
+                                    Program Embeddings
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a
-                                        href="{{ '/publications.html' | relative_url }}"
-                                        class="{% if page.url == '/publications.html' %}active{% endif %}">
-                                        Publications
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="{{ '/arc-agi-2.html' | relative_url }}"
+                                    class="{% if page.url == '/arc-agi-2.html' %}active{% endif %}">
+                                    ARC-AGI-2
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a
-                                        href="{{ '/perspectives.html' | relative_url }}"
-                                        class="{% if page.url == '/perspectives.html' %}active{% endif %}">
-                                        Perspectives
-                                    </a>
-                                </li>
+                        </ul>
 
-                            </ul>
+                    </div>
 
+                    <!-- PUBLICATIONS -->
+
+                    <div class="aicpp-nav-section">
+
+                        <div class="aicpp-nav-title">
+                            Publications
                         </div>
 
-                        <!-- SOMMAIRE AUTOMATIQUE -->
+                        <ul>
 
-                        <nav id="page-toc"
-                            class="aicpp-page-toc"
-                            aria-label="Sommaire de la page">
+                            <li>
+                                <a
+                                    href="{{ '/publications.html' | relative_url }}"
+                                    class="{% if page.url == '/publications.html' %}active{% endif %}">
+                                    Publications
+                                </a>
+                            </li>
 
-                            <div class="aicpp-nav-title">
-                                On this page
-                            </div>
+                            <li>
+                                <a
+                                    href="{{ '/perspectives.html' | relative_url }}"
+                                    class="{% if page.url == '/perspectives.html' %}active{% endif %}">
+                                    Perspectives
+                                </a>
+                            </li>
 
-                            <ul id="toc-list"></ul>
+                        </ul>
 
-                        </nav>
+                    </div>
 
-                    </nav>
+                    <!-- ===================================================
+             AUTOMATIC PAGE TOC
+             =================================================== -->
 
-                </div>
+                    <div id="page-toc"
+                        class="aicpp-page-toc"
+                        aria-label="Sommaire de la page">
+
+                        <div class="aicpp-nav-title">
+                            On this page
+                        </div>
+
+                        <ul id="toc-list"></ul>
+
+                    </div>
+
+                </nav>
 
             </aside>
 
-            <!-- =========================
-         Contenu Cayman
-         ========================= -->
+            <!-- =======================================================
+         CAYMAN MAIN CONTENT
+         ======================================================= -->
 
-            <main class="aicpp-content">
+            <section class="main-content aicpp-main"
+                role="main">
 
-                <main id="content"
-                    class="main-content"
-                    role="main">
+                <div id="page-content">
 
                     {{ content }}
 
-                </main>
+                </div>
 
-            </main>
+                <!-- =====================================================
+           CAYMAN FOOTER
+           ===================================================== -->
+
+                <footer class="site-footer">
+
+                    {% if site.github.is_project_page %}
+
+                    <span class="site-footer-owner">
+                        <a href="{{ site.github.repository_url }}">
+                            {{ site.github.repository_name }}
+                        </a>
+                        is maintained by
+                        <a href="{{ site.github.owner_url }}">
+                            {{ site.github.owner_name }}
+                        </a>.
+                    </span>
+
+                    {% endif %}
+
+                    <span class="site-footer-credits">
+                        This page was generated by
+                        <a href="https://pages.github.com">
+                            GitHub Pages
+                        </a>.
+                    </span>
+
+                </footer>
+
+            </section>
 
         </div>
 
-        <!-- =====================================================
-       Génération du sommaire
-       ===================================================== -->
+        <!-- =========================================================
+       AUTOMATIC "ON THIS PAGE" TOC
+       ========================================================= -->
 
         <script>
 
     document.addEventListener("DOMContentLoaded", function () {
 
       const content =
-        document.getElementById("content");
+        document.getElementById("page-content");
 
       const toc =
         document.getElementById("toc-list");
@@ -263,31 +288,22 @@
       const tocContainer =
         document.getElementById("page-toc");
 
-      if (!content || !toc) {
+      if (!content || !toc || !tocContainer) {
         return;
       }
-
-
-      /*
-       * Les h2 et h3 constituent le sommaire.
-       */
 
       const headings =
         content.querySelectorAll("h2, h3");
 
-
       if (headings.length === 0) {
-
         tocContainer.style.display = "none";
-
         return;
       }
-
 
       headings.forEach(function (heading) {
 
         /*
-         * Kramdown génère normalement déjà les IDs.
+         * Kramdown génère normalement déjà l'id.
          */
 
         if (!heading.id) {
@@ -301,13 +317,11 @@
 
         }
 
-
         const li =
           document.createElement("li");
 
         const link =
           document.createElement("a");
-
 
         link.href =
           "#" + heading.id;
@@ -315,16 +329,11 @@
         link.textContent =
           heading.textContent;
 
-
         if (heading.tagName === "H3") {
-
           li.classList.add("toc-h3");
-
         }
 
-
         li.appendChild(link);
-
         toc.appendChild(li);
 
       });
