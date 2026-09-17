@@ -1,0 +1,210 @@
+--- --- @import "{{ site.theme }}";
+
+
+/* =========================================================
+   AICPP — Navigation latérale
+   ========================================================= */
+
+.site-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.aicpp-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+
+    background: #f6f8fa;
+    border-right: 1px solid #e1e4e8;
+}
+
+.aicpp-sidebar-inner {
+    position: sticky;
+    top: 0;
+
+    max-height: 100vh;
+    overflow-y: auto;
+
+    padding: 30px 20px;
+}
+
+
+/* ---------------------------------------------------------
+   Navigation
+   --------------------------------------------------------- */
+
+.aicpp-nav-title {
+    margin: 0 0 7px 10px;
+
+    color: #6e7781;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.aicpp-nav-section {
+    margin-bottom: 22px;
+}
+
+.aicpp-nav ul {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.aicpp-nav li {
+    margin: 0;
+    padding: 0;
+}
+
+.aicpp-nav a {
+    display: block;
+
+    position: relative;
+
+    padding: 5px 10px 5px 24px;
+
+    color: #57606a;
+
+    font-size: 0.88rem;
+    line-height: 1.45;
+
+    text-decoration: none;
+
+    border-radius: 5px;
+}
+
+.aicpp-nav a:hover {
+    color: #159957;
+    background: #eaeef2;
+}
+
+
+/* Page courante */
+
+.aicpp-nav a.active {
+    color: #159957;
+    font-weight: 600;
+
+    background: #eaeef2;
+}
+
+.aicpp-nav a.active::before {
+    content: "►";
+
+    position: absolute;
+    left: 9px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 0.60rem;
+}
+
+
+/* ---------------------------------------------------------
+   Sommaire de la page
+   --------------------------------------------------------- */
+
+.aicpp-page-toc {
+    margin-top: 30px;
+    padding-top: 18px;
+
+    border-top: 1px solid #d0d7de;
+}
+
+.aicpp-page-toc ul {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.aicpp-page-toc li {
+    margin: 0;
+    padding: 0;
+}
+
+.aicpp-page-toc a {
+    display: block;
+
+    padding: 3px 10px;
+
+    color: #6e7781;
+
+    font-size: 0.79rem;
+    line-height: 1.4;
+
+    text-decoration: none;
+
+    border-left: 2px solid transparent;
+}
+
+.aicpp-page-toc a:hover {
+    color: #159957;
+    border-left-color: #159957;
+}
+
+.aicpp-page-toc .toc-h3 a {
+    padding-left: 22px;
+    font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   Contenu
+   ========================================================= */
+
+.aicpp-content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    .site-wrapper {
+        display: block;
+    }
+
+    .aicpp-sidebar {
+        width: 100%;
+
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+    }
+
+    .aicpp-sidebar-inner {
+        position: static;
+
+        max-height: none;
+
+        padding: 20px;
+    }
+
+    .aicpp-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    .aicpp-nav a {
+        padding: 5px 9px;
+    }
+
+    .aicpp-page-toc {
+        margin-top: 20px;
+    }
+
+    .aicpp-content {
+        width: 100%;
+    }
+}
