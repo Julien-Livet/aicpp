@@ -98,9 +98,9 @@
 
 ### Related work
 
-AICPP is related to research on:
-neuro-symbolic reasoning
-program synthesis
-ARC-AGI
-neural-guided search
-executable DSLs
+aicpp is related to research on:
+- neuro-symbolic reasoning
+- program synthesis
+- ARC-AGI
+- neural-guided search
+- executable DSLs
