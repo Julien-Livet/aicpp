@@ -17,11 +17,11 @@ structured organization beyond superficial syntactic similarity.
 
 ## t-SNE
 
-![t-SNE](../scripts/embeddings_tsne.png)
+![t-SNE](assets/embeddings_tsne.png)
 
 ## UMAP
 
-![UMAP](../scripts/embeddings_umap.png)
+![UMAP](assets/embeddings_umap.png)
 
 ## Preliminary observation
 
