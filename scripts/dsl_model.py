@@ -773,6 +773,9 @@ def worker(j: int):
     iters_since_improvement = 0
 
     while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+        if (not len(costs)):
+            break
+        
         current_best = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
 
         if (current_best < best_seen_cost):
@@ -884,7 +887,7 @@ def worker(j: int):
                 candidates.append((program, df))
                 candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
 
-                while (len(costs) and (cost <= costs[0][0] or program == costs[0][1])):
+                while (len(costs) and cost <= costs[0][0]):
                     costs.pop(0)
                     programCount += 1
             elif (not math.isinf(cost) and not program in testedPrograms):
