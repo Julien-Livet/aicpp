@@ -2,7 +2,6 @@ from aicpppy import Engine
 import ast
 from dsl_rl import VOCAB
 import math
-import multiprocessing
 import os
 import pandas as pd
 import torch
@@ -725,193 +724,222 @@ def addOutput(filename: str, line: str):
     with open(filename, "a") as f:
         f.write(line + "\n")
 
-lock = multiprocessing.Lock()
 device = "cuda" if torch.cuda.is_available() else "cpu"
-dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
-model = dslModel.to(device)
-modelFilename: str = "dsl_model.pt"
+minTemperature: float = 0.1
+maxTemperature: float = 5.0
+minAlpha: float = 0.1
+engine = Engine("dsl_dataset")
 
-if (os.path.exists(modelFilename)):
-    checkpoint = torch.load(modelFilename, map_location=device)
-    model.load_state_dict(checkpoint["model_state"])
+MAX_ITERATIONS_PER_TARGET: int = 500000
+PLATEAU_PATIENCE: int = 50000
 
-def worker(j: int):
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=1e-4
-    )
+class Worker:
+    def __init__(self):
+        self.j = None
 
-    engine = Engine("dsl_dataset")
-    trajectory = engine.trajectory(j)
-    grids = engine.grids(j)
-    outputs = engine.outputs(j)
-    pairs = list(zip(grids, outputs))
-    inputs, outputs, masks = arc_pairs_to_tensors(pairs)
-    inputs = inputs.to(device)
-    outputs = outputs.to(device)
-    masks = masks.to(device)
-    costs = list(reversed(trajectory))
-    costs = sorted(costs, key = lambda x: (-x[0], len(x[1])))
-    candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
+    def init(self, j: int):
+        self.j = j
+        self.trajectory = engine.trajectory(j)
+        self.grids = engine.grids(j)
+        self.outputs = engine.outputs(j)
+        pairs = list(zip(self.grids, self.outputs))
+        inputs, outputs, masks = arc_pairs_to_tensors(pairs)
+        self.inputs = inputs.to(device)
+        self.outputs = outputs.to(device)
+        self.masks = masks.to(device)
+        self.costs = list(reversed(self.trajectory))
+        self.costs = sorted(self.costs, key = lambda x: (-x[0], len(x[1])))
+        self.candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
+        self.computeGraphs: bool = True
+        self.temperature: float = minTemperature
+        self.testedPrograms = set()
+        self.alpha: float = 1.0
+        self.programCount: int = 1
+        self.best_seen_cost = self.candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+        self.iters_since_improvement = 0
+        self.program = None
+        self.cost = None
+        self.df = None
+        self.count: int = 0
 
-    computeGraphs: bool = True
-    minTemperature: float = 0.1
-    maxTemperature: float = 5.0
-    temperature: float = minTemperature
-    testedPrograms = set()
-    count: int = 1
-    minAlpha: float = 0.1
-    alpha: float = 1.0
-    validCount: int = 0
-    programCount: int = 1
-    uniqueCount: int = 0
+    def process(self, model) -> bool:
+        if (self.j == None):
+            return True
 
-    MAX_ITERATIONS_PER_TARGET: int = 500000
-    PLATEAU_PATIENCE: int = 50000
+        if (not self.candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
+            return True
 
-    best_seen_cost = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
-    iters_since_improvement = 0
-
-    while (candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
-        if (not len(costs)):
-            break
+        if (not len(self.costs)):
+            return True
         
-        current_best = candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+        self.current_best = self.candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
 
-        if (current_best < best_seen_cost):
-            best_seen_cost = current_best
+        if (self.current_best < self.best_seen_cost):
+            self.best_seen_cost = self.current_best
         else:
-            iters_since_improvement += 1
+            self.iters_since_improvement += 1
 
-        if (count > MAX_ITERATIONS_PER_TARGET or iters_since_improvement > PLATEAU_PATIENCE):
-            break
+        if (self.count > MAX_ITERATIONS_PER_TARGET or self.iters_since_improvement > PLATEAU_PATIENCE):
+            return True
 
-        if (computeGraphs):
+        if (self.computeGraphs):
             prog_graphs: list  = []
             cost_tensors: list = []
 
-            for program, df in candidates:
+            for program, df in self.candidates:
                 g = build_prog_graph(program, VOCAB, device)
                 prog_graphs.append(g)
                 cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
 
-            computeGraphs = False
+            self.computeGraphs = False
 
-            with lock:
-                model.eval()
+            model.eval()
 
-                with torch.no_grad():
-                    z_context = model.encode_context(
-                        inputs, outputs, masks,
-                        prog_graphs, cost_tensors
-                    )   # [1, D]
+            with torch.no_grad():
+                self.z_context = model.encode_context(
+                    self.inputs, self.outputs, self.masks,
+                    prog_graphs, cost_tensors
+                )   # [1, D]
 
-        with lock:
-            program = generate_one(
-                model, VOCAB, z_context, engine,
-                temperature = temperature,
-                device = device,
-                max_depth = programDepth(costs[0][1]),
-            )
-
-        if (not program):
-            cost = math.inf
-        else:
-            try:
-                df = pd.DataFrame(engine.dfConnectionBuilder(j), columns = scoreColumns)
-                cost = df["Total cost"].sum(skipna = False)
-                validCount += 1
-
-                if (not program in testedPrograms):
-                    uniqueCount += 1
-            except RuntimeError:
-                cost = math.inf
-
-        with lock:
-            model.train()
-            optimizer.zero_grad()
-            target_ids = encode_program_tokens(costs[0][1], VOCAB).to(device)
-            decoder_input = target_ids[:-1]
-            decoder_target = target_ids[1:]
-            logits = model.decoder(decoder_input.unsqueeze(0), z_context)
-
-        L_tokens = F.cross_entropy(
-            logits.reshape(
-                -1,
-                logits.size(-1)
-            ),
-            decoder_target.reshape(-1)
+        self.program = generate_one(
+            model, VOCAB, self.z_context, engine,
+            temperature = self.temperature,
+            device = device,
+            max_depth = programDepth(self.costs[0][1]),
         )
 
-        if (not program or math.isinf(cost)):
+        if (not self.program):
+            self.cost = math.inf
+        else:
+            try:
+                self.df = pd.DataFrame(engine.dfConnectionBuilder(self.j), columns = scoreColumns)
+                self.cost = self.df["Total cost"].sum(skipna = False)
+            except RuntimeError:
+                self.cost = math.inf
+
+        return False
+
+    def update(self, L_tokens):
+        if (not self.program or math.isinf(self.cost)):
             L_total = L_tokens
 
-            temperature = min(maxTemperature, temperature * 1.05)
-            alpha = min(1.0, alpha * 1.5)
-
+            self.temperature = min(maxTemperature, self.temperature * 1.05)
+            self.alpha = min(1.0, self.alpha * 1.5)
         else:
-            if (cost <= costs[0][0]):
-                gen_ids = encode_program_tokens(program, VOCAB).to(device)
+            if (self.cost <= self.costs[0][0]):
+                gen_ids = encode_program_tokens(self.program, VOCAB).to(device)
                 gen_input, gen_target = gen_ids[:-1], gen_ids[1:]
 
-                logits_self = model.decoder(gen_input.unsqueeze(0), z_context)
+                logits_self = model.decoder(gen_input.unsqueeze(0), self.z_context)
                 L_semantic = F.cross_entropy(
                     logits_self.reshape(-1, logits_self.size(-1)),
                     gen_target.reshape(-1)
                 )
 
-                temperature = max(minTemperature, temperature * 0.95)
-                alpha = max(minAlpha, alpha * 0.9)
+                self.temperature = max(minTemperature, self.temperature * 0.95)
+                self.alpha = max(minAlpha, self.alpha * 0.9)
             else:
                 L_semantic = L_tokens
 
-                temperature = min(maxTemperature, temperature * 1.05)
-                alpha = min(1.0, alpha * 1.5)
+                self.temperature = min(maxTemperature, self.temperature * 1.05)
+                self.alpha = min(1.0, self.alpha * 1.5)
 
-            L_total = alpha * L_tokens + (1.0 - alpha) * L_semantic
+            L_total = self.alpha * L_tokens + (1.0 - self.alpha) * L_semantic
 
-        if (program):
-            if (cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
-                and not program in [c[0] for c in candidates]):
-                with lock:
-                    torch.save({
-                        "model_state": model.state_dict(),
-                        "d_model"    : model.decoder.d_model,
-                        "vocab_size" : model.decoder.vocab_size,
-                    }, modelFilename)
+        if (self.program):
+            if (self.cost < self.candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+                and not self.program in [c[0] for c in self.candidates]):
+                torch.save({
+                    "model_state": model.state_dict(),
+                    "d_model"    : model.decoder.d_model,
+                    "vocab_size" : model.decoder.vocab_size,
+                }, modelFilename)
 
-                computeGraphs = True
-                iters_since_improvement = 0
+                self.computeGraphs = True
+                self.iters_since_improvement = 0
 
-                candidates.pop(0)
-                candidates.append((program, df))
-                candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
+                self.candidates.pop(0)
+                self.candidates.append((self.program, self.df))
+                self.candidates = sorted(self.candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
 
-                while (len(costs) and cost <= costs[0][0]):
-                    costs.pop(0)
-                    programCount += 1
-            elif (not math.isinf(cost) and not program in testedPrograms):
-                iters_since_improvement = 0 #TODO: to remove?
+                while (len(self.costs) and self.cost <= self.costs[0][0]):
+                    self.costs.pop(0)
+            elif (not math.isinf(self.cost) and not self.program in self.testedPrograms):
+                self.iters_since_improvement = 0 #TODO: to remove?
 
-        if (not program):
-            L_total.backward()
-            optimizer.step()
-        elif (not program in testedPrograms):
-            L_total.backward()
-            optimizer.step()
+            if (not self.program in self.testedPrograms):
+                self.testedPrograms.add(self.program)
 
-            testedPrograms.add(program)
+        self.count += 1
 
-        count += 1
+        return L_total
 
 if (__name__ == "__main__"):
-    multiprocessing.set_start_method("spawn", force = True)
-
     from tqdm import tqdm
-    
-    engine = Engine("dsl_dataset")
+
     n = engine.count()
     indexes = engine.orderedIndexes()
+    process = tqdm(total = len(indexes), desc = "Programs")
+    dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
+    model = dslModel.to(device)
+    modelFilename: str = "dsl_model.pt"
 
-    with multiprocessing.Pool(os.cpu_count() // 3 + 1) as pool:
-        list(tqdm(pool.imap_unordered(worker, [indexes[i] for i in range(n)]), total = n))
+    if (os.path.exists(modelFilename)):
+        checkpoint = torch.load(modelFilename, map_location=device)
+        model.load_state_dict(checkpoint["model_state"])
+
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=1e-4
+    )
+
+    workers: list = []
+
+    for _ in range(os.cpu_count()):
+        workers.append(Worker())
+
+    while (len(indexes)):
+        worker_L_tokens: list = []
+        
+        for worker in workers:
+            loop: bool = True
+            c: bool = False
+
+            while (loop):
+                if (worker.process(model)):
+                    process.update()
+
+                    if (not len(indexes)):
+                        c = True
+
+                    worker.init(indexes.pop(0))
+                else:
+                    loop = False
+
+            if (c):
+                continue
+
+            model.train()
+            optimizer.zero_grad()
+            target_ids = encode_program_tokens(worker.costs[0][1], VOCAB).to(device)
+            decoder_input = target_ids[:-1]
+            decoder_target = target_ids[1:]
+            logits = model.decoder(decoder_input.unsqueeze(0), worker.z_context)
+
+            L_tokens = F.cross_entropy(
+                logits.reshape(
+                    -1,
+                    logits.size(-1)
+                ),
+                decoder_target.reshape(-1)
+            )
+            
+            worker_L_tokens.append((worker, L_tokens))
+            
+        list_L_total: list = []
+
+        for worker, L_tokens in worker_L_tokens:
+            list_L_total.append(worker.update(L_tokens))
+        
+        sum(list_L_total).backward()
+        optimizer.step()
