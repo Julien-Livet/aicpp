@@ -10,6 +10,7 @@ import torch.nn.functional as F
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
+from tqdm import tqdm
 from typing import List, Tuple
 
 Grid = Tuple[Tuple[int]]
@@ -739,6 +740,7 @@ class Worker:
 
     def init(self, j: int):
         self.j = j
+        self.targetProgram = engine.program(j)
         self.trajectory = engine.trajectory(j)
         self.grids = engine.grids(j)
         self.outputs = engine.outputs(j)
@@ -819,7 +821,7 @@ class Worker:
 
         return False
 
-    def update(self, L_tokens):
+    def update(self, model, L_tokens):
         if (not self.program or math.isinf(self.cost)):
             L_total = L_tokens
 
@@ -875,8 +877,6 @@ class Worker:
         return L_total
 
 if (__name__ == "__main__"):
-    from tqdm import tqdm
-
     n = engine.count()
     indexes = engine.orderedIndexes()
     process = tqdm(total = len(indexes), desc = "Programs")
@@ -895,10 +895,12 @@ if (__name__ == "__main__"):
 
     workers: list = []
 
-    for _ in range(os.cpu_count()):
+    for _ in range(25):
         workers.append(Worker())
 
-    while (len(indexes)):
+    count: int = 0
+
+    while (True):
         worker_L_tokens: list = []
         
         for worker in workers:
@@ -907,7 +909,9 @@ if (__name__ == "__main__"):
 
             while (loop):
                 if (worker.process(model)):
-                    process.update()
+                    if (worker.j != None):
+                        count += 1
+                        process.update()
 
                     if (not len(indexes)):
                         c = True
@@ -915,6 +919,9 @@ if (__name__ == "__main__"):
                     worker.init(indexes.pop(0))
                 else:
                     loop = False
+
+            if (count == n):
+                break
 
             if (c):
                 continue
@@ -935,11 +942,14 @@ if (__name__ == "__main__"):
             )
             
             worker_L_tokens.append((worker, L_tokens))
-            
+
+        if (count == n):
+            break
+
         list_L_total: list = []
 
         for worker, L_tokens in worker_L_tokens:
-            list_L_total.append(worker.update(L_tokens))
+            list_L_total.append(worker.update(model, L_tokens))
         
         sum(list_L_total).backward()
         optimizer.step()
