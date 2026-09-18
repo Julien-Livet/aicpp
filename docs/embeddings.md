@@ -1,4 +1,7 @@
-# Program Embeddings
+---
+layout: default
+title: Program Embeddings
+---
 
 ## Objective
 

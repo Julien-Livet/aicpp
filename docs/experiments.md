@@ -1,4 +1,7 @@
-# Sequential Learning and Search Experience
+---
+layout: default
+title: Experiments
+---
 
 ## Motivation
 

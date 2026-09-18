@@ -1,4 +1,7 @@
-# Perspectives
+---
+layout: default
+title: Perspectives
+---
 
 The underlying approach is not inherently specific to ARC.
 

@@ -1,4 +1,7 @@
-# Research
+---
+layout: default
+title: Research
+---
 
 ## Motivation
 

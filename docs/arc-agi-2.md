@@ -1,4 +1,7 @@
-# ARC-AGI-2
+---
+layout: default
+title: ARC-AGI-2
+---
 
 ## Benchmark
 

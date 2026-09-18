@@ -1,4 +1,7 @@
-# aicpp
+---
+layout: default
+title: aicpp
+---
 
 ## Neuro-symbolic program synthesis for structured reasoning
 
