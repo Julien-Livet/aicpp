@@ -4,6 +4,7 @@ mplcursors
 multiprocess
 numpy
 pandas
+PyQt5
 pytest
 pytest-profiling
 scikit-learn
