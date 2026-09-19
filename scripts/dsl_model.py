@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.data import Data
+from torch_geometric.data import Batch, Data
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
 from tqdm import tqdm
@@ -161,6 +161,7 @@ class DSLGraphBuilder:
                 self.visit(arg, current_idx)
 
             return current_idx
+
         elif isinstance(node, ast.Name):
             current_idx = self.add_node(node.id)
 
@@ -170,6 +171,7 @@ class DSLGraphBuilder:
                 )
 
             return current_idx
+
         elif isinstance(node, ast.Constant):
             token = str(node.value)
 
@@ -181,6 +183,7 @@ class DSLGraphBuilder:
                 )
 
             return current_idx
+
         else:
             raise ValueError(
                 f"Unsupported AST node: {type(node)}"
@@ -320,7 +323,11 @@ class ARCGridEncoder(nn.Module):
         return z_grid
 
 class ARCContextEncoder(nn.Module):
-    def __init__(self, d_model=256, device: str = "cpu"):
+    def __init__(
+        self,
+        d_model=256,
+        device: str = "cpu"
+    ):
         super().__init__()
 
         self.grid_encoder = ARCGridEncoder(
@@ -332,33 +339,75 @@ class ARCContextEncoder(nn.Module):
             nn.Linear(d_model, 1)
         )
 
-    def forward(self, inputs, outputs, masks):
+    def forward(
+        self,
+        inputs,
+        outputs,
+        masks
+    ):
         """
         inputs : [B, N, H, W]
         outputs: [B, N, H, W]
-        masks: [B, N, H, W]
+        masks  : [B, N, H, W]
 
-        z_grids: [B, d_model]
+        return:
+            z_grids: [B, d_model]
         """
 
         B, N, H, W = inputs.shape
-        z_list = []
 
-        for i in range(N):
-            z_i = self.grid_encoder(
-                inputs[:, i],
-                outputs[:, i],
-                masks[:, i]
-            )
+        # --------------------------------------------------
+        # Transform B*N grids in one batch
+        # --------------------------------------------------
 
-            z_list.append(z_i)
+        inputs_flat = inputs.reshape(
+            B * N,
+            H,
+            W
+        )
 
-        # [B,N,D]
-        z = torch.stack(z_list, dim=1)
-        scores = self.attn_pool(z)  # [B,N,1]
-        weights = torch.softmax(scores, dim=1)
+        outputs_flat = outputs.reshape(
+            B * N,
+            H,
+            W
+        )
 
-        z_grids = (weights * z).sum(dim=1)
+        masks_flat = masks.reshape(
+            B * N,
+            H,
+            W
+        )
+
+        z = self.grid_encoder(
+            inputs_flat,
+            outputs_flat,
+            masks_flat
+        )
+        # [B*N, D]
+
+        # --------------------------------------------------
+        # Return at format [B, N, D]
+        # --------------------------------------------------
+
+        z = z.reshape(
+            B,
+            N,
+            -1
+        )
+
+
+        scores = self.attn_pool(z)
+        # [B, N, 1]
+
+        weights = torch.softmax(
+            scores,
+            dim=1
+        )
+
+        z_grids = (
+            weights * z
+        ).sum(dim=1)
+        # [B, D]
 
         return z_grids
 
@@ -460,7 +509,7 @@ class DSLModel(nn.Module):
         self.prog_attn = nn.MultiheadAttention(
             d_model, n_heads, dropout=dropout, batch_first=True
         )
-        self.fusion_norm = nn.LayerNorm(d_model)
+        self.fusion_norm = nn.LayerNorm(d_model) #TODO: to remove
         self.fusion_proj = nn.Sequential(
             nn.Linear(d_model * 2, d_model),
             nn.GELU(),
@@ -479,34 +528,127 @@ class DSLModel(nn.Module):
 
     def encode_context(
         self,
-        inputs       : torch.Tensor,          # [B, N, H, W]
-        outputs      : torch.Tensor,           # [B, N, H, W]
-        masks        : torch.Tensor,           # [B, N, H, W]
-        prog_graphs  : List[Data],             # M graphs GNN (one per program)
-        cost_tensors : List[torch.Tensor],     # M tensors [B, N_grids, 5]
+        inputs: torch.Tensor,           # [B, N, H, W]
+        outputs: torch.Tensor,          # [B, N, H, W]
+        masks: torch.Tensor,            # [B, N, H, W]
+        prog_graphs: List[Data],        # M graphs
+        cost_tensors: List[torch.Tensor] # M × [B, N, 5]
     ) -> torch.Tensor:
+
         B = inputs.size(0)
         M = len(prog_graphs)
-        z_grids = self.grid_encoder(inputs, outputs, masks)   # [B, D]
-        z_progs = []
 
-        for m in range(M):
-            graph_m = prog_graphs[m]
-            z_prog_m = self.prog_encoder(graph_m)              # [B, D]
-            z_cost_m = self.cost_encoder(cost_tensors[m])      # [B, D]
-            z_progs.append(z_prog_m + z_cost_m)               # [B, D]
+        # ======================================================
+        # 1. ARC
+        # ======================================================
 
-        # Stack : [B, M, D]
-        z_progs_stack = torch.stack(z_progs, dim=1)
-        z_grids_q = z_grids.unsqueeze(1)                      # [B, 1, D]
+        z_grids = self.grid_encoder(
+            inputs,
+            outputs,
+            masks
+        )
+        # [B, D]
+
+        # ======================================================
+        # 2. DSL M graphs
+        # ======================================================
+
+        graph_batch = Batch.from_data_list(
+            prog_graphs
+        )
+
+        graph_batch = graph_batch.to(
+            inputs.device
+        )
+
+        z_prog = self.prog_encoder(
+            graph_batch
+        )
+        # [M, D]
+
+        z_prog = z_prog.unsqueeze(0)
+        # [1, M, D]
+
+        z_prog = z_prog.expand(
+            B,
+            -1,
+            -1
+        )
+        # [B, M, D]
+
+        # ======================================================
+        # 3. M cost tensors
+        # ======================================================
+
+        cost_batch = torch.stack(
+            cost_tensors,
+            dim=1
+        )
+
+        # [B, M, N, 5]
+
+        cost_batch = cost_batch.reshape(
+            B * M,
+            cost_batch.size(2),
+            cost_batch.size(3)
+        )
+
+        # [B*M, N, 5]
+
+        z_cost = self.cost_encoder(
+            cost_batch
+        )
+
+        # [B*M, D]
+
+        z_cost = z_cost.reshape(
+            B,
+            M,
+            -1
+        )
+
+        # [B, M, D]
+
+        # ======================================================
+        # 4. Program + cost fusion
+        # ======================================================
+
+        z_progs_stack = (
+            z_prog + z_cost
+        )
+        # [B, M, D]
+
+        # ======================================================
+        # 5. Attention ARC -> programs
+        # ======================================================
+
+        z_grids_q = z_grids.unsqueeze(1)
+        # [B, 1, D]
+
         z_attended, _ = self.prog_attn(
-            z_grids_q, z_progs_stack, z_progs_stack
-        )                                                       # [B, 1, D]
-        z_attended = z_attended.squeeze(1)                     # [B, D]
-        z_fused  = self.fusion_norm(z_grids + z_attended)
+            z_grids_q,
+            z_progs_stack,
+            z_progs_stack
+        )
+        # [B, 1, D]
+
+        z_attended = z_attended.squeeze(1)
+        # [B, D]
+
+        # ======================================================
+        # 6. Final fusion
+        # ======================================================
+
         z_context = self.fusion_proj(
-            torch.cat([z_grids, z_attended], dim=-1)
-        )                                                       # [B, D]
+            torch.cat(
+                [
+                    z_grids,
+                    z_attended
+                ],
+                dim=-1
+            )
+        )
+        # [B, D]
 
         return z_context
 
@@ -555,6 +697,16 @@ class DSLDecoder(nn.Module):
             norm_first     = True,
         )
         self.decoder     = nn.TransformerDecoder(dec_layer, num_layers=n_layers, norm=nn.LayerNorm(d_model))
+        self.cached_layers = nn.ModuleList([
+            CachedDecoderLayer(
+                d_model=d_model,
+                n_heads=n_heads,
+                ff_dim=ff_dim,
+                dropout=0.0,
+            )
+            for _ in range(n_layers)
+        ])
+        self.cached_norm = nn.LayerNorm(d_model)
         self.output_proj = nn.Linear(d_model, vocab_size)
 
         self._init_weights()
@@ -563,6 +715,45 @@ class DSLDecoder(nn.Module):
         for p in self.parameters():
             if (p.dim() > 1):
                 nn.init.xavier_uniform_(p)
+
+    def sync_cached_decoder(self):
+        for old_layer, cached_layer in zip(
+            self.decoder.layers,
+            self.cached_layers,
+        ):
+            cached_layer.load_from_transformer_layer(old_layer)
+
+        self.cached_norm.load_state_dict(
+            self.decoder.norm.state_dict()
+        )
+    
+    def build_cached_decoder(self):
+        self.cached_layers = nn.ModuleList([
+            CachedDecoderLayer(
+                d_model=self.d_model,
+                n_heads=layer.self_attn.num_heads,
+                ff_dim=layer.linear1.out_features,
+                dropout=0.0,
+            )
+            for layer in self.decoder.layers
+        ])
+
+        self.cached_norm = nn.LayerNorm(self.d_model)
+
+        for old_layer, cached_layer in zip(
+            self.decoder.layers,
+            self.cached_layers,
+        ):
+            cached_layer.load_from_transformer_layer(old_layer)
+
+        self.cached_norm.load_state_dict(
+            self.decoder.norm.state_dict()
+        )
+
+        device = next(self.parameters()).device
+
+        self.cached_layers.to(device)
+        self.cached_norm.to(device)
 
     def forward(
         self,
@@ -589,6 +780,54 @@ class DSLDecoder(nn.Module):
 
         return logits[:, -1, :]   # [B, V]  only last step
 
+    def decode_step_cached(
+        self,
+        token: torch.Tensor,          # [B, 1]
+        memory,
+        cache=None,
+    ):
+        """
+        token : [B, 1]
+        memory: self.context_proj(z_context).unsqueeze(1)
+        cache : (K, V) list, one entry by layer
+
+        Return :
+            logits : [B, V]
+            new_cache : (K, V) list
+        """
+
+        if cache is None:
+            cache = [None] * len(self.cached_layers)
+
+        position = 0 if cache[0] is None else cache[0][0].size(2)
+
+        x = self.token_embed(token) * math.sqrt(self.d_model)
+
+        x = self.pos_enc.forward_at(
+            x,
+            position,
+        )
+
+        new_cache = []
+
+        for layer, layer_cache in zip(
+            self.cached_layers,
+            cache,
+        ):
+            x, layer_cache = layer(
+                x,
+                memory,
+                cache=layer_cache,
+            )
+
+            new_cache.append(layer_cache)
+
+        x = self.cached_norm(x)
+
+        logits = self.output_proj(x[:, -1, :])
+
+        return logits, new_cache
+
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model: int, max_len: int = 256, dropout: float = 0.1):
         super().__init__()
@@ -604,6 +843,284 @@ class PositionalEncoding(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.dropout(x + self.pe[:, :x.size(1)])
+
+    def forward_at(self, x: torch.Tensor, position: int) -> torch.Tensor:
+        return self.dropout(
+            x + self.pe[:, position:position + x.size(1)]
+        )
+
+class CachedSelfAttention(nn.Module):
+    def __init__(self, d_model, n_heads, dropout=0.0):
+        super().__init__()
+
+        assert d_model % n_heads == 0
+
+        self.d_model = d_model
+        self.n_heads = n_heads
+        self.head_dim = d_model // n_heads
+
+        self.q_proj = nn.Linear(d_model, d_model)
+        self.k_proj = nn.Linear(d_model, d_model)
+        self.v_proj = nn.Linear(d_model, d_model)
+        self.out_proj = nn.Linear(d_model, d_model)
+
+        self.dropout = dropout
+
+    def load_from_multihead_attention(self, attn):
+        """
+        Copie les poids d'un nn.MultiheadAttention
+        PyTorch vers notre implémentation.
+        """
+
+        D = self.d_model
+
+        with torch.no_grad():
+            self.q_proj.weight.copy_(
+                attn.in_proj_weight[:D]
+            )
+            self.k_proj.weight.copy_(
+                attn.in_proj_weight[D:2 * D]
+            )
+            self.v_proj.weight.copy_(
+                attn.in_proj_weight[2 * D:]
+            )
+
+            self.q_proj.bias.copy_(
+                attn.in_proj_bias[:D]
+            )
+            self.k_proj.bias.copy_(
+                attn.in_proj_bias[D:2 * D]
+            )
+            self.v_proj.bias.copy_(
+                attn.in_proj_bias[2 * D:]
+            )
+
+            self.out_proj.weight.copy_(
+                attn.out_proj.weight
+            )
+            self.out_proj.bias.copy_(
+                attn.out_proj.bias
+            )
+
+    def _split_heads(self, x):
+        B, L, D = x.shape
+
+        return (
+            x.reshape(
+                B,
+                L,
+                self.n_heads,
+                self.head_dim,
+            )
+            .transpose(1, 2)
+        )
+
+    def _merge_heads(self, x):
+        B, H, L, Dh = x.shape
+
+        return (
+            x.transpose(1, 2)
+            .contiguous()
+            .reshape(B, L, H * Dh)
+        )
+
+    def forward(
+        self,
+        x,
+        cache=None,
+    ):
+        """
+        x:
+            [B, L, D]
+
+        cache:
+            None
+            or (k_cache, v_cache)
+
+        Return:
+            output, new_cache
+        """
+
+        q = self._split_heads(
+            self.q_proj(x)
+        )
+
+        k = self._split_heads(
+            self.k_proj(x)
+        )
+
+        v = self._split_heads(
+            self.v_proj(x)
+        )
+
+        if cache is not None:
+            k_cache, v_cache = cache
+
+            k = torch.cat(
+                [k_cache, k],
+                dim=2,
+            )
+
+            v = torch.cat(
+                [v_cache, v],
+                dim=2,
+            )
+
+        new_cache = (k, v)
+
+        out = F.scaled_dot_product_attention(
+            q,
+            k,
+            v,
+            is_causal=False,
+        )
+
+        out = self._merge_heads(out)
+
+        return self.out_proj(out), new_cache
+
+class CachedDecoderLayer(nn.Module):
+    def __init__(
+        self,
+        d_model,
+        n_heads,
+        ff_dim,
+        dropout=0.0,
+    ):
+        super().__init__()
+
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.norm3 = nn.LayerNorm(d_model)
+
+        self.self_attn = CachedSelfAttention(
+            d_model=d_model,
+            n_heads=n_heads,
+            dropout=dropout,
+        )
+
+        self.cross_attn = nn.MultiheadAttention(
+            embed_dim=d_model,
+            num_heads=n_heads,
+            dropout=dropout,
+            batch_first=True,
+        )
+
+        self.linear1 = nn.Linear(
+            d_model,
+            ff_dim,
+        )
+
+        self.linear2 = nn.Linear(
+            ff_dim,
+            d_model,
+        )
+
+        self.dropout = nn.Dropout(dropout)
+        self.activation = nn.ReLU()
+
+    def forward(
+        self,
+        x,
+        memory,
+        cache=None,
+    ):
+
+        # -------------------------
+        # Self attention
+        # -------------------------
+
+        residual = x
+
+        x_norm = self.norm1(x)
+
+        self_out, new_cache = self.self_attn(
+            x_norm,
+            cache=cache,
+        )
+
+        x = residual + self_out
+
+        # -------------------------
+        # Cross attention
+        # -------------------------
+
+        residual = x
+
+        x_norm = self.norm2(x)
+
+        cross_out, _ = self.cross_attn(
+            x_norm,
+            memory,
+            memory,
+            need_weights=False,
+        )
+
+        x = residual + cross_out
+
+        # -------------------------
+        # Feed Forward
+        # -------------------------
+
+        residual = x
+
+        x_norm = self.norm3(x)
+
+        x_norm = self.linear1(x_norm)
+        x_norm = self.activation(x_norm)
+        x_norm = self.dropout(x_norm)
+        x_norm = self.linear2(x_norm)
+
+        x = residual + x_norm
+
+        return x, new_cache
+
+    def load_from_transformer_layer(self, layer):
+        with torch.no_grad():
+
+            # -------------------------
+            # LayerNorm
+            # -------------------------
+
+            self.norm1.load_state_dict(
+                layer.norm1.state_dict()
+            )
+
+            self.norm2.load_state_dict(
+                layer.norm2.state_dict()
+            )
+
+            self.norm3.load_state_dict(
+                layer.norm3.state_dict()
+            )
+
+            # -------------------------
+            # Self attention
+            # -------------------------
+
+            self.self_attn.load_from_multihead_attention(
+                layer.self_attn
+            )
+
+            # -------------------------
+            # Cross attention
+            # -------------------------
+
+            self.cross_attn.load_state_dict(
+                layer.multihead_attn.state_dict()
+            )
+
+            # -------------------------
+            # FFN
+            # -------------------------
+
+            self.linear1.load_state_dict(
+                layer.linear1.state_dict()
+            )
+
+            self.linear2.load_state_dict(
+                layer.linear2.state_dict()
+            )
 
 @torch.no_grad()
 def generate_one(
@@ -668,21 +1185,153 @@ def generate_one(
 
     return connectionBuilder.program()
 
-def build_prog_graph(program: str, vocab, device: str = "cpu") -> Data:
-    builder = DSLGraphBuilder(vocab.token2id)
+@torch.no_grad()
+def generate_one_cached(
+    model       : DSLModel,
+    vocab,
+    z_context   : torch.Tensor,
+    engine,
+    temperature : float = 1.0,
+    max_depth   : int   = 6,
+    device      : str   = "cuda",
+) -> str:
+    model.eval()
+
+    BOS = vocab.token2id.get("<BOS>", 1)
+    EOS = vocab.token2id.get("<EOS>", 2)
+
+    ids = [BOS]
+
+    connectionBuilder = engine.connectionBuilder()
+    connectionBuilder.reset(max_depth)
+
+    # Cache du décodeur
+    cache = None
+
+    # Premier token = BOS
+    token = torch.tensor(
+        [[BOS]],
+        dtype=torch.long,
+        device=device,
+    )
+
+    memory = model.decoder.context_proj(z_context).unsqueeze(1)
+
+    for _ in range(128):
+
+        if ids[-1] == EOS or connectionBuilder.done():
+            break
+
+        # -----------------------------------------------------
+        # Décodage avec KV cache
+        # -----------------------------------------------------
+
+        logits, cache = model.decoder.decode_step_cached(
+            token,
+            memory,
+            cache,
+        )
+
+        logits = logits[0]
+        logits = logits / max(temperature, 1e-6)
+
+        # -----------------------------------------------------
+        # Masque des tokens autorisés
+        # -----------------------------------------------------
+
+        mask = torch.zeros(
+            len(vocab.token2id),
+            dtype=torch.bool,
+            device=device,
+        )
+
+        valid = connectionBuilder.availableNames()
+
+        for name in valid:
+            if name in vocab.token2id:
+                mask[vocab.token2id[name]] = True
+
+        if not mask.any():
+            mask[EOS] = True
+
+        logits = logits.masked_fill(
+            ~mask,
+            float("-inf"),
+        )
+
+        # -----------------------------------------------------
+        # Sampling
+        # -----------------------------------------------------
+
+        probs = F.softmax(logits, dim=-1)
+
+        tok_id = torch.multinomial(
+            probs,
+            1,
+        ).item()
+
+        tok = vocab.id2token.get(
+            tok_id,
+            "<PAD>",
+        )
+
+        # -----------------------------------------------------
+        # Gestion token
+        # -----------------------------------------------------
+
+        if tok in ("<PAD>", "<BOS>"):
+            break
+
+        if tok == "<EOS>" or connectionBuilder.done():
+            break
+
+        if connectionBuilder.applyName(tok):
+            ids.append(tok_id)
+
+            # Le prochain appel ne reçoit QUE le nouveau token
+            token = torch.tensor(
+                [[tok_id]],
+                dtype=torch.long,
+                device=device,
+            )
+        else:
+            break
+
+    if not connectionBuilder.valid():
+        return None
+
+    return connectionBuilder.program()
+
+def build_prog_graph(
+    program: str,
+    vocab,
+    device: str = "cpu"
+) -> Data:
+    builder = DSLGraphBuilder(
+        vocab.token2id
+    )
 
     try:
-        graph       = builder.build(program)
-        graph.batch = torch.zeros(graph.x.size(0), dtype=torch.long, device=device)
+        graph = builder.build(program)
 
         return graph.to(device)
     except Exception:
-        x          = torch.tensor([vocab.token2id.get("I", 0)], dtype=torch.long, device=device)
-        edge_index = torch.empty((2, 0), dtype=torch.long, device=device)
-        g          = Data(x=x, edge_index=edge_index)
-        g.batch    = torch.zeros(1, dtype=torch.long, device=device)
+        x = torch.tensor(
+            [vocab.token2id.get("I", 0)],
+            dtype=torch.long,
+            device=device
+        )
 
-        return g
+        edge_index = torch.empty(
+            (2, 0),
+            dtype=torch.long,
+            device=device
+        )
+
+        return Data(
+            x=x,
+            edge_index=edge_index
+        )
 
 def encode_program_tokens(program: str, vocab, max_len: int = 128) -> torch.Tensor:
     ids     = [vocab.token2id.get("<BOS>", 1)]
@@ -725,11 +1374,45 @@ def addOutput(filename: str, line: str):
     with open(filename, "a") as f:
         f.write(line + "\n")
 
+def build_cached_decoder_from_model(model):
+    old_decoder = model.decoder
+
+    layers = nn.ModuleList([
+        CachedDecoderLayer(
+            d_model=old_decoder.d_model,
+            n_heads=old_decoder.decoder.layers[0].self_attn.num_heads,
+            ff_dim=old_decoder.decoder.layers[0].linear1.out_features,
+            dropout=0.0,
+        )
+        for _ in old_decoder.decoder.layers
+    ])
+
+    norm = nn.LayerNorm(
+        old_decoder.d_model
+    )
+
+    for old_layer, new_layer in zip(
+        old_decoder.decoder.layers,
+        layers,
+    ):
+        new_layer.load_from_transformer_layer(
+            old_layer
+        )
+
+    norm.load_state_dict(
+        old_decoder.decoder.norm.state_dict()
+    )
+
+    device = next(model.parameters()).device
+    layers = layers.to(device)
+    norm = norm.to(device)
+
+    return layers, norm
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 minTemperature: float = 0.1
 maxTemperature: float = 5.0
 minAlpha: float = 0.1
-engine = Engine("dsl_dataset")
 
 MAX_ITERATIONS_PER_TARGET: int = 500000
 PLATEAU_PATIENCE: int = 50000
@@ -738,7 +1421,7 @@ class Worker:
     def __init__(self):
         self.j = None
 
-    def init(self, j: int):
+    def init(self, engine, j: int):
         self.j = j
         self.targetProgram = engine.program(j)
         self.trajectory = engine.trajectory(j)
@@ -757,14 +1440,15 @@ class Worker:
         self.testedPrograms = set()
         self.alpha: float = 1.0
         self.programCount: int = 1
-        self.best_seen_cost = self.candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+        self.best_seen_cost = self.candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]
         self.iters_since_improvement = 0
         self.program = None
         self.cost = None
         self.df = None
+        self.L_total = None
         self.count: int = 0
 
-    def process(self, model) -> bool:
+    def process(self, engine, model, device) -> bool:
         if (self.j == None):
             return True
 
@@ -774,14 +1458,14 @@ class Worker:
         if (not len(self.costs)):
             return True
         
-        self.current_best = self.candidates[-1][1].sum(axis=0, skipna=False)["Total cost"]
+        self.current_best = self.candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]
 
         if (self.current_best < self.best_seen_cost):
             self.best_seen_cost = self.current_best
         else:
             self.iters_since_improvement += 1
 
-        if (self.count > MAX_ITERATIONS_PER_TARGET or self.iters_since_improvement > PLATEAU_PATIENCE):
+        if (self.count >= MAX_ITERATIONS_PER_TARGET or self.iters_since_improvement >= PLATEAU_PATIENCE):
             return True
 
         if (self.computeGraphs):
@@ -801,9 +1485,9 @@ class Worker:
                 self.z_context = model.encode_context(
                     self.inputs, self.outputs, self.masks,
                     prog_graphs, cost_tensors
-                )   # [1, D]
+                )
 
-        self.program = generate_one(
+        self.program = generate_one_cached(
             model, VOCAB, self.z_context, engine,
             temperature = self.temperature,
             device = device,
@@ -819,11 +1503,22 @@ class Worker:
             except RuntimeError:
                 self.cost = math.inf
 
-        return False
+        model.train()
+        target_ids = encode_program_tokens(self.costs[0][1], VOCAB).to(device)
+        decoder_input = target_ids[:-1]
+        decoder_target = target_ids[1:]
+        logits = model.decoder(decoder_input.unsqueeze(0), self.z_context)
 
-    def update(self, model, L_tokens):
+        L_tokens = F.cross_entropy(
+            logits.reshape(
+                -1,
+                logits.size(-1)
+            ),
+            decoder_target.reshape(-1)
+        )
+
         if (not self.program or math.isinf(self.cost)):
-            L_total = L_tokens
+            self.L_total = L_tokens
 
             self.temperature = min(maxTemperature, self.temperature * 1.05)
             self.alpha = min(1.0, self.alpha * 1.5)
@@ -846,7 +1541,7 @@ class Worker:
                 self.temperature = min(maxTemperature, self.temperature * 1.05)
                 self.alpha = min(1.0, self.alpha * 1.5)
 
-            L_total = self.alpha * L_tokens + (1.0 - self.alpha) * L_semantic
+            self.L_total = self.alpha * L_tokens + (1.0 - self.alpha) * L_semantic
 
         if (self.program):
             if (self.cost < self.candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
@@ -855,7 +1550,10 @@ class Worker:
                     "model_state": model.state_dict(),
                     "d_model"    : model.decoder.d_model,
                     "vocab_size" : model.decoder.vocab_size,
-                }, modelFilename)
+                }, modelFilename.replace(".pt", ".tmp"))
+
+                os.remove(modelFilename)
+                os.rename(modelFilename.replace(".pt", ".tmp"), modelFilename)
 
                 self.computeGraphs = True
                 self.iters_since_improvement = 0
@@ -874,24 +1572,53 @@ class Worker:
 
         self.count += 1
 
-        return L_total
+        return False
+
+def learner_step(model, optimizer, experiences):
+    optimizer.zero_grad()
+
+    losses = []
+
+    for exp in experiences:
+        L_total = exp.L_total
+
+        losses.append(L_total)
+
+    sum(losses).backward()
+
+    optimizer.step()
+
+    model.decoder.sync_cached_decoder()
+
+    torch.save({
+        "model_state": model.state_dict(),
+        "d_model"    : model.decoder.d_model,
+        "vocab_size" : model.decoder.vocab_size,
+    }, modelFilename.replace(".pt", ".tmp"))
+
+    os.remove(modelFilename)
+    os.rename(modelFilename.replace(".pt", ".tmp"), modelFilename)
+
+class Experience:
+    def __init__(self, workerId, L_total):
+        self.workerId = workerId
+        self.L_total = L_total
 
 if (__name__ == "__main__"):
+    engine = Engine("dsl_dataset")
     n = engine.count()
     indexes = engine.orderedIndexes()
-    process = tqdm(total = len(indexes), desc = "Programs")
-    dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
+    dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     modelFilename: str = "dsl_model.pt"
 
     if (os.path.exists(modelFilename)):
-        checkpoint = torch.load(modelFilename, map_location=device)
+        checkpoint = torch.load(modelFilename, map_location = device)
         model.load_state_dict(checkpoint["model_state"])
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=1e-4
-    )
+    model.decoder.sync_cached_decoder()
+
+    optimizer = torch.optim.AdamW(model.parameters(), lr = 1e-4)
 
     workers: list = []
 
@@ -899,16 +1626,17 @@ if (__name__ == "__main__"):
         workers.append(Worker())
 
     count: int = 0
+    process = tqdm(total = len(indexes), desc = "Programs")
 
     while (True):
-        worker_L_tokens: list = []
-        
-        for worker in workers:
+        experiences: list = []
+
+        for workerId, worker in enumerate(workers):
             loop: bool = True
             c: bool = False
 
             while (loop):
-                if (worker.process(model)):
+                if (worker.process(engine, model, device)):
                     if (worker.j != None):
                         count += 1
                         process.update()
@@ -916,7 +1644,7 @@ if (__name__ == "__main__"):
                     if (not len(indexes)):
                         c = True
 
-                    worker.init(indexes.pop(0))
+                    worker.init(engine, indexes.pop(0))
                 else:
                     loop = False
 
@@ -926,30 +1654,9 @@ if (__name__ == "__main__"):
             if (c):
                 continue
 
-            model.train()
-            optimizer.zero_grad()
-            target_ids = encode_program_tokens(worker.costs[0][1], VOCAB).to(device)
-            decoder_input = target_ids[:-1]
-            decoder_target = target_ids[1:]
-            logits = model.decoder(decoder_input.unsqueeze(0), worker.z_context)
-
-            L_tokens = F.cross_entropy(
-                logits.reshape(
-                    -1,
-                    logits.size(-1)
-                ),
-                decoder_target.reshape(-1)
-            )
-            
-            worker_L_tokens.append((worker, L_tokens))
+            experiences.append(Experience(workerId, worker.L_total))
 
         if (count == n):
             break
 
-        list_L_total: list = []
-
-        for worker, L_tokens in worker_L_tokens:
-            list_L_total.append(worker.update(model, L_tokens))
-        
-        sum(list_L_total).backward()
-        optimizer.step()
+        learner_step(model, optimizer, experiences)
