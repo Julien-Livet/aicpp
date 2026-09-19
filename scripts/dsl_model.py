@@ -1,7 +1,10 @@
 from aicpppy import Engine
 import ast
+import copy
 from dsl_rl import VOCAB
 import math
+import multiprocessing as mp
+from multiprocessing import get_context, Queue
 import os
 import pandas as pd
 import torch
@@ -17,6 +20,13 @@ Grid = Tuple[Tuple[int]]
 M: int = 50
 
 scoreColumns = ["Total cost", "Grid size cost", "Bounding box cost", "Pixel overlap cost", "Value cost"]
+
+minTemperature: float = 0.1
+maxTemperature: float = 5.0
+minAlpha: float = 0.1
+
+MAX_ITERATIONS_PER_TARGET: int = 500000
+PLATEAU_PATIENCE: int = 50000
 
 def dataframe_to_cost_tensor(df):
     """
@@ -1215,6 +1225,7 @@ def generate_one_cached(
         device=device,
     )
 
+    z_context = z_context.to(device)
     memory = model.decoder.context_proj(z_context).unsqueeze(1)
 
     for _ in range(128):
@@ -1409,24 +1420,30 @@ def build_cached_decoder_from_model(model):
 
     return layers, norm
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-minTemperature: float = 0.1
-maxTemperature: float = 5.0
-minAlpha: float = 0.1
-
-MAX_ITERATIONS_PER_TARGET: int = 500000
-PLATEAU_PATIENCE: int = 50000
-
 class Worker:
-    def __init__(self):
+    def __init__(self, engine):
         self.j = None
+        self.engine = engine
 
-    def init(self, engine, j: int):
+    def prepare_experience(self):
+        prog_graphs = []
+        cost_tensors = []
+
+        for program, df in self.candidates:
+            g = build_prog_graph(program, VOCAB, "cpu")
+            prog_graphs.append(g.cpu())
+
+            c = dataframe_to_cost_tensor(df)
+            cost_tensors.append(c.cpu())
+
+        return prog_graphs, cost_tensors
+
+    def init(self, device: str, j: int):
         self.j = j
-        self.targetProgram = engine.program(j)
-        self.trajectory = engine.trajectory(j)
-        self.grids = engine.grids(j)
-        self.outputs = engine.outputs(j)
+        self.targetProgram = self.engine.program(j)
+        self.trajectory = self.engine.trajectory(j)
+        self.grids = self.engine.grids(j)
+        self.outputs = self.engine.outputs(j)
         pairs = list(zip(self.grids, self.outputs))
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
         self.inputs = inputs.to(device)
@@ -1434,7 +1451,7 @@ class Worker:
         self.masks = masks.to(device)
         self.costs = list(reversed(self.trajectory))
         self.costs = sorted(self.costs, key = lambda x: (-x[0], len(x[1])))
-        self.candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = scoreColumns))] * M
+        self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = scoreColumns))] * M
         self.computeGraphs: bool = True
         self.temperature: float = minTemperature
         self.testedPrograms = set()
@@ -1448,7 +1465,7 @@ class Worker:
         self.use_semantic = None
         self.count: int = 0
 
-    def process(self, engine, model, device) -> bool:
+    def process(self, model, device) -> bool:
         if (self.j == None):
             return True
 
@@ -1477,6 +1494,16 @@ class Worker:
                 prog_graphs.append(g)
                 cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
 
+            self.prog_graphs = [
+                    g.cpu()
+                    for g in prog_graphs
+                ]
+
+            self.cost_tensors = [
+                c.cpu()
+                for c in cost_tensors
+            ]
+
             self.computeGraphs = False
 
             model.eval()
@@ -1485,10 +1512,10 @@ class Worker:
                 self.z_context = model.encode_context(
                     self.inputs, self.outputs, self.masks,
                     prog_graphs, cost_tensors
-                )
+                ).cpu()
 
         self.program = generate_one_cached(
-            model, VOCAB, self.z_context, engine,
+            model, VOCAB, self.z_context, self.engine,
             temperature = self.temperature,
             device = device,
             max_depth = programDepth(self.costs[0][1]),
@@ -1498,7 +1525,7 @@ class Worker:
             self.cost = math.inf
         else:
             try:
-                self.df = pd.DataFrame(engine.dfConnectionBuilder(self.j), columns = scoreColumns)
+                self.df = pd.DataFrame(self.engine.dfConnectionBuilder(self.j), columns = scoreColumns)
                 self.cost = self.df["Total cost"].sum(skipna = False)
             except RuntimeError:
                 self.cost = math.inf
@@ -1519,15 +1546,6 @@ class Worker:
         if (self.program):
             if (self.cost < self.candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not self.program in [c[0] for c in self.candidates]):
-                torch.save({
-                    "model_state": model.state_dict(),
-                    "d_model"    : model.decoder.d_model,
-                    "vocab_size" : model.decoder.vocab_size,
-                }, modelFilename.replace(".pt", ".tmp"))
-
-                os.remove(modelFilename)
-                os.rename(modelFilename.replace(".pt", ".tmp"), modelFilename)
-
                 self.computeGraphs = True
                 self.iters_since_improvement = 0
 
@@ -1547,14 +1565,47 @@ class Worker:
 
         return False
 
-def learner_step(model, optimizer, experiences):
+def learner_step(device, model, optimizer, experiences):
+    versions = {
+        exp.model_version
+        for exp in experiences
+    }
+
+    assert len(versions) == 1
+
     optimizer.zero_grad()
 
     losses: list = []
 
     for exp in experiences:
         # ---------------------------------------
-        # Teacher forcing
+        # Recompute context with learner
+        # ---------------------------------------
+
+        inputs = exp.inputs.to(device)
+        outputs = exp.outputs.to(device)
+        masks = exp.masks.to(device)
+
+        prog_graphs = [
+            g.to(device)
+            for g in exp.prog_graphs
+        ]
+
+        cost_tensors = [
+            c.to(device)
+            for c in exp.cost_tensors
+        ]
+
+        z_context = model.encode_context(
+            inputs,
+            outputs,
+            masks,
+            prog_graphs,
+            cost_tensors
+        )
+
+        # ---------------------------------------
+        # Target loss
         # ---------------------------------------
 
         target_ids = encode_program_tokens(
@@ -1567,7 +1618,7 @@ def learner_step(model, optimizer, experiences):
 
         logits = model.decoder(
             decoder_input.unsqueeze(0),
-            exp.z_context
+            z_context
         )
 
         L_tokens = F.cross_entropy(
@@ -1590,7 +1641,7 @@ def learner_step(model, optimizer, experiences):
 
             logits_self = model.decoder(
                 gen_input.unsqueeze(0),
-                exp.z_context
+                z_context
             )
 
             L_semantic = F.cross_entropy(
@@ -1601,10 +1652,13 @@ def learner_step(model, optimizer, experiences):
             L_semantic = L_tokens
 
         # ---------------------------------------
-        # Total loss
+        # Total
         # ---------------------------------------
 
-        L_total = (exp.alpha * L_tokens + (1.0 - exp.alpha) * L_semantic)
+        L_total = (
+            exp.alpha * L_tokens
+            + (1.0 - exp.alpha) * L_semantic
+        )
 
         losses.append(L_total)
 
@@ -1624,18 +1678,185 @@ def learner_step(model, optimizer, experiences):
     os.rename(modelFilename.replace(".pt", ".tmp"), modelFilename)
 
 class Experience:
-    def __init__(self, workerId, worker):
+    def __init__(
+        self,
+        workerId,
+        inputs,
+        outputs,
+        masks,
+        prog_graphs,
+        cost_tensors,
+        target_program,
+        generated_program,
+        alpha,
+        use_semantic,
+        model_version,
+    ):
         self.workerId = workerId
-        self.z_context = worker.z_context
-        self.target_program = worker.targetProgram
-        self.generated_program = worker.program
-        self.alpha = worker.alpha
-        self.use_semantic = worker.use_semantic
+        self.inputs = inputs.detach().cpu()
+        self.outputs = outputs.detach().cpu()
+        self.masks = masks.detach().cpu()
+        self.prog_graphs = prog_graphs
+        self.cost_tensors = [
+            c.detach().cpu()
+            for c in cost_tensors
+        ]
+        self.target_program = target_program
+        self.generated_program = generated_program
+        self.alpha = float(alpha)
+        self.use_semantic = bool(use_semantic)
+        self.model_version = int(model_version)
+
+def sync_actor_model(actor_model, learner_model):
+    actor_model.load_state_dict(learner_model.state_dict())
+    actor_model.eval()
+
+    for p in actor_model.parameters():
+        assert p.grad is None
+
+    for actor_param, learner_param in zip(
+        actor_model.parameters(),
+        learner_model.parameters(),
+    ):
+        assert torch.equal(
+            actor_param,
+            learner_param
+        )
+
+def serialize_prog_graph(g):
+    return {
+        "x": g.x.cpu().numpy(),
+        "edge_index": g.edge_index.cpu().numpy(),
+    }
+
+def deserialize_prog_graph(g):
+    return Data(
+        x=torch.from_numpy(g["x"]),
+        edge_index=torch.from_numpy(g["edge_index"]),
+    )
+
+def worker_process(input_queue, output_queue, worker_id, model_version, actor_state):
+    # Un seul Engine pour toute la durée du processus
+    engine = Engine("dsl_dataset")
+
+    # Un seul Worker réutilisé
+    worker = Worker(engine)
+
+    # Un seul actor_model réutilisé
+    actor_model = DSLModel(
+        len(VOCAB.token2id),
+        d_model=256,
+        device="cpu",
+    )
+
+    actor_model.load_state_dict(actor_state)
+
+    actor_model.requires_grad_(False)
+    actor_model.eval()
+
+    actor_model.decoder.sync_cached_decoder()
+
+    current_model_version = model_version
+
+    while True:
+        message = input_queue.get()
+
+        # Sentinel d'arrêt
+        if message is None:
+            break
+
+        message_type = message[0]
+
+        # --------------------------------------------------
+        # Synchronisation de l'actor
+        # --------------------------------------------------
+        if message_type == "sync":
+            _, current_model_version, new_actor_state = message
+
+            actor_model.load_state_dict(new_actor_state)
+
+            actor_model.requires_grad_(False)
+            actor_model.eval()
+
+            actor_model.decoder.sync_cached_decoder()
+
+            output_queue.put({
+                "type": "sync_ack",
+                "workerId": worker_id,
+                "model_version": current_model_version,
+            })
+
+            continue
+
+        # --------------------------------------------------
+        # Job
+        # --------------------------------------------------
+        if message_type == "job":
+            _, j = message
+
+            worker.init("cpu", j)
+
+            prog_graphs, cost_tensors = worker.prepare_experience()
+
+            with torch.no_grad():
+                z_context = actor_model.encode_context(
+                    worker.inputs,
+                    worker.outputs,
+                    worker.masks,
+                    prog_graphs,
+                    cost_tensors,
+                )
+
+            program = generate_one_cached(
+                actor_model,
+                VOCAB,
+                z_context,
+                engine,
+                temperature=worker.temperature,
+                device="cpu",
+                max_depth=programDepth(worker.costs[0][1]),
+            )
+
+            output_queue.put({
+                "type": "experience",
+
+                "workerId": worker_id,
+                "model_version": current_model_version,
+                "j": j,
+
+                "inputs": worker.inputs.cpu().numpy(),
+                "outputs": worker.outputs.cpu().numpy(),
+                "masks": worker.masks.cpu().numpy(),
+
+                "prog_graphs": [
+                    serialize_prog_graph(g)
+                    for g in prog_graphs
+                ],
+
+                "cost_tensors": [
+                    c.cpu().numpy()
+                    for c in cost_tensors
+                ],
+
+                "target_program": worker.targetProgram,
+                "generated_program": program,
+
+                "alpha": worker.alpha,
+                "use_semantic": worker.use_semantic,
+            })
+
+            continue
+
+        raise RuntimeError(
+            f"Message inconnu reçu par worker {worker_id}: "
+            f"{message_type}"
+        )
 
 if (__name__ == "__main__"):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     engine = Engine("dsl_dataset")
     n = engine.count()
-    indexes = engine.orderedIndexes()
+    indexes = engine.orderedIndexes()   
     dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     modelFilename: str = "dsl_model.pt"
@@ -1650,11 +1871,279 @@ if (__name__ == "__main__"):
 
     workers: list = []
 
-    for _ in range(25):
-        workers.append(Worker())
+    for _ in range(os.cpu_count()):
+        workers.append(Worker(engine))
 
+    model_version: int = 1
     count: int = 0
     process = tqdm(total = len(indexes), desc = "Programs")
+    actor_model = copy.deepcopy(model).to(device)
+    actor_model.requires_grad_(False)
+    actor_model.eval()
+
+    sync_actor_model(actor_model, model)
+
+    actor_state = {
+        name: tensor.detach().cpu()
+        for name, tensor in actor_model.state_dict().items()
+    }
+
+    ctx = mp.get_context("spawn")
+
+    input_queue = ctx.Queue()
+    output_queue = ctx.Queue()
+
+    processes = []
+
+    for worker_id in range(2):
+        p = ctx.Process(
+            target=worker_process,
+            args=(
+                input_queue,
+                output_queue,
+                worker_id,
+                model_version,
+                actor_state,
+            ),
+        )
+
+        p.start()
+        processes.append(p)
+
+
+    # ==========================================================
+    # Cycle 1 : génération avec la version 1
+    # ==========================================================
+
+    jobs = [
+        3488,
+        3489,
+    ]
+
+    for j in jobs:
+        input_queue.put(("job", j))
+
+
+    results = []
+
+    for _ in jobs:
+        result = output_queue.get()
+
+        assert result["type"] == "experience"
+        assert result["model_version"] == model_version
+        assert result["target_program"] is not None
+
+        results.append(result)
+
+
+    experiences = []
+
+    for result in results:
+        prog_graphs = [
+            deserialize_prog_graph(g)
+            for g in result["prog_graphs"]
+        ]
+
+        cost_tensors = [
+            torch.from_numpy(c)
+            for c in result["cost_tensors"]
+        ]
+
+        experience = Experience(
+            workerId=result["workerId"],
+            inputs=torch.from_numpy(result["inputs"]),
+            outputs=torch.from_numpy(result["outputs"]),
+            masks=torch.from_numpy(result["masks"]),
+            prog_graphs=prog_graphs,
+            cost_tensors=cost_tensors,
+            target_program=result["target_program"],
+            generated_program=result["generated_program"],
+            alpha=result["alpha"],
+            use_semantic=result["use_semantic"],
+            model_version=result["model_version"],
+        )
+
+        experiences.append(experience)
+
+
+    assert len(experiences) == len(jobs)
+
+    assert {
+        exp.model_version
+        for exp in experiences
+    } == {1}
+
+    print()
+    print("Cycle 1 : expériences version 1 : OK")
+
+
+    # ==========================================================
+    # Apprentissage
+    # ==========================================================
+
+    print()
+    print("Lancement learner_step()...")
+
+    learner_step(
+        device,
+        model,
+        optimizer,
+        experiences,
+    )
+
+    print("learner_step() : OK")
+
+
+    # ==========================================================
+    # Nouvelle version du modèle
+    # ==========================================================
+
+    model_version += 1
+
+    sync_actor_model(
+        actor_model,
+        model,
+    )
+
+    actor_state = {
+        name: tensor.detach().cpu()
+        for name, tensor in actor_model.state_dict().items()
+    }
+
+
+    # ==========================================================
+    # Synchronisation des workers
+    # ==========================================================
+
+    for _ in processes:
+        input_queue.put(
+            (
+                "sync",
+                model_version,
+                actor_state,
+            )
+        )
+
+
+    sync_acks = []
+
+    while len(sync_acks) < len(processes):
+        result = output_queue.get()
+
+        assert result["type"] == "sync_ack"
+        assert result["model_version"] == model_version
+        assert result["workerId"] in (0, 1)
+
+        sync_acks.append(result)
+
+        print(
+            "Worker synchronisé :",
+            result["workerId"],
+            "version:",
+            result["model_version"],
+        )
+
+
+    assert len(sync_acks) == len(processes)
+
+    print()
+    print("Synchronisation version 2 : OK")
+
+
+    # ==========================================================
+    # Cycle 2 : génération avec la version 2
+    # ==========================================================
+
+    jobs = [
+        3490,
+        3491,
+    ]
+
+    for j in jobs:
+        input_queue.put(("job", j))
+
+
+    results = []
+
+    for _ in jobs:
+        result = output_queue.get()
+
+        assert result["type"] == "experience"
+        assert result["model_version"] == model_version
+        assert result["target_program"] is not None
+
+        results.append(result)
+
+
+    experiences = []
+
+    for result in results:
+        prog_graphs = [
+            deserialize_prog_graph(g)
+            for g in result["prog_graphs"]
+        ]
+
+        cost_tensors = [
+            torch.from_numpy(c)
+            for c in result["cost_tensors"]
+        ]
+
+        experience = Experience(
+            workerId=result["workerId"],
+            inputs=torch.from_numpy(result["inputs"]),
+            outputs=torch.from_numpy(result["outputs"]),
+            masks=torch.from_numpy(result["masks"]),
+            prog_graphs=prog_graphs,
+            cost_tensors=cost_tensors,
+            target_program=result["target_program"],
+            generated_program=result["generated_program"],
+            alpha=result["alpha"],
+            use_semantic=result["use_semantic"],
+            model_version=result["model_version"],
+        )
+
+        experiences.append(experience)
+
+
+    assert len(experiences) == len(jobs)
+
+    assert {
+        exp.model_version
+        for exp in experiences
+    } == {2}
+
+    for experience in experiences:
+        print()
+        print("workerId:", experience.workerId)
+        print("model_version:", experience.model_version)
+        print("target_program:", experience.target_program)
+        print("generated_program:", experience.generated_program)
+        print("inputs:", experience.inputs.shape)
+        print("graphs:", len(experience.prog_graphs))
+        print("cost tensors:", len(experience.cost_tensors))
+
+
+    print()
+    print("Cycle 2 : expériences version 2 : OK")
+
+
+    # ==========================================================
+    # Arrêt propre
+    # ==========================================================
+
+    for _ in processes:
+        input_queue.put(None)
+
+
+    for p in processes:
+        p.join()
+        assert p.exitcode == 0
+
+
+    print()
+    print("Cycle complet generate → learn → sync → generate : OK")
+
+    exit()
 
     while (True):
         experiences: list = []
@@ -1664,7 +2153,7 @@ if (__name__ == "__main__"):
             c: bool = False
 
             while (loop):
-                if (worker.process(engine, model, device)):
+                if (worker.process(actor_model, device)):
                     if (worker.j != None):
                         count += 1
                         process.update()
@@ -1672,7 +2161,8 @@ if (__name__ == "__main__"):
                     if (not len(indexes)):
                         c = True
 
-                    worker.init(engine, indexes.pop(0))
+                    j = indexes.pop(0)
+                    worker.init(device, j)
                 else:
                     loop = False
 
@@ -1682,9 +2172,26 @@ if (__name__ == "__main__"):
             if (c):
                 continue
 
-            experiences.append(Experience(workerId, worker))
+            experience = Experience(
+                workerId = workerId,
+                inputs = worker.inputs,
+                outputs = worker.outputs,
+                masks = worker.masks,
+                prog_graphs = worker.prog_graphs,
+                cost_tensors = worker.cost_tensors,
+                target_program = worker.targetProgram,
+                generated_program = worker.program,
+                alpha = worker.alpha,
+                use_semantic = worker.use_semantic,
+                model_version = model_version,
+            )
+
+            experiences.append(experience)
 
         if (count == n):
             break
 
-        learner_step(model, optimizer, experiences)
+        learner_step(device, model, optimizer, experiences)
+        sync_actor_model(actor_model, model)
+
+        model_version += 1
