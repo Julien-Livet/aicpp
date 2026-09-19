@@ -1445,7 +1445,7 @@ class Worker:
         self.program = None
         self.cost = None
         self.df = None
-        self.L_total = None
+        self.use_semantic = None
         self.count: int = 0
 
     def process(self, engine, model, device) -> bool:
@@ -1503,46 +1503,19 @@ class Worker:
             except RuntimeError:
                 self.cost = math.inf
 
-        model.train()
-        target_ids = encode_program_tokens(self.costs[0][1], VOCAB).to(device)
-        decoder_input = target_ids[:-1]
-        decoder_target = target_ids[1:]
-        logits = model.decoder(decoder_input.unsqueeze(0), self.z_context)
-
-        L_tokens = F.cross_entropy(
-            logits.reshape(
-                -1,
-                logits.size(-1)
-            ),
-            decoder_target.reshape(-1)
-        )
-
         if (not self.program or math.isinf(self.cost)):
-            self.L_total = L_tokens
-
             self.temperature = min(maxTemperature, self.temperature * 1.05)
             self.alpha = min(1.0, self.alpha * 1.5)
+            self.use_semantic = False
+        elif (self.cost <= self.costs[0][0]):
+            self.temperature = max(minTemperature, self.temperature * 0.95)
+            self.alpha = max(minAlpha, self.alpha * 0.9)
+            self.use_semantic = True
         else:
-            if (self.cost <= self.costs[0][0]):
-                gen_ids = encode_program_tokens(self.program, VOCAB).to(device)
-                gen_input, gen_target = gen_ids[:-1], gen_ids[1:]
-
-                logits_self = model.decoder(gen_input.unsqueeze(0), self.z_context)
-                L_semantic = F.cross_entropy(
-                    logits_self.reshape(-1, logits_self.size(-1)),
-                    gen_target.reshape(-1)
-                )
-
-                self.temperature = max(minTemperature, self.temperature * 0.95)
-                self.alpha = max(minAlpha, self.alpha * 0.9)
-            else:
-                L_semantic = L_tokens
-
-                self.temperature = min(maxTemperature, self.temperature * 1.05)
-                self.alpha = min(1.0, self.alpha * 1.5)
-
-            self.L_total = self.alpha * L_tokens + (1.0 - self.alpha) * L_semantic
-
+            self.temperature = min(maxTemperature, self.temperature * 1.05)
+            self.alpha = min(1.0, self.alpha * 1.5)
+            self.use_semantic = False
+            
         if (self.program):
             if (self.cost < self.candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
                 and not self.program in [c[0] for c in self.candidates]):
@@ -1577,10 +1550,61 @@ class Worker:
 def learner_step(model, optimizer, experiences):
     optimizer.zero_grad()
 
-    losses = []
+    losses: list = []
 
     for exp in experiences:
-        L_total = exp.L_total
+        # ---------------------------------------
+        # Teacher forcing
+        # ---------------------------------------
+
+        target_ids = encode_program_tokens(
+            exp.target_program,
+            VOCAB
+        ).to(device)
+
+        decoder_input = target_ids[:-1]
+        decoder_target = target_ids[1:]
+
+        logits = model.decoder(
+            decoder_input.unsqueeze(0),
+            exp.z_context
+        )
+
+        L_tokens = F.cross_entropy(
+            logits.reshape(-1, logits.size(-1)),
+            decoder_target.reshape(-1)
+        )
+
+        # ---------------------------------------
+        # Semantic loss
+        # ---------------------------------------
+
+        if exp.use_semantic:
+            gen_ids = encode_program_tokens(
+                exp.generated_program,
+                VOCAB
+            ).to(device)
+
+            gen_input = gen_ids[:-1]
+            gen_target = gen_ids[1:]
+
+            logits_self = model.decoder(
+                gen_input.unsqueeze(0),
+                exp.z_context
+            )
+
+            L_semantic = F.cross_entropy(
+                logits_self.reshape(-1, logits_self.size(-1)),
+                gen_target.reshape(-1)
+            )
+        else:
+            L_semantic = L_tokens
+
+        # ---------------------------------------
+        # Total loss
+        # ---------------------------------------
+
+        L_total = (exp.alpha * L_tokens + (1.0 - exp.alpha) * L_semantic)
 
         losses.append(L_total)
 
@@ -1600,9 +1624,13 @@ def learner_step(model, optimizer, experiences):
     os.rename(modelFilename.replace(".pt", ".tmp"), modelFilename)
 
 class Experience:
-    def __init__(self, workerId, L_total):
+    def __init__(self, workerId, worker):
         self.workerId = workerId
-        self.L_total = L_total
+        self.z_context = worker.z_context
+        self.target_program = worker.targetProgram
+        self.generated_program = worker.program
+        self.alpha = worker.alpha
+        self.use_semantic = worker.use_semantic
 
 if (__name__ == "__main__"):
     engine = Engine("dsl_dataset")
@@ -1654,7 +1682,7 @@ if (__name__ == "__main__"):
             if (c):
                 continue
 
-            experiences.append(Experience(workerId, worker.L_total))
+            experiences.append(Experience(workerId, worker))
 
         if (count == n):
             break
