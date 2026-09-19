@@ -7,7 +7,6 @@ Usage :
 
 import argparse
 import math
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
