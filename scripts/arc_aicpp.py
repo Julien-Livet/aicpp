@@ -98,7 +98,7 @@ def processTasks(tasks):
     results = {}
 
     for id_, arc_data in tasks:
-        program, df, testOutputs = processTask(engine, model, id_, arc_data)
+        _, _, testOutputs = processTask(engine, model, id_, arc_data)
 
         l: list = []
 
