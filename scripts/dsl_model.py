@@ -405,7 +405,6 @@ class ARCContextEncoder(nn.Module):
             -1
         )
 
-
         scores = self.attn_pool(z)
         # [B, N, 1]
 
@@ -538,13 +537,12 @@ class DSLModel(nn.Module):
 
     def encode_context(
         self,
-        inputs: torch.Tensor,           # [B, N, H, W]
-        outputs: torch.Tensor,          # [B, N, H, W]
-        masks: torch.Tensor,            # [B, N, H, W]
-        prog_graphs: List[Data],        # M graphs
-        cost_tensors: List[torch.Tensor] # M × [B, N, 5]
+        inputs: torch.Tensor,
+        outputs: torch.Tensor,
+        masks: torch.Tensor,
+        prog_graphs: List[Data],
+        cost_tensors: List[torch.Tensor]
     ) -> torch.Tensor:
-
         B = inputs.size(0)
         M = len(prog_graphs)
 
@@ -557,7 +555,6 @@ class DSLModel(nn.Module):
             outputs,
             masks
         )
-        # [B, D]
 
         # ======================================================
         # 2. DSL M graphs
@@ -574,17 +571,14 @@ class DSLModel(nn.Module):
         z_prog = self.prog_encoder(
             graph_batch
         )
-        # [M, D]
 
         z_prog = z_prog.unsqueeze(0)
-        # [1, M, D]
 
         z_prog = z_prog.expand(
             B,
             -1,
             -1
         )
-        # [B, M, D]
 
         # ======================================================
         # 3. M cost tensors
@@ -595,29 +589,21 @@ class DSLModel(nn.Module):
             dim=1
         )
 
-        # [B, M, N, 5]
-
         cost_batch = cost_batch.reshape(
             B * M,
             cost_batch.size(2),
             cost_batch.size(3)
         )
 
-        # [B*M, N, 5]
-
         z_cost = self.cost_encoder(
             cost_batch
         )
-
-        # [B*M, D]
 
         z_cost = z_cost.reshape(
             B,
             M,
             -1
         )
-
-        # [B, M, D]
 
         # ======================================================
         # 4. Program + cost fusion
@@ -626,24 +612,20 @@ class DSLModel(nn.Module):
         z_progs_stack = (
             z_prog + z_cost
         )
-        # [B, M, D]
 
         # ======================================================
         # 5. Attention ARC -> programs
         # ======================================================
 
         z_grids_q = z_grids.unsqueeze(1)
-        # [B, 1, D]
 
         z_attended, _ = self.prog_attn(
             z_grids_q,
             z_progs_stack,
             z_progs_stack
         )
-        # [B, 1, D]
 
         z_attended = z_attended.squeeze(1)
-        # [B, D]
 
         # ======================================================
         # 6. Final fusion
@@ -658,7 +640,6 @@ class DSLModel(nn.Module):
                 dim=-1
             )
         )
-        # [B, D]
 
         return z_context
 
@@ -1738,7 +1719,8 @@ def deserialize_prog_graph(g):
 def worker_process(input_queue, output_queue, worker_id, model_version, actor_state):
     # Un seul Engine pour toute la durée du processus
     engine = Engine("dsl_dataset")
-
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
     # Un seul Worker réutilisé
     worker = Worker(engine)
 
@@ -1746,9 +1728,9 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
     actor_model = DSLModel(
         len(VOCAB.token2id),
         d_model=256,
-        device="cpu",
-    )
-
+        device="cuda",
+    ).to("cuda")
+    torch.set_flush_denormal(True)
     actor_model.load_state_dict(actor_state)
 
     actor_model.requires_grad_(False)
@@ -1792,7 +1774,7 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
         # Job
         # --------------------------------------------------
         if message_type == "job":
-            _, j = message
+            _, batch_id, j = message
 
             worker.init("cpu", j)
 
@@ -1800,11 +1782,11 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
 
             with torch.no_grad():
                 z_context = actor_model.encode_context(
-                    worker.inputs,
-                    worker.outputs,
-                    worker.masks,
-                    prog_graphs,
-                    cost_tensors,
+                    worker.inputs.cuda(),
+                    worker.outputs.cuda(),
+                    worker.masks.cuda(),
+                    [g.to("cuda") for g in prog_graphs],
+                    [c.cuda() for c in cost_tensors],
                 )
 
             program = generate_one_cached(
@@ -1813,17 +1795,16 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
                 z_context,
                 engine,
                 temperature=worker.temperature,
-                device="cpu",
+                device="cuda",
                 max_depth=programDepth(worker.costs[0][1]),
             )
 
             output_queue.put({
                 "type": "experience",
-
+                "batch_id": batch_id,
                 "workerId": worker_id,
                 "model_version": current_model_version,
                 "j": j,
-
                 "inputs": worker.inputs.cpu().numpy(),
                 "outputs": worker.outputs.cpu().numpy(),
                 "masks": worker.masks.cpu().numpy(),
@@ -1852,11 +1833,205 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
             f"{message_type}"
         )
 
+class WorkerPool:
+    def __init__(
+        self,
+        num_workers,
+        model_version,
+        actor_model,
+    ):
+        self.ctx = mp.get_context("spawn")
+
+        self.input_queues = [
+            self.ctx.Queue()
+            for _ in range(num_workers)
+        ]
+
+        self.output_queue = self.ctx.Queue()
+        self.pending_results = {}
+        self.processes = []
+
+        actor_state = {
+            name: tensor.detach().cpu()
+            for name, tensor in actor_model.state_dict().items()
+        }
+
+        for worker_id in range(num_workers):
+            p = self.ctx.Process(
+                target=worker_process,
+                args=(
+                    self.input_queues[worker_id],
+                    self.output_queue,
+                    worker_id,
+                    model_version,
+                    actor_state,
+                ),
+            )
+
+            p.start()
+            self.processes.append(p)
+
+    def submit_jobs(self, batch_id, jobs):
+        for i, j in enumerate(jobs):
+            worker_id = i % len(self.input_queues)
+
+            self.input_queues[worker_id].put(
+                (
+                    "job",
+                    batch_id,
+                    j,
+                )
+            )
+
+    def _get_output(self):
+        return self.output_queue.get()
+
+    def collect_experiences(
+        self,
+        batch_id,
+        jobs,
+        model_version,
+    ):
+        experiences = []
+
+        while len(experiences) < len(jobs):
+
+            if (
+                batch_id in self.pending_results
+                and len(self.pending_results[batch_id]) > 0
+            ):
+                result = self.pending_results[batch_id].pop(0)
+
+                if not self.pending_results[batch_id]:
+                    del self.pending_results[batch_id]
+
+            else:
+                result = self._get_output()
+
+                if result["type"] != "experience":
+                    raise RuntimeError(
+                        f"Résultat inattendu : {result['type']}"
+                    )
+
+                result_batch_id = result["batch_id"]
+
+                if result_batch_id != batch_id:
+                    self.pending_results.setdefault(
+                        result_batch_id,
+                        []
+                    ).append(result)
+
+                    continue
+
+            assert result["batch_id"] == batch_id
+            assert result["model_version"] == model_version
+            assert result["target_program"] is not None
+
+            experience = reconstruct_experience(result)
+
+            experiences.append(experience)
+
+        assert len(experiences) == len(jobs)
+
+        assert {
+            exp.model_version
+            for exp in experiences
+        } == {model_version}
+
+        return experiences
+
+    def sync(
+        self,
+        model_version,
+        actor_model,
+    ):
+        actor_state = {
+            name: tensor.detach().cpu()
+            for name, tensor in actor_model.state_dict().items()
+        }
+
+        for worker_id in range(len(self.processes)):
+            self.input_queues[worker_id].put(
+                (
+                    "sync",
+                    model_version,
+                    actor_state,
+                )
+            )
+
+        sync_acks = []
+
+        while len(sync_acks) < len(self.processes):
+
+            result = self._get_output()
+
+            if result["type"] == "experience":
+                self.pending_results.setdefault(
+                    result["batch_id"],
+                    []
+                ).append(result)
+
+                continue
+
+            if result["type"] != "sync_ack":
+                raise RuntimeError(
+                    f"Résultat inattendu pendant sync : {result['type']}"
+                )
+
+            assert result["model_version"] == model_version
+            assert result["workerId"] in range(len(self.processes))
+
+            sync_acks.append(result)
+    
+        assert len(sync_acks) == len(self.processes)
+
+    def close(self):
+        for input_queue in self.input_queues:
+            input_queue.put(None)
+
+        for input_queue in self.input_queues:
+            input_queue.close()
+            input_queue.join_thread()
+
+        self.output_queue.close()
+        self.output_queue.join_thread()
+
+        for p in self.processes:
+            p.join()
+            assert p.exitcode == 0
+
+        self.processes = []
+    
+def reconstruct_experience(result):
+    prog_graphs = [
+        deserialize_prog_graph(g)
+        for g in result["prog_graphs"]
+    ]
+
+    cost_tensors = [
+        torch.from_numpy(c)
+        for c in result["cost_tensors"]
+    ]
+
+    return Experience(
+        workerId=result["workerId"],
+        inputs=torch.from_numpy(result["inputs"]),
+        outputs=torch.from_numpy(result["outputs"]),
+        masks=torch.from_numpy(result["masks"]),
+        prog_graphs=prog_graphs,
+        cost_tensors=cost_tensors,
+        target_program=result["target_program"],
+        generated_program=result["generated_program"],
+        alpha=result["alpha"],
+        use_semantic=result["use_semantic"],
+        model_version=result["model_version"],
+    )
+
 if (__name__ == "__main__"):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     engine = Engine("dsl_dataset")
     n = engine.count()
-    indexes = engine.orderedIndexes()   
+    indexes = engine.orderedIndexes()
     dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     modelFilename: str = "dsl_model.pt"
@@ -1869,329 +2044,126 @@ if (__name__ == "__main__"):
 
     optimizer = torch.optim.AdamW(model.parameters(), lr = 1e-4)
 
-    workers: list = []
-
-    for _ in range(os.cpu_count()):
-        workers.append(Worker(engine))
-
     model_version: int = 1
-    count: int = 0
-    process = tqdm(total = len(indexes), desc = "Programs")
+    process = tqdm(
+        total=len(indexes),
+        desc="Programs",
+        dynamic_ncols=True,
+    )
     actor_model = copy.deepcopy(model).to(device)
     actor_model.requires_grad_(False)
     actor_model.eval()
 
     sync_actor_model(actor_model, model)
 
-    actor_state = {
-        name: tensor.detach().cpu()
-        for name, tensor in actor_model.state_dict().items()
-    }
-
-    ctx = mp.get_context("spawn")
-
-    input_queue = ctx.Queue()
-    output_queue = ctx.Queue()
-
-    processes = []
-
-    for worker_id in range(2):
-        p = ctx.Process(
-            target=worker_process,
-            args=(
-                input_queue,
-                output_queue,
-                worker_id,
-                model_version,
-                actor_state,
-            ),
-        )
-
-        p.start()
-        processes.append(p)
-
-
-    # ==========================================================
-    # Cycle 1 : génération avec la version 1
-    # ==========================================================
-
-    jobs = [
-        3488,
-        3489,
-    ]
-
-    for j in jobs:
-        input_queue.put(("job", j))
-
-
-    results = []
-
-    for _ in jobs:
-        result = output_queue.get()
-
-        assert result["type"] == "experience"
-        assert result["model_version"] == model_version
-        assert result["target_program"] is not None
-
-        results.append(result)
-
-
-    experiences = []
-
-    for result in results:
-        prog_graphs = [
-            deserialize_prog_graph(g)
-            for g in result["prog_graphs"]
-        ]
-
-        cost_tensors = [
-            torch.from_numpy(c)
-            for c in result["cost_tensors"]
-        ]
-
-        experience = Experience(
-            workerId=result["workerId"],
-            inputs=torch.from_numpy(result["inputs"]),
-            outputs=torch.from_numpy(result["outputs"]),
-            masks=torch.from_numpy(result["masks"]),
-            prog_graphs=prog_graphs,
-            cost_tensors=cost_tensors,
-            target_program=result["target_program"],
-            generated_program=result["generated_program"],
-            alpha=result["alpha"],
-            use_semantic=result["use_semantic"],
-            model_version=result["model_version"],
-        )
-
-        experiences.append(experience)
-
-
-    assert len(experiences) == len(jobs)
-
-    assert {
-        exp.model_version
-        for exp in experiences
-    } == {1}
-
-    print()
-    print("Cycle 1 : expériences version 1 : OK")
-
-
-    # ==========================================================
-    # Apprentissage
-    # ==========================================================
-
-    print()
-    print("Lancement learner_step()...")
-
-    learner_step(
-        device,
-        model,
-        optimizer,
-        experiences,
+    worker_pool = WorkerPool(
+        num_workers=1, #TODO: os.cpu_count() or 1,
+        model_version=model_version,
+        actor_model=actor_model,
     )
 
-    print("learner_step() : OK")
+    jobs_per_worker = 4
+    batch_id = 0
+    pending_batches = {}
 
-
-    # ==========================================================
-    # Nouvelle version du modèle
-    # ==========================================================
-
-    model_version += 1
-
-    sync_actor_model(
-        actor_model,
-        model,
-    )
-
-    actor_state = {
-        name: tensor.detach().cpu()
-        for name, tensor in actor_model.state_dict().items()
-    }
-
-
-    # ==========================================================
-    # Synchronisation des workers
-    # ==========================================================
-
-    for _ in processes:
-        input_queue.put(
-            (
-                "sync",
-                model_version,
-                actor_state,
-            )
+    while True:
+        batch_size = min(
+            len(indexes),
+            len(worker_pool.processes) * jobs_per_worker,
         )
 
-
-    sync_acks = []
-
-    while len(sync_acks) < len(processes):
-        result = output_queue.get()
-
-        assert result["type"] == "sync_ack"
-        assert result["model_version"] == model_version
-        assert result["workerId"] in (0, 1)
-
-        sync_acks.append(result)
-
-        print(
-            "Worker synchronisé :",
-            result["workerId"],
-            "version:",
-            result["model_version"],
-        )
-
-
-    assert len(sync_acks) == len(processes)
-
-    print()
-    print("Synchronisation version 2 : OK")
-
-
-    # ==========================================================
-    # Cycle 2 : génération avec la version 2
-    # ==========================================================
-
-    jobs = [
-        3490,
-        3491,
-    ]
-
-    for j in jobs:
-        input_queue.put(("job", j))
-
-
-    results = []
-
-    for _ in jobs:
-        result = output_queue.get()
-
-        assert result["type"] == "experience"
-        assert result["model_version"] == model_version
-        assert result["target_program"] is not None
-
-        results.append(result)
-
-
-    experiences = []
-
-    for result in results:
-        prog_graphs = [
-            deserialize_prog_graph(g)
-            for g in result["prog_graphs"]
-        ]
-
-        cost_tensors = [
-            torch.from_numpy(c)
-            for c in result["cost_tensors"]
-        ]
-
-        experience = Experience(
-            workerId=result["workerId"],
-            inputs=torch.from_numpy(result["inputs"]),
-            outputs=torch.from_numpy(result["outputs"]),
-            masks=torch.from_numpy(result["masks"]),
-            prog_graphs=prog_graphs,
-            cost_tensors=cost_tensors,
-            target_program=result["target_program"],
-            generated_program=result["generated_program"],
-            alpha=result["alpha"],
-            use_semantic=result["use_semantic"],
-            model_version=result["model_version"],
-        )
-
-        experiences.append(experience)
-
-
-    assert len(experiences) == len(jobs)
-
-    assert {
-        exp.model_version
-        for exp in experiences
-    } == {2}
-
-    for experience in experiences:
-        print()
-        print("workerId:", experience.workerId)
-        print("model_version:", experience.model_version)
-        print("target_program:", experience.target_program)
-        print("generated_program:", experience.generated_program)
-        print("inputs:", experience.inputs.shape)
-        print("graphs:", len(experience.prog_graphs))
-        print("cost tensors:", len(experience.cost_tensors))
-
-
-    print()
-    print("Cycle 2 : expériences version 2 : OK")
-
-
-    # ==========================================================
-    # Arrêt propre
-    # ==========================================================
-
-    for _ in processes:
-        input_queue.put(None)
-
-
-    for p in processes:
-        p.join()
-        assert p.exitcode == 0
-
-
-    print()
-    print("Cycle complet generate → learn → sync → generate : OK")
-
-    exit()
-
-    while (True):
-        experiences: list = []
-
-        for workerId, worker in enumerate(workers):
-            loop: bool = True
-            c: bool = False
-
-            while (loop):
-                if (worker.process(actor_model, device)):
-                    if (worker.j != None):
-                        count += 1
-                        process.update()
-
-                    if (not len(indexes)):
-                        c = True
-
-                    j = indexes.pop(0)
-                    worker.init(device, j)
-                else:
-                    loop = False
-
-            if (count == n):
-                break
-
-            if (c):
-                continue
-
-            experience = Experience(
-                workerId = workerId,
-                inputs = worker.inputs,
-                outputs = worker.outputs,
-                masks = worker.masks,
-                prog_graphs = worker.prog_graphs,
-                cost_tensors = worker.cost_tensors,
-                target_program = worker.targetProgram,
-                generated_program = worker.program,
-                alpha = worker.alpha,
-                use_semantic = worker.use_semantic,
-                model_version = model_version,
-            )
-
-            experiences.append(experience)
-
-        if (count == n):
+        if batch_size == 0:
             break
 
-        learner_step(device, model, optimizer, experiences)
-        sync_actor_model(actor_model, model)
+        jobs = indexes[:batch_size]
+        indexes = indexes[batch_size:]
+
+        batch_id += 1
+
+        pending_batches[batch_id] = {
+            "jobs": jobs,
+            "model_version": model_version,
+        }
+
+        worker_pool.submit_jobs(
+            batch_id,
+            jobs,
+        )
+
+        # Pour cette première étape, on ne traite
+        # le batch que lorsqu'on a suffisamment
+        # de travail en attente.
+        if len(pending_batches) < 2:
+            continue
+
+        first_batch_id = min(pending_batches)
+
+        batch = pending_batches.pop(first_batch_id)
+
+        experiences = worker_pool.collect_experiences(
+            first_batch_id,
+            batch["jobs"],
+            batch["model_version"],
+        )
+
+        learner_step(
+            device,
+            model,
+            optimizer,
+            experiences,
+        )
 
         model_version += 1
+
+        sync_actor_model(
+            actor_model,
+            model,
+        )
+
+        worker_pool.sync(
+            model_version,
+            actor_model,
+        )
+
+        process.update(len(experiences))
+
+        process.set_postfix(
+            version=model_version,
+            workers=len(worker_pool.processes),
+        )
+
+    for remaining_batch_id, batch in pending_batches.items():
+        experiences = worker_pool.collect_experiences(
+            remaining_batch_id,
+            batch["jobs"],
+            batch["model_version"],
+        )
+
+        learner_step(
+            device,
+            model,
+            optimizer,
+            experiences,
+        )
+
+        model_version += 1
+
+        sync_actor_model(
+            actor_model,
+            model,
+        )
+
+        worker_pool.sync(
+            model_version,
+            actor_model,
+        )
+
+        process.update(len(experiences))
+
+        process.set_postfix(
+            version=model_version,
+            workers=len(worker_pool.processes),
+        )
+
+    worker_pool.close()
+    process.close()
