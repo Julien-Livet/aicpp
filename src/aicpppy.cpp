@@ -44,8 +44,8 @@ Eigen::MatrixXd to_eigen(hodel::GridType const& v)
 
 double size_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
-    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
-    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x.at(0).size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y.at(0).size())};
 
     return (xs - ys).norm();
 }
@@ -62,8 +62,8 @@ int total_sum(hodel::GridType const& v)
 
 double value_cost(hodel::GridType const& x, hodel::GridType const& y)
 {
-    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x[0].size())};
-    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y[0].size())};
+    Eigen::Vector2d const xs{static_cast<double>(x.size()), x.empty() ? 0 : static_cast<double>(x.at(0).size())};
+    Eigen::Vector2d const ys{static_cast<double>(y.size()), y.empty() ? 0 : static_cast<double>(y.at(0).size())};
 
     if (xs == ys)
     {
@@ -96,7 +96,7 @@ double pixel_overlap_cost(hodel::GridType const& x, hodel::GridType const& y)
     {
         for (size_t i = 0; i < x.size(); ++i)
         {
-            if (x[i].size() != y[i].size())
+            if (x.at(i).size() != y.at(i).size())
             {
                 size_t sx = 0;
                 size_t sy = 0;
@@ -117,11 +117,11 @@ double pixel_overlap_cost(hodel::GridType const& x, hodel::GridType const& y)
 
     for (size_t i = 0; i < x.size(); ++i)
     {
-        for (size_t j = 0; j < x[i].size(); ++j)
+        for (size_t j = 0; j < x.at(i).size(); ++j)
         {
             ++total;
 
-            if (x[i][j] == y[i][j])
+            if (x.at(i).at(j) == y.at(i).at(j))
                 ++matches;
         }
     }
@@ -144,9 +144,9 @@ std::optional<BoundingBox> bounding_box(hodel::GridType const& arr)
 
     for (int y = 0; y < static_cast<int>(arr.size()); ++y)
     {
-        for (int x = 0; x < static_cast<int>(arr[y].size()); ++x)
+        for (int x = 0; x < static_cast<int>(arr.at(y).size()); ++x)
         {
-            if (arr[y][x] != 0)
+            if (arr.at(y).at(x) != 0)
             {
                 if (!found)
                 {
@@ -194,9 +194,9 @@ double bounding_box_cost(hodel::GridType const& x, hodel::GridType const& y)
         );
 
     auto const x_rows = static_cast<int>(x.size());
-    auto const x_cols = x.empty() ? 0 : static_cast<int>(x[0].size());
+    auto const x_cols = x.empty() ? 0 : static_cast<int>(x.at(0).size());
     auto const y_rows = static_cast<int>(y.size());
-    auto const y_cols = y.empty() ? 0 : static_cast<int>(y[0].size());
+    auto const y_cols = y.empty() ? 0 : static_cast<int>(y.at(0).size());
 
     double const norm =
         std::sqrt(
