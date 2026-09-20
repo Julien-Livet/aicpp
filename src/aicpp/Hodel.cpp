@@ -5695,7 +5695,7 @@ std::any hodel::canvas(std::vector<std::any> const& args)
         auto const value_{std::any_cast<IntegerType>(value)};
         auto const dimensions_{std::any_cast<IntegerTuple>(dimensions)};
 
-        if (dimensions_.first < 0 || dimensions_.second < 0)
+        if (dimensions_.first <= 0 || dimensions_.second <= 0)
             throw std::runtime_error{"Wrong value"};
 
         return GridType(dimensions_.first, std::vector<IntegerType>(dimensions_.second, value_));
