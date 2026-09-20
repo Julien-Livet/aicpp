@@ -4947,8 +4947,15 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
-        if (grid_.size() > MAX_SIZE || grid_.at(0).size() > MAX_SIZE)
+        try
+        {
+            if (grid_.size() > MAX_SIZE || grid_.at(0).size() > MAX_SIZE)
+                throw std::runtime_error{"Wrong value"};
+        }
+        catch (std::exception const&)
+        {
             throw std::runtime_error{"Wrong value"};
+        }
 
         if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
@@ -4999,8 +5006,15 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
-        if (grid_.size() > MAX_SIZE || grid_.at(0).size() > MAX_SIZE)
+        try
+        {
+            if (grid_.size() > MAX_SIZE || grid_.at(0).size() > MAX_SIZE)
+                throw std::runtime_error{"Wrong value"};
+        }
+        catch (std::exception const&)
+        {
             throw std::runtime_error{"Wrong value"};
+        }
 
         if (factor_ <= 1 || factor_ > 10)
             throw std::runtime_error{"Wrong value"};
@@ -5043,8 +5057,15 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         {
             auto const& grid = std::get<GridType>(element_);
 
-            if (grid.size() > MAX_SIZE || grid.at(0).size() > MAX_SIZE)
+            try
+            {
+                if (grid.size() > MAX_SIZE || grid.at(0).size() > MAX_SIZE)
+                    throw std::runtime_error{"Wrong value"};
+            }
+            catch (std::exception const&)
+            {
                 throw std::runtime_error{"Wrong value"};
+            }
 
             GridType result;
 
