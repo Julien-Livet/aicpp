@@ -1,6 +1,7 @@
 from aicpppy import Engine
 import datetime
-import dsl_model
+import dsl_model.utils as utils
+import dsl_model.DSLModel as DSLModel
 import dsl_rl
 import json
 import math
@@ -36,14 +37,14 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
         inputsTest.append(i)
         outputsTest.append(o)
 
-    inputs, outputs, masks = dsl_model.arc_pairs_to_tensors(trainPairs)
+    inputs, outputs, masks = utils.arc_pairs_to_tensors(trainPairs)
     inputs = inputs.to(device)
     outputs = outputs.to(device)
     masks = masks.to(device)
 
     candidates: list = [("I",
-                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns),
-                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTest, outputsTest), columns = dsl_model.scoreColumns))] * dsl_model.M
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns),
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTest, outputsTest), columns = utils.scoreColumns))] * utils.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
@@ -57,9 +58,9 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
             cost_tensors: list = []
 
             for program, df, _ in candidates:
-                g = dsl_model.build_prog_graph(program, dsl_rl.VOCAB, device)
+                g = utils.build_prog_graph(program, dsl_rl.VOCAB, device)
                 prog_graphs.append(g)
-                cost_tensors.append(dsl_model.dataframe_to_cost_tensor(df).to(device))
+                cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(device))
 
             computeGraphs = False
 
@@ -69,7 +70,7 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
                     prog_graphs, cost_tensors
                 )   # [1, D]
 
-        program = dsl_model.generate_one(
+        program = utils.generate_one(
             model, dsl_rl.VOCAB, z_context, engine,
             temperature = 5.0,
             device = device,
@@ -78,8 +79,8 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
 
         if (program):
             try:
-                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns)
-                dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTest, outputsTest), columns = dsl_model.scoreColumns)
+                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns)
+                dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTest, outputsTest), columns = utils.scoreColumns)
                 cost = dfTrain["Total cost"].sum(skipna = False)
 
                 if (not program in testedPrograms):
@@ -111,7 +112,7 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
     return candidate
 
 def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
-    dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
+    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     
     ok: bool = True
@@ -155,7 +156,7 @@ def test_hodel_tasks():
         trainingTasks = f.read().split("\n")
 
     for k, v in tasksByStep.items():
-        if (k != 1):
+        if (k > 2):
             break
 
         t1 = time.time()
@@ -174,7 +175,7 @@ def test_hodel_tasks():
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
 
 def passTasks(tasks, debug: bool = True):
-    dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
+    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     checkpoint = torch.load(modelFilename, map_location = device)
     model.load_state_dict(checkpoint["model_state"])
@@ -238,7 +239,7 @@ def processTasks(folder: str, taskIds = set(), debug: bool = True) -> Dict[str, 
     trainSuccess = 0
     testSuccess = 0
 
-    for program, dfTrain, dfTest in results.values():
+    for _, dfTrain, dfTest in results.values():
         trainCost = dfTrain.sum(axis = 0, skipna = False)["Total cost"]
         testCost = dfTest.sum(axis = 0, skipna = False)["Total cost"]
 
@@ -252,12 +253,15 @@ def processTasks(folder: str, taskIds = set(), debug: bool = True) -> Dict[str, 
     print(f"{folder} test: {testSuccess}/{len(taskIds)} ({testSuccess/len(taskIds)*100:.2f}%)")
 
     return results
-
+"""
 def test_subtraining_tasks():
     processTasks("training", {'67a3c6ac', '68b16354', '0692e18c', '1caeab9d', '09629e4f', '0f63c0b9', '1c56ad9f', '137eaa0f', '18286ef8', '1d398264', '0bb8deee', '6fa7a44f', '0b17323b', '12997ef3', '184a9768', '08ed6ac7', '5bd6f4ac', '19bb5feb', '3c9b0459', '1b59e163', '25ff71a9', '1b8318e3', '137f0df0', '1b60fb0c', '045e512c', '11e1fe23', '0ca9ddb6', '4c4377d9', '05269061', '15696249', '0962bcdd', '182e5d0f', '0a2355a6', '17b80ad2', '009d5c81', '017c7c7b', '1a07d186', '140c817e', '1cf80156', '0becf7df', '0d87d2a6', '1c02dbbe', '1da012fc', 'd10ecb37', '32597951', '1478ab18', '0607ce86', 'c909285e', '14b8e18c', '195ba7dc', '12eac192', '1c786137', '6150a2bd', '06df4c85', 'b1948b0a', '9dfd6313', '178fcbfb', 'a416b8f3', '17829a00', '11dc524f', '18447a8d', '10fcaaa3', '150deff5', '1d61978c', '13713586', '0c786b71', '03560426', 'c8f0f002', '15113be4', '05a7bcf2', '13f06aa5', '1b2d62fb', '00dbd492', '8be77c9e', '1190bc91', '0d3d703e', '2dee498d', '74dd1130', '0b148d64', '90f3ed37', '1be83260', '15663ba9', '05f2a901', '0e671a1a', '1c0d0a4b', '1990f7a8', '09c534e7', '5614dbcf', '0a1d4ef5', '0a938d79', 'd511f180', '00d62c1b', '0520fde7', '1a244afd', '14754a24', 'c59eb873', '9172f3a0', '18419cfa', '070dd51e', '12422b43', '1a6449f1', '007bbfb7', '17b866bd', '0c9aba6e', '00576224', '0e206a2e', '1190e5a7', '1d0a4b61', '1a2e2828', '15660dd6', '6d0aefbc', '1acc24af', '025d127b', '17cae0c1', 'c9e6f938', 'ed36ccf7', '1bfc4729', '103eff5b', '11852cab', '5582e5ca'}, debug = True)
+"""
 """
 def test_training_tasks():
     processTasks("training", debug = True)
 """
+"""
 def test_evaluation_tasks():
     processTasks("evaluation", debug = True)
+"""
