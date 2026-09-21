@@ -1413,7 +1413,7 @@ class Worker:
         cost_tensors = []
 
         for program, df in self.candidates:
-            g = build_prog_graph(program, VOCAB, "cpu")
+            g = build_prog_graph(program, VOCAB, "cuda")
             prog_graphs.append(g.cpu())
 
             c = dataframe_to_cost_tensor(df)
@@ -1421,7 +1421,7 @@ class Worker:
 
         return prog_graphs, cost_tensors
 
-    def init(self, device: str, j: int):
+    def init(self, device: str, j: int) -> bool:
         self.j = j
         self.targetProgram = self.engine.program(j)
         self.trajectory = self.engine.trajectory(j)
@@ -1432,7 +1432,7 @@ class Worker:
         except RuntimeError:
             self.j = None
 
-            return
+            return False
 
         pairs = list(zip(self.grids, self.outputs))
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
@@ -1445,7 +1445,7 @@ class Worker:
         try:
             self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = scoreColumns))] * M
         except RuntimeError:
-            self.candidates: list = [("I", math.inf)] * M
+            self.candidates: list = [("I", pd.DataFrame([math.inf] * len(scoreColumns), columns = scoreColumns))] * M
 
         self.computeGraphs: bool = True
         self.temperature: float = minTemperature
@@ -1459,16 +1459,20 @@ class Worker:
         self.df = None
         self.use_semantic = None
         self.count: int = 0
+        self.prog_graphs = None
+        self.cost_tensors = None
+        
+        return True
 
     def process(self, model, device) -> bool:
         if (self.j == None):
-            return True
+            return False
 
         if (not self.candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]):
-            return True
+            return False
 
         if (not len(self.costs)):
-            return True
+            return False
         
         self.current_best = self.candidates[-1][1].sum(axis = 0, skipna = False)["Total cost"]
 
@@ -1478,26 +1482,10 @@ class Worker:
             self.iters_since_improvement += 1
 
         if (self.count >= MAX_ITERATIONS_PER_TARGET or self.iters_since_improvement >= PLATEAU_PATIENCE):
-            return True
+            return False
 
         if (self.computeGraphs):
-            prog_graphs: list  = []
-            cost_tensors: list = []
-
-            for program, df in self.candidates:
-                g = build_prog_graph(program, VOCAB, device)
-                prog_graphs.append(g)
-                cost_tensors.append(dataframe_to_cost_tensor(df).to(device))
-
-            self.prog_graphs = [
-                    g.cpu()
-                    for g in prog_graphs
-                ]
-
-            self.cost_tensors = [
-                c.cpu()
-                for c in cost_tensors
-            ]
+            self.prog_graphs, self.cost_tensors = self.prepare_experience()
 
             self.computeGraphs = False
 
@@ -1505,15 +1493,23 @@ class Worker:
 
             with torch.no_grad():
                 self.z_context = model.encode_context(
-                    self.inputs, self.outputs, self.masks,
-                    prog_graphs, cost_tensors
-                ).cpu()
+                    self.inputs.to(device),
+                    self.outputs.to(device),
+                    self.masks.to(device),
+                    [g.to(device) for g in self.prog_graphs],
+                    [c.to(device) for c in self.cost_tensors],
+                )
+
+        torch.cuda.empty_cache()
 
         self.program = generate_one_cached(
-            model, VOCAB, self.z_context, self.engine,
-            temperature = self.temperature,
-            device = device,
-            max_depth = programDepth(self.costs[0][1]),
+            model,
+            VOCAB,
+            self.z_context,
+            self.engine,
+            temperature=self.temperature,
+            device=device,
+            max_depth=programDepth(self.costs[0][1]) if self.costs else 0,
         )
 
         if (not self.program):
@@ -1558,7 +1554,7 @@ class Worker:
 
         self.count += 1
 
-        return False
+        return True
 
 def learner_step(device, model, optimizer, experiences):
     versions = {
@@ -1626,6 +1622,9 @@ def learner_step(device, model, optimizer, experiences):
         # ---------------------------------------
 
         if exp.use_semantic:
+            if exp.generated_program is None:
+                continue
+
             gen_ids = encode_program_tokens(
                 exp.generated_program,
                 VOCAB
@@ -1656,6 +1655,9 @@ def learner_step(device, model, optimizer, experiences):
         )
 
         losses.append(L_total)
+    
+    if not losses:
+        return
 
     sum(losses).backward()
 
@@ -1734,107 +1736,52 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
     #import faulthandler
     #faulthandler.enable()
 
-    try:
-        # Un seul Engine pour toute la durée du processus
-        engine = Engine("dsl_dataset")
-        torch.set_num_threads(1)
-        torch.set_num_interop_threads(1)
-        # Un seul Worker réutilisé
-        worker = Worker(engine)
+    # Un seul Engine pour toute la durée du processus
+    engine = Engine("dsl_dataset")
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
+    # Un seul Worker réutilisé
+    worker = Worker(engine)
+    active_j = None
 
-        # Un seul actor_model réutilisé
-        actor_model = DSLModel(
-            len(VOCAB.token2id),
-            d_model=256,
-            device="cuda",
-        ).to("cuda")
-        torch.set_flush_denormal(True)
-        actor_model.load_state_dict(actor_state)
+    # Un seul actor_model réutilisé
+    actor_model = DSLModel(
+        len(VOCAB.token2id),
+        d_model=256,
+        device="cuda",
+    ).to("cuda")
+    torch.set_flush_denormal(True)
+    actor_model.load_state_dict(actor_state)
 
-        actor_model.requires_grad_(False)
-        actor_model.eval()
+    actor_model.requires_grad_(False)
+    actor_model.eval()
 
-        actor_model.decoder.sync_cached_decoder()
+    actor_model.decoder.sync_cached_decoder()
 
-        current_model_version = model_version
+    current_model_version = model_version
 
-        while True:
-            message = input_queue.get()
+    while True:
+        message = input_queue.get()
 
-            # Sentinel d'arrêt
-            if message is None:
-                break
+        # Sentinel d'arrêt
+        if message is None:
+            break
 
-            message_type = message[0]
+        message_type = message[0]
 
-            # --------------------------------------------------
-            # Synchronisation de l'actor
-            # --------------------------------------------------
-            if message_type == "sync":
-                _, current_model_version, new_actor_state = message
+        if message_type == "continue":
+            _, batch_id, j = message
 
-                actor_model.load_state_dict(new_actor_state)
+            if active_j != j:
+                raise RuntimeError(
+                    f"CONTINUE inattendu: active_j={active_j}, j={j}"
+                )
 
-                actor_model.requires_grad_(False)
-                actor_model.eval()
+            result = worker.process(actor_model, "cuda")
+            done = not result
 
-                actor_model.decoder.sync_cached_decoder()
-
-                output_queue.put({
-                    "type": "sync_ack",
-                    "workerId": worker_id,
-                    "model_version": current_model_version,
-                })
-
-                continue
-
-            # --------------------------------------------------
-            # Job
-            # --------------------------------------------------
-            if message_type == "job":
-                _, batch_id, j = message
-
-                worker.init("cpu", j)
-
-                if (
-                    worker.inputs.min() < 0
-                    or worker.inputs.max() >= 10
-                    or worker.outputs.min() < 0
-                    or worker.outputs.max() >= 10
-                ):
-                    output_queue.put({
-                        "type": "skip",
-                        "batch_id": batch_id,
-                        "workerId": worker_id,
-                        "model_version": current_model_version,
-                        "j": j,
-                        "reason": "invalid_grid",
-                    })
-
-                    continue
-
-                prog_graphs, cost_tensors = worker.prepare_experience()
-
-                with torch.no_grad():
-                    z_context = actor_model.encode_context(
-                        worker.inputs.cuda(),
-                        worker.outputs.cuda(),
-                        worker.masks.cuda(),
-                        [g.to("cuda") for g in prog_graphs],
-                        [c.cuda() for c in cost_tensors],
-                    )
-
-                    torch.cuda.empty_cache()
-
-                    program = generate_one_cached(
-                        actor_model,
-                        VOCAB,
-                        z_context,
-                        engine,
-                        temperature=worker.temperature,
-                        device="cuda",
-                        max_depth=programDepth(worker.costs[0][1]),
-                    )
+            if done:
+                active_j = None
 
                 output_queue.put({
                     "type": "experience",
@@ -1845,34 +1792,130 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
                     "inputs": worker.inputs.cpu().numpy(),
                     "outputs": worker.outputs.cpu().numpy(),
                     "masks": worker.masks.cpu().numpy(),
-
                     "prog_graphs": [
                         serialize_prog_graph(g)
-                        for g in prog_graphs
+                        for g in worker.prog_graphs
                     ],
-
                     "cost_tensors": [
                         c.cpu().numpy()
-                        for c in cost_tensors
+                        for c in worker.cost_tensors
                     ],
-
                     "target_program": worker.targetProgram,
-                    "generated_program": program,
-
+                    "generated_program": worker.program,
                     "alpha": worker.alpha,
                     "use_semantic": worker.use_semantic,
                 })
 
+            if not done:
+                input_queue.put(("continue", batch_id, j))
+
+            continue
+
+        # --------------------------------------------------
+        # Synchronisation de l'actor
+        # --------------------------------------------------
+        if message_type == "sync":
+            _, current_model_version, new_actor_state = message
+
+            actor_model.load_state_dict(new_actor_state)
+
+            actor_model.requires_grad_(False)
+            actor_model.eval()
+
+            actor_model.decoder.sync_cached_decoder()
+
+            output_queue.put({
+                "type": "sync_ack",
+                "workerId": worker_id,
+                "model_version": current_model_version,
+            })
+
+            continue
+
+        # --------------------------------------------------
+        # Job
+        # --------------------------------------------------
+        if message_type == "job":
+            _, batch_id, j = message
+
+            if active_j is None:
+                active_j = j
+                
+                if (not worker.init("cuda", j)):
+                    active_j = None
+
+                    output_queue.put({
+                        "type": "skip",
+                        "batch_id": batch_id,
+                        "workerId": worker_id,
+                        "model_version": current_model_version,
+                        "j": j,
+                        "reason": "invalid_init",
+                    })
+
+                    continue
+            else:
+                raise RuntimeError(
+                    f"JOB reçu alors que le worker est occupé: "
+                    f"active_j={active_j}, nouveau j={j}"
+                )
+
+            if (
+                worker.inputs.min() < 0
+                or worker.inputs.max() >= 10
+                or worker.outputs.min() < 0
+                or worker.outputs.max() >= 10
+            ):
+                active_j = None
+
+                output_queue.put({
+                    "type": "skip",
+                    "batch_id": batch_id,
+                    "workerId": worker_id,
+                    "model_version": current_model_version,
+                    "j": j,
+                    "reason": "invalid_grid",
+                })
+
                 continue
 
-            raise RuntimeError(
-                f"Message inconnu reçu par worker {worker_id}: "
-                f"{message_type}"
-            )
-    except Exception:
-        import traceback
-        traceback.print_exc()
-        raise
+            result = worker.process(actor_model, "cuda")
+            done = not result
+
+            if done:
+                active_j = None
+
+                output_queue.put({
+                    "type": "experience",
+                    "batch_id": batch_id,
+                    "workerId": worker_id,
+                    "model_version": current_model_version,
+                    "j": j,
+                    "inputs": worker.inputs.cpu().numpy(),
+                    "outputs": worker.outputs.cpu().numpy(),
+                    "masks": worker.masks.cpu().numpy(),
+                    "prog_graphs": [
+                        serialize_prog_graph(g)
+                        for g in worker.prog_graphs
+                    ],
+                    "cost_tensors": [
+                        c.cpu().numpy()
+                        for c in worker.cost_tensors
+                    ],
+                    "target_program": worker.targetProgram,
+                    "generated_program": worker.program,
+                    "alpha": worker.alpha,
+                    "use_semantic": worker.use_semantic,
+                })
+            else:
+                input_queue.put(("continue", batch_id, j))
+
+            continue
+
+        raise RuntimeError(
+            f"Message inconnu reçu par worker {worker_id}: "
+            f"{message_type}"
+        )
 
 class WorkerPool:
     def __init__(
@@ -1937,7 +1980,6 @@ class WorkerPool:
         processed = 0
 
         while processed < len(jobs):
-
             if (
                 batch_id in self.pending_results
                 and len(self.pending_results[batch_id]) > 0
@@ -1988,6 +2030,7 @@ class WorkerPool:
                 )
 
                 processed += 1
+
                 continue
 
             if result["type"] != "experience":
@@ -2167,14 +2210,13 @@ if __name__ == "__main__":
         actor_model=actor_model,
     )
 
-    jobs_per_worker = 4
     batch_id = 0
     pending_batches = {}
 
     while True:
         batch_size = min(
             len(indexes),
-            len(worker_pool.processes) * jobs_per_worker,
+            len(worker_pool.processes),
         )
 
         if batch_size == 0:
@@ -2194,12 +2236,6 @@ if __name__ == "__main__":
             batch_id,
             jobs,
         )
-
-        # Pour cette première étape, on ne traite
-        # le batch que lorsqu'on a suffisamment
-        # de travail en attente.
-        if len(pending_batches) < 2:
-            continue
 
         first_batch_id = min(pending_batches)
 
