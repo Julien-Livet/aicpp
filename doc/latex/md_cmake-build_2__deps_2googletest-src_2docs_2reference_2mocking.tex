@@ -1,0 +1,472 @@
+\chapter{Mocking Reference}
+\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking}{}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking}\index{Mocking Reference@{Mocking Reference}}
+\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md694}%
+\Hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md694}%
+ This page lists the facilities provided by Google\+Test for creating and working with mock objects. To use them, add {\ttfamily \#include \texorpdfstring{$<$}{<}gmock/gmock.\+h\texorpdfstring{$>$}{>}}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_macros}{}\doxysection{\texorpdfstring{Macros}{Macros}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_macros}
+Google\+Test defines the following macros for working with mocks.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_MOCK_METHOD}{}\doxysubsection{\texorpdfstring{MOCK\+\_\+\+METHOD}{MOCK\_METHOD}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_MOCK_METHOD}
+{\ttfamily MOCK\+\_\+\+METHOD(}\texorpdfstring{$\ast$}{*}{\ttfamily return\+\_\+type}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}{\ttfamily , (}\texorpdfstring{$\ast$}{*}{\ttfamily args...}\texorpdfstring{$\ast$}{*}{\ttfamily ));} \textbackslash{} {\ttfamily MOCK\+\_\+\+METHOD(}\texorpdfstring{$\ast$}{*}{\ttfamily return\+\_\+type}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}{\ttfamily , (}\texorpdfstring{$\ast$}{*}{\ttfamily args...}\texorpdfstring{$\ast$}{*}{\ttfamily ), (}\texorpdfstring{$\ast$}{*}{\ttfamily specs...}\texorpdfstring{$\ast$}{*}{\ttfamily ));}
+
+Defines a mock method \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*} with arguments {\ttfamily (}\texorpdfstring{$\ast$}{*}{\ttfamily args...}\texorpdfstring{$\ast$}{*}{\ttfamily )} and return type \texorpdfstring{$\ast$}{*}{\ttfamily return\+\_\+type}\texorpdfstring{$\ast$}{*} within a mock class.
+
+The parameters of {\ttfamily MOCK\+\_\+\+METHOD} mirror the method declaration. The optional fourth parameter \texorpdfstring{$\ast$}{*}{\ttfamily specs...}\texorpdfstring{$\ast$}{*} is a comma-\/separated list of qualifiers. The following qualifiers are accepted\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Qualifier   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Meaning    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Qualifier   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Meaning    }\\\cline{1-2}
+\endhead
+{\ttfamily const}   &Makes the mocked method a {\ttfamily const} method. Required if overriding a {\ttfamily const} method.    \\\cline{1-2}
+{\ttfamily override}   &Marks the method with {\ttfamily override}. Recommended if overriding a {\ttfamily virtual} method.    \\\cline{1-2}
+{\ttfamily noexcept}   &Marks the method with {\ttfamily noexcept}. Required if overriding a {\ttfamily noexcept} method.    \\\cline{1-2}
+{\ttfamily Calltype(}\texorpdfstring{$\ast$}{*}{\ttfamily calltype}\texorpdfstring{$\ast$}{*}{\ttfamily )}   &Sets the call type for the method, for example {\ttfamily Calltype(\+STDMETHODCALLTYPE)}. Useful on Windows.    \\\cline{1-2}
+{\ttfamily ref(}\texorpdfstring{$\ast$}{*}{\ttfamily qualifier}\texorpdfstring{$\ast$}{*}{\ttfamily )}   &Marks the method with the given reference qualifier, for example {\ttfamily ref(\&)} or {\ttfamily ref(\&\&)}. Required if overriding a method that has a reference qualifier.   \\\cline{1-2}
+\end{longtabu}
+
+
+Note that commas in arguments prevent {\ttfamily MOCK\+\_\+\+METHOD} from parsing the arguments correctly if they are not appropriately surrounded by parentheses. See the following example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MyMock\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ The\ following\ 2\ lines\ will\ not\ compile\ due\ to\ commas\ in\ the\ arguments:}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(std::pair<bool,\ int>,\ GetPair,\ ());\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Error!}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{bool},\ CheckMap,\ (std::map<int,\ double>,\ \textcolor{keywordtype}{bool}));\ \ \textcolor{comment}{//\ Error!}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ One\ solution\ -\/\ wrap\ arguments\ that\ contain\ commas\ in\ parentheses:}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}((std::pair<bool,\ int>),\ GetPair,\ ());}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{bool},\ CheckMap,\ ((std::map<int,\ double>),\ \textcolor{keywordtype}{bool}));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Another\ solution\ -\/\ use\ type\ aliases:}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }BoolAndInt\ =\ std::pair<bool,\ int>;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(BoolAndInt,\ GetPair,\ ());}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }MapIntDouble\ =\ std::map<int,\ double>;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{bool},\ CheckMap,\ (MapIntDouble,\ \textcolor{keywordtype}{bool}));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+{\ttfamily MOCK\+\_\+\+METHOD} must be used in the {\ttfamily public\+:} section of a mock class definition, regardless of whether the method being mocked is {\ttfamily public}, {\ttfamily protected}, or {\ttfamily private} in the base class.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_EXPECT_CALL}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+CALL}{EXPECT\_CALL}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_EXPECT_CALL}
+{\ttfamily EXPECT\+\_\+\+CALL(}\texorpdfstring{$\ast$}{*}{\ttfamily mock\+\_\+object}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}{\ttfamily (}\texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}{\ttfamily ))}
+
+Creates an \href{../gmock_for_dummies.md\#setting-expectations}{\texttt{ expectation}} that the method \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*} of the object \texorpdfstring{$\ast$}{*}{\ttfamily mock\+\_\+object}\texorpdfstring{$\ast$}{*} is called with arguments that match the given matchers \texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}. {\ttfamily EXPECT\+\_\+\+CALL} must precede any code that exercises the mock object.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*} is a comma-\/separated list of \href{../gmock_for_dummies.md\#matchers-what-arguments-do-we-expect}{\texttt{ matchers}} that correspond to each argument of the method \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}. The expectation will apply only to calls of \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*} whose arguments match all of the matchers. If {\ttfamily (}\texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}{\ttfamily )} is omitted, the expectation behaves as if each argument\textquotesingle{}s matcher were a \href{matchers.md\#wildcard}{\texttt{ wildcard matcher ({\ttfamily \+\_\+})}}. See the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2matchers}{Matchers Reference}{0} for a list of all built-\/in matchers.
+
+The following chainable clauses can be used to modify the expectation, and they must be used in the following order\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_object,\ method\_name(matchers...))}
+\DoxyCodeLine{\ \ \ \ .With(multi\_argument\_matcher)\ \ \textcolor{comment}{//\ Can\ be\ used\ at\ most\ once}}
+\DoxyCodeLine{\ \ \ \ .Times(cardinality)\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ at\ most\ once}}
+\DoxyCodeLine{\ \ \ \ .InSequence(sequences...)\ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ any\ number\ of\ times}}
+\DoxyCodeLine{\ \ \ \ .After(expectations...)\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ any\ number\ of\ times}}
+\DoxyCodeLine{\ \ \ \ .WillOnce(action)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ any\ number\ of\ times}}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(action)\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ at\ most\ once}}
+\DoxyCodeLine{\ \ \ \ .RetiresOnSaturation();\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Can\ be\ used\ at\ most\ once}}
+
+\end{DoxyCode}
+
+
+See details for each modifier clause below.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md695}{}\doxysubsubsection{\texorpdfstring{With \{\#\+EXPECT\+\_\+\+CALL.\+With\}}{With \{\#EXPECT\_CALL.With\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md695}
+{\ttfamily .With(}\texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Restricts the expectation to apply only to mock function calls whose arguments as a whole match the multi-\/argument matcher \texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*}.
+
+Google\+Test passes all of the arguments as one tuple into the matcher. The parameter \texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*} must thus be a matcher of type {\ttfamily Matcher\texorpdfstring{$<$}{<}std\+::tuple\texorpdfstring{$<$}{<}A1, ..., An\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}, where {\ttfamily A1, ..., An} are the types of the function arguments.
+
+For example, the following code sets the expectation that {\ttfamily my\+\_\+mock.\+Set\+Position()} is called with any two arguments, the first argument being less than the second\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{using\ ::testing::Lt;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(my\_mock,\ SetPosition(\_,\ \_))}
+\DoxyCodeLine{\ \ \ \ .With(Lt());}
+
+\end{DoxyCode}
+
+
+Google\+Test provides some built-\/in matchers for 2-\/tuples, including the {\ttfamily Lt()} matcher above. See \href{matchers.md\#MultiArgMatchers}{\texttt{ Multi-\/argument Matchers}}.
+
+The {\ttfamily With} clause can be used at most once on an expectation and must be the first clause.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md696}{}\doxysubsubsection{\texorpdfstring{Times \{\#\+EXPECT\+\_\+\+CALL.\+Times\}}{Times \{\#EXPECT\_CALL.Times\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md696}
+{\ttfamily .Times(}\texorpdfstring{$\ast$}{*}{\ttfamily cardinality}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies how many times the mock function call is expected.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily cardinality}\texorpdfstring{$\ast$}{*} represents the number of expected calls and can be one of the following, all defined in the {\ttfamily \doxylink{namespacetesting}{testing}} namespace\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Cardinality   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Meaning    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Cardinality   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Meaning    }\\\cline{1-2}
+\endhead
+{\ttfamily Any\+Number()}   &The function can be called any number of times.    \\\cline{1-2}
+{\ttfamily At\+Least(n)}   &The function call is expected at least {\itshape n} times.    \\\cline{1-2}
+{\ttfamily At\+Most(n)}   &The function call is expected at most {\itshape n} times.    \\\cline{1-2}
+{\ttfamily Between(m, n)}   &The function call is expected between {\itshape m} and {\itshape n} times, inclusive.    \\\cline{1-2}
+{\ttfamily Exactly(n)} or {\ttfamily n}   &The function call is expected exactly {\itshape n} times. If {\itshape n} is 0, the call should never happen.   \\\cline{1-2}
+\end{longtabu}
+
+
+If the {\ttfamily Times} clause is omitted, Google\+Test infers the cardinality as follows\+:
+
+
+\begin{DoxyItemize}
+\item If neither \`{}\+Will\+Once\`{} nor \`{}\+Will\+Repeatedly\`{} are specified, the inferred cardinality is {\ttfamily Times(1)}.
+\item If there are {\itshape n} {\ttfamily Will\+Once} clauses and no {\ttfamily Will\+Repeatedly} clause, where {\itshape n} \texorpdfstring{$>$}{>}= 1, the inferred cardinality is {\ttfamily Times(n)}.
+\item If there are {\itshape n} {\ttfamily Will\+Once} clauses and one {\ttfamily Will\+Repeatedly} clause, where {\itshape n} \texorpdfstring{$>$}{>}= 0, the inferred cardinality is {\ttfamily Times(\+At\+Least(n))}.
+\end{DoxyItemize}
+
+The {\ttfamily Times} clause can be used at most once on an expectation.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md697}{}\doxysubsubsection{\texorpdfstring{In\+Sequence \{\#\+EXPECT\+\_\+\+CALL.\+In\+Sequence\}}{InSequence \{\#EXPECT\_CALL.InSequence\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md697}
+{\ttfamily .In\+Sequence(}\texorpdfstring{$\ast$}{*}{\ttfamily sequences...}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies that the mock function call is expected in a certain sequence.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily sequences...}\texorpdfstring{$\ast$}{*} is any number of \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Sequence}{\`{}\+Sequence\`{}}{2} objects. Expected calls assigned to the same sequence are expected to occur in the order the expectations are declared.
+
+For example, the following code sets the expectation that the {\ttfamily Reset()} method of {\ttfamily my\+\_\+mock} is called before both {\ttfamily Get\+Size()} and {\ttfamily Describe()}, and {\ttfamily Get\+Size()} and {\ttfamily Describe()} can occur in any order relative to each other\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Sequence;}
+\DoxyCodeLine{Sequence\ s1,\ s2;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(my\_mock,\ Reset())}
+\DoxyCodeLine{\ \ \ \ .InSequence(s1,\ s2);}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ GetSize())}
+\DoxyCodeLine{\ \ \ \ .InSequence(s1);}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}())}
+\DoxyCodeLine{\ \ \ \ .InSequence(s2);}
+
+\end{DoxyCode}
+
+
+The {\ttfamily In\+Sequence} clause can be used any number of times on an expectation.
+
+See also the \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_InSequence}{\`{}\+In\+Sequence\`{} class}{2}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md698}{}\doxysubsubsection{\texorpdfstring{After \{\#\+EXPECT\+\_\+\+CALL.\+After\}}{After \{\#EXPECT\_CALL.After\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md698}
+{\ttfamily .After(}\texorpdfstring{$\ast$}{*}{\ttfamily expectations...}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies that the mock function call is expected to occur after one or more other calls.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily expectations...}\texorpdfstring{$\ast$}{*} can be up to five \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Expectation}{\`{}\+Expectation\`{}}{2} or \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_ExpectationSet}{\`{}\+Expectation\+Set\`{}}{2} objects. The mock function call is expected to occur after all of the given expectations.
+
+For example, the following code sets the expectation that the {\ttfamily Describe()} method of {\ttfamily my\+\_\+mock} is called only after both {\ttfamily Init\+X()} and {\ttfamily Init\+Y()} have been called.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Expectation;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{Expectation\ init\_x\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ InitX());}
+\DoxyCodeLine{Expectation\ init\_y\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ InitY());}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}())}
+\DoxyCodeLine{\ \ \ \ .After(init\_x,\ init\_y);}
+
+\end{DoxyCode}
+
+
+The {\ttfamily Expectation\+Set} object is helpful when the number of prerequisites for an expectation is large or variable, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::ExpectationSet;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{ExpectationSet\ all\_inits;}
+\DoxyCodeLine{\textcolor{comment}{//\ Collect\ all\ expectations\ of\ InitElement()\ calls}}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ 0;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ <\ element\_count;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}++)\ \{}
+\DoxyCodeLine{\ \ all\_inits\ +=\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ InitElement(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}));}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}())}
+\DoxyCodeLine{\ \ \ \ .After(all\_inits);\ \ \textcolor{comment}{//\ Expect\ Describe()\ call\ after\ all\ InitElement()\ calls}}
+
+\end{DoxyCode}
+
+
+The {\ttfamily After} clause can be used any number of times on an expectation.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md699}{}\doxysubsubsection{\texorpdfstring{Will\+Once \{\#\+EXPECT\+\_\+\+CALL.\+Will\+Once\}}{WillOnce \{\#EXPECT\_CALL.WillOnce\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md699}
+{\ttfamily .Will\+Once(}\texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies the mock function\textquotesingle{}s actual behavior when invoked, for a single matching function call.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*} represents the \href{../gmock_for_dummies.md\#actions-what-should-it-do}{\texttt{ action}} that the function call will perform. See the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2actions}{Actions Reference}{0} for a list of built-\/in actions.
+
+The use of {\ttfamily Will\+Once} implicitly sets a cardinality on the expectation when {\ttfamily Times} is not specified. See \`{}\+Times\`{}.
+
+Each matching function call will perform the next action in the order declared. For example, the following code specifies that {\ttfamily my\+\_\+mock.\+Get\+Number()} is expected to be called exactly 3 times and will return {\ttfamily 1}, {\ttfamily 2}, and {\ttfamily 3} respectively on the first, second, and third calls\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(my\_mock,\ GetNumber())}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(1))}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(2))}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(3));}
+
+\end{DoxyCode}
+
+
+The {\ttfamily Will\+Once} clause can be used any number of times on an expectation. Unlike {\ttfamily Will\+Repeatedly}, the action fed to each {\ttfamily Will\+Once} call will be called at most once, so may be a move-\/only type and/or have an {\ttfamily \&\&}-\/qualified call operator.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md700}{}\doxysubsubsection{\texorpdfstring{Will\+Repeatedly \{\#\+EXPECT\+\_\+\+CALL.\+Will\+Repeatedly\}}{WillRepeatedly \{\#EXPECT\_CALL.WillRepeatedly\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md700}
+{\ttfamily .Will\+Repeatedly(}\texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies the mock function\textquotesingle{}s actual behavior when invoked, for all subsequent matching function calls. Takes effect after the actions specified in the \`{}\+Will\+Once\`{} clauses, if any, have been performed.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*} represents the \href{../gmock_for_dummies.md\#actions-what-should-it-do}{\texttt{ action}} that the function call will perform. See the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2actions}{Actions Reference}{0} for a list of built-\/in actions.
+
+The use of {\ttfamily Will\+Repeatedly} implicitly sets a cardinality on the expectation when {\ttfamily Times} is not specified. See \`{}\+Times\`{}.
+
+If any {\ttfamily Will\+Once} clauses have been specified, matching function calls will perform those actions before the action specified by {\ttfamily Will\+Repeatedly}. See the following example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(my\_mock,\ GetName())}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(\textcolor{stringliteral}{"{}John\ Doe"{}}));\ \ \textcolor{comment}{//\ Return\ "{}John\ Doe"{}\ on\ all\ calls}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ GetNumber())}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(42))\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Return\ 42\ on\ the\ first\ call}}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(7));\ \ \textcolor{comment}{//\ Return\ 7\ on\ all\ subsequent\ calls}}
+
+\end{DoxyCode}
+
+
+The {\ttfamily Will\+Repeatedly} clause can be used at most once on an expectation.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md701}{}\doxysubsubsection{\texorpdfstring{Retires\+On\+Saturation \{\#\+EXPECT\+\_\+\+CALL.\+Retires\+On\+Saturation\}}{RetiresOnSaturation \{\#EXPECT\_CALL.RetiresOnSaturation\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md701}
+{\ttfamily .Retires\+On\+Saturation()}
+
+Indicates that the expectation will no longer be active after the expected number of matching function calls has been reached.
+
+The {\ttfamily Retires\+On\+Saturation} clause is only meaningful for expectations with an upper-\/bounded cardinality. The expectation will {\itshape retire} (no longer match any function calls) after it has been {\itshape saturated} (the upper bound has been reached). See the following example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{using\ ::testing::AnyNumber;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(my\_mock,\ SetNumber(\_))\ \ \textcolor{comment}{//\ Expectation\ 1}}
+\DoxyCodeLine{\ \ \ \ .Times(\mbox{\hyperlink{namespacetesting_aa1f8a6371097e1e9b8d6866020f35252}{AnyNumber}}());}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ SetNumber(7))\ \ \textcolor{comment}{//\ Expectation\ 2}}
+\DoxyCodeLine{\ \ \ \ .Times(2)}
+\DoxyCodeLine{\ \ \ \ .RetiresOnSaturation();}
+
+\end{DoxyCode}
+
+
+In the above example, the first two calls to {\ttfamily my\+\_\+mock.\+Set\+Number(7)} match expectation 2, which then becomes inactive and no longer matches any calls. A third call to {\ttfamily my\+\_\+mock.\+Set\+Number(7)} would then match expectation 1. Without {\ttfamily Retires\+On\+Saturation()} on expectation 2, a third call to {\ttfamily my\+\_\+mock.\+Set\+Number(7)} would match expectation 2 again, producing a failure since the limit of 2 calls was exceeded.
+
+The {\ttfamily Retires\+On\+Saturation} clause can be used at most once on an expectation and must be the last clause.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_ON_CALL}{}\doxysubsection{\texorpdfstring{ON\+\_\+\+CALL}{ON\_CALL}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_ON_CALL}
+{\ttfamily ON\+\_\+\+CALL(}\texorpdfstring{$\ast$}{*}{\ttfamily mock\+\_\+object}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}{\ttfamily (}\texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}{\ttfamily ))}
+
+Defines what happens when the method \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*} of the object \texorpdfstring{$\ast$}{*}{\ttfamily mock\+\_\+object}\texorpdfstring{$\ast$}{*} is called with arguments that match the given matchers \texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}. Requires a modifier clause to specify the method\textquotesingle{}s behavior. {\itshape Does not} set any expectations that the method will be called.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*} is a comma-\/separated list of \href{../gmock_for_dummies.md\#matchers-what-arguments-do-we-expect}{\texttt{ matchers}} that correspond to each argument of the method \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*}. The {\ttfamily ON\+\_\+\+CALL} specification will apply only to calls of \texorpdfstring{$\ast$}{*}{\ttfamily method\+\_\+name}\texorpdfstring{$\ast$}{*} whose arguments match all of the matchers. If {\ttfamily (}\texorpdfstring{$\ast$}{*}{\ttfamily matchers...}\texorpdfstring{$\ast$}{*}{\ttfamily )} is omitted, the behavior is as if each argument\textquotesingle{}s matcher were a \href{matchers.md\#wildcard}{\texttt{ wildcard matcher ({\ttfamily \+\_\+})}}. See the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2matchers}{Matchers Reference}{0} for a list of all built-\/in matchers.
+
+The following chainable clauses can be used to set the method\textquotesingle{}s behavior, and they must be used in the following order\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\_CALL}}(mock\_object,\ method\_name(matchers...))}
+\DoxyCodeLine{\ \ \ \ .With(multi\_argument\_matcher)\ \ \textcolor{comment}{//\ Can\ be\ used\ at\ most\ once}}
+\DoxyCodeLine{\ \ \ \ .WillByDefault(action);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Required}}
+
+\end{DoxyCode}
+
+
+See details for each modifier clause below.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md702}{}\doxysubsubsection{\texorpdfstring{With \{\#\+ON\+\_\+\+CALL.\+With\}}{With \{\#ON\_CALL.With\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md702}
+{\ttfamily .With(}\texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Restricts the specification to only mock function calls whose arguments as a whole match the multi-\/argument matcher \texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*}.
+
+Google\+Test passes all of the arguments as one tuple into the matcher. The parameter \texorpdfstring{$\ast$}{*}{\ttfamily multi\+\_\+argument\+\_\+matcher}\texorpdfstring{$\ast$}{*} must thus be a matcher of type {\ttfamily Matcher\texorpdfstring{$<$}{<}std\+::tuple\texorpdfstring{$<$}{<}A1, ..., An\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}, where {\ttfamily A1, ..., An} are the types of the function arguments.
+
+For example, the following code sets the default behavior when {\ttfamily my\+\_\+mock.\+Set\+Position()} is called with any two arguments, the first argument being less than the second\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{using\ ::testing::Lt;}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{ON\_CALL(my\_mock,\ SetPosition(\_,\ \_))}
+\DoxyCodeLine{\ \ \ \ .With(Lt())}
+\DoxyCodeLine{\ \ \ \ .WillByDefault(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(\textcolor{keyword}{true}));}
+
+\end{DoxyCode}
+
+
+Google\+Test provides some built-\/in matchers for 2-\/tuples, including the {\ttfamily Lt()} matcher above. See \href{matchers.md\#MultiArgMatchers}{\texttt{ Multi-\/argument Matchers}}.
+
+The {\ttfamily With} clause can be used at most once with each {\ttfamily ON\+\_\+\+CALL} statement.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md703}{}\doxysubsubsection{\texorpdfstring{Will\+By\+Default \{\#\+ON\+\_\+\+CALL.\+Will\+By\+Default\}}{WillByDefault \{\#ON\_CALL.WillByDefault\}}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2mocking_autotoc_md703}
+{\ttfamily .Will\+By\+Default(}\texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Specifies the default behavior of a matching mock function call.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily action}\texorpdfstring{$\ast$}{*} represents the \href{../gmock_for_dummies.md\#actions-what-should-it-do}{\texttt{ action}} that the function call will perform. See the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2actions}{Actions Reference}{0} for a list of built-\/in actions.
+
+For example, the following code specifies that by default, a call to {\ttfamily my\+\_\+mock.\+Greet()} will return {\ttfamily "{}hello"{}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{ON\_CALL(my\_mock,\ Greet())}
+\DoxyCodeLine{\ \ \ \ .WillByDefault(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(\textcolor{stringliteral}{"{}hello"{}}));}
+
+\end{DoxyCode}
+
+
+The action specified by {\ttfamily Will\+By\+Default} is superseded by the actions specified on a matching {\ttfamily EXPECT\+\_\+\+CALL} statement, if any. See the \`{}\+Will\+Once\`{} and \`{}\+Will\+Repeatedly\`{} clauses of {\ttfamily EXPECT\+\_\+\+CALL}.
+
+The {\ttfamily Will\+By\+Default} clause must be used exactly once with each {\ttfamily ON\+\_\+\+CALL} statement.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_classes}{}\doxysection{\texorpdfstring{Classes}{Classes}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_classes}
+Google\+Test defines the following classes for working with mocks.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_DefaultValue}{}\doxysubsection{\texorpdfstring{Setting the Default Value for a Return Type}{Setting the Default Value for a Return Type}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_DefaultValue}
+{\ttfamily \doxylink{classtesting_1_1DefaultValue}{testing\+::\+Default\+Value}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}
+
+Allows a user to specify the default value for a type {\ttfamily T} that is both copyable and publicly destructible (i.\+e. anything that can be used as a function return type). For mock functions with a return type of {\ttfamily T}, this default value is returned from function calls that do not specify an action.
+
+Provides the static methods {\ttfamily Set()}, {\ttfamily Set\+Factory()}, and {\ttfamily Clear()} to manage the default value\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Sets\ the\ default\ value\ to\ be\ returned.\ T\ must\ be\ copy\ constructible.}}
+\DoxyCodeLine{DefaultValue<T>::Set(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Sets\ a\ factory.\ Will\ be\ invoked\ on\ demand.\ T\ must\ be\ move\ constructible.}}
+\DoxyCodeLine{T\ MakeT();}
+\DoxyCodeLine{DefaultValue<T>::SetFactory(\&MakeT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Unsets\ the\ default\ value.}}
+\DoxyCodeLine{DefaultValue<T>::Clear();}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_NiceMock}{}\doxysubsection{\texorpdfstring{Nice\+Mock}{NiceMock}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_NiceMock}
+{\ttfamily \doxylink{classtesting_1_1NiceMock}{testing\+::\+Nice\+Mock}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}
+
+Represents a mock object that suppresses warnings on \href{../gmock_cook_book.md\#uninteresting-vs-unexpected}{\texttt{ uninteresting calls}}. The template parameter {\ttfamily T} is any mock class, except for another {\ttfamily Nice\+Mock}, {\ttfamily Naggy\+Mock}, or {\ttfamily Strict\+Mock}.
+
+Usage of {\ttfamily Nice\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is analogous to usage of {\ttfamily T}. {\ttfamily Nice\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is a subclass of {\ttfamily T}, so it can be used wherever an object of type {\ttfamily T} is accepted. In addition, {\ttfamily Nice\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} can be constructed with any arguments that a constructor of {\ttfamily T} accepts.
+
+For example, the following code suppresses warnings on the mock {\ttfamily my\+\_\+mock} of type {\ttfamily Mock\+Class} if a method other than {\ttfamily Do\+Something()} is called\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::NiceMock;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{NiceMock<MockClass>\ my\_mock(\textcolor{stringliteral}{"{}some"{}},\ \textcolor{stringliteral}{"{}args"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ DoSomething());}
+\DoxyCodeLine{...\ code\ that\ uses\ my\_mock\ ...}
+
+\end{DoxyCode}
+
+
+{\ttfamily Nice\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} only works for mock methods defined using the {\ttfamily MOCK\+\_\+\+METHOD} macro directly in the definition of class {\ttfamily T}. If a mock method is defined in a base class of {\ttfamily T}, a warning might still be generated.
+
+{\ttfamily Nice\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} might not work correctly if the destructor of {\ttfamily T} is not virtual.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_NaggyMock}{}\doxysubsection{\texorpdfstring{Naggy\+Mock}{NaggyMock}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_NaggyMock}
+{\ttfamily \doxylink{classtesting_1_1NaggyMock}{testing\+::\+Naggy\+Mock}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}
+
+Represents a mock object that generates warnings on \href{../gmock_cook_book.md\#uninteresting-vs-unexpected}{\texttt{ uninteresting calls}}. The template parameter {\ttfamily T} is any mock class, except for another {\ttfamily Nice\+Mock}, {\ttfamily Naggy\+Mock}, or {\ttfamily Strict\+Mock}.
+
+Usage of {\ttfamily Naggy\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is analogous to usage of {\ttfamily T}. {\ttfamily Naggy\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is a subclass of {\ttfamily T}, so it can be used wherever an object of type {\ttfamily T} is accepted. In addition, {\ttfamily Naggy\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} can be constructed with any arguments that a constructor of {\ttfamily T} accepts.
+
+For example, the following code generates warnings on the mock {\ttfamily my\+\_\+mock} of type {\ttfamily Mock\+Class} if a method other than {\ttfamily Do\+Something()} is called\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::NaggyMock;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{NaggyMock<MockClass>\ my\_mock(\textcolor{stringliteral}{"{}some"{}},\ \textcolor{stringliteral}{"{}args"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ DoSomething());}
+\DoxyCodeLine{...\ code\ that\ uses\ my\_mock\ ...}
+
+\end{DoxyCode}
+
+
+\doxylink{classMock}{Mock} objects of type {\ttfamily T} by default behave the same way as {\ttfamily Naggy\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_StrictMock}{}\doxysubsection{\texorpdfstring{Strict\+Mock}{StrictMock}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_StrictMock}
+{\ttfamily \doxylink{classtesting_1_1StrictMock}{testing\+::\+Strict\+Mock}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}
+
+Represents a mock object that generates test failures on \href{../gmock_cook_book.md\#uninteresting-vs-unexpected}{\texttt{ uninteresting calls}}. The template parameter {\ttfamily T} is any mock class, except for another {\ttfamily Nice\+Mock}, {\ttfamily Naggy\+Mock}, or {\ttfamily Strict\+Mock}.
+
+Usage of {\ttfamily Strict\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is analogous to usage of {\ttfamily T}. {\ttfamily Strict\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} is a subclass of {\ttfamily T}, so it can be used wherever an object of type {\ttfamily T} is accepted. In addition, {\ttfamily Strict\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} can be constructed with any arguments that a constructor of {\ttfamily T} accepts.
+
+For example, the following code generates a test failure on the mock {\ttfamily my\+\_\+mock} of type {\ttfamily Mock\+Class} if a method other than {\ttfamily Do\+Something()} is called\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::StrictMock;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{StrictMock<MockClass>\ my\_mock(\textcolor{stringliteral}{"{}some"{}},\ \textcolor{stringliteral}{"{}args"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(my\_mock,\ DoSomething());}
+\DoxyCodeLine{...\ code\ that\ uses\ my\_mock\ ...}
+
+\end{DoxyCode}
+
+
+{\ttfamily Strict\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} only works for mock methods defined using the {\ttfamily MOCK\+\_\+\+METHOD} macro directly in the definition of class {\ttfamily T}. If a mock method is defined in a base class of {\ttfamily T}, a failure might not be generated.
+
+{\ttfamily Strict\+Mock\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} might not work correctly if the destructor of {\ttfamily T} is not virtual.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Sequence}{}\doxysubsection{\texorpdfstring{Sequence}{Sequence}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Sequence}
+{\ttfamily \+::testing\+::\+Sequence}
+
+Represents a chronological sequence of expectations. See the \`{}\+In\+Sequence\`{} clause of {\ttfamily EXPECT\+\_\+\+CALL} for usage.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_InSequence}{}\doxysubsection{\texorpdfstring{In\+Sequence}{InSequence}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_InSequence}
+{\ttfamily \+::testing\+::\+In\+Sequence}
+
+An object of this type causes all expectations encountered in its scope to be put in an anonymous sequence.
+
+This allows more convenient expression of multiple expectations in a single sequence\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::InSequence;}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ InSequence\ seq;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ The\ following\ are\ expected\ to\ occur\ in\ the\ order\ declared.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(...);}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(...);}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(...);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The name of the {\ttfamily In\+Sequence} object does not matter.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Expectation}{}\doxysubsection{\texorpdfstring{Expectation}{Expectation}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Expectation}
+{\ttfamily \+::testing\+::\+Expectation}
+
+Represents a mock function call expectation as created by \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_EXPECT_CALL}{\`{}\+EXPECT\+\_\+\+CALL\`{}}{2}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Expectation;}
+\DoxyCodeLine{Expectation\ my\_expectation\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(...);}
+
+\end{DoxyCode}
+
+
+Useful for specifying sequences of expectations; see the \`{}\+After\`{} clause of {\ttfamily EXPECT\+\_\+\+CALL}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_ExpectationSet}{}\doxysubsection{\texorpdfstring{Expectation\+Set}{ExpectationSet}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_ExpectationSet}
+{\ttfamily \+::testing\+::\+Expectation\+Set}
+
+Represents a set of mock function call expectations.
+
+Use the {\ttfamily +=} operator to add \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2mocking_Expectation}{\`{}\+Expectation\`{}}{2} objects to the set\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::ExpectationSet;}
+\DoxyCodeLine{ExpectationSet\ my\_expectations;}
+\DoxyCodeLine{my\_expectations\ +=\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(...);}
+
+\end{DoxyCode}
+
+
+Useful for specifying sequences of expectations; see the \`{}\+After\`{} clause of {\ttfamily EXPECT\+\_\+\+CALL}. 

@@ -1,0 +1,58 @@
+\doxysection{Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googletest/src/gtest-\/death-\/test.cc File Reference}
+\hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc}{}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc}\index{Desktop-\/Release-\/build/\_deps/googletest-\/src/googletest/src/gtest-\/death-\/test.cc@{Desktop-\/Release-\/build/\_deps/googletest-\/src/googletest/src/gtest-\/death-\/test.cc}}
+{\ttfamily \#include "{}gtest/gtest-\/death-\/test.\+h"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}gtest/internal/custom/gtest.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest-\/message.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/string.\+h"{}}\newline
+{\ttfamily \#include "{}src/gtest-\/internal-\/inl.\+h"{}}\newline
+Include dependency graph for gtest-\/death-\/test.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a52c92560a02530e3c55030ea4e984870}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (death\+\_\+test\+\_\+style, \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}death\+\_\+test\+\_\+style"{}, testing\+::k\+Default\+Death\+Test\+Style), "{}Indicates how to run a death test in a forked child process\+: "{} "{}\textbackslash{}"{}threadsafe\textbackslash{}"{} (child process re-\/executes the test binary "{} "{}from the beginning, running only the specific death test) or "{} "{}\textbackslash{}"{}fast\textbackslash{}"{} (child process runs the death test immediately "{} "{}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest-typed-test__test_8cc_ad2f70c2c6afb6af671a58629eed70a7b}{after}} forking)."{})
+\item 
+\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_ac36451139b06796079f9d93ab5aa9a1a}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (death\+\_\+test\+\_\+use\+\_\+fork, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}death\+\_\+test\+\_\+use\+\_\+fork"{}, false), "{}Instructs to use fork()/\+\_\+\+Exit() instead of clone() in death tests. "{} "{}Ignored and always uses fork() on POSIX systems where clone() is not "{} "{}implemented. Useful when running under valgrind or similar tools if "{} "{}those do not support clone(). Valgrind 3.\+3.\+1 will just fail if "{} "{}it sees an unsupported combination of clone() flags. "{} "{}It is not recommended to use this flag w/o valgrind though it will "{} "{}work in 99\% of the cases. Once valgrind is fixed, this flag will "{} "{}most likely be removed."{})
+\item 
+\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a04c128f8f9cb3bb91ae6f86009e154fa}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (internal\+\_\+run\+\_\+death\+\_\+test, "{}"{}, "{}Indicates the file, line number, temporal index of "{} "{}the single death test to run, and a file descriptor to "{} "{}which a success code may be sent, all separated by "{} "{}the \textquotesingle{}\texorpdfstring{$\vert$}{|}\textquotesingle{} characters.  This flag is specified if and only if the "{} "{}current process is a sub-\/process launched for running a thread-\/safe "{} "{}death test.  FOR INTERNAL USE ONLY."{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_ac36451139b06796079f9d93ab5aa9a1a}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_ac36451139b06796079f9d93ab5aa9a1a} 
+\index{gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{death\+\_\+test\+\_\+use\+\_\+fork}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}death\+\_\+test\+\_\+use\+\_\+fork"{}, false)}]{,  }\item[{"{}Instructs to use fork()/\+\_\+\+Exit() instead of clone() in death tests. "{} "{}Ignored and always uses fork() on POSIX systems where clone() is not "{} "{}implemented. Useful when running under valgrind or similar tools if "{} "{}those do not support clone(). Valgrind 3.\+3.\+1 will just fail if "{} "{}it sees an unsupported combination of clone() flags. "{} "{}It is not recommended to use this flag w/o valgrind though it will "{} "{}work in 99\% of the cases. Once valgrind is}]{fixed,  }\item[{this flag will "{} "{}most likely be removed."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a52c92560a02530e3c55030ea4e984870}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a52c92560a02530e3c55030ea4e984870} 
+\index{gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{death\+\_\+test\+\_\+style}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}death\+\_\+test\+\_\+style"{}, testing\+::k\+Default\+Death\+Test\+Style)}]{,  }\item[{"{}Indicates how to run a death test in a forked child process\+: "{} "{}\textbackslash{}"{}threadsafe\textbackslash{}"{} (child process re-\/executes the test binary "{} "{}from the beginning, running only the specific death test) or "{} "{}\textbackslash{}"{}fast\textbackslash{}"{} (child process runs the death test immediately "{} "{}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest-typed-test__test_8cc_ad2f70c2c6afb6af671a58629eed70a7b}{after}} forking)."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a04c128f8f9cb3bb91ae6f86009e154fa}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2src_2gtest-death-test_8cc_a04c128f8f9cb3bb91ae6f86009e154fa} 
+\index{gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest-\/death-\/test.cc@{gtest-\/death-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{internal\+\_\+run\+\_\+death\+\_\+test}]{,  }\item[{"{}"{}}]{,  }\item[{"{}Indicates the}]{file,  }\item[{line}]{number,  }\item[{temporal index of "{} "{}the single death test to}]{run,  }\item[{and a file descriptor to "{} "{}which a success code may be}]{sent,  }\item[{all separated by "{} "{}the \textquotesingle{}\texorpdfstring{$\vert$}{|}\textquotesingle{} characters. This flag is specified if and only if the "{} "{}current process is a sub-\/process launched for running a thread-\/safe "{} "{}death test. FOR INTERNAL USE ONLY."{}}]{ }\end{DoxyParamCaption})}
+

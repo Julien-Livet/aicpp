@@ -1,0 +1,48 @@
+\doxysection{gmock-\/port\+\_\+test.cc}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source}{}\label{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source}\index{cmake-\/build/\_deps/googletest-\/src/googlemock/test/gmock-\/port\_test.cc@{cmake-\/build/\_deps/googletest-\/src/googlemock/test/gmock-\/port\_test.cc}}
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2008,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00030}00030\ \textcolor{comment}{//\ Google\ Mock\ -\/\ a\ framework\ for\ writing\ C++\ mock\ classes.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00031}00031\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00032}00032\ \textcolor{comment}{//\ This\ file\ tests\ the\ internal\ cross-\/platform\ support\ utilities.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}gmock/internal/gmock-\/port.h"{}}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00038}00038\ \textcolor{comment}{//\ NOTE:\ if\ this\ file\ is\ left\ without\ tests\ for\ some\ reason,\ put\ a\ dummy}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00039}00039\ \textcolor{comment}{//\ test\ here\ to\ make\ references\ to\ symbols\ in\ the\ gtest\ library\ and\ avoid}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00040}00040\ \textcolor{comment}{//\ 'undefined\ symbol'\ linker\ errors\ in\ gmock\_main:}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_source_l00042}\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-port__test_8cc_a63812c9ef0cbc6907a251ccf919da78e}{00042}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(DummyTest,\ Dummy)\ \{\}}
+
+\end{DoxyCode}

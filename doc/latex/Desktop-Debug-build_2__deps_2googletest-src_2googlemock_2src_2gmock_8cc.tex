@@ -1,0 +1,83 @@
+\doxysection{Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googlemock/src/gmock.cc File Reference}
+\hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc}{}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc}\index{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googlemock/src/gmock.cc@{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googlemock/src/gmock.cc}}
+{\ttfamily \#include "{}gmock/gmock.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/port.\+h"{}}\newline
+Include dependency graph for gmock.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal}{testing\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a06dfcc29ecb0accf44fbf6e8dec2fa8e}{GMOCK\+\_\+\+INTERNAL\+\_\+\+PARSE\+\_\+\+FLAG}}(flag\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a29e476f8b0e0a567e807f1472b261dd3}{GMOCK\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (catch\+\_\+leaked\+\_\+mocks, true, "{}true if and only if Google \mbox{\hyperlink{classMock}{Mock}} should report leaked "{} "{}mock objects as failures."{})
+\item 
+\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a9595786d5634e137f11f2b7402607c0b}{GMOCK\+\_\+\+DEFINE\+\_\+string\+\_\+}} (verbose, \mbox{\hyperlink{namespacetesting_1_1internal_aa5e3dfc43abf98b8fa8aa864cd208103}{testing\+::internal\+::k\+Warning\+Verbosity}}, "{}Controls how verbose Google \mbox{\hyperlink{classMock}{Mock}}\textquotesingle{}s output is."{} "{}  Valid values\+:\textbackslash{}n"{} "{}  info    -\/ prints all messages.\textbackslash{}n"{} "{}  warning -\/ prints warnings and errors.\textbackslash{}n"{} "{}  error   -\/ prints errors only."{})
+\item 
+\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a3247a38021a2056efe8907602cac4e93}{GMOCK\+\_\+\+DEFINE\+\_\+int32\+\_\+}} (default\+\_\+mock\+\_\+behavior, 1, "{}Controls the default behavior of mocks."{} "{}  Valid values\+:\textbackslash{}n"{} "{}  0 -\/ by default, mocks act as Nice\+Mocks.\textbackslash{}n"{} "{}  1 -\/ by default, mocks act as Naggy\+Mocks.\textbackslash{}n"{} "{}  2 -\/ by default, mocks act as Strict\+Mocks."{})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Char\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a3823844199df88af9493026031cf7744}{testing\+::internal\+::\+Init\+Google\+Mock\+Impl}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argc}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Char\+Type}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argv}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_a32b1c6db9ba5133ccabfa67616b3c041}{testing\+::\+Init\+Google\+Mock}} (int \texorpdfstring{$\ast$}{*}argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_a20fb86152763dddef67bc1dd8b090800}{testing\+::\+Init\+Google\+Mock}} (int \texorpdfstring{$\ast$}{*}argc, wchar\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_a9276d4bc746722cb4fe99415c1dc778f}{testing\+::\+Init\+Google\+Mock}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a06dfcc29ecb0accf44fbf6e8dec2fa8e}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a06dfcc29ecb0accf44fbf6e8dec2fa8e} 
+\index{gmock.cc@{gmock.cc}!GMOCK\_INTERNAL\_PARSE\_FLAG@{GMOCK\_INTERNAL\_PARSE\_FLAG}}
+\index{GMOCK\_INTERNAL\_PARSE\_FLAG@{GMOCK\_INTERNAL\_PARSE\_FLAG}!gmock.cc@{gmock.cc}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_PARSE\_FLAG}{GMOCK\_INTERNAL\_PARSE\_FLAG}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+PARSE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{flag\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (!found\_gmock\_flag)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-port_8h_a94f6c73481a0d2e3c6f911136773af6b}{GMOCK\_FLAG\_GET}}(flag\_name);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (ParseGoogleMockFlag(arg,\ \#flag\_name,\ \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}))\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GMOCK\_FLAG\_SET(flag\_name,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ found\_gmock\_flag\ =\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a29e476f8b0e0a567e807f1472b261dd3}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a29e476f8b0e0a567e807f1472b261dd3} 
+\index{gmock.cc@{gmock.cc}!GMOCK\_DEFINE\_bool\_@{GMOCK\_DEFINE\_bool\_}}
+\index{GMOCK\_DEFINE\_bool\_@{GMOCK\_DEFINE\_bool\_}!gmock.cc@{gmock.cc}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_DEFINE\_bool\_()}{GMOCK\_DEFINE\_bool\_()}}
+{\footnotesize\ttfamily GMOCK\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{catch\+\_\+leaked\+\_\+mocks}]{,  }\item[{true}]{,  }\item[{"{}true if and only if Google \mbox{\hyperlink{classMock}{Mock}} should report leaked "{} "{}mock objects as failures."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a3247a38021a2056efe8907602cac4e93}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a3247a38021a2056efe8907602cac4e93} 
+\index{gmock.cc@{gmock.cc}!GMOCK\_DEFINE\_int32\_@{GMOCK\_DEFINE\_int32\_}}
+\index{GMOCK\_DEFINE\_int32\_@{GMOCK\_DEFINE\_int32\_}!gmock.cc@{gmock.cc}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_DEFINE\_int32\_()}{GMOCK\_DEFINE\_int32\_()}}
+{\footnotesize\ttfamily GMOCK\+\_\+\+DEFINE\+\_\+int32\+\_\+ (\begin{DoxyParamCaption}\item[{default\+\_\+mock\+\_\+behavior}]{,  }\item[{1}]{,  }\item[{"{}Controls the default behavior of mocks."{} "{} Valid values\+:\textbackslash{}n"{} "{} 0 -\/ by}]{default,  }\item[{mocks act as Nice\+Mocks.\textbackslash{}n"{} "{} 1 -\/ by}]{default,  }\item[{mocks act as Naggy\+Mocks.\textbackslash{}n"{} "{} 2 -\/ by}]{default,  }\item[{mocks act as Strict\+Mocks."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a9595786d5634e137f11f2b7402607c0b}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2src_2gmock_8cc_a9595786d5634e137f11f2b7402607c0b} 
+\index{gmock.cc@{gmock.cc}!GMOCK\_DEFINE\_string\_@{GMOCK\_DEFINE\_string\_}}
+\index{GMOCK\_DEFINE\_string\_@{GMOCK\_DEFINE\_string\_}!gmock.cc@{gmock.cc}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_DEFINE\_string\_()}{GMOCK\_DEFINE\_string\_()}}
+{\footnotesize\ttfamily GMOCK\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{verbose}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_aa5e3dfc43abf98b8fa8aa864cd208103}{testing\+::internal\+::k\+Warning\+Verbosity}}}]{,  }\item[{"{}Controls how verbose Google \mbox{\hyperlink{classMock}{Mock}}\textquotesingle{}s output is."{} "{} Valid values\+:\textbackslash{}n"{} "{} info -\/ prints all messages.\textbackslash{}n"{} "{} warning -\/ prints warnings and errors.\textbackslash{}n"{} "{} error -\/ prints errors only."{}}]{ }\end{DoxyParamCaption})}
+

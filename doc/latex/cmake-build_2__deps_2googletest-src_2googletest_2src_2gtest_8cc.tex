@@ -1,0 +1,428 @@
+\doxysection{cmake-\/build/\+\_\+deps/googletest-\/src/googletest/src/gtest.cc File Reference}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}{}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc}\index{cmake-\/build/\_deps/googletest-\/src/googletest/src/gtest.cc@{cmake-\/build/\_deps/googletest-\/src/googletest/src/gtest.cc}}
+{\ttfamily \#include "{}gtest/gtest.\+h"{}}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$wchar.\+h$>$}\newline
+{\ttfamily \#include $<$wctype.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$csignal$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$initializer\+\_\+list$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$ios$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}gtest/gtest-\/assertion-\/result.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest-\/spi.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/custom/gtest.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port.\+h"{}}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include "{}src/gtest-\/internal-\/inl.\+h"{}}\newline
+Include dependency graph for gtest.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1PrettyUnitTestResultPrinter}{testing\+::internal\+::\+Pretty\+Unit\+Test\+Result\+Printer}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1BriefUnitTestResultPrinter}{testing\+::internal\+::\+Brief\+Unit\+Test\+Result\+Printer}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1TestEventRepeater}{testing\+::internal\+::\+Test\+Event\+Repeater}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal}{testing\+::internal}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance}{testing\+::internal\+::edit\+\_\+distance}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a26e7d03990c6495d52262075418afafd}{GTEST\+\_\+\+HAS\+\_\+\+BUILTIN}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})~0
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a87a475ab9e81de8b49525787665b9229}{GTEST\+\_\+\+REPEATER\+\_\+\+METHOD\+\_\+}}(Name,  Type)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa7da32fd7da6a8cceeed6b448cb7b5f2}{GTEST\+\_\+\+REVERSE\+\_\+\+REPEATER\+\_\+\+METHOD\+\_\+}}(Name,  Type)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a50b3ffd6d3d817600d6e2d76f052a737}{GTEST\+\_\+\+INTERNAL\+\_\+\+PARSE\+\_\+\+FLAG}}(flag\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a14c11883d2d4cf8e9a25db3438ea3bce}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (fail\+\_\+fast, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+fast"{}, testing\+::\+Get\+Default\+Fail\+Fast()), "{}True if and only if a test failure should stop further test execution."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8623b302e89e02a925cd08912fef95d4}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (fail\+\_\+if\+\_\+no\+\_\+test\+\_\+linked, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+if\+\_\+no\+\_\+test\+\_\+linked"{}, false), "{}True if and only if the test should fail if no test case (including "{} "{}disabled test cases) is linked."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac0917845448dbf445e7c401b4fe63b95}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (fail\+\_\+if\+\_\+no\+\_\+test\+\_\+selected, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+if\+\_\+no\+\_\+test\+\_\+selected"{}, false), "{}True if and only if the test should fail if no test case is selected to "{} "{}run. A test case is selected to run if it is not disabled and is matched "{} "{}by the filter flag so that it starts executing."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8152a59f69ba16fb18c9a7b862610ce5}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (also\+\_\+run\+\_\+disabled\+\_\+tests, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}also\+\_\+run\+\_\+disabled\+\_\+tests"{}, false), "{}Run disabled tests too, in addition to the tests normally being run."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a86c5bcc425841bdb7cc7d4901ce4d081}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (break\+\_\+on\+\_\+failure, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}break\+\_\+on\+\_\+failure"{}, false), "{}True if and only if a failed assertion should be a debugger "{} "{}break-\/point."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4c228d1411680104e0afce502da6ecc7}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (catch\+\_\+exceptions, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}catch\+\_\+exceptions"{}, true), "{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should catch exceptions and treat them as test failures."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aeaad8bb467243a9990d384cf7e920463}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (color, \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}color"{}, "{}auto"{}), "{}Whether to use colors in the output.  Valid values\+: yes, no, "{} "{}and auto.  \textquotesingle{}auto\textquotesingle{} means to use colors if the output is "{} "{}being sent to a terminal and the TERM environment variable "{} "{}is set to a terminal type that supports colors."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2a288d6ef276ae0617dc334a029d0d3c}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (filter, \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}filter"{}, testing\+::\+Get\+Default\+Filter()), "{}A colon-\/separated list of glob (not regex) patterns "{} "{}for filtering the tests to run, optionally followed by a "{} "{}\textquotesingle{}-\/\textquotesingle{} and a \+: separated list of negative patterns (tests to "{} "{}exclude).  A test is run if it matches one of the positive "{} "{}patterns and does not match any of the negative patterns."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a706933db8c0db1ff21e703632c974c74}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (install\+\_\+failure\+\_\+signal\+\_\+handler, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}install\+\_\+failure\+\_\+signal\+\_\+handler"{}, false), "{}If true and supported on the current platform, "{} GTEST\+\_\+\+NAME\+\_\+ "{} should "{} "{}install a signal handler that dumps debugging information when fatal "{} "{}signals are raised."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5472bdd6fbe8548cff062bd052da9b5d}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (list\+\_\+tests, false, "{}List all tests without running them."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5c0effca46aa638e35a5409a8dc3caf0}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (output, \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}output"{}, \mbox{\hyperlink{namespacetesting_1_1internal_a0c793c6d84760d900299916c077a1af4}{testing\+::internal\+::\+Output\+Flag\+Also\+Check\+Env\+Var}}().c\+\_\+str()), "{}A format (defaults to \textbackslash{}"{}xml\textbackslash{}"{} but can be specified to be \textbackslash{}"{}json\textbackslash{}"{}), "{} "{}optionally followed by a colon and an output file name or directory. "{} "{}A directory is indicated by a trailing pathname separator. "{} "{}Examples\+: \textbackslash{}"{}xml\+:filename.\+xml\textbackslash{}"{}, \textbackslash{}"{}xml\+::directoryname/\textbackslash{}"{}. "{} "{}If a directory is specified, output files will be created "{} "{}within that directory, with file-\/names based on the test "{} "{}executable\textquotesingle{}s name and, if necessary, made unique by adding "{} "{}digits."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2f9ab0224be9d144927855363937ee16}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (brief, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}brief"{}, false), "{}True if only test failures should be displayed in text output."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4fd50fde0a0c212edd4d0de8740c955d}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (print\+\_\+time, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}print\+\_\+time"{}, true), "{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should display elapsed time in text output."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_afc701ea294f418b0081357db8f45e214}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (print\+\_\+utf8, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}print\+\_\+utf8"{}, true), "{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} prints UTF8 characters as text."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a833c22e35dbaf78c5bde5df154b6067e}{GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+}} (random\+\_\+seed, \mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}random\+\_\+seed"{}, 0), "{}Random number seed to use when shuffling test orders.  Must be in range "{} "{}\mbox{[}1, 99999\mbox{]}, or 0 to use a seed based on the current time."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac60d6715244a31ba56c0d2f992159f73}{GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+}} (repeat, \mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}repeat"{}, 1), "{}How many times to repeat each test.  Specify a negative number "{} "{}for repeating forever.  Useful for shaking out flaky tests."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa5b608ecefcf8af9f2ba9b4114342fcc}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (recreate\+\_\+environments\+\_\+when\+\_\+repeating, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}recreate\+\_\+environments\+\_\+when\+\_\+repeating"{}, false), "{}Controls whether global test environments are recreated for each repeat "{} "{}of the tests. If set to false the global test environments are only set "{} "{}up once, for the first iteration, and only torn down once, for the last. "{} "{}Useful for shaking out flaky tests with stable, expensive test "{} "{}environments. If -\/-\/gtest\+\_\+repeat is set to a negative number, meaning "{} "{}there is no last run, the environments will always be recreated to avoid "{} "{}leaks."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a357d52c60f932e4412c4be42f79ec4b1}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (show\+\_\+internal\+\_\+stack\+\_\+frames, false, "{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should include internal stack frames when "{} "{}printing test failure stack traces."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_adc466feb3f64ac6ebbc2e7db7ad001ee}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (shuffle, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}shuffle"{}, false), "{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should randomize tests\textquotesingle{} order on every run."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa2b0ee9188466a8124cbbcdb2d630a43}{GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+}} (stack\+\_\+trace\+\_\+depth, \mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}stack\+\_\+trace\+\_\+depth"{}, \mbox{\hyperlink{namespacetesting_ae605f2ccac04616bb7812ca72e517082}{testing\+::k\+Max\+Stack\+Trace\+Depth}}), "{}The maximum number of stack frames to print when an "{} "{}assertion fails.  The valid range is 0 through 100, inclusive."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2b907dad4fc0dbaf0008bbf659b8b103}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}} (stream\+\_\+result\+\_\+to, \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}stream\+\_\+result\+\_\+to"{}, "{}"{}), "{}This flag specifies the host name and the port number on which to stream "{} "{}test results. Example\+: \textbackslash{}"{}localhost\+:555\textbackslash{}"{}. The flag is effective only on "{} "{}Linux and mac\+OS."{})
+\item 
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4869ae85a2467103a1b4f892395fb848}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}} (throw\+\_\+on\+\_\+failure, \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}throw\+\_\+on\+\_\+failure"{}, false), "{}When this flag is specified, a failed assertion will throw an exception "{} "{}if exceptions are enabled or exit the program with a non-\/zero code "{} "{}otherwise. For use with an external test framework."{})
+\item 
+std\+::set$<$ std\+::string $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_af4e3dd7984d2fbd8df81e8ffb57c5cdf}{testing\+::internal\+::\+Get\+Ignored\+Parameterized\+Test\+Suites}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a40954f99c6dca121628c34cc6b9d9196}{testing\+::internal\+::\+Insert\+Synthetic\+Test\+Case}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&name, \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{Code\+Location}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{location}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{has\+\_\+test\+\_\+p}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a44068e2445b653e38942227b97990345}{testing\+::internal\+::\+Register\+Type\+Parameterized\+Test\+Suite}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}test\+\_\+suite\+\_\+name, \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{Code\+Location}} code\+\_\+location)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a80c3c5429435074f7efd7b56b1251f59}{testing\+::internal\+::\+Register\+Type\+Parameterized\+Test\+Suite\+Instantiation}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{case\+\_\+name}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a9608256c67f889006be44912e57e3d4f}{testing\+::internal\+::\+Get\+Argvs}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a38c435cbab5f8b784e2e7f3356cab242}{Type\+Id}} \mbox{\hyperlink{namespacetesting_1_1internal_ad0d66d56ead224263cd100c1d6bfc562}{testing\+::internal\+::\+Get\+Test\+Type\+Id}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a0e0c65788d68dc6da32d4818b413b2f2}{Time\+In\+Millis}} \mbox{\hyperlink{namespacetesting_1_1internal_ae66b46943a429e6efb1db456d4cae90c}{testing\+::internal\+::\+Get\+Time\+In\+Millis}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_a26323b4c2a29ea8e187aafbd4d2275db}{testing\+::internal\+::edit\+\_\+distance\+::\+Calculate\+Optimal\+Edits}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ad46aa6da12aec1a3f166310478b53a08}{Edit\+Type}} $>$ \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_a32267b2ae24de1de175ac8217406877d}{testing\+::internal\+::edit\+\_\+distance\+::\+Calculate\+Optimal\+Edits}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_1_1edit__distance_ac4c24a581ff433d7aca7ed12c9133fb1}{testing\+::internal\+::edit\+\_\+distance\+::\+Create\+Unified\+Diff}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{left}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::vector$<$ std\+::string $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{right}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{context}}=2)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_1_1internal_a08725846ff184d3e79bcf5be4df19157}{testing\+::internal\+::\+Eq\+Failure}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expected\+\_\+expression}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{actual\+\_\+expression}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expected\+\_\+value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{actual\+\_\+value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{ignoring\+\_\+case}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a5fd6e5dc9eb20ab3c3a80e24d89dfac6}{testing\+::internal\+::\+Get\+Bool\+Assertion\+Failure\+Message}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} Assertion\+Result \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{assertion\+\_\+result}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expression\+\_\+text}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{actual\+\_\+predicate\+\_\+value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expected\+\_\+predicate\+\_\+value}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_1_1internal_a4f70b36c624b54c2362aeecc2f05ee8c}{testing\+::internal\+::\+Double\+Near\+Pred\+Format}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expr1}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{expr2}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{abs\+\_\+error\+\_\+expr}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{double}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{val1}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{double}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{val2}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{double}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{abs\+\_\+error}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_a2c9a2a391c72a7b02ea3024586e33af0}{testing\+::\+Float\+LE}} (const char \texorpdfstring{$\ast$}{*}expr1, const char \texorpdfstring{$\ast$}{*}expr2, float val1, float val2)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_ae10e2bb304b74abd1b06a2d912a8b43b}{testing\+::\+Double\+LE}} (const char \texorpdfstring{$\ast$}{*}expr1, const char \texorpdfstring{$\ast$}{*}expr2, double val1, double val2)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_a390c4f66fe7e9098117eb77e5fffa4ad}{testing\+::\+Is\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const char \texorpdfstring{$\ast$}{*}needle, const char \texorpdfstring{$\ast$}{*}haystack)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_aa1c82529c7591d2a9fd016de45dd9113}{testing\+::\+Is\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}needle, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}haystack)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_a2288dcf4249f88af67dcd46544dc49a6}{testing\+::\+Is\+Not\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const char \texorpdfstring{$\ast$}{*}needle, const char \texorpdfstring{$\ast$}{*}haystack)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_a53e5c6e91ea429c43de7f4f57e33d166}{testing\+::\+Is\+Not\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}needle, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}haystack)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_a571c7edcfc574269833ebe3e7d338ec5}{testing\+::\+Is\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const \+::std\+::string \&needle, const \+::std\+::string \&haystack)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Assertion\+Result \mbox{\hyperlink{namespacetesting_abe7b3fa1c9528745f934d4a14155ea87}{testing\+::\+Is\+Not\+Substring}} (const char \texorpdfstring{$\ast$}{*}needle\+\_\+expr, const char \texorpdfstring{$\ast$}{*}haystack\+\_\+expr, const \+::std\+::string \&needle, const \+::std\+::string \&haystack)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{uint32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_affc24de4ea3502e1ca01a2ef3347b8a5}{testing\+::internal\+::\+Chop\+Low\+Bits}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{uint32\+\_\+t}} \texorpdfstring{$\ast$}{*}bits, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{n}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_ad167126ddcf04ef8d8784b2a7ed2fe04}{testing\+::internal\+::\+Code\+Point\+To\+Utf8}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{uint32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{code\+\_\+point}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a681895f8cc32286211be9889da107394}{testing\+::internal\+::\+Is\+Utf16\+Surrogate\+Pair}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} first, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{second}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{uint32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a67fa84bf2b2ff208b29a49d635d41332}{testing\+::internal\+::\+Create\+Code\+Point\+From\+Utf16\+Surrogate\+Pair}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} first, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{second}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a05b8c86ff38243f34d8f839a0eadefb1}{testing\+::internal\+::\+Wide\+String\+To\+Utf8}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{num\+\_\+chars}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_ac0a2b7f69fc829d80a39e925b6417e39}{testing\+::internal\+::\+String\+Stream\+To\+String}} (\+::std\+::stringstream \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{stream}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_ae475a090bca903bb222dd389eb189166}{testing\+::internal\+::\+Append\+User\+Message}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{gtest\+\_\+msg}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{classtesting_1_1Message}{Message}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{user\+\_\+msg}})
+\item 
+{\footnotesize template$<$size\+\_\+t k\+Size$>$ }\\std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespacetesting_ab25cc403881367e4ae289dab4eb37f5d}{testing\+::\+Array\+As\+Vector}} (const char \texorpdfstring{$\ast$}{*}const (\&array)\mbox{[}k\+Size\mbox{]})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a85f6ff0e40f9a5f10af66a73cf1364fa}{testing\+::internal\+::\+Report\+Failure\+In\+Unknown\+Location}} (Test\+Part\+Result\+::\+Type result\+\_\+type, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::string \&message)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{class}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} Result $>$ }\\Result \mbox{\hyperlink{namespacetesting_1_1internal_ac5293b438139ef7ed05cb7fcaaf63545}{testing\+::internal\+::\+Handle\+Seh\+Exceptions\+In\+Method\+If\+Supported}} (T \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{object}}, Result(T\+::\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{method}})(), \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{location}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{class}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} Result $>$ }\\Result \mbox{\hyperlink{namespacetesting_1_1internal_addb2ed165b92b74e25fe9ebe9e46b9f9}{testing\+::internal\+::\+Handle\+Exceptions\+In\+Method\+If\+Supported}} (T \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{object}}, Result(T\+::\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{method}})(), \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{location}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{classtesting_1_1TestInfo}{Test\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_a3dda978293c8f8ab4f31f179cdbed33d}{testing\+::internal\+::\+Make\+And\+Register\+Test\+Info}} (std\+::string test\+\_\+suite\+\_\+name, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}type\+\_\+param, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}value\+\_\+param, \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{Code\+Location}} code\+\_\+location, \mbox{\hyperlink{namespacetesting_1_1internal_a38c435cbab5f8b784e2e7f3356cab242}{Type\+Id}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{fixture\+\_\+class\+\_\+id}}, \mbox{\hyperlink{namespacetesting_1_1internal_a028e9455ad22171feabf84fe46329c92}{Set\+Up\+Test\+Suite\+Func}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{set\+\_\+up\+\_\+tc}}, \mbox{\hyperlink{namespacetesting_1_1internal_ab58aba5acd47d329b72a1d10c7b61648}{Tear\+Down\+Test\+Suite\+Func}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{tear\+\_\+down\+\_\+tc}}, \mbox{\hyperlink{classtesting_1_1internal_1_1TestFactoryBase}{Test\+Factory\+Base}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{factory}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a7c6f19f60d6c255e99348fe8c712d503}{testing\+::internal\+::\+Report\+Invalid\+Test\+Suite\+Type}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}test\+\_\+suite\+\_\+name, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{Code\+Location}} \&code\+\_\+location)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_ac1db1b4603967a6c4404f31cbbac31a6}{testing\+::internal\+::\+Should\+Use\+Color}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{stdout\+\_\+is\+\_\+tty}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a0fe41657b1d1ab7ec4e37ec07403ee6c}{testing\+::internal\+::\+Should\+Shard}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{total\+\_\+shards\+\_\+str}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{shard\+\_\+index\+\_\+str}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{in\+\_\+subprocess\+\_\+for\+\_\+death\+\_\+test}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_aa4429a43615dd8c575e1456a30844af8}{testing\+::internal\+::\+Int32\+From\+Env\+Or\+Die}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{env\+\_\+var}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default\+\_\+val}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a437bd89f5bc532778d7467600e210395}{testing\+::internal\+::\+Should\+Run\+Test\+On\+Shard}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{total\+\_\+shards}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{shard\+\_\+index}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{test\+\_\+id}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a4b234f8922078deba93158cdbe956bf4}{testing\+::internal\+::\+Get\+Current\+Os\+Stack\+Trace\+Except\+Top}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{skip\+\_\+count}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a527b9bcc13669b9a16400c8514266254}{testing\+::internal\+::\+Is\+True}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{condition}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a922c9da63cd4bf94fc473b9ecac76414}{testing\+::internal\+::\+Always\+True}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a244d9a3765727306b597b8992ab84036}{testing\+::internal\+::\+Skip\+Prefix}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{prefix}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{pstr}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a7cbe05205de4dec33f171586914023a3}{testing\+::internal\+::\+Parse\+Flag}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{flag}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a472880afbcc592a41e3d623e2dec8412}{testing\+::internal\+::\+Parse\+Google\+Test\+Flags\+Only}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argc}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argv}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_aa3c81a67914856448d0778990d9d9cab}{testing\+::internal\+::\+Parse\+Google\+Test\+Flags\+Only}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argc}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{argv}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_afd726ae08c9bd16dc52f78c822d9946b}{testing\+::\+Init\+Google\+Test}} (int \texorpdfstring{$\ast$}{*}argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_ae5a88709a4a7529e30c83242156556b3}{testing\+::\+Init\+Google\+Test}} (int \texorpdfstring{$\ast$}{*}argc, wchar\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} void \mbox{\hyperlink{namespacetesting_ace27eb9a2534996f3711aa719689f987}{testing\+::\+Init\+Google\+Test}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_aae1bbe7c3cc99bf56263d51d3982a52e}{testing\+::\+Temp\+Dir}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a26e7d03990c6495d52262075418afafd}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a26e7d03990c6495d52262075418afafd} 
+\index{gtest.cc@{gtest.cc}!GTEST\_HAS\_BUILTIN@{GTEST\_HAS\_BUILTIN}}
+\index{GTEST\_HAS\_BUILTIN@{GTEST\_HAS\_BUILTIN}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_BUILTIN}{GTEST\_HAS\_BUILTIN}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+BUILTIN(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} }\end{DoxyParamCaption})~0}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l00163}{163}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a50b3ffd6d3d817600d6e2d76f052a737}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a50b3ffd6d3d817600d6e2d76f052a737} 
+\index{gtest.cc@{gtest.cc}!GTEST\_INTERNAL\_PARSE\_FLAG@{GTEST\_INTERNAL\_PARSE\_FLAG}}
+\index{GTEST\_INTERNAL\_PARSE\_FLAG@{GTEST\_INTERNAL\_PARSE\_FLAG}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_PARSE\_FLAG}{GTEST\_INTERNAL\_PARSE\_FLAG}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+PARSE\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{flag\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae080d884d5f6cf021d407995a0e32db5}{GTEST\_FLAG\_GET}}(flag\_name);\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (ParseFlag(arg,\ \#flag\_name,\ \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}))\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTEST\_FLAG\_SET(flag\_name,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}});\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a87a475ab9e81de8b49525787665b9229}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a87a475ab9e81de8b49525787665b9229} 
+\index{gtest.cc@{gtest.cc}!GTEST\_REPEATER\_METHOD\_@{GTEST\_REPEATER\_METHOD\_}}
+\index{GTEST\_REPEATER\_METHOD\_@{GTEST\_REPEATER\_METHOD\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_REPEATER\_METHOD\_}{GTEST\_REPEATER\_METHOD\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+REPEATER\+\_\+\+METHOD\+\_\+(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ TestEventRepeater::Name(\textcolor{keyword}{const}\ Type\&\ parameter)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (forwarding\_enabled\_)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ for\ (\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ 0;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ <\ listeners\_.size();\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}++)\ \{\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ listeners\_[\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}]-\/>Name(parameter);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l03902}{3902}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa7da32fd7da6a8cceeed6b448cb7b5f2}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa7da32fd7da6a8cceeed6b448cb7b5f2} 
+\index{gtest.cc@{gtest.cc}!GTEST\_REVERSE\_REPEATER\_METHOD\_@{GTEST\_REVERSE\_REPEATER\_METHOD\_}}
+\index{GTEST\_REVERSE\_REPEATER\_METHOD\_@{GTEST\_REVERSE\_REPEATER\_METHOD\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_REVERSE\_REPEATER\_METHOD\_}{GTEST\_REVERSE\_REPEATER\_METHOD\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+REVERSE\+\_\+\+REPEATER\+\_\+\+METHOD\+\_\+(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ TestEventRepeater::Name(\textcolor{keyword}{const}\ Type\&\ parameter)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (forwarding\_enabled\_)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ for\ (\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ listeners\_.size();\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ !=\ 0;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}-\/-\/)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ listeners\_[\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ -\/\ 1]-\/>Name(parameter);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source_l03912}{3912}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_source}{gtest.\+cc}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8152a59f69ba16fb18c9a7b862610ce5}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8152a59f69ba16fb18c9a7b862610ce5} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{also\+\_\+run\+\_\+disabled\+\_\+tests}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}also\+\_\+run\+\_\+disabled\+\_\+tests"{}, false)}]{,  }\item[{"{}Run disabled tests}]{too,  }\item[{in addition to the tests normally being run."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a86c5bcc425841bdb7cc7d4901ce4d081}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a86c5bcc425841bdb7cc7d4901ce4d081} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{break\+\_\+on\+\_\+failure}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}break\+\_\+on\+\_\+failure"{}, false)}]{,  }\item[{"{}True if and only if a failed assertion should be a debugger "{} "{}break-\/point."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2f9ab0224be9d144927855363937ee16}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2f9ab0224be9d144927855363937ee16} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [3/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{brief}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}brief"{}, false)}]{,  }\item[{"{}True if only test failures should be displayed in text output."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4c228d1411680104e0afce502da6ecc7}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4c228d1411680104e0afce502da6ecc7} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [4/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{catch\+\_\+exceptions}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}catch\+\_\+exceptions"{}, true)}]{,  }\item[{"{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should catch exceptions and treat them as test failures."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a14c11883d2d4cf8e9a25db3438ea3bce}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a14c11883d2d4cf8e9a25db3438ea3bce} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [5/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{fail\+\_\+fast}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+fast"{}, testing\+::\+Get\+Default\+Fail\+Fast())}]{,  }\item[{"{}True if and only if a test failure should stop further test execution."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8623b302e89e02a925cd08912fef95d4}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a8623b302e89e02a925cd08912fef95d4} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [6/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{fail\+\_\+if\+\_\+no\+\_\+test\+\_\+linked}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+if\+\_\+no\+\_\+test\+\_\+linked"{}, false)}]{,  }\item[{"{}True if and only if the test should fail if no test case (including "{} "{}disabled test cases) is linked."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac0917845448dbf445e7c401b4fe63b95}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac0917845448dbf445e7c401b4fe63b95} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [7/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{fail\+\_\+if\+\_\+no\+\_\+test\+\_\+selected}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}fail\+\_\+if\+\_\+no\+\_\+test\+\_\+selected"{}, false)}]{,  }\item[{"{}True if and only if the test should fail if no test case is selected to "{} "{}run. A test case is selected to run if it is not disabled and is matched "{} "{}by the filter flag so that it starts executing."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a706933db8c0db1ff21e703632c974c74}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a706933db8c0db1ff21e703632c974c74} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [8/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{install\+\_\+failure\+\_\+signal\+\_\+handler}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}install\+\_\+failure\+\_\+signal\+\_\+handler"{}, false)}]{,  }\item[{"{}If true and supported on the current}]{platform,  }\item[{"{} GTEST\+\_\+\+NAME\+\_\+ "{} should "{} "{}install a signal handler that dumps debugging information when fatal "{} "{}signals are raised."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5472bdd6fbe8548cff062bd052da9b5d}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5472bdd6fbe8548cff062bd052da9b5d} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [9/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{list\+\_\+tests}]{,  }\item[{false}]{,  }\item[{"{}List all tests without running them."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4fd50fde0a0c212edd4d0de8740c955d}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4fd50fde0a0c212edd4d0de8740c955d} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [10/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{print\+\_\+time}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}print\+\_\+time"{}, true)}]{,  }\item[{"{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should display elapsed time in text output."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_afc701ea294f418b0081357db8f45e214}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_afc701ea294f418b0081357db8f45e214} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [11/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{print\+\_\+utf8}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}print\+\_\+utf8"{}, true)}]{,  }\item[{"{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} prints UTF8 characters as text."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa5b608ecefcf8af9f2ba9b4114342fcc}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa5b608ecefcf8af9f2ba9b4114342fcc} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [12/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{recreate\+\_\+environments\+\_\+when\+\_\+repeating}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}recreate\+\_\+environments\+\_\+when\+\_\+repeating"{}, false)}]{,  }\item[{"{}Controls whether global test environments are recreated for each repeat "{} "{}of the tests. If set to false the global test environments are only set "{} "{}up}]{once,  }\item[{for the first}]{iteration,  }\item[{and only torn down}]{once,  }\item[{for the last. "{} "{}Useful for shaking out flaky tests with}]{stable,  }\item[{expensive test "{} "{}environments. If -\/-\/gtest\+\_\+repeat is set to a negative}]{number,  }\item[{meaning "{} "{}there is no last}]{run,  }\item[{the environments will always be recreated to avoid "{} "{}leaks."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a357d52c60f932e4412c4be42f79ec4b1}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a357d52c60f932e4412c4be42f79ec4b1} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [13/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{show\+\_\+internal\+\_\+stack\+\_\+frames}]{,  }\item[{false}]{,  }\item[{"{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should include internal stack frames when "{} "{}printing test failure stack traces."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_adc466feb3f64ac6ebbc2e7db7ad001ee}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_adc466feb3f64ac6ebbc2e7db7ad001ee} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [14/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{shuffle}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}shuffle"{}, false)}]{,  }\item[{"{}True if and only if "{} GTEST\+\_\+\+NAME\+\_\+ "{} should randomize tests\textquotesingle{} order on every run."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4869ae85a2467103a1b4f892395fb848}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a4869ae85a2467103a1b4f892395fb848} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_()}{GTEST\_DEFINE\_bool\_()}\hspace{0.1cm}{\footnotesize\ttfamily [15/15]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+ (\begin{DoxyParamCaption}\item[{throw\+\_\+on\+\_\+failure}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}}("{}throw\+\_\+on\+\_\+failure"{}, false)}]{,  }\item[{"{}When this flag is}]{specified,  }\item[{a failed assertion will throw an exception "{} "{}if exceptions are enabled or exit the program with a non-\/zero code "{} "{}otherwise. For use with an external test framework."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a833c22e35dbaf78c5bde5df154b6067e}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a833c22e35dbaf78c5bde5df154b6067e} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}}
+\index{GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_int32\_()}{GTEST\_DEFINE\_int32\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+ (\begin{DoxyParamCaption}\item[{random\+\_\+seed}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}random\+\_\+seed"{}, 0)}]{,  }\item[{"{}Random number seed to use when shuffling test orders. Must be in range "{} "{}}]{\mbox{[}1, 99999\mbox{]},  }\item[{or 0 to use a seed based on the current time."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac60d6715244a31ba56c0d2f992159f73}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_ac60d6715244a31ba56c0d2f992159f73} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}}
+\index{GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_int32\_()}{GTEST\_DEFINE\_int32\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+ (\begin{DoxyParamCaption}\item[{repeat}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}repeat"{}, 1)}]{,  }\item[{"{}How many times to repeat each test. Specify a negative number "{} "{}for repeating forever. Useful for shaking out flaky tests."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa2b0ee9188466a8124cbbcdb2d630a43}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aa2b0ee9188466a8124cbbcdb2d630a43} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}}
+\index{GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_int32\_()}{GTEST\_DEFINE\_int32\_()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+ (\begin{DoxyParamCaption}\item[{stack\+\_\+trace\+\_\+depth}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}}("{}stack\+\_\+trace\+\_\+depth"{}, \mbox{\hyperlink{namespacetesting_ae605f2ccac04616bb7812ca72e517082}{testing\+::k\+Max\+Stack\+Trace\+Depth}})}]{,  }\item[{"{}The maximum number of stack frames to print when an "{} "{}assertion fails. The valid range is 0 through}]{100,  }\item[{inclusive."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aeaad8bb467243a9990d384cf7e920463}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_aeaad8bb467243a9990d384cf7e920463} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{color}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}color"{}, "{}auto"{})}]{,  }\item[{"{}Whether to use colors in the output. Valid values\+:}]{yes,  }\item[{no}]{,  }\item[{"{} "{}and auto. \textquotesingle{}auto\textquotesingle{} means to use colors if the output is "{} "{}being sent to a terminal and the TERM environment variable "{} "{}is set to a terminal type that supports colors."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2a288d6ef276ae0617dc334a029d0d3c}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2a288d6ef276ae0617dc334a029d0d3c} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{filter}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}filter"{}, testing\+::\+Get\+Default\+Filter())}]{,  }\item[{"{}A colon-\/separated list of glob (not regex) patterns "{} "{}for filtering the tests to}]{run,  }\item[{optionally followed by a "{} "{}\textquotesingle{}-\/\textquotesingle{} and a \+:separated list of negative patterns(tests to "{} "{}exclude). A test is run if it matches one of the positive "{} "{}patterns and does not match any of the negative patterns."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5c0effca46aa638e35a5409a8dc3caf0}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a5c0effca46aa638e35a5409a8dc3caf0} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{output}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}output"{}, \mbox{\hyperlink{namespacetesting_1_1internal_a0c793c6d84760d900299916c077a1af4}{testing\+::internal\+::\+Output\+Flag\+Also\+Check\+Env\+Var}}().c\+\_\+str())}]{,  }\item[{"{}A format }]{defaults to \textbackslash{}"{}xml\textbackslash{}"{} but can be specified to be \textbackslash{}"{}json\textbackslash{}"{},  }\item[{"{} "{}optionally followed by a colon and an output file name or directory. "{} "{}A directory is indicated by a trailing pathname separator. "{} "{}Examples\+:\textbackslash{}"{}xml\+:filename.\+xml\textbackslash{}"{}}]{,  }\item[{\textbackslash{}"{}xml\+::directoryname/\textbackslash{}"{}. "{} "{}If a directory is}]{specified,  }\item[{output files will be created "{} "{}within that}]{directory,  }\item[{with file-\/names based on the test "{} "{}executable \textquotesingle{}s name}]{and,  }\item[{if}]{necessary,  }\item[{made unique by adding "{} "{}digits."{}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2b907dad4fc0dbaf0008bbf659b8b103}\label{cmake-build_2__deps_2googletest-src_2googletest_2src_2gtest_8cc_a2b907dad4fc0dbaf0008bbf659b8b103} 
+\index{gtest.cc@{gtest.cc}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest.cc@{gtest.cc}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_()}{GTEST\_DEFINE\_string\_()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+ (\begin{DoxyParamCaption}\item[{stream\+\_\+result\+\_\+to}]{,  }\item[{\mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}}("{}stream\+\_\+result\+\_\+to"{}, "{}"{})}]{,  }\item[{"{}This flag specifies the host name and the port number on which to stream "{} "{}test results. Example\+: \textbackslash{}"{}localhost\+:555\textbackslash{}"{}. The flag is effective only on "{} "{}Linux and mac\+OS."{}}]{ }\end{DoxyParamCaption})}
+

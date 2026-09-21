@@ -1,0 +1,7 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,60,56"/>
+<area shape="rect" id="Node000002" href="$namespacetesting.html#ace27eb9a2534996f3711aa719689f987" title=" " alt="" coords="108,5,276,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,36,98,30,99,36,61,42"/>
+<area shape="rect" id="Node000003" href="$namespacetesting.html#a9863402455bfcf9be5fc0b1453a6d97d" title=" " alt="" coords="125,55,259,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,45,112,53,111,58,60,50"/>
+</map>

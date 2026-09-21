@@ -1,0 +1,199 @@
+\doxysection{gtest-\/test-\/part.h}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source}{}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source}\index{build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/test-\/part.h@{build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/test-\/part.h}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2008,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00030}00030\ \textcolor{comment}{//\ IWYU\ pragma:\ private,\ include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00031}00031\ \textcolor{comment}{//\ IWYU\ pragma:\ friend\ gtest/.*}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00032}00032\ \textcolor{comment}{//\ IWYU\ pragma:\ friend\ gmock/.*}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00034}00034\ \textcolor{preprocessor}{\#ifndef\ GOOGLETEST\_INCLUDE\_GTEST\_GTEST\_TEST\_PART\_H\_}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00035}00035\ \textcolor{preprocessor}{\#define\ GOOGLETEST\_INCLUDE\_GTEST\_GTEST\_TEST\_PART\_H\_}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00037}00037\ \textcolor{preprocessor}{\#include\ <iosfwd>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00038}00038\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00039}00039\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00040}00040\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00041}00041\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00043}00043\ \textcolor{preprocessor}{\#include\ "{}gtest/internal/gtest-\/internal.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00044}00044\ \textcolor{preprocessor}{\#include\ "{}gtest/internal/gtest-\/string.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00046}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_a88f79832f9d045112a76e9da8611cc13}{00046}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}}(4251\ \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00047}00047\ \textcolor{comment}{/*\ class\ A\ needs\ to\ have\ dll-\/interface\ to\ be\ used\ by\ clients\ of\ class\ B\ */})}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00049}00049\ namespace\ \mbox{\hyperlink{namespacetesting}{testing}}\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00051}00051\ \textcolor{comment}{//\ A\ copyable\ object\ representing\ the\ result\ of\ a\ test\ part\ (i.e.\ an}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00052}00052\ \textcolor{comment}{//\ assertion\ or\ an\ explicit\ FAIL(),\ ADD\_FAILURE(),\ or\ SUCCESS()).}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00053}00053\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00054}00054\ \textcolor{comment}{//\ Don't\ inherit\ from\ TestPartResult\ as\ its\ destructor\ is\ not\ virtual.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00055}00055\ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ [[nodiscard]]\ TestPartResult\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00056}00056\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00057}00057\ \ \ \textcolor{comment}{//\ The\ possible\ outcomes\ of\ a\ test\ part\ (i.e.\ an\ assertion\ or\ an}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00058}00058\ \ \ \textcolor{comment}{//\ explicit\ SUCCEED(),\ FAIL(),\ or\ ADD\_FAILURE()).}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00059}00059\ \ \ \textcolor{keyword}{enum}\ Type\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00060}00060\ \ \ \ \ kSuccess,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Succeeded.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00061}00061\ \ \ \ \ kNonFatalFailure,\ \ \textcolor{comment}{//\ Failed\ but\ the\ test\ can\ continue.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00062}00062\ \ \ \ \ kFatalFailure,\ \ \ \ \ \textcolor{comment}{//\ Failed\ and\ the\ test\ should\ be\ terminated.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00063}00063\ \ \ \ \ kSkip\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Skipped.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00064}00064\ \ \ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00066}00066\ \ \ \textcolor{comment}{//\ C'tor.\ \ TestPartResult\ does\ NOT\ have\ a\ default\ constructor.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00067}00067\ \ \ \textcolor{comment}{//\ Always\ use\ this\ constructor\ (with\ parameters)\ to\ create\ a}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00068}00068\ \ \ \textcolor{comment}{//\ TestPartResult\ object.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00069}00069\ \ \ TestPartResult(Type\ a\_type,\ std::string\_view\ a\_file\_name,\ \textcolor{keywordtype}{int}\ a\_line\_number,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\_view\ a\_message)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00071}00071\ \ \ \ \ \ \ :\ type\_(a\_type),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ file\_name\_(a\_file\_name),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ line\_number\_(a\_line\_number),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ summary\_(ExtractSummary(a\_message)),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ message\_(a\_message)\ \{\}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00077}00077\ \ \ \textcolor{comment}{//\ Gets\ the\ outcome\ of\ the\ test\ part.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00078}00078\ \ \ Type\ type()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ type\_;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00080}00080\ \ \ \textcolor{comment}{//\ Gets\ the\ name\ of\ the\ source\ file\ where\ the\ test\ part\ took\ place,\ or}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00081}00081\ \ \ \textcolor{comment}{//\ NULL\ if\ it's\ unknown.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00082}00082\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file\_name()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ file\_name\_.empty()\ ?\ nullptr\ :\ file\_name\_.c\_str();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00084}00084\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00086}00086\ \ \ \textcolor{comment}{//\ Gets\ the\ line\ in\ the\ source\ file\ where\ the\ test\ part\ took\ place,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00087}00087\ \ \ \textcolor{comment}{//\ or\ -\/1\ if\ it's\ unknown.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00088}00088\ \ \ \textcolor{keywordtype}{int}\ line\_number()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ line\_number\_;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00090}00090\ \ \ \textcolor{comment}{//\ Gets\ the\ summary\ of\ the\ failure\ message.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00091}00091\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ summary()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ summary\_.c\_str();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00093}00093\ \ \ \textcolor{comment}{//\ Gets\ the\ message\ associated\ with\ the\ test\ part.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00094}00094\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ message\_.c\_str();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00096}00096\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ test\ part\ was\ skipped.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00097}00097\ \ \ \textcolor{keywordtype}{bool}\ skipped()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ type\_\ ==\ kSkip;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00099}00099\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ test\ part\ passed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00100}00100\ \ \ \textcolor{keywordtype}{bool}\ passed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ type\_\ ==\ kSuccess;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00102}00102\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ test\ part\ non-\/fatally\ failed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00103}00103\ \ \ \textcolor{keywordtype}{bool}\ nonfatally\_failed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ type\_\ ==\ kNonFatalFailure;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00105}00105\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ test\ part\ fatally\ failed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00106}00106\ \ \ \textcolor{keywordtype}{bool}\ fatally\_failed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ type\_\ ==\ kFatalFailure;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00108}00108\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ test\ part\ failed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00109}00109\ \ \ \textcolor{keywordtype}{bool}\ failed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fatally\_failed()\ ||\ nonfatally\_failed();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00111}00111\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00112}00112\ \ \ Type\ type\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00114}00114\ \ \ \textcolor{comment}{//\ Gets\ the\ summary\ of\ the\ failure\ message\ by\ omitting\ the\ stack}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00115}00115\ \ \ \textcolor{comment}{//\ trace\ in\ it.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00116}00116\ \ \ \textcolor{keyword}{static}\ std::string\ ExtractSummary(std::string\_view\ message);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00118}00118\ \ \ \textcolor{comment}{//\ The\ name\ of\ the\ source\ file\ where\ the\ test\ part\ took\ place,\ or}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00119}00119\ \ \ \textcolor{comment}{//\ "{}"{}\ if\ the\ source\ file\ is\ unknown.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00120}00120\ \ \ std::string\ file\_name\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00121}00121\ \ \ \textcolor{comment}{//\ The\ line\ in\ the\ source\ file\ where\ the\ test\ part\ took\ place,\ or\ -\/1}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00122}00122\ \ \ \textcolor{comment}{//\ if\ the\ line\ number\ is\ unknown.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00123}00123\ \ \ \textcolor{keywordtype}{int}\ line\_number\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00124}00124\ \ \ std::string\ summary\_;\ \ \textcolor{comment}{//\ The\ test\ failure\ summary.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00125}00125\ \ \ std::string\ message\_;\ \ \textcolor{comment}{//\ The\ test\ failure\ message.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00126}00126\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00128}00128\ \textcolor{comment}{//\ Prints\ a\ TestPartResult\ object.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00129}00129\ std::ostream\&\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2googletest-param-test-test_8cc_ace98876cf2a052cf79eb12db5bc1817f}{operator<<}}(std::ostream\&\ os,\ \textcolor{keyword}{const}\ TestPartResult\&\ result);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00131}00131\ \textcolor{comment}{//\ An\ array\ of\ TestPartResult\ objects.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00132}00132\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00133}00133\ \textcolor{comment}{//\ Don't\ inherit\ from\ TestPartResultArray\ as\ its\ destructor\ is\ not}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00134}00134\ \textcolor{comment}{//\ virtual.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00135}00135\ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ [[nodiscard]]\ TestPartResultArray\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00136}00136\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00137}00137\ \ \ TestPartResultArray()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00139}00139\ \ \ \textcolor{comment}{//\ Appends\ the\ given\ TestPartResult\ to\ the\ array.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00140}00140\ \ \ \textcolor{keywordtype}{void}\ Append(\textcolor{keyword}{const}\ TestPartResult\&\ result);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00142}00142\ \ \ \textcolor{comment}{//\ Returns\ the\ TestPartResult\ at\ the\ given\ index\ (0-\/based).}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00143}00143\ \ \ \textcolor{keyword}{const}\ TestPartResult\&\ GetTestPartResult(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00145}00145\ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ TestPartResult\ objects\ in\ the\ array.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00146}00146\ \ \ \textcolor{keywordtype}{int}\ size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00148}00148\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00149}00149\ \ \ std::vector<TestPartResult>\ array\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00151}00151\ \ \ TestPartResultArray(\textcolor{keyword}{const}\ TestPartResultArray\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00152}00152\ \ \ TestPartResultArray\&\ operator=(\textcolor{keyword}{const}\ TestPartResultArray\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00153}00153\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00155}00155\ \textcolor{comment}{//\ This\ interface\ knows\ how\ to\ report\ a\ test\ part\ result.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00156}00156\ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ [[nodiscard]]\ TestPartResultReporterInterface\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00157}00157\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00158}00158\ \ \ \textcolor{keyword}{virtual}\ \string~TestPartResultReporterInterface()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00160}00160\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ReportTestPartResult(\textcolor{keyword}{const}\ TestPartResult\&\ result)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00161}00161\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00163}00163\ \textcolor{keyword}{namespace\ }internal\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00165}00165\ \textcolor{comment}{//\ This\ helper\ class\ is\ used\ by\ \{ASSERT|EXPECT\}\_NO\_FATAL\_FAILURE\ to\ check\ if\ a}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00166}00166\ \textcolor{comment}{//\ statement\ generates\ new\ fatal\ failures.\ To\ do\ so\ it\ registers\ itself\ as\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00167}00167\ \textcolor{comment}{//\ current\ test\ part\ result\ reporter.\ Besides\ checking\ if\ fatal\ failures\ were}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00168}00168\ \textcolor{comment}{//\ reported,\ it\ only\ delegates\ the\ reporting\ to\ the\ former\ result\ reporter.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00169}00169\ \textcolor{comment}{//\ The\ original\ result\ reporter\ is\ restored\ in\ the\ destructor.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00170}00170\ \textcolor{comment}{//\ INTERNAL\ IMPLEMENTATION\ -\/\ DO\ NOT\ USE\ IN\ A\ USER\ PROGRAM.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00171}00171\ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ [[nodiscard]]\ HasNewFatalFailureHelper}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00172}00172\ \ \ \ \ :\ \textcolor{keyword}{public}\ TestPartResultReporterInterface\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00173}00173\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00174}00174\ \ \ HasNewFatalFailureHelper();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00175}00175\ \ \ \string~HasNewFatalFailureHelper()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00176}00176\ \ \ \textcolor{keywordtype}{void}\ ReportTestPartResult(\textcolor{keyword}{const}\ TestPartResult\&\ result)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00177}00177\ \ \ \textcolor{keywordtype}{bool}\ has\_new\_fatal\_failure()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ has\_new\_fatal\_failure\_;\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00179}00179\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00180}00180\ \ \ \textcolor{keywordtype}{bool}\ has\_new\_fatal\_failure\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00181}00181\ \ \ TestPartResultReporterInterface*\ original\_reporter\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00183}00183\ \ \ HasNewFatalFailureHelper(\textcolor{keyword}{const}\ HasNewFatalFailureHelper\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00184}00184\ \ \ HasNewFatalFailureHelper\&\ operator=(\textcolor{keyword}{const}\ HasNewFatalFailureHelper\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00185}00185\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00187}00187\ \}\ \ \textcolor{comment}{//\ namespace\ internal}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00189}00189\ \}\ \ \textcolor{comment}{//\ namespace\ testing}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00191}00191\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_}}()\ \ \textcolor{comment}{//\ \ 4251}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-test-part_8h_source_l00193}00193\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ GOOGLETEST\_INCLUDE\_GTEST\_GTEST\_TEST\_PART\_H\_}}
+
+\end{DoxyCode}

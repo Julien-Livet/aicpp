@@ -1,0 +1,134 @@
+\doxysection{gtest\+\_\+premature\+\_\+exit\+\_\+test.\+cc}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source}{}\label{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source}\index{build/\_deps/googletest-\/src/googletest/test/gtest\_premature\_exit\_test.cc@{build/\_deps/googletest-\/src/googletest/test/gtest\_premature\_exit\_test.cc}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2013,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00030}00030\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00031}00031\ \textcolor{comment}{//\ Tests\ that\ Google\ Test\ manipulates\ the\ premature-\/exit-\/detection}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00032}00032\ \textcolor{comment}{//\ file\ correctly.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00034}00034\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00038}00038\ using\ ::testing::InitGoogleTest;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00039}00039\ using\ ::testing::Test;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00040}00040\ using\ ::testing::internal::posix::GetEnv;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00041}00041\ using\ ::testing::internal::posix::Stat;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00042}00042\ using\ ::testing::internal::posix::StatStruct;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00044}00044\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00046}00046\ \textcolor{keyword}{class\ }PrematureExitTest\ :\ \textcolor{keyword}{public}\ Test\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00047}00047\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00048}00048\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ given\ file\ exists.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00049}00049\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ FileExists(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filepath)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00050}00050\ \ \ \ \ StatStruct\ stat;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{return}\ Stat(filepath,\ \&stat)\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00052}00052\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00054}00054\ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00055}00055\ \ \ PrematureExitTest()\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00056}00056\ \ \ \ \ premature\_exit\_file\_path\_\ =\ GetEnv(\textcolor{stringliteral}{"{}TEST\_PREMATURE\_EXIT\_FILE"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ Normalize\ NULL\ to\ "{}"{}\ for\ ease\ of\ handling.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (premature\_exit\_file\_path\_\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00060}00060\ \ \ \ \ \ \ premature\_exit\_file\_path\_\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00062}00062\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00064}00064\ \ \ \textcolor{comment}{//\ Returns\ true\ if\ and\ only\ if\ the\ premature-\/exit\ file\ exists.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00065}00065\ \ \ \textcolor{keywordtype}{bool}\ PrematureExitFileExists()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ FileExists(premature\_exit\_file\_path\_);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00067}00067\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00069}00069\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ premature\_exit\_file\_path\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00070}00070\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00072}00072\ \textcolor{keyword}{typedef}\ PrematureExitTest\ PrematureExitDeathTest;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00074}00074\ \textcolor{comment}{//\ Tests\ that:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00075}00075\ \textcolor{comment}{//\ \ \ -\/\ the\ premature-\/exit\ file\ exists\ during\ the\ execution\ of\ a}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00076}00076\ \textcolor{comment}{//\ \ \ \ \ death\ test\ (EXPECT\_DEATH*),\ and}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00077}00077\ \textcolor{comment}{//\ \ \ -\/\ a\ death\ test\ doesn't\ interfere\ with\ the\ main\ test\ process's}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00078}00078\ \textcolor{comment}{//\ \ \ \ \ handling\ of\ the\ premature-\/exit\ file.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00079}00079\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a0ee66d464d1a06c20c1929cae09d8758}{TEST\_F}}(PrematureExitDeathTest,\ FileExistsDuringExecutionOfDeathTest)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00080}00080\ \ \ \textcolor{keywordflow}{if}\ (*premature\_exit\_file\_path\_\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00082}00082\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00084}00084\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-death-test_8h_a8564de0e012dd0898949c513d1571f8b}{EXPECT\_DEATH\_IF\_SUPPORTED}}(}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00085}00085\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ file\ exists,\ crash\ the\ process\ such\ that\ the\ main\ test}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ process\ will\ catch\ the\ (expected)\ crash\ and\ report\ a\ success;}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ otherwise\ don't\ crash,\ which\ will\ cause\ the\ main\ test\ process}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ report\ that\ the\ death\ test\ has\ failed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (PrematureExitFileExists())\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00092}00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00093}00093\ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00094}00094\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00097}00097\ \textcolor{comment}{//\ Tests\ that\ the\ premature-\/exit\ file\ exists\ during\ the\ execution\ of\ a}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00098}00098\ \textcolor{comment}{//\ normal\ (non-\/death)\ test.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00099}00099\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a0ee66d464d1a06c20c1929cae09d8758}{TEST\_F}}(PrematureExitTest,\ PrematureExitFileExistsDuringTestExecution)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00100}00100\ \ \ \textcolor{keywordflow}{if}\ (*premature\_exit\_file\_path\_\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00102}00102\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00104}00104\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ac33e7cdfb5d44a7a0f0ab552eb5c3c6a}{EXPECT\_TRUE}}(PrematureExitFileExists())}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00105}00105\ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ file\ "{}}\ <<\ premature\_exit\_file\_path\_}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00106}00106\ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ should\ exist\ during\ test\ execution,\ but\ doesn't."{}};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00109}00109\ \}\ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00111}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_a3c04138a5bfe5d72780bb7e82a18e627}{00111}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2googletest-uninitialized-test___8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00112}00112\ \ \ InitGoogleTest(\&argc,\ argv);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00113}00113\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ exit\_code\ =\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a931592c964dcb83eb3e8d95e1eee9404}{RUN\_ALL\_TESTS}}();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00115}00115\ \ \ \textcolor{comment}{//\ Test\ that\ the\ premature-\/exit\ file\ is\ deleted\ upon\ return\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00116}00116\ \ \ \textcolor{comment}{//\ RUN\_ALL\_TESTS().}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00117}00117\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ filepath\ =\ GetEnv(\textcolor{stringliteral}{"{}TEST\_PREMATURE\_EXIT\_FILE"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00118}00118\ \ \ \textcolor{keywordflow}{if}\ (filepath\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ *filepath\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{if}\ (PrematureExitTest::FileExists(filepath))\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00120}00120\ \ \ \ \ \ \ printf(}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}File\ \%s\ shouldn't\ exist\ after\ the\ test\ program\ finishes,\ but\ does."{}},}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ filepath);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00123}00123\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00125}00125\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00127}00127\ \ \ \textcolor{keywordflow}{return}\ exit\_code;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__premature__exit__test_8cc_source_l00128}00128\ \}}
+
+\end{DoxyCode}

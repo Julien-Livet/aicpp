@@ -1,0 +1,404 @@
+\chapter{Matchers Reference}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers}{}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers}\index{Matchers Reference@{Matchers Reference}}
+\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1126}%
+\Hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1126}%
+
+
+A {\bfseries{matcher}} matches a {\itshape single} argument. You can use it inside {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\+\_\+\+CALL()}} or {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}}, or use it to validate a value directly using two macros\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\+\_\+\+THAT(actual\+\_\+value, matcher)}}   &Asserts that {\ttfamily actual\+\_\+value} matches {\ttfamily matcher}.    \\\cline{1-2}
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a41d888579850c16583baea33ee8d057e}{ASSERT\+\_\+\+THAT(actual\+\_\+value, matcher)}}   &The same as {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\+\_\+\+THAT(actual\+\_\+value, matcher)}}, except that it generates a {\bfseries{fatal}} failure.   \\\cline{1-2}
+\end{longtabu}
+
+
+\{\+: .callout .warning\} {\bfseries{WARNING\+:}} Equality matching via {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\+\_\+\+THAT(actual\+\_\+value, expected\+\_\+value)}} is supported, however note that implicit conversions can cause surprising results. For example, {\ttfamily EXPECT\+\_\+\+THAT(some\+\_\+bool, "{}some string"{})} will compile and may pass unintentionally.
+
+{\bfseries{BEST PRACTICE\+:}} Prefer to make the comparison explicit via {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\+\_\+\+THAT(actual\+\_\+value, Eq(expected\+\_\+value))}} or {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a4159019abda84f5366acdb7604ff220a}{EXPECT\+\_\+\+EQ(actual\+\_\+value, expected\+\_\+value)}}.
+
+Built-\/in matchers (where {\ttfamily argument} is the function argument, e.\+g. {\ttfamily actual\+\_\+value} in the example above, or when used in the context of {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL(mock\+\_\+object, method(matchers))}}, the arguments of {\ttfamily method}) are divided into several categories. All matchers are defined in the {\ttfamily \doxylink{namespacetesting}{testing}} namespace unless otherwise noted.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1127}{}\doxysection{\texorpdfstring{Wildcard}{Wildcard}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1127}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily \+\_\+}   &{\ttfamily argument} can be any value of the correct type.    \\\cline{1-2}
+{\ttfamily A\texorpdfstring{$<$}{<}type\texorpdfstring{$>$}{>}()} or {\ttfamily An\texorpdfstring{$<$}{<}type\texorpdfstring{$>$}{>}()}   &{\ttfamily argument} can be any value of type {\ttfamily type}.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1128}{}\doxysection{\texorpdfstring{Generic Comparison}{Generic Comparison}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1128}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Eq(value)} or {\ttfamily value}   &{\ttfamily argument == value}    \\\cline{1-2}
+{\ttfamily Ge(value)}   &{\ttfamily argument \texorpdfstring{$>$}{>}= value}    \\\cline{1-2}
+{\ttfamily Gt(value)}   &{\ttfamily argument \texorpdfstring{$>$}{>} value}    \\\cline{1-2}
+{\ttfamily Le(value)}   &{\ttfamily argument \texorpdfstring{$<$}{<}= value}    \\\cline{1-2}
+{\ttfamily Lt(value)}   &{\ttfamily argument \texorpdfstring{$<$}{<} value}    \\\cline{1-2}
+{\ttfamily Ne(value)}   &{\ttfamily argument != value}    \\\cline{1-2}
+{\ttfamily Is\+False()}   &{\ttfamily argument} evaluates to {\ttfamily false} in a Boolean context.    \\\cline{1-2}
+{\ttfamily Distance\+From(target, m)}   &The distance between {\ttfamily argument} and {\ttfamily target} (computed by {\ttfamily abs(argument -\/ target)}) matches {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Distance\+From(target, get\+\_\+distance, m)}   &The distance between {\ttfamily argument} and {\ttfamily target} (computed by {\ttfamily get\+\_\+distance(argument, target)}) matches {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Is\+True()}   &{\ttfamily argument} evaluates to {\ttfamily true} in a Boolean context.    \\\cline{1-2}
+{\ttfamily Is\+Null()}   &{\ttfamily argument} is a {\ttfamily NULL} pointer (raw or smart).    \\\cline{1-2}
+{\ttfamily Not\+Null()}   &{\ttfamily argument} is a non-\/null pointer (raw or smart).    \\\cline{1-2}
+{\ttfamily Optional(m)}   &{\ttfamily argument} is {\ttfamily optional\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} that contains a value matching {\ttfamily m}. (For testing whether an {\ttfamily optional\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} is unset, check for equality with {\ttfamily nullopt}. You may need to use {\ttfamily Eq(nullopt)} if the inner type doesn\textquotesingle{}t have {\ttfamily ==}.)    \\\cline{1-2}
+{\ttfamily Variant\+With\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(m)}   &{\ttfamily argument} is {\ttfamily variant\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} that holds the alternative of type T with a value matching {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Any\+With\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(m)}   &{\ttfamily argument} is {\ttfamily any\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} that holds a value of type T with a value matching {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Ref(variable)}   &{\ttfamily argument} is a reference to {\ttfamily variable}.    \\\cline{1-2}
+{\ttfamily Typed\+Eq\texorpdfstring{$<$}{<}type\texorpdfstring{$>$}{>}(value)}   &{\ttfamily argument} has type {\ttfamily type} and is equal to {\ttfamily value}. You may need to use this instead of {\ttfamily Eq(value)} when the mock function is overloaded.   \\\cline{1-2}
+\end{longtabu}
+
+
+Except {\ttfamily Ref()}, these matchers make a {\itshape copy} of {\ttfamily value} in case it\textquotesingle{}s modified or destructed later. If the compiler complains that {\ttfamily value} doesn\textquotesingle{}t have a public copy constructor, try wrap it in {\ttfamily std\+::ref()}, e.\+g. {\ttfamily Eq(std\+::ref(non\+\_\+copyable\+\_\+value))}. If you do that, make sure {\ttfamily non\+\_\+copyable\+\_\+value} is not changed afterwards, or the meaning of your matcher will be changed.
+
+{\ttfamily Is\+True} and {\ttfamily Is\+False} are useful when you need to use a matcher, or for types that can be explicitly converted to Boolean, but are not implicitly converted to Boolean. In other cases, you can use the basic \href{assertions.md\#boolean}{\texttt{ {\ttfamily EXPECT\+\_\+\+TRUE} and {\ttfamily EXPECT\+\_\+\+FALSE}}} assertions.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_FpMatchers}{}\doxysection{\texorpdfstring{Floating-\/\+Point Matchers}{Floating-Point Matchers}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_FpMatchers}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Double\+Eq(a\+\_\+double)}   &{\ttfamily argument} is a {\ttfamily double} value approximately equal to {\ttfamily a\+\_\+double}, treating two Na\+Ns as unequal.    \\\cline{1-2}
+{\ttfamily Float\+Eq(a\+\_\+float)}   &{\ttfamily argument} is a {\ttfamily float} value approximately equal to {\ttfamily a\+\_\+float}, treating two Na\+Ns as unequal.    \\\cline{1-2}
+{\ttfamily Nan\+Sensitive\+Double\+Eq(a\+\_\+double)}   &{\ttfamily argument} is a {\ttfamily double} value approximately equal to {\ttfamily a\+\_\+double}, treating two Na\+Ns as equal.    \\\cline{1-2}
+{\ttfamily Nan\+Sensitive\+Float\+Eq(a\+\_\+float)}   &{\ttfamily argument} is a {\ttfamily float} value approximately equal to {\ttfamily a\+\_\+float}, treating two Na\+Ns as equal.    \\\cline{1-2}
+{\ttfamily Is\+Nan()}   &{\ttfamily argument} is any floating-\/point type with a NaN value.   \\\cline{1-2}
+\end{longtabu}
+
+
+The above matchers use ULP-\/based comparison (the same as used in googletest). They automatically pick a reasonable error bound based on the absolute value of the expected value. {\ttfamily Double\+Eq()} and {\ttfamily Float\+Eq()} conform to the IEEE standard, which requires comparing two Na\+Ns for equality to return false. The {\ttfamily Nan\+Sensitive\texorpdfstring{$\ast$}{*}} version instead treats two Na\+Ns as equal, which is often what a user wants.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Double\+Near(a\+\_\+double, max\+\_\+abs\+\_\+error)}   &{\ttfamily argument} is a {\ttfamily double} value close to {\ttfamily a\+\_\+double} (absolute error \texorpdfstring{$<$}{<}= {\ttfamily max\+\_\+abs\+\_\+error}), treating two Na\+Ns as unequal.    \\\cline{1-2}
+{\ttfamily Float\+Near(a\+\_\+float, max\+\_\+abs\+\_\+error)}   &{\ttfamily argument} is a {\ttfamily float} value close to {\ttfamily a\+\_\+float} (absolute error \texorpdfstring{$<$}{<}= {\ttfamily max\+\_\+abs\+\_\+error}), treating two Na\+Ns as unequal.    \\\cline{1-2}
+{\ttfamily Nan\+Sensitive\+Double\+Near(a\+\_\+double, max\+\_\+abs\+\_\+error)}   &{\ttfamily argument} is a {\ttfamily double} value close to {\ttfamily a\+\_\+double} (absolute error \texorpdfstring{$<$}{<}= {\ttfamily max\+\_\+abs\+\_\+error}), treating two Na\+Ns as equal.    \\\cline{1-2}
+{\ttfamily Nan\+Sensitive\+Float\+Near(a\+\_\+float, max\+\_\+abs\+\_\+error)}   &{\ttfamily argument} is a {\ttfamily float} value close to {\ttfamily a\+\_\+float} (absolute error \texorpdfstring{$<$}{<}= {\ttfamily max\+\_\+abs\+\_\+error}), treating two Na\+Ns as equal.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1129}{}\doxysection{\texorpdfstring{String Matchers}{String Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1129}
+The {\ttfamily argument} can be either a C string or a C++ string object\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Contains\+Regex(string)}   &{\ttfamily argument} matches the given regular expression.    \\\cline{1-2}
+{\ttfamily Ends\+With(suffix)}   &{\ttfamily argument} ends with string {\ttfamily suffix}.    \\\cline{1-2}
+{\ttfamily Has\+Substr(string)}   &{\ttfamily argument} contains {\ttfamily string} as a sub-\/string.    \\\cline{1-2}
+{\ttfamily Is\+Empty()}   &{\ttfamily argument} is an empty string.    \\\cline{1-2}
+{\ttfamily Matches\+Regex(string)}   &{\ttfamily argument} matches the given regular expression with the match starting at the first character and ending at the last character.    \\\cline{1-2}
+{\ttfamily Starts\+With(prefix)}   &{\ttfamily argument} starts with string {\ttfamily prefix}.    \\\cline{1-2}
+{\ttfamily Str\+Case\+Eq(string)}   &{\ttfamily argument} is equal to {\ttfamily string}, ignoring case.    \\\cline{1-2}
+{\ttfamily Str\+Case\+Ne(string)}   &{\ttfamily argument} is not equal to {\ttfamily string}, ignoring case.    \\\cline{1-2}
+{\ttfamily Str\+Eq(string)}   &{\ttfamily argument} is equal to {\ttfamily string}.    \\\cline{1-2}
+{\ttfamily Str\+Ne(string)}   &{\ttfamily argument} is not equal to {\ttfamily string}.    \\\cline{1-2}
+{\ttfamily When\+Base64\+Unescaped(m)}   &{\ttfamily argument} is a base-\/64 escaped string whose unescaped string matches {\ttfamily m}. The web-\/safe format from \href{https://www.rfc-editor.org/rfc/rfc4648\#section-5}{\texttt{ RFC 4648}} is supported.   \\\cline{1-2}
+\end{longtabu}
+
+
+{\ttfamily Contains\+Regex()} and {\ttfamily Matches\+Regex()} take ownership of the {\ttfamily RE} object. They use the regular expression syntax defined \href{../advanced.md\#regular-expression-syntax}{\texttt{ here}}. All of these matchers, except {\ttfamily Contains\+Regex()} and {\ttfamily Matches\+Regex()} work for wide strings as well.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1130}{}\doxysection{\texorpdfstring{Exception Matchers}{Exception Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1130}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Throws\texorpdfstring{$<$}{<}E\texorpdfstring{$>$}{>}()}   &The {\ttfamily argument} is a callable object that, when called, throws an exception of the expected type {\ttfamily E}.    \\\cline{1-2}
+{\ttfamily Throws\texorpdfstring{$<$}{<}E\texorpdfstring{$>$}{>}(m)}   &The {\ttfamily argument} is a callable object that, when called, throws an exception of type {\ttfamily E} that satisfies the matcher {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Throws\+Message\texorpdfstring{$<$}{<}E\texorpdfstring{$>$}{>}(m)}   &The {\ttfamily argument} is a callable object that, when called, throws an exception of type {\ttfamily E} with a message that satisfies the matcher {\ttfamily m}.   \\\cline{1-2}
+\end{longtabu}
+
+
+Examples\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ argument\ =\ []\ \{\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}error\ msg"{}});\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Checks\ if\ the\ lambda\ throws\ a\ \`{}std::runtime\_error`.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\_THAT}}(argument,\ Throws<std::runtime\_error>());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Checks\ if\ the\ lambda\ throws\ a\ \`{}std::runtime\_error`\ with\ a\ specific\ message}}
+\DoxyCodeLine{\textcolor{comment}{//\ that\ matches\ "{}error\ msg"{}.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\_THAT}}(argument,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Throws<std::runtime\_error>(Property(\&std::runtime\_error::what,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eq(\textcolor{stringliteral}{"{}error\ msg"{}}))));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Checks\ if\ the\ lambda\ throws\ a\ \`{}std::runtime\_error`\ with\ a\ message\ that}}
+\DoxyCodeLine{\textcolor{comment}{//\ contains\ "{}msg"{}.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\_THAT}}(argument,\ ThrowsMessage<std::runtime\_error>(HasSubstr(\textcolor{stringliteral}{"{}msg"{}})));}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1131}{}\doxysection{\texorpdfstring{Container Matchers}{Container Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1131}
+Most STL-\/style containers support {\ttfamily ==}, so you can use {\ttfamily Eq(expected\+\_\+container)} or simply {\ttfamily expected\+\_\+container} to match a container exactly. If you want to write the elements in-\/line, match them more flexibly, or get more informative messages, you can use\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Begin\+End\+Distance\+Is(m)}   &{\ttfamily argument} is a container whose {\ttfamily begin()} and {\ttfamily end()} iterators are separated by a number of increments matching {\ttfamily m}. E.\+g. {\ttfamily Begin\+End\+Distance\+Is(2)} or {\ttfamily Begin\+End\+Distance\+Is(\+Lt(2))}. For containers that define a {\ttfamily size()} method, {\ttfamily Size\+Is(m)} may be more efficient.    \\\cline{1-2}
+{\ttfamily Container\+Eq(container)}   &The same as {\ttfamily Eq(container)} except that the failure message also includes which elements are in one container but not the other.    \\\cline{1-2}
+{\ttfamily Contains(e)}   &{\ttfamily argument} contains an element that matches {\ttfamily e}, which can be either a value or a matcher.    \\\cline{1-2}
+{\ttfamily Contains(e).Times(n)}   &{\ttfamily argument} contains elements that match {\ttfamily e}, which can be either a value or a matcher, and the number of matches is {\ttfamily n}, which can be either a value or a matcher. Unlike the plain {\ttfamily Contains} and {\ttfamily Each} this allows to check for arbitrary occurrences including testing for absence with {\ttfamily Contains(e).Times(0)}.    \\\cline{1-2}
+{\ttfamily Each(e)}   &{\ttfamily argument} is a container where {\itshape every} element matches {\ttfamily e}, which can be either a value or a matcher.    \\\cline{1-2}
+{\ttfamily Elements\+Are(e0, e1, ..., en)}   &{\ttfamily argument} has {\ttfamily n + 1} elements, where the {\itshape i}-\/th element matches {\ttfamily ei}, which can be a value or a matcher.    \\\cline{1-2}
+{\ttfamily Elements\+Are\+Array(\{e0, e1, ..., en\})}, {\ttfamily Elements\+Are\+Array(a\+\_\+container)}, {\ttfamily Elements\+Are\+Array(begin, end)}, {\ttfamily Elements\+Are\+Array(array)}, or {\ttfamily Elements\+Are\+Array(array, count)}   &The same as {\ttfamily Elements\+Are()} except that the expected element values/matchers come from an initializer list, STL-\/style container, iterator range, or C-\/style array.    \\\cline{1-2}
+{\ttfamily Is\+Empty()}   &{\ttfamily argument} is an empty container ({\ttfamily container.\+empty()}).    \\\cline{1-2}
+{\ttfamily Is\+Subset\+Of(\{e0, e1, ..., en\})}, {\ttfamily Is\+Subset\+Of(a\+\_\+container)}, {\ttfamily Is\+Subset\+Of(begin, end)}, {\ttfamily Is\+Subset\+Of(array)}, or {\ttfamily Is\+Subset\+Of(array, count)}   &{\ttfamily argument} matches {\ttfamily Unordered\+Elements\+Are(x0, x1, ..., xk)} for some subset {\ttfamily \{x0, x1, ..., xk\}} of the expected matchers.    \\\cline{1-2}
+{\ttfamily Is\+Superset\+Of(\{e0, e1, ..., en\})}, {\ttfamily Is\+Superset\+Of(a\+\_\+container)}, {\ttfamily Is\+Superset\+Of(begin, end)}, {\ttfamily Is\+Superset\+Of(array)}, or {\ttfamily Is\+Superset\+Of(array, count)}   &Some subset of {\ttfamily argument} matches {\ttfamily Unordered\+Elements\+Are(}expected matchers{\ttfamily )}.    \\\cline{1-2}
+{\ttfamily Pointwise(m, container)}, {\ttfamily Pointwise(m, \{e0, e1, ..., en\})}   &{\ttfamily argument} contains the same number of elements as in {\ttfamily container}, and for all i, (the i-\/th element in {\ttfamily argument}, the i-\/th element in {\ttfamily container}) match {\ttfamily m}, which is a matcher on 2-\/tuples. E.\+g. {\ttfamily Pointwise(\+Le(), upper\+\_\+bounds)} verifies that each element in {\ttfamily argument} doesn\textquotesingle{}t exceed the corresponding element in {\ttfamily upper\+\_\+bounds}. See more detail below.    \\\cline{1-2}
+{\ttfamily Size\+Is(m)}   &{\ttfamily argument} is a container whose size matches {\ttfamily m}. E.\+g. {\ttfamily Size\+Is(2)} or {\ttfamily Size\+Is(\+Lt(2))}.    \\\cline{1-2}
+{\ttfamily Unordered\+Elements\+Are(e0, e1, ..., en)}   &{\ttfamily argument} has {\ttfamily n + 1} elements, and under {\itshape some} permutation of the elements, each element matches an {\ttfamily ei} (for a different {\ttfamily i}), which can be a value or a matcher.    \\\cline{1-2}
+{\ttfamily Unordered\+Elements\+Are\+Array(\{e0, e1, ..., en\})}, {\ttfamily Unordered\+Elements\+Are\+Array(a\+\_\+container)}, {\ttfamily Unordered\+Elements\+Are\+Array(begin, end)}, {\ttfamily Unordered\+Elements\+Are\+Array(array)}, or {\ttfamily Unordered\+Elements\+Are\+Array(array, count)}   &The same as {\ttfamily Unordered\+Elements\+Are()} except that the expected element values/matchers come from an initializer list, STL-\/style container, iterator range, or C-\/style array.    \\\cline{1-2}
+{\ttfamily Unordered\+Pointwise(m, container)}, {\ttfamily Unordered\+Pointwise(m, \{e0, e1, ..., en\})}   &Like {\ttfamily Pointwise(m, container)}, but ignores the order of elements.    \\\cline{1-2}
+{\ttfamily When\+Sorted(m)}   &When {\ttfamily argument} is sorted using the {\ttfamily \texorpdfstring{$<$}{<}} operator, it matches container matcher {\ttfamily m}. E.\+g. {\ttfamily When\+Sorted(\+Elements\+Are(1, 2, 3))} verifies that {\ttfamily argument} contains elements 1, 2, and 3, ignoring order.    \\\cline{1-2}
+{\ttfamily When\+Sorted\+By(comparator, m)}   &The same as {\ttfamily When\+Sorted(m)}, except that the given comparator instead of {\ttfamily \texorpdfstring{$<$}{<}} is used to sort {\ttfamily argument}. E.\+g. {\ttfamily When\+Sorted\+By(std\+::greater(), Elements\+Are(3, 2, 1))}.   \\\cline{1-2}
+\end{longtabu}
+
+
+{\bfseries{Notes\+:}}
+
+
+\begin{DoxyItemize}
+\item These matchers can also match\+:
+\begin{DoxyEnumerate}
+\item a native array passed by reference (e.\+g. in {\ttfamily Foo(const int (\&a)\mbox{[}5\mbox{]})}), and
+\item an array passed as a pointer and a count (e.\+g. in {\ttfamily Bar(const T\texorpdfstring{$\ast$}{*} buffer,         int len)} -- see \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_MultiArgMatchers}{Multi-\/argument Matchers}{1}).
+\end{DoxyEnumerate}
+\item The array being matched may be multi-\/dimensional (i.\+e. its elements can be arrays).
+\item {\ttfamily m} in {\ttfamily Pointwise(m, ...)} and {\ttfamily Unordered\+Pointwise(m, ...)} should be a matcher for {\ttfamily \+::std\+::tuple\texorpdfstring{$<$}{<}T, U\texorpdfstring{$>$}{>}} where {\ttfamily T} and {\ttfamily U} are the element type of the actual container and the expected container, respectively. For example, to compare two {\ttfamily Foo} containers where {\ttfamily Foo} doesn\textquotesingle{}t support {\ttfamily operator==}, one might write\+:
+
+{\ttfamily cpp MATCHER(Foo\+Eq, "{}"{}) \{ return std\+::get\texorpdfstring{$<$}{<}0\texorpdfstring{$>$}{>}(arg).Equals(std\+::get\texorpdfstring{$<$}{<}1\texorpdfstring{$>$}{>}(arg)); \} ... EXPECT\+\_\+\+THAT(actual\+\_\+foos, Pointwise(\+Foo\+Eq(), expected\+\_\+foos)); }
+\end{DoxyItemize}\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1132}{}\doxysection{\texorpdfstring{Member Matchers}{Member Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1132}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Field(\&class\+::field, m)}   &{\ttfamily argument.\+field} (or {\ttfamily argument-\/\texorpdfstring{$>$}{>}field} when {\ttfamily argument} is a plain pointer) matches matcher {\ttfamily m}, where {\ttfamily argument} is an object of type {\itshape class}.    \\\cline{1-2}
+{\ttfamily Field(field\+\_\+name, \&class\+::field, m)}   &The same as the two-\/parameter version, but provides a better error message.    \\\cline{1-2}
+{\ttfamily Key(e)}   &{\ttfamily argument.\+first} matches {\ttfamily e}, which can be either a value or a matcher. E.\+g. {\ttfamily Contains(Key(\+Le(5)))} can verify that a {\ttfamily map} contains a key {\ttfamily \texorpdfstring{$<$}{<}= 5}.    \\\cline{1-2}
+{\ttfamily \doxylink{classPair}{Pair(m1, m2)}}   &{\ttfamily argument} is an {\ttfamily std\+::pair} whose {\ttfamily first} field matches {\ttfamily m1} and {\ttfamily second} field matches {\ttfamily m2}.    \\\cline{1-2}
+{\ttfamily Fields\+Are(m...)}   &{\ttfamily argument} is a compatible object where each field matches piecewise with the matchers {\ttfamily m...}. A compatible object is any that supports the {\ttfamily std\+::tuple\+\_\+size\texorpdfstring{$<$}{<}Obj\texorpdfstring{$>$}{>}}+{\ttfamily get\texorpdfstring{$<$}{<}I\texorpdfstring{$>$}{>}(obj)} protocol. In C++17 and up this also supports types compatible with structured bindings, like aggregates.    \\\cline{1-2}
+{\ttfamily Property(\&class\+::property, m)}   &{\ttfamily argument.\+property()} (or {\ttfamily argument-\/\texorpdfstring{$>$}{>}property()} when {\ttfamily argument} is a plain pointer) matches matcher {\ttfamily m}, where {\ttfamily argument} is an object of type {\itshape class}. The method {\ttfamily property()} must take no argument and be declared as {\ttfamily const}.    \\\cline{1-2}
+{\ttfamily Property(property\+\_\+name, \&class\+::property, m)}   &The same as the two-\/parameter version, but provides a better error message.   \\\cline{1-2}
+\end{longtabu}
+
+
+\{\+: .callout .warning\} Warning\+: Don\textquotesingle{}t use {\ttfamily Property()} against member functions that you do not own, because taking addresses of functions is fragile and generally not part of the contract of the function.
+
+{\bfseries{Notes\+:}}
+
+
+\begin{DoxyItemize}
+\item You can use {\ttfamily Fields\+Are()} to match any type that supports structured bindings, such as {\ttfamily std\+::tuple}, {\ttfamily std\+::pair}, {\ttfamily std\+::array}, and aggregate types. For example\+:
+
+\`{}\`{}\`{}cpp std\+::tuple$<$int, std\+::string$>$ my\+\_\+tuple\{7, "{}hello world"{}\}; EXPECT\+\_\+\+THAT(my\+\_\+tuple, Fields\+Are(Ge(0), Has\+Substr("{}hello"{})));
+
+struct My\+Struct \{ int value = 42; std\+::string greeting = "{}aloha"{}; \}; My\+Struct s; EXPECT\+\_\+\+THAT(s, Fields\+Are(42, "{}aloha"{})); \`{}\`{}\`{}
+\end{DoxyItemize}\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1133}{}\doxysection{\texorpdfstring{Matching the Result of a Function, Functor, or Callback}{Matching the Result of a Function, Functor, or Callback}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1133}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Result\+Of(f, m)}   &{\ttfamily f(argument)} matches matcher {\ttfamily m}, where {\ttfamily f} is a function or functor.    \\\cline{1-2}
+{\ttfamily Result\+Of(result\+\_\+description, f, m)}   &The same as the two-\/parameter version, but provides a better error message.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1134}{}\doxysection{\texorpdfstring{Pointer Matchers}{Pointer Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1134}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Address(m)}   &the result of {\ttfamily std\+::addressof(argument)} matches {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Pointee(m)}   &{\ttfamily argument} (either a smart pointer or a raw pointer) points to a value that matches matcher {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Pointer(m)}   &{\ttfamily argument} (either a smart pointer or a raw pointer) contains a pointer that matches {\ttfamily m}. {\ttfamily m} will match against the raw pointer regardless of the type of {\ttfamily argument}.    \\\cline{1-2}
+{\ttfamily When\+Dynamic\+Cast\+To\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(m)}   &when {\ttfamily argument} is passed through {\ttfamily dynamic\+\_\+cast\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}()}, it matches matcher {\ttfamily m}.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_MultiArgMatchers}{}\doxysection{\texorpdfstring{Multi-\/argument Matchers}{Multi-argument Matchers}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_MultiArgMatchers}
+Technically, all matchers match a {\itshape single} value. A "{}multi-\/argument"{} matcher is just one that matches a {\itshape tuple}. The following matchers can be used to match a tuple {\ttfamily (x, y)}\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Eq()}   &{\ttfamily x == y}    \\\cline{1-2}
+{\ttfamily Ge()}   &{\ttfamily x \texorpdfstring{$>$}{>}= y}    \\\cline{1-2}
+{\ttfamily Gt()}   &{\ttfamily x \texorpdfstring{$>$}{>} y}    \\\cline{1-2}
+{\ttfamily Le()}   &{\ttfamily x \texorpdfstring{$<$}{<}= y}    \\\cline{1-2}
+{\ttfamily Lt()}   &{\ttfamily x \texorpdfstring{$<$}{<} y}    \\\cline{1-2}
+{\ttfamily Ne()}   &{\ttfamily x != y}   \\\cline{1-2}
+\end{longtabu}
+
+
+You can use the following selectors to pick a subset of the arguments (or reorder them) to participate in the matching\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily All\+Args(m)}   &Equivalent to {\ttfamily m}. Useful as syntactic sugar in {\ttfamily .With(\+All\+Args(m))}.    \\\cline{1-2}
+{\ttfamily Args\texorpdfstring{$<$}{<}N1, N2, ..., Nk\texorpdfstring{$>$}{>}(m)}   &The tuple of the {\ttfamily k} selected (using 0-\/based indices) arguments matches {\ttfamily m}, e.\+g. {\ttfamily Args\texorpdfstring{$<$}{<}1, 2\texorpdfstring{$>$}{>}(Eq())}.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1135}{}\doxysection{\texorpdfstring{Composite Matchers}{Composite Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1135}
+You can make a matcher from one or more other matchers\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily All\+Of(m1, m2, ..., mn)}   &{\ttfamily argument} matches all of the matchers {\ttfamily m1} to {\ttfamily mn}.    \\\cline{1-2}
+{\ttfamily All\+Of\+Array(\{m0, m1, ..., mn\})}, {\ttfamily All\+Of\+Array(a\+\_\+container)}, {\ttfamily All\+Of\+Array(begin, end)}, {\ttfamily All\+Of\+Array(array)}, or {\ttfamily All\+Of\+Array(array, count)}   &The same as {\ttfamily All\+Of()} except that the matchers come from an initializer list, STL-\/style container, iterator range, or C-\/style array.    \\\cline{1-2}
+{\ttfamily Any\+Of(m1, m2, ..., mn)}   &{\ttfamily argument} matches at least one of the matchers {\ttfamily m1} to {\ttfamily mn}.    \\\cline{1-2}
+{\ttfamily Any\+Of\+Array(\{m0, m1, ..., mn\})}, {\ttfamily Any\+Of\+Array(a\+\_\+container)}, {\ttfamily Any\+Of\+Array(begin, end)}, {\ttfamily Any\+Of\+Array(array)}, or {\ttfamily Any\+Of\+Array(array, count)}   &The same as {\ttfamily Any\+Of()} except that the matchers come from an initializer list, STL-\/style container, iterator range, or C-\/style array.    \\\cline{1-2}
+{\ttfamily Not(m)}   &{\ttfamily argument} doesn\textquotesingle{}t match matcher {\ttfamily m}.    \\\cline{1-2}
+{\ttfamily Conditional(cond, m1, m2)}   &Matches matcher {\ttfamily m1} if {\ttfamily cond} evaluates to true, else matches {\ttfamily m2}.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1136}{}\doxysection{\texorpdfstring{Adapters for Matchers}{Adapters for Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1136}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Matcher\+Cast\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(m)}   &casts matcher {\ttfamily m} to type {\ttfamily Matcher\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}.    \\\cline{1-2}
+{\ttfamily Safe\+Matcher\+Cast\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(m)}   &\href{../gmock_cook_book.md\#SafeMatcherCast}{\texttt{ safely casts}} matcher {\ttfamily m} to type {\ttfamily Matcher\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}.    \\\cline{1-2}
+{\ttfamily Truly(predicate)}   &{\ttfamily predicate(argument)} returns something considered by C++ to be true, where {\ttfamily predicate} is a function or functor.   \\\cline{1-2}
+\end{longtabu}
+
+
+{\ttfamily Address\+Satisfies(callback)} and {\ttfamily Truly(callback)} take ownership of {\ttfamily callback}, which must be a permanent callback.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_MatchersAsPredicatesCheat}{}\doxysection{\texorpdfstring{Using Matchers as Predicates}{Using Matchers as Predicates}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers_MatchersAsPredicatesCheat}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Matcher   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Matches(m)(value)}   &evaluates to {\ttfamily true} if {\ttfamily value} matches {\ttfamily m}. You can use {\ttfamily Matches(m)} alone as a unary functor.    \\\cline{1-2}
+{\ttfamily Explain\+Match\+Result(m, value, result\+\_\+listener)}   &evaluates to {\ttfamily true} if {\ttfamily value} matches {\ttfamily m}, explaining the result to {\ttfamily result\+\_\+listener}.    \\\cline{1-2}
+{\ttfamily Value(value, m)}   &evaluates to {\ttfamily true} if {\ttfamily value} matches {\ttfamily m}.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1137}{}\doxysection{\texorpdfstring{Defining Matchers}{Defining Matchers}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2docs_2reference_2matchers_autotoc_md1137}
+\{\+: .callout .note\} Note\+: full details about defining new matchers are in the \href{../gmock_cook_book.md\#NewMatchers}{\texttt{ cookbook}}. In particular, if {\ttfamily MATCHER} macros are not sufficient, you can directly implement \href{../gmock_cook_book.md\#MonomorphicMatchers}{\texttt{ monomorphic}} or \href{../gmock_cook_book.md\#PolymorphicMatchers}{\texttt{ polymorphic}} matchers.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily MATCHER(Is\+Even, "{}"{}) \{ return (arg \% 2) == 0; \}}   &Defines a matcher {\ttfamily Is\+Even()} to match an even number.    \\\cline{1-2}
+{\ttfamily MATCHER\+\_\+P(Is\+Divisible\+By, n, "{}"{}) \{ \texorpdfstring{$\ast$}{*}result\+\_\+listener \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}where the remainder is "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} (arg \% n); return (arg \% n) == 0; \}}   &Defines a matcher {\ttfamily Is\+Divisible\+By(n)} to match a number divisible by {\ttfamily n}.    \\\cline{1-2}
+{\ttfamily MATCHER\+\_\+\+P2(Is\+Between, a, b, absl\+::\+Str\+Cat(negation ? "{}isn\textquotesingle{}t"{} \+: "{}is"{}, "{} between "{}, Print\+To\+String(a), "{} and "{}, Print\+To\+String(b))) \{ return a \texorpdfstring{$<$}{<}= arg \&\& arg \texorpdfstring{$<$}{<}= b; \}}   &Defines a matcher {\ttfamily Is\+Between(a, b)} to match a value in the range \mbox{[}{\ttfamily a}, {\ttfamily b}\mbox{]}.   \\\cline{1-2}
+\end{longtabu}
+
+
+{\bfseries{Notes\+:}}
+
+
+\begin{DoxyEnumerate}
+\item The {\ttfamily MATCHER\texorpdfstring{$\ast$}{*}} macros cannot be used inside a function or class.
+\item The matcher body must be {\itshape purely functional} (i.\+e. it cannot have any side effect, and the result must not depend on anything other than the value being matched and the matcher parameters).
+\item You can use {\ttfamily Print\+To\+String(x)} to convert a value {\ttfamily x} of any type to a string.
+\item You can use {\ttfamily Explain\+Match\+Result()} in a custom matcher to wrap another matcher, for example\+:
+
+{\ttfamily cpp MATCHER\+\_\+P(Nested\+Property\+Matches, matcher, "{}"{}) \{ return Explain\+Match\+Result(matcher, arg.\+nested().property(), result\+\_\+listener); \} }
+\item You can use {\ttfamily Describe\+Matcher\texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} to describe another matcher. For example\+:
+
+{\ttfamily cpp MATCHER\+\_\+P(XAnd\+YThat, matcher, "{}\+X that "{} + Describe\+Matcher\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}(matcher, negation) + (negation ? "{} or"{} \+: "{} and"{}) + "{} Y that "{} + Describe\+Matcher\texorpdfstring{$<$}{<}double\texorpdfstring{$>$}{>}(matcher, negation)) \{ return Explain\+Match\+Result(matcher, arg.\+x(), result\+\_\+listener) \&\& Explain\+Match\+Result(matcher, arg.\+y(), result\+\_\+listener); \} } 
+\end{DoxyEnumerate}

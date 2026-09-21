@@ -1,0 +1,105 @@
+\doxysection{gmock\+\_\+leak\+\_\+test\+\_\+.\+cc}
+\hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source}{}\label{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source}\index{build/\_deps/googletest-\/src/googlemock/test/gmock\_leak\_test\_.cc@{build/\_deps/googletest-\/src/googlemock/test/gmock\_leak\_test\_.cc}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2009,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00030}00030\ \textcolor{comment}{//\ Google\ Mock\ -\/\ a\ framework\ for\ writing\ C++\ mock\ classes.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00031}00031\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00032}00032\ \textcolor{comment}{//\ This\ program\ is\ for\ verifying\ that\ a\ leaked\ mock\ object\ can\ be}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00033}00033\ \textcolor{comment}{//\ caught\ by\ Google\ Mock's\ leak\ detector.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00037}00037\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00039}00039\ using\ ::testing::Return;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00041}00041\ \textcolor{keyword}{class\ }FooInterface\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00042}00042\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00043}00043\ \ \ \textcolor{keyword}{virtual}\ \string~FooInterface()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00044}00044\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ DoThis()\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00045}00045\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00047}00047\ \textcolor{keyword}{class\ }MockFoo\ :\ \textcolor{keyword}{public}\ FooInterface\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00048}00048\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00049}00049\ \ \ \mbox{\hyperlink{classMockFoo_a164fa0dee21dde02ce61f5824a0bb106}{MockFoo}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00051}00051\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a411c69e9d489d590480f728d365ae450}{MOCK\_METHOD0}}(DoThis,\ \textcolor{keywordtype}{void}());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00053}00053\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00054}00054\ \ \ \mbox{\hyperlink{classMockFoo_a164fa0dee21dde02ce61f5824a0bb106}{MockFoo}}(\textcolor{keyword}{const}\ MockFoo\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00055}00055\ \ \ \mbox{\hyperlink{classMockFoo_a164fa0dee21dde02ce61f5824a0bb106}{MockFoo}}\&\ operator=(\textcolor{keyword}{const}\ MockFoo\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00056}00056\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00058}00058\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(LeakTest,\ LeakedMockWithExpectCallCausesFailureWhenLeakCheckingIsEnabled)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00059}00059\ \ \ MockFoo*\ \mbox{\hyperlink{namespacefoo}{foo}}\ =\ \textcolor{keyword}{new}\ MockFoo;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00061}00061\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(*\mbox{\hyperlink{namespacefoo}{foo}},\ DoThis());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00062}00062\ \ \ \mbox{\hyperlink{namespacefoo}{foo}}-\/>DoThis();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00064}00064\ \ \ \textcolor{comment}{//\ In\ order\ to\ test\ the\ leak\ detector,\ we\ deliberately\ leak\ foo.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00066}00066\ \ \ \textcolor{comment}{//\ Makes\ sure\ Google\ Mock's\ leak\ detector\ can\ change\ the\ exit\ code}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00067}00067\ \ \ \textcolor{comment}{//\ to\ 1\ even\ when\ the\ code\ is\ already\ exiting\ with\ 0.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00068}00068\ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00071}00071\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(LeakTest,\ LeakedMockWithOnCallCausesFailureWhenLeakCheckingIsEnabled)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00072}00072\ \ \ MockFoo*\ \mbox{\hyperlink{namespacefoo}{foo}}\ =\ \textcolor{keyword}{new}\ MockFoo;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00074}00074\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\_CALL}}(*\mbox{\hyperlink{namespacefoo}{foo}},\ DoThis()).WillByDefault(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00076}00076\ \ \ \textcolor{comment}{//\ In\ order\ to\ test\ the\ leak\ detector,\ we\ deliberately\ leak\ foo.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00078}00078\ \ \ \textcolor{comment}{//\ Makes\ sure\ Google\ Mock's\ leak\ detector\ can\ change\ the\ exit\ code}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00079}00079\ \ \ \textcolor{comment}{//\ to\ 1\ even\ when\ the\ code\ is\ already\ exiting\ with\ 0.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00080}00080\ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00083}00083\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(LeakTest,\ CatchesMultipleLeakedMockObjects)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00084}00084\ \ \ MockFoo*\ foo1\ =\ \textcolor{keyword}{new}\ MockFoo;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00085}00085\ \ \ MockFoo*\ foo2\ =\ \textcolor{keyword}{new}\ MockFoo;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00087}00087\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\_CALL}}(*foo1,\ DoThis()).WillByDefault(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00088}00088\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(*foo2,\ DoThis());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00089}00089\ \ \ foo2-\/>DoThis();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00091}00091\ \ \ \textcolor{comment}{//\ In\ order\ to\ test\ the\ leak\ detector,\ we\ deliberately\ leak\ foo1\ and}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00092}00092\ \ \ \textcolor{comment}{//\ foo2.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00094}00094\ \ \ \textcolor{comment}{//\ Makes\ sure\ Google\ Mock's\ leak\ detector\ can\ change\ the\ exit\ code}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00095}00095\ \ \ \textcolor{comment}{//\ to\ 1\ even\ when\ the\ code\ is\ already\ exiting\ with\ 0.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00096}00096\ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock__leak__test___8cc_source_l00099}00099\ \}\ \ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

@@ -1,0 +1,83 @@
+\doxysection{gtest\+\_\+xml\+\_\+outfile2\+\_\+test\+\_\+.\+cc}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source}{}\label{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source}\index{build/\_deps/googletest-\/src/googletest/test/gtest\_xml\_outfile2\_test\_.cc@{build/\_deps/googletest-\/src/googletest/test/gtest\_xml\_outfile2\_test\_.cc}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2008,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00029}00029\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00030}00030\ \textcolor{comment}{//\ gtest\_xml\_outfile2\_test\_\ writes\ some\ xml\ via\ TestProperty\ used\ by}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00031}00031\ \textcolor{comment}{//\ gtest\_xml\_outfiles\_test.py}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00033}00033\ \textcolor{preprocessor}{\#include\ <atomic>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00037}\mbox{\hyperlink{classPropertyTwo}{00037}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPropertyTwo}{PropertyTwo}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classtesting_1_1Test}{testing::Test}}\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00038}00038\ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00039}\mbox{\hyperlink{classPropertyTwo_a88216ddb0ed17e58c9f974a743208fca}{00039}}\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPropertyTwo_a88216ddb0ed17e58c9f974a743208fca}{SetUp}}()\textcolor{keyword}{\ override\ }\{\ \mbox{\hyperlink{classtesting_1_1Test_a1559ce1c83f56993b582650c091535a7}{RecordProperty}}(\textcolor{stringliteral}{"{}SetUpProp"{}},\ 2);\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00040}\mbox{\hyperlink{classPropertyTwo_a8c2b36ef29249c5654f13bf8f504236a}{00040}}\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPropertyTwo_a8c2b36ef29249c5654f13bf8f504236a}{TearDown}}()\textcolor{keyword}{\ override\ }\{\ \mbox{\hyperlink{classtesting_1_1Test_a1559ce1c83f56993b582650c091535a7}{RecordProperty}}(\textcolor{stringliteral}{"{}TearDownProp"{}},\ 2);\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00041}00041\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00043}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_ad4bb2836607bd3a518f8093d922da575}{00043}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a0ee66d464d1a06c20c1929cae09d8758}{TEST\_F}}(\mbox{\hyperlink{classPropertyTwo}{PropertyTwo}},\ TestInt64ConvertibleProperties)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00044}00044\ \ \ \textcolor{keywordtype}{float}\ float\_prop\ =\ 3.25;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00045}00045\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestFloatProperty"{}},\ float\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00047}00047\ \ \ \textcolor{keywordtype}{double}\ double\_prop\ =\ 4.75;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00048}00048\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestDoubleProperty"{}},\ double\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00050}00050\ \ \ \textcolor{comment}{//\ Validate\ we\ can\ write\ an\ unsigned\ size\_t\ as\ a\ property}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00051}00051\ \ \ \textcolor{keywordtype}{size\_t}\ size\_t\_prop\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00052}00052\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestSizetProperty"{}},\ size\_t\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00054}00054\ \ \ \textcolor{keywordtype}{bool}\ bool\_prop\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00055}00055\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestBoolProperty"{}},\ bool\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00057}00057\ \ \ \textcolor{keywordtype}{char}\ char\_prop\ =\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00058}00058\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestCharProperty"{}},\ char\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00060}00060\ \ \ int16\_t\ int16\_prop\ =\ 6;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00061}00061\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestInt16Property"{}},\ int16\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00063}00063\ \ \ int32\_t\ int32\_prop\ =\ 7;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00064}00064\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestInt32Property"{}},\ int32\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00066}00066\ \ \ int64\_t\ int64\_prop\ =\ 8;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00067}00067\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestInt64Property"{}},\ int64\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00069}00069\ \ \ \textcolor{keyword}{enum}\ Foo\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00070}00070\ \ \ \ \ NINE\ =\ 9,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00071}00071\ \ \ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00072}00072\ \ \ Foo\ enum\_prop\ =\ NINE;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00073}00073\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestEnumProperty"{}},\ enum\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00075}00075\ \ \ std::atomic<int>\ atomic\_int\_prop(10);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00076}00076\ \ \ RecordProperty(\textcolor{stringliteral}{"{}TestAtomicIntProperty"{}},\ atomic\_int\_prop);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__xml__outfile2__test___8cc_source_l00077}00077\ \}}
+
+\end{DoxyCode}

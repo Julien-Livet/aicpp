@@ -1,0 +1,107 @@
+\doxysection{gtest\+\_\+dirs\+\_\+test.\+cc}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source}{}\label{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source}\index{build/\_deps/googletest-\/src/googletest/test/gtest\_dirs\_test.cc@{build/\_deps/googletest-\/src/googletest/test/gtest\_dirs\_test.cc}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <sys/stat.h>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}gtest/internal/gtest-\/port.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00010}00010\ \textcolor{preprocessor}{\#if\ GTEST\_HAS\_FILE\_SYSTEM}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00012}00012\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00014}00014\ \textcolor{keyword}{class\ }SetEnv\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00015}00015\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00016}00016\ \ \ \textcolor{comment}{//\ Sets\ the\ environment\ value\ with\ name\ \`{}name`\ to\ \`{}value`,\ unless\ \`{}value`\ is}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00017}00017\ \ \ \textcolor{comment}{//\ nullptr,\ in\ which\ case\ it\ unsets\ it.\ Restores\ the\ original\ value\ on}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00018}00018\ \ \ \textcolor{comment}{//\ destruction.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00019}00019\ \ \ SetEnv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})\ :\ name\_(name)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ old\_value\ =\ getenv(name);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (old\_value\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00022}00022\ \ \ \ \ \ \ saved\_value\_\ =\ old\_value;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00023}00023\ \ \ \ \ \ \ have\_saved\_value\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00026}00026\ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}(unsetenv(name));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00027}00027\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00028}00028\ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}(setenv(name,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}},\ 1\ \textcolor{comment}{/*overwrite*/}));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00030}00030\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00032}00032\ \ \ \string~SetEnv()\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (have\_saved\_value\_)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00034}00034\ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}(}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ setenv(name\_.c\_str(),\ saved\_value\_.c\_str(),\ 1\ \textcolor{comment}{/*overwrite*/}));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00036}00036\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00037}00037\ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}(unsetenv(name\_.c\_str()));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00039}00039\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00041}00041\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00042}00042\ \ \ std::string\ name\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00043}00043\ \ \ \textcolor{keywordtype}{bool}\ have\_saved\_value\_\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00044}00044\ \ \ std::string\ saved\_value\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00045}00045\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00047}00047\ \textcolor{keyword}{class\ }MakeTempDir\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00048}00048\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00049}00049\ \ \ \textcolor{comment}{//\ Creates\ a\ directory\ with\ a\ unique\ name\ including\ \`{}testname`.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00050}00050\ \ \ \textcolor{comment}{//\ The\ destructor\ removes\ it.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00051}00051\ \ \ \textcolor{keyword}{explicit}\ MakeTempDir(\textcolor{keyword}{const}\ std::string\&\ testname)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ mkdtemp\ requires\ that\ the\ last\ 6\ characters\ of\ the\ input\ pattern}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ are\ Xs,\ and\ the\ string\ is\ modified\ by\ replacing\ those\ characters.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00054}00054\ \ \ \ \ std::string\ pattern\ =\ \textcolor{stringliteral}{"{}/tmp/"{}}\ +\ testname\ +\ \textcolor{stringliteral}{"{}\_XXXXXX"{}};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab54343f0a36dc4cb0ce8a478dd7847b8}{GTEST\_CHECK\_}}(mkdtemp(pattern.data())\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00056}00056\ \ \ \ \ dirname\_\ =\ pattern;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00057}00057\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00059}00059\ \ \ \string~MakeTempDir()\ \{\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}(rmdir(dirname\_.c\_str()));\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00061}00061\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ DirName()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ dirname\_.c\_str();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00063}00063\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00064}00064\ \ \ std::string\ dirname\_;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00065}00065\ \};}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00067}00067\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacetesting_1_1internal_ae0522f740806da841ae21bc71804e038}{StartsWith}}(\textcolor{keyword}{const}\ std::string\&\ str,\ \textcolor{keyword}{const}\ std::string\&\ prefix)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00068}00068\ \ \ \textcolor{keywordflow}{return}\ str.substr(0,\ prefix.size())\ ==\ prefix;}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00071}00071\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(TempDirTest,\ InEnvironment)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00072}00072\ \ \ \textcolor{comment}{//\ Since\ the\ test\ infrastructure\ might\ be\ verifying\ directory\ existence\ or}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00073}00073\ \ \ \textcolor{comment}{//\ even\ creating\ subdirectories,\ we\ need\ to\ be\ careful\ that\ the\ directories\ we}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00074}00074\ \ \ \textcolor{comment}{//\ specify\ are\ actually\ valid.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00075}00075\ \ \ MakeTempDir\ temp\_dir(\textcolor{stringliteral}{"{}TempDirTest\_InEnvironment"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00076}00076\ \ \ SetEnv\ set\_env(\textcolor{stringliteral}{"{}TEST\_TMPDIR"{}},\ temp\_dir.DirName());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00077}00077\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ac33e7cdfb5d44a7a0f0ab552eb5c3c6a}{EXPECT\_TRUE}}(\mbox{\hyperlink{namespacetesting_1_1internal_ae0522f740806da841ae21bc71804e038}{StartsWith}}(\mbox{\hyperlink{namespacetesting_aae1bbe7c3cc99bf56263d51d3982a52e}{testing::TempDir}}(),\ temp\_dir.DirName()));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00080}00080\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(TempDirTest,\ NotInEnvironment)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00081}00081\ \ \ SetEnv\ set\_env(\textcolor{stringliteral}{"{}TEST\_TMPDIR"{}},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00082}00082\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a6ae7443947f25abc58bfcfcfc56b0d75}{EXPECT\_NE}}(\mbox{\hyperlink{namespacetesting_aae1bbe7c3cc99bf56263d51d3982a52e}{testing::TempDir}}(),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00085}00085\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(SrcDirTest,\ InEnvironment)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00086}00086\ \ \ \textcolor{comment}{//\ Since\ the\ test\ infrastructure\ might\ be\ verifying\ directory\ existence\ or}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00087}00087\ \ \ \textcolor{comment}{//\ even\ creating\ subdirectories,\ we\ need\ to\ be\ careful\ that\ the\ directories\ we}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00088}00088\ \ \ \textcolor{comment}{//\ specify\ are\ actually\ valid.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00089}00089\ \ \ MakeTempDir\ temp\_dir(\textcolor{stringliteral}{"{}SrcDirTest\_InEnvironment"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00090}00090\ \ \ SetEnv\ set\_env(\textcolor{stringliteral}{"{}TEST\_SRCDIR"{}},\ temp\_dir.DirName());}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00091}00091\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ac33e7cdfb5d44a7a0f0ab552eb5c3c6a}{EXPECT\_TRUE}}(\mbox{\hyperlink{namespacetesting_1_1internal_ae0522f740806da841ae21bc71804e038}{StartsWith}}(\mbox{\hyperlink{namespacetesting_a8b496b373fb858ecbe52634e414e8d41}{testing::SrcDir}}(),\ temp\_dir.DirName()));}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00092}00092\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00094}00094\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(SrcDirTest,\ NotInEnvironment)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00095}00095\ \ \ SetEnv\ set\_env(\textcolor{stringliteral}{"{}TEST\_SRCDIR"{}},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00096}00096\ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a6ae7443947f25abc58bfcfcfc56b0d75}{EXPECT\_NE}}(\mbox{\hyperlink{namespacetesting_a8b496b373fb858ecbe52634e414e8d41}{testing::SrcDir}}(),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00099}00099\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ GTEST\_HAS\_FILE\_SYSTEM}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__dirs__test_8cc_source_l00101}00101\ \}\ \ \textcolor{comment}{//\ namespace}}
+
+\end{DoxyCode}

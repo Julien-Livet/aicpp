@@ -1,0 +1,624 @@
+\doxysection{cmake-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/gmock-\/actions.h File Reference}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h}{}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h}\index{cmake-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock-\/actions.h@{cmake-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock-\/actions.h}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$exception$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/internal-\/utils.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/port.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/pp.\+h"{}}\newline
+Include dependency graph for gmock-\/actions.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1BuiltInDefaultValueGetter}{testing\+::internal\+::\+Built\+In\+Default\+Value\+Getter$<$ T, k\+Default\+Constructible $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1BuiltInDefaultValueGetter_3_01T_00_01false_01_4}{testing\+::internal\+::\+Built\+In\+Default\+Value\+Getter$<$ T, false $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1BuiltInDefaultValue}{testing\+::internal\+::\+Built\+In\+Default\+Value$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1BuiltInDefaultValue_3_01const_01T_01_4}{testing\+::internal\+::\+Built\+In\+Default\+Value$<$ const T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1BuiltInDefaultValue_3_01T_01_5_01_4}{testing\+::internal\+::\+Built\+In\+Default\+Value$<$ T \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1negation}{testing\+::internal\+::negation$<$ P $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1conjunction}{testing\+::internal\+::conjunction$<$... $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1conjunction_3_01P1_01_4}{testing\+::internal\+::conjunction$<$ P1 $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1conjunction_3_01P1_00_01Ps_8_8_8_01_4}{testing\+::internal\+::conjunction$<$ P1, Ps... $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1disjunction}{testing\+::internal\+::disjunction$<$... $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1disjunction_3_01P1_01_4}{testing\+::internal\+::disjunction$<$ P1 $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1disjunction_3_01P1_00_01Ps_8_8_8_01_4}{testing\+::internal\+::disjunction$<$ P1, Ps... $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1is__implicitly__convertible}{testing\+::internal\+::is\+\_\+implicitly\+\_\+convertible$<$ From, To $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1is__callable__r__impl}{testing\+::internal\+::is\+\_\+callable\+\_\+r\+\_\+impl$<$ Void, R, F, Args $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1is__callable__r__impl_3_01void__t_3_01call__result__t_3_01F_00_01Ar35069a5339cf615f2b8c2ed10280b42b}{testing\+::internal\+::is\+\_\+callable\+\_\+r\+\_\+impl$<$ void\+\_\+t$<$ call\+\_\+result\+\_\+t$<$ F, Args... $>$ $>$, R, F, Args... $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1OnceAction_3_01Result_07Args_8_8_8_08_4}{testing\+::\+Once\+Action$<$ Result(\+Args...)$>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1OnceAction_3_01Result_07Args_8_8_8_08_4_1_1StdFunctionAdaptor_1_1CallableTag}{testing\+::\+Once\+Action$<$ Result(\+Args...)$>$\+::\+Std\+Function\+Adaptor$<$ Callable $>$\+::\+Callable\+Tag}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1DefaultValue}{testing\+::\+Default\+Value$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1DefaultValue_3_01T_01_6_01_4}{testing\+::\+Default\+Value$<$ T \& $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1DefaultValue_3_01void_01_4}{testing\+::\+Default\+Value$<$ void $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1ActionInterface}{testing\+::\+Action\+Interface$<$ F $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1Action_3_01R_07Args_8_8_8_08_4}{testing\+::\+Action$<$ R(\+Args...)$>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1PolymorphicAction}{testing\+::\+Polymorphic\+Action$<$ Impl $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1DoAllAction_3_01FinalAction_01_4_1_1UserConstructorTag}{testing\+::internal\+::\+Do\+All\+Action$<$ Final\+Action $>$\+::\+User\+Constructor\+Tag}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1DoAllAction_3_01InitialAction_00_01OtherActions_8_8_8_01_4_1_1UserConstructorTag}{testing\+::internal\+::\+Do\+All\+Action$<$ Initial\+Action, Other\+Actions... $>$\+::\+User\+Constructor\+Tag}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ExcessiveArg}{testing\+::internal\+::\+Excessive\+Arg}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ImplBase}{testing\+::internal\+::\+Impl\+Base$<$ Impl $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ImplBase_1_1Holder}{testing\+::internal\+::\+Impl\+Base$<$ Impl $>$\+::\+Holder}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ActionImpl_3_01R_07Args_8_8_8_08_00_01Impl_01_4}{testing\+::internal\+::\+Action\+Impl$<$ R(\+Args...), Impl $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal}{testing\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a06b1e6cd1145acf7849e4a112976016b}{GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}}(type,  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_afc458b779043b35afe85acb9014fc658}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG\+\_\+\+UNUSED}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  el)~  , \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type\& arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a069f37fdbe36aabe65da6eb6221b9b19}{GMOCK\+\_\+\+ACTION\+\_\+\+ARG\+\_\+\+TYPES\+\_\+\+AND\+\_\+\+NAMES\+\_\+\+UNUSED\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a8ac94295873740ce64580d366a433ea9}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  el)~, const arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type\& arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aee2ae4aac2083dfed61e5f679a7db0e9}{GMOCK\+\_\+\+ACTION\+\_\+\+ARG\+\_\+\+TYPES\+\_\+\+AND\+\_\+\+NAMES\+\_\+}}~  const args\+\_\+type\& args \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_ab2a0d358d2eb3f04395d0494ab7aab01}{GMOCK\+\_\+\+PP\+\_\+\+REPEAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a8ac94295873740ce64580d366a433ea9}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG}}, , 10)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab694ec868889ce00bd71fd4b2fb8d083}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TEMPLATE\+\_\+\+ARG}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  el)~, typename arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a421f180fc492cf08339cf085ada235e3}{GMOCK\+\_\+\+ACTION\+\_\+\+TEMPLATE\+\_\+\+ARGS\+\_\+\+NAMES\+\_\+}}~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_ab2a0d358d2eb3f04395d0494ab7aab01}{GMOCK\+\_\+\+PP\+\_\+\+REPEAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab694ec868889ce00bd71fd4b2fb8d083}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TEMPLATE\+\_\+\+ARG}}, , 10))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a53750f768fa5de7295c6a82885ea181d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPENAME\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~, typename param\#\#\+\_\+type
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aca13a68b9cfec576f30a4b0026667b4b}{GMOCK\+\_\+\+ACTION\+\_\+\+TYPENAME\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a53750f768fa5de7295c6a82885ea181d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPENAME\+\_\+\+PARAM}}, , params))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa9377b2c0985c30959d7f1e8ba25bd75}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~, param\#\#\+\_\+type
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa365f234afbe48f989b84c8d7870e05a}{GMOCK\+\_\+\+ACTION\+\_\+\+TYPE\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa9377b2c0985c30959d7f1e8ba25bd75}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+PARAM}}, , params))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_acd35c38040c76565d0fd3db8d5d4d132}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~  , param\#\#\+\_\+type gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aaeebe2b4b398d472fbabf6a998fd89e0}{GMOCK\+\_\+\+ACTION\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_acd35c38040c76565d0fd3db8d5d4d132}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAM}}, , params))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a05191e66d8f832f250311323db07dd5a}{GMOCK\+\_\+\+INTERNAL\+\_\+\+GVALUE\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~  , std\+::forward$<$param\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a78e6035a6eabc83d59d6955755e6f33f}{GMOCK\+\_\+\+ACTION\+\_\+\+GVALUE\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a05191e66d8f832f250311323db07dd5a}{GMOCK\+\_\+\+INTERNAL\+\_\+\+GVALUE\+\_\+\+PARAM}}, , params))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a82a10dfdcfed7f3747dac32042e2b3c1}{GMOCK\+\_\+\+INTERNAL\+\_\+\+INIT\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~  , param(\+::std\+::forward$<$param\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a0a86b24d2be85a91983923579ace081b}{GMOCK\+\_\+\+ACTION\+\_\+\+INIT\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a82a10dfdcfed7f3747dac32042e2b3c1}{GMOCK\+\_\+\+INTERNAL\+\_\+\+INIT\+\_\+\+PARAM}}, , params))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a16b6c0fc86f975781666cd89b48636a2}{GMOCK\+\_\+\+INTERNAL\+\_\+\+FIELD\+\_\+\+PARAM}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data,  param)~param\#\#\+\_\+type param;
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a9988a03009790aa85418b69723acf186}{GMOCK\+\_\+\+ACTION\+\_\+\+FIELD\+\_\+\+PARAMS\+\_\+}}(params)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a16b6c0fc86f975781666cd89b48636a2}{GMOCK\+\_\+\+INTERNAL\+\_\+\+FIELD\+\_\+\+PARAM}}, , params)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name,  full\+\_\+name,  params)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a7af7137aa4871df4235881af377205fe}{ACTION}}(name)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_af5f47e069acb517db9f743f029471aa7}{ACTION\+\_\+P}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#ActionP, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ade0284b965683ea4d6449322becf3ba6}{ACTION\+\_\+\+P2}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P2, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4db847f0e74eea776dd7868ca73376bc}{ACTION\+\_\+\+P3}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P3, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ae399d6c7462647c024e8de2ea9a65160}{ACTION\+\_\+\+P4}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P4, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1bc061a73229bbfcf2720915e48d5454}{ACTION\+\_\+\+P5}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P5, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa5422cef04a3034c5f957ba7216f7981}{ACTION\+\_\+\+P6}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P6, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4294a132f8b01a098bfc14619ebe99d6}{ACTION\+\_\+\+P7}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P7, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a25238e96d7438ce1db5ce806e41a9068}{ACTION\+\_\+\+P8}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P8, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1465d122062a21fbdd9ddb5b174166a6}{ACTION\+\_\+\+P9}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P9, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ac0708603c79b2da1e552a212a23e5e62}{ACTION\+\_\+\+P10}}(name, ...)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P10, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a8fe6f7c11d6d3dd6e42b75c9a5b43861}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}},)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a0a961f38f341d40237252babcb3767b7}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\+::std\+::string, "{}"{})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6670915f42119e4ba20d8cb74fc1eea}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{false}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_ab203e2c4c54f2ca86439344347a3e43f}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}}, \textquotesingle{}\textbackslash{}0\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_aaedb3b1b5307625bc84dc660742da3c6}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}}, \textquotesingle{}\textbackslash{}0\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_aeaaa7101572f283fe70a85ad5e6c65dc}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}}, \textquotesingle{}\textbackslash{}0\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_ab2965a6078670393812e67f8e5fcb072}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{short}}, 0U)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_ae6ea5db83b290e2412f321c3b1eb8c47}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{short}}, 0)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a4285332d8eae4bdfffc13b6c05252c30}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}, 0U)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a200a33af38e17df617883567c4fd96ab}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}}, 0)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a1f4167b954a7ff0074ce8a5bb855f86f}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}}, 0\+UL)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_ad8804e25537427755c324ab03a72e776}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}}, 0L)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a9320ef876df4a3dff276a9df2965b81f}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}}, 0)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a9a816b3e5d95850b4111fc9a3459d796}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}}, 0)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a71c697e5b567365fd3ff6c720769633b}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{float}}, 0)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a7ba92aa33f4968c902623cd02e445020}{testing\+::internal\+::\+GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{double}}, 0)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\std\+::add\+\_\+const$<$ T $>$\+::type \& \mbox{\hyperlink{namespacetesting_1_1internal_ab7796d7eca036fb4869b98cffea9a46f}{testing\+::internal\+::as\+\_\+const}} (T \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{t}})
+\item 
+{\footnotesize template$<$typename F $>$ }\\\mbox{\hyperlink{classtesting_1_1Action}{Action}}$<$ F $>$ \mbox{\hyperlink{namespacetesting_aa254d28c8d883899cbf11ea2f05fc195}{testing\+::\+Make\+Action}} (\mbox{\hyperlink{classtesting_1_1ActionInterface}{Action\+Interface}}$<$ F $>$ \texorpdfstring{$\ast$}{*}impl)
+\item 
+{\footnotesize template$<$typename Impl $>$ }\\\mbox{\hyperlink{classtesting_1_1PolymorphicAction}{Polymorphic\+Action}}$<$ Impl $>$ \mbox{\hyperlink{namespacetesting_a45df529b8166936d970884383f0ede82}{testing\+::\+Make\+Polymorphic\+Action}} (const Impl \&impl)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{classtesting_1_1Action}{Action}} $>$ }\\std\+::decay$<$ \mbox{\hyperlink{classtesting_1_1Action}{Action}} $>$\+::type \mbox{\hyperlink{namespacetesting_ae074784806eb494db69cf3de6f804d14}{testing\+::\+Do\+All}} (\mbox{\hyperlink{classtesting_1_1Action}{Action}} \&\&action)
+\item 
+{\footnotesize template$<$typename... Action$>$ }\\internal\+::\+Do\+All\+Action$<$ typename std\+::decay$<$ \mbox{\hyperlink{classtesting_1_1Action}{Action}} $>$\+::type... $>$ \mbox{\hyperlink{namespacetesting_a3824c79dc6e9e05c337a675e82da2045}{testing\+::\+Do\+All}} (\mbox{\hyperlink{classtesting_1_1Action}{Action}} \&\&... action)
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename Inner\+Action $>$ }\\internal\+::\+With\+Args\+Action$<$ typename std\+::decay$<$ Inner\+Action $>$\+::type, k $>$ \mbox{\hyperlink{namespacetesting_ab27beef02a13e44e0448b9c50e763e0b}{testing\+::\+With\+Arg}} (Inner\+Action \&\&action)
+\item 
+{\footnotesize template$<$size\+\_\+t k, size\+\_\+t... ks, typename Inner\+Action $>$ }\\internal\+::\+With\+Args\+Action$<$ typename std\+::decay$<$ Inner\+Action $>$\+::type, k, ks... $>$ \mbox{\hyperlink{namespacetesting_a4b8dc8233e7b92226ffe51e0d0040604}{testing\+::\+With\+Args}} (Inner\+Action \&\&action)
+\item 
+{\footnotesize template$<$typename Inner\+Action $>$ }\\internal\+::\+With\+Args\+Action$<$ typename std\+::decay$<$ Inner\+Action $>$\+::type $>$ \mbox{\hyperlink{namespacetesting_a0e5b756e6cf3ebf3abfdc1c913eb6376}{testing\+::\+Without\+Args}} (Inner\+Action \&\&action)
+\item 
+{\footnotesize template$<$typename R $>$ }\\internal\+::\+Return\+Action$<$ R $>$ \mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{testing\+::\+Return}} (R \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\mbox{\hyperlink{classtesting_1_1PolymorphicAction}{Polymorphic\+Action}}$<$ internal\+::\+Return\+Null\+Action $>$ \mbox{\hyperlink{namespacetesting_af05e07c0484961f2a30ba44d1d1816fe}{testing\+::\+Return\+Null}} ()
+\item 
+\mbox{\hyperlink{classtesting_1_1PolymorphicAction}{Polymorphic\+Action}}$<$ internal\+::\+Return\+Void\+Action $>$ \mbox{\hyperlink{namespacetesting_a492ba67db1dfe5dc8257b6e3d38b8183}{testing\+::\+Return}} ()
+\item 
+{\footnotesize template$<$typename R $>$ }\\internal\+::\+Return\+Ref\+Action$<$ R $>$ \mbox{\hyperlink{namespacetesting_ac17089d5ca6377944d3792fbdc5c5d9b}{testing\+::\+Return\+Ref}} (R \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+{\footnotesize template$<$typename R , R \texorpdfstring{$\ast$}{*}  = nullptr$>$ }\\internal\+::\+Return\+Ref\+Action$<$ R $>$ \mbox{\hyperlink{namespacetesting_a23b8e12c383e05cb3e8add91c79fe878}{testing\+::\+Return\+Ref}} (R \&\&)=delete
+\item 
+{\footnotesize template$<$typename R $>$ }\\internal\+::\+Return\+Ref\+Of\+Copy\+Action$<$ R $>$ \mbox{\hyperlink{namespacetesting_ab84f2bf2f22aa75d8b52887bfc7d218c}{testing\+::\+Return\+Ref\+Of\+Copy}} (const R \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+{\footnotesize template$<$typename R $>$ }\\internal\+::\+By\+Move\+Wrapper$<$ R $>$ \mbox{\hyperlink{namespacetesting_a38293837852ef2c406b063741018d108}{testing\+::\+By\+Move}} (R \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\internal\+::\+Return\+Round\+Robin\+Action$<$ T $>$ \mbox{\hyperlink{namespacetesting_a177b55d76950626dd514dc154d030119}{testing\+::\+Return\+Round\+Robin}} (std\+::vector$<$ T $>$ vals)
+\item 
+{\footnotesize template$<$typename T $>$ }\\internal\+::\+Return\+Round\+Robin\+Action$<$ T $>$ \mbox{\hyperlink{namespacetesting_a13e38e41b46d5cbb777ef2395b9208af}{testing\+::\+Return\+Round\+Robin}} (std\+::initializer\+\_\+list$<$ T $>$ vals)
+\item 
+internal\+::\+Do\+Default\+Action \mbox{\hyperlink{namespacetesting_ae041df61ff61ccb9753ba15b4309e1a6}{testing\+::\+Do\+Default}} ()
+\item 
+{\footnotesize template$<$size\+\_\+t N, typename T $>$ }\\internal\+::\+Set\+Argument\+Pointee\+Action$<$ N, T $>$ \mbox{\hyperlink{namespacetesting_a6e0d2e2c84a1fc7477fcb84be09d5560}{testing\+::\+Set\+Arg\+Pointee}} (T \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+{\footnotesize template$<$size\+\_\+t N, typename T $>$ }\\internal\+::\+Set\+Argument\+Pointee\+Action$<$ N, T $>$ \mbox{\hyperlink{namespacetesting_acbe3c511cc79b6258e870c2da80f3db6}{testing\+::\+Set\+Argument\+Pointee}} (T \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+{\footnotesize template$<$typename T1 , typename T2 $>$ }\\\mbox{\hyperlink{classtesting_1_1PolymorphicAction}{Polymorphic\+Action}}$<$ internal\+::\+Assign\+Action$<$ T1, T2 $>$ $>$ \mbox{\hyperlink{namespacetesting_a630f14770743960d9d1b7c71cfd9034c}{testing\+::\+Assign}} (T1 \texorpdfstring{$\ast$}{*}ptr, T2 val)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classtesting_1_1PolymorphicAction}{Polymorphic\+Action}}$<$ internal\+::\+Set\+Errno\+And\+Return\+Action$<$ T $>$ $>$ \mbox{\hyperlink{namespacetesting_a6f466024040fa05349773514ce1c6647}{testing\+::\+Set\+Errno\+And\+Return}} (int errval, T result)
+\item 
+{\footnotesize template$<$typename Function\+Impl $>$ }\\\mbox{\hyperlink{namespacetesting_acfc6833c3e31c4ba8d14b41601cb787c}{testing\+::\+GTEST\+\_\+\+INTERNAL\+\_\+\+DEPRECATE\+\_\+\+AND\+\_\+\+INLINE}} ("{}Actions can now be implicitly constructed from callables. No need to "{} "{}create wrapper objects using \mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{Invoke}}()."{}) typename std
+\item 
+{\footnotesize template$<$class Class , typename Method\+Ptr $>$ }\\internal\+::\+Invoke\+Method\+Action$<$ Class, Method\+Ptr $>$ \mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{testing\+::\+Invoke}} (Class \texorpdfstring{$\ast$}{*}obj\+\_\+ptr, Method\+Ptr method\+\_\+ptr)
+\item 
+{\footnotesize template$<$typename Function\+Impl $>$ }\\internal\+::\+Invoke\+Without\+Args\+Action$<$ typename std\+::decay$<$ Function\+Impl $>$\+::type $>$ \mbox{\hyperlink{namespacetesting_aabc08d610483908c8346f2e3318ad449}{testing\+::\+Invoke\+Without\+Args}} (Function\+Impl function\+\_\+impl)
+\item 
+{\footnotesize template$<$class Class , typename Method\+Ptr $>$ }\\internal\+::\+Invoke\+Method\+Without\+Args\+Action$<$ Class, Method\+Ptr $>$ \mbox{\hyperlink{namespacetesting_ab2961856113ff9af02fdf12c71b8a5f5}{testing\+::\+Invoke\+Without\+Args}} (Class \texorpdfstring{$\ast$}{*}obj\+\_\+ptr, Method\+Ptr method\+\_\+ptr)
+\item 
+{\footnotesize template$<$typename A $>$ }\\internal\+::\+Ignore\+Result\+Action$<$ A $>$ \mbox{\hyperlink{namespacetesting_a257c9395b54e9267a0348a6310128889}{testing\+::\+Ignore\+Result}} (const A \&an\+\_\+action)
+\item 
+{\footnotesize template$<$typename T $>$ }\\inline \+::std\+::reference\+\_\+wrapper$<$ T $>$ \mbox{\hyperlink{namespacetesting_a36843a208feed24c25663fbd331db103}{testing\+::\+By\+Ref}} (T \&l\+\_\+value)
+\item 
+{\footnotesize template$<$typename T , typename... Params$>$ }\\internal\+::\+Return\+New\+Action$<$ T, typename std\+::decay$<$ Params $>$\+::type... $>$ \mbox{\hyperlink{namespacetesting_ad653b4acaeec008716b858f57317181a}{testing\+::\+Return\+New}} (Params \&\&... params)
+\item 
+{\footnotesize template$<$size\+\_\+t k$>$ }\\internal\+::\+Return\+Arg\+Action$<$ k $>$ \mbox{\hyperlink{namespacetesting_aaea717b997f1e68f55d4b65f3396f4d7}{testing\+::\+Return\+Arg}} ()
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename Ptr $>$ }\\internal\+::\+Save\+Arg\+Action$<$ k, Ptr $>$ \mbox{\hyperlink{namespacetesting_a0fee053995e93f1b1efc97a33ae1a5b2}{testing\+::\+Save\+Arg}} (Ptr pointer)
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename Ptr $>$ }\\internal\+::\+Save\+Arg\+By\+Move\+Action$<$ k, Ptr $>$ \mbox{\hyperlink{namespacetesting_ab468be52086fe1f871c233ada33b924b}{testing\+::\+Save\+Arg\+By\+Move}} (Ptr pointer)
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename Ptr $>$ }\\internal\+::\+Save\+Arg\+Pointee\+Action$<$ k, Ptr $>$ \mbox{\hyperlink{namespacetesting_a1b6014fcd3899eedea3f54bfe4c96de8}{testing\+::\+Save\+Arg\+Pointee}} (Ptr pointer)
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename T $>$ }\\internal\+::\+Set\+Arg\+Referee\+Action$<$ k, typename std\+::decay$<$ T $>$\+::type $>$ \mbox{\hyperlink{namespacetesting_a2d5991b5b7130eafa3d00c2f10297fdd}{testing\+::\+Set\+Arg\+Referee}} (T \&\&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+{\footnotesize template$<$size\+\_\+t k, typename I1 , typename I2 $>$ }\\internal\+::\+Set\+Array\+Argument\+Action$<$ k, I1, I2 $>$ \mbox{\hyperlink{namespacetesting_a2a7c63dd6a2f46c354608d99ba35e761}{testing\+::\+Set\+Array\+Argument}} (I1 first, I2 last)
+\item 
+{\footnotesize template$<$size\+\_\+t k$>$ }\\internal\+::\+Delete\+Arg\+Action$<$ k $>$ \mbox{\hyperlink{namespacetesting_a07fc507392118e742af3b0463709c943}{testing\+::\+Delete\+Arg}} ()
+\item 
+{\footnotesize template$<$typename Ptr $>$ }\\internal\+::\+Return\+Pointee\+Action$<$ Ptr $>$ \mbox{\hyperlink{namespacetesting_a3277ba2ea50e4a7b5db1f36a9ea8b070}{testing\+::\+Return\+Pointee}} (Ptr pointer)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} F , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} Impl $>$ }\\\mbox{\hyperlink{classtesting_1_1Action}{\+::testing\+::\+Action}}$<$ F $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a547fec1adf93915b51ae73e0efe0db18}{testing\+::internal\+::\+Make\+Action}} ()
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} F , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} Impl $>$ }\\\mbox{\hyperlink{classtesting_1_1Action}{\+::testing\+::\+Action}}$<$ F $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a4c28221deb152dc3a2ff2c6f6816909f}{testing\+::internal\+::\+Make\+Action}} (std\+::shared\+\_\+ptr$<$ Impl $>$ impl)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a7af7137aa4871df4235881af377205fe}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a7af7137aa4871df4235881af377205fe} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION@{ACTION}}
+\index{ACTION@{ACTION}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION}{ACTION}}
+{\footnotesize\ttfamily \#define ACTION(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }name\#\#Action\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{explicit}\ name\#\#Action()\ noexcept\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ name\#\#Action(\textcolor{keyword}{const}\ name\#\#Action\&)\ \textcolor{keyword}{noexcept}\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ operator\ ::testing::Action<F>()\textcolor{keyword}{\ const\ }\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ return\ ::testing::internal::MakeAction<F,\ gmock\_Impl>();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{private}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }gmock\_Impl\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ function\_type,\ \textcolor{keyword}{typename}\ return\_type,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ args\_type,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a421f180fc492cf08339cf085ada235e3}{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}}>\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ return\_type\ gmock\_PerformImpl(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aee2ae4aac2083dfed61e5f679a7db0e9}{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_}})\ \textcolor{keyword}{const};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ [[nodiscard]]\ \textcolor{keyword}{inline}\ name\#\#Action\ name();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{inline}\ name\#\#Action\ name()\ \{\ \textcolor{keywordflow}{return}\ name\#\#Action();\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ function\_type,\ \textcolor{keyword}{typename}\ return\_type,\ \textcolor{keyword}{typename}\ args\_type,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a421f180fc492cf08339cf085ada235e3}{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}}>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ return\_type\ name\#\#Action::gmock\_Impl::gmock\_PerformImpl(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a069f37fdbe36aabe65da6eb6221b9b19}{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_}})\ \textcolor{keyword}{const}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02366}{2366}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_af5f47e069acb517db9f743f029471aa7}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_af5f47e069acb517db9f743f029471aa7} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P@{ACTION\_P}}
+\index{ACTION\_P@{ACTION\_P}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P}{ACTION\_P}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+P(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#ActionP, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02391}{2391}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ac0708603c79b2da1e552a212a23e5e62}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ac0708603c79b2da1e552a212a23e5e62} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P10@{ACTION\_P10}}
+\index{ACTION\_P10@{ACTION\_P10}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P10}{ACTION\_P10}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P10(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P10, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02418}{2418}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ade0284b965683ea4d6449322becf3ba6}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ade0284b965683ea4d6449322becf3ba6} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P2@{ACTION\_P2}}
+\index{ACTION\_P2@{ACTION\_P2}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P2}{ACTION\_P2}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P2(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P2, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02394}{2394}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4db847f0e74eea776dd7868ca73376bc}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4db847f0e74eea776dd7868ca73376bc} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P3@{ACTION\_P3}}
+\index{ACTION\_P3@{ACTION\_P3}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P3}{ACTION\_P3}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P3(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P3, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02397}{2397}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ae399d6c7462647c024e8de2ea9a65160}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ae399d6c7462647c024e8de2ea9a65160} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P4@{ACTION\_P4}}
+\index{ACTION\_P4@{ACTION\_P4}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P4}{ACTION\_P4}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P4(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P4, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02400}{2400}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1bc061a73229bbfcf2720915e48d5454}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1bc061a73229bbfcf2720915e48d5454} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P5@{ACTION\_P5}}
+\index{ACTION\_P5@{ACTION\_P5}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P5}{ACTION\_P5}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P5(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P5, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02403}{2403}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa5422cef04a3034c5f957ba7216f7981}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa5422cef04a3034c5f957ba7216f7981} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P6@{ACTION\_P6}}
+\index{ACTION\_P6@{ACTION\_P6}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P6}{ACTION\_P6}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P6(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P6, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02406}{2406}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4294a132f8b01a098bfc14619ebe99d6}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a4294a132f8b01a098bfc14619ebe99d6} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P7@{ACTION\_P7}}
+\index{ACTION\_P7@{ACTION\_P7}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P7}{ACTION\_P7}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P7(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P7, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02409}{2409}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a25238e96d7438ce1db5ce806e41a9068}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a25238e96d7438ce1db5ce806e41a9068} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P8@{ACTION\_P8}}
+\index{ACTION\_P8@{ACTION\_P8}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P8}{ACTION\_P8}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P8(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P8, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02412}{2412}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1465d122062a21fbdd9ddb5b174166a6}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a1465d122062a21fbdd9ddb5b174166a6} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!ACTION\_P9@{ACTION\_P9}}
+\index{ACTION\_P9@{ACTION\_P9}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{ACTION\_P9}{ACTION\_P9}}
+{\footnotesize\ttfamily \#define ACTION\+\_\+\+P9(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION}}(name, name\#\#Action\+P9, (\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02415}{2415}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aee2ae4aac2083dfed61e5f679a7db0e9}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aee2ae4aac2083dfed61e5f679a7db0e9} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_@{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_}}
+\index{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_@{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_}{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+ARG\+\_\+\+TYPES\+\_\+\+AND\+\_\+\+NAMES\+\_\+~  const args\+\_\+type\& args \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_ab2a0d358d2eb3f04395d0494ab7aab01}{GMOCK\+\_\+\+PP\+\_\+\+REPEAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a8ac94295873740ce64580d366a433ea9}{GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG}}, , 10)}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02287}{2287}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a069f37fdbe36aabe65da6eb6221b9b19}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a069f37fdbe36aabe65da6eb6221b9b19} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_@{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_}}
+\index{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_@{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_}{GMOCK\_ACTION\_ARG\_TYPES\_AND\_NAMES\_UNUSED\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+ARG\+\_\+\+TYPES\+\_\+\+AND\+\_\+\+NAMES\+\_\+\+UNUSED\+\_\+}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ args\_type\&\ args\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_ab2a0d358d2eb3f04395d0494ab7aab01}{GMOCK\_PP\_REPEAT}}(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_afc458b779043b35afe85acb9014fc658}{GMOCK\_INTERNAL\_ARG\_UNUSED}},\ ,\ 10)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02282}{2282}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a9988a03009790aa85418b69723acf186}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a9988a03009790aa85418b69723acf186} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_FIELD\_PARAMS\_@{GMOCK\_ACTION\_FIELD\_PARAMS\_}}
+\index{GMOCK\_ACTION\_FIELD\_PARAMS\_@{GMOCK\_ACTION\_FIELD\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_FIELD\_PARAMS\_}{GMOCK\_ACTION\_FIELD\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+FIELD\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a16b6c0fc86f975781666cd89b48636a2}{GMOCK\+\_\+\+INTERNAL\+\_\+\+FIELD\+\_\+\+PARAM}}, , params)}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02318}{2318}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a78e6035a6eabc83d59d6955755e6f33f}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a78e6035a6eabc83d59d6955755e6f33f} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_GVALUE\_PARAMS\_@{GMOCK\_ACTION\_GVALUE\_PARAMS\_}}
+\index{GMOCK\_ACTION\_GVALUE\_PARAMS\_@{GMOCK\_ACTION\_GVALUE\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_GVALUE\_PARAMS\_}{GMOCK\_ACTION\_GVALUE\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+GVALUE\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a05191e66d8f832f250311323db07dd5a}{GMOCK\+\_\+\+INTERNAL\+\_\+\+GVALUE\+\_\+\+PARAM}}, , params))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02309}{2309}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a0a86b24d2be85a91983923579ace081b}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a0a86b24d2be85a91983923579ace081b} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_INIT\_PARAMS\_@{GMOCK\_ACTION\_INIT\_PARAMS\_}}
+\index{GMOCK\_ACTION\_INIT\_PARAMS\_@{GMOCK\_ACTION\_INIT\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_INIT\_PARAMS\_}{GMOCK\_ACTION\_INIT\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+INIT\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a82a10dfdcfed7f3747dac32042e2b3c1}{GMOCK\+\_\+\+INTERNAL\+\_\+\+INIT\+\_\+\+PARAM}}, , params))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02314}{2314}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a421f180fc492cf08339cf085ada235e3}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a421f180fc492cf08339cf085ada235e3} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_@{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}}
+\index{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_@{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}{GMOCK\_ACTION\_TEMPLATE\_ARGS\_NAMES\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+TEMPLATE\+\_\+\+ARGS\+\_\+\+NAMES\+\_\+~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_ab2a0d358d2eb3f04395d0494ab7aab01}{GMOCK\+\_\+\+PP\+\_\+\+REPEAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab694ec868889ce00bd71fd4b2fb8d083}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TEMPLATE\+\_\+\+ARG}}, , 10))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02291}{2291}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aaeebe2b4b398d472fbabf6a998fd89e0}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aaeebe2b4b398d472fbabf6a998fd89e0} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_@{GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_}}
+\index{GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_@{GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_}{GMOCK\_ACTION\_TYPE\_GVALUE\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_acd35c38040c76565d0fd3db8d5d4d132}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAM}}, , params))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02304}{2304}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa365f234afbe48f989b84c8d7870e05a}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa365f234afbe48f989b84c8d7870e05a} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_TYPE\_PARAMS\_@{GMOCK\_ACTION\_TYPE\_PARAMS\_}}
+\index{GMOCK\_ACTION\_TYPE\_PARAMS\_@{GMOCK\_ACTION\_TYPE\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_TYPE\_PARAMS\_}{GMOCK\_ACTION\_TYPE\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+TYPE\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa9377b2c0985c30959d7f1e8ba25bd75}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+PARAM}}, , params))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02299}{2299}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aca13a68b9cfec576f30a4b0026667b4b}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aca13a68b9cfec576f30a4b0026667b4b} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_ACTION\_TYPENAME\_PARAMS\_@{GMOCK\_ACTION\_TYPENAME\_PARAMS\_}}
+\index{GMOCK\_ACTION\_TYPENAME\_PARAMS\_@{GMOCK\_ACTION\_TYPENAME\_PARAMS\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_ACTION\_TYPENAME\_PARAMS\_}{GMOCK\_ACTION\_TYPENAME\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+ACTION\+\_\+\+TYPENAME\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{params }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a53750f768fa5de7295c6a82885ea181d}{GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPENAME\+\_\+\+PARAM}}, , params))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02295}{2295}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a06b1e6cd1145acf7849e4a112976016b}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a06b1e6cd1145acf7849e4a112976016b} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_@{GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_}}
+\index{GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_@{GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_}{GMOCK\_DEFINE\_DEFAULT\_ACTION\_FOR\_RETURN\_TYPE\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+DEFINE\+\_\+\+DEFAULT\+\_\+\+ACTION\+\_\+\+FOR\+\_\+\+RETURN\+\_\+\+TYPE\+\_\+(\begin{DoxyParamCaption}\item[{}]{type,  }\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }BuiltInDefaultValue<type>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ Exists()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ type\ Get()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}};\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l00231}{231}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab7b532c2710a42d3e41911c10f4be38d} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_ACTION@{GMOCK\_INTERNAL\_ACTION}}
+\index{GMOCK\_INTERNAL\_ACTION@{GMOCK\_INTERNAL\_ACTION}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_ACTION}{GMOCK\_INTERNAL\_ACTION}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+ACTION(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{full\+\_\+name,  }\item[{}]{params }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02321}{2321}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a8ac94295873740ce64580d366a433ea9}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a8ac94295873740ce64580d366a433ea9} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_ARG@{GMOCK\_INTERNAL\_ARG}}
+\index{GMOCK\_INTERNAL\_ARG@{GMOCK\_INTERNAL\_ARG}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_ARG}{GMOCK\_INTERNAL\_ARG}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{el }\end{DoxyParamCaption})~, const arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type\& arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02286}{2286}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_afc458b779043b35afe85acb9014fc658}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_afc458b779043b35afe85acb9014fc658} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_ARG\_UNUSED@{GMOCK\_INTERNAL\_ARG\_UNUSED}}
+\index{GMOCK\_INTERNAL\_ARG\_UNUSED@{GMOCK\_INTERNAL\_ARG\_UNUSED}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_ARG\_UNUSED}{GMOCK\_INTERNAL\_ARG\_UNUSED}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+ARG\+\_\+\+UNUSED(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{el }\end{DoxyParamCaption})~  , \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type\& arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02280}{2280}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a16b6c0fc86f975781666cd89b48636a2}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a16b6c0fc86f975781666cd89b48636a2} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_FIELD\_PARAM@{GMOCK\_INTERNAL\_FIELD\_PARAM}}
+\index{GMOCK\_INTERNAL\_FIELD\_PARAM@{GMOCK\_INTERNAL\_FIELD\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_FIELD\_PARAM}{GMOCK\_INTERNAL\_FIELD\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+FIELD\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~param\#\#\+\_\+type param;}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02317}{2317}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a05191e66d8f832f250311323db07dd5a}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a05191e66d8f832f250311323db07dd5a} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_GVALUE\_PARAM@{GMOCK\_INTERNAL\_GVALUE\_PARAM}}
+\index{GMOCK\_INTERNAL\_GVALUE\_PARAM@{GMOCK\_INTERNAL\_GVALUE\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_GVALUE\_PARAM}{GMOCK\_INTERNAL\_GVALUE\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+GVALUE\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~  , std\+::forward$<$param\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02307}{2307}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a82a10dfdcfed7f3747dac32042e2b3c1}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a82a10dfdcfed7f3747dac32042e2b3c1} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_INIT\_PARAM@{GMOCK\_INTERNAL\_INIT\_PARAM}}
+\index{GMOCK\_INTERNAL\_INIT\_PARAM@{GMOCK\_INTERNAL\_INIT\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_INIT\_PARAM}{GMOCK\_INTERNAL\_INIT\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+INIT\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~  , param(\+::std\+::forward$<$param\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02312}{2312}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab694ec868889ce00bd71fd4b2fb8d083}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_ab694ec868889ce00bd71fd4b2fb8d083} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_TEMPLATE\_ARG@{GMOCK\_INTERNAL\_TEMPLATE\_ARG}}
+\index{GMOCK\_INTERNAL\_TEMPLATE\_ARG@{GMOCK\_INTERNAL\_TEMPLATE\_ARG}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_TEMPLATE\_ARG}{GMOCK\_INTERNAL\_TEMPLATE\_ARG}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+TEMPLATE\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{el }\end{DoxyParamCaption})~, typename arg\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\#\#\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02290}{2290}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_acd35c38040c76565d0fd3db8d5d4d132}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_acd35c38040c76565d0fd3db8d5d4d132} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM@{GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM}}
+\index{GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM@{GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM}{GMOCK\_INTERNAL\_TYPE\_GVALUE\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+GVALUE\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~  , param\#\#\+\_\+type gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02302}{2302}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa9377b2c0985c30959d7f1e8ba25bd75}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_aa9377b2c0985c30959d7f1e8ba25bd75} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_TYPE\_PARAM@{GMOCK\_INTERNAL\_TYPE\_PARAM}}
+\index{GMOCK\_INTERNAL\_TYPE\_PARAM@{GMOCK\_INTERNAL\_TYPE\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_TYPE\_PARAM}{GMOCK\_INTERNAL\_TYPE\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPE\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~, param\#\#\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02298}{2298}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a53750f768fa5de7295c6a82885ea181d}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a53750f768fa5de7295c6a82885ea181d} 
+\index{gmock-\/actions.h@{gmock-\/actions.h}!GMOCK\_INTERNAL\_TYPENAME\_PARAM@{GMOCK\_INTERNAL\_TYPENAME\_PARAM}}
+\index{GMOCK\_INTERNAL\_TYPENAME\_PARAM@{GMOCK\_INTERNAL\_TYPENAME\_PARAM}!gmock-\/actions.h@{gmock-\/actions.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_TYPENAME\_PARAM}{GMOCK\_INTERNAL\_TYPENAME\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+TYPENAME\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data,  }\item[{}]{param }\end{DoxyParamCaption})~, typename param\#\#\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source_l02294}{2294}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_source}{gmock-\/actions.\+h}}.
+

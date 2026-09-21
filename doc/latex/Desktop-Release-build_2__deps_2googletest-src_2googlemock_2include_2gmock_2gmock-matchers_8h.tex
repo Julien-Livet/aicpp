@@ -1,0 +1,385 @@
+\doxysection{Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googlemock/include/gmock/gmock-\/matchers.h File Reference}
+\hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h}{}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h}\index{Desktop-\/Release-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock-\/matchers.h@{Desktop-\/Release-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock-\/matchers.h}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$cstddef$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$initializer\+\_\+list$>$}\newline
+{\ttfamily \#include $<$ios$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/internal-\/utils.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/internal/gmock-\/pp.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/internal/custom/gmock-\/matchers.\+h"{}}\newline
+Include dependency graph for gmock-\/matchers.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2e98579585b1c3e77613384612912612}{GMOCK\+\_\+\+MAYBE\+\_\+5046\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} Diff\+Strings(str, arg); \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a41d888579850c16583baea33ee8d057e}{ASSERT\+\_\+\+THAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}},  matcher)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\+\_\+\+THAT}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}},  matcher)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af4fe73ff8e2b0494f4970b575b65ddff}{MATCHER}}(name,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_acb7ae915efa2fd8d3f6ea7313198afb6}{MATCHER\+\_\+P}}(name,  p0,  description)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER}}(name, name\#\#MatcherP, description, (\#p0), (p0))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a78efce3ad21c8f68223f5c2d09f2e79d}{MATCHER\+\_\+\+P2}}(name,  p0,  p1,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a507103c6251f8bf4393ec119d9e34d34}{MATCHER\+\_\+\+P3}}(name,  p0,  p1,  p2,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a6ec420ed6bc3ad073f19a4e32dd1f38f}{MATCHER\+\_\+\+P4}}(name,  p0,  p1,  p2,  p3,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3a9589cd79e2dbdb4e09981510c9c42e}{MATCHER\+\_\+\+P5}}(name,  p0,  p1,  p2,  p3,  p4,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aceda758bb064965b2b9a7e0e96085861}{MATCHER\+\_\+\+P6}}(name,  p0,  p1,  p2,  p3,  p4,  p5,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2948ce54387a83c33fa98ba0c73eb11f}{MATCHER\+\_\+\+P7}}(name,  p0,  p1,  p2,  p3,  p4,  p5,  p6,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad86c95b03df37fada38e18d8eb9e53bc}{MATCHER\+\_\+\+P8}}(name,  p0,  p1,  p2,  p3,  p4,  p5,  p6,  p7,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2dc1db146d4112c9fde1c2708807e43e}{MATCHER\+\_\+\+P9}}(name,  p0,  p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa6a3925eeb8bcb4b6b3465cc4ff26650}{MATCHER\+\_\+\+P10}}(name,  p0,  p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  p9,  description)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER}}(name,  full\+\_\+name,  description,  arg\+\_\+names,  args)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_adfd413a8ac26cd2ca9958a7b29785b95}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TEMPLATE\+\_\+\+PARAMS}}(args)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aededeca1f4e0a3f5f4829d2b6aeac804}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TEMPLATE\+\_\+\+PARAM}}(i\+\_\+unused,  data\+\_\+unused,  arg)~  , typename arg\#\#\+\_\+type
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af245b0c188fee5974dbd3aa94cd088cd}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAMS}}(args)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1a0b62d49dd862d686d9a77bbe9c9d78}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAM}}, , args))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1a0b62d49dd862d686d9a77bbe9c9d78}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAM}}(i\+\_\+unused,  data\+\_\+unused,  arg)~  , arg\#\#\+\_\+type
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3461e0db993def698d90857e1dab051}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FUNCTION\+\_\+\+ARGS}}(args)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa11e7b647b95fae02faf87c66d11a5de}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FUNCTION\+\_\+\+ARG}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data\+\_\+unused,  arg)~  , arg\#\#\+\_\+type gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ab2c9f348799a4a7fb8bdf057ea7612c4}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARGS}}(args)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af72c6c834adf41a98a3acea09a9ac8de}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARG}}, , args))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af72c6c834adf41a98a3acea09a9ac8de}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARG}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data\+\_\+unused,  arg)~  , arg(\+::std\+::forward$<$arg\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a8593d7b8f5afec57ec40cccdd7ff4451}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBERS}}(args)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a459c45f397c098b7073ee10709f25149}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER}}, , args)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a459c45f397c098b7073ee10709f25149}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER}}(i\+\_\+unused,  data\+\_\+unused,  arg)~  const arg\#\#\+\_\+type arg;
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1def3c14d8b7e67b800378815902c124}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBERS\+\_\+\+USAGE}}(args)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad0e526b054d34325a2106bab915f7ddc}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER\+\_\+\+USAGE}}, , args))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad0e526b054d34325a2106bab915f7ddc}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER\+\_\+\+USAGE}}(i\+\_\+unused,  data\+\_\+unused,  arg)~, arg
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3153cbe7c469f4348d793b45a1ae7ec}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARGS\+\_\+\+USAGE}}(args)~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3e62010cb21fcfa72a4d4981b68bc896}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARG\+\_\+\+USAGE}}, , args))
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3e62010cb21fcfa72a4d4981b68bc896}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARG\+\_\+\+USAGE}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  data\+\_\+unused,  arg)~  , \+::std\+::forward$<$arg\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a76d5edfe42aefbbbf81289a6a12f3761}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}} (4251 \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2e98579585b1c3e77613384612912612}{GMOCK\+\_\+\+MAYBE\+\_\+5046\+\_\+}}) namespace testing
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a41d888579850c16583baea33ee8d057e}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a41d888579850c16583baea33ee8d057e} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!ASSERT\_THAT@{ASSERT\_THAT}}
+\index{ASSERT\_THAT@{ASSERT\_THAT}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{ASSERT\_THAT}{ASSERT\_THAT}}
+{\footnotesize\ttfamily \#define ASSERT\+\_\+\+THAT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}},  }\item[{}]{matcher }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a3771ca0d1a72013aebc3d66e046491ed}{ASSERT\_PRED\_FORMAT1}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::MakePredicateFormatterFromMatcher}}(matcher),\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!EXPECT\_THAT@{EXPECT\_THAT}}
+\index{EXPECT\_THAT@{EXPECT\_THAT}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_THAT}{EXPECT\_THAT}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+THAT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}},  }\item[{}]{matcher }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a07132aa62cf4902e50e68d0265f573b6}{EXPECT\_PRED\_FORMAT1}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::MakePredicateFormatterFromMatcher}}(matcher),\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER@{GMOCK\_INTERNAL\_MATCHER}}
+\index{GMOCK\_INTERNAL\_MATCHER@{GMOCK\_INTERNAL\_MATCHER}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER}{GMOCK\_INTERNAL\_MATCHER}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{full\+\_\+name,  }\item[{}]{description,  }\item[{}]{arg\+\_\+names,  }\item[{}]{args }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3e62010cb21fcfa72a4d4981b68bc896}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3e62010cb21fcfa72a4d4981b68bc896} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE}}
+\index{GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE}{GMOCK\_INTERNAL\_MATCHER\_ARG\_USAGE}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARG\+\_\+\+USAGE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  , \+::std\+::forward$<$arg\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3153cbe7c469f4348d793b45a1ae7ec}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3153cbe7c469f4348d793b45a1ae7ec} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE}}
+\index{GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE}{GMOCK\_INTERNAL\_MATCHER\_ARGS\_USAGE}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARGS\+\_\+\+USAGE(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3e62010cb21fcfa72a4d4981b68bc896}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+ARG\+\_\+\+USAGE}}, , args))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af72c6c834adf41a98a3acea09a9ac8de}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af72c6c834adf41a98a3acea09a9ac8de} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG@{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG}}
+\index{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG@{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG}{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARG}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  , arg(\+::std\+::forward$<$arg\#\#\+\_\+type$>$(gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ab2c9f348799a4a7fb8bdf057ea7612c4}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ab2c9f348799a4a7fb8bdf057ea7612c4} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS@{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS}}
+\index{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS@{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS}{GMOCK\_INTERNAL\_MATCHER\_FORWARD\_ARGS}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARGS(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af72c6c834adf41a98a3acea09a9ac8de}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FORWARD\+\_\+\+ARG}}, , args))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa11e7b647b95fae02faf87c66d11a5de}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa11e7b647b95fae02faf87c66d11a5de} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG@{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG}}
+\index{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG@{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG}{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FUNCTION\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}},  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  , arg\#\#\+\_\+type gmock\+\_\+p\#\#\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3461e0db993def698d90857e1dab051}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa3461e0db993def698d90857e1dab051} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS@{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS}}
+\index{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS@{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS}{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARGS}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+FUNCTION\+\_\+\+ARGS(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\_PP\_TAIL}}(dummy\_first\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\_PP\_FOR\_EACH}}(\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa11e7b647b95fae02faf87c66d11a5de}{GMOCK\_INTERNAL\_MATCHER\_FUNCTION\_ARG}},\ ,\ args))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a459c45f397c098b7073ee10709f25149}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a459c45f397c098b7073ee10709f25149} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_MEMBER@{GMOCK\_INTERNAL\_MATCHER\_MEMBER}}
+\index{GMOCK\_INTERNAL\_MATCHER\_MEMBER@{GMOCK\_INTERNAL\_MATCHER\_MEMBER}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_MEMBER}{GMOCK\_INTERNAL\_MATCHER\_MEMBER}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER(\begin{DoxyParamCaption}\item[{}]{i\+\_\+unused,  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  const arg\#\#\+\_\+type arg;}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad0e526b054d34325a2106bab915f7ddc}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad0e526b054d34325a2106bab915f7ddc} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE}}
+\index{GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE}{GMOCK\_INTERNAL\_MATCHER\_MEMBER\_USAGE}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER\+\_\+\+USAGE(\begin{DoxyParamCaption}\item[{}]{i\+\_\+unused,  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~, arg}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a8593d7b8f5afec57ec40cccdd7ff4451}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a8593d7b8f5afec57ec40cccdd7ff4451} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_MEMBERS@{GMOCK\_INTERNAL\_MATCHER\_MEMBERS}}
+\index{GMOCK\_INTERNAL\_MATCHER\_MEMBERS@{GMOCK\_INTERNAL\_MATCHER\_MEMBERS}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_MEMBERS}{GMOCK\_INTERNAL\_MATCHER\_MEMBERS}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBERS(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a459c45f397c098b7073ee10709f25149}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER}}, , args)}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1def3c14d8b7e67b800378815902c124}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1def3c14d8b7e67b800378815902c124} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE}}
+\index{GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE@{GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE}{GMOCK\_INTERNAL\_MATCHER\_MEMBERS\_USAGE}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBERS\+\_\+\+USAGE(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad0e526b054d34325a2106bab915f7ddc}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+MEMBER\+\_\+\+USAGE}}, , args))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aededeca1f4e0a3f5f4829d2b6aeac804}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aededeca1f4e0a3f5f4829d2b6aeac804} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM@{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM}}
+\index{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM@{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM}{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TEMPLATE\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{i\+\_\+unused,  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  , typename arg\#\#\+\_\+type}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_adfd413a8ac26cd2ca9958a7b29785b95}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_adfd413a8ac26cd2ca9958a7b29785b95} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS@{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS}}
+\index{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS@{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS}{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAMS}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TEMPLATE\+\_\+\+PARAMS(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\_PP\_TAIL}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\_PP\_FOR\_EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aededeca1f4e0a3f5f4829d2b6aeac804}{GMOCK\_INTERNAL\_MATCHER\_TEMPLATE\_PARAM}},\ ,\ args))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1a0b62d49dd862d686d9a77bbe9c9d78}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1a0b62d49dd862d686d9a77bbe9c9d78} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM@{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM}}
+\index{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM@{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM}{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAM}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAM(\begin{DoxyParamCaption}\item[{}]{i\+\_\+unused,  }\item[{}]{data\+\_\+unused,  }\item[{}]{arg }\end{DoxyParamCaption})~  , arg\#\#\+\_\+type}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af245b0c188fee5974dbd3aa94cd088cd}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af245b0c188fee5974dbd3aa94cd088cd} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS@{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS}}
+\index{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS@{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS}{GMOCK\_INTERNAL\_MATCHER\_TYPE\_PARAMS}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAMS(\begin{DoxyParamCaption}\item[{}]{args }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_a1373615930e6eb6772c914fa8416f88e}{GMOCK\+\_\+\+PP\+\_\+\+TAIL}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-pp_8h_abc9368d9b0960531e3cfb9e5d6a41816}{GMOCK\+\_\+\+PP\+\_\+\+FOR\+\_\+\+EACH}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a1a0b62d49dd862d686d9a77bbe9c9d78}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER\+\_\+\+TYPE\+\_\+\+PARAM}}, , args))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2e98579585b1c3e77613384612912612}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2e98579585b1c3e77613384612912612} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GMOCK\_MAYBE\_5046\_@{GMOCK\_MAYBE\_5046\_}}
+\index{GMOCK\_MAYBE\_5046\_@{GMOCK\_MAYBE\_5046\_}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GMOCK\_MAYBE\_5046\_}{GMOCK\_MAYBE\_5046\_}}
+{\footnotesize\ttfamily \#define GMOCK\+\_\+\+MAYBE\+\_\+5046\+\_\+}
+
+
+
+\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} Diff\+Strings(str, arg); 
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_source_l00283}{283}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_source}{gmock-\/matchers.\+h}}.
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af4fe73ff8e2b0494f4970b575b65ddff}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_af4fe73ff8e2b0494f4970b575b65ddff} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER@{MATCHER}}
+\index{MATCHER@{MATCHER}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER}{MATCHER}}
+{\footnotesize\ttfamily \#define MATCHER(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_acb7ae915efa2fd8d3f6ea7313198afb6}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_acb7ae915efa2fd8d3f6ea7313198afb6} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P@{MATCHER\_P}}
+\index{MATCHER\_P@{MATCHER\_P}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P}{MATCHER\_P}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+P(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{description }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\+\_\+\+INTERNAL\+\_\+\+MATCHER}}(name, name\#\#MatcherP, description, (\#p0), (p0))}
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa6a3925eeb8bcb4b6b3465cc4ff26650}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aa6a3925eeb8bcb4b6b3465cc4ff26650} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P10@{MATCHER\_P10}}
+\index{MATCHER\_P10@{MATCHER\_P10}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P10}{MATCHER\_P10}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P10(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{p5,  }\item[{}]{p6,  }\item[{}]{p7,  }\item[{}]{p8,  }\item[{}]{p9,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP10,\ description,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4,\ \#p5,\ \#p6,\ \#p7,\ \#p8,\ \#p9),\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2,\ p3,\ p4,\ p5,\ p6,\ p7,\ p8,\ p9))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a78efce3ad21c8f68223f5c2d09f2e79d}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a78efce3ad21c8f68223f5c2d09f2e79d} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P2@{MATCHER\_P2}}
+\index{MATCHER\_P2@{MATCHER\_P2}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P2}{MATCHER\_P2}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P2(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP2,\ description,\ (\#p0,\ \#p1),\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a507103c6251f8bf4393ec119d9e34d34}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a507103c6251f8bf4393ec119d9e34d34} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P3@{MATCHER\_P3}}
+\index{MATCHER\_P3@{MATCHER\_P3}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P3}{MATCHER\_P3}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P3(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP3,\ description,\ (\#p0,\ \#p1,\ \#p2),\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a6ec420ed6bc3ad073f19a4e32dd1f38f}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a6ec420ed6bc3ad073f19a4e32dd1f38f} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P4@{MATCHER\_P4}}
+\index{MATCHER\_P4@{MATCHER\_P4}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P4}{MATCHER\_P4}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P4(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP4,\ description,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3),\ (p0,\ p1,\ p2,\ p3))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3a9589cd79e2dbdb4e09981510c9c42e}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a3a9589cd79e2dbdb4e09981510c9c42e} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P5@{MATCHER\_P5}}
+\index{MATCHER\_P5@{MATCHER\_P5}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P5}{MATCHER\_P5}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P5(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP5,\ description,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4),\ (p0,\ p1,\ p2,\ p3,\ p4))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aceda758bb064965b2b9a7e0e96085861}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_aceda758bb064965b2b9a7e0e96085861} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P6@{MATCHER\_P6}}
+\index{MATCHER\_P6@{MATCHER\_P6}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P6}{MATCHER\_P6}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P6(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{p5,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP6,\ description,\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4,\ \#p5),\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2,\ p3,\ p4,\ p5))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2948ce54387a83c33fa98ba0c73eb11f}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2948ce54387a83c33fa98ba0c73eb11f} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P7@{MATCHER\_P7}}
+\index{MATCHER\_P7@{MATCHER\_P7}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P7}{MATCHER\_P7}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P7(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{p5,  }\item[{}]{p6,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP7,\ description,\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4,\ \#p5,\ \#p6),\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2,\ p3,\ p4,\ p5,\ p6))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad86c95b03df37fada38e18d8eb9e53bc}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ad86c95b03df37fada38e18d8eb9e53bc} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P8@{MATCHER\_P8}}
+\index{MATCHER\_P8@{MATCHER\_P8}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P8}{MATCHER\_P8}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P8(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{p5,  }\item[{}]{p6,  }\item[{}]{p7,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP8,\ description,\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4,\ \#p5,\ \#p6,\ \#p7),\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2,\ p3,\ p4,\ p5,\ p6,\ p7))}
+
+\end{DoxyCode}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2dc1db146d4112c9fde1c2708807e43e}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a2dc1db146d4112c9fde1c2708807e43e} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!MATCHER\_P9@{MATCHER\_P9}}
+\index{MATCHER\_P9@{MATCHER\_P9}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{MATCHER\_P9}{MATCHER\_P9}}
+{\footnotesize\ttfamily \#define MATCHER\+\_\+\+P9(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{p0,  }\item[{}]{p1,  }\item[{}]{p2,  }\item[{}]{p3,  }\item[{}]{p4,  }\item[{}]{p5,  }\item[{}]{p6,  }\item[{}]{p7,  }\item[{}]{p8,  }\item[{}]{description }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a87aa7af5048196126e751369bfdcc4b6}{GMOCK\_INTERNAL\_MATCHER}}(name,\ name\#\#MatcherP9,\ description,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\#p0,\ \#p1,\ \#p2,\ \#p3,\ \#p4,\ \#p5,\ \#p6,\ \#p7,\ \#p8),\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p0,\ p1,\ p2,\ p3,\ p4,\ p5,\ p6,\ p7,\ p8))}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a76d5edfe42aefbbbf81289a6a12f3761}\label{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a76d5edfe42aefbbbf81289a6a12f3761} 
+\index{gmock-\/matchers.h@{gmock-\/matchers.h}!GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}}
+\index{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}!gmock-\/matchers.h@{gmock-\/matchers.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_()}{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_()}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+ (\begin{DoxyParamCaption}\item[{4251}]{GMOCK\+\_\+\+MAYBE\+\_\+5046\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_source_l00286}{286}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_source}{gmock-\/matchers.\+h}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Desktop-Release-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a76d5edfe42aefbbbf81289a6a12f3761_cgraph}
+\end{center}
+\end{figure}

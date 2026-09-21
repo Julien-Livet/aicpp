@@ -1,0 +1,158 @@
+\chapter{Actions Reference}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions}{}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions}\index{Actions Reference@{Actions Reference}}
+\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1536}%
+\Hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1536}%
+ \href{../gmock_for_dummies.md\#actions-what-should-it-do}{\texttt{ {\bfseries{Actions}}}} specify what a mock function should do when invoked. This page lists the built-\/in actions provided by Google\+Test. All actions are defined in the {\ttfamily \doxylink{namespacetesting}{testing}} namespace.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1537}{}\doxysection{\texorpdfstring{Returning a Value}{Returning a Value}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1537}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Return()}   &Return from a {\ttfamily void} mock function.    \\\cline{1-2}
+{\ttfamily Return(value)}   &Return {\ttfamily value}. If the type of {\ttfamily value} is different to the mock function\textquotesingle{}s return type, {\ttfamily value} is converted to the latter type {\itshape at the time the expectation is set}, not when the action is executed.    \\\cline{1-2}
+{\ttfamily Return\+Arg\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}()}   &Return the {\ttfamily N}-\/th (0-\/based) argument.    \\\cline{1-2}
+{\ttfamily Return\+New\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}(a1, ..., ak)}   &Return {\ttfamily new T(a1, ..., ak)}; a different object is created each time.    \\\cline{1-2}
+{\ttfamily Return\+Null()}   &Return a null pointer.    \\\cline{1-2}
+{\ttfamily Return\+Pointee(ptr)}   &Return the value pointed to by {\ttfamily ptr}.    \\\cline{1-2}
+{\ttfamily Return\+Ref(variable)}   &Return a reference to {\ttfamily variable}.    \\\cline{1-2}
+{\ttfamily Return\+Ref\+Of\+Copy(value)}   &Return a reference to a copy of {\ttfamily value}; the copy lives as long as the action.    \\\cline{1-2}
+{\ttfamily Return\+Round\+Robin(\{a1, ..., ak\})}   &Each call will return the next {\ttfamily ai} in the list, starting at the beginning when the end of the list is reached.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1538}{}\doxysection{\texorpdfstring{Side Effects}{Side Effects}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1538}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Assign(\&variable, value)}   &Assign {\ttfamily value} to variable.    \\\cline{1-2}
+{\ttfamily Delete\+Arg\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}()}   &Delete the {\ttfamily N}-\/th (0-\/based) argument, which must be a pointer.    \\\cline{1-2}
+{\ttfamily Save\+Arg\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(pointer)}   &Save the {\ttfamily N}-\/th (0-\/based) argument to {\ttfamily \texorpdfstring{$\ast$}{*}pointer} by copy-\/assignment.    \\\cline{1-2}
+{\ttfamily Save\+Arg\+By\+Move\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(pointer)}   &Save the {\ttfamily N}-\/th (0-\/based) argument to {\ttfamily \texorpdfstring{$\ast$}{*}pointer} by move-\/assignment.    \\\cline{1-2}
+{\ttfamily Save\+Arg\+Pointee\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(pointer)}   &Save the value pointed to by the {\ttfamily N}-\/th (0-\/based) argument to {\ttfamily \texorpdfstring{$\ast$}{*}pointer}.    \\\cline{1-2}
+{\ttfamily Set\+Arg\+Referee\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(value)}   &Assign {\ttfamily value} to the variable referenced by the {\ttfamily N}-\/th (0-\/based) argument.    \\\cline{1-2}
+{\ttfamily Set\+Arg\+Pointee\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(value)}   &Assign {\ttfamily value} to the variable pointed by the {\ttfamily N}-\/th (0-\/based) argument.    \\\cline{1-2}
+{\ttfamily Set\+Argument\+Pointee\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(value)}   &Same as {\ttfamily Set\+Arg\+Pointee\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(value)}. Deprecated. Will be removed in v1.\+7.\+0.    \\\cline{1-2}
+{\ttfamily Set\+Array\+Argument\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(first, last)}   &Copies the elements in source range \mbox{[}{\ttfamily first}, {\ttfamily last}) to the array pointed to by the {\ttfamily N}-\/th (0-\/based) argument, which can be either a pointer or an iterator. The action does not take ownership of the elements in the source range.    \\\cline{1-2}
+{\ttfamily Set\+Errno\+And\+Return(error, value)}   &Set {\ttfamily errno} to {\ttfamily error} and return {\ttfamily value}.    \\\cline{1-2}
+{\ttfamily Throw(exception)}   &Throws the given exception, which can be any copyable value. Available since v1.\+1.\+0.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1539}{}\doxysection{\texorpdfstring{Using a Function, Functor, or Lambda as an Action}{Using a Function, Functor, or Lambda as an Action}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1539}
+In the following, by "{}callable"{} we mean a free function, {\ttfamily std\+::function}, functor, or lambda.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily f}   &Invoke {\ttfamily f} with the arguments passed to the mock function, where {\ttfamily f} is a callable.    \\\cline{1-2}
+{\ttfamily Invoke(f)}   &Invoke {\ttfamily f} with the arguments passed to the mock function, where {\ttfamily f} can be a global/static function or a functor.    \\\cline{1-2}
+{\ttfamily Invoke(object\+\_\+pointer, \&class\+::method)}   &Invoke the method on the object with the arguments passed to the mock function.    \\\cline{1-2}
+{\ttfamily Invoke\+Without\+Args(f)}   &Invoke {\ttfamily f}, which can be a global/static function or a functor. {\ttfamily f} must take no arguments.    \\\cline{1-2}
+{\ttfamily Invoke\+Without\+Args(object\+\_\+pointer, \&class\+::method)}   &Invoke the method on the object, which takes no arguments.    \\\cline{1-2}
+{\ttfamily Invoke\+Argument\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(arg1, arg2, ..., argk)}   &Invoke the mock function\textquotesingle{}s {\ttfamily N}-\/th (0-\/based) argument, which must be a function or a functor, with the {\ttfamily k} arguments.   \\\cline{1-2}
+\end{longtabu}
+
+
+The return value of the invoked function (except {\ttfamily Invoke\+Argument}) is used as the return value of the action.
+
+When defining a callable to be used with {\ttfamily Invoke\texorpdfstring{$\ast$}{*}()}, you can declare any unused parameters as {\ttfamily Unused}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Invoke;}
+\DoxyCodeLine{\textcolor{keywordtype}{double}\ Distance(Unused,\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}})\ \{\ \textcolor{keywordflow}{return}\ sqrt(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}*\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}\ +\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}}*\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}});\ \}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(mock,\ Foo(\textcolor{stringliteral}{"{}Hi"{}},\ \_,\ \_)).WillOnce(\mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{Invoke}}(Distance));}
+
+\end{DoxyCode}
+
+
+{\ttfamily Invoke(callback)} and {\ttfamily Invoke\+Without\+Args(callback)} take ownership of {\ttfamily callback}, which must be permanent. The type of {\ttfamily callback} must be a base callback type instead of a derived one, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{BlockingClosure*\ done\ =\ \textcolor{keyword}{new}\ BlockingClosure;}
+\DoxyCodeLine{...\ \mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{Invoke}}(done)\ ...;\ \ \textcolor{comment}{//\ This\ won't\ compile!}}
+\DoxyCodeLine{}
+\DoxyCodeLine{Closure*\ done2\ =\ \textcolor{keyword}{new}\ BlockingClosure;}
+\DoxyCodeLine{...\ \mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{Invoke}}(done2)\ ...;\ \ \textcolor{comment}{//\ This\ works.}}
+
+\end{DoxyCode}
+
+
+In {\ttfamily Invoke\+Argument\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(...)}, if an argument needs to be passed by reference, wrap it inside {\ttfamily std\+::ref()}. For example,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::InvokeArgument;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{InvokeArgument<2>(5,\ string(\textcolor{stringliteral}{"{}Hi"{}}),\ std::ref(\mbox{\hyperlink{namespacefoo}{foo}}))}
+
+\end{DoxyCode}
+
+
+calls the mock function\textquotesingle{}s \#2 argument, passing to it {\ttfamily 5} and {\ttfamily string("{}\+Hi"{})} by value, and {\ttfamily foo} by reference.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1540}{}\doxysection{\texorpdfstring{Default Action}{Default Action}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1540}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Do\+Default()}   &Do the default action (specified by {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\+\_\+\+CALL()}} or the built-\/in one).   \\\cline{1-2}
+\end{longtabu}
+
+
+\{\+: .callout .note\} {\bfseries{Note\+:}} due to technical reasons, {\ttfamily Do\+Default()} cannot be used inside a composite action -\/ trying to do so will result in a run-\/time error.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1541}{}\doxysection{\texorpdfstring{Composite Actions}{Composite Actions}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1541}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Action   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily Do\+All(a1, a2, ..., an)}   &Do all actions {\ttfamily a1} to {\ttfamily an} and return the result of {\ttfamily an} in each invocation. The first {\ttfamily n -\/ 1} sub-\/actions must return void and will receive a readonly view of the arguments.    \\\cline{1-2}
+{\ttfamily Ignore\+Result(a)}   &Perform action {\ttfamily a} and ignore its result. {\ttfamily a} must not return void.    \\\cline{1-2}
+{\ttfamily With\+Arg\texorpdfstring{$<$}{<}N\texorpdfstring{$>$}{>}(a)}   &Pass the {\ttfamily N}-\/th (0-\/based) argument of the mock function to action {\ttfamily a} and perform it.    \\\cline{1-2}
+{\ttfamily With\+Args\texorpdfstring{$<$}{<}N1, N2, ..., Nk\texorpdfstring{$>$}{>}(a)}   &Pass the selected (0-\/based) arguments of the mock function to action {\ttfamily a} and perform it.    \\\cline{1-2}
+{\ttfamily Without\+Args(a)}   &Perform action {\ttfamily a} without any arguments.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1542}{}\doxysection{\texorpdfstring{Defining Actions}{Defining Actions}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2reference_2actions_autotoc_md1542}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Macro   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_a7af7137aa4871df4235881af377205fe}{ACTION(\+Sum)} \{ return arg0 + arg1; \}}   &Defines an action {\ttfamily Sum()} to return the sum of the mock function\textquotesingle{}s argument \#0 and \#1.    \\\cline{1-2}
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-actions_8h_af5f47e069acb517db9f743f029471aa7}{ACTION\+\_\+\+P(\+Plus, n)} \{ return arg0 + n; \}}   &Defines an action {\ttfamily Plus(n)} to return the sum of the mock function\textquotesingle{}s argument \#0 and {\ttfamily n}.    \\\cline{1-2}
+{\ttfamily ACTION\+\_\+\+Pk(\+Foo, p1, ..., pk) \{ statements; \}}   &Defines a parameterized action {\ttfamily Foo(p1, ..., pk)} to execute the given {\ttfamily statements}.   \\\cline{1-2}
+\end{longtabu}
+
+
+The {\ttfamily ACTION\texorpdfstring{$\ast$}{*}} macros cannot be used inside a function or class. 

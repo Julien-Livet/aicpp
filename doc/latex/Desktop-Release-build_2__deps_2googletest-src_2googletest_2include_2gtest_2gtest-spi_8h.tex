@@ -1,0 +1,160 @@
+\doxysection{Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/gtest-\/spi.h File Reference}
+\hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h}{}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h}\index{Desktop-\/Release-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/spi.h@{Desktop-\/Release-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/spi.h}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}gtest/gtest.\+h"{}}\newline
+Include dependency graph for gtest-\/spi.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a819a3fd7f8b8cf24b6f1b3a26708973d}{EXPECT\+\_\+\+FATAL\+\_\+\+FAILURE}}(statement,  substr)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_ad8aac5bc859b2ddc07583636ae4f45cf}{EXPECT\+\_\+\+FATAL\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+ALL\+\_\+\+THREADS}}(statement,  substr)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a8376fd6821bd88fd806697355e79e138}{EXPECT\+\_\+\+NONFATAL\+\_\+\+FAILURE}}(statement,  substr)
+\item 
+\#define \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a9f4cf1f150fe9facfc4cbf0bae646ee9}{EXPECT\+\_\+\+NONFATAL\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+ALL\+\_\+\+THREADS}}(statement,  substr)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a88f79832f9d045112a76e9da8611cc13}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}} (4251) namespace testing
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a819a3fd7f8b8cf24b6f1b3a26708973d}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a819a3fd7f8b8cf24b6f1b3a26708973d} 
+\index{gtest-\/spi.h@{gtest-\/spi.h}!EXPECT\_FATAL\_FAILURE@{EXPECT\_FATAL\_FAILURE}}
+\index{EXPECT\_FATAL\_FAILURE@{EXPECT\_FATAL\_FAILURE}!gtest-\/spi.h@{gtest-\/spi.h}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FATAL\_FAILURE}{EXPECT\_FATAL\_FAILURE}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+FATAL\+\_\+\+FAILURE(\begin{DoxyParamCaption}\item[{}]{statement,  }\item[{}]{substr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }GTestExpectFatalFailureHelper\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Execute()\ \{\ statement;\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ::testing::TestPartResultArray\ gtest\_failures;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::SingleFailureChecker}}\ gtest\_checker(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&gtest\_failures,\ ::testing::TestPartResult::kFatalFailure,\ (substr));\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter\ gtest\_reporter(\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter::\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ INTERCEPT\_ONLY\_CURRENT\_THREAD,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \&gtest\_failures);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTestExpectFatalFailureHelper::Execute();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacetesting_1_1internal_a4b24c851ab13569b1b15b3d259b60d2e}{::testing::internal::AlwaysFalse}}())}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source_l00149}{149}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source}{gtest-\/spi.\+h}}.
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_ad8aac5bc859b2ddc07583636ae4f45cf}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_ad8aac5bc859b2ddc07583636ae4f45cf} 
+\index{gtest-\/spi.h@{gtest-\/spi.h}!EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS@{EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS}}
+\index{EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS@{EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS}!gtest-\/spi.h@{gtest-\/spi.h}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS}{EXPECT\_FATAL\_FAILURE\_ON\_ALL\_THREADS}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+FATAL\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+ALL\+\_\+\+THREADS(\begin{DoxyParamCaption}\item[{}]{statement,  }\item[{}]{substr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }GTestExpectFatalFailureHelper\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Execute()\ \{\ statement;\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ::testing::TestPartResultArray\ gtest\_failures;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::SingleFailureChecker}}\ gtest\_checker(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&gtest\_failures,\ ::testing::TestPartResult::kFatalFailure,\ (substr));\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter\ gtest\_reporter(\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter::INTERCEPT\_ALL\_THREADS,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \&gtest\_failures);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTestExpectFatalFailureHelper::Execute();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacetesting_1_1internal_a4b24c851ab13569b1b15b3d259b60d2e}{::testing::internal::AlwaysFalse}}())}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source_l00167}{167}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source}{gtest-\/spi.\+h}}.
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a8376fd6821bd88fd806697355e79e138}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a8376fd6821bd88fd806697355e79e138} 
+\index{gtest-\/spi.h@{gtest-\/spi.h}!EXPECT\_NONFATAL\_FAILURE@{EXPECT\_NONFATAL\_FAILURE}}
+\index{EXPECT\_NONFATAL\_FAILURE@{EXPECT\_NONFATAL\_FAILURE}!gtest-\/spi.h@{gtest-\/spi.h}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_NONFATAL\_FAILURE}{EXPECT\_NONFATAL\_FAILURE}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+NONFATAL\+\_\+\+FAILURE(\begin{DoxyParamCaption}\item[{}]{statement,  }\item[{}]{substr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ::testing::TestPartResultArray\ gtest\_failures;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::SingleFailureChecker}}\ gtest\_checker(\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&gtest\_failures,\ ::testing::TestPartResult::kNonFatalFailure,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (substr));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter\ gtest\_reporter(\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter::\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ INTERCEPT\_ONLY\_CURRENT\_THREAD,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \&gtest\_failures);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if\ (\mbox{\hyperlink{namespacetesting_1_1internal_a922c9da63cd4bf94fc473b9ecac76414}{::testing::internal::AlwaysTrue}}())\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ statement;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacetesting_1_1internal_a4b24c851ab13569b1b15b3d259b60d2e}{::testing::internal::AlwaysFalse}}())}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source_l00217}{217}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source}{gtest-\/spi.\+h}}.
+
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a9f4cf1f150fe9facfc4cbf0bae646ee9}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a9f4cf1f150fe9facfc4cbf0bae646ee9} 
+\index{gtest-\/spi.h@{gtest-\/spi.h}!EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS@{EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS}}
+\index{EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS@{EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS}!gtest-\/spi.h@{gtest-\/spi.h}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS}{EXPECT\_NONFATAL\_FAILURE\_ON\_ALL\_THREADS}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+NONFATAL\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+ALL\+\_\+\+THREADS(\begin{DoxyParamCaption}\item[{}]{statement,  }\item[{}]{substr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ::testing::TestPartResultArray\ gtest\_failures;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::SingleFailureChecker}}\ gtest\_checker(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&gtest\_failures,\ ::testing::TestPartResult::kNonFatalFailure,\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (substr));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter\ gtest\_reporter(\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ::testing::ScopedFakeTestPartResultReporter::INTERCEPT\_ALL\_THREADS,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \&gtest\_failures);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if\ (\mbox{\hyperlink{namespacetesting_1_1internal_a922c9da63cd4bf94fc473b9ecac76414}{::testing::internal::AlwaysTrue}}())\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ statement;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{namespacetesting_1_1internal_a4b24c851ab13569b1b15b3d259b60d2e}{::testing::internal::AlwaysFalse}}())}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source_l00234}{234}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source}{gtest-\/spi.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a88f79832f9d045112a76e9da8611cc13}\label{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_a88f79832f9d045112a76e9da8611cc13} 
+\index{gtest-\/spi.h@{gtest-\/spi.h}!GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}}
+\index{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}!gtest-\/spi.h@{gtest-\/spi.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_()}{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_()}}
+{\footnotesize\ttfamily GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+ (\begin{DoxyParamCaption}\item[{4251}]{GMOCK\+\_\+\+MAYBE\+\_\+5046\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source_l00040}{40}} of file \mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-spi_8h_source}{gtest-\/spi.\+h}}.
+

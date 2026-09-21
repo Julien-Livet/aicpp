@@ -1,0 +1,249 @@
+\doxysection{build/\+\_\+deps/googletest-\/src/googlemock/test/gmock-\/function-\/mocker\+\_\+test.cc File Reference}
+\hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc}{}\label{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc}\index{build/\_deps/googletest-\/src/googlemock/test/gmock-\/function-\/mocker\_test.cc@{build/\_deps/googletest-\/src/googlemock/test/gmock-\/function-\/mocker\_test.cc}}
+{\ttfamily \#include "{}gmock/gmock-\/function-\/mocker.\+h"{}}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include "{}gmock/gmock.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest.\+h"{}}\newline
+Include dependency graph for gmock-\/function-\/mocker\+\_\+test.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1TemplatedCopyable}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Templated\+Copyable$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FooInterface}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Foo\+Interface}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockFoo}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Foo}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockFoo}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Foo}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Function\+Mocker\+Test$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockB}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+MockB}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockB}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+MockB}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1ExpectCallTest}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Expect\+Call\+Test$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1StackInterface}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Stack\+Interface$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockStack}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Stack$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockStack}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Stack$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1TemplateMockTest}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Template\+Mock\+Test$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockOverloadedOnArgNumber}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Overloaded\+On\+Arg\+Number}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockOverloadedOnArgNumber}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Overloaded\+On\+Arg\+Number}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1OverloadedMockMethodTest}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Overloaded\+Mock\+Method\+Test$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockOverloadedOnConstness}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Overloaded\+On\+Constness}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Mock\+Function\+Signature\+Test$<$ F $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1AlternateCallable}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Alternate\+Callable$<$ F $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodSizes0}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Sizes0}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodSizes1}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Sizes1}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodSizes2}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Sizes2}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodSizes3}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Sizes3}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodSizes4}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Sizes4}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1LegacyMockMethodSizes0}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Method\+Sizes0}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1LegacyMockMethodSizes1}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Method\+Sizes1}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1LegacyMockMethodSizes2}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Method\+Sizes2}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1LegacyMockMethodSizes3}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Method\+Sizes3}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1LegacyMockMethodSizes4}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Legacy\+Mock\+Method\+Sizes4}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__function__mocker__test_1_1MockMethodNoexceptSpecifier}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Noexcept\+Specifier}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a9ae68063487fddb9f678e66728fae155}{MY\+\_\+\+MOCK\+\_\+\+METHODS1\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a6f2e034f79dc01715dc67fd3f7b2aeb5}{LEGACY\+\_\+\+MY\+\_\+\+MOCK\+\_\+\+METHODS1\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_ac36252ad7584222cebc036d56465d652}{MY\+\_\+\+MOCK\+\_\+\+METHODS2\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a9764bccfc6fb2135ec6142291981f973}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Function\+Mocker\+Test\+Types}} = \mbox{\hyperlink{namespacetesting_a29eec4c1aba59e52881d8eb38cece83c}{\+::testing\+::\+Types}}$<$ \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockFoo}{Mock\+Foo}}, \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockFoo}{Legacy\+Mock\+Foo}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a75089a3fe4cf375cbde3f48991747df8}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Expect\+Call\+Test\+Types}} = \mbox{\hyperlink{namespacetesting_a29eec4c1aba59e52881d8eb38cece83c}{\+::testing\+::\+Types}}$<$ \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockB}{MockB}}, \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockB}{Legacy\+MockB}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a1599a556b4bacbe93db28a983ccc0b10}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Template\+Mock\+Test\+Types}} = \mbox{\hyperlink{namespacetesting_a29eec4c1aba59e52881d8eb38cece83c}{\+::testing\+::\+Types}}$<$ \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockStack}{Mock\+Stack}}$<$ int $>$, \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockStack}{Legacy\+Mock\+Stack}}$<$ int $>$ $>$
+\item 
+using \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_aea2c7cf72160e1769a88b88eb4b3a779}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Overloaded\+Mock\+Method\+Test\+Types}} = \mbox{\hyperlink{namespacetesting_a29eec4c1aba59e52881d8eb38cece83c}{\+::testing\+::\+Types}}$<$ \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockOverloadedOnArgNumber}{Mock\+Overloaded\+On\+Arg\+Number}}, \mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1LegacyMockOverloadedOnArgNumber}{Legacy\+Mock\+Overloaded\+On\+Arg\+Number}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a3bb5e53375733f2cc0d1d06ceb40b7bf}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Mock\+Method\+Mock\+Function\+Signature\+Types}} = \mbox{\hyperlink{namespacetesting_a29eec4c1aba59e52881d8eb38cece83c}{Types}}$<$ void(), int(), void(int), int(int), int(bool, int), int(bool, char, int, int, int, int, int, char, int, bool)$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a968d1cea0aa94b59ec820c15a3d63632}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST\+\_\+\+SUITE}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a9764bccfc6fb2135ec6142291981f973}{Function\+Mocker\+Test\+Types}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a6fe02efcce5588cd25a7646209667498}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Void\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ad69bbcda1a9826d1b75516102ea99ae2}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Nullary\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a6b1084ba6237db69943d4d2ae77a0dac}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Unary\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a18beb33907dc243b50c11b5ca77df3ac}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Binary\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a5dc0b2d87c021671e7fc2af7cdd84c78}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Decimal\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a03ec5f67841c3d8e7c2007ca7172eb2e}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Function\+With\+Non\+Const\+Reference\+Argument)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_aef11b922e71a390cebc78ff2d8e846d9}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Function\+With\+Const\+Reference\+Argument)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a98699051ed390b45a9e94af51e04e44d}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Function\+With\+Const\+Argument)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a0ed9e52f298996054a27b856fcef1aa4}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Functions\+Overloaded\+On\+Argument\+Number)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a2edd6960a6381be64c5a887f0cdc2b08}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Functions\+Overloaded\+On\+Argument\+Type)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ac720571a053f22f81fc5f92d6ff13adc}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Functions\+Overloaded\+On\+Constness\+Of\+This)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a335e8a2a915d3e74dbe1805461a38e25}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Return\+Type\+With\+Comma)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ac831b521498e2ee5be04813b20b49301}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Mocks\+Type\+With\+Templated\+Copy\+Ctor)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a1ff0f9473a359b8c19d416f2003a78b0}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1FunctionMockerTest}{Function\+Mocker\+Test}}, Ref\+Qualified)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_aef6ab413252225cfffcc3fba46a3f6e9}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST\+\_\+\+SUITE}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1ExpectCallTest}{Expect\+Call\+Test}}, \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a75089a3fe4cf375cbde3f48991747df8}{Expect\+Call\+Test\+Types}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a8de1b3fa4fa56304c17d80589d9d9f28}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1ExpectCallTest}{Expect\+Call\+Test}}, Unmentioned\+Function\+Can\+Be\+Called\+Any\+Number\+Of\+Times)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_afd3ddc537dd1d500f55c7f3d38852f88}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST\+\_\+\+SUITE}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1TemplateMockTest}{Template\+Mock\+Test}}, \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a1599a556b4bacbe93db28a983ccc0b10}{Template\+Mock\+Test\+Types}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a4bf7e84533bd28edba4e421f20d28d0f}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1TemplateMockTest}{Template\+Mock\+Test}}, Works)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_af5b72831b20f0069a5a2681f2ca6dcc8}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1TemplateMockTest}{Template\+Mock\+Test}}, Method\+With\+Comma\+In\+Return\+Type\+Works)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_af3208f8efbe4326347fdf5a14ee8d2b4}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST\+\_\+\+SUITE}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1OverloadedMockMethodTest}{Overloaded\+Mock\+Method\+Test}}, \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_aea2c7cf72160e1769a88b88eb4b3a779}{Overloaded\+Mock\+Method\+Test\+Types}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a24f9f51692af5618d88d2c30f3b4e1bb}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1OverloadedMockMethodTest}{Overloaded\+Mock\+Method\+Test}}, Can\+Overload\+On\+Arg\+Number\+In\+Macro\+Body)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ad88b0b208d03f3e5dee3a164ce33e39c}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Overloaded\+Mock\+Method\+Test, Can\+Overload\+On\+Constness\+In\+Macro\+Body)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ad889805da4cce67f2206590b750b27a2}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Works\+For\+Void\+Nullary)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ae2b01f0da84371fde518da4066b6a172}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Works\+For\+Non\+Void\+Nullary)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a2f1e932fb15621747f47d617efbe395e}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Works\+For\+Void\+Unary)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a31ed39f17667619d800693a7eb90682e}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Works\+For\+Non\+Void\+Binary)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a3396573237c21c4c397152bcfbb3beff}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Works\+For10\+Arguments)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_aa50eb1403be35a710eb62edf606ee2a1}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, As\+Std\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_adc6133bd5a20d1a4690f626d09619cb2}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, As\+Std\+Function\+Returns\+Reference)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_af727b49c865283e3ef0209fac721cfd7}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, As\+Std\+Function\+With\+Reference\+Parameter)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a42d6f78592eeda3f445ee31b87060bb3}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST\+\_\+\+SUITE}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a3bb5e53375733f2cc0d1d06ceb40b7bf}{Mock\+Method\+Mock\+Function\+Signature\+Types}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a88c4e5e48fe235ac3087beb88435133b}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, Is\+Mock\+Function\+Template\+Argument\+Deduced\+For\+Raw\+Signature)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a94319a6a5631c1563c9afe0c4d236c5d}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, Is\+Mock\+Function\+Template\+Argument\+Deduced\+For\+Std\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a28f804de83e366846db834d671ad6f1d}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, Is\+Mock\+Function\+Call\+Method\+Signature\+The\+Same\+For\+Raw\+Signature\+And\+Std\+Function)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a9184b1008e4fdfa91b2cc38b898ad655}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, Is\+Mock\+Function\+Template\+Argument\+Deduced\+For\+Alternate\+Callable)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a0a6f7ec68608c5d247f40cc420cc766c}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TYPED\+\_\+\+TEST}} (\mbox{\hyperlink{classtesting_1_1gmock__function__mocker__test_1_1MockMethodMockFunctionSignatureTest}{Mock\+Method\+Mock\+Function\+Signature\+Test}}, Is\+Mock\+Function\+Call\+Method\+Signature\+The\+Same\+For\+Alternate\+Callable)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a5c28161d4686a85b0e5bf4a1f2b961f6}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Mock\+Method\+Size\+Overhead)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a0f2c77c7f3e0b7d300c9792572c22d53}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Ensure\+No\+Unused\+Member\+Function)
+\item 
+void \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a17c41f11272dd3cba2213b4c6511743e}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::has\+Two\+Params}} (int, int)
+\item 
+void \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_ae968f77d989c5dac82cec4ea5f481054}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Maybe\+Throws}} ()
+\item 
+void \mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a2546265f3db7b8a7eac4dd5600eb41a7}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+Doesnt\+Throw}} () noexcept
+\item 
+\mbox{\hyperlink{namespacetesting_1_1gmock__function__mocker__test_a5d926481e1aade4e5cc17fbc59d1776e}{testing\+::gmock\+\_\+function\+\_\+mocker\+\_\+test\+::\+TEST}} (Mock\+Method\+Mock\+Function\+Test, Noexcept\+Specifier\+Preserved)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a6f2e034f79dc01715dc67fd3f7b2aeb5}\label{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a6f2e034f79dc01715dc67fd3f7b2aeb5} 
+\index{gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}!LEGACY\_MY\_MOCK\_METHODS1\_@{LEGACY\_MY\_MOCK\_METHODS1\_}}
+\index{LEGACY\_MY\_MOCK\_METHODS1\_@{LEGACY\_MY\_MOCK\_METHODS1\_}!gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}}
+\doxysubsubsection{\texorpdfstring{LEGACY\_MY\_MOCK\_METHODS1\_}{LEGACY\_MY\_MOCK\_METHODS1\_}}
+{\footnotesize\ttfamily \#define LEGACY\+\_\+\+MY\+\_\+\+MOCK\+\_\+\+METHODS1\+\_\+}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a411c69e9d489d590480f728d365ae450}{MOCK\_METHOD0}}(Overloaded,\ \textcolor{keywordtype}{void}());\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ MOCK\_CONST\_METHOD1(Overloaded,\ \textcolor{keywordtype}{int}(\textcolor{keywordtype}{int}\ n));\ \(\backslash\)}
+\DoxyCodeLine{\ \ MOCK\_METHOD2(Overloaded,\ \textcolor{keywordtype}{bool}(\textcolor{keywordtype}{bool}\ f,\ \textcolor{keywordtype}{int}\ n))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source_l00714}{714}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source}{gmock-\/function-\/mocker\+\_\+test.\+cc}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a9ae68063487fddb9f678e66728fae155}\label{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_a9ae68063487fddb9f678e66728fae155} 
+\index{gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}!MY\_MOCK\_METHODS1\_@{MY\_MOCK\_METHODS1\_}}
+\index{MY\_MOCK\_METHODS1\_@{MY\_MOCK\_METHODS1\_}!gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}}
+\doxysubsubsection{\texorpdfstring{MY\_MOCK\_METHODS1\_}{MY\_MOCK\_METHODS1\_}}
+{\footnotesize\ttfamily \#define MY\+\_\+\+MOCK\+\_\+\+METHODS1\+\_\+}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Overloaded,\ ());\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ MOCK\_METHOD(\textcolor{keywordtype}{int},\ Overloaded,\ (\textcolor{keywordtype}{int}),\ (\textcolor{keyword}{const}));\ \(\backslash\)}
+\DoxyCodeLine{\ \ MOCK\_METHOD(\textcolor{keywordtype}{bool},\ Overloaded,\ (\textcolor{keywordtype}{bool}\ f,\ \textcolor{keywordtype}{int}\ n))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source_l00709}{709}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source}{gmock-\/function-\/mocker\+\_\+test.\+cc}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_ac36252ad7584222cebc036d56465d652}\label{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_ac36252ad7584222cebc036d56465d652} 
+\index{gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}!MY\_MOCK\_METHODS2\_@{MY\_MOCK\_METHODS2\_}}
+\index{MY\_MOCK\_METHODS2\_@{MY\_MOCK\_METHODS2\_}!gmock-\/function-\/mocker\_test.cc@{gmock-\/function-\/mocker\_test.cc}}
+\doxysubsubsection{\texorpdfstring{MY\_MOCK\_METHODS2\_}{MY\_MOCK\_METHODS2\_}}
+{\footnotesize\ttfamily \#define MY\+\_\+\+MOCK\+\_\+\+METHODS2\+\_\+}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a6f76aeb56f492cfe538e177b6aa77965}{MOCK\_CONST\_METHOD1}}(Overloaded,\ \textcolor{keywordtype}{int}(\textcolor{keywordtype}{int}\ n));\ \(\backslash\)}
+\DoxyCodeLine{\ \ MOCK\_METHOD1(Overloaded,\ \textcolor{keywordtype}{int}(\textcolor{keywordtype}{int}\ n))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source_l00762}{762}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-function-mocker__test_8cc_source}{gmock-\/function-\/mocker\+\_\+test.\+cc}}.
+

@@ -1,0 +1,37 @@
+\chapter{Customization Points}
+\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README}{}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README}\index{Customization Points@{Customization Points}}
+\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md398}%
+\Hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md398}%
+ The custom directory is an injection point for custom user configurations.\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md399}{}\doxysection{\texorpdfstring{Header $<$tt$>$gtest.\+h$<$/tt$>$}{Header <tt>gtest.h</tt>}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md399}
+\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md400}{}\doxysubsection{\texorpdfstring{The following macros can be defined\+:}{The following macros can be defined:}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md400}
+
+\begin{DoxyItemize}
+\item {\ttfamily GTEST\+\_\+\+OS\+\_\+\+STACK\+\_\+\+TRACE\+\_\+\+GETTER\+\_\+} -\/ The name of an implementation of {\ttfamily Os\+Stack\+Trace\+Getter\+Interface}.
+\item {\ttfamily GTEST\+\_\+\+CUSTOM\+\_\+\+TEMPDIR\+\_\+\+FUNCTION\+\_\+} -\/ An override for {\ttfamily \doxylink{namespacetesting_aae1bbe7c3cc99bf56263d51d3982a52e}{testing\+::\+Temp\+Dir()}}. See {\ttfamily \doxylink{namespacetesting_aae1bbe7c3cc99bf56263d51d3982a52e}{testing\+::\+Temp\+Dir}} for semantics and signature.
+\end{DoxyItemize}\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md401}{}\doxysection{\texorpdfstring{Header $<$tt$>$gtest-\/port.\+h$<$/tt$>$}{Header <tt>gtest-port.h</tt>}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md401}
+The following macros can be defined\+:\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md402}{}\doxysubsection{\texorpdfstring{Logging\+:}{Logging:}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md402}
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8ef4cb4c465db8c15464aecc6d9510ef}{GTEST\+\_\+\+LOG\+\_\+(severity)}}
+\item {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab54343f0a36dc4cb0ce8a478dd7847b8}{GTEST\+\_\+\+CHECK\+\_\+(condition)}}
+\item Functions {\ttfamily Log\+To\+Stderr()} and {\ttfamily Flush\+Info\+Log()} have to be provided too.
+\end{DoxyItemize}\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md403}{}\doxysubsection{\texorpdfstring{Threading\+:}{Threading:}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md403}
+
+\begin{DoxyItemize}
+\item {\ttfamily GTEST\+\_\+\+HAS\+\_\+\+NOTIFICATION\+\_\+} -\/ Enabled if Notification is already provided.
+\item {\ttfamily GTEST\+\_\+\+HAS\+\_\+\+MUTEX\+\_\+\+AND\+\_\+\+THREAD\+\_\+\+LOCAL\+\_\+} -\/ Enabled if {\ttfamily Mutex} and {\ttfamily Thread\+Local} are already provided. Must also provide {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af0970cdea09f16dbb1dbfccdaa693eeb}{GTEST\+\_\+\+DECLARE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+(mutex)}} and {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a85d5cd679fdbe87383e7dfd1c6651eaa}{GTEST\+\_\+\+DEFINE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+(mutex)}}
+\item {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a149f693bd59fa1bc937af54c0cdcb32f}{GTEST\+\_\+\+EXCLUSIVE\+\_\+\+LOCK\+\_\+\+REQUIRED\+\_\+(locks)}}
+\item {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69abff5a4efdd07bd5faebe3dd318d06}{GTEST\+\_\+\+LOCK\+\_\+\+EXCLUDED\+\_\+(locks)}}
+\end{DoxyItemize}\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md404}{}\doxysubsection{\texorpdfstring{Underlying library support features}{Underlying library support features}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md404}
+
+\begin{DoxyItemize}
+\item {\ttfamily GTEST\+\_\+\+HAS\+\_\+\+CXXABI\+\_\+\+H\+\_\+}
+\end{DoxyItemize}\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md405}{}\doxysubsection{\texorpdfstring{Exporting API symbols\+:}{Exporting API symbols:}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md405}
+
+\begin{DoxyItemize}
+\item {\ttfamily GTEST\+\_\+\+API\+\_\+} -\/ Specifier for exported symbols.
+\end{DoxyItemize}\hypertarget{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md406}{}\doxysection{\texorpdfstring{Header $<$tt$>$gtest-\/printers.\+h$<$/tt$>$}{Header <tt>gtest-printers.h</tt>}}\label{md_build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2custom_2README_autotoc_md406}
+
+\begin{DoxyItemize}
+\item See documentation at {\ttfamily gtest/gtest-\/printers.\+h} for details on how to define a custom printer. 
+\end{DoxyItemize}

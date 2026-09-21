@@ -1,0 +1,57 @@
+\chapter{Google\+Test}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README}{}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README}\index{GoogleTest@{GoogleTest}}
+\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1280}%
+\Hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1280}%
+ \hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1281}{}\doxysubsection{\texorpdfstring{Announcements}{Announcements}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1281}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1282}{}\doxysubsubsection{\texorpdfstring{Documentation Updates}{Documentation Updates}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1282}
+Our documentation is now live on Git\+Hub Pages at \href{https://google.github.io/googletest/}{\texttt{ https\+://google.\+github.\+io/googletest/}}. We recommend browsing the documentation on Git\+Hub Pages rather than directly in the repository.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1283}{}\doxysubsubsection{\texorpdfstring{Release 1.\+17.\+0}{Release 1.17.0}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1283}
+\href{https://github.com/google/googletest/releases/tag/v1.17.0}{\texttt{ Release 1.\+17.\+0}} is now available.
+
+The 1.\+17.\+x branch \href{https://opensource.google/documentation/policies/cplusplus-support\#c_language_standard}{\texttt{ requires at least C++17}}.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1284}{}\doxysubsubsection{\texorpdfstring{Continuous Integration}{Continuous Integration}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1284}
+We use Google\textquotesingle{}s internal systems for continuous integration.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1285}{}\doxysubsubsection{\texorpdfstring{Coming Soon}{Coming Soon}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1285}
+
+\begin{DoxyItemize}
+\item We are planning to take a dependency on \href{https://github.com/abseil/abseil-cpp}{\texttt{ Abseil}}.
+\end{DoxyItemize}\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1286}{}\doxysection{\texorpdfstring{Welcome to $<$strong$>$\+Google\+Test$<$/strong$>$, Google\textquotesingle{}s C++ test framework!}{Welcome to <strong>GoogleTest</strong>, Google's C++ test framework!}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1286}
+This repository is a merger of the formerly separate Google\+Test and Google\+Mock projects. These were so closely related that it makes sense to maintain and release them together.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1287}{}\doxysubsection{\texorpdfstring{Getting Started}{Getting Started}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1287}
+See the \href{https://google.github.io/googletest/}{\texttt{ Google\+Test User\textquotesingle{}s Guide}} for documentation. We recommend starting with the \href{https://google.github.io/googletest/primer.html}{\texttt{ Google\+Test Primer}}.
+
+More information about building Google\+Test can be found at \doxysectlink{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README}{googletest/\+README.md}{0}.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1288}{}\doxysection{\texorpdfstring{Features}{Features}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1288}
+
+\begin{DoxyItemize}
+\item x\+Unit test framework\+: \textbackslash{} Googletest is based on the \href{https://en.wikipedia.org/wiki/XUnit}{\texttt{ x\+Unit}} testing framework, a popular architecture for unit testing
+\item Test discovery\+: \textbackslash{} Googletest automatically discovers and runs your tests, eliminating the need to manually register your tests
+\item Rich set of assertions\+: \textbackslash{} Googletest provides a variety of assertions, such as equality, inequality, exceptions, and more, making it easy to test your code
+\item User-\/defined assertions\+: \textbackslash{} You can define your own assertions with Googletest, making it simple to write tests that are specific to your code
+\item Death tests\+: \textbackslash{} Googletest supports death tests, which verify that your code exits in a certain way, making it useful for testing error-\/handling code
+\item Fatal and non-\/fatal failures\+: \textbackslash{} You can specify whether a test failure should be treated as fatal or non-\/fatal with Googletest, allowing tests to continue running even if a failure occurs
+\item Value-\/parameterized tests\+: \textbackslash{} Googletest supports value-\/parameterized tests, which run multiple times with different input values, making it useful for testing functions that take different inputs
+\item Type-\/parameterized tests\+: \textbackslash{} Googletest also supports type-\/parameterized tests, which run with different data types, making it useful for testing functions that work with different data types
+\item Various options for running tests\+: \textbackslash{} Googletest provides many options for running tests including running individual tests, running tests in a specific order and running tests in parallel
+\end{DoxyItemize}\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1289}{}\doxysection{\texorpdfstring{Supported Platforms}{Supported Platforms}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1289}
+Google\+Test follows Google\textquotesingle{}s \href{https://opensource.google/documentation/policies/cplusplus-support}{\texttt{ Foundational C++ Support Policy}}. See \href{https://github.com/google/oss-policies-info/blob/main/foundational-cxx-support-matrix.md}{\texttt{ this table}} for a list of currently supported versions of compilers, platforms, and build tools.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1290}{}\doxysection{\texorpdfstring{Who Is Using Google\+Test?}{Who Is Using GoogleTest?}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1290}
+In addition to many internal projects at Google, Google\+Test is also used by the following notable projects\+:
+
+
+\begin{DoxyItemize}
+\item The \href{https://www.chromium.org/}{\texttt{ Chromium projects}} (behind the Chrome browser and Chrome OS).
+\item The \href{https://llvm.org/}{\texttt{ LLVM}} compiler.
+\item \href{https://github.com/google/protobuf}{\texttt{ Protocol Buffers}}, Google\textquotesingle{}s data interchange format.
+\item The \href{https://opencv.org/}{\texttt{ Open\+CV}} computer vision library.
+\end{DoxyItemize}\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1291}{}\doxysection{\texorpdfstring{Related Open Source Projects}{Related Open Source Projects}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1291}
+\href{https://github.com/nholthaus/gtest-runner}{\texttt{ GTest Runner}} is a Qt5 based automated test-\/runner and Graphical User \doxylink{classInterface}{Interface} with powerful features for Windows and Linux platforms.
+
+\href{https://github.com/ospector/gtest-gbar}{\texttt{ Google\+Test UI}} is a test runner that runs your test binary, allows you to track its progress via a progress bar, and displays a list of test failures. Clicking on one shows failure text. Google\+Test UI is written in C\#.
+
+\href{https://github.com/kinow/gtest-tap-listener}{\texttt{ GTest TAP Listener}} is an event listener for Google\+Test that implements the \href{https://en.wikipedia.org/wiki/Test_Anything_Protocol}{\texttt{ TAP protocol}} for test result output. If your test runner understands TAP, you may find it useful.
+
+\href{https://github.com/google/gtest-parallel}{\texttt{ gtest-\/parallel}} is a test runner that runs tests from your binary in parallel to provide significant speed-\/up.
+
+\href{https://marketplace.visualstudio.com/items?itemName=DavidSchuldenfrei.gtest-adapter}{\texttt{ Google\+Test Adapter}} is a VS Code extension allowing to view Google\+Test in a tree view and run/debug your tests.
+
+\href{https://github.com/matepek/vscode-catch2-test-adapter}{\texttt{ C++ Test\+Mate}} is a VS Code extension allowing to view Google\+Test in a tree view and run/debug your tests.
+
+\href{https://pypi.org/project/cornichon/}{\texttt{ Cornichon}} is a small Gherkin DSL parser that generates stub code for Google\+Test.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1292}{}\doxysection{\texorpdfstring{Contributing Changes}{Contributing Changes}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2README_autotoc_md1292}
+Please read \href{https://github.com/google/googletest/blob/main/CONTRIBUTING.md}{\texttt{ {\ttfamily CONTRIBUTING.\+md}}} for details on how to contribute to this project.
+
+Happy testing! 

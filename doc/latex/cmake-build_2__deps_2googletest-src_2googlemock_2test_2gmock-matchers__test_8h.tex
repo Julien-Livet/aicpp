@@ -1,0 +1,90 @@
+\doxysection{cmake-\/build/\+\_\+deps/googletest-\/src/googlemock/test/gmock-\/matchers\+\_\+test.h File Reference}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h}{}\label{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h}\index{cmake-\/build/\_deps/googletest-\/src/googlemock/test/gmock-\/matchers\_test.h@{cmake-\/build/\_deps/googletest-\/src/googlemock/test/gmock-\/matchers\_test.h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$deque$>$}\newline
+{\ttfamily \#include $<$forward\+\_\+list$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}gmock/gmock-\/matchers.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/gmock-\/more-\/matchers.\+h"{}}\newline
+{\ttfamily \#include "{}gmock/gmock.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest-\/spi.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/gtest.\+h"{}}\newline
+Include dependency graph for gmock-\/matchers\+\_\+test.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__matchers__test_1_1ContainerHelper}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Container\+Helper}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1gmock__matchers__test_1_1GtestGreaterThanMatcher}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Gtest\+Greater\+Than\+Matcher$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__matchers__test_1_1GreaterThanMatcher}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Greater\+Than\+Matcher$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1gmock__matchers__test_1_1GTestMatcherTestP}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+GTest\+Matcher\+TestP}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test}{testing\+::gmock\+\_\+matchers\+\_\+test}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h_a6e10ba92fad898b691bd6e796da73bb8}{INSTANTIATE\+\_\+\+GTEST\+\_\+\+MATCHER\+\_\+\+TEST\+\_\+P}}(Test\+Suite)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structtesting_1_1gmock__matchers__test_1_1GtestGreaterThanMatcher}{Gtest\+Greater\+Than\+Matcher}}$<$ typename std\+::decay$<$ T $>$\+::type $>$ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a382b15c448c9e006bdf38943dd964cf0}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Gtest\+Greater\+Than}} (T \&\&rhs)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Describe}} (const \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ T $>$ \&m)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a96c18b92dede79060a7303fe5d178faf}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Describe\+Negation}} (const \mbox{\hyperlink{classtesting_1_1Matcher}{Matcher}}$<$ T $>$ \&m)
+\item 
+{\footnotesize template$<$typename Matcher\+Type , typename Value $>$ }\\std\+::string \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a54e38d7df891801181af4c2acc38c3d5}{testing\+::gmock\+\_\+matchers\+\_\+test\+::\+Explain}} (const Matcher\+Type \&m, const Value \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h_a6e10ba92fad898b691bd6e796da73bb8}\label{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h_a6e10ba92fad898b691bd6e796da73bb8} 
+\index{gmock-\/matchers\_test.h@{gmock-\/matchers\_test.h}!INSTANTIATE\_GTEST\_MATCHER\_TEST\_P@{INSTANTIATE\_GTEST\_MATCHER\_TEST\_P}}
+\index{INSTANTIATE\_GTEST\_MATCHER\_TEST\_P@{INSTANTIATE\_GTEST\_MATCHER\_TEST\_P}!gmock-\/matchers\_test.h@{gmock-\/matchers\_test.h}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_GTEST\_MATCHER\_TEST\_P}{INSTANTIATE\_GTEST\_MATCHER\_TEST\_P}}
+{\footnotesize\ttfamily \#define INSTANTIATE\+\_\+\+GTEST\+\_\+\+MATCHER\+\_\+\+TEST\+\_\+P(\begin{DoxyParamCaption}\item[{}]{Test\+Suite }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }TestSuite\#\#P\ =\ GTestMatcherTestP;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ INSTANTIATE\_TEST\_SUITE\_P(MatcherInterface,\ TestSuite\#\#P,\ Values(\textcolor{keyword}{false}));\ \(\backslash\)}
+\DoxyCodeLine{\ \ INSTANTIATE\_TEST\_SUITE\_P(GtestMatcher,\ TestSuite\#\#P,\ Values(\textcolor{keyword}{true}))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h_source_l00151}{151}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers__test_8h_source}{gmock-\/matchers\+\_\+test.\+h}}.
+

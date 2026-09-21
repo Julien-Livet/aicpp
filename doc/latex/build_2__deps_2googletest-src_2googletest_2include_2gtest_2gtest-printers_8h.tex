@@ -1,0 +1,301 @@
+\doxysection{build/\+\_\+deps/googletest-\/src/googletest/include/gtest/gtest-\/printers.h File Reference}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h}{}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h}\index{build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/printers.h@{build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/printers.h}}
+{\ttfamily \#include $<$any$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$variant$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/internal.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/custom/gtest-\/printers.\+h"{}}\newline
+Include dependency graph for gtest-\/printers.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1IsStdSpan}{testing\+::internal\+::\+Is\+Std\+Span$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ContainerPrinter}{testing\+::internal\+::\+Container\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1FunctionPointerPrinter}{testing\+::internal\+::\+Function\+Pointer\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1PointerPrinter}{testing\+::internal\+::\+Pointer\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup_1_1LookupBlocker}{testing\+::internal\+::internal\+\_\+stream\+\_\+operator\+\_\+without\+\_\+lexical\+\_\+name\+\_\+lookup\+::\+Lookup\+Blocker}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup_1_1StreamPrinter}{testing\+::internal\+::internal\+\_\+stream\+\_\+operator\+\_\+without\+\_\+lexical\+\_\+name\+\_\+lookup\+::\+Stream\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ProtobufPrinter}{testing\+::internal\+::\+Protobuf\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ConvertibleToIntegerPrinter}{testing\+::internal\+::\+Convertible\+To\+Integer\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ConvertibleToStringViewPrinter}{testing\+::internal\+::\+Convertible\+To\+String\+View\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1RawBytesPrinter}{testing\+::internal\+::\+Raw\+Bytes\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1FallbackPrinter}{testing\+::internal\+::\+Fallback\+Printer}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1FindFirstPrinter}{testing\+::internal\+::\+Find\+First\+Printer$<$ T, E, Printer, Printers $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1FindFirstPrinter_3_01T_00_01decltype_07Printer_1_1PrintValue_07std_17231b6251638573aa4521359a6075f3}{testing\+::internal\+::\+Find\+First\+Printer$<$ T, decltype(\+Printer\+::\+Print\+Value(std\+::declval$<$ const T \& $>$(), nullptr)), Printer, Printers... $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1FormatForComparison}{testing\+::internal\+::\+Format\+For\+Comparison$<$ To\+Print, Other\+Operand $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1FormatForComparison_3_01ToPrint_0fN_0e_00_01OtherOperand_01_4}{testing\+::internal\+::\+Format\+For\+Comparison$<$ To\+Print\mbox{[}\+N\mbox{]}, Other\+Operand $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter}{testing\+::internal\+::\+Universal\+Printer$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01const_01T_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ const T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01std_1_1any_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ std\+::any $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01std_1_1optional_3_01T_01_4_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ std\+::optional$<$ T $>$ $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01std_1_1nullopt__t_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ std\+::nullopt\+\_\+t $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01std_1_1variant_3_01T_8_8_8_01_4_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ std\+::variant$<$ T... $>$ $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01T_0fN_0e_4}{testing\+::internal\+::\+Universal\+Printer$<$ T\mbox{[}\+N\mbox{]}$>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalPrinter_3_01T_01_6_01_4}{testing\+::internal\+::\+Universal\+Printer$<$ T \& $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01T_01_6_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ T \& $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01std_1_1reference__wrapper_3_01T_01_4_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ std\+::reference\+\_\+wrapper$<$ T $>$ $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01T_0fN_0e_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ T\mbox{[}\+N\mbox{]}$>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01const_01char_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ const char \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01char_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ char \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01const_01char16__t_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ const char16\+\_\+t \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01char16__t_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ char16\+\_\+t \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01const_01char32__t_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ const char32\+\_\+t \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01char32__t_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ char32\+\_\+t \texorpdfstring{$\ast$}{*} $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1UniversalTersePrinter_3_01wchar__t_01_5_01_4}{testing\+::internal\+::\+Universal\+Terse\+Printer$<$ wchar\+\_\+t \texorpdfstring{$\ast$}{*} $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal}{testing\+::internal}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup}{testing\+::internal\+::internal\+\_\+stream\+\_\+operator\+\_\+without\+\_\+lexical\+\_\+name\+\_\+lookup}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_a79d4724b4bc2a1dd8493c366b5ca626a}{GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+}}(Char\+Type)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_ad6102ed2a0571d5196e606a061c16a10}{GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+STRING\+\_\+}}(Char\+Type,  Other\+String\+Type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typedef}} \+::std\+::vector$<$\+::std\+::string $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a4ad7524c75dfadde584df6d5b4742aa8}{testing\+::internal\+::\+Strings}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a30708fa2bacf11895b03bdb21eb72309}{testing\+::internal\+::\+Universal\+Print}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup_afce910f383b33abf71f911fd224503a2}{testing\+::internal\+::internal\+\_\+stream\+\_\+operator\+\_\+without\+\_\+lexical\+\_\+name\+\_\+lookup\+::operator$<$$<$}} (\mbox{\hyperlink{structtesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup_1_1LookupBlocker}{Lookup\+Blocker}}, \mbox{\hyperlink{structtesting_1_1internal_1_1internal__stream__operator__without__lexical__name__lookup_1_1LookupBlocker}{Lookup\+Blocker}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_aa287a88fcd0b97a13f7e243bbafe34f8}{testing\+::internal\+::\+Print\+Bytes\+In\+Object\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{obj\+\_\+bytes}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__stress__test_8cc_afd9db40e3361ae09188795e8cbe19752}{count}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a5e9f744566e02ba3f811cd51d3b8c4fb}{testing\+::internal\+::\+Print\+With\+Fallback}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3682f962ae0ec1c0eca6444ca0a09e91}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a85e08f00d443221e529a0a85a90fbaeb}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_ad33ad5ec1d4705104387c526ea7d59f1}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a67ea647ee3d547e58db86a9ee2bb797a}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_aeac30230dcc362221bdd07d61eaa4ec1}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+STRING\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}}, \+::std\+::string)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_acff745e750898f27701cc96a7238754c}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+STRING\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}}, \+::std\+::u16string)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a347584b3f2adc08d5e6b45c9004f2c16}{testing\+::internal\+::\+GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+STRING\+\_\+}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}}, \+::std\+::u32string)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T1}} , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T2}} $>$ }\\std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a91ab078f10adc669f09b7f604975c518}{testing\+::internal\+::\+Format\+For\+Comparison\+Failure\+Message}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T1}} \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T2}} \&)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_adb3c27150dbe661db0e0c4be27533460}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ab7524d6d3ab8c31b1deea88bf61783bb}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{c}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ad453af399370e394881079c243abacb4}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{c}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a476bd3d411d4f129620aaf8999c257c0}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{c}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a2979ac1ad3e05c51dcd7dca2eb34e6ce}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a6c50fd437a2ae2ff6f182ccd6c2744dd}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wc}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a724b53b854fd9b16e6604a422e8dea46}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{c}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a652e048970086752066fc943bb676668}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{c}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Float\+Type}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} \mbox{\hyperlink{namespacetesting_1_1internal_a99979e0fcb3073f8c1682b88a7a8d378}{testing\+::internal\+::\+Appropriate\+Resolution}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Float\+Type}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{val}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_aa7e7ffa9017368e4cdde898fea4d6daa}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{float}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{f}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a05931c88d9ccdb0138fc476ee8c5cece}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{double}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{d}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ac226053b96d7d61f9407e3b75bab07d9}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a553eec7bb50de01c9e91cac4accc606f}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a792cc5665a34619ed7a6d54711433456}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a1320096b116f8cc4b688acbd5b783051}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{signed}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a42c591f2164ad105b502a9262333aed2}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a7fae797c500d66d0f5a9db4f205e3416}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{unsigned}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a7f3f12f7f29d591bca504c6f43f192a1}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a3d7b09c7d5688f94db5554f0d9f16f35}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a90d42d917e8f0a2cb6c55865d33c8410}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a9bc1e33e81d7eec4fd38a162712c9416}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_afb038075e9e2166d1d9158a19e0eed23}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a8d41baa371fad3eb5a3dbe1bbc02c290}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ad3013b6b4c825edee9fe18ff1d982faa}{testing\+::internal\+::\+Print\+Raw\+Array\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{a}}\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__stress__test_8cc_afd9db40e3361ae09188795e8cbe19752}{count}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a4e273268cc790cd8c0241beb0aca49b0}{testing\+::internal\+::\+Print\+String\+To}} (\+::std\+::string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_af59b4f5d83276cd807c45063b14bad44}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \+::std\+::string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a40890ec6a2708e3df7929c9ffa50cead}{testing\+::internal\+::\+Print\+To}} (\+::std\+::string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a33c0b19510b50bf216624677381759f2}{testing\+::internal\+::\+Print\+U16\+String\+To}} (\+::std\+::u16string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a07c81c231dcb204cce575a83dc2cf36c}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \+::std\+::u16string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ae9aea21c9c72305fbd61e1bdbbe3287a}{testing\+::internal\+::\+Print\+To}} (\+::std\+::u16string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a352c67a16ce0f3fab3e6d64427d2a524}{testing\+::internal\+::\+Print\+U32\+String\+To}} (\+::std\+::u32string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a19b04c78a00c67cc13ee83584dbcb51c}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \+::std\+::u32string \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a4c9d69890209ef036daa7bb150c6d654}{testing\+::internal\+::\+Print\+To}} (\+::std\+::u32string\+\_\+view \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{s}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a76f564cf23190dbd5c9e088defdd092b}{testing\+::internal\+::\+Print\+To}} (std\+::nullptr\+\_\+t, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a5587d09db034bc597870ae86bd8c01f8}{testing\+::internal\+::\+Print\+To}} (std\+::reference\+\_\+wrapper$<$ T $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{ref}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_a70c297dd72402c12ec14cf8c5bd2951a}{testing\+::internal\+::\+Voidify\+Pointer}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_acaf2b2150e74287976650e80412fb923}{testing\+::internal\+::\+Voidify\+Pointer}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{volatile}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Ptr}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a525d401614692eb59ffa82e90c7263a9}{testing\+::internal\+::\+Print\+Smart\+Pointer}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Ptr}} \&ptr, std\+::ostream \texorpdfstring{$\ast$}{*}os, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Ptr}} , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}}  = typename std\+::enable\+\_\+if$<$!std\+::is\+\_\+void$<$\+T$>$\+::value \&\&                                             !std\+::is\+\_\+array$<$\+T$>$\+::value$>$\+::type$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a06c16d9c3986b3e28d762a56691d7324}{testing\+::internal\+::\+Print\+Smart\+Pointer}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Ptr}} \&ptr, std\+::ostream \texorpdfstring{$\ast$}{*}os, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{D}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a4052225063f1c55dd11e929147727038}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::unique\+\_\+ptr$<$ T, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{D}} $>$ \&ptr, std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a536d2062728e1d7b9337c1ba2c283365}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} std\+::shared\+\_\+ptr$<$ T $>$ \&ptr, std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a7174fbf5d6ba458afae675022c9aae1e}{testing\+::internal\+::\+Print\+Tuple\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&, std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}}, 0 $>$, \+::std\+::ostream \texorpdfstring{$\ast$}{*})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a3580971ab4571dc9a00f4ed0e17fd777}{testing\+::internal\+::\+Print\+Tuple\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{t}}, std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}} $>$, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$typename... Types$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a5628347cba9a345f56087fdb70930fc8}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \+::std\+::tuple$<$ Types... $>$ \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{t}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T1}} , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T2}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_af2c33928facbf2edf7af564278724d98}{testing\+::internal\+::\+Print\+To}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \+::std\+::pair$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T1}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{T2}} $>$ \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ad79d71c3110f8eb24ab352d68f29436a}{testing\+::internal\+::\+Universal\+Print\+Array}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \texorpdfstring{$\ast$}{*}begin, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{len}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a72c997dbd2c562110b2cb56c359decfa}{testing\+::internal\+::\+Universal\+Print\+Array}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}begin, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{len}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a837b7854d2561b755b90385d029097d1}{testing\+::internal\+::\+Universal\+Print\+Array}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}} \texorpdfstring{$\ast$}{*}begin, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{len}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_adae08a05fbb646ff85eb6225f85cafbf}{testing\+::internal\+::\+Universal\+Print\+Array}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}} \texorpdfstring{$\ast$}{*}begin, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{len}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ae31e146c35fd75afc6a9cc73ae2692d1}{testing\+::internal\+::\+Universal\+Print\+Array}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \texorpdfstring{$\ast$}{*}begin, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{len}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} T $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_afa92f5a284929dc3723e654a25feb7b9}{testing\+::internal\+::\+Universal\+Terse\+Print}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} T \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, \+::std\+::ostream \texorpdfstring{$\ast$}{*}os)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a6300aa1440d0019cf08d9a1f6efd4382}{testing\+::internal\+::\+Terse\+Print\+Prefix\+To\+Strings}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} \&, std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}}, 0 $>$, \mbox{\hyperlink{namespacetesting_1_1internal_a4ad7524c75dfadde584df6d5b4742aa8}{Strings}} \texorpdfstring{$\ast$}{*})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} I$>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_ab244273c02742a3fac45cc241befc536}{testing\+::internal\+::\+Terse\+Print\+Prefix\+To\+Strings}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{t}}, std\+::integral\+\_\+constant$<$ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{I}} $>$, \mbox{\hyperlink{namespacetesting_1_1internal_a4ad7524c75dfadde584df6d5b4742aa8}{Strings}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{strings}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} $>$ }\\\mbox{\hyperlink{namespacetesting_1_1internal_a4ad7524c75dfadde584df6d5b4742aa8}{Strings}} \mbox{\hyperlink{namespacetesting_1_1internal_a7e60d1478b074801c766eeee9be6c772}{testing\+::internal\+::\+Universal\+Terse\+Print\+Tuple\+Fields\+To\+Strings}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{Tuple}} \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\\+::std\+::string \mbox{\hyperlink{namespacetesting_aa5717bb1144edd1d262d310ba70c82ed}{testing\+::\+Print\+To\+String}} (const T \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_a79d4724b4bc2a1dd8493c366b5ca626a}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_a79d4724b4bc2a1dd8493c366b5ca626a} 
+\index{gtest-\/printers.h@{gtest-\/printers.h}!GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_@{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_}}
+\index{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_@{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_}!gtest-\/printers.h@{gtest-\/printers.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_}{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_POINTER\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+POINTER\+\_\+(\begin{DoxyParamCaption}\item[{}]{Char\+Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ OtherOperand>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }FormatForComparison<CharType*,\ OtherOperand>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ static\ ::std::string\ Format(CharType*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ return\ ::testing::PrintToString(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}));\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_source_l00404}{404}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_source}{gtest-\/printers.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_ad6102ed2a0571d5196e606a061c16a10}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_ad6102ed2a0571d5196e606a061c16a10} 
+\index{gtest-\/printers.h@{gtest-\/printers.h}!GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_@{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_}}
+\index{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_@{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_}!gtest-\/printers.h@{gtest-\/printers.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_}{GTEST\_IMPL\_FORMAT\_C\_STRING\_AS\_STRING\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+IMPL\+\_\+\+FORMAT\+\_\+\+C\+\_\+\+STRING\+\_\+\+AS\+\_\+\+STRING\+\_\+(\begin{DoxyParamCaption}\item[{}]{Char\+Type,  }\item[{}]{Other\+String\+Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }FormatForComparison<CharType*,\ OtherStringType>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ static\ ::std::string\ Format(CharType*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ return\ ::testing::PrintToString(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_source_l00431}{431}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-printers_8h_source}{gtest-\/printers.\+h}}.
+

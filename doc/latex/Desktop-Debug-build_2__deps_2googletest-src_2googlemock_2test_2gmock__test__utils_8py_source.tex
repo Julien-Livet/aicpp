@@ -1,0 +1,97 @@
+\doxysection{gmock\+\_\+test\+\_\+utils.\+py}
+\hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}{}\label{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source}\index{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googlemock/test/gmock\_test\_utils.py@{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googlemock/test/gmock\_test\_utils.py}}
+\mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00001}00001\ \textcolor{comment}{\#\ Copyright\ 2006,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00002}00002\ \textcolor{comment}{\#\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00003}00003\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00006}00006\ \textcolor{comment}{\#\ met:}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00007}00007\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00008}00008\ \textcolor{comment}{\#\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ distribution.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00015}00015\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00016}00016\ \textcolor{comment}{\#\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00017}00017\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00018}00018\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00019}00019\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00020}00020\ \textcolor{comment}{\#\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00021}00021\ \textcolor{comment}{\#\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00022}00022\ \textcolor{comment}{\#\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00023}00023\ \textcolor{comment}{\#\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00024}00024\ \textcolor{comment}{\#\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00025}00025\ \textcolor{comment}{\#\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00026}00026\ \textcolor{comment}{\#\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00027}00027\ \textcolor{comment}{\#\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00028}00028\ \textcolor{comment}{\#\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00030}00030\ \textcolor{stringliteral}{"{}"{}"{}Unit\ test\ utilities\ for\ Google\ C++\ Mocking\ Framework."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00032}00032\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00034}00034\ \textcolor{comment}{\#\ pylint:\ disable=C6204}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00035}00035\ \textcolor{keyword}{from}\ googletest.test\ \textcolor{keyword}{import}\ gtest\_test\_utils}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00038}00038\ \textcolor{keyword}{def\ }GetSourceDir():}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00039}00039\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ absolute\ path\ of\ the\ directory\ where\ the\ .py\ files\ are."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00041}00041\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7}{gtest\_test\_utils.GetSourceDir}}()}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00044}00044\ \textcolor{keyword}{def\ }GetTestExecutablePath(executable\_name):}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00045}00045\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ absolute\ path\ of\ the\ test\ binary\ given\ its\ name.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00046}00046\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ The\ function\ will\ print\ a\ message\ and\ abort\ the\ program\ if\ the\ resulting\ file}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ doesn't\ exist.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00049}00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ executable\_name:\ name\ of\ the\ test\ binary\ that\ the\ test\ script\ runs.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00052}00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ The\ absolute\ path\ of\ the\ test\ binary.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00057}00057\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{gtest\_test\_utils.GetTestExecutablePath}}(executable\_name)}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00060}00060\ \textcolor{keyword}{def\ }GetExitStatus(exit\_code):}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00061}00061\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ argument\ to\ exit(),\ or\ -\/1\ if\ exit()\ wasn't\ called.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00062}00062\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ exit\_code:\ the\ result\ value\ of\ os.system(command).}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00067}00067\ \ \ \textcolor{keywordflow}{if}\ os.name\ ==\ \textcolor{stringliteral}{'nt'}:}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00068}00068\ \ \ \ \ \textcolor{comment}{\#\ On\ Windows,\ os.WEXITSTATUS()\ doesn't\ work\ and\ os.system()\ returns}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00069}00069\ \ \ \ \ \textcolor{comment}{\#\ the\ argument\ to\ exit()\ directly.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{return}\ exit\_code}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00071}00071\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00072}00072\ \ \ \ \ \textcolor{comment}{\#\ On\ Unix,\ os.WEXITSTATUS()\ must\ be\ used\ to\ extract\ the\ exit\ status}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00073}00073\ \ \ \ \ \textcolor{comment}{\#\ from\ the\ result\ of\ os.system().}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}\ os.WIFEXITED(exit\_code):}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00075}00075\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os.WEXITSTATUS(exit\_code)}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00077}00077\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00080}00080\ \textcolor{comment}{\#\ Exposes\ utilities\ from\ gtest\_test\_utils.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00081}00081\ Subprocess\ =\ \mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{gtest\_test\_utils.Subprocess}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00082}00082\ TestCase\ =\ gtest\_test\_utils.TestCase}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00083}00083\ environ\ =\ gtest\_test\_utils.environ}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00084}00084\ SetEnvVar\ =\ gtest\_test\_utils.SetEnvVar}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00085}00085\ PREMATURE\_EXIT\_FILE\_ENV\_VAR\ =\ gtest\_test\_utils.PREMATURE\_EXIT\_FILE\_ENV\_VAR}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00088}00088\ \textcolor{keyword}{def\ }Main():}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00089}00089\ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ the\ unit\ test."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googlemock_2test_2gmock__test__utils_8py_source_l00091}00091\ \ \ \mbox{\hyperlink{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483}{gtest\_test\_utils.Main}}()}
+
+\end{DoxyCode}

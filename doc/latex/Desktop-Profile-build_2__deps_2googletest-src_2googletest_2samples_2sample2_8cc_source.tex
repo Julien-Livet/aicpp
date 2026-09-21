@@ -1,0 +1,60 @@
+\doxysection{sample2.\+cc}
+\hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source}{}\label{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source}\index{Desktop-\/Profile-\/build/\_deps/googletest-\/src/googletest/samples/sample2.cc@{Desktop-\/Profile-\/build/\_deps/googletest-\/src/googletest/samples/sample2.cc}}
+\mbox{\hyperlink{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2005,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00030}00030\ \textcolor{comment}{//\ A\ sample\ program\ demonstrating\ using\ Google\ C++\ testing\ framework.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Desktop-Release-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8h}{sample2.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00034}00034\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00036}00036\ \textcolor{comment}{//\ Clones\ a\ 0-\/terminated\ C\ string,\ allocating\ memory\ using\ new.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00037}00037\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{classMyString_a40753dcfa3314a8993f32bdd75d67ce2}{MyString::CloneCString}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ a\_c\_string)\ \{}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00038}00038\ \ \ \textcolor{keywordflow}{if}\ (a\_c\_string\ ==\ \textcolor{keyword}{nullptr})\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00040}00040\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen(a\_c\_string);}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00041}00041\ \ \ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ clone\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[len\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00042}00042\ \ \ memcpy(clone,\ a\_c\_string,\ len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00044}00044\ \ \ \textcolor{keywordflow}{return}\ clone;}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00047}00047\ \textcolor{comment}{//\ Sets\ the\ 0-\/terminated\ C\ string\ this\ MyString\ object}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00048}00048\ \textcolor{comment}{//\ represents.}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00049}00049\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMyString_a521c4cd7eccac6ce554d8a51505e4970}{MyString::Set}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ a\_c\_string)\ \{}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00050}00050\ \ \ \textcolor{comment}{//\ Makes\ sure\ this\ works\ when\ c\_string\ ==\ c\_string\_}}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00051}00051\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ temp\ =\ \mbox{\hyperlink{classMyString_a40753dcfa3314a8993f32bdd75d67ce2}{MyString::CloneCString}}(a\_c\_string);}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00052}00052\ \ \ \textcolor{keyword}{delete}[]\ c\_string\_;}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00053}00053\ \ \ c\_string\_\ =\ temp;}
+\DoxyCodeLine{\Hypertarget{Desktop-Profile-build_2__deps_2googletest-src_2googletest_2samples_2sample2_8cc_source_l00054}00054\ \}}
+
+\end{DoxyCode}

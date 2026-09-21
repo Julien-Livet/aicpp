@@ -1,0 +1,83 @@
+\chapter{Quickstart\+: Building with Bazel}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel}{}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel}\index{Quickstart: Building with Bazel@{Quickstart: Building with Bazel}}
+\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1944}%
+\Hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1944}%
+ This tutorial aims to get you up and running with Google\+Test using the Bazel build system. If you\textquotesingle{}re using Google\+Test for the first time or need a refresher, we recommend this tutorial as a starting point.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1945}{}\doxysection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1945}
+To complete this tutorial, you\textquotesingle{}ll need\+:
+
+
+\begin{DoxyItemize}
+\item A compatible operating system (e.\+g. Linux, mac\+OS, Windows).
+\item A compatible C++ compiler that supports at least C++17.
+\item \href{https://bazel.build/}{\texttt{ Bazel}} 7.\+0 or higher, the preferred build system used by the Google\+Test team.
+\end{DoxyItemize}
+
+See \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2platforms}{Supported Platforms}{0} for more information about platforms compatible with Google\+Test.
+
+If you don\textquotesingle{}t already have Bazel installed, see the \href{https://bazel.build/install}{\texttt{ Bazel installation guide}}.
+
+\{\+: .callout .note\} Note\+: The terminal commands in this tutorial show a Unix shell prompt, but the commands work on the Windows command line as well.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1946}{}\doxysection{\texorpdfstring{Set up a Bazel workspace}{Set up a Bazel workspace}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1946}
+A \href{https://docs.bazel.build/versions/main/build-ref.html\#workspace}{\texttt{ Bazel workspace}} is a directory on your filesystem that you use to manage source files for the software you want to build. Each workspace directory has a text file named {\ttfamily MODULE.\+bazel} which may be empty, or may contain references to external dependencies required to build the outputs.
+
+First, create a directory for your workspace\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mkdir\ my\_workspace\ \&\&\ cd\ my\_workspace}
+
+\end{DoxyCode}
+
+
+Next, you’ll create the {\ttfamily MODULE.\+bazel} file to specify dependencies. As of Bazel 7.\+0, the recommended way to consume Google\+Test is through the \href{https://registry.bazel.build/modules/googletest}{\texttt{ Bazel Central Registry}}. To do this, create a {\ttfamily MODULE.\+bazel} file in the root directory of your Bazel workspace with the following content\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ MODULE.bazel}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Choose\ the\ most\ recent\ version\ available\ at}
+\DoxyCodeLine{\#\ https://registry.bazel.build/modules/googletest}
+\DoxyCodeLine{bazel\_dep(name\ =\ "{}googletest"{},\ version\ =\ "{}1.17.0"{})}
+
+\end{DoxyCode}
+
+
+Now you\textquotesingle{}re ready to build C++ code that uses Google\+Test.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1947}{}\doxysection{\texorpdfstring{Create and run a binary}{Create and run a binary}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2quickstart-bazel_autotoc_md1947}
+With your Bazel workspace set up, you can now use Google\+Test code within your own project.
+
+As an example, create a file named {\ttfamily hello\+\_\+test.\+cc} in your {\ttfamily my\+\_\+workspace} directory with the following contents\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gtest/gtest.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Demonstrate\ some\ basic\ assertions.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(HelloTest,\ BasicAssertions)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Expect\ two\ strings\ not\ to\ be\ equal.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_aee7e9c42f55549dbc0dfc42391eb9775}{EXPECT\_STRNE}}(\textcolor{stringliteral}{"{}hello"{}},\ \textcolor{stringliteral}{"{}world"{}});}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Expect\ equality.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a4159019abda84f5366acdb7604ff220a}{EXPECT\_EQ}}(7\ *\ 6,\ 42);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Google\+Test provides \href{primer.md\#assertions}{\texttt{ assertions}} that you use to test the behavior of your code. The above sample includes the main Google\+Test header file and demonstrates some basic assertions.
+
+To build the code, create a file named {\ttfamily BUILD} in the same directory with the following contents\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cc\_test(}
+\DoxyCodeLine{\ \ \ \ name\ =\ "{}hello\_test"{},}
+\DoxyCodeLine{\ \ \ \ size\ =\ "{}small"{},}
+\DoxyCodeLine{\ \ \ \ srcs\ =\ ["{}hello\_test.cc"{}],}
+\DoxyCodeLine{\ \ \ \ deps\ =\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}@googletest//:gtest"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}@googletest//:gtest\_main"{},}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+This {\ttfamily cc\+\_\+test} rule declares the C++ test binary you want to build, and links to the Google\+Test library ({\ttfamily @googletest//\+:gtest"{}$<$/tt$>$) and the Google\+Test $<$tt$>$main()$<$/tt$>$ function ($<$tt$>$\textbackslash{}@googletest//\+:gtest\+\_\+main$<$/tt$>$). For more information about Bazel $<$tt$>$\+BUILD$<$/tt$>$ files, see the $<$a href="{}\href{https://docs.bazel.build/versions/main/tutorial/cpp.html}{\texttt{ https\+://docs.\+bazel.\+build/versions/main/tutorial/cpp.\+html}}"{} $>$\+Bazel C++ Tutorial$<$/a$>$.  \{\+: .\+callout .\+note\} \+NOTE\+: In the example below, we assume Clang or GCC and set $<$tt$>$-\/-\/cxxopt=-\/std=c++17$<$/tt$>$ to ensure that Google\+Test is compiled as C++17 instead of the compiler\textquotesingle{}s default setting. For MSVC, the equivalent would be $<$tt$>$-\/-\/cxxopt=/std\+:c++17$<$/tt$>$. See @ref "{}/home/julien-\/livet/\+Documents/\+Git\+Hub/aicpp/\+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/docs/platforms.md"{} "{}Supported Platforms"{} for more details on supported language versions.  \+Now you can build and run your test\+:  $<$pre$>$ $<$strong$>$\$ bazel test -\/-\/cxxopt=-\/std=c++17 -\/-\/test\+\_\+output=all //\+:hello\+\_\+test$<$/strong$>$ \+INFO\+: Analyzed target //\+:hello\+\_\+test (26 packages loaded, 362 targets configured). \+INFO\+: Found 1 test target... \+INFO\+: From Testing //\+:hello\+\_\+test\+: ==================== Test output for //\+:hello\+\_\+test\+: \+Running main() from gmock\+\_\+main.\+cc \mbox{[}==========\mbox{]} Running 1 test from 1 test suite. \mbox{[}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\mbox{]} Global test environment set-\/up. \mbox{[}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\mbox{]} 1 test from Hello\+Test \mbox{[} RUN      \mbox{]} Hello\+Test.\+Basic\+Assertions \mbox{[}       OK \mbox{]} Hello\+Test.\+Basic\+Assertions (0 ms) \mbox{[}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\mbox{]} 1 test from Hello\+Test (0 ms total)  \mbox{[}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\mbox{]} Global test environment tear-\/down \mbox{[}==========\mbox{]} 1 test from 1 test suite ran. (0 ms total) \mbox{[}  PASSED  \mbox{]} 1 test. ================================================================================ \+Target //\+:hello\+\_\+test up-\/to-\/date\+:   bazel-\/bin/hello\+\_\+test \+INFO\+: Elapsed time\+: 4.\+190s, Critical Path\+: 3.\+05s \+INFO\+: 27 processes\+: 8 internal, 19 linux-\/sandbox. \+INFO\+: Build completed successfully, 27 total actions //\+:hello\+\_\+test                                                     PASSED in 0.\+1s  \+INFO\+: Build completed successfully, 27 total actions $<$/pre$>$  \+Congratulations! You\textquotesingle{}ve successfully built and run a test binary using \+Google\+Test.  @section autotoc\+\_\+md1948 Next steps  \texorpdfstring{$\ast$}{*}   @ref "{}/home/julien-\/livet/\+Documents/\+Git\+Hub/aicpp/\+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/docs/primer.md"{} "{}Check out the Primer"{} to start learning how to write simple     tests. \texorpdfstring{$\ast$}{*}   @ref "{}/home/julien-\/livet/\+Documents/\+Git\+Hub/aicpp/\+Desktop-\/\+Release-\/build/\+\_\+deps/googletest-\/src/docs/samples.md"{} "{}See the code samples"{} for more examples showing how to use a variety of Google\+Test features. }

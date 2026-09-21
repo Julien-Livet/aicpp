@@ -1,0 +1,283 @@
+\chapter{Legacy g\+Mock FAQ}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq}{}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq}\index{Legacy gMock FAQ@{Legacy gMock FAQ}}
+\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1476}%
+\Hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1476}%
+ \hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1477}{}\doxysubsection{\texorpdfstring{When I call a method on my mock object, the method for the real object is invoked instead. What\textquotesingle{}s the problem?}{When I call a method on my mock object, the method for the real object is invoked instead. What's the problem?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1477}
+In order for a method to be mocked, it must be {\itshape virtual}, unless you use the \href{gmock_cook_book.md\#MockingNonVirtualMethods}{\texttt{ high-\/perf dependency injection technique}}.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1478}{}\doxysubsection{\texorpdfstring{Can I mock a variadic function?}{Can I mock a variadic function?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1478}
+You cannot mock a variadic function (i.\+e. a function taking ellipsis ({\ttfamily ...}) arguments) directly in g\+Mock.
+
+The problem is that in general, there is {\itshape no way} for a mock object to know how many arguments are passed to the variadic method, and what the arguments\textquotesingle{} types are. Only the {\itshape author of the base class} knows the protocol, and we cannot look into his or her head.
+
+Therefore, to mock such a function, the {\itshape user} must teach the mock object how to figure out the number of arguments and their types. One way to do it is to provide overloaded versions of the function.
+
+Ellipsis arguments are inherited from C and not really a C++ feature. They are unsafe to use and don\textquotesingle{}t work with arguments that have constructors or destructors. Therefore we recommend to avoid them in C++ as much as possible.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1479}{}\doxysubsection{\texorpdfstring{MSVC gives me warning C4301 or C4373 when I define a mock method with a const parameter. Why?}{MSVC gives me warning C4301 or C4373 when I define a mock method with a const parameter. Why?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1479}
+If you compile this using Microsoft Visual C++ 2005 SP1\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Foo\ \{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Bar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MockFoo\ :\ \textcolor{keyword}{public}\ Foo\ \{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Bar,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+You may get the following warning\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{warning\ C4301:\ 'MockFoo::Bar':\ overriding\ virtual\ function\ only\ differs\ from\ 'Foo::Bar'\ by\ const/volatile\ qualifier}
+
+\end{DoxyCode}
+
+
+This is a MSVC bug. The same code compiles fine with gcc, for example. If you use Visual C++ 2008 SP1, you would get the warning\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{warning\ C4373:\ 'MockFoo::Bar':\ virtual\ function\ overrides\ 'Foo::Bar',\ previous\ versions\ of\ the\ compiler\ did\ not\ override\ when\ parameters\ only\ differed\ by\ const/volatile\ qualifiers}
+
+\end{DoxyCode}
+
+
+In C++, if you {\itshape declare} a function with a {\ttfamily const} parameter, the {\ttfamily const} modifier is ignored. Therefore, the {\ttfamily Foo} base class above is equivalent to\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Foo\ \{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Bar(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}})\ =\ 0;\ \ \textcolor{comment}{//\ int\ or\ const\ int?\ \ Makes\ no\ difference.}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+In fact, you can {\itshape declare} {\ttfamily Bar()} with an {\ttfamily int} parameter, and define it with a {\ttfamily const int} parameter. The compiler will still match them up.
+
+Since making a parameter {\ttfamily const} is meaningless in the method declaration, we recommend to remove it in both {\ttfamily Foo} and {\ttfamily \doxylink{classMockFoo}{Mock\+Foo}}. That should workaround the VC bug.
+
+Note that we are talking about the {\itshape top-\/level} {\ttfamily const} modifier here. If the function parameter is passed by pointer or reference, declaring the pointee or referee as {\ttfamily const} is still meaningful. For example, the following two declarations are {\itshape not} equivalent\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Bar(\textcolor{keywordtype}{int}*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}});\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Neither\ p\ nor\ *p\ is\ const.}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Bar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}});\ \ \textcolor{comment}{//\ p\ is\ not\ const,\ but\ *p\ is.}}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1480}{}\doxysubsection{\texorpdfstring{I can\textquotesingle{}t figure out why g\+Mock thinks my expectations are not satisfied. What should I do?}{I can't figure out why gMock thinks my expectations are not satisfied. What should I do?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1480}
+You might want to run your test with {\ttfamily -\/-\/gmock\+\_\+verbose=info}. This flag lets g\+Mock print a trace of every mock function call it receives. By studying the trace, you\textquotesingle{}ll gain insights on why the expectations you set are not met.
+
+If you see the message "{}\+The mock function has no default action set, and its return type has no default value set."{}, then try \href{gmock_cheat_sheet.md\#OnCall}{\texttt{ adding a default action}}. Due to a known issue, unexpected calls on mocks without default actions don\textquotesingle{}t print out a detailed comparison between the actual arguments and the expected arguments.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1481}{}\doxysubsection{\texorpdfstring{My program crashed and $<$tt$>$\+Scoped\+Mock\+Log$<$/tt$>$ spit out tons of messages. Is it a g\+Mock bug?}{My program crashed and <tt>ScopedMockLog</tt> spit out tons of messages. Is it a gMock bug?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1481}
+g\+Mock and {\ttfamily Scoped\+Mock\+Log} are likely doing the right thing here.
+
+When a test crashes, the failure signal handler will try to log a lot of information (the stack trace, and the address map, for example). The messages are compounded if you have many threads with depth stacks. When {\ttfamily Scoped\+Mock\+Log} intercepts these messages and finds that they don\textquotesingle{}t match any expectations, it prints an error for each of them.
+
+You can learn to ignore the errors, or you can rewrite your expectations to make your test more robust, for example, by adding something like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::AnyNumber;}
+\DoxyCodeLine{using\ ::testing::Not;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Ignores\ any\ log\ not\ done\ by\ us.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(log,\ \mbox{\hyperlink{namespacetesting_1_1internal_a8a57ce0412334a3f487bbaa8321febbe}{Log}}(\_,\ Not(\mbox{\hyperlink{namespacetesting_1_1internal_a4fe0a2f1ea296e6d92e6dcf8942818d6}{EndsWith}}(\textcolor{stringliteral}{"{}/my\_file.cc"{}})),\ \_))}
+\DoxyCodeLine{\ \ \ \ \ \ .Times(\mbox{\hyperlink{namespacetesting_aa1f8a6371097e1e9b8d6866020f35252}{AnyNumber}}());}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1482}{}\doxysubsection{\texorpdfstring{How can I assert that a function is NEVER called?}{How can I assert that a function is NEVER called?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1482}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar(\_))}
+\DoxyCodeLine{\ \ \ \ \ \ .Times(0);}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1483}{}\doxysubsection{\texorpdfstring{I have a failed test where g\+Mock tells me TWICE that a particular expectation is not satisfied. Isn\textquotesingle{}t this redundant?}{I have a failed test where gMock tells me TWICE that a particular expectation is not satisfied. Isn't this redundant?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1483}
+When g\+Mock detects a failure, it prints relevant information (the mock function arguments, the state of relevant expectations, and etc) to help the user debug. If another failure is detected, g\+Mock will do the same, including printing the state of relevant expectations.
+
+Sometimes an expectation\textquotesingle{}s state didn\textquotesingle{}t change between two failures, and you\textquotesingle{}ll see the same description of the state twice. They are however {\itshape not} redundant, as they refer to {\itshape different points in time}. The fact they are the same {\itshape is} interesting information.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1484}{}\doxysubsection{\texorpdfstring{I get a heapcheck failure when using a mock object, but using a real object is fine. What can be wrong?}{I get a heapcheck failure when using a mock object, but using a real object is fine. What can be wrong?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1484}
+Does the class (hopefully a pure interface) you are mocking have a virtual destructor?
+
+Whenever you derive from a base class, make sure its destructor is virtual. Otherwise Bad Things will happen. Consider the following code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\mbox{\hyperlink{classBase}{Base}}\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Not\ virtual,\ but\ should\ be.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classBase}{\string~Base}}()\ \{\ ...\ \}}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Derived\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBase}{Base}}\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ std::string\ value\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classBase}{Base}}*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}}\ =\ \textcolor{keyword}{new}\ Derived;}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}};\ \ \textcolor{comment}{//\ Surprise!\ \string~Base()\ will\ be\ called,\ but\ \string~Derived()\ will\ not}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/\ value\_\ is\ leaked.}}
+
+\end{DoxyCode}
+
+
+By changing {\ttfamily \texorpdfstring{$\sim$}{\string~}\+Base()} to virtual, {\ttfamily \texorpdfstring{$\sim$}{\string~}\+Derived()} will be correctly called when {\ttfamily delete p} is executed, and the heap checker will be happy.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1485}{}\doxysubsection{\texorpdfstring{The "{}newer expectations override older ones"{} rule makes writing expectations awkward. Why does g\+Mock do that?}{The "newer expectations override older ones" rule makes writing expectations awkward. Why does gMock do that?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1485}
+When people complain about this, often they are referring to code like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ foo.Bar()\ should\ be\ called\ twice,\ return\ 1\ the\ first\ time,\ and\ return}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 2\ the\ second\ time.\ \ However,\ I\ have\ to\ write\ the\ expectations\ in\ the}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ reverse\ order.\ \ This\ sucks\ big\ time!!!}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar())}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(2))}
+\DoxyCodeLine{\ \ \ \ \ \ .RetiresOnSaturation();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar())}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(1))}
+\DoxyCodeLine{\ \ \ \ \ \ .RetiresOnSaturation();}
+
+\end{DoxyCode}
+
+
+The problem, is that they didn\textquotesingle{}t pick the {\bfseries{best}} way to express the test\textquotesingle{}s intent.
+
+By default, expectations don\textquotesingle{}t have to be matched in {\itshape any} particular order. If you want them to match in a certain order, you need to be explicit. This is g\+Mock\textquotesingle{}s (and j\+Mock\textquotesingle{}s) fundamental philosophy\+: it\textquotesingle{}s easy to accidentally over-\/specify your tests, and we want to make it harder to do so.
+
+There are two better ways to write the test spec. You could either put the expectations in sequence\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ foo.Bar()\ should\ be\ called\ twice,\ return\ 1\ the\ first\ time,\ and\ return}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 2\ the\ second\ time.\ \ Using\ a\ sequence,\ we\ can\ write\ the\ expectations}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ in\ their\ natural\ order.}}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ InSequence\ s;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(1))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .RetiresOnSaturation();}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(2))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .RetiresOnSaturation();}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+or you can put the sequence of actions in the same expectation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ foo.Bar()\ should\ be\ called\ twice,\ return\ 1\ the\ first\ time,\ and\ return}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ 2\ the\ second\ time.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar())}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(1))}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(2))}
+\DoxyCodeLine{\ \ \ \ \ \ .RetiresOnSaturation();}
+
+\end{DoxyCode}
+
+
+Back to the original questions\+: why does g\+Mock search the expectations (and {\ttfamily ON\+\_\+\+CALL}s) from back to front? Because this allows a user to set up a mock\textquotesingle{}s behavior for the common case early (e.\+g. in the mock\textquotesingle{}s constructor or the test fixture\textquotesingle{}s set-\/up phase) and customize it with more specific rules later. If g\+Mock searches from front to back, this very useful pattern won\textquotesingle{}t be possible.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1486}{}\doxysubsection{\texorpdfstring{g\+Mock prints a warning when a function without EXPECT\+\_\+\+CALL is called, even if I have set its behavior using ON\+\_\+\+CALL. Would it be reasonable not to show the warning in this case?}{gMock prints a warning when a function without EXPECT\_CALL is called, even if I have set its behavior using ON\_CALL. Would it be reasonable not to show the warning in this case?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1486}
+When choosing between being neat and being safe, we lean toward the latter. So the answer is that we think it\textquotesingle{}s better to show the warning.
+
+Often people write {\ttfamily ON\+\_\+\+CALL}s in the mock object\textquotesingle{}s constructor or {\ttfamily Set\+Up()}, as the default behavior rarely changes from test to test. Then in the test body they set the expectations, which are often different for each test. Having an {\ttfamily ON\+\_\+\+CALL} in the set-\/up part of a test doesn\textquotesingle{}t mean that the calls are expected. If there\textquotesingle{}s no {\ttfamily EXPECT\+\_\+\+CALL} and the method is called, it\textquotesingle{}s possibly an error. If we quietly let the call go through without notifying the user, bugs may creep in unnoticed.
+
+If, however, you are sure that the calls are OK, you can write
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar(\_))}
+\DoxyCodeLine{\ \ \ \ \ \ .WillRepeatedly(...);}
+
+\end{DoxyCode}
+
+
+instead of
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ Bar(\_))}
+\DoxyCodeLine{\ \ \ \ \ \ .WillByDefault(...);}
+
+\end{DoxyCode}
+
+
+This tells g\+Mock that you do expect the calls and no warning should be printed.
+
+Also, you can control the verbosity by specifying {\ttfamily -\/-\/gmock\+\_\+verbose=error}. Other values are {\ttfamily info} and {\ttfamily warning}. If you find the output too noisy when debugging, just choose a less verbose level.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1487}{}\doxysubsection{\texorpdfstring{How can I delete the mock function\textquotesingle{}s argument in an action?}{How can I delete the mock function's argument in an action?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1487}
+If your mock function takes a pointer argument and you want to delete that argument, you can use \doxylink{namespacetesting_a07fc507392118e742af3b0463709c943}{testing\+::\+Delete\+Arg$<$\+N$>$()} to delete the N\textquotesingle{}th (zero-\/indexed) argument\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Bar,\ (X*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},\ \textcolor{keyword}{const}\ Y\&\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}}));}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_foo\_,\ Bar(\_,\ \_))}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(testing::DeleteArg<0>()));}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1488}{}\doxysubsection{\texorpdfstring{How can I perform an arbitrary action on a mock function\textquotesingle{}s argument?}{How can I perform an arbitrary action on a mock function's argument?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1488}
+If you find yourself needing to perform some action that\textquotesingle{}s not supported by g\+Mock directly, remember that you can define your own actions using \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cook__book_NewMonoActions}{\`{}\+Make\+Action()\`{}}{2} or \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cook__book_NewPolyActions}{\`{}\+Make\+Polymorphic\+Action()\`{}}{2}, or you can write a stub function and invoke it using \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cook__book_FunctionsAsActions}{\`{}\+Invoke()\`{}}{2}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{using\ ::testing::Invoke;}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Bar,\ (X*\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6bc6b007533335efe02bafff799ec64c}{p}}));}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_foo\_,\ Bar(\_))}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_af6a7c9befa6ff00198434995586151c3}{Invoke}}(MyAction(...)));}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1489}{}\doxysubsection{\texorpdfstring{My code calls a static/global function. Can I mock it?}{My code calls a static/global function. Can I mock it?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1489}
+You can, but you need to make some changes.
+
+In general, if you find yourself needing to mock a static function, it\textquotesingle{}s a sign that your modules are too tightly coupled (and less flexible, less reusable, less testable, etc). You are probably better off defining a small interface and call the function through that interface, which then can be easily mocked. It\textquotesingle{}s a bit of work initially, but usually pays for itself quickly.
+
+This Google Testing Blog \href{https://testing.googleblog.com/2008/06/defeat-static-cling.html}{\texttt{ post}} says it excellently. Check it out.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1490}{}\doxysubsection{\texorpdfstring{My mock object needs to do complex stuff. It\textquotesingle{}s a lot of pain to specify the actions. g\+Mock sucks!}{My mock object needs to do complex stuff. It's a lot of pain to specify the actions. gMock sucks!}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1490}
+I know it\textquotesingle{}s not a question, but you get an answer for free any way. \+:-\/)
+
+With g\+Mock, you can create mocks in C++ easily. And people might be tempted to use them everywhere. Sometimes they work great, and sometimes you may find them, well, a pain to use. So, what\textquotesingle{}s wrong in the latter case?
+
+When you write a test without using mocks, you exercise the code and assert that it returns the correct value or that the system is in an expected state. This is sometimes called "{}state-\/based testing"{}.
+
+Mocks are great for what some call "{}interaction-\/based"{} testing\+: instead of checking the system state at the very end, mock objects verify that they are invoked the right way and report an error as soon as it arises, giving you a handle on the precise context in which the error was triggered. This is often more effective and economical to do than state-\/based testing.
+
+If you are doing state-\/based testing and using a test double just to simulate the real object, you are probably better off using a fake. Using a mock in this case causes pain, as it\textquotesingle{}s not a strong point for mocks to perform complex actions. If you experience this and think that mocks suck, you are just not using the right tool for your problem. Or, you might be trying to solve the wrong problem. \+:-\/)\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1491}{}\doxysubsection{\texorpdfstring{I got a warning "{}\+Uninteresting function call encountered -\/ default action taken.."{} Should I panic?}{I got a warning "Uninteresting function call encountered - default action taken.." Should I panic?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1491}
+By all means, NO! It\textquotesingle{}s just an FYI. \+:-\/)
+
+What it means is that you have a mock function, you haven\textquotesingle{}t set any expectations on it (by g\+Mock\textquotesingle{}s rule this means that you are not interested in calls to this function and therefore it can be called any number of times), and it is called. That\textquotesingle{}s OK -\/ you didn\textquotesingle{}t say it\textquotesingle{}s not OK to call the function!
+
+What if you actually meant to disallow this function to be called, but forgot to write {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL(foo, Bar())}.Times(0)}? While one can argue that it\textquotesingle{}s the user\textquotesingle{}s fault, g\+Mock tries to be nice and prints you a note.
+
+So, when you see the message and believe that there shouldn\textquotesingle{}t be any uninteresting calls, you should investigate what\textquotesingle{}s going on. To make your life easier, g\+Mock dumps the stack trace when an uninteresting call is encountered. From that you can figure out which mock function it is, and how it is called.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1492}{}\doxysubsection{\texorpdfstring{I want to define a custom action. Should I use Invoke() or implement the Action\+Interface interface?}{I want to define a custom action. Should I use Invoke() or implement the ActionInterface interface?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1492}
+Either way is fine -\/ you want to choose the one that\textquotesingle{}s more convenient for your circumstance.
+
+Usually, if your action is for a particular function type, defining it using {\ttfamily Invoke()} should be easier; if your action can be used in functions of different types (e.\+g. if you are defining {\ttfamily Return(\texorpdfstring{$\ast$}{*}value\texorpdfstring{$\ast$}{*})}), {\ttfamily Make\+Polymorphic\+Action()} is easiest. Sometimes you want precise control on what types of functions the action can be used in, and implementing {\ttfamily Action\+Interface} is the way to go here. See the implementation of {\ttfamily Return()} in {\ttfamily gmock-\/actions.\+h} for an example.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1493}{}\doxysubsection{\texorpdfstring{I use Set\+Arg\+Pointee() in Will\+Once(), but gcc complains about "{}conflicting return type specified"{}. What does it mean?}{I use SetArgPointee() in WillOnce(), but gcc complains about "conflicting return type specified". What does it mean?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1493}
+You got this error as g\+Mock has no idea what value it should return when the mock method is called. {\ttfamily Set\+Arg\+Pointee()} says what the side effect is, but doesn\textquotesingle{}t say what the return value should be. You need {\ttfamily Do\+All()} to chain a {\ttfamily Set\+Arg\+Pointee()} with a {\ttfamily Return()} that provides a value appropriate to the API being mocked.
+
+See this \href{gmock_cook_book.md\#mocking-side-effects}{\texttt{ recipe}} for more details and an example.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1494}{}\doxysubsection{\texorpdfstring{I have a huge mock class, and Microsoft Visual C++ runs out of memory when compiling it. What can I do?}{I have a huge mock class, and Microsoft Visual C++ runs out of memory when compiling it. What can I do?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2gmock__faq_autotoc_md1494}
+We\textquotesingle{}ve noticed that when the {\ttfamily /clr} compiler flag is used, Visual C++ uses 5\texorpdfstring{$\sim$}{\string~}6 times as much memory when compiling a mock class. We suggest to avoid {\ttfamily /clr} when compiling native C++ mocks. 

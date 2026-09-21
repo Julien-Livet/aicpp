@@ -1,0 +1,1093 @@
+\doxysection{build/\+\_\+deps/googletest-\/src/googletest/include/gtest/internal/gtest-\/port.h File Reference}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h}{}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h}\index{build/\_deps/googletest-\/src/googletest/include/gtest/internal/gtest-\/port.h@{build/\_deps/googletest-\/src/googletest/include/gtest/internal/gtest-\/port.h}}
+{\ttfamily \#include $<$ciso646$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$cerrno$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$locale$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include "{}gtest/internal/custom/gtest-\/port.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port-\/arch.\+h"{}}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$regex.\+h$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+Include dependency graph for gtest-\/port.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1Secret}{testing\+::internal\+::\+Secret}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1GTestLog}{testing\+::internal\+::\+GTest\+Log}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ConstRef}{testing\+::internal\+::\+Const\+Ref$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesting_1_1internal_1_1ConstRef_3_01T_01_6_01_4}{testing\+::internal\+::\+Const\+Ref$<$ T \& $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1Mutex}{testing\+::internal\+::\+Mutex}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1GTestMutexLock}{testing\+::internal\+::\+GTest\+Mutex\+Lock}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1ThreadLocal}{testing\+::internal\+::\+Thread\+Local$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1TypeWithSize}{testing\+::internal\+::\+Type\+With\+Size$<$ size $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1TypeWithSize_3_014_01_4}{testing\+::internal\+::\+Type\+With\+Size$<$ 4 $>$}}
+\item 
+class \mbox{\hyperlink{classtesting_1_1internal_1_1TypeWithSize_3_018_01_4}{testing\+::internal\+::\+Type\+With\+Size$<$ 8 $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal}{testing\+::internal}}
+\item 
+namespace \mbox{\hyperlink{namespacetesting_1_1internal_1_1posix}{testing\+::internal\+::posix}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3942762a7d09ee09e6babcb76d1bb9b4}{GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+INCLUDE}}(...)~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a790f114f04a22110c153ee0814c58776}{GTEST\+\_\+\+HAS\+\_\+\+MUTEX\+\_\+\+AND\+\_\+\+THREAD\+\_\+\+LOCAL\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af32361ecb11a04425870ea6ae93323b5}{GTEST\+\_\+\+HAS\+\_\+\+NOTIFICATION\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a21086d276b1a64d6763ee8a94b12c1b8}{GTEST\+\_\+\+DEV\+\_\+\+EMAIL\+\_\+}}~"{}googletestframework@@googlegroups.\+com"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a088e84784c589ba9b1fc48602ad8eabf}{GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+}}~"{}gtest\+\_\+"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4251ff898f9f94ec6b8b9402c3436759}{GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+\+DASH\+\_\+}}~"{}gtest-\/"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4018b7f288f974d022df397e2730633a}{GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+\+UPPER\+\_\+}}~"{}GTEST\+\_\+"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a13d98c217176bd8722c395b9225fc19d}{GTEST\+\_\+\+NAME\+\_\+}}~"{}Google Test"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5aa3c938fc1d049f1d9c5332f6a0b1d4}{GTEST\+\_\+\+PROJECT\+\_\+\+URL\+\_\+}}~"{}https\+://github.\+com/google/googletest/"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa5e27ad4f88278501ef71bd9ddbb44c6}{GTEST\+\_\+\+INIT\+\_\+\+GOOGLE\+\_\+\+TEST\+\_\+\+NAME\+\_\+}}~"{}testing\+::\+Init\+Google\+Test"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}}(warnings)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+}}()
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5b130138db254deaf29dbe3dffa1a2a8}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+DEPRECATED\+\_\+\+PUSH\+\_\+}}()~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}}(4996)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa0dc86dc9837f1610e91da65458f53b3}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+DEPRECATED\+\_\+\+POP\+\_\+}}()~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+}}()
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af5c4295ea1d76f07f65934f659792431}{GTEST\+\_\+\+HAS\+\_\+\+POSIX\+\_\+\+RE}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acecef794eeb09598cd47da764271cb18}{GTEST\+\_\+\+USES\+\_\+\+POSIX\+\_\+\+RE}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aedcf220690e6589d0fc2bd3db768ea66}{GTEST\+\_\+\+HAS\+\_\+\+EXCEPTIONS}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a6e087748d8bbd2ca57c487b6ad268670}{GTEST\+\_\+\+HAS\+\_\+\+STD\+\_\+\+WSTRING}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4d38591c7e16216fc387d881f10e4038}{GTEST\+\_\+\+HAS\+\_\+\+FILE\+\_\+\+SYSTEM}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9ba781217167f905bff2f1c410a97930}{GTEST\+\_\+\+HAS\+\_\+\+RTTI}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3341397e1952de0b9cd88762d4d3ae4b}{GTEST\+\_\+\+HAS\+\_\+\+PTHREAD}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c075a7f969a694e59532356be59fd5}{GTEST\+\_\+\+HAS\+\_\+\+CLONE}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_add695166eb7b691f93777525d5881062}{GTEST\+\_\+\+HAS\+\_\+\+STREAM\+\_\+\+REDIRECTION}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a0e3904ca8d62334ab5f29c057dceb6a1}{GTEST\+\_\+\+WIDE\+\_\+\+STRING\+\_\+\+USES\+\_\+\+UTF16\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9c2aaa3728c32ce169a899cdcfb3b160}{GTEST\+\_\+\+CAN\+\_\+\+STREAM\+\_\+\+RESULTS\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a00b3684a621ce1422b55a0e7e8a6aecb}{GTEST\+\_\+\+AMBIGUOUS\+\_\+\+ELSE\+\_\+\+BLOCKER\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad66d755e9b34a04aa6a6f6bf87a7e7f6}{GTEST\+\_\+\+HAVE\+\_\+\+ATTRIBUTE\+\_\+}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3691a8b7b0abd6cfcb6145296e8dd357}{GTEST\+\_\+\+INTERNAL\+\_\+\+HAVE\+\_\+\+CPP\+\_\+\+ATTRIBUTE}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4ba98e42fe6241738632ae9c5719651e}{GTEST\+\_\+\+HAVE\+\_\+\+FEATURE\+\_\+}}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae29b00ca46783509cc900cd03d61ef37}{GTEST\+\_\+\+ATTRIBUTE\+\_\+\+PRINTF\+\_\+}}(string\+\_\+index,  first\+\_\+to\+\_\+check)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69b0cadb05bf2a1ef96151243c6b6241}{GTEST\+\_\+\+INTENTIONAL\+\_\+\+CONST\+\_\+\+COND\+\_\+\+PUSH\+\_\+}}()~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}}(4127)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad115e2c466f7e8a32f1cf23ef2e5f220}{GTEST\+\_\+\+INTENTIONAL\+\_\+\+CONST\+\_\+\+COND\+\_\+\+POP\+\_\+}}()~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+}}()
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8f6a84e8be3c94cd1f6f46a136df2c62}{GTEST\+\_\+\+HAS\+\_\+\+SEH}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a491d09ee62f1c9cfeafa3dbf75aaa9e2}{GTEST\+\_\+\+DEFAULT\+\_\+\+DEATH\+\_\+\+TEST\+\_\+\+STYLE}}~"{}fast"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9945cbd967fbccb15f8de711f58955c7}{GTEST\+\_\+\+NO\+\_\+\+INLINE\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c9f887f61bb2b18c6b42d22b1a340e}{GTEST\+\_\+\+NO\+\_\+\+TAIL\+\_\+\+CALL\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae6239a8ccf4c230008d1db1ea8bd738e}{GTEST\+\_\+\+HAS\+\_\+\+CXXABI\+\_\+\+H\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a2a83dd79037e53814a509cc3f5702650}{GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+MEMORY\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af18b465f4ba6e36eea7a8d2d79521873}{GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+ADDRESS\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a7385650ead929a8efc18490aa19f35a7}{GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+HWADDRESS\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_abf30a6b1b3a12ecb2cc1bc1a6f5f9646}{GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+THREAD\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8ef4cb4c465db8c15464aecc6d9510ef}{GTEST\+\_\+\+LOG\+\_\+}}(severity)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab54343f0a36dc4cb0ce8a478dd7847b8}{GTEST\+\_\+\+CHECK\+\_\+}}(condition)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}{GTEST\+\_\+\+CHECK\+\_\+\+POSIX\+\_\+\+SUCCESS\+\_\+}}(posix\+\_\+call)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f91fcd24cae0b48fdaeb19102dac525}{GTEST\+\_\+\+REFERENCE\+\_\+\+TO\+\_\+\+CONST\+\_\+}}(T)~  typename \mbox{\hyperlink{structtesting_1_1internal_1_1ConstRef}{\+::testing\+::internal\+::\+Const\+Ref}}$<$T$>$\+::type
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af0970cdea09f16dbb1dbfccdaa693eeb}{GTEST\+\_\+\+DECLARE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+}}(mutex)~  extern \mbox{\hyperlink{classtesting_1_1internal_1_1Mutex}{\+::testing\+::internal\+::\+Mutex}} mutex
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a85d5cd679fdbe87383e7dfd1c6651eaa}{GTEST\+\_\+\+DEFINE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+}}(mutex)~\mbox{\hyperlink{classtesting_1_1internal_1_1Mutex}{\+::testing\+::internal\+::\+Mutex}} mutex
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_afbb636e91bdd50267dbef11a50490b29}{GTEST\+\_\+\+PATH\+\_\+\+SEP\+\_\+}}~"{}/"{}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acf0ee1851e6d342237bb64806ee1fd27}{GTEST\+\_\+\+HAS\+\_\+\+ALT\+\_\+\+PATH\+\_\+\+SEP\+\_\+}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aed1cc8143222d7a845a1269448ec203e}{GTEST\+\_\+\+SNPRINTF\+\_\+}}~snprintf
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a965321b1208203a00e59ffd9e8d803a8}{GTEST\+\_\+\+FLAG\+\_\+\+NAME\+\_\+}}(name)~gtest\+\_\+\#\#name
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\+\_\+\+FLAG}}(name)~FLAGS\+\_\+gtest\+\_\+\#\#name
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a48e05814779e5a2f432b06a12618a760}{GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+}}(name,  default\+\_\+val,  doc)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a88ee2f19589ffff86ca742fd33611358}{GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+}}(name,  default\+\_\+val,  doc)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a885e18fe217a6e85553d408b99252c12}{GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+}}(name,  default\+\_\+val,  doc)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a14eb0e9c6e0df765d1fbfd2db6966d14}{GTEST\+\_\+\+DECLARE\+\_\+bool\+\_\+}}(name)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aab2ee98cb616054b1d3a7dc71efe81fc}{GTEST\+\_\+\+DECLARE\+\_\+int32\+\_\+}}(name)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f74eee05f7ee5534139a622fe7da7dd}{GTEST\+\_\+\+DECLARE\+\_\+string\+\_\+}}(name)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3749ef4fba6b3c3993609b336031644d}{GTEST\+\_\+\+FLAG\+\_\+\+SAVER\+\_\+}}~\mbox{\hyperlink{classtesting_1_1internal_1_1GTestFlagSaver}{\+::testing\+::internal\+::\+GTest\+Flag\+Saver}}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae080d884d5f6cf021d407995a0e32db5}{GTEST\+\_\+\+FLAG\+\_\+\+GET}}(name)~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{\+::testing\+::\+GTEST\+\_\+\+FLAG}}(name)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa853dfc7a440ce6989b66d15baaee1a2}{GTEST\+\_\+\+FLAG\+\_\+\+SET}}(name,  \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})~(void)(\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{\+::testing\+::\+GTEST\+\_\+\+FLAG}}(name) = \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa2315948dda8dba4fc516575657f193c}{GTEST\+\_\+\+USE\+\_\+\+OWN\+\_\+\+FLAGFILE\+\_\+\+FLAG\+\_\+}}~1
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a149f693bd59fa1bc937af54c0cdcb32f}{GTEST\+\_\+\+EXCLUSIVE\+\_\+\+LOCK\+\_\+\+REQUIRED\+\_\+}}(locks)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69abff5a4efdd07bd5faebe3dd318d06}{GTEST\+\_\+\+LOCK\+\_\+\+EXCLUDED\+\_\+}}(locks)
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a99939c8942aa678c857c327b865f0273}{GTEST\+\_\+\+INTERNAL\+\_\+\+DEPRECATE\+\_\+\+AND\+\_\+\+INLINE}}(msg)~\mbox{[}\mbox{[}deprecated(msg)\mbox{]}\mbox{]}
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a65dffdca5763506d760831b0de5427eb}{GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+STD\+\_\+\+SPAN}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a72603a093db1f1055ee69f44eadeee1f}{GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+STRING\+\_\+\+VIEW}}~0
+\item 
+\#define \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a194326c2e1c5db572d14b2af09da510b}{GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+COMPARE\+\_\+\+LIB}}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typedef}} \mbox{\hyperlink{classtesting_1_1internal_1_1GTestMutexLock}{GTest\+Mutex\+Lock}} \mbox{\hyperlink{namespacetesting_1_1internal_a08b187c6cc4e28400aadf9a32fccc8de}{testing\+::internal\+::\+Mutex\+Lock}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{namespacetesting_1_1internal_a05c6bd9ede5ccdf25191a590d610dcc6}{testing\+::internal\+::\+Biggest\+Int}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{long}}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{using}} \mbox{\hyperlink{namespacetesting_1_1internal_a0e0c65788d68dc6da32d4818b413b2f2}{testing\+::internal\+::\+Time\+In\+Millis}} = \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int64\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977}{testing\+::internal\+::\+GTest\+Log\+Severity}} \{ \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a80801405ea18d81e40eaef1d4aa7e7fc}{testing\+::internal\+::\+GTEST\+\_\+\+INFO}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a61333d432faae5cee0cb40839fbff98d}{testing\+::internal\+::\+GTEST\+\_\+\+WARNING}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977ad497d0a1a330a53a9915d1a674d48101}{testing\+::internal\+::\+GTEST\+\_\+\+ERROR}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a208982de573997bf115cee096570d22f}{testing\+::internal\+::\+GTEST\+\_\+\+FATAL}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a80801405ea18d81e40eaef1d4aa7e7fc}{testing\+::internal\+::\+GTEST\+\_\+\+INFO}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a61333d432faae5cee0cb40839fbff98d}{testing\+::internal\+::\+GTEST\+\_\+\+WARNING}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977ad497d0a1a330a53a9915d1a674d48101}{testing\+::internal\+::\+GTEST\+\_\+\+ERROR}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a208982de573997bf115cee096570d22f}{testing\+::internal\+::\+GTEST\+\_\+\+FATAL}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a80801405ea18d81e40eaef1d4aa7e7fc}{testing\+::internal\+::\+GTEST\+\_\+\+INFO}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a61333d432faae5cee0cb40839fbff98d}{testing\+::internal\+::\+GTEST\+\_\+\+WARNING}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977ad497d0a1a330a53a9915d1a674d48101}{testing\+::internal\+::\+GTEST\+\_\+\+ERROR}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a208982de573997bf115cee096570d22f}{testing\+::internal\+::\+GTEST\+\_\+\+FATAL}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a80801405ea18d81e40eaef1d4aa7e7fc}{testing\+::internal\+::\+GTEST\+\_\+\+INFO}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a61333d432faae5cee0cb40839fbff98d}{testing\+::internal\+::\+GTEST\+\_\+\+WARNING}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977ad497d0a1a330a53a9915d1a674d48101}{testing\+::internal\+::\+GTEST\+\_\+\+ERROR}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a208982de573997bf115cee096570d22f}{testing\+::internal\+::\+GTEST\+\_\+\+FATAL}}
+, \newline
+\mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a80801405ea18d81e40eaef1d4aa7e7fc}{testing\+::internal\+::\+GTEST\+\_\+\+INFO}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a61333d432faae5cee0cb40839fbff98d}{testing\+::internal\+::\+GTEST\+\_\+\+WARNING}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977ad497d0a1a330a53a9915d1a674d48101}{testing\+::internal\+::\+GTEST\+\_\+\+ERROR}}
+, \mbox{\hyperlink{namespacetesting_1_1internal_aa6255ef3b023c5b4e1a2198d887fb977a208982de573997bf115cee096570d22f}{testing\+::internal\+::\+GTEST\+\_\+\+FATAL}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a527b9bcc13669b9a16400c8514266254}{testing\+::internal\+::\+Is\+True}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{condition}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a2c5082b8e3ad1fab3ebb45222467fe48}{testing\+::internal\+::\+GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}} (4251) \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{class}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} Typed\+Test\+Suite\+PState
+\item 
+GTEST\+\_\+\+API\+\_\+\+::std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a31b7c3abed4a7c395f42c61e993989f4}{testing\+::internal\+::\+Format\+File\+Location}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line)
+\item 
+GTEST\+\_\+\+API\+\_\+\+::std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a1ee4cde97868c53e442d3182496a9f3c}{testing\+::internal\+::\+Format\+Compiler\+Independent\+File\+Location}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int}} line)
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a06b1b20029fbd1dbeb59752f914fab84}{testing\+::internal\+::\+Log\+To\+Stderr}} ()
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a2135f223bf6b527729aeaa651115183b}{testing\+::internal\+::\+Flush\+Info\+Log}} ()
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{typename}} \mbox{\hyperlink{classtesting_1_1internal_1_1To}{To}} $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1To}{To}} \mbox{\hyperlink{namespacetesting_1_1internal_a982df3f369643b175f79cda4048bc3b9}{testing\+::internal\+::\+Implicit\+Cast\+\_\+}} (\mbox{\hyperlink{classtesting_1_1internal_1_1To}{To}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{class}} Derived , \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{class}} \mbox{\hyperlink{classBase}{Base}} $>$ }\\Derived \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_af54f5cf4d9e03836ecc0316d090cb4ed}{testing\+::internal\+::\+Checked\+Downcast\+To\+Actual\+Type}} (\mbox{\hyperlink{classBase}{Base}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{base}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_acba06d4f0343dec407738ba5544af990}{testing\+::internal\+::\+Capture\+Stdout}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_aed657219a9856a8d249a3230de0c54ce}{testing\+::internal\+::\+Get\+Captured\+Stdout}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{void}} \mbox{\hyperlink{namespacetesting_1_1internal_a8ec00d458d0d442bd64af7b5f9c22dda}{testing\+::internal\+::\+Capture\+Stderr}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a374156401da17704099d0c33fa53adfb}{testing\+::internal\+::\+Get\+Captured\+Stderr}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a06ca3f65f5e85c9ce7299b9e4cd52408}{testing\+::internal\+::\+Get\+File\+Size}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{FILE}} \texorpdfstring{$\ast$}{*}file)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a2cc0be60c54a8701423fe5297e1349ee}{testing\+::internal\+::\+Read\+Entire\+File}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{FILE}} \texorpdfstring{$\ast$}{*}file)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespacetesting_1_1internal_a9608256c67f889006be44912e57e3d4f}{testing\+::internal\+::\+Get\+Argvs}} ()
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{size\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3b9b3649cd04558bf46c75de52a7ef34}{testing\+::internal\+::\+Get\+Thread\+Count}} ()
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_aeb957087fd6bbf9db98ab7cd41b0c129}{testing\+::internal\+::\+Is\+Alpha}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a83802e7f23324cd512232203662e1a98}{testing\+::internal\+::\+Is\+Al\+Num}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a4bd96b7fa6486802d33ddc217af55a39}{testing\+::internal\+::\+Is\+Digit}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_ac26ce3883bc8919c27074975e958f3b7}{testing\+::internal\+::\+Is\+Lower}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_af429e04f70f9c10f6aa76a5d1ccd389f}{testing\+::internal\+::\+Is\+Space}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a84f3baa379fec6bf5947cb5165aa8cc9}{testing\+::internal\+::\+Is\+Upper}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_aa234ef141278263fb143b616c74c86e7}{testing\+::internal\+::\+Is\+XDigit}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_adfc1d541600d0677e63587ab20734c88}{testing\+::internal\+::\+Is\+XDigit}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char16\+\_\+t}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a8d1269239eab81c9c48d6bc75b45dfa6}{testing\+::internal\+::\+Is\+XDigit}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char32\+\_\+t}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a6ab68a30f8291c09b2289c132bbe3b16}{testing\+::internal\+::\+Is\+XDigit}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{wchar\+\_\+t}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{namespacetesting_1_1internal_ad9c627ef2a94245e3fd69e7ab3d49b42}{testing\+::internal\+::\+To\+Lower}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{namespacetesting_1_1internal_ac1b876a8133895bd553d4780ecaa1e3a}{testing\+::internal\+::\+To\+Upper}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_af53f92900705f7de3c139a05b2f9ef16}{ch}})
+\item 
+std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_aa6afda12e567c353e2e9b9c2e8cae14f}{testing\+::internal\+::\+Strip\+Trailing\+Spaces}} (std\+::string str)
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a4d891c6743bbc5c44b6ce06d7417926c}{testing\+::internal\+::\+Parse\+Int32}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{classtesting_1_1Message}{Message}} \&\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{src\+\_\+text}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a67132cdce23fb71b6c38ee34ef81eb4c}{testing\+::internal\+::\+Bool\+From\+GTest\+Env}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{flag}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{bool}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default\+\_\+val}})
+\item 
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\+\_\+\+API\+\_\+}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_abc29596f55cd8044782da822d2358e0f}{testing\+::internal\+::\+Int32\+From\+GTest\+Env}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{flag}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{int32\+\_\+t}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default\+\_\+val}})
+\item 
+std\+::string \mbox{\hyperlink{namespacetesting_1_1internal_a0c793c6d84760d900299916c077a1af4}{testing\+::internal\+::\+Output\+Flag\+Also\+Check\+Env\+Var}} ()
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacetesting_1_1internal_a7ed785df46a339403b0f749d3a879201}{testing\+::internal\+::\+String\+From\+GTest\+Env}} (\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{flag}}, \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{const}} \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{char}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{default\+\_\+val}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{constexpr}} \mbox{\hyperlink{namespacetesting_1_1internal_a05c6bd9ede5ccdf25191a590d610dcc6}{Biggest\+Int}} \mbox{\hyperlink{namespacetesting_1_1internal_a756613c601d58a38308fe85e5243de9e}{testing\+::internal\+::k\+Max\+Biggest\+Int}} = (std\+::numeric\+\_\+limits$<$\mbox{\hyperlink{namespacetesting_1_1internal_a05c6bd9ede5ccdf25191a590d610dcc6}{Biggest\+Int}}$>$\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{\+::max}})()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a00b3684a621ce1422b55a0e7e8a6aecb}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a00b3684a621ce1422b55a0e7e8a6aecb} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_@{GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_}}
+\index{GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_@{GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_}{GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+AMBIGUOUS\+\_\+\+ELSE\+\_\+\+BLOCKER\+\_\+}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{switch}\ (0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ 0:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{default}:}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00724}{724}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_API\_@{GTEST\_API\_}}
+\index{GTEST\_API\_@{GTEST\_API\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_API\_}{GTEST\_API\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+API\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00849}{849}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af18b465f4ba6e36eea7a8d2d79521873}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af18b465f4ba6e36eea7a8d2d79521873} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_}}
+\index{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_}{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_ADDRESS\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+ADDRESS\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00896}{896}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a7385650ead929a8efc18490aa19f35a7}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a7385650ead929a8efc18490aa19f35a7} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_}}
+\index{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_}{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_HWADDRESS\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+HWADDRESS\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00905}{905}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a2a83dd79037e53814a509cc3f5702650}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a2a83dd79037e53814a509cc3f5702650} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_}}
+\index{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_}{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_MEMORY\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+MEMORY\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00888}{888}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_abf30a6b1b3a12ecb2cc1bc1a6f5f9646}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_abf30a6b1b3a12ecb2cc1bc1a6f5f9646} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_}}
+\index{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_@{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_}{GTEST\_ATTRIBUTE\_NO\_SANITIZE\_THREAD\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ATTRIBUTE\+\_\+\+NO\+\_\+\+SANITIZE\+\_\+\+THREAD\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00912}{912}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae29b00ca46783509cc900cd03d61ef37}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae29b00ca46783509cc900cd03d61ef37} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_ATTRIBUTE\_PRINTF\_@{GTEST\_ATTRIBUTE\_PRINTF\_}}
+\index{GTEST\_ATTRIBUTE\_PRINTF\_@{GTEST\_ATTRIBUTE\_PRINTF\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ATTRIBUTE\_PRINTF\_}{GTEST\_ATTRIBUTE\_PRINTF\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ATTRIBUTE\+\_\+\+PRINTF\+\_\+(\begin{DoxyParamCaption}\item[{}]{string\+\_\+index,  }\item[{}]{first\+\_\+to\+\_\+check }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00781}{781}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9c2aaa3728c32ce169a899cdcfb3b160}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9c2aaa3728c32ce169a899cdcfb3b160} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_CAN\_STREAM\_RESULTS\_@{GTEST\_CAN\_STREAM\_RESULTS\_}}
+\index{GTEST\_CAN\_STREAM\_RESULTS\_@{GTEST\_CAN\_STREAM\_RESULTS\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_CAN\_STREAM\_RESULTS\_}{GTEST\_CAN\_STREAM\_RESULTS\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+CAN\+\_\+\+STREAM\+\_\+\+RESULTS\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00708}{708}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab54343f0a36dc4cb0ce8a478dd7847b8}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab54343f0a36dc4cb0ce8a478dd7847b8} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_CHECK\_@{GTEST\_CHECK\_}}
+\index{GTEST\_CHECK\_@{GTEST\_CHECK\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_CHECK\_}{GTEST\_CHECK\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+CHECK\+\_\+(\begin{DoxyParamCaption}\item[{}]{condition }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ GTEST\_AMBIGUOUS\_ELSE\_BLOCKER\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ if\ (\mbox{\hyperlink{namespacetesting_1_1internal_a527b9bcc13669b9a16400c8514266254}{::testing::internal::IsTrue}}(condition))\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ GTEST\_LOG\_(FATAL)\ <<\ \textcolor{stringliteral}{"{}Condition\ "{}}\ \#condition\ \textcolor{stringliteral}{"{}\ failed.\ "{}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01085}{1085}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a38f6151210e363ad7c69a836b13cf0af} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_CHECK\_POSIX\_SUCCESS\_@{GTEST\_CHECK\_POSIX\_SUCCESS\_}}
+\index{GTEST\_CHECK\_POSIX\_SUCCESS\_@{GTEST\_CHECK\_POSIX\_SUCCESS\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_CHECK\_POSIX\_SUCCESS\_}{GTEST\_CHECK\_POSIX\_SUCCESS\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+CHECK\+\_\+\+POSIX\+\_\+\+SUCCESS\+\_\+(\begin{DoxyParamCaption}\item[{}]{posix\+\_\+call }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ gtest\_error\ =\ (posix\_call))\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ GTEST\_LOG\_(FATAL)\ <<\ \#posix\_call\ <<\ \textcolor{stringliteral}{"{}failed\ with\ error\ "{}}\ <<\ gtest\_error}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01098}{1098}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a14eb0e9c6e0df765d1fbfd2db6966d14}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a14eb0e9c6e0df765d1fbfd2db6966d14} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DECLARE\_bool\_@{GTEST\_DECLARE\_bool\_}}
+\index{GTEST\_DECLARE\_bool\_@{GTEST\_DECLARE\_bool\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DECLARE\_bool\_}{GTEST\_DECLARE\_bool\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DECLARE\+\_\+bool\+\_\+(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02289}{2289}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aab2ee98cb616054b1d3a7dc71efe81fc}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aab2ee98cb616054b1d3a7dc71efe81fc} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DECLARE\_int32\_@{GTEST\_DECLARE\_int32\_}}
+\index{GTEST\_DECLARE\_int32\_@{GTEST\_DECLARE\_int32\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DECLARE\_int32\_}{GTEST\_DECLARE\_int32\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DECLARE\+\_\+int32\+\_\+(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keyword}{extern}\ std::int32\_t\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02294}{2294}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af0970cdea09f16dbb1dbfccdaa693eeb}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af0970cdea09f16dbb1dbfccdaa693eeb} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DECLARE\_STATIC\_MUTEX\_@{GTEST\_DECLARE\_STATIC\_MUTEX\_}}
+\index{GTEST\_DECLARE\_STATIC\_MUTEX\_@{GTEST\_DECLARE\_STATIC\_MUTEX\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DECLARE\_STATIC\_MUTEX\_}{GTEST\_DECLARE\_STATIC\_MUTEX\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DECLARE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+(\begin{DoxyParamCaption}\item[{}]{mutex }\end{DoxyParamCaption})~  extern \mbox{\hyperlink{classtesting_1_1internal_1_1Mutex}{\+::testing\+::internal\+::\+Mutex}} mutex}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01882}{1882}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f74eee05f7ee5534139a622fe7da7dd}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f74eee05f7ee5534139a622fe7da7dd} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DECLARE\_string\_@{GTEST\_DECLARE\_string\_}}
+\index{GTEST\_DECLARE\_string\_@{GTEST\_DECLARE\_string\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DECLARE\_string\_}{GTEST\_DECLARE\_string\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DECLARE\+\_\+string\+\_\+(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ extern\ ::std::string\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02299}{2299}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a491d09ee62f1c9cfeafa3dbf75aaa9e2}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a491d09ee62f1c9cfeafa3dbf75aaa9e2} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEFAULT\_DEATH\_TEST\_STYLE@{GTEST\_DEFAULT\_DEATH\_TEST\_STYLE}}
+\index{GTEST\_DEFAULT\_DEATH\_TEST\_STYLE@{GTEST\_DEFAULT\_DEATH\_TEST\_STYLE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFAULT\_DEATH\_TEST\_STYLE}{GTEST\_DEFAULT\_DEATH\_TEST\_STYLE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEFAULT\+\_\+\+DEATH\+\_\+\+TEST\+\_\+\+STYLE~"{}fast"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00853}{853}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a48e05814779e5a2f432b06a12618a760}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a48e05814779e5a2f432b06a12618a760} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}}
+\index{GTEST\_DEFINE\_bool\_@{GTEST\_DEFINE\_bool\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_bool\_}{GTEST\_DEFINE\_bool\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEFINE\+\_\+bool\+\_\+(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{default\+\_\+val,  }\item[{}]{doc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name)\ =\ (default\_val);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02272}{2272}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a88ee2f19589ffff86ca742fd33611358}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a88ee2f19589ffff86ca742fd33611358} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}}
+\index{GTEST\_DEFINE\_int32\_@{GTEST\_DEFINE\_int32\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_int32\_}{GTEST\_DEFINE\_int32\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEFINE\+\_\+int32\+\_\+(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{default\+\_\+val,  }\item[{}]{doc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ std::int32\_t\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name)\ =\ (default\_val);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02277}{2277}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a85d5cd679fdbe87383e7dfd1c6651eaa}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a85d5cd679fdbe87383e7dfd1c6651eaa} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEFINE\_STATIC\_MUTEX\_@{GTEST\_DEFINE\_STATIC\_MUTEX\_}}
+\index{GTEST\_DEFINE\_STATIC\_MUTEX\_@{GTEST\_DEFINE\_STATIC\_MUTEX\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_STATIC\_MUTEX\_}{GTEST\_DEFINE\_STATIC\_MUTEX\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEFINE\+\_\+\+STATIC\+\_\+\+MUTEX\+\_\+(\begin{DoxyParamCaption}\item[{}]{mutex }\end{DoxyParamCaption})~\mbox{\hyperlink{classtesting_1_1internal_1_1Mutex}{\+::testing\+::internal\+::\+Mutex}} mutex}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01885}{1885}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a885e18fe217a6e85553d408b99252c12}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a885e18fe217a6e85553d408b99252c12} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}}
+\index{GTEST\_DEFINE\_string\_@{GTEST\_DEFINE\_string\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEFINE\_string\_}{GTEST\_DEFINE\_string\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEFINE\+\_\+string\+\_\+(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{default\+\_\+val,  }\item[{}]{doc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ GTEST\_API\_\ ::std::string\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{GTEST\_FLAG}}(name)\ =\ (default\_val);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ static\_assert(\textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}no-\/op\ to\ require\ trailing\ semicolon"{}})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02282}{2282}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a21086d276b1a64d6763ee8a94b12c1b8}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a21086d276b1a64d6763ee8a94b12c1b8} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DEV\_EMAIL\_@{GTEST\_DEV\_EMAIL\_}}
+\index{GTEST\_DEV\_EMAIL\_@{GTEST\_DEV\_EMAIL\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DEV\_EMAIL\_}{GTEST\_DEV\_EMAIL\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DEV\+\_\+\+EMAIL\+\_\+~"{}googletestframework@@googlegroups.\+com"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00332}{332}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa0dc86dc9837f1610e91da65458f53b3}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa0dc86dc9837f1610e91da65458f53b3} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_@{GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_}}
+\index{GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_@{GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_}{GTEST\_DISABLE\_MSC\_DEPRECATED\_POP\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+DEPRECATED\+\_\+\+POP\+\_\+(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+}}()}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00377}{377}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5b130138db254deaf29dbe3dffa1a2a8}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5b130138db254deaf29dbe3dffa1a2a8} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_@{GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_}}
+\index{GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_@{GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_}{GTEST\_DISABLE\_MSC\_DEPRECATED\_PUSH\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+DEPRECATED\+\_\+\+PUSH\+\_\+(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}}(4996)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00375}{375}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_}}
+\index{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_}{GTEST\_DISABLE\_MSC\_WARNINGS\_POP\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00363}{363}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}}
+\index{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_@{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}{GTEST\_DISABLE\_MSC\_WARNINGS\_PUSH\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+(\begin{DoxyParamCaption}\item[{}]{warnings }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00362}{362}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a149f693bd59fa1bc937af54c0cdcb32f}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a149f693bd59fa1bc937af54c0cdcb32f} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_@{GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_}}
+\index{GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_@{GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_}{GTEST\_EXCLUSIVE\_LOCK\_REQUIRED\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+EXCLUSIVE\+\_\+\+LOCK\+\_\+\+REQUIRED\+\_\+(\begin{DoxyParamCaption}\item[{}]{locks }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02315}{2315}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG@{GTEST\_FLAG}}
+\index{GTEST\_FLAG@{GTEST\_FLAG}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG}{GTEST\_FLAG}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~FLAGS\+\_\+gtest\+\_\+\#\#name}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02239}{2239}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae080d884d5f6cf021d407995a0e32db5}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae080d884d5f6cf021d407995a0e32db5} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_GET@{GTEST\_FLAG\_GET}}
+\index{GTEST\_FLAG\_GET@{GTEST\_FLAG\_GET}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_GET}{GTEST\_FLAG\_GET}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+GET(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{\+::testing\+::\+GTEST\+\_\+\+FLAG}}(name)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02307}{2307}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a965321b1208203a00e59ffd9e8d803a8}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a965321b1208203a00e59ffd9e8d803a8} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_NAME\_@{GTEST\_FLAG\_NAME\_}}
+\index{GTEST\_FLAG\_NAME\_@{GTEST\_FLAG\_NAME\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_NAME\_}{GTEST\_FLAG\_NAME\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+NAME\+\_\+(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~gtest\+\_\+\#\#name}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02238}{2238}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a088e84784c589ba9b1fc48602ad8eabf}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a088e84784c589ba9b1fc48602ad8eabf} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_PREFIX\_@{GTEST\_FLAG\_PREFIX\_}}
+\index{GTEST\_FLAG\_PREFIX\_@{GTEST\_FLAG\_PREFIX\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_PREFIX\_}{GTEST\_FLAG\_PREFIX\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+~"{}gtest\+\_\+"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00333}{333}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4251ff898f9f94ec6b8b9402c3436759}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4251ff898f9f94ec6b8b9402c3436759} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_PREFIX\_DASH\_@{GTEST\_FLAG\_PREFIX\_DASH\_}}
+\index{GTEST\_FLAG\_PREFIX\_DASH\_@{GTEST\_FLAG\_PREFIX\_DASH\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_PREFIX\_DASH\_}{GTEST\_FLAG\_PREFIX\_DASH\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+\+DASH\+\_\+~"{}gtest-\/"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00334}{334}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4018b7f288f974d022df397e2730633a}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4018b7f288f974d022df397e2730633a} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_PREFIX\_UPPER\_@{GTEST\_FLAG\_PREFIX\_UPPER\_}}
+\index{GTEST\_FLAG\_PREFIX\_UPPER\_@{GTEST\_FLAG\_PREFIX\_UPPER\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_PREFIX\_UPPER\_}{GTEST\_FLAG\_PREFIX\_UPPER\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+PREFIX\+\_\+\+UPPER\+\_\+~"{}GTEST\+\_\+"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00335}{335}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3749ef4fba6b3c3993609b336031644d}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3749ef4fba6b3c3993609b336031644d} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_SAVER\_@{GTEST\_FLAG\_SAVER\_}}
+\index{GTEST\_FLAG\_SAVER\_@{GTEST\_FLAG\_SAVER\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_SAVER\_}{GTEST\_FLAG\_SAVER\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+SAVER\+\_\+~\mbox{\hyperlink{classtesting_1_1internal_1_1GTestFlagSaver}{\+::testing\+::internal\+::\+GTest\+Flag\+Saver}}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02305}{2305}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa853dfc7a440ce6989b66d15baaee1a2}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa853dfc7a440ce6989b66d15baaee1a2} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_FLAG\_SET@{GTEST\_FLAG\_SET}}
+\index{GTEST\_FLAG\_SET@{GTEST\_FLAG\_SET}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_FLAG\_SET}{GTEST\_FLAG\_SET}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+FLAG\+\_\+\+SET(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})~(void)(\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a828f4e34a1c4b510da50ec1563e3562a}{\+::testing\+::\+GTEST\+\_\+\+FLAG}}(name) = \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-actions__test_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02308}{2308}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acf0ee1851e6d342237bb64806ee1fd27}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acf0ee1851e6d342237bb64806ee1fd27} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_ALT\_PATH\_SEP\_@{GTEST\_HAS\_ALT\_PATH\_SEP\_}}
+\index{GTEST\_HAS\_ALT\_PATH\_SEP\_@{GTEST\_HAS\_ALT\_PATH\_SEP\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_ALT\_PATH\_SEP\_}{GTEST\_HAS\_ALT\_PATH\_SEP\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+ALT\+\_\+\+PATH\+\_\+\+SEP\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01924}{1924}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c075a7f969a694e59532356be59fd5}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c075a7f969a694e59532356be59fd5} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_CLONE@{GTEST\_HAS\_CLONE}}
+\index{GTEST\_HAS\_CLONE@{GTEST\_HAS\_CLONE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_CLONE}{GTEST\_HAS\_CLONE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+CLONE~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00634}{634}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae6239a8ccf4c230008d1db1ea8bd738e}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ae6239a8ccf4c230008d1db1ea8bd738e} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_CXXABI\_H\_@{GTEST\_HAS\_CXXABI\_H\_}}
+\index{GTEST\_HAS\_CXXABI\_H\_@{GTEST\_HAS\_CXXABI\_H\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_CXXABI\_H\_}{GTEST\_HAS\_CXXABI\_H\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+CXXABI\+\_\+\+H\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00879}{879}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aedcf220690e6589d0fc2bd3db768ea66}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aedcf220690e6589d0fc2bd3db768ea66} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_EXCEPTIONS@{GTEST\_HAS\_EXCEPTIONS}}
+\index{GTEST\_HAS\_EXCEPTIONS@{GTEST\_HAS\_EXCEPTIONS}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_EXCEPTIONS}{GTEST\_HAS\_EXCEPTIONS}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+EXCEPTIONS~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00492}{492}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4d38591c7e16216fc387d881f10e4038}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4d38591c7e16216fc387d881f10e4038} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_FILE\_SYSTEM@{GTEST\_HAS\_FILE\_SYSTEM}}
+\index{GTEST\_HAS\_FILE\_SYSTEM@{GTEST\_HAS\_FILE\_SYSTEM}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_FILE\_SYSTEM}{GTEST\_HAS\_FILE\_SYSTEM}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+FILE\+\_\+\+SYSTEM~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00515}{515}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a790f114f04a22110c153ee0814c58776}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a790f114f04a22110c153ee0814c58776} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_@{GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_}}
+\index{GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_@{GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_}{GTEST\_HAS\_MUTEX\_AND\_THREAD\_LOCAL\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+MUTEX\+\_\+\+AND\+\_\+\+THREAD\+\_\+\+LOCAL\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00317}{317}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af32361ecb11a04425870ea6ae93323b5}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af32361ecb11a04425870ea6ae93323b5} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_NOTIFICATION\_@{GTEST\_HAS\_NOTIFICATION\_}}
+\index{GTEST\_HAS\_NOTIFICATION\_@{GTEST\_HAS\_NOTIFICATION\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_NOTIFICATION\_}{GTEST\_HAS\_NOTIFICATION\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+NOTIFICATION\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00321}{321}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af5c4295ea1d76f07f65934f659792431}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_af5c4295ea1d76f07f65934f659792431} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_POSIX\_RE@{GTEST\_HAS\_POSIX\_RE}}
+\index{GTEST\_HAS\_POSIX\_RE@{GTEST\_HAS\_POSIX\_RE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_POSIX\_RE}{GTEST\_HAS\_POSIX\_RE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+POSIX\+\_\+\+RE~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00425}{425}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3341397e1952de0b9cd88762d4d3ae4b}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3341397e1952de0b9cd88762d4d3ae4b} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_PTHREAD@{GTEST\_HAS\_PTHREAD}}
+\index{GTEST\_HAS\_PTHREAD@{GTEST\_HAS\_PTHREAD}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_PTHREAD}{GTEST\_HAS\_PTHREAD}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+PTHREAD~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00599}{599}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9ba781217167f905bff2f1c410a97930}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9ba781217167f905bff2f1c410a97930} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_RTTI@{GTEST\_HAS\_RTTI}}
+\index{GTEST\_HAS\_RTTI@{GTEST\_HAS\_RTTI}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_RTTI}{GTEST\_HAS\_RTTI}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+RTTI~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00570}{570}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8f6a84e8be3c94cd1f6f46a136df2c62}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8f6a84e8be3c94cd1f6f46a136df2c62} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_SEH@{GTEST\_HAS\_SEH}}
+\index{GTEST\_HAS\_SEH@{GTEST\_HAS\_SEH}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_SEH}{GTEST\_HAS\_SEH}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+SEH~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00807}{807}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a6e087748d8bbd2ca57c487b6ad268670}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a6e087748d8bbd2ca57c487b6ad268670} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_STD\_WSTRING@{GTEST\_HAS\_STD\_WSTRING}}
+\index{GTEST\_HAS\_STD\_WSTRING@{GTEST\_HAS\_STD\_WSTRING}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_STD\_WSTRING}{GTEST\_HAS\_STD\_WSTRING}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+STD\+\_\+\+WSTRING~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00507}{507}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_add695166eb7b691f93777525d5881062}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_add695166eb7b691f93777525d5881062} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAS\_STREAM\_REDIRECTION@{GTEST\_HAS\_STREAM\_REDIRECTION}}
+\index{GTEST\_HAS\_STREAM\_REDIRECTION@{GTEST\_HAS\_STREAM\_REDIRECTION}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAS\_STREAM\_REDIRECTION}{GTEST\_HAS\_STREAM\_REDIRECTION}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAS\+\_\+\+STREAM\+\_\+\+REDIRECTION~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00651}{651}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad66d755e9b34a04aa6a6f6bf87a7e7f6}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad66d755e9b34a04aa6a6f6bf87a7e7f6} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAVE\_ATTRIBUTE\_@{GTEST\_HAVE\_ATTRIBUTE\_}}
+\index{GTEST\_HAVE\_ATTRIBUTE\_@{GTEST\_HAVE\_ATTRIBUTE\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAVE\_ATTRIBUTE\_}{GTEST\_HAVE\_ATTRIBUTE\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAVE\+\_\+\+ATTRIBUTE\+\_\+(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} }\end{DoxyParamCaption})~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00743}{743}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4ba98e42fe6241738632ae9c5719651e}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a4ba98e42fe6241738632ae9c5719651e} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_HAVE\_FEATURE\_@{GTEST\_HAVE\_FEATURE\_}}
+\index{GTEST\_HAVE\_FEATURE\_@{GTEST\_HAVE\_FEATURE\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_HAVE\_FEATURE\_}{GTEST\_HAVE\_FEATURE\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+HAVE\+\_\+\+FEATURE\+\_\+(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} }\end{DoxyParamCaption})~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00767}{767}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa5e27ad4f88278501ef71bd9ddbb44c6}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa5e27ad4f88278501ef71bd9ddbb44c6} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INIT\_GOOGLE\_TEST\_NAME\_@{GTEST\_INIT\_GOOGLE\_TEST\_NAME\_}}
+\index{GTEST\_INIT\_GOOGLE\_TEST\_NAME\_@{GTEST\_INIT\_GOOGLE\_TEST\_NAME\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INIT\_GOOGLE\_TEST\_NAME\_}{GTEST\_INIT\_GOOGLE\_TEST\_NAME\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INIT\+\_\+\+GOOGLE\+\_\+\+TEST\+\_\+\+NAME\+\_\+~"{}testing\+::\+Init\+Google\+Test"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00341}{341}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad115e2c466f7e8a32f1cf23ef2e5f220}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ad115e2c466f7e8a32f1cf23ef2e5f220} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTENTIONAL\_CONST\_COND\_POP\_@{GTEST\_INTENTIONAL\_CONST\_COND\_POP\_}}
+\index{GTEST\_INTENTIONAL\_CONST\_COND\_POP\_@{GTEST\_INTENTIONAL\_CONST\_COND\_POP\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTENTIONAL\_CONST\_COND\_POP\_}{GTEST\_INTENTIONAL\_CONST\_COND\_POP\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTENTIONAL\+\_\+\+CONST\+\_\+\+COND\+\_\+\+POP\+\_\+(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_ab4c44546d6d9aced68993b87b608fc06}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+POP\+\_\+}}()}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00794}{794}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69b0cadb05bf2a1ef96151243c6b6241}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69b0cadb05bf2a1ef96151243c6b6241} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_@{GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_}}
+\index{GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_@{GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_}{GTEST\_INTENTIONAL\_CONST\_COND\_PUSH\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTENTIONAL\+\_\+\+CONST\+\_\+\+COND\+\_\+\+PUSH\+\_\+(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~  \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a86994cc68e844d8b82089c70408dfc61}{GTEST\+\_\+\+DISABLE\+\_\+\+MSC\+\_\+\+WARNINGS\+\_\+\+PUSH\+\_\+}}(4127)}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00792}{792}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a99939c8942aa678c857c327b865f0273}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a99939c8942aa678c857c327b865f0273} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE@{GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE}}
+\index{GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE@{GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE}{GTEST\_INTERNAL\_DEPRECATE\_AND\_INLINE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+DEPRECATE\+\_\+\+AND\+\_\+\+INLINE(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})~\mbox{[}\mbox{[}deprecated(msg)\mbox{]}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02339}{2339}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a194326c2e1c5db572d14b2af09da510b}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a194326c2e1c5db572d14b2af09da510b} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_HAS\_COMPARE\_LIB@{GTEST\_INTERNAL\_HAS\_COMPARE\_LIB}}
+\index{GTEST\_INTERNAL\_HAS\_COMPARE\_LIB@{GTEST\_INTERNAL\_HAS\_COMPARE\_LIB}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_HAS\_COMPARE\_LIB}{GTEST\_INTERNAL\_HAS\_COMPARE\_LIB}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+COMPARE\+\_\+\+LIB~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02388}{2388}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3942762a7d09ee09e6babcb76d1bb9b4}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3942762a7d09ee09e6babcb76d1bb9b4} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_HAS\_INCLUDE@{GTEST\_INTERNAL\_HAS\_INCLUDE}}
+\index{GTEST\_INTERNAL\_HAS\_INCLUDE@{GTEST\_INTERNAL\_HAS\_INCLUDE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_HAS\_INCLUDE}{GTEST\_INTERNAL\_HAS\_INCLUDE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+INCLUDE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00267}{267}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a65dffdca5763506d760831b0de5427eb}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a65dffdca5763506d760831b0de5427eb} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_HAS\_STD\_SPAN@{GTEST\_INTERNAL\_HAS\_STD\_SPAN}}
+\index{GTEST\_INTERNAL\_HAS\_STD\_SPAN@{GTEST\_INTERNAL\_HAS\_STD\_SPAN}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_HAS\_STD\_SPAN}{GTEST\_INTERNAL\_HAS\_STD\_SPAN}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+STD\+\_\+\+SPAN~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02348}{2348}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a72603a093db1f1055ee69f44eadeee1f}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a72603a093db1f1055ee69f44eadeee1f} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_HAS\_STRING\_VIEW@{GTEST\_INTERNAL\_HAS\_STRING\_VIEW}}
+\index{GTEST\_INTERNAL\_HAS\_STRING\_VIEW@{GTEST\_INTERNAL\_HAS\_STRING\_VIEW}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_HAS\_STRING\_VIEW}{GTEST\_INTERNAL\_HAS\_STRING\_VIEW}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+HAS\+\_\+\+STRING\+\_\+\+VIEW~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02380}{2380}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3691a8b7b0abd6cfcb6145296e8dd357}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a3691a8b7b0abd6cfcb6145296e8dd357} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE@{GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE}}
+\index{GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE@{GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE}{GTEST\_INTERNAL\_HAVE\_CPP\_ATTRIBUTE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+INTERNAL\+\_\+\+HAVE\+\_\+\+CPP\+\_\+\+ATTRIBUTE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} }\end{DoxyParamCaption})~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00757}{757}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69abff5a4efdd07bd5faebe3dd318d06}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a69abff5a4efdd07bd5faebe3dd318d06} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_LOCK\_EXCLUDED\_@{GTEST\_LOCK\_EXCLUDED\_}}
+\index{GTEST\_LOCK\_EXCLUDED\_@{GTEST\_LOCK\_EXCLUDED\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_LOCK\_EXCLUDED\_}{GTEST\_LOCK\_EXCLUDED\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+LOCK\+\_\+\+EXCLUDED\+\_\+(\begin{DoxyParamCaption}\item[{}]{locks }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02316}{2316}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8ef4cb4c465db8c15464aecc6d9510ef}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a8ef4cb4c465db8c15464aecc6d9510ef} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_LOG\_@{GTEST\_LOG\_}}
+\index{GTEST\_LOG\_@{GTEST\_LOG\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_LOG\_}{GTEST\_LOG\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+LOG\+\_\+(\begin{DoxyParamCaption}\item[{}]{severity }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classtesting_1_1internal_1_1GTestLog}{::testing::internal::GTestLog}}(\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{::testing::internal::GTEST\_}}\#\#severity,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_FILE\_\_,\ \_\_LINE\_\_)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ .\mbox{\hyperlink{classtesting_1_1internal_1_1GTestLog_a74935e7a0b424c4a6312fb73dafab6b5}{GetStream}}()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01060}{1060}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a13d98c217176bd8722c395b9225fc19d}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a13d98c217176bd8722c395b9225fc19d} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_NAME\_@{GTEST\_NAME\_}}
+\index{GTEST\_NAME\_@{GTEST\_NAME\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_NAME\_}{GTEST\_NAME\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+NAME\+\_\+~"{}Google Test"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00336}{336}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9945cbd967fbccb15f8de711f58955c7}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9945cbd967fbccb15f8de711f58955c7} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_NO\_INLINE\_@{GTEST\_NO\_INLINE\_}}
+\index{GTEST\_NO\_INLINE\_@{GTEST\_NO\_INLINE\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_NO\_INLINE\_}{GTEST\_NO\_INLINE\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+NO\+\_\+\+INLINE\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00860}{860}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c9f887f61bb2b18c6b42d22b1a340e}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a40c9f887f61bb2b18c6b42d22b1a340e} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_NO\_TAIL\_CALL\_@{GTEST\_NO\_TAIL\_CALL\_}}
+\index{GTEST\_NO\_TAIL\_CALL\_@{GTEST\_NO\_TAIL\_CALL\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_NO\_TAIL\_CALL\_}{GTEST\_NO\_TAIL\_CALL\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+NO\+\_\+\+TAIL\+\_\+\+CALL\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00871}{871}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_afbb636e91bdd50267dbef11a50490b29}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_afbb636e91bdd50267dbef11a50490b29} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_PATH\_SEP\_@{GTEST\_PATH\_SEP\_}}
+\index{GTEST\_PATH\_SEP\_@{GTEST\_PATH\_SEP\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_PATH\_SEP\_}{GTEST\_PATH\_SEP\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+PATH\+\_\+\+SEP\+\_\+~"{}/"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01923}{1923}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5aa3c938fc1d049f1d9c5332f6a0b1d4}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a5aa3c938fc1d049f1d9c5332f6a0b1d4} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_PROJECT\_URL\_@{GTEST\_PROJECT\_URL\_}}
+\index{GTEST\_PROJECT\_URL\_@{GTEST\_PROJECT\_URL\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_PROJECT\_URL\_}{GTEST\_PROJECT\_URL\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+PROJECT\+\_\+\+URL\+\_\+~"{}https\+://github.\+com/google/googletest/"{}}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00337}{337}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f91fcd24cae0b48fdaeb19102dac525}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a9f91fcd24cae0b48fdaeb19102dac525} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_REFERENCE\_TO\_CONST\_@{GTEST\_REFERENCE\_TO\_CONST\_}}
+\index{GTEST\_REFERENCE\_TO\_CONST\_@{GTEST\_REFERENCE\_TO\_CONST\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_REFERENCE\_TO\_CONST\_}{GTEST\_REFERENCE\_TO\_CONST\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+REFERENCE\+\_\+\+TO\+\_\+\+CONST\+\_\+(\begin{DoxyParamCaption}\item[{}]{T }\end{DoxyParamCaption})~  typename \mbox{\hyperlink{structtesting_1_1internal_1_1ConstRef}{\+::testing\+::internal\+::\+Const\+Ref}}$<$T$>$\+::type}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l01123}{1123}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aed1cc8143222d7a845a1269448ec203e}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aed1cc8143222d7a845a1269448ec203e} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_SNPRINTF\_@{GTEST\_SNPRINTF\_}}
+\index{GTEST\_SNPRINTF\_@{GTEST\_SNPRINTF\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_SNPRINTF\_}{GTEST\_SNPRINTF\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+SNPRINTF\+\_\+~snprintf}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02178}{2178}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa2315948dda8dba4fc516575657f193c}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa2315948dda8dba4fc516575657f193c} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_@{GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_}}
+\index{GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_@{GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_}{GTEST\_USE\_OWN\_FLAGFILE\_FLAG\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+USE\+\_\+\+OWN\+\_\+\+FLAGFILE\+\_\+\+FLAG\+\_\+~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l02309}{2309}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acecef794eeb09598cd47da764271cb18}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_acecef794eeb09598cd47da764271cb18} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_USES\_POSIX\_RE@{GTEST\_USES\_POSIX\_RE}}
+\index{GTEST\_USES\_POSIX\_RE@{GTEST\_USES\_POSIX\_RE}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_USES\_POSIX\_RE}{GTEST\_USES\_POSIX\_RE}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+USES\+\_\+\+POSIX\+\_\+\+RE~1}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00440}{440}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+
+\Hypertarget{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a0e3904ca8d62334ab5f29c057dceb6a1}\label{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_a0e3904ca8d62334ab5f29c057dceb6a1} 
+\index{gtest-\/port.h@{gtest-\/port.h}!GTEST\_WIDE\_STRING\_USES\_UTF16\_@{GTEST\_WIDE\_STRING\_USES\_UTF16\_}}
+\index{GTEST\_WIDE\_STRING\_USES\_UTF16\_@{GTEST\_WIDE\_STRING\_USES\_UTF16\_}!gtest-\/port.h@{gtest-\/port.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_WIDE\_STRING\_USES\_UTF16\_}{GTEST\_WIDE\_STRING\_USES\_UTF16\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+WIDE\+\_\+\+STRING\+\_\+\+USES\+\_\+\+UTF16\+\_\+~0}
+
+
+
+Definition at line \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source_l00698}{698}} of file \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_source}{gtest-\/port.\+h}}.
+

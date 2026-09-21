@@ -1,0 +1,181 @@
+\doxysection{cmake-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/gtest-\/param-\/test.h File Reference}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h}{}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h}\index{cmake-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/param-\/test.h@{cmake-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/param-\/test.h}}
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/internal.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/param-\/util.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port.\+h"{}}\newline
+Include dependency graph for gtest-\/param-\/test.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesting}{testing}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a1adc861b311e3fbd97bcc72e0b0f5962}{TEST\+\_\+P}}(test\+\_\+suite\+\_\+name,  test\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6442d82c72586da9df3fcfb6d5c80a74}{GTEST\+\_\+\+EXPAND\+\_\+}}(arg)~arg
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a89cbdb4deb20f050ef09cfee0ee4bc5a}{GTEST\+\_\+\+GET\+\_\+\+FIRST\+\_\+}}(first, ...)~first
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a8b3f34a83aca320f5fb520e2e0c12b18}{GTEST\+\_\+\+GET\+\_\+\+SECOND\+\_\+}}(first,  second, ...)~second
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6a5cb3ce0a0fe17f84f357a6f39a4ba5}{INSTANTIATE\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P}}(prefix,  test\+\_\+suite\+\_\+name, ...)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a4312b46eab29deb01bb669311777cd69}{GTEST\+\_\+\+ALLOW\+\_\+\+UNINSTANTIATED\+\_\+\+PARAMETERIZED\+\_\+\+TEST}}(T)
+\item 
+\#define \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_acc356fe00725fe8bf8b95791c0ffacbd}{INSTANTIATE\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename IncrementT $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ T $>$ \mbox{\hyperlink{namespacetesting_a4f2c9978ad0c764f57e0cbd6f72cb540}{testing\+::\+Range}} (T start, T end, IncrementT step)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ T $>$ \mbox{\hyperlink{namespacetesting_a9422b51662c54e62609fadcee050595c}{testing\+::\+Range}} (T start, T end)
+\item 
+{\footnotesize template$<$typename Forward\+Iterator $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ typename std\+::iterator\+\_\+traits$<$ Forward\+Iterator $>$\+::value\+\_\+type $>$ \mbox{\hyperlink{namespacetesting_a350c2610dbc5a30904732c3675c7fdce}{testing\+::\+Values\+In}} (Forward\+Iterator begin, Forward\+Iterator end)
+\item 
+{\footnotesize template$<$typename T , size\+\_\+t N$>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ T $>$ \mbox{\hyperlink{namespacetesting_affa90ba3821bd7ac15f147b1c31f9a73}{testing\+::\+Values\+In}} (const T(\&array)\mbox{[}N\mbox{]})
+\item 
+{\footnotesize template$<$class Container $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ typename Container\+::value\+\_\+type $>$ \mbox{\hyperlink{namespacetesting_aa67d0c8470c5f69fcfcacc9e775fa982}{testing\+::\+Values\+In}} (const Container \&container)
+\item 
+{\footnotesize template$<$typename... T$>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ValueArray}{internal\+::\+Value\+Array}}$<$ T... $>$ \mbox{\hyperlink{namespacetesting_abd3c87b40c2a0663691c9b617ed5fcc2}{testing\+::\+Values}} (T... v)
+\item 
+\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ bool $>$ \mbox{\hyperlink{namespacetesting_a1a0ebe4f77126fb464a8286ce6389bb9}{testing\+::\+Bool}} ()
+\item 
+{\footnotesize template$<$typename... Generator$>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1CartesianProductHolder}{internal\+::\+Cartesian\+Product\+Holder}}$<$ Generator... $>$ \mbox{\hyperlink{namespacetesting_aa79138ff6a7f479fea4fed96a677f083}{testing\+::\+Combine}} (const Generator \&... g)
+\item 
+{\footnotesize template$<$typename RequestedT $>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamConverterGenerator}{internal\+::\+Param\+Converter\+Generator}}$<$ RequestedT $>$ \mbox{\hyperlink{namespacetesting_a8765819f4bd99d701b0424c01445ee79}{testing\+::\+Convert\+Generator}} (\mbox{\hyperlink{classtesting_1_1internal_1_1ParamGenerator}{internal\+::\+Param\+Generator}}$<$ RequestedT $>$ gen)
+\item 
+{\footnotesize template$<$typename T , int \&... Explicit\+Argument\+Barrier, typename Gen , typename Func , typename Std\+Function  = decltype(std\+::function(std\+::declval$<$\+Func$>$()))$>$ }\\\mbox{\hyperlink{classtesting_1_1internal_1_1ParamConverterGenerator}{internal\+::\+Param\+Converter\+Generator}}$<$ T, Std\+Function $>$ \mbox{\hyperlink{namespacetesting_a5aa7acbd17438e304ad3c3815ca0f3af}{testing\+::\+Convert\+Generator}} (Gen \&\&gen, Func \&\&f)
+\item 
+{\footnotesize template$<$int \&... Explicit\+Argument\+Barrier, typename Gen , typename Func , typename Std\+Function  = decltype(std\+::function(std\+::declval$<$\+Func$>$()))$>$ }\\auto \mbox{\hyperlink{namespacetesting_ad590c8cb183b82159182a3f242d3c260}{testing\+::\+Convert\+Generator}} (Gen \&\&gen, Func \&\&f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a4312b46eab29deb01bb669311777cd69}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a4312b46eab29deb01bb669311777cd69} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST@{GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST}}
+\index{GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST@{GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST}{GTEST\_ALLOW\_UNINSTANTIATED\_PARAMETERIZED\_TEST}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+ALLOW\+\_\+\+UNINSTANTIATED\+\_\+\+PARAMETERIZED\+\_\+\+TEST(\begin{DoxyParamCaption}\item[{}]{T }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }gtest\_do\_not\_use\_outside\_namespace\_scope\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ const\ ::testing::internal::MarkAsIgnored\ gtest\_allow\_ignore\_\#\#T(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(T))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00587}{587}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6442d82c72586da9df3fcfb6d5c80a74}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6442d82c72586da9df3fcfb6d5c80a74} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!GTEST\_EXPAND\_@{GTEST\_EXPAND\_}}
+\index{GTEST\_EXPAND\_@{GTEST\_EXPAND\_}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_EXPAND\_}{GTEST\_EXPAND\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+EXPAND\+\_\+(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~arg}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00549}{549}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a89cbdb4deb20f050ef09cfee0ee4bc5a}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a89cbdb4deb20f050ef09cfee0ee4bc5a} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!GTEST\_GET\_FIRST\_@{GTEST\_GET\_FIRST\_}}
+\index{GTEST\_GET\_FIRST\_@{GTEST\_GET\_FIRST\_}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_GET\_FIRST\_}{GTEST\_GET\_FIRST\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+GET\+\_\+\+FIRST\+\_\+(\begin{DoxyParamCaption}\item[{}]{first,  }\item[{}]{... }\end{DoxyParamCaption})~first}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00550}{550}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a8b3f34a83aca320f5fb520e2e0c12b18}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a8b3f34a83aca320f5fb520e2e0c12b18} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!GTEST\_GET\_SECOND\_@{GTEST\_GET\_SECOND\_}}
+\index{GTEST\_GET\_SECOND\_@{GTEST\_GET\_SECOND\_}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_GET\_SECOND\_}{GTEST\_GET\_SECOND\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+GET\+\_\+\+SECOND\+\_\+(\begin{DoxyParamCaption}\item[{}]{first,  }\item[{}]{second,  }\item[{}]{... }\end{DoxyParamCaption})~second}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00551}{551}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_acc356fe00725fe8bf8b95791c0ffacbd}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_acc356fe00725fe8bf8b95791c0ffacbd} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!INSTANTIATE\_TEST\_CASE\_P@{INSTANTIATE\_TEST\_CASE\_P}}
+\index{INSTANTIATE\_TEST\_CASE\_P@{INSTANTIATE\_TEST\_CASE\_P}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_CASE\_P}{INSTANTIATE\_TEST\_CASE\_P}}
+{\footnotesize\ttfamily \#define INSTANTIATE\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacetesting_1_1internal_a59fea9fc932fdad449cff2296fa1939f}{::testing::internal::InstantiateTestCase\_P\_IsDeprecated}}(),\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6a5cb3ce0a0fe17f84f357a6f39a4ba5}{INSTANTIATE\_TEST\_SUITE\_P}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00594}{594}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6a5cb3ce0a0fe17f84f357a6f39a4ba5}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a6a5cb3ce0a0fe17f84f357a6f39a4ba5} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TEST\_SUITE\_P@{INSTANTIATE\_TEST\_SUITE\_P}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TEST\_SUITE\_P}{INSTANTIATE\_TEST\_SUITE\_P}}
+{\footnotesize\ttfamily \#define INSTANTIATE\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{prefix,  }\item[{}]{test\+\_\+suite\+\_\+name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00553}{553}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+
+\Hypertarget{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a1adc861b311e3fbd97bcc72e0b0f5962}\label{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_a1adc861b311e3fbd97bcc72e0b0f5962} 
+\index{gtest-\/param-\/test.h@{gtest-\/param-\/test.h}!TEST\_P@{TEST\_P}}
+\index{TEST\_P@{TEST\_P}!gtest-\/param-\/test.h@{gtest-\/param-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TEST\_P}{TEST\_P}}
+{\footnotesize\ttfamily \#define TEST\+\_\+P(\begin{DoxyParamCaption}\item[{}]{test\+\_\+suite\+\_\+name,  }\item[{}]{test\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(test\_suite\_name,\ test\_name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ :\ \textcolor{keyword}{public}\ test\_suite\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{classtesting_1_1internal_1_1GTestNonCopyable}{::testing::internal::GTestNonCopyable}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{\(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{\ \ \ \ GTEST\_TEST\_CLASS\_NAME\_}}(test\_suite\_name,\ test\_name)()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ TestBody()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{private}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{AddToRegistry}}()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::UnitTest::GetInstance()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ -\/>parameterized\_test\_registry()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ .GetTestSuitePatternHolder<test\_suite\_name>(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{\(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ GTEST\_STRINGIFY\_}}(test\_suite\_name),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ ::testing::internal::CodeLocation(\_\_FILE\_\_,\ \_\_LINE\_\_))\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ -\/>AddTestPattern(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(test\_suite\_name),\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(test\_name),\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ new\ ::testing::internal::TestMetaFactory<\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ test\_suite\_name,\ test\_name)>(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{::testing::internal::CodeLocation}}(\_\_FILE\_\_,\ \_\_LINE\_\_));\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ [[\mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{maybe\_unused}}]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacetesting_1_1internal_a3316c24e8a79f5def3e85d763ae50854}{gtest\_registering\_dummy\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(test\_suite\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ test\_name)::gtest\_registering\_dummy\_\ =\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(test\_suite\_name,\ test\_name)::AddToRegistry();\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(test\_suite\_name,\ test\_name)::TestBody()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source_l00507}{507}} of file \mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-param-test_8h_source}{gtest-\/param-\/test.\+h}}.
+

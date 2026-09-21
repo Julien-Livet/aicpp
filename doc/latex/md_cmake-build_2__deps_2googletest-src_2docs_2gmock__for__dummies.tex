@@ -1,0 +1,486 @@
+\chapter{g\+Mock for Dummies}
+\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies}{}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies}\index{gMock for Dummies@{gMock for Dummies}}
+\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md633}%
+\Hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md633}%
+ \hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md634}{}\doxysection{\texorpdfstring{What Is g\+Mock?}{What Is gMock?}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md634}
+When you write a prototype or test, often it\textquotesingle{}s not feasible or wise to rely on real objects entirely. A {\bfseries{mock object}} implements the same interface as a real object (so it can be used as one), but lets you specify at run time how it will be used and what it should do (which methods will be called? in which order? how many times? with what arguments? what will they return? etc).
+
+It is easy to confuse the term {\itshape fake objects} with mock objects. Fakes and mocks actually mean very different things in the Test-\/\+Driven Development (TDD) community\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Fake}} objects have working implementations, but usually take some shortcut (perhaps to make the operations less expensive), which makes them not suitable for production. An in-\/memory file system would be an example of a fake.
+\item {\bfseries{Mocks}} are objects pre-\/programmed with {\itshape expectations}, which form a specification of the calls they are expected to receive.
+\end{DoxyItemize}
+
+If all this seems too abstract for you, don\textquotesingle{}t worry -\/ the most important thing to remember is that a mock allows you to check the {\itshape interaction} between itself and code that uses it. The difference between fakes and mocks shall become much clearer once you start to use mocks.
+
+{\bfseries{g\+Mock}} is a library (sometimes we also call it a "{}framework"{} to make it sound cool) for creating mock classes and using them. It does to C++ what j\+Mock/\+Easy\+Mock does to Java (well, more or less).
+
+When using g\+Mock,
+
+
+\begin{DoxyEnumerate}
+\item first, you use some simple macros to describe the interface you want to mock, and they will expand to the implementation of your mock class;
+\item next, you create some mock objects and specify its expectations and behavior using an intuitive syntax;
+\item then you exercise code that uses the mock objects. g\+Mock will catch any violation to the expectations as soon as it arises.
+\end{DoxyEnumerate}\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md635}{}\doxysection{\texorpdfstring{Why g\+Mock?}{Why gMock?}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md635}
+While mock objects help you remove unnecessary dependencies in tests and make them fast and reliable, using mocks manually in C++ is {\itshape hard}\+:
+
+
+\begin{DoxyItemize}
+\item Someone has to implement the mocks. The job is usually tedious and error-\/prone. No wonder people go great distance to avoid it.
+\item The quality of those manually written mocks is a bit, uh, unpredictable. You may see some really polished ones, but you may also see some that were hacked up in a hurry and have all sorts of ad hoc restrictions.
+\item The knowledge you gained from using one mock doesn\textquotesingle{}t transfer to the next one.
+\end{DoxyItemize}
+
+In contrast, Java and Python programmers have some fine mock frameworks (j\+Mock, Easy\+Mock, etc), which automate the creation of mocks. As a result, mocking is a proven effective technique and widely adopted practice in those communities. Having the right tool absolutely makes the difference.
+
+g\+Mock was built to help C++ programmers. It was inspired by j\+Mock and Easy\+Mock, but designed with C++\textquotesingle{}s specifics in mind. It is your friend if any of the following problems is bothering you\+:
+
+
+\begin{DoxyItemize}
+\item You are stuck with a sub-\/optimal design and wish you had done more prototyping before it was too late, but prototyping in C++ is by no means "{}rapid"{}.
+\item Your tests are slow as they depend on too many libraries or use expensive resources (e.\+g. a database).
+\item Your tests are brittle as some resources they use are unreliable (e.\+g. the network).
+\item You want to test how your code handles a failure (e.\+g. a file checksum error), but it\textquotesingle{}s not easy to cause one.
+\item You need to make sure that your module interacts with other modules in the right way, but it\textquotesingle{}s hard to observe the interaction; therefore you resort to observing the side effects at the end of the action, but it\textquotesingle{}s awkward at best.
+\item You want to "{}mock out"{} your dependencies, except that they don\textquotesingle{}t have mock implementations yet; and, frankly, you aren\textquotesingle{}t thrilled by some of those hand-\/written mocks.
+\end{DoxyItemize}
+
+We encourage you to use g\+Mock as
+
+
+\begin{DoxyItemize}
+\item a {\itshape design} tool, for it lets you experiment with your interface design early and often. More iterations lead to better designs!
+\item a {\itshape testing} tool to cut your tests\textquotesingle{} outbound dependencies and probe the interaction between your module and its collaborators.
+\end{DoxyItemize}\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md636}{}\doxysection{\texorpdfstring{Getting Started}{Getting Started}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md636}
+g\+Mock is bundled with googletest.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md637}{}\doxysection{\texorpdfstring{A Case for Mock Turtles}{A Case for Mock Turtles}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md637}
+Let\textquotesingle{}s look at an example. Suppose you are developing a graphics program that relies on a \href{https://en.wikipedia.org/wiki/Logo_programming_language}{\texttt{ LOGO}}-\/like API for drawing. How would you test that it does the right thing? Well, you can run it and compare the screen with a golden screen snapshot, but let\textquotesingle{}s admit it\+: tests like this are expensive to run and fragile (What if you just upgraded to a shiny new graphics card that has better anti-\/aliasing? Suddenly you have to update all your golden images.). It would be too painful if all your tests are like this. Fortunately, you learned about \href{https://en.wikipedia.org/wiki/Dependency_injection}{\texttt{ Dependency Injection}} and know the right thing to do\+: instead of having your application talk to the system API directly, wrap the API in an interface (say, {\ttfamily Turtle}) and code to that interface\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Turtle\ \{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~Turtle()\ \{\}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ PenUp()\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ PenDown()\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Forward(\textcolor{keywordtype}{int}\ distance)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Turn(\textcolor{keywordtype}{int}\ degrees)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ GoTo(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}})\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetX()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetY()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+(Note that the destructor of {\ttfamily Turtle} {\bfseries{must}} be virtual, as is the case for {\bfseries{all}} classes you intend to inherit from -\/ otherwise the destructor of the derived class will not be called when you delete an object through a base pointer, and you\textquotesingle{}ll get corrupted program states like memory leaks.)
+
+You can control whether the turtle\textquotesingle{}s movement will leave a trace using {\ttfamily Pen\+Up()} and {\ttfamily Pen\+Down()}, and control its movement using {\ttfamily Forward()}, {\ttfamily Turn()}, and {\ttfamily Go\+To()}. Finally, {\ttfamily Get\+X()} and {\ttfamily Get\+Y()} tell you the current position of the turtle.
+
+Your program will normally use a real implementation of this interface. In tests, you can use a mock implementation instead. This allows you to easily check what drawing primitives your program is calling, with what arguments, and in which order. Tests written this way are much more robust (they won\textquotesingle{}t break because your new machine does anti-\/aliasing differently), easier to read and maintain (the intent of a test is expressed in the code, not in some binary images), and run {\itshape much, much faster}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md638}{}\doxysection{\texorpdfstring{Writing the Mock Class}{Writing the Mock Class}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md638}
+If you are lucky, the mocks you need to use have already been implemented by some nice people. If, however, you find yourself in the position to write a mock class, relax -\/ g\+Mock turns this task into a fun game! (Well, almost.)\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md639}{}\doxysubsection{\texorpdfstring{How to Define It}{How to Define It}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md639}
+Using the {\ttfamily Turtle} interface as example, here are the simple steps you need to follow\+:
+
+
+\begin{DoxyItemize}
+\item Derive a class {\ttfamily Mock\+Turtle} from {\ttfamily Turtle}.
+\item Take a {\itshape virtual} function of {\ttfamily Turtle} (while it\textquotesingle{}s possible to \href{gmock_cook_book.md\#MockingNonVirtualMethods}{\texttt{ mock non-\/virtual methods using templates}}, it\textquotesingle{}s much more involved).
+\item In the {\ttfamily public\+:} section of the child class, write {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\+\_\+\+METHOD()};}
+\item Now comes the fun part\+: you take the function signature, cut-\/and-\/paste it into the macro, and add two commas -\/ one between the return type and the name, another between the name and the argument list.
+\item If you\textquotesingle{}re mocking a const method, add a 4th parameter containing {\ttfamily (const)} (the parentheses are required).
+\item Since you\textquotesingle{}re overriding a virtual method, we suggest adding the {\ttfamily override} keyword. For const methods the 4th parameter becomes {\ttfamily (const, override)}, for non-\/const methods just {\ttfamily (override)}. This isn\textquotesingle{}t mandatory.
+\item Repeat until all virtual functions you want to mock are done. (It goes without saying that {\itshape all} pure virtual methods in your abstract class must be either mocked or overridden.)
+\end{DoxyItemize}
+
+After the process, you should have something like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gmock/gmock.h>}\ \ \textcolor{comment}{//\ Brings\ in\ gMock.}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MockTurtle\ :\ \textcolor{keyword}{public}\ Turtle\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ PenUp,\ (),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ PenDown,\ (),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Forward,\ (\textcolor{keywordtype}{int}\ distance),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Turn,\ (\textcolor{keywordtype}{int}\ degrees),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ GoTo,\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}}),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{int},\ GetX,\ (),\ (\textcolor{keyword}{const},\ \textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{int},\ GetY,\ (),\ (\textcolor{keyword}{const},\ \textcolor{keyword}{override}));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+You don\textquotesingle{}t need to define these mock methods somewhere else -\/ the {\ttfamily MOCK\+\_\+\+METHOD} macro will generate the definitions for you. It\textquotesingle{}s that simple!\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md640}{}\doxysubsection{\texorpdfstring{Where to Put It}{Where to Put It}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md640}
+When you define a mock class, you need to decide where to put its definition. Some people put it in a {\ttfamily \+\_\+test.\+cc}. This is fine when the interface being mocked (say, {\ttfamily Foo}) is owned by the same person or team. Otherwise, when the owner of {\ttfamily Foo} changes it, your test could break. (You can\textquotesingle{}t really expect {\ttfamily Foo}\textquotesingle{}s maintainer to fix every test that uses {\ttfamily Foo}, can you?)
+
+Generally, you should not mock classes you don\textquotesingle{}t own. If you must mock such a class owned by others, define the mock class in {\ttfamily Foo}\textquotesingle{}s Bazel package (usually the same directory or a {\ttfamily testing} sub-\/directory), and put it in a {\ttfamily .h} and a {\ttfamily cc\+\_\+library} with {\ttfamily testonly=True}. Then everyone can reference them from their tests. If {\ttfamily Foo} ever changes, there is only one copy of {\ttfamily \doxylink{classMockFoo}{Mock\+Foo}} to change, and only tests that depend on the changed methods need to be fixed.
+
+Another way to do it\+: you can introduce a thin layer {\ttfamily Foo\+Adaptor} on top of {\ttfamily Foo} and code to this new interface. Since you own {\ttfamily Foo\+Adaptor}, you can absorb changes in {\ttfamily Foo} much more easily. While this is more work initially, carefully choosing the adaptor interface can make your code easier to write and more readable (a net win in the long run), as you can choose {\ttfamily Foo\+Adaptor} to fit your specific domain much better than {\ttfamily Foo} does.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md641}{}\doxysection{\texorpdfstring{Using Mocks in Tests}{Using Mocks in Tests}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md641}
+Once you have a mock class, using it is easy. The typical work flow is\+:
+
+
+\begin{DoxyEnumerate}
+\item Import the g\+Mock names from the {\ttfamily testing} namespace such that you can use them unqualified (You only have to do it once per file). Remember that namespaces are a good idea.
+\item Create some mock objects.
+\item Specify your expectations on them (How many times will a method be called? With what arguments? What should it do? etc.).
+\item Exercise some code that uses the mocks; optionally, check the result using googletest assertions. If a mock method is called more than expected or with wrong arguments, you\textquotesingle{}ll get an error immediately.
+\item When a mock is destructed, g\+Mock will automatically check whether all expectations on it have been satisfied.
+\end{DoxyEnumerate}
+
+Here\textquotesingle{}s an example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}path/to/mock-\/turtle.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gmock/gmock.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gtest/gtest.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{using\ ::testing::AtLeast;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(PainterTest,\ CanDrawSomething)\ \{}
+\DoxyCodeLine{\ \ MockTurtle\ turtle;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ PenDown())\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#3}}
+\DoxyCodeLine{\ \ \ \ \ \ .Times(\mbox{\hyperlink{namespacetesting_a137297cb3c582843989fbd937cf0fed2}{AtLeast}}(1));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Painter\ painter(\&turtle);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#4}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ac33e7cdfb5d44a7a0f0ab552eb5c3c6a}{EXPECT\_TRUE}}(painter.DrawCircle(0,\ 0,\ 10));\ \ \ \ \ \ \textcolor{comment}{//\ \#5}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+As you might have guessed, this test checks that {\ttfamily Pen\+Down()} is called at least once. If the {\ttfamily painter} object didn\textquotesingle{}t call this method, your test will fail with a message like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{path/to/my\_test.cc:119:\ Failure}
+\DoxyCodeLine{Actual\ function\ call\ count\ doesn't\ match\ this\ expectation:}
+\DoxyCodeLine{Actually:\ never\ called;}
+\DoxyCodeLine{Expected:\ called\ at\ least\ once.}
+\DoxyCodeLine{Stack\ trace:}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+
+
+{\bfseries{Tip 1\+:}} If you run the test from an Emacs buffer, you can hit {\ttfamily \texorpdfstring{$<$}{<}Enter\texorpdfstring{$>$}{>}} on the line number to jump right to the failed expectation.
+
+{\bfseries{Tip 2\+:}} If your mock objects are never deleted, the final verification won\textquotesingle{}t happen. Therefore it\textquotesingle{}s a good idea to turn on the heap checker in your tests when you allocate mocks on the heap. You get that automatically if you use the {\ttfamily gtest\+\_\+main} library already.
+
+\doxysubparagraph*{Expectation Ordering}
+
+{\bfseries{Important note\+:}} g\+Mock requires expectations to be set {\bfseries{before}} the mock functions are called, otherwise the behavior is {\bfseries{undefined}}. Do not alternate between calls to {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} and calls to the mock functions, and do not set any expectations on a mock after passing the mock to an API.
+
+This means {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} should be read as expecting that a call will occur {\itshape in the future}, not that a call has occurred. Why does g\+Mock work like that? Well, specifying the expectation beforehand allows g\+Mock to report a violation as soon as it rises, when the context (stack trace, etc) is still available. This makes debugging much easier.
+
+Admittedly, this test is contrived and doesn\textquotesingle{}t do much. You can easily achieve the same effect without using g\+Mock. However, as we shall reveal soon, g\+Mock allows you to do {\itshape so much more} with the mocks.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md642}{}\doxysection{\texorpdfstring{Setting Expectations}{Setting Expectations}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md642}
+The key to using a mock object successfully is to set the {\itshape right expectations} on it. If you set the expectations too strict, your test will fail as the result of unrelated changes. If you set them too loose, bugs can slip through. You want to do it just right such that your test can catch exactly the kind of bugs you intend it to catch. g\+Mock provides the necessary means for you to do it "{}just right."{}\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md643}{}\doxysubsection{\texorpdfstring{General Syntax}{General Syntax}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md643}
+In g\+Mock we use the {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} macro to set an expectation on a mock method. The general syntax is\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_object,\ method(matchers))}
+\DoxyCodeLine{\ \ \ \ .Times(cardinality)}
+\DoxyCodeLine{\ \ \ \ .WillOnce(action)}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(action);}
+
+\end{DoxyCode}
+
+
+The macro has two arguments\+: first the mock object, and then the method and its arguments. Note that the two are separated by a comma ({\ttfamily ,}), not a period ({\ttfamily .}). (Why using a comma? The answer is that it was necessary for technical reasons.) If the method is not overloaded, the macro can also be called without matchers\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_object,\ non-\/overloaded-\/method)}
+\DoxyCodeLine{\ \ \ \ .Times(cardinality)}
+\DoxyCodeLine{\ \ \ \ .WillOnce(action)}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(action);}
+
+\end{DoxyCode}
+
+
+This syntax allows the test writer to specify "{}called with any arguments"{} without explicitly specifying the number or types of arguments. To avoid unintended ambiguity, this syntax may only be used for methods that are not overloaded.
+
+Either form of the macro can be followed by some optional {\itshape clauses} that provide more information about the expectation. We\textquotesingle{}ll discuss how each clause works in the coming sections.
+
+This syntax is designed to make an expectation read like English. For example, you can probably guess that
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ .Times(5)}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(100))}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(150))}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(200));}
+
+\end{DoxyCode}
+
+
+says that the {\ttfamily turtle} object\textquotesingle{}s {\ttfamily Get\+X()} method will be called five times, it will return 100 the first time, 150 the second time, and then 200 every time. Some people like to call this style of syntax a Domain-\/\+Specific Language (DSL).
+
+\{\+: .callout .note\} {\bfseries{Note\+:}} Why do we use a macro to do this? Well it serves two purposes\+: first it makes expectations easily identifiable (either by {\ttfamily grep} or by a human reader), and second it allows g\+Mock to include the source file location of a failed expectation in messages, making debugging easier.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md644}{}\doxysubsection{\texorpdfstring{Matchers\+: What Arguments Do We Expect?}{Matchers: What Arguments Do We Expect?}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md644}
+When a mock function takes arguments, we may specify what arguments we are expecting, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Expects\ the\ turtle\ to\ move\ forward\ by\ 100\ units.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ Forward(100));}
+
+\end{DoxyCode}
+
+
+Oftentimes you do not want to be too specific. Remember that talk about tests being too rigid? Over specification leads to brittle tests and obscures the intent of tests. Therefore we encourage you to specify only what\textquotesingle{}s necessary—no more, no less. If you aren\textquotesingle{}t interested in the value of an argument, write {\ttfamily \+\_\+} as the argument, which means "{}anything goes"{}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{//\ Expects\ that\ the\ turtle\ jumps\ to\ somewhere\ on\ the\ x=50\ line.}}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GoTo(50,\ \_));}
+
+\end{DoxyCode}
+
+
+{\ttfamily \+\_\+} is an instance of what we call {\bfseries{matchers}}. A matcher is like a predicate and can test whether an argument is what we\textquotesingle{}d expect. You can use a matcher inside {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} wherever a function argument is expected. {\ttfamily \+\_\+} is a convenient way of saying "{}any value"{}.
+
+In the above examples, {\ttfamily 100} and {\ttfamily 50} are also matchers; implicitly, they are the same as {\ttfamily Eq(100)} and {\ttfamily Eq(50)}, which specify that the argument must be equal (using {\ttfamily operator==}) to the matcher argument. There are many \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2reference_2matchers}{built-\/in matchers}{0} for common types (as well as \href{gmock_cook_book.md\#NewMatchers}{\texttt{ custom matchers}}); for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Ge;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{//\ Expects\ the\ turtle\ moves\ forward\ by\ at\ least\ 100.}}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ Forward(Ge(100)));}
+
+\end{DoxyCode}
+
+
+If you don\textquotesingle{}t care about {\itshape any} arguments, rather than specify {\ttfamily \+\_\+} for each of them you may instead omit the parameter list\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Expects\ the\ turtle\ to\ move\ forward.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ Forward);}
+\DoxyCodeLine{\textcolor{comment}{//\ Expects\ the\ turtle\ to\ jump\ somewhere.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GoTo);}
+
+\end{DoxyCode}
+
+
+This works for all non-\/overloaded methods; if a method is overloaded, you need to help g\+Mock resolve which overload is expected by specifying the number of arguments and possibly also the \href{gmock_cook_book.md\#SelectOverload}{\texttt{ types of the arguments}}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md645}{}\doxysubsection{\texorpdfstring{Cardinalities\+: How Many Times Will It Be Called?}{Cardinalities: How Many Times Will It Be Called?}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md645}
+The first clause we can specify following an {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} is {\ttfamily Times()}. We call its argument a {\bfseries{cardinality}} as it tells {\itshape how many times} the call should occur. It allows us to repeat an expectation many times without actually writing it as many times. More importantly, a cardinality can be "{}fuzzy"{}, just like a matcher can be. This allows a user to express the intent of a test exactly.
+
+An interesting special case is when we say {\ttfamily Times(0)}. You may have guessed -\/ it means that the function shouldn\textquotesingle{}t be called with the given arguments at all, and g\+Mock will report a googletest failure whenever the function is (wrongfully) called.
+
+We\textquotesingle{}ve seen {\ttfamily At\+Least(n)} as an example of fuzzy cardinalities earlier. For the list of built-\/in cardinalities you can use, see \href{gmock_cheat_sheet.md\#CardinalityList}{\texttt{ here}}.
+
+The {\ttfamily Times()} clause can be omitted. {\bfseries{If you omit {\ttfamily Times()}, g\+Mock will infer the cardinality for you.}} The rules are easy to remember\+:
+
+
+\begin{DoxyItemize}
+\item If {\bfseries{neither}} {\ttfamily Will\+Once()} {\bfseries{nor}} {\ttfamily Will\+Repeatedly()} is in the {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}}, the inferred cardinality is {\ttfamily Times(1)}.
+\item If there are {\itshape n} {\ttfamily Will\+Once()}\textquotesingle{}s but {\bfseries{no}} {\ttfamily Will\+Repeatedly()}, where {\itshape n} \texorpdfstring{$>$}{>}= 1, the cardinality is {\ttfamily Times(n)}.
+\item If there are {\itshape n} {\ttfamily Will\+Once()}\textquotesingle{}s and {\bfseries{one}} {\ttfamily Will\+Repeatedly()}, where {\itshape n} \texorpdfstring{$>$}{>}= 0, the cardinality is {\ttfamily Times(\+At\+Least(n))}.
+\end{DoxyItemize}
+
+{\bfseries{Quick quiz\+:}} what do you think will happen if a function is expected to be called twice but actually called four times?\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md646}{}\doxysubsection{\texorpdfstring{Actions\+: What Should It Do?}{Actions: What Should It Do?}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md646}
+Remember that a mock object doesn\textquotesingle{}t really have a working implementation? We as users have to tell it what to do when a method is invoked. This is easy in g\+Mock.
+
+First, if the return type of a mock function is a built-\/in type or a pointer, the function has a {\bfseries{default action}} (a {\ttfamily void} function will just return, a {\ttfamily bool} function will return {\ttfamily false}, and other functions will return 0). In addition, in C++ 11 and above, a mock function whose return type is default-\/constructible (i.\+e. has a default constructor) has a default action of returning a default-\/constructed value. If you don\textquotesingle{}t say anything, this behavior will be used.
+
+Second, if a mock function doesn\textquotesingle{}t have a default action, or the default action doesn\textquotesingle{}t suit you, you can specify the action to be taken each time the expectation matches using a series of {\ttfamily Will\+Once()} clauses followed by an optional {\ttfamily Will\+Repeatedly()}. For example,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(100))}
+\DoxyCodeLine{\ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(200))}
+\DoxyCodeLine{\ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(300));}
+
+\end{DoxyCode}
+
+
+says that {\ttfamily turtle.\+Get\+X()} will be called {\itshape exactly three times} (g\+Mock inferred this from how many {\ttfamily Will\+Once()} clauses we\textquotesingle{}ve written, since we didn\textquotesingle{}t explicitly write {\ttfamily Times()}), and will return 100, 200, and 300 respectively.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GetY())}
+\DoxyCodeLine{\ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(100))}
+\DoxyCodeLine{\ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(200))}
+\DoxyCodeLine{\ \ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(300));}
+
+\end{DoxyCode}
+
+
+says that {\ttfamily turtle.\+Get\+Y()} will be called {\itshape at least twice} (g\+Mock knows this as we\textquotesingle{}ve written two {\ttfamily Will\+Once()} clauses and a {\ttfamily Will\+Repeatedly()} while having no explicit {\ttfamily Times()}), will return 100 and 200 respectively the first two times, and 300 from the third time on.
+
+Of course, if you explicitly write a {\ttfamily Times()}, g\+Mock will not try to infer the cardinality itself. What if the number you specified is larger than there are {\ttfamily Will\+Once()} clauses? Well, after all {\ttfamily Will\+Once()}s are used up, g\+Mock will do the {\itshape default} action for the function every time (unless, of course, you have a {\ttfamily Will\+Repeatedly()}.).
+
+What can we do inside {\ttfamily Will\+Once()} besides {\ttfamily Return()}? You can return a reference using {\ttfamily Return\+Ref(}\texorpdfstring{$\ast$}{*}{\ttfamily variable}\texorpdfstring{$\ast$}{*}{\ttfamily )}, or invoke a pre-\/defined function, among \href{gmock_cook_book.md\#using-actions}{\texttt{ others}}.
+
+{\bfseries{Important note\+:}} The {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} statement evaluates the action clause only once, even though the action may be performed many times. Therefore you must be careful about side effects. The following may not do what you want\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int\ n\ =\ 100;}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ .Times(4)}
+\DoxyCodeLine{\ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(n++));}
+
+\end{DoxyCode}
+
+
+Instead of returning 100, 101, 102, ..., consecutively, this mock function will always return 100 as {\ttfamily n++} is only evaluated once. Similarly, {\ttfamily Return(new Foo)} will create a new {\ttfamily Foo} object when the {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} is executed, and will return the same pointer every time. If you want the side effect to happen every time, you need to define a custom action, which we\textquotesingle{}ll teach in the \doxysectlink{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__cook__book}{cook book}{0}.
+
+Time for another quiz! What do you think the following means?
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GetY())}
+\DoxyCodeLine{\ \ \ \ .Times(4)}
+\DoxyCodeLine{\ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(100));}
+
+\end{DoxyCode}
+
+
+Obviously {\ttfamily turtle.\+Get\+Y()} is expected to be called four times. But if you think it will return 100 every time, think twice! Remember that one {\ttfamily Will\+Once()} clause will be consumed each time the function is invoked and the default action will be taken afterwards. So the right answer is that {\ttfamily turtle.\+Get\+Y()} will return 100 the first time, but {\bfseries{return 0 from the second time on}}, as returning 0 is the default action for {\ttfamily int} functions.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_MultiExpectations}{}\doxysubsection{\texorpdfstring{Using Multiple Expectations}{Using Multiple Expectations}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_MultiExpectations}
+So far we\textquotesingle{}ve only shown examples where you have a single expectation. More realistically, you\textquotesingle{}ll specify expectations on multiple mock methods which may be from multiple mock objects.
+
+By default, when a mock method is invoked, g\+Mock will search the expectations in the {\bfseries{reverse order}} they are defined, and stop when an active expectation that matches the arguments is found (you can think of it as "{}newer rules override older ones."{}). If the matching expectation cannot take any more calls, you will get an upper-\/bound-\/violated failure. Here\textquotesingle{}s an example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ Forward(\_));\ \ \textcolor{comment}{//\ \#1}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ Forward(10))\ \ \textcolor{comment}{//\ \#2}}
+\DoxyCodeLine{\ \ \ \ .Times(2);}
+
+\end{DoxyCode}
+
+
+If {\ttfamily Forward(10)} is called three times in a row, the third time it will be an error, as the last matching expectation (\#2) has been saturated. If, however, the third {\ttfamily Forward(10)} call is replaced by {\ttfamily Forward(20)}, then it would be OK, as now \#1 will be the matching expectation.
+
+\{\+: .callout .note\} {\bfseries{Note\+:}} Why does g\+Mock search for a match in the {\itshape reverse} order of the expectations? The reason is that this allows a user to set up the default expectations in a mock object\textquotesingle{}s constructor or the test fixture\textquotesingle{}s set-\/up phase and then customize the mock by writing more specific expectations in the test body. So, if you have two expectations on the same method, you want to put the one with more specific matchers {\bfseries{after}} the other, or the more specific rule would be shadowed by the more general one that comes after it.
+
+\{\+: .callout .tip\} {\bfseries{Tip\+:}} It is very common to start with a catch-\/all expectation for a method and {\ttfamily Times(\+Any\+Number())} (omitting arguments, or with {\ttfamily \+\_\+} for all arguments, if overloaded). This makes any calls to the method expected. This is not necessary for methods that are not mentioned at all (these are "{}uninteresting"{}), but is useful for methods that have some expectations, but for which other calls are ok. See \href{gmock_cook_book.md\#uninteresting-vs-unexpected}{\texttt{ Understanding Uninteresting vs Unexpected Calls}}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_OrderedCalls}{}\doxysubsection{\texorpdfstring{Expecting Ordered Calls}{Expecting Ordered Calls}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_OrderedCalls}
+By default, an expectation can match a call even though an earlier expectation hasn\textquotesingle{}t been satisfied. In other words, the calls don\textquotesingle{}t have to occur in the order the expectations are specified.
+
+Sometimes, you may want all the expected calls to occur in a strict order. To say this in g\+Mock is easy\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::InSequence;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{TEST(FooTest,\ DrawsLineSegment)\ \{}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ InSequence\ seq;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ PenDown());}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ Forward(100));}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ PenUp());}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ Foo();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+By creating an object of type {\ttfamily In\+Sequence}, all expectations in its scope are put into a {\itshape sequence} and have to occur {\itshape sequentially}. Since we are just relying on the constructor and destructor of this object to do the actual work, its name is really irrelevant.
+
+In this example, we test that {\ttfamily Foo()} calls the three expected functions in the order as written. If a call is made out-\/of-\/order, it will be an error.
+
+(What if you care about the relative order of some of the calls, but not all of them? Can you specify an arbitrary partial order? The answer is ... yes! The details can be found \href{gmock_cook_book.md\#OrderedCalls}{\texttt{ here}}.)\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_StickyExpectations}{}\doxysubsection{\texorpdfstring{All Expectations Are Sticky (\+Unless Said Otherwise)}{All Expectations Are Sticky (Unless Said Otherwise)}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_StickyExpectations}
+Now let\textquotesingle{}s do a quick quiz to see how well you can use this mock stuff already. How would you test that the turtle is asked to go to the origin {\itshape exactly twice} (you want to ignore any other instructions it receives)?
+
+After you\textquotesingle{}ve come up with your answer, take a look at ours and compare notes (solve it yourself first -\/ don\textquotesingle{}t cheat!)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::\_;}
+\DoxyCodeLine{using\ ::testing::AnyNumber;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_CALL(turtle,\ GoTo(\_,\ \_))\ \ \textcolor{comment}{//\ \#1}}
+\DoxyCodeLine{\ \ \ \ \ .Times(\mbox{\hyperlink{namespacetesting_aa1f8a6371097e1e9b8d6866020f35252}{AnyNumber}}());}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GoTo(0,\ 0))\ \ \textcolor{comment}{//\ \#2}}
+\DoxyCodeLine{\ \ \ \ \ .Times(2);}
+
+\end{DoxyCode}
+
+
+Suppose {\ttfamily turtle.\+Go\+To(0, 0)} is called three times. In the third time, g\+Mock will see that the arguments match expectation \#2 (remember that we always pick the last matching expectation). Now, since we said that there should be only two such calls, g\+Mock will report an error immediately. This is basically what we\textquotesingle{}ve told you in the \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_MultiExpectations}{Using Multiple Expectations}{2} section above.
+
+This example shows that {\bfseries{expectations in g\+Mock are "{}sticky"{} by default}}, in the sense that they remain active even after we have reached their invocation upper bounds. This is an important rule to remember, as it affects the meaning of the spec, and is {\bfseries{different}} to how it\textquotesingle{}s done in many other mocking frameworks (Why\textquotesingle{}d we do that? Because we think our rule makes the common cases easier to express and understand.).
+
+Simple? Let\textquotesingle{}s see if you\textquotesingle{}ve really understood it\+: what does the following code say?
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{for\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ n;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ >\ 0;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}-\/-\/)\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(10*\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}));}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If you think it says that {\ttfamily turtle.\+Get\+X()} will be called {\ttfamily n} times and will return 10, 20, 30, ..., consecutively, think twice! The problem is that, as we said, expectations are sticky. So, the second time {\ttfamily turtle.\+Get\+X()} is called, the last (latest) {\ttfamily \doxylink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\+\_\+\+CALL()}} statement will match, and will immediately lead to an "{}upper bound violated"{} error -\/ this piece of code is not very useful!
+
+One correct way of saying that {\ttfamily turtle.\+Get\+X()} will return 10, 20, 30, ..., is to explicitly say that the expectations are {\itshape not} sticky. In other words, they should {\itshape retire} as soon as they are saturated\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{for\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ n;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ >\ 0;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}-\/-\/)\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(10*\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))}
+\DoxyCodeLine{\ \ \ \ \ \ .RetiresOnSaturation();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+And, there\textquotesingle{}s a better way to do it\+: in this case, we expect the calls to occur in a specific order, and we line up the actions to match the order. Since the order is important here, we should make it explicit using a sequence\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::InSequence;}
+\DoxyCodeLine{using\ ::testing::Return;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ InSequence\ s;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ =\ 1;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}\ <=\ n;\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}++)\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(turtle,\ GetX())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .WillOnce(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(10*\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-comparisons__test_8cc_acb559820d9ca11295b4500f179ef6392}{i}}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .RetiresOnSaturation();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+By the way, the other situation where an expectation may {\itshape not} be sticky is when it\textquotesingle{}s in a sequence -\/ as soon as another expectation that comes after it in the sequence has been used, it automatically retires (and will never be used to match any call).\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md647}{}\doxysubsection{\texorpdfstring{Uninteresting Calls}{Uninteresting Calls}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2gmock__for__dummies_autotoc_md647}
+A mock object may have many methods, and not all of them are that interesting. For example, in some tests we may not care about how many times {\ttfamily Get\+X()} and {\ttfamily Get\+Y()} get called.
+
+In g\+Mock, if you are not interested in a method, just don\textquotesingle{}t say anything about it. If a call to this method occurs, you\textquotesingle{}ll see a warning in the test output, but it won\textquotesingle{}t be a failure. This is called "{}naggy"{} behavior; to change, see \href{gmock_cook_book.md\#NiceStrictNaggy}{\texttt{ The Nice, the Strict, and the Naggy}}. 

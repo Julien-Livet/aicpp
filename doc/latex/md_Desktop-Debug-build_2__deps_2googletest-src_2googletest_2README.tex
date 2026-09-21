@@ -1,0 +1,171 @@
+\chapter{Generic Build Instructions}
+\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README}{}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README}\index{Generic Build Instructions@{Generic Build Instructions}}
+\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1269}%
+\Hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1269}%
+ \hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1270}{}\doxysubsubsection{\texorpdfstring{Setup}{Setup}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1270}
+To build Google\+Test and your tests that use it, you need to tell your build system where to find its headers and source files. The exact way to do it depends on which build system you use, and is usually straightforward.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1271}{}\doxysubsection{\texorpdfstring{Build with CMake}{Build with CMake}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1271}
+Google\+Test comes with a CMake build script (\href{https://github.com/google/googletest/blob/main/CMakeLists.txt}{\texttt{ CMake\+Lists.\+txt}}) that can be used on a wide range of platforms ("{}\+C"{} stands for cross-\/platform.). If you don\textquotesingle{}t have CMake installed already, you can download it for free from \href{https://cmake.org/}{\texttt{ https\+://cmake.\+org/}}.
+
+CMake works by generating native makefiles or build projects that can be used in the compiler environment of your choice. You can either build Google\+Test as a standalone project or it can be incorporated into an existing CMake build for another project.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1272}{}\doxysubsubsection{\texorpdfstring{Standalone CMake Project}{Standalone CMake Project}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1272}
+When building Google\+Test as a standalone project, the typical workflow starts with
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ https://github.com/google/googletest.git\ -\/b\ v1.17.0}
+\DoxyCodeLine{cd\ googletest\ \ \ \ \ \ \ \ \#\ Main\ directory\ of\ the\ cloned\ repository.}
+\DoxyCodeLine{mkdir\ build\ \ \ \ \ \ \ \ \ \ \#\ Create\ a\ directory\ to\ hold\ the\ build\ output.}
+\DoxyCodeLine{cd\ build}
+\DoxyCodeLine{cmake\ ..\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Generate\ native\ build\ scripts\ for\ GoogleTest.}
+
+\end{DoxyCode}
+
+
+The above command also includes Google\+Mock by default. And so, if you want to build only Google\+Test, you should replace the last command with
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ ..\ -\/DBUILD\_GMOCK=OFF}
+
+\end{DoxyCode}
+
+
+If you are on a \texorpdfstring{$\ast$}{*}nix system, you should now see a Makefile in the current directory. Just type {\ttfamily make} to build Google\+Test. And then you can simply install Google\+Test if you are a system administrator.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+\DoxyCodeLine{sudo\ make\ install\ \ \ \ \#\ Install\ in\ /usr/local/\ by\ default}
+
+\end{DoxyCode}
+
+
+If you use Windows and have Visual Studio installed, a {\ttfamily gtest.\+sln} file and several {\ttfamily .vcproj} files will be created. You can then build them using Visual Studio.
+
+On Mac OS X with Xcode installed, a {\ttfamily .xcodeproj} file will be generated.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1273}{}\doxysubsubsection{\texorpdfstring{Incorporating Into An Existing CMake Project}{Incorporating Into An Existing CMake Project}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1273}
+If you want to use Google\+Test in a project which already uses CMake, the easiest way is to get installed libraries and headers.
+
+
+\begin{DoxyItemize}
+\item Import Google\+Test by using {\ttfamily find\+\_\+package} (or {\ttfamily pkg\+\_\+check\+\_\+modules}). For example, if {\ttfamily find\+\_\+package(\+GTest CONFIG REQUIRED)} succeeds, you can use the libraries as {\ttfamily GTest\+::gtest}, {\ttfamily GTest\+::gmock}.
+\end{DoxyItemize}
+
+And a more robust and flexible approach is to build Google\+Test as part of that project directly. This is done by making the Google\+Test source code available to the main build and adding it using CMake\textquotesingle{}s {\ttfamily add\+\_\+subdirectory()} command. This has the significant advantage that the same compiler and linker settings are used between Google\+Test and the rest of your project, so issues associated with using incompatible libraries (eg debug/release), etc. are avoided. This is particularly useful on Windows. Making Google\+Test\textquotesingle{}s source code available to the main build can be done a few different ways\+:
+
+
+\begin{DoxyItemize}
+\item Download the Google\+Test source code manually and place it at a known location. This is the least flexible approach and can make it more difficult to use with continuous integration systems, etc.
+\item Embed the Google\+Test source code as a direct copy in the main project\textquotesingle{}s source tree. This is often the simplest approach, but is also the hardest to keep up to date. Some organizations may not permit this method.
+\item Add Google\+Test as a git submodule or equivalent. This may not always be possible or appropriate. Git submodules, for example, have their own set of advantages and drawbacks.
+\item Use CMake to download Google\+Test as part of the build\textquotesingle{}s configure step. This approach doesn\textquotesingle{}t have the limitations of the other methods.
+\end{DoxyItemize}
+
+The last of the above methods is implemented with a small piece of CMake code that downloads and pulls the Google\+Test code into the main build.
+
+Just add to your {\ttfamily CMake\+Lists.\+txt}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{include(FetchContent)}
+\DoxyCodeLine{FetchContent\_Declare(}
+\DoxyCodeLine{\ \ googletest}
+\DoxyCodeLine{\ \ \#\ Specify\ the\ commit\ you\ depend\ on\ and\ update\ it\ regularly.}
+\DoxyCodeLine{\ \ URL\ https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip}
+\DoxyCodeLine{)}
+\DoxyCodeLine{\#\ For\ Windows:\ Prevent\ overriding\ the\ parent\ project's\ compiler/linker\ settings}
+\DoxyCodeLine{set(gtest\_force\_shared\_crt\ ON\ CACHE\ BOOL\ "{}"{}\ FORCE)}
+\DoxyCodeLine{FetchContent\_MakeAvailable(googletest)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Now\ simply\ link\ against\ gtest\ or\ gtest\_main\ as\ needed.\ Eg}
+\DoxyCodeLine{add\_executable(example\ example.cpp)}
+\DoxyCodeLine{target\_link\_libraries(example\ gtest\_main)}
+\DoxyCodeLine{add\_test(NAME\ example\_test\ COMMAND\ example)}
+
+\end{DoxyCode}
+
+
+Note that this approach requires CMake 3.\+14 or later due to its use of the {\ttfamily Fetch\+Content\+\_\+\+Make\+Available()} command.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1274}{}\doxyparagraph{\texorpdfstring{Visual Studio Dynamic vs Static Runtimes}{Visual Studio Dynamic vs Static Runtimes}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1274}
+By default, new Visual Studio projects link the C runtimes dynamically but Google\+Test links them statically. This will generate an error that looks something like the following\+: gtest.\+lib(gtest-\/all.\+obj) \+: error LNK2038\+: mismatch detected for \textquotesingle{}Runtime\+Library\textquotesingle{}\+: value \textquotesingle{}MTd\+\_\+\+Static\+Debug\textquotesingle{} doesn\textquotesingle{}t match value \textquotesingle{}MDd\+\_\+\+Dynamic\+Debug\textquotesingle{} in main.\+obj
+
+Google\+Test already has a CMake option for this\+: {\ttfamily gtest\+\_\+force\+\_\+shared\+\_\+crt}
+
+Enabling this option will make gtest link the runtimes dynamically too, and match the project in which it is included.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1275}{}\doxysubsubsection{\texorpdfstring{C++ Standard Version}{C++ Standard Version}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1275}
+An environment that supports C++17 is required in order to successfully build Google\+Test. One way to ensure this is to specify the standard in the top-\/level project, for example by using the {\ttfamily set(\+CMAKE\+\_\+\+CXX\+\_\+\+STANDARD 17)} command along with {\ttfamily set(\+CMAKE\+\_\+\+CXX\+\_\+\+STANDARD\+\_\+\+REQUIRED ON)}. If this is not feasible, for example in a C project using Google\+Test for validation, then it can be specified by adding it to the options for cmake via the{\ttfamily -\/DCMAKE\+\_\+\+CXX\+\_\+\+FLAGS} option.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1276}{}\doxysubsection{\texorpdfstring{Tweaking Google\+Test}{Tweaking GoogleTest}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1276}
+Google\+Test can be used in diverse environments. The default configuration may not work (or may not work well) out of the box in some environments. However, you can easily tweak Google\+Test by defining control macros on the compiler command line. Generally, these macros are named like {\ttfamily GTEST\+\_\+\+XYZ} and you define them to either 1 or 0 to enable or disable a certain feature.
+
+We list the most frequently used macros below. For a complete list, see file \href{https://github.com/google/googletest/blob/main/googletest/include/gtest/internal/gtest-port.h}{\texttt{ include/gtest/internal/gtest-\/port.\+h}}.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1277}{}\doxysubsection{\texorpdfstring{Multi-\/threaded Tests}{Multi-threaded Tests}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1277}
+Google\+Test is thread-\/safe where the pthread library is available. After {\ttfamily \#include \texorpdfstring{$<$}{<}gtest/gtest.\+h\texorpdfstring{$>$}{>}}, you can check the {\ttfamily GTEST\+\_\+\+IS\+\_\+\+THREADSAFE} macro to see whether this is the case (yes if the macro is {\ttfamily \#defined} to 1, no if it\textquotesingle{}s undefined.).
+
+If Google\+Test doesn\textquotesingle{}t correctly detect whether pthread is available in your environment, you can force it with
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DGTEST\_HAS\_PTHREAD=1}
+
+\end{DoxyCode}
+
+
+or
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DGTEST\_HAS\_PTHREAD=0}
+
+\end{DoxyCode}
+
+
+When Google\+Test uses pthread, you may need to add flags to your compiler and/or linker to select the pthread library, or you\textquotesingle{}ll get link errors. If you use the CMake script, this is taken care of for you. If you use your own build script, you\textquotesingle{}ll need to read your compiler and linker\textquotesingle{}s manual to figure out what flags to add.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1278}{}\doxysubsection{\texorpdfstring{As a Shared Library (\+DLL)}{As a Shared Library (DLL)}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1278}
+Google\+Test is compact, so most users can build and link it as a static library for the simplicity. You can choose to use Google\+Test as a shared library (known as a DLL on Windows) if you prefer.
+
+To compile {\itshape gtest} as a shared library, add
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DGTEST\_CREATE\_SHARED\_LIBRARY=1}
+
+\end{DoxyCode}
+
+
+to the compiler flags. You\textquotesingle{}ll also need to tell the linker to produce a shared library instead -\/ consult your linker\textquotesingle{}s manual for how to do it.
+
+To compile your {\itshape tests} that use the gtest shared library, add
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DGTEST\_LINKED\_AS\_SHARED\_LIBRARY=1}
+
+\end{DoxyCode}
+
+
+to the compiler flags.
+
+Note\+: while the above steps aren\textquotesingle{}t technically necessary today when using some compilers (e.\+g. GCC), they may become necessary in the future, if we decide to improve the speed of loading the library (see \href{https://gcc.gnu.org/wiki/Visibility}{\texttt{ https\+://gcc.\+gnu.\+org/wiki/\+Visibility}} for details). Therefore you are recommended to always add the above flags when using Google\+Test as a shared library. Otherwise a future release of Google\+Test may break your build script.\hypertarget{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1279}{}\doxysubsection{\texorpdfstring{Avoiding Macro Name Clashes}{Avoiding Macro Name Clashes}}\label{md_Desktop-Debug-build_2__deps_2googletest-src_2googletest_2README_autotoc_md1279}
+In C++, macros don\textquotesingle{}t obey namespaces. Therefore two libraries that both define a macro of the same name will clash if you {\ttfamily \#include} both definitions. In case a Google\+Test macro clashes with another library, you can force Google\+Test to rename its macro to avoid the conflict.
+
+Specifically, if both Google\+Test and some other code define macro FOO, you can add
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DGTEST\_DONT\_DEFINE\_FOO=1}
+
+\end{DoxyCode}
+
+
+to the compiler flags to tell Google\+Test to change the macro\textquotesingle{}s name from {\ttfamily FOO} to {\ttfamily GTEST\+\_\+\+FOO}. Currently {\ttfamily FOO} can be {\ttfamily ASSERT\+\_\+\+EQ}, {\ttfamily ASSERT\+\_\+\+FALSE}, {\ttfamily ASSERT\+\_\+\+GE}, {\ttfamily ASSERT\+\_\+\+GT}, {\ttfamily ASSERT\+\_\+\+LE}, {\ttfamily ASSERT\+\_\+\+LT}, {\ttfamily ASSERT\+\_\+\+NE}, {\ttfamily ASSERT\+\_\+\+TRUE}, {\ttfamily EXPECT\+\_\+\+FALSE}, {\ttfamily EXPECT\+\_\+\+TRUE}, {\ttfamily FAIL}, {\ttfamily SUCCEED}, {\ttfamily TEST}, or {\ttfamily TEST\+\_\+F}. For example, with {\ttfamily -\/DGTEST\+\_\+\+DONT\+\_\+\+DEFINE\+\_\+\+TEST=1}, you\textquotesingle{}ll need to write
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{GTEST\_TEST(SomeTest,\ DoesThis)\ \{\ ...\ \}}
+
+\end{DoxyCode}
+
+
+instead of
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TEST(SomeTest,\ DoesThis)\ \{\ ...\ \}}
+
+\end{DoxyCode}
+
+
+in order to define a test. 

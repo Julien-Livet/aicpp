@@ -1,0 +1,139 @@
+\chapter{Using Google\+Test from various build systems}
+\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig}{}\label{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig}\index{Using GoogleTest from various build systems@{Using GoogleTest from various build systems}}
+\label{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md650}%
+\Hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md650}%
+ Google\+Test comes with pkg-\/config files that can be used to determine all necessary flags for compiling and linking to Google\+Test (and Google\+Mock). Pkg-\/config is a standardised plain-\/text format containing
+
+
+\begin{DoxyItemize}
+\item the includedir (-\/I) path
+\item necessary macro (-\/D) definitions
+\item further required flags (-\/pthread)
+\item the library (-\/L) path
+\item the library (-\/l) to link to
+\end{DoxyItemize}
+
+All current build systems support pkg-\/config in one way or another. For all examples here we assume you want to compile the sample {\ttfamily samples/sample3\+\_\+unittest.\+cc}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md651}{}\doxysubsection{\texorpdfstring{CMake}{CMake}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md651}
+Using {\ttfamily pkg-\/config} in CMake is fairly easy\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{find\_package(PkgConfig)}
+\DoxyCodeLine{pkg\_search\_module(GTEST\ REQUIRED\ gtest\_main)}
+\DoxyCodeLine{}
+\DoxyCodeLine{add\_executable(testapp)}
+\DoxyCodeLine{target\_sources(testapp\ PRIVATE\ samples/sample3\_unittest.cc)}
+\DoxyCodeLine{target\_link\_libraries(testapp\ PRIVATE\ \$\{GTEST\_LDFLAGS\})}
+\DoxyCodeLine{target\_compile\_options(testapp\ PRIVATE\ \$\{GTEST\_CFLAGS\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{enable\_testing()}
+\DoxyCodeLine{add\_test(first\_and\_only\_test\ testapp)}
+
+\end{DoxyCode}
+
+
+It is generally recommended that you use {\ttfamily target\+\_\+compile\+\_\+options} + {\ttfamily \+\_\+\+CFLAGS} over {\ttfamily target\+\_\+include\+\_\+directories} + {\ttfamily \+\_\+\+INCLUDE\+\_\+\+DIRS} as the former includes not just -\/I flags (Google\+Test might require a macro indicating to internal headers that all libraries have been compiled with threading enabled. In addition, Google\+Test might also require {\ttfamily -\/pthread} in the compiling step, and as such splitting the pkg-\/config {\ttfamily Cflags} variable into include dirs and macros for {\ttfamily target\+\_\+compile\+\_\+definitions()} might still miss this). The same recommendation goes for using {\ttfamily \+\_\+\+LDFLAGS} over the more commonplace {\ttfamily \+\_\+\+LIBRARIES}, which happens to discard {\ttfamily -\/L} flags and {\ttfamily -\/pthread}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md652}{}\doxysubsection{\texorpdfstring{Help! pkg-\/config can\textquotesingle{}t find Google\+Test!}{Help! pkg-config can't find GoogleTest!}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md652}
+Let\textquotesingle{}s say you have a {\ttfamily CMake\+Lists.\+txt} along the lines of the one in this tutorial and you try to run {\ttfamily cmake}. It is very possible that you get a failure along the lines of\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/\ Checking\ for\ one\ of\ the\ modules\ 'gtest\_main'}
+\DoxyCodeLine{CMake\ Error\ at\ /usr/share/cmake/Modules/FindPkgConfig.cmake:640\ (message):}
+\DoxyCodeLine{\ \ None\ of\ the\ required\ 'gtest\_main'\ found}
+
+\end{DoxyCode}
+
+
+These failures are common if you installed Google\+Test yourself and have not sourced it from a distro or other package manager. If so, you need to tell pkg-\/config where it can find the {\ttfamily .pc} files containing the information. Say you installed Google\+Test to {\ttfamily /usr/local}, then it might be that the {\ttfamily .pc} files are installed under {\ttfamily /usr/local/lib64/pkgconfig}. If you set
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ PKG\_CONFIG\_PATH=/usr/local/lib64/pkgconfig}
+
+\end{DoxyCode}
+
+
+pkg-\/config will also try to look in {\ttfamily PKG\+\_\+\+CONFIG\+\_\+\+PATH} to find {\ttfamily gtest\+\_\+main.\+pc}.\hypertarget{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md653}{}\doxysubsection{\texorpdfstring{Using pkg-\/config in a cross-\/compilation setting}{Using pkg-config in a cross-compilation setting}}\label{md_cmake-build_2__deps_2googletest-src_2docs_2pkgconfig_autotoc_md653}
+Pkg-\/config can be used in a cross-\/compilation setting too. To do this, let\textquotesingle{}s assume the final prefix of the cross-\/compiled installation will be {\ttfamily /usr}, and your sysroot is {\ttfamily /home/\+MYUSER/sysroot}. Configure and install GTest using
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ build\ \&\&\ cmake\ -\/DCMAKE\_INSTALL\_PREFIX=/usr\ ..}
+
+\end{DoxyCode}
+
+
+Install into the sysroot using {\ttfamily DESTDIR}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ -\/j\ install\ DESTDIR=/home/MYUSER/sysroot}
+
+\end{DoxyCode}
+
+
+Before we continue, it is recommended to {\bfseries{always}} define the following two variables for pkg-\/config in a cross-\/compilation setting\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ PKG\_CONFIG\_ALLOW\_SYSTEM\_CFLAGS=yes}
+\DoxyCodeLine{export\ PKG\_CONFIG\_ALLOW\_SYSTEM\_LIBS=yes}
+
+\end{DoxyCode}
+
+
+otherwise {\ttfamily pkg-\/config} will filter {\ttfamily -\/I} and {\ttfamily -\/L} flags against standard prefixes such as {\ttfamily /usr} (see \href{https://bugs.freedesktop.org/show_bug.cgi?id=28264\#c3}{\texttt{ https\+://bugs.\+freedesktop.\+org/show\+\_\+bug.\+cgi?id=28264\#c3}} for reasons why this stripping needs to occur usually).
+
+If you look at the generated pkg-\/config file, it will look something like
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{libdir=/usr/lib64}
+\DoxyCodeLine{includedir=/usr/include}
+\DoxyCodeLine{}
+\DoxyCodeLine{Name:\ gtest}
+\DoxyCodeLine{Description:\ GoogleTest\ (without\ main()\ function)}
+\DoxyCodeLine{Version:\ 1.11.0}
+\DoxyCodeLine{URL:\ https://github.com/google/googletest}
+\DoxyCodeLine{Libs:\ -\/L\$\{libdir\}\ -\/lgtest\ -\/lpthread}
+\DoxyCodeLine{Cflags:\ -\/I\$\{includedir\}\ -\/DGTEST\_HAS\_PTHREAD=1\ -\/lpthread}
+
+\end{DoxyCode}
+
+
+Notice that the sysroot is not included in {\ttfamily libdir} and {\ttfamily includedir}! If you try to run {\ttfamily pkg-\/config} with the correct {\ttfamily PKG\+\_\+\+CONFIG\+\_\+\+LIBDIR=/home/\+MYUSER/sysroot/usr/lib64/pkgconfig} against this {\ttfamily .pc} file, you will get
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ pkg-\/config\ -\/-\/cflags\ gtest}
+\DoxyCodeLine{-\/DGTEST\_HAS\_PTHREAD=1\ -\/lpthread\ -\/I/usr/include}
+\DoxyCodeLine{\$\ pkg-\/config\ -\/-\/libs\ gtest}
+\DoxyCodeLine{-\/L/usr/lib64\ -\/lgtest\ -\/lpthread}
+
+\end{DoxyCode}
+
+
+which is obviously wrong and points to the {\ttfamily CBUILD} and not {\ttfamily CHOST} root. In order to use this in a cross-\/compilation setting, we need to tell pkg-\/config to inject the actual sysroot into {\ttfamily -\/I} and {\ttfamily -\/L} variables. Let us now tell pkg-\/config about the actual sysroot
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ PKG\_CONFIG\_DIR=}
+\DoxyCodeLine{export\ PKG\_CONFIG\_SYSROOT\_DIR=/home/MYUSER/sysroot}
+\DoxyCodeLine{export\ PKG\_CONFIG\_LIBDIR=\$\{PKG\_CONFIG\_SYSROOT\_DIR\}/usr/lib64/pkgconfig}
+
+\end{DoxyCode}
+
+
+and running {\ttfamily pkg-\/config} again we get
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ pkg-\/config\ -\/-\/cflags\ gtest}
+\DoxyCodeLine{-\/DGTEST\_HAS\_PTHREAD=1\ -\/lpthread\ -\/I/home/MYUSER/sysroot/usr/include}
+\DoxyCodeLine{\$\ pkg-\/config\ -\/-\/libs\ gtest}
+\DoxyCodeLine{-\/L/home/MYUSER/sysroot/usr/lib64\ -\/lgtest\ -\/lpthread}
+
+\end{DoxyCode}
+
+
+which contains the correct sysroot now. For a more comprehensive guide to also including {\ttfamily \$\{CHOST\}} in build system calls, see the excellent tutorial by Diego Elio Pettenò\+: \href{https://autotools.io/pkgconfig/cross-compiling.html}{\texttt{ https\+://autotools.\+io/pkgconfig/cross-\/compiling.\+html}} 

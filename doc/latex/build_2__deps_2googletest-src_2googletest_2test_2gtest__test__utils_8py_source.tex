@@ -1,0 +1,268 @@
+\doxysection{gtest\+\_\+test\+\_\+utils.\+py}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}{}\label{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source}\index{build/\_deps/googletest-\/src/googletest/test/gtest\_test\_utils.py@{build/\_deps/googletest-\/src/googletest/test/gtest\_test\_utils.py}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00001}\mbox{\hyperlink{namespacegtest__test__utils}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2006,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00002}00002\ \textcolor{comment}{\#\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00003}00003\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00006}00006\ \textcolor{comment}{\#\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00007}00007\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00008}00008\ \textcolor{comment}{\#\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00015}00015\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00016}00016\ \textcolor{comment}{\#\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00017}00017\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00018}00018\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00019}00019\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00020}00020\ \textcolor{comment}{\#\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00021}00021\ \textcolor{comment}{\#\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00022}00022\ \textcolor{comment}{\#\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00023}00023\ \textcolor{comment}{\#\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00024}00024\ \textcolor{comment}{\#\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00025}00025\ \textcolor{comment}{\#\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00026}00026\ \textcolor{comment}{\#\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00027}00027\ \textcolor{comment}{\#\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00028}00028\ \textcolor{comment}{\#\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00030}00030\ \textcolor{stringliteral}{"{}"{}"{}Unit\ test\ utilities\ for\ Google\ C++\ Testing\ and\ Mocking\ Framework."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00031}00031\ \textcolor{comment}{\#\ Suppresses\ the\ 'Import\ not\ at\ the\ top\ of\ the\ file'\ lint\ complaint.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00032}00032\ \textcolor{comment}{\#\ pylint:\ disable=g-\/import-\/not-\/at-\/top}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00034}00034\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00035}00035\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00036}00036\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00038}\mbox{\hyperlink{namespacegtest__test__utils_aa9e8cf03519ade92e4905cb181182173}{00038}}\ IS\_WINDOWS\ =\ os.name\ ==\ \textcolor{stringliteral}{'nt'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00039}\mbox{\hyperlink{namespacegtest__test__utils_a72c741a81f1bc888e2b948230736d611}{00039}}\ IS\_CYGWIN\ =\ os.name\ ==\ \textcolor{stringliteral}{'posix'}\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'CYGWIN'}\ \textcolor{keywordflow}{in}\ os.uname()[0]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00040}\mbox{\hyperlink{namespacegtest__test__utils_a049570d7a10d0a575cd9bb0c522720f3}{00040}}\ IS\_OS2\ =\ os.name\ ==\ \textcolor{stringliteral}{'os2'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00042}00042\ \textcolor{keyword}{import}\ atexit}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00043}00043\ \textcolor{keyword}{import}\ shutil}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00044}00044\ \textcolor{keyword}{import}\ tempfile}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00045}00045\ \textcolor{keyword}{import}\ unittest\ \textcolor{keyword}{as}\ \_test\_module}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00046}00046\ \textcolor{comment}{\#\ pylint:\ enable=g-\/import-\/not-\/at-\/top}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00048}\mbox{\hyperlink{namespacegtest__test__utils_aaa52d2a4eb681414d6251beca6cb6e6b}{00048}}\ GTEST\_OUTPUT\_VAR\_NAME\ =\ \textcolor{stringliteral}{'GTEST\_OUTPUT'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00050}00050\ \textcolor{comment}{\#\ The\ environment\ variable\ for\ specifying\ the\ path\ to\ the\ premature-\/exit\ file.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00051}\mbox{\hyperlink{namespacegtest__test__utils_ae7456751e7b70f4d891db3f9f7df2519}{00051}}\ PREMATURE\_EXIT\_FILE\_ENV\_VAR\ =\ \textcolor{stringliteral}{'TEST\_PREMATURE\_EXIT\_FILE'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00053}\mbox{\hyperlink{namespacegtest__test__utils_ab0f2d4a3e90400abb93fd0808047a0a4}{00053}}\ environ\ =\ os.environ.copy()}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00056}\mbox{\hyperlink{namespacegtest__test__utils_aa06f86a6e66aa6de2734e2317270329f}{00056}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_aa06f86a6e66aa6de2734e2317270329f}{SetEnvVar}}(env\_var,\ value):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00057}00057\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sets/unsets\ an\ environment\ variable\ to\ a\ given\ value."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00059}00059\ \ \ \textcolor{keywordflow}{if}\ value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00060}00060\ \ \ \ \ environ[env\_var]\ =\ value}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00061}00061\ \ \ \textcolor{keywordflow}{elif}\ env\_var\ \textcolor{keywordflow}{in}\ environ:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00062}00062\ \ \ \ \ del\ environ[env\_var]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00065}00065\ \textcolor{comment}{\#\ Here\ we\ expose\ a\ class\ from\ a\ particular\ module,\ depending\ on\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00066}00066\ \textcolor{comment}{\#\ environment.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00067}\mbox{\hyperlink{namespacegtest__test__utils_acb97a85206c09d233db6c7f2362e5428}{00067}}\ TestCase\ =\ \_test\_module.TestCase}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00069}00069\ \textcolor{comment}{\#\ Initially\ maps\ a\ flag\ to\ its\ default\ value.\ After}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00070}00070\ \textcolor{comment}{\#\ \_ParseAndStripGTestFlags()\ is\ called,\ maps\ a\ flag\ to\ its\ actual\ value.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00071}\mbox{\hyperlink{namespacegtest__test__utils_ae870265448894aaca93cd4539d5fd184}{00071}}\ \_flag\_map\ =\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00072}00072\ \ \ \ \ \textcolor{stringliteral}{'source\_dir'}:\ os.path.dirname(sys.argv[0]),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00073}00073\ \ \ \ \ \textcolor{stringliteral}{'build\_dir'}:\ os.path.dirname(sys.argv[0]),}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00075}\mbox{\hyperlink{namespacegtest__test__utils_aadccff0902c36a6d2210d33a3b58b9c0}{00075}}\ \_gtest\_flags\_are\_parsed\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00078}\mbox{\hyperlink{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}{00078}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}{\_ParseAndStripGTestFlags}}(argv):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00079}00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}Parses\ and\ strips\ Google\ Test\ flags\ from\ argv.\ \ This\ is\ idempotent."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00081}00081\ \ \ \textcolor{keyword}{global}\ \_gtest\_flags\_are\_parsed}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00082}00082\ \ \ \textcolor{keywordflow}{if}\ \_gtest\_flags\_are\_parsed:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00085}00085\ \ \ \_gtest\_flags\_are\_parsed\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00086}00086\ \ \ \textcolor{keywordflow}{for}\ flag\ \textcolor{keywordflow}{in}\ \_flag\_map:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00087}00087\ \ \ \ \ \textcolor{comment}{\#\ The\ environment\ variable\ overrides\ the\ default\ value.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{if}\ flag.upper()\ \textcolor{keywordflow}{in}\ os.environ:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00089}00089\ \ \ \ \ \ \ \_flag\_map[flag]\ =\ os.environ[flag.upper()]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00091}00091\ \ \ \ \ \textcolor{comment}{\#\ The\ command\ line\ flag\ overrides\ the\ environment\ variable.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00092}00092\ \ \ \ \ i\ =\ 1\ \ \textcolor{comment}{\#\ Skips\ the\ program\ name.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{while}\ i\ <\ len(argv):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00094}00094\ \ \ \ \ \ \ prefix\ =\ \textcolor{stringliteral}{'-\/-\/'}\ +\ flag\ +\ \textcolor{stringliteral}{'='}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00095}00095\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ argv[i].startswith(prefix):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \_flag\_map[flag]\ =\ argv[i][len(prefix)\ :]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ del\ argv[i]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00099}00099\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ don't\ increment\ i\ in\ case\ we\ just\ found\ a\ -\/-\/gtest\_*\ flag}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ and\ removed\ it\ from\ argv.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00105}\mbox{\hyperlink{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}{00105}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}{GetFlag}}(flag):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00106}00106\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ value\ of\ the\ given\ flag."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00108}00108\ \ \ \textcolor{comment}{\#\ In\ case\ GetFlag()\ is\ called\ before\ Main(),\ we\ always\ call}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00109}00109\ \ \ \textcolor{comment}{\#\ \_ParseAndStripGTestFlags()\ here\ to\ make\ sure\ the\ -\/-\/gtest\_*\ flags}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00110}00110\ \ \ \textcolor{comment}{\#\ are\ parsed.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00111}00111\ \ \ \mbox{\hyperlink{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}{\_ParseAndStripGTestFlags}}(sys.argv)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00113}00113\ \ \ \textcolor{keywordflow}{return}\ \_flag\_map[flag]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00116}\mbox{\hyperlink{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7}{00116}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a0133fb47826733e3f2245c588d3f70a7}{GetSourceDir}}():}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00117}00117\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ absolute\ path\ of\ the\ directory\ where\ the\ .py\ files\ are."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00119}00119\ \ \ \textcolor{keywordflow}{return}\ os.path.abspath(\mbox{\hyperlink{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}{GetFlag}}(\textcolor{stringliteral}{'source\_dir'}))}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00122}\mbox{\hyperlink{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127}{00122}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127}{GetBuildDir}}():}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00123}00123\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ absolute\ path\ of\ the\ directory\ where\ the\ test\ binaries\ are."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00125}00125\ \ \ \textcolor{keywordflow}{return}\ os.path.abspath(\mbox{\hyperlink{namespacegtest__test__utils_a1143f97a7906db7e90c5df6d80bae323}{GetFlag}}(\textcolor{stringliteral}{'build\_dir'}))}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00128}\mbox{\hyperlink{namespacegtest__test__utils_a63e521665d381cdeddd27066f11bdbbf}{00128}}\ \_temp\_dir\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00130}\mbox{\hyperlink{namespacegtest__test__utils_ae545ccf86bd82f0b32c0caa5c0a0d732}{00130}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_ae545ccf86bd82f0b32c0caa5c0a0d732}{\_RemoveTempDir}}():}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00131}00131\ \ \ \textcolor{keywordflow}{if}\ \_temp\_dir:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00132}00132\ \ \ \ \ shutil.rmtree(\_temp\_dir,\ ignore\_errors=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00134}00134\ atexit.register(\_RemoveTempDir)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00137}\mbox{\hyperlink{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab}{00137}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a16869f96be9e04ac751ff558164a70ab}{GetTempDir}}():}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00138}00138\ \ \ \textcolor{keyword}{global}\ \_temp\_dir}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00139}00139\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \_temp\_dir:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00140}00140\ \ \ \ \ \_temp\_dir\ =\ tempfile.mkdtemp()}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00141}00141\ \ \ \textcolor{keywordflow}{return}\ \_temp\_dir}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00144}\mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{00144}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_ae7a8ef352b6b64ef8ec893f79874a1cd}{GetTestExecutablePath}}(executable\_name,\ build\_dir=None):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00145}00145\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ absolute\ path\ of\ the\ test\ binary\ given\ its\ name.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00146}00146\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ The\ function\ will\ print\ a\ message\ and\ abort\ the\ program\ if\ the\ resulting\ file}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ doesn't\ exist.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00149}00149\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ \ \ executable\_name:\ name\ of\ the\ test\ binary\ that\ the\ test\ script\ runs.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ build\_dir:\ \ \ \ \ \ \ directory\ where\ to\ look\ for\ executables,\ by\ default\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ \ \ result\ of\ GetBuildDir().}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00154}00154\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ The\ absolute\ path\ of\ the\ test\ binary.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00159}00159\ \ \ path\ =\ os.path.abspath(}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00160}00160\ \ \ \ \ \ \ os.path.join(build\_dir\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacegtest__test__utils_af46f8ca4df90d588a4a09a7cf7d4b127}{GetBuildDir}}(),\ executable\_name)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00161}00161\ \ \ )}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00162}00162\ \ \ \textcolor{keywordflow}{if}\ (IS\_WINDOWS\ \textcolor{keywordflow}{or}\ IS\_CYGWIN\ \textcolor{keywordflow}{or}\ IS\_OS2)\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ path.endswith(\textcolor{stringliteral}{'.exe'}):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00163}00163\ \ \ \ \ path\ +=\ \textcolor{stringliteral}{'.exe'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00165}00165\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ os.path.exists(path):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00166}00166\ \ \ \ \ message\ =\ (}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Unable\ to\ find\ the\ test\ binary\ "{}\%s"{}.\ Please\ make\ sure\ to\ provide\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'a\ path\ to\ the\ binary\ via\ the\ -\/-\/build\_dir\ flag\ or\ the\ BUILD\_DIR\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'environment\ variable.'}\ \%\ path}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00170}00170\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00171}00171\ \ \ \ \ print(message,\ file=sys.stderr)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00172}00172\ \ \ \ \ sys.exit(1)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00174}00174\ \ \ \textcolor{keywordflow}{return}\ path}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00177}\mbox{\hyperlink{namespacegtest__test__utils_a9b3c1dd4c39d3b98ea2436ed0f76539b}{00177}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a9b3c1dd4c39d3b98ea2436ed0f76539b}{GetExitStatus}}(exit\_code):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00178}00178\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ argument\ to\ exit(),\ or\ -\/1\ if\ exit()\ wasn't\ called.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00179}00179\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00180}00180\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ \ \ exit\_code:\ the\ result\ value\ of\ os.system(command).}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00184}00184\ \ \ \textcolor{keywordflow}{if}\ os.name\ ==\ \textcolor{stringliteral}{'nt'}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00185}00185\ \ \ \ \ \textcolor{comment}{\#\ On\ Windows,\ os.WEXITSTATUS()\ doesn't\ work\ and\ os.system()\ returns}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00186}00186\ \ \ \ \ \textcolor{comment}{\#\ the\ argument\ to\ exit()\ directly.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00187}00187\ \ \ \ \ \textcolor{keywordflow}{return}\ exit\_code}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00188}00188\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00189}00189\ \ \ \ \ \textcolor{comment}{\#\ On\ Unix,\ os.WEXITSTATUS()\ must\ be\ used\ to\ extract\ the\ exit\ status}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00190}00190\ \ \ \ \ \textcolor{comment}{\#\ from\ the\ result\ of\ os.system().}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{if}\ os.WIFEXITED(exit\_code):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00192}00192\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os.WEXITSTATUS(exit\_code)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00194}00194\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00197}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{00197}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess}{Subprocess}}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00199}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{00199}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a3d113c3ae02cdd33d471ab0f0acb10b5}{\_\_init\_\_}}(self,\ command,\ working\_dir=None,\ capture\_stderr=True,\ env=None):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00200}00200\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Changes\ into\ a\ specified\ directory,\ if\ provided,\ and\ executes\ a\ command.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00201}00201\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ \ \ Restores\ the\ old\ directory\ afterwards.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00203}00203\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00204}00204\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ \ \ command:\ \ \ \ \ \ \ \ The\ command\ to\ run,\ in\ the\ form\ of\ sys.argv.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ \ \ working\_dir:\ \ \ \ The\ directory\ to\ change\ into.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00207}00207\ \textcolor{stringliteral}{\ \ \ \ \ \ capture\_stderr:\ Determines\ whether\ to\ capture\ stderr\ in\ the\ output\ member}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ or\ to\ discard\ it.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00209}00209\ \textcolor{stringliteral}{\ \ \ \ \ \ env:\ \ \ \ \ \ \ \ \ \ \ \ Dictionary\ with\ environment\ to\ pass\ to\ the\ subprocess.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00210}00210\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ An\ object\ that\ represents\ outcome\ of\ the\ executed\ process.\ It\ has\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00213}00213\ \textcolor{stringliteral}{\ \ \ \ \ \ following\ attributes:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00214}00214\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ terminated\_by\_signal\ \ \ True\ if\ and\ only\ if\ the\ child\ process\ has\ been}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00215}00215\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ terminated\ by\ a\ signal.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00216}00216\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ exited\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ True\ if\ and\ only\ if\ the\ child\ process\ exited}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00217}00217\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normally.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00218}00218\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ exit\_code\ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ code\ with\ which\ the\ child\ process\ exited.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00219}00219\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ output\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Child\ process's\ stdout\ and\ stderr\ output}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00220}00220\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ combined\ in\ a\ string.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00221}00221\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00223}00223\ \ \ \ \ \textcolor{keywordflow}{if}\ capture\_stderr:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00224}00224\ \ \ \ \ \ \ stderr\ =\ subprocess.STDOUT}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00226}00226\ \ \ \ \ \ \ stderr\ =\ subprocess.PIPE}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00228}00228\ \ \ \ \ p\ =\ subprocess.Popen(}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ command,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ stdout=subprocess.PIPE,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ stderr=stderr,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ cwd=working\_dir,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ universal\_newlines=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ env=env,}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00235}00235\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00236}00236\ \ \ \ \ \textcolor{comment}{\#\ communicate\ returns\ a\ tuple\ with\ the\ file\ object\ for\ the\ child's}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00237}00237\ \ \ \ \ \textcolor{comment}{\#\ output.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00238}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a170f722b867e51f3e97b5b60399988cf}{00238}}\ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a170f722b867e51f3e97b5b60399988cf}{output}}\ =\ p.communicate()[0]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00239}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}{00239}}\ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}{\_return\_code}}\ =\ p.returncode}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00241}00241\ \ \ \ \ \textcolor{keywordflow}{if}\ bool(self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}{\_return\_code}}\ \&\ 0x80000000):}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00242}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca}{00242}}\ \ \ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca}{terminated\_by\_signal}}\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00243}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d}{00243}}\ \ \ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d}{exited}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00244}00244\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00245}00245\ \ \ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a9654b9eddd43c93acf66d5c7b0026fca}{terminated\_by\_signal}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00246}00246\ \ \ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a020b5fa8268b9eaf1c4a57cbd53c104d}{exited}}\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00247}\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a01acee4476fd01ccf017d1351cf46c08}{00247}}\ \ \ \ \ \ \ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_a01acee4476fd01ccf017d1351cf46c08}{exit\_code}}\ =\ self.\mbox{\hyperlink{classgtest__test__utils_1_1Subprocess_ac62600a9ac66eea7d81b37ceb5132bd4}{\_return\_code}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00250}\mbox{\hyperlink{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483}{00250}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegtest__test__utils_a70db3f06a6df00628acf3436784db483}{Main}}():}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00251}00251\ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ the\ unit\ test."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00253}00253\ \ \ \textcolor{comment}{\#\ We\ must\ call\ \_ParseAndStripGTestFlags()\ before\ calling}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00254}00254\ \ \ \textcolor{comment}{\#\ unittest.main().\ \ Otherwise\ the\ latter\ will\ be\ confused\ by\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00255}00255\ \ \ \textcolor{comment}{\#\ -\/-\/gtest\_*\ flags.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00256}00256\ \ \ \mbox{\hyperlink{namespacegtest__test__utils_a95b0f9b7fec3219c04b336b1c0ea3215}{\_ParseAndStripGTestFlags}}(sys.argv)}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00257}00257\ \ \ \textcolor{comment}{\#\ The\ tested\ binaries\ should\ not\ be\ writing\ XML\ output\ files\ unless\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00258}00258\ \ \ \textcolor{comment}{\#\ script\ explicitly\ instructs\ them\ to.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00259}00259\ \ \ \textcolor{keywordflow}{if}\ GTEST\_OUTPUT\_VAR\_NAME\ \textcolor{keywordflow}{in}\ os.environ:}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00260}00260\ \ \ \ \ del\ os.environ[GTEST\_OUTPUT\_VAR\_NAME]}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2test_2gtest__test__utils_8py_source_l00262}00262\ \ \ \_test\_module.main()}
+
+\end{DoxyCode}

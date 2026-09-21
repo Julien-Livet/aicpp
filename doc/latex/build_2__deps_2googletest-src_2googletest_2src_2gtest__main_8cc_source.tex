@@ -1,0 +1,72 @@
+\doxysection{gtest\+\_\+main.\+cc}
+\hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source}{}\label{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source}\index{build/\_deps/googletest-\/src/googletest/src/gtest\_main.cc@{build/\_deps/googletest-\/src/googletest/src/gtest\_main.cc}}
+\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2006,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00034}00034\ \textcolor{preprocessor}{\#if\ defined(GTEST\_OS\_ESP8266)\ ||\ defined(GTEST\_OS\_ESP32)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00035}00035\ \textcolor{preprocessor}{\ \ \ \ (defined(GTEST\_OS\_NRF52)\ \&\&\ defined(ARDUINO))}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00036}00036\ \textcolor{comment}{//\ Arduino-\/like\ platforms:\ program\ entry\ points\ are\ setup/loop\ instead\ of\ main.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00038}00038\ \textcolor{preprocessor}{\#ifdef\ GTEST\_OS\_ESP8266}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00039}00039\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00040}00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00042}00042\ \textcolor{keywordtype}{void}\ setup()\ \{\ \mbox{\hyperlink{namespacetesting_ace27eb9a2534996f3711aa719689f987}{testing::InitGoogleTest}}();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00044}00044\ \textcolor{keywordtype}{void}\ loop()\ \{\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a931592c964dcb83eb3e8d95e1eee9404}{RUN\_ALL\_TESTS}}();\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00046}00046\ \textcolor{preprocessor}{\#ifdef\ GTEST\_OS\_ESP8266}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00048}00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00050}00050\ \textcolor{preprocessor}{\#elif\ defined(GTEST\_OS\_QURT)}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00051}00051\ \textcolor{comment}{//\ QuRT:\ program\ entry\ point\ is\ main,\ but\ argc/argv\ are\ unusable.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00053}00053\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2googletest-uninitialized-test___8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00054}00054\ \ \ printf(\textcolor{stringliteral}{"{}Running\ main()\ from\ \%s\(\backslash\)n"{}},\ \_\_FILE\_\_);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00055}00055\ \ \ \mbox{\hyperlink{namespacetesting_ace27eb9a2534996f3711aa719689f987}{testing::InitGoogleTest}}();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00056}00056\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a931592c964dcb83eb3e8d95e1eee9404}{RUN\_ALL\_TESTS}}();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00058}00058\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00059}00059\ \textcolor{comment}{//\ Normal\ platforms:\ program\ entry\ point\ is\ main,\ argc/argv\ are\ initialized.}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00061}\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_a7f83bdc516d2cb86e20235d94ddf055a}{00061}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2test_2googletest-uninitialized-test___8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00062}00062\ \ \ printf(\textcolor{stringliteral}{"{}Running\ main()\ from\ \%s\(\backslash\)n"{}},\ \_\_FILE\_\_);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00063}00063\ \ \ \mbox{\hyperlink{namespacetesting_ace27eb9a2534996f3711aa719689f987}{testing::InitGoogleTest}}(\&argc,\ argv);}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00064}00064\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a931592c964dcb83eb3e8d95e1eee9404}{RUN\_ALL\_TESTS}}();}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{build_2__deps_2googletest-src_2googletest_2src_2gtest__main_8cc_source_l00066}00066\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

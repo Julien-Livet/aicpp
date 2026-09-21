@@ -1,0 +1,135 @@
+\chapter{Quickstart\+: Building with CMake}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake}{}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake}\index{Quickstart: Building with CMake@{Quickstart: Building with CMake}}
+\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1531}%
+\Hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1531}%
+ This tutorial aims to get you up and running with Google\+Test using CMake. If you\textquotesingle{}re using Google\+Test for the first time or need a refresher, we recommend this tutorial as a starting point. If your project uses Bazel, see the \doxysectlink{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-bazel}{Quickstart for Bazel}{0} instead.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1532}{}\doxysection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1532}
+To complete this tutorial, you\textquotesingle{}ll need\+:
+
+
+\begin{DoxyItemize}
+\item A compatible operating system (e.\+g. Linux, mac\+OS, Windows).
+\item A compatible C++ compiler that supports at least C++17.
+\item \href{https://cmake.org/}{\texttt{ CMake}} and a compatible build tool for building the project.
+\begin{DoxyItemize}
+\item Compatible build tools include \href{https://www.gnu.org/software/make/}{\texttt{ Make}}, \href{https://ninja-build.org/}{\texttt{ Ninja}}, and others -\/ see \href{https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html}{\texttt{ CMake Generators}} for more information.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+See \doxysectlink{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2platforms}{Supported Platforms}{0} for more information about platforms compatible with Google\+Test.
+
+If you don\textquotesingle{}t already have CMake installed, see the \href{https://cmake.org/install}{\texttt{ CMake installation guide}}.
+
+\{\+: .callout .note\} Note\+: The terminal commands in this tutorial show a Unix shell prompt, but the commands work on the Windows command line as well.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1533}{}\doxysection{\texorpdfstring{Set up a project}{Set up a project}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1533}
+CMake uses a file named {\ttfamily CMake\+Lists.\+txt} to configure the build system for a project. You\textquotesingle{}ll use this file to set up your project and declare a dependency on Google\+Test.
+
+First, create a directory for your project\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ mkdir\ my\_project\ \&\&\ cd\ my\_project}
+
+\end{DoxyCode}
+
+
+Next, you\textquotesingle{}ll create the {\ttfamily CMake\+Lists.\+txt} file and declare a dependency on Google\+Test. There are many ways to express dependencies in the CMake ecosystem; in this quickstart, you\textquotesingle{}ll use the \href{https://cmake.org/cmake/help/latest/module/FetchContent.html}{\texttt{ {\ttfamily Fetch\+Content} CMake module}}. To do this, in your project directory ({\ttfamily my\+\_\+project}), create a file named {\ttfamily CMake\+Lists.\+txt} with the following contents\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\_minimum\_required(VERSION\ 3.14)}
+\DoxyCodeLine{project(my\_project)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ GoogleTest\ requires\ at\ least\ C++17}
+\DoxyCodeLine{set(CMAKE\_CXX\_STANDARD\ 17)}
+\DoxyCodeLine{set(CMAKE\_CXX\_STANDARD\_REQUIRED\ ON)}
+\DoxyCodeLine{}
+\DoxyCodeLine{include(FetchContent)}
+\DoxyCodeLine{FetchContent\_Declare(}
+\DoxyCodeLine{\ \ googletest}
+\DoxyCodeLine{\ \ URL\ https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip}
+\DoxyCodeLine{)}
+\DoxyCodeLine{\#\ For\ Windows:\ Prevent\ overriding\ the\ parent\ project's\ compiler/linker\ settings}
+\DoxyCodeLine{set(gtest\_force\_shared\_crt\ ON\ CACHE\ BOOL\ "{}"{}\ FORCE)}
+\DoxyCodeLine{FetchContent\_MakeAvailable(googletest)}
+
+\end{DoxyCode}
+
+
+The above configuration declares a dependency on Google\+Test which is downloaded from Git\+Hub. In the above example, {\ttfamily 03597a01ee50ed33e9dfd640b249b4be3799d395} is the Git commit hash of the Google\+Test version to use; we recommend updating the hash often to point to the latest version.
+
+For more information about how to create {\ttfamily CMake\+Lists.\+txt} files, see the \href{https://cmake.org/cmake/help/latest/guide/tutorial/index.html}{\texttt{ CMake Tutorial}}.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1534}{}\doxysection{\texorpdfstring{Create and run a binary}{Create and run a binary}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1534}
+With Google\+Test declared as a dependency, you can use Google\+Test code within your own project.
+
+As an example, create a file named {\ttfamily hello\+\_\+test.\+cc} in your {\ttfamily my\+\_\+project} directory with the following contents\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gtest/gtest.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Demonstrate\ some\ basic\ assertions.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(HelloTest,\ BasicAssertions)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Expect\ two\ strings\ not\ to\ be\ equal.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_aee7e9c42f55549dbc0dfc42391eb9775}{EXPECT\_STRNE}}(\textcolor{stringliteral}{"{}hello"{}},\ \textcolor{stringliteral}{"{}world"{}});}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Expect\ equality.}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a4159019abda84f5366acdb7604ff220a}{EXPECT\_EQ}}(7\ *\ 6,\ 42);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Google\+Test provides \href{primer.md\#assertions}{\texttt{ assertions}} that you use to test the behavior of your code. The above sample includes the main Google\+Test header file and demonstrates some basic assertions.
+
+To build the code, add the following to the end of your {\ttfamily CMake\+Lists.\+txt} file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enable\_testing()}
+\DoxyCodeLine{}
+\DoxyCodeLine{add\_executable(}
+\DoxyCodeLine{\ \ hello\_test}
+\DoxyCodeLine{\ \ hello\_test.cc}
+\DoxyCodeLine{)}
+\DoxyCodeLine{target\_link\_libraries(}
+\DoxyCodeLine{\ \ hello\_test}
+\DoxyCodeLine{\ \ GTest::gtest\_main}
+\DoxyCodeLine{)}
+\DoxyCodeLine{}
+\DoxyCodeLine{include(GoogleTest)}
+\DoxyCodeLine{gtest\_discover\_tests(hello\_test)}
+
+\end{DoxyCode}
+
+
+The above configuration enables testing in CMake, declares the C++ test binary you want to build ({\ttfamily hello\+\_\+test}), and links it to Google\+Test ({\ttfamily gtest\+\_\+main}). The last two lines enable CMake\textquotesingle{}s test runner to discover the tests included in the binary, using the \href{https://cmake.org/cmake/help/git-stage/module/GoogleTest.html}{\texttt{ {\ttfamily Google\+Test} CMake module}}.
+
+Now you can build and run your test\+:
+
+
+\begin{DoxyPre}
+{\bfseries{my\_project\$ cmake -\/S . -\/B build}}
+-\/-\/ The C compiler identification is GNU 10.2.1
+-\/-\/ The CXX compiler identification is GNU 10.2.1
+...
+-\/-\/ Build files have been written to: .../my\_project/build
+
+{\bfseries{my\_project\$ cmake -\/-\/build build}}
+Scanning dependencies of target gtest
+...
+[100\%] Built target gmock\_main
+
+{\bfseries{my\_project\$ cd build \&\& ctest}}
+Test project .../my\_project/build
+    Start 1: HelloTest.BasicAssertions
+1/1 Test \#1: HelloTest.BasicAssertions ........   Passed    0.00 sec
+
+100\% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+\end{DoxyPre}
+
+
+Congratulations! You\textquotesingle{}ve successfully built and run a test binary using Google\+Test.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1535}{}\doxysection{\texorpdfstring{Next steps}{Next steps}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2quickstart-cmake_autotoc_md1535}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2primer}{Check out the Primer}{0} to start learning how to write simple tests.
+\item \doxysectlink{md_Desktop-Profile-build_2__deps_2googletest-src_2docs_2samples}{See the code samples}{0} for more examples showing how to use a variety of Google\+Test features. 
+\end{DoxyItemize}

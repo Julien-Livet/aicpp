@@ -1,0 +1,103 @@
+\doxysection{gmock.\+h}
+\hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source}{}\label{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source}\index{cmake-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock.h@{cmake-\/build/\_deps/googletest-\/src/googlemock/include/gmock/gmock.h}}
+\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ 2007,\ Google\ Inc.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00002}00002\ \textcolor{comment}{//\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00004}00004\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00005}00005\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00006}00006\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00008}00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00009}00009\ \textcolor{comment}{//\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00011}00011\ \textcolor{comment}{//\ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00012}00012\ \textcolor{comment}{//\ in\ the\ documentation\ and/or\ other\ materials\ provided\ with\ the}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00013}00013\ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00014}00014\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00015}00015\ \textcolor{comment}{//\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00016}00016\ \textcolor{comment}{//\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00018}00018\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00019}00019\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00020}00020\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00021}00021\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00022}00022\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00023}00023\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00024}00024\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00025}00025\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00026}00026\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00027}00027\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00028}00028\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00030}00030\ \textcolor{comment}{//\ Google\ Mock\ -\/\ a\ framework\ for\ writing\ C++\ mock\ classes.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00031}00031\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00032}00032\ \textcolor{comment}{//\ This\ is\ the\ main\ header\ file\ a\ user\ should\ include.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00034}00034\ \textcolor{preprocessor}{\#ifndef\ GOOGLEMOCK\_INCLUDE\_GMOCK\_GMOCK\_H\_}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00035}00035\ \textcolor{preprocessor}{\#define\ GOOGLEMOCK\_INCLUDE\_GMOCK\_GMOCK\_H\_}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00037}00037\ \textcolor{comment}{//\ This\ file\ implements\ the\ following\ syntax:}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00038}00038\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00039}00039\ \textcolor{comment}{//\ \ \ ON\_CALL(mock\_object,\ Method(...))}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00040}00040\ \textcolor{comment}{//\ \ \ \ \ .With(...)\ ?}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00041}00041\ \textcolor{comment}{//\ \ \ \ \ .WillByDefault(...);}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00042}00042\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00043}00043\ \textcolor{comment}{//\ where\ With()\ is\ optional\ and\ WillByDefault()\ must\ appear\ exactly}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00044}00044\ \textcolor{comment}{//\ once.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00045}00045\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00046}00046\ \textcolor{comment}{//\ \ \ EXPECT\_CALL(mock\_object,\ Method(...))}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00047}00047\ \textcolor{comment}{//\ \ \ \ \ .With(...)\ ?}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00048}00048\ \textcolor{comment}{//\ \ \ \ \ .Times(...)\ ?}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00049}00049\ \textcolor{comment}{//\ \ \ \ \ .InSequence(...)\ *}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00050}00050\ \textcolor{comment}{//\ \ \ \ \ .WillOnce(...)\ *}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00051}00051\ \textcolor{comment}{//\ \ \ \ \ .WillRepeatedly(...)\ ?}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00052}00052\ \textcolor{comment}{//\ \ \ \ \ .RetiresOnSaturation()\ ?\ ;}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00053}00053\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00054}00054\ \textcolor{comment}{//\ where\ all\ clauses\ are\ optional\ and\ WillOnce()\ can\ be\ repeated.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00056}00056\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/actions.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00057}00057\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/cardinalities.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00058}00058\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/function-\/mocker.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00059}00059\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/matchers.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00060}00060\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/more-\/actions.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00061}00061\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/more-\/matchers.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00062}00062\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/nice-\/strict.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00063}00063\ \textcolor{preprocessor}{\#include\ "{}gmock/gmock-\/spec-\/builders.h"{}}\ \ \textcolor{comment}{//\ IWYU\ pragma:\ export}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00064}00064\ \textcolor{preprocessor}{\#include\ "{}gmock/internal/gmock-\/internal-\/utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00065}00065\ \textcolor{preprocessor}{\#include\ "{}gmock/internal/gmock-\/port.h"{}}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00067}00067\ \textcolor{comment}{//\ Declares\ Google\ Mock\ flags\ that\ we\ want\ a\ user\ to\ use\ programmatically.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00068}\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_a6724bf0be1b0d18359ecf0722149129c}{00068}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-port_8h_a7a0a953221ea8ef5aaa6c644a48af599}{GMOCK\_DECLARE\_bool\_}}(catch\_leaked\_mocks);}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00069}\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_a255d10aca3c15e3ce9e4e72d123eaf0d}{00069}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-port_8h_a35af08c45131cf68d78446cb8cfe40fe}{GMOCK\_DECLARE\_string\_}}(verbose);}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00070}\mbox{\hyperlink{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_aaaa4804875a8be58a116466537190c0d}{00070}}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2internal_2gmock-port_8h_adeb7f0a8d842d1d541615763835af3f9}{GMOCK\_DECLARE\_int32\_}}(default\_mock\_behavior);}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00072}00072\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacetesting}{testing}}\ \{}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00074}00074\ \textcolor{comment}{//\ Initializes\ Google\ Mock.\ \ This\ must\ be\ called\ before\ running\ the}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00075}00075\ \textcolor{comment}{//\ tests.\ \ In\ particular,\ it\ parses\ the\ command\ line\ for\ the\ flags}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00076}00076\ \textcolor{comment}{//\ that\ Google\ Mock\ recognizes.\ \ Whenever\ a\ Google\ Mock\ flag\ is\ seen,}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00077}00077\ \textcolor{comment}{//\ it\ is\ removed\ from\ argv,\ and\ *argc\ is\ decremented.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00078}00078\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00079}00079\ \textcolor{comment}{//\ No\ value\ is\ returned.\ \ Instead,\ the\ Google\ Mock\ flag\ variables\ are}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00080}00080\ \textcolor{comment}{//\ updated.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00081}00081\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00082}00082\ \textcolor{comment}{//\ Since\ Google\ Test\ is\ needed\ for\ Google\ Mock\ to\ work,\ this\ function}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00083}00083\ \textcolor{comment}{//\ also\ initializes\ Google\ Test\ and\ parses\ its\ flags,\ if\ that\ hasn't}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00084}00084\ \textcolor{comment}{//\ been\ done.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00085}00085\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacetesting_a9276d4bc746722cb4fe99415c1dc778f}{InitGoogleMock}}(\textcolor{keywordtype}{int}*\ argc,\ \textcolor{keywordtype}{char}**\ argv);}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00087}00087\ \textcolor{comment}{//\ This\ overloaded\ version\ can\ be\ used\ in\ Windows\ programs\ compiled\ in}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00088}00088\ \textcolor{comment}{//\ UNICODE\ mode.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00089}00089\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacetesting_a9276d4bc746722cb4fe99415c1dc778f}{InitGoogleMock}}(\textcolor{keywordtype}{int}*\ argc,\ \textcolor{keywordtype}{wchar\_t}**\ argv);}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00091}00091\ \textcolor{comment}{//\ This\ overloaded\ version\ can\ be\ used\ on\ Arduino/embedded\ platforms\ where}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00092}00092\ \textcolor{comment}{//\ there\ is\ no\ argc/argv.}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00093}00093\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-port_8h_aa73be6f0ba4a7456180a94904ce17790}{GTEST\_API\_}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacetesting_a9276d4bc746722cb4fe99415c1dc778f}{InitGoogleMock}}();}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00095}00095\ \}\ \ \textcolor{comment}{//\ namespace\ testing}}
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{cmake-build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock_8h_source_l00097}00097\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ GOOGLEMOCK\_INCLUDE\_GMOCK\_GMOCK\_H\_}}
+
+\end{DoxyCode}

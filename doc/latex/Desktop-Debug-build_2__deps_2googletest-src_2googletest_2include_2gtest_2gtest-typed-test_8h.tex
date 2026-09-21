@@ -1,0 +1,320 @@
+\doxysection{Desktop-\/\+Debug-\/build/\+\_\+deps/googletest-\/src/googletest/include/gtest/gtest-\/typed-\/test.h File Reference}
+\hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h}{}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h}\index{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/typed-\/test.h@{Desktop-\/Debug-\/build/\_deps/googletest-\/src/googletest/include/gtest/gtest-\/typed-\/test.h}}
+{\ttfamily \#include "{}gtest/internal/gtest-\/internal.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/port.\+h"{}}\newline
+{\ttfamily \#include "{}gtest/internal/gtest-\/type-\/util.\+h"{}}\newline
+Include dependency graph for gtest-\/typed-\/test.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aafb49fb7eb25dc1e895c0abfd86c05ce}{GTEST\+\_\+\+TYPE\+\_\+\+PARAMS\+\_\+}}(Test\+Suite\+Name)~gtest\+\_\+type\+\_\+params\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aca203e78b5b088ca8ccaa83c15273004}{GTEST\+\_\+\+NAME\+\_\+\+GENERATOR\+\_\+}}(Test\+Suite\+Name)~  gtest\+\_\+type\+\_\+params\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+\+Name\+Generator
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af84bf8ca7d774f32797e526bec88d12f}{TYPED\+\_\+\+TEST\+\_\+\+SUITE}}(Case\+Name,  Types, ...)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae6f575265873190de41b1329d16df0f0}{TYPED\+\_\+\+TEST}}(Case\+Name,  Test\+Name)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3e14454891deeb5cf8bd318b70f269dc}{TYPED\+\_\+\+TEST\+\_\+\+CASE}}
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ad335257ff1e556a70cd6d7ee3556cfb0}{GTEST\+\_\+\+SUITE\+\_\+\+NAMESPACE\+\_\+}}(Test\+Suite\+Name)~gtest\+\_\+suite\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a5000e7fb258683486c20c746440e6118}{GTEST\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+\+P\+\_\+\+STATE\+\_\+}}(Test\+Suite\+Name)~  gtest\+\_\+typed\+\_\+test\+\_\+suite\+\_\+p\+\_\+state\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a437dfd0367cb179c964e8117ae5bcb29}{GTEST\+\_\+\+REGISTERED\+\_\+\+TEST\+\_\+\+NAMES\+\_\+}}(Test\+Suite\+Name)~  gtest\+\_\+registered\+\_\+test\+\_\+names\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3d74325e27e02ed1d1c7b30a24f7af13}{TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P}}(Suite\+Name)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a0b219bba2153cac2251852f3554a12a7}{TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}}
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a6e9d1cd9b97da0076ae699775d3222d0}{TYPED\+\_\+\+TEST\+\_\+P}}(Suite\+Name,  Test\+Name)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a03990bffa8f0f58c37d4938107722f99}{REGISTER\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P}}(Suite\+Name, ...)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a8b29fcb79e33236eb334f5275d8b348f}{REGISTER\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}}
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae1f8548fa07ec0a138362654b7bc3194}{INSTANTIATE\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P}}(Prefix,  Suite\+Name,  Types, ...)
+\item 
+\#define \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af56d28e59bcf6324199a9f72303eba84}{INSTANTIATE\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aca203e78b5b088ca8ccaa83c15273004}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aca203e78b5b088ca8ccaa83c15273004} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!GTEST\_NAME\_GENERATOR\_@{GTEST\_NAME\_GENERATOR\_}}
+\index{GTEST\_NAME\_GENERATOR\_@{GTEST\_NAME\_GENERATOR\_}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_NAME\_GENERATOR\_}{GTEST\_NAME\_GENERATOR\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+NAME\+\_\+\+GENERATOR\+\_\+(\begin{DoxyParamCaption}\item[{}]{Test\+Suite\+Name }\end{DoxyParamCaption})~  gtest\+\_\+type\+\_\+params\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+\+Name\+Generator}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00188}{188}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a437dfd0367cb179c964e8117ae5bcb29}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a437dfd0367cb179c964e8117ae5bcb29} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!GTEST\_REGISTERED\_TEST\_NAMES\_@{GTEST\_REGISTERED\_TEST\_NAMES\_}}
+\index{GTEST\_REGISTERED\_TEST\_NAMES\_@{GTEST\_REGISTERED\_TEST\_NAMES\_}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_REGISTERED\_TEST\_NAMES\_}{GTEST\_REGISTERED\_TEST\_NAMES\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+REGISTERED\+\_\+\+TEST\+\_\+\+NAMES\+\_\+(\begin{DoxyParamCaption}\item[{}]{Test\+Suite\+Name }\end{DoxyParamCaption})~  gtest\+\_\+registered\+\_\+test\+\_\+names\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00253}{253}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ad335257ff1e556a70cd6d7ee3556cfb0}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ad335257ff1e556a70cd6d7ee3556cfb0} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!GTEST\_SUITE\_NAMESPACE\_@{GTEST\_SUITE\_NAMESPACE\_}}
+\index{GTEST\_SUITE\_NAMESPACE\_@{GTEST\_SUITE\_NAMESPACE\_}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_SUITE\_NAMESPACE\_}{GTEST\_SUITE\_NAMESPACE\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+SUITE\+\_\+\+NAMESPACE\+\_\+(\begin{DoxyParamCaption}\item[{}]{Test\+Suite\+Name }\end{DoxyParamCaption})~gtest\+\_\+suite\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00240}{240}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aafb49fb7eb25dc1e895c0abfd86c05ce}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aafb49fb7eb25dc1e895c0abfd86c05ce} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!GTEST\_TYPE\_PARAMS\_@{GTEST\_TYPE\_PARAMS\_}}
+\index{GTEST\_TYPE\_PARAMS\_@{GTEST\_TYPE\_PARAMS\_}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_TYPE\_PARAMS\_}{GTEST\_TYPE\_PARAMS\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+TYPE\+\_\+\+PARAMS\+\_\+(\begin{DoxyParamCaption}\item[{}]{Test\+Suite\+Name }\end{DoxyParamCaption})~gtest\+\_\+type\+\_\+params\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00184}{184}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a5000e7fb258683486c20c746440e6118}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a5000e7fb258683486c20c746440e6118} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_@{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_}}
+\index{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_@{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_}{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_}}
+{\footnotesize\ttfamily \#define GTEST\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+\+P\+\_\+\+STATE\+\_\+(\begin{DoxyParamCaption}\item[{}]{Test\+Suite\+Name }\end{DoxyParamCaption})~  gtest\+\_\+typed\+\_\+test\+\_\+suite\+\_\+p\+\_\+state\+\_\+\#\#Test\+Suite\+Name\#\#\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00246}{246}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af56d28e59bcf6324199a9f72303eba84}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af56d28e59bcf6324199a9f72303eba84} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!INSTANTIATE\_TYPED\_TEST\_CASE\_P@{INSTANTIATE\_TYPED\_TEST\_CASE\_P}}
+\index{INSTANTIATE\_TYPED\_TEST\_CASE\_P@{INSTANTIATE\_TYPED\_TEST\_CASE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TYPED\_TEST\_CASE\_P}{INSTANTIATE\_TYPED\_TEST\_CASE\_P}}
+{\footnotesize\ttfamily \#define INSTANTIATE\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ ::testing::internal::InstantiateTypedTestCase\_P\_IsDeprecated(),\ \textcolor{stringliteral}{"{}"{}});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae1f8548fa07ec0a138362654b7bc3194}{INSTANTIATE\_TYPED\_TEST\_SUITE\_P}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00325}{325}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae1f8548fa07ec0a138362654b7bc3194}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae1f8548fa07ec0a138362654b7bc3194} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!INSTANTIATE\_TYPED\_TEST\_SUITE\_P@{INSTANTIATE\_TYPED\_TEST\_SUITE\_P}}
+\index{INSTANTIATE\_TYPED\_TEST\_SUITE\_P@{INSTANTIATE\_TYPED\_TEST\_SUITE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE\_TYPED\_TEST\_SUITE\_P}{INSTANTIATE\_TYPED\_TEST\_SUITE\_P}}
+{\footnotesize\ttfamily \#define INSTANTIATE\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{Prefix,  }\item[{}]{Suite\+Name,  }\item[{}]{Types,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(Prefix))\ >\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}test-\/suit-\/prefix\ must\ not\ be\ empty"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ [[maybe\_unused]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ gtest\_\#\#Prefix\#\#\_\#\#SuiteName\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{classtesting_1_1internal_1_1TypeParameterizedTestSuite}{::testing::internal::TypeParameterizedTestSuite}}<\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ SuiteName,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ad335257ff1e556a70cd6d7ee3556cfb0}{GTEST\_SUITE\_NAMESPACE\_}}(SuiteName)::gtest\_AllTests\_,\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ::\mbox{\hyperlink{namespacetesting}{testing}}::internal::GenerateTypeList<Types>::type>::\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ Register(\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(Prefix),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\mbox{\hyperlink{namespacetesting}{testing}}::internal::CodeLocation(\_\_FILE\_\_,\ \_\_LINE\_\_),\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a5000e7fb258683486c20c746440e6118}{GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_}}(SuiteName),\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(SuiteName),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a437dfd0367cb179c964e8117ae5bcb29}{GTEST\_REGISTERED\_TEST\_NAMES\_}}(SuiteName),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\mbox{\hyperlink{namespacetesting}{testing}}::internal::GenerateNames<\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\mbox{\hyperlink{namespacetesting}{testing}}::internal::NameGeneratorSelector<\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_VA\_ARGS\_\_>::type,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ::\mbox{\hyperlink{namespacetesting}{testing}}::internal::GenerateTypeList<Types>::type>())}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00306}{306}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a8b29fcb79e33236eb334f5275d8b348f}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a8b29fcb79e33236eb334f5275d8b348f} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!REGISTER\_TYPED\_TEST\_CASE\_P@{REGISTER\_TYPED\_TEST\_CASE\_P}}
+\index{REGISTER\_TYPED\_TEST\_CASE\_P@{REGISTER\_TYPED\_TEST\_CASE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{REGISTER\_TYPED\_TEST\_CASE\_P}{REGISTER\_TYPED\_TEST\_CASE\_P}}
+{\footnotesize\ttfamily \#define REGISTER\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacetesting_1_1internal_af3e2d175dadff54677b1382abc126d1b}{::testing::internal::RegisterTypedTestCase\_P\_IsDeprecated}}(),\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a03990bffa8f0f58c37d4938107722f99}{REGISTER\_TYPED\_TEST\_SUITE\_P}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00300}{300}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a03990bffa8f0f58c37d4938107722f99}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a03990bffa8f0f58c37d4938107722f99} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!REGISTER\_TYPED\_TEST\_SUITE\_P@{REGISTER\_TYPED\_TEST\_SUITE\_P}}
+\index{REGISTER\_TYPED\_TEST\_SUITE\_P@{REGISTER\_TYPED\_TEST\_SUITE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{REGISTER\_TYPED\_TEST\_SUITE\_P}{REGISTER\_TYPED\_TEST\_SUITE\_P}}
+{\footnotesize\ttfamily \#define REGISTER\+\_\+\+TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{Suite\+Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }GTEST\_SUITE\_NAMESPACE\_(SuiteName)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ typedef\ ::testing::internal::Templates<\_\_VA\_ARGS\_\_>\ gtest\_AllTests\_;\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ [[maybe\_unused]]\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a437dfd0367cb179c964e8117ae5bcb29}{GTEST\_REGISTERED\_TEST\_NAMES\_}}(\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ SuiteName)\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_(SuiteName).VerifyRegisteredTestNames(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(SuiteName),\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \#\_\_VA\_ARGS\_\_)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00289}{289}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae6f575265873190de41b1329d16df0f0}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ae6f575265873190de41b1329d16df0f0} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST@{TYPED\_TEST}}
+\index{TYPED\_TEST@{TYPED\_TEST}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST}{TYPED\_TEST}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST(\begin{DoxyParamCaption}\item[{}]{Case\+Name,  }\item[{}]{Test\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(TestName))\ >\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}test-\/name\ must\ not\ be\ empty"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ gtest\_TypeParam\_>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(CaseName,\ TestName)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ :\ \textcolor{keyword}{public}\ CaseName<gtest\_TypeParam\_>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{private}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ CaseName<gtest\_TypeParam\_>\ TestFixture;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ gtest\_TypeParam\_\ TypeParam;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ TestBody()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ [[maybe\_unused]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ gtest\_\#\#CaseName\#\#\_\#\#TestName\#\#\_registered\_\ =\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{classtesting_1_1internal_1_1TypeParameterizedTest}{::testing::internal::TypeParameterizedTest}}<\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ CaseName,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtesting_1_1internal_1_1TemplateSel}{::testing::internal::TemplateSel}}<\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(CaseName,\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TestName)>,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ GTEST\_TYPE\_PARAMS\_(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ CaseName)>::Register(\textcolor{stringliteral}{"{}"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtesting_1_1internal_1_1CodeLocation}{::testing::internal::CodeLocation}}(\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_FILE\_\_,\ \_\_LINE\_\_),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(CaseName),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(TestName),\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacetesting_1_1internal_a6e095b62f67c0b6eb167aae3f070421e}{::testing::internal::GenerateNames}}<\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aca203e78b5b088ca8ccaa83c15273004}{GTEST\_NAME\_GENERATOR\_}}(CaseName),\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_aafb49fb7eb25dc1e895c0abfd86c05ce}{GTEST\_TYPE\_PARAMS\_}}(CaseName)>());\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ gtest\_TypeParam\_>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_ad4bc4ec847a06e7de981e81c9bb116cf}{GTEST\_TEST\_CLASS\_NAME\_}}(CaseName,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TestName)<gtest\_TypeParam\_>::TestBody()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00197}{197}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3e14454891deeb5cf8bd318b70f269dc}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3e14454891deeb5cf8bd318b70f269dc} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST\_CASE@{TYPED\_TEST\_CASE}}
+\index{TYPED\_TEST\_CASE@{TYPED\_TEST\_CASE}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST\_CASE}{TYPED\_TEST\_CASE}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST\+\_\+\+CASE}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacetesting_1_1internal_a7bc8b495ae8fa2f468abe56a0170e57c}{::testing::internal::TypedTestCaseIsDeprecated}}(),\ \textcolor{stringliteral}{"{}"{}});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af84bf8ca7d774f32797e526bec88d12f}{TYPED\_TEST\_SUITE}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00228}{228}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a0b219bba2153cac2251852f3554a12a7}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a0b219bba2153cac2251852f3554a12a7} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST\_CASE\_P@{TYPED\_TEST\_CASE\_P}}
+\index{TYPED\_TEST\_CASE\_P@{TYPED\_TEST\_CASE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST\_CASE\_P}{TYPED\_TEST\_CASE\_P}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST\+\_\+\+CASE\+\_\+P}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespacetesting_1_1internal_a89bf1686a62ff70b262f2025421821bd}{::testing::internal::TypedTestCase\_P\_IsDeprecated}}(),\ \textcolor{stringliteral}{"{}"{}});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3d74325e27e02ed1d1c7b30a24f7af13}{TYPED\_TEST\_SUITE\_P}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00265}{265}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a6e9d1cd9b97da0076ae699775d3222d0}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a6e9d1cd9b97da0076ae699775d3222d0} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST\_P@{TYPED\_TEST\_P}}
+\index{TYPED\_TEST\_P@{TYPED\_TEST\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST\_P}{TYPED\_TEST\_P}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST\+\_\+P(\begin{DoxyParamCaption}\item[{}]{Suite\+Name,  }\item[{}]{Test\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{namespace\ }GTEST\_SUITE\_NAMESPACE\_(SuiteName)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ gtest\_TypeParam\_>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{class\ }TestName\ :\ \textcolor{keyword}{public}\ SuiteName<gtest\_TypeParam\_>\ \{\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \textcolor{keyword}{private}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ SuiteName<gtest\_TypeParam\_>\ TestFixture;\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ gtest\_TypeParam\_\ TypeParam;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ TestBody()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ [[maybe\_unused]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ gtest\_\#\#TestName\#\#\_defined\_\ =\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_(SuiteName).AddTestName(\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(SuiteName),\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2internal_2gtest-internal_8h_aa007c0351c2bbe7618989e40cc146769}{GTEST\_STRINGIFY\_}}(TestName));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ gtest\_TypeParam\_>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_ad335257ff1e556a70cd6d7ee3556cfb0}{GTEST\_SUITE\_NAMESPACE\_}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ SuiteName)::TestName<gtest\_TypeParam\_>::TestBody()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00270}{270}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af84bf8ca7d774f32797e526bec88d12f}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_af84bf8ca7d774f32797e526bec88d12f} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST\_SUITE@{TYPED\_TEST\_SUITE}}
+\index{TYPED\_TEST\_SUITE@{TYPED\_TEST\_SUITE}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST\_SUITE}{TYPED\_TEST\_SUITE}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST\+\_\+\+SUITE(\begin{DoxyParamCaption}\item[{}]{Case\+Name,  }\item[{}]{Types,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ typedef\ ::testing::internal::GenerateTypeList<Types>::type\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ GTEST\_TYPE\_PARAMS\_(CaseName);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ typedef\ ::testing::internal::NameGeneratorSelector<\_\_VA\_ARGS\_\_>::type\ \(\backslash\)}
+\DoxyCodeLine{\ \ GTEST\_NAME\_GENERATOR\_(CaseName)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00191}{191}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+
+\Hypertarget{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3d74325e27e02ed1d1c7b30a24f7af13}\label{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_a3d74325e27e02ed1d1c7b30a24f7af13} 
+\index{gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}!TYPED\_TEST\_SUITE\_P@{TYPED\_TEST\_SUITE\_P}}
+\index{TYPED\_TEST\_SUITE\_P@{TYPED\_TEST\_SUITE\_P}!gtest-\/typed-\/test.h@{gtest-\/typed-\/test.h}}
+\doxysubsubsection{\texorpdfstring{TYPED\_TEST\_SUITE\_P}{TYPED\_TEST\_SUITE\_P}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+TEST\+\_\+\+SUITE\+\_\+P(\begin{DoxyParamCaption}\item[{}]{Suite\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ static\ ::testing::internal::TypedTestSuitePState\ \(\backslash\)}
+\DoxyCodeLine{\ \ GTEST\_TYPED\_TEST\_SUITE\_P\_STATE\_(SuiteName)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source_l00259}{259}} of file \mbox{\hyperlink{Desktop-Debug-build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest-typed-test_8h_source}{gtest-\/typed-\/test.\+h}}.
+

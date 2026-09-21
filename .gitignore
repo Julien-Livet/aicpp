@@ -31,7 +31,8 @@
 *.out
 *.app
 
-*build*
+*build
+cmake-build
 .vscode
 
 # Byte-compiled / optimized / DLL files

@@ -1,0 +1,220 @@
+\chapter{g\+Mock Cheat Sheet}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet}{}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet}\index{gMock Cheat Sheet@{gMock Cheat Sheet}}
+\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1822}%
+\Hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1822}%
+ \hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1823}{}\doxysection{\texorpdfstring{Defining a Mock Class}{Defining a Mock Class}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1823}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MockClass}{}\doxysubsection{\texorpdfstring{Mocking a Normal Class}{Mocking a Normal Class}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MockClass}
+Given
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Foo\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~Foo();}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetSize()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}(\textcolor{keywordtype}{int}\ type)\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ Process(Bar\ elem,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__stress__test_8cc_afd9db40e3361ae09188795e8cbe19752}{count}})\ =\ 0;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+(note that {\ttfamily \texorpdfstring{$\sim$}{\string~}\+Foo()} {\bfseries{must}} be virtual) we can define its mock as
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gmock/gmock.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MockFoo\ :\ \textcolor{keyword}{public}\ Foo\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{int},\ GetSize,\ (),\ (\textcolor{keyword}{const},\ \textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{string},\ Describe,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{string},\ Describe,\ (\textcolor{keywordtype}{int}\ type),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{bool},\ Process,\ (Bar\ elem,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock__stress__test_8cc_afd9db40e3361ae09188795e8cbe19752}{count}}),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+To create a "{}nice"{} mock, which ignores all uninteresting calls, a "{}naggy"{} mock, which warns on all uninteresting calls, or a "{}strict"{} mock, which treats them as failures\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::NiceMock;}
+\DoxyCodeLine{using\ ::testing::NaggyMock;}
+\DoxyCodeLine{using\ ::testing::StrictMock;}
+\DoxyCodeLine{}
+\DoxyCodeLine{NiceMock<MockFoo>\ nice\_foo;\ \ \ \ \ \ \textcolor{comment}{//\ The\ type\ is\ a\ subclass\ of\ MockFoo.}}
+\DoxyCodeLine{NaggyMock<MockFoo>\ naggy\_foo;\ \ \ \ \textcolor{comment}{//\ The\ type\ is\ a\ subclass\ of\ MockFoo.}}
+\DoxyCodeLine{StrictMock<MockFoo>\ strict\_foo;\ \ \textcolor{comment}{//\ The\ type\ is\ a\ subclass\ of\ MockFoo.}}
+
+\end{DoxyCode}
+
+
+\{\+: .callout .note\} {\bfseries{Note\+:}} A mock object is currently naggy by default. We may make it nice by default in the future.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MockTemplate}{}\doxysubsection{\texorpdfstring{Mocking a Class Template}{Mocking a Class Template}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MockTemplate}
+Class templates can be mocked just like any class.
+
+To mock
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Elem>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }StackInterface\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~StackInterface();}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ GetSize()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Push(\textcolor{keyword}{const}\ Elem\&\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})\ =\ 0;}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+(note that all member functions that are mocked, including {\ttfamily \texorpdfstring{$\sim$}{\string~}\+Stack\+Interface()} {\bfseries{must}} be virtual).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Elem>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MockStack\ :\ \textcolor{keyword}{public}\ StackInterface<Elem>\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{int},\ GetSize,\ (),\ (\textcolor{keyword}{const},\ \textcolor{keyword}{override}));}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{void},\ Push,\ (\textcolor{keyword}{const}\ Elem\&\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}),\ (\textcolor{keyword}{override}));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1824}{}\doxysubsection{\texorpdfstring{Specifying Calling Conventions for Mock Functions}{Specifying Calling Conventions for Mock Functions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1824}
+If your mock function doesn\textquotesingle{}t use the default calling convention, you can specify it by adding {\ttfamily Calltype(convention)} to {\ttfamily MOCK\+\_\+\+METHOD}\textquotesingle{}s 4th parameter. For example,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{bool},\ Foo,\ (\textcolor{keywordtype}{int}\ n),\ (Calltype(STDMETHODCALLTYPE)));}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(\textcolor{keywordtype}{int},\ Bar,\ (\textcolor{keywordtype}{double}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a39cb44155237f0205e0feb931d5acbed}{y}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{const},\ Calltype(STDMETHODCALLTYPE)));}
+
+\end{DoxyCode}
+
+
+where {\ttfamily STDMETHODCALLTYPE} is defined by {\ttfamily \texorpdfstring{$<$}{<}objbase.\+h\texorpdfstring{$>$}{>}} on Windows.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_UsingMocks}{}\doxysection{\texorpdfstring{Using Mocks in Tests}{Using Mocks in Tests}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_UsingMocks}
+The typical work flow is\+:
+
+
+\begin{DoxyEnumerate}
+\item Import the g\+Mock names you need to use. All g\+Mock symbols are in the {\ttfamily testing} namespace unless they are macros or otherwise noted.
+\item Create the mock objects.
+\item Optionally, set the default actions of the mock objects.
+\item Set your expectations on the mock objects (How will they be called? What will they do?).
+\item Exercise code that uses the mock objects; if necessary, check the result using googletest assertions.
+\item When a mock object is destructed, g\+Mock automatically verifies that all expectations on it have been satisfied.
+\end{DoxyEnumerate}
+
+Here\textquotesingle{}s an example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Return;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ab5540a6d621853916be8240ff51819cf}{TEST}}(BarTest,\ DoesThis)\ \{}
+\DoxyCodeLine{\ \ MockFoo\ \mbox{\hyperlink{namespacefoo}{foo}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a5b12ae6cf84f0a544ca811b380c37334}{ON\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ GetSize())\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#3}}
+\DoxyCodeLine{\ \ \ \ \ \ .WillByDefault(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(1));}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ ...\ other\ default\ actions\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(\mbox{\hyperlink{namespacefoo}{foo}},\ \mbox{\hyperlink{namespacetesting_1_1gmock__matchers__test_a738a538e1705ea49670aeb3ed25108e6}{Describe}}(5))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#4}}
+\DoxyCodeLine{\ \ \ \ \ \ .Times(3)}
+\DoxyCodeLine{\ \ \ \ \ \ .WillRepeatedly(\mbox{\hyperlink{namespacetesting_adae3994eb444d1ad2dd602454b854663}{Return}}(\textcolor{stringliteral}{"{}Category\ 5"{}}));}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ ...\ other\ expectations\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a4159019abda84f5366acdb7604ff220a}{EXPECT\_EQ}}(MyProductionFunction(\&\mbox{\hyperlink{namespacefoo}{foo}}),\ \textcolor{stringliteral}{"{}good"{}});\ \ \textcolor{comment}{//\ \#5}}
+\DoxyCodeLine{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#6}}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_OnCall}{}\doxysection{\texorpdfstring{Setting Default Actions}{Setting Default Actions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_OnCall}
+g\+Mock has a {\bfseries{built-\/in default action}} for any function that returns {\ttfamily void}, {\ttfamily bool}, a numeric value, or a pointer. In C++11, it additionally returns the default-\/constructed value, if one exists for the given type.
+
+To customize the default action for functions with return type {\ttfamily T}, use \href{reference/mocking.md\#DefaultValue}{\texttt{ {\ttfamily Default\+Value\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}}. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Sets\ the\ default\ action\ for\ return\ type\ std::unique\_ptr<Buzz>\ to}}
+\DoxyCodeLine{\textcolor{comment}{//\ creating\ a\ new\ Buzz\ every\ time.}}
+\DoxyCodeLine{DefaultValue<std::unique\_ptr<Buzz>>::SetFactory(}
+\DoxyCodeLine{\ \ \ \ []\ \{\ \textcolor{keywordflow}{return}\ std::make\_unique<Buzz>(AccessLevel::kInternal);\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ When\ this\ fires,\ the\ default\ action\ of\ MakeBuzz()\ will\ run,\ which}}
+\DoxyCodeLine{\textcolor{comment}{//\ will\ return\ a\ new\ Buzz\ object.}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-spec-builders_8h_a535a6156de72c1a2e25a127e38ee5232}{EXPECT\_CALL}}(mock\_buzzer\_,\ MakeBuzz(\textcolor{stringliteral}{"{}hello"{}})).Times(\mbox{\hyperlink{namespacetesting_aa1f8a6371097e1e9b8d6866020f35252}{AnyNumber}}());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ buzz1\ =\ mock\_buzzer\_.MakeBuzz(\textcolor{stringliteral}{"{}hello"{}});}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ buzz2\ =\ mock\_buzzer\_.MakeBuzz(\textcolor{stringliteral}{"{}hello"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a6ae7443947f25abc58bfcfcfc56b0d75}{EXPECT\_NE}}(buzz1,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a6ae7443947f25abc58bfcfcfc56b0d75}{EXPECT\_NE}}(buzz2,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a6ae7443947f25abc58bfcfcfc56b0d75}{EXPECT\_NE}}(buzz1,\ buzz2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Resets\ the\ default\ action\ for\ return\ type\ std::unique\_ptr<Buzz>,}}
+\DoxyCodeLine{\textcolor{comment}{//\ to\ avoid\ interfere\ with\ other\ tests.}}
+\DoxyCodeLine{DefaultValue<std::unique\_ptr<Buzz>>::Clear();}
+
+\end{DoxyCode}
+
+
+To customize the default action for a particular method of a specific mock object, use \href{reference/mocking.md\#ON_CALL}{\texttt{ {\ttfamily ON\+\_\+\+CALL}}}. {\ttfamily ON\+\_\+\+CALL} has a similar syntax to {\ttfamily EXPECT\+\_\+\+CALL}, but it is used for setting default behaviors when you do not require that the mock method is called. See \href{gmock_cook_book.md\#UseOnCall}{\texttt{ Knowing When to Expect}} for a more detailed discussion.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_ExpectCall}{}\doxysection{\texorpdfstring{Setting Expectations}{Setting Expectations}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_ExpectCall}
+See \href{reference/mocking.md\#EXPECT_CALL}{\texttt{ {\ttfamily EXPECT\+\_\+\+CALL}}} in the Mocking Reference.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MatcherList}{}\doxysection{\texorpdfstring{Matchers}{Matchers}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_MatcherList}
+See the \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2matchers}{Matchers Reference}{0}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_ActionList}{}\doxysection{\texorpdfstring{Actions}{Actions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_ActionList}
+See the \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2actions}{Actions Reference}{0}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_CardinalityList}{}\doxysection{\texorpdfstring{Cardinalities}{Cardinalities}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_CardinalityList}
+See the \href{reference/mocking.md\#EXPECT_CALL.Times}{\texttt{ {\ttfamily Times} clause}} of {\ttfamily EXPECT\+\_\+\+CALL} in the Mocking Reference.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1825}{}\doxysection{\texorpdfstring{Expectation Order}{Expectation Order}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1825}
+By default, expectations can be matched in {\itshape any} order. If some or all expectations must be matched in a given order, you can use the \href{reference/mocking.md\#EXPECT_CALL.After}{\texttt{ {\ttfamily After} clause}} or \href{reference/mocking.md\#EXPECT_CALL.InSequence}{\texttt{ {\ttfamily In\+Sequence} clause}} of {\ttfamily EXPECT\+\_\+\+CALL}, or use an \href{reference/mocking.md\#InSequence}{\texttt{ {\ttfamily In\+Sequence} object}}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1826}{}\doxysection{\texorpdfstring{Verifying and Resetting a Mock}{Verifying and Resetting a Mock}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1826}
+g\+Mock will verify the expectations on a mock object when it is destructed, or you can do it earlier\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{using\ ::testing::Mock;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{//\ Verifies\ and\ removes\ the\ expectations\ on\ mock\_obj;}}
+\DoxyCodeLine{\textcolor{comment}{//\ returns\ true\ if\ and\ only\ if\ successful.}}
+\DoxyCodeLine{Mock::VerifyAndClearExpectations(\&mock\_obj);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{//\ Verifies\ and\ removes\ the\ expectations\ on\ mock\_obj;}}
+\DoxyCodeLine{\textcolor{comment}{//\ also\ removes\ the\ default\ actions\ set\ by\ ON\_CALL();}}
+\DoxyCodeLine{\textcolor{comment}{//\ returns\ true\ if\ and\ only\ if\ successful.}}
+\DoxyCodeLine{Mock::VerifyAndClear(\&mock\_obj);}
+
+\end{DoxyCode}
+
+
+Do not set new expectations after verifying and clearing a mock after its use. Setting expectations after code that exercises the mock has undefined behavior. See \href{gmock_for_dummies.md\#using-mocks-in-tests}{\texttt{ Using Mocks in Tests}} for more information.
+
+You can also tell g\+Mock that a mock object can be leaked and doesn\textquotesingle{}t need to be verified\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Mock::AllowLeak(\&mock\_obj);}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1827}{}\doxysection{\texorpdfstring{Mock Classes}{Mock Classes}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1827}
+g\+Mock defines a convenient mock class template
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }MockFunction<R(A1,\ ...,\ An)>\ \{}
+\DoxyCodeLine{\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-function-mocker_8h_a05ffc29d0784b131ee178da190d31397}{MOCK\_METHOD}}(R,\ Call,\ (A1,\ ...,\ An));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+See this \href{gmock_cook_book.md\#UsingCheckPoints}{\texttt{ recipe}} for one application of it.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1828}{}\doxysection{\texorpdfstring{Flags}{Flags}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2gmock__cheat__sheet_autotoc_md1828}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Flag   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Flag   }&\cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-2}
+\endhead
+{\ttfamily -\/-\/gmock\+\_\+catch\+\_\+leaked\+\_\+mocks=0}   &Don\textquotesingle{}t report leaked mock objects as failures.    \\\cline{1-2}
+{\ttfamily -\/-\/gmock\+\_\+verbose=LEVEL}   &Sets the default verbosity level ({\ttfamily info}, {\ttfamily warning}, or {\ttfamily error}) of Google \doxylink{classMock}{Mock} messages.   \\\cline{1-2}
+\end{longtabu}

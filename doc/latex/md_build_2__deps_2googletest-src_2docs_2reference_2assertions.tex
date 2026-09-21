@@ -1,0 +1,419 @@
+\chapter{Assertions Reference}
+\hypertarget{md_build_2__deps_2googletest-src_2docs_2reference_2assertions}{}\label{md_build_2__deps_2googletest-src_2docs_2reference_2assertions}\index{Assertions Reference@{Assertions Reference}}
+\label{md_build_2__deps_2googletest-src_2docs_2reference_2assertions_autotoc_md263}%
+\Hypertarget{md_build_2__deps_2googletest-src_2docs_2reference_2assertions_autotoc_md263}%
+ This page lists the assertion macros provided by Google\+Test for verifying code behavior. To use them, add {\ttfamily \#include \texorpdfstring{$<$}{<}gtest/gtest.\+h\texorpdfstring{$>$}{>}}.
+
+The majority of the macros listed below come as a pair with an {\ttfamily EXPECT\+\_\+} variant and an {\ttfamily ASSERT\+\_\+} variant. Upon failure, {\ttfamily EXPECT\+\_\+} macros generate nonfatal failures and allow the current function to continue running, while {\ttfamily ASSERT\+\_\+} macros generate fatal failures and abort the current function.
+
+All assertion macros support streaming a custom failure message into them with the {\ttfamily \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}} operator, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_ac33e7cdfb5d44a7a0f0ab552eb5c3c6a}{EXPECT\_TRUE}}(my\_condition)\ <<\ \textcolor{stringliteral}{"{}My\ condition\ is\ not\ true"{}};}
+
+\end{DoxyCode}
+
+
+Anything that can be streamed to an {\ttfamily ostream} can be streamed to an assertion macro—in particular, C strings and string objects. If a wide string ({\ttfamily wchar\+\_\+t\texorpdfstring{$\ast$}{*}}, {\ttfamily TCHAR\texorpdfstring{$\ast$}{*}} in {\ttfamily UNICODE} mode on Windows, or {\ttfamily std\+::wstring}) is streamed to an assertion, it will be translated to UTF-\/8 when printed.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_success-failure}{}\doxysection{\texorpdfstring{Explicit Success and Failure}{Explicit Success and Failure}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_success-failure}
+The assertions in this section generate a success or failure directly instead of testing a value or expression. These are useful when control flow, rather than a Boolean expression, determines the test\textquotesingle{}s success or failure, as shown by the following example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ ++}
+\DoxyCodeLine{\textcolor{keywordflow}{switch}(expression)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\ \ \ \ ...\ some\ checks\ ...}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\ \ \ \ ...\ some\ other\ checks\ ...}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a3e26a8d27caa386ed0ea7ce9d5b7c4ed}{FAIL}}()\ <<\ \textcolor{stringliteral}{"{}We\ shouldn't\ get\ here."{}};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_SUCCEED}{}\doxysubsection{\texorpdfstring{SUCCEED}{SUCCEED}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_SUCCEED}
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a75adcdf89f69b0b615e395daafc315af}{SUCCEED()}}
+
+Generates a success. This {\itshape does not} make the overall test succeed. A test is considered successful only if none of its assertions fail during its execution.
+
+The {\ttfamily SUCCEED} assertion is purely documentary and currently doesn\textquotesingle{}t generate any user-\/visible output. However, we may add {\ttfamily SUCCEED} messages to Google\+Test output in the future.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_FAIL}{}\doxysubsection{\texorpdfstring{FAIL}{FAIL}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_FAIL}
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a3e26a8d27caa386ed0ea7ce9d5b7c4ed}{FAIL()}}
+
+Generates a fatal failure, which returns from the current function.
+
+Can only be used in functions that return {\ttfamily void}. See \href{../advanced.md\#assertion-placement}{\texttt{ Assertion Placement}} for more information.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_ADD_FAILURE}{}\doxysubsection{\texorpdfstring{ADD\+\_\+\+FAILURE}{ADD\_FAILURE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_ADD_FAILURE}
+{\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_adc16b5b0a740c39084ea5c9e960e3063}{ADD\+\_\+\+FAILURE()}}
+
+Generates a nonfatal failure, which allows the current function to continue running.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_ADD_FAILURE_AT}{}\doxysubsection{\texorpdfstring{ADD\+\_\+\+FAILURE\+\_\+\+AT}{ADD\_FAILURE\_AT}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_ADD_FAILURE_AT}
+{\ttfamily ADD\+\_\+\+FAILURE\+\_\+\+AT(}\texorpdfstring{$\ast$}{*}{\ttfamily file\+\_\+path}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily line\+\_\+number}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Generates a nonfatal failure at the file and line number specified.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_generalized}{}\doxysection{\texorpdfstring{Generalized Assertion}{Generalized Assertion}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_generalized}
+The following assertion allows \doxysectlink{md_build_2__deps_2googletest-src_2docs_2reference_2matchers}{matchers}{0} to be used to verify values.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_THAT}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+THAT}{EXPECT\_THAT}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_THAT}
+{\ttfamily EXPECT\+\_\+\+THAT(}\texorpdfstring{$\ast$}{*}{\ttfamily value}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+THAT(}\texorpdfstring{$\ast$}{*}{\ttfamily value}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily value}\texorpdfstring{$\ast$}{*} matches the \doxysectlink{md_build_2__deps_2googletest-src_2docs_2reference_2matchers}{matcher}{0} \texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}.
+
+For example, the following code verifies that the string {\ttfamily value1} starts with {\ttfamily "{}\+Hello"{}}, {\ttfamily value2} matches a regular expression, and {\ttfamily value3} is between 5 and 10\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gmock/gmock.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{using\ ::testing::AllOf;}
+\DoxyCodeLine{using\ ::testing::Gt;}
+\DoxyCodeLine{using\ ::testing::Lt;}
+\DoxyCodeLine{using\ ::testing::MatchesRegex;}
+\DoxyCodeLine{using\ ::testing::StartsWith;}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_THAT(value1,\ \mbox{\hyperlink{namespacetesting_1_1internal_ae0522f740806da841ae21bc71804e038}{StartsWith}}(\textcolor{stringliteral}{"{}Hello"{}}));}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_ac31e206123aa702e1152bb2735b31409}{EXPECT\_THAT}}(value2,\ MatchesRegex(\textcolor{stringliteral}{"{}Line\ \(\backslash\)\(\backslash\)d+"{}}));}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2include_2gmock_2gmock-matchers_8h_a41d888579850c16583baea33ee8d057e}{ASSERT\_THAT}}(value3,\ AllOf(Gt(5),\ Lt(10)));}
+
+\end{DoxyCode}
+
+
+Matchers enable assertions of this form to read like English and generate informative failure messages. For example, if the above assertion on {\ttfamily value1} fails, the resulting message will be similar to the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Value\ of:\ value1}
+\DoxyCodeLine{\ \ Actual:\ "{}Hi,\ world!"{}}
+\DoxyCodeLine{Expected:\ starts\ with\ "{}Hello"{}}
+
+\end{DoxyCode}
+
+
+Google\+Test provides a built-\/in library of matchers—see the \doxysectlink{md_build_2__deps_2googletest-src_2docs_2reference_2matchers}{Matchers Reference}{0}. It is also possible to write your own matchers—see \href{../gmock_cook_book.md\#NewMatchers}{\texttt{ Writing New Matchers Quickly}}. The use of matchers makes {\ttfamily EXPECT\+\_\+\+THAT} a powerful, extensible assertion.
+
+{\itshape The idea for this assertion was borrowed from Joe Walnes\textquotesingle{} Hamcrest project, which adds {\ttfamily assert\+That()} to JUnit.}\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_boolean}{}\doxysection{\texorpdfstring{Boolean Conditions}{Boolean Conditions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_boolean}
+The following assertions test Boolean conditions.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_TRUE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+TRUE}{EXPECT\_TRUE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_TRUE}
+{\ttfamily EXPECT\+\_\+\+TRUE(}\texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+TRUE(}\texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*} is true.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_FALSE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+FALSE}{EXPECT\_FALSE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_FALSE}
+{\ttfamily EXPECT\+\_\+\+FALSE(}\texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+FALSE(}\texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily condition}\texorpdfstring{$\ast$}{*} is false.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_binary-comparison}{}\doxysection{\texorpdfstring{Binary Comparison}{Binary Comparison}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_binary-comparison}
+The following assertions compare two values. The value arguments must be comparable by the assertion\textquotesingle{}s comparison operator, otherwise a compiler error will result.
+
+If an argument supports the {\ttfamily \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}} operator, it will be called to print the argument when the assertion fails. Otherwise, Google\+Test will attempt to print them in the best way it can—see \href{../advanced.md\#teaching-googletest-how-to-print-your-values}{\texttt{ Teaching Google\+Test How to Print Your Values}}.
+
+Arguments are always evaluated exactly once, so it\textquotesingle{}s OK for the arguments to have side effects. However, the argument evaluation order is undefined and programs should not depend on any particular argument evaluation order.
+
+These assertions work with both narrow and wide string objects ({\ttfamily string} and {\ttfamily wstring}).
+
+See also the \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_floating-point}{Floating-\/\+Point Comparison}{1} assertions to compare floating-\/point numbers and avoid problems caused by rounding.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_EQ}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+EQ}{EXPECT\_EQ}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_EQ}
+{\ttfamily EXPECT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ==}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.
+
+Does pointer equality on pointers. If used on two C strings, it tests if they are in the same memory location, not if they have the same value. Use \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STREQ}{\`{}\+EXPECT\+\_\+\+STREQ\`{}}{2} to compare C strings (e.\+g. {\ttfamily const char\texorpdfstring{$\ast$}{*}}) by value.
+
+When comparing a pointer to {\ttfamily NULL}, use {\ttfamily EXPECT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily ptr}\texorpdfstring{$\ast$}{*}{\ttfamily , nullptr)} instead of {\ttfamily EXPECT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily ptr}\texorpdfstring{$\ast$}{*}{\ttfamily , NULL)}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+NE}{EXPECT\_NE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NE}
+{\ttfamily EXPECT\+\_\+\+NE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+NE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily !=}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.
+
+Does pointer equality on pointers. If used on two C strings, it tests if they are in different memory locations, not if they have different values. Use \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRNE}{\`{}\+EXPECT\+\_\+\+STRNE\`{}}{2} to compare C strings (e.\+g. {\ttfamily const char\texorpdfstring{$\ast$}{*}}) by value.
+
+When comparing a pointer to {\ttfamily NULL}, use {\ttfamily EXPECT\+\_\+\+NE(}\texorpdfstring{$\ast$}{*}{\ttfamily ptr}\texorpdfstring{$\ast$}{*}{\ttfamily , nullptr)} instead of {\ttfamily EXPECT\+\_\+\+NE(}\texorpdfstring{$\ast$}{*}{\ttfamily ptr}\texorpdfstring{$\ast$}{*}{\ttfamily , NULL)}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_LT}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+LT}{EXPECT\_LT}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_LT}
+{\ttfamily EXPECT\+\_\+\+LT(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+LT(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily \texorpdfstring{$<$}{<}}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_LE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+LE}{EXPECT\_LE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_LE}
+{\ttfamily EXPECT\+\_\+\+LE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+LE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily \texorpdfstring{$<$}{<}=}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_GT}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+GT}{EXPECT\_GT}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_GT}
+{\ttfamily EXPECT\+\_\+\+GT(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+GT(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily \texorpdfstring{$>$}{>}}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_GE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+GE}{EXPECT\_GE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_GE}
+{\ttfamily EXPECT\+\_\+\+GE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+GE(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily \texorpdfstring{$>$}{>}=}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_c-strings}{}\doxysection{\texorpdfstring{String Comparison}{String Comparison}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_c-strings}
+The following assertions compare two {\bfseries{C strings}}. To compare two {\ttfamily string} objects, use \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_EQ}{\`{}\+EXPECT\+\_\+\+EQ\`{}}{2} or \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NE}{\`{}\+EXPECT\+\_\+\+NE\`{}}{2} instead.
+
+These assertions also accept wide C strings ({\ttfamily wchar\+\_\+t\texorpdfstring{$\ast$}{*}}). If a comparison of two wide strings fails, their values will be printed as UTF-\/8 narrow strings.
+
+To compare a C string with {\ttfamily NULL}, use {\ttfamily EXPECT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily c\+\_\+string}\texorpdfstring{$\ast$}{*}{\ttfamily , nullptr)} or {\ttfamily EXPECT\+\_\+\+NE(}\texorpdfstring{$\ast$}{*}{\ttfamily c\+\_\+string}\texorpdfstring{$\ast$}{*}{\ttfamily , nullptr)}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STREQ}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+STREQ}{EXPECT\_STREQ}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STREQ}
+{\ttfamily EXPECT\+\_\+\+STREQ(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+STREQ(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two C strings \texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*} have the same contents.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRNE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+STRNE}{EXPECT\_STRNE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRNE}
+{\ttfamily EXPECT\+\_\+\+STRNE(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+STRNE(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two C strings \texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*} have different contents.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRCASEEQ}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+STRCASEEQ}{EXPECT\_STRCASEEQ}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRCASEEQ}
+{\ttfamily EXPECT\+\_\+\+STRCASEEQ(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+STRCASEEQ(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two C strings \texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*} have the same contents, ignoring case.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRCASENE}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+STRCASENE}{EXPECT\_STRCASENE}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_STRCASENE}
+{\ttfamily EXPECT\+\_\+\+STRCASENE(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+STRCASENE(}\texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two C strings \texorpdfstring{$\ast$}{*}{\ttfamily str1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily str2}\texorpdfstring{$\ast$}{*} have different contents, ignoring case.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_floating-point}{}\doxysection{\texorpdfstring{Floating-\/\+Point Comparison}{Floating-Point Comparison}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_floating-point}
+The following assertions compare two floating-\/point values.
+
+Due to rounding errors, it is very unlikely that two floating-\/point values will match exactly, so {\ttfamily EXPECT\+\_\+\+EQ} is not suitable. In general, for floating-\/point comparison to make sense, the user needs to carefully choose the error bound.
+
+Google\+Test also provides assertions that use a default error bound based on Units in the Last Place (ULPs). To learn more about ULPs, see the article \href{https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/}{\texttt{ Comparing Floating Point Numbers}}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_FLOAT_EQ}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+FLOAT\+\_\+\+EQ}{EXPECT\_FLOAT\_EQ}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_FLOAT_EQ}
+{\ttfamily EXPECT\+\_\+\+FLOAT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+FLOAT\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two {\ttfamily float} values \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*} are approximately equal, to within 4 ULPs from each other. Infinity and the largest finite float value are considered to be one ULP apart.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DOUBLE_EQ}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+DOUBLE\+\_\+\+EQ}{EXPECT\_DOUBLE\_EQ}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DOUBLE_EQ}
+{\ttfamily EXPECT\+\_\+\+DOUBLE\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+DOUBLE\+\_\+\+EQ(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the two {\ttfamily double} values \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*} are approximately equal, to within 4 ULPs from each other. Infinity and the largest finite double value are considered to be one ULP apart.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NEAR}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+NEAR}{EXPECT\_NEAR}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NEAR}
+{\ttfamily EXPECT\+\_\+\+NEAR(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily abs\+\_\+error}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+NEAR(}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily abs\+\_\+error}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the difference between \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*} does not exceed the absolute error bound \texorpdfstring{$\ast$}{*}{\ttfamily abs\+\_\+error}\texorpdfstring{$\ast$}{*}.
+
+If \texorpdfstring{$\ast$}{*}{\ttfamily val}\texorpdfstring{$\ast$}{*} and \texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*} are both infinity of the same sign, the difference is considered to be 0. Otherwise, if either value is infinity, the difference is considered to be infinity. All non-\/\+NaN values (including infinity) are considered to not exceed an \texorpdfstring{$\ast$}{*}{\ttfamily abs\+\_\+error}\texorpdfstring{$\ast$}{*} of infinity.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_exceptions}{}\doxysection{\texorpdfstring{Exception Assertions}{Exception Assertions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_exceptions}
+The following assertions verify that a piece of code throws, or does not throw, an exception. Usage requires exceptions to be enabled in the build environment.
+
+Note that the piece of code under test can be a compound statement, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest_8h_a2743a1438137ad857aa3f9fec3ff67ec}{EXPECT\_NO\_THROW}}(\{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ n\ =\ 5;}
+\DoxyCodeLine{\ \ DoSomething(\&n);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_THROW}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+THROW}{EXPECT\_THROW}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_THROW}
+{\ttfamily EXPECT\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily exception\+\_\+type}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily exception\+\_\+type}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*} throws an exception of type \texorpdfstring{$\ast$}{*}{\ttfamily exception\+\_\+type}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_ANY_THROW}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+ANY\+\_\+\+THROW}{EXPECT\_ANY\_THROW}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_ANY_THROW}
+{\ttfamily EXPECT\+\_\+\+ANY\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+ANY\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*} throws an exception of any type.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NO_THROW}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+NO\+\_\+\+THROW}{EXPECT\_NO\_THROW}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_NO_THROW}
+{\ttfamily EXPECT\+\_\+\+NO\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+NO\+\_\+\+THROW(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*} does not throw any exception.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_predicates}{}\doxysection{\texorpdfstring{Predicate Assertions}{Predicate Assertions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_predicates}
+The following assertions enable more complex predicates to be verified while printing a more clear failure message than if {\ttfamily EXPECT\+\_\+\+TRUE} were used alone.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_PRED}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+PRED\texorpdfstring{$\ast$}{*}}{EXPECT\_PRED*}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_PRED}
+{\ttfamily EXPECT\+\_\+\+PRED1(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED2(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED3(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED4(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED5(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val5}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+{\ttfamily ASSERT\+\_\+\+PRED1(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED2(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED3(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED4(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED5(}\texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val5}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the predicate \texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*} returns {\ttfamily true} when passed the given values as arguments.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*} is a function or functor that accepts as many arguments as the corresponding macro accepts values. If \texorpdfstring{$\ast$}{*}{\ttfamily pred}\texorpdfstring{$\ast$}{*} returns {\ttfamily true} for the given arguments, the assertion succeeds, otherwise the assertion fails.
+
+When the assertion fails, it prints the value of each argument. Arguments are always evaluated exactly once.
+
+As an example, see the following code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Returns\ true\ if\ m\ and\ n\ have\ no\ common\ divisors\ except\ 1.}}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ MutuallyPrime(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n)\ \{\ ...\ \}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{const\ \textcolor{keywordtype}{int}\ a\ =\ 3;}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ b\ =\ 4;}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ c\ =\ 10;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_PRED2(MutuallyPrime,\ a,\ b);\ \ \textcolor{comment}{//\ Succeeds}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a14e74e655e502914d3d07e083145ac91}{EXPECT\_PRED2}}(MutuallyPrime,\ b,\ c);\ \ \textcolor{comment}{//\ Fails}}
+
+\end{DoxyCode}
+
+
+In the above example, the first assertion succeeds, and the second fails with the following message\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MutuallyPrime(b,\ c)\ is\ false,\ where}
+\DoxyCodeLine{b\ is\ 4}
+\DoxyCodeLine{c\ is\ 10}
+
+\end{DoxyCode}
+
+
+Note that if the given predicate is an overloaded function or a function template, the assertion macro might not be able to determine which version to use, and it might be necessary to explicitly specify the type of the function. For example, for a Boolean function {\ttfamily Is\+Positive()} overloaded to take either a single {\ttfamily int} or {\ttfamily double} argument, it would be necessary to write one of the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a6d09aa83f8d297481380c7c073c9f070}{EXPECT\_PRED1}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{bool}\ (*)(\textcolor{keywordtype}{int})\textcolor{keyword}{>}(IsPositive),\ 5);}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a6d09aa83f8d297481380c7c073c9f070}{EXPECT\_PRED1}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{bool}\ (*)(\textcolor{keywordtype}{double})\textcolor{keyword}{>}(IsPositive),\ 3.14);}
+
+\end{DoxyCode}
+
+
+Writing simply {\ttfamily \doxylink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a6d09aa83f8d297481380c7c073c9f070}{EXPECT\+\_\+\+PRED1(\+Is\+Positive, 5)};} would result in a compiler error. Similarly, to use a template function, specify the template arguments\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ IsNegative(T\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{build_2__deps_2googletest-src_2googlemock_2test_2gmock-matchers-containers__test_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}\ <\ 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_PRED1(IsNegative<int>,\ -\/5);\ \ \textcolor{comment}{//\ Must\ specify\ type\ for\ IsNegative}}
+
+\end{DoxyCode}
+
+
+If a template has multiple parameters, wrap the predicate in parentheses so the macro arguments are parsed correctly\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_a4e9b777cce4e5423f4c2e491be7aa818}{ASSERT\_PRED2}}((MyPredicate<int,\ int>),\ 5,\ 0);}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_PRED_FORMAT}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+PRED\+\_\+\+FORMAT\texorpdfstring{$\ast$}{*}}{EXPECT\_PRED\_FORMAT*}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_PRED_FORMAT}
+{\ttfamily EXPECT\+\_\+\+PRED\+\_\+\+FORMAT1(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED\+\_\+\+FORMAT2(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED\+\_\+\+FORMAT3(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED\+\_\+\+FORMAT4(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily EXPECT\+\_\+\+PRED\+\_\+\+FORMAT5(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val5}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+{\ttfamily ASSERT\+\_\+\+PRED\+\_\+\+FORMAT1(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED\+\_\+\+FORMAT2(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED\+\_\+\+FORMAT3(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED\+\_\+\+FORMAT4(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+PRED\+\_\+\+FORMAT5(}\texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val3}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val4}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily val5}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that the predicate \texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*} succeeds when passed the given values as arguments.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily pred\+\_\+formatter}\texorpdfstring{$\ast$}{*} is a {\itshape predicate-\/formatter}, which is a function or functor with the signature\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{testing::AssertionResult\ PredicateFormatter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ expr1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ expr2,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ...}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ exprn,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T1\ val1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T2\ val2,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ...}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tn\ valn);}
+
+\end{DoxyCode}
+
+
+where \texorpdfstring{$\ast$}{*}{\ttfamily val1}\texorpdfstring{$\ast$}{*}, \texorpdfstring{$\ast$}{*}{\ttfamily val2}\texorpdfstring{$\ast$}{*}, ..., \texorpdfstring{$\ast$}{*}{\ttfamily valn}\texorpdfstring{$\ast$}{*} are the values of the predicate arguments, and \texorpdfstring{$\ast$}{*}{\ttfamily expr1}\texorpdfstring{$\ast$}{*}, \texorpdfstring{$\ast$}{*}{\ttfamily expr2}\texorpdfstring{$\ast$}{*}, ..., \texorpdfstring{$\ast$}{*}{\ttfamily exprn}\texorpdfstring{$\ast$}{*} are the corresponding expressions as they appear in the source code. The types {\ttfamily T1}, {\ttfamily T2}, ..., {\ttfamily Tn} can be either value types or reference types; if an argument has type {\ttfamily T}, it can be declared as either {\ttfamily T} or {\ttfamily const T\&}, whichever is appropriate. For more about the return type {\ttfamily testing\+::\+Assertion\+Result}, see \href{../advanced.md\#using-a-function-that-returns-an-assertionresult}{\texttt{ Using a Function That Returns an Assertion\+Result}}.
+
+As an example, see the following code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Returns\ the\ smallest\ prime\ common\ divisor\ of\ m\ and\ n,}}
+\DoxyCodeLine{\textcolor{comment}{//\ or\ 1\ when\ m\ and\ n\ are\ mutually\ prime.}}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ SmallestPrimeCommonDivisor(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n)\ \{\ ...\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Returns\ true\ if\ m\ and\ n\ have\ no\ common\ divisors\ except\ 1.}}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ MutuallyPrime(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n)\ \{\ ...\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ A\ predicate-\/formatter\ for\ asserting\ that\ two\ integers\ are\ mutually\ prime.}}
+\DoxyCodeLine{testing::AssertionResult\ AssertMutuallyPrime(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ m\_expr,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ n\_expr,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ m,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (MutuallyPrime(m,\ n))\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacetesting_ac1d0baedb17286c5c6c87bd1a45da8ac}{testing::AssertionSuccess}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacetesting_a75cb789614cb1c28c34627a4a3c053df}{testing::AssertionFailure}}()\ <<\ m\_expr\ <<\ \textcolor{stringliteral}{"{}\ and\ "{}}\ <<\ n\_expr}
+\DoxyCodeLine{\ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ ("{}}\ <<\ m\ <<\ \textcolor{stringliteral}{"{}\ and\ "{}}\ <<\ n\ <<\ \textcolor{stringliteral}{"{})\ are\ not\ mutually\ prime,\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}as\ they\ have\ a\ common\ divisor\ "{}}\ <<\ SmallestPrimeCommonDivisor(m,\ n);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{const\ \textcolor{keywordtype}{int}\ a\ =\ 3;}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ b\ =\ 4;}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ c\ =\ 10;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{EXPECT\_PRED\_FORMAT2(AssertMutuallyPrime,\ a,\ b);\ \ \textcolor{comment}{//\ Succeeds}}
+\DoxyCodeLine{\mbox{\hyperlink{build_2__deps_2googletest-src_2googletest_2include_2gtest_2gtest__pred__impl_8h_af0141918615a5e2d5247e9cda8324dae}{EXPECT\_PRED\_FORMAT2}}(AssertMutuallyPrime,\ b,\ c);\ \ \textcolor{comment}{//\ Fails}}
+
+\end{DoxyCode}
+
+
+In the above example, the final assertion fails and the predicate-\/formatter produces the following failure message\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{b\ and\ c\ (4\ and\ 10)\ are\ not\ mutually\ prime,\ as\ they\ have\ a\ common\ divisor\ 2}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_HRESULT}{}\doxysection{\texorpdfstring{Windows HRESULT Assertions}{Windows HRESULT Assertions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_HRESULT}
+The following assertions test for {\ttfamily HRESULT} success or failure. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CComPtr<IShellDispatch2>\ shell;}
+\DoxyCodeLine{ASSERT\_HRESULT\_SUCCEEDED(shell.CoCreateInstance(L\textcolor{stringliteral}{"{}Shell.Application"{}}));}
+\DoxyCodeLine{CComVariant\ empty;}
+\DoxyCodeLine{ASSERT\_HRESULT\_SUCCEEDED(shell-\/>ShellExecute(CComBSTR(url),\ empty,\ empty,\ empty,\ empty));}
+
+\end{DoxyCode}
+
+
+The generated output contains the human-\/readable error message associated with the returned {\ttfamily HRESULT} code.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_HRESULT_SUCCEEDED}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+HRESULT\+\_\+\+SUCCEEDED}{EXPECT\_HRESULT\_SUCCEEDED}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_HRESULT_SUCCEEDED}
+{\ttfamily EXPECT\+\_\+\+HRESULT\+\_\+\+SUCCEEDED(}\texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+HRESULT\+\_\+\+SUCCEEDED(}\texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*} is a success {\ttfamily HRESULT}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_HRESULT_FAILED}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+HRESULT\+\_\+\+FAILED}{EXPECT\_HRESULT\_FAILED}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_HRESULT_FAILED}
+{\ttfamily EXPECT\+\_\+\+HRESULT\+\_\+\+FAILED(}\texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+HRESULT\+\_\+\+FAILED(}\texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily expression}\texorpdfstring{$\ast$}{*} is a failure {\ttfamily HRESULT}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_death}{}\doxysection{\texorpdfstring{Death Assertions}{Death Assertions}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_death}
+The following assertions verify that a piece of code causes the process to terminate. For context, see \href{../advanced.md\#death-tests}{\texttt{ Death Tests}}.
+
+These assertions spawn a new process and execute the code under test in that process. How that happens depends on the platform and the variable {\ttfamily \+::testing\+::\+GTEST\+\_\+\+FLAG(death\+\_\+test\+\_\+style)}, which is initialized from the command-\/line flag {\ttfamily -\/-\/gtest\+\_\+death\+\_\+test\+\_\+style}.
+
+
+\begin{DoxyItemize}
+\item On POSIX systems, {\ttfamily fork()} (or {\ttfamily clone()} on Linux) is used to spawn the child, after which\+:
+\begin{DoxyItemize}
+\item If the variable\textquotesingle{}s value is {\ttfamily "{}fast"{}}, the death test statement is immediately executed.
+\item If the variable\textquotesingle{}s value is {\ttfamily "{}threadsafe"{}}, the child process re-\/executes the unit test binary just as it was originally invoked, but with some extra flags to cause just the single death test under consideration to be run.
+\end{DoxyItemize}
+\item On Windows, the child is spawned using the {\ttfamily Create\+Process()} API, and re-\/executes the binary to cause just the single death test under consideration to be run -\/ much like the {\ttfamily "{}threadsafe"{}} mode on POSIX.
+\end{DoxyItemize}
+
+Other values for the variable are illegal and will cause the death test to fail. Currently, the flag\textquotesingle{}s default value is \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}{\ttfamily "{}fast"{}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}.
+
+If the death test statement runs to completion without dying, the child process will nonetheless terminate, and the assertion fails.
+
+Note that the piece of code under test can be a compound statement, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{EXPECT\_DEATH(\{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ n\ =\ 5;}
+\DoxyCodeLine{\ \ DoSomething(\&n);}
+\DoxyCodeLine{\},\ \textcolor{stringliteral}{"{}Error\ on\ line\ .*\ of\ DoSomething()"{}});}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+DEATH}{EXPECT\_DEATH}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH}
+{\ttfamily EXPECT\+\_\+\+DEATH(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+DEATH(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*} causes the process to terminate with a nonzero exit status and produces {\ttfamily stderr} output that matches \texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*} is either a \doxysectlink{md_build_2__deps_2googletest-src_2docs_2reference_2matchers}{matcher}{0} for a {\ttfamily const std\+::string\&}, or a regular expression (see \href{../advanced.md\#regular-expression-syntax}{\texttt{ Regular Expression Syntax}})—a bare string \texorpdfstring{$\ast$}{*}{\ttfamily s}\texorpdfstring{$\ast$}{*} (with no matcher) is treated as \href{matchers.md\#string-matchers}{\texttt{ {\ttfamily Contains\+Regex(s)}}}, {\bfseries{not}} \href{matchers.md\#generic-comparison}{\texttt{ {\ttfamily Eq(s)}}}.
+
+For example, the following code verifies that calling {\ttfamily Do\+Something(42)} causes the process to die with an error message that contains the text {\ttfamily My error}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{EXPECT\_DEATH(DoSomething(42),\ \textcolor{stringliteral}{"{}My\ error"{}});}
+
+\end{DoxyCode}
+\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH_IF_SUPPORTED}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+DEATH\+\_\+\+IF\+\_\+\+SUPPORTED}{EXPECT\_DEATH\_IF\_SUPPORTED}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH_IF_SUPPORTED}
+{\ttfamily EXPECT\+\_\+\+DEATH\+\_\+\+IF\+\_\+\+SUPPORTED(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+DEATH\+\_\+\+IF\+\_\+\+SUPPORTED(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+If death tests are supported, behaves the same as \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH}{\`{}\+EXPECT\+\_\+\+DEATH\`{}}{2}. Otherwise, verifies nothing.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEBUG_DEATH}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+DEBUG\+\_\+\+DEATH}{EXPECT\_DEBUG\_DEATH}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEBUG_DEATH}
+{\ttfamily EXPECT\+\_\+\+DEBUG\+\_\+\+DEATH(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+DEBUG\+\_\+\+DEATH(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+In debug mode, behaves the same as \doxysectlink{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_DEATH}{\`{}\+EXPECT\+\_\+\+DEATH\`{}}{2}. When not in debug mode (i.\+e. {\ttfamily NDEBUG} is defined), just executes \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}.\hypertarget{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_EXIT}{}\doxysubsection{\texorpdfstring{EXPECT\+\_\+\+EXIT}{EXPECT\_EXIT}}\label{md_Desktop-Release-build_2__deps_2googletest-src_2docs_2reference_2assertions_EXPECT_EXIT}
+{\ttfamily EXPECT\+\_\+\+EXIT(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily predicate}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )} \textbackslash{} {\ttfamily ASSERT\+\_\+\+EXIT(}\texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily predicate}\texorpdfstring{$\ast$}{*}{\ttfamily ,}\texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}{\ttfamily )}
+
+Verifies that \texorpdfstring{$\ast$}{*}{\ttfamily statement}\texorpdfstring{$\ast$}{*} causes the process to terminate with an exit status that satisfies \texorpdfstring{$\ast$}{*}{\ttfamily predicate}\texorpdfstring{$\ast$}{*}, and produces {\ttfamily stderr} output that matches \texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*}.
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily predicate}\texorpdfstring{$\ast$}{*} is a function or functor that accepts an {\ttfamily int} exit status and returns a {\ttfamily bool}. Google\+Test provides two predicates to handle common cases\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Returns\ true\ if\ the\ program\ exited\ normally\ with\ the\ given\ exit\ status\ code.}}
+\DoxyCodeLine{::testing::ExitedWithCode(exit\_code);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Returns\ true\ if\ the\ program\ was\ killed\ by\ the\ given\ signal.}}
+\DoxyCodeLine{\textcolor{comment}{//\ Not\ available\ on\ Windows.}}
+\DoxyCodeLine{::testing::KilledBySignal(signal\_number);}
+
+\end{DoxyCode}
+
+
+The parameter \texorpdfstring{$\ast$}{*}{\ttfamily matcher}\texorpdfstring{$\ast$}{*} is either a \doxysectlink{md_build_2__deps_2googletest-src_2docs_2reference_2matchers}{matcher}{0} for a {\ttfamily const std\+::string\&}, or a regular expression (see \href{../advanced.md\#regular-expression-syntax}{\texttt{ Regular Expression Syntax}})—a bare string \texorpdfstring{$\ast$}{*}{\ttfamily s}\texorpdfstring{$\ast$}{*} (with no matcher) is treated as \href{matchers.md\#string-matchers}{\texttt{ {\ttfamily Contains\+Regex(s)}}}, {\bfseries{not}} \href{matchers.md\#generic-comparison}{\texttt{ {\ttfamily Eq(s)}}}.
+
+For example, the following code verifies that calling {\ttfamily Normal\+Exit()} causes the process to print a message containing the text {\ttfamily Success} to {\ttfamily stderr} and exit with exit status code 0\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{EXPECT\_EXIT(NormalExit(),\ testing::ExitedWithCode(0),\ \textcolor{stringliteral}{"{}Success"{}});}
+
+\end{DoxyCode}
+ 

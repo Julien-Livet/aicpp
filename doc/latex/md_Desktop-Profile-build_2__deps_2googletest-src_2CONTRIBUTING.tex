@@ -1,0 +1,92 @@
+\chapter{How to become a contributor and submit your own code}
+\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING}{}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING}\index{How to become a contributor and submit your own code@{How to become a contributor and submit your own code}}
+\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1293}%
+\Hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1293}%
+ \hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1294}{}\doxysection{\texorpdfstring{Contributor License Agreements}{Contributor License Agreements}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1294}
+We\textquotesingle{}d love to accept your patches! Before we can take them, we have to jump a couple of legal hurdles.
+
+Please fill out either the individual or corporate Contributor License Agreement (CLA).
+
+
+\begin{DoxyItemize}
+\item If you are an individual writing original source code and you\textquotesingle{}re sure you own the intellectual property, then you\textquotesingle{}ll need to sign an \href{https://developers.google.com/open-source/cla/individual}{\texttt{ individual CLA}}.
+\item If you work for a company that wants to allow you to contribute your work, then you\textquotesingle{}ll need to sign a \href{https://developers.google.com/open-source/cla/corporate}{\texttt{ corporate CLA}}.
+\end{DoxyItemize}
+
+Follow either of the two links above to access the appropriate CLA and instructions for how to sign and return it. Once we receive it, we\textquotesingle{}ll be able to accept your pull requests.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1295}{}\doxysection{\texorpdfstring{Are you a Googler?}{Are you a Googler?}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1295}
+If you are a Googler, please make an attempt to submit an internal contribution rather than a Git\+Hub Pull Request. If you are not able to submit internally, a PR is acceptable as an alternative.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1296}{}\doxysection{\texorpdfstring{Contributing A Patch}{Contributing A Patch}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1296}
+
+\begin{DoxyEnumerate}
+\item Submit an issue describing your proposed change to the \href{https://github.com/google/googletest/issues}{\texttt{ issue tracker}}.
+\item Please don\textquotesingle{}t mix more than one logical change per submittal, because it makes the history hard to follow. If you want to make a change that doesn\textquotesingle{}t have a corresponding issue in the issue tracker, please create one.
+\item Also, coordinate with team members that are listed on the issue in question. This ensures that work isn\textquotesingle{}t being duplicated and communicating your plan early also generally leads to better patches.
+\item If your proposed change is accepted, and you haven\textquotesingle{}t already done so, sign a Contributor License Agreement (see details above).
+\item Fork the desired repo, develop and test your code changes.
+\item Ensure that your code adheres to the existing style in the sample to which you are contributing.
+\item Ensure that your code has an appropriate set of unit tests which all pass.
+\item Submit a pull request.
+\end{DoxyEnumerate}\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1297}{}\doxysection{\texorpdfstring{The Google Test and Google Mock Communities}{The Google Test and Google Mock Communities}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1297}
+The Google Test community exists primarily through the \href{https://groups.google.com/group/googletestframework}{\texttt{ discussion group}} and the Git\+Hub repository. Likewise, the Google \doxylink{classMock}{Mock} community exists primarily through their own \href{https://groups.google.com/group/googlemock}{\texttt{ discussion group}}. You are definitely encouraged to contribute to the discussion and you can also help us to keep the effectiveness of the group high by following and promoting the guidelines listed here.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1298}{}\doxysubsection{\texorpdfstring{Please Be Friendly}{Please Be Friendly}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1298}
+Showing courtesy and respect to others is a vital part of the Google culture, and we strongly encourage everyone participating in Google Test development to join us in accepting nothing less. Of course, being courteous is not the same as failing to constructively disagree with each other, but it does mean that we should be respectful of each other when enumerating the 42 technical reasons that a particular proposal may not be the best choice. There\textquotesingle{}s never a reason to be antagonistic or dismissive toward anyone who is sincerely trying to contribute to a discussion.
+
+Sure, C++ testing is serious business and all that, but it\textquotesingle{}s also a lot of fun. Let\textquotesingle{}s keep it that way. Let\textquotesingle{}s strive to be one of the friendliest communities in all of open source.
+
+As always, discuss Google Test in the official Google\+Test discussion group. You don\textquotesingle{}t have to actually submit code in order to sign up. Your participation itself is a valuable contribution.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1299}{}\doxysection{\texorpdfstring{Style}{Style}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1299}
+To keep the source consistent, readable, diffable and easy to merge, we use a fairly rigid coding style, as defined by the \href{https://github.com/google/styleguide}{\texttt{ google-\/styleguide}} project. All patches will be expected to conform to the style outlined \href{https://google.github.io/styleguide/cppguide.html}{\texttt{ here}}. Use \href{https://github.com/google/googletest/blob/main/.clang-format}{\texttt{ .clang-\/format}} to check your formatting.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1300}{}\doxysection{\texorpdfstring{Requirements for Contributors}{Requirements for Contributors}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1300}
+If you plan to contribute a patch, you need to build Google Test, Google \doxylink{classMock}{Mock}, and their own tests from a git checkout, which has further requirements\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://www.python.org/}{\texttt{ Python}} v3.\+6 or newer (for running some of the tests and re-\/generating certain source files from templates)
+\item \href{https://cmake.org/}{\texttt{ CMake}} v2.\+8.\+12 or newer
+\end{DoxyItemize}\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1301}{}\doxysection{\texorpdfstring{Developing Google Test and Google Mock}{Developing Google Test and Google Mock}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1301}
+This section discusses how to make your own changes to the Google Test project.\hypertarget{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1302}{}\doxysubsection{\texorpdfstring{Testing Google Test and Google Mock Themselves}{Testing Google Test and Google Mock Themselves}}\label{md_Desktop-Profile-build_2__deps_2googletest-src_2CONTRIBUTING_autotoc_md1302}
+To make sure your changes work as intended and don\textquotesingle{}t break existing functionality, you\textquotesingle{}ll want to compile and run Google Test and Google\+Mock\textquotesingle{}s own tests. For that you can use CMake\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ mybuild}
+\DoxyCodeLine{cd\ mybuild}
+\DoxyCodeLine{cmake\ -\/Dgtest\_build\_tests=ON\ -\/Dgmock\_build\_tests=ON\ \$\{GTEST\_REPO\_DIR\}}
+
+\end{DoxyCode}
+
+
+To choose between building only Google Test or Google \doxylink{classMock}{Mock}, you may modify your cmake command to be one of each
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/Dgtest\_build\_tests=ON\ \$\{GTEST\_DIR\}\ \#\ sets\ up\ Google\ Test\ tests}
+\DoxyCodeLine{cmake\ -\/Dgmock\_build\_tests=ON\ \$\{GMOCK\_DIR\}\ \#\ sets\ up\ Google\ Mock\ tests}
+
+\end{DoxyCode}
+
+
+Make sure you have Python installed, as some of Google Test\textquotesingle{}s tests are written in Python. If the cmake command complains about not being able to find Python ({\ttfamily Could NOT find Python\+Interp (missing\+: PYTHON\+\_\+\+EXECUTABLE)}), try telling it explicitly where your Python executable can be found\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/DPYTHON\_EXECUTABLE=path/to/python\ ...}
+
+\end{DoxyCode}
+
+
+Next, you can build Google Test and / or Google \doxylink{classMock}{Mock} and all desired tests. On \texorpdfstring{$\ast$}{*}nix, this is usually done by
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+
+
+To run the tests, do
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ test}
+
+\end{DoxyCode}
+
+
+All tests should pass. 
