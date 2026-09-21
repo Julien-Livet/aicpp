@@ -1,7 +1,7 @@
 from aicpppy import Engine
 import datetime
 import dsl_model.utils as utils
-import dsl_model.DSLModel as DSLModel
+from dsl_model.dsl_model import DSLModel
 import dsl_rl
 import json
 import math
@@ -156,7 +156,7 @@ def test_hodel_tasks():
         trainingTasks = f.read().split("\n")
 
     for k, v in tasksByStep.items():
-        if (k > 2):
+        if (k != 1):
             break
 
         t1 = time.time()
@@ -253,15 +253,12 @@ def processTasks(folder: str, taskIds = set(), debug: bool = True) -> Dict[str, 
     print(f"{folder} test: {testSuccess}/{len(taskIds)} ({testSuccess/len(taskIds)*100:.2f}%)")
 
     return results
-"""
+
 def test_subtraining_tasks():
     processTasks("training", {'67a3c6ac', '68b16354', '0692e18c', '1caeab9d', '09629e4f', '0f63c0b9', '1c56ad9f', '137eaa0f', '18286ef8', '1d398264', '0bb8deee', '6fa7a44f', '0b17323b', '12997ef3', '184a9768', '08ed6ac7', '5bd6f4ac', '19bb5feb', '3c9b0459', '1b59e163', '25ff71a9', '1b8318e3', '137f0df0', '1b60fb0c', '045e512c', '11e1fe23', '0ca9ddb6', '4c4377d9', '05269061', '15696249', '0962bcdd', '182e5d0f', '0a2355a6', '17b80ad2', '009d5c81', '017c7c7b', '1a07d186', '140c817e', '1cf80156', '0becf7df', '0d87d2a6', '1c02dbbe', '1da012fc', 'd10ecb37', '32597951', '1478ab18', '0607ce86', 'c909285e', '14b8e18c', '195ba7dc', '12eac192', '1c786137', '6150a2bd', '06df4c85', 'b1948b0a', '9dfd6313', '178fcbfb', 'a416b8f3', '17829a00', '11dc524f', '18447a8d', '10fcaaa3', '150deff5', '1d61978c', '13713586', '0c786b71', '03560426', 'c8f0f002', '15113be4', '05a7bcf2', '13f06aa5', '1b2d62fb', '00dbd492', '8be77c9e', '1190bc91', '0d3d703e', '2dee498d', '74dd1130', '0b148d64', '90f3ed37', '1be83260', '15663ba9', '05f2a901', '0e671a1a', '1c0d0a4b', '1990f7a8', '09c534e7', '5614dbcf', '0a1d4ef5', '0a938d79', 'd511f180', '00d62c1b', '0520fde7', '1a244afd', '14754a24', 'c59eb873', '9172f3a0', '18419cfa', '070dd51e', '12422b43', '1a6449f1', '007bbfb7', '17b866bd', '0c9aba6e', '00576224', '0e206a2e', '1190e5a7', '1d0a4b61', '1a2e2828', '15660dd6', '6d0aefbc', '1acc24af', '025d127b', '17cae0c1', 'c9e6f938', 'ed36ccf7', '1bfc4729', '103eff5b', '11852cab', '5582e5ca'}, debug = True)
-"""
 """
 def test_training_tasks():
     processTasks("training", debug = True)
 """
-"""
 def test_evaluation_tasks():
     processTasks("evaluation", debug = True)
-"""
