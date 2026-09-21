@@ -1426,7 +1426,14 @@ class Worker:
         self.targetProgram = self.engine.program(j)
         self.trajectory = self.engine.trajectory(j)
         self.grids = self.engine.grids(j)
-        self.outputs = self.engine.outputs(j)
+
+        try:
+            self.outputs = self.engine.outputs(j)
+        except RuntimeError:
+            self.j = None
+
+            return
+
         pairs = list(zip(self.grids, self.outputs))
         inputs, outputs, masks = arc_pairs_to_tensors(pairs)
         self.inputs = inputs.to(device)
@@ -1434,7 +1441,12 @@ class Worker:
         self.masks = masks.to(device)
         self.costs = list(reversed(self.trajectory))
         self.costs = sorted(self.costs, key = lambda x: (-x[0], len(x[1])))
-        self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = scoreColumns))] * M
+
+        try:
+            self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = scoreColumns))] * M
+        except RuntimeError:
+            self.candidates: list = [("I", math.inf)] * M
+
         self.computeGraphs: bool = True
         self.temperature: float = minTemperature
         self.testedPrograms = set()
