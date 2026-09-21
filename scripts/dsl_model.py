@@ -1461,6 +1461,7 @@ class Worker:
         self.count: int = 0
         self.prog_graphs = None
         self.cost_tensors = None
+        self.subtargetProgram = None
         
         return True
 
@@ -1502,6 +1503,8 @@ class Worker:
 
         torch.cuda.empty_cache()
 
+        self.subtargetProgram = self.costs[0][1]
+
         self.program = generate_one_cached(
             model,
             VOCAB,
@@ -1509,7 +1512,7 @@ class Worker:
             self.engine,
             temperature=self.temperature,
             device=device,
-            max_depth=programDepth(self.costs[0][1]) if self.costs else 0,
+            max_depth=programDepth(self.subtargetProgram) if self.costs else 0,
         )
 
         if (not self.program):
@@ -1596,11 +1599,11 @@ def learner_step(device, model, optimizer, experiences):
         )
 
         # ---------------------------------------
-        # Target loss
+        # Subtarget loss
         # ---------------------------------------
 
         target_ids = encode_program_tokens(
-            exp.target_program,
+            exp.subtarget_program,
             VOCAB
         ).to(device)
 
@@ -1684,6 +1687,7 @@ class Experience:
         prog_graphs,
         cost_tensors,
         target_program,
+        subtarget_program,
         generated_program,
         alpha,
         use_semantic,
@@ -1699,6 +1703,7 @@ class Experience:
             for c in cost_tensors
         ]
         self.target_program = target_program
+        self.subtarget_program = subtarget_program
         self.generated_program = generated_program
         self.alpha = float(alpha)
         self.use_semantic = bool(use_semantic)
@@ -1769,48 +1774,6 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
 
         message_type = message[0]
 
-        if message_type == "continue":
-            _, batch_id, j = message
-
-            if active_j != j:
-                raise RuntimeError(
-                    f"CONTINUE inattendu: active_j={active_j}, j={j}"
-                )
-
-            result = worker.process(actor_model, "cuda")
-            done = not result
-
-            if done:
-                active_j = None
-
-                output_queue.put({
-                    "type": "experience",
-                    "batch_id": batch_id,
-                    "workerId": worker_id,
-                    "model_version": current_model_version,
-                    "j": j,
-                    "inputs": worker.inputs.cpu().numpy(),
-                    "outputs": worker.outputs.cpu().numpy(),
-                    "masks": worker.masks.cpu().numpy(),
-                    "prog_graphs": [
-                        serialize_prog_graph(g)
-                        for g in worker.prog_graphs
-                    ],
-                    "cost_tensors": [
-                        c.cpu().numpy()
-                        for c in worker.cost_tensors
-                    ],
-                    "target_program": worker.targetProgram,
-                    "generated_program": worker.program,
-                    "alpha": worker.alpha,
-                    "use_semantic": worker.use_semantic,
-                })
-
-            if not done:
-                input_queue.put(("continue", batch_id, j))
-
-            continue
-
         # --------------------------------------------------
         # Synchronisation de l'actor
         # --------------------------------------------------
@@ -1828,6 +1791,56 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
                 "type": "sync_ack",
                 "workerId": worker_id,
                 "model_version": current_model_version,
+            })
+
+            continue
+
+        if message_type == "continue":
+            _, batch_id, j = message
+
+            if active_j != j:
+                raise RuntimeError(
+                    f"CONTINUE incohérent: active_j={active_j}, j={j}"
+                )
+
+            result = worker.process(
+                actor_model,
+                "cuda",
+            )
+
+            if (not result):
+                active_j = None
+
+                output_queue.put({
+                    "type": "ready",
+                    "workerId": worker_id,
+                    "model_version": current_model_version,
+                })
+
+                continue
+
+            output_queue.put({
+                "type": "experience",
+                "batch_id": batch_id,
+                "workerId": worker_id,
+                "model_version": current_model_version,
+                "j": j,
+                "inputs": worker.inputs.cpu().numpy(),
+                "outputs": worker.outputs.cpu().numpy(),
+                "masks": worker.masks.cpu().numpy(),
+                "prog_graphs": [
+                    serialize_prog_graph(g)
+                    for g in worker.prog_graphs
+                ],
+                "cost_tensors": [
+                    c.cpu().numpy()
+                    for c in worker.cost_tensors
+                ],
+                "target_program": worker.targetProgram,
+                "subtarget_program": worker.subtargetProgram,
+                "generated_program": worker.program,
+                "alpha": worker.alpha,
+                "use_semantic": worker.use_semantic,
             })
 
             continue
@@ -1879,36 +1892,45 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
 
                 continue
 
-            result = worker.process(actor_model, "cuda")
-            done = not result
+            result = worker.process(
+                actor_model,
+                "cuda",
+            )
 
-            if done:
+            if (not result):
                 active_j = None
 
                 output_queue.put({
-                    "type": "experience",
-                    "batch_id": batch_id,
+                    "type": "ready",
                     "workerId": worker_id,
                     "model_version": current_model_version,
-                    "j": j,
-                    "inputs": worker.inputs.cpu().numpy(),
-                    "outputs": worker.outputs.cpu().numpy(),
-                    "masks": worker.masks.cpu().numpy(),
-                    "prog_graphs": [
-                        serialize_prog_graph(g)
-                        for g in worker.prog_graphs
-                    ],
-                    "cost_tensors": [
-                        c.cpu().numpy()
-                        for c in worker.cost_tensors
-                    ],
-                    "target_program": worker.targetProgram,
-                    "generated_program": worker.program,
-                    "alpha": worker.alpha,
-                    "use_semantic": worker.use_semantic,
                 })
-            else:
-                input_queue.put(("continue", batch_id, j))
+
+                continue
+
+            output_queue.put({
+                "type": "experience",
+                "batch_id": batch_id,
+                "workerId": worker_id,
+                "model_version": current_model_version,
+                "j": j,
+                "inputs": worker.inputs.cpu().numpy(),
+                "outputs": worker.outputs.cpu().numpy(),
+                "masks": worker.masks.cpu().numpy(),
+                "prog_graphs": [
+                    serialize_prog_graph(g)
+                    for g in worker.prog_graphs
+                ],
+                "cost_tensors": [
+                    c.cpu().numpy()
+                    for c in worker.cost_tensors
+                ],
+                "target_program": worker.targetProgram,
+                "subtarget_program": worker.subtargetProgram,
+                "generated_program": worker.program,
+                "alpha": worker.alpha,
+                "use_semantic": worker.use_semantic,
+            })
 
             continue
 
@@ -1955,20 +1977,64 @@ class WorkerPool:
             p.start()
             self.processes.append(p)
 
-    def submit_jobs(self, batch_id, jobs):
-        for i, j in enumerate(jobs):
-            worker_id = i % len(self.input_queues)
-
-            self.input_queues[worker_id].put(
-                (
-                    "job",
-                    batch_id,
-                    j,
-                )
+    def submit_job(self, worker_id, batch_id, j):
+        self.input_queues[worker_id].put(
+            (
+                "job",
+                batch_id,
+                j,
             )
+        )
 
+    def submit_continue(self, worker_id, batch_id, j):
+        self.input_queues[worker_id].put(
+            (
+                "continue",
+                batch_id,
+                j,
+            )
+        )
+    
     def _get_output(self):
         return self.output_queue.get()
+
+    def collect_one_experience(self, batch_id, model_version):
+        while True:
+            if (
+                batch_id in self.pending_results
+                and len(self.pending_results[batch_id]) > 0
+            ):
+                result = self.pending_results[batch_id].pop(0)
+
+                if not self.pending_results[batch_id]:
+                    del self.pending_results[batch_id]
+
+            else:
+                result = self.output_queue.get()
+
+                if result["type"] == "ready":
+                    return result
+
+                if result["batch_id"] != batch_id:
+                    self.pending_results.setdefault(
+                        result["batch_id"],
+                        []
+                    ).append(result)
+
+                    continue
+
+            assert result["batch_id"] == batch_id
+
+            if result["type"] == "skip":
+                assert result["reason"] == "invalid_grid"
+                return result
+
+            if result["type"] != "experience":
+                raise RuntimeError(
+                    f"Unexpected result: {result['type']}"
+                )
+
+            return result
 
     def collect_experiences(
         self,
@@ -2057,6 +2123,7 @@ class WorkerPool:
 
     def sync(
         self,
+        worker_id,
         model_version,
         actor_model,
     ):
@@ -2065,18 +2132,15 @@ class WorkerPool:
             for name, tensor in actor_model.state_dict().items()
         }
 
-        for worker_id in range(len(self.processes)):
-            self.input_queues[worker_id].put(
-                (
-                    "sync",
-                    model_version,
-                    actor_state,
-                )
+        self.input_queues[worker_id].put(
+            (
+                "sync",
+                model_version,
+                actor_state,
             )
+        )
 
-        sync_acks = []
-
-        while len(sync_acks) < len(self.processes):
+        while True:
             try:
                 result = self.output_queue.get(timeout=1.0)
             except queue.Empty:
@@ -2098,7 +2162,13 @@ class WorkerPool:
                     result["batch_id"],
                     []
                 ).append(result)
+                continue
 
+            if result["type"] == "ready":
+                self.pending_results.setdefault(
+                    "ready",
+                    []
+                ).append(result)
                 continue
 
             if result["type"] != "sync_ack":
@@ -2107,11 +2177,9 @@ class WorkerPool:
                 )
 
             assert result["model_version"] == model_version
-            assert result["workerId"] in range(len(self.processes))
+            assert result["workerId"] == worker_id
 
-            sync_acks.append(result)
-    
-        assert len(sync_acks) == len(self.processes)
+            return
 
     def close(self):
         for input_queue in self.input_queues:
@@ -2149,6 +2217,7 @@ def reconstruct_experience(result):
         prog_graphs=prog_graphs,
         cost_tensors=cost_tensors,
         target_program=result["target_program"],
+        subtarget_program=result["subtarget_program"],
         generated_program=result["generated_program"],
         alpha=result["alpha"],
         use_semantic=result["use_semantic"],
@@ -2210,52 +2279,94 @@ if __name__ == "__main__":
         actor_model=actor_model,
     )
 
+    jobs_started = False
     batch_id = 0
     pending_batches = {}
 
     while True:
-        batch_size = min(
-            len(indexes),
-            len(worker_pool.processes),
-        )
+        if (not jobs_started):
+            batch_size = min(
+                len(indexes),
+                len(worker_pool.processes),
+            )
 
-        if batch_size == 0:
-            break
+            if batch_size == 0:
+                break
 
-        jobs = indexes[:batch_size]
-        indexes = indexes[batch_size:]
+            batch_id += 1
 
-        batch_id += 1
+            jobs = indexes[:batch_size]
+            indexes = indexes[batch_size:]
 
-        pending_batches[batch_id] = {
-            "jobs": jobs,
-            "model_version": model_version,
-        }
+            for worker_id, j in enumerate(jobs):
+                worker_pool.submit_job(
+                    worker_id,
+                    batch_id,
+                    j,
+                )
 
-        worker_pool.submit_jobs(
+            jobs_started = True
+
+        result = worker_pool.collect_one_experience(
             batch_id,
-            jobs,
+            model_version,
         )
 
-        first_batch_id = min(pending_batches)
+        if result["type"] == "ready":
+            process.update(1)
 
-        batch = pending_batches.pop(first_batch_id)
+            if indexes:
+                next_j = indexes.pop(0)
 
-        experiences = worker_pool.collect_experiences(
-            first_batch_id,
-            batch["jobs"],
-            batch["model_version"],
-        )
+                batch_id += 1
 
-        if not experiences:
-            process.update(len(batch["jobs"]))
+                worker_pool.submit_job(
+                    result["workerId"],
+                    batch_id,
+                    next_j,
+                )
+
             continue
 
+        worker_id = result["workerId"]
+
+        if result["type"] == "skip":
+            process.update(1)
+
+            sync_actor_model(
+                actor_model,
+                model,
+            )
+
+            worker_pool.sync(
+                worker_id,
+                model_version,
+                actor_model,
+            )
+
+            if indexes:
+                next_j = indexes.pop(0)
+
+                worker_pool.submit_job(
+                    worker_id,
+                    batch_id,
+                    next_j,
+                )
+
+            continue
+
+        if result["type"] != "experience":
+            raise RuntimeError(
+                f"Unexpected result: {result['type']}"
+            )
+
+        experience = reconstruct_experience(result)
+
         learner_step(
             device,
             model,
             optimizer,
-            experiences,
+            [experience],
         )
 
         model_version += 1
@@ -2264,46 +2375,18 @@ if __name__ == "__main__":
             actor_model,
             model,
         )
-
+    
         worker_pool.sync(
+            worker_id,
             model_version,
             actor_model,
         )
 
-        process.update(len(experiences))
-
-        process.set_postfix(
-            version=model_version,
-            workers=len(worker_pool.processes),
+        worker_pool.submit_continue(
+            worker_id,
+            batch_id,
+            result["j"],
         )
-
-    for remaining_batch_id, batch in pending_batches.items():
-        experiences = worker_pool.collect_experiences(
-            remaining_batch_id,
-            batch["jobs"],
-            batch["model_version"],
-        )
-
-        learner_step(
-            device,
-            model,
-            optimizer,
-            experiences,
-        )
-
-        model_version += 1
-
-        sync_actor_model(
-            actor_model,
-            model,
-        )
-
-        worker_pool.sync(
-            model_version,
-            actor_model,
-        )
-
-        process.update(len(experiences))
 
         process.set_postfix(
             version=model_version,
