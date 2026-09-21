@@ -14735,15 +14735,29 @@ class Engine
         {
             assert(i < connections_.size());
 
-            auto const inputs{grids(i)};
+            auto inputs{grids(i)};
             std::vector<hodel::GridType> outputs;
             outputs.reserve(inputs.size());
+            std::set<decltype(inputs.begin())> delIndices;
 
-            for (auto const& input : inputs)
+            for (auto it{inputs.begin()}; it != inputs.end(); ++it)
             {
+                auto const& input{*it};
+
                 iNeurons_.at(i).function() = [input] (std::vector<std::any> const&) -> std::any { return input; };
-                outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
+
+                try
+                {
+                    outputs.emplace_back(std::any_cast<hodel::GridType>(connections_.at(i).output()));
+                }
+                catch (std::exception const&)
+                {
+                    delIndices.emplace(it);
+                }
             }
+
+            for (auto const& it : delIndices)
+                inputs.erase(it);
 
             auto const compute{[inputs, outputs] (std::reference_wrapper<Connection> connection, std::reference_wrapper<Neuron> iNeuron) -> std::optional<std::pair<double, std::string> >
                 {
@@ -14798,15 +14812,21 @@ class Engine
                           return a.first < b.first;
                       });
 
-            auto const df = dfIdentity(i);
-            double identityCost{0.0};
+            try
+            {
+                auto const df = dfIdentity(i);
+                double identityCost{0.0};
 
-            for (auto const& row : df)
-                identityCost += row.front();
+                for (auto const& row : df)
+                    identityCost += row.front();
 
-            auto const it{std::lower_bound(result.begin(), result.end(), identityCost, [] (auto const& a, double val) { return a.first < val; })};;
+                auto const it{std::lower_bound(result.begin(), result.end(), identityCost, [] (auto const& a, double val) { return a.first < val; })};;
 
-            result.erase(it, result.end());
+                result.erase(it, result.end());
+            }
+            catch (std::exception const&)
+            {
+            }
 
             return result;
         }
