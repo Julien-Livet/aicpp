@@ -2809,6 +2809,9 @@ std::any sizefilter(std::any const& container, hodel::IntegerType n)
             result.insert(result.end(), v);
     }
 
+    if (container_ == result)
+        return std::any{};
+
     return result;
 }
 
