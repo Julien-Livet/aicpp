@@ -5478,6 +5478,9 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
                     result.at(i).at(j) = (a_.at(i).at(j) == b_.at(i).at(j)) ? a_.at(i).at(j) : fallback_;
             }
 
+            if (result == a_)
+                throw std::runtime_error{"Wrong value"};
+
             return result;
         }
         catch (std::exception const&)
