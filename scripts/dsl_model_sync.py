@@ -111,7 +111,7 @@ if __name__ == "__main__":
         if (not len(list_L_total)):
             continue
 
-        sum(list_L_total).backward()
+        torch.stack(list_L_total).mean().backward()
         optimizer.step()
 
         model_version += 1
