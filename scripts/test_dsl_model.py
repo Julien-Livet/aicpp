@@ -156,7 +156,7 @@ def test_hodel_tasks():
         trainingTasks = f.read().split("\n")
 
     for k, v in tasksByStep.items():
-        if (k != 1):
+        if (k > 1):
             break
 
         t1 = time.time()
@@ -208,7 +208,7 @@ def processTasks(folder: str, taskIds = set(), debug: bool = True) -> Dict[str, 
 
     multiprocessing.set_start_method("spawn", force = True)
 
-    with multiprocessing.Pool(os.cpu_count() // 2 + 1) as pool:
+    with multiprocessing.Pool(max(1, (os.cpu_count() or 1) // 2)) as pool:
         results: list = pool.starmap(passTasks, [(task, debug) for task in tasks])
 
     result: dict = {}
