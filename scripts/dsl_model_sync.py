@@ -70,8 +70,9 @@ if __name__ == "__main__":
 
                     if (not len(indexes)):
                         c = True
-
-                    worker.init(engine, device, indexes.pop(0))
+                        break
+                    else:
+                        worker.init(engine, device, indexes.pop(0))
                 else:
                     loop = False
 
@@ -106,5 +107,10 @@ if __name__ == "__main__":
         for worker, L_tokens in worker_L_tokens:
             list_L_total.append(worker.update(device, model, L_tokens, modelFilename))
         
+        if (not len(list_L_total)):
+            continue
+
         sum(list_L_total).backward()
         optimizer.step()
+
+    process.close()

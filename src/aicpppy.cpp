@@ -16,6 +16,8 @@
 #include "aicpp/HodelDslSystem.h"
 #include "aicpp/Hodel.h"
 
+#define HODEL_TASKS_SIZE 400  
+
 namespace py = pybind11;
 
 using namespace aicpp;
@@ -591,7 +593,7 @@ class Engine
 
                 std::vector<Connection> newConnections;
                 newConnections.reserve(connections_.size());
-                iNeurons_.reserve(connections_.size());
+                iNeurons_.reserve(connections_.size() + HODEL_TASKS_SIZE);
 
                 for (size_t i = 0; i < connections_.size(); ++i)
                 {
