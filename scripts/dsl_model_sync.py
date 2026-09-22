@@ -34,7 +34,7 @@ if __name__ == "__main__":
     engine = Engine("dsl_dataset")
     n = engine.count()
     indexes = engine.orderedIndexes()
-    process = tqdm(total = len(indexes), desc = "Programs")
+    process = tqdm(total = len(indexes), desc = "Programs", dynamic_ncols = True)
     dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
     model = dslModel.to(device)
     modelFilename: str = "dsl_model.pt"
@@ -53,6 +53,7 @@ if __name__ == "__main__":
     for _ in range(args.num_workers):
         workers.append(Worker())
 
+    model_version: int = 1
     count: int = 0
 
     while (True):
@@ -112,5 +113,12 @@ if __name__ == "__main__":
 
         sum(list_L_total).backward()
         optimizer.step()
+
+        model_version += 1
+
+        process.set_postfix(
+            version=model_version,
+            workers=args.num_workers,
+        )
 
     process.close()
