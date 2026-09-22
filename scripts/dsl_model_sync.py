@@ -1,4 +1,5 @@
 from aicpppy import Engine
+import argparse
 from dsl_model.dsl_model import DSLModel
 import dsl_model.utils as utils
 from dsl_model.worker_sync import Worker
@@ -8,7 +9,27 @@ import torch
 import torch.nn.functional as F
 from tqdm import tqdm
 
-if (__name__ == "__main__"):
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="DSL model training"
+    )
+
+    parser.add_argument(
+        "--num-workers",
+        type=int,
+        default=25,
+        help="Number of workers used to generate experiments (default: 25)",
+    )
+
+    args = parser.parse_args()
+
+    if args.num_workers < 1:
+        parser.error("--num-workers must be >= 1")
+
+    return args
+
+if __name__ == "__main__":
+    args = parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     engine = Engine("dsl_dataset")
     n = engine.count()
@@ -29,7 +50,7 @@ if (__name__ == "__main__"):
 
     workers: list = []
 
-    for _ in range(25):
+    for _ in range(args.num_workers):
         workers.append(Worker())
 
     count: int = 0

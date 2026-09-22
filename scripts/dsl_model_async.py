@@ -24,7 +24,7 @@ def parse_args():
     args = parser.parse_args()
 
     if args.num_workers < 1:
-        parser.error("--num-workers doit être >= 1")
+        parser.error("--num-workers must be >= 1")
 
     return args
 
