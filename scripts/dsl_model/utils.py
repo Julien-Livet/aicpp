@@ -2,6 +2,7 @@ from .cached_decoder_layer import CachedDecoderLayer
 from .dsl_model import DSLModel
 from .dsl_graph_builder import DSLGraphBuilder
 from dsl_rl import VOCAB
+from .experience import Experience
 import os
 import torch
 import torch.nn as nn
@@ -754,3 +755,29 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
             f"Message inconnu reçu par worker {worker_id}: "
             f"{message_type}"
         )
+
+def reconstruct_experience(result):
+    prog_graphs = [
+        deserialize_prog_graph(g)
+        for g in result["prog_graphs"]
+    ]
+
+    cost_tensors = [
+        torch.from_numpy(c)
+        for c in result["cost_tensors"]
+    ]
+
+    return Experience(
+        workerId=result["workerId"],
+        inputs=torch.from_numpy(result["inputs"]),
+        outputs=torch.from_numpy(result["outputs"]),
+        masks=torch.from_numpy(result["masks"]),
+        prog_graphs=prog_graphs,
+        cost_tensors=cost_tensors,
+        target_program=result["target_program"],
+        subtarget_program=result["subtarget_program"],
+        generated_program=result["generated_program"],
+        alpha=result["alpha"],
+        use_semantic=result["use_semantic"],
+        model_version=result["model_version"],
+    )

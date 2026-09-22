@@ -11,7 +11,6 @@ from tqdm import tqdm
 if (__name__ == "__main__"):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     engine = Engine("dsl_dataset")
-
     n = engine.count()
     indexes = engine.orderedIndexes()
     process = tqdm(total = len(indexes), desc = "Programs")
@@ -88,4 +87,3 @@ if (__name__ == "__main__"):
         
         sum(list_L_total).backward()
         optimizer.step()
-
