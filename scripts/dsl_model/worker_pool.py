@@ -5,8 +5,9 @@ from . import utils
 class WorkerPool:
     def __init__(
         self,
-        num_workers,
-        model_version,
+        dataset: str,
+        num_workers: int,
+        model_version: int,
         actor_model,
     ):
         self.ctx = mp.get_context("spawn")
@@ -29,6 +30,7 @@ class WorkerPool:
             p = self.ctx.Process(
                 target=utils.worker_process,
                 args=(
+                    dataset,
                     self.input_queues[worker_id],
                     self.output_queue,
                     worker_id,

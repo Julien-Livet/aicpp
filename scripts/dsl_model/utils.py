@@ -551,7 +551,7 @@ def deserialize_prog_graph(g):
         edge_index=torch.from_numpy(g["edge_index"]),
     )
 
-def worker_process(input_queue, output_queue, worker_id, model_version, actor_state):
+def worker_process(dataset: str, input_queue, output_queue, worker_id, model_version, actor_state):
     #import faulthandler
     #faulthandler.enable()
 
@@ -559,7 +559,7 @@ def worker_process(input_queue, output_queue, worker_id, model_version, actor_st
     from .worker_async import Worker
 
     # Un seul Engine pour toute la durée du processus
-    engine = Engine("dsl_dataset")
+    engine = Engine(dataset)
     torch.set_num_threads(1)
     torch.set_num_interop_threads(1)
     # Un seul Worker réutilisé

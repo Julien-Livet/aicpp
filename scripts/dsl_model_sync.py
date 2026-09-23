@@ -28,6 +28,13 @@ def parse_args():
         help="Name of the model (default: dsl_model.pt)",
     )
 
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        default="dsl_dataset",
+        help="Name of the dataset (default: dsl_dataset)",
+    )
+
     args = parser.parse_args()
 
     if args.num_workers < 1:
@@ -38,7 +45,7 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    engine = Engine("dsl_dataset")
+    engine = Engine(args.dataset)
     n = engine.count()
     indexes = engine.orderedIndexes()
     process = tqdm(total = len(indexes), desc = "Programs", dynamic_ncols = True)
