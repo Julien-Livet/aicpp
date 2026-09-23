@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_10k.txt
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_10k.txt
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset.txt
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset.txt
 ================================================================================
 """
 
@@ -14,7 +14,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from dsl_model import DSLModel, encode_program_tokens
+from dsl_model.dsl_model import DSLModel
+from dsl_model.utils import encode_program_tokens
 from dsl_rl import VOCAB
 
 try:
