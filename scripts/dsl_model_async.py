@@ -21,6 +21,13 @@ def parse_args():
         help="Number of workers used to generate experiments (default: 1)",
     )
 
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="dsl_model.pt",
+        help="Name of the model (default: dsl_model.pt)",
+    )
+
     args = parser.parse_args()
 
     if args.num_workers < 1:
@@ -36,10 +43,9 @@ if __name__ == "__main__":
     indexes = engine.orderedIndexes()
     dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
-    modelFilename: str = "dsl_model.pt"
 
-    if (os.path.exists(modelFilename)):
-        checkpoint = torch.load(modelFilename, map_location = device)
+    if (os.path.exists(args.model)):
+        checkpoint = torch.load(args.model, map_location = device)
         model.load_state_dict(checkpoint["model_state"])
 
     model.decoder.sync_cached_decoder()
@@ -152,7 +158,7 @@ if __name__ == "__main__":
             model,
             optimizer,
             [experience],
-            modelFilename
+            args.model
         )
 
         model_version += 1

@@ -21,6 +21,13 @@ def parse_args():
         help="Number of workers used to generate experiments (default: 25)",
     )
 
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="dsl_model.pt",
+        help="Name of the model (default: dsl_model.pt)",
+    )
+
     args = parser.parse_args()
 
     if args.num_workers < 1:
@@ -37,10 +44,9 @@ if __name__ == "__main__":
     process = tqdm(total = len(indexes), desc = "Programs", dynamic_ncols = True)
     dslModel = DSLModel(len(VOCAB.token2id), d_model=256, device = device)
     model = dslModel.to(device)
-    modelFilename: str = "dsl_model.pt"
 
-    if (os.path.exists(modelFilename)):
-        checkpoint = torch.load(modelFilename, map_location=device)
+    if (os.path.exists(args.model)):
+        checkpoint = torch.load(args.model, map_location=device)
         model.load_state_dict(checkpoint["model_state"])
 
     optimizer = torch.optim.AdamW(
@@ -106,7 +112,7 @@ if __name__ == "__main__":
         list_L_total: list = []
 
         for worker, L_tokens in worker_L_tokens:
-            list_L_total.append(worker.update(device, model, L_tokens, modelFilename))
+            list_L_total.append(worker.update(device, model, L_tokens, args.model))
         
         if (not len(list_L_total)):
             continue
