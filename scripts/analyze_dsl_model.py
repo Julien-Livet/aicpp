@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_10k.txt
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_10k.txt
 ================================================================================
 """
 

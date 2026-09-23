@@ -1,6 +1,7 @@
 from aicpppy import Engine
 import datetime
-import dsl_model
+import dsl_model.utils as utils
+from dsl_model.dsl_model import DSLModel
 import dsl_rl
 import json
 import math
@@ -21,14 +22,14 @@ def processTask(engine, model, id_, data, depth: int = 6):
         inputsTrain.append(i)
         outputsTrain.append(o)
 
-    inputs, outputs, masks = dsl_model.arc_pairs_to_tensors(trainPairs)
+    inputs, outputs, masks = utils.arc_pairs_to_tensors(trainPairs)
     inputs = inputs.to(test_dsl_model.device)
     outputs = outputs.to(test_dsl_model.device)
     masks = masks.to(test_dsl_model.device)
 
     candidates: list = [("I",
-                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns),
-                         inputsTest)] * dsl_model.M
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns),
+                         inputsTest)] * utils.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
@@ -41,9 +42,9 @@ def processTask(engine, model, id_, data, depth: int = 6):
             cost_tensors: list = []
 
             for program, df, _ in candidates:
-                g = dsl_model.build_prog_graph(program, dsl_rl.VOCAB, test_dsl_model.device)
+                g = utils.build_prog_graph(program, dsl_rl.VOCAB, test_dsl_model.device)
                 prog_graphs.append(g)
-                cost_tensors.append(dsl_model.dataframe_to_cost_tensor(df).to(test_dsl_model.device))
+                cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(test_dsl_model.device))
 
             computeGraphs = False
 
@@ -53,7 +54,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
                     prog_graphs, cost_tensors
                 )   # [1, D]
 
-        program = dsl_model.generate_one(
+        program = utils.generate_one(
             model, dsl_rl.VOCAB, z_context, engine,
             temperature = 5.0,
             device = test_dsl_model.device,
@@ -62,7 +63,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
 
         if (program):
             try:
-                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = dsl_model.scoreColumns)
+                dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns)
                 testOutputs = engine.dfConnectionBuilderOutputs(inputsTest)
                 cost = dfTrain["Total cost"].sum(skipna = False)
             except RuntimeError:
@@ -89,7 +90,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
     return candidate
 
 def processTasks(tasks):
-    dslModel = dsl_model.DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = test_dsl_model.device)
+    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = test_dsl_model.device)
     model = dslModel.to(test_dsl_model.device)
     checkpoint = torch.load(test_dsl_model.modelFilename, map_location = test_dsl_model.device)
     model.load_state_dict(checkpoint["model_state"])
