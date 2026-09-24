@@ -9,7 +9,7 @@ title: Publications
 
 [Paper PDF](assets/paper/nesy2027-livet.pdf)
 
-[Source](assets/paper/sources/nesy2027-livet.tex)
+[Source](assets/paper/source/nesy2027-livet.tex)
 
 ### Citation
 
