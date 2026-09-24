@@ -7,9 +7,9 @@ title: Publications
 
 ### Neuro-symbolic program synthesis for structured reasoning
 
-[Paper PDF](...)
+[Paper PDF](assets/paper/nesy2027-livet.pdf)
 
-[Source](...)
+[Source](assets/paper/sources/nesy2027-livet.tex)
 
 ### Citation
 
