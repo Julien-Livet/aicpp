@@ -1,4 +1,5 @@
 from .arc_context_encoder import ARCContextEncoder
+from .arc_grid_list_encoder import ARCGridListEncoder
 from .cost_encoder import CostEncoder
 from .dsl_decoder import DSLDecoder
 from .dsl_program_encoder import DSLProgramEncoder
@@ -21,7 +22,8 @@ class DSLModel(nn.Module):
         super().__init__()
         self.d_model = d_model
 
-        self.grid_encoder = ARCContextEncoder(d_model=d_model, device=device)
+        self.pair_grid_encoder = ARCContextEncoder(d_model=d_model, device=device)
+        self.grids_encoder = ARCGridListEncoder(d_model=d_model, device=device)
         self.prog_encoder = DSLProgramEncoder(vocab_size=vocab_size, d_model=d_model)
         self.cost_encoder = CostEncoder(input_dim=5, d_model=d_model)
 
@@ -47,22 +49,24 @@ class DSLModel(nn.Module):
 
     def encode_context(
         self,
-        inputs       : torch.Tensor,          # [B, N, H, W]
+        inputs       : torch.Tensor,           # [B, N, H, W]
         outputs      : torch.Tensor,           # [B, N, H, W]
         masks        : torch.Tensor,           # [B, N, H, W]
         prog_graphs  : List[Data],             # M graphs GNN (one per program)
         cost_tensors : List[torch.Tensor],     # M tensors [B, N_grids, 5]
+        grid_tensors  : List[torch.Tensor],    # M tensors [B, N, H, W]
     ) -> torch.Tensor:
         B = inputs.size(0)
         M = len(prog_graphs)
-        z_grids = self.grid_encoder(inputs, outputs, masks)   # [B, D]
+        z_grids = self.pair_grid_encoder(inputs, outputs, masks)   # [B, D]
         z_progs = []
 
         for m in range(M):
             graph_m = prog_graphs[m]
             z_prog_m = self.prog_encoder(graph_m)              # [B, D]
             z_cost_m = self.cost_encoder(cost_tensors[m])      # [B, D]
-            z_progs.append(z_prog_m + z_cost_m)               # [B, D]
+            z_grid_m = self.grids_encoder(grid_tensors[m])     # [B, D]
+            z_progs.append(z_prog_m + z_cost_m + z_grid_m)     # [B, D]
 
         # Stack : [B, M, D]
         z_progs_stack = torch.stack(z_progs, dim=1)
@@ -71,7 +75,7 @@ class DSLModel(nn.Module):
             z_grids_q, z_progs_stack, z_progs_stack
         )                                                       # [B, 1, D]
         z_attended = z_attended.squeeze(1)                     # [B, D]
-        z_fused  = self.fusion_norm(z_grids + z_attended)
+        #z_fused  = self.fusion_norm(z_grids + z_attended)
         z_context = self.fusion_proj(
             torch.cat([z_grids, z_attended], dim=-1)
         )                                                       # [B, D]
@@ -85,10 +89,11 @@ class DSLModel(nn.Module):
         masks        : torch.Tensor,
         prog_graphs  : List[Data],
         cost_tensors : List[torch.Tensor],
+        grid_tensors : List[torch.Tensor],
         tgt          : torch.Tensor,           # [B, L]  teacher forcing
     ) -> torch.Tensor:
         z_context = self.encode_context(
-            inputs, outputs, masks, prog_graphs, cost_tensors
+            inputs, outputs, masks, prog_graphs, cost_tensors, grid_tensors
         )
 
         return self.decoder(tgt, z_context)

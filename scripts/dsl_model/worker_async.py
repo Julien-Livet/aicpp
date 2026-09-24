@@ -10,17 +10,21 @@ class Worker:
         self.engine = engine
 
     def prepare_experience(self):
-        prog_graphs = []
-        cost_tensors = []
+        prog_graphs: list = []
+        cost_tensors: list = []
+        grid_tensors: list = []
 
-        for program, df in self.candidates:
+        for program, df, outputs in self.candidates:
             g = utils.build_prog_graph(program, VOCAB, "cuda")
             prog_graphs.append(g.cpu())
 
             c = utils.dataframe_to_cost_tensor(df)
             cost_tensors.append(c.cpu())
 
-        return prog_graphs, cost_tensors
+            t = utils.grids_to_tensors(outputs)
+            grid_tensors.append(t.cpu())
+
+        return prog_graphs, cost_tensors, grid_tensors
 
     def init(self, device: str, j: int) -> bool:
         self.j = j
@@ -44,9 +48,9 @@ class Worker:
         self.costs = sorted(self.costs, key = lambda x: (-x[0], len(x[1])))
 
         try:
-            self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = utils.scoreColumns))] * utils.M
+            self.candidates: list = [("I", pd.DataFrame(self.engine.dfIdentity(j), columns = utils.scoreColumns), self.grids)] * utils.M
         except RuntimeError:
-            self.candidates: list = [("I", pd.DataFrame([math.inf] * len(utils.scoreColumns), columns = utils.scoreColumns))] * utils.M
+            self.candidates: list = [("I", pd.DataFrame([math.inf] * len(utils.scoreColumns), columns = utils.scoreColumns), self.grids)] * utils.M
 
         self.computeGraphs: bool = True
         self.temperature: float = utils.minTemperature
@@ -63,7 +67,9 @@ class Worker:
         self.prog_graphs = None
         self.cost_tensors = None
         self.subtargetProgram = None
-        
+        self.programOutputs = None
+        self.outputTensors = None
+
         return True
 
     def process(self, model, device: str) -> bool:
@@ -87,7 +93,7 @@ class Worker:
             return False
 
         if (self.computeGraphs):
-            self.prog_graphs, self.cost_tensors = self.prepare_experience()
+            self.prog_graphs, self.cost_tensors, self.grid_tensors = self.prepare_experience()
 
             self.computeGraphs = False
 
@@ -100,6 +106,7 @@ class Worker:
                     self.masks.to(device),
                     [g.to(device) for g in self.prog_graphs],
                     [c.to(device) for c in self.cost_tensors],
+                    [t.to(device) for t in self.grid_tensors],
                 )
 
         torch.cuda.empty_cache()
@@ -122,6 +129,10 @@ class Worker:
             try:
                 self.df = pd.DataFrame(self.engine.dfConnectionBuilder(self.j), columns = utils.scoreColumns)
                 self.cost = self.df["Total cost"].sum(skipna = False)
+                self.programOutputs = self.engine.dfConnectionBuilderOutputs(self.grids)
+
+                if (any(not utils.is_valid_arc_grid(g) for g in self.programOutputs)):
+                    self.program = None
             except RuntimeError:
                 self.cost = math.inf
 
@@ -145,7 +156,7 @@ class Worker:
                 self.iters_since_improvement = 0
 
                 self.candidates.pop(0)
-                self.candidates.append((self.program, self.df))
+                self.candidates.append((self.program, self.df, self.programOutputs))
                 self.candidates = sorted(self.candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
 
                 while (len(self.costs) and self.cost <= self.costs[0][0]):

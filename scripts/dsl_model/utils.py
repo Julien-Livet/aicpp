@@ -3,6 +3,7 @@ from .dsl_model import DSLModel
 from .dsl_graph_builder import DSLGraphBuilder
 from dsl_rl import VOCAB
 from .experience import Experience
+from itertools import chain
 import os
 import torch
 import torch.nn as nn
@@ -21,6 +22,11 @@ minAlpha: float = 0.1
 
 MAX_ITERATIONS_PER_TARGET: int = 500000
 PLATEAU_PATIENCE: int = 50000
+
+def is_valid_arc_grid(grid):
+    values = list(chain.from_iterable(grid))
+
+    return len(values) and min(values) >= 0 and max(values) <= 9
 
 def dataframe_to_cost_tensor(df):
     """
@@ -54,6 +60,42 @@ def pad_grid(grid, max_h, max_w, pad_value=0):
     mask += [[0] * max_w for _ in range(max_h - len(grid))]
 
     return padded, mask
+
+def grids_to_tensors(grids: List[Grid]):
+    """
+    grids: List[grid]
+
+    tensors -> [1, N, H, W]
+    """
+    max_h = 0
+    max_w = 0
+
+    for grid in grids:
+        max_h = max(
+            max_h,
+            len(grid)
+        )
+
+        max_w = max(max_w,
+                    max((len(r) for r in grid), default=0))
+
+    grid_tensors = []
+    
+    for grid in grids:
+        grid_pad, _ = pad_grid(
+            grid,
+            max_h,
+            max_w
+        )
+
+        grid_tensors.append(torch.tensor(grid_pad))
+
+    tensors = torch.stack(grid_tensors)
+
+    # [N,H,W] -> [1,N,H,W]
+    tensors = tensors.unsqueeze(0)
+
+    return tensors
 
 def arc_pairs_to_tensors(arc_pairs: List[Tuple[Grid, Grid]]):
     """

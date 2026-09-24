@@ -17,7 +17,7 @@ from typing import Dict, Tuple
 modelFilename = "dsl_model.pt"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-MAX_COUNT = 1000
+MAX_COUNT = 100
 
 def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
     testPairs: list = [(ex["input"], ex["output"]) for ex in data["test"]]
@@ -44,7 +44,8 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
 
     candidates: list = [("I",
                          pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns),
-                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTest, outputsTest), columns = utils.scoreColumns))] * utils.M
+                         pd.DataFrame(engine.dfIdentityVsPairs(inputsTest, outputsTest), columns = utils.scoreColumns),
+                         inputsTrain)] * utils.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
@@ -56,18 +57,20 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
         if (computeGraphs):
             prog_graphs: list  = []
             cost_tensors: list = []
+            grid_tensors: list = []
 
-            for program, df, _ in candidates:
+            for program, df, _, programOutputs in candidates:
                 g = utils.build_prog_graph(program, dsl_rl.VOCAB, device)
                 prog_graphs.append(g)
                 cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(device))
+                grid_tensors.append(utils.grids_to_tensors(programOutputs))
 
             computeGraphs = False
 
             with torch.no_grad():
                 z_context = model.encode_context(
                     inputs, outputs, masks,
-                    prog_graphs, cost_tensors
+                    prog_graphs, cost_tensors, grid_tensors
                 )   # [1, D]
 
         program = utils.generate_one(
@@ -82,19 +85,23 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
                 dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns)
                 dfTest = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTest, outputsTest), columns = utils.scoreColumns)
                 cost = dfTrain["Total cost"].sum(skipna = False)
+                programOutputs = engine.dfConnectionBuilderOutputs(inputsTrain)
 
                 if (not program in testedPrograms):
                     count += 1
 
                 testedPrograms.add(program)
+
+                if (any(not utils.is_valid_arc_grid(g) for g in programOutputs)):
+                    program = None
             except RuntimeError:
                 cost = math.inf
         else:
             cost = math.inf
 
-        if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+        if (program and not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
             and not program in [c[0] for c in candidates]):
-            candidates.append((program, dfTrain, dfTest))
+            candidates.append((program, dfTrain, dfTest, programOutputs))
             candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
             count = 0
             computeGraphs = True
@@ -130,7 +137,7 @@ def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
     with open(f"../ARC-AGI-2/data/{folder}/{task}.json") as f:
         data = json.load(f)
 
-    program, dfTrain, dfTest = processTask(engine, model, task, data, depth, debug)
+    program, dfTrain, dfTest, _ = processTask(engine, model, task, data, depth, debug)
     trainCost = dfTrain.sum(axis = 0, skipna = False)["Total cost"]
     testCost = dfTest.sum(axis = 0, skipna = False)["Total cost"]
 

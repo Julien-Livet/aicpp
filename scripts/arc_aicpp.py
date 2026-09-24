@@ -29,7 +29,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
 
     candidates: list = [("I",
                          pd.DataFrame(engine.dfIdentityVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns),
-                         inputsTest)] * utils.M
+                         inputsTrain, inputsTrain)] * utils.M
     candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
     count: int = 0
     computeGraphs: bool = True
@@ -40,18 +40,20 @@ def processTask(engine, model, id_, data, depth: int = 6):
         if (computeGraphs):
             prog_graphs: list  = []
             cost_tensors: list = []
+            grid_tensors: list = []
 
-            for program, df, _ in candidates:
+            for program, df, _, programOutputs in candidates:
                 g = utils.build_prog_graph(program, dsl_rl.VOCAB, test_dsl_model.device)
                 prog_graphs.append(g)
                 cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(test_dsl_model.device))
+                grid_tensors.append(utils.grids_to_tensors(programOutputs))
 
             computeGraphs = False
 
             with torch.no_grad():
                 z_context = model.encode_context(
                     inputs, outputs, masks,
-                    prog_graphs, cost_tensors
+                    prog_graphs, cost_tensors, grid_tensors
                 )   # [1, D]
 
         program = utils.generate_one(
@@ -66,14 +68,18 @@ def processTask(engine, model, id_, data, depth: int = 6):
                 dfTrain = pd.DataFrame(engine.dfConnectionBuilderVsPairs(inputsTrain, outputsTrain), columns = utils.scoreColumns)
                 testOutputs = engine.dfConnectionBuilderOutputs(inputsTest)
                 cost = dfTrain["Total cost"].sum(skipna = False)
+                programOutputs = engine.dfConnectionBuilderOutputs(inputsTrain)
+                
+                if (any(not utils.is_valid_arc_grid(g) for g in programOutputs)):
+                    program = None
             except RuntimeError:
                 cost = math.inf
         else:
             cost = math.inf
 
-        if (not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
+        if (program and not np.isinf(cost).any() and cost < candidates[0][1].sum(axis = 0, skipna = False)["Total cost"]
             and not program in [c[0] for c in candidates]):
-            candidates.append((program, dfTrain, testOutputs))
+            candidates.append((program, dfTrain, testOutputs, programOutputs))
             candidates = sorted(candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), len(x[0]), x[0]))
             count = 0
             computeGraphs = True
@@ -95,11 +101,10 @@ def processTasks(tasks):
     checkpoint = torch.load(test_dsl_model.modelFilename, map_location = test_dsl_model.device)
     model.load_state_dict(checkpoint["model_state"])
     engine = Engine()
-
-    results = {}
+    results: dict = {}
 
     for id_, arc_data in tasks:
-        _, _, testOutputs = processTask(engine, model, id_, arc_data)
+        _, _, testOutputs, _ = processTask(engine, model, id_, arc_data)
 
         l: list = []
 
@@ -118,7 +123,6 @@ if (__name__ == "__main__"):
 
     outputFilename: str = "submission.json"
     submission: dict = {}
-
     tasks: list = np.array_split(list(data.items()), os.cpu_count())
 
     import multiprocessing

@@ -31,9 +31,9 @@ class Worker:
         self.costs = sorted(self.costs, key = lambda x: (-x[0], len(x[1])))
 
         try:
-            self.candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = utils.scoreColumns))] * utils.M
+            self.candidates: list = [("I", pd.DataFrame(engine.dfIdentity(j), columns = utils.scoreColumns), self.grids)] * utils.M
         except RuntimeError:
-            self.candidates: list = [("I", pd.DataFrame([math.inf] * len(utils.scoreColumns), columns = utils.scoreColumns))] * utils.M
+            self.candidates: list = [("I", pd.DataFrame([math.inf] * len(utils.scoreColumns), columns = utils.scoreColumns), self.grids)] * utils.M
 
         self.computeGraphs: bool = True
         self.temperature: float = utils.minTemperature
@@ -45,6 +45,7 @@ class Worker:
         self.program = None
         self.cost = None
         self.df = None
+        self.programOutputs = None
         self.count: int = 0
         
         return True
@@ -72,11 +73,13 @@ class Worker:
         if (self.computeGraphs):
             prog_graphs: list  = []
             cost_tensors: list = []
+            grid_tensors: list = []
 
-            for program, df in self.candidates:
+            for program, df, outputs in self.candidates:
                 g = utils.build_prog_graph(program, VOCAB, device)
                 prog_graphs.append(g)
                 cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(device))
+                grid_tensors.append(utils.grids_to_tensors(outputs).to(device))
 
             self.computeGraphs = False
 
@@ -85,7 +88,7 @@ class Worker:
             with torch.no_grad():
                 self.z_context = model.encode_context(
                     self.inputs, self.outputs, self.masks,
-                    prog_graphs, cost_tensors
+                    prog_graphs, cost_tensors, grid_tensors
                 )   # [1, D]
 
         self.program = utils.generate_one(
@@ -101,6 +104,10 @@ class Worker:
             try:
                 self.df = pd.DataFrame(engine.dfConnectionBuilder(self.j), columns = utils.scoreColumns)
                 self.cost = self.df["Total cost"].sum(skipna = False)
+                self.programOutputs = engine.dfConnectionBuilderOutputs(self.grids)
+                
+                if (any(not utils.is_valid_arc_grid(g) for g in self.programOutputs)):
+                    self.program = None
             except RuntimeError:
                 self.cost = math.inf
 
@@ -146,7 +153,7 @@ class Worker:
                 self.iters_since_improvement = 0
 
                 self.candidates.pop(0)
-                self.candidates.append((self.program, self.df))
+                self.candidates.append((self.program, self.df, self.programOutputs))
                 self.candidates = sorted(self.candidates, key = lambda x: (tuple(-x[1].sum(axis = 0, skipna = False)), -len(x[0]), x[0]))
 
                 while (len(self.costs) and self.cost <= self.costs[0][0]):
