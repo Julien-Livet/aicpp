@@ -1,4 +1,4 @@
-% NeSy 2027 submission
+% NeSy 2026 submission
 \documentclass[final]{nesy2027}
 
 \usepackage{booktabs}
@@ -355,7 +355,7 @@ schematically in Fig.~\ref{fig:arch}.
 \textbf{ARC Grid Encoder (CNN).}
 Each pair $(I_{\mathrm{in}}, I_{\mathrm{out}})$ is encoded by a four-layer CNN
 (64$\to$64$\to$128$\to$128 channels, kernel size $3\times3$, padding 1) with
-attention pooling over $N$ pairs.
+attention pooling over $N$ pairs. Each output grids of M candidate programs are also encoded.
 The input tensor concatenates one-hot colour channels, the pixel-wise difference
 map, and a validity mask.
 Output: $z_{\mathrm{grid}} \in \mathbb{R}^{256}$.
@@ -516,24 +516,25 @@ strategy based on observed progress.
 \label{sec:comparison}
 
 Table~\ref{tab:comparison} compares our approach with four LLM baselines on the
-ARC-AGI-2 training set using the same iterative pipeline.
+ARC-AGI-2 training and evaluation sets using the same iterative pipeline.
 
 \begin{table}[htbp]
 \floatconts
   {tab:comparison}
   {\caption{Comparison of iterative DSL-synthesis approaches on
-    ARC-AGI-2 training tasks (120 tasks evaluated).}}
+    ARC-AGI-2 tasks (success on training subset 120 tasks and evaluation tasks evaluated).}}
   {%
   \begin{tabular}{lllll}
   \toprule
   \bfseries Model & \bfseries Architecture & \bfseries Resources
-    & \bfseries Explainability & \bfseries Success (\%) \\
+    & \bfseries Training (\%) & \bfseries Evaluation (\%) \\
   \midrule
-  GPT-5           & LLM (general)        & Cloud API       & Low  & 56.7 \\
-  gpt-oss:120b    & LLM (open-weight)    & High-end GPU    & Low  & 31.7 \\
-  \textbf{Ours}   & GNN+CNN+Transformer  & Local RTX~2000  & High & 10.8 \\
-  llama3:8b       & LLM (open-weight)    & High-end GPU    & Low  & 0.0 \\
-  mistral:7b      & LLM (open-weight)    & High-end GPU    & Low  & 0.0 \\
+  GPT-5           & LLM (general)        & Cloud API       & 56.7 & 2.5 \\
+  gpt-oss:120b    & LLM (open-weight)    & High-end GPU    & 31.7 & 0.0 \\
+  \textbf{Ours}   & GNN+CNN+Transformer  & Local RTX~2000  & 10.8 & 0.0 \\
+  deepseek-r1:8b  & LLM (open-weight)    & Local RTX~2000  & 0.0  & 0.0 \\
+  llama3:8b       & LLM (open-weight)    & Local RTX~2000  & 0.0  & 0.0 \\
+  mistral:7b      & LLM (open-weight)    & Local RTX~2000  & 0.0  & 0.0 \\
   \bottomrule
   \end{tabular}}
 \end{table}
