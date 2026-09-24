@@ -6,6 +6,7 @@
 ![C++23](https://img.shields.io/badge/C++-23-blue)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
 ![License](https://img.shields.io/github/license/Julien-Livet/aicpp)
+[![Paper](https://img.shields.io/badge/Paper-PDF-blue)](https://julien-livet.github.io/aicpp/assets/paper/nesy2027-livet.pdf)
 ![Python](https://img.shields.io/badge/Python-3.10-yellow)
 ![CI](https://github.com/Julien-Livet/aicpp/actions/workflows/test.yml/badge.svg)
 
