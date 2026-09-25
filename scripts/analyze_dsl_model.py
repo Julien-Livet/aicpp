@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset.txt
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset.txt
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d
 ================================================================================
 """
 
@@ -157,6 +157,34 @@ def reduce_dim(emb: np.ndarray, method: str) -> np.ndarray:
         min_dist=0.1, metric="cosine", random_state=42,
     ).fit_transform(emb)
 
+def reduce_dim3(emb: np.ndarray, method: str) -> np.ndarray:
+    n = len(emb)
+
+    if n < 3:
+        raise ValueError("At least 3 points for 3D reduction.")
+
+    if method == "tsne":
+        if not HAS_TSNE:
+            raise ImportError("pip install scikit-learn")
+
+        return TSNE(
+            n_components=3,
+            perplexity=min(30, max(2, n - 1)),
+            init="pca",
+            random_state=42,
+        ).fit_transform(emb)
+
+    if not HAS_UMAP:
+        raise ImportError("pip install umap-learn")
+
+    return umap.UMAP(
+        n_components=3,
+        n_neighbors=min(15, n - 1),
+        min_dist=0.1,
+        metric="cosine",
+        random_state=42,
+    ).fit_transform(emb)
+
 def plot(coords, meta, title, save_path, show_labels=True, programs=None):
     colors, cmap_dict = assign_colors(meta["root"])
     sizes = [(d + 1) * 32 for d in meta["depth"]]
@@ -168,7 +196,7 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None):
     sc = ax.scatter(coords[:, 0], coords[:, 1], c=colors, s=sizes,
                edgecolors="#dddddd", linewidths=0.8, alpha=0.88, zorder=3)
 
-    if show_labels and len(coords) <= 140:
+    if show_labels and len(coords) <= 250:
         for i, (x, y) in enumerate(coords):
             ax.annotate(meta["label"][i], (x, y), fontsize=6.5,
                         color="white", alpha=0.9, xytext=(4, 4),
@@ -218,6 +246,193 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None):
     print(f"[Saved] {save_path}")
     plt.show()
 
+def plot_3d(coords, meta, title, save_path, programs=None):
+    import plotly.graph_objects as go
+    import plotly.express as px
+
+    if coords.shape[1] != 3:
+        raise ValueError(
+            f"plot_3d needs 3D coordinates, received {coords.shape}"
+        )
+
+    # ------------------------------------------------------------------
+    # Colors
+    # ------------------------------------------------------------------
+    groups = meta["root"]
+    uniq = sorted(set(groups))
+
+    # Palette qualitative adapted to variable number of groups
+    palette = (
+        px.colors.qualitative.Alphabet
+        + px.colors.qualitative.Dark24
+        + px.colors.qualitative.Light24
+    )
+
+    color_map = {
+        g: palette[i % len(palette)]
+        for i, g in enumerate(uniq)
+    }
+
+    colors = [color_map[g] for g in groups]
+
+    # Point size by depth
+    sizes = [
+        5 + 2 * min(depth, 8)
+        for depth in meta["depth"]
+    ]
+
+    # ------------------------------------------------------------------
+    # Full text displayed at hover
+    # ------------------------------------------------------------------
+    if programs is not None:
+        texts = programs
+    else:
+        texts = meta["label"]
+
+    # customdata contains all information
+    # accessibles by hovertemplate.
+    customdata = np.array(
+        [
+            [
+                texts[i],
+                meta["root"][i],
+                meta["depth"][i],
+            ]
+            for i in range(len(coords))
+        ],
+        dtype=object,
+    )
+
+    # ------------------------------------------------------------------
+    # Scatter 3D
+    # ------------------------------------------------------------------
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter3d(
+            x=coords[:, 0],
+            y=coords[:, 1],
+            z=coords[:, 2],
+
+            mode="markers",
+
+            marker=dict(
+                size=sizes,
+                color=colors,
+                opacity=0.85,
+                line=dict(
+                    color="rgba(220,220,220,0.8)",
+                    width=0.5,
+                ),
+            ),
+
+            customdata=customdata,
+
+            hovertemplate=(
+                "<b>%{customdata[0]}</b>"
+                "<br><br>"
+                "group: %{customdata[1]}"
+                "<br>depth: %{customdata[2]}"
+                "<br>x: %{x:.3f}"
+                "<br>y: %{y:.3f}"
+                "<br>z: %{z:.3f}"
+                "<extra></extra>"
+            ),
+
+            showlegend=False,
+        )
+    )
+
+    # ------------------------------------------------------------------
+    # Legend : invisble trace by group
+    # ------------------------------------------------------------------
+    for group in uniq:
+        fig.add_trace(
+            go.Scatter3d(
+                x=[None],
+                y=[None],
+                z=[None],
+                mode="markers",
+                marker=dict(
+                    size=8,
+                    color=color_map[group],
+                ),
+                name=group,
+                showlegend=True,
+                hoverinfo="skip",
+            )
+        )
+
+    # ------------------------------------------------------------------
+    # Layout
+    # ------------------------------------------------------------------
+    fig.update_layout(
+        title=dict(
+            text=title,
+            x=0.5,
+            xanchor="center",
+        ),
+
+        template="plotly_dark",
+
+        paper_bgcolor="#1a1a2e",
+        plot_bgcolor="#16213e",
+
+        scene=dict(
+            xaxis=dict(
+                title="t-SNE/UMAP 1",
+                backgroundcolor="#16213e",
+                gridcolor="#333355",
+                zerolinecolor="#555577",
+            ),
+            yaxis=dict(
+                title="t-SNE/UMAP 2",
+                backgroundcolor="#16213e",
+                gridcolor="#333355",
+                zerolinecolor="#555577",
+            ),
+            zaxis=dict(
+                title="t-SNE/UMAP 3",
+                backgroundcolor="#16213e",
+                gridcolor="#333355",
+                zerolinecolor="#555577",
+            ),
+
+            # Position initiale de la caméra
+            camera=dict(
+                eye=dict(
+                    x=1.5,
+                    y=1.5,
+                    z=1.2,
+                )
+            ),
+        ),
+
+        legend=dict(
+            title="Group",
+            bgcolor="rgba(15,52,96,0.75)",
+        ),
+
+        margin=dict(
+            l=0,
+            r=0,
+            t=60,
+            b=0,
+        ),
+    )
+
+    # ------------------------------------------------------------------
+    # HTML standalone
+    # ------------------------------------------------------------------
+    fig.write_html(
+        save_path,
+        include_plotlyjs=True,   # <-- standalone
+        full_html=True,
+        auto_open=True,
+    )
+
+    print(f"[Saved] {save_path}")
+
 def cohesion_report(emb: np.ndarray, groups: list[str]) -> None:
     E = emb / (np.linalg.norm(emb, axis=1, keepdims=True) + 1e-8)
     S = E @ E.T
@@ -254,6 +469,7 @@ def main():
     ap.add_argument("--method",  choices=["tsne", "umap"], default="tsne")
     ap.add_argument("--n",       type=int, default=100)
     ap.add_argument("--device",  default="cpu")
+    ap.add_argument("--type",    default="3d")
     ap.add_argument("--save",    default="")
     args = ap.parse_args()
 
@@ -287,13 +503,20 @@ def main():
 
     cohesion_report(emb, meta["root"])
 
-    coords = reduce_dim(emb, args.method)
-    save = args.save or f"embeddings_{args.level}_{args.method}.png"
+    save = args.save or f"embeddings_{args.level}_{args.method}"
 
-    if args.level == "program":
-        plot(coords, meta, title, save, programs=programs)
-    else:
-        plot(coords, meta, title, save, programs=names)
+    if args.type == "2d":
+        save += ".png"
+
+        coords = reduce_dim(emb, args.method)
+
+        plot(coords, meta, title, save, programs=programs if args.level == "program" else names)
+    elif args.type == "3d":
+        save += ".html"
+
+        coords = reduce_dim3(emb, args.method,)
+
+        plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names,)
 
 if __name__ == "__main__":
     main()
