@@ -4,6 +4,7 @@ mplcursors
 multiprocess
 numpy
 pandas
+plotly
 PyQt5
 pytest
 pytest-profiling
