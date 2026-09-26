@@ -54,26 +54,27 @@ class DSLModel(nn.Module):
         masks        : torch.Tensor,           # [B, N, H, W]
         prog_graphs  : List[Data],             # M graphs GNN (one per program)
         cost_tensors : List[torch.Tensor],     # M tensors [B, N_grids, 5]
-        grid_tensors  : List[torch.Tensor],    # M tensors [B, N, H, W]
+        grid_tensors : List[torch.Tensor],     # M tensors [B, N, H, W]
     ) -> torch.Tensor:
         B = inputs.size(0)
         M = len(prog_graphs)
         z_grids = self.pair_grid_encoder(inputs, outputs, masks)   # [B, D]
+        z_output_grids = self.grids_encoder(outputs)               # [B, D]
         z_progs = []
 
         for m in range(M):
             graph_m = prog_graphs[m]
-            z_prog_m = self.prog_encoder(graph_m)              # [B, D]
-            z_cost_m = self.cost_encoder(cost_tensors[m])      # [B, D]
-            z_grid_m = self.grids_encoder(grid_tensors[m])     # [B, D]
-            z_progs.append(z_prog_m + z_cost_m + z_grid_m)     # [B, D]
+            z_prog_m = self.prog_encoder(graph_m)                           # [B, D]
+            z_cost_m = self.cost_encoder(cost_tensors[m])                   # [B, D]
+            z_grid_m = self.grids_encoder(grid_tensors[m])                  # [B, D]
+            z_progs.append(z_prog_m + z_cost_m + z_grid_m + z_output_grids) # [B, D]
 
         # Stack : [B, M, D]
         z_progs_stack = torch.stack(z_progs, dim=1)
         z_grids_q = z_grids.unsqueeze(1)                      # [B, 1, D]
         z_attended, _ = self.prog_attn(
             z_grids_q, z_progs_stack, z_progs_stack
-        )                                                       # [B, 1, D]
+        )                                                      # [B, 1, D]
         z_attended = z_attended.squeeze(1)                     # [B, D]
         #z_fused  = self.fusion_norm(z_grids + z_attended)
         z_context = self.fusion_proj(
