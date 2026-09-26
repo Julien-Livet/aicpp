@@ -5,6 +5,7 @@ Usage :
 ================================================================================
 """
 
+from adjustText import adjust_text
 import argparse
 import math
 
@@ -157,7 +158,7 @@ def reduce_dim(emb: np.ndarray, method: str) -> np.ndarray:
         min_dist=0.1, metric="cosine", random_state=42,
     ).fit_transform(emb)
 
-def reduce_dim3(emb: np.ndarray, method: str) -> np.ndarray:
+def reduce_dim_3d(emb: np.ndarray, method: str) -> np.ndarray:
     n = len(emb)
 
     if n < 3:
@@ -185,7 +186,7 @@ def reduce_dim3(emb: np.ndarray, method: str) -> np.ndarray:
         random_state=42,
     ).fit_transform(emb)
 
-def plot(coords, meta, title, save_path, show_labels=True, programs=None):
+def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="upper left"):
     colors, cmap_dict = assign_colors(meta["root"])
     sizes = [(d + 1) * 32 for d in meta["depth"]]
 
@@ -196,15 +197,15 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None):
     sc = ax.scatter(coords[:, 0], coords[:, 1], c=colors, s=sizes,
                edgecolors="#dddddd", linewidths=0.8, alpha=0.88, zorder=3)
 
+    texts: list = []
+
     if show_labels and len(coords) <= 250:
         for i, (x, y) in enumerate(coords):
-            ax.annotate(meta["label"][i], (x, y), fontsize=6.5,
-                        color="white", alpha=0.9, xytext=(4, 4),
-                        textcoords="offset points", zorder=5)
+            texts.append(ax.text(x, y, meta["label"][i], fontsize=4, color="white"))
 
     handles = [mpatches.Patch(color=c, label=g) for g, c in cmap_dict.items()]
     ax.legend(handles=handles, title="Group", fontsize=8, title_fontsize=9,
-              loc="upper left", framealpha=0.3, facecolor="#0f3460",
+              loc=loc, framealpha=0.3, facecolor="#0f3460",
               edgecolor="white", labelcolor="white",
               ncol=4 if len(handles) > 12 else 1)
 
@@ -239,6 +240,14 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None):
             sel.annotation.arrow_patch.set(arrowstyle="-", color="#8888aa")
     except ImportError:
         raise ImportError("pip install mplcursors")
+
+    adjust_text(
+        texts,
+        x=[x for x, y in coords],
+        y=[y for x, y in coords],
+        ax=ax,
+        arrowprops=dict(arrowstyle="->", color="gray", lw=0.8),
+    )
 
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches="tight",
@@ -471,6 +480,7 @@ def main():
     ap.add_argument("--device",  default="cpu")
     ap.add_argument("--type",    default="3d")
     ap.add_argument("--save",    default="")
+    ap.add_argument("--loc",     default="upper left")
     args = ap.parse_args()
 
     model = load_trained_model(args.model, args.device)
@@ -490,7 +500,6 @@ def main():
         emb = extract_program_embeddings(model, programs, args.device)
         meta = program_metadata(programs)
         title = f"Embeddings decoder (programs) — {args.method.upper()} ({len(programs)})"
-
     else:
         which = "input" if args.level == "token" else "output"
         emb, names = extract_token_embeddings(model, which)
@@ -503,20 +512,20 @@ def main():
 
     cohesion_report(emb, meta["root"])
 
-    save = args.save or f"embeddings_{args.level}_{args.method}"
+    save = args.save or f"embeddings_{args.level}_{args.method}_{args.dataset.replace('.txt', '')}"
 
     if args.type == "2d":
         save += ".png"
 
         coords = reduce_dim(emb, args.method)
 
-        plot(coords, meta, title, save, programs=programs if args.level == "program" else names)
+        plot(coords, meta, title, save, programs=programs if args.level == "program" else names, loc=args.loc)
     elif args.type == "3d":
         save += ".html"
 
-        coords = reduce_dim3(emb, args.method,)
+        coords = reduce_dim_3d(emb, args.method,)
 
-        plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names,)
+        plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names)
 
 if __name__ == "__main__":
     main()
