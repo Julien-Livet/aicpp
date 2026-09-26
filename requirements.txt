@@ -1,3 +1,4 @@
+adjustText
 joblib
 matplotlib
 mplcursors
