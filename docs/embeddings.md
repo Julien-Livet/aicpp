@@ -5,26 +5,30 @@ title: Program Embeddings
 
 ## Objective
 
-aicpp contains a learned program encoder.
+aicpp contains a learned program transformer.
 
 We investigate whether the resulting embedding space exhibits
 structured organization beyond superficial syntactic similarity.
 
 ## Experimental setup
 
-- 9,996 programs
-- model trained on 100 programs
+- 9,998 programs
+- model trained on more 100 target programs
 - embedding dimension: 256
 - t-SNE
 - UMAP
 
 ## t-SNE
 
-![t-SNE](assets/embeddings_tsne.png)
+![2D t-SNE](assets/embeddings_program_tsne_10k.png)
+
+[3D t-SNE](assets/embeddings_program_tsne_10k.html)
 
 ## UMAP
 
-![UMAP](assets/embeddings_umap.png)
+![2D UMAP](assets/embeddings_program_umap_10k.png)
+
+[3D UMAP](assets/embeddings_program_umap_10k.html)
 
 ## Preliminary observation
 
