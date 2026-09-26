@@ -20,15 +20,15 @@ structured organization beyond superficial syntactic similarity.
 
 ## t-SNE
 
-![2D t-SNE](assets/embeddings_program_tsne_10k.png)
+![2D t-SNE](assets/embeddings_program_tsne_dsl_dataset_10k.png)
 
-[3D t-SNE](assets/embeddings_program_tsne_10k.html)
+[3D t-SNE](assets/embeddings_program_tsne_dsl_dataset_10k.html)
 
 ## UMAP
 
-![2D UMAP](assets/embeddings_program_umap_10k.png)
+![2D UMAP](assets/embeddings_program_umap_dsl_dataset_10k.png)
 
-[3D UMAP](assets/embeddings_program_umap_10k.html)
+[3D UMAP](assets/embeddings_program_umap_dsl_dataset_10k.html)
 
 ## Preliminary observation
 
