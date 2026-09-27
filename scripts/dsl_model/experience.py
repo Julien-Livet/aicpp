@@ -7,6 +7,7 @@ class Experience:
         masks,
         prog_graphs,
         cost_tensors,
+        output_tensors,
         target_program,
         subtarget_program,
         generated_program,
@@ -22,6 +23,10 @@ class Experience:
         self.cost_tensors = [
             c.detach().cpu()
             for c in cost_tensors
+        ]
+        self.output_tensors = [
+            g.detach().cpu()
+            for g in output_tensors
         ]
         self.target_program = target_program
         self.subtarget_program = subtarget_program
