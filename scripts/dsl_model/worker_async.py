@@ -93,7 +93,7 @@ class Worker:
             return False
 
         if (self.computeGraphs):
-            self.prog_graphs, self.cost_tensors, self.grid_tensors = self.prepare_experience()
+            self.prog_graphs, self.cost_tensors, self.outputTensors = self.prepare_experience()
 
             self.computeGraphs = False
 
@@ -106,7 +106,7 @@ class Worker:
                     self.masks.to(device),
                     [g.to(device) for g in self.prog_graphs],
                     [c.to(device) for c in self.cost_tensors],
-                    [t.to(device) for t in self.grid_tensors],
+                    [o.to(device) for o in self.outputTensors],
                 )
 
         torch.cuda.empty_cache()
