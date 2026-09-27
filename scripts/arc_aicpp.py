@@ -1,4 +1,5 @@
 from aicpppy import Engine
+import argparse
 import datetime
 import dsl_model.utils as utils
 from dsl_model.dsl_model import DSLModel
@@ -115,8 +116,25 @@ def processTasks(tasks):
 
     return results
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Run ARC AGI 2 challenge"
+    )
+
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="evaluation",
+        help="Folder name (default: evaluation, can be training)",
+    )
+
+    args = parser.parse_args()
+
+    return args
+
 if (__name__ == "__main__"):
-    inputFilename: str = "input/competitions/arc-prize-2026-arc-agi-2/arc-agi_evaluation_challenges.json"
+    args = parse_args()
+    inputFilename: str = f"input/competitions/arc-prize-2026-arc-agi-2/arc-agi_{args.folder}_challenges.json"
 
     with open(inputFilename, "r") as f:
         data = json.load(f)
