@@ -478,12 +478,18 @@ def learner_step(device, model, optimizer, experiences, modelFilename: str):
             for c in exp.cost_tensors
         ]
 
+        output_tensors = [
+            o.to(device)
+            for o in exp.output_tensors
+        ]
+
         z_context = model.encode_context(
             inputs,
             outputs,
             masks,
             prog_graphs,
-            cost_tensors
+            cost_tensors,
+            output_tensors,
         )
 
         # ---------------------------------------
@@ -695,6 +701,10 @@ def worker_process(dataset: str, input_queue, output_queue, worker_id, model_ver
                     c.cpu().numpy()
                     for c in worker.cost_tensors
                 ],
+                "output_tensors": [
+                    o.cpu().numpy()
+                    for o in worker.outputTensors
+                ],
                 "target_program": worker.targetProgram,
                 "subtarget_program": worker.subtargetProgram,
                 "generated_program": worker.program,
@@ -784,6 +794,10 @@ def worker_process(dataset: str, input_queue, output_queue, worker_id, model_ver
                     c.cpu().numpy()
                     for c in worker.cost_tensors
                 ],
+                "output_tensors": [
+                    o.cpu().numpy()
+                    for o in worker.outputTensors
+                ],
                 "target_program": worker.targetProgram,
                 "subtarget_program": worker.subtargetProgram,
                 "generated_program": worker.program,
@@ -809,6 +823,11 @@ def reconstruct_experience(result):
         for c in result["cost_tensors"]
     ]
 
+    output_tensors = [
+        torch.from_numpy(o)
+        for o in result["output_tensors"]
+    ]
+
     return Experience(
         workerId=result["workerId"],
         inputs=torch.from_numpy(result["inputs"]),
@@ -816,6 +835,7 @@ def reconstruct_experience(result):
         masks=torch.from_numpy(result["masks"]),
         prog_graphs=prog_graphs,
         cost_tensors=cost_tensors,
+        output_tensors=output_tensors,
         target_program=result["target_program"],
         subtarget_program=result["subtarget_program"],
         generated_program=result["generated_program"],
