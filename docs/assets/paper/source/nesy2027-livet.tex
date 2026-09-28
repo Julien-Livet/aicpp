@@ -355,7 +355,8 @@ schematically in Fig.~\ref{fig:arch}.
 \textbf{ARC Grid Encoder (CNN).}
 Each pair $(I_{\mathrm{in}}, I_{\mathrm{out}})$ is encoded by a four-layer CNN
 (64$\to$64$\to$128$\to$128 channels, kernel size $3\times3$, padding 1) with
-attention pooling over $N$ pairs. Each output grids of M candidate programs are also encoded.
+attention pooling over $N$ pairs. Each task output grid and each output
+grids of M candidate programs are also encoded.
 The input tensor concatenates one-hot colour channels, the pixel-wise difference
 map, and a validity mask.
 Output: $z_{\mathrm{grid}} \in \mathbb{R}^{256}$.
@@ -450,7 +451,7 @@ AdamW optimiser ($\mathrm{lr}=10^{-4}$), batch size of 1 task with $M=50$
 candidate programs per iteration, online training over several hours.
 
 \paragraph{Visualisation.}
-Embeddings are extracted from the trained GNN encoder for 100 programs sorted by
+Embeddings are extracted from the trained GNN encoder for 10{,}000 programs sorted by
 length.
 t-SNE (perplexity=30) and UMAP (cosine metric) projections are computed with
 standard parameters.
@@ -479,14 +480,14 @@ type constraints.
   {\caption{t-SNE visualisation of 10000 DSL program embeddings.
     Colour encodes the root primitive; point size encodes AST depth.
     Semantically related primitives cluster spontaneously.}}
-  {\includegraphics[width=\linewidth]{embeddings_tsne}}
+  {\includegraphics[width=\linewidth]{embeddings_program_tsne_dsl_dataset_10k}}
 \end{figure}
 
 \begin{figure}[htbp]
 \floatconts
   {fig:umap}
   {\caption{UMAP visualisation of 10000 DSL program embeddings.}}
-  {\includegraphics[width=\linewidth]{embeddings_umap}}
+  {\includegraphics[width=\linewidth]{embeddings_program_umap_dsl_dataset_10k}}
 \end{figure}
 
 \subsection{Compositionality and Continuity}
