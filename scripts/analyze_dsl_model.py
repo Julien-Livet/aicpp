@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d --distance 2
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d --distance 2
 ================================================================================
 """
 
@@ -12,12 +12,15 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
+from sklearn.neighbors import NearestNeighbors
 import torch
 import torch.nn.functional as F
 
 from dsl_model.dsl_model import DSLModel
 from dsl_model.utils import encode_program_tokens
 from dsl_rl import VOCAB
+
+from scipy.spatial.distance import cdist, pdist, squareform
 
 try:
     from sklearn.manifold import TSNE
@@ -136,11 +139,35 @@ def token_metadata(names: list[str]) -> dict:
         meta["label"].append(n)
     return meta
 
-def assign_colors(groups: list[str]):
-    uniq = sorted(set(groups))
-    cmap = plt.get_cmap("Spectral", max(len(uniq), 200))
-    cmap_dict = {g: cmap(i / max(len(uniq), 1)) for i, g in enumerate(uniq)}
-    return [cmap_dict[g] for g in groups], cmap_dict
+def assign_colors(labels: list[str], groups: list):
+    if len(labels) != len(groups):
+        raise ValueError(
+            f"labels and groups must have the same length: "
+            f"{len(labels)} != {len(groups)}"
+        )
+
+    uniq_groups = sorted(set(groups), key=str)
+
+    cmap = plt.get_cmap("Spectral", max(len(uniq_groups), 200))
+
+    group_colors = {
+        group: cmap(i / max(len(uniq_groups) - 1, 1))
+        for i, group in enumerate(uniq_groups)
+    }
+
+    colors = [
+        group_colors[group]
+        for group in groups
+    ]
+
+    label_groups = list(zip(labels, groups))
+
+    label_colors = [
+        (label, group_colors[group])
+        for label, group in zip(labels, groups)
+    ]
+
+    return colors, group_colors, label_groups, label_colors
 
 def reduce_dim(emb: np.ndarray, method: str) -> np.ndarray:
     n = len(emb)
@@ -186,8 +213,14 @@ def reduce_dim_3d(emb: np.ndarray, method: str) -> np.ndarray:
         random_state=42,
     ).fit_transform(emb)
 
-def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="upper left"):
-    colors, cmap_dict = assign_colors(meta["root"])
+def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="upper left", labels=None):
+    if labels is None:
+        colors, group_colors, label_groups, label_colors = assign_colors(programs, meta["root"])
+    else:
+        colors, group_colors, label_groups, label_colors = assign_colors(programs, labels)
+
+    cmap_dict = group_colors
+
     sizes = [(d + 1) * 32 for d in meta["depth"]]
 
     fig, ax = plt.subplots(figsize=(16, 12))
@@ -204,15 +237,22 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="u
             texts.append(ax.text(x, y, meta["label"][i], fontsize=4, color="white"))
 
     handles = [mpatches.Patch(color=c, label=g) for g, c in cmap_dict.items()]
-    ax.legend(handles=handles, title="Group", fontsize=8, title_fontsize=9,
-              loc=loc, framealpha=0.3, facecolor="#0f3460",
-              edgecolor="white", labelcolor="white",
-              ncol=4 if len(handles) > 12 else 1)
+
+    if labels is None:
+        ax.legend(handles=handles, title="Group", fontsize=8, title_fontsize=9,
+                loc=loc, framealpha=0.3, facecolor="#0f3460",
+                edgecolor="white", labelcolor="white",
+                ncol=4 if len(handles) > 12 else 1)
 
     ax.set_title(title, fontsize=14, color="white", pad=15)
     ax.tick_params(colors="#aaaaaa")
     for s in ax.spines.values():
         s.set_edgecolor("#333355")
+
+    if labels is None:
+        groups = meta["root"]
+    else:
+        groups = labels
 
     try:
         import mplcursors
@@ -227,7 +267,9 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="u
                 texte = programs[i]
             lignes = [
                 texte,
-                f"group: {meta['root'][i]}",
+                f"group: {groups[i]}",
+                f"root: {meta['root'][i]}",
+                meta["root"][i],
                 f"depth: {meta['depth'][i]}",
                 f"x, y : {coords[i, 0]:.2f}, {coords[i, 1]:.2f}",
             ]
@@ -243,8 +285,8 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="u
 
     adjust_text(
         texts,
-        x=[x for x, y in coords],
-        y=[y for x, y in coords],
+        x=[x for x, _ in coords],
+        y=[y for _, y in coords],
         ax=ax,
         arrowprops=dict(arrowstyle="->", color="gray", lw=0.8),
     )
@@ -255,7 +297,7 @@ def plot(coords, meta, title, save_path, show_labels=True, programs=None, loc="u
     print(f"[Saved] {save_path}")
     plt.show()
 
-def plot_3d(coords, meta, title, save_path, programs=None):
+def plot_3d(coords, meta, title, save_path, programs=None, labels=None):
     import plotly.graph_objects as go
     import plotly.express as px
 
@@ -267,22 +309,14 @@ def plot_3d(coords, meta, title, save_path, programs=None):
     # ------------------------------------------------------------------
     # Colors
     # ------------------------------------------------------------------
-    groups = meta["root"]
-    uniq = sorted(set(groups))
+    if labels is None:
+        groups = meta["root"]
+    else:
+        groups = labels
 
-    # Palette qualitative adapted to variable number of groups
-    palette = (
-        px.colors.qualitative.Alphabet
-        + px.colors.qualitative.Dark24
-        + px.colors.qualitative.Light24
-    )
+    colors, group_colors, label_groups, label_colors = assign_colors(programs, groups)
 
-    color_map = {
-        g: palette[i % len(palette)]
-        for i, g in enumerate(uniq)
-    }
-
-    colors = [color_map[g] for g in groups]
+    uniq = sorted(set(groups), key=str)
 
     # Point size by depth
     sizes = [
@@ -304,6 +338,7 @@ def plot_3d(coords, meta, title, save_path, programs=None):
         [
             [
                 texts[i],
+                groups[i],
                 meta["root"][i],
                 meta["depth"][i],
             ]
@@ -341,7 +376,8 @@ def plot_3d(coords, meta, title, save_path, programs=None):
                 "<b>%{customdata[0]}</b>"
                 "<br><br>"
                 "group: %{customdata[1]}"
-                "<br>depth: %{customdata[2]}"
+                "<br>root: %{customdata[2]}"
+                "<br>depth: %{customdata[3]}"
                 "<br>x: %{x:.3f}"
                 "<br>y: %{y:.3f}"
                 "<br>z: %{z:.3f}"
@@ -353,24 +389,25 @@ def plot_3d(coords, meta, title, save_path, programs=None):
     )
 
     # ------------------------------------------------------------------
-    # Legend : invisble trace by group
+    # Legend : invisible trace by group
     # ------------------------------------------------------------------
-    for group in uniq:
-        fig.add_trace(
-            go.Scatter3d(
-                x=[None],
-                y=[None],
-                z=[None],
-                mode="markers",
-                marker=dict(
-                    size=8,
-                    color=color_map[group],
-                ),
-                name=group,
-                showlegend=True,
-                hoverinfo="skip",
+    if labels is None:
+        for group in uniq:
+            fig.add_trace(
+                go.Scatter3d(
+                    x=[None],
+                    y=[None],
+                    z=[None],
+                    mode="markers",
+                    marker=dict(
+                        size=8,
+                        color=group_colors[group],
+                    ),
+                    name=str(group),
+                    showlegend=True,
+                    hoverinfo="skip",
+                )
             )
-        )
 
     # ------------------------------------------------------------------
     # Layout
@@ -481,6 +518,7 @@ def main():
     ap.add_argument("--type",    default="3d")
     ap.add_argument("--save",    default="")
     ap.add_argument("--loc",     default="upper left")
+    ap.add_argument("--distance",default=None)
     args = ap.parse_args()
 
     model = load_trained_model(args.model, args.device)
@@ -510,6 +548,62 @@ def main():
     print(f"[Embeddings] shape = {emb.shape}")
     print(f"[Embeddings] average norm = {np.linalg.norm(emb, axis=1).mean():.3f}")
 
+    distances = squareform(pdist(emb, metric="euclidean"))
+
+    if (args.distance is None):
+        """
+        D = cdist(emb, emb, metric="euclidean")
+        np.fill_diagonal(D, np.inf)
+        nearest_distances = D.min(axis=1)
+        args.distance = np.percentile(nearest_distances, 75)
+        """
+        k = 5
+        nn = NearestNeighbors(n_neighbors=k + 1, metric="euclidean")
+        nn.fit(emb)
+        nn_distances, _ = nn.kneighbors(emb)
+        knn_distances = nn_distances[:, 1:]
+        local_distance = knn_distances.mean(axis=1)
+        args.distance = np.median(local_distance)
+
+    if (args.distance):
+        threshold = float(args.distance)
+        
+        print("Threshold:", args.distance)
+        
+        from scipy.sparse import csr_matrix
+        from scipy.sparse.csgraph import connected_components
+
+        adjacency = distances <= threshold
+        np.fill_diagonal(adjacency, False)
+
+        n_groups, labels = connected_components(
+            csgraph=csr_matrix(adjacency),
+            directed=False,
+            return_labels=True,
+        )
+        
+        print("Number of groups:", n_groups)
+
+        from collections import defaultdict
+
+        groups = defaultdict(list)
+
+        for i, group_id in enumerate(labels):
+            groups[group_id].append(programs[i])
+            
+        with open(f"legend_{args.level}_{args.method}_{args.dataset.replace('.txt', '')}.md", "w", encoding="utf-8") as f:
+            f.write("# Latent Groups of Latent Proximity\n\n")
+            f.write(f"Distance : `{threshold}`\n\n")
+
+            f.write("| Group | Program |\n")
+            f.write("|---:|---|\n")
+
+            for group_id in sorted(groups):
+                for program in sorted(groups[group_id]):
+                    f.write(f"| {group_id} | `{program}` |\n")
+    else:
+        labels = None
+
     cohesion_report(emb, meta["root"])
 
     save = args.save or f"embeddings_{args.level}_{args.method}_{args.dataset.replace('.txt', '')}"
@@ -519,13 +613,13 @@ def main():
 
         coords = reduce_dim(emb, args.method)
 
-        plot(coords, meta, title, save, programs=programs if args.level == "program" else names, loc=args.loc)
+        plot(coords, meta, title, save, programs=programs if args.level == "program" else names, loc=args.loc, labels=labels)
     elif args.type == "3d":
         save += ".html"
 
         coords = reduce_dim_3d(emb, args.method,)
 
-        plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names)
+        plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names, labels=labels)
 
 if __name__ == "__main__":
     main()
