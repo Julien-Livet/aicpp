@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d --distance 2
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d --distance 2
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d --group distance --distance 2
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d --group distance --distance 2
 ================================================================================
 """
 
@@ -519,6 +519,7 @@ def main():
     ap.add_argument("--save",    default="")
     ap.add_argument("--loc",     default="upper left")
     ap.add_argument("--distance",default=None)
+    ap.add_argument("--group",  choices=["family", "distance"], default="distance")
     args = ap.parse_args()
 
     model = load_trained_model(args.model, args.device)
@@ -548,59 +549,62 @@ def main():
     print(f"[Embeddings] shape = {emb.shape}")
     print(f"[Embeddings] average norm = {np.linalg.norm(emb, axis=1).mean():.3f}")
 
-    distances = squareform(pdist(emb, metric="euclidean"))
+    if args.group == "distance":
+        distances = squareform(pdist(emb, metric="euclidean"))
 
-    if (args.distance is None):
-        """
-        D = cdist(emb, emb, metric="euclidean")
-        np.fill_diagonal(D, np.inf)
-        nearest_distances = D.min(axis=1)
-        args.distance = np.percentile(nearest_distances, 75)
-        """
-        k = 5
-        nn = NearestNeighbors(n_neighbors=k + 1, metric="euclidean")
-        nn.fit(emb)
-        nn_distances, _ = nn.kneighbors(emb)
-        knn_distances = nn_distances[:, 1:]
-        local_distance = knn_distances.mean(axis=1)
-        args.distance = np.median(local_distance)
+        if (args.distance is None):
+            """
+            D = cdist(emb, emb, metric="euclidean")
+            np.fill_diagonal(D, np.inf)
+            nearest_distances = D.min(axis=1)
+            args.distance = np.percentile(nearest_distances, 75)
+            """
+            k = 5
+            nn = NearestNeighbors(n_neighbors=k + 1, metric="euclidean")
+            nn.fit(emb)
+            nn_distances, _ = nn.kneighbors(emb)
+            knn_distances = nn_distances[:, 1:]
+            local_distance = knn_distances.mean(axis=1)
+            args.distance = np.median(local_distance)
 
-    if (args.distance):
-        threshold = float(args.distance)
-        
-        print("Threshold:", args.distance)
-        
-        from scipy.sparse import csr_matrix
-        from scipy.sparse.csgraph import connected_components
-
-        adjacency = distances <= threshold
-        np.fill_diagonal(adjacency, False)
-
-        n_groups, labels = connected_components(
-            csgraph=csr_matrix(adjacency),
-            directed=False,
-            return_labels=True,
-        )
-        
-        print("Number of groups:", n_groups)
-
-        from collections import defaultdict
-
-        groups = defaultdict(list)
-
-        for i, group_id in enumerate(labels):
-            groups[group_id].append(programs[i])
+        if (args.distance):
+            threshold = float(args.distance)
             
-        with open(f"legend_{args.level}_{args.method}_{args.dataset.replace('.txt', '')}.md", "w", encoding="utf-8") as f:
-            f.write("# Latent Groups of Latent Proximity\n\n")
-            f.write(f"Distance : `{threshold}`\n\n")
+            print("Threshold:", args.distance)
+            
+            from scipy.sparse import csr_matrix
+            from scipy.sparse.csgraph import connected_components
 
-            f.write("| Group | Program |\n")
-            f.write("|---:|---|\n")
+            adjacency = distances <= threshold
+            np.fill_diagonal(adjacency, False)
 
-            for group_id in sorted(groups):
-                for program in sorted(groups[group_id]):
-                    f.write(f"| {group_id} | `{program}` |\n")
+            n_groups, labels = connected_components(
+                csgraph=csr_matrix(adjacency),
+                directed=False,
+                return_labels=True,
+            )
+            
+            print("Number of groups:", n_groups)
+
+            from collections import defaultdict
+
+            groups = defaultdict(list)
+
+            for i, group_id in enumerate(labels):
+                groups[group_id].append(programs[i])
+                
+            with open(f"legend_{args.level}_{args.method}_{args.dataset.replace('.txt', '')}.md", "w", encoding="utf-8") as f:
+                f.write("# Latent Groups of Latent Proximity\n\n")
+                f.write(f"Distance : `{threshold}`\n\n")
+
+                f.write("| Group | Program |\n")
+                f.write("|---:|---|\n")
+
+                for group_id in sorted(groups):
+                    for program in sorted(groups[group_id]):
+                        f.write(f"| {group_id} | `{program}` |\n")
+        else:
+            labels = None
     else:
         labels = None
 
@@ -610,14 +614,12 @@ def main():
 
     if args.type == "2d":
         save += ".png"
-
         coords = reduce_dim(emb, args.method)
 
         plot(coords, meta, title, save, programs=programs if args.level == "program" else names, loc=args.loc, labels=labels)
     elif args.type == "3d":
         save += ".html"
-
-        coords = reduce_dim_3d(emb, args.method,)
+        coords = reduce_dim_3d(emb, args.method)
 
         plot_3d(coords, meta, title, save, programs=programs if args.level == "program" else names, labels=labels)
 
