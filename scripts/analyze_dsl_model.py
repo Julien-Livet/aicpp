@@ -1,7 +1,7 @@
 """
 Usage :
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d --group distance --distance 2
-  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d --group distance --distance 2
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method tsne --dataset dsl_dataset_depth1.txt --type 3d --distance knn
+  python analyze_dsl_model.py --model dsl_model.pt --level program --n 10000 --device cuda --method umap --dataset dsl_dataset_depth1.txt --type 3d --distance knn
 ================================================================================
 """
 
@@ -518,8 +518,7 @@ def main():
     ap.add_argument("--type",    default="3d")
     ap.add_argument("--save",    default="")
     ap.add_argument("--loc",     default="upper left")
-    ap.add_argument("--distance",default=None)
-    ap.add_argument("--group",  choices=["family", "distance"], default="distance")
+    ap.add_argument("--distance",default="",help="Distance threshold for grouping programs by proximity [knn, near, float]")
     args = ap.parse_args()
 
     model = load_trained_model(args.model, args.device)
@@ -549,16 +548,15 @@ def main():
     print(f"[Embeddings] shape = {emb.shape}")
     print(f"[Embeddings] average norm = {np.linalg.norm(emb, axis=1).mean():.3f}")
 
-    if args.group == "distance":
+    if (args.distance != ""):
         distances = squareform(pdist(emb, metric="euclidean"))
 
-        if (args.distance is None):
-            """
+        if (args.distance == "near"):
             D = cdist(emb, emb, metric="euclidean")
             np.fill_diagonal(D, np.inf)
             nearest_distances = D.min(axis=1)
             args.distance = np.percentile(nearest_distances, 75)
-            """
+        elif (args.distance == "knn"):
             k = 5
             nn = NearestNeighbors(n_neighbors=k + 1, metric="euclidean")
             nn.fit(emb)
@@ -567,11 +565,11 @@ def main():
             local_distance = knn_distances.mean(axis=1)
             args.distance = np.median(local_distance)
 
-        if (args.distance):
+        if (args.distance != ""):
             threshold = float(args.distance)
-            
+
             print("Threshold:", args.distance)
-            
+
             from scipy.sparse import csr_matrix
             from scipy.sparse.csgraph import connected_components
 
