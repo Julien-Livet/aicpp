@@ -17,7 +17,7 @@ from typing import Dict, Tuple
 modelFilename = "dsl_model.pt"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-MAX_COUNT = 100
+MAX_COUNT = 1000
 
 def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
     testPairs: list = [(ex["input"], ex["output"]) for ex in data["test"]]
