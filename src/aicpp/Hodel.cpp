@@ -152,27 +152,48 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
         auto const y{std::any_cast<hodel::Numerical>(b)};
 
         if (std::holds_alternative<hodel::IntegerType>(x) && std::holds_alternative<hodel::IntegerType>(y))
-            return op(std::get<hodel::IntegerType>(x), std::get<hodel::IntegerType>(y));
+        {
+            auto const& x_{std::get<hodel::IntegerType>(x)};
+            auto const& y_{std::get<hodel::IntegerType>(y)};
+            auto const z{op(x_, y_)};
+
+            if (z == x_ || z == y_)
+                return std::any{};
+            
+            return z;
+        }
         else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
         {
             auto const& c{std::get<hodel::IntegerTuple>(x)};
             auto const& d{std::get<hodel::IntegerTuple>(y)};
+            hodel::IntegerTuple const z{op(c.first, d.first), op(c.second, d.second)};
 
-            return hodel::IntegerTuple{op(c.first, d.first), op(c.second, d.second)};
+            if (z == c || z == d)
+                return std::any{};
+            
+            return z;
         }
         else if (std::holds_alternative<hodel::IntegerType>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
         {
             auto const& c{std::get<hodel::IntegerType>(x)};
             auto const& d{std::get<hodel::IntegerTuple>(y)};
+            hodel::IntegerTuple const z{op(c, d.first), op(c, d.second)};
 
-            return hodel::IntegerTuple{op(c, d.first), op(c, d.second)};
+            if (z == d)
+                return std::any{};
+            
+            return z;
         }
         else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::IntegerType>(y))
         {
             auto const& c{std::get<hodel::IntegerTuple>(x)};
             auto const& d{std::get<hodel::IntegerType>(y)};
+            hodel::IntegerTuple const z{op(c.first, d), op(c.second, d)};
 
-            return hodel::IntegerTuple{op(c.first, d), op(c.second, d)};
+            if (z == c)
+                return std::any{};
+            
+            return z;
         }
     }
     else if (a.type() == typeid(hodel::IntegerType))
@@ -214,8 +235,12 @@ std::any hodel::add(std::vector<std::any> const& args)
 
     auto const a{args[0]};
     auto const b{args[1]};
+    auto const result{do_op(a, b, std::plus<IntegerType>{})};
 
-    return do_op(a, b, std::plus<IntegerType>{});
+    if (!result.has_value())
+        throw std::runtime_error{"Wrong value"};
+
+    return result;
 }
 
 std::any hodel::subtract(std::vector<std::any> const& args)
@@ -226,7 +251,12 @@ std::any hodel::subtract(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    return do_op(a, b, std::minus<IntegerType>{});
+    auto const result{do_op(a, b, std::minus<IntegerType>{})};
+
+    if (!result.has_value())
+        throw std::runtime_error{"Wrong value"};
+
+    return result;
 }
 
 std::any hodel::multiply(std::vector<std::any> const& args)
@@ -237,7 +267,12 @@ std::any hodel::multiply(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    return do_op(a, b, std::multiplies<IntegerType>{});
+    auto const result{do_op(a, b, std::multiplies<IntegerType>{})};
+
+    if (!result.has_value())
+        throw std::runtime_error{"Wrong value"};
+
+    return result;
 }
 
 std::any hodel::divide(std::vector<std::any> const& args)
@@ -280,7 +315,12 @@ std::any hodel::divide(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
     }
 
-    return do_op(a, b, std::divides<IntegerType>{});
+    auto const result{do_op(a, b, std::divides<IntegerType>{})};
+
+    if (!result.has_value())
+        throw std::runtime_error{"Wrong value"};
+
+    return result;
 }
 
 std::any hodel::invert(std::vector<std::any> const& args)
