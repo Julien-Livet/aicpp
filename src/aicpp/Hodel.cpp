@@ -3246,3 +3246,93 @@ hodel::Integer hodel::vperiod(Object const &obj)
 
     return h;
 }
+
+hodel::Grid hodel::pair(IntegerVector const& a, IntegerVector const &b)
+{
+    if (a.size() != b.size())
+        throw InvalidIntegerVector{"pair"};
+
+    Grid result;
+    result.reserve(a.size());
+
+    try
+    {
+        for (size_t i = 0; i < a.size(); ++i)
+            result.emplace_back(a.at(i), b.at(i));
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidIntegerVector{"pair"};
+    }
+
+    return result;
+}
+
+hodel::Integer hodel::size(Objects const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(ObjectVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(ObjectsVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(IndicesSet const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(IntegerSet const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(Grid const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(GridVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(IntegerTuple const& container)
+{
+    return 2;
+}
+
+hodel::Integer hodel::size(IndicesVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
