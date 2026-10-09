@@ -32,6 +32,14 @@ namespace hodel
             }
     };
 
+    class IdentityObjects : public std::runtime_error
+    {
+        public:
+            IdentityObjects(std::string const& name) : std::runtime_error{name}
+            {
+            }
+    };
+
     class IdentityIndices : public std::runtime_error
     {
         public:
@@ -428,6 +436,25 @@ namespace hodel
     Indices ofcolor(Grid const& grid, Integer const& value); //indices of all grid cells with value
     Integer colorcount(Grid const& element, Integer const& value); //number of cells with color
     Integer colorcount(Object const& element, Integer const& value); //number of cells with color
+    Objects colorfilter(Objects const& objs, Integer const& value); //filter object by color
+    Objects objects(Grid const& grid, Boolean const& univalued, Boolean const& diagonal, Boolean const& without_bg); //objects occurring on the grid
+    Objects partition(Grid const& grid); //each cell with the same value part of the same object
+    Objects fgpartition(Grid const& grid); //each cell with the same value part of the same object without background
+    Indices asindices(Grid const& grid); //indices of all grid cells
+    Boolean equality(Boolean const& a, Boolean const& b); //equality
+    Boolean equality(Integer const& a, Integer const& b); //equality
+    Boolean equality(IntegerTuple const& a, IntegerTuple const& b); //equality
+    Boolean equality(Indices const& a, Indices const& b); //equality
+    Boolean equality(Object const& a, Object const& b); //equality
+    Boolean equality(Grid const& a, Grid const& b); //equality
+    Boolean equality(GridVector const& a, GridVector const& b); //equality
+    Boolean equality(IntegerVector const& a, IntegerVector const& b); //equality
+    Boolean equality(IndicesSet const& a, IndicesSet const& b); //equality
+    Boolean equality(IntegerSet const& a, IntegerSet const& b); //equality
+    Boolean equality(Objects const& a, Objects const& b); //equality
+    Boolean equality(ObjectVector const& a, ObjectVector const& b); //equality
+    Boolean equality(ObjectsVector const& a, ObjectsVector const& b); //equality
+    Boolean equality(IndicesVector const& a, IndicesVector const& b); //equality
 }
 
 #endif // AICPP_HODEL_H
