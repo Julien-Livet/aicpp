@@ -1761,3 +1761,169 @@ hodel::Indices hodel::neighbors(IntegerTuple const& loc)
 
     return result;
 }
+
+hodel::Object hodel::recolor(Integer const& value, Object const& patch)
+{
+    return recolor(value, toindices(patch));
+}
+
+hodel::Object hodel::recolor(Integer const& value, Indices const& patch)
+{
+    Object object;
+
+    for (auto const& index : patch)
+        object.emplace(value, index);
+
+    if (toindices(object) == patch)
+        throw IdentityObject{"recolor"};
+
+    return object;
+}
+
+hodel::Boolean hodel::square(Grid const& piece)
+{
+    try
+    {
+        return piece.size() == piece.at(0).size();
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"square"};
+    }
+}
+
+hodel::Boolean hodel::square(Object const& piece)
+{
+    auto const h{height(piece)};
+    auto const w{width(piece)};
+    auto const l{static_cast<Integer>(piece.size())};
+
+    return h * w == l && h == w;
+}
+
+hodel::Boolean hodel::square(Indices const& piece)
+{
+    auto const h{height(piece)};
+    auto const w{width(piece)};
+    auto const l{static_cast<Integer>(piece.size())};
+
+    return h * w == l && h == w;
+}
+
+hodel::Boolean hodel::vline(Object const& patch)
+{
+    auto const h{height(patch)};
+    auto const w{width(patch)};
+    auto const l{patch.size()};
+
+    return h == l && w == 1;
+}
+
+hodel::Boolean hodel::vline(Indices const& patch)
+{
+    auto const h{height(patch)};
+    auto const w{width(patch)};
+    auto const l{patch.size()};
+
+    return h == l && w == 1;
+}
+
+hodel::Boolean hodel::hline(Object const& patch)
+{
+    auto const h{height(patch)};
+    auto const w{width(patch)};
+    auto const l{patch.size()};
+
+    return w == l && h == 1;
+}
+
+hodel::Integer hodel::height(Grid const& piece)
+{
+    if (piece.size() == 0)
+        throw InvalidGrid{"height"};
+
+    return static_cast<Integer>(piece.size());
+}
+
+hodel::Integer hodel::height(Object const& piece)
+{
+    auto const lm{lowermost(piece)};
+    auto const um{uppermost(piece)};
+
+    return static_cast<Integer>(lm - um + 1);
+}
+
+hodel::Integer hodel::height(Indices const& piece)
+{
+    auto const lm{lowermost(piece)};
+    auto const um{uppermost(piece)};
+
+    return static_cast<Integer>(lm - um + 1);
+}
+
+hodel::Integer hodel::width(Grid const& piece)
+{
+    try
+    {
+        return static_cast<Integer>(piece.at(0).size());
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"width"};
+    }
+}
+
+hodel::Integer hodel::width(Object const& piece)
+{
+    auto const rm{rightmost(piece)};
+    auto const lm{leftmost(piece)};
+
+    return static_cast<Integer>(rm - lm + 1);
+}
+
+hodel::Integer hodel::width(Indices const& piece)
+{
+    auto const rm{rightmost(piece)};
+    auto const lm{leftmost(piece)};
+
+    return static_cast<Integer>(rm - lm + 1);
+}
+
+hodel::IntegerTuple hodel::shape(Grid const& piece)
+{
+    return {height(piece), width(piece)};
+}
+
+hodel::IntegerTuple hodel::shape(Object const& piece)
+{
+    return {height(piece), width(piece)};
+}
+
+hodel::IntegerTuple hodel::shape(Indices const& piece)
+{
+    return {height(piece), width(piece)};
+}
+
+hodel::Boolean hodel::portrait(Grid const& piece)
+{
+    auto const h{height(piece)};
+    auto const w{width(piece)};
+
+    return h > w;
+}
+
+hodel::Boolean hodel::portrait(Object const& piece)
+{
+    auto const h{height(piece)};
+    auto const w{width(piece)};
+
+    return h > w;
+}
+
+hodel::Boolean hodel::portrait(Indices const& piece)
+{
+    auto const h{height(piece)};
+    auto const w{width(piece)};
+
+    return h > w;
+}
