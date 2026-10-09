@@ -403,6 +403,20 @@ namespace hodel
     Boolean portrait(Grid const& piece); //whether height is greater than width 
     Boolean portrait(Object const& piece); //whether height is greater than width 
     Boolean portrait(Indices const& piece); //whether height is greater than width
+    Boolean branch(Boolean const& condition, Boolean const& a, Boolean const& b); //if else branching
+    Integer branch(Boolean const& condition, Integer const& a, Integer const& b); //if else branching
+    IntegerTuple branch(Boolean const& condition, IntegerTuple const& a, IntegerTuple const& b); //if else branching
+    Indices branch(Boolean const& condition, Indices const& a, Indices const& b); //if else branching
+    Object branch(Boolean const& condition, Object const& a, Object const& b); //if else branching
+    Grid branch(Boolean const& condition, Grid const& a, Grid const& b); //if else branching
+    GridVector branch(Boolean const& condition, GridVector const& a, GridVector const& b); //if else branching
+    IntegerVector branch(Boolean const& condition, IntegerVector const& a, IntegerVector const& b); //if else branching
+    IndicesSet branch(Boolean const& condition, IndicesSet const& a, IndicesSet const& b); //if else branching
+    IntegerSet branch(Boolean const& condition, IntegerSet const& a, IntegerSet const& b); //if else branching
+    Objects branch(Boolean const& condition, Objects const& a, Objects const& b); //if else branching
+    ObjectVector branch(Boolean const& condition, ObjectVector const& a, ObjectVector const& b); //if else branching
+    ObjectsVector branch(Boolean const& condition, ObjectsVector const& a, ObjectsVector const& b); //if else branching
+    IndicesVector branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b); //if else branching
 }
 
 #endif // AICPP_HODEL_H
