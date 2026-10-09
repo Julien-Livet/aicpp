@@ -1715,3 +1715,19 @@ hodel::Grid hodel::compress(Grid const& grid)
         throw InvalidGrid{"compress"};
     }
 }
+
+hodel::Object hodel::normalize(Object const& patch)
+{
+    if (patch.empty())
+        throw EmptyObject{"normalize"};
+
+    return shift(patch, IntegerTuple{static_cast<Integer>(-uppermost(patch)), static_cast<Integer>(-leftmost(patch))});
+}
+
+hodel::Indices hodel::normalize(Indices const& patch)
+{
+    if (patch.empty())
+        throw EmptyIndices{"normalize"};
+
+    return shift(patch, IntegerTuple{static_cast<Integer>(-uppermost(patch)), static_cast<Integer>(-leftmost(patch))});
+}
