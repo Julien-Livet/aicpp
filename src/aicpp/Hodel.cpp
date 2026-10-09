@@ -8,6 +8,31 @@
 constexpr hodel::Integer MAX_SIZE = 30;
 constexpr size_t SHOOT_DISTANCE = 42;
 
+using IntegerCountMap = std::map<hodel::Integer, hodel::Integer>;
+
+IntegerCountMap colorCounts(hodel::Grid const& element)
+{
+    IntegerCountMap counts;
+
+    for (auto const& row : element)
+    {
+        for (auto const& color : row)
+            ++counts[color];
+    }
+
+    return counts;
+}
+
+IntegerCountMap colorCounts(hodel::Object const& element)
+{
+    IntegerCountMap counts;
+
+    for (auto const& [color, position] : element)
+        ++counts[color];
+
+    return counts;
+}
+
 hodel::Integer hodel::add(Integer const& a, Integer const& b)
 {
     auto const r{a + b};
@@ -1996,4 +2021,178 @@ hodel::ObjectsVector hodel::branch(Boolean const& condition, ObjectsVector const
 hodel::IndicesVector hodel::branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b)
 {
     return condition ? a : b;
+}
+
+hodel::Integer hodel::color(Object const& object)
+{
+    if (object.empty())
+        throw EmptyObject{"color"};
+
+    return object.begin()->first;
+}
+
+hodel::Object hodel::toobject(Object const& patch, Grid const& grid)
+{
+    return toobject(toindices(patch), grid);
+}
+
+hodel::Object hodel::toobject(Indices const& patch, Grid const& grid)
+{
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+
+        Object object;
+
+        for (auto const& [i, j] : patch)
+        {
+            if (0 <= i && i < h && 0 <= j && j < w)
+                object.emplace(grid.at(i).at(j), IntegerTuple{i, j});
+        }
+
+        return object;
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"toobject"};
+    }
+}
+
+hodel::Object hodel::asobject(Grid const &grid)
+{
+    try
+    {
+        Object object;
+
+        for (size_t i = 0; i < grid.size(); ++i)
+        {
+            for (size_t j = 0; j < grid.at(i).size(); ++j)
+                object.emplace(grid.at(i).at(j), IntegerTuple{static_cast<Integer>(i), static_cast<Integer>(j)});
+        }
+
+        return object;
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"asobject"};
+    }
+}
+
+hodel::Integer hodel::mostcolor(Grid const& element)
+{
+    auto const counts{colorCounts(element)};
+
+    auto const it = std::max_element(
+        counts.begin(),
+        counts.end(),
+        [] (auto const& a, auto const& b)
+        {
+            return a.second < b.second;
+        });
+
+    if (it == counts.end())
+        throw InvalidGrid{"mostcolor"};
+
+    return it->first;
+}
+
+hodel::Integer hodel::mostcolor(Object const& element)
+{
+    auto const counts{colorCounts(element)};
+
+    auto const it = std::max_element(
+        counts.begin(),
+        counts.end(),
+        [] (auto const& a, auto const& b)
+        {
+            return a.second < b.second;
+        });
+
+    if (it == counts.end())
+        throw InvalidGrid{"mostcolor"};
+
+    return it->first;
+}
+
+hodel::Integer hodel::leastcolor(Grid const& element)
+{
+    auto const counts{colorCounts(element)};
+
+    auto const it = std::min_element(
+        counts.begin(),
+        counts.end(),
+        [] (auto const& a, auto const& b)
+        {
+            return a.second < b.second;
+        });
+
+    if (it == counts.end())
+        throw InvalidGrid{"leastcolor"};
+
+    return it->first;
+}
+
+hodel::Integer hodel::leastcolor(Object const& element)
+{
+    auto const counts{colorCounts(element)};
+
+    auto const it = std::min_element(
+        counts.begin(),
+        counts.end(),
+        [] (auto const& a, auto const& b)
+        {
+            return a.second < b.second;
+        });
+
+    if (it == counts.end())
+        throw InvalidGrid{"leastcolor"};
+
+    return it->first;
+}
+
+hodel::Indices hodel::ofcolor(Grid const& grid, Integer const& value)
+{
+    Indices indices;
+
+    try
+    {
+        for (size_t i{0}; i < grid.size(); ++i)
+        {
+            for (size_t j{0}; j < grid.at(i).size(); ++j)
+            {
+                if (grid.at(i).at(j) == value)
+                    indices.emplace(i, j);
+            }
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"ofcolor"};
+    }
+
+    return indices;
+}
+
+hodel::Integer hodel::colorcount(Grid const& element, Integer const& value)
+{
+    Integer count = 0;
+
+    for (auto const& row : element)
+        count += std::count(row.begin(), row.end(), value);
+
+    return count;
+}
+
+hodel::Integer hodel::colorcount(Object const& element, Integer const& value)
+{
+    Integer count = 0;
+
+    for (auto const& [color, position] : element)
+    {
+        if (color == value)
+            ++count;
+    }
+
+    return count;
 }
