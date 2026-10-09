@@ -2662,8 +2662,8 @@ std::any hodel::height(std::vector<std::any> const& args)
     {
         auto const object{std::any_cast<ObjectType>(piece)};
 
-        auto const lm{std::any_cast<IntegerType>(rightmost({object}))};
-        auto const um{std::any_cast<IntegerType>(leftmost({object}))};
+        auto const lm{std::any_cast<IntegerType>(lowermost({object}))};
+        auto const um{std::any_cast<IntegerType>(uppermost({object}))};
 
         return lm - um + IntegerType{1};
     }
