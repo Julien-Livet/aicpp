@@ -74,7 +74,7 @@ namespace hodel
     typedef std::tuple<IntegerVector, GridType, ObjectType> AnyVector3;
     typedef std::tuple<ObjectType, IndicesType> AnySet2;
     typedef std::vector<IntegerTuple> TupleVector;
-    
+
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
     //Num1 add(Num2, Num3)
@@ -87,7 +87,7 @@ namespace hodel
     std::any divide(std::vector<std::any> const& args); //floor division
     //Numerical invert(Numerical)
     std::any invert(std::vector<std::any> const& args); //inversion with respect to addition
-    //Boolean even(Numerical)
+    //Boolean even(Integer)
     std::any even(std::vector<std::any> const& args); //evenness
     //Numerical double_(Numerical)
     std::any double_(std::vector<std::any> const& args); //scaling by two
@@ -336,7 +336,7 @@ namespace hodel
     //IntegerType width(Piece)
     std::any width(std::vector<std::any> const& args); //width of grid or patch
     //IntegerTuple shape(Piece)
-    std::any shape(std::vector<std::any> const& args); //height and width of grid or patch 
+    std::any shape(std::vector<std::any> const& args); //height and width of grid or patch
     //Boolean portrait(Piece)
     std::any portrait(std::vector<std::any> const& args); //whether height is greater than width
     //IntegerType colorcount(Element, IntegerType)
