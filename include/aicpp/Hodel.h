@@ -48,6 +48,14 @@ namespace hodel
             }
     };
 
+    class InvalidIntegerVector : public std::runtime_error
+    {
+        public:
+            InvalidIntegerVector(std::string const& name) : std::runtime_error{name}
+            {
+            }
+    };
+
     class InvalidIntegerTuple : public std::runtime_error
     {
         public:
@@ -519,6 +527,16 @@ namespace hodel
     Objects frontiers(Grid const& grid); //set of frontiers
     Integer hperiod(Object const& obj); //horizontal periodicity
     Integer vperiod(Object const& obj); //vertical periodicity
+    Grid pair(IntegerVector const& a, IntegerVector const &b); //zipping of two tuples
+    Integer size(Objects const& container); //cardinality
+    Integer size(ObjectVector const& container); //cardinality
+    Integer size(ObjectsVector const& container); //cardinality
+    Integer size(IndicesSet const& container); //cardinality
+    Integer size(IntegerSet const& container); //cardinality
+    Integer size(Grid const& container); //cardinality
+    Integer size(GridVector const& container); //cardinality
+    Integer size(IntegerTuple const& container); //cardinality
+    Integer size(IndicesVector const& container); //cardinality
 }
 
 #endif // AICPP_HODEL_H
