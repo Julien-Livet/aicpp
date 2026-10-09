@@ -3,6 +3,7 @@
 
 #include <set>
 #include <stdexcept>
+#include <variant>
 #include <vector>
 
 namespace hodel
@@ -212,6 +213,43 @@ namespace hodel
     typedef std::vector<Object> ObjectVector;
     typedef std::vector<Objects> ObjectsVector;
 
+    enum class Type
+    {
+        Boolean,
+        Integer,
+        IntegerTuple,
+        IntegerSet,
+        Grid,
+        Cell,
+        Object,
+        Objects,
+        Indices,
+        IndicesSet,
+        GridVector,
+        IntegerVector,
+        IndicesVector,
+        ObjectVector,
+        ObjectsVector
+    };
+
+    using Value = std::variant<
+        hodel::Boolean,
+        hodel::Integer,
+        hodel::IntegerTuple,
+        hodel::IntegerSet,
+        hodel::Grid,
+        hodel::Cell,
+        hodel::Object,
+        hodel::Objects,
+        hodel::Indices,
+        hodel::IndicesSet,
+        hodel::GridVector,
+        hodel::IntegerVector,
+        hodel::IndicesVector,
+        hodel::ObjectVector,
+        hodel::ObjectsVector
+    >;
+
     Boolean constexpr F = false;
     Boolean constexpr T = true;
 
@@ -341,6 +379,9 @@ namespace hodel
     Grid compress(Grid const& grid); //removes frontiers from grid
     Object normalize(Object const& patch); //moves upper left corner to origin
     Indices normalize(Indices const& patch); //moves upper left corner to origin
+    Indices dneighbors(IntegerTuple const& loc); //directly adjacent indices
+    Indices ineighbors(IntegerTuple const& loc); //diagonally adjacent indices
+    Indices neighbors(IntegerTuple const& loc); //adjacent indices
 }
 
 #endif // AICPP_HODEL_H
