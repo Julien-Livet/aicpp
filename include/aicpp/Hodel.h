@@ -537,6 +537,20 @@ namespace hodel
     Integer size(GridVector const& container); //cardinality
     Integer size(IntegerTuple const& container); //cardinality
     Integer size(IndicesVector const& container); //cardinality
+    Boolean identity(Boolean const& x); //identity function
+    Integer identity(Integer const& x); //identity function
+    IntegerTuple identity(IntegerTuple const& x); //identity function
+    Indices identity(Indices const& x); //identity function
+    Object identity(Object const& x); //identity function
+    Grid identity(Grid const& x); //identity function
+    GridVector identity(GridVector const& x); //identity function
+    IntegerVector identity(IntegerVector const& x); //identity function
+    IndicesSet identity(IndicesSet const& x); //identity function
+    IntegerSet identity(IntegerSet const& x); //identity function
+    Objects identity(Objects const& x); //identity function
+    ObjectVector identity(ObjectVector const& x); //identity function
+    ObjectsVector identity(ObjectsVector const& x); //identity function
+    IndicesVector identity(IndicesVector const& x); //identity function
 }
 
 #endif // AICPP_HODEL_H
