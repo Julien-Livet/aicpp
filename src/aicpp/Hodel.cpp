@@ -2196,3 +2196,246 @@ hodel::Integer hodel::colorcount(Object const& element, Integer const& value)
 
     return count;
 }
+
+hodel::Objects hodel::colorfilter(Objects const& objs, Integer const& value)
+{
+    Objects result;
+
+    for (auto const& obj : objs)
+    {
+        if (!obj.empty() && obj.begin()->first == value)
+            result.emplace(obj);
+    }
+    
+    if (objs == result)
+        throw IdentityObjects{"colorfilter"};
+
+    return result;
+}
+
+hodel::Objects hodel::objects(Grid const& grid, Boolean const& univalued, Boolean const& diagonal, Boolean const& without_bg)
+{
+    Objects objs;
+
+    try
+    {
+        auto const h = grid.size();
+        auto const w = grid.at(0).size();
+
+        auto const bg = without_bg ? mostcolor(grid) : Integer{-1};
+
+        Indices occupied;
+        auto unvisited = asindices(grid);
+
+        for (auto const& loc : unvisited)
+        {
+            if (occupied.count(loc))
+                continue;
+
+            auto const val = grid.at(loc.first).at(loc.second);
+
+            if (without_bg && val == bg)
+                continue;
+
+            Object obj;
+            Indices candidates{loc};
+
+            while (!candidates.empty())
+            {
+                Indices neighborhood;
+
+                for (auto const& cand : candidates)
+                {
+                    if (occupied.count(cand))
+                        continue;
+
+                    auto const v = grid.at(cand.first).at(cand.second);
+
+                    if ((univalued && v == val) ||
+                        (!univalued && (!without_bg || v != bg)))
+                    {
+                        obj.emplace(v, cand);
+                        occupied.insert(cand);
+
+                        auto const neigh = diagonal ? neighbors(cand) : dneighbors(cand);
+
+                        for (auto const& p : neigh)
+                        {
+                            auto const i = p.first;
+                            auto const j = p.second;
+
+                            if (0 <= i && i < h && 0 <= j && j < w)
+                                neighborhood.insert(p);
+                        }
+                    }
+                }
+
+                candidates.clear();
+
+                for (const auto& p : neighborhood)
+                {
+                    if (!occupied.count(p))
+                        candidates.insert(p);
+                }
+            }
+
+            objs.insert(std::move(obj));
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"objects"};
+    }
+
+    return objs;
+}
+
+hodel::Objects hodel::partition(Grid const& grid)
+{
+    std::map<Integer, Object> objectsByColor;
+    Objects result;
+
+    try
+    {
+        for (size_t i = 0; i < grid.size(); ++i)
+        {
+            for (size_t j = 0; j < grid.at(i).size(); ++j)
+            {
+                auto const color = grid.at(i).at(j);
+                objectsByColor[color].emplace(color, IntegerTuple{static_cast<Integer>(i), static_cast<Integer>(j)});
+            }
+        }
+
+        for (auto& [color, object] : objectsByColor)
+            result.insert(std::move(object));
+
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"partition"};
+    }
+
+    return result;
+}
+
+hodel::Objects hodel::fgpartition(Grid const& grid)
+{
+    std::map<Integer, Object> objectsByColor;
+    Objects result;
+
+    try
+    {
+        for (size_t i = 0; i < grid.size(); ++i)
+        {
+            for (size_t j = 0; j < grid.at(i).size(); ++j)
+            {
+                auto const color = grid.at(i).at(j);
+                objectsByColor[color].emplace(color, IntegerTuple{static_cast<Integer>(i), static_cast<Integer>(j)});
+            }
+        }
+
+        auto const bg{mostcolor(grid)};
+
+        for (auto& [color, object] : objectsByColor)
+        {
+            if (color != bg)
+                result.insert(std::move(object));
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw std::runtime_error{"Wrong value"};
+    }
+
+    return result;
+}
+
+hodel::Indices hodel::asindices(Grid const& grid)
+{
+    Indices indices;
+
+    try
+    {
+        for (size_t i{0}; i < grid.size(); ++i)
+        {
+            for (size_t j{0}; j < grid.at(0).size(); ++j)
+                indices.emplace(i, j);
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"asindices"};
+    }
+
+    return indices;
+}
+
+hodel::Boolean hodel::equality(Boolean const& a, Boolean const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(Integer const& a, Integer const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(IntegerTuple const& a, IntegerTuple const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(Indices const& a, Indices const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(Object const& a, Object const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(Grid const& a, Grid const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(GridVector const& a, GridVector const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(IntegerVector const& a, IntegerVector const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(IndicesSet const& a, IndicesSet const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(IntegerSet const& a, IntegerSet const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(Objects const& a, Objects const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(ObjectVector const& a, ObjectVector const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(ObjectsVector const& a, ObjectsVector const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(IndicesVector const& a, IndicesVector const& b)
+{
+    return a == b;
+}
