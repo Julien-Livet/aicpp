@@ -144,7 +144,7 @@ the observed transformations.
 - `leastcolor`: least common color
 - `height`: height of grid or patch
 - `width`: width of grid or patch
-- `shape`: height and width of grid or patch 
+- `shape`: height and width of grid or patch
 - `portrait`: whether height is greater than width
 - `colorcount`: number of cells with color
 - `colorfilter`: filter object by color
