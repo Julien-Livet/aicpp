@@ -455,6 +455,70 @@ namespace hodel
     Boolean equality(ObjectVector const& a, ObjectVector const& b); //equality
     Boolean equality(ObjectsVector const& a, ObjectsVector const& b); //equality
     Boolean equality(IndicesVector const& a, IndicesVector const& b); //equality
+    Boolean hmatching(Indices const& a, Indices const& b); //whether there exists a row for which both patches have cells
+    Boolean hmatching(Object const& a, Indices const& b); //whether there exists a row for which both patches have cells
+    Boolean hmatching(Indices const& a, Object const& b); //whether there exists a row for which both patches have cells
+    Boolean hmatching(Object const& a, Object const& b); //whether there exists a row for which both patches have cells
+    Boolean vmatching(Indices const& a, Indices const& b); //whether there exists a column for which both patches have cells
+    Boolean vmatching(Object const& a, Indices const& b); //whether there exists a column for which both patches have cells
+    Boolean vmatching(Indices const& a, Object const& b); //whether there exists a column for which both patches have cells
+    Boolean vmatching(Object const& a, Object const& b); //whether there exists a column for which both patches have cells
+    Integer manhattan(Indices const& a, Indices const& b); //closest manhattan distance between two patches
+    Integer manhattan(Object const& a, Indices const& b); //closest manhattan distance between two patches
+    Integer manhattan(Indices const& a, Object const& b); //closest manhattan distance between two patches
+    Integer manhattan(Object const& a, Object const& b); //closest manhattan distance between two patches
+    Boolean adjacent(Indices const& a, Indices const& b); //whether two patches are adjacent
+    Boolean adjacent(Object const& a, Indices const& b); //whether two patches are adjacent
+    Boolean adjacent(Indices const& a, Object const& b); //whether two patches are adjacent
+    Boolean adjacent(Object const& a, Object const& b); //whether two patches are adjacent
+    Boolean bordering(Indices const& patch, Grid const grid); //whether a patch is adjacent to a grid border
+    Boolean bordering(Object const& patch, Grid const grid); //whether a patch is adjacent to a grid border
+    IntegerTuple centerofmass(Indices const &patch); //center of mass
+    IntegerTuple centerofmass(Object const &patch); //center of mass
+    IntegerSet palette(Grid const& element); //colors occurring in object or grid
+    IntegerSet palette(Object const& element); //colors occurring in object or grid
+    Integer numcolors(Grid const& element); //number of colors occurring in object or grid
+    Integer numcolors(Object const& element); //number of colors occurring in object or grid
+    Grid fill(Grid const& grid, Integer const& value, Indices const& patch); //fill value at indices
+    Grid fill(Grid const& grid, Integer const& value, Object const& patch); //fill value at indices
+    Grid paint(Grid const& grid, Object const& obj); //paint object to grid
+    Grid underfill(Grid const& grid, Integer const& value, Indices const& patch); //fill value at indices that are background
+    Grid underfill(Grid const& grid, Integer const& value, Object const& patch); //fill value at indices that are background
+    Grid underpaint(Grid const& grid, Object const& obj); //paint object to grid where there is background
+    IntegerTuple center(Indices const& patch); //center of the patch
+    IntegerTuple center(Object const& patch); //center of the patch
+    IntegerTuple position(Indices const& a, Indices const& b); //relative position between two patches
+    IntegerTuple position(Object const& a, Indices const& b); //relative position between two patches
+    IntegerTuple position(Indices const& a, Object const& b); //relative position between two patches
+    IntegerTuple position(Object const& a, Object const& b); //relative position between two patches
+    Integer index(Grid const& grid, IntegerTuple const& loc); //color at location
+    Grid canvas(Integer const& value, IntegerTuple const& dimensions); //grid construction
+    Indices corners(Indices const& patch); //indices of corners
+    Indices corners(Object const& patch); //indices of corners
+    Indices connect(IntegerTuple const& a, IntegerTuple const& b); //line between two points
+    Grid cover(Grid const& grid, Indices const& patch); //remove object from grid
+    Grid cover(Grid const& grid, Object const& patch); //remove object from grid
+    Indices vfrontier(IntegerTuple const& location); //vertical frontier
+    Indices hfrontier(IntegerTuple const& location); //horizontal frontier
+    Indices backdrop(Object const& patch); //indices in bounding box of patch
+    Indices backdrop(Indices const& patch); //indices in bounding box of patch
+    Indices delta(Object const& patch); //indices in bounding box but not part of patch
+    Indices delta(Indices const& patch); //indices in bounding box but not part of patch
+    IntegerTuple gravitate(Indices const& source, Indices const& destination); //direction to move source until adjacent to destination
+    IntegerTuple gravitate(Object const& source, Indices const& destination); //direction to move source until adjacent to destination
+    IntegerTuple gravitate(Indices const& source, Object const& destination); //direction to move source until adjacent to destination
+    IntegerTuple gravitate(Object const& source, Object const& destination); //direction to move source until adjacent to destination
+    Indices inbox(Object const& patch); //inbox for patch
+    Indices inbox(Indices const& patch); //inbox for patch
+    Indices outbox(Object const& patch); //outbox for patch
+    Indices outbox(Indices const& patch); //outbox for patch
+    Indices box(Object const& patch); //outline of patch
+    Indices box(Indices const& patch); //outline of patch
+    Indices shoot(IntegerTuple const& start, IntegerTuple const& direction); //line from starting point and direction
+    Indices occurrences(Grid const& grid, Object const& obj); //locations of occurrences of object in grid
+    Objects frontiers(Grid const& grid); //set of frontiers
+    Integer hperiod(Object const& obj); //horizontal periodicity
+    Integer vperiod(Object const& obj); //vertical periodicity
 }
 
 #endif // AICPP_HODEL_H
