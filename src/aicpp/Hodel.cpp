@@ -3336,3 +3336,73 @@ hodel::Integer hodel::size(IndicesVector const& container)
 
     return container.size();
 }
+
+hodel::Boolean  hodel::identity(Boolean const& x)
+{
+    return x;
+}
+
+hodel::Integer  hodel::identity(Integer const& x)
+{
+    return x;
+}
+
+hodel::IntegerTuple hodel::identity(IntegerTuple const& x)
+{
+    return x;
+}
+
+hodel::Indices hodel::identity(Indices const& x)
+{
+    return x;
+}
+
+hodel::Object hodel::identity(Object const& x)
+{
+    return x;
+}
+
+hodel::Grid hodel::identity(Grid const& x)
+{
+    return x;
+}
+
+hodel::GridVector hodel::identity(GridVector const& x)
+{
+    return x;
+}
+
+hodel::IntegerVector hodel::identity(IntegerVector const& x)
+{
+    return x;
+}
+
+hodel::IndicesSet hodel::identity(IndicesSet const& x)
+{
+    return x;
+}
+
+hodel::IntegerSet hodel::identity(IntegerSet const& x)
+{
+    return x;
+}
+
+hodel::Objects hodel::identity(Objects const& x)
+{
+    return x;
+}
+
+hodel::ObjectVector hodel::identity(ObjectVector const& x)
+{
+    return x;
+}
+
+hodel::ObjectsVector hodel::identity(ObjectsVector const& x)
+{
+    return x;
+}
+
+hodel::IndicesVector hodel::identity(IndicesVector const& x)
+{
+    return x;
+}
