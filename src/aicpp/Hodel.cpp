@@ -2558,7 +2558,7 @@ std::any hodel::mostcolor(std::vector<std::any> const& args)
         auto const piece{std::any_cast<Piece>(element)};
 
         if (std::holds_alternative<GridType>(piece))
-            return leastcolor({Element{std::get<GridType>(piece)}});
+            return mostcolor({Element{std::get<GridType>(piece)}});
     }
 
     if (element.type() == typeid(Element))
