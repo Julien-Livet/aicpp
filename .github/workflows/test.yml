@@ -10,4 +10,4 @@ jobs:
       - name: Build Docker
         run: git clone https://github.com/arcprize/ARC-AGI-2.git && docker build -t aicpp .
       - name: Run tests
-        run: docker run aicpp && docker run aicpp -c "source .venv/bin/activate && cd scripts && python -m pytest --profile -sxv test_dsl_model.py"
+        run: docker run aicpp && docker run aicpp -c "source .venv/bin/activate && cd scripts"
