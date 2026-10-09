@@ -21,14 +21,6 @@ RUN apt-get update && apt-get install -y \
     liblapack-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt
-RUN git clone https://github.com/davisking/dlib.git
-WORKDIR /opt/dlib
-RUN mkdir build && cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fPIC" .. && \
-    cmake --build . -j$(nproc) --config Release --target all && \
-    cmake --install .
-
 WORKDIR /app
 COPY . /app/aicpp
 WORKDIR /app/aicpp
@@ -37,11 +29,8 @@ WORKDIR /app/aicpp/scripts
 RUN [ -e arc-dsl ] || git clone https://github.com/Julien-Livet/arc-dsl.git
 WORKDIR /app/aicpp
 RUN mkdir -p build
-RUN cmake -S . -B build -D USE_TESTS="TRUE" -DWITHOUT_HODEL_TASKS=ON
+RUN cmake -S . -B build -DWITHOUT_HODEL_TASKS=ON
 RUN cmake --build build --config Release --target all -- -j$(nproc)
 RUN python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requirements.txt
-RUN cd scripts && ln -s ../build/aicpppy*.so
  
 ENTRYPOINT ["/bin/bash"]
-
-CMD ["-c", "cd build && ./test_aicpp"]
