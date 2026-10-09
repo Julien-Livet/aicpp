@@ -26,9 +26,6 @@ endif()
 
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(dlib REQUIRED)
-find_package(Python3 COMPONENTS Development Interpreter REQUIRED)
-find_package(pybind11 REQUIRED)
 
 include_directories(include)
 
