@@ -1927,3 +1927,73 @@ hodel::Boolean hodel::portrait(Indices const& piece)
 
     return h > w;
 }
+
+hodel::Boolean hodel::branch(Boolean const& condition, Boolean const& a, Boolean const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::Integer hodel::branch(Boolean const& condition, Integer const& a, Integer const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::IntegerTuple hodel::branch(Boolean const& condition, IntegerTuple const& a, IntegerTuple const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::Indices hodel::branch(Boolean const& condition, Indices const& a, Indices const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::Object hodel::branch(Boolean const& condition, Object const& a, Object const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::Grid hodel::branch(Boolean const& condition, Grid const& a, Grid const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::GridVector hodel::branch(Boolean const& condition, GridVector const& a, GridVector const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::IntegerVector hodel::branch(Boolean const& condition, IntegerVector const& a, IntegerVector const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::IndicesSet hodel::branch(Boolean const& condition, IndicesSet const& a, IndicesSet const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::IntegerSet hodel::branch(Boolean const& condition, IntegerSet const& a, IntegerSet const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::Objects hodel::branch(Boolean const& condition, Objects const& a, Objects const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::ObjectVector hodel::branch(Boolean const& condition, ObjectVector const& a, ObjectVector const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::ObjectsVector hodel::branch(Boolean const& condition, ObjectsVector const& a, ObjectsVector const& b)
+{
+    return condition ? a : b;
+}
+
+hodel::IndicesVector hodel::branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b)
+{
+    return condition ? a : b;
+}
