@@ -339,6 +339,8 @@ namespace hodel
     Grid righthalf(Grid const& grid); //right half of grid
     Grid trim(Grid const& grid); //trim border of grid
     Grid compress(Grid const& grid); //removes frontiers from grid
+    Object normalize(Object const& patch); //moves upper left corner to origin
+    Indices normalize(Indices const& patch); //moves upper left corner to origin
 }
 
 #endif // AICPP_HODEL_H
