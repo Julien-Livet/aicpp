@@ -417,6 +417,17 @@ namespace hodel
     ObjectVector branch(Boolean const& condition, ObjectVector const& a, ObjectVector const& b); //if else branching
     ObjectsVector branch(Boolean const& condition, ObjectsVector const& a, ObjectsVector const& b); //if else branching
     IndicesVector branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b); //if else branching
+    Integer color(Object const& object); //color of object
+    Object toobject(Object const& patch, Grid const& grid); //object from patch and grid
+    Object toobject(Indices const& patch, Grid const& grid); //object from patch and grid
+    Object asobject(Grid const &grid); //conversion of grid to object
+    Integer mostcolor(Grid const& element); //most common color
+    Integer mostcolor(Object const& element); //most common color
+    Integer leastcolor(Grid const& element); //least common color
+    Integer leastcolor(Object const& element); //least common color
+    Indices ofcolor(Grid const& grid, Integer const& value); //indices of all grid cells with value
+    Integer colorcount(Grid const& element, Integer const& value); //number of cells with color
+    Integer colorcount(Object const& element, Integer const& value); //number of cells with color
 }
 
 #endif // AICPP_HODEL_H
