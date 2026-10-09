@@ -1731,3 +1731,33 @@ hodel::Indices hodel::normalize(Indices const& patch)
 
     return shift(patch, IntegerTuple{static_cast<Integer>(-uppermost(patch)), static_cast<Integer>(-leftmost(patch))});
 }
+
+hodel::Indices hodel::dneighbors(IntegerTuple const& loc)
+{
+    return {
+        {static_cast<Integer>(loc.first - 1), loc.second},
+        {static_cast<Integer>(loc.first + 1), loc.second},
+        {loc.first, static_cast<Integer>(loc.second - 1)},
+        {loc.first, static_cast<Integer>(loc.second + 1)}
+    };
+}
+
+hodel::Indices hodel::ineighbors(IntegerTuple const& loc)
+{
+    return {
+        {static_cast<Integer>(loc.first - 1), static_cast<Integer>(loc.second - 1)},
+        {static_cast<Integer>(loc.first - 1), static_cast<Integer>(loc.second + 1)},
+        {static_cast<Integer>(loc.first + 1), static_cast<Integer>(loc.second - 1)},
+        {static_cast<Integer>(loc.first + 1), static_cast<Integer>(loc.second + 1)}
+    };
+}
+
+hodel::Indices hodel::neighbors(IntegerTuple const& loc)
+{
+    auto result{dneighbors(loc)};
+    auto const diagonal{ineighbors(loc)};
+
+    result.insert(diagonal.begin(), diagonal.end());
+
+    return result;
+}
