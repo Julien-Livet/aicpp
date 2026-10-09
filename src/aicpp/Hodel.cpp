@@ -10,6 +10,25 @@ constexpr size_t SHOOT_DISTANCE = 42;
 
 using IntegerCountMap = std::map<hodel::Integer, hodel::Integer>;
 
+hodel::Indices rectangleOutline(hodel::Integer si, hodel::Integer sj, hodel::Integer ei, hodel::Integer ej)
+{
+    hodel::Indices result;
+
+    for (hodel::Integer i = si; i <= ei; ++i)
+    {
+        result.emplace(i, sj);
+        result.emplace(i, ej);
+    }
+
+    for (hodel::Integer j = sj; j <= ej; ++j)
+    {
+        result.emplace(si, j);
+        result.emplace(ei, j);
+    }
+
+    return result;
+}
+
 IntegerCountMap colorCounts(hodel::Grid const& element)
 {
     IntegerCountMap counts;
@@ -2438,4 +2457,792 @@ hodel::Boolean hodel::equality(ObjectsVector const& a, ObjectsVector const& b)
 hodel::Boolean hodel::equality(IndicesVector const& a, IndicesVector const& b)
 {
     return a == b;
+}
+
+hodel::Boolean hodel::hmatching(Object const& a, Indices const& b)
+{
+    return hmatching(toindices(a), b);
+}
+
+hodel::Boolean hodel::hmatching(Indices const& a, Object const& b)
+{
+    return hmatching(a, toindices(b));
+}
+
+hodel::Boolean hodel::hmatching(Object const& a, Object const& b)
+{
+    return hmatching(toindices(a), toindices(b));
+}
+
+hodel::Boolean hodel::hmatching(Indices const& a, Indices const& b)
+{
+    std::set<Integer> rows;
+
+    for (auto const& [i, j] : a)
+        rows.insert(i);
+
+    for (auto const& [i, j] : b)
+    {
+        if (rows.count(i))
+            return true;
+    }
+
+    return false;
+}
+
+hodel::Boolean hodel::vmatching(Object const& a, Indices const& b)
+{
+    return vmatching(toindices(a), b);
+}
+
+hodel::Boolean hodel::vmatching(Indices const& a, Object const& b)
+{
+    return vmatching(a, toindices(b));
+}
+
+hodel::Boolean hodel::vmatching(Object const& a, Object const& b)
+{
+    return vmatching(toindices(a), toindices(b));
+}
+
+hodel::Boolean hodel::vmatching(Indices const& a, Indices const& b)
+{
+    std::set<Integer> cols;
+
+    for (auto const& [i, j] : a)
+        cols.insert(j);
+
+    for (auto const& [i, j] : b)
+    {
+        if (cols.count(j))
+            return true;
+    }
+
+    return false;
+}
+
+hodel::Integer hodel::manhattan(Object const& a, Indices const& b)
+{
+    return manhattan(toindices(a), b);
+}
+
+hodel::Integer hodel::manhattan(Indices const& a, Object const& b)
+{
+    return manhattan(a, toindices(b));
+}
+
+hodel::Integer hodel::manhattan(Object const& a, Object const& b)
+{
+    return manhattan(toindices(a), toindices(b));
+}
+
+hodel::Integer hodel::manhattan(Indices const& a, Indices const& b)
+{
+    auto dmin{std::numeric_limits<Integer>::max()};
+
+    for (auto const& [ai, aj] : a)
+    {
+        for (auto const& [bi, bj] : b)
+        {
+            auto const d{std::abs(static_cast<int>(ai) - static_cast<int>(bi)) + std::abs(static_cast<int>(aj) - static_cast<int>(bj))};
+            dmin = static_cast<Integer>(std::min(static_cast<int>(dmin), d));
+        }
+    }
+
+    return dmin;
+}
+
+hodel::Boolean hodel::adjacent(Object const& a, Indices const& b)
+{
+    return adjacent(toindices(a), b);
+}
+
+hodel::Boolean hodel::adjacent(Indices const& a, Object const& b)
+{
+    return adjacent(a, toindices(b));
+}
+
+hodel::Boolean hodel::adjacent(Object const& a, Object const& b)
+{
+    return adjacent(toindices(a), toindices(b));
+}
+
+hodel::Boolean hodel::adjacent(Indices const& a, Indices const& b)
+{
+    return manhattan(a, b) == 1;
+}
+
+hodel::Boolean hodel::bordering(Object const& patch, Grid const grid)
+{
+    return bordering(toindices(patch), grid);
+}
+
+hodel::Boolean hodel::bordering(Indices const& patch, Grid const grid)
+{
+    try
+    {
+        auto const urm{uppermost(patch)};
+        auto const ltm{leftmost(patch)};
+        auto const lrm{lowermost(patch)};
+        auto const rtm{rightmost(patch)};
+
+        return urm == 0 || ltm == 0 || lrm == grid.size() - 1 || rtm == grid.at(0).size() - 1;
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"bordering"};
+    }
+}
+
+hodel::IntegerTuple hodel::centerofmass(Object const &patch)
+{
+    return centerofmass(toindices(patch));
+}
+
+hodel::IntegerTuple hodel::centerofmass(Indices const &patch)
+{
+    auto const l{patch.size()};
+
+    if (!l)
+        throw InvalidInteger{"centerofmass"};
+
+    Integer sumRow{0};
+    Integer sumCol{0};
+
+    for (auto const& [i, j] : patch)
+    {
+        sumRow += i;
+        sumCol += j;
+    }
+
+    return {static_cast<Integer>(sumRow / l), static_cast<Integer>(sumCol / l)};
+}
+
+hodel::IntegerSet hodel::palette(Grid const& element)
+{
+    IntegerSet colors;
+
+    for (auto const& row : element)
+        colors.insert(row.begin(), row.end());
+
+    return colors;
+}
+
+hodel::IntegerSet hodel::palette(Object const& element)
+{
+    IntegerSet colors;
+
+    for (auto const& [color, position] : element)
+        colors.insert(color);
+
+    return colors;
+}
+
+hodel::Integer hodel::numcolors(Grid const& element)
+{
+    return palette(element).size();
+}
+
+hodel::Integer hodel::numcolors(Object const& element)
+{
+    return palette(element).size();
+}
+
+hodel::Grid hodel::fill(Grid const& grid, Integer const& value, Object const& patch)
+{
+    return fill(grid, value, toindices(patch));
+}
+
+hodel::Grid hodel::fill(Grid const& grid, Integer const& value, Indices const& patch)
+{
+    Grid result = grid;
+
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+
+        for (auto const& [i, j] : patch)
+        {
+            if (0 <= i && i < h && 0 <= j && j < w)
+                result.at(i).at(j) = value;
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"fill"};
+    }
+
+    if (result == grid)
+        throw IdentityGrid{"fill"};
+
+    return result;
+}
+
+hodel::Grid hodel::paint(Grid const& grid, Object const& obj)
+{
+
+    Grid result{grid};
+
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+
+        for (auto const& [value, location] : obj)
+        {
+            auto const& [i, j] = location;
+
+            if (0 <= i && i < h && 0 <= j && j < w)
+                result.at(i).at(j) = value;
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"paint"};
+    }
+
+    if (result == grid)
+        throw IdentityGrid{"paint"};
+
+    return result;
+}
+
+hodel::Grid hodel::underfill(Grid const& grid, Integer const& value, Object const& patch)
+{
+    return underfill(grid, value, toindices(patch));
+}
+
+hodel::Grid hodel::underfill(Grid const& grid, Integer const& value, Indices const& patch)
+{
+    Grid result{grid};
+
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+        auto const bg{mostcolor(grid)};
+
+        for (auto const& [i, j] : patch)
+        {
+            if (0 <= i && i < h && 0 <= j && j < w && result.at(i).at(j) == bg)
+                result.at(i).at(j) = value;
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"underfill"};
+    }
+
+    if (result == grid)
+        throw IdentityGrid{"underfill"};
+
+    return result;
+}
+
+hodel::Grid hodel::underpaint(Grid const& grid, Object const& obj)
+{
+    Grid result{grid};
+
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+        auto const bg{mostcolor(grid)};
+
+        for (auto const& [value, location] : obj)
+        {
+            auto const& [i, j] = location;
+
+            if (0 <= i && i < h && 0 <= j && j < w && result.at(i).at(j) == bg)
+                result.at(i).at(j) = value;
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"underpaint"};
+    }
+
+    if (result == grid)
+        throw IdentityGrid{"underpaint"};
+
+    return result;
+}
+
+hodel::IntegerTuple hodel::center(Object const& patch)
+{
+    return center(toindices(patch));
+}
+
+hodel::IntegerTuple hodel::center(Indices const& patch)
+{
+    auto const um{uppermost(patch)};
+    auto const h{height(patch)};
+    auto const lm{leftmost(patch)};
+    auto const w{width(patch)};
+
+    return {static_cast<Integer>(um + h / 2), static_cast<Integer>(lm + w / 2)};
+}
+
+hodel::IntegerTuple hodel::position(Indices const& a, Indices const& b)
+{
+    auto const [ia, ib] = center(a);
+    auto const [ja, jb] = center(b);
+
+    if (ia == ib)
+        return {0, static_cast<Integer>(ja < jb ? 1 : -1)};
+    else if (ja == jb)
+        return {static_cast<Integer>(ia < ib ? 1: -1), 0};
+    else if (ia < ib)
+        return {1, static_cast<Integer>(ja < jb ? 1 : -1)};
+    else if (ia > ib)
+        return {-1, static_cast<Integer>(ja < jb ? 1 : -1)};
+
+    return {0, 0};
+}
+
+hodel::IntegerTuple hodel::position(Object const& a, Indices const& b)
+{
+    return position(toindices(a), b);
+}
+
+hodel::IntegerTuple hodel::position(Indices const& a, Object const& b)
+{
+    return position(a, toindices(b));
+}
+
+hodel::IntegerTuple hodel::position(Object const& a, Object const& b)
+{
+    return position(toindices(a), toindices(b));
+}
+
+hodel::Integer hodel::index(Grid const& grid, IntegerTuple const& loc)
+{
+    try
+    {
+        auto const& [i, j] = loc;
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+
+        if (!(0 <= i && i < h && 0 <= j && j < w))
+            throw InvalidIntegerTuple{"index"};
+
+        return grid.at(i).at(j);
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"index"};
+    }
+}
+
+hodel::Grid hodel::canvas(Integer const& value, IntegerTuple const& dimensions)
+{
+    if (dimensions.first <= 0 || dimensions.second <= 0)
+        throw InvalidIntegerTuple{"canvas"};
+
+    return Grid(dimensions.first, std::vector<Integer>(dimensions.second, value));
+}
+
+hodel::Indices hodel::corners(Object const& patch)
+{
+    return corners(toindices(patch));
+}
+
+hodel::Indices hodel::corners(Indices const& patch)
+{
+    auto const ulc{ulcorner(patch)};
+    auto const urc{urcorner(patch)};
+    auto const llc{llcorner(patch)};
+    auto const lrc{lrcorner(patch)};
+
+    return {ulc, urc, llc, lrc};
+}
+
+hodel::Indices hodel::connect(IntegerTuple const& a, IntegerTuple const& b)
+{
+    auto const& [ai, aj] = a;
+    auto const& [bi, bj] = b;
+
+    Integer di{0};
+    Integer dj{0};
+
+    if (std::abs(bi - ai) > SHOOT_DISTANCE * MAX_SIZE || std::abs(bj - aj) > SHOOT_DISTANCE * MAX_SIZE)
+        throw InvalidIntegerTuple{"connect"};
+
+    if (ai == bi)
+        dj = (bj > aj ? 1 : -1);
+    else if (aj == bj)
+        di = (bi > ai ? 1 : -1);
+    else if (std::abs(bi - ai) == std::abs(bj - aj))
+    {
+        di = (bi > ai ? 1 : -1);
+        dj = (bj > aj ? 1 : -1);
+    }
+    else
+        throw InvalidIntegerTuple{"connect"};
+
+    Indices result;
+
+    auto i{ai};
+    auto j{aj};
+
+    while (true)
+    {
+        result.emplace(i, j);
+
+        if (i == bi && j == bj)
+            break;
+
+        i += di;
+        j += dj;
+    }
+
+    return result;
+}
+
+hodel::Grid hodel::cover(Grid const& grid, Object const& patch)
+{
+    return cover(grid, toindices(patch));
+}
+
+hodel::Grid hodel::cover(Grid const& grid, Indices const& patch)
+{
+    return fill(grid, mostcolor(grid), patch);
+}
+
+hodel::Indices hodel::vfrontier(IntegerTuple const& location)
+{
+    Indices result;
+
+    for (Integer i{0}; i < MAX_SIZE; ++i)
+        result.emplace(i, location.second);
+
+    return result;
+}
+
+hodel::Indices hodel::hfrontier(IntegerTuple const& location)
+{
+    Indices result;
+
+    for (Integer j{0}; j < MAX_SIZE; ++j)
+        result.emplace(location.first, j);
+
+    return result;
+}
+
+hodel::Indices hodel::backdrop(Object const& patch)
+{
+    return backdrop(toindices(patch));
+}
+
+hodel::Indices hodel::backdrop(Indices const& patch)
+{
+    auto const ulc{ulcorner(patch)};
+    auto const lrc{lrcorner(patch)};
+
+    Indices result;
+
+    for (Integer i = ulc.first; i <= lrc.first; ++i)
+    {
+        for (Integer j = ulc.second; j <= lrc.second; ++j)
+            result.emplace(i, j);
+    }
+
+    return result;
+}
+
+hodel::Indices hodel::delta(Object const& patch)
+{
+    return delta(toindices(patch));
+}
+
+hodel::Indices hodel::delta(Indices const& patch)
+{
+    auto result = backdrop(patch);
+
+    for (const auto& p : patch)
+        result.erase(p);
+
+    return result;
+}
+
+hodel::IntegerTuple hodel::gravitate(Indices const& source, Indices const& destination)
+{
+    auto current = source;
+    auto const [si, sj] = center(current);
+    auto const [di, dj] = center(destination);
+
+    Integer stepI = 0;
+    Integer stepJ = 0;
+
+    if (vmatching(current, destination))
+        stepI = (si < di) ? 1 : -1;
+    else
+        stepJ = (sj < dj) ? 1 : -1;
+
+    auto moveI = stepI;
+    auto moveJ = stepJ;
+    Integer count = 0;
+
+    while (!adjacent(current, destination) && count < 42)
+    {
+        ++count;
+
+        moveI += stepI;
+        moveJ += stepJ;
+
+        current = shift(current, IntegerTuple{stepI, stepJ});
+    }
+
+    return IntegerTuple{static_cast<Integer>(moveI - stepI), static_cast<Integer>(moveJ - stepJ)};
+}
+
+hodel::IntegerTuple hodel::gravitate(Object const& source, Indices const& destination)
+{
+    return gravitate(toindices(source), destination);
+}
+
+hodel::IntegerTuple hodel::gravitate(Indices const& source, Object const& destination)
+{
+    return gravitate(source, toindices(destination));
+}
+
+hodel::IntegerTuple hodel::gravitate(Object const& source, Object const& destination)
+{
+    return gravitate(toindices(source), toindices(destination));
+}
+
+hodel::Indices hodel::inbox(Object const& patch)
+{
+    return inbox(toindices(patch));
+}
+
+hodel::Indices hodel::inbox(Indices const& patch)
+{
+    auto const ai = uppermost(patch) + 1;
+    auto const aj = leftmost(patch) + 1;
+    auto const bi = lowermost(patch) - 1;
+    auto const bj = rightmost(patch) - 1;
+
+    return rectangleOutline(
+        std::min(ai, bi),
+        std::min(aj, bj),
+        std::max(ai, bi),
+        std::max(aj, bj));
+}
+
+hodel::Indices hodel::outbox(Object const& patch)
+{
+    return outbox(toindices(patch));
+}
+
+hodel::Indices hodel::outbox(Indices const& patch)
+{
+    auto const ai = uppermost(patch) + 1;
+    auto const aj = leftmost(patch) + 1;
+    auto const bi = lowermost(patch) - 1;
+    auto const bj = rightmost(patch) - 1;
+
+    return rectangleOutline(
+        std::min(ai, bi),
+        std::min(aj, bj),
+        std::max(ai, bi),
+        std::max(aj, bj));
+}
+
+hodel::Indices hodel::box(Object const& patch)
+{
+    return box(toindices(patch));
+}
+
+hodel::Indices hodel::box(Indices const& patch)
+{
+    auto const [ai, aj] = ulcorner(patch);
+    auto const [bi, bj] = lrcorner(patch);
+
+    return rectangleOutline(
+        std::min(ai, bi),
+        std::min(aj, bj),
+        std::max(ai, bi),
+        std::max(aj, bj));
+}
+
+hodel::Indices hodel::shoot(IntegerTuple const& start, IntegerTuple const& direction)
+{
+    if (std::abs(start.first) > 100 || std::abs(start.second) > 100)
+        throw InvalidIntegerTuple{"shoot"};
+
+    auto const fd{static_cast<size_t>(direction.first)};
+    auto const sd{static_cast<size_t>(direction.second)};
+
+    if (fd * fd + sd * sd > 2 * MAX_SIZE * MAX_SIZE)
+        throw InvalidIntegerTuple{"shoot"};
+
+    return connect(start,
+        IntegerTuple{static_cast<Integer>(start.first + SHOOT_DISTANCE * direction.first),
+                     static_cast<Integer>(start.second + SHOOT_DISTANCE * direction.second)});
+}
+
+hodel::Indices hodel::occurrences(Grid const& grid, Object const& obj)
+{
+    if (grid.empty())
+        throw EmptyGrid{"occurrences"};
+
+    if (obj.empty())
+        throw EmptyObject{"occurrences"};
+
+    Indices occs;
+
+    try
+    {
+        auto const normed = normalize(obj);
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size()};
+        auto const [oh, ow] = shape(obj);
+
+        for (size_t i = 0; i <= h - oh; ++i)
+        {
+            for (size_t j = 0; j <= w - ow; ++j)
+            {
+                bool ok = true;
+
+                for (auto const& [value, pos] : normed)
+                {
+                    size_t const a = pos.first + i;
+                    size_t const b = pos.second + j;
+
+                    if (grid.at(a).at(b) != value)
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+
+                if (ok)
+                    occs.emplace(static_cast<Integer>(i), static_cast<Integer>(j));
+            }
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"occurrences"};
+    }
+
+    return occs;
+}
+
+hodel::Objects hodel::frontiers(Grid const& grid)
+{
+    Objects result;
+    
+    try
+    {
+
+        auto const h = grid.size();
+        auto const w = grid.at(0).size();
+
+        for (size_t i = 0; i < h; ++i)
+        {
+            auto const color = grid.at(i).at(0);
+            bool uniform = true;
+
+            for (size_t j = 1; j < w; ++j)
+            {
+                if (grid.at(i).at(j) != color)
+                {
+                    uniform = false;
+                    break;
+                }
+            }
+
+            if (uniform)
+            {
+                Object object;
+
+                for (size_t j = 0; j < w; ++j)
+                    object.emplace(grid.at(i).at(j), IntegerTuple{static_cast<Integer>(i), static_cast<Integer>(j)});
+
+                result.insert(std::move(object));
+            }
+        }
+
+        for (size_t j = 0; j < w; ++j)
+        {
+            auto const color = grid.at(0).at(j);
+            bool uniform = true;
+
+            for (size_t i = 1; i < h; ++i)
+            {
+                if (grid.at(i).at(j) != color)
+                {
+                    uniform = false;
+                    break;
+                }
+            }
+
+            if (uniform)
+            {
+                Object object;
+
+                for (size_t i = 0; i < h; ++i)
+                    object.emplace(grid.at(i).at(j), IntegerTuple{static_cast<Integer>(i), static_cast<Integer>(j)});
+
+                result.insert(std::move(object));
+            }
+        }
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"frontiers"};
+    }
+
+    return result;
+}
+
+hodel::Integer hodel::hperiod(Object const &obj)
+{
+    auto const normalized = normalize(obj);
+    auto const w = width(normalized);
+
+    for (Integer p = 1; p < w; ++p)
+    {
+        auto const offsetted = shift(normalized, IntegerTuple{0, static_cast<Integer>(-p)});
+
+        Object pruned;
+
+        for (auto const& [color, pos] : offsetted)
+        {
+            if (pos.second >= 0)
+                pruned.emplace(color, pos);
+        }
+
+        if (std::includes(normalized.begin(), normalized.end(), pruned.begin(), pruned.end()))
+            return p;
+    }
+
+    return w;
+}
+
+hodel::Integer hodel::vperiod(Object const &obj)
+{
+    auto const normalized = normalize(obj);
+    auto const h = height(normalized);
+
+    for (Integer p = 1; p < h; ++p)
+    {
+        auto const offsetted = shift(normalized, IntegerTuple{static_cast<Integer>(-p), 0});
+
+        Object pruned;
+
+        for (auto const& [color, pos] : offsetted)
+        {
+            if (pos.first >= 0)
+                pruned.emplace(color, pos);
+        }
+
+        if (std::includes(normalized.begin(), normalized.end(), pruned.begin(), pruned.end()))
+            return p;
+    }
+
+    return h;
 }
