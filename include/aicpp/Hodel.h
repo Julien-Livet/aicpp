@@ -382,6 +382,27 @@ namespace hodel
     Indices dneighbors(IntegerTuple const& loc); //directly adjacent indices
     Indices ineighbors(IntegerTuple const& loc); //diagonally adjacent indices
     Indices neighbors(IntegerTuple const& loc); //adjacent indices
+    Object recolor(Integer const& value, Object const& patch); //recolor patch
+    Object recolor(Integer const& value, Indices const& patch); //recolor patch
+    Boolean square(Grid const& piece); //whether the piece forms a square
+    Boolean square(Object const& piece); //whether the piece forms a square
+    Boolean square(Indices const& piece); //whether the piece forms a square
+    Boolean vline(Object const& patch); //whether the piece forms a vertical line
+    Boolean vline(Indices const& patch); //whether the piece forms a vertical line
+    Boolean hline(Object const& patch); //whether the piece forms a horizontal line
+    Boolean hline(Indices const& patch); //whether the piece forms a horizontal line
+    Integer height(Grid const& piece); //height of grid or patch
+    Integer height(Object const& piece); //height of grid or patch
+    Integer height(Indices const& piece); //height of grid or patch
+    Integer width(Grid const& piece); //width of grid or patch
+    Integer width(Object const& piece); //width of grid or patch
+    Integer width(Indices const& piece); //width of grid or patch
+    IntegerTuple shape(Grid const& piece); //height and width of grid or patch
+    IntegerTuple shape(Object const& piece); //height and width of grid or patch
+    IntegerTuple shape(Indices const& piece); //height and width of grid or patch
+    Boolean portrait(Grid const& piece); //whether height is greater than width 
+    Boolean portrait(Object const& piece); //whether height is greater than width 
+    Boolean portrait(Indices const& piece); //whether height is greater than width
 }
 
 #endif // AICPP_HODEL_H
