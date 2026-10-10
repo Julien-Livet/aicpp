@@ -12,7 +12,7 @@ Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& in
     for (size_t i{0}; i < inputs_.size(); ++i)
     {
         if (inputs_[i].type() == typeid(Connection))
-            assert(std::any_cast<Connection>(inputs_[i]).neuron().outputType() == neuron_.get().inputTypes()[i]);
+            assert(std::any_cast<Connection>(inputs_[i]).neuron()->returnType() == neuron_->inputTypes()[i]);
         else if (inputs_[i].type() == typeid(std::type_index))
             assert(std::any_cast<std::type_index>(inputs_[i]) == neuron_->inputTypes()[i]);
         else
@@ -170,9 +170,9 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
                 if (checkTypes)
                 {
                     if (inputs[index].type() == typeid(std::type_index))
-                        assert(neuron_.get().inputTypes()[i] == std::any_cast<std::type_index>(inputs[index]));
+                        assert(neuron_->inputTypes()[i] == std::any_cast<std::type_index>(inputs[index]));
                     else if (inputs[index].type() != typeid(Connection))
-                        assert(neuron_.get().inputTypes()[i] == inputs[index].type());
+                        assert(neuron_->inputTypes()[i] == inputs[index].type());
                 }
 
                 input = inputs[index];
