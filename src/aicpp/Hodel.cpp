@@ -54,21 +54,13 @@ IntegerCountMap colorCounts(hodel::Object const& element)
 
 hodel::Integer hodel::add(Integer const& a, Integer const& b)
 {
-    auto const r{a + b};
-
-    if (r == a || r == b)
-        throw IdentityInteger{"add"};
-
-    return r;
+    return a + b;
 }
 
 hodel::IntegerTuple hodel::add(IntegerTuple const& a, Integer const& b)
 {
     auto r{a};
     r += b;
-
-    if (r == a)
-        throw IdentityIntegerTuple{"add"};
 
     return r;
 }
@@ -78,9 +70,6 @@ hodel::IntegerTuple hodel::add(Integer const& a, IntegerTuple const& b)
     auto r{b};
     r += 1;
 
-    if (r == b)
-        throw IdentityIntegerTuple{"add"};
-
     return r;
 }
 
@@ -89,29 +78,18 @@ hodel::IntegerTuple hodel::add(IntegerTuple const& a, IntegerTuple const& b)
     auto r{a};
     r += b;
 
-    if (r == a || r == b)
-        throw IdentityIntegerTuple{"add"};
-
     return r;
 }
 
 hodel::Integer hodel::subtract(Integer const& a, Integer const& b)
 {
-    auto const r{a - b};
-
-    if (r == a || r == b)
-        throw IdentityInteger{"subtract"};
-
-    return r;
+    return a - b;
 }
 
 hodel::IntegerTuple hodel::subtract(IntegerTuple const& a, Integer const& b)
 {
     auto r{a};
     r -= b;
-
-    if (r == a)
-        throw IdentityIntegerTuple{"subtract"};
 
     return r;
 }
@@ -122,9 +100,6 @@ hodel::IntegerTuple hodel::subtract(Integer const& a, IntegerTuple const& b)
     r *= -1;
     r += a;
 
-    if (r == b)
-        throw IdentityIntegerTuple{"subtract"};
-
     return r;
 }
 
@@ -133,29 +108,18 @@ hodel::IntegerTuple hodel::subtract(IntegerTuple const& a, IntegerTuple const& b
     auto r{a};
     r -= b;
 
-    if (r == a || r == b)
-        throw IdentityIntegerTuple{"subtract"};
-
     return r;
 }
 
 hodel::Integer hodel::multiply(Integer const& a, Integer const& b)
 {
-    auto const r{a * b};
-
-    if (r == a || r == b)
-        throw IdentityInteger{"multiply"};
-
-    return r;
+    return a * b;
 }
 
 hodel::IntegerTuple hodel::multiply(IntegerTuple const& a, Integer const& b)
 {
     auto r{a};
     r *= b;
-
-    if (r == a)
-        throw IdentityIntegerTuple{"multiply"};
 
     return r;
 }
@@ -165,9 +129,6 @@ hodel::IntegerTuple hodel::multiply(Integer const& a, IntegerTuple const& b)
     auto r{b};
     r *= a;
 
-    if (r == b)
-        throw IdentityIntegerTuple{"multiply"};
-
     return r;
 }
 
@@ -175,9 +136,6 @@ hodel::IntegerTuple hodel::multiply(IntegerTuple const& a, IntegerTuple const& b
 {
     auto r{a};
     r *= b;
-
-    if (r == a || r == b)
-        throw IdentityIntegerTuple{"multiply"};
 
     return r;
 }
@@ -187,12 +145,7 @@ hodel::Integer hodel::divide(Integer const& a, Integer const& b)
     if (!b)
         throw InvalidInteger{"divide"};
 
-    auto const r{a / b};
-
-    if (r == a || r == b)
-        throw IdentityInteger{"divide"};
-
-    return r;
+    return a / b;
 }
 
 hodel::IntegerTuple hodel::divide(IntegerTuple const& a, Integer const& b)
@@ -202,9 +155,6 @@ hodel::IntegerTuple hodel::divide(IntegerTuple const& a, Integer const& b)
 
     auto r{a};
     r /= b;
-
-    if (r == a)
-        throw IdentityIntegerTuple{"divide"};
 
     return r;
 }
@@ -216,9 +166,6 @@ hodel::IntegerTuple hodel::divide(IntegerTuple const& a, IntegerTuple const& b)
 
     auto r{a};
     r /= b;
-
-    if (r == a || r == b)
-        throw IdentityIntegerTuple{"divide"};
 
     return r;
 }
@@ -334,9 +281,6 @@ hodel::Integer hodel::invert(Integer const& n)
 {
     auto const r{-n};
 
-    if (r == n)
-        throw IdentityInteger{"invert"};
-
     return r;
 }
 
@@ -344,9 +288,6 @@ hodel::IntegerTuple hodel::invert(IntegerTuple const& n)
 {
     auto r{n};
     r *= -1;
-
-    if (r == n)
-        throw IdentityIntegerTuple{"invert"};
 
     return r;
 }
@@ -358,12 +299,7 @@ hodel::Boolean hodel::even(Integer const& n)
 
 hodel::Integer hodel::double_(Integer const& n)
 {
-    auto const r{n * 2};
-
-    if (r == n)
-        throw IdentityInteger{"double"};
-
-    return r;
+    return n * 2;
 }
 
 hodel::IntegerTuple hodel::double_(IntegerTuple const& n)
@@ -371,29 +307,18 @@ hodel::IntegerTuple hodel::double_(IntegerTuple const& n)
     auto r{n};
     r *= 2;
 
-    if (r == n)
-        throw IdentityIntegerTuple{"double"};
-
     return r;
 }
 
 hodel::Integer hodel::halve(Integer const& n)
 {
-    auto const r{n / 2};
-
-    if (r == n)
-        throw IdentityInteger{"halve"};
-
-    return r;
+    return n / 2;
 }
 
 hodel::IntegerTuple hodel::halve(IntegerTuple const& n)
 {
     auto r{n};
     r /= 2;
-
-    if (r == n)
-        throw IdentityIntegerTuple{"halve"};
 
     return r;
 }
@@ -747,7 +672,7 @@ hodel::IntegerTuple hodel::decrement(IntegerTuple const& x)
 hodel::Integer hodel::crement(Integer const& x)
 {
     if (!x)
-        throw IdentityInteger{"crement"};
+        return x;
     else if (x > 0)
         return increment(x);
     else
@@ -756,28 +681,7 @@ hodel::Integer hodel::crement(Integer const& x)
 
 hodel::IntegerTuple hodel::crement(IntegerTuple const& x)
 {
-    auto y{x};
-
-    try
-    {
-        y.first = crement(y.first);
-    }
-    catch (IdentityInteger const&)
-    {
-    }
-
-    try
-    {
-        y.second = crement(y.second);
-    }
-    catch (IdentityInteger const&)
-    {
-    }
-
-    if (y == x)
-        throw IdentityIntegerTuple{"crement"};
-
-    return y;
+    return {crement(x.first), crement(x.second)};
 }
 
 hodel::Integer hodel::sign(Integer const& x)
@@ -1001,9 +905,6 @@ hodel::Grid hodel::crop(Grid const& grid, IntegerTuple const& start, IntegerTupl
         result.emplace_back(row);
     }
 
-    if (result == grid)
-        throw IdentityGrid{"crop"};
-
     return result;
 }
 
@@ -1036,9 +937,6 @@ hodel::Object hodel::shift(Object const& patch, IntegerTuple const& directions)
         result.insert({value, {static_cast<Integer>(i + di), static_cast<Integer>(j + dj)}});
     }
 
-    if (result == patch)
-        throw IdentityObject{"shift"};
-
     return result;
 }
 
@@ -1053,9 +951,6 @@ hodel::Indices hodel::shift(Indices const& patch, IntegerTuple const& directions
 
     for (auto const& [i, j] : patch)
         result.insert({static_cast<Integer>(i + di), static_cast<Integer>(j + dj)});
-
-    if (result == patch)
-        throw IdentityIndices{"shift"};
 
     return result;
 }
@@ -1145,9 +1040,6 @@ hodel::Grid hodel::rot90(Grid const& grid)
         throw InvalidGrid{"rot90"};
     }
 
-    if (result == grid)
-        throw IdentityGrid{"rot180"};
-
     return result;
 }
 
@@ -1175,9 +1067,6 @@ hodel::Grid hodel::rot180(hodel::Grid const& grid)
     {
         throw InvalidGrid{"rot180"};
     }
-
-    if (result == grid)
-        throw IdentityGrid{"rot180"};
 
     return result;
 }
@@ -1207,9 +1096,6 @@ hodel::Grid hodel::rot270(hodel::Grid const& grid)
         throw InvalidGrid{"rot270"};
     }
 
-    if (result == grid)
-        throw IdentityGrid{"rot270"};
-
     return result;
 }
 
@@ -1218,9 +1104,6 @@ hodel::Grid hodel::hmirror(Grid const& piece)
     auto grid = piece;
 
     std::reverse(grid.begin(), grid.end());
-
-    if (grid == piece)
-        throw IdentityGrid{"hmirror"};
 
     return grid;
 }
@@ -1240,9 +1123,6 @@ hodel::Object hodel::hmirror(Object const& piece)
         result.insert({v, {static_cast<Integer>(d - i), j}});
     }
 
-    if (result == piece)
-        throw IdentityGrid{"hmirror"};
-
     return result;
 }
 
@@ -1257,10 +1137,6 @@ hodel::Indices hodel::hmirror(Indices const& piece)
     for (const auto& [i, j] : piece)
         result.insert({static_cast<Integer>(d - i), j});
 
-
-    if (result == piece)
-        throw IdentityGrid{"hmirror"};
-
     return result;
 }
 
@@ -1270,9 +1146,6 @@ hodel::Grid hodel::vmirror(Grid const& piece)
 
     for (auto& row : grid)
         std::reverse(row.begin(), row.end());
-
-    if (grid == piece)
-        throw IdentityGrid{"vmirror"};
 
     return grid;
 }
@@ -1292,9 +1165,6 @@ hodel::Object hodel::vmirror(Object const& piece)
         result.insert({v, {i, static_cast<Integer>(d - j)}});
     }
 
-    if (result == piece)
-        throw IdentityGrid{"vmirror"};
-
     return result;
 }
 
@@ -1308,9 +1178,6 @@ hodel::Indices hodel::vmirror(Indices const& piece)
 
     for (const auto& [i, j] : piece)
         result.insert({i, static_cast<Integer>(d - j)});
-
-    if (result == piece)
-        throw IdentityGrid{"vmirror"};
 
     return result;
 }
@@ -1338,9 +1205,6 @@ hodel::Grid hodel::dmirror(Grid const& piece)
         throw InvalidGrid{"dmirror"};
     }
 
-    if (result == piece)
-        throw IdentityGrid{"dmirror"};
-
     return result;
 }
 
@@ -1357,9 +1221,6 @@ hodel::Object hodel::dmirror(Object const& piece)
         result.insert({v, {static_cast<Integer>(j - b + a), static_cast<Integer>(i - a + b)}});
     }
 
-    if (result == piece)
-        throw IdentityGrid{"dmirror"};
-
     return result;
 }
 
@@ -1371,9 +1232,6 @@ hodel::Indices hodel::dmirror(Indices const& piece)
 
     for (const auto& [i, j] : piece)
         result.insert({static_cast<Integer>(j - b + a), static_cast<Integer>(i - a + b)});
-
-    if (result == piece)
-        throw IdentityGrid{"dmirror"};
 
     return result;
 }
@@ -1424,9 +1282,6 @@ hodel::Grid hodel::hupscale(Grid const& grid, Integer const& factor)
         result.emplace_back(new_row);
     }
 
-    if (result == grid)
-        throw IdentityGrid{"hupscale"};
-
     return result;
 }
 
@@ -1453,9 +1308,6 @@ hodel::Grid hodel::vupscale(Grid const& grid, Integer const& factor)
         for (Integer k = 0; k < factor; ++k)
             result.emplace_back(row);
     }
-
-    if (result == grid)
-        throw IdentityGrid{"vupscale"};
 
     return result;
 }
@@ -1493,9 +1345,6 @@ hodel::Grid hodel::upscale(Grid const& element, Integer const& factor)
             result.emplace_back(upscaled_row);
     }
 
-    if (result == element)
-        throw IdentityGrid{"upscale"};
-
     return result;
 }
 
@@ -1526,9 +1375,6 @@ hodel::Object hodel::upscale(Object const& element, Integer const& factor)
     }
 
     result = shift(result, IntegerTuple{di_inv, dj_inv});
-
-    if (result == element)
-        throw IdentityObject{"upscale"};
 
     return result;
 }
@@ -1570,9 +1416,6 @@ hodel::Grid hodel::downscale(Grid const& grid, Integer const& factor)
     {
         throw InvalidGrid{"downscale"};
     }
-
-    if (result == grid)
-        throw IdentityGrid{"downscale"};
 
     return result;
 }
@@ -1620,9 +1463,6 @@ hodel::Grid hodel::replace(Grid const& grid, Integer const& replacee, Integer co
         }
     }
 
-    if (result == grid)
-        throw IdentityGrid{"replace"};
-
     return result;
 }
 
@@ -1640,9 +1480,6 @@ hodel::Grid hodel::switch_(Grid const& grid, Integer const& a, Integer const& b)
                 v = a;
         }
     }
-
-    if (result == grid)
-        throw IdentityGrid{"switch"};
 
     return result;
 }
@@ -1690,6 +1527,8 @@ hodel::Grid hodel::trim(hodel::Grid const &grid)
 
 hodel::Grid hodel::compress(Grid const& grid)
 {
+    Grid result;
+
     try
     {
         auto const h{grid.size()};
@@ -1731,8 +1570,6 @@ hodel::Grid hodel::compress(Grid const& grid)
             removeCol[j] = uniform;
         }
 
-        Grid result;
-
         for (size_t i = 0; i < h; ++i)
         {
             if (removeRow[i])
@@ -1748,16 +1585,13 @@ hodel::Grid hodel::compress(Grid const& grid)
 
             result.emplace_back(std::move(row));
         }
-
-        if (result == grid)
-            throw IdentityGrid{"compress"};
-
-        return result;
     }
     catch (std::exception const&)
     {
         throw InvalidGrid{"compress"};
     }
+
+    return result;
 }
 
 hodel::Object hodel::normalize(Object const& patch)
@@ -1818,9 +1652,6 @@ hodel::Object hodel::recolor(Integer const& value, Indices const& patch)
     for (auto const& index : patch)
         object.emplace(value, index);
 
-    if (toindices(object) == patch)
-        throw IdentityObject{"recolor"};
-
     return object;
 }
 
@@ -1856,11 +1687,7 @@ hodel::Boolean hodel::square(Indices const& piece)
 
 hodel::Boolean hodel::vline(Object const& patch)
 {
-    auto const h{height(patch)};
-    auto const w{width(patch)};
-    auto const l{patch.size()};
-
-    return h == l && w == 1;
+    return vline(toindices(patch));
 }
 
 hodel::Boolean hodel::vline(Indices const& patch)
@@ -1873,6 +1700,11 @@ hodel::Boolean hodel::vline(Indices const& patch)
 }
 
 hodel::Boolean hodel::hline(Object const& patch)
+{
+    return hline(toindices(patch));
+}
+
+hodel::Boolean hodel::hline(Indices const& patch)
 {
     auto const h{height(patch)};
     auto const w{width(patch)};
@@ -2225,9 +2057,6 @@ hodel::Objects hodel::colorfilter(Objects const& objs, Integer const& value)
         if (!obj.empty() && obj.begin()->first == value)
             result.emplace(obj);
     }
-    
-    if (objs == result)
-        throw IdentityObjects{"colorfilter"};
 
     return result;
 }
@@ -2673,9 +2502,6 @@ hodel::Grid hodel::fill(Grid const& grid, Integer const& value, Indices const& p
         throw InvalidGrid{"fill"};
     }
 
-    if (result == grid)
-        throw IdentityGrid{"fill"};
-
     return result;
 }
 
@@ -2701,9 +2527,6 @@ hodel::Grid hodel::paint(Grid const& grid, Object const& obj)
     {
         throw InvalidGrid{"paint"};
     }
-
-    if (result == grid)
-        throw IdentityGrid{"paint"};
 
     return result;
 }
@@ -2734,9 +2557,6 @@ hodel::Grid hodel::underfill(Grid const& grid, Integer const& value, Indices con
         throw InvalidGrid{"underfill"};
     }
 
-    if (result == grid)
-        throw IdentityGrid{"underfill"};
-
     return result;
 }
 
@@ -2762,9 +2582,6 @@ hodel::Grid hodel::underpaint(Grid const& grid, Object const& obj)
     {
         throw InvalidGrid{"underpaint"};
     }
-
-    if (result == grid)
-        throw IdentityGrid{"underpaint"};
 
     return result;
 }
@@ -3949,4 +3766,68 @@ hodel::IndicesVector hodel::totuple(IndicesSet const& container)
 hodel::ObjectVector hodel::totuple(Objects const& container)
 {
     return {container.begin(), container.end()};
+}
+
+hodel::Grid hodel::subgrid(Object const& patch, Grid const& grid)
+{
+    return subgrid(toindices(patch), grid);
+}
+
+hodel::Grid hodel::subgrid(Indices const& patch, Grid const& grid)
+{
+    return crop(grid, ulcorner(patch), shape(patch));
+}
+
+hodel::GridVector hodel::hsplit(Grid const& grid, Integer const& n)
+{
+    if (n <= 0)
+        throw InvalidInteger{"hsplit"};
+
+    std::vector<Grid> result;
+    result.reserve(n);
+
+    try
+    {
+        auto const h{grid.size()};
+        auto const w{grid.at(0).size() / n};
+        Integer const offset{(grid.at(0).size() % n != 0)};
+
+        for (Integer i = 0; i < n; ++i)
+            result.emplace_back(crop(grid,
+                                     IntegerTuple{0, static_cast<Integer>(w * i + i * offset)},
+                                     IntegerTuple{static_cast<Integer>(h), static_cast<Integer>(w)}));
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"hsplit"};
+    }
+
+    return result;
+}
+
+hodel::GridVector hodel::vsplit(Grid const& grid, Integer const& n)
+{
+    if (n <= 0)
+        throw InvalidInteger{"vsplit"};
+
+    std::vector<Grid> result;
+    result.reserve(n);
+
+    try
+    {
+        auto const h{grid.size() / n};
+        auto const w{grid.at(0).size()};
+        Integer const offset{(grid.size() % n != 0)};
+
+        for (Integer i = 0; i < n; ++i)
+            result.emplace_back(crop(grid,
+                                     IntegerTuple{static_cast<Integer>(h * i + i * offset), 0},
+                                     IntegerTuple{static_cast<Integer>(h), static_cast<Integer>(w)}));
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"vsplit"};
+    }
+
+    return result;
 }
