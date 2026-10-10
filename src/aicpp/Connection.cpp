@@ -62,30 +62,6 @@ size_t Connection::depth(size_t d) const
     return de;
 }
 
-size_t Connection::nextLeafDepth(size_t d, bool& finish) const
-{
-    size_t de{d};
-
-    for (auto const& input : inputs_)
-    {
-        if (input.type() == typeid(Connection))
-        {
-            auto const depth{std::any_cast<Connection>(input).nextLeafDepth(d + 1, finish)};
-
-            if (finish)
-                return depth;
-        }
-        else
-        {
-            finish = true;
-
-            return d + 1;
-        }
-    }
-
-    return de;
-}
-
 std::string Connection::string() const
 {
     if (name_.empty())
@@ -182,32 +158,6 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
     }
 
     hash_ = computeHash_();
-}
-
-bool Connection::applyNextLeaf(std::any const& input)
-{
-    for (auto& i : inputs_)
-    {
-        if (i.type() == typeid(Connection))
-        {
-            auto connection{std::any_cast<Connection>(i)};
-            auto const ok{connection.applyNextLeaf(input)};
-            
-            if (ok)
-            {
-                i = connection;
-
-                return true;
-            }
-        }
-        else
-        {
-            i = input;
-            return true;
-        }
-    }
-
-    return false;
 }
 
 std::pair<std::string, size_t> Connection::dot(size_t index) const
