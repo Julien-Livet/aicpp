@@ -188,6 +188,7 @@ namespace hodel
     typedef std::vector<Indices> IndicesVector;
     typedef std::vector<Object> ObjectVector;
     typedef std::vector<Objects> ObjectsVector;
+    typedef std::vector<Boolean> BooleanVector;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -356,6 +357,7 @@ namespace hodel
     ObjectVector branch(Boolean const& condition, ObjectVector const& a, ObjectVector const& b); //if else branching
     ObjectsVector branch(Boolean const& condition, ObjectsVector const& a, ObjectsVector const& b); //if else branching
     IndicesVector branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b); //if else branching
+    BooleanVector branch(Boolean const& condition, BooleanVector const& a, BooleanVector const& b); //if else branching
     Integer color(Object const& object); //color of object
     Object toobject(Object const& patch, Grid const& grid); //object from patch and grid
     Object toobject(Indices const& patch, Grid const& grid); //object from patch and grid
@@ -386,6 +388,7 @@ namespace hodel
     Boolean equality(ObjectVector const& a, ObjectVector const& b); //equality
     Boolean equality(ObjectsVector const& a, ObjectsVector const& b); //equality
     Boolean equality(IndicesVector const& a, IndicesVector const& b); //equality
+    Boolean equality(BooleanVector const& a, BooleanVector const& b); //equality
     Boolean hmatching(Indices const& a, Indices const& b); //whether there exists a row for which both patches have cells
     Boolean hmatching(Object const& a, Indices const& b); //whether there exists a row for which both patches have cells
     Boolean hmatching(Indices const& a, Object const& b); //whether there exists a row for which both patches have cells
@@ -474,6 +477,7 @@ namespace hodel
     ObjectVector identity(ObjectVector const& x); //identity function
     ObjectsVector identity(ObjectsVector const& x); //identity function
     IndicesVector identity(IndicesVector const& x); //identity function
+    BooleanVector identity(BooleanVector const& x); //identity function
     Integer first(IntegerTuple const& x); //first item of container
     IntegerTuple first(Indices const& x); //first item of container
     Cell first(Object const& x); //first item of container
@@ -486,6 +490,7 @@ namespace hodel
     Object first(ObjectVector const& x); //first item of container
     Objects first(ObjectsVector const& x); //first item of container
     Indices first(IndicesVector const& x); //first item of container
+    Boolean first(BooleanVector const& x); //first item of container
     Integer last(IntegerTuple const& x); //last item of container
     IntegerTuple last(Indices const& x); //last item of container
     Cell last(Object const& x); //last item of container
@@ -498,6 +503,7 @@ namespace hodel
     Object last(ObjectVector const& x); //last item of container
     Objects last(ObjectsVector const& x); //last item of container
     Indices last(IndicesVector const& x); //last item of container
+    Boolean last(BooleanVector const& x); //last item of container
     Indices insert(IntegerTuple const& value, Indices const& container); //insert item into container
     Object insert(Cell const& value, Object const& container); //insert item into container
     Grid insert(IntegerVector const& value, Grid const& container); //insert item into container
@@ -509,6 +515,7 @@ namespace hodel
     ObjectVector insert(Object const& value, ObjectVector const& container); //insert item into container
     ObjectsVector insert(Objects const& value, ObjectsVector const& container); //insert item into container
     IndicesVector insert(Indices const& value, IndicesVector const& container); //insert item into container
+    BooleanVector insert(Boolean const& value, BooleanVector const& container); //insert item into container
     Indices remove(IntegerTuple const& value, Indices const& container); //remove item from container
     Object remove(Cell const& value, Object const& container); //remove item from container
     Grid remove(IntegerVector const& value, Grid const& container); //remove item from container
@@ -520,6 +527,7 @@ namespace hodel
     ObjectVector remove(Object const& value, ObjectVector const& container); //remove item from container
     ObjectsVector remove(Objects const& value, ObjectsVector const& container); //remove item from container
     IndicesVector remove(Indices const& value, IndicesVector const& container); //remove item from container
+    BooleanVector remove(Boolean const& value, BooleanVector const& container); //remove item from container
     IntegerTuple other(Indices const& container, IntegerTuple const& value); //other value in the container
     Cell other(Object const& container, Cell const& value); //other value in the container
     IntegerVector other(Grid const& container, IntegerVector const& value); //other value in the container
@@ -531,6 +539,7 @@ namespace hodel
     Object other(ObjectVector const& container, Object const& value); //other value in the container
     Objects other(ObjectsVector const& container, Objects const& value); //other value in the container
     Indices other(IndicesVector const& container, Indices const& value); //other value in the container
+    Boolean other(BooleanVector const& container, Boolean const& value); //other value in the container
     Indices initset(IntegerTuple const& value); //initialize container
     Object initset(Cell const& value); //initialize container
     Grid initset(IntegerVector const& value); //initialize container
@@ -547,6 +556,13 @@ namespace hodel
     Grid subgrid(Indices const& patch, Grid const& grid); //smallest subgrid containing object
     GridVector hsplit(Grid const& grid, Integer const& n); //split grid horizontally
     GridVector vsplit(Grid const& grid, Integer const& n); //split grid vertically
+    BooleanVector repeat(Boolean const& item, Integer const& num); //repetition of item within vector
+    IntegerVector repeat(Integer const& item, Integer const& num); //repetition of item within vector
+    Grid repeat(IntegerVector const& item, Integer const& num); //repetition of item within vector
+    GridVector repeat(Grid const& item, Integer const& num); //repetition of item within vector
+    ObjectVector repeat(Object const& item, Integer const& num); //repetition of item within vector
+    ObjectsVector repeat(Objects const& item, Integer const& num); //repetition of item within vector
+    IndicesVector repeat(Indices const& item, Integer const& num); //repetition of item within vector
 }
 
 #endif // AICPP_HODEL_H
