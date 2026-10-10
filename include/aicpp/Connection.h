@@ -15,11 +15,9 @@ namespace aicpp
             std::vector<std::any> const& inputs() const;
             size_t cost() const;
             size_t depth(size_t d = 0) const;
-            size_t nextLeafDepth(size_t d, bool& finish) const;
             std::string string() const;
             std::vector<std::type_index> inputTypes() const;
             void applyInputs(std::vector<std::any> const& inputs, bool checkTypes = true);
-            bool applyNextLeaf(std::any const& input);
             std::pair<std::string, size_t> dot(size_t index = 0) const;
             std::any output() const;
             size_t hash() const;
