@@ -306,6 +306,8 @@ size_t Connection::computeHash_() const
         else if (input.type() == typeid(long))
             h += std::hash<long>{}(std::any_cast<long>(input));
         else if (input.type() == typeid(std::string))
+            h += std::hash<int16_t>{}(std::any_cast<int16_t>(input));
+        else if (input.type() == typeid(std::string))
             h += std::hash<std::string>{}(std::any_cast<std::string>(input));
         else if (input.type() == typeid(std::type_index))
             h += std::hash<std::type_index>{}(std::any_cast<std::type_index>(input));
@@ -343,6 +345,8 @@ bool Connection::operator==(Connection const& other) const
             equal &= (std::any_cast<int>(inputs_[i]) == std::any_cast<int>(other.inputs_[i]));
         else if (inputs_[i].type() == typeid(long) && other.inputs_[i].type() == typeid(long))
             equal &= (std::any_cast<long>(inputs_[i]) == std::any_cast<long>(other.inputs_[i]));
+        else if (inputs_[i].type() == typeid(int16_t) && other.inputs_[i].type() == typeid(int16_t))
+            equal &= (std::any_cast<int16_t>(inputs_[i]) == std::any_cast<int16_t>(other.inputs_[i]));
         else if (inputs_[i].type() == typeid(std::string) && other.inputs_[i].type() == typeid(std::string))
             equal &= (std::any_cast<std::string>(inputs_[i]) == std::any_cast<std::string>(other.inputs_[i]));
         else if (inputs_[i].type() == typeid(std::type_index) && other.inputs_[i].type() == typeid(std::type_index))
