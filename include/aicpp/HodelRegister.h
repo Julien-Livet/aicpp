@@ -3,12 +3,11 @@
 
 #include <map>
 
-#include "Neuron.h"
+#include "aicpp/Neuron.h"
 
 namespace aicpp
 {
-    using NeuronRegistry =
-    std::map<std::string, NeuronBase const*>;
+    using NeuronRegistry = std::map<std::string, NeuronBase const*>;
 
     NeuronRegistry makeNeuronRegistry();
 }
