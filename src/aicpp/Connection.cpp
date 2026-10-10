@@ -1,22 +1,68 @@
 #include <boost/algorithm/string.hpp>
 
 #include "aicpp/Connection.h"
+#include "aicpp/PolymorphicNeuron.h"
 #include "aicpp/utility.h"
 
 using namespace aicpp;
 
-Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs) : neuron_{neuron}, inputs_(inputs)
+Connection::Connection(
+    NeuronBase const* neuron,
+    std::vector<std::any> const& inputs)
+    : neuron_{neuron}, inputs_(inputs)
 {
-    assert(inputs_.size() == neuron_->inputTypes().size());
-
-    for (size_t i{0}; i < inputs_.size(); ++i)
+    if (!neuron_->isPolymorphic())
     {
-        if (inputs_[i].type() == typeid(Connection))
-            assert(std::any_cast<Connection>(inputs_[i]).neuron()->returnType() == neuron_->inputTypes()[i]);
-        else if (inputs_[i].type() == typeid(std::type_index))
-            assert(std::any_cast<std::type_index>(inputs_[i]) == neuron_->inputTypes()[i]);
-        else
-            assert(inputs_[i].type() == neuron_->inputTypes()[i]);
+        assert(inputs_.size() == neuron_->inputTypes().size());
+
+        for (size_t i{0}; i < inputs_.size(); ++i)
+        {
+            if (inputs_[i].type() == typeid(Connection))
+            {
+                assert(
+                    std::any_cast<Connection const&>(inputs_[i])
+                        .neuron()->returnType()
+                    == neuron_->inputTypes()[i]);
+            }
+            else if (inputs_[i].type() == typeid(std::type_index))
+            {
+                assert(
+                    std::any_cast<std::type_index>(inputs_[i])
+                    == neuron_->inputTypes()[i]);
+            }
+            else
+            {
+                assert(inputs_[i].type() == neuron_->inputTypes()[i]);
+            }
+        }
+    }
+    else
+    {
+        auto const* polymorphic =
+            dynamic_cast<PolymorphicNeuron const*>(neuron_);
+
+        if (polymorphic == nullptr)
+        {
+            throw std::logic_error(
+                "Neuron marked polymorphic does not implement PolymorphicNeuron");
+        }
+
+        DslType::Inputs arguments;
+        arguments.reserve(inputs_.size());
+
+        for (auto const& input : inputs_)
+        {
+            if (input.type() != typeid(Connection))
+            {
+                throw std::invalid_argument(
+                    "Polymorphic neuron arguments must be connections");
+            }
+
+            arguments.push_back(
+                std::any_cast<Connection const&>(input).signature());
+        }
+
+        polymorphic->inferSignature(arguments);
     }
 
     hash_ = computeHash_();
@@ -208,14 +254,22 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
         }
     }
 
-    std::string value{neuron_->returnType().name()};
+    std::string value;
 
     try
     {
-        value = utility::anyToString(output());
+        auto const result = output();
+
+        if (result.type() == typeid(Connection))
+            value = std::any_cast<Connection const&>(result).signature().output().nativeType().name();
+        else
+            value = utility::anyToString(result);
     }
     catch (std::bad_any_cast const&)
     {
+        value = neuron_->isPolymorphic()
+            ? "polymorphic"
+            : neuron_->returnType().name();
     }
 
     s += "n" + std::to_string(index) + " [label=\"" + value + "\", shape=circle, style=fill];\n";
@@ -227,6 +281,9 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
 
 std::any Connection::output() const
 {
+    if (neuron_->isPolymorphic())
+        return *this;
+
     std::vector<std::any> args;
     args.reserve(inputs_.size());
 
@@ -373,14 +430,15 @@ std::string Connection::expression() const
     for (auto const& input : inputs_)
     {
         if (input.type() == typeid(Connection))
-            args.emplace_back(std::any_cast<Connection>(input).expression());
+            args.emplace_back(
+                std::any_cast<Connection const&>(input).expression());
         else
             args.emplace_back(utility::anyToString(input));
     }
 
-    auto s{neuron_->name()};
+    auto s = neuron_->name();
 
-    if (neuron_->inputTypes().size())
+    if (!inputs_.empty())
         s += "(" + boost::algorithm::join(args, ", ") + ")";
 
     return s;
@@ -411,19 +469,53 @@ bool Connection::replace(NeuronBase const* neuron)
 {
     bool ok = false;
 
-    if (neuron->name() == neuron_->name() && neuron->inputTypes() == neuron_->inputTypes() && neuron->returnType() == neuron_->returnType())
-    {    
-        ok = true;
-        neuron_ = neuron;
+    if (neuron->name() == neuron_->name()) {
+        bool compatible = false;
+
+        if (neuron->isPolymorphic() && neuron_->isPolymorphic()) {
+            auto const* newPolymorphic =
+                dynamic_cast<PolymorphicNeuron const*>(neuron);
+            auto const* currentPolymorphic =
+                dynamic_cast<PolymorphicNeuron const*>(neuron_);
+
+            if (newPolymorphic == nullptr || currentPolymorphic == nullptr)
+                throw std::logic_error(
+                    "Neuron marked polymorphic does not implement PolymorphicNeuron"
+                );
+
+            compatible = signature() == [&]() {
+                DslType::Inputs arguments;
+                arguments.reserve(inputs_.size());
+
+                for (auto const& input : inputs_) {
+                    if (input.type() != typeid(Connection))
+                        throw std::invalid_argument(
+                            "Cannot infer polymorphic signature from a non-connection input"
+                        );
+
+                    arguments.push_back(
+                        std::any_cast<Connection const&>(input).signature()
+                    );
+                }
+
+                return newPolymorphic->inferSignature(arguments);
+            }();
+        } else if (!neuron->isPolymorphic() && !neuron_->isPolymorphic()) {
+            compatible =
+                neuron->inputTypes() == neuron_->inputTypes()
+                && neuron->returnType() == neuron_->returnType();
+        }
+
+        if (compatible) {
+            neuron_ = neuron;
+            ok = true;
+        }
     }
 
-    for (auto& input : inputs_)
-    {
-        if (input.type() == typeid(Connection))
-        {
-            auto connection{std::any_cast<Connection>(input)};
-
-            auto const valid{connection.replace(neuron)};
+    for (auto& input : inputs_) {
+        if (input.type() == typeid(Connection)) {
+            auto connection = std::any_cast<Connection>(input);
+            auto const valid = connection.replace(neuron);
 
             ok |= valid;
 
@@ -462,6 +554,112 @@ std::vector<std::type_index> Connection::expectedInputTypes() const
         }
         else
             types.emplace_back(neuron_->inputTypes()[i]);
+    }
+
+    return types;
+}
+
+DslType Connection::signature() const
+{
+    if (!neuron_->isPolymorphic())
+    {
+        return neuron_->signature();
+    }
+
+    auto const* polymorphic =
+        dynamic_cast<PolymorphicNeuron const*>(neuron_);
+
+    if (polymorphic == nullptr)
+    {
+        throw std::logic_error(
+            "Neuron marked polymorphic does not implement PolymorphicNeuron");
+    }
+
+    DslType::Inputs arguments;
+    arguments.reserve(inputs_.size());
+
+    for (auto const& input : inputs_)
+    {
+        if (input.type() == typeid(Connection))
+        {
+            arguments.push_back(
+                std::any_cast<Connection const&>(input).signature());
+        }
+        else
+        {
+            throw std::invalid_argument(
+                "Cannot infer polymorphic signature from a non-connection input");
+        }
+    }
+
+    return polymorphic->inferSignature(arguments);
+}
+
+std::any Connection::apply(std::any const& argument) const
+{
+    auto const signature = this->signature();
+
+    if (!signature.isFunction() || signature.inputs().size() != 1)
+    {
+        throw std::invalid_argument(
+            "Only unary function connections can be applied");
+    }
+
+    auto const expectedType = signature.inputs().front().nativeType();
+
+    if (argument.type() != expectedType)
+    {
+        throw std::invalid_argument(
+            "Argument type does not match function input type");
+    }
+
+    if (neuron_->isPolymorphic())
+    {
+        auto const* polymorphic =
+            dynamic_cast<PolymorphicNeuron const*>(neuron_);
+
+        if (polymorphic == nullptr)
+        {
+            throw std::logic_error(
+                "Neuron marked polymorphic does not implement PolymorphicNeuron");
+        }
+
+        return polymorphic->apply(inputs_, argument);
+    }
+
+    if (inputs_.size() != 1)
+    {
+        throw std::logic_error(
+            "Native function connection must have exactly one input");
+    }
+
+    std::vector<std::any> args;
+    args.reserve(1);
+    args.emplace_back(argument);
+
+    return neuron_->invoke(args);
+}
+
+std::vector<std::type_index> Connection::immediateInputTypes() const
+{
+    std::vector<std::type_index> types;
+    types.reserve(inputs_.size());
+
+    for (auto const& input : inputs_) {
+        if (input.type() == typeid(Connection)) {
+            auto const& connection = std::any_cast<Connection const&>(input);
+            auto const signature = connection.signature();
+
+            if (signature.isFunction()) {
+                types.emplace_back(signature.output().nativeType());
+            } else {
+                types.emplace_back(signature.nativeType());
+            }
+        } else if (input.type() == typeid(std::type_index)) {
+            types.emplace_back(std::any_cast<std::type_index>(input));
+        } else {
+            types.emplace_back(input.type());
+        }
     }
 
     return types;
