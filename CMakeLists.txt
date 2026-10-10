@@ -26,14 +26,116 @@ endif()
 
 find_package(Boost COMPONENTS headers json REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 include_directories(include)
+
+set(REGISTER_SCRIPT
+    "${CMAKE_CURRENT_SOURCE_DIR}/scripts/cpp_register.py"
+)
+
+set(HODEL_REGISTER
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/HodelRegister.cpp"
+)
+
+set(POLYMORPHIC_REGISTER
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/PolymorphicNeuronRegister.cpp"
+)
+
+file(GLOB REGISTER_HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/aicpp/*Neuron.h"
+)
+
+add_custom_command(
+    OUTPUT
+        "${HODEL_REGISTER}"
+        "${POLYMORPHIC_REGISTER}"
+
+    COMMAND
+        "${Python3_EXECUTABLE}" "${REGISTER_SCRIPT}" Hodel
+
+    DEPENDS
+        "${REGISTER_SCRIPT}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/aicpp/Hodel.h"
+        ${REGISTER_HEADERS}
+
+    WORKING_DIRECTORY
+        "${CMAKE_CURRENT_SOURCE_DIR}/scripts"
+
+    COMMENT "Generating native and polymorphic neuron registries"
+    VERBATIM
+)
+
+add_custom_target(generate_registers
+    DEPENDS
+        "${HODEL_REGISTER}"
+        "${POLYMORPHIC_REGISTER}"
+)
+
+set(REGISTER_SCRIPT
+    "${CMAKE_CURRENT_SOURCE_DIR}/scripts/cpp_register.py"
+)
+
+set(HODEL_HEADER
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/aicpp/Hodel.h"
+)
+
+set(HODEL_REGISTER
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/HodelRegister.cpp"
+)
+
+set(POLYMORPHIC_REGISTER
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/PolymorphicNeuronRegister.cpp"
+)
+
+# Discover neuron headers automatically.
+file(GLOB POLYMORPHIC_NEURON_HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/aicpp/*Neuron.h"
+)
+
+add_custom_command(
+    OUTPUT
+        "${HODEL_REGISTER}"
+        "${POLYMORPHIC_REGISTER}"
+
+    COMMAND
+        "${Python3_EXECUTABLE}"
+        "${REGISTER_SCRIPT}"
+        Hodel
+
+    DEPENDS
+        "${REGISTER_SCRIPT}"
+        "${HODEL_HEADER}"
+        ${POLYMORPHIC_NEURON_HEADERS}
+
+    WORKING_DIRECTORY
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+
+    COMMENT
+        "Generating native and polymorphic neuron registries"
+
+    VERBATIM
+)
+
+add_custom_target(generate_neuron_registries
+    DEPENDS
+        "${HODEL_REGISTER}"
+        "${POLYMORPHIC_REGISTER}"
+)
 
 add_executable(dsl_dataset
                src/dsl_dataset.cpp
                src/aicpp/Hodel.cpp include/aicpp/Hodel.h
-               src/aicpp/Neuron.cpp include/aicpp/Neuron.h
+               include/aicpp/Neuron.h
                src/aicpp/Connection.cpp include/aicpp/Connection.h
+               include/aicpp/DslType.h
+               include/aicpp/PolymorphicNeuron.h
+               include/aicpp/ComposeNeuron.h
+               src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
+               src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
+               src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
+                src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
+                src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
                include/aicpp/utility.h)
 
 if(USE_TESTS STREQUAL "TRUE")
@@ -41,8 +143,16 @@ if(USE_TESTS STREQUAL "TRUE")
     add_executable(test_aicpp
                 src/test_aicpp.cpp
                 src/aicpp/Hodel.cpp include/aicpp/Hodel.h
-                src/aicpp/Neuron.cpp include/aicpp/Neuron.h
+                include/aicpp/Neuron.h
                 src/aicpp/Connection.cpp include/aicpp/Connection.h
+                include/aicpp/DslType.h
+                include/aicpp/PolymorphicNeuron.h
+                include/aicpp/ComposeNeuron.h
+                src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
+                src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
+                src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
+                src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
+                src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
                 include/aicpp/utility.h)
 endif()
 
