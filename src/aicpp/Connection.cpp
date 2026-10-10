@@ -22,7 +22,7 @@ Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& in
     hash_ = computeHash_();
 }
 
-Neuron const& Connection::neuron() const
+NeuronBase const* Connection::neuron() const
 {
     return neuron_;
 }
@@ -119,7 +119,7 @@ std::vector<std::type_index> Connection::inputTypes() const
             auto const inputTypes{connection.inputTypes()};
 
             if (inputTypes.empty())
-                types.emplace_back(connection.neuron().outputType());
+                types.emplace_back(connection.neuron()->returnType());
             else
             {
                 auto const v{std::any_cast<Connection>(input).inputTypes()};
@@ -214,7 +214,7 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
 {
     std::string s;
 
-    s += "n" + std::to_string(index) + " [label=\"" + neuron_.get().name() + "\", shape=circle, style=fill];\n";
+    s += "n" + std::to_string(index) + " [label=\"" + neuron_->name() + "\", shape=circle, style=fill];\n";
     auto const nodeIndex{index};
     ++index;
 
@@ -284,12 +284,12 @@ std::any Connection::output() const
             args.emplace_back(input);
     }
 
-    return neuron_.get().invoke(args);
+    return neuron_->invoke(args);
 }
 
 size_t Connection::computeHash_() const
 {
-    size_t h{std::hash<Neuron const*>{}(neuron_)};
+    size_t h{std::hash<NeuronBase const*>{}(neuron_)};
 
     for (auto const& input : inputs_)
     {
@@ -321,7 +321,7 @@ size_t Connection::hash() const
 
 bool Connection::operator==(Connection const& other) const
 {
-    if (&neuron_.get() != &other.neuron_.get())
+    if (neuron_ != other.neuron_)
         return false;
 
     if (inputs_.size() != other.inputs_.size())
@@ -364,7 +364,7 @@ boost::json::value Connection::toJson() const
     object obj;
 
     obj["name"] = name_;
-    obj["neuron"] = neuron_.get().toJson();
+    obj["neuron"] = neuron_->toJson();
 
     array inputs, types;
 
@@ -420,9 +420,9 @@ std::string Connection::expression() const
             args.emplace_back(utility::anyToString(input));
     }
 
-    auto s{neuron_.get().name()};
+    auto s{neuron_->name()};
 
-    if (neuron_.get().inputTypes().size())
+    if (neuron_->inputTypes().size())
         s += "(" + boost::algorithm::join(args, ", ") + ")";
 
     return s;
@@ -449,11 +449,11 @@ std::vector<std::any> Connection::leafInputs() const
     return inputs;
 }
 
-bool Connection::replace(Neuron const* neuron)
+bool Connection::replace(NeuronBase const* neuron)
 {
     bool ok = false;
 
-    if (neuron->name() == neuron_->name() && neuron->inputTypes() == neuron_->inputTypes() && neuron->outputType() == neuron_->outputType())
+    if (neuron->name() == neuron_->name() && neuron->inputTypes() == neuron_->inputTypes() && neuron->returnType() == neuron_->returnType())
     {    
         ok = true;
         neuron_ = neuron;
