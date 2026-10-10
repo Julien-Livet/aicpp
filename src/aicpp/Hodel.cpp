@@ -3406,3 +3406,547 @@ hodel::IndicesVector hodel::identity(IndicesVector const& x)
 {
     return x;
 }
+
+hodel::Integer hodel::first(IntegerTuple const& x)
+{
+    return x.first;
+}
+
+hodel::IntegerTuple hodel::first(Indices const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Cell hodel::first(Object const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::IntegerVector hodel::first(Grid const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Grid hodel::first(GridVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Integer hodel::first(IntegerVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Indices hodel::first(IndicesSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Integer hodel::first(IntegerSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Object hodel::first(Objects const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Object hodel::first(ObjectVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Objects hodel::first(ObjectsVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Indices hodel::first(IndicesVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Integer hodel::last(IntegerTuple const& x)
+{
+    return x.second;
+}
+
+hodel::IntegerTuple hodel::last(Indices const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Cell hodel::last(Object const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::IntegerVector hodel::last(Grid const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Grid hodel::last(GridVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Integer hodel::last(IntegerVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Indices hodel::last(IndicesSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Integer hodel::last(IntegerSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Object hodel::last(Objects const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Object hodel::last(ObjectVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Objects hodel::last(ObjectsVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Indices hodel::last(IndicesVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Indices hodel::insert(IntegerTuple const& value, Indices const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::Object hodel::insert(Cell const& value, Object const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::Grid hodel::insert(IntegerVector const& value, Grid const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::GridVector hodel::insert(Grid const& value, GridVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::IntegerVector hodel::insert(Integer const& value, IntegerVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::IndicesSet hodel::insert(Indices const& value, IndicesSet const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::IntegerSet hodel::insert(Integer const& value, IntegerSet const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::Objects hodel::insert(Object const& value, Objects const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::ObjectVector hodel::insert(Object const& value, ObjectVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::ObjectsVector hodel::insert(Objects const& value, ObjectsVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::IndicesVector hodel::insert(Indices const& value, IndicesVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::Indices hodel::remove(IntegerTuple const& value, Indices const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::Object hodel::remove(Cell const& value, Object const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::Grid hodel::remove(IntegerVector const& value, Grid const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::GridVector hodel::remove(Grid const& value, GridVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::IntegerVector hodel::remove(Integer const& value, IntegerVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::IndicesSet hodel::remove(Indices const& value, IndicesSet const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::IntegerSet hodel::remove(Integer const& value, IntegerSet const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::Objects hodel::remove(Object const& value, Objects const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::ObjectVector hodel::remove(Object const& value, ObjectVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::ObjectsVector hodel::remove(Objects const& value, ObjectsVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::IndicesVector hodel::remove(Indices const& value, IndicesVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
+hodel::IntegerTuple hodel::other(Indices const& container, IntegerTuple const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Cell hodel::other(Object const& container, Cell const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::IntegerVector hodel::other(Grid const& container, IntegerVector const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Grid hodel::other(GridVector const& container, Grid const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Integer hodel::other(IntegerVector const& container, Integer const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Indices hodel::other(IndicesSet const& container, Indices const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Integer hodel::other(IntegerSet const& container, Integer const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Object hodel::other(Objects const& container, Object const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Object hodel::other(ObjectVector const& container, Object const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Objects hodel::other(ObjectsVector const& container, Objects const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Indices hodel::other(IndicesVector const& container, Indices const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Indices hodel::initset(IntegerTuple const& value)
+{
+    return {value};
+}
+
+hodel::Object hodel::initset(Cell const& value)
+{
+    return {value};
+}
+
+hodel::Grid hodel::initset(IntegerVector const& value)
+{
+    return {value};
+}
+
+hodel::GridVector hodel::initset(Grid const& value)
+{
+    return {value};
+}
+
+hodel::IndicesSet hodel::initset(Indices const& value)
+{
+    return {value};
+}
+
+hodel::IntegerSet hodel::initset(Integer const& value)
+{
+    return {value};
+}
+
+hodel::Objects hodel::initset(Object const& value)
+{
+    return {value};
+}
+
+hodel::ObjectsVector hodel::initset(Objects const& value)
+{
+    return {value};
+}
+
+
+hodel::IntegerVector hodel::totuple(IntegerTuple const& container)
+{
+    return {container.first, container.second};
+}
+
+hodel::IntegerVector hodel::totuple(IntegerSet const& container)
+{
+    return {container.begin(), container.end()};
+}
+
+hodel::IndicesVector hodel::totuple(IndicesSet const& container)
+{
+    return {container.begin(), container.end()};
+}
+
+hodel::ObjectVector hodel::totuple(Objects const& container)
+{
+    return {container.begin(), container.end()};
+}
