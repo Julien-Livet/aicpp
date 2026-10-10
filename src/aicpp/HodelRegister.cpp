@@ -2,14 +2,16 @@
 
 #include <cstddef>
 
-#include "Hodel.h"
-#include "Neuron.h"
+#include "aicpp/Hodel.h"
+#include "aicpp/Neuron.h"
+#include "aicpp/HodelRegister.h"
+#include "aicpp/PolymorphicNeuronRegister.h"
 
 namespace aicpp
 {
 using namespace hodel;
 
-// Original declaration: line 277
+// Original declaration: line 192
 static hodel::Boolean constant_value_F_0()
 {
     return hodel::F;
@@ -22,7 +24,7 @@ aicpp::Neuron<hodel::Boolean> neuron_F_0{
     static_cast<FunctionType_0>(&constant_value_F_0)
 };
 
-// Original declaration: line 278
+// Original declaration: line 193
 static hodel::Boolean constant_value_T_1()
 {
     return hodel::T;
@@ -35,7 +37,7 @@ aicpp::Neuron<hodel::Boolean> neuron_T_1{
     static_cast<FunctionType_1>(&constant_value_T_1)
 };
 
-// Original declaration: line 280
+// Original declaration: line 195
 static hodel::Integer constant_value_ZERO_2()
 {
     return hodel::ZERO;
@@ -48,7 +50,7 @@ aicpp::Neuron<hodel::Integer> neuron_ZERO_2{
     static_cast<FunctionType_2>(&constant_value_ZERO_2)
 };
 
-// Original declaration: line 281
+// Original declaration: line 196
 static hodel::Integer constant_value_ONE_3()
 {
     return hodel::ONE;
@@ -61,7 +63,7 @@ aicpp::Neuron<hodel::Integer> neuron_ONE_3{
     static_cast<FunctionType_3>(&constant_value_ONE_3)
 };
 
-// Original declaration: line 282
+// Original declaration: line 197
 static hodel::Integer constant_value_TWO_4()
 {
     return hodel::TWO;
@@ -74,7 +76,7 @@ aicpp::Neuron<hodel::Integer> neuron_TWO_4{
     static_cast<FunctionType_4>(&constant_value_TWO_4)
 };
 
-// Original declaration: line 283
+// Original declaration: line 198
 static hodel::Integer constant_value_THREE_5()
 {
     return hodel::THREE;
@@ -87,7 +89,7 @@ aicpp::Neuron<hodel::Integer> neuron_THREE_5{
     static_cast<FunctionType_5>(&constant_value_THREE_5)
 };
 
-// Original declaration: line 284
+// Original declaration: line 199
 static hodel::Integer constant_value_FOUR_6()
 {
     return hodel::FOUR;
@@ -100,7 +102,7 @@ aicpp::Neuron<hodel::Integer> neuron_FOUR_6{
     static_cast<FunctionType_6>(&constant_value_FOUR_6)
 };
 
-// Original declaration: line 285
+// Original declaration: line 200
 static hodel::Integer constant_value_FIVE_7()
 {
     return hodel::FIVE;
@@ -113,7 +115,7 @@ aicpp::Neuron<hodel::Integer> neuron_FIVE_7{
     static_cast<FunctionType_7>(&constant_value_FIVE_7)
 };
 
-// Original declaration: line 286
+// Original declaration: line 201
 static hodel::Integer constant_value_SIX_8()
 {
     return hodel::SIX;
@@ -126,7 +128,7 @@ aicpp::Neuron<hodel::Integer> neuron_SIX_8{
     static_cast<FunctionType_8>(&constant_value_SIX_8)
 };
 
-// Original declaration: line 287
+// Original declaration: line 202
 static hodel::Integer constant_value_SEVEN_9()
 {
     return hodel::SEVEN;
@@ -139,7 +141,7 @@ aicpp::Neuron<hodel::Integer> neuron_SEVEN_9{
     static_cast<FunctionType_9>(&constant_value_SEVEN_9)
 };
 
-// Original declaration: line 288
+// Original declaration: line 203
 static hodel::Integer constant_value_EIGHT_10()
 {
     return hodel::EIGHT;
@@ -152,7 +154,7 @@ aicpp::Neuron<hodel::Integer> neuron_EIGHT_10{
     static_cast<FunctionType_10>(&constant_value_EIGHT_10)
 };
 
-// Original declaration: line 289
+// Original declaration: line 204
 static hodel::Integer constant_value_NINE_11()
 {
     return hodel::NINE;
@@ -165,7 +167,7 @@ aicpp::Neuron<hodel::Integer> neuron_NINE_11{
     static_cast<FunctionType_11>(&constant_value_NINE_11)
 };
 
-// Original declaration: line 290
+// Original declaration: line 205
 static hodel::Integer constant_value_TEN_12()
 {
     return hodel::TEN;
@@ -178,7 +180,7 @@ aicpp::Neuron<hodel::Integer> neuron_TEN_12{
     static_cast<FunctionType_12>(&constant_value_TEN_12)
 };
 
-// Original declaration: line 292
+// Original declaration: line 207
 static hodel::Integer constant_value_NEG_ONE_13()
 {
     return hodel::NEG_ONE;
@@ -191,7 +193,7 @@ aicpp::Neuron<hodel::Integer> neuron_NEG_ONE_13{
     static_cast<FunctionType_13>(&constant_value_NEG_ONE_13)
 };
 
-// Original declaration: line 293
+// Original declaration: line 208
 static hodel::Integer constant_value_NEG_TWO_14()
 {
     return hodel::NEG_TWO;
@@ -204,7 +206,7 @@ aicpp::Neuron<hodel::Integer> neuron_NEG_TWO_14{
     static_cast<FunctionType_14>(&constant_value_NEG_TWO_14)
 };
 
-// Original declaration: line 295
+// Original declaration: line 210
 static IntegerTuple constant_value_DOWN_15()
 {
     return hodel::DOWN;
@@ -217,7 +219,7 @@ aicpp::Neuron<IntegerTuple> neuron_DOWN_15{
     static_cast<FunctionType_15>(&constant_value_DOWN_15)
 };
 
-// Original declaration: line 296
+// Original declaration: line 211
 static IntegerTuple constant_value_RIGHT_16()
 {
     return hodel::RIGHT;
@@ -230,7 +232,7 @@ aicpp::Neuron<IntegerTuple> neuron_RIGHT_16{
     static_cast<FunctionType_16>(&constant_value_RIGHT_16)
 };
 
-// Original declaration: line 297
+// Original declaration: line 212
 static IntegerTuple constant_value_UP_17()
 {
     return hodel::UP;
@@ -243,7 +245,7 @@ aicpp::Neuron<IntegerTuple> neuron_UP_17{
     static_cast<FunctionType_17>(&constant_value_UP_17)
 };
 
-// Original declaration: line 298
+// Original declaration: line 213
 static IntegerTuple constant_value_LEFT_18()
 {
     return hodel::LEFT;
@@ -256,7 +258,7 @@ aicpp::Neuron<IntegerTuple> neuron_LEFT_18{
     static_cast<FunctionType_18>(&constant_value_LEFT_18)
 };
 
-// Original declaration: line 300
+// Original declaration: line 215
 static IntegerTuple constant_value_ORIGIN_19()
 {
     return hodel::ORIGIN;
@@ -269,7 +271,7 @@ aicpp::Neuron<IntegerTuple> neuron_ORIGIN_19{
     static_cast<FunctionType_19>(&constant_value_ORIGIN_19)
 };
 
-// Original declaration: line 301
+// Original declaration: line 216
 static IntegerTuple constant_value_UNITY_20()
 {
     return hodel::UNITY;
@@ -282,7 +284,7 @@ aicpp::Neuron<IntegerTuple> neuron_UNITY_20{
     static_cast<FunctionType_20>(&constant_value_UNITY_20)
 };
 
-// Original declaration: line 302
+// Original declaration: line 217
 static IntegerTuple constant_value_NEG_UNITY_21()
 {
     return hodel::NEG_UNITY;
@@ -295,7 +297,7 @@ aicpp::Neuron<IntegerTuple> neuron_NEG_UNITY_21{
     static_cast<FunctionType_21>(&constant_value_NEG_UNITY_21)
 };
 
-// Original declaration: line 303
+// Original declaration: line 218
 static IntegerTuple constant_value_UP_RIGHT_22()
 {
     return hodel::UP_RIGHT;
@@ -308,7 +310,7 @@ aicpp::Neuron<IntegerTuple> neuron_UP_RIGHT_22{
     static_cast<FunctionType_22>(&constant_value_UP_RIGHT_22)
 };
 
-// Original declaration: line 304
+// Original declaration: line 219
 static IntegerTuple constant_value_DOWN_LEFT_23()
 {
     return hodel::DOWN_LEFT;
@@ -321,7 +323,7 @@ aicpp::Neuron<IntegerTuple> neuron_DOWN_LEFT_23{
     static_cast<FunctionType_23>(&constant_value_DOWN_LEFT_23)
 };
 
-// Original declaration: line 306
+// Original declaration: line 221
 static IntegerTuple constant_value_ZERO_BY_TWO_24()
 {
     return hodel::ZERO_BY_TWO;
@@ -334,7 +336,7 @@ aicpp::Neuron<IntegerTuple> neuron_ZERO_BY_TWO_24{
     static_cast<FunctionType_24>(&constant_value_ZERO_BY_TWO_24)
 };
 
-// Original declaration: line 307
+// Original declaration: line 222
 static IntegerTuple constant_value_TWO_BY_ZERO_25()
 {
     return hodel::TWO_BY_ZERO;
@@ -347,7 +349,7 @@ aicpp::Neuron<IntegerTuple> neuron_TWO_BY_ZERO_25{
     static_cast<FunctionType_25>(&constant_value_TWO_BY_ZERO_25)
 };
 
-// Original declaration: line 308
+// Original declaration: line 223
 static IntegerTuple constant_value_TWO_BY_TWO_26()
 {
     return hodel::TWO_BY_TWO;
@@ -360,7 +362,7 @@ aicpp::Neuron<IntegerTuple> neuron_TWO_BY_TWO_26{
     static_cast<FunctionType_26>(&constant_value_TWO_BY_TWO_26)
 };
 
-// Original declaration: line 309
+// Original declaration: line 224
 static IntegerTuple constant_value_THREE_BY_THREE_27()
 {
     return hodel::THREE_BY_THREE;
@@ -373,7 +375,7 @@ aicpp::Neuron<IntegerTuple> neuron_THREE_BY_THREE_27{
     static_cast<FunctionType_27>(&constant_value_THREE_BY_THREE_27)
 };
 
-// Original declaration: line 311
+// Original declaration: line 226
 using FunctionType_28 = aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_add_28{
@@ -381,7 +383,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_28>(&hodel::add)
 };
 
-// Original declaration: line 312
+// Original declaration: line 227
 using FunctionType_29 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_add_29{
@@ -389,7 +391,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_a
     static_cast<FunctionType_29>(&hodel::add)
 };
 
-// Original declaration: line 313
+// Original declaration: line 228
 using FunctionType_30 = aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_add_30{
@@ -397,7 +399,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_a
     static_cast<FunctionType_30>(&hodel::add)
 };
 
-// Original declaration: line 314
+// Original declaration: line 229
 using FunctionType_31 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_add_31{
@@ -405,7 +407,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_add
     static_cast<FunctionType_31>(&hodel::add)
 };
 
-// Original declaration: line 315
+// Original declaration: line 230
 using FunctionType_32 = aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_subtract_32{
@@ -413,7 +415,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_32>(&hodel::subtract)
 };
 
-// Original declaration: line 316
+// Original declaration: line 231
 using FunctionType_33 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_subtract_33{
@@ -421,7 +423,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_s
     static_cast<FunctionType_33>(&hodel::subtract)
 };
 
-// Original declaration: line 317
+// Original declaration: line 232
 using FunctionType_34 = aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_subtract_34{
@@ -429,7 +431,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_s
     static_cast<FunctionType_34>(&hodel::subtract)
 };
 
-// Original declaration: line 318
+// Original declaration: line 233
 using FunctionType_35 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_subtract_35{
@@ -437,7 +439,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_sub
     static_cast<FunctionType_35>(&hodel::subtract)
 };
 
-// Original declaration: line 319
+// Original declaration: line 234
 using FunctionType_36 = aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_multiply_36{
@@ -445,7 +447,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_36>(&hodel::multiply)
 };
 
-// Original declaration: line 320
+// Original declaration: line 235
 using FunctionType_37 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_multiply_37{
@@ -453,7 +455,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_m
     static_cast<FunctionType_37>(&hodel::multiply)
 };
 
-// Original declaration: line 321
+// Original declaration: line 236
 using FunctionType_38 = aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_multiply_38{
@@ -461,7 +463,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_m
     static_cast<FunctionType_38>(&hodel::multiply)
 };
 
-// Original declaration: line 322
+// Original declaration: line 237
 using FunctionType_39 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_multiply_39{
@@ -469,7 +471,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_mul
     static_cast<FunctionType_39>(&hodel::multiply)
 };
 
-// Original declaration: line 323
+// Original declaration: line 238
 using FunctionType_40 = aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_divide_40{
@@ -477,7 +479,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_40>(&hodel::divide)
 };
 
-// Original declaration: line 324
+// Original declaration: line 239
 using FunctionType_41 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_divide_41{
@@ -485,7 +487,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_d
     static_cast<FunctionType_41>(&hodel::divide)
 };
 
-// Original declaration: line 325
+// Original declaration: line 240
 using FunctionType_42 = aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_divide_42{
@@ -493,7 +495,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_div
     static_cast<FunctionType_42>(&hodel::divide)
 };
 
-// Original declaration: line 326
+// Original declaration: line 241
 using FunctionType_43 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_invert_43{
@@ -501,7 +503,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_invert_43{
     static_cast<FunctionType_43>(&hodel::invert)
 };
 
-// Original declaration: line 327
+// Original declaration: line 242
 using FunctionType_44 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_invert_44{
@@ -509,7 +511,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_invert_44{
     static_cast<FunctionType_44>(&hodel::invert)
 };
 
-// Original declaration: line 328
+// Original declaration: line 243
 using FunctionType_45 = aicpp::Neuron<hodel::Boolean, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_even_45{
@@ -517,7 +519,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_even_45{
     static_cast<FunctionType_45>(&hodel::even)
 };
 
-// Original declaration: line 329
+// Original declaration: line 244
 using FunctionType_46 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_double__46{
@@ -525,7 +527,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_double__46{
     static_cast<FunctionType_46>(&hodel::double_)
 };
 
-// Original declaration: line 330
+// Original declaration: line 245
 using FunctionType_47 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_double__47{
@@ -533,7 +535,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_double__47{
     static_cast<FunctionType_47>(&hodel::double_)
 };
 
-// Original declaration: line 331
+// Original declaration: line 246
 using FunctionType_48 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_halve_48{
@@ -541,7 +543,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_halve_48{
     static_cast<FunctionType_48>(&hodel::halve)
 };
 
-// Original declaration: line 332
+// Original declaration: line 247
 using FunctionType_49 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_halve_49{
@@ -549,7 +551,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_halve_49{
     static_cast<FunctionType_49>(&hodel::halve)
 };
 
-// Original declaration: line 333
+// Original declaration: line 248
 using FunctionType_50 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_flip_50{
@@ -557,7 +559,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_flip_50{
     static_cast<FunctionType_50>(&hodel::flip)
 };
 
-// Original declaration: line 334
+// Original declaration: line 249
 using FunctionType_51 = aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neuron_greater_51{
@@ -565,7 +567,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_51>(&hodel::greater)
 };
 
-// Original declaration: line 335
+// Original declaration: line 250
 using FunctionType_52 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_maximum_52{
@@ -573,7 +575,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_maximum_52{
     static_cast<FunctionType_52>(&hodel::maximum)
 };
 
-// Original declaration: line 336
+// Original declaration: line 251
 using FunctionType_53 = aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_maximum_53{
@@ -581,7 +583,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_maximum_53{
     static_cast<FunctionType_53>(&hodel::maximum)
 };
 
-// Original declaration: line 337
+// Original declaration: line 252
 using FunctionType_54 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_minimum_54{
@@ -589,7 +591,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_minimum_54{
     static_cast<FunctionType_54>(&hodel::minimum)
 };
 
-// Original declaration: line 338
+// Original declaration: line 253
 using FunctionType_55 = aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_minimum_55{
@@ -597,7 +599,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_minimum_55{
     static_cast<FunctionType_55>(&hodel::minimum)
 };
 
-// Original declaration: line 339
+// Original declaration: line 254
 using FunctionType_56 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_both_56{
@@ -605,7 +607,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neur
     static_cast<FunctionType_56>(&hodel::both)
 };
 
-// Original declaration: line 340
+// Original declaration: line 255
 using FunctionType_57 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_either_57{
@@ -613,7 +615,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neur
     static_cast<FunctionType_57>(&hodel::either)
 };
 
-// Original declaration: line 341
+// Original declaration: line 256
 using FunctionType_58 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_increment_58{
@@ -621,7 +623,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_increment_58{
     static_cast<FunctionType_58>(&hodel::increment)
 };
 
-// Original declaration: line 342
+// Original declaration: line 257
 using FunctionType_59 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_increment_59{
@@ -629,7 +631,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_increment_59{
     static_cast<FunctionType_59>(&hodel::increment)
 };
 
-// Original declaration: line 343
+// Original declaration: line 258
 using FunctionType_60 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_decrement_60{
@@ -637,7 +639,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_decrement_60{
     static_cast<FunctionType_60>(&hodel::decrement)
 };
 
-// Original declaration: line 344
+// Original declaration: line 259
 using FunctionType_61 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_decrement_61{
@@ -645,7 +647,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_decrement_61{
     static_cast<FunctionType_61>(&hodel::decrement)
 };
 
-// Original declaration: line 345
+// Original declaration: line 260
 using FunctionType_62 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_crement_62{
@@ -653,7 +655,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_crement_62{
     static_cast<FunctionType_62>(&hodel::crement)
 };
 
-// Original declaration: line 346
+// Original declaration: line 261
 using FunctionType_63 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_crement_63{
@@ -661,7 +663,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_crement_63{
     static_cast<FunctionType_63>(&hodel::crement)
 };
 
-// Original declaration: line 347
+// Original declaration: line 262
 using FunctionType_64 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_sign_64{
@@ -669,7 +671,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_sign_64{
     static_cast<FunctionType_64>(&hodel::sign)
 };
 
-// Original declaration: line 348
+// Original declaration: line 263
 using FunctionType_65 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_sign_65{
@@ -677,7 +679,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_sign_65{
     static_cast<FunctionType_65>(&hodel::sign)
 };
 
-// Original declaration: line 349
+// Original declaration: line 264
 using FunctionType_66 = aicpp::Neuron<hodel::Boolean, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_positive_66{
@@ -685,7 +687,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_positive_66{
     static_cast<FunctionType_66>(&hodel::positive)
 };
 
-// Original declaration: line 350
+// Original declaration: line 265
 using FunctionType_67 = aicpp::Neuron<IntegerTuple, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_toivec_67{
@@ -693,7 +695,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_toivec_67{
     static_cast<FunctionType_67>(&hodel::toivec)
 };
 
-// Original declaration: line 351
+// Original declaration: line 266
 using FunctionType_68 = aicpp::Neuron<IntegerTuple, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_tojvec_68{
@@ -701,7 +703,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_tojvec_68{
     static_cast<FunctionType_68>(&hodel::tojvec)
 };
 
-// Original declaration: line 352
+// Original declaration: line 267
 using FunctionType_69 = aicpp::Neuron<hodel::IntegerVector, hodel::Integer, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_interval_69{
@@ -709,7 +711,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Integer, hodel::Integer const&, hodel
     static_cast<FunctionType_69>(&hodel::interval)
 };
 
-// Original declaration: line 353
+// Original declaration: line 268
 using FunctionType_70 = aicpp::Neuron<IntegerTuple, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Integer const&, hodel::Integer const&> neuron_astuple_70{
@@ -717,7 +719,7 @@ aicpp::Neuron<IntegerTuple, hodel::Integer const&, hodel::Integer const&> neuron
     static_cast<FunctionType_70>(&hodel::astuple)
 };
 
-// Original declaration: line 354
+// Original declaration: line 269
 using FunctionType_71 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_ulcorner_71{
@@ -725,7 +727,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_ulcorner_71{
     static_cast<FunctionType_71>(&hodel::ulcorner)
 };
 
-// Original declaration: line 355
+// Original declaration: line 270
 using FunctionType_72 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_ulcorner_72{
@@ -733,7 +735,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_ulcorner_72{
     static_cast<FunctionType_72>(&hodel::ulcorner)
 };
 
-// Original declaration: line 356
+// Original declaration: line 271
 using FunctionType_73 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_urcorner_73{
@@ -741,7 +743,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_urcorner_73{
     static_cast<FunctionType_73>(&hodel::urcorner)
 };
 
-// Original declaration: line 357
+// Original declaration: line 272
 using FunctionType_74 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_urcorner_74{
@@ -749,7 +751,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_urcorner_74{
     static_cast<FunctionType_74>(&hodel::urcorner)
 };
 
-// Original declaration: line 358
+// Original declaration: line 273
 using FunctionType_75 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_llcorner_75{
@@ -757,7 +759,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_llcorner_75{
     static_cast<FunctionType_75>(&hodel::llcorner)
 };
 
-// Original declaration: line 359
+// Original declaration: line 274
 using FunctionType_76 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_llcorner_76{
@@ -765,7 +767,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_llcorner_76{
     static_cast<FunctionType_76>(&hodel::llcorner)
 };
 
-// Original declaration: line 360
+// Original declaration: line 275
 using FunctionType_77 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_lrcorner_77{
@@ -773,7 +775,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_lrcorner_77{
     static_cast<FunctionType_77>(&hodel::lrcorner)
 };
 
-// Original declaration: line 361
+// Original declaration: line 276
 using FunctionType_78 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_lrcorner_78{
@@ -781,7 +783,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_lrcorner_78{
     static_cast<FunctionType_78>(&hodel::lrcorner)
 };
 
-// Original declaration: line 362
+// Original declaration: line 277
 using FunctionType_79 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, IntegerTuple const&, IntegerTuple const&> neuron_crop_79{
@@ -789,7 +791,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, IntegerTuple const&, IntegerTuple
     static_cast<FunctionType_79>(&hodel::crop)
 };
 
-// Original declaration: line 363
+// Original declaration: line 278
 using FunctionType_80 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_toindices_80{
@@ -797,7 +799,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_toindices_80{
     static_cast<FunctionType_80>(&hodel::toindices)
 };
 
-// Original declaration: line 364
+// Original declaration: line 279
 using FunctionType_81 = aicpp::Neuron<hodel::Object, hodel::Object const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&, IntegerTuple const&> neuron_shift_81{
@@ -805,7 +807,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&, IntegerTuple const&> neuron_s
     static_cast<FunctionType_81>(&hodel::shift)
 };
 
-// Original declaration: line 365
+// Original declaration: line 280
 using FunctionType_82 = aicpp::Neuron<hodel::Indices, hodel::Indices const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&, IntegerTuple const&> neuron_shift_82{
@@ -813,7 +815,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&, IntegerTuple const&> neuron
     static_cast<FunctionType_82>(&hodel::shift)
 };
 
-// Original declaration: line 366
+// Original declaration: line 281
 using FunctionType_83 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_uppermost_83{
@@ -821,7 +823,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_uppermost_83{
     static_cast<FunctionType_83>(&hodel::uppermost)
 };
 
-// Original declaration: line 367
+// Original declaration: line 282
 using FunctionType_84 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_uppermost_84{
@@ -829,7 +831,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_uppermost_84{
     static_cast<FunctionType_84>(&hodel::uppermost)
 };
 
-// Original declaration: line 368
+// Original declaration: line 283
 using FunctionType_85 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_lowermost_85{
@@ -837,7 +839,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_lowermost_85{
     static_cast<FunctionType_85>(&hodel::lowermost)
 };
 
-// Original declaration: line 369
+// Original declaration: line 284
 using FunctionType_86 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_lowermost_86{
@@ -845,7 +847,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_lowermost_86{
     static_cast<FunctionType_86>(&hodel::lowermost)
 };
 
-// Original declaration: line 370
+// Original declaration: line 285
 using FunctionType_87 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leftmost_87{
@@ -853,7 +855,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leftmost_87{
     static_cast<FunctionType_87>(&hodel::leftmost)
 };
 
-// Original declaration: line 371
+// Original declaration: line 286
 using FunctionType_88 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_leftmost_88{
@@ -861,7 +863,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_leftmost_88{
     static_cast<FunctionType_88>(&hodel::leftmost)
 };
 
-// Original declaration: line 372
+// Original declaration: line 287
 using FunctionType_89 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_rightmost_89{
@@ -869,7 +871,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_rightmost_89{
     static_cast<FunctionType_89>(&hodel::rightmost)
 };
 
-// Original declaration: line 373
+// Original declaration: line 288
 using FunctionType_90 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_rightmost_90{
@@ -877,7 +879,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_rightmost_90{
     static_cast<FunctionType_90>(&hodel::rightmost)
 };
 
-// Original declaration: line 374
+// Original declaration: line 289
 using FunctionType_91 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot90_91{
@@ -885,7 +887,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot90_91{
     static_cast<FunctionType_91>(&hodel::rot90)
 };
 
-// Original declaration: line 375
+// Original declaration: line 290
 using FunctionType_92 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot180_92{
@@ -893,7 +895,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot180_92{
     static_cast<FunctionType_92>(&hodel::rot180)
 };
 
-// Original declaration: line 376
+// Original declaration: line 291
 using FunctionType_93 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot270_93{
@@ -901,7 +903,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot270_93{
     static_cast<FunctionType_93>(&hodel::rot270)
 };
 
-// Original declaration: line 377
+// Original declaration: line 292
 using FunctionType_94 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_hmirror_94{
@@ -909,7 +911,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_hmirror_94{
     static_cast<FunctionType_94>(&hodel::hmirror)
 };
 
-// Original declaration: line 378
+// Original declaration: line 293
 using FunctionType_95 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_hmirror_95{
@@ -917,7 +919,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_hmirror_95{
     static_cast<FunctionType_95>(&hodel::hmirror)
 };
 
-// Original declaration: line 379
+// Original declaration: line 294
 using FunctionType_96 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_hmirror_96{
@@ -925,7 +927,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_hmirror_96{
     static_cast<FunctionType_96>(&hodel::hmirror)
 };
 
-// Original declaration: line 380
+// Original declaration: line 295
 using FunctionType_97 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_vmirror_97{
@@ -933,7 +935,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_vmirror_97{
     static_cast<FunctionType_97>(&hodel::vmirror)
 };
 
-// Original declaration: line 381
+// Original declaration: line 296
 using FunctionType_98 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_vmirror_98{
@@ -941,7 +943,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_vmirror_98{
     static_cast<FunctionType_98>(&hodel::vmirror)
 };
 
-// Original declaration: line 382
+// Original declaration: line 297
 using FunctionType_99 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_vmirror_99{
@@ -949,7 +951,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_vmirror_99{
     static_cast<FunctionType_99>(&hodel::vmirror)
 };
 
-// Original declaration: line 383
+// Original declaration: line 298
 using FunctionType_100 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_dmirror_100{
@@ -957,7 +959,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_dmirror_100{
     static_cast<FunctionType_100>(&hodel::dmirror)
 };
 
-// Original declaration: line 384
+// Original declaration: line 299
 using FunctionType_101 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_dmirror_101{
@@ -965,7 +967,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_dmirror_101{
     static_cast<FunctionType_101>(&hodel::dmirror)
 };
 
-// Original declaration: line 385
+// Original declaration: line 300
 using FunctionType_102 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_dmirror_102{
@@ -973,7 +975,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_dmirror_102{
     static_cast<FunctionType_102>(&hodel::dmirror)
 };
 
-// Original declaration: line 386
+// Original declaration: line 301
 using FunctionType_103 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_cmirror_103{
@@ -981,7 +983,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_cmirror_103{
     static_cast<FunctionType_103>(&hodel::cmirror)
 };
 
-// Original declaration: line 387
+// Original declaration: line 302
 using FunctionType_104 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_cmirror_104{
@@ -989,7 +991,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_cmirror_104{
     static_cast<FunctionType_104>(&hodel::cmirror)
 };
 
-// Original declaration: line 388
+// Original declaration: line 303
 using FunctionType_105 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_cmirror_105{
@@ -997,7 +999,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_cmirror_105{
     static_cast<FunctionType_105>(&hodel::cmirror)
 };
 
-// Original declaration: line 389
+// Original declaration: line 304
 using FunctionType_106 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_hupscale_106{
@@ -1005,7 +1007,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_hup
     static_cast<FunctionType_106>(&hodel::hupscale)
 };
 
-// Original declaration: line 390
+// Original declaration: line 305
 using FunctionType_107 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_vupscale_107{
@@ -1013,7 +1015,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_vup
     static_cast<FunctionType_107>(&hodel::vupscale)
 };
 
-// Original declaration: line 391
+// Original declaration: line 306
 using FunctionType_108 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_upscale_108{
@@ -1021,7 +1023,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_ups
     static_cast<FunctionType_108>(&hodel::upscale)
 };
 
-// Original declaration: line 392
+// Original declaration: line 307
 using FunctionType_109 = aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Integer const&> neuron_upscale_109{
@@ -1029,7 +1031,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Integer const&> neuron
     static_cast<FunctionType_109>(&hodel::upscale)
 };
 
-// Original declaration: line 393
+// Original declaration: line 308
 using FunctionType_110 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_downscale_110{
@@ -1037,7 +1039,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_dow
     static_cast<FunctionType_110>(&hodel::downscale)
 };
 
-// Original declaration: line 394
+// Original declaration: line 309
 using FunctionType_111 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_hconcat_111{
@@ -1045,7 +1047,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_hconca
     static_cast<FunctionType_111>(&hodel::hconcat)
 };
 
-// Original declaration: line 395
+// Original declaration: line 310
 using FunctionType_112 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_vconcat_112{
@@ -1053,7 +1055,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_vconca
     static_cast<FunctionType_112>(&hodel::vconcat)
 };
 
-// Original declaration: line 396
+// Original declaration: line 311
 using FunctionType_113 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&> neuron_replace_113{
@@ -1061,7 +1063,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Int
     static_cast<FunctionType_113>(&hodel::replace)
 };
 
-// Original declaration: line 397
+// Original declaration: line 312
 using FunctionType_114 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&> neuron_switch__114{
@@ -1069,7 +1071,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Int
     static_cast<FunctionType_114>(&hodel::switch_)
 };
 
-// Original declaration: line 398
+// Original declaration: line 313
 using FunctionType_115 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_tophalf_115{
@@ -1077,7 +1079,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_tophalf_115{
     static_cast<FunctionType_115>(&hodel::tophalf)
 };
 
-// Original declaration: line 399
+// Original declaration: line 314
 using FunctionType_116 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_bottomhalf_116{
@@ -1085,7 +1087,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_bottomhalf_116{
     static_cast<FunctionType_116>(&hodel::bottomhalf)
 };
 
-// Original declaration: line 400
+// Original declaration: line 315
 using FunctionType_117 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_lefthalf_117{
@@ -1093,7 +1095,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_lefthalf_117{
     static_cast<FunctionType_117>(&hodel::lefthalf)
 };
 
-// Original declaration: line 401
+// Original declaration: line 316
 using FunctionType_118 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_righthalf_118{
@@ -1101,7 +1103,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_righthalf_118{
     static_cast<FunctionType_118>(&hodel::righthalf)
 };
 
-// Original declaration: line 402
+// Original declaration: line 317
 using FunctionType_119 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_trim_119{
@@ -1109,7 +1111,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_trim_119{
     static_cast<FunctionType_119>(&hodel::trim)
 };
 
-// Original declaration: line 403
+// Original declaration: line 318
 using FunctionType_120 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_compress_120{
@@ -1117,7 +1119,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_compress_120{
     static_cast<FunctionType_120>(&hodel::compress)
 };
 
-// Original declaration: line 404
+// Original declaration: line 319
 using FunctionType_121 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_normalize_121{
@@ -1125,7 +1127,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_normalize_121{
     static_cast<FunctionType_121>(&hodel::normalize)
 };
 
-// Original declaration: line 405
+// Original declaration: line 320
 using FunctionType_122 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_normalize_122{
@@ -1133,7 +1135,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_normalize_122{
     static_cast<FunctionType_122>(&hodel::normalize)
 };
 
-// Original declaration: line 406
+// Original declaration: line 321
 using FunctionType_123 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_dneighbors_123{
@@ -1141,7 +1143,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_dneighbors_123{
     static_cast<FunctionType_123>(&hodel::dneighbors)
 };
 
-// Original declaration: line 407
+// Original declaration: line 322
 using FunctionType_124 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_ineighbors_124{
@@ -1149,7 +1151,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_ineighbors_124{
     static_cast<FunctionType_124>(&hodel::ineighbors)
 };
 
-// Original declaration: line 408
+// Original declaration: line 323
 using FunctionType_125 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_neighbors_125{
@@ -1157,7 +1159,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_neighbors_125{
     static_cast<FunctionType_125>(&hodel::neighbors)
 };
 
-// Original declaration: line 409
+// Original declaration: line 324
 using FunctionType_126 = aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Object const&> neuron_recolor_126{
@@ -1165,7 +1167,7 @@ aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Object const&> neuron
     static_cast<FunctionType_126>(&hodel::recolor)
 };
 
-// Original declaration: line 410
+// Original declaration: line 325
 using FunctionType_127 = aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Indices const&> neuron_recolor_127{
@@ -1173,7 +1175,7 @@ aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Indices const&> neuro
     static_cast<FunctionType_127>(&hodel::recolor)
 };
 
-// Original declaration: line 411
+// Original declaration: line 326
 using FunctionType_128 = aicpp::Neuron<hodel::Boolean, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_square_128{
@@ -1181,7 +1183,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_square_128{
     static_cast<FunctionType_128>(&hodel::square)
 };
 
-// Original declaration: line 412
+// Original declaration: line 327
 using FunctionType_129 = aicpp::Neuron<hodel::Boolean, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_square_129{
@@ -1189,7 +1191,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_square_129{
     static_cast<FunctionType_129>(&hodel::square)
 };
 
-// Original declaration: line 413
+// Original declaration: line 328
 using FunctionType_130 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_square_130{
@@ -1197,7 +1199,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_square_130{
     static_cast<FunctionType_130>(&hodel::square)
 };
 
-// Original declaration: line 414
+// Original declaration: line 329
 using FunctionType_131 = aicpp::Neuron<hodel::Boolean, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_vline_131{
@@ -1205,7 +1207,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_vline_131{
     static_cast<FunctionType_131>(&hodel::vline)
 };
 
-// Original declaration: line 415
+// Original declaration: line 330
 using FunctionType_132 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_vline_132{
@@ -1213,7 +1215,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_vline_132{
     static_cast<FunctionType_132>(&hodel::vline)
 };
 
-// Original declaration: line 416
+// Original declaration: line 331
 using FunctionType_133 = aicpp::Neuron<hodel::Boolean, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_hline_133{
@@ -1221,7 +1223,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_hline_133{
     static_cast<FunctionType_133>(&hodel::hline)
 };
 
-// Original declaration: line 417
+// Original declaration: line 332
 using FunctionType_134 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_hline_134{
@@ -1229,7 +1231,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_hline_134{
     static_cast<FunctionType_134>(&hodel::hline)
 };
 
-// Original declaration: line 418
+// Original declaration: line 333
 using FunctionType_135 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_height_135{
@@ -1237,7 +1239,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_height_135{
     static_cast<FunctionType_135>(&hodel::height)
 };
 
-// Original declaration: line 419
+// Original declaration: line 334
 using FunctionType_136 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_height_136{
@@ -1245,7 +1247,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_height_136{
     static_cast<FunctionType_136>(&hodel::height)
 };
 
-// Original declaration: line 420
+// Original declaration: line 335
 using FunctionType_137 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_height_137{
@@ -1253,7 +1255,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_height_137{
     static_cast<FunctionType_137>(&hodel::height)
 };
 
-// Original declaration: line 421
+// Original declaration: line 336
 using FunctionType_138 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_width_138{
@@ -1261,7 +1263,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_width_138{
     static_cast<FunctionType_138>(&hodel::width)
 };
 
-// Original declaration: line 422
+// Original declaration: line 337
 using FunctionType_139 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_width_139{
@@ -1269,7 +1271,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_width_139{
     static_cast<FunctionType_139>(&hodel::width)
 };
 
-// Original declaration: line 423
+// Original declaration: line 338
 using FunctionType_140 = aicpp::Neuron<hodel::Integer, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_width_140{
@@ -1277,7 +1279,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_width_140{
     static_cast<FunctionType_140>(&hodel::width)
 };
 
-// Original declaration: line 424
+// Original declaration: line 339
 using FunctionType_141 = aicpp::Neuron<IntegerTuple, hodel::Grid const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Grid const&> neuron_shape_141{
@@ -1285,7 +1287,7 @@ aicpp::Neuron<IntegerTuple, hodel::Grid const&> neuron_shape_141{
     static_cast<FunctionType_141>(&hodel::shape)
 };
 
-// Original declaration: line 425
+// Original declaration: line 340
 using FunctionType_142 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_shape_142{
@@ -1293,7 +1295,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_shape_142{
     static_cast<FunctionType_142>(&hodel::shape)
 };
 
-// Original declaration: line 426
+// Original declaration: line 341
 using FunctionType_143 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_shape_143{
@@ -1301,7 +1303,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_shape_143{
     static_cast<FunctionType_143>(&hodel::shape)
 };
 
-// Original declaration: line 427
+// Original declaration: line 342
 using FunctionType_144 = aicpp::Neuron<hodel::Boolean, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_portrait_144{
@@ -1309,7 +1311,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_portrait_144{
     static_cast<FunctionType_144>(&hodel::portrait)
 };
 
-// Original declaration: line 428
+// Original declaration: line 343
 using FunctionType_145 = aicpp::Neuron<hodel::Boolean, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_portrait_145{
@@ -1317,7 +1319,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_portrait_145{
     static_cast<FunctionType_145>(&hodel::portrait)
 };
 
-// Original declaration: line 429
+// Original declaration: line 344
 using FunctionType_146 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_portrait_146{
@@ -1325,7 +1327,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_portrait_146{
     static_cast<FunctionType_146>(&hodel::portrait)
 };
 
-// Original declaration: line 430
+// Original declaration: line 345
 using FunctionType_147 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&> neuron_branch_147{
@@ -1333,7 +1335,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&, hode
     static_cast<FunctionType_147>(&hodel::branch)
 };
 
-// Original declaration: line 431
+// Original declaration: line 346
 using FunctionType_148 = aicpp::Neuron<hodel::Integer, hodel::Boolean const&, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Boolean const&, hodel::Integer const&, hodel::Integer const&> neuron_branch_148{
@@ -1341,7 +1343,7 @@ aicpp::Neuron<hodel::Integer, hodel::Boolean const&, hodel::Integer const&, hode
     static_cast<FunctionType_148>(&hodel::branch)
 };
 
-// Original declaration: line 432
+// Original declaration: line 347
 using FunctionType_149 = aicpp::Neuron<IntegerTuple, hodel::Boolean const&, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Boolean const&, IntegerTuple const&, IntegerTuple const&> neuron_branch_149{
@@ -1349,7 +1351,7 @@ aicpp::Neuron<IntegerTuple, hodel::Boolean const&, IntegerTuple const&, IntegerT
     static_cast<FunctionType_149>(&hodel::branch)
 };
 
-// Original declaration: line 433
+// Original declaration: line 348
 using FunctionType_150 = aicpp::Neuron<hodel::Indices, hodel::Boolean const&, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Boolean const&, hodel::Indices const&, hodel::Indices const&> neuron_branch_150{
@@ -1357,7 +1359,7 @@ aicpp::Neuron<hodel::Indices, hodel::Boolean const&, hodel::Indices const&, hode
     static_cast<FunctionType_150>(&hodel::branch)
 };
 
-// Original declaration: line 434
+// Original declaration: line 349
 using FunctionType_151 = aicpp::Neuron<hodel::Object, hodel::Boolean const&, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Boolean const&, hodel::Object const&, hodel::Object const&> neuron_branch_151{
@@ -1365,7 +1367,7 @@ aicpp::Neuron<hodel::Object, hodel::Boolean const&, hodel::Object const&, hodel:
     static_cast<FunctionType_151>(&hodel::branch)
 };
 
-// Original declaration: line 435
+// Original declaration: line 350
 using FunctionType_152 = aicpp::Neuron<hodel::Grid, hodel::Boolean const&, hodel::Grid const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Boolean const&, hodel::Grid const&, hodel::Grid const&> neuron_branch_152{
@@ -1373,7 +1375,7 @@ aicpp::Neuron<hodel::Grid, hodel::Boolean const&, hodel::Grid const&, hodel::Gri
     static_cast<FunctionType_152>(&hodel::branch)
 };
 
-// Original declaration: line 436
+// Original declaration: line 351
 using FunctionType_153 = aicpp::Neuron<hodel::GridVector, hodel::Boolean const&, hodel::GridVector const&, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::GridVector, hodel::Boolean const&, hodel::GridVector const&, hodel::GridVector const&> neuron_branch_153{
@@ -1381,7 +1383,7 @@ aicpp::Neuron<hodel::GridVector, hodel::Boolean const&, hodel::GridVector const&
     static_cast<FunctionType_153>(&hodel::branch)
 };
 
-// Original declaration: line 437
+// Original declaration: line 352
 using FunctionType_154 = aicpp::Neuron<hodel::IntegerVector, hodel::Boolean const&, hodel::IntegerVector const&, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Boolean const&, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_branch_154{
@@ -1389,7 +1391,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Boolean const&, hodel::IntegerVector 
     static_cast<FunctionType_154>(&hodel::branch)
 };
 
-// Original declaration: line 438
+// Original declaration: line 353
 using FunctionType_155 = aicpp::Neuron<hodel::IndicesSet, hodel::Boolean const&, hodel::IndicesSet const&, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::IndicesSet, hodel::Boolean const&, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_branch_155{
@@ -1397,7 +1399,7 @@ aicpp::Neuron<hodel::IndicesSet, hodel::Boolean const&, hodel::IndicesSet const&
     static_cast<FunctionType_155>(&hodel::branch)
 };
 
-// Original declaration: line 439
+// Original declaration: line 354
 using FunctionType_156 = aicpp::Neuron<hodel::IntegerSet, hodel::Boolean const&, hodel::IntegerSet const&, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Boolean const&, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_branch_156{
@@ -1405,7 +1407,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Boolean const&, hodel::IntegerSet const&
     static_cast<FunctionType_156>(&hodel::branch)
 };
 
-// Original declaration: line 440
+// Original declaration: line 355
 using FunctionType_157 = aicpp::Neuron<hodel::Objects, hodel::Boolean const&, hodel::Objects const&, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Boolean const&, hodel::Objects const&, hodel::Objects const&> neuron_branch_157{
@@ -1413,7 +1415,7 @@ aicpp::Neuron<hodel::Objects, hodel::Boolean const&, hodel::Objects const&, hode
     static_cast<FunctionType_157>(&hodel::branch)
 };
 
-// Original declaration: line 441
+// Original declaration: line 356
 using FunctionType_158 = aicpp::Neuron<hodel::ObjectVector, hodel::Boolean const&, hodel::ObjectVector const&, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectVector, hodel::Boolean const&, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_branch_158{
@@ -1421,7 +1423,7 @@ aicpp::Neuron<hodel::ObjectVector, hodel::Boolean const&, hodel::ObjectVector co
     static_cast<FunctionType_158>(&hodel::branch)
 };
 
-// Original declaration: line 442
+// Original declaration: line 357
 using FunctionType_159 = aicpp::Neuron<hodel::ObjectsVector, hodel::Boolean const&, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectsVector, hodel::Boolean const&, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_branch_159{
@@ -1429,7 +1431,7 @@ aicpp::Neuron<hodel::ObjectsVector, hodel::Boolean const&, hodel::ObjectsVector 
     static_cast<FunctionType_159>(&hodel::branch)
 };
 
-// Original declaration: line 443
+// Original declaration: line 358
 using FunctionType_160 = aicpp::Neuron<hodel::IndicesVector, hodel::Boolean const&, hodel::IndicesVector const&, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::IndicesVector, hodel::Boolean const&, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_branch_160{
@@ -1437,7 +1439,7 @@ aicpp::Neuron<hodel::IndicesVector, hodel::Boolean const&, hodel::IndicesVector 
     static_cast<FunctionType_160>(&hodel::branch)
 };
 
-// Original declaration: line 444
+// Original declaration: line 359
 using FunctionType_161 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_color_161{
@@ -1445,7 +1447,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_color_161{
     static_cast<FunctionType_161>(&hodel::color)
 };
 
-// Original declaration: line 445
+// Original declaration: line 360
 using FunctionType_162 = aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Grid const&> neuron_toobject_162{
@@ -1453,7 +1455,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Grid const&> neuron_to
     static_cast<FunctionType_162>(&hodel::toobject)
 };
 
-// Original declaration: line 446
+// Original declaration: line 361
 using FunctionType_163 = aicpp::Neuron<hodel::Object, hodel::Indices const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Indices const&, hodel::Grid const&> neuron_toobject_163{
@@ -1461,15 +1463,15 @@ aicpp::Neuron<hodel::Object, hodel::Indices const&, hodel::Grid const&> neuron_t
     static_cast<FunctionType_163>(&hodel::toobject)
 };
 
-// Original declaration: line 447
-using FunctionType_164 = aicpp::Neuron<hodel::Object, hodel::Grid const &grid>::Function;
+// Original declaration: line 362
+using FunctionType_164 = aicpp::Neuron<hodel::Object, hodel::Grid const&>::Function;
 
-aicpp::Neuron<hodel::Object, hodel::Grid const &grid> neuron_asobject_164{
+aicpp::Neuron<hodel::Object, hodel::Grid const&> neuron_asobject_164{
     "asobject",
     static_cast<FunctionType_164>(&hodel::asobject)
 };
 
-// Original declaration: line 448
+// Original declaration: line 363
 using FunctionType_165 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_mostcolor_165{
@@ -1477,7 +1479,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_mostcolor_165{
     static_cast<FunctionType_165>(&hodel::mostcolor)
 };
 
-// Original declaration: line 449
+// Original declaration: line 364
 using FunctionType_166 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_mostcolor_166{
@@ -1485,7 +1487,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_mostcolor_166{
     static_cast<FunctionType_166>(&hodel::mostcolor)
 };
 
-// Original declaration: line 450
+// Original declaration: line 365
 using FunctionType_167 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_leastcolor_167{
@@ -1493,7 +1495,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_leastcolor_167{
     static_cast<FunctionType_167>(&hodel::leastcolor)
 };
 
-// Original declaration: line 451
+// Original declaration: line 366
 using FunctionType_168 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leastcolor_168{
@@ -1501,7 +1503,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leastcolor_168{
     static_cast<FunctionType_168>(&hodel::leastcolor)
 };
 
-// Original declaration: line 452
+// Original declaration: line 367
 using FunctionType_169 = aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Integer const&> neuron_ofcolor_169{
@@ -1509,7 +1511,7 @@ aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Integer const&> neuron_
     static_cast<FunctionType_169>(&hodel::ofcolor)
 };
 
-// Original declaration: line 453
+// Original declaration: line 368
 using FunctionType_170 = aicpp::Neuron<hodel::Integer, hodel::Grid const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&, hodel::Integer const&> neuron_colorcount_170{
@@ -1517,7 +1519,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&, hodel::Integer const&> neuron_
     static_cast<FunctionType_170>(&hodel::colorcount)
 };
 
-// Original declaration: line 454
+// Original declaration: line 369
 using FunctionType_171 = aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Integer const&> neuron_colorcount_171{
@@ -1525,7 +1527,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Integer const&> neuro
     static_cast<FunctionType_171>(&hodel::colorcount)
 };
 
-// Original declaration: line 455
+// Original declaration: line 370
 using FunctionType_172 = aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neuron_colorfilter_172{
@@ -1533,7 +1535,7 @@ aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neur
     static_cast<FunctionType_172>(&hodel::colorfilter)
 };
 
-// Original declaration: line 456
+// Original declaration: line 371
 using FunctionType_173 = aicpp::Neuron<hodel::Objects, hodel::Grid const&, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Grid const&, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&> neuron_objects_173{
@@ -1541,7 +1543,7 @@ aicpp::Neuron<hodel::Objects, hodel::Grid const&, hodel::Boolean const&, hodel::
     static_cast<FunctionType_173>(&hodel::objects)
 };
 
-// Original declaration: line 457
+// Original declaration: line 372
 using FunctionType_174 = aicpp::Neuron<hodel::Objects, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_partition_174{
@@ -1549,7 +1551,7 @@ aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_partition_174{
     static_cast<FunctionType_174>(&hodel::partition)
 };
 
-// Original declaration: line 458
+// Original declaration: line 373
 using FunctionType_175 = aicpp::Neuron<hodel::Objects, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_fgpartition_175{
@@ -1557,7 +1559,7 @@ aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_fgpartition_175{
     static_cast<FunctionType_175>(&hodel::fgpartition)
 };
 
-// Original declaration: line 459
+// Original declaration: line 374
 using FunctionType_176 = aicpp::Neuron<hodel::Indices, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Grid const&> neuron_asindices_176{
@@ -1565,7 +1567,7 @@ aicpp::Neuron<hodel::Indices, hodel::Grid const&> neuron_asindices_176{
     static_cast<FunctionType_176>(&hodel::asindices)
 };
 
-// Original declaration: line 460
+// Original declaration: line 375
 using FunctionType_177 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_equality_177{
@@ -1573,7 +1575,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neur
     static_cast<FunctionType_177>(&hodel::equality)
 };
 
-// Original declaration: line 461
+// Original declaration: line 376
 using FunctionType_178 = aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neuron_equality_178{
@@ -1581,7 +1583,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neur
     static_cast<FunctionType_178>(&hodel::equality)
 };
 
-// Original declaration: line 462
+// Original declaration: line 377
 using FunctionType_179 = aicpp::Neuron<hodel::Boolean, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, IntegerTuple const&, IntegerTuple const&> neuron_equality_179{
@@ -1589,7 +1591,7 @@ aicpp::Neuron<hodel::Boolean, IntegerTuple const&, IntegerTuple const&> neuron_e
     static_cast<FunctionType_179>(&hodel::equality)
 };
 
-// Original declaration: line 463
+// Original declaration: line 378
 using FunctionType_180 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_equality_180{
@@ -1597,7 +1599,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neur
     static_cast<FunctionType_180>(&hodel::equality)
 };
 
-// Original declaration: line 464
+// Original declaration: line 379
 using FunctionType_181 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_equality_181{
@@ -1605,7 +1607,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron
     static_cast<FunctionType_181>(&hodel::equality)
 };
 
-// Original declaration: line 465
+// Original declaration: line 380
 using FunctionType_182 = aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::Grid const&> neuron_equality_182{
@@ -1613,7 +1615,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::Grid const&> neuron_equ
     static_cast<FunctionType_182>(&hodel::equality)
 };
 
-// Original declaration: line 466
+// Original declaration: line 381
 using FunctionType_183 = aicpp::Neuron<hodel::Boolean, hodel::GridVector const&, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::GridVector const&, hodel::GridVector const&> neuron_equality_183{
@@ -1621,7 +1623,7 @@ aicpp::Neuron<hodel::Boolean, hodel::GridVector const&, hodel::GridVector const&
     static_cast<FunctionType_183>(&hodel::equality)
 };
 
-// Original declaration: line 467
+// Original declaration: line 382
 using FunctionType_184 = aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_equality_184{
@@ -1629,7 +1631,7 @@ aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::IntegerVector 
     static_cast<FunctionType_184>(&hodel::equality)
 };
 
-// Original declaration: line 468
+// Original declaration: line 383
 using FunctionType_185 = aicpp::Neuron<hodel::Boolean, hodel::IndicesSet const&, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_equality_185{
@@ -1637,7 +1639,7 @@ aicpp::Neuron<hodel::Boolean, hodel::IndicesSet const&, hodel::IndicesSet const&
     static_cast<FunctionType_185>(&hodel::equality)
 };
 
-// Original declaration: line 469
+// Original declaration: line 384
 using FunctionType_186 = aicpp::Neuron<hodel::Boolean, hodel::IntegerSet const&, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_equality_186{
@@ -1645,7 +1647,7 @@ aicpp::Neuron<hodel::Boolean, hodel::IntegerSet const&, hodel::IntegerSet const&
     static_cast<FunctionType_186>(&hodel::equality)
 };
 
-// Original declaration: line 470
+// Original declaration: line 385
 using FunctionType_187 = aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::Objects const&> neuron_equality_187{
@@ -1653,7 +1655,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::Objects const&> neur
     static_cast<FunctionType_187>(&hodel::equality)
 };
 
-// Original declaration: line 471
+// Original declaration: line 386
 using FunctionType_188 = aicpp::Neuron<hodel::Boolean, hodel::ObjectVector const&, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_equality_188{
@@ -1661,7 +1663,7 @@ aicpp::Neuron<hodel::Boolean, hodel::ObjectVector const&, hodel::ObjectVector co
     static_cast<FunctionType_188>(&hodel::equality)
 };
 
-// Original declaration: line 472
+// Original declaration: line 387
 using FunctionType_189 = aicpp::Neuron<hodel::Boolean, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_equality_189{
@@ -1669,7 +1671,7 @@ aicpp::Neuron<hodel::Boolean, hodel::ObjectsVector const&, hodel::ObjectsVector 
     static_cast<FunctionType_189>(&hodel::equality)
 };
 
-// Original declaration: line 473
+// Original declaration: line 388
 using FunctionType_190 = aicpp::Neuron<hodel::Boolean, hodel::IndicesVector const&, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_equality_190{
@@ -1677,7 +1679,7 @@ aicpp::Neuron<hodel::Boolean, hodel::IndicesVector const&, hodel::IndicesVector 
     static_cast<FunctionType_190>(&hodel::equality)
 };
 
-// Original declaration: line 474
+// Original declaration: line 389
 using FunctionType_191 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_hmatching_191{
@@ -1685,7 +1687,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neur
     static_cast<FunctionType_191>(&hodel::hmatching)
 };
 
-// Original declaration: line 475
+// Original declaration: line 390
 using FunctionType_192 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_hmatching_192{
@@ -1693,7 +1695,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuro
     static_cast<FunctionType_192>(&hodel::hmatching)
 };
 
-// Original declaration: line 476
+// Original declaration: line 391
 using FunctionType_193 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_hmatching_193{
@@ -1701,7 +1703,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuro
     static_cast<FunctionType_193>(&hodel::hmatching)
 };
 
-// Original declaration: line 477
+// Original declaration: line 392
 using FunctionType_194 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_hmatching_194{
@@ -1709,7 +1711,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron
     static_cast<FunctionType_194>(&hodel::hmatching)
 };
 
-// Original declaration: line 478
+// Original declaration: line 393
 using FunctionType_195 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_vmatching_195{
@@ -1717,7 +1719,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neur
     static_cast<FunctionType_195>(&hodel::vmatching)
 };
 
-// Original declaration: line 479
+// Original declaration: line 394
 using FunctionType_196 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_vmatching_196{
@@ -1725,7 +1727,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuro
     static_cast<FunctionType_196>(&hodel::vmatching)
 };
 
-// Original declaration: line 480
+// Original declaration: line 395
 using FunctionType_197 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_vmatching_197{
@@ -1733,7 +1735,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuro
     static_cast<FunctionType_197>(&hodel::vmatching)
 };
 
-// Original declaration: line 481
+// Original declaration: line 396
 using FunctionType_198 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_vmatching_198{
@@ -1741,7 +1743,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron
     static_cast<FunctionType_198>(&hodel::vmatching)
 };
 
-// Original declaration: line 482
+// Original declaration: line 397
 using FunctionType_199 = aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Indices const&> neuron_manhattan_199{
@@ -1749,7 +1751,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Indices const&> neur
     static_cast<FunctionType_199>(&hodel::manhattan)
 };
 
-// Original declaration: line 483
+// Original declaration: line 398
 using FunctionType_200 = aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Indices const&> neuron_manhattan_200{
@@ -1757,7 +1759,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Indices const&> neuro
     static_cast<FunctionType_200>(&hodel::manhattan)
 };
 
-// Original declaration: line 484
+// Original declaration: line 399
 using FunctionType_201 = aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Object const&> neuron_manhattan_201{
@@ -1765,7 +1767,7 @@ aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Object const&> neuro
     static_cast<FunctionType_201>(&hodel::manhattan)
 };
 
-// Original declaration: line 485
+// Original declaration: line 400
 using FunctionType_202 = aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Object const&> neuron_manhattan_202{
@@ -1773,7 +1775,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Object const&> neuron
     static_cast<FunctionType_202>(&hodel::manhattan)
 };
 
-// Original declaration: line 486
+// Original declaration: line 401
 using FunctionType_203 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_adjacent_203{
@@ -1781,7 +1783,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neur
     static_cast<FunctionType_203>(&hodel::adjacent)
 };
 
-// Original declaration: line 487
+// Original declaration: line 402
 using FunctionType_204 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_adjacent_204{
@@ -1789,7 +1791,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuro
     static_cast<FunctionType_204>(&hodel::adjacent)
 };
 
-// Original declaration: line 488
+// Original declaration: line 403
 using FunctionType_205 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_adjacent_205{
@@ -1797,7 +1799,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuro
     static_cast<FunctionType_205>(&hodel::adjacent)
 };
 
-// Original declaration: line 489
+// Original declaration: line 404
 using FunctionType_206 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_adjacent_206{
@@ -1805,7 +1807,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron
     static_cast<FunctionType_206>(&hodel::adjacent)
 };
 
-// Original declaration: line 490
+// Original declaration: line 405
 using FunctionType_207 = aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Grid const>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Grid const> neuron_bordering_207{
@@ -1813,7 +1815,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Grid const> neuron_b
     static_cast<FunctionType_207>(&hodel::bordering)
 };
 
-// Original declaration: line 491
+// Original declaration: line 406
 using FunctionType_208 = aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Grid const>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Grid const> neuron_bordering_208{
@@ -1821,23 +1823,23 @@ aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Grid const> neuron_bo
     static_cast<FunctionType_208>(&hodel::bordering)
 };
 
-// Original declaration: line 492
-using FunctionType_209 = aicpp::Neuron<IntegerTuple, hodel::Indices const &patch>::Function;
+// Original declaration: line 407
+using FunctionType_209 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
-aicpp::Neuron<IntegerTuple, hodel::Indices const &patch> neuron_centerofmass_209{
+aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_centerofmass_209{
     "centerofmass",
     static_cast<FunctionType_209>(&hodel::centerofmass)
 };
 
-// Original declaration: line 493
-using FunctionType_210 = aicpp::Neuron<IntegerTuple, hodel::Object const &patch>::Function;
+// Original declaration: line 408
+using FunctionType_210 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
-aicpp::Neuron<IntegerTuple, hodel::Object const &patch> neuron_centerofmass_210{
+aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_centerofmass_210{
     "centerofmass",
     static_cast<FunctionType_210>(&hodel::centerofmass)
 };
 
-// Original declaration: line 494
+// Original declaration: line 409
 using FunctionType_211 = aicpp::Neuron<hodel::IntegerSet, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Grid const&> neuron_palette_211{
@@ -1845,7 +1847,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Grid const&> neuron_palette_211{
     static_cast<FunctionType_211>(&hodel::palette)
 };
 
-// Original declaration: line 495
+// Original declaration: line 410
 using FunctionType_212 = aicpp::Neuron<hodel::IntegerSet, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Object const&> neuron_palette_212{
@@ -1853,7 +1855,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Object const&> neuron_palette_212{
     static_cast<FunctionType_212>(&hodel::palette)
 };
 
-// Original declaration: line 496
+// Original declaration: line 411
 using FunctionType_213 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_numcolors_213{
@@ -1861,7 +1863,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_numcolors_213{
     static_cast<FunctionType_213>(&hodel::numcolors)
 };
 
-// Original declaration: line 497
+// Original declaration: line 412
 using FunctionType_214 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_numcolors_214{
@@ -1869,7 +1871,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_numcolors_214{
     static_cast<FunctionType_214>(&hodel::numcolors)
 };
 
-// Original declaration: line 498
+// Original declaration: line 413
 using FunctionType_215 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&> neuron_fill_215{
@@ -1877,7 +1879,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Ind
     static_cast<FunctionType_215>(&hodel::fill)
 };
 
-// Original declaration: line 499
+// Original declaration: line 414
 using FunctionType_216 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&> neuron_fill_216{
@@ -1885,7 +1887,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Obj
     static_cast<FunctionType_216>(&hodel::fill)
 };
 
-// Original declaration: line 500
+// Original declaration: line 415
 using FunctionType_217 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_paint_217{
@@ -1893,7 +1895,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_pain
     static_cast<FunctionType_217>(&hodel::paint)
 };
 
-// Original declaration: line 501
+// Original declaration: line 416
 using FunctionType_218 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&> neuron_underfill_218{
@@ -1901,7 +1903,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Ind
     static_cast<FunctionType_218>(&hodel::underfill)
 };
 
-// Original declaration: line 502
+// Original declaration: line 417
 using FunctionType_219 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&> neuron_underfill_219{
@@ -1909,7 +1911,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Obj
     static_cast<FunctionType_219>(&hodel::underfill)
 };
 
-// Original declaration: line 503
+// Original declaration: line 418
 using FunctionType_220 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_underpaint_220{
@@ -1917,7 +1919,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_unde
     static_cast<FunctionType_220>(&hodel::underpaint)
 };
 
-// Original declaration: line 504
+// Original declaration: line 419
 using FunctionType_221 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_center_221{
@@ -1925,7 +1927,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_center_221{
     static_cast<FunctionType_221>(&hodel::center)
 };
 
-// Original declaration: line 505
+// Original declaration: line 420
 using FunctionType_222 = aicpp::Neuron<IntegerTuple, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_center_222{
@@ -1933,7 +1935,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_center_222{
     static_cast<FunctionType_222>(&hodel::center)
 };
 
-// Original declaration: line 506
+// Original declaration: line 421
 using FunctionType_223 = aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron_position_223{
@@ -1941,7 +1943,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron
     static_cast<FunctionType_223>(&hodel::position)
 };
 
-// Original declaration: line 507
+// Original declaration: line 422
 using FunctionType_224 = aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_position_224{
@@ -1949,7 +1951,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_
     static_cast<FunctionType_224>(&hodel::position)
 };
 
-// Original declaration: line 508
+// Original declaration: line 423
 using FunctionType_225 = aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_position_225{
@@ -1957,7 +1959,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_
     static_cast<FunctionType_225>(&hodel::position)
 };
 
-// Original declaration: line 509
+// Original declaration: line 424
 using FunctionType_226 = aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_position_226{
@@ -1965,7 +1967,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_p
     static_cast<FunctionType_226>(&hodel::position)
 };
 
-// Original declaration: line 510
+// Original declaration: line 425
 using FunctionType_227 = aicpp::Neuron<hodel::Integer, hodel::Grid const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&, IntegerTuple const&> neuron_index_227{
@@ -1973,7 +1975,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&, IntegerTuple const&> neuron_in
     static_cast<FunctionType_227>(&hodel::index)
 };
 
-// Original declaration: line 511
+// Original declaration: line 426
 using FunctionType_228 = aicpp::Neuron<hodel::Grid, hodel::Integer const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Integer const&, IntegerTuple const&> neuron_canvas_228{
@@ -1981,7 +1983,7 @@ aicpp::Neuron<hodel::Grid, hodel::Integer const&, IntegerTuple const&> neuron_ca
     static_cast<FunctionType_228>(&hodel::canvas)
 };
 
-// Original declaration: line 512
+// Original declaration: line 427
 using FunctionType_229 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_corners_229{
@@ -1989,7 +1991,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_corners_229{
     static_cast<FunctionType_229>(&hodel::corners)
 };
 
-// Original declaration: line 513
+// Original declaration: line 428
 using FunctionType_230 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_corners_230{
@@ -1997,7 +1999,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_corners_230{
     static_cast<FunctionType_230>(&hodel::corners)
 };
 
-// Original declaration: line 514
+// Original declaration: line 429
 using FunctionType_231 = aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_connect_231{
@@ -2005,7 +2007,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_c
     static_cast<FunctionType_231>(&hodel::connect)
 };
 
-// Original declaration: line 515
+// Original declaration: line 430
 using FunctionType_232 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Indices const&> neuron_cover_232{
@@ -2013,7 +2015,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Indices const&> neuron_cov
     static_cast<FunctionType_232>(&hodel::cover)
 };
 
-// Original declaration: line 516
+// Original declaration: line 431
 using FunctionType_233 = aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_cover_233{
@@ -2021,7 +2023,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_cove
     static_cast<FunctionType_233>(&hodel::cover)
 };
 
-// Original declaration: line 517
+// Original declaration: line 432
 using FunctionType_234 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_vfrontier_234{
@@ -2029,7 +2031,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_vfrontier_234{
     static_cast<FunctionType_234>(&hodel::vfrontier)
 };
 
-// Original declaration: line 518
+// Original declaration: line 433
 using FunctionType_235 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_hfrontier_235{
@@ -2037,7 +2039,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_hfrontier_235{
     static_cast<FunctionType_235>(&hodel::hfrontier)
 };
 
-// Original declaration: line 519
+// Original declaration: line 434
 using FunctionType_236 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_backdrop_236{
@@ -2045,7 +2047,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_backdrop_236{
     static_cast<FunctionType_236>(&hodel::backdrop)
 };
 
-// Original declaration: line 520
+// Original declaration: line 435
 using FunctionType_237 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_backdrop_237{
@@ -2053,7 +2055,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_backdrop_237{
     static_cast<FunctionType_237>(&hodel::backdrop)
 };
 
-// Original declaration: line 521
+// Original declaration: line 436
 using FunctionType_238 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_delta_238{
@@ -2061,7 +2063,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_delta_238{
     static_cast<FunctionType_238>(&hodel::delta)
 };
 
-// Original declaration: line 522
+// Original declaration: line 437
 using FunctionType_239 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_delta_239{
@@ -2069,7 +2071,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_delta_239{
     static_cast<FunctionType_239>(&hodel::delta)
 };
 
-// Original declaration: line 523
+// Original declaration: line 438
 using FunctionType_240 = aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron_gravitate_240{
@@ -2077,7 +2079,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron
     static_cast<FunctionType_240>(&hodel::gravitate)
 };
 
-// Original declaration: line 524
+// Original declaration: line 439
 using FunctionType_241 = aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_gravitate_241{
@@ -2085,7 +2087,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_
     static_cast<FunctionType_241>(&hodel::gravitate)
 };
 
-// Original declaration: line 525
+// Original declaration: line 440
 using FunctionType_242 = aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_gravitate_242{
@@ -2093,7 +2095,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_
     static_cast<FunctionType_242>(&hodel::gravitate)
 };
 
-// Original declaration: line 526
+// Original declaration: line 441
 using FunctionType_243 = aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_gravitate_243{
@@ -2101,7 +2103,7 @@ aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_g
     static_cast<FunctionType_243>(&hodel::gravitate)
 };
 
-// Original declaration: line 527
+// Original declaration: line 442
 using FunctionType_244 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_inbox_244{
@@ -2109,7 +2111,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_inbox_244{
     static_cast<FunctionType_244>(&hodel::inbox)
 };
 
-// Original declaration: line 528
+// Original declaration: line 443
 using FunctionType_245 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_inbox_245{
@@ -2117,7 +2119,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_inbox_245{
     static_cast<FunctionType_245>(&hodel::inbox)
 };
 
-// Original declaration: line 529
+// Original declaration: line 444
 using FunctionType_246 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_outbox_246{
@@ -2125,7 +2127,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_outbox_246{
     static_cast<FunctionType_246>(&hodel::outbox)
 };
 
-// Original declaration: line 530
+// Original declaration: line 445
 using FunctionType_247 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_outbox_247{
@@ -2133,7 +2135,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_outbox_247{
     static_cast<FunctionType_247>(&hodel::outbox)
 };
 
-// Original declaration: line 531
+// Original declaration: line 446
 using FunctionType_248 = aicpp::Neuron<hodel::Indices, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_box_248{
@@ -2141,7 +2143,7 @@ aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_box_248{
     static_cast<FunctionType_248>(&hodel::box)
 };
 
-// Original declaration: line 532
+// Original declaration: line 447
 using FunctionType_249 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_box_249{
@@ -2149,7 +2151,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_box_249{
     static_cast<FunctionType_249>(&hodel::box)
 };
 
-// Original declaration: line 533
+// Original declaration: line 448
 using FunctionType_250 = aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_shoot_250{
@@ -2157,7 +2159,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_s
     static_cast<FunctionType_250>(&hodel::shoot)
 };
 
-// Original declaration: line 534
+// Original declaration: line 449
 using FunctionType_251 = aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Object const&> neuron_occurrences_251{
@@ -2165,7 +2167,7 @@ aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Object const&> neuron_o
     static_cast<FunctionType_251>(&hodel::occurrences)
 };
 
-// Original declaration: line 535
+// Original declaration: line 450
 using FunctionType_252 = aicpp::Neuron<hodel::Objects, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_frontiers_252{
@@ -2173,7 +2175,7 @@ aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_frontiers_252{
     static_cast<FunctionType_252>(&hodel::frontiers)
 };
 
-// Original declaration: line 536
+// Original declaration: line 451
 using FunctionType_253 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_hperiod_253{
@@ -2181,7 +2183,7 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_hperiod_253{
     static_cast<FunctionType_253>(&hodel::hperiod)
 };
 
-// Original declaration: line 537
+// Original declaration: line 452
 using FunctionType_254 = aicpp::Neuron<hodel::Integer, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_vperiod_254{
@@ -2189,15 +2191,15 @@ aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_vperiod_254{
     static_cast<FunctionType_254>(&hodel::vperiod)
 };
 
-// Original declaration: line 538
-using FunctionType_255 = aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const &b>::Function;
+// Original declaration: line 453
+using FunctionType_255 = aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const&>::Function;
 
-aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const &b> neuron_pair_255{
+aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_pair_255{
     "pair",
     static_cast<FunctionType_255>(&hodel::pair)
 };
 
-// Original declaration: line 539
+// Original declaration: line 454
 using FunctionType_256 = aicpp::Neuron<hodel::Integer, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Objects const&> neuron_size_256{
@@ -2205,7 +2207,7 @@ aicpp::Neuron<hodel::Integer, hodel::Objects const&> neuron_size_256{
     static_cast<FunctionType_256>(&hodel::size)
 };
 
-// Original declaration: line 540
+// Original declaration: line 455
 using FunctionType_257 = aicpp::Neuron<hodel::Integer, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::ObjectVector const&> neuron_size_257{
@@ -2213,7 +2215,7 @@ aicpp::Neuron<hodel::Integer, hodel::ObjectVector const&> neuron_size_257{
     static_cast<FunctionType_257>(&hodel::size)
 };
 
-// Original declaration: line 541
+// Original declaration: line 456
 using FunctionType_258 = aicpp::Neuron<hodel::Integer, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::ObjectsVector const&> neuron_size_258{
@@ -2221,7 +2223,7 @@ aicpp::Neuron<hodel::Integer, hodel::ObjectsVector const&> neuron_size_258{
     static_cast<FunctionType_258>(&hodel::size)
 };
 
-// Original declaration: line 542
+// Original declaration: line 457
 using FunctionType_259 = aicpp::Neuron<hodel::Integer, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IndicesSet const&> neuron_size_259{
@@ -2229,7 +2231,7 @@ aicpp::Neuron<hodel::Integer, hodel::IndicesSet const&> neuron_size_259{
     static_cast<FunctionType_259>(&hodel::size)
 };
 
-// Original declaration: line 543
+// Original declaration: line 458
 using FunctionType_260 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_size_260{
@@ -2237,7 +2239,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_size_260{
     static_cast<FunctionType_260>(&hodel::size)
 };
 
-// Original declaration: line 544
+// Original declaration: line 459
 using FunctionType_261 = aicpp::Neuron<hodel::Integer, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_size_261{
@@ -2245,7 +2247,7 @@ aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_size_261{
     static_cast<FunctionType_261>(&hodel::size)
 };
 
-// Original declaration: line 545
+// Original declaration: line 460
 using FunctionType_262 = aicpp::Neuron<hodel::Integer, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::GridVector const&> neuron_size_262{
@@ -2253,7 +2255,7 @@ aicpp::Neuron<hodel::Integer, hodel::GridVector const&> neuron_size_262{
     static_cast<FunctionType_262>(&hodel::size)
 };
 
-// Original declaration: line 546
+// Original declaration: line 461
 using FunctionType_263 = aicpp::Neuron<hodel::Integer, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_size_263{
@@ -2261,7 +2263,7 @@ aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_size_263{
     static_cast<FunctionType_263>(&hodel::size)
 };
 
-// Original declaration: line 547
+// Original declaration: line 462
 using FunctionType_264 = aicpp::Neuron<hodel::Integer, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IndicesVector const&> neuron_size_264{
@@ -2269,7 +2271,7 @@ aicpp::Neuron<hodel::Integer, hodel::IndicesVector const&> neuron_size_264{
     static_cast<FunctionType_264>(&hodel::size)
 };
 
-// Original declaration: line 548
+// Original declaration: line 463
 using FunctionType_265 = aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>::Function;
 
 aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_identity_265{
@@ -2277,7 +2279,7 @@ aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_identity_265{
     static_cast<FunctionType_265>(&hodel::identity)
 };
 
-// Original declaration: line 549
+// Original declaration: line 464
 using FunctionType_266 = aicpp::Neuron<hodel::Integer, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_identity_266{
@@ -2285,7 +2287,7 @@ aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_identity_266{
     static_cast<FunctionType_266>(&hodel::identity)
 };
 
-// Original declaration: line 550
+// Original declaration: line 465
 using FunctionType_267 = aicpp::Neuron<IntegerTuple, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_identity_267{
@@ -2293,7 +2295,7 @@ aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_identity_267{
     static_cast<FunctionType_267>(&hodel::identity)
 };
 
-// Original declaration: line 551
+// Original declaration: line 466
 using FunctionType_268 = aicpp::Neuron<hodel::Indices, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_identity_268{
@@ -2301,7 +2303,7 @@ aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_identity_268{
     static_cast<FunctionType_268>(&hodel::identity)
 };
 
-// Original declaration: line 552
+// Original declaration: line 467
 using FunctionType_269 = aicpp::Neuron<hodel::Object, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_identity_269{
@@ -2309,7 +2311,7 @@ aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_identity_269{
     static_cast<FunctionType_269>(&hodel::identity)
 };
 
-// Original declaration: line 553
+// Original declaration: line 468
 using FunctionType_270 = aicpp::Neuron<hodel::Grid, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_identity_270{
@@ -2317,7 +2319,7 @@ aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_identity_270{
     static_cast<FunctionType_270>(&hodel::identity)
 };
 
-// Original declaration: line 554
+// Original declaration: line 469
 using FunctionType_271 = aicpp::Neuron<hodel::GridVector, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::GridVector, hodel::GridVector const&> neuron_identity_271{
@@ -2325,7 +2327,7 @@ aicpp::Neuron<hodel::GridVector, hodel::GridVector const&> neuron_identity_271{
     static_cast<FunctionType_271>(&hodel::identity)
 };
 
-// Original declaration: line 555
+// Original declaration: line 470
 using FunctionType_272 = aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&> neuron_identity_272{
@@ -2333,7 +2335,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&> neuron_identity
     static_cast<FunctionType_272>(&hodel::identity)
 };
 
-// Original declaration: line 556
+// Original declaration: line 471
 using FunctionType_273 = aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&> neuron_identity_273{
@@ -2341,7 +2343,7 @@ aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&> neuron_identity_273{
     static_cast<FunctionType_273>(&hodel::identity)
 };
 
-// Original declaration: line 557
+// Original declaration: line 472
 using FunctionType_274 = aicpp::Neuron<hodel::IntegerSet, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::IntegerSet const&> neuron_identity_274{
@@ -2349,7 +2351,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::IntegerSet const&> neuron_identity_274{
     static_cast<FunctionType_274>(&hodel::identity)
 };
 
-// Original declaration: line 558
+// Original declaration: line 473
 using FunctionType_275 = aicpp::Neuron<hodel::Objects, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Objects const&> neuron_identity_275{
@@ -2357,7 +2359,7 @@ aicpp::Neuron<hodel::Objects, hodel::Objects const&> neuron_identity_275{
     static_cast<FunctionType_275>(&hodel::identity)
 };
 
-// Original declaration: line 559
+// Original declaration: line 474
 using FunctionType_276 = aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&> neuron_identity_276{
@@ -2365,7 +2367,7 @@ aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&> neuron_identity_2
     static_cast<FunctionType_276>(&hodel::identity)
 };
 
-// Original declaration: line 560
+// Original declaration: line 475
 using FunctionType_277 = aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&> neuron_identity_277{
@@ -2373,7 +2375,7 @@ aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&> neuron_identity
     static_cast<FunctionType_277>(&hodel::identity)
 };
 
-// Original declaration: line 561
+// Original declaration: line 476
 using FunctionType_278 = aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&> neuron_identity_278{
@@ -2381,7 +2383,7 @@ aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&> neuron_identity
     static_cast<FunctionType_278>(&hodel::identity)
 };
 
-// Original declaration: line 562
+// Original declaration: line 477
 using FunctionType_279 = aicpp::Neuron<hodel::Integer, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_first_279{
@@ -2389,7 +2391,7 @@ aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_first_279{
     static_cast<FunctionType_279>(&hodel::first)
 };
 
-// Original declaration: line 563
+// Original declaration: line 478
 using FunctionType_280 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_first_280{
@@ -2397,7 +2399,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_first_280{
     static_cast<FunctionType_280>(&hodel::first)
 };
 
-// Original declaration: line 564
+// Original declaration: line 479
 using FunctionType_281 = aicpp::Neuron<hodel::Cell, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_first_281{
@@ -2405,7 +2407,7 @@ aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_first_281{
     static_cast<FunctionType_281>(&hodel::first)
 };
 
-// Original declaration: line 565
+// Original declaration: line 480
 using FunctionType_282 = aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_first_282{
@@ -2413,7 +2415,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_first_282{
     static_cast<FunctionType_282>(&hodel::first)
 };
 
-// Original declaration: line 566
+// Original declaration: line 481
 using FunctionType_283 = aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_first_283{
@@ -2421,7 +2423,7 @@ aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_first_283{
     static_cast<FunctionType_283>(&hodel::first)
 };
 
-// Original declaration: line 567
+// Original declaration: line 482
 using FunctionType_284 = aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_first_284{
@@ -2429,7 +2431,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_first_284{
     static_cast<FunctionType_284>(&hodel::first)
 };
 
-// Original declaration: line 568
+// Original declaration: line 483
 using FunctionType_285 = aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_first_285{
@@ -2437,7 +2439,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_first_285{
     static_cast<FunctionType_285>(&hodel::first)
 };
 
-// Original declaration: line 569
+// Original declaration: line 484
 using FunctionType_286 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_first_286{
@@ -2445,7 +2447,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_first_286{
     static_cast<FunctionType_286>(&hodel::first)
 };
 
-// Original declaration: line 570
+// Original declaration: line 485
 using FunctionType_287 = aicpp::Neuron<hodel::Object, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_first_287{
@@ -2453,7 +2455,7 @@ aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_first_287{
     static_cast<FunctionType_287>(&hodel::first)
 };
 
-// Original declaration: line 571
+// Original declaration: line 486
 using FunctionType_288 = aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_first_288{
@@ -2461,7 +2463,7 @@ aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_first_288{
     static_cast<FunctionType_288>(&hodel::first)
 };
 
-// Original declaration: line 572
+// Original declaration: line 487
 using FunctionType_289 = aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_first_289{
@@ -2469,7 +2471,7 @@ aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_first_289{
     static_cast<FunctionType_289>(&hodel::first)
 };
 
-// Original declaration: line 573
+// Original declaration: line 488
 using FunctionType_290 = aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_first_290{
@@ -2477,7 +2479,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_first_290{
     static_cast<FunctionType_290>(&hodel::first)
 };
 
-// Original declaration: line 574
+// Original declaration: line 489
 using FunctionType_291 = aicpp::Neuron<hodel::Integer, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_last_291{
@@ -2485,7 +2487,7 @@ aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_last_291{
     static_cast<FunctionType_291>(&hodel::last)
 };
 
-// Original declaration: line 575
+// Original declaration: line 490
 using FunctionType_292 = aicpp::Neuron<IntegerTuple, hodel::Indices const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_last_292{
@@ -2493,7 +2495,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_last_292{
     static_cast<FunctionType_292>(&hodel::last)
 };
 
-// Original declaration: line 576
+// Original declaration: line 491
 using FunctionType_293 = aicpp::Neuron<hodel::Cell, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_last_293{
@@ -2501,7 +2503,7 @@ aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_last_293{
     static_cast<FunctionType_293>(&hodel::last)
 };
 
-// Original declaration: line 577
+// Original declaration: line 492
 using FunctionType_294 = aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_last_294{
@@ -2509,7 +2511,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_last_294{
     static_cast<FunctionType_294>(&hodel::last)
 };
 
-// Original declaration: line 578
+// Original declaration: line 493
 using FunctionType_295 = aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_last_295{
@@ -2517,7 +2519,7 @@ aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_last_295{
     static_cast<FunctionType_295>(&hodel::last)
 };
 
-// Original declaration: line 579
+// Original declaration: line 494
 using FunctionType_296 = aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_last_296{
@@ -2525,7 +2527,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_last_296{
     static_cast<FunctionType_296>(&hodel::last)
 };
 
-// Original declaration: line 580
+// Original declaration: line 495
 using FunctionType_297 = aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_last_297{
@@ -2533,7 +2535,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_last_297{
     static_cast<FunctionType_297>(&hodel::last)
 };
 
-// Original declaration: line 581
+// Original declaration: line 496
 using FunctionType_298 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_last_298{
@@ -2541,7 +2543,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_last_298{
     static_cast<FunctionType_298>(&hodel::last)
 };
 
-// Original declaration: line 582
+// Original declaration: line 497
 using FunctionType_299 = aicpp::Neuron<hodel::Object, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_last_299{
@@ -2549,7 +2551,7 @@ aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_last_299{
     static_cast<FunctionType_299>(&hodel::last)
 };
 
-// Original declaration: line 583
+// Original declaration: line 498
 using FunctionType_300 = aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_last_300{
@@ -2557,7 +2559,7 @@ aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_last_300{
     static_cast<FunctionType_300>(&hodel::last)
 };
 
-// Original declaration: line 584
+// Original declaration: line 499
 using FunctionType_301 = aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_last_301{
@@ -2565,7 +2567,7 @@ aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_last_301{
     static_cast<FunctionType_301>(&hodel::last)
 };
 
-// Original declaration: line 585
+// Original declaration: line 500
 using FunctionType_302 = aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_last_302{
@@ -2573,7 +2575,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_last_302{
     static_cast<FunctionType_302>(&hodel::last)
 };
 
-// Original declaration: line 586
+// Original declaration: line 501
 using FunctionType_303 = aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron_insert_303{
@@ -2581,7 +2583,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron
     static_cast<FunctionType_303>(&hodel::insert)
 };
 
-// Original declaration: line 587
+// Original declaration: line 502
 using FunctionType_304 = aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_insert_304{
@@ -2589,7 +2591,7 @@ aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_in
     static_cast<FunctionType_304>(&hodel::insert)
 };
 
-// Original declaration: line 588
+// Original declaration: line 503
 using FunctionType_305 = aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neuron_insert_305{
@@ -2597,7 +2599,7 @@ aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neur
     static_cast<FunctionType_305>(&hodel::insert)
 };
 
-// Original declaration: line 589
+// Original declaration: line 504
 using FunctionType_306 = aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> neuron_insert_306{
@@ -2605,7 +2607,7 @@ aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> n
     static_cast<FunctionType_306>(&hodel::insert)
 };
 
-// Original declaration: line 590
+// Original declaration: line 505
 using FunctionType_307 = aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&> neuron_insert_307{
@@ -2613,7 +2615,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector 
     static_cast<FunctionType_307>(&hodel::insert)
 };
 
-// Original declaration: line 591
+// Original declaration: line 506
 using FunctionType_308 = aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&> neuron_insert_308{
@@ -2621,7 +2623,7 @@ aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&
     static_cast<FunctionType_308>(&hodel::insert)
 };
 
-// Original declaration: line 592
+// Original declaration: line 507
 using FunctionType_309 = aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&> neuron_insert_309{
@@ -2629,7 +2631,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&
     static_cast<FunctionType_309>(&hodel::insert)
 };
 
-// Original declaration: line 593
+// Original declaration: line 508
 using FunctionType_310 = aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuron_insert_310{
@@ -2637,7 +2639,7 @@ aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuro
     static_cast<FunctionType_310>(&hodel::insert)
 };
 
-// Original declaration: line 594
+// Original declaration: line 509
 using FunctionType_311 = aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&> neuron_insert_311{
@@ -2645,7 +2647,7 @@ aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector con
     static_cast<FunctionType_311>(&hodel::insert)
 };
 
-// Original declaration: line 595
+// Original declaration: line 510
 using FunctionType_312 = aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&> neuron_insert_312{
@@ -2653,7 +2655,7 @@ aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector 
     static_cast<FunctionType_312>(&hodel::insert)
 };
 
-// Original declaration: line 596
+// Original declaration: line 511
 using FunctionType_313 = aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&> neuron_insert_313{
@@ -2661,7 +2663,7 @@ aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector 
     static_cast<FunctionType_313>(&hodel::insert)
 };
 
-// Original declaration: line 597
+// Original declaration: line 512
 using FunctionType_314 = aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron_remove_314{
@@ -2669,7 +2671,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron
     static_cast<FunctionType_314>(&hodel::remove)
 };
 
-// Original declaration: line 598
+// Original declaration: line 513
 using FunctionType_315 = aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_remove_315{
@@ -2677,7 +2679,7 @@ aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_re
     static_cast<FunctionType_315>(&hodel::remove)
 };
 
-// Original declaration: line 599
+// Original declaration: line 514
 using FunctionType_316 = aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neuron_remove_316{
@@ -2685,7 +2687,7 @@ aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neur
     static_cast<FunctionType_316>(&hodel::remove)
 };
 
-// Original declaration: line 600
+// Original declaration: line 515
 using FunctionType_317 = aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&>::Function;
 
 aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> neuron_remove_317{
@@ -2693,7 +2695,7 @@ aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> n
     static_cast<FunctionType_317>(&hodel::remove)
 };
 
-// Original declaration: line 601
+// Original declaration: line 516
 using FunctionType_318 = aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&> neuron_remove_318{
@@ -2701,7 +2703,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector 
     static_cast<FunctionType_318>(&hodel::remove)
 };
 
-// Original declaration: line 602
+// Original declaration: line 517
 using FunctionType_319 = aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&> neuron_remove_319{
@@ -2709,7 +2711,7 @@ aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&
     static_cast<FunctionType_319>(&hodel::remove)
 };
 
-// Original declaration: line 603
+// Original declaration: line 518
 using FunctionType_320 = aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&> neuron_remove_320{
@@ -2717,7 +2719,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&
     static_cast<FunctionType_320>(&hodel::remove)
 };
 
-// Original declaration: line 604
+// Original declaration: line 519
 using FunctionType_321 = aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuron_remove_321{
@@ -2725,7 +2727,7 @@ aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuro
     static_cast<FunctionType_321>(&hodel::remove)
 };
 
-// Original declaration: line 605
+// Original declaration: line 520
 using FunctionType_322 = aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&> neuron_remove_322{
@@ -2733,7 +2735,7 @@ aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector con
     static_cast<FunctionType_322>(&hodel::remove)
 };
 
-// Original declaration: line 606
+// Original declaration: line 521
 using FunctionType_323 = aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&>::Function;
 
 aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&> neuron_remove_323{
@@ -2741,7 +2743,7 @@ aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector 
     static_cast<FunctionType_323>(&hodel::remove)
 };
 
-// Original declaration: line 607
+// Original declaration: line 522
 using FunctionType_324 = aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&>::Function;
 
 aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&> neuron_remove_324{
@@ -2749,7 +2751,7 @@ aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector 
     static_cast<FunctionType_324>(&hodel::remove)
 };
 
-// Original declaration: line 608
+// Original declaration: line 523
 using FunctionType_325 = aicpp::Neuron<IntegerTuple, hodel::Indices const&, IntegerTuple const&>::Function;
 
 aicpp::Neuron<IntegerTuple, hodel::Indices const&, IntegerTuple const&> neuron_other_325{
@@ -2757,7 +2759,7 @@ aicpp::Neuron<IntegerTuple, hodel::Indices const&, IntegerTuple const&> neuron_o
     static_cast<FunctionType_325>(&hodel::other)
 };
 
-// Original declaration: line 609
+// Original declaration: line 524
 using FunctionType_326 = aicpp::Neuron<hodel::Cell, hodel::Object const&, hodel::Cell const&>::Function;
 
 aicpp::Neuron<hodel::Cell, hodel::Object const&, hodel::Cell const&> neuron_other_326{
@@ -2765,7 +2767,7 @@ aicpp::Neuron<hodel::Cell, hodel::Object const&, hodel::Cell const&> neuron_othe
     static_cast<FunctionType_326>(&hodel::other)
 };
 
-// Original declaration: line 610
+// Original declaration: line 525
 using FunctionType_327 = aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&, hodel::IntegerVector const&> neuron_other_327{
@@ -2773,7 +2775,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&, hodel::IntegerVector con
     static_cast<FunctionType_327>(&hodel::other)
 };
 
-// Original declaration: line 611
+// Original declaration: line 526
 using FunctionType_328 = aicpp::Neuron<hodel::Grid, hodel::GridVector const&, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::GridVector const&, hodel::Grid const&> neuron_other_328{
@@ -2781,7 +2783,7 @@ aicpp::Neuron<hodel::Grid, hodel::GridVector const&, hodel::Grid const&> neuron_
     static_cast<FunctionType_328>(&hodel::other)
 };
 
-// Original declaration: line 612
+// Original declaration: line 527
 using FunctionType_329 = aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&, hodel::Integer const&> neuron_other_329{
@@ -2789,7 +2791,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&, hodel::Integer const&
     static_cast<FunctionType_329>(&hodel::other)
 };
 
-// Original declaration: line 613
+// Original declaration: line 528
 using FunctionType_330 = aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&, hodel::Indices const&> neuron_other_330{
@@ -2797,7 +2799,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&, hodel::Indices const&> n
     static_cast<FunctionType_330>(&hodel::other)
 };
 
-// Original declaration: line 614
+// Original declaration: line 529
 using FunctionType_331 = aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&, hodel::Integer const&> neuron_other_331{
@@ -2805,7 +2807,7 @@ aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&, hodel::Integer const&> n
     static_cast<FunctionType_331>(&hodel::other)
 };
 
-// Original declaration: line 615
+// Original declaration: line 530
 using FunctionType_332 = aicpp::Neuron<hodel::Object, hodel::Objects const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Objects const&, hodel::Object const&> neuron_other_332{
@@ -2813,7 +2815,7 @@ aicpp::Neuron<hodel::Object, hodel::Objects const&, hodel::Object const&> neuron
     static_cast<FunctionType_332>(&hodel::other)
 };
 
-// Original declaration: line 616
+// Original declaration: line 531
 using FunctionType_333 = aicpp::Neuron<hodel::Object, hodel::ObjectVector const&, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::ObjectVector const&, hodel::Object const&> neuron_other_333{
@@ -2821,7 +2823,7 @@ aicpp::Neuron<hodel::Object, hodel::ObjectVector const&, hodel::Object const&> n
     static_cast<FunctionType_333>(&hodel::other)
 };
 
-// Original declaration: line 617
+// Original declaration: line 532
 using FunctionType_334 = aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&, hodel::Objects const&> neuron_other_334{
@@ -2829,7 +2831,7 @@ aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&, hodel::Objects const&
     static_cast<FunctionType_334>(&hodel::other)
 };
 
-// Original declaration: line 618
+// Original declaration: line 533
 using FunctionType_335 = aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&, hodel::Indices const&> neuron_other_335{
@@ -2837,7 +2839,7 @@ aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&, hodel::Indices const&
     static_cast<FunctionType_335>(&hodel::other)
 };
 
-// Original declaration: line 619
+// Original declaration: line 534
 using FunctionType_336 = aicpp::Neuron<hodel::Indices, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_initset_336{
@@ -2845,7 +2847,7 @@ aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_initset_336{
     static_cast<FunctionType_336>(&hodel::initset)
 };
 
-// Original declaration: line 620
+// Original declaration: line 535
 using FunctionType_337 = aicpp::Neuron<hodel::Object, hodel::Cell const&>::Function;
 
 aicpp::Neuron<hodel::Object, hodel::Cell const&> neuron_initset_337{
@@ -2853,7 +2855,7 @@ aicpp::Neuron<hodel::Object, hodel::Cell const&> neuron_initset_337{
     static_cast<FunctionType_337>(&hodel::initset)
 };
 
-// Original declaration: line 621
+// Original declaration: line 536
 using FunctionType_338 = aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&>::Function;
 
 aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&> neuron_initset_338{
@@ -2861,7 +2863,7 @@ aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&> neuron_initset_338{
     static_cast<FunctionType_338>(&hodel::initset)
 };
 
-// Original declaration: line 622
+// Original declaration: line 537
 using FunctionType_339 = aicpp::Neuron<hodel::GridVector, hodel::Grid const&>::Function;
 
 aicpp::Neuron<hodel::GridVector, hodel::Grid const&> neuron_initset_339{
@@ -2869,7 +2871,7 @@ aicpp::Neuron<hodel::GridVector, hodel::Grid const&> neuron_initset_339{
     static_cast<FunctionType_339>(&hodel::initset)
 };
 
-// Original declaration: line 623
+// Original declaration: line 538
 using FunctionType_340 = aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&>::Function;
 
 aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&> neuron_initset_340{
@@ -2877,7 +2879,7 @@ aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&> neuron_initset_340{
     static_cast<FunctionType_340>(&hodel::initset)
 };
 
-// Original declaration: line 624
+// Original declaration: line 539
 using FunctionType_341 = aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&>::Function;
 
 aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&> neuron_initset_341{
@@ -2885,7 +2887,7 @@ aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&> neuron_initset_341{
     static_cast<FunctionType_341>(&hodel::initset)
 };
 
-// Original declaration: line 625
+// Original declaration: line 540
 using FunctionType_342 = aicpp::Neuron<hodel::Objects, hodel::Object const&>::Function;
 
 aicpp::Neuron<hodel::Objects, hodel::Object const&> neuron_initset_342{
@@ -2893,7 +2895,7 @@ aicpp::Neuron<hodel::Objects, hodel::Object const&> neuron_initset_342{
     static_cast<FunctionType_342>(&hodel::initset)
 };
 
-// Original declaration: line 626
+// Original declaration: line 541
 using FunctionType_343 = aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&> neuron_initset_343{
@@ -2901,7 +2903,7 @@ aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&> neuron_initset_343{
     static_cast<FunctionType_343>(&hodel::initset)
 };
 
-// Original declaration: line 627
+// Original declaration: line 542
 using FunctionType_344 = aicpp::Neuron<hodel::IntegerVector, IntegerTuple const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, IntegerTuple const&> neuron_totuple_344{
@@ -2909,7 +2911,7 @@ aicpp::Neuron<hodel::IntegerVector, IntegerTuple const&> neuron_totuple_344{
     static_cast<FunctionType_344>(&hodel::totuple)
 };
 
-// Original declaration: line 628
+// Original declaration: line 543
 using FunctionType_345 = aicpp::Neuron<hodel::IntegerVector, hodel::IntegerSet const&>::Function;
 
 aicpp::Neuron<hodel::IntegerVector, hodel::IntegerSet const&> neuron_totuple_345{
@@ -2917,7 +2919,7 @@ aicpp::Neuron<hodel::IntegerVector, hodel::IntegerSet const&> neuron_totuple_345
     static_cast<FunctionType_345>(&hodel::totuple)
 };
 
-// Original declaration: line 629
+// Original declaration: line 544
 using FunctionType_346 = aicpp::Neuron<hodel::IndicesVector, hodel::IndicesSet const&>::Function;
 
 aicpp::Neuron<hodel::IndicesVector, hodel::IndicesSet const&> neuron_totuple_346{
@@ -2925,12 +2927,44 @@ aicpp::Neuron<hodel::IndicesVector, hodel::IndicesSet const&> neuron_totuple_346
     static_cast<FunctionType_346>(&hodel::totuple)
 };
 
-// Original declaration: line 630
+// Original declaration: line 545
 using FunctionType_347 = aicpp::Neuron<hodel::ObjectVector, hodel::Objects const&>::Function;
 
 aicpp::Neuron<hodel::ObjectVector, hodel::Objects const&> neuron_totuple_347{
     "totuple",
     static_cast<FunctionType_347>(&hodel::totuple)
+};
+
+// Original declaration: line 546
+using FunctionType_348 = aicpp::Neuron<hodel::Grid, hodel::Object const&, hodel::Grid const&>::Function;
+
+aicpp::Neuron<hodel::Grid, hodel::Object const&, hodel::Grid const&> neuron_subgrid_348{
+    "subgrid",
+    static_cast<FunctionType_348>(&hodel::subgrid)
+};
+
+// Original declaration: line 547
+using FunctionType_349 = aicpp::Neuron<hodel::Grid, hodel::Indices const&, hodel::Grid const&>::Function;
+
+aicpp::Neuron<hodel::Grid, hodel::Indices const&, hodel::Grid const&> neuron_subgrid_349{
+    "subgrid",
+    static_cast<FunctionType_349>(&hodel::subgrid)
+};
+
+// Original declaration: line 548
+using FunctionType_350 = aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&>::Function;
+
+aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&> neuron_hsplit_350{
+    "hsplit",
+    static_cast<FunctionType_350>(&hodel::hsplit)
+};
+
+// Original declaration: line 549
+using FunctionType_351 = aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&>::Function;
+
+aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&> neuron_vsplit_351{
+    "vsplit",
+    static_cast<FunctionType_351>(&hodel::vsplit)
 };
 
 NeuronRegistry makeNeuronRegistry()
@@ -3284,6 +3318,16 @@ NeuronRegistry makeNeuronRegistry()
     registry.emplace("neuron_totuple_345", &neuron_totuple_345);
     registry.emplace("neuron_totuple_346", &neuron_totuple_346);
     registry.emplace("neuron_totuple_347", &neuron_totuple_347);
+    registry.emplace("neuron_subgrid_348", &neuron_subgrid_348);
+    registry.emplace("neuron_subgrid_349", &neuron_subgrid_349);
+    registry.emplace("neuron_hsplit_350", &neuron_hsplit_350);
+    registry.emplace("neuron_vsplit_351", &neuron_vsplit_351);
+
+    auto polymorphicRegistry = makePolymorphicNeuronRegistry();
+    registry.insert(
+        polymorphicRegistry.begin(),
+        polymorphicRegistry.end());
+
     return registry;
 }
 } // namespace aicpp
