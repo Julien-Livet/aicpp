@@ -9,6 +9,8 @@
 
 #include <boost/json.hpp>
 
+#include "aicpp/DslType.h"
+
 namespace aicpp
 {
     class NeuronBase
@@ -21,6 +23,12 @@ namespace aicpp
             virtual std::vector<std::type_index> inputTypes() const = 0;
             virtual std::any invoke(std::vector<std::any> const& inputs) const = 0;
             virtual boost::json::value toJson() const = 0;
+            virtual DslType signature() const = 0;
+
+            virtual bool isPolymorphic() const
+            {
+                return false;
+            }
     };
 
     template <typename... Args>
@@ -72,7 +80,12 @@ namespace aicpp
                 return {std::type_index(typeid(Args))...};
             }
 
-            Function function() const
+            Function& function()
+            {
+                return function_;
+            }
+
+            Function const& function() const
             {
                 return function_;
             }
@@ -120,6 +133,16 @@ namespace aicpp
                     inputs,
                     std::index_sequence_for<Args...>{}
                 );
+            }
+
+            DslType signature() const override
+            {
+                DslType::Inputs inputs;
+                inputs.reserve(sizeof...(Args));
+
+                (inputs.emplace_back(makeDslType<Args>()), ...);
+
+                return DslType::function(std::move(inputs), makeDslType<T>());
             }
 
         private:
