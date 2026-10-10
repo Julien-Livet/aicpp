@@ -30,7 +30,7 @@ find_package(Eigen3 REQUIRED)
 include_directories(include)
 
 add_executable(dsl_dataset
-               src/dsl_dataset.cpp src/aicpp/Hodel.cpp include/aicpp/Hodel.h)
+               src/dsl_dataset.cpp src/aicpp/Hodel.cpp include/aicpp/Hodel.h src/aicpp/Neuron.cpp include/aicpp/Neuron.h)
 
 target_include_directories(dsl_dataset PRIVATE include)
 
