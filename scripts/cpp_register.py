@@ -2,6 +2,20 @@ import re
 import sys
 from pathlib import Path
 
+CONSTANT_RE = re.compile(
+    r"""
+    ^\s*
+    (?P<type>[\w:]+)
+    \s+constexpr\s+
+    (?P<name>[A-Za-z_]\w*)
+    \s*=\s*
+    (?P<value>.*?)
+    \s*;
+    \s*(?://.*)?$
+    """,
+    re.VERBOSE,
+)
+
 def remove_parameter_name(parameter: str) -> str:
     parameter = parameter.strip()
 
@@ -147,6 +161,28 @@ def parse_header(types: dict, header_path: Path) -> list[dict]:
         header_path.read_text(encoding="utf-8").splitlines(),
         start=1,
     ):
+        # Constantes DSL : Boolean constexpr F = false;
+        constant_match = CONSTANT_RE.match(line)
+
+        if constant_match:
+            return_type = qualify_type(
+                types,
+                constant_match.group("type"),
+            )
+
+            name = constant_match.group("name")
+
+            declarations.append({
+                "line": line_number,
+                "return_type": return_type,
+                "name": name,
+                "arguments": [],
+                "constant": True,
+            })
+
+            continue
+
+        # Fonctions natives : comportement existant.
         if "; //" not in line:
             continue
 
@@ -160,7 +196,11 @@ def parse_header(types: dict, header_path: Path) -> list[dict]:
             )
             continue
 
-        return_type = qualify_type(types, match.group("return_type"))
+        return_type = qualify_type(
+            types,
+            match.group("return_type"),
+        )
+
         name = match.group("name")
 
         arguments = [
@@ -173,6 +213,7 @@ def parse_header(types: dict, header_path: Path) -> list[dict]:
             "return_type": return_type,
             "name": name,
             "arguments": arguments,
+            "constant": False,
         })
 
     return declarations
@@ -196,6 +237,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         return_type = declaration["return_type"]
         name = declaration["name"]
         arguments = declaration["arguments"]
+        is_constant = declaration.get("constant", False)
 
         neuron_type = (
             f"aicpp::Neuron<{return_type}"
@@ -204,19 +246,40 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         )
 
         function_type = f"{neuron_type}::Function"
-
         variable_name = f"neuron_{name}_{index}"
 
-        lines.extend([
-            f"// Original declaration: line {declaration['line']}",
-            f"using FunctionType_{index} = {function_type};",
-            "",
-            f"{neuron_type} {variable_name}{{",
-            f'    "{name}",',
-            f"    static_cast<FunctionType_{index}>(&hodel::{name})",
-            "};",
-            "",
-        ])
+        lines.append(
+            f"// Original declaration: line {declaration['line']}"
+        )
+
+        if is_constant:
+            function_name = f"constant_value_{name}_{index}"
+
+            lines.extend([
+                f"static {return_type} {function_name}()",
+                "{",
+                f"    return hodel::{name};",
+                "}",
+                "",
+                f"using FunctionType_{index} = {function_type};",
+                "",
+                f"{neuron_type} {variable_name}{{",
+                f'    "{name}",',
+                f"    static_cast<FunctionType_{index}>(&{function_name})",
+                "};",
+                "",
+            ])
+
+        else:
+            lines.extend([
+                f"using FunctionType_{index} = {function_type};",
+                "",
+                f"{neuron_type} {variable_name}{{",
+                f'    "{name}",',
+                f"    static_cast<FunctionType_{index}>(&hodel::{name})",
+                "};",
+                "",
+            ])
 
     registry_entries = []
 
