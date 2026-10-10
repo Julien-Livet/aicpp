@@ -312,3 +312,369 @@ TEST(ConnectionTest, EvaluatesNestedExpression)
         42
     );
 }
+
+TEST(ConnectionTest, PrimitiveHasOneDepth)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.depth(), 1);
+}
+
+TEST(ConnectionTest, NestedExpressionHasGreaterDepth)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using IncrementNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    IncrementNeuron increment{
+        "increment",
+        static_cast<IncrementNeuron::Function>(
+            &hodel::increment
+        )
+    };
+
+    std::vector<std::any> additionInputs{
+        hodel::Integer{20},
+        hodel::Integer{21}
+    };
+
+    aicpp::Connection addition{&add, additionInputs};
+
+    std::vector<std::any> incrementInputs{
+        addition
+    };
+
+    aicpp::Connection expression{
+        &increment,
+        incrementInputs
+    };
+
+    EXPECT_EQ(expression.depth(), 2);
+}
+
+TEST(ConnectionTest, PrimitiveHasStableCost)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.cost(), connection.cost());
+}
+
+TEST(ConnectionTest, CostCountsConstantInputs)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.cost(), 2);
+}
+
+TEST(ConnectionTest, CostCountsNestedExpressions)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using IncrementNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    IncrementNeuron increment{
+        "increment",
+        static_cast<IncrementNeuron::Function>(
+            &hodel::increment
+        )
+    };
+
+    std::vector<std::any> additionInputs{
+        hodel::Integer{20},
+        hodel::Integer{21}
+    };
+
+    aicpp::Connection addition{&add, additionInputs};
+
+    std::vector<std::any> incrementInputs{
+        addition
+    };
+
+    aicpp::Connection expression{
+        &increment,
+        incrementInputs
+    };
+
+    EXPECT_EQ(addition.cost(), 2);
+    EXPECT_EQ(expression.cost(), 3);
+}
+
+TEST(ConnectionTest, DepthCountsConstantInputLevel)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.depth(), 1);
+}
+
+TEST(ConnectionTest, DepthCountsNestedExpressions)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using IncrementNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    IncrementNeuron increment{
+        "increment",
+        static_cast<IncrementNeuron::Function>(
+            &hodel::increment
+        )
+    };
+
+    std::vector<std::any> additionInputs{
+        hodel::Integer{20},
+        hodel::Integer{21}
+    };
+
+    aicpp::Connection addition{&add, additionInputs};
+
+    std::vector<std::any> incrementInputs{
+        addition
+    };
+
+    aicpp::Connection expression{
+        &increment,
+        incrementInputs
+    };
+
+    EXPECT_EQ(addition.depth(), 1);
+    EXPECT_EQ(expression.depth(), 2);
+}
+
+TEST(ConnectionTest, EquivalentConnectionsUsingSameNeuronAreEqual)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs1{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    std::vector<std::any> inputs2{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection first{&add, inputs1};
+    aicpp::Connection second{&add, inputs2};
+
+    EXPECT_TRUE(first == second);
+}
+
+TEST(ConnectionTest, ConnectionsWithDifferentInputsAreUnequal)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs1{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    std::vector<std::any> inputs2{
+        hodel::Integer{20},
+        hodel::Integer{23}
+    };
+
+    aicpp::Connection first{&add, inputs1};
+    aicpp::Connection second{&add, inputs2};
+
+    EXPECT_FALSE(first == second);
+}
+
+TEST(ConnectionTest, ConnectionsUsingDifferentNeuronInstancesAreUnequal)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add1{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    AddNeuron add2{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection first{&add1, inputs};
+    aicpp::Connection second{&add2, inputs};
+
+    EXPECT_FALSE(first == second);
+}
+
+TEST(ConnectionTest, EqualConnectionsHaveEqualHashes)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs1{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    std::vector<std::any> inputs2{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection first{&add, inputs1};
+    aicpp::Connection second{&add, inputs2};
+
+    ASSERT_TRUE(first == second);
+    EXPECT_EQ(first.hash(), second.hash());
+}
+
+TEST(ConnectionTest, HashIsStable)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{22}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.hash(), connection.hash());
+}
