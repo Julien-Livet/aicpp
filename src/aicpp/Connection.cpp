@@ -97,11 +97,7 @@ std::vector<std::type_index> Connection::inputTypes() const
             if (inputTypes.empty())
                 types.emplace_back(connection.neuron()->returnType());
             else
-            {
-                auto const v{std::any_cast<Connection>(input).inputTypes()};
-
-                types.insert(types.end(), v.begin(), v.end());
-            }
+                types.insert(types.end(), inputTypes.begin(), inputTypes.end());
         }
         else if (input.type() == typeid(std::type_index))
             types.emplace_back(std::any_cast<std::type_index>(input));
@@ -116,6 +112,17 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
 {
     assert(inputs.size() == inputTypes().size());
 
+    auto checkType = [checkTypes] (std::any const& input, std::type_index expectedType)
+    {
+        if (!checkTypes)
+            return;
+
+        if (input.type() == typeid(std::type_index))
+            assert(expectedType == std::any_cast<std::type_index>(input));
+        else if (input.type() != typeid(Connection))
+            assert(expectedType == input.type());
+    };
+
     size_t index{0};
 
     for (size_t i{0}; i < inputs_.size(); ++i)
@@ -129,12 +136,15 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
 
             if (size)
             {
-                connection.applyInputs(std::vector<std::any>(inputs.begin() + index, inputs.begin() + index + size));
+                connection.applyInputs(std::vector<std::any>(inputs.begin() + index, inputs.begin() + index + size), checkTypes);
+
                 input = connection;
                 index += size;
             }
             else
             {
+                checkType(inputs[index], connection.neuron()->returnType());
+
                 input = inputs[index];
                 ++index;
             }
@@ -143,13 +153,7 @@ void Connection::applyInputs(std::vector<std::any> const& inputs, bool checkType
         {
             if (index < inputs.size())
             {
-                if (checkTypes)
-                {
-                    if (inputs[index].type() == typeid(std::type_index))
-                        assert(neuron_->inputTypes()[i] == std::any_cast<std::type_index>(inputs[index]));
-                    else if (inputs[index].type() != typeid(Connection))
-                        assert(neuron_->inputTypes()[i] == inputs[index].type());
-                }
+                checkType(inputs[index], neuron_->inputTypes()[i]);
 
                 input = inputs[index];
                 ++index;
@@ -255,7 +259,7 @@ size_t Connection::computeHash_() const
             h += std::hash<int>{}(std::any_cast<int>(input));
         else if (input.type() == typeid(long))
             h += std::hash<long>{}(std::any_cast<long>(input));
-        else if (input.type() == typeid(std::string))
+        else if (input.type() == typeid(int16_t))
             h += std::hash<int16_t>{}(std::any_cast<int16_t>(input));
         else if (input.type() == typeid(std::string))
             h += std::hash<std::string>{}(std::any_cast<std::string>(input));
@@ -428,5 +432,37 @@ bool Connection::replace(NeuronBase const* neuron)
         }
     }
 
+    if (ok)
+        hash_ = computeHash_();
+
     return ok;
+}
+
+std::vector<std::type_index> Connection::expectedInputTypes() const
+{
+    std::vector<std::type_index> types;
+    types.reserve(inputs_.size());
+
+    for (size_t i{0}; i < inputs_.size(); ++i)
+    {
+        auto const& input{inputs_[i]};
+
+        if (input.type() == typeid(Connection))
+        {
+            auto const connection{std::any_cast<Connection>(input)};
+            auto const nestedTypes{connection.expectedInputTypes()};
+
+            if (nestedTypes.empty())
+                types.emplace_back(connection.neuron()->returnType());
+            else
+                types.insert(
+                    types.end(),
+                    nestedTypes.begin(),
+                    nestedTypes.end());
+        }
+        else
+            types.emplace_back(neuron_->inputTypes()[i]);
+    }
+
+    return types;
 }
