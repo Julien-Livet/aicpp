@@ -29,8 +29,10 @@ WORKDIR /app/aicpp/scripts
 RUN [ -e arc-dsl ] || git clone https://github.com/Julien-Livet/arc-dsl.git
 WORKDIR /app/aicpp
 RUN mkdir -p build
-RUN cmake -S . -B build -DWITHOUT_HODEL_TASKS=ON
+RUN cmake -S . -B build -D USE_TESTS="TRUE" -DWITHOUT_HODEL_TASKS=ON
 RUN cmake --build build --config Release --target all -- -j$(nproc)
 RUN python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requirements.txt
  
 ENTRYPOINT ["/bin/bash"]
+
+CMD ["-c", "cd build && ./test_aicpp"]
