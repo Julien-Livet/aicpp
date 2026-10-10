@@ -1045,3 +1045,661 @@ TEST(ConnectionTest, ReplaceNeuronWithDifferentSignature)
     EXPECT_FALSE(expression.replace(&unary));
     EXPECT_EQ(expression.neuron(), &add);
 }
+
+TEST(ConnectionTest, ReplaceNeuronUpdatesHash)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add1{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+    AddNeuron add2{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression{
+        &add1,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    ASSERT_TRUE(expression.replace(&add2));
+    EXPECT_EQ(expression.neuron(), &add2);
+
+    aicpp::Connection expected{
+        &add2,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    EXPECT_EQ(expression.hash(), expected.hash());
+}
+
+TEST(ConnectionTest, ReplaceNeuronUpdatesHashRecursively)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add1{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+    AddNeuron add2{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection left{
+        &add1,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+    aicpp::Connection right{
+        &add1,
+        {hodel::Integer{22}, hodel::Integer{23}}
+    };
+
+    aicpp::Connection expression{&add1, {left, right}};
+
+    ASSERT_TRUE(expression.replace(&add2));
+
+    aicpp::Connection expectedLeft{
+        &add2,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+    aicpp::Connection expectedRight{
+        &add2,
+        {hodel::Integer{22}, hodel::Integer{23}}
+    };
+    aicpp::Connection expected{
+        &add2,
+        {expectedLeft, expectedRight}
+    };
+
+    EXPECT_EQ(expression.hash(), expected.hash());
+}
+
+TEST(ConnectionTest, EqualConnectionsHaveEqualHashesAfterReplace)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add1{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+    AddNeuron add2{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression1{
+        &add1,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    aicpp::Connection expression2{
+        &add2,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    ASSERT_TRUE(expression1.replace(&add2));
+
+    EXPECT_TRUE(expression1 == expression2);
+    EXPECT_EQ(expression1.hash(), expression2.hash());
+}
+
+TEST(ConnectionTest, ApplyInputsRejectsWrongType)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression{
+        &add,
+        {std::type_index{typeid(int16_t)}, std::type_index{typeid(int16_t)}}
+    };
+
+    EXPECT_DEATH(
+        expression.applyInputs(
+            {
+                std::type_index{typeid(std::string)},
+                std::type_index{typeid(int16_t)}
+            },
+            true
+        ),
+        ""
+    );
+}
+
+TEST(ConnectionTest, ApplyInputsChecksTypesRecursively)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection left{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    aicpp::Connection right{
+        &add,
+        {hodel::Integer{22}, hodel::Integer{23}}
+    };
+
+    aicpp::Connection expression{&add, {left, right}};
+
+    EXPECT_DEATH(
+        expression.applyInputs(
+            {
+                std::string{"invalid"},
+                hodel::Integer{1},
+                hodel::Integer{2},
+                hodel::Integer{3}
+            },
+            true
+        ),
+        ""
+    );
+}
+
+TEST(ConnectionTest, ApplyInputsUpdatesHash)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    expression.applyInputs(
+        {hodel::Integer{42}, hodel::Integer{43}}
+    );
+
+    aicpp::Connection expected{
+        &add,
+        {hodel::Integer{42}, hodel::Integer{43}}
+    };
+
+    EXPECT_EQ(expression.hash(), expected.hash());
+}
+
+TEST(ConnectionTest, ApplyInputsUpdatesHashRecursively)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection left{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    aicpp::Connection right{
+        &add,
+        {hodel::Integer{22}, hodel::Integer{23}}
+    };
+
+    aicpp::Connection expression{&add, {left, right}};
+
+    expression.applyInputs({
+        hodel::Integer{40},
+        hodel::Integer{41},
+        hodel::Integer{42},
+        hodel::Integer{43}
+    });
+
+    aicpp::Connection expectedLeft{
+        &add,
+        {hodel::Integer{40}, hodel::Integer{41}}
+    };
+
+    aicpp::Connection expectedRight{
+        &add,
+        {hodel::Integer{42}, hodel::Integer{43}}
+    };
+
+    aicpp::Connection expected{
+        &add,
+        {expectedLeft, expectedRight}
+    };
+
+    EXPECT_EQ(expression.hash(), expected.hash());
+}
+
+TEST(ConnectionTest, InputTypesHandlesNullaryNeuron)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using ConstantNeuron = aicpp::Neuron<hodel::Integer>;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    ConstantNeuron constant{"one", &one};
+
+    aicpp::Connection oneConnection{&constant, {}};
+
+    aicpp::Connection expression{
+        &add,
+        {oneConnection, hodel::Integer{2}}
+    };
+
+    auto const types = expression.inputTypes();
+
+    ASSERT_EQ(types.size(), 2);
+    EXPECT_EQ(types[0], typeid(hodel::Integer));
+    EXPECT_EQ(types[1], typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, InputTypesHandlesTwoNullaryNeurons)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using ConstantNeuron = aicpp::Neuron<hodel::Integer>;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    ConstantNeuron oneNeuron{"one", &one};
+    ConstantNeuron anotherOneNeuron{"another_one", &one};
+
+    aicpp::Connection oneConnection{&oneNeuron, {}};
+    aicpp::Connection anotherOneConnection{&anotherOneNeuron, {}};
+
+    aicpp::Connection expression{
+        &add,
+        {oneConnection, anotherOneConnection}
+    };
+
+    auto const types = expression.inputTypes();
+
+    ASSERT_EQ(types.size(), 2);
+    EXPECT_EQ(types[0], typeid(hodel::Integer));
+    EXPECT_EQ(types[1], typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, ApplyInputsRejectsWrongTypeForNullaryNeuron)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using ConstantNeuron = aicpp::Neuron<hodel::Integer>;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    ConstantNeuron constant{"one", &one};
+
+    aicpp::Connection oneConnection{&constant, {}};
+
+    aicpp::Connection expression{
+        &add,
+        {oneConnection, hodel::Integer{2}}
+    };
+
+    EXPECT_DEATH(
+        expression.applyInputs(
+            {
+                std::string{"invalid"},
+                hodel::Integer{2}
+            },
+            true
+        ),
+        ""
+    );
+}
+
+TEST(ConnectionTest, ExpectedInputTypesReturnsSignatureTypes)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    auto const types = expression.expectedInputTypes();
+
+    ASSERT_EQ(types.size(), 2);
+    EXPECT_EQ(types[0], typeid(hodel::Integer));
+    EXPECT_EQ(types[1], typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, ExpectedInputTypesHandlesNestedConnections)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection left{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    aicpp::Connection right{
+        &add,
+        {hodel::Integer{22}, hodel::Integer{23}}
+    };
+
+    aicpp::Connection expression{&add, {left, right}};
+
+    auto const types = expression.expectedInputTypes();
+
+    ASSERT_EQ(types.size(), 4);
+
+    for (auto const& type : types)
+        EXPECT_EQ(type, typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, ExpectedInputTypesHandlesNullaryNeuron)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using ConstantNeuron = aicpp::Neuron<hodel::Integer>;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    ConstantNeuron constant{"one", &one};
+
+    aicpp::Connection oneConnection{&constant, {}};
+
+    aicpp::Connection expression{
+        &add,
+        {oneConnection, hodel::Integer{2}}
+    };
+
+    auto const types = expression.expectedInputTypes();
+
+    ASSERT_EQ(types.size(), 2);
+    EXPECT_EQ(types[0], typeid(hodel::Integer));
+    EXPECT_EQ(types[1], typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, ConstructorAcceptsValidInputs)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    std::vector<std::any> inputs{
+        hodel::Integer{20},
+        hodel::Integer{21}
+    };
+
+    aicpp::Connection connection{&add, inputs};
+
+    EXPECT_EQ(connection.neuron(), &add);
+    ASSERT_EQ(connection.inputs().size(), 2);
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(connection.inputs()[0]),
+        20
+    );
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(connection.inputs()[1]),
+        21
+    );
+}
+
+TEST(ConnectionTest, ConstructorAcceptsValidNestedConnection)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection left{
+        &add,
+        {hodel::Integer{20}, hodel::Integer{21}}
+    };
+
+    aicpp::Connection expression{
+        &add,
+        {left, hodel::Integer{22}}
+    };
+
+    ASSERT_EQ(expression.inputs().size(), 2);
+
+    auto const nested =
+        std::any_cast<aicpp::Connection>(expression.inputs()[0]);
+
+    EXPECT_EQ(nested.neuron(), &add);
+}
+
+TEST(ConnectionTest, ConstructorAcceptsMatchingTypeIndexInputs)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection expression{
+        &add,
+        {
+            std::type_index{typeid(hodel::Integer)},
+            std::type_index{typeid(hodel::Integer)}
+        }
+    };
+
+    ASSERT_EQ(expression.inputs().size(), 2);
+
+    EXPECT_EQ(
+        std::any_cast<std::type_index>(expression.inputs()[0]),
+        typeid(hodel::Integer)
+    );
+}
+
+TEST(ConnectionTest, ConstructorRejectsIncorrectNumberOfInputs)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    EXPECT_DEATH(
+        (
+            aicpp::Connection{
+                &add,
+                {hodel::Integer{20}}
+            }
+        ),
+        ""
+    );
+}
+
+static auto trueFunction()
+{
+    return hodel::Boolean{true};
+}
+
+TEST(ConnectionTest, ConstructorRejectsNestedConnectionWithIncorrectReturnType)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using BooleanNeuron = aicpp::Neuron<hodel::Boolean>;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    BooleanNeuron booleanNeuron{
+        "boolean",
+        &trueFunction
+    };
+
+    aicpp::Connection booleanConnection{&booleanNeuron, {}};
+
+    EXPECT_DEATH(
+        (
+            aicpp::Connection{
+                &add,
+                {booleanConnection, hodel::Integer{2}}
+            }
+        ),
+        ""
+    );
+}
+
+TEST(ConnectionTest, ConstructorRejectsIncorrectTypeIndex)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    EXPECT_DEATH(
+        (
+            aicpp::Connection{
+                &add,
+                {
+                    std::type_index{typeid(hodel::Boolean)},
+                    std::type_index{typeid(hodel::Integer)}
+                }
+            }
+        ),
+        ""
+    );
+}
+
+TEST(ConnectionTest, ConstructorRejectsIncorrectConcreteInputType)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    EXPECT_DEATH(
+        (
+            aicpp::Connection{
+                &add,
+                {
+                    std::string{"invalid"},
+                    hodel::Integer{21}
+                }
+            }
+        ),
+        ""
+    );
+}
