@@ -20,6 +20,7 @@ namespace aicpp
             virtual std::type_index returnType() const = 0;
             virtual std::vector<std::type_index> inputTypes() const = 0;
             virtual std::any invoke(std::vector<std::any> const& inputs) const = 0;
+            virtual boost::json::value toJson() const = 0;
     };
 
     template <typename... Args>
@@ -50,6 +51,7 @@ namespace aicpp
         public:
             using ReturnType = T;
             using Function = T (*)(Args...);
+            static constexpr std::size_t Arity = sizeof...(Args);
 
             Neuron(std::string const& name, Function function) : name_{name}, function_{function}
             {
@@ -70,7 +72,7 @@ namespace aicpp
                 return {std::type_index(typeid(Args))...};
             }
 
-            Function function() const override
+            Function function() const
             {
                 return function_;
             }
@@ -91,7 +93,7 @@ namespace aicpp
                 return std::make_pair(s, index);
             }
 
-            boost::json::value toJson() const
+            boost::json::value toJson() const override
             {
                 using namespace boost::json;
 
@@ -101,7 +103,7 @@ namespace aicpp
 
                 array inputs;
 
-                addType<Args...>(inputs);
+                addTypes<Args...>(inputs);
 
                 obj["inputTypes"] = std::move(inputs);
                 obj["outputType"] = std::string(typeid(T).name());
