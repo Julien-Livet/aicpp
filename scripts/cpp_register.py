@@ -20,20 +20,24 @@ def remove_parameter_name(parameter: str) -> str:
     parameter = parameter.strip()
 
     match = re.match(
-        r"^(.*?)\s+([A-Za-z_]\w*)\s*$",
+        r"^(.+?)(?:\s*[*&]\s*|\s+)([A-Za-z_]\w*)$",
         parameter,
     )
 
-    if match:
-        candidate_type = match.group(1).strip()
-        candidate_name = match.group(2)
+    if not match:
+        return parameter
 
-        if candidate_type and candidate_name not in {
-            "const", "volatile"
-        }:
-            return candidate_type
+    cpp_type = match.group(1).rstrip()
 
-    return parameter
+    if not cpp_type or cpp_type.endswith("::"):
+        return parameter
+
+    separator = match.group(0)[len(cpp_type):]
+
+    if separator.lstrip().startswith(("&", "*")):
+        cpp_type += separator.lstrip()[0]
+
+    return cpp_type
 
 TYPEDEF_RE = re.compile(
     r"""
@@ -224,8 +228,10 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         "",
         "#include <cstddef>",
         "",
-        f'#include "{name}.h"',
-        '#include "Neuron.h"',
+        f'#include "aicpp/{name}.h"',
+        '#include "aicpp/Neuron.h"',
+        '#include "aicpp/HodelRegister.h"',
+        '#include "aicpp/PolymorphicNeuronRegister.h"',
         "",
         "namespace aicpp",
         "{",
@@ -295,6 +301,12 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         "{",
         "    NeuronRegistry registry;",
         *registry_entries,
+        "",
+        "    auto polymorphicRegistry = makePolymorphicNeuronRegistry();",
+        "    registry.insert(",
+        "        polymorphicRegistry.begin(),",
+        "        polymorphicRegistry.end());",
+        "",
         "    return registry;",
         "}",
     ])
@@ -316,14 +328,25 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
 def main() -> None:
     if len(sys.argv) != 2:
         print(
-            "Usage : python generate_neurons.py "
-            "Hodel",
+            "Usage : python generate_neurons.py Hodel",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    header_path = Path("../include/aicpp/" + sys.argv[1] + ".h")
-    output_path = Path("../src/aicpp/" + sys.argv[1] + "Register.cpp")
+    name = sys.argv[1]
+    base_dir = Path(__file__).resolve().parent.parent
+
+    include_dir = base_dir / "include" / "aicpp"
+
+    for neuron in discover_polymorphic_neurons(include_dir):
+        print(
+            f"Clas: {neuron['class']}, "
+            f"DSL name: {neuron['name']}, "
+            f"file: {neuron['header']}"
+        )
+
+    header_path = base_dir / "include" / "aicpp" / f"{name}.h"
+    output_path = base_dir / "src" / "aicpp" / f"{name}Register.cpp"
 
     if not header_path.is_file():
         print(
@@ -337,13 +360,94 @@ def main() -> None:
 
     if not declarations:
         print(
-            "No known declaration. "
-            "Check comment and signature format.",
+            "No known declaration. Check comment and signature format.",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    generate_cpp(sys.argv[1], declarations, output_path)
+    generate_cpp(name, declarations, output_path)
+
+    if name == "Hodel":
+        polymorphic_output_path = (
+            base_dir / "src" / "aicpp" / "PolymorphicNeuronRegister.cpp"
+        )
+        generate_polymorphic_cpp(polymorphic_output_path)
+
+def discover_polymorphic_neurons(include_dir: Path) -> list[dict[str, str]]:
+    neurons = []
+
+    for header_path in sorted(include_dir.glob("*Neuron.h")):
+        if header_path.name in {"Neuron.h", "PolymorphicNeuron.h"}:
+            continue
+
+        content = header_path.read_text(encoding="utf-8")
+
+        match = re.search(
+            r"\bclass\s+([A-Za-z_]\w*)\s*:\s*public\s+PolymorphicNeuron\b",
+            content,
+        )
+
+        if not match:
+            continue
+
+        class_name = match.group(1)
+
+        name_match = re.search(
+            r"\bname\s*\(\s*\)\s*const\b"
+            r"(?:(?!\bname\s*\().)*?"
+            r'static\s+std::string\s+const\s+\w+\s*\{\s*"([^"]+)"\s*\}',
+            content,
+            re.DOTALL,
+        )
+
+        if not name_match:
+            raise ValueError(
+                f"Impossible to find DSL name in {header_path}"
+            )
+
+        neurons.append({
+            "header": header_path.name,
+            "class": class_name,
+            "name": name_match.group(1),
+        })
+
+    return neurons
+
+def generate_polymorphic_cpp(output_path: Path) -> None:
+    lines = [
+        "// Automatically generated file. Do not modify.",
+        "",
+        '#include "aicpp/HodelRegister.h"',
+        '#include "aicpp/ComposeNeuron.h"',
+        '#include "aicpp/ChainNeuron.h"',
+        '#include "aicpp/ForkNeuron.h"',
+        '#include "aicpp/ExtractNeuron.h"',
+        "",
+        "namespace aicpp",
+        "{",
+        "",
+        "NeuronRegistry makePolymorphicNeuronRegistry()",
+        "{",
+        "    static ComposeNeuron compose;",
+        "    static ChainNeuron chain;",
+        "    static ForkNeuron fork;",
+        "    static ExtractNeuron extract;",
+        "",
+        "    NeuronRegistry registry;",
+        '    registry.emplace(compose.name(), &compose);',
+        '    registry.emplace(chain.name(), &chain);',
+        '    registry.emplace(fork.name(), &fork);',
+        '    registry.emplace(extract.name(), &extract);',
+        "",
+        "    return registry;",
+        "}",
+        "",
+        "} // namespace aicpp",
+        "",
+    ]
+
+    output_path.write_text("\n".join(lines), encoding="utf-8")
+    print(f"Polymorphic neuron registry generated in {output_path}")
 
 if __name__ == "__main__":
     main()
