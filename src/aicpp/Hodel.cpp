@@ -1874,6 +1874,11 @@ hodel::IndicesVector hodel::branch(Boolean const& condition, IndicesVector const
     return condition ? a : b;
 }
 
+hodel::BooleanVector hodel::branch(Boolean const& condition, BooleanVector const& a, BooleanVector const& b)
+{
+    return condition ? a : b;
+}
+
 hodel::Integer hodel::color(Object const& object)
 {
     if (object.empty())
@@ -2284,6 +2289,11 @@ hodel::Boolean hodel::equality(ObjectsVector const& a, ObjectsVector const& b)
 }
 
 hodel::Boolean hodel::equality(IndicesVector const& a, IndicesVector const& b)
+{
+    return a == b;
+}
+
+hodel::Boolean hodel::equality(BooleanVector const& a, BooleanVector const& b)
 {
     return a == b;
 }
@@ -3224,6 +3234,11 @@ hodel::IndicesVector hodel::identity(IndicesVector const& x)
     return x;
 }
 
+hodel::BooleanVector hodel::identity(BooleanVector const& x)
+{
+    return x;
+}
+
 hodel::Integer hodel::first(IntegerTuple const& x)
 {
     return x.first;
@@ -3310,6 +3325,14 @@ hodel::Objects hodel::first(ObjectsVector const& x)
 }
 
 hodel::Indices hodel::first(IndicesVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::Boolean hodel::first(BooleanVector const& x)
 {
     if (x.empty())
         throw EmptyContainer{"first"};
@@ -3410,6 +3433,14 @@ hodel::Indices hodel::last(IndicesVector const& x)
     return *x.rbegin();
 }
 
+hodel::Boolean hodel::last(BooleanVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
 hodel::Indices hodel::insert(IntegerTuple const& value, Indices const& container)
 {
     auto result{container};
@@ -3501,6 +3532,15 @@ hodel::ObjectsVector hodel::insert(Objects const& value, ObjectsVector const& co
 }
 
 hodel::IndicesVector hodel::insert(Indices const& value, IndicesVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::BooleanVector hodel::insert(Boolean const& value, BooleanVector const& container)
 {
     auto result{container};
 
@@ -3652,6 +3692,19 @@ hodel::IndicesVector hodel::remove(Indices const& value, IndicesVector const& co
     return result;
 }
 
+hodel::BooleanVector hodel::remove(Boolean const& value, BooleanVector const& container)
+{
+    auto result{container};
+    auto const it{std::find(result.begin(), result.end(), value)};
+
+    if (it == result.end())
+        throw InvalidContainer{"remove"};
+
+    result.erase(it);
+
+    return result;
+}
+
 hodel::IntegerTuple hodel::other(Indices const& container, IntegerTuple const& value)
 {
     return first(remove(value, container));
@@ -3703,6 +3756,11 @@ hodel::Objects hodel::other(ObjectsVector const& container, Objects const& value
 }
 
 hodel::Indices hodel::other(IndicesVector const& container, Indices const& value)
+{
+    return first(remove(value, container));
+}
+
+hodel::Boolean hodel::other(BooleanVector const& container, Boolean const& value)
 {
     return first(remove(value, container));
 }
@@ -3831,3 +3889,60 @@ hodel::GridVector hodel::vsplit(Grid const& grid, Integer const& n)
 
     return result;
 }
+
+hodel::BooleanVector hodel::repeat(Boolean const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return hodel::BooleanVector(static_cast<size_t>(num), item);
+}
+
+hodel::IntegerVector hodel::repeat(Integer const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return hodel::IntegerVector(static_cast<size_t>(num), item);
+}
+
+hodel::Grid hodel::repeat(IntegerVector const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return {static_cast<size_t>(num), item};
+}
+
+hodel::GridVector hodel::repeat(Grid const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return {static_cast<size_t>(num), item};
+}
+
+hodel::ObjectVector hodel::repeat(Object const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return {static_cast<size_t>(num), item};
+}
+
+hodel::ObjectsVector hodel::repeat(Objects const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return {static_cast<size_t>(num), item};
+}
+
+hodel::IndicesVector hodel::repeat(Indices const& item, Integer const& num)
+{
+    if (num <= 0 || num > 100)
+        throw InvalidInteger{"repeat"};
+
+    return {static_cast<size_t>(num), item};
+}
+
