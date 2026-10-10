@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "aicpp/Neuron.h"
+#include "aicpp/DslType.h"
 
 namespace aicpp
 {
@@ -31,6 +32,9 @@ namespace aicpp
             std::vector<std::any> leafInputs() const;
             bool replace(NeuronBase const* neuron);
             std::vector<std::type_index> expectedInputTypes() const;
+            DslType signature() const;
+            std::any apply(std::any const& argument) const;
+            std::vector<std::type_index> immediateInputTypes() const;
 
         private:
             size_t computeHash_() const;
