@@ -8,45 +8,8 @@
 
 namespace hodel
 {
-    class IdentityIntegerTuple : public std::runtime_error
-    {
-        public:
-            IdentityIntegerTuple(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
-
-    class IdentityInteger : public std::runtime_error
-    {
-        public:
-            IdentityInteger(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
-
-    class IdentityObject : public std::runtime_error
-    {
-        public:
-            IdentityObject(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
-
-    class IdentityObjects : public std::runtime_error
-    {
-        public:
-            IdentityObjects(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
-
-    class IdentityIndices : public std::runtime_error
-    {
-        public:
-            IdentityIndices(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
+    typedef bool Boolean;
+    typedef int16_t Integer;
 
     class InvalidIntegerVector : public std::runtime_error
     {
@@ -119,17 +82,6 @@ namespace hodel
             {
             }
     };
-
-    class IdentityGrid : public std::runtime_error
-    {
-        public:
-            IdentityGrid(std::string const& name) : std::runtime_error{name}
-            {
-            }
-    };
-
-    typedef bool Boolean;
-    typedef int16_t Integer;
 
     struct IntegerTuple : public std::pair<Integer, Integer>
     {
@@ -236,43 +188,6 @@ namespace hodel
     typedef std::vector<Indices> IndicesVector;
     typedef std::vector<Object> ObjectVector;
     typedef std::vector<Objects> ObjectsVector;
-
-    enum class Type
-    {
-        Boolean,
-        Integer,
-        IntegerTuple,
-        IntegerSet,
-        Grid,
-        Cell,
-        Object,
-        Objects,
-        Indices,
-        IndicesSet,
-        GridVector,
-        IntegerVector,
-        IndicesVector,
-        ObjectVector,
-        ObjectsVector
-    };
-
-    using Value = std::variant<
-        hodel::Boolean,
-        hodel::Integer,
-        hodel::IntegerTuple,
-        hodel::IntegerSet,
-        hodel::Grid,
-        hodel::Cell,
-        hodel::Object,
-        hodel::Objects,
-        hodel::Indices,
-        hodel::IndicesSet,
-        hodel::GridVector,
-        hodel::IntegerVector,
-        hodel::IndicesVector,
-        hodel::ObjectVector,
-        hodel::ObjectsVector
-    >;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -628,6 +543,10 @@ namespace hodel
     IntegerVector totuple(IntegerSet const& container); //conversion to tuple
     IndicesVector totuple(IndicesSet const& container); //conversion to tuple
     ObjectVector totuple(Objects const& container); //conversion to tuple
+    Grid subgrid(Object const& patch, Grid const& grid); //smallest subgrid containing object
+    Grid subgrid(Indices const& patch, Grid const& grid); //smallest subgrid containing object
+    GridVector hsplit(Grid const& grid, Integer const& n); //split grid horizontally
+    GridVector vsplit(Grid const& grid, Integer const& n); //split grid vertically
 }
 
 #endif // AICPP_HODEL_H
