@@ -233,3 +233,82 @@ TEST(NeuronTest, SelectsCorrectOverload)
     EXPECT_EQ(result.first, 3);
     EXPECT_EQ(result.second, 4);
 }
+
+TEST(ConnectionTest, EvaluatesPrimitive)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    aicpp::Connection connection{
+        &add,
+        {
+            std::any{hodel::Integer{20}},
+            std::any{hodel::Integer{22}}
+        }
+    };
+
+    auto result = connection.output();
+
+    ASSERT_TRUE(result.has_value());
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(result),
+        42
+    );
+}
+
+TEST(ConnectionTest, EvaluatesNestedExpression)
+{
+    using AddNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&,
+        hodel::Integer const&
+    >;
+
+    using IncrementNeuron = aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&
+    >;
+
+    AddNeuron add{
+        "add",
+        static_cast<AddNeuron::Function>(&hodel::add)
+    };
+
+    IncrementNeuron increment{
+        "increment",
+        static_cast<IncrementNeuron::Function>(
+            &hodel::increment
+        )
+    };
+
+    aicpp::Connection addition{
+        &add,
+        {
+            std::any{hodel::Integer{20}},
+            std::any{hodel::Integer{21}}
+        }
+    };
+
+    aicpp::Connection expression{
+        &increment,
+        {
+            std::any{addition}
+        }
+    };
+
+    auto result = expression.output();
+
+    ASSERT_TRUE(result.has_value());
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(result),
+        42
+    );
+}
