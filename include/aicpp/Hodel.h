@@ -349,7 +349,7 @@ namespace hodel
     Boolean positive(Integer const& x); //positive
     IntegerTuple toivec(Integer const& i); //vector pointing vertically
     IntegerTuple tojvec(Integer const& j); //vector pointing horizontally
-    std::vector<Integer> interval(Integer start, Integer const& stop, Integer const& step); //range
+    IntegerVector interval(Integer start, Integer const& stop, Integer const& step); //range
     IntegerTuple astuple(Integer const& a, Integer const& b); //constructs a tuple
     IntegerTuple ulcorner(Object const& patch); //index of upper left corner
     IntegerTuple ulcorner(Indices const& patch); //index of upper left corner
