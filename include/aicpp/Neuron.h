@@ -19,6 +19,7 @@ namespace aicpp
             virtual std::string const& name() const = 0;
             virtual std::type_index returnType() const = 0;
             virtual std::vector<std::type_index> inputTypes() const = 0;
+            virtual std::any invoke(std::vector<std::any> const& inputs) const = 0;
     };
 
     template <typename... Args>
@@ -108,9 +109,31 @@ namespace aicpp
                 return obj;
             }
 
+            std::any invoke(std::vector<std::any> const& inputs) const override
+            {
+                if (inputs.size() != sizeof...(Args))
+                    throw std::invalid_argument("Invalid number of neuron inputs");
+
+                return invokeImpl_(
+                    inputs,
+                    std::index_sequence_for<Args...>{}
+                );
+            }
+
         private:
             std::string name_;
             Function function_;
+
+            template <std::size_t... I>
+            std::any invokeImpl_(
+                std::vector<std::any> const& inputs,
+                std::index_sequence<I...>
+            ) const
+            {
+                return std::any{
+                    function_(std::any_cast<Args const&>(inputs[I])...)
+                };
+            }
     };
 }
 
