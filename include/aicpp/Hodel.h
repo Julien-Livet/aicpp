@@ -72,6 +72,14 @@ namespace hodel
             }
     };
 
+    class InvalidContainer : public std::runtime_error
+    {
+            public:
+            InvalidContainer(std::string const& name) : std::runtime_error{name}
+            {
+            }
+    };
+
     class EmptyContainer : public std::runtime_error
     {
             public:
@@ -551,6 +559,75 @@ namespace hodel
     ObjectVector identity(ObjectVector const& x); //identity function
     ObjectsVector identity(ObjectsVector const& x); //identity function
     IndicesVector identity(IndicesVector const& x); //identity function
+    Integer first(IntegerTuple const& x); //first item of container
+    IntegerTuple first(Indices const& x); //first item of container
+    Cell first(Object const& x); //first item of container
+    IntegerVector first(Grid const& x); //first item of container
+    Grid first(GridVector const& x); //first item of container
+    Integer first(IntegerVector const& x); //first item of container
+    Indices first(IndicesSet const& x); //first item of container
+    Integer first(IntegerSet const& x); //first item of container
+    Object first(Objects const& x); //first item of container
+    Object first(ObjectVector const& x); //first item of container
+    Objects first(ObjectsVector const& x); //first item of container
+    Indices first(IndicesVector const& x); //first item of container
+    Integer last(IntegerTuple const& x); //last item of container
+    IntegerTuple last(Indices const& x); //last item of container
+    Cell last(Object const& x); //last item of container
+    IntegerVector last(Grid const& x); //last item of container
+    Grid last(GridVector const& x); //last item of container
+    Integer last(IntegerVector const& x); //last item of container
+    Indices last(IndicesSet const& x); //last item of container
+    Integer last(IntegerSet const& x); //last item of container
+    Object last(Objects const& x); //last item of container
+    Object last(ObjectVector const& x); //last item of container
+    Objects last(ObjectsVector const& x); //last item of container
+    Indices last(IndicesVector const& x); //last item of container
+    Indices insert(IntegerTuple const& value, Indices const& container); //insert item into container
+    Object insert(Cell const& value, Object const& container); //insert item into container
+    Grid insert(IntegerVector const& value, Grid const& container); //insert item into container
+    GridVector insert(Grid const& value, GridVector const& container); //insert item into container
+    IntegerVector insert(Integer const& value, IntegerVector const& container); //insert item into container
+    IndicesSet insert(Indices const& value, IndicesSet const& container); //insert item into container
+    IntegerSet insert(Integer const& value, IntegerSet const& container); //insert item into container
+    Objects insert(Object const& value, Objects const& container); //insert item into container
+    ObjectVector insert(Object const& value, ObjectVector const& container); //insert item into container
+    ObjectsVector insert(Objects const& value, ObjectsVector const& container); //insert item into container
+    IndicesVector insert(Indices const& value, IndicesVector const& container); //insert item into container
+    Indices remove(IntegerTuple const& value, Indices const& container); //remove item from container
+    Object remove(Cell const& value, Object const& container); //remove item from container
+    Grid remove(IntegerVector const& value, Grid const& container); //remove item from container
+    GridVector remove(Grid const& value, GridVector const& container); //remove item from container
+    IntegerVector remove(Integer const& value, IntegerVector const& container); //remove item from container
+    IndicesSet remove(Indices const& value, IndicesSet const& container); //remove item from container
+    IntegerSet remove(Integer const& value, IntegerSet const& container); //remove item from container
+    Objects remove(Object const& value, Objects const& container); //remove item from container
+    ObjectVector remove(Object const& value, ObjectVector const& container); //remove item from container
+    ObjectsVector remove(Objects const& value, ObjectsVector const& container); //remove item from container
+    IndicesVector remove(Indices const& value, IndicesVector const& container); //remove item from container
+    IntegerTuple other(Indices const& container, IntegerTuple const& value); //other value in the container
+    Cell other(Object const& container, Cell const& value); //other value in the container
+    IntegerVector other(Grid const& container, IntegerVector const& value); //other value in the container
+    Grid other(GridVector const& container, Grid const& value); //other value in the container
+    Integer other(IntegerVector const& container, Integer const& value); //other value in the container
+    Indices other(IndicesSet const& container, Indices const& value); //other value in the container
+    Integer other(IntegerSet const& container, Integer const& value); //other value in the container
+    Object other(Objects const& container, Object const& value); //other value in the container
+    Object other(ObjectVector const& container, Object const& value); //other value in the container
+    Objects other(ObjectsVector const& container, Objects const& value); //other value in the container
+    Indices other(IndicesVector const& container, Indices const& value); //other value in the container
+    Indices initset(IntegerTuple const& value); //initialize container
+    Object initset(Cell const& value); //initialize container
+    Grid initset(IntegerVector const& value); //initialize container
+    GridVector initset(Grid const& value); //initialize container
+    IndicesSet initset(Indices const& value); //initialize container
+    IntegerSet initset(Integer const& value); //initialize container
+    Objects initset(Object const& value); //initialize container
+    ObjectsVector initset(Objects const& value); //initialize container
+    IntegerVector totuple(IntegerTuple const& container); //conversion to tuple
+    IntegerVector totuple(IntegerSet const& container); //conversion to tuple
+    IndicesVector totuple(IndicesSet const& container); //conversion to tuple
+    ObjectVector totuple(Objects const& container); //conversion to tuple
 }
 
 #endif // AICPP_HODEL_H
