@@ -30,6 +30,7 @@ namespace aicpp
             std::string expression() const;
             std::vector<std::any> leafInputs() const;
             bool replace(NeuronBase const* neuron);
+            std::vector<std::type_index> expectedInputTypes() const;
 
         private:
             size_t computeHash_() const;
