@@ -10,7 +10,7 @@ namespace aicpp
     class Connection
     {
         public:
-            Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs_);
+            Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs);
             NeuronBase const* neuron() const;
             std::vector<std::any> const& inputs() const;
             size_t cost() const;
