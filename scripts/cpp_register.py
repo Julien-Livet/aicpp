@@ -338,7 +338,9 @@ def main() -> None:
 
     include_dir = base_dir / "include" / "aicpp"
 
-    for neuron in discover_polymorphic_neurons(include_dir):
+    polymorphic_neurons = discover_polymorphic_neurons(include_dir)
+
+    for neuron in polymorphic_neurons:
         print(
             f"Class: {neuron['class']}, "
             f"DSL name: {neuron['name']}, "
@@ -367,11 +369,14 @@ def main() -> None:
 
     generate_cpp(name, declarations, output_path)
 
-    if name == "Hodel":
+    if polymorphic_neurons:
         polymorphic_output_path = (
             base_dir / "src" / "aicpp" / "PolymorphicNeuronRegister.cpp"
         )
-        generate_polymorphic_cpp(polymorphic_output_path)
+        generate_polymorphic_cpp(
+            polymorphic_output_path,
+            polymorphic_neurons,
+        )
 
 def discover_polymorphic_neurons(include_dir: Path) -> list[dict[str, str]]:
     neurons = []
@@ -413,41 +418,66 @@ def discover_polymorphic_neurons(include_dir: Path) -> list[dict[str, str]]:
 
     return neurons
 
-def generate_polymorphic_cpp(output_path: Path) -> None:
+def generate_polymorphic_cpp(
+    output_path: Path,
+    neurons: list[dict[str, str]],
+) -> None:
     lines = [
         "// Automatically generated file. Do not modify.",
         "",
         '#include "aicpp/HodelRegister.h"',
-        '#include "aicpp/ComposeNeuron.h"',
-        '#include "aicpp/ChainNeuron.h"',
-        '#include "aicpp/ForkNeuron.h"',
-        '#include "aicpp/ExtractNeuron.h"',
+    ]
+
+    for neuron in neurons:
+        lines.append(f'#include "aicpp/{neuron["header"]}"')
+
+    lines.extend([
         "",
         "namespace aicpp",
         "{",
         "",
         "NeuronRegistry makePolymorphicNeuronRegistry()",
         "{",
-        "    static ComposeNeuron compose;",
-        "    static ChainNeuron chain;",
-        "    static ForkNeuron fork;",
-        "    static ExtractNeuron extract;",
+    ])
+
+    for neuron in neurons:
+        variable_name = f"polymorphic_{neuron['class']}"
+
+        lines.append(
+            f"    static {neuron['class']} {variable_name};"
+        )
+
+    lines.extend([
         "",
         "    NeuronRegistry registry;",
-        '    registry.emplace(compose.name(), &compose);',
-        '    registry.emplace(chain.name(), &chain);',
-        '    registry.emplace(fork.name(), &fork);',
-        '    registry.emplace(extract.name(), &extract);',
+    ])
+
+    for neuron in neurons:
+        variable_name = f"polymorphic_{neuron['class']}"
+
+        lines.append(
+            f'    registry.emplace({variable_name}.name(), '
+            f"&{variable_name});"
+        )
+
+    lines.extend([
         "",
         "    return registry;",
         "}",
         "",
         "} // namespace aicpp",
         "",
-    ]
+    ])
 
-    output_path.write_text("\n".join(lines), encoding="utf-8")
-    print(f"Polymorphic neuron registry generated in {output_path}")
+    output_path.write_text(
+        "\n".join(lines),
+        encoding="utf-8",
+    )
+
+    print(
+        f"{len(neurons)} polymorphic neuron(s) registered in "
+        f"{output_path}"
+    )
 
 if __name__ == "__main__":
     main()
