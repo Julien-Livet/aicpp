@@ -134,8 +134,9 @@ add_executable(dsl_dataset
                src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
                src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
                src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
-                src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
-                src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
+               src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
+               src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
+               src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
                include/aicpp/FunctionValue.h
                include/aicpp/utility.h)
 
@@ -152,6 +153,7 @@ if(USE_TESTS STREQUAL "TRUE")
                 src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
                 src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
                 src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
+                src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
                 src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
                 src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
                 include/aicpp/FunctionValue.h
