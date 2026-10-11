@@ -39,7 +39,7 @@ set(HODEL_REGISTER
 )
 
 set(POLYMORPHIC_REGISTER
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/PolymorphicNeuronRegister.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/HodelPolymorphicNeuronRegister.cpp"
 )
 
 file(GLOB REGISTER_HEADERS CONFIGURE_DEPENDS
@@ -85,7 +85,7 @@ set(HODEL_REGISTER
 )
 
 set(POLYMORPHIC_REGISTER
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/PolymorphicNeuronRegister.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/HodelPolymorphicNeuronRegister.cpp"
 )
 
 # Discover neuron headers automatically.
@@ -123,45 +123,33 @@ add_custom_target(generate_neuron_registries
         "${POLYMORPHIC_REGISTER}"
 )
 
-add_executable(dsl_dataset
-               src/dsl_dataset.cpp
-               src/aicpp/Hodel.cpp include/aicpp/Hodel.h
-               include/aicpp/Neuron.h
-               src/aicpp/Connection.cpp include/aicpp/Connection.h
-               include/aicpp/DslType.h
-               include/aicpp/PolymorphicNeuron.h
-               include/aicpp/ComposeNeuron.h
-               src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
-               src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
-               src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
-               src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
-               src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
-               src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
-               include/aicpp/FunctionValue.h
-               include/aicpp/utility.h)
+set(FILES
+    src/aicpp/Hodel.cpp include/aicpp/Hodel.h
+    include/aicpp/Neuron.h
+    src/aicpp/Connection.cpp include/aicpp/Connection.h
+    include/aicpp/DslType.h
+    include/aicpp/PolymorphicNeuron.h
+    include/aicpp/ComposeNeuron.h
+    src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
+    src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
+    src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
+    src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
+    src/aicpp/HodelPolymorphicNeuronRegister.cpp include/aicpp/HodelPolymorphicNeuronRegister.h
+    src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
+    include/aicpp/FunctionValue.h
+    include/aicpp/utility.h)
+
+add_executable(dsl_dataset src/dsl_dataset.cpp ${FILES})
 
 if(USE_TESTS STREQUAL "TRUE")
     enable_testing()
-    add_executable(test_aicpp
-                src/test_aicpp.cpp
-                src/aicpp/Hodel.cpp include/aicpp/Hodel.h
-                include/aicpp/Neuron.h
-                src/aicpp/Connection.cpp include/aicpp/Connection.h
-                include/aicpp/DslType.h
-                include/aicpp/PolymorphicNeuron.h
-                include/aicpp/ComposeNeuron.h
-                src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
-                src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
-                src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
-                src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
-                src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
-                src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
-                include/aicpp/FunctionValue.h
-                include/aicpp/utility.h)
+    add_executable(test_aicpp src/test_aicpp.cpp ${FILES})
+    add_executable(test_solvers src/test_solvers.cpp ${FILES})
 endif()
 
 if(USE_TESTS STREQUAL "TRUE")
     target_include_directories(test_aicpp PRIVATE include)
+    target_include_directories(test_solvers PRIVATE include)
 endif()
 
 target_include_directories(dsl_dataset PRIVATE include)
@@ -169,12 +157,14 @@ target_include_directories(dsl_dataset PRIVATE include)
 if (WIN32)
     if(USE_TESTS STREQUAL "TRUE")
         target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
+        target_link_libraries(test_solvers PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen)
 else()
     if(USE_TESTS STREQUAL "TRUE")
         target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
+        target_link_libraries(test_solvers PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main)
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen)
@@ -182,10 +172,12 @@ endif()
 
 if(USE_TESTS STREQUAL "TRUE")
     add_test(NAME TestAiCpp COMMAND test_aicpp)
+    add_test(NAME TestSolvers COMMAND test_solvers)
 
     if (WIN32)
     else()
     include(GoogleTest)
-    gtest_discover_tests(test_aicpp)
+        gtest_discover_tests(test_aicpp)
+        gtest_discover_tests(test_solvers)
     endif()
 endif()
