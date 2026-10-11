@@ -3164,6 +3164,14 @@ hodel::Integer hodel::size(IndicesVector const& container)
     return container.size();
 }
 
+hodel::Integer hodel::size(BooleanVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
 hodel::Boolean  hodel::identity(Boolean const& x)
 {
     return x;
@@ -3805,6 +3813,10 @@ hodel::ObjectsVector hodel::initset(Objects const& value)
     return {value};
 }
 
+hodel::BooleanVector hodel::initset(Boolean const& value)
+{
+    return {value};
+}
 
 hodel::IntegerVector hodel::totuple(IntegerTuple const& container)
 {
@@ -3946,3 +3958,208 @@ hodel::IndicesVector hodel::repeat(Indices const& item, Integer const& num)
     return {static_cast<size_t>(num), item};
 }
 
+hodel::GridVector hodel::dedupe(GridVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::BooleanVector hodel::dedupe(BooleanVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::IntegerVector hodel::dedupe(IntegerVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::ObjectVector hodel::dedupe(ObjectVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::ObjectsVector hodel::dedupe(ObjectsVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::IndicesVector hodel::dedupe(IndicesVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::Object hodel::merge(Objects const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(container.begin(), container.end());
+
+    return result;
+}
+
+hodel::Object hodel::merge(ObjectVector const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(container.begin(), container.end());
+
+    return result;
+}
+
+hodel::Indices hodel::merge(IndicesSet const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(container.begin(), container.end());
+
+    return result;
+}
+
+hodel::Indices hodel::merge(IndicesVector const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(container.begin(), container.end());
+
+    return result;
+}
+
+hodel::IntegerVector hodel::merge(Grid const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(result.end(), container.begin(), container.end());
+
+    return result;
+}
+
+hodel::Grid hodel::merge(GridVector const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(result.end(), container.begin(), container.end());
+
+    return result;
+}
+
+hodel::Boolean hodel::contained(Boolean const& value, BooleanVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Integer const& value, IntegerVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Integer const& value, IntegerSet const& container)
+{
+    return container.contains(value);
+}
+
+hodel::Boolean hodel::contained(IntegerTuple const& value, Indices const& container)
+{
+    return container.contains(value);
+}
+
+hodel::Boolean hodel::contained(IntegerVector const& value, Grid const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Grid const& value, GridVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Object const& value, Objects const& container)
+{
+    return container.contains(value);
+}
+
+hodel::Boolean hodel::contained(Object const& value, ObjectVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Objects const& value, ObjectsVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Boolean hodel::contained(Indices const& value, IndicesVector const& container)
+{
+    return std::find(container.begin(), container.end(), value) != container.end();
+}
