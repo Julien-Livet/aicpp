@@ -6,6 +6,8 @@
 #include <variant>
 #include <vector>
 
+#include "aicpp/FunctionValue.h"
+
 namespace hodel
 {
     typedef bool Boolean;
@@ -189,6 +191,9 @@ namespace hodel
     typedef std::vector<Object> ObjectVector;
     typedef std::vector<Objects> ObjectsVector;
     typedef std::vector<Boolean> BooleanVector;
+    typedef std::vector<aicpp::FunctionValue> FunctionSet;
+    typedef std::pair<aicpp::FunctionValue, hodel::Integer> FunctionIntegerPair;
+    typedef std::vector<FunctionIntegerPair> FunctionIntegerPairVector;
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -265,8 +270,9 @@ namespace hodel
     Boolean positive(Integer const& x); //positive
     IntegerTuple toivec(Integer const& i); //vector pointing vertically
     IntegerTuple tojvec(Integer const& j); //vector pointing horizontally
-    IntegerVector interval(Integer start, Integer const& stop, Integer const& step); //range
+    IntegerSet interval(Integer start, Integer const& stop, Integer const& step); //range
     IntegerTuple astuple(Integer const& a, Integer const& b); //constructs a tuple
+    FunctionIntegerPair astuple(aicpp::FunctionValue const& a, Integer const& b); //constructs a tuple
     IntegerTuple ulcorner(Object const& patch); //index of upper left corner
     IntegerTuple ulcorner(Indices const& patch); //index of upper left corner
     IntegerTuple urcorner(Object const& patch); //index of upper right corner
@@ -464,6 +470,8 @@ namespace hodel
     Integer size(IntegerTuple const& container); //cardinality
     Integer size(IndicesVector const& container); //cardinality
     Integer size(BooleanVector const& container); //cardinality
+    Integer size(FunctionIntegerPair const& container); //cardinality
+    Integer size(FunctionIntegerPairVector const& container); //cardinality
     Boolean identity(Boolean const& x); //identity function
     Integer identity(Integer const& x); //identity function
     IntegerTuple identity(IntegerTuple const& x); //identity function
@@ -492,6 +500,9 @@ namespace hodel
     Objects first(ObjectsVector const& x); //first item of container
     Indices first(IndicesVector const& x); //first item of container
     Boolean first(BooleanVector const& x); //first item of container
+    aicpp::FunctionValue first(FunctionSet const& x); //first item of container
+    FunctionIntegerPair first(FunctionIntegerPairVector const& x); //first item of container
+    aicpp::FunctionValue first(FunctionIntegerPair const& x); //first item of container
     Integer last(IntegerTuple const& x); //last item of container
     IntegerTuple last(Indices const& x); //last item of container
     Cell last(Object const& x); //last item of container
@@ -505,6 +516,9 @@ namespace hodel
     Objects last(ObjectsVector const& x); //last item of container
     Indices last(IndicesVector const& x); //last item of container
     Boolean last(BooleanVector const& x); //last item of container
+    FunctionIntegerPair last(FunctionIntegerPairVector const& x); //last item of container
+    Integer last(FunctionIntegerPair const& x); //last item of container
+    aicpp::FunctionValue last(FunctionSet const& x); //last item of container
     Indices insert(IntegerTuple const& value, Indices const& container); //insert item into container
     Object insert(Cell const& value, Object const& container); //insert item into container
     Grid insert(IntegerVector const& value, Grid const& container); //insert item into container
@@ -517,6 +531,8 @@ namespace hodel
     ObjectsVector insert(Objects const& value, ObjectsVector const& container); //insert item into container
     IndicesVector insert(Indices const& value, IndicesVector const& container); //insert item into container
     BooleanVector insert(Boolean const& value, BooleanVector const& container); //insert item into container
+    FunctionSet insert(aicpp::FunctionValue const& value, FunctionSet const& container); //insert item into container
+    FunctionIntegerPairVector insert(FunctionIntegerPair const& value, FunctionIntegerPairVector const& container); //insert item into container
     Indices remove(IntegerTuple const& value, Indices const& container); //remove item from container
     Object remove(Cell const& value, Object const& container); //remove item from container
     Grid remove(IntegerVector const& value, Grid const& container); //remove item from container
@@ -550,6 +566,8 @@ namespace hodel
     BooleanVector initset(Boolean const& value); //initialize container
     Objects initset(Object const& value); //initialize container
     ObjectsVector initset(Objects const& value); //initialize container
+    FunctionSet initset(aicpp::FunctionValue const& value); //initialize container
+    FunctionIntegerPairVector initset(FunctionIntegerPair const& value); //initialize container
     IntegerVector totuple(IntegerTuple const& container); //conversion to tuple
     IntegerVector totuple(IntegerSet const& container); //conversion to tuple
     IndicesVector totuple(IndicesSet const& container); //conversion to tuple
@@ -587,6 +605,9 @@ namespace hodel
     Boolean contained(Object const& value, ObjectVector const& container); //element of
     Boolean contained(Objects const& value, ObjectsVector const& container); //element of
     Boolean contained(Indices const& value, IndicesVector const& container); //element of
+    Object product(IntegerSet const& a, Indices const& b); //cartesian product
+    Indices product(IntegerSet const& a, IntegerSet const& b); //cartesian product
+    FunctionIntegerPairVector product(FunctionSet const& a, IntegerSet const& b); //cartesian product
 }
 
 #endif // AICPP_HODEL_H
