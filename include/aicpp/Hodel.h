@@ -463,6 +463,7 @@ namespace hodel
     Integer size(GridVector const& container); //cardinality
     Integer size(IntegerTuple const& container); //cardinality
     Integer size(IndicesVector const& container); //cardinality
+    Integer size(BooleanVector const& container); //cardinality
     Boolean identity(Boolean const& x); //identity function
     Integer identity(Integer const& x); //identity function
     IntegerTuple identity(IntegerTuple const& x); //identity function
@@ -546,6 +547,7 @@ namespace hodel
     GridVector initset(Grid const& value); //initialize container
     IndicesSet initset(Indices const& value); //initialize container
     IntegerSet initset(Integer const& value); //initialize container
+    BooleanVector initset(Boolean const& value); //initialize container
     Objects initset(Object const& value); //initialize container
     ObjectsVector initset(Objects const& value); //initialize container
     IntegerVector totuple(IntegerTuple const& container); //conversion to tuple
@@ -563,6 +565,28 @@ namespace hodel
     ObjectVector repeat(Object const& item, Integer const& num); //repetition of item within vector
     ObjectsVector repeat(Objects const& item, Integer const& num); //repetition of item within vector
     IndicesVector repeat(Indices const& item, Integer const& num); //repetition of item within vector
+    GridVector dedupe(GridVector const& tup); //remove duplicates
+    BooleanVector dedupe(BooleanVector const& tup); //remove duplicates
+    IntegerVector dedupe(IntegerVector const& tup); //remove duplicates
+    ObjectVector dedupe(ObjectVector const& tup); //remove duplicates
+    ObjectsVector dedupe(ObjectsVector const& tup); //remove duplicates
+    IndicesVector dedupe(IndicesVector const& tup); //remove duplicates
+    Object merge(Objects const& containers); //merging
+    Object merge(ObjectVector const& containers); //merging
+    Indices merge(IndicesSet const& containers); //merging
+    Indices merge(IndicesVector const& containers); //merging
+    IntegerVector merge(Grid const& containers); //merging
+    Grid merge(GridVector const& containers); //merging
+    Boolean contained(Boolean const& value, BooleanVector const& container); //element of
+    Boolean contained(Integer const& value, IntegerVector const& container); //element of
+    Boolean contained(Integer const& value, IntegerSet const& container); //element of
+    Boolean contained(IntegerTuple const& value, Indices const& container); //element of
+    Boolean contained(IntegerVector const& value, Grid const& container); //element of
+    Boolean contained(Grid const& value, GridVector const& container); //element of
+    Boolean contained(Object const& value, Objects const& container); //element of
+    Boolean contained(Object const& value, ObjectVector const& container); //element of
+    Boolean contained(Objects const& value, ObjectsVector const& container); //element of
+    Boolean contained(Indices const& value, IndicesVector const& container); //element of
 }
 
 #endif // AICPP_HODEL_H
