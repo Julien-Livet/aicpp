@@ -3,6 +3,7 @@
 #include "aicpp/Connection.h"
 #include "aicpp/PolymorphicNeuron.h"
 #include "aicpp/utility.h"
+#include "aicpp/FunctionValue.h"
 
 using namespace aicpp;
 
@@ -19,10 +20,20 @@ Connection::Connection(
         {
             if (inputs_[i].type() == typeid(Connection))
             {
-                assert(
-                    std::any_cast<Connection const&>(inputs_[i])
-                        .neuron()->returnType()
-                    == neuron_->inputTypes()[i]);
+                auto const& connection =
+                    std::any_cast<Connection const&>(inputs_[i]);
+
+                auto const expectedType = neuron_->inputTypes()[i];
+
+                if (expectedType == typeid(FunctionValue))
+                {
+                    assert(connection.signature().isFunction());
+                }
+                else
+                {
+                    assert(
+                        connection.neuron()->returnType() == expectedType);
+                }
             }
             else if (inputs_[i].type() == typeid(std::type_index))
             {
@@ -287,12 +298,30 @@ std::any Connection::output() const
     std::vector<std::any> args;
     args.reserve(inputs_.size());
 
-    for (auto const& input : inputs_)
+    auto const expectedTypes = neuron_->inputTypes();
+
+    for (std::size_t i = 0; i < inputs_.size(); ++i)
     {
+        auto const& input = inputs_[i];
+
         if (input.type() == typeid(Connection))
-            args.emplace_back(std::any_cast<Connection>(input).output());
+        {
+            auto const& connection =
+                std::any_cast<Connection const&>(input);
+
+            if (expectedTypes[i] == typeid(aicpp::FunctionValue))
+            {
+                args.emplace_back(aicpp::FunctionValue{connection});
+            }
+            else
+            {
+                args.emplace_back(connection.output());
+            }
+        }
         else
+        {
             args.emplace_back(input);
+        }
     }
 
     return neuron_->invoke(args);
