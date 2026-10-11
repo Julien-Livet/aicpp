@@ -346,8 +346,8 @@ namespace hodel
     IntegerTuple shape(Grid const& piece); //height and width of grid or patch
     IntegerTuple shape(Object const& piece); //height and width of grid or patch
     IntegerTuple shape(Indices const& piece); //height and width of grid or patch
-    Boolean portrait(Grid const& piece); //whether height is greater than width 
-    Boolean portrait(Object const& piece); //whether height is greater than width 
+    Boolean portrait(Grid const& piece); //whether height is greater than width
+    Boolean portrait(Object const& piece); //whether height is greater than width
     Boolean portrait(Indices const& piece); //whether height is greater than width
     Boolean branch(Boolean const& condition, Boolean const& a, Boolean const& b); //if else branching
     Integer branch(Boolean const& condition, Integer const& a, Integer const& b); //if else branching
