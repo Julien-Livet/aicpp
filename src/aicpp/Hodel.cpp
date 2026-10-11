@@ -328,97 +328,6 @@ hodel::Boolean hodel::flip(Boolean const& b)
     return !b;
 }
 /*
-std::any hodel::equality(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const a{args[0]};
-    auto const b{args[1]};
-
-    if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Integer>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Grid>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Cell>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Object>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Objects>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Indices>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<IndicesSet>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Patch>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Element>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Piece>(a, b); r.has_value()) return r;
-    if (auto r = ::equality<Size>(a, b); r.has_value()) return r;
-
-    return std::any{};
-}
-
-std::any hodel::contained(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const value{args[0]};
-    auto const container{args[1]};
-
-    if (value.type()     == typeid(Integer)    &&
-        container.type() == typeid(IntegerSet))
-    {
-        auto const v{std::any_cast<Integer>(value)};
-        auto const c{std::any_cast<IntegerSet>(container)};
-
-        return static_cast<Boolean>(c.count(v) > 0);
-    }
-    else if (container.type() == typeid(Object))
-    {
-        auto const c{std::any_cast<Object>(container)};
-
-        if (value.type() == typeid(Cell))
-        {
-            auto const v{std::any_cast<Cell>(value)};
-
-            return static_cast<Boolean>(c.count(v) > 0);
-        }
-    }
-    else if (value.type()     == typeid(Object)  &&
-             container.type() == typeid(Objects))
-    {
-        auto const v{std::any_cast<Object>(value)};
-        auto const c{std::any_cast<Objects>(container)};
-
-        return static_cast<Boolean>(c.count(v) > 0);
-    }
-    else if (value.type()     == typeid(IntegerTuple) &&
-             container.type() == typeid(Indices))
-    {
-        auto const v{std::any_cast<IntegerTuple>(value)};
-        auto const c{std::any_cast<Indices>(container)};
-
-        return static_cast<Boolean>(c.count(v) > 0);
-    }
-    else if (value.type()     == typeid(Indices)    &&
-             container.type() == typeid(IndicesSet))
-    {
-        auto const v{std::any_cast<Indices>(value)};
-        auto const c{std::any_cast<IndicesSet>(container)};
-
-        return static_cast<Boolean>(c.count(v) > 0);
-    }
-    else if (value.type()     == typeid(Patch)   &&
-             container.type() == typeid(Objects))
-    {
-        auto const p{std::any_cast<Patch>(value)};
-        auto const c{std::any_cast<Objects>(container)};
-
-        if (std::holds_alternative<Object>(p))
-            return static_cast<Boolean>(c.count(std::get<Object>(p)) > 0);
-    }
-
-    return std::any{};
-}
-*//*
 hodel::Container hodel::combine(Container const& a, Container const& b)
 {
     if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
@@ -536,53 +445,12 @@ std::any hodel::order(std::vector<std::any> const& args)
 
     return std::any{};
 }
-
-std::any hodel::repeat(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const item{args[0]};
-    auto const num{args[1]};
-
-    if (num.type() == typeid(Integer))
-    {
-        auto const n{std::any_cast<Integer>(num)};
-       
-        if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
-    }
-
-    return std::any{};
-}
 */
 hodel::Boolean hodel::greater(Integer const& a, Integer const& b)
 {
     return a > b;
 }
-/*
-hodel::Integer hodel::size(Container const& container)
-{
-    if (std::holds_alternative<IntegerSet>(container))
-        return size_set(std::get<IntegerSet>(container));
-    else if (std::holds_alternative<Object>(container))
-        return size_set(std::get<Object>(container));
-    else if (std::holds_alternative<Objects>(container))
-        return size_set(std::get<Objects>(container));
-    else if (std::holds_alternative<Indices>(container))
-        return size_set(std::get<Indices>(container));
-    else if (std::holds_alternative<IndicesSet>(container))
-        return size_set(std::get<IndicesSet>(container));
-    else //if (std::holds_alternative<Grid>(container))
-    {
-        auto const x{std::get<Grid>(container)};
 
-        return static_cast<Integer>(x.size());
-    }
-}
-*/
 hodel::Integer hodel::maximum(IntegerSet const& container)
 {
     if (container.empty())
@@ -614,23 +482,7 @@ hodel::Integer hodel::minimum(IntegerVector const& container)
     
     return *std::min_element(container.begin(), container.end());
 }
-/*
-std::any hodel::initset(std::vector<std::any> const& args)
-{
-    if (args.size() != 1)
-        return std::any{};
 
-    auto const value{args.front()};
-
-    if (auto r = init_set<IntegerSet>(value); r.has_value()) return r;
-    if (auto r = init_set<Object>    (value); r.has_value()) return r;
-    if (auto r = init_set<Objects>   (value); r.has_value()) return r;
-    if (auto r = init_set<Indices>   (value); r.has_value()) return r;
-    if (auto r = init_set<IndicesSet>(value); r.has_value()) return r;
-
-    return std::any{};
-}
-*/
 hodel::Boolean hodel::both(Boolean const& a, Boolean const& b)
 {
     return a && b;
@@ -790,9 +642,9 @@ std::any hodel::last(std::vector<std::any> const& args)
     return std::any{};
 }
 */
-hodel::IntegerVector hodel::interval(Integer start, Integer const& stop, Integer const& step)
+hodel::IntegerSet hodel::interval(Integer start, Integer const& stop, Integer const& step)
 {
-    IntegerVector result;
+    IntegerSet result;
 
     if ((step >= 0 && stop < start) || (step <= 0 && stop > start))
         throw InvalidInteger{"interval"};
@@ -801,12 +653,17 @@ hodel::IntegerVector hodel::interval(Integer start, Integer const& stop, Integer
         throw InvalidInteger{"interval"};
 
     for (; step >= 0 ? start < stop : start > stop; start += step)
-        result.emplace_back(start);
+        result.emplace(start);
 
     return result;
 }
 
 hodel::IntegerTuple hodel::astuple(Integer const& a, Integer const& b)
+{
+    return {a, b};
+}
+
+hodel::FunctionIntegerPair hodel::astuple(aicpp::FunctionValue const& a, Integer const& b)
 {
     return {a, b};
 }
@@ -3172,6 +3029,19 @@ hodel::Integer hodel::size(BooleanVector const& container)
     return container.size();
 }
 
+hodel::Integer hodel::size(FunctionIntegerPair const& container)
+{
+    return 2;
+}
+
+hodel::Integer hodel::size(FunctionIntegerPairVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
 hodel::Boolean  hodel::identity(Boolean const& x)
 {
     return x;
@@ -3348,6 +3218,27 @@ hodel::Boolean hodel::first(BooleanVector const& x)
     return *x.begin();
 }
 
+aicpp::FunctionValue hodel::first(FunctionSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+hodel::FunctionIntegerPair hodel::first(FunctionIntegerPairVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"first"};
+
+    return *x.begin();
+}
+
+aicpp::FunctionValue hodel::first(FunctionIntegerPair const& x)
+{
+    return x.first;
+}
+
 hodel::Integer hodel::last(IntegerTuple const& x)
 {
     return x.second;
@@ -3447,6 +3338,27 @@ hodel::Boolean hodel::last(BooleanVector const& x)
         throw EmptyContainer{"last"};
 
     return *x.rbegin();
+}
+
+aicpp::FunctionValue hodel::last(FunctionSet const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::FunctionIntegerPair hodel::last(FunctionIntegerPairVector const& x)
+{
+    if (x.empty())
+        throw EmptyContainer{"last"};
+
+    return *x.rbegin();
+}
+
+hodel::Integer hodel::last(FunctionIntegerPair const& x)
+{
+    return x.second;
 }
 
 hodel::Indices hodel::insert(IntegerTuple const& value, Indices const& container)
@@ -3549,6 +3461,24 @@ hodel::IndicesVector hodel::insert(Indices const& value, IndicesVector const& co
 }
 
 hodel::BooleanVector hodel::insert(Boolean const& value, BooleanVector const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::FunctionSet hodel::insert(aicpp::FunctionValue const& value, hodel::FunctionSet const& container)
+{
+    auto result{container};
+
+    result.insert(result.end(), value);
+
+    return result;
+}
+
+hodel::FunctionIntegerPairVector hodel::insert(FunctionIntegerPair const& value, FunctionIntegerPairVector const& container)
 {
     auto result{container};
 
@@ -3814,6 +3744,15 @@ hodel::ObjectsVector hodel::initset(Objects const& value)
 }
 
 hodel::BooleanVector hodel::initset(Boolean const& value)
+{
+    return {value};
+}
+hodel::FunctionSet hodel::initset(aicpp::FunctionValue const& value)
+{
+    return {value};
+}
+
+hodel::FunctionIntegerPairVector hodel::initset(FunctionIntegerPair const& value)
 {
     return {value};
 }
@@ -4162,4 +4101,43 @@ hodel::Boolean hodel::contained(Objects const& value, ObjectsVector const& conta
 hodel::Boolean hodel::contained(Indices const& value, IndicesVector const& container)
 {
     return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+hodel::Object hodel::product(IntegerSet const& a, Indices const& b)
+{
+    Object result;
+
+    for (auto const& i : a)
+    {
+        for (auto const& j : b)
+            result.emplace(i, j);
+    }
+
+    return result;
+}
+
+hodel::Indices hodel::product(IntegerSet const& a, IntegerSet const& b)
+{
+    Indices result;
+
+    for (auto const& i : a)
+    {
+        for (auto const& j : b)
+            result.emplace(i, j);
+    }
+
+    return result;
+}
+
+hodel::FunctionIntegerPairVector hodel::product(FunctionSet const& a, IntegerSet const& b)
+{
+    FunctionIntegerPairVector result;
+
+    for (auto const& i : a)
+    {
+        for (auto const& j : b)
+            result.emplace_back(i, j);
+    }
+
+    return result;
 }
