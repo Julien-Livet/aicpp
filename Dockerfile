@@ -34,5 +34,3 @@ RUN cmake --build build --config Debug --target all -- -j$(nproc)
 RUN python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requirements.txt
  
 ENTRYPOINT ["/bin/bash"]
-
-CMD ["-c", "cd build && ./test_aicpp"]
