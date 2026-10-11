@@ -231,7 +231,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         f'#include "aicpp/{name}.h"',
         '#include "aicpp/Neuron.h"',
         '#include "aicpp/HodelRegister.h"',
-        '#include "aicpp/PolymorphicNeuronRegister.h"',
+        f'#include "aicpp/{name}PolymorphicNeuronRegister.h"',
         "",
         "namespace aicpp",
         "{",
@@ -251,12 +251,17 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
             + ">"
         )
 
-        function_type = f"{neuron_type}::Function"
+        function_type = f"{neuron_type}::PointerFunction"
         variable_name = f"neuron_{name}_{index}"
 
         lines.append(
             f"// Original declaration: line {declaration['line']}"
         )
+
+        trueName: str = name
+
+        if (trueName.endswith("_")):
+            trueName = trueName.removesuffix("_")
 
         if is_constant:
             function_name = f"constant_value_{name}_{index}"
@@ -270,7 +275,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
                 f"using FunctionType_{index} = {function_type};",
                 "",
                 f"{neuron_type} {variable_name}{{",
-                f'    "{name}",',
+                f'    "{trueName}",',
                 f"    static_cast<FunctionType_{index}>(&{function_name})",
                 "};",
                 "",
@@ -281,7 +286,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
                 f"using FunctionType_{index} = {function_type};",
                 "",
                 f"{neuron_type} {variable_name}{{",
-                f'    "{name}",',
+                f'    "{trueName}",',
                 f"    static_cast<FunctionType_{index}>(&hodel::{name})",
                 "};",
                 "",
@@ -371,9 +376,10 @@ def main() -> None:
 
     if polymorphic_neurons:
         polymorphic_output_path = (
-            base_dir / "src" / "aicpp" / "PolymorphicNeuronRegister.cpp"
+            base_dir / "src" / "aicpp" / f"{name}PolymorphicNeuronRegister.cpp"
         )
         generate_polymorphic_cpp(
+            name,
             polymorphic_output_path,
             polymorphic_neurons,
         )
@@ -419,13 +425,14 @@ def discover_polymorphic_neurons(include_dir: Path) -> list[dict[str, str]]:
     return neurons
 
 def generate_polymorphic_cpp(
+    name: str,
     output_path: Path,
     neurons: list[dict[str, str]],
 ) -> None:
     lines = [
         "// Automatically generated file. Do not modify.",
         "",
-        '#include "aicpp/HodelRegister.h"',
+        f'#include "aicpp/{name}Register.h"',
     ]
 
     for neuron in neurons:
