@@ -1,26 +1,29 @@
 // Automatically generated file. Do not modify.
 
 #include "aicpp/HodelRegister.h"
-#include "aicpp/ComposeNeuron.h"
+#include "aicpp/ApplyNeuron.h"
 #include "aicpp/ChainNeuron.h"
-#include "aicpp/ForkNeuron.h"
+#include "aicpp/ComposeNeuron.h"
 #include "aicpp/ExtractNeuron.h"
+#include "aicpp/ForkNeuron.h"
 
 namespace aicpp
 {
 
 NeuronRegistry makePolymorphicNeuronRegistry()
 {
-    static ComposeNeuron compose;
-    static ChainNeuron chain;
-    static ForkNeuron fork;
-    static ExtractNeuron extract;
+    static ApplyNeuron polymorphic_ApplyNeuron;
+    static ChainNeuron polymorphic_ChainNeuron;
+    static ComposeNeuron polymorphic_ComposeNeuron;
+    static ExtractNeuron polymorphic_ExtractNeuron;
+    static ForkNeuron polymorphic_ForkNeuron;
 
     NeuronRegistry registry;
-    registry.emplace(compose.name(), &compose);
-    registry.emplace(chain.name(), &chain);
-    registry.emplace(fork.name(), &fork);
-    registry.emplace(extract.name(), &extract);
+    registry.emplace(polymorphic_ApplyNeuron.name(), &polymorphic_ApplyNeuron);
+    registry.emplace(polymorphic_ChainNeuron.name(), &polymorphic_ChainNeuron);
+    registry.emplace(polymorphic_ComposeNeuron.name(), &polymorphic_ComposeNeuron);
+    registry.emplace(polymorphic_ExtractNeuron.name(), &polymorphic_ExtractNeuron);
+    registry.emplace(polymorphic_ForkNeuron.name(), &polymorphic_ForkNeuron);
 
     return registry;
 }
