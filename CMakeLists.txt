@@ -136,6 +136,7 @@ add_executable(dsl_dataset
                src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
                 src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
                 src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
+               include/aicpp/FunctionValue.h
                include/aicpp/utility.h)
 
 if(USE_TESTS STREQUAL "TRUE")
@@ -153,6 +154,7 @@ if(USE_TESTS STREQUAL "TRUE")
                 src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
                 src/aicpp/PolymorphicNeuronRegister.cpp include/aicpp/PolymorphicNeuronRegister.h
                 src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
+                include/aicpp/FunctionValue.h
                 include/aicpp/utility.h)
 endif()
 
