@@ -52,6 +52,18 @@ namespace aicpp
         virtual std::any apply(
             std::vector<std::any> const& arguments,
             std::any const& input) const = 0;
+
+        virtual bool evaluatesToValue() const
+        {
+            return false;
+        }
+
+        virtual std::any evaluate(
+            std::vector<std::any> const&) const
+        {
+            throw std::logic_error(
+                "Value evaluation is not supported by this polymorphic neuron");
+        }
     };
 }
 
