@@ -9,6 +9,7 @@
 #include "aicpp/ForkNeuron.h"
 #include "aicpp/ExtractNeuron.h"
 #include "aicpp/HodelRegister.h"
+#include "aicpp/FunctionValue.h"
 
 TEST(NeuronTest, CallsNativeFunction)
 {
@@ -3931,4 +3932,891 @@ TEST(IntegrationTest, Solve662c240aExample1)
 
     ASSERT_EQ(result.type(), typeid(hodel::Grid));
     EXPECT_EQ(std::any_cast<hodel::Grid>(result), output1);
+}
+
+TEST(ConnectionTest, NativeFunctionCanBeStoredAndApplied)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    // Arrange: find identity : Grid -> Grid in the registry.
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Build a Connection representing identity : Grid -> Grid.
+    aicpp::Connection function{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    // Act: store and recover the function through std::any.
+    std::any stored = function;
+    auto const& recovered = std::any_cast<aicpp::Connection const&>(stored);
+
+    // Assert: the function signature is preserved.
+    EXPECT_EQ(
+        recovered.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Assert: the recovered function can still be applied.
+    hodel::Grid input{{1, 2}, {3, 4}};
+
+    auto result = std::any_cast<hodel::Grid>(
+        recovered.apply(std::any{input})
+    );
+
+    EXPECT_EQ(result, input);
+}
+
+TEST(FunctionValueTest, CanStoreAndApplyIdentity)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    // Arrange: identity représente Grid -> Grid.
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    aicpp::Connection connection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::FunctionValue functionValue{connection};
+
+    // Act: stocker et récupérer la valeur fonctionnelle.
+    std::any stored{functionValue};
+
+    auto const& recovered =
+        std::any_cast<aicpp::FunctionValue const&>(stored);
+
+    // Assert: la signature est conservée.
+    EXPECT_EQ(
+        recovered.connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Assert: la fonction reste applicable.
+    hodel::Grid input{{1, 2}, {3, 4}};
+
+    auto result = std::any_cast<hodel::Grid>(
+        recovered.connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(result, input);
+}
+
+TEST(FunctionValueTest, FunctionSetCanStoreMultipleFunctions)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    // Arrange: retrieve identity : Grid -> Grid.
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Retrieve vmirror : Grid -> Grid.
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Build function connections.
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    // Wrap the connections as function values.
+    aicpp::FunctionValue identityValue{identityConnection};
+    aicpp::FunctionValue vmirrorValue{vmirrorConnection};
+
+    // Act: store both functions in a collection.
+    hodel::FunctionSet functions;
+    functions.emplace_back(identityValue);
+    functions.emplace_back(vmirrorValue);
+
+    // Assert: both functions are stored.
+    ASSERT_EQ(functions.size(), 2);
+
+    // Assert: identity retains its signature.
+    EXPECT_EQ(
+        functions[0].connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Assert: vmirror retains its signature.
+    EXPECT_EQ(
+        functions[1].connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+}
+
+TEST(FunctionValueTest, InitsetAndInsertBuildFunctionSet)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::FunctionValue identityValue{identityConnection};
+    aicpp::FunctionValue vmirrorValue{vmirrorConnection};
+
+    // initset(identity)
+    auto functions = hodel::initset(identityValue);
+
+    ASSERT_EQ(functions.size(), 1);
+
+    EXPECT_EQ(
+        functions[0].connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // insert(vmirror, functions)
+    functions = hodel::insert(vmirrorValue, functions);
+
+    ASSERT_EQ(functions.size(), 2);
+
+    EXPECT_EQ(
+        functions[1].connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+}
+
+TEST(FunctionValueTest, InitsetAcceptsIdentityConnection)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    // Arrange: retrieve identity : Grid -> Grid.
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    // Build a function expression representing identity.
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    // Wrap the function expression as a function value.
+    aicpp::FunctionValue identityValue{identityConnection};
+
+    // Retrieve initset(FunctionValue).
+    auto const& initset = findNeuron(
+        "initset",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    // Build initset(identity).
+    aicpp::Connection expression{
+        initset,
+        {std::any{identityValue}}
+    };
+
+    // Assert: the expression has the expected signature.
+    EXPECT_EQ(
+        expression.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+}
+
+TEST(FunctionValueTest, InsertAcceptsFunctionValueAndFunctionSet)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& initset = findNeuron(
+        "initset",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    auto const& insert = findNeuron(
+        "insert",
+        aicpp::DslType::function(
+            {
+                aicpp::makeDslType<aicpp::FunctionValue>(),
+                aicpp::makeDslType<hodel::FunctionSet>()
+            },
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    // Represent identity and vmirror as function expressions.
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    // Wrap the functions as values.
+    aicpp::FunctionValue identityValue{identityConnection};
+    aicpp::FunctionValue vmirrorValue{vmirrorConnection};
+
+    // Build initset(identity).
+    aicpp::Connection initialSet{
+        initset,
+        {std::any{identityValue}}
+    };
+
+    // Build insert(vmirror, initset(identity)).
+    aicpp::Connection expression{
+        insert,
+        {
+            std::any{vmirrorValue},
+            std::any{initialSet}
+        }
+    };
+
+    // Assert: the resulting expression has the expected signature.
+    EXPECT_EQ(
+        expression.signature(),
+        aicpp::DslType::function(
+            {
+                aicpp::makeDslType<aicpp::FunctionValue>(),
+                aicpp::makeDslType<hodel::FunctionSet>()
+            },
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+}
+
+TEST(FunctionValueTest, InitsetAndInsertPreserveFunctionsAtRuntime)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& initset = findNeuron(
+        "initset",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    auto const& insert = findNeuron(
+        "insert",
+        aicpp::DslType::function(
+            {
+                aicpp::makeDslType<aicpp::FunctionValue>(),
+                aicpp::makeDslType<hodel::FunctionSet>()
+            },
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::FunctionValue identityValue{identityConnection};
+    aicpp::FunctionValue vmirrorValue{vmirrorConnection};
+
+    aicpp::Connection initialSet{
+        initset,
+        {std::any{identityValue}}
+    };
+
+    aicpp::Connection expression{
+        insert,
+        {
+            std::any{vmirrorValue},
+            std::any{initialSet}
+        }
+    };
+
+    // Evaluate the complete expression.
+    auto result = expression.output();
+
+    auto const& functions =
+        std::any_cast<hodel::FunctionSet const&>(result);
+
+    ASSERT_EQ(functions.size(), 2);
+
+    // Both functions must remain applicable.
+    hodel::Grid input{{1, 2}, {3, 4}};
+
+    auto identityResult = std::any_cast<hodel::Grid>(
+        functions[0].connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(identityResult, input);
+
+    auto vmirrorResult = std::any_cast<hodel::Grid>(
+        functions[1].connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(
+        vmirrorResult,
+        hodel::vmirror(input)
+    );
+}
+
+TEST(FunctionValueTest, InitsetAcceptsFunctionConnectionDirectly)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& initset = findNeuron(
+        "initset",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    // Pass the function connection directly.
+    aicpp::Connection expression{
+        initset,
+        {std::any{identityConnection}}
+    };
+
+    auto result = expression.output();
+
+    auto const& functions =
+        std::any_cast<hodel::FunctionSet const&>(result);
+
+    ASSERT_EQ(functions.size(), 1);
+
+    hodel::Grid input{{1, 2}, {3, 4}};
+
+    auto applied = std::any_cast<hodel::Grid>(
+        functions.front().connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(applied, input);
+}
+
+TEST(FunctionValueTest, InsertAcceptsFunctionConnectionsDirectly)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& initset = findNeuron(
+        "initset",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<aicpp::FunctionValue>()},
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    auto const& insert = findNeuron(
+        "insert",
+        aicpp::DslType::function(
+            {
+                aicpp::makeDslType<aicpp::FunctionValue>(),
+                aicpp::makeDslType<hodel::FunctionSet>()
+            },
+            aicpp::makeDslType<hodel::FunctionSet>()
+        )
+    );
+
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection initialSet{
+        initset,
+        {std::any{identityConnection}}
+    };
+
+    aicpp::Connection expression{
+        insert,
+        {
+            std::any{vmirrorConnection},
+            std::any{initialSet}
+        }
+    };
+
+    auto result = expression.output();
+
+    auto const& functions =
+        std::any_cast<hodel::FunctionSet const&>(result);
+
+    ASSERT_EQ(functions.size(), 2);
+
+    hodel::Grid input{{1, 2}, {3, 4}};
+
+    auto identityResult = std::any_cast<hodel::Grid>(
+        functions[0].connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(identityResult, input);
+
+    auto vmirrorResult = std::any_cast<hodel::Grid>(
+        functions[1].connection.apply(std::any{input})
+    );
+
+    EXPECT_EQ(vmirrorResult, hodel::vmirror(input));
+}
+
+TEST(FunctionValueTest, ProductCombinesFunctionsAndIntegers)
+{
+    auto registry = aicpp::makeNeuronRegistry();
+
+    // Recherche un neurone par son nom et sa signature exacte.
+    auto findNeuron = [&registry](
+        std::string const& name,
+        aicpp::DslType const& expected)
+        -> aicpp::NeuronBase const*
+    {
+        auto it = std::find_if(
+            registry.begin(),
+            registry.end(),
+            [&name, &expected](auto const& entry)
+            {
+                return entry.second->name() == name
+                    && !entry.second->isPolymorphic()
+                    && entry.second->signature() == expected;
+            });
+
+        if (it == registry.end())
+        {
+            throw std::runtime_error(
+                "Neuron not found: " + name);
+        }
+
+        return it->second;
+    };
+
+    // Arrange: create two functions.
+    auto const& identity = findNeuron(
+        "identity",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    auto const& vmirror = findNeuron(
+        "vmirror",
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    aicpp::Connection identityConnection{
+        identity,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vmirrorConnection{
+        vmirror,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    hodel::FunctionSet functions{
+        aicpp::FunctionValue{identityConnection},
+        aicpp::FunctionValue{vmirrorConnection}
+    };
+
+    hodel::IntegerSet integers{2, 3};
+
+    // Act: construct the Cartesian product.
+    hodel::FunctionIntegerPairVector result;
+
+    for (auto const& function : functions)
+    {
+        for (auto const integer : integers)
+        {
+            result.emplace_back(function, integer);
+        }
+    }
+
+    // Assert: every function is paired with every integer.
+    ASSERT_EQ(result.size(), 4);
+
+    EXPECT_EQ(result[0].second, 2);
+    EXPECT_EQ(result[1].second, 3);
+    EXPECT_EQ(result[2].second, 2);
+    EXPECT_EQ(result[3].second, 3);
+
+    EXPECT_EQ(
+        result[0].first.connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
+
+    EXPECT_EQ(
+        result[2].first.connection.signature(),
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Grid>()},
+            aicpp::makeDslType<hodel::Grid>()
+        )
+    );
 }
