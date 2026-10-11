@@ -293,7 +293,21 @@ std::pair<std::string, size_t> Connection::dot(size_t index) const
 std::any Connection::output() const
 {
     if (neuron_->isPolymorphic())
+    {
+        auto const* polymorphic =
+            dynamic_cast<PolymorphicNeuron const*>(neuron_);
+
+        if (polymorphic == nullptr)
+        {
+            throw std::logic_error(
+                "Neuron marked polymorphic does not implement PolymorphicNeuron");
+        }
+
+        if (polymorphic->evaluatesToValue())
+            return polymorphic->evaluate(inputs_);
+
         return *this;
+    }
 
     std::vector<std::any> args;
     args.reserve(inputs_.size());
