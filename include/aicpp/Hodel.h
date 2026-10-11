@@ -608,6 +608,7 @@ namespace hodel
     Object product(IntegerSet const& a, Indices const& b); //cartesian product
     Indices product(IntegerSet const& a, IntegerSet const& b); //cartesian product
     FunctionIntegerPairVector product(FunctionSet const& a, IntegerSet const& b); //cartesian product
+    Grid move(Grid const& grid, Object const& obj, IntegerTuple const& offset); //move object on grid
 }
 
 #endif // AICPP_HODEL_H
