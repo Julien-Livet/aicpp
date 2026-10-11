@@ -834,7 +834,7 @@ hodel::Integer hodel::lowermost(Object const& patch)
 
 hodel::Integer hodel::lowermost(Indices const& patch)
 {
-    auto result = std::numeric_limits<Integer>::max();
+    auto result = std::numeric_limits<Integer>::min();
 
     for (auto const& [i, j] : patch)
         result = std::max(result, i);
@@ -1580,18 +1580,12 @@ hodel::Integer hodel::height(Grid const& piece)
 
 hodel::Integer hodel::height(Object const& piece)
 {
-    auto const lm{lowermost(piece)};
-    auto const um{uppermost(piece)};
-
-    return static_cast<Integer>(lm - um + 1);
+    return static_cast<Integer>(lowermost(piece) - uppermost(piece) + 1);
 }
 
 hodel::Integer hodel::height(Indices const& piece)
 {
-    auto const lm{lowermost(piece)};
-    auto const um{uppermost(piece)};
-
-    return static_cast<Integer>(lm - um + 1);
+    return static_cast<Integer>(lowermost(piece) - uppermost(piece) + 1);
 }
 
 hodel::Integer hodel::width(Grid const& piece)
@@ -1608,18 +1602,12 @@ hodel::Integer hodel::width(Grid const& piece)
 
 hodel::Integer hodel::width(Object const& piece)
 {
-    auto const rm{rightmost(piece)};
-    auto const lm{leftmost(piece)};
-
-    return static_cast<Integer>(rm - lm + 1);
+    return static_cast<Integer>(rightmost(piece) - leftmost(piece) + 1);
 }
 
 hodel::Integer hodel::width(Indices const& piece)
 {
-    auto const rm{rightmost(piece)};
-    auto const lm{leftmost(piece)};
-
-    return static_cast<Integer>(rm - lm + 1);
+    return static_cast<Integer>(rightmost(piece) - leftmost(piece) + 1);
 }
 
 hodel::IntegerTuple hodel::shape(Grid const& piece)
