@@ -22,7 +22,7 @@ TEST(NeuronTest, CallsNativeFunction)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_EQ(neuron.function()(20, 22), 42);
@@ -38,7 +38,7 @@ TEST(NeuronTest, StoresName)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_EQ(neuron.name(), "add");
@@ -80,7 +80,7 @@ TEST(NeuronTest, CallsUnaryNativeFunction)
 
     IncrementNeuron neuron{
         "increment",
-        static_cast<IncrementNeuron::Function>(
+        static_cast<IncrementNeuron::PointerFunction>(
             &hodel::increment
         )
     };
@@ -98,7 +98,7 @@ TEST(NeuronTest, InvokeAcceptsCorrectInputs)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -125,7 +125,7 @@ TEST(NeuronTest, InvokeRejectsWrongArity)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -148,7 +148,7 @@ TEST(NeuronTest, InvokeRejectsWrongInputType)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -172,7 +172,7 @@ TEST(NeuronTest, ExposesCorrectTypeMetadata)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_EQ(
@@ -211,7 +211,7 @@ TEST(NeuronTest, SelectsCorrectOverload)
 
     ScalarAdd scalarAdd{
         "add",
-        static_cast<ScalarAdd::Function>(
+        static_cast<ScalarAdd::PointerFunction>(
             static_cast<hodel::Integer (*)(
                 hodel::Integer const&,
                 hodel::Integer const&
@@ -221,7 +221,7 @@ TEST(NeuronTest, SelectsCorrectOverload)
 
     TupleAdd tupleAdd{
         "add",
-        static_cast<TupleAdd::Function>(
+        static_cast<TupleAdd::PointerFunction>(
             static_cast<hodel::IntegerTuple (*)(
                 hodel::IntegerTuple const&,
                 hodel::Integer const&
@@ -252,7 +252,7 @@ TEST(ConnectionTest, EvaluatesPrimitive)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection connection{
@@ -287,12 +287,12 @@ TEST(ConnectionTest, EvaluatesNestedExpression)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(
+        static_cast<IncrementNeuron::PointerFunction>(
             &hodel::increment
         )
     };
@@ -331,7 +331,7 @@ TEST(ConnectionTest, PrimitiveHasOneDepth)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -359,12 +359,12 @@ TEST(ConnectionTest, NestedExpressionHasGreaterDepth)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(
+        static_cast<IncrementNeuron::PointerFunction>(
             &hodel::increment
         )
     };
@@ -398,7 +398,7 @@ TEST(ConnectionTest, PrimitiveHasStableCost)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -421,7 +421,7 @@ TEST(ConnectionTest, CostCountsConstantInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -449,12 +449,12 @@ TEST(ConnectionTest, CostCountsNestedExpressions)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(
+        static_cast<IncrementNeuron::PointerFunction>(
             &hodel::increment
         )
     };
@@ -489,7 +489,7 @@ TEST(ConnectionTest, DepthCountsConstantInputLevel)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -517,12 +517,12 @@ TEST(ConnectionTest, DepthCountsNestedExpressions)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(
+        static_cast<IncrementNeuron::PointerFunction>(
             &hodel::increment
         )
     };
@@ -557,7 +557,7 @@ TEST(ConnectionTest, EquivalentConnectionsUsingSameNeuronAreEqual)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs1{
@@ -586,7 +586,7 @@ TEST(ConnectionTest, ConnectionsWithDifferentInputsAreUnequal)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs1{
@@ -615,12 +615,12 @@ TEST(ConnectionTest, ConnectionsUsingDifferentNeuronInstancesAreUnequal)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -644,7 +644,7 @@ TEST(ConnectionTest, EqualConnectionsHaveEqualHashes)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs1{
@@ -674,7 +674,7 @@ TEST(ConnectionTest, HashIsStable)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -697,7 +697,7 @@ TEST(ConnectionTest, LeafInputsReturnsTerminalConnections)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{&add, {hodel::Integer{20}, hodel::Integer{21}}};
@@ -719,7 +719,7 @@ TEST(ConnectionTest, ApplyInputsReplacesConstantInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -751,7 +751,7 @@ TEST(ConnectionTest, ApplyInputsReplacesNestedInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -794,7 +794,7 @@ TEST(ConnectionTest, ApplyInputsAcceptsMatchingTypes)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -838,7 +838,7 @@ TEST(ConnectionTest, ApplyInputsReplacesZeroArgumentNeuron)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection oneConnection{&constant, {}};
@@ -872,12 +872,12 @@ TEST(ConnectionTest, ReplaceNeuronWithMatchingSignature)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -899,12 +899,12 @@ TEST(ConnectionTest, ReplaceNeuronRejectsDifferentName)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     AddNeuron other{
         "other",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -926,12 +926,12 @@ TEST(ConnectionTest, ReplaceNeuronRecursively)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -990,15 +990,15 @@ TEST(ConnectionTest, ReplaceNeuronInSubExpressionOnly)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(&hodel::increment)
+        static_cast<IncrementNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::Connection addition{
@@ -1037,12 +1037,12 @@ TEST(ConnectionTest, ReplaceNeuronWithDifferentSignature)
 
     AddNeuron add{
         "operation",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     UnaryNeuron unary{
         "operation",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::Connection expression{
@@ -1064,11 +1064,11 @@ TEST(ConnectionTest, ReplaceNeuronUpdatesHash)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -1097,11 +1097,11 @@ TEST(ConnectionTest, ReplaceNeuronUpdatesHashRecursively)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -1143,11 +1143,11 @@ TEST(ConnectionTest, EqualConnectionsHaveEqualHashesAfterReplace)
 
     AddNeuron add1{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
     AddNeuron add2{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression1{
@@ -1176,7 +1176,7 @@ TEST(ConnectionTest, ApplyInputsRejectsWrongType)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -1206,7 +1206,7 @@ TEST(ConnectionTest, ApplyInputsChecksTypesRecursively)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -1245,7 +1245,7 @@ TEST(ConnectionTest, ApplyInputsUpdatesHash)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -1275,7 +1275,7 @@ TEST(ConnectionTest, ApplyInputsUpdatesHashRecursively)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -1327,7 +1327,7 @@ TEST(ConnectionTest, InputTypesHandlesNullaryNeuron)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     ConstantNeuron constant{"one", &one};
@@ -1358,7 +1358,7 @@ TEST(ConnectionTest, InputTypesHandlesTwoNullaryNeurons)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     ConstantNeuron oneNeuron{"one", &one};
@@ -1391,7 +1391,7 @@ TEST(ConnectionTest, ApplyInputsRejectsWrongTypeForNullaryNeuron)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     ConstantNeuron constant{"one", &one};
@@ -1425,7 +1425,7 @@ TEST(ConnectionTest, ExpectedInputTypesReturnsSignatureTypes)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -1450,7 +1450,7 @@ TEST(ConnectionTest, ExpectedInputTypesHandlesNestedConnections)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -1485,7 +1485,7 @@ TEST(ConnectionTest, ExpectedInputTypesHandlesNullaryNeuron)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     ConstantNeuron constant{"one", &one};
@@ -1514,7 +1514,7 @@ TEST(ConnectionTest, ConstructorAcceptsValidInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     std::vector<std::any> inputs{
@@ -1546,7 +1546,7 @@ TEST(ConnectionTest, ConstructorAcceptsValidNestedConnection)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection left{
@@ -1577,7 +1577,7 @@ TEST(ConnectionTest, ConstructorAcceptsMatchingTypeIndexInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -1606,7 +1606,7 @@ TEST(ConnectionTest, ConstructorRejectsIncorrectNumberOfInputs)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_DEATH(
@@ -1637,7 +1637,7 @@ TEST(ConnectionTest, ConstructorRejectsNestedConnectionWithIncorrectReturnType)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     BooleanNeuron booleanNeuron{
@@ -1668,7 +1668,7 @@ TEST(ConnectionTest, ConstructorRejectsIncorrectTypeIndex)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_DEATH(
@@ -1695,7 +1695,7 @@ TEST(ConnectionTest, ConstructorRejectsIncorrectConcreteInputType)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_DEATH(
@@ -1807,7 +1807,7 @@ TEST(NeuronTest, ExposesDslSignature)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::DslType const integer{
@@ -1851,7 +1851,7 @@ TEST(NeuronTest, ExposesSignatureThroughNeuronBase)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::NeuronBase const& base{neuron};
@@ -2006,7 +2006,7 @@ TEST(NeuronBase, NativeNeuronIsNotPolymorphic)
 
     AddNeuron neuron{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     EXPECT_FALSE(neuron.isPolymorphic());
@@ -2022,7 +2022,7 @@ TEST(ConnectionTest, SignatureReturnsNeuronSignature)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection expression{
@@ -2064,12 +2064,12 @@ TEST(ConnectionTest, PolymorphicComposeInfersSignature)
 
     IntegerUnaryNeuron f{
         "f",
-        static_cast<IntegerUnaryNeuron::Function>(&hodel::increment)
+        static_cast<IntegerUnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     IntegerUnaryNeuron g{
         "g",
-        static_cast<IntegerUnaryNeuron::Function>(&hodel::increment)
+        static_cast<IntegerUnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2098,12 +2098,12 @@ TEST(ConnectionTest, PolymorphicOutputPreservesExpression)
 
     UnaryNeuron f{
         "f",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     UnaryNeuron g{
         "g",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::Connection fConnection{
@@ -2136,7 +2136,7 @@ TEST(ConnectionTest, ApplyUnaryNativeFunction)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::Connection expression{
@@ -2159,7 +2159,7 @@ TEST(ConnectionTest, ApplyRejectsIncompatibleArgumentType)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::Connection expression{
@@ -2179,7 +2179,7 @@ TEST(ConnectionTest, ApplyComposedFunction)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2225,7 +2225,7 @@ TEST(ConnectionTest, ApplyComposedFunctionRejectsIncompatibleArgument)
 
     IntegerUnaryNeuron increment{
         "increment",
-        static_cast<IntegerUnaryNeuron::Function>(&hodel::increment)
+        static_cast<IntegerUnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2273,12 +2273,12 @@ TEST(ConnectionTest, ApplyComposedFunctionWithDifferentIntermediateTypes)
 
     IntegerToBooleanNeuron g{
         "isPositive",
-        static_cast<IntegerToBooleanNeuron::Function>(&isPositive)
+        static_cast<IntegerToBooleanNeuron::PointerFunction>(&isPositive)
     };
 
     BooleanToIntegerNeuron f{
         "booleanToInteger",
-        static_cast<BooleanToIntegerNeuron::Function>(&booleanToInteger)
+        static_cast<BooleanToIntegerNeuron::PointerFunction>(&booleanToInteger)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2316,7 +2316,7 @@ TEST(ConnectionTest, ExpressionSupportsPolymorphicNeuron)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2347,7 +2347,7 @@ TEST(ConnectionTest, InputTypesSupportsPolymorphicNeuron)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2377,7 +2377,7 @@ TEST(ConnectionTest, ImmediateInputTypesDoesNotFlattenNestedConnections)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2408,7 +2408,7 @@ TEST(ConnectionTest, ExpectedInputTypesSupportsNestedPolymorphicNeuron)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2483,7 +2483,7 @@ TEST(ConnectionTest, OutputEvaluatesNativeNeuronWithPolymorphicInput)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2515,7 +2515,7 @@ TEST(ConnectionTest, OutputPreservesNestedPolymorphicComposition)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2549,7 +2549,7 @@ TEST(ConnectionTest, ApplyEvaluatesNestedPolymorphicComposition)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2582,12 +2582,12 @@ TEST(ConnectionTest, ReplaceNeuronInsidePolymorphicComposition)
 
     UnaryNeuron increment1{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     UnaryNeuron increment2{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2635,7 +2635,7 @@ TEST(ConnectionTest, ReplacePolymorphicNeuronWithMatchingSignature)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose1;
@@ -2702,7 +2702,7 @@ TEST(ConnectionTest, ReplacePolymorphicNeuronRejectsDifferentSignature)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2738,7 +2738,7 @@ TEST(ConnectionTest, ToJsonSupportsPolymorphicNeuron)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2790,7 +2790,7 @@ TEST(ConnectionTest, ToJsonSupportsNestedPolymorphicComposition)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2838,7 +2838,7 @@ TEST(NeuronTest, ToJsonContainsNameAndSignature)
 
     AddNeuron add{
         "add",
-        static_cast<AddNeuron::Function>(&hodel::add)
+        static_cast<AddNeuron::PointerFunction>(&hodel::add)
     };
 
     auto const json = add.toJson();
@@ -2869,7 +2869,7 @@ TEST(ConnectionTest, DotSupportsPolymorphicComposition)
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(&hodel::increment)
+        static_cast<IncrementNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2898,7 +2898,7 @@ TEST(ConnectionTest, DotSupportsNestedPolymorphicComposition)
 
     IncrementNeuron increment{
         "increment",
-        static_cast<IncrementNeuron::Function>(&hodel::increment)
+        static_cast<IncrementNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -2993,7 +2993,7 @@ TEST(ConnectionTest, ExpectedInputTypesHandlesNestedPolymorphicComposition)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -3071,12 +3071,12 @@ TEST(ConnectionTest, ReplaceNeuronInsideNestedPolymorphicComposition)
 
     UnaryNeuron increment1{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     UnaryNeuron increment2{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     aicpp::ComposeNeuron compose;
@@ -3503,7 +3503,7 @@ TEST(ConnectionTest, ForkAppliesBothBranchesToSameInput)
 
     BinaryNeuron outer{
         "outer",
-        static_cast<BinaryNeuron::Function>(&hodel::add)
+        static_cast<BinaryNeuron::PointerFunction>(&hodel::add)
     };
 
     aicpp::Connection aConnection{
@@ -4918,14 +4918,14 @@ TEST(ApplyNeuronTest, AppliesIncrementToIntegerVector)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
 
     VectorNeuron vector{
         "vector",
-        static_cast<VectorNeuron::Function>(&integerVector123)
+        static_cast<VectorNeuron::PointerFunction>(&integerVector123)
     };
 
     aicpp::Connection incrementConnection{
@@ -4969,7 +4969,7 @@ TEST(ApplyNeuronTest, RejectsFunctionWithIncompatibleReturnType)
 
     aicpp::Neuron<hodel::IntegerVector> vector{
         "vector",
-        static_cast<aicpp::Neuron<hodel::IntegerVector>::Function>(
+        static_cast<aicpp::Neuron<hodel::IntegerVector>::PointerFunction>(
             &integerVector123)
     };
 
@@ -5012,14 +5012,14 @@ TEST(ApplyNeuronTest, RejectsNonUnaryFunction)
 
     BinaryNeuron add{
         "add",
-        static_cast<BinaryNeuron::Function>(&addIntegers)
+        static_cast<BinaryNeuron::PointerFunction>(&addIntegers)
     };
 
     using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
 
     VectorNeuron vector{
         "vector",
-        static_cast<VectorNeuron::Function>(&integerVector123)
+        static_cast<VectorNeuron::PointerFunction>(&integerVector123)
     };
 
     aicpp::Connection addConnection{
@@ -5061,14 +5061,14 @@ TEST(ApplyNeuronTest, AppliesIncrementToEmptyIntegerVector)
 
     UnaryNeuron increment{
         "increment",
-        static_cast<UnaryNeuron::Function>(&hodel::increment)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::increment)
     };
 
     using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
 
     VectorNeuron vector{
         "emptyVector",
-        static_cast<VectorNeuron::Function>(&emptyIntegerVector)
+        static_cast<VectorNeuron::PointerFunction>(&emptyIntegerVector)
     };
 
     aicpp::Connection incrementConnection{
@@ -5136,7 +5136,7 @@ TEST(ApplyNeuronTest, AppliesFlipToBooleanVector)
 
     UnaryNeuron flipNeuron{
         "flip",
-        static_cast<UnaryNeuron::Function>(&hodel::flip)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::flip)
     };
 
     aicpp::Neuron<hodel::BooleanVector> vectorNeuron{
@@ -5171,7 +5171,7 @@ TEST(ApplyNeuronTest, AppliesHorizontalMirrorToGridVector)
 
     MirrorNeuron mirrorNeuron{
         "hmirror",
-        static_cast<MirrorNeuron::Function>(&hodel::hmirror)
+        static_cast<MirrorNeuron::PointerFunction>(&hodel::hmirror)
     };
 
     aicpp::Neuron<hodel::GridVector> vectorNeuron{
@@ -5224,7 +5224,7 @@ TEST(ApplyNeuronTest, AppliesHorizontalMirrorToEmptyGridVector)
 
     MirrorNeuron mirrorNeuron{
         "hmirror",
-        static_cast<MirrorNeuron::Function>(&hodel::hmirror)
+        static_cast<MirrorNeuron::PointerFunction>(&hodel::hmirror)
     };
 
     aicpp::Neuron<hodel::GridVector> vectorNeuron{
@@ -5262,7 +5262,7 @@ TEST(ApplyNeuronTest, AppliesPortraitToGridVector)
 
     PortraitNeuron portraitNeuron{
         "portrait",
-        static_cast<PortraitNeuron::Function>(&hodel::portrait)
+        static_cast<PortraitNeuron::PointerFunction>(&hodel::portrait)
     };
 
     aicpp::Neuron<hodel::GridVector> vectorNeuron{
@@ -5303,7 +5303,7 @@ TEST(ApplyNeuronTest, AppliesPortraitToEmptyGridVector)
 
     PortraitNeuron portraitNeuron{
         "portrait",
-        static_cast<PortraitNeuron::Function>(&hodel::portrait)
+        static_cast<PortraitNeuron::PointerFunction>(&hodel::portrait)
     };
 
     aicpp::Neuron<hodel::GridVector> vectorNeuron{
@@ -5341,7 +5341,7 @@ TEST(ApplyNeuronTest, AppliesPortraitToObjectsVector)
 
     PortraitNeuron portraitNeuron{
         "portrait",
-        static_cast<PortraitNeuron::Function>(
+        static_cast<PortraitNeuron::PointerFunction>(
             static_cast<hodel::Boolean (*)(hodel::Object const&)>(
                 &hodel::portrait))
     };
@@ -5381,7 +5381,7 @@ TEST(ApplyNeuronTest, AppliesDiagonalMirrorToObjectVector)
 
     DmirrorNeuron dmirrorNeuron{
         "dmirror",
-        static_cast<DmirrorNeuron::Function>(&hodel::dmirror)
+        static_cast<DmirrorNeuron::PointerFunction>(&hodel::dmirror)
     };
 
     aicpp::Neuron<hodel::ObjectVector> vectorNeuron{
@@ -5426,7 +5426,7 @@ TEST(ApplyNeuronTest, AppliesDiagonalMirrorToEmptyObjectVector)
 
     DmirrorNeuron dmirrorNeuron{
         "dmirror",
-        static_cast<DmirrorNeuron::Function>(&hodel::dmirror)
+        static_cast<DmirrorNeuron::PointerFunction>(&hodel::dmirror)
     };
 
     aicpp::Neuron<hodel::ObjectVector> vectorNeuron{
@@ -5468,12 +5468,12 @@ TEST(ApplyNeuronTest, RejectsFunctionWithIncompatibleInputType)
 
     UnaryNeuron flipNeuron{
         "flip",
-        static_cast<UnaryNeuron::Function>(&hodel::flip)
+        static_cast<UnaryNeuron::PointerFunction>(&hodel::flip)
     };
 
     aicpp::Neuron<hodel::IntegerVector> vectorNeuron{
         "integerVector",
-        static_cast<aicpp::Neuron<hodel::IntegerVector>::Function>(
+        static_cast<aicpp::Neuron<hodel::IntegerVector>::PointerFunction>(
             &integerVector123)
     };
 
