@@ -4129,3 +4129,8 @@ hodel::FunctionIntegerPairVector hodel::product(FunctionSet const& a, IntegerSet
 
     return result;
 }
+
+hodel::Grid hodel::move(Grid const& grid, Object const& obj, IntegerTuple const& offset)
+{
+    return paint(cover(grid, obj), shift(obj, offset));
+}
