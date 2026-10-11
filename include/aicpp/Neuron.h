@@ -58,10 +58,11 @@ namespace aicpp
     {
         public:
             using ReturnType = T;
-            using Function = T (*)(Args...);
+            using Function = std::function<T(Args...)>;
+            using PointerFunction = T (*)(Args...);
             static constexpr std::size_t Arity = sizeof...(Args);
 
-            Neuron(std::string const& name, Function function) : name_{name}, function_{function}
+            Neuron(std::string const& name, Function const& function) : name_{name}, function_{function}
             {
             }
 
