@@ -10,6 +10,7 @@
 #include "aicpp/ExtractNeuron.h"
 #include "aicpp/HodelRegister.h"
 #include "aicpp/FunctionValue.h"
+#include "aicpp/ApplyNeuron.h"
 
 TEST(NeuronTest, CallsNativeFunction)
 {
@@ -4818,5 +4819,681 @@ TEST(FunctionValueTest, ProductCombinesFunctionsAndIntegers)
             {aicpp::makeDslType<hodel::Grid>()},
             aicpp::makeDslType<hodel::Grid>()
         )
+    );
+}
+
+namespace
+{
+    hodel::IntegerVector integerVector123()
+    {
+        return {1, 2, 3};
+    }
+    
+    hodel::BooleanVector booleanVector123()
+    {
+        return {true, false, true};
+    }
+
+    hodel::GridVector gridVectorExample()
+    {
+        return {
+            {
+                {1, 2},
+                {3, 4}
+            },
+            {
+                {5, 6},
+                {7, 8}
+            }
+        };
+    }
+
+    hodel::GridVector emptyGridVector()
+    {
+        return {};
+    }
+
+    hodel::GridVector gridVectorPortraitExample()
+    {
+        return {
+            {
+                {1, 2},
+                {3, 4},
+                {5, 6}
+            },
+            {
+                {1, 2, 3},
+                {4, 5, 6}
+            },
+            {
+                {7},
+                {8},
+                {9}
+            }
+        };
+    }
+
+    hodel::ObjectVector objectVectorPortraitExample()
+    {
+        hodel::Object tallObject{
+            {1, hodel::IntegerTuple{0, 0}},
+            {1, hodel::IntegerTuple{0, 1}},
+            {1, hodel::IntegerTuple{0, 2}}
+        };
+
+        hodel::Object wideObject{
+            {1, hodel::IntegerTuple{0, 0}},
+            {1, hodel::IntegerTuple{1, 0}},
+            {1, hodel::IntegerTuple{2, 0}}
+        };
+
+        return {tallObject, wideObject};
+    }
+
+    hodel::ObjectVector objectVectorDmirrorExample()
+    {
+        hodel::Object firstObject{
+            {1, hodel::IntegerTuple{0, 1}},
+            {2, hodel::IntegerTuple{1, 0}}
+        };
+
+        hodel::Object secondObject{
+            {3, hodel::IntegerTuple{2, 4}},
+            {4, hodel::IntegerTuple{5, 1}}
+        };
+
+        return {firstObject, secondObject};
+    }
+
+    hodel::ObjectVector emptyObjectVector()
+    {
+        return {};
+    }
+}
+
+TEST(ApplyNeuronTest, AppliesIncrementToIntegerVector)
+{
+    using UnaryNeuron =
+        aicpp::Neuron<hodel::Integer, hodel::Integer const&>;
+
+    UnaryNeuron increment{
+        "increment",
+        static_cast<UnaryNeuron::Function>(&hodel::increment)
+    };
+
+    using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
+
+    VectorNeuron vector{
+        "vector",
+        static_cast<VectorNeuron::Function>(&integerVector123)
+    };
+
+    aicpp::Connection incrementConnection{
+        &increment,
+        {std::type_index{typeid(hodel::Integer)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vector,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {incrementConnection, vectorConnection}
+    };
+
+    auto result = expression.output();
+
+    ASSERT_TRUE(result.has_value());
+    ASSERT_EQ(result.type(), typeid(hodel::IntegerVector));
+
+    EXPECT_EQ(
+        std::any_cast<hodel::IntegerVector>(result),
+        (hodel::IntegerVector{2, 3, 4})
+    );
+}
+
+TEST(ApplyNeuronTest, RejectsFunctionWithIncompatibleReturnType)
+{
+    auto integerToGrid = [](hodel::Integer const&) -> hodel::Grid {
+        return {};
+    };
+
+    using UnaryNeuron =
+        aicpp::Neuron<hodel::Grid, hodel::Integer const&>;
+
+    UnaryNeuron predicate{"integerToGrid", integerToGrid};
+
+    aicpp::Neuron<hodel::IntegerVector> vector{
+        "vector",
+        static_cast<aicpp::Neuron<hodel::IntegerVector>::Function>(
+            &integerVector123)
+    };
+
+    aicpp::Connection predicateConnection{
+        &predicate,
+        {std::type_index{typeid(hodel::Integer)}}
+    };
+
+    aicpp::Connection vectorConnection{&vector, {}};
+
+    aicpp::ApplyNeuron apply;
+
+    EXPECT_THROW(
+        (aicpp::Connection{
+            &apply,
+            {predicateConnection, vectorConnection}
+        }),
+        std::invalid_argument
+    );
+}
+
+namespace
+{
+    hodel::Integer addIntegers(
+        hodel::Integer const& lhs,
+        hodel::Integer const& rhs)
+    {
+        return lhs + rhs;
+    }
+}
+
+TEST(ApplyNeuronTest, RejectsNonUnaryFunction)
+{
+    using BinaryNeuron =
+        aicpp::Neuron<
+            hodel::Integer,
+            hodel::Integer const&,
+            hodel::Integer const&
+        >;
+
+    BinaryNeuron add{
+        "add",
+        static_cast<BinaryNeuron::Function>(&addIntegers)
+    };
+
+    using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
+
+    VectorNeuron vector{
+        "vector",
+        static_cast<VectorNeuron::Function>(&integerVector123)
+    };
+
+    aicpp::Connection addConnection{
+        &add,
+        {
+            std::type_index{typeid(hodel::Integer)},
+            std::type_index{typeid(hodel::Integer)}
+        }
+    };
+
+    aicpp::Connection vectorConnection{
+        &vector,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    EXPECT_THROW(
+        (aicpp::Connection{
+            &apply,
+            {addConnection, vectorConnection}
+        }),
+        std::invalid_argument
+    );
+}
+
+namespace
+{
+    hodel::IntegerVector emptyIntegerVector()
+    {
+        return {};
+    }
+}
+
+TEST(ApplyNeuronTest, AppliesIncrementToEmptyIntegerVector)
+{
+    using UnaryNeuron =
+        aicpp::Neuron<hodel::Integer, hodel::Integer const&>;
+
+    UnaryNeuron increment{
+        "increment",
+        static_cast<UnaryNeuron::Function>(&hodel::increment)
+    };
+
+    using VectorNeuron = aicpp::Neuron<hodel::IntegerVector>;
+
+    VectorNeuron vector{
+        "emptyVector",
+        static_cast<VectorNeuron::Function>(&emptyIntegerVector)
+    };
+
+    aicpp::Connection incrementConnection{
+        &increment,
+        {std::type_index{typeid(hodel::Integer)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vector,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {incrementConnection, vectorConnection}
+    };
+
+    auto result = expression.output();
+
+    ASSERT_TRUE(result.has_value());
+    ASSERT_EQ(result.type(), typeid(hodel::IntegerVector));
+
+    EXPECT_TRUE(
+        std::any_cast<hodel::IntegerVector const&>(result).empty()
+    );
+}
+
+TEST(ApplyNeuronTest, AppliesEvenToIntegerVector)
+{
+    aicpp::Neuron<hodel::Boolean, hodel::Integer const&> evenNeuron{
+        "even",
+        static_cast<hodel::Boolean (*)(hodel::Integer const&)>(&hodel::even)
+    };
+
+    aicpp::Neuron<hodel::IntegerVector> vectorNeuron{"vector", &integerVector123};
+
+    std::vector<std::any> integerInputs{
+        std::type_index{typeid(hodel::Integer)}
+    };
+
+    aicpp::Connection evenConnection{&evenNeuron, integerInputs};
+    aicpp::Connection vectorConnection{&vectorNeuron, {}};
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {evenConnection, vectorConnection}
+    };
+
+    auto result = expression.output();
+
+    EXPECT_EQ(
+        std::any_cast<hodel::BooleanVector>(result),
+        (hodel::BooleanVector{false, true, false})
+    );
+}
+
+TEST(ApplyNeuronTest, AppliesFlipToBooleanVector)
+{
+    using UnaryNeuron =
+        aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>;
+
+    UnaryNeuron flipNeuron{
+        "flip",
+        static_cast<UnaryNeuron::Function>(&hodel::flip)
+    };
+
+    aicpp::Neuron<hodel::BooleanVector> vectorNeuron{
+        "vector",
+        &booleanVector123
+    };
+
+    aicpp::Connection flipConnection{
+        &flipNeuron,
+        {std::type_index{typeid(hodel::Boolean)}}
+    };
+
+    aicpp::Connection vectorConnection{&vectorNeuron, {}};
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {flipConnection, vectorConnection}
+    };
+
+    EXPECT_EQ(
+        std::any_cast<hodel::BooleanVector>(expression.output()),
+        (hodel::BooleanVector{false, true, false})
+    );
+}
+
+TEST(ApplyNeuronTest, AppliesHorizontalMirrorToGridVector)
+{
+    using MirrorNeuron =
+        aicpp::Neuron<hodel::Grid, hodel::Grid const&>;
+
+    MirrorNeuron mirrorNeuron{
+        "hmirror",
+        static_cast<MirrorNeuron::Function>(&hodel::hmirror)
+    };
+
+    aicpp::Neuron<hodel::GridVector> vectorNeuron{
+        "gridVector",
+        &gridVectorExample
+    };
+
+    aicpp::Connection mirrorConnection{
+        &mirrorNeuron,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {mirrorConnection, vectorConnection}
+    };
+
+    auto result = std::any_cast<hodel::GridVector>(expression.output());
+
+    ASSERT_EQ(result.size(), 2u);
+
+    EXPECT_EQ(
+        result[0],
+        (hodel::Grid{
+            {3, 4},
+            {1, 2}
+        })
+    );
+
+    EXPECT_EQ(
+        result[1],
+        (hodel::Grid{
+            {7, 8},
+            {5, 6}
+        })
+    );
+}
+
+TEST(ApplyNeuronTest, AppliesHorizontalMirrorToEmptyGridVector)
+{
+    using MirrorNeuron =
+        aicpp::Neuron<hodel::Grid, hodel::Grid const&>;
+
+    MirrorNeuron mirrorNeuron{
+        "hmirror",
+        static_cast<MirrorNeuron::Function>(&hodel::hmirror)
+    };
+
+    aicpp::Neuron<hodel::GridVector> vectorNeuron{
+        "emptyGridVector",
+        &emptyGridVector
+    };
+
+    aicpp::Connection mirrorConnection{
+        &mirrorNeuron,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {mirrorConnection, vectorConnection}
+    };
+
+    auto result = std::any_cast<hodel::GridVector>(
+        expression.output());
+
+    EXPECT_TRUE(result.empty());
+}
+
+TEST(ApplyNeuronTest, AppliesPortraitToGridVector)
+{
+    using PortraitNeuron =
+        aicpp::Neuron<hodel::Boolean, hodel::Grid const&>;
+
+    PortraitNeuron portraitNeuron{
+        "portrait",
+        static_cast<PortraitNeuron::Function>(&hodel::portrait)
+    };
+
+    aicpp::Neuron<hodel::GridVector> vectorNeuron{
+        "gridVector",
+        &gridVectorPortraitExample
+    };
+
+    aicpp::Connection portraitConnection{
+        &portraitNeuron,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {portraitConnection, vectorConnection}
+    };
+
+    auto result = std::any_cast<hodel::BooleanVector>(
+        expression.output());
+
+    EXPECT_EQ(
+        result,
+        (hodel::BooleanVector{true, false, true})
+    );
+}
+
+TEST(ApplyNeuronTest, AppliesPortraitToEmptyGridVector)
+{
+    using PortraitNeuron =
+        aicpp::Neuron<hodel::Boolean, hodel::Grid const&>;
+
+    PortraitNeuron portraitNeuron{
+        "portrait",
+        static_cast<PortraitNeuron::Function>(&hodel::portrait)
+    };
+
+    aicpp::Neuron<hodel::GridVector> vectorNeuron{
+        "emptyGridVector",
+        &emptyGridVector
+    };
+
+    aicpp::Connection portraitConnection{
+        &portraitNeuron,
+        {std::type_index{typeid(hodel::Grid)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {portraitConnection, vectorConnection}
+    };
+
+    auto result = std::any_cast<hodel::BooleanVector>(
+        expression.output());
+
+    EXPECT_TRUE(result.empty());
+}
+
+TEST(ApplyNeuronTest, AppliesPortraitToObjectsVector)
+{
+    using PortraitNeuron =
+        aicpp::Neuron<hodel::Boolean, hodel::Object const&>;
+
+    PortraitNeuron portraitNeuron{
+        "portrait",
+        static_cast<PortraitNeuron::Function>(
+            static_cast<hodel::Boolean (*)(hodel::Object const&)>(
+                &hodel::portrait))
+    };
+
+    aicpp::Neuron<hodel::ObjectVector> vectorNeuron{
+        "ObjectVector",
+        &objectVectorPortraitExample
+    };
+
+    aicpp::Connection portraitConnection{
+        &portraitNeuron,
+        {std::type_index{typeid(hodel::Object)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {portraitConnection, vectorConnection}
+    };
+
+    auto const result =
+        std::any_cast<hodel::BooleanVector>(expression.output());
+
+    EXPECT_EQ(result, (hodel::BooleanVector{false, true}));
+}
+
+TEST(ApplyNeuronTest, AppliesDiagonalMirrorToObjectVector)
+{
+    using DmirrorNeuron =
+        aicpp::Neuron<hodel::Object, hodel::Object const&>;
+
+    DmirrorNeuron dmirrorNeuron{
+        "dmirror",
+        static_cast<DmirrorNeuron::Function>(&hodel::dmirror)
+    };
+
+    aicpp::Neuron<hodel::ObjectVector> vectorNeuron{
+        "objectVector",
+        &objectVectorDmirrorExample
+    };
+
+    aicpp::Connection dmirrorConnection{
+        &dmirrorNeuron,
+        {std::type_index{typeid(hodel::Object)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {dmirrorConnection, vectorConnection}
+    };
+
+    auto const result =
+        std::any_cast<hodel::ObjectVector>(expression.output());
+
+    auto const input = objectVectorDmirrorExample();
+
+    ASSERT_EQ(result.size(), input.size());
+
+    for (std::size_t i = 0; i < input.size(); ++i)
+    {
+        EXPECT_EQ(result[i], hodel::dmirror(input[i]));
+    }
+}
+
+TEST(ApplyNeuronTest, AppliesDiagonalMirrorToEmptyObjectVector)
+{
+    using DmirrorNeuron =
+        aicpp::Neuron<hodel::Object, hodel::Object const&>;
+
+    DmirrorNeuron dmirrorNeuron{
+        "dmirror",
+        static_cast<DmirrorNeuron::Function>(&hodel::dmirror)
+    };
+
+    aicpp::Neuron<hodel::ObjectVector> vectorNeuron{
+        "emptyObjectVector",
+        &emptyObjectVector
+    };
+
+    aicpp::Connection dmirrorConnection{
+        &dmirrorNeuron,
+        {std::type_index{typeid(hodel::Object)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    aicpp::Connection expression{
+        &apply,
+        {dmirrorConnection, vectorConnection}
+    };
+
+    auto const result = expression.output();
+
+    ASSERT_EQ(result.type(), typeid(hodel::ObjectVector));
+
+    auto const& objects =
+        std::any_cast<hodel::ObjectVector const&>(result);
+
+    EXPECT_TRUE(objects.empty());
+}
+
+TEST(ApplyNeuronTest, RejectsFunctionWithIncompatibleInputType)
+{
+    using UnaryNeuron =
+        aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>;
+
+    UnaryNeuron flipNeuron{
+        "flip",
+        static_cast<UnaryNeuron::Function>(&hodel::flip)
+    };
+
+    aicpp::Neuron<hodel::IntegerVector> vectorNeuron{
+        "integerVector",
+        static_cast<aicpp::Neuron<hodel::IntegerVector>::Function>(
+            &integerVector123)
+    };
+
+    aicpp::Connection flipConnection{
+        &flipNeuron,
+        {std::type_index{typeid(hodel::Boolean)}}
+    };
+
+    aicpp::Connection vectorConnection{
+        &vectorNeuron,
+        {}
+    };
+
+    aicpp::ApplyNeuron apply;
+
+    EXPECT_THROW(
+        (aicpp::Connection{
+            &apply,
+            {flipConnection, vectorConnection}
+        }),
+        std::invalid_argument
     );
 }
