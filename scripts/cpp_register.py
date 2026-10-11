@@ -340,7 +340,7 @@ def main() -> None:
 
     for neuron in discover_polymorphic_neurons(include_dir):
         print(
-            f"Clas: {neuron['class']}, "
+            f"Class: {neuron['class']}, "
             f"DSL name: {neuron['name']}, "
             f"file: {neuron['header']}"
         )
