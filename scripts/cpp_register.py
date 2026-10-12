@@ -2,6 +2,12 @@ import re
 import sys
 from pathlib import Path
 
+def is_unary_function(declaration: dict) -> bool:
+    return (
+        not declaration.get("constant", False)
+        and len(declaration["arguments"]) == 1
+    )
+
 CONSTANT_RE = re.compile(
     r"""
     ^\s*
@@ -231,6 +237,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         f'#include "aicpp/{name}.h"',
         '#include "aicpp/Neuron.h"',
         '#include "aicpp/HodelRegister.h"',
+        '#include "aicpp/FunctionAdapterNeuron.h"',
         f'#include "aicpp/{name}PolymorphicNeuronRegister.h"',
         "",
         "namespace aicpp",
@@ -292,6 +299,20 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
                 "",
             ])
 
+    for index, declaration in enumerate(declarations):
+        if not is_unary_function(declaration):
+            continue
+
+        variable_name = f"neuron_{declaration['name']}_{index}"
+        adapter_name = f"adapter_{declaration['name']}_{index}"
+
+        lines.extend([
+            f"static FunctionAdapterNeuron {adapter_name}{{",
+            f"    &{variable_name}",
+            "};",
+            "",
+        ])
+
     registry_entries = []
 
     for index, declaration in enumerate(declarations):
@@ -300,7 +321,14 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         registry_entries.append(
             f'    registry.emplace("{variable_name}", &{variable_name});'
         )
-    
+
+        if is_unary_function(declaration):
+            adapter_name = f"adapter_{declaration['name']}_{index}"
+
+            registry_entries.append(
+                f'    registry.emplace("{adapter_name}", &{adapter_name});'
+            )
+
     lines.extend([
         "NeuronRegistry makeNeuronRegistry()",
         "{",
@@ -388,7 +416,7 @@ def discover_polymorphic_neurons(include_dir: Path) -> list[dict[str, str]]:
     neurons = []
 
     for header_path in sorted(include_dir.glob("*Neuron.h")):
-        if header_path.name in {"Neuron.h", "PolymorphicNeuron.h"}:
+        if header_path.name in {"Neuron.h", "PolymorphicNeuron.h", "FunctionAdapterNeuron.h", "FunctionOverloadNeuron.h"}:
             continue
 
         content = header_path.read_text(encoding="utf-8")
