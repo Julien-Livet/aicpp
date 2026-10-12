@@ -26,7 +26,7 @@ namespace aicpp
             boost::json::value toJson() const;
             Connection const& source() const;
             void setSource(Connection const& connection);
-            std::string name() const;
+            std::string const& name() const;
             void setName(std::string const& name);
             std::string expression() const;
             std::vector<std::any> leafInputs() const;
@@ -35,6 +35,7 @@ namespace aicpp
             DslType signature() const;
             std::any apply(std::any const& argument) const;
             std::vector<std::type_index> immediateInputTypes() const;
+            DslType valueType() const;
 
         private:
             size_t computeHash_() const;
