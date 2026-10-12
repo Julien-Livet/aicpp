@@ -2,6 +2,7 @@
 #include <map>
 #include <numeric>
 #include <ranges>
+#include <type_traits>
 
 #include "aicpp/Hodel.h"
 
@@ -2940,6 +2941,14 @@ hodel::Grid hodel::pair(IntegerVector const& a, IntegerVector const &b)
     return result;
 }
 
+hodel::Integer hodel::size(Object const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
 hodel::Integer hodel::size(Objects const& container)
 {
     if (container.empty())
@@ -2957,6 +2966,14 @@ hodel::Integer hodel::size(ObjectVector const& container)
 }
 
 hodel::Integer hodel::size(ObjectsVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"size"};
+
+    return container.size();
+}
+
+hodel::Integer hodel::size(Indices const& container)
 {
     if (container.empty())
         throw EmptyContainer{"size"};
@@ -3028,6 +3045,11 @@ hodel::Integer hodel::size(FunctionIntegerPairVector const& container)
         throw EmptyContainer{"size"};
 
     return container.size();
+}
+
+hodel::Integer hodel::size(Cell const& container)
+{
+    return 2;
 }
 
 hodel::Boolean  hodel::identity(Boolean const& x)
@@ -3227,6 +3249,11 @@ aicpp::FunctionValue hodel::first(FunctionIntegerPair const& x)
     return x.first;
 }
 
+hodel::Integer hodel::first(Cell const& x)
+{
+    return x.first;
+}
+
 hodel::Integer hodel::last(IntegerTuple const& x)
 {
     return x.second;
@@ -3345,6 +3372,11 @@ hodel::FunctionIntegerPair hodel::last(FunctionIntegerPairVector const& x)
 }
 
 hodel::Integer hodel::last(FunctionIntegerPair const& x)
+{
+    return x.second;
+}
+
+hodel::IntegerTuple hodel::last(Cell const& x)
 {
     return x.second;
 }
@@ -4133,4 +4165,274 @@ hodel::FunctionIntegerPairVector hodel::product(FunctionSet const& a, IntegerSet
 hodel::Grid hodel::move(Grid const& grid, Object const& obj, IntegerTuple const& offset)
 {
     return paint(cover(grid, obj), shift(obj, offset));
+}
+
+hodel::BooleanVector hodel::intersection(BooleanVector const& a, BooleanVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IntegerVector hodel::intersection(IntegerVector const& a, IntegerVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Grid hodel::intersection(Grid const& a, Grid const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::GridVector hodel::intersection(GridVector const& a, GridVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectVector hodel::intersection(ObjectVector const& a, ObjectVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectsVector hodel::intersection(ObjectsVector const& a, ObjectsVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IndicesVector hodel::intersection(IndicesVector const& a, IndicesVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Indices hodel::intersection(Indices const& a, Indices const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Object hodel::intersection(Object const& a, Object const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Objects hodel::intersection(Objects const& a, Objects const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::BooleanVector hodel::difference(BooleanVector const& a, BooleanVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IntegerVector hodel::difference(IntegerVector const& a, IntegerVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Grid hodel::difference(Grid const& a, Grid const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::GridVector hodel::difference(GridVector const& a, GridVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectVector hodel::difference(ObjectVector const& a, ObjectVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectsVector hodel::difference(ObjectsVector const& a, ObjectsVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IndicesVector hodel::difference(IndicesVector const& a, IndicesVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Indices hodel::difference(Indices const& a, Indices const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Object hodel::difference(Object const& a, Object const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Objects hodel::difference(Objects const& a, Objects const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::BooleanVector hodel::combine(BooleanVector const& a, BooleanVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IntegerVector hodel::combine(IntegerVector const& a, IntegerVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Grid hodel::combine(Grid const& a, Grid const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::GridVector hodel::combine(GridVector const& a, GridVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectVector hodel::combine(ObjectVector const& a, ObjectVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::ObjectsVector hodel::combine(ObjectsVector const& a, ObjectsVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IndicesVector hodel::combine(IndicesVector const& a, IndicesVector const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Indices hodel::combine(Indices const& a, Indices const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Object hodel::combine(Object const& a, Object const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
+hodel::Objects hodel::combine(Objects const& a, Objects const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
 }
