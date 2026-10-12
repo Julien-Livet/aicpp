@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "aicpp/Connection.h"
 #include "aicpp/Neuron.h"
 
 namespace aicpp
@@ -63,6 +64,18 @@ namespace aicpp
         {
             throw std::logic_error(
                 "Value evaluation is not supported by this polymorphic neuron");
+        }
+
+        virtual DslType inferConnectionSignature(
+            std::vector<Connection> const& arguments) const
+        {
+            DslType::Inputs signatures;
+            signatures.reserve(arguments.size());
+
+            for (auto const& argument : arguments)
+                signatures.emplace_back(argument.signature());
+
+            return inferSignature(signatures);
         }
     };
 }
