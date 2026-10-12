@@ -134,9 +134,15 @@ set(FILES
     src/aicpp/ForkNeuron.cpp include/aicpp/ForkNeuron.h
     src/aicpp/ExtractNeuron.cpp include/aicpp/ExtractNeuron.h
     src/aicpp/ApplyNeuron.cpp include/aicpp/ApplyNeuron.h
+    src/aicpp/ArgminNeuron.cpp include/aicpp/ArgminNeuron.h
+    src/aicpp/ArgmaxNeuron.cpp include/aicpp/ArgmaxNeuron.h
+    src/aicpp/ValminNeuron.cpp include/aicpp/ValminNeuron.h
+    src/aicpp/ValmaxNeuron.cpp include/aicpp/ValmaxNeuron.h
     src/aicpp/HodelPolymorphicNeuronRegister.cpp include/aicpp/HodelPolymorphicNeuronRegister.h
     src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
+    src/aicpp/FunctionAdapterNeuron.cpp include/aicpp/FunctionAdapterNeuron.h
     include/aicpp/FunctionValue.h
+    src/aicpp/FunctionOverloadNeuron.cpp include/aicpp/FunctionOverloadNeuron.h
     include/aicpp/utility.h)
 
 add_executable(dsl_dataset src/dsl_dataset.cpp ${FILES})
