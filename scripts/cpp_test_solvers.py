@@ -154,23 +154,17 @@ aicpp::NeuronBase const* findNeuron(DslType const& expected)
     return it->second;
 };
 
-Connection buildConnection(
+aicpp::Connection buildConnection(
     std::string const& name,
     std::vector<std::any> const& args)
 {
-    DslType::Inputs argumentTypes;
-    argumentTypes.reserve(args.size());
-
     for (auto const& arg : args)
     {
-        if (arg.type() != typeid(Connection))
+        if (arg.type() != typeid(aicpp::Connection))
         {
             throw std::invalid_argument(
                 "Arguments must be connections");
         }
-
-        argumentTypes.push_back(
-            std::any_cast<Connection const&>(arg).signature());
     }
 
     for (auto const& [_, neuron] : registry)
@@ -181,17 +175,26 @@ Connection buildConnection(
         if (neuron->isPolymorphic())
         {
             auto const* polymorphic =
-                dynamic_cast<PolymorphicNeuron const*>(neuron);
+                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
 
             if (polymorphic == nullptr)
                 continue;
 
+            std::vector<aicpp::Connection> connections;
+            connections.reserve(args.size());
+
+            for (auto const& arg : args)
+            {
+                connections.push_back(
+                    std::any_cast<aicpp::Connection const&>(arg));
+            }
+
             try
             {
-                polymorphic->inferSignature(argumentTypes);
-                return Connection{neuron, args};
+                polymorphic->inferConnectionSignature(connections);
+                return aicpp::Connection{neuron, args};
             }
-            catch (std::exception const&)
+            catch (std::exception const& e)
             {
                 continue;
             }
@@ -205,26 +208,29 @@ Connection buildConnection(
         for (size_t i = 0; i < args.size(); ++i)
         {
             auto const& connection =
-                std::any_cast<Connection const&>(args[i]);
+                std::any_cast<aicpp::Connection const&>(args[i]);
 
             auto const expectedType = neuron->inputTypes()[i];
 
-            if (expectedType == typeid(FunctionValue))
+            if (expectedType == typeid(aicpp::FunctionValue))
             {
                 compatible = connection.signature().isFunction();
             }
             else
             {
+                auto const actualType = connection.valueType();
+
                 compatible =
-                    connection.neuron()->returnType() == expectedType;
+                    !actualType.isFunction()
+                    && actualType.nativeType() == expectedType;
             }
 
             if (!compatible)
                 break;
         }
-
+        
         if (compatible)
-            return Connection{neuron, args};
+            return aicpp::Connection{neuron, args};
     }
 
     throw std::runtime_error{
