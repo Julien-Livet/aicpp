@@ -460,9 +460,11 @@ namespace hodel
     Integer hperiod(Object const& obj); //horizontal periodicity
     Integer vperiod(Object const& obj); //vertical periodicity
     Grid pair(IntegerVector const& a, IntegerVector const &b); //zipping of two tuples
+    Integer size(Object const& container); //cardinality
     Integer size(Objects const& container); //cardinality
     Integer size(ObjectVector const& container); //cardinality
     Integer size(ObjectsVector const& container); //cardinality
+    Integer size(Indices const& container); //cardinality
     Integer size(IndicesSet const& container); //cardinality
     Integer size(IntegerSet const& container); //cardinality
     Integer size(Grid const& container); //cardinality
@@ -472,6 +474,7 @@ namespace hodel
     Integer size(BooleanVector const& container); //cardinality
     Integer size(FunctionIntegerPair const& container); //cardinality
     Integer size(FunctionIntegerPairVector const& container); //cardinality
+    Integer size(Cell const& container); //cardinality
     Boolean identity(Boolean const& x); //identity function
     Integer identity(Integer const& x); //identity function
     IntegerTuple identity(IntegerTuple const& x); //identity function
@@ -500,6 +503,7 @@ namespace hodel
     Objects first(ObjectsVector const& x); //first item of container
     Indices first(IndicesVector const& x); //first item of container
     Boolean first(BooleanVector const& x); //first item of container
+    Integer first(Cell const& x); //first item of container
     aicpp::FunctionValue first(FunctionSet const& x); //first item of container
     FunctionIntegerPair first(FunctionIntegerPairVector const& x); //first item of container
     aicpp::FunctionValue first(FunctionIntegerPair const& x); //first item of container
@@ -516,6 +520,7 @@ namespace hodel
     Objects last(ObjectsVector const& x); //last item of container
     Indices last(IndicesVector const& x); //last item of container
     Boolean last(BooleanVector const& x); //last item of container
+    IntegerTuple last(Cell const& x); //last item of container
     FunctionIntegerPair last(FunctionIntegerPairVector const& x); //last item of container
     Integer last(FunctionIntegerPair const& x); //last item of container
     aicpp::FunctionValue last(FunctionSet const& x); //last item of container
@@ -609,6 +614,36 @@ namespace hodel
     Indices product(IntegerSet const& a, IntegerSet const& b); //cartesian product
     FunctionIntegerPairVector product(FunctionSet const& a, IntegerSet const& b); //cartesian product
     Grid move(Grid const& grid, Object const& obj, IntegerTuple const& offset); //move object on grid
+    BooleanVector intersection(BooleanVector const& a, BooleanVector const& b); //returns the intersection of two containers
+    IntegerVector intersection(IntegerVector const& a, IntegerVector const& b); //returns the intersection of two containers
+    Grid intersection(Grid const& a, Grid const& b); //returns the intersection of two containers
+    GridVector intersection(GridVector const& a, GridVector const& b); //returns the intersection of two containers
+    ObjectVector intersection(ObjectVector const& a, ObjectVector const& b); //returns the intersection of two containers
+    ObjectsVector intersection(ObjectsVector const& a, ObjectsVector const& b); //returns the intersection of two containers
+    IndicesVector intersection(IndicesVector const& a, IndicesVector const& b); //returns the intersection of two containers
+    Indices intersection(Indices const& a, Indices const& b); //returns the intersection of two containers
+    Object intersection(Object const& a, Object const& b); //returns the intersection of two containers
+    Objects intersection(Objects const& a, Objects const& b); //returns the intersection of two containers
+    BooleanVector difference(BooleanVector const& a, BooleanVector const& b); //set difference
+    IntegerVector difference(IntegerVector const& a, IntegerVector const& b); //set difference
+    Grid difference(Grid const& a, Grid const& b); //set difference
+    GridVector difference(GridVector const& a, GridVector const& b); //set difference
+    ObjectVector difference(ObjectVector const& a, ObjectVector const& b); //set difference
+    ObjectsVector difference(ObjectsVector const& a, ObjectsVector const& b); //set difference
+    IndicesVector difference(IndicesVector const& a, IndicesVector const& b); //set difference
+    Indices difference(Indices const& a, Indices const& b); //set difference
+    Object difference(Object const& a, Object const& b); //set difference
+    Objects difference(Objects const& a, Objects const& b); //set difference
+    BooleanVector combine(BooleanVector const& a, BooleanVector const& b); //union
+    IntegerVector combine(IntegerVector const& a, IntegerVector const& b); //union
+    Grid combine(Grid const& a, Grid const& b); //union
+    GridVector combine(GridVector const& a, GridVector const& b); //union
+    ObjectVector combine(ObjectVector const& a, ObjectVector const& b); //union
+    ObjectsVector combine(ObjectsVector const& a, ObjectsVector const& b); //union
+    IndicesVector combine(IndicesVector const& a, IndicesVector const& b); //union
+    Indices combine(Indices const& a, Indices const& b); //union
+    Object combine(Object const& a, Object const& b); //union
+    Objects combine(Objects const& a, Objects const& b); //union
 }
 
 #endif // AICPP_HODEL_H
