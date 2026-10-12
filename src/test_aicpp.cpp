@@ -11,6 +11,112 @@
 #include "aicpp/HodelRegister.h"
 #include "aicpp/FunctionValue.h"
 #include "aicpp/ApplyNeuron.h"
+#include "aicpp/ArgminNeuron.h"
+#include "aicpp/ValminNeuron.h"
+#include "aicpp/FunctionAdapterNeuron.h"
+
+static auto const registry = aicpp::makeNeuronRegistry();
+
+aicpp::NeuronBase const* findNeuron(aicpp::DslType const& expected)
+{
+    auto it = std::find_if(
+        registry.begin(),
+        registry.end(),
+        [&expected](auto const& entry)
+        {
+            return !entry.second->isPolymorphic()
+                && entry.second->signature() == expected;
+        });
+
+    if (it == registry.end())
+    {
+        throw std::runtime_error(
+            "Neuron not found for expected signature");
+    }
+
+    return it->second;
+};
+
+aicpp::Connection buildConnection(
+    std::string const& name,
+    std::vector<std::any> const& args)
+{
+    for (auto const& arg : args)
+    {
+        if (arg.type() != typeid(aicpp::Connection))
+        {
+            throw std::invalid_argument(
+                "Arguments must be connections");
+        }
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name)
+            continue;
+
+        if (neuron->isPolymorphic())
+        {
+            auto const* polymorphic =
+                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
+
+            if (polymorphic == nullptr)
+                continue;
+
+            std::vector<aicpp::Connection> connections;
+            connections.reserve(args.size());
+
+            for (auto const& arg : args)
+            {
+                connections.push_back(
+                    std::any_cast<aicpp::Connection const&>(arg));
+            }
+
+            try
+            {
+                polymorphic->inferConnectionSignature(connections);
+                return aicpp::Connection{neuron, args};
+            }
+            catch (std::exception const&)
+            {
+                continue;
+            }
+        }
+
+        if (neuron->inputTypes().size() != args.size())
+            continue;
+
+        bool compatible = true;
+
+        for (size_t i = 0; i < args.size(); ++i)
+        {
+            auto const& connection =
+                std::any_cast<aicpp::Connection const&>(args[i]);
+
+            auto const expectedType = neuron->inputTypes()[i];
+
+            if (expectedType == typeid(aicpp::FunctionValue))
+            {
+                compatible = connection.signature().isFunction();
+            }
+            else
+            {
+                compatible =
+                    connection.neuron()->returnType() == expectedType;
+            }
+
+            if (!compatible)
+                break;
+        }
+
+        if (compatible)
+            return aicpp::Connection{neuron, args};
+    }
+
+    throw std::runtime_error{
+        "No compatible connection found for neuron: " + name
+    };
+}
 
 TEST(NeuronTest, CallsNativeFunction)
 {
@@ -5496,4 +5602,180 @@ TEST(ApplyNeuronTest, RejectsFunctionWithIncompatibleInputType)
         }),
         std::invalid_argument
     );
+}
+
+TEST(IntegrationTest, ArgminIntegerVector)
+{
+    using namespace hodel;
+
+    auto const integerType = aicpp::makeDslType<Integer>();
+    auto const integerVectorType = aicpp::makeDslType<IntegerVector>();
+
+    auto const unaryInteger = aicpp::DslType::function(
+        {integerType},
+        integerType);
+
+    auto increment = buildConnection("increment", {});
+
+    aicpp::ArgminNeuron argmin;
+
+    EXPECT_EQ(
+        argmin.inferSignature({integerVectorType, unaryInteger}),
+        aicpp::DslType::function(
+            {integerVectorType},
+            integerType));
+
+    IntegerVector values{7, 3, 9, 1, 5};
+
+    auto const result = argmin.apply(
+        {
+            std::type_index{typeid(IntegerVector)},
+            increment
+        },
+        std::any{values});
+
+    ASSERT_EQ(result.type(), typeid(Integer));
+    EXPECT_EQ(std::any_cast<Integer>(result), 1);
+}
+
+TEST(IntegrationTest, ArgminRejectsIncompatibleFunction)
+{
+    using namespace hodel;
+
+    auto const integerVectorType = aicpp::makeDslType<IntegerVector>();
+    auto const booleanType = aicpp::makeDslType<Boolean>();
+
+    auto const unaryBoolean = aicpp::DslType::function(
+        {booleanType},
+        booleanType);
+
+    aicpp::ArgminNeuron argmin;
+
+    EXPECT_THROW(
+        argmin.inferSignature(
+            {integerVectorType, unaryBoolean}),
+        std::invalid_argument);
+}
+
+TEST(IntegrationTest, ArgminRejectsEmptyIntegerVector)
+{
+    using namespace hodel;
+
+    auto increment = buildConnection("increment", {});
+
+    aicpp::ArgminNeuron argmin;
+
+    EXPECT_THROW(
+        argmin.apply(
+            {
+                std::type_index{typeid(IntegerVector)},
+                increment
+            },
+            std::any{IntegerVector{}}),
+        std::invalid_argument);
+}
+
+TEST(IntegrationTest, ValminIntegerVector)
+{
+    using namespace hodel;
+
+    auto increment = buildConnection("increment", {});
+
+    aicpp::ValminNeuron valmin;
+
+    IntegerVector values{7, 3, 9, 1, 5};
+
+    auto const result = valmin.apply(
+        {
+            std::type_index{typeid(IntegerVector)},
+            increment
+        },
+        std::any{values});
+
+    ASSERT_EQ(result.type(), typeid(Integer));
+    EXPECT_EQ(std::any_cast<Integer>(result), 2);
+}
+
+namespace
+{
+    hodel::Integer increment(hodel::Integer const& value)
+    {
+        return value + 1;
+    }
+}
+
+TEST(FunctionAdapterNeuronTest, ExposesNativeSignature)
+{
+    using FunctionType =
+        aicpp::Neuron<
+            hodel::Integer,
+            hodel::Integer const&>::PointerFunction;
+
+    aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&> neuron{
+            "increment",
+            static_cast<FunctionType>(&increment)
+        };
+
+    aicpp::FunctionAdapterNeuron adapter{&neuron};
+
+    auto const signature = adapter.inferSignature({});
+
+    EXPECT_EQ(
+        signature,
+        aicpp::DslType::function(
+            {aicpp::makeDslType<hodel::Integer>()},
+            aicpp::makeDslType<hodel::Integer>()));
+}
+
+TEST(FunctionAdapterNeuronTest, AppliesNativeNeuron)
+{
+    using FunctionType =
+        aicpp::Neuron<
+            hodel::Integer,
+            hodel::Integer const&>::PointerFunction;
+
+    aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&> neuron{
+            "increment",
+            static_cast<FunctionType>(&increment)
+        };
+
+    aicpp::FunctionAdapterNeuron adapter{&neuron};
+
+    auto const result = adapter.apply({}, std::any{hodel::Integer{41}});
+
+    ASSERT_EQ(result.type(), typeid(hodel::Integer));
+    EXPECT_EQ(std::any_cast<hodel::Integer>(result), 42);
+}
+
+TEST(FunctionAdapterNeuronTest, RejectsIncompatibleInputType)
+{
+    using FunctionType =
+        aicpp::Neuron<
+            hodel::Integer,
+            hodel::Integer const&>::PointerFunction;
+
+    aicpp::Neuron<
+        hodel::Integer,
+        hodel::Integer const&> neuron{
+            "increment",
+            static_cast<FunctionType>(&increment)
+        };
+
+    aicpp::FunctionAdapterNeuron adapter{&neuron};
+
+    EXPECT_THROW(
+        adapter.apply({}, std::any{hodel::Boolean{true}}),
+        std::invalid_argument);
+}
+
+TEST(FunctionOverloadNeuronTest, BuildsOverloadedFunctionReference)
+{
+    auto const size = buildConnection("size", {});
+
+    EXPECT_EQ(size.name(), "size");
+    EXPECT_TRUE(size.signature().isFunction());
 }
