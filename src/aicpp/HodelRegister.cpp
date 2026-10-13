@@ -1249,125 +1249,143 @@ namespace aicpp
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&> neuron_contained_411{
         "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 616
-    aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&> neuron_product_412{
-        "product", static_cast<aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&> neuron_contained_412{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 617
-    aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_product_413{
-        "product", static_cast<aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&> neuron_product_413{
+        "product", static_cast<aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 618
-    aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&> neuron_product_414{
-        "product", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_product_414{
+        "product", static_cast<aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 619
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&> neuron_move_415{
-        "move", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&>::PointerFunction>(&hodel::move)};
+    aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&> neuron_product_415{
+        "product", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 620
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_intersection_416{
-        "intersection", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&> neuron_move_416{
+        "move", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&>::PointerFunction>(&hodel::move)};
     // Original declaration: line 621
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_intersection_417{
-        "intersection", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_intersection_417{
+        "intersection", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 622
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_intersection_418{
-        "intersection", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_intersection_418{
+        "intersection", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 623
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_intersection_419{
-        "intersection", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_intersection_419{
+        "intersection", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 624
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_intersection_420{
-        "intersection", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_intersection_420{
+        "intersection", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 625
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_intersection_421{
-        "intersection", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_intersection_421{
+        "intersection", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 626
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_intersection_422{
-        "intersection", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_intersection_422{
+        "intersection", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 627
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_intersection_423{
-        "intersection", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_intersection_423{
+        "intersection", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 628
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_intersection_424{
-        "intersection", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_intersection_424{
+        "intersection", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 629
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_intersection_425{
-        "intersection", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_intersection_425{
+        "intersection", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 630
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_difference_426{
-        "difference", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_intersection_426{
+        "intersection", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 631
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_difference_427{
-        "difference", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_intersection_427{
+        "intersection", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 632
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_difference_428{
-        "difference", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_difference_428{
+        "difference", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 633
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_difference_429{
-        "difference", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_difference_429{
+        "difference", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 634
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_difference_430{
-        "difference", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_difference_430{
+        "difference", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 635
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_difference_431{
-        "difference", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_difference_431{
+        "difference", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 636
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_difference_432{
-        "difference", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_difference_432{
+        "difference", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 637
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_difference_433{
-        "difference", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_difference_433{
+        "difference", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 638
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_difference_434{
-        "difference", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_difference_434{
+        "difference", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 639
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_difference_435{
-        "difference", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_difference_435{
+        "difference", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 640
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_combine_436{
-        "combine", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_difference_436{
+        "difference", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 641
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_combine_437{
-        "combine", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_difference_437{
+        "difference", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 642
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_combine_438{
-        "combine", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_difference_438{
+        "difference", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 643
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_combine_439{
-        "combine", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_combine_439{
+        "combine", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 644
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_combine_440{
-        "combine", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_combine_440{
+        "combine", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 645
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_combine_441{
-        "combine", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_combine_441{
+        "combine", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 646
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_combine_442{
-        "combine", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_combine_442{
+        "combine", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 647
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_combine_443{
-        "combine", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_combine_443{
+        "combine", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 648
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_combine_444{
-        "combine", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_combine_444{
+        "combine", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 649
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_combine_445{
-        "combine", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_combine_445{
+        "combine", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 650
-    aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&> neuron_mapply_446{
-        "mapply", static_cast<aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_combine_446{
+        "combine", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 651
-    aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&> neuron_mapply_447{
-        "mapply", static_cast<aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_combine_447{
+        "combine", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 652
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&> neuron_mapply_448{
-        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_combine_448{
+        "combine", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 653
-    aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&> neuron_mapply_449{
-        "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_combine_449{
+        "combine", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 654
-    aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&> neuron_mapply_450{
-        "mapply", static_cast<aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&> neuron_mapply_450{
+        "mapply", static_cast<aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 655
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&> neuron_mapply_451{
+    aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&> neuron_mapply_451{
+        "mapply", static_cast<aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 656
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&> neuron_mapply_452{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 657
+    aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&> neuron_mapply_453{
+        "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 658
+    aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&> neuron_mapply_454{
+        "mapply", static_cast<aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 659
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&> neuron_mapply_455{
         "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 660
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&> neuron_mapply_456{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::mapply)};
+    // Original declaration: line 661
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&> neuron_cellwise_457{
+        "cellwise", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::cellwise)};
     static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
     static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
     static FunctionAdapterNeuron adapter_add_30{&neuron_add_30};
@@ -1752,11 +1770,11 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_contained_409{&neuron_contained_409};
     static FunctionAdapterNeuron adapter_contained_410{&neuron_contained_410};
     static FunctionAdapterNeuron adapter_contained_411{&neuron_contained_411};
-    static FunctionAdapterNeuron adapter_product_412{&neuron_product_412};
+    static FunctionAdapterNeuron adapter_contained_412{&neuron_contained_412};
     static FunctionAdapterNeuron adapter_product_413{&neuron_product_413};
     static FunctionAdapterNeuron adapter_product_414{&neuron_product_414};
-    static FunctionAdapterNeuron adapter_move_415{&neuron_move_415};
-    static FunctionAdapterNeuron adapter_intersection_416{&neuron_intersection_416};
+    static FunctionAdapterNeuron adapter_product_415{&neuron_product_415};
+    static FunctionAdapterNeuron adapter_move_416{&neuron_move_416};
     static FunctionAdapterNeuron adapter_intersection_417{&neuron_intersection_417};
     static FunctionAdapterNeuron adapter_intersection_418{&neuron_intersection_418};
     static FunctionAdapterNeuron adapter_intersection_419{&neuron_intersection_419};
@@ -1766,8 +1784,8 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_intersection_423{&neuron_intersection_423};
     static FunctionAdapterNeuron adapter_intersection_424{&neuron_intersection_424};
     static FunctionAdapterNeuron adapter_intersection_425{&neuron_intersection_425};
-    static FunctionAdapterNeuron adapter_difference_426{&neuron_difference_426};
-    static FunctionAdapterNeuron adapter_difference_427{&neuron_difference_427};
+    static FunctionAdapterNeuron adapter_intersection_426{&neuron_intersection_426};
+    static FunctionAdapterNeuron adapter_intersection_427{&neuron_intersection_427};
     static FunctionAdapterNeuron adapter_difference_428{&neuron_difference_428};
     static FunctionAdapterNeuron adapter_difference_429{&neuron_difference_429};
     static FunctionAdapterNeuron adapter_difference_430{&neuron_difference_430};
@@ -1776,9 +1794,9 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_difference_433{&neuron_difference_433};
     static FunctionAdapterNeuron adapter_difference_434{&neuron_difference_434};
     static FunctionAdapterNeuron adapter_difference_435{&neuron_difference_435};
-    static FunctionAdapterNeuron adapter_combine_436{&neuron_combine_436};
-    static FunctionAdapterNeuron adapter_combine_437{&neuron_combine_437};
-    static FunctionAdapterNeuron adapter_combine_438{&neuron_combine_438};
+    static FunctionAdapterNeuron adapter_difference_436{&neuron_difference_436};
+    static FunctionAdapterNeuron adapter_difference_437{&neuron_difference_437};
+    static FunctionAdapterNeuron adapter_difference_438{&neuron_difference_438};
     static FunctionAdapterNeuron adapter_combine_439{&neuron_combine_439};
     static FunctionAdapterNeuron adapter_combine_440{&neuron_combine_440};
     static FunctionAdapterNeuron adapter_combine_441{&neuron_combine_441};
@@ -1786,12 +1804,18 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_combine_443{&neuron_combine_443};
     static FunctionAdapterNeuron adapter_combine_444{&neuron_combine_444};
     static FunctionAdapterNeuron adapter_combine_445{&neuron_combine_445};
-    static FunctionAdapterNeuron adapter_mapply_446{&neuron_mapply_446};
-    static FunctionAdapterNeuron adapter_mapply_447{&neuron_mapply_447};
-    static FunctionAdapterNeuron adapter_mapply_448{&neuron_mapply_448};
-    static FunctionAdapterNeuron adapter_mapply_449{&neuron_mapply_449};
+    static FunctionAdapterNeuron adapter_combine_446{&neuron_combine_446};
+    static FunctionAdapterNeuron adapter_combine_447{&neuron_combine_447};
+    static FunctionAdapterNeuron adapter_combine_448{&neuron_combine_448};
+    static FunctionAdapterNeuron adapter_combine_449{&neuron_combine_449};
     static FunctionAdapterNeuron adapter_mapply_450{&neuron_mapply_450};
     static FunctionAdapterNeuron adapter_mapply_451{&neuron_mapply_451};
+    static FunctionAdapterNeuron adapter_mapply_452{&neuron_mapply_452};
+    static FunctionAdapterNeuron adapter_mapply_453{&neuron_mapply_453};
+    static FunctionAdapterNeuron adapter_mapply_454{&neuron_mapply_454};
+    static FunctionAdapterNeuron adapter_mapply_455{&neuron_mapply_455};
+    static FunctionAdapterNeuron adapter_mapply_456{&neuron_mapply_456};
+    static FunctionAdapterNeuron adapter_cellwise_457{&neuron_cellwise_457};
 
     NeuronRegistry makeNeuronRegistry()
     {
@@ -2592,16 +2616,16 @@ namespace aicpp
         registry.emplace("adapter_contained_410", &adapter_contained_410);
         registry.emplace("neuron_contained_411", &neuron_contained_411);
         registry.emplace("adapter_contained_411", &adapter_contained_411);
-        registry.emplace("neuron_product_412", &neuron_product_412);
-        registry.emplace("adapter_product_412", &adapter_product_412);
+        registry.emplace("neuron_contained_412", &neuron_contained_412);
+        registry.emplace("adapter_contained_412", &adapter_contained_412);
         registry.emplace("neuron_product_413", &neuron_product_413);
         registry.emplace("adapter_product_413", &adapter_product_413);
         registry.emplace("neuron_product_414", &neuron_product_414);
         registry.emplace("adapter_product_414", &adapter_product_414);
-        registry.emplace("neuron_move_415", &neuron_move_415);
-        registry.emplace("adapter_move_415", &adapter_move_415);
-        registry.emplace("neuron_intersection_416", &neuron_intersection_416);
-        registry.emplace("adapter_intersection_416", &adapter_intersection_416);
+        registry.emplace("neuron_product_415", &neuron_product_415);
+        registry.emplace("adapter_product_415", &adapter_product_415);
+        registry.emplace("neuron_move_416", &neuron_move_416);
+        registry.emplace("adapter_move_416", &adapter_move_416);
         registry.emplace("neuron_intersection_417", &neuron_intersection_417);
         registry.emplace("adapter_intersection_417", &adapter_intersection_417);
         registry.emplace("neuron_intersection_418", &neuron_intersection_418);
@@ -2620,10 +2644,10 @@ namespace aicpp
         registry.emplace("adapter_intersection_424", &adapter_intersection_424);
         registry.emplace("neuron_intersection_425", &neuron_intersection_425);
         registry.emplace("adapter_intersection_425", &adapter_intersection_425);
-        registry.emplace("neuron_difference_426", &neuron_difference_426);
-        registry.emplace("adapter_difference_426", &adapter_difference_426);
-        registry.emplace("neuron_difference_427", &neuron_difference_427);
-        registry.emplace("adapter_difference_427", &adapter_difference_427);
+        registry.emplace("neuron_intersection_426", &neuron_intersection_426);
+        registry.emplace("adapter_intersection_426", &adapter_intersection_426);
+        registry.emplace("neuron_intersection_427", &neuron_intersection_427);
+        registry.emplace("adapter_intersection_427", &adapter_intersection_427);
         registry.emplace("neuron_difference_428", &neuron_difference_428);
         registry.emplace("adapter_difference_428", &adapter_difference_428);
         registry.emplace("neuron_difference_429", &neuron_difference_429);
@@ -2640,12 +2664,12 @@ namespace aicpp
         registry.emplace("adapter_difference_434", &adapter_difference_434);
         registry.emplace("neuron_difference_435", &neuron_difference_435);
         registry.emplace("adapter_difference_435", &adapter_difference_435);
-        registry.emplace("neuron_combine_436", &neuron_combine_436);
-        registry.emplace("adapter_combine_436", &adapter_combine_436);
-        registry.emplace("neuron_combine_437", &neuron_combine_437);
-        registry.emplace("adapter_combine_437", &adapter_combine_437);
-        registry.emplace("neuron_combine_438", &neuron_combine_438);
-        registry.emplace("adapter_combine_438", &adapter_combine_438);
+        registry.emplace("neuron_difference_436", &neuron_difference_436);
+        registry.emplace("adapter_difference_436", &adapter_difference_436);
+        registry.emplace("neuron_difference_437", &neuron_difference_437);
+        registry.emplace("adapter_difference_437", &adapter_difference_437);
+        registry.emplace("neuron_difference_438", &neuron_difference_438);
+        registry.emplace("adapter_difference_438", &adapter_difference_438);
         registry.emplace("neuron_combine_439", &neuron_combine_439);
         registry.emplace("adapter_combine_439", &adapter_combine_439);
         registry.emplace("neuron_combine_440", &neuron_combine_440);
@@ -2660,18 +2684,30 @@ namespace aicpp
         registry.emplace("adapter_combine_444", &adapter_combine_444);
         registry.emplace("neuron_combine_445", &neuron_combine_445);
         registry.emplace("adapter_combine_445", &adapter_combine_445);
-        registry.emplace("neuron_mapply_446", &neuron_mapply_446);
-        registry.emplace("adapter_mapply_446", &adapter_mapply_446);
-        registry.emplace("neuron_mapply_447", &neuron_mapply_447);
-        registry.emplace("adapter_mapply_447", &adapter_mapply_447);
-        registry.emplace("neuron_mapply_448", &neuron_mapply_448);
-        registry.emplace("adapter_mapply_448", &adapter_mapply_448);
-        registry.emplace("neuron_mapply_449", &neuron_mapply_449);
-        registry.emplace("adapter_mapply_449", &adapter_mapply_449);
+        registry.emplace("neuron_combine_446", &neuron_combine_446);
+        registry.emplace("adapter_combine_446", &adapter_combine_446);
+        registry.emplace("neuron_combine_447", &neuron_combine_447);
+        registry.emplace("adapter_combine_447", &adapter_combine_447);
+        registry.emplace("neuron_combine_448", &neuron_combine_448);
+        registry.emplace("adapter_combine_448", &adapter_combine_448);
+        registry.emplace("neuron_combine_449", &neuron_combine_449);
+        registry.emplace("adapter_combine_449", &adapter_combine_449);
         registry.emplace("neuron_mapply_450", &neuron_mapply_450);
         registry.emplace("adapter_mapply_450", &adapter_mapply_450);
         registry.emplace("neuron_mapply_451", &neuron_mapply_451);
         registry.emplace("adapter_mapply_451", &adapter_mapply_451);
+        registry.emplace("neuron_mapply_452", &neuron_mapply_452);
+        registry.emplace("adapter_mapply_452", &adapter_mapply_452);
+        registry.emplace("neuron_mapply_453", &neuron_mapply_453);
+        registry.emplace("adapter_mapply_453", &adapter_mapply_453);
+        registry.emplace("neuron_mapply_454", &neuron_mapply_454);
+        registry.emplace("adapter_mapply_454", &adapter_mapply_454);
+        registry.emplace("neuron_mapply_455", &neuron_mapply_455);
+        registry.emplace("adapter_mapply_455", &adapter_mapply_455);
+        registry.emplace("neuron_mapply_456", &neuron_mapply_456);
+        registry.emplace("adapter_mapply_456", &adapter_mapply_456);
+        registry.emplace("neuron_cellwise_457", &neuron_cellwise_457);
+        registry.emplace("adapter_cellwise_457", &adapter_cellwise_457);
 
         auto polymorphicRegistry = makePolymorphicNeuronRegistry();
         registry.insert(
