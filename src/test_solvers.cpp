@@ -2,116 +2,8 @@
 
 #include "aicpp/Connection.h"
 #include "aicpp/Hodel.h"
-#include "aicpp/HodelRegister.h"
-#include "aicpp/PolymorphicNeuron.h"
 
 using namespace aicpp;
-
-static auto const registry = makeNeuronRegistry();
-
-aicpp::NeuronBase const* findNeuron(DslType const& expected)
-{
-    auto it = std::find_if(
-        registry.begin(),
-        registry.end(),
-        [&expected](auto const& entry)
-        {
-            return !entry.second->isPolymorphic()
-                && entry.second->signature() == expected;
-        });
-
-    if (it == registry.end())
-    {
-        throw std::runtime_error(
-            "Neuron not found for expected signature");
-    }
-
-    return it->second;
-};
-
-aicpp::Connection buildConnection(
-    std::string const& name,
-    std::vector<std::any> const& args)
-{
-    for (auto const& arg : args)
-    {
-        if (arg.type() != typeid(aicpp::Connection))
-        {
-            throw std::invalid_argument(
-                "Arguments must be connections");
-        }
-    }
-
-    for (auto const& [_, neuron] : registry)
-    {
-        if (neuron->name() != name)
-            continue;
-
-        if (neuron->isPolymorphic())
-        {
-            auto const* polymorphic =
-                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
-
-            if (polymorphic == nullptr)
-                continue;
-
-            std::vector<aicpp::Connection> connections;
-            connections.reserve(args.size());
-
-            for (auto const& arg : args)
-            {
-                connections.push_back(
-                    std::any_cast<aicpp::Connection const&>(arg));
-            }
-
-            try
-            {
-                polymorphic->inferConnectionSignature(connections);
-                return aicpp::Connection{neuron, args};
-            }
-            catch (std::exception const& e)
-            {
-                continue;
-            }
-        }
-
-        if (neuron->inputTypes().size() != args.size())
-            continue;
-
-        bool compatible = true;
-
-        for (size_t i = 0; i < args.size(); ++i)
-        {
-            auto const& connection =
-                std::any_cast<aicpp::Connection const&>(args[i]);
-
-            auto const expectedType = neuron->inputTypes()[i];
-
-            if (expectedType == typeid(aicpp::FunctionValue))
-            {
-                compatible = connection.signature().isFunction();
-            }
-            else
-            {
-                auto const actualType = connection.valueType();
-
-                compatible =
-                    !actualType.isFunction()
-                    && actualType.nativeType() == expectedType;
-            }
-
-            if (!compatible)
-                break;
-        }
-        
-        if (compatible)
-            return aicpp::Connection{neuron, args};
-    }
-
-    throw std::runtime_error{
-        "No compatible connection found for neuron: " + name
-    };
-}
 
 TEST(ArcDslTest, 67a3c6ac)
 {
@@ -1034,7 +926,7 @@ TEST(ArcDslTest, b91ae062)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 3aa6fb7a)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1051,7 +943,10 @@ TEST(ArcDslTest, 3aa6fb7a)
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
-    Connection const corners{buildConnection("corners", {})};
+    auto const expectedSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    Connection const corners{buildFunctionConnection("corners", expectedSignature)};
     Connection const x1{buildConnection("objects", {I, T, F, T})};
     Connection const x2{buildConnection("mapply", {corners, x1})};
     Connection const O{buildConnection("underfill", {I, ONE, x2})};
@@ -1062,7 +957,7 @@ TEST(ArcDslTest, 3aa6fb7a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 7b7f7511)
 {
     std::vector<hodel::Grid> inputs, outputs;
