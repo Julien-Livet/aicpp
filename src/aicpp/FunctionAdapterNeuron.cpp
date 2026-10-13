@@ -19,12 +19,6 @@ namespace aicpp
             throw std::invalid_argument(
                 "FunctionAdapterNeuron requires a native neuron");
         }
-
-        if (neuron_->inputTypes().size() != 1)
-        {
-            throw std::invalid_argument(
-                "FunctionAdapterNeuron requires a unary neuron");
-        }
     }
 
     std::string const& FunctionAdapterNeuron::name() const
