@@ -255,8 +255,10 @@ namespace hodel
     Boolean greater(Integer const& a, Integer const& b); //greater
     Integer maximum(IntegerSet const& container); //maximum
     Integer maximum(IntegerVector const& container); //maximum
+    IntegerTuple maximum(Indices const& container); //maximum
     Integer minimum(IntegerSet const& container); //minimum
     Integer minimum(IntegerVector const& container); //minimum
+    IntegerTuple minimum(Indices const& container); //minimum
     Boolean both(Boolean const& a, Boolean const& b); //logical and
     Boolean either(Boolean const& a, Boolean const& b); //logical or
     Integer increment(Integer const& x); //incrementing
@@ -274,6 +276,7 @@ namespace hodel
     IntegerTuple astuple(Integer const& a, Integer const& b); //constructs a tuple
     FunctionIntegerPair astuple(aicpp::FunctionValue const& a, Integer const& b); //constructs a tuple
     Cell astuple(Integer const& a, IntegerTuple const& b); //constructs a tuple
+    GridVector astuple(Grid const& a, Grid const& b); //constructs a tuple
     IntegerTuple ulcorner(Object const& patch); //index of upper left corner
     IntegerTuple ulcorner(Indices const& patch); //index of upper left corner
     IntegerTuple urcorner(Object const& patch); //index of upper right corner
@@ -659,6 +662,18 @@ namespace hodel
     Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesSet const& container); //apply and merge
     Grid cellwise(Grid const& a, Grid const& b, Integer const& fallback); //cellwise match of two grids
+    Boolean mostcommon(BooleanVector const& container); //most common item
+    Integer mostcommon(IntegerVector const& container); //most common item
+    IntegerTuple mostcommon(Indices const& container); //most common item
+    Object mostcommon(Objects const& container); //most common item
+    IntegerVector mostcommon(Grid const& container); //most common item
+    Grid mostcommon(GridVector const& container); //most common item
+    Boolean leastcommon(BooleanVector const& container); //least common item
+    Integer leastcommon(IntegerVector const& container); //least common item
+    IntegerTuple leastcommon(Indices const& container); //least common item
+    Object leastcommon(Objects const& container); //least common item
+    IntegerVector leastcommon(Grid const& container); //least common item
+    Grid leastcommon(GridVector const& container); //least common item
 }
 
 #endif // AICPP_HODEL_H
