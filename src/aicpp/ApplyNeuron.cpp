@@ -129,7 +129,19 @@ namespace
                 hodel::Object,
                 hodel::Indices,
                 hodel::Objects>(
-                    makeDslType<hodel::Objects>())
+                    makeDslType<hodel::Objects>()),
+
+            makeApplyRule<
+                hodel::Indices,
+                hodel::Indices,
+                hodel::IndicesVector>(
+                    makeDslType<hodel::IndicesVector>()),
+
+            makeApplyRule<
+                hodel::Indices,
+                hodel::Indices,
+                hodel::IndicesSet>(
+                    makeDslType<hodel::IndicesSet>())
         };
 
         return rules;
