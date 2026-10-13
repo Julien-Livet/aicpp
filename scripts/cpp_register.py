@@ -242,7 +242,7 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         "",
         "namespace aicpp",
         "{",
-        f"using namespace {name.lower()};",
+        f"    using namespace {name.lower()};",
         "",
     ]
 
@@ -261,42 +261,19 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         function_type = f"{neuron_type}::PointerFunction"
         variable_name = f"neuron_{name}_{index}"
 
-        lines.append(
-            f"// Original declaration: line {declaration['line']}"
-        )
-
         trueName: str = name
 
         if (trueName.endswith("_")):
             trueName = trueName.removesuffix("_")
 
         if is_constant:
-            function_name = f"constant_value_{name}_{index}"
-
             lines.extend([
-                f"static {return_type} {function_name}()",
-                "{",
-                f"    return hodel::{name};",
-                "}",
-                "",
-                f"using FunctionType_{index} = {function_type};",
-                "",
-                f"{neuron_type} {variable_name}{{",
-                f'    "{trueName}",',
-                f"    static_cast<FunctionType_{index}>(&{function_name})",
-                "};",
-                "",
+                f'    {neuron_type} {variable_name}{{"{trueName}", [] () -> {return_type} {{ return hodel::{name}; }}}}; // Original declaration: line {declaration['line']}',
             ])
 
         else:
             lines.extend([
-                f"using FunctionType_{index} = {function_type};",
-                "",
-                f"{neuron_type} {variable_name}{{",
-                f'    "{trueName}",',
-                f"    static_cast<FunctionType_{index}>(&hodel::{name})",
-                "};",
-                "",
+                f'    {neuron_type} {variable_name}{{"{trueName}", static_cast<{function_type}>(&hodel::{name})}}; // Original declaration: line {declaration['line']}',
             ])
 
     for index, declaration in enumerate(declarations):
