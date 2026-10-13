@@ -957,7 +957,7 @@ TEST(ArcDslTest, 3aa6fb7a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 7b7f7511)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -976,7 +976,24 @@ TEST(ArcDslTest, 7b7f7511)
     Connection const lefthalf{buildConnection("lefthalf", {})};
     Connection const tophalf{buildConnection("tophalf", {})};
     Connection const x1{buildConnection("portrait", {I})};
-    Connection const x2{buildConnection("branch", {x1, tophalf, lefthalf})};
+    
+    auto const branchSignature = DslType::function(
+    {
+        makeDslType<hodel::Boolean>(),
+        makeDslType<FunctionValue>(),
+        makeDslType<FunctionValue>()
+    },
+    makeDslType<FunctionValue>());
+
+    auto const x2 = buildFunctionConnection(
+        "branch",
+        branchSignature,
+        {
+            x1,
+            tophalf,
+            lefthalf
+        });
+
     Connection const O{buildConnection("lbind", {x2, I})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -985,7 +1002,7 @@ TEST(ArcDslTest, 7b7f7511)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 4258a5f9)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1001,7 +1018,10 @@ TEST(ArcDslTest, 4258a5f9)
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
-    Connection const neighbors{buildConnection("neighbors", {})};
+    auto const expectedSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::IntegerTuple>()},
+        aicpp::makeDslType<hodel::Indices>());
+    Connection const neighbors{buildFunctionConnection("neighbors", expectedSignature)};
     Connection const x1{buildConnection("ofcolor", {I, FIVE})};
     Connection const x2{buildConnection("mapply", {neighbors, x1})};
     Connection const O{buildConnection("fill", {I, ONE, x2})};
