@@ -4144,6 +4144,11 @@ hodel::Boolean hodel::contained(Indices const& value, IndicesVector const& conta
     return std::find(container.begin(), container.end(), value) != container.end();
 }
 
+hodel::Boolean hodel::contained(Indices const& value, IndicesSet const& container)
+{
+    return container.contains(value);
+}
+
 hodel::Object hodel::product(IntegerSet const& a, Indices const& b)
 {
     Object result;
@@ -4278,6 +4283,15 @@ hodel::Objects hodel::intersection(Objects const& a, Objects const& b)
     return {v.begin(), v.end()};
 }
 
+hodel::IndicesSet hodel::intersection(IndicesSet const& a, IndicesSet const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
 hodel::BooleanVector hodel::difference(BooleanVector const& a, BooleanVector const& b)
 {
     std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
@@ -4360,6 +4374,15 @@ hodel::Object hodel::difference(Object const& a, Object const& b)
 }
 
 hodel::Objects hodel::difference(Objects const& a, Objects const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
+
+    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
+
+    return {v.begin(), v.end()};
+}
+
+hodel::IndicesSet hodel::difference(IndicesSet const& a, IndicesSet const& b)
 {
     std::vector<std::remove_cvref_t<decltype(a)>::value_type > v;
 
@@ -4458,6 +4481,15 @@ hodel::Objects hodel::combine(Objects const& a, Objects const& b)
     return {v.begin(), v.end()};
 }
 
+hodel::IndicesSet hodel::combine(IndicesSet const& a, IndicesSet const& b)
+{
+    std::vector<std::remove_cvref_t<decltype(a)>::value_type > v{a.begin(), a.end()};
+
+    v.insert(v.end(), b.begin(), b.end());
+
+    return {v.begin(), v.end()};
+}
+
 hodel::Grid hodel::mapply(aicpp::FunctionValue const& function, GridVector const& container)
 {
     aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
@@ -4510,4 +4542,40 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesVector
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
     return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesSet const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::Grid hodel::cellwise(Grid const& a, Grid const& b, Integer const& fallback)
+{
+    Grid result;
+
+    try
+    {
+        auto const h{a.size()};
+        auto const w{a.at(0).size()};
+
+        result = Grid(h, std::vector<Integer>(w));
+
+        for (size_t i{0}; i < h; ++i)
+        {
+            for (size_t j{0}; j < w; ++j)
+                result.at(i).at(j) = (a.at(i).at(j) == b.at(i).at(j)) ? a.at(i).at(j) : fallback;
+        }
+
+        return result;
+    }
+    catch (std::exception const&)
+    {
+        throw InvalidGrid{"cellwise"};
+    }
+
+    return result;
 }
