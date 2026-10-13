@@ -365,6 +365,7 @@ namespace hodel
     ObjectsVector branch(Boolean const& condition, ObjectsVector const& a, ObjectsVector const& b); //if else branching
     IndicesVector branch(Boolean const& condition, IndicesVector const& a, IndicesVector const& b); //if else branching
     BooleanVector branch(Boolean const& condition, BooleanVector const& a, BooleanVector const& b); //if else branching
+    aicpp::FunctionValue branch(Boolean const& condition, aicpp::FunctionValue const& a, aicpp::FunctionValue const& b); //if else branching
     Integer color(Object const& object); //color of object
     Object toobject(Object const& patch, Grid const& grid); //object from patch and grid
     Object toobject(Indices const& patch, Grid const& grid); //object from patch and grid
