@@ -26,6 +26,23 @@ namespace
         return result;
     }
 
+    template<typename Input, typename Output>
+    std::vector<Output> applyToCollection(
+        std::set<Input> const& collection,
+        aicpp::Connection const& function)
+    {
+        std::vector<Output> result;
+        result.reserve(collection.size());
+
+        for (auto const& value : collection)
+        {
+            result.emplace_back(
+                std::any_cast<Output>(function.apply(value)));
+        }
+
+        return result;
+    }
+
     using namespace aicpp;
 
     struct ApplyRule
@@ -106,7 +123,13 @@ namespace
                 hodel::Object,
                 hodel::Object,
                 hodel::ObjectVector>(
-                    makeDslType<hodel::ObjectVector>())
+                    makeDslType<hodel::ObjectVector>()),
+
+            makeApplyRule<
+                hodel::Object,
+                hodel::Indices,
+                hodel::Objects>(
+                    makeDslType<hodel::Objects>())
         };
 
         return rules;
@@ -153,13 +176,20 @@ namespace aicpp
         auto const& inputType = function.inputs()[0];
         auto const& outputType = function.output();
         auto const& nativeCollectionType = collectionType.nativeType();
+ 
+        for (auto const& rule : applyRules())
+        {
+            auto const collectionMatches =
+                rule.collectionType == nativeCollectionType;
 
-        for (auto const& rule : applyRules()) {
-            if (rule.collectionType == nativeCollectionType &&
-                rule.inputType == inputType &&
-                rule.outputType == outputType) {
+            auto const inputMatches =
+                rule.inputType == inputType;
+
+            auto const outputMatches =
+                rule.outputType == outputType;
+
+            if (collectionMatches && inputMatches && outputMatches)
                 return rule.resultType;
-            }
         }
 
         throw std::invalid_argument(
