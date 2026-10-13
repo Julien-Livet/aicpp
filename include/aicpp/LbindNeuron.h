@@ -20,6 +20,15 @@ namespace aicpp
             std::any apply(
                 std::vector<std::any> const& arguments,
                 std::any const& input) const override;
+
+            DslType inferConnectionSignature(
+                std::vector<Connection> const& arguments) const override;
+
+            bool evaluatesToValue(
+                std::vector<std::any> const& arguments) const override;
+
+            std::any evaluate(
+                std::vector<std::any> const& arguments) const override;
     };
 }
 
