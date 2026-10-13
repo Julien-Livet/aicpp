@@ -273,6 +273,7 @@ namespace hodel
     IntegerSet interval(Integer start, Integer const& stop, Integer const& step); //range
     IntegerTuple astuple(Integer const& a, Integer const& b); //constructs a tuple
     FunctionIntegerPair astuple(aicpp::FunctionValue const& a, Integer const& b); //constructs a tuple
+    Cell astuple(Integer const& a, IntegerTuple const& b); //constructs a tuple
     IntegerTuple ulcorner(Object const& patch); //index of upper left corner
     IntegerTuple ulcorner(Indices const& patch); //index of upper left corner
     IntegerTuple urcorner(Object const& patch); //index of upper right corner
@@ -600,6 +601,7 @@ namespace hodel
     Indices merge(IndicesVector const& containers); //merging
     IntegerVector merge(Grid const& containers); //merging
     Grid merge(GridVector const& containers); //merging
+    Objects merge(ObjectsVector const& containers); //merging
     Boolean contained(Boolean const& value, BooleanVector const& container); //element of
     Boolean contained(Integer const& value, IntegerVector const& container); //element of
     Boolean contained(Integer const& value, IntegerSet const& container); //element of
@@ -644,6 +646,12 @@ namespace hodel
     Indices combine(Indices const& a, Indices const& b); //union
     Object combine(Object const& a, Object const& b); //union
     Objects combine(Objects const& a, Objects const& b); //union
+    Grid mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
+    IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
+    Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
+    Object mapply(aicpp::FunctionValue const& function, ObjectVector const& container); //apply and merge
+    Objects mapply(aicpp::FunctionValue const& function, ObjectsVector const& container); //apply and merge
+    Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
 }
 
 #endif // AICPP_HODEL_H
