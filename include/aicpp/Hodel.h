@@ -613,6 +613,7 @@ namespace hodel
     Boolean contained(Object const& value, ObjectVector const& container); //element of
     Boolean contained(Objects const& value, ObjectsVector const& container); //element of
     Boolean contained(Indices const& value, IndicesVector const& container); //element of
+    Boolean contained(Indices const& value, IndicesSet const& container); //element of
     Object product(IntegerSet const& a, Indices const& b); //cartesian product
     Indices product(IntegerSet const& a, IntegerSet const& b); //cartesian product
     FunctionIntegerPairVector product(FunctionSet const& a, IntegerSet const& b); //cartesian product
@@ -627,6 +628,7 @@ namespace hodel
     Indices intersection(Indices const& a, Indices const& b); //returns the intersection of two containers
     Object intersection(Object const& a, Object const& b); //returns the intersection of two containers
     Objects intersection(Objects const& a, Objects const& b); //returns the intersection of two containers
+    IndicesSet intersection(IndicesSet const& a, IndicesSet const& b); //returns the intersection of two containers
     BooleanVector difference(BooleanVector const& a, BooleanVector const& b); //set difference
     IntegerVector difference(IntegerVector const& a, IntegerVector const& b); //set difference
     Grid difference(Grid const& a, Grid const& b); //set difference
@@ -637,6 +639,7 @@ namespace hodel
     Indices difference(Indices const& a, Indices const& b); //set difference
     Object difference(Object const& a, Object const& b); //set difference
     Objects difference(Objects const& a, Objects const& b); //set difference
+    IndicesSet difference(IndicesSet const& a, IndicesSet const& b); //set difference
     BooleanVector combine(BooleanVector const& a, BooleanVector const& b); //union
     IntegerVector combine(IntegerVector const& a, IntegerVector const& b); //union
     Grid combine(Grid const& a, Grid const& b); //union
@@ -647,12 +650,15 @@ namespace hodel
     Indices combine(Indices const& a, Indices const& b); //union
     Object combine(Object const& a, Object const& b); //union
     Objects combine(Objects const& a, Objects const& b); //union
+    IndicesSet combine(IndicesSet const& a, IndicesSet const& b); //union
     Grid mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
     IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply(aicpp::FunctionValue const& function, ObjectVector const& container); //apply and merge
     Objects mapply(aicpp::FunctionValue const& function, ObjectsVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
+    Indices mapply(aicpp::FunctionValue const& function, IndicesSet const& container); //apply and merge
+    Grid cellwise(Grid const& a, Grid const& b, Integer const& fallback); //cellwise match of two grids
 }
 
 #endif // AICPP_HODEL_H
