@@ -5,6 +5,7 @@
 #include <type_traits>
 
 #include "aicpp/Hodel.h"
+#include "aicpp/Neuron.h"
 
 constexpr hodel::Integer MAX_SIZE = 30;
 constexpr size_t SHOOT_DISTANCE = 42;
@@ -665,6 +666,11 @@ hodel::IntegerTuple hodel::astuple(Integer const& a, Integer const& b)
 }
 
 hodel::FunctionIntegerPair hodel::astuple(aicpp::FunctionValue const& a, Integer const& b)
+{
+    return {a, b};
+}
+
+hodel::Cell hodel::astuple(Integer const& a, IntegerTuple const& b)
 {
     return {a, b};
 }
@@ -4073,6 +4079,16 @@ hodel::Grid hodel::merge(GridVector const& containers)
     return result;
 }
 
+hodel::Objects hodel::merge(ObjectsVector const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(container.begin(), container.end());
+
+    return result;
+}
+
 hodel::Boolean hodel::contained(Boolean const& value, BooleanVector const& container)
 {
     return std::find(container.begin(), container.end(), value) != container.end();
@@ -4435,4 +4451,58 @@ hodel::Objects hodel::combine(Objects const& a, Objects const& b)
     v.insert(v.end(), b.begin(), b.end());
 
     return {v.begin(), v.end()};
+}
+
+hodel::Grid hodel::mapply(aicpp::FunctionValue const& function, GridVector const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::IntegerVector hodel::mapply(aicpp::FunctionValue const& function, Grid const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Objects const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<IndicesVector>(apply.output()));
+}
+
+hodel::Object hodel::mapply(aicpp::FunctionValue const& function, ObjectVector const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::Objects hodel::mapply(aicpp::FunctionValue const& function, ObjectsVector const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+}
+
+hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesVector const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
+
+    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
 }
