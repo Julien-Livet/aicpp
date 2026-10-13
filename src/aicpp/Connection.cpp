@@ -4,8 +4,167 @@
 #include "aicpp/PolymorphicNeuron.h"
 #include "aicpp/utility.h"
 #include "aicpp/FunctionValue.h"
+#include "aicpp/HodelRegister.h"
+#include "aicpp/FunctionAdapterNeuron.h"
 
 using namespace aicpp;
+
+static auto const registry = aicpp::makeNeuronRegistry();
+
+aicpp::NeuronBase const* findNeuron(aicpp::DslType const& expected)
+{
+    auto it = std::find_if(
+        registry.begin(),
+        registry.end(),
+        [&expected](auto const& entry)
+        {
+            return !entry.second->isPolymorphic()
+                && entry.second->signature() == expected;
+        });
+
+    if (it == registry.end())
+    {
+        throw std::runtime_error(
+            "Neuron not found for expected signature");
+    }
+
+    return it->second;
+};
+
+aicpp::Connection aicpp::buildFunctionConnection(
+    std::string const& name,
+    DslType const& expectedSignature)
+{
+    if (expectedSignature.isFunction()
+        && expectedSignature.inputs().size() == 1)
+    {
+        for (auto const& [_, neuron] : registry)
+        {
+            if (neuron->name() != name || !neuron->isPolymorphic())
+                continue;
+
+            auto const* adapter =
+                dynamic_cast<FunctionAdapterNeuron const*>(neuron);
+
+            if (adapter == nullptr)
+                continue;
+
+            try
+            {
+                if (adapter->inferSignature({}) == expectedSignature)
+                    return Connection{neuron, {}};
+            }
+            catch (std::exception const&)
+            {
+            }
+        }
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name || neuron->isPolymorphic())
+            continue;
+
+        if (neuron->signature() != expectedSignature)
+            continue;
+
+        auto const inputTypes{neuron->inputTypes()};
+        std::vector<std::any> inputs;
+        inputs.reserve(inputTypes.size());
+
+        for (auto const& input : inputTypes)
+            inputs.emplace_back(input);
+
+        return Connection{neuron, inputs};
+    }
+
+    throw std::runtime_error(
+        "No function overload found for neuron: " + name);
+}
+
+aicpp::Connection aicpp::buildConnection(
+    std::string const& name,
+    std::vector<std::any> const& args)
+{
+    for (auto const& arg : args)
+    {
+        if (arg.type() != typeid(aicpp::Connection))
+        {
+            throw std::invalid_argument(
+                "Arguments must be connections");
+        }
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name)
+            continue;
+
+        if (neuron->isPolymorphic())
+        {
+            auto const* polymorphic =
+                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
+
+            if (polymorphic == nullptr)
+                continue;
+
+            std::vector<aicpp::Connection> connections;
+            connections.reserve(args.size());
+
+            for (auto const& arg : args)
+            {
+                connections.push_back(
+                    std::any_cast<aicpp::Connection const&>(arg));
+            }
+
+            try
+            {
+                polymorphic->inferConnectionSignature(connections);
+                return aicpp::Connection{neuron, args};
+            }
+            catch (std::exception const& e)
+            {
+                continue;
+            }
+        }
+
+        if (neuron->inputTypes().size() != args.size())
+            continue;
+
+        bool compatible = true;
+
+        for (size_t i = 0; i < args.size(); ++i)
+        {
+            auto const& connection =
+                std::any_cast<aicpp::Connection const&>(args[i]);
+
+            auto const expectedType = neuron->inputTypes()[i];
+
+            if (expectedType == typeid(aicpp::FunctionValue))
+            {
+                compatible = connection.signature().isFunction();
+            }
+            else
+            {
+                auto const actualType = connection.valueType();
+
+                compatible =
+                    !actualType.isFunction()
+                    && actualType.nativeType() == expectedType;
+            }
+
+            if (!compatible)
+                break;
+        }
+        
+        if (compatible)
+            return aicpp::Connection{neuron, args};
+    }
+
+    throw std::runtime_error{
+        "No compatible connection found for neuron: " + name
+    };
+}
 
 Connection::Connection(
     NeuronBase const* neuron,
