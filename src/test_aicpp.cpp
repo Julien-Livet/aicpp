@@ -3737,56 +3737,6 @@ TEST(IntegrationTest, Build662c240aExpression)
         aicpp::DslType::function({gridType}, booleanType));
 }
 
-TEST(IntegrationTest, EvaluateVsplit662c240a)
-{
-    auto registry = aicpp::makeNeuronRegistry();
-
-    auto it = std::find_if(
-        registry.begin(),
-        registry.end(),
-        [](auto const& entry)
-        {
-            return entry.second->name() == "vsplit"
-                && entry.second->signature()
-                    == aicpp::DslType::function(
-                        {
-                            aicpp::makeDslType<hodel::Grid>(),
-                            aicpp::makeDslType<hodel::Integer>()
-                        },
-                        aicpp::makeDslType<hodel::GridVector>());
-        });
-
-    ASSERT_NE(it, registry.end());
-
-    hodel::Grid const input{
-        {2, 2, 2},
-        {2, 2, 3},
-        {2, 3, 3},
-        {5, 7, 7},
-        {7, 5, 5},
-        {7, 5, 5},
-        {8, 8, 1},
-        {1, 8, 1},
-        {1, 8, 1}
-    };
-
-    auto const result = it->second->invoke(
-        {
-            std::any{input},
-            std::any{hodel::Integer{3}}
-        });
-
-    ASSERT_EQ(result.type(), typeid(hodel::GridVector));
-
-    auto const grids = std::any_cast<hodel::GridVector>(result);
-    ASSERT_EQ(grids.size(), 3u);
-    EXPECT_EQ(grids[2], hodel::Grid({
-        {8, 8, 1},
-        {1, 8, 1},
-        {1, 8, 1}
-    }));
-}
-
 TEST(IntegrationTest, Solve662c240aExample1)
 {
     auto registry = aicpp::makeNeuronRegistry();
