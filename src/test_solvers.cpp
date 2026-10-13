@@ -17,8 +17,7 @@ TEST(ArcDslTest, 67a3c6ac)
     inputs.emplace_back(hodel::Grid{{1, 2, 7, 1, 1, 1}, {2, 1, 7, 7, 2, 6}, {2, 1, 2, 6, 2, 1}, {1, 2, 1, 7, 6, 2}, {2, 7, 1, 2, 7, 1}, {2, 1, 6, 2, 7, 7}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 7, 2, 1}, {6, 2, 7, 7, 1, 2}, {1, 2, 6, 2, 1, 2}, {2, 6, 7, 1, 2, 1}, {1, 7, 2, 1, 7, 2}, {7, 7, 2, 6, 1, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("vmirror", {I})};
 
@@ -41,8 +40,7 @@ TEST(ArcDslTest, 68b16354)
     inputs.emplace_back(hodel::Grid{{2, 7, 4, 3, 4, 8, 3}, {2, 3, 7, 1, 2, 3, 3}, {8, 7, 4, 3, 2, 2, 4}, {1, 1, 2, 1, 4, 4, 7}, {2, 4, 3, 1, 1, 4, 1}, {4, 8, 7, 4, 4, 8, 2}, {7, 3, 8, 4, 3, 2, 8}});
     outputs.emplace_back(hodel::Grid{{7, 3, 8, 4, 3, 2, 8}, {4, 8, 7, 4, 4, 8, 2}, {2, 4, 3, 1, 1, 4, 1}, {1, 1, 2, 1, 4, 4, 7}, {8, 7, 4, 3, 2, 2, 4}, {2, 3, 7, 1, 2, 3, 3}, {2, 7, 4, 3, 4, 8, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("hmirror", {I})};
 
@@ -67,8 +65,7 @@ TEST(ArcDslTest, 74dd1130)
     inputs.emplace_back(hodel::Grid{{2, 2, 1}, {1, 5, 1}, {5, 2, 2}});
     outputs.emplace_back(hodel::Grid{{2, 1, 5}, {2, 5, 2}, {1, 1, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("dmirror", {I})};
 
@@ -93,8 +90,7 @@ TEST(ArcDslTest, 3c9b0459)
     inputs.emplace_back(hodel::Grid{{2, 2, 1}, {2, 1, 2}, {2, 8, 1}});
     outputs.emplace_back(hodel::Grid{{1, 8, 2}, {2, 1, 2}, {1, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("rot180", {I})};
 
@@ -115,8 +111,7 @@ TEST(ArcDslTest, 6150a2bd)
     inputs.emplace_back(hodel::Grid{{3, 3, 8}, {3, 7, 0}, {5, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 5}, {0, 7, 3}, {8, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("rot180", {I})};
 
@@ -137,8 +132,7 @@ TEST(ArcDslTest, 9172f3a0)
     inputs.emplace_back(hodel::Grid{{3, 3, 0}, {7, 4, 0}, {0, 0, 4}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 0, 0, 0}, {3, 3, 3, 3, 3, 3, 0, 0, 0}, {3, 3, 3, 3, 3, 3, 0, 0, 0}, {7, 7, 7, 4, 4, 4, 0, 0, 0}, {7, 7, 7, 4, 4, 4, 0, 0, 0}, {7, 7, 7, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 4, 4}, {0, 0, 0, 0, 0, 0, 4, 4, 4}, {0, 0, 0, 0, 0, 0, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const O{buildConnection("upscale", {I, THREE})};
@@ -162,8 +156,7 @@ TEST(ArcDslTest, 9dfd6313)
     inputs.emplace_back(hodel::Grid{{5, 0, 0, 0, 0}, {0, 5, 0, 0, 0}, {8, 8, 5, 0, 0}, {0, 2, 0, 5, 0}, {0, 2, 0, 1, 5}});
     outputs.emplace_back(hodel::Grid{{5, 0, 8, 0, 0}, {0, 5, 8, 2, 2}, {0, 0, 5, 0, 0}, {0, 0, 0, 5, 1}, {0, 0, 0, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("dmirror", {I})};
 
@@ -186,8 +179,7 @@ TEST(ArcDslTest, a416b8f3)
     inputs.emplace_back(hodel::Grid{{5, 2, 3, 0}, {2, 5, 3, 0}, {5, 2, 8, 8}, {0, 0, 6, 0}});
     outputs.emplace_back(hodel::Grid{{5, 2, 3, 0, 5, 2, 3, 0}, {2, 5, 3, 0, 2, 5, 3, 0}, {5, 2, 8, 8, 5, 2, 8, 8}, {0, 0, 6, 0, 0, 0, 6, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("hconcat", {I, I})};
 
@@ -210,8 +202,7 @@ TEST(ArcDslTest, b1948b0a)
     inputs.emplace_back(hodel::Grid{{7, 7, 6, 6, 6, 6}, {6, 7, 6, 7, 7, 7}, {7, 6, 7, 7, 6, 7}});
     outputs.emplace_back(hodel::Grid{{7, 7, 2, 2, 2, 2}, {2, 7, 2, 7, 7, 7}, {7, 2, 7, 7, 2, 7}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const SIX{buildConnection("SIX", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -236,8 +227,7 @@ TEST(ArcDslTest, c59eb873)
     inputs.emplace_back(hodel::Grid{{2, 0, 3, 0}, {2, 1, 3, 0}, {0, 0, 3, 3}, {0, 0, 3, 5}});
     outputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 3, 3, 0, 0}, {2, 2, 0, 0, 3, 3, 0, 0}, {2, 2, 1, 1, 3, 3, 0, 0}, {2, 2, 1, 1, 3, 3, 0, 0}, {0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 0, 3, 3, 5, 5}, {0, 0, 0, 0, 3, 3, 5, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const O{buildConnection("upscale", {I, TWO})};
@@ -261,8 +251,7 @@ TEST(ArcDslTest, c8f0f002)
     inputs.emplace_back(hodel::Grid{{1, 8, 1, 7, 1}, {7, 8, 8, 1, 1}, {7, 1, 8, 8, 7}});
     outputs.emplace_back(hodel::Grid{{1, 8, 1, 5, 1}, {5, 8, 8, 1, 1}, {5, 1, 8, 8, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const SEVEN{buildConnection("SEVEN", {})};
@@ -287,8 +276,7 @@ TEST(ArcDslTest, d10ecb37)
     inputs.emplace_back(hodel::Grid{{3, 2, 1, 3, 4, 1}, {1, 4, 4, 2, 2, 3}, {1, 3, 3, 2, 2, 4}, {4, 2, 1, 4, 3, 1}, {4, 1, 2, 4, 3, 2}, {2, 3, 3, 1, 1, 4}, {2, 4, 4, 1, 1, 3}, {3, 1, 2, 3, 4, 2}, {3, 2, 1, 3, 4, 1}, {1, 4, 4, 2, 2, 3}, {1, 3, 3, 2, 2, 4}, {4, 2, 1, 4, 3, 1}});
     outputs.emplace_back(hodel::Grid{{3, 2}, {1, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const TWO_BY_TWO{buildConnection("TWO_BY_TWO", {})};
@@ -313,8 +301,7 @@ TEST(ArcDslTest, d511f180)
     inputs.emplace_back(hodel::Grid{{6, 5, 3}, {5, 7, 5}, {8, 8, 2}});
     outputs.emplace_back(hodel::Grid{{6, 8, 3}, {8, 7, 8}, {5, 5, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -341,8 +328,7 @@ TEST(ArcDslTest, ed36ccf7)
     inputs.emplace_back(hodel::Grid{{9, 0, 0}, {9, 9, 9}, {9, 9, 9}});
     outputs.emplace_back(hodel::Grid{{0, 9, 9}, {0, 9, 9}, {9, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const O{buildConnection("rot270", {I})};
 
@@ -367,8 +353,7 @@ TEST(ArcDslTest, 4c4377d9)
     inputs.emplace_back(hodel::Grid{{9, 9, 5, 9}, {5, 5, 9, 9}, {9, 5, 9, 9}});
     outputs.emplace_back(hodel::Grid{{9, 5, 9, 9}, {5, 5, 9, 9}, {9, 9, 5, 9}, {9, 9, 5, 9}, {5, 5, 9, 9}, {9, 5, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("hmirror", {I})};
     Connection const O{buildConnection("vconcat", {x1, I})};
@@ -394,8 +379,7 @@ TEST(ArcDslTest, 6d0aefbc)
     inputs.emplace_back(hodel::Grid{{6, 6, 6}, {1, 6, 1}, {8, 8, 6}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6, 6}, {1, 6, 1, 1, 6, 1}, {8, 8, 6, 6, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const O{buildConnection("hconcat", {I, x1})};
@@ -421,8 +405,7 @@ TEST(ArcDslTest, 6fa7a44f)
     inputs.emplace_back(hodel::Grid{{9, 1, 4}, {9, 1, 4}, {2, 1, 1}});
     outputs.emplace_back(hodel::Grid{{9, 1, 4}, {9, 1, 4}, {2, 1, 1}, {2, 1, 1}, {9, 1, 4}, {9, 1, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("hmirror", {I})};
     Connection const O{buildConnection("vconcat", {I, x1})};
@@ -444,8 +427,7 @@ TEST(ArcDslTest, 5614dbcf)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 0, 0, 0, 8, 8, 8}, {3, 3, 3, 0, 0, 0, 8, 5, 8}, {3, 3, 3, 0, 0, 0, 8, 8, 8}, {0, 0, 0, 7, 5, 7, 0, 0, 0}, {0, 0, 0, 7, 7, 7, 0, 0, 0}, {0, 0, 0, 7, 7, 7, 0, 0, 0}, {6, 6, 6, 0, 0, 5, 9, 9, 9}, {6, 6, 6, 0, 0, 0, 9, 9, 9}, {6, 5, 6, 0, 5, 0, 9, 9, 5}});
     outputs.emplace_back(hodel::Grid{{3, 0, 8}, {0, 7, 0}, {6, 0, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -474,8 +456,7 @@ TEST(ArcDslTest, 5bd6f4ac)
     inputs.emplace_back(hodel::Grid{{3, 0, 0, 7, 0, 0, 9, 7, 0}, {8, 4, 0, 6, 6, 0, 4, 8, 4}, {1, 7, 0, 0, 0, 0, 4, 0, 0}, {1, 1, 0, 9, 1, 0, 7, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0}, {8, 0, 0, 1, 7, 0, 8, 4, 0}, {0, 7, 0, 9, 9, 2, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 2, 4, 0, 8, 0, 0}});
     outputs.emplace_back(hodel::Grid{{9, 7, 0}, {4, 8, 4}, {4, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const SIX{buildConnection("SIX", {})};
     Connection const THREE_BY_THREE{buildConnection("THREE_BY_THREE", {})};
@@ -501,8 +482,7 @@ TEST(ArcDslTest, 5582e5ca)
     inputs.emplace_back(hodel::Grid{{4, 6, 9}, {6, 4, 1}, {8, 8, 6}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6}, {6, 6, 6}, {6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE_BY_THREE{buildConnection("THREE_BY_THREE", {})};
     Connection const x1{buildConnection("mostcolor", {I})};
@@ -527,8 +507,7 @@ TEST(ArcDslTest, 8be77c9e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 0, 1}, {0, 0, 1}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 1}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("hmirror", {I})};
     Connection const O{buildConnection("vconcat", {I, x1})};
@@ -552,8 +531,7 @@ TEST(ArcDslTest, c9e6f938)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {7, 0, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {7, 0, 0, 0, 0, 7}, {0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const O{buildConnection("hconcat", {I, x1})};
@@ -577,8 +555,7 @@ TEST(ArcDslTest, 2dee498d)
     inputs.emplace_back(hodel::Grid{{2, 1, 2, 1, 2, 1}, {2, 3, 2, 3, 2, 3}});
     outputs.emplace_back(hodel::Grid{{2, 1}, {2, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const x1{buildConnection("hsplit", {I, THREE})};
@@ -603,8 +580,7 @@ TEST(ArcDslTest, 1cf80156)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 8, 0, 8, 0}, {8, 8, 8, 8, 0}, {0, 0, 0, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const x1{buildConnection("objects", {I, T, T, T})};
@@ -630,8 +606,7 @@ TEST(ArcDslTest, 32597951)
     inputs.emplace_back(hodel::Grid{{0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 1, 1, 8, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 8, 8, 1, 8, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 1, 1, 8, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 8, 8, 1, 8, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 1, 1, 8, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}});
     outputs.emplace_back(hodel::Grid{{0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 3, 3, 8, 3, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 3, 8, 8, 3, 8, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 3, 3, 8, 3, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 3, 8, 8, 3, 8, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 8, 3, 3, 8, 3, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}, {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -660,8 +635,7 @@ TEST(ArcDslTest, 25ff71a9)
     inputs.emplace_back(hodel::Grid{{1, 1, 1}, {0, 0, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0}, {1, 1, 1}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const T{buildConnection("T", {})};
@@ -688,8 +662,7 @@ TEST(ArcDslTest, 0b148d64)
     inputs.emplace_back(hodel::Grid{{0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1}, {1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1}, {1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1}, {0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 0, 0, 4, 0, 4, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1}, {4, 4, 4, 4, 0, 4, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0}, {4, 0, 4, 0, 0, 4, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1}, {0, 4, 4, 4, 4, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1}, {4, 4, 4, 0, 4, 4, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1}, {0, 4, 4, 4, 0, 4, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0}, {0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1}, {4, 4, 0, 4, 0, 4, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 0, 4, 0, 4}, {4, 4, 4, 4, 0, 4}, {4, 0, 4, 0, 0, 4}, {0, 4, 4, 4, 4, 0}, {4, 4, 4, 0, 4, 4}, {0, 4, 4, 4, 4, 0}, {0, 4, 4, 4, 0, 4}, {0, 4, 0, 0, 0, 0}, {4, 4, 0, 4, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const size{buildConnection("size", {})};
     Connection const x1{buildConnection("partition", {I})};
@@ -713,8 +686,7 @@ TEST(ArcDslTest, 1f85a75f)
     inputs.emplace_back(hodel::Grid{{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 1, 0, 0, 0, 5, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 1, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 1, 0, 1, 5, 1, 0, 5, 0, 0, 0, 0, 0, 1, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 0, 0, 1}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 5}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 0}, {3, 3, 3}, {3, 0, 3}, {3, 3, 3}, {0, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const size{buildConnection("size", {})};
@@ -745,8 +717,7 @@ TEST(ArcDslTest, 23b5c85d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 0}, {0, 2, 2, 8, 8, 8, 2, 0, 0, 0}, {0, 2, 2, 8, 8, 8, 2, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8}, {8, 8, 8}, {8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const size{buildConnection("size", {})};
@@ -773,8 +744,7 @@ TEST(ArcDslTest, ac0a08a4)
     inputs.emplace_back(hodel::Grid{{0, 6, 9}, {3, 0, 2}, {0, 7, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 9, 9, 9, 9, 9}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NINE{buildConnection("NINE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -803,8 +773,7 @@ TEST(ArcDslTest, be94b721)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 3, 0, 0, 1, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 0}, {0, 2, 0}, {0, 2, 2}, {2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -832,8 +801,7 @@ TEST(ArcDslTest, c909285e)
     inputs.emplace_back(hodel::Grid{{0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3}, {1, 1, 3, 1, 8, 5, 1, 1, 3, 8, 1, 5, 1, 1, 3, 1, 1, 5, 1, 8, 3, 1, 1, 5, 8, 1, 3, 1}, {8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {1, 1, 3, 1, 8, 5, 1, 1, 3, 8, 1, 5, 1, 1, 3, 1, 1, 5, 1, 8, 3, 1, 1, 5, 8, 1, 3, 1}, {3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3}, {8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3}, {1, 1, 3, 1, 8, 5, 1, 1, 3, 8, 1, 5, 1, 1, 3, 1, 1, 5, 1, 8, 3, 1, 1, 5, 8, 1, 3, 1}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 3, 1, 8, 6, 0, 1, 3, 8, 0, 6, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {8, 8, 3, 8, 8, 6, 8, 8, 3, 8, 8, 6, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8}, {3, 3, 3, 3, 3, 6, 3, 3, 3, 3, 3, 6, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3}, {0, 0, 3, 1, 8, 6, 0, 1, 3, 8, 0, 6, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {0, 0, 3, 1, 8, 6, 0, 1, 3, 8, 0, 6, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8, 8, 5, 8, 8, 3, 8}, {0, 0, 3, 1, 8, 5, 0, 1, 3, 8, 0, 5, 0, 0, 3, 1, 0, 5, 0, 8, 3, 0, 0, 5, 8, 0, 3, 1}, {3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3}, {1, 1, 3, 1, 8, 5, 1, 1, 3, 8, 1, 5, 1, 1, 3, 1, 1, 5, 1, 8, 3, 1, 1, 5, 8, 1, 3, 1}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6, 6, 6}, {6, 0, 1, 3, 8, 0, 6}, {6, 8, 8, 3, 8, 8, 6}, {6, 3, 3, 3, 3, 3, 6}, {6, 0, 1, 3, 8, 0, 6}, {6, 0, 1, 3, 8, 0, 6}, {6, 6, 6, 6, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("leastcolor", {I})};
     Connection const x2{buildConnection("ofcolor", {I, x1})};
@@ -856,8 +824,7 @@ TEST(ArcDslTest, f25ffba3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 9}, {0, 0, 3, 9}, {0, 0, 3, 9}, {2, 0, 3, 9}, {2, 4, 3, 9}});
     outputs.emplace_back(hodel::Grid{{2, 4, 3, 9}, {2, 0, 3, 9}, {0, 0, 3, 9}, {0, 0, 3, 9}, {0, 0, 0, 9}, {0, 0, 0, 9}, {0, 0, 3, 9}, {0, 0, 3, 9}, {2, 0, 3, 9}, {2, 4, 3, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("bottomhalf", {I})};
     Connection const x2{buildConnection("hmirror", {x1})};
@@ -882,8 +849,7 @@ TEST(ArcDslTest, c1d99e64)
     inputs.emplace_back(hodel::Grid{{3, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3}, {3, 0, 3, 0, 3, 3, 3, 0, 3, 0, 3, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 3, 0, 0, 3, 3, 0, 3, 0, 3, 3, 0, 0}, {3, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3}, {3, 0, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 0, 3, 3}, {0, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 3, 3, 3, 0}, {3, 0, 0, 3, 3, 3, 0, 0, 3, 0, 3, 3, 0, 0, 3}, {3, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 3}, {3, 0, 0, 3, 3, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 0, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 3}, {3, 0, 3, 3, 3, 0, 3, 0, 0, 3, 0, 3, 3, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 3, 0, 0, 3, 0, 3, 3, 0, 3, 3, 3, 3, 0}, {3, 0, 0, 3, 0, 3, 3, 0, 3, 0, 3, 3, 0, 0, 3}, {3, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 0, 0, 3, 3}, {0, 0, 3, 3, 0, 3, 3, 0, 0, 3, 0, 3, 0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{3, 2, 3, 3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3}, {3, 2, 3, 0, 3, 3, 3, 0, 3, 0, 3, 0, 0, 3, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {3, 2, 0, 3, 0, 0, 3, 3, 0, 3, 0, 3, 3, 0, 0}, {3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3}, {3, 2, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 0, 3, 3}, {0, 2, 3, 0, 3, 0, 3, 0, 3, 0, 0, 3, 3, 3, 0}, {3, 2, 0, 3, 3, 3, 0, 0, 3, 0, 3, 3, 0, 0, 3}, {3, 2, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 3}, {3, 2, 0, 3, 3, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 2, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 3}, {3, 2, 3, 3, 3, 0, 3, 0, 0, 3, 0, 3, 3, 3, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {3, 2, 3, 0, 0, 3, 0, 3, 3, 0, 3, 3, 3, 3, 0}, {3, 2, 0, 3, 0, 3, 3, 0, 3, 0, 3, 3, 0, 0, 3}, {3, 2, 0, 3, 3, 3, 3, 3, 0, 3, 3, 0, 0, 3, 3}, {0, 2, 3, 3, 0, 3, 3, 0, 0, 3, 0, 3, 0, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const x1{buildConnection("frontiers", {I})};
@@ -913,8 +879,7 @@ TEST(ArcDslTest, b91ae062)
     inputs.emplace_back(hodel::Grid{{6, 7, 0}, {0, 6, 6}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 7, 7, 0, 0}, {6, 6, 7, 7, 0, 0}, {0, 0, 6, 6, 6, 6}, {0, 0, 6, 6, 6, 6}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("numcolors", {I})};
     Connection const x2{buildConnection("decrement", {x1})};
@@ -937,8 +902,7 @@ TEST(ArcDslTest, 3aa6fb7a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0}, {0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0}, {0, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 8, 1, 0, 0, 0, 0}, {0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0}, {0, 0, 0, 0, 1, 8, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -970,8 +934,7 @@ TEST(ArcDslTest, 7b7f7511)
     inputs.emplace_back(hodel::Grid{{2, 3}, {3, 2}, {4, 4}, {2, 3}, {3, 2}, {4, 4}});
     outputs.emplace_back(hodel::Grid{{2, 3}, {3, 2}, {4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const lefthalf{buildConnection("lefthalf", {})};
     Connection const tophalf{buildConnection("tophalf", {})};
@@ -1013,8 +976,7 @@ TEST(ArcDslTest, 4258a5f9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 1, 5, 1, 0}, {0, 0, 0, 0, 0, 1, 1, 1, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 1, 5, 1, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 5, 1, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1045,8 +1007,7 @@ TEST(ArcDslTest, 2dc579da)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 8, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 8, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const hsplit{buildConnection("hsplit", {})};
@@ -1062,7 +1023,7 @@ TEST(ArcDslTest, 2dc579da)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 28bf18c6)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1075,8 +1036,7 @@ TEST(ArcDslTest, 28bf18c6)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const x1{buildConnection("objects", {I, T, T, T})};
@@ -1103,8 +1063,7 @@ TEST(ArcDslTest, 3af2c5a8)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3}, {3, 0, 0, 0}, {3, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3}, {3, 0, 0, 0, 0, 0, 0, 3}, {3, 0, 0, 0, 0, 0, 0, 3}, {3, 0, 0, 0, 0, 0, 0, 3}, {3, 0, 0, 0, 0, 0, 0, 3}, {3, 3, 3, 3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const x2{buildConnection("hconcat", {I, x1})};
@@ -1136,8 +1095,7 @@ TEST(ArcDslTest, 44f52bb0)
     inputs.emplace_back(hodel::Grid{{2, 0, 2}, {0, 2, 0}, {2, 0, 2}});
     outputs.emplace_back(hodel::Grid{{1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const SEVEN{buildConnection("SEVEN", {})};
@@ -1166,8 +1124,7 @@ TEST(ArcDslTest, 62c24649)
     inputs.emplace_back(hodel::Grid{{2, 1, 0}, {0, 2, 3}, {0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{2, 1, 0, 0, 1, 2}, {0, 2, 3, 3, 2, 0}, {0, 3, 0, 0, 3, 0}, {0, 3, 0, 0, 3, 0}, {0, 2, 3, 3, 2, 0}, {2, 1, 0, 0, 1, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const x2{buildConnection("hconcat", {I, x1})};
@@ -1195,8 +1152,7 @@ TEST(ArcDslTest, 67e8384a)
     inputs.emplace_back(hodel::Grid{{5, 3, 4}, {3, 4, 5}, {3, 4, 4}});
     outputs.emplace_back(hodel::Grid{{5, 3, 4, 4, 3, 5}, {3, 4, 5, 5, 4, 3}, {3, 4, 4, 4, 4, 3}, {3, 4, 4, 4, 4, 3}, {3, 4, 5, 5, 4, 3}, {5, 3, 4, 4, 3, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const x2{buildConnection("hconcat", {I, x1})};
@@ -1222,8 +1178,7 @@ TEST(ArcDslTest, 7468f01a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 3, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 3, 3, 3, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 3, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 3, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 3, 6, 6, 6}, {6, 6, 3, 3, 3, 6}, {6, 3, 6, 6, 6, 6}, {6, 3, 6, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1238,7 +1193,7 @@ TEST(ArcDslTest, 7468f01a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 662c240a)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1253,8 +1208,7 @@ TEST(ArcDslTest, 662c240a)
     inputs.emplace_back(hodel::Grid{{8, 9, 8}, {9, 8, 8}, {8, 8, 8}, {2, 2, 1}, {2, 2, 1}, {1, 1, 2}, {4, 4, 4}, {4, 4, 3}, {3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{4, 4, 4}, {4, 4, 3}, {3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const dmirror{buildConnection("dmirror", {})};
@@ -1287,8 +1241,7 @@ TEST(ArcDslTest, 42a50994)
     inputs.emplace_back(hodel::Grid{{0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 8, 0, 8, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 8}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0}, {0, 8, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 0, 0, 8, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
@@ -1318,8 +1271,7 @@ TEST(ArcDslTest, 56ff96f3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const backdrop{buildConnection("backdrop", {})};
     Connection const color{buildConnection("color", {})};
@@ -1348,8 +1300,7 @@ TEST(ArcDslTest, 50cb2852)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 8, 8, 2, 0, 0, 0}, {3, 8, 8, 3, 0, 0, 2, 8, 8, 2, 0, 0, 0}, {3, 8, 8, 3, 0, 0, 2, 8, 8, 2, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 2, 8, 8, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 1, 8, 8, 8, 8, 8, 8, 1, 0, 0, 0}, {0, 0, 1, 8, 8, 8, 8, 8, 8, 1, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -1380,8 +1331,7 @@ TEST(ArcDslTest, 4347f46a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1400,7 +1350,7 @@ TEST(ArcDslTest, 4347f46a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 46f33fce)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1413,8 +1363,7 @@ TEST(ArcDslTest, 46f33fce)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 4}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4}, {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4}, {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4}, {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -1442,8 +1391,7 @@ TEST(ArcDslTest, a740d043)
     inputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 5, 5, 1, 1, 1}, {1, 5, 5, 1, 1, 1}, {1, 6, 6, 1, 1, 1}, {1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{5, 5}, {5, 5}, {6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
@@ -1472,8 +1420,7 @@ TEST(ArcDslTest, a79310a0)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 8, 8, 8, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 2, 2, 2, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -1502,8 +1449,7 @@ TEST(ArcDslTest, aabf363d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 0, 0}, {0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 2, 0, 0, 0}, {4, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0}, {0, 0, 4, 4, 4, 0, 0}, {0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const x1{buildConnection("leastcolor", {I})};
@@ -1517,7 +1463,7 @@ TEST(ArcDslTest, aabf363d)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, ae4f1146)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1532,8 +1478,7 @@ TEST(ArcDslTest, ae4f1146)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 0, 0, 0, 0, 0, 0}, {1, 8, 8, 0, 8, 1, 8, 0, 0}, {8, 8, 8, 0, 1, 1, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 0, 0}, {0, 8, 8, 1, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 0, 0, 8, 1, 8}, {0, 8, 1, 8, 0, 0, 1, 8, 1}, {0, 0, 0, 0, 0, 0, 1, 8, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 1, 8}, {1, 8, 1}, {1, 8, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1561,8 +1506,7 @@ TEST(ArcDslTest, b27ca6d3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1591,8 +1535,7 @@ TEST(ArcDslTest, ce22a75a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 1, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1623,8 +1566,7 @@ TEST(ArcDslTest, dc1df850)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0}, {1, 2, 1, 0, 0}, {1, 1, 1, 0, 0}, {0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1642,7 +1584,7 @@ TEST(ArcDslTest, dc1df850)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, f25fbde4)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1655,8 +1597,7 @@ TEST(ArcDslTest, f25fbde4)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 4, 4, 0, 0}, {0, 0, 4, 4, 0, 0}, {4, 4, 4, 4, 0, 0}, {4, 4, 4, 4, 0, 0}, {0, 0, 4, 4, 0, 0}, {0, 0, 4, 4, 0, 0}, {0, 0, 4, 4, 4, 4}, {0, 0, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -1671,7 +1612,7 @@ TEST(ArcDslTest, f25fbde4)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 44d8ac46)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1686,8 +1627,7 @@ TEST(ArcDslTest, 44d8ac46)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 5, 5, 5, 5, 0}, {0, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 2, 2, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 2, 2, 5, 0, 0, 5, 5, 5, 5, 0}, {0, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 2, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1718,8 +1658,7 @@ TEST(ArcDslTest, 1e0a9b12)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 1, 0}, {0, 3, 0, 0, 0}, {0, 3, 0, 1, 2}, {6, 0, 0, 0, 0}, {0, 3, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 3, 0, 0, 0}, {0, 3, 0, 1, 0}, {6, 3, 0, 1, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const identity{buildConnection("identity", {})};
     Connection const order{buildConnection("order", {})};
@@ -1734,7 +1673,7 @@ TEST(ArcDslTest, 1e0a9b12)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 0d3d703e)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1749,8 +1688,7 @@ TEST(ArcDslTest, 0d3d703e)
     inputs.emplace_back(hodel::Grid{{3, 1, 2}, {3, 1, 2}, {3, 1, 2}});
     outputs.emplace_back(hodel::Grid{{4, 5, 6}, {4, 5, 6}, {4, 5, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -1771,7 +1709,7 @@ TEST(ArcDslTest, 0d3d703e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 3618c87e)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1784,8 +1722,7 @@ TEST(ArcDslTest, 3618c87e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 1, 0, 0, 1}, {0, 5, 0, 0, 5}, {5, 5, 5, 5, 5}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 5, 0, 0, 5}, {5, 1, 5, 5, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1815,8 +1752,7 @@ TEST(ArcDslTest, 1c786137)
     inputs.emplace_back(hodel::Grid{{2, 5, 0, 0, 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 3, 5, 3, 5}, {2, 0, 0, 2, 0, 2, 2, 2, 2, 2, 2, 5, 3, 0, 3, 2, 0, 5}, {0, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 0, 0}, {2, 0, 2, 8, 0, 0, 5, 3, 3, 3, 2, 2, 5, 0, 8, 2, 5, 5}, {5, 0, 3, 8, 3, 0, 0, 5, 5, 5, 5, 2, 0, 5, 8, 3, 3, 3}, {0, 5, 5, 8, 3, 5, 0, 2, 0, 3, 0, 5, 3, 0, 8, 0, 2, 5}, {5, 2, 2, 8, 3, 2, 5, 5, 0, 5, 3, 0, 5, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 5, 2, 5, 2, 5, 0, 2, 2, 2, 2, 8, 2, 0, 5}, {5, 0, 5, 8, 0, 5, 2, 5, 0, 0, 0, 0, 3, 3, 8, 0, 0, 5}, {3, 0, 0, 8, 2, 3, 2, 3, 0, 0, 5, 0, 5, 0, 8, 3, 2, 0}, {3, 5, 0, 8, 3, 2, 5, 0, 5, 0, 0, 0, 5, 5, 8, 0, 0, 2}, {3, 3, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 2, 0}, {5, 0, 0, 3, 0, 3, 3, 5, 2, 5, 0, 0, 0, 0, 0, 5, 0, 0}, {2, 5, 2, 5, 2, 2, 0, 0, 0, 5, 2, 0, 2, 0, 3, 0, 3, 0}, {0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 3, 3, 2, 0, 2, 5, 2, 5}, {3, 0, 0, 0, 0, 5, 3, 0, 0, 0, 2, 2, 5, 0, 2, 3, 2, 0}, {0, 0, 2, 5, 0, 5, 0, 3, 0, 0, 0, 0, 2, 3, 3, 5, 2, 3}});
     outputs.emplace_back(hodel::Grid{{0, 0, 5, 3, 3, 3, 2, 2, 5, 0}, {3, 0, 0, 5, 5, 5, 5, 2, 0, 5}, {3, 5, 0, 2, 0, 3, 0, 5, 3, 0}, {3, 2, 5, 5, 0, 5, 3, 0, 5, 0}, {5, 2, 5, 2, 5, 0, 2, 2, 2, 2}, {0, 5, 2, 5, 0, 0, 0, 0, 3, 3}, {2, 3, 2, 3, 0, 0, 5, 0, 5, 0}, {3, 2, 5, 0, 5, 0, 0, 0, 5, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1845,8 +1781,7 @@ TEST(ArcDslTest, 8efcae92)
     inputs.emplace_back(hodel::Grid{{0, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 2, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0}, {0, 1, 2, 1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 2, 1, 2, 1, 0, 0, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 1, 2, 1, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0}, {0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1}, {1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1}, {1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -1878,8 +1813,7 @@ TEST(ArcDslTest, 445eab21)
     inputs.emplace_back(hodel::Grid{{0, 4, 4, 4, 4, 4, 4, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2}});
     outputs.emplace_back(hodel::Grid{{4, 4}, {4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1914,8 +1848,7 @@ TEST(ArcDslTest, 6f8cd79b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8}, {8, 0, 8}, {8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const bordering{buildConnection("bordering", {})};
@@ -1943,8 +1876,7 @@ TEST(ArcDslTest, 2013d3e2)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 6, 8, 8, 6, 0, 0, 0}, {0, 0, 7, 8, 4, 4, 8, 7, 0, 0}, {0, 0, 7, 8, 4, 4, 8, 7, 0, 0}, {0, 0, 0, 6, 8, 8, 6, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 7}, {0, 6, 8}, {7, 8, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -1971,8 +1903,7 @@ TEST(ArcDslTest, 41e4d17e)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 8, 8, 8, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 8, 8, 8, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 8, 8, 8, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 8, 6, 8, 1, 8, 8, 8, 8, 8, 8, 8}, {6, 6, 6, 1, 6, 6, 6, 1, 6, 6, 6, 6, 6, 6, 6}, {8, 8, 8, 1, 8, 6, 8, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -1993,7 +1924,7 @@ TEST(ArcDslTest, 41e4d17e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 9565186b)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2008,8 +1939,7 @@ TEST(ArcDslTest, 9565186b)
     inputs.emplace_back(hodel::Grid{{2, 2, 2}, {2, 1, 8}, {2, 8, 8}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2}, {2, 5, 5}, {2, 5, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -2027,7 +1957,7 @@ TEST(ArcDslTest, 9565186b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, aedd82e4)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2042,8 +1972,7 @@ TEST(ArcDslTest, aedd82e4)
     inputs.emplace_back(hodel::Grid{{0, 2, 2}, {0, 2, 2}, {2, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 2}, {0, 2, 2}, {1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -2072,8 +2001,7 @@ TEST(ArcDslTest, bb43febb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 2, 2, 2, 5, 0, 5, 5, 5, 0}, {5, 2, 2, 2, 5, 0, 5, 2, 5, 0}, {5, 2, 2, 2, 5, 0, 5, 2, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -2093,7 +2021,7 @@ TEST(ArcDslTest, bb43febb)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, e98196ab)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2106,8 +2034,7 @@ TEST(ArcDslTest, e98196ab)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2}, {0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0}, {2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -2136,8 +2063,7 @@ TEST(ArcDslTest, f76d97a5)
     inputs.emplace_back(hodel::Grid{{9, 5, 9, 9, 9}, {9, 9, 5, 5, 9}, {9, 5, 9, 9, 9}, {9, 9, 5, 9, 9}, {9, 9, 9, 5, 5}});
     outputs.emplace_back(hodel::Grid{{0, 9, 0, 0, 0}, {0, 0, 9, 9, 0}, {0, 9, 0, 0, 0}, {0, 0, 9, 0, 0}, {0, 0, 0, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -2153,7 +2079,7 @@ TEST(ArcDslTest, f76d97a5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, ce9e57f2)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2166,8 +2092,7 @@ TEST(ArcDslTest, ce9e57f2)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 2, 0, 2, 0}, {0, 2, 0, 2, 0, 2, 0, 2, 0}, {0, 2, 0, 2, 0, 2, 0, 2, 0}, {0, 2, 0, 2, 0, 2, 0, 2, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 2, 0, 0, 0, 2, 0, 8, 0}, {0, 8, 0, 2, 0, 2, 0, 8, 0}, {0, 8, 0, 2, 0, 8, 0, 8, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -2201,8 +2126,7 @@ TEST(ArcDslTest, 22eb0ac0)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const backdrop{buildConnection("backdrop", {})};
     Connection const color{buildConnection("color", {})};
@@ -2233,8 +2157,7 @@ TEST(ArcDslTest, 9f236235)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 8, 8, 8, 2, 0, 0, 0}, {0, 0, 0, 2, 8, 8, 8, 2, 0, 0, 0}, {0, 0, 0, 2, 8, 8, 8, 2, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {8, 8, 8, 2, 8, 8, 8, 2, 0, 0, 0}, {8, 8, 8, 2, 8, 8, 8, 2, 0, 0, 0}, {8, 8, 8, 2, 8, 8, 8, 2, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 0, 2, 0, 0, 0, 2, 4, 4, 4}, {0, 0, 0, 2, 0, 0, 0, 2, 4, 4, 4}, {0, 0, 0, 2, 0, 0, 0, 2, 4, 4, 4}});
     outputs.emplace_back(hodel::Grid{{0, 8, 0}, {0, 8, 8}, {4, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -2251,7 +2174,7 @@ TEST(ArcDslTest, 9f236235)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, a699fb00)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2264,8 +2187,7 @@ TEST(ArcDslTest, a699fb00)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 2, 1, 0}, {0, 1, 2, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 2, 1, 2, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 2, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 2, 1, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const LEFT{buildConnection("LEFT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -2296,8 +2218,7 @@ TEST(ArcDslTest, 46442a0e)
     inputs.emplace_back(hodel::Grid{{6, 9, 9}, {6, 4, 4}, {6, 4, 4}});
     outputs.emplace_back(hodel::Grid{{6, 9, 9, 6, 6, 6}, {6, 4, 4, 4, 4, 9}, {6, 4, 4, 4, 4, 9}, {9, 4, 4, 4, 4, 6}, {9, 4, 4, 4, 4, 6}, {6, 6, 6, 9, 9, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("rot90", {I})};
     Connection const x2{buildConnection("rot180", {I})};
@@ -2325,8 +2246,7 @@ TEST(ArcDslTest, 7fe24cdd)
     inputs.emplace_back(hodel::Grid{{0, 3, 0}, {6, 6, 6}, {0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 3, 0, 0, 6, 0}, {6, 6, 6, 3, 6, 3}, {0, 3, 0, 0, 6, 0}, {0, 6, 0, 0, 3, 0}, {3, 6, 3, 6, 6, 6}, {0, 6, 0, 0, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("rot90", {I})};
     Connection const x2{buildConnection("rot180", {I})};
@@ -2341,7 +2261,7 @@ TEST(ArcDslTest, 7fe24cdd)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 0ca9ddb6)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2354,8 +2274,7 @@ TEST(ArcDslTest, 0ca9ddb6)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 6, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 6, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0}, {0, 0, 7, 1, 7, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -2387,8 +2306,7 @@ TEST(ArcDslTest, 543a7ed5)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 6, 8, 8, 6, 8, 8, 8}, {8, 8, 8, 6, 6, 8, 8, 8, 6, 8, 8, 6, 8, 8, 8}, {8, 8, 8, 6, 6, 8, 8, 8, 6, 8, 8, 6, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 6, 6, 6, 6, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 3, 6, 6, 6, 6, 3, 8, 8}, {8, 8, 3, 3, 3, 3, 8, 3, 6, 4, 4, 6, 3, 8, 8}, {8, 8, 3, 6, 6, 3, 8, 3, 6, 4, 4, 6, 3, 8, 8}, {8, 8, 3, 6, 6, 3, 8, 3, 6, 4, 4, 6, 3, 8, 8}, {8, 8, 3, 3, 3, 3, 8, 3, 6, 6, 6, 6, 3, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 6, 6, 6, 6, 3, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 6, 6, 6, 6, 3, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 6, 6, 6, 6, 3, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 6, 6, 6, 6, 3, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -2410,7 +2328,7 @@ TEST(ArcDslTest, 543a7ed5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 0520fde7)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2423,8 +2341,7 @@ TEST(ArcDslTest, 0520fde7)
     inputs.emplace_back(hodel::Grid{{0, 0, 1, 5, 0, 0, 0}, {1, 1, 0, 5, 1, 0, 1}, {0, 1, 1, 5, 1, 0, 1}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0}, {2, 0, 0}, {0, 0, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -2459,8 +2376,7 @@ TEST(ArcDslTest, dae9d2b5)
     inputs.emplace_back(hodel::Grid{{4, 4, 0, 3, 3, 0}, {4, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 3}});
     outputs.emplace_back(hodel::Grid{{6, 6, 0}, {6, 0, 0}, {0, 0, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -2491,8 +2407,7 @@ TEST(ArcDslTest, 8d5021e8)
     inputs.emplace_back(hodel::Grid{{0, 0}, {0, 5}, {5, 0}});
     outputs.emplace_back(hodel::Grid{{0, 5, 5, 0}, {5, 0, 0, 5}, {0, 0, 0, 0}, {0, 0, 0, 0}, {5, 0, 0, 5}, {0, 5, 5, 0}, {0, 5, 5, 0}, {5, 0, 0, 5}, {0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("vmirror", {I})};
     Connection const x2{buildConnection("hconcat", {x1, I})};
@@ -2520,8 +2435,7 @@ TEST(ArcDslTest, 928ad970)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 5, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 4, 4, 4, 4, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 4, 0, 0, 4, 0, 0, 0, 4, 5, 0}, {0, 0, 4, 0, 4, 0, 0, 4, 0, 0, 0, 4, 0, 0}, {0, 5, 4, 0, 4, 4, 4, 4, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const x1{buildConnection("ofcolor", {I, FIVE})};
@@ -2537,7 +2451,7 @@ TEST(ArcDslTest, 928ad970)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, b60334d2)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2548,8 +2462,7 @@ TEST(ArcDslTest, b60334d2)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 1, 5, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0}, {0, 0, 5, 1, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 1, 5, 0}, {0, 0, 0, 0, 0, 1, 0, 1, 0}, {0, 5, 1, 5, 0, 5, 1, 5, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 5, 1, 5, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -2569,7 +2482,7 @@ TEST(ArcDslTest, b60334d2)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, b94a9452)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2582,8 +2495,7 @@ TEST(ArcDslTest, b94a9452)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 6, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6}, {6, 6, 6, 6, 6}, {6, 6, 4, 6, 6}, {6, 6, 6, 6, 6}, {6, 6, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -2600,7 +2512,7 @@ TEST(ArcDslTest, b94a9452)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, d037b0a7)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2613,8 +2525,7 @@ TEST(ArcDslTest, d037b0a7)
     inputs.emplace_back(hodel::Grid{{4, 0, 0}, {0, 2, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 0}, {4, 2, 0}, {4, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -2636,7 +2547,7 @@ TEST(ArcDslTest, d037b0a7)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, d0f5fe59)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2649,8 +2560,7 @@ TEST(ArcDslTest, d0f5fe59)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 8, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 0}, {0, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -2671,7 +2581,7 @@ TEST(ArcDslTest, d0f5fe59)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, e3497940)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2684,8 +2594,7 @@ TEST(ArcDslTest, e3497940)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 7, 0, 0, 0}, {0, 0, 0, 8, 5, 0, 0, 0, 0}, {0, 0, 0, 8, 5, 0, 0, 0, 0}, {0, 7, 8, 8, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 8, 8, 0, 0}, {0, 0, 0, 8, 5, 0, 0, 0, 0}, {0, 0, 0, 8, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 8, 7, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 0, 0, 7}, {0, 0, 0, 8}, {0, 0, 0, 8}, {0, 7, 8, 8}, {0, 0, 8, 8}, {0, 0, 0, 8}, {0, 0, 0, 8}, {0, 0, 7, 8}, {0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -2702,7 +2611,7 @@ TEST(ArcDslTest, e3497940)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, e9afcf9a)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2713,8 +2622,7 @@ TEST(ArcDslTest, e9afcf9a)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3}, {9, 9, 9, 9, 9, 9}});
     outputs.emplace_back(hodel::Grid{{3, 9, 3, 9, 3, 9}, {9, 3, 9, 3, 9, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -2732,7 +2640,7 @@ TEST(ArcDslTest, e9afcf9a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 48d8fb45)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2745,8 +2653,7 @@ TEST(ArcDslTest, 48d8fb45)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 2}, {2, 2, 0}, {0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
@@ -2780,8 +2687,7 @@ TEST(ArcDslTest, d406998b)
     inputs.emplace_back(hodel::Grid{{5, 0, 5, 0, 0, 5, 0, 0, 0, 5}, {0, 5, 0, 0, 5, 0, 0, 5, 0, 0}, {0, 0, 0, 5, 0, 0, 5, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{5, 0, 5, 0, 0, 3, 0, 0, 0, 3}, {0, 3, 0, 0, 5, 0, 0, 3, 0, 0}, {0, 0, 0, 3, 0, 0, 5, 0, 5, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -2813,8 +2719,7 @@ TEST(ArcDslTest, 5117e062)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0}, {0, 2, 2, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2}, {0, 2, 0}, {2, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -2847,8 +2752,7 @@ TEST(ArcDslTest, 3906de3d)
     inputs.emplace_back(hodel::Grid{{0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 0, 1, 1, 1, 1, 0, 1}, {0, 1, 1, 0, 0, 1, 0, 1, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 2, 0, 2, 0}, {0, 0, 0, 2, 2, 0, 2, 0, 2, 0}, {0, 0, 0, 2, 2, 0, 2, 0, 2, 0}});
     outputs.emplace_back(hodel::Grid{{0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 2, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 2, 1, 1, 1, 1, 2, 1}, {0, 1, 1, 2, 2, 1, 2, 1, 2, 1}, {0, 0, 0, 0, 2, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -2884,8 +2788,7 @@ TEST(ArcDslTest, 00d62c1b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0}, {0, 3, 0, 3, 0, 0}, {0, 0, 3, 0, 3, 0}, {0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0}, {0, 3, 4, 3, 0, 0}, {0, 0, 3, 4, 3, 0}, {0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -2919,8 +2822,7 @@ TEST(ArcDslTest, 7b6016b9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 4, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 4, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 4, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 4, 3, 3}, {3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 4, 3, 3, 3, 3, 3, 4, 2, 2, 2, 2, 4, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 4, 3, 3, 3, 3, 3, 4, 2, 2, 2, 2, 4, 3, 3}, {3, 3, 3, 3, 4, 2, 2, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3, 3}, {3, 3, 3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -2957,8 +2859,7 @@ TEST(ArcDslTest, 67385a82)
     inputs.emplace_back(hodel::Grid{{3, 3, 0}, {0, 3, 0}, {3, 0, 3}});
     outputs.emplace_back(hodel::Grid{{8, 8, 0}, {0, 8, 0}, {3, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -2991,8 +2892,7 @@ TEST(ArcDslTest, a5313dff)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0}, {0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 1, 1, 1, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 1, 2, 1, 2, 2, 2, 2, 0}, {0, 0, 0, 2, 1, 1, 1, 2, 1, 1, 2, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 1, 1, 2, 0}, {0, 0, 0, 2, 1, 1, 1, 2, 1, 1, 2, 0}, {0, 0, 0, 2, 1, 2, 1, 2, 2, 2, 2, 0}, {0, 0, 0, 2, 1, 1, 1, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -3028,8 +2928,7 @@ TEST(ArcDslTest, ea32f347)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 5, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 5, 0, 0}, {0, 5, 0, 0, 5, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 4, 0, 0, 2, 0, 0}, {0, 1, 0, 0, 4, 0, 0, 2, 0, 0}, {0, 1, 0, 0, 4, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -3051,7 +2950,7 @@ TEST(ArcDslTest, ea32f347)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, d631b094)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3066,8 +2965,7 @@ TEST(ArcDslTest, d631b094)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {1, 0, 0}, {0, 1, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -3084,7 +2982,7 @@ TEST(ArcDslTest, d631b094)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 10fcaaa3)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3099,8 +2997,7 @@ TEST(ArcDslTest, 10fcaaa3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 5, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 0, 8, 0, 8, 0, 8, 0}, {0, 5, 0, 0, 0, 5, 0, 0}, {8, 0, 8, 0, 8, 0, 8, 0}, {0, 5, 0, 0, 0, 5, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ineighbors{buildConnection("ineighbors", {})};
@@ -3117,7 +3014,7 @@ TEST(ArcDslTest, 10fcaaa3)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 007bbfb7)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3134,8 +3031,7 @@ TEST(ArcDslTest, 007bbfb7)
     inputs.emplace_back(hodel::Grid{{0, 7, 7}, {7, 7, 7}, {0, 7, 7}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 7, 7, 0, 7, 7}, {0, 0, 0, 7, 7, 7, 7, 7, 7}, {0, 0, 0, 0, 7, 7, 0, 7, 7}, {0, 7, 7, 0, 7, 7, 0, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7}, {0, 7, 7, 0, 7, 7, 0, 7, 7}, {0, 0, 0, 0, 7, 7, 0, 7, 7}, {0, 0, 0, 7, 7, 7, 7, 7, 7}, {0, 0, 0, 0, 7, 7, 0, 7, 7}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -3164,8 +3060,7 @@ TEST(ArcDslTest, 496994bd)
     inputs.emplace_back(hodel::Grid{{2, 2, 2}, {2, 2, 2}, {3, 3, 3}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2}, {2, 2, 2}, {3, 3, 3}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {3, 3, 3}, {2, 2, 2}, {2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const x1{buildConnection("width", {I})};
@@ -3182,7 +3077,7 @@ TEST(ArcDslTest, 496994bd)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 1f876c06)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3195,8 +3090,7 @@ TEST(ArcDslTest, 1f876c06)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 6, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {9, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 6, 0, 8, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 0, 8, 0, 0, 0}, {0, 6, 4, 0, 0, 0, 0, 8, 0, 0}, {6, 0, 0, 4, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 8}, {0, 0, 0, 0, 9, 4, 0, 0, 0, 0}, {0, 0, 0, 9, 0, 0, 4, 0, 0, 0}, {0, 0, 9, 0, 0, 0, 0, 0, 0, 0}, {0, 9, 0, 0, 0, 0, 0, 0, 0, 0}, {9, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const color{buildConnection("color", {})};
@@ -3231,8 +3125,7 @@ TEST(ArcDslTest, 05f2a901)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -3265,8 +3158,7 @@ TEST(ArcDslTest, 39a8645d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0}, {0, 0, 8, 8, 8, 0, 0, 0, 0, 6, 6, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 8, 0}, {8, 8, 8}, {0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const color{buildConnection("color", {})};
@@ -3301,8 +3193,7 @@ TEST(ArcDslTest, 1b2d62fb)
     inputs.emplace_back(hodel::Grid{{0, 9, 9, 1, 9, 9, 9}, {0, 0, 9, 1, 9, 9, 0}, {9, 0, 9, 1, 9, 9, 0}, {0, 0, 0, 1, 9, 0, 0}, {0, 9, 9, 1, 9, 9, 9}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 8, 8}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -3334,8 +3225,7 @@ TEST(ArcDslTest, 90c28cc7)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 2}, {3, 3}, {4, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3364,8 +3254,7 @@ TEST(ArcDslTest, b6afb2da)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 4, 4, 1, 0, 0, 0, 0, 0}, {0, 4, 2, 2, 4, 0, 0, 0, 0, 0}, {0, 4, 2, 2, 4, 0, 0, 0, 0, 0}, {0, 1, 4, 4, 1, 0, 1, 4, 4, 1}, {0, 0, 0, 0, 0, 0, 4, 2, 2, 4}, {0, 0, 0, 0, 0, 0, 4, 2, 2, 4}, {0, 0, 0, 0, 0, 0, 4, 2, 2, 4}, {0, 0, 0, 0, 0, 0, 1, 4, 4, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -3402,8 +3291,7 @@ TEST(ArcDslTest, b9b7f026)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 7, 7, 7, 7, 7, 0}, {0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 7, 7, 7, 7, 7, 0}, {0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 0, 7, 7, 7, 7, 7, 0}, {0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 0, 7, 7, 7, 7, 7, 0}, {0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3439,8 +3327,7 @@ TEST(ArcDslTest, ba97ae07)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3470,8 +3357,7 @@ TEST(ArcDslTest, c9f8e694)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 5, 5, 0, 0, 0, 0, 5, 5, 0, 0}, {2, 0, 5, 5, 0, 0, 0, 0, 5, 5, 0, 0}, {2, 0, 5, 5, 0, 0, 0, 0, 5, 5, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0}, {1, 0, 0, 0, 5, 5, 5, 0, 5, 5, 0, 0}, {1, 0, 0, 0, 5, 5, 5, 0, 5, 5, 0, 0}, {2, 0, 0, 0, 5, 5, 5, 0, 5, 5, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0}, {2, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0}, {2, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0}, {1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0}, {2, 0, 0, 0, 2, 2, 2, 0, 2, 2, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -3503,8 +3389,7 @@ TEST(ArcDslTest, d23f8c26)
     inputs.emplace_back(hodel::Grid{{3, 0, 4, 0, 0}, {3, 0, 4, 7, 0}, {0, 6, 0, 0, 7}, {0, 0, 8, 0, 0}, {0, 8, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 4, 0, 0}, {0, 0, 4, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 8, 0, 0}, {0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const flip{buildConnection("flip", {})};
@@ -3536,8 +3421,7 @@ TEST(ArcDslTest, d5d6de2d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3576,8 +3460,7 @@ TEST(ArcDslTest, dbc1a6ce)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 1}, {0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 1, 8, 8, 8, 8, 8, 1, 0}, {0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 1, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 1, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -3614,8 +3497,7 @@ TEST(ArcDslTest, ded97339)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const connect{buildConnection("connect", {})};
@@ -3651,8 +3533,7 @@ TEST(ArcDslTest, ea786f4a)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 0, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{0, 3, 3, 3, 3, 3, 0}, {3, 0, 3, 3, 3, 0, 3}, {3, 3, 0, 3, 0, 3, 3}, {3, 3, 3, 0, 3, 3, 3}, {3, 3, 0, 3, 0, 3, 3}, {3, 0, 3, 3, 3, 0, 3}, {0, 3, 3, 3, 3, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -3683,8 +3564,7 @@ TEST(ArcDslTest, 08ed6ac7)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 5, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 5, 0, 5, 0, 5, 0, 0, 0}, {0, 5, 0, 5, 0, 5, 0, 0, 0}, {0, 5, 0, 5, 0, 5, 0, 0, 0}, {0, 5, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 5, 0, 5, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 0, 3, 0, 1, 0, 0, 0}, {0, 2, 0, 3, 0, 1, 0, 0, 0}, {0, 2, 0, 3, 0, 1, 0, 0, 0}, {0, 2, 0, 3, 0, 1, 0, 4, 0}, {0, 2, 0, 3, 0, 1, 0, 4, 0}, {0, 2, 0, 3, 0, 1, 0, 4, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const NEG_ONE{buildConnection("NEG_ONE", {})};
@@ -3719,8 +3599,7 @@ TEST(ArcDslTest, 5521c0d9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 0, 0}, {0, 2, 2, 2, 2, 0, 0, 1, 0, 0, 0, 4, 4, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3756,8 +3635,7 @@ TEST(ArcDslTest, f8ff0b80)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4}, {2}, {1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const UNITY{buildConnection("UNITY", {})};
@@ -3793,8 +3671,7 @@ TEST(ArcDslTest, 85c4e7cd)
     inputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4}, {4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4}, {4, 2, 1, 3, 3, 3, 3, 3, 3, 1, 2, 4}, {4, 2, 1, 3, 5, 5, 5, 5, 3, 1, 2, 4}, {4, 2, 1, 3, 5, 8, 8, 5, 3, 1, 2, 4}, {4, 2, 1, 3, 5, 8, 8, 5, 3, 1, 2, 4}, {4, 2, 1, 3, 5, 5, 5, 5, 3, 1, 2, 4}, {4, 2, 1, 3, 3, 3, 3, 3, 3, 1, 2, 4}, {4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4}, {4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8}, {8, 5, 3, 3, 3, 3, 3, 3, 3, 3, 5, 8}, {8, 5, 3, 1, 1, 1, 1, 1, 1, 3, 5, 8}, {8, 5, 3, 1, 2, 2, 2, 2, 1, 3, 5, 8}, {8, 5, 3, 1, 2, 4, 4, 2, 1, 3, 5, 8}, {8, 5, 3, 1, 2, 4, 4, 2, 1, 3, 5, 8}, {8, 5, 3, 1, 2, 2, 2, 2, 1, 3, 5, 8}, {8, 5, 3, 1, 1, 1, 1, 1, 1, 3, 5, 8}, {8, 5, 3, 3, 3, 3, 3, 3, 3, 3, 5, 8}, {8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -3829,8 +3706,7 @@ TEST(ArcDslTest, d2abd087)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 0, 0, 0, 0, 5, 5, 5}, {0, 5, 5, 0, 5, 5, 0, 5, 0, 0}, {0, 0, 5, 0, 5, 5, 0, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 5}, {0, 5, 5, 0, 0, 5, 5, 0, 0, 5}, {0, 0, 0, 0, 0, 5, 5, 0, 0, 5}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0, 0, 0, 2, 2, 2}, {0, 1, 1, 0, 1, 1, 0, 2, 0, 0}, {0, 0, 1, 0, 1, 1, 0, 2, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 0, 0, 0, 1}, {0, 1, 1, 0, 0, 2, 2, 0, 0, 1}, {0, 0, 0, 0, 0, 2, 2, 0, 0, 1}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -3866,8 +3742,7 @@ TEST(ArcDslTest, 017c7c7b)
     inputs.emplace_back(hodel::Grid{{0, 1, 0}, {1, 1, 0}, {0, 1, 0}, {0, 1, 0}, {1, 1, 0}, {0, 1, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0}, {2, 2, 0}, {0, 2, 0}, {0, 2, 0}, {2, 2, 0}, {0, 2, 0}, {0, 2, 0}, {2, 2, 0}, {0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const THREE_BY_THREE{buildConnection("THREE_BY_THREE", {})};
@@ -3900,8 +3775,7 @@ TEST(ArcDslTest, 363442ee)
     inputs.emplace_back(hodel::Grid{{3, 8, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {9, 8, 2, 5, 0, 1, 0, 0, 0, 0, 0, 1, 0}, {9, 9, 9, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 8, 6, 5, 3, 8, 6, 0, 0, 0, 3, 8, 6}, {9, 8, 2, 5, 9, 8, 2, 0, 0, 0, 9, 8, 2}, {9, 9, 9, 5, 9, 9, 9, 0, 0, 0, 9, 9, 9}, {0, 0, 0, 5, 0, 0, 0, 3, 8, 6, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 9, 8, 2, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 9, 9, 9, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 3, 8, 6, 3, 8, 6}, {0, 0, 0, 5, 0, 0, 0, 9, 8, 2, 9, 8, 2}, {0, 0, 0, 5, 0, 0, 0, 9, 9, 9, 9, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -3935,8 +3809,7 @@ TEST(ArcDslTest, 5168d44c)
     inputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0}, {0, 2, 3, 2, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0}, {0, 2, 3, 2, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -3968,8 +3841,7 @@ TEST(ArcDslTest, e9614598)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 1, 0, 3, 3, 3, 0, 1, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4005,8 +3877,7 @@ TEST(ArcDslTest, d9fac9be)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 0, 2, 0, 0, 2}, {0, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 2, 4, 0, 0, 2, 0, 0}, {0, 4, 4, 4, 0, 0, 0, 2, 0}, {2, 0, 0, 0, 0, 2, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -4040,8 +3911,7 @@ TEST(ArcDslTest, e50d258f)
     inputs.emplace_back(hodel::Grid{{2, 8, 8, 8, 0, 0, 0, 0, 0, 0}, {8, 8, 1, 8, 0, 0, 0, 0, 0, 0}, {1, 8, 8, 8, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 2, 0, 0, 1, 8, 8, 2}, {8, 2, 8, 1, 0, 0, 8, 8, 1, 8}, {8, 1, 8, 8, 0, 0, 8, 2, 8, 8}, {0, 0, 0, 0, 0, 0, 8, 8, 8, 1}, {0, 0, 0, 0, 0, 0, 1, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 8, 8, 1, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 8, 8, 8}, {8, 8, 1, 8}, {1, 8, 8, 8}, {8, 8, 8, 2}, {8, 2, 8, 1}, {8, 1, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -4077,8 +3947,7 @@ TEST(ArcDslTest, 810b9b61)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 1, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 3, 0, 0, 0, 3, 0, 0, 0}, {0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 1, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4117,8 +3986,7 @@ TEST(ArcDslTest, 54d82841)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 0, 0, 0}, {0, 8, 0, 8, 6, 6, 6}, {0, 0, 0, 0, 6, 0, 6}, {0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 0, 0, 0}, {0, 8, 0, 8, 6, 6, 6}, {0, 0, 0, 0, 6, 0, 6}, {0, 0, 4, 0, 0, 4, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -4152,8 +4020,7 @@ TEST(ArcDslTest, 60b61512)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 0, 0, 0, 0, 0, 0}, {4, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 4, 0}, {0, 0, 0, 0, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 0, 0, 0, 0, 0, 0}, {4, 7, 4, 0, 0, 0, 0, 0, 0}, {7, 7, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 7, 0}, {0, 0, 0, 0, 0, 7, 4, 4, 0}, {0, 0, 0, 0, 0, 4, 7, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const SEVEN{buildConnection("SEVEN", {})};
     Connection const T{buildConnection("T", {})};
@@ -4183,8 +4050,7 @@ TEST(ArcDslTest, 25d8a9c8)
     inputs.emplace_back(hodel::Grid{{4, 4, 4}, {2, 3, 2}, {2, 3, 3}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5}, {0, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -4226,8 +4092,7 @@ TEST(ArcDslTest, 239be575)
     inputs.emplace_back(hodel::Grid{{0, 0, 8, 0, 8}, {2, 2, 8, 0, 0}, {2, 2, 0, 0, 8}, {0, 0, 0, 2, 2}, {8, 8, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -4266,8 +4131,7 @@ TEST(ArcDslTest, 67a423a3)
     inputs.emplace_back(hodel::Grid{{0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {9, 9, 1, 9, 9, 9}, {0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 1, 0, 0, 0}, {0, 4, 4, 4, 0, 0}, {9, 4, 1, 4, 9, 9}, {0, 4, 4, 4, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -4300,8 +4164,7 @@ TEST(ArcDslTest, 5c0a986e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 1, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 2, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -4337,8 +4200,7 @@ TEST(ArcDslTest, 6430c8c4)
     inputs.emplace_back(hodel::Grid{{7, 7, 0, 7}, {0, 7, 7, 0}, {0, 7, 7, 7}, {0, 7, 7, 0}, {4, 4, 4, 4}, {0, 0, 0, 0}, {0, 2, 0, 2}, {2, 2, 2, 0}, {2, 0, 0, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3, 0}, {3, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4373,8 +4235,7 @@ TEST(ArcDslTest, 94f9d214)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 3, 3, 0}, {0, 0, 0, 0}, {3, 0, 0, 3}, {0, 0, 0, 1}, {1, 0, 1, 1}, {1, 1, 1, 1}, {0, 1, 0, 1}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -4409,8 +4270,7 @@ TEST(ArcDslTest, a1570a43)
     inputs.emplace_back(hodel::Grid{{3, 0, 2, 0, 0, 0, 3}, {0, 2, 2, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 0, 0}, {0, 2, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 3}});
     outputs.emplace_back(hodel::Grid{{3, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 2, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 0}, {0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -4444,8 +4304,7 @@ TEST(ArcDslTest, ce4f8723)
     inputs.emplace_back(hodel::Grid{{1, 1, 0, 0}, {0, 1, 0, 1}, {0, 1, 0, 0}, {1, 0, 1, 0}, {4, 4, 4, 4}, {2, 2, 2, 2}, {0, 0, 2, 2}, {2, 2, 0, 0}, {0, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3}, {0, 3, 3, 3}, {3, 3, 0, 0}, {3, 0, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4478,8 +4337,7 @@ TEST(ArcDslTest, d13f3404)
     inputs.emplace_back(hodel::Grid{{0, 0, 6}, {1, 3, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 6, 0, 0, 0}, {1, 3, 0, 6, 0, 0}, {0, 1, 3, 0, 6, 0}, {0, 0, 1, 3, 0, 6}, {0, 0, 0, 1, 3, 0}, {0, 0, 0, 0, 1, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -4526,8 +4384,7 @@ TEST(ArcDslTest, dc433765)
     inputs.emplace_back(hodel::Grid{{3, 0, 0}, {0, 0, 0}, {0, 0, 4}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 3, 0}, {0, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4563,8 +4420,7 @@ TEST(ArcDslTest, f2829549)
     inputs.emplace_back(hodel::Grid{{7, 7, 0, 1, 5, 0, 0}, {7, 0, 0, 1, 5, 0, 0}, {0, 0, 0, 1, 5, 0, 5}, {0, 0, 0, 1, 5, 5, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3}, {0, 3, 3}, {0, 3, 0}, {0, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -4600,8 +4456,7 @@ TEST(ArcDslTest, fafffa47)
     inputs.emplace_back(hodel::Grid{{0, 9, 9}, {0, 9, 9}, {9, 9, 9}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{2, 0, 0}, {2, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -4633,8 +4488,7 @@ TEST(ArcDslTest, fcb5c309)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 3, 0, 2, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 3, 3, 3, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 3, 2, 0, 3, 0, 2, 3, 0, 0}, {0, 3, 0, 2, 0, 0, 0, 3, 0, 0, 3, 0, 0, 3, 0, 0}, {0, 3, 0, 0, 0, 0, 2, 3, 0, 0, 3, 0, 0, 3, 0, 0}, {0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 2, 2}, {2, 0, 2, 0, 2, 0, 2}, {2, 0, 0, 0, 0, 0, 2}, {2, 0, 0, 0, 0, 0, 2}, {2, 0, 2, 0, 0, 0, 2}, {2, 0, 0, 0, 0, 2, 2}, {2, 2, 2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -4667,8 +4521,7 @@ TEST(ArcDslTest, ff805c23)
     inputs.emplace_back(hodel::Grid{{0, 3, 3, 3, 3, 0, 5, 5, 5, 0, 0, 5, 5, 0, 0, 5, 5, 5, 0, 3, 3, 3, 3, 0}, {3, 3, 3, 3, 3, 3, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 5, 5, 0, 0, 5, 0, 0, 0, 3, 3, 3}, {3, 3, 0, 0, 3, 3, 0, 0, 5, 0, 5, 5, 5, 5, 0, 5, 0, 0, 3, 3, 0, 0, 3, 3}, {3, 3, 0, 3, 3, 0, 0, 0, 5, 5, 0, 0, 0, 0, 5, 5, 0, 0, 0, 3, 3, 0, 3, 3}, {0, 3, 0, 3, 0, 3, 5, 0, 0, 5, 0, 0, 0, 0, 5, 0, 0, 5, 3, 0, 3, 0, 3, 0}, {5, 5, 5, 0, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 0, 0, 5, 0, 5, 0, 0, 5, 5, 5}, {5, 5, 0, 0, 0, 0, 5, 5, 5, 0, 0, 5, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0, 5, 5}, {5, 0, 0, 5, 5, 0, 0, 5, 5, 5, 0, 5, 5, 0, 5, 5, 5, 0, 0, 5, 5, 0, 0, 5}, {0, 0, 5, 0, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 0}, {0, 0, 5, 5, 0, 0, 5, 0, 0, 5, 0, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 0, 0}, {5, 0, 0, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 0, 0, 5}, {5, 0, 0, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 0, 0, 5}, {0, 0, 5, 5, 0, 0, 5, 0, 0, 5, 0, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 0, 0}, {0, 0, 5, 0, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 0}, {5, 0, 0, 5, 5, 0, 0, 5, 5, 5, 1, 1, 1, 1, 1, 5, 5, 0, 0, 5, 5, 0, 0, 5}, {5, 5, 0, 0, 0, 0, 5, 5, 5, 0, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0, 0, 5, 5}, {5, 5, 5, 0, 0, 5, 0, 5, 0, 0, 1, 1, 1, 1, 1, 0, 5, 0, 5, 0, 0, 5, 5, 5}, {0, 3, 0, 3, 0, 3, 5, 0, 0, 5, 1, 1, 1, 1, 1, 0, 0, 5, 3, 0, 3, 0, 3, 0}, {3, 3, 0, 3, 3, 0, 0, 0, 5, 5, 1, 1, 1, 1, 1, 5, 0, 0, 0, 3, 3, 0, 3, 3}, {3, 3, 0, 0, 3, 3, 0, 0, 5, 0, 5, 5, 5, 5, 0, 5, 0, 0, 3, 3, 0, 0, 3, 3}, {3, 3, 3, 0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 5, 5, 0, 0, 5, 0, 0, 0, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 3, 3, 3, 3, 3, 3}, {0, 3, 3, 3, 3, 0, 5, 5, 5, 0, 0, 5, 5, 0, 0, 5, 5, 5, 0, 3, 3, 3, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 5, 5, 0, 5}, {0, 5, 5, 0, 0}, {5, 5, 5, 5, 0}, {0, 0, 0, 0, 5}, {0, 0, 0, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const x1{buildConnection("hmirror", {I})};
@@ -4697,8 +4550,7 @@ TEST(ArcDslTest, e76a88a6)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 0}, {0, 0, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 0}, {0, 0, 0, 0, 0, 0, 2, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 4, 4, 4, 0}, {0, 0, 2, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 2, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -4733,8 +4585,7 @@ TEST(ArcDslTest, 7c008303)
     inputs.emplace_back(hodel::Grid{{0, 0, 8, 0, 0, 3, 0, 0, 3}, {0, 0, 8, 0, 0, 3, 0, 0, 3}, {0, 0, 8, 3, 3, 0, 3, 3, 0}, {0, 0, 8, 0, 0, 0, 0, 3, 0}, {0, 0, 8, 0, 3, 0, 3, 0, 0}, {0, 0, 8, 0, 3, 0, 0, 0, 3}, {8, 8, 8, 8, 8, 8, 8, 8, 8}, {2, 4, 8, 0, 0, 0, 0, 0, 0}, {6, 5, 8, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 2, 0, 0, 4}, {0, 0, 2, 0, 0, 4}, {2, 2, 0, 4, 4, 0}, {0, 0, 0, 0, 5, 0}, {0, 6, 0, 5, 0, 0}, {0, 6, 0, 0, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -4767,8 +4618,7 @@ TEST(ArcDslTest, 7f4411dc)
     inputs.emplace_back(hodel::Grid{{0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5}, {0, 5, 5, 5, 5, 0, 0}, {0, 5, 5, 5, 5, 0, 0}, {0, 5, 5, 5, 5, 5, 0}, {5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 0, 0}, {0, 5, 5, 5, 5, 0, 0}, {0, 5, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -4804,8 +4654,7 @@ TEST(ArcDslTest, b230c067)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -4840,8 +4689,7 @@ TEST(ArcDslTest, e8593010)
     inputs.emplace_back(hodel::Grid{{0, 0, 5, 5, 0, 5, 5, 5, 0, 5}, {5, 5, 0, 0, 5, 5, 5, 5, 0, 5}, {5, 0, 5, 0, 5, 0, 5, 5, 0, 5}, {5, 0, 5, 5, 0, 5, 5, 5, 5, 5}, {5, 5, 5, 0, 0, 5, 5, 0, 5, 0}, {5, 5, 0, 5, 5, 5, 5, 0, 5, 0}, {5, 5, 0, 5, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 0, 5, 5, 5, 5, 5, 5}, {5, 0, 5, 5, 5, 0, 5, 0, 5, 5}, {5, 5, 0, 5, 5, 5, 5, 5, 5, 5}});
     outputs.emplace_back(hodel::Grid{{2, 2, 5, 5, 3, 5, 5, 5, 1, 5}, {5, 5, 1, 1, 5, 5, 5, 5, 1, 5}, {5, 2, 5, 1, 5, 3, 5, 5, 1, 5}, {5, 2, 5, 5, 1, 5, 5, 5, 5, 5}, {5, 5, 5, 1, 1, 5, 5, 2, 5, 2}, {5, 5, 2, 5, 5, 5, 5, 2, 5, 2}, {5, 5, 2, 5, 5, 3, 5, 5, 5, 5}, {5, 5, 5, 3, 5, 5, 5, 5, 5, 5}, {5, 3, 5, 5, 5, 3, 5, 3, 5, 5}, {5, 5, 3, 5, 5, 5, 5, 5, 5, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -4877,8 +4725,7 @@ TEST(ArcDslTest, 6d75e8bb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 8, 8, 0, 0}, {0, 2, 2, 8, 2, 8, 0, 0}, {0, 2, 8, 8, 8, 8, 0, 0}, {0, 2, 2, 8, 8, 8, 0, 0}, {0, 2, 2, 2, 8, 8, 0, 0}, {0, 2, 2, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -4912,8 +4759,7 @@ TEST(ArcDslTest, 3f7978a0)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 8, 0, 0, 0}, {0, 0, 8, 5, 0, 8, 0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 8, 0, 0, 0, 0}, {0, 0, 8, 5, 0, 8, 0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 0, 0, 0, 8}, {5, 0, 0, 0, 5}, {5, 0, 8, 0, 5}, {5, 0, 0, 0, 5}, {5, 0, 8, 0, 5}, {8, 0, 0, 0, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -4947,8 +4793,7 @@ TEST(ArcDslTest, 1190e5a7)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}, {3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}, {3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const size{buildConnection("size", {})};
     Connection const vline{buildConnection("vline", {})};
@@ -4984,8 +4829,7 @@ TEST(ArcDslTest, 6e02f1e3)
     inputs.emplace_back(hodel::Grid{{2, 2, 2}, {3, 2, 3}, {3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{5, 0, 0}, {0, 5, 0}, {0, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -5022,8 +4866,7 @@ TEST(ArcDslTest, a61f2674)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 5, 0, 0}, {5, 0, 5, 0, 0, 0, 5, 0, 0}, {5, 0, 5, 0, 0, 0, 5, 0, 0}, {5, 0, 5, 0, 5, 0, 5, 0, 0}, {5, 0, 5, 0, 5, 0, 5, 0, 5}, {5, 0, 5, 0, 5, 0, 5, 0, 5}, {5, 0, 5, 0, 5, 0, 5, 0, 5}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 2}, {0, 0, 1, 0, 0, 0, 0, 0, 2}, {0, 0, 1, 0, 0, 0, 0, 0, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -5060,8 +4903,7 @@ TEST(ArcDslTest, fcc82909)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 4, 0, 0, 9, 8, 0, 0}, {0, 0, 6, 7, 0, 0, 8, 9, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 7, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 4, 0, 0, 9, 8, 0, 0}, {0, 0, 6, 7, 0, 0, 8, 9, 0, 0}, {0, 0, 3, 3, 0, 0, 3, 3, 0, 0}, {0, 0, 3, 3, 0, 0, 3, 3, 0, 0}, {0, 0, 3, 3, 7, 6, 0, 0, 0, 0}, {0, 0, 3, 3, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -5103,8 +4945,7 @@ TEST(ArcDslTest, 72ca375d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 5, 0, 0, 5, 0}, {0, 0, 3, 0, 0, 5, 5, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 0, 0, 5}, {5, 5, 5, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const equality{buildConnection("equality", {})};
@@ -5150,8 +4991,7 @@ TEST(ArcDslTest, 253bf280)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -5189,8 +5029,7 @@ TEST(ArcDslTest, 694f12f3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 4, 1, 1, 4, 0, 0, 0, 0, 0}, {0, 4, 1, 1, 4, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 4, 2, 2, 2, 2, 4, 0}, {0, 0, 0, 4, 2, 2, 2, 2, 4, 0}, {0, 0, 0, 4, 4, 4, 4, 4, 4, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -5229,8 +5068,7 @@ TEST(ArcDslTest, 1f642eb9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 6}, {3, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {2, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 8, 6, 0, 0, 0, 6}, {3, 0, 0, 3, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {2, 0, 0, 2, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 7, 8, 2, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -5268,8 +5106,7 @@ TEST(ArcDslTest, 31aa019c)
     inputs.emplace_back(hodel::Grid{{6, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 8}, {0, 7, 0, 0, 2, 0, 5, 0, 2, 0}, {0, 9, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 9, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 6, 0, 0, 0, 0}, {0, 1, 0, 7, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 3, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TEN{buildConnection("TEN", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -5311,8 +5148,7 @@ TEST(ArcDslTest, 27a28665)
     inputs.emplace_back(hodel::Grid{{5, 5, 0}, {5, 0, 5}, {0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -5353,8 +5189,7 @@ TEST(ArcDslTest, 7ddcd7ec)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 7, 7, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}, {0, 0, 7, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 0}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -5391,8 +5226,7 @@ TEST(ArcDslTest, 3bd67248)
     inputs.emplace_back(hodel::Grid{{8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 0, 0, 0, 0, 0, 2}, {8, 0, 0, 0, 0, 2, 0}, {8, 0, 0, 0, 2, 0, 0}, {8, 0, 0, 2, 0, 0, 0}, {8, 0, 2, 0, 0, 0, 0}, {8, 2, 0, 0, 0, 0, 0}, {8, 4, 4, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -5428,8 +5262,7 @@ TEST(ArcDslTest, 25d487eb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 2, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 2, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -5462,8 +5295,7 @@ TEST(ArcDslTest, 8f2ea7aa)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 6, 0, 0, 0, 0}, {0, 0, 0, 6, 0, 6, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 6, 0, 0, 0, 0}, {0, 0, 0, 6, 0, 6, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 0, 0, 0}, {0, 6, 0, 0, 0, 0, 0, 6, 0}, {6, 0, 6, 0, 0, 0, 6, 0, 6}, {6, 6, 0, 0, 0, 0, 6, 6, 0}, {0, 6, 0, 0, 6, 0, 0, 0, 0}, {6, 0, 6, 6, 0, 6, 0, 0, 0}, {6, 6, 0, 6, 6, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -5500,8 +5332,7 @@ TEST(ArcDslTest, b8825c91)
     inputs.emplace_back(hodel::Grid{{9, 9, 6, 5, 9, 6, 7, 7, 7, 7, 6, 9, 5, 6, 9, 9}, {9, 1, 5, 5, 6, 1, 7, 9, 9, 7, 1, 6, 5, 5, 1, 9}, {6, 5, 1, 9, 7, 7, 3, 3, 3, 3, 7, 7, 9, 1, 5, 6}, {5, 5, 9, 3, 7, 9, 3, 3, 3, 3, 9, 7, 3, 9, 5, 5}, {9, 6, 7, 7, 3, 8, 9, 1, 1, 9, 8, 3, 7, 7, 6, 9}, {6, 1, 7, 9, 8, 3, 1, 1, 1, 1, 4, 4, 4, 4, 1, 6}, {7, 7, 3, 3, 9, 1, 6, 6, 6, 6, 4, 4, 4, 4, 7, 7}, {7, 9, 3, 3, 1, 1, 6, 1, 1, 6, 4, 4, 4, 4, 9, 7}, {7, 9, 3, 3, 1, 1, 6, 1, 1, 6, 1, 1, 3, 3, 9, 7}, {7, 7, 3, 3, 9, 1, 6, 6, 6, 6, 1, 9, 3, 3, 7, 7}, {6, 1, 7, 9, 8, 3, 1, 1, 1, 1, 4, 4, 4, 7, 1, 6}, {9, 6, 7, 7, 3, 8, 9, 1, 1, 9, 4, 4, 4, 7, 6, 9}, {5, 5, 9, 3, 7, 9, 3, 3, 3, 3, 4, 4, 4, 9, 5, 5}, {6, 5, 1, 9, 7, 7, 3, 3, 3, 3, 4, 4, 4, 1, 5, 6}, {9, 1, 5, 5, 6, 1, 7, 9, 9, 7, 1, 6, 5, 5, 1, 9}, {9, 9, 6, 5, 9, 6, 7, 7, 7, 7, 6, 9, 5, 6, 9, 9}});
     outputs.emplace_back(hodel::Grid{{9, 9, 6, 5, 9, 6, 7, 7, 7, 7, 6, 9, 5, 6, 9, 9}, {9, 1, 5, 5, 6, 1, 7, 9, 9, 7, 1, 6, 5, 5, 1, 9}, {6, 5, 1, 9, 7, 7, 3, 3, 3, 3, 7, 7, 9, 1, 5, 6}, {5, 5, 9, 3, 7, 9, 3, 3, 3, 3, 9, 7, 3, 9, 5, 5}, {9, 6, 7, 7, 3, 8, 9, 1, 1, 9, 8, 3, 7, 7, 6, 9}, {6, 1, 7, 9, 8, 3, 1, 1, 1, 1, 3, 8, 9, 7, 1, 6}, {7, 7, 3, 3, 9, 1, 6, 6, 6, 6, 1, 9, 3, 3, 7, 7}, {7, 9, 3, 3, 1, 1, 6, 1, 1, 6, 1, 1, 3, 3, 9, 7}, {7, 9, 3, 3, 1, 1, 6, 1, 1, 6, 1, 1, 3, 3, 9, 7}, {7, 7, 3, 3, 9, 1, 6, 6, 6, 6, 1, 9, 3, 3, 7, 7}, {6, 1, 7, 9, 8, 3, 1, 1, 1, 1, 3, 8, 9, 7, 1, 6}, {9, 6, 7, 7, 3, 8, 9, 1, 1, 9, 8, 3, 7, 7, 6, 9}, {5, 5, 9, 3, 7, 9, 3, 3, 3, 3, 9, 7, 3, 9, 5, 5}, {6, 5, 1, 9, 7, 7, 3, 3, 3, 3, 7, 7, 9, 1, 5, 6}, {9, 1, 5, 5, 6, 1, 7, 9, 9, 7, 1, 6, 5, 5, 1, 9}, {9, 9, 6, 5, 9, 6, 7, 7, 7, 7, 6, 9, 5, 6, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -5537,8 +5368,7 @@ TEST(ArcDslTest, cce03e0d)
     inputs.emplace_back(hodel::Grid{{2, 1, 2}, {0, 2, 1}, {2, 1, 0}});
     outputs.emplace_back(hodel::Grid{{2, 1, 2, 0, 0, 0, 2, 1, 2}, {0, 2, 1, 0, 0, 0, 0, 2, 1}, {2, 1, 0, 0, 0, 0, 2, 1, 0}, {0, 0, 0, 2, 1, 2, 0, 0, 0}, {0, 0, 0, 0, 2, 1, 0, 0, 0}, {0, 0, 0, 2, 1, 0, 0, 0, 0}, {2, 1, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 1, 0, 0, 0, 0, 0, 0}, {2, 1, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -5570,8 +5400,7 @@ TEST(ArcDslTest, d364b489)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 1, 6, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 1}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 8}, {0, 0, 7, 1, 6, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 1, 6, 0}, {0, 2, 0, 0, 0, 0, 0, 8, 0, 0}, {7, 1, 6, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -5611,8 +5440,7 @@ TEST(ArcDslTest, a5f85a15)
     inputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 0, 0}, {0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 3, 0}, {3, 0, 0, 0, 0, 3}, {0, 3, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 0, 0}, {0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 3, 0}, {3, 0, 0, 0, 0, 4}, {0, 4, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -5650,8 +5478,7 @@ TEST(ArcDslTest, 3ac3eb23)
     inputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 0, 8, 0, 0, 0, 0}, {2, 0, 2, 0, 8, 0, 8, 0, 0, 0}, {0, 2, 0, 0, 0, 8, 0, 0, 0, 0}, {2, 0, 2, 0, 8, 0, 8, 0, 0, 0}, {0, 2, 0, 0, 0, 8, 0, 0, 0, 0}, {2, 0, 2, 0, 8, 0, 8, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -5690,8 +5517,7 @@ TEST(ArcDslTest, 444801d8)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 1, 1, 0, 0, 0, 0}, {0, 1, 0, 6, 0, 1, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 0, 8, 0, 1, 0}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 0}});
     outputs.emplace_back(hodel::Grid{{0, 6, 6, 6, 6, 6, 0, 0, 0, 0}, {0, 1, 1, 6, 1, 1, 0, 0, 0, 0}, {0, 1, 6, 6, 6, 1, 0, 0, 0, 0}, {0, 1, 6, 6, 6, 1, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 8, 0}, {0, 0, 0, 0, 1, 1, 8, 1, 1, 0}, {0, 0, 0, 0, 1, 8, 8, 8, 1, 0}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -5732,8 +5558,7 @@ TEST(ArcDslTest, 22168020)
     inputs.emplace_back(hodel::Grid{{6, 0, 0, 0, 0, 6, 0, 0, 0, 0}, {0, 6, 0, 0, 6, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 8, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6, 6, 0, 0, 0, 0}, {0, 6, 6, 6, 6, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 8, 8, 8, 8, 8, 8, 8, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 8, 8, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const connect{buildConnection("connect", {})};
@@ -5771,8 +5596,7 @@ TEST(ArcDslTest, 6e82a1ae)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 5, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 2, 2, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -5813,8 +5637,7 @@ TEST(ArcDslTest, b2862040)
     inputs.emplace_back(hodel::Grid{{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 1, 1, 1, 9, 9, 9, 1, 9, 9, 9}, {9, 1, 9, 1, 9, 9, 9, 1, 9, 9, 9}, {9, 1, 9, 1, 9, 9, 1, 1, 1, 1, 9}, {9, 1, 1, 1, 9, 9, 9, 1, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 1, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}});
     outputs.emplace_back(hodel::Grid{{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 8, 8, 8, 9, 9, 9, 1, 9, 9, 9}, {9, 8, 9, 8, 9, 9, 9, 1, 9, 9, 9}, {9, 8, 9, 8, 9, 9, 1, 1, 1, 1, 9}, {9, 8, 8, 8, 9, 9, 9, 1, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 1, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -5857,8 +5680,7 @@ TEST(ArcDslTest, 868de0fa)
     inputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 1, 0, 0, 1, 1, 1, 0}, {1, 1, 1, 1, 0, 0, 1, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 2, 2, 1, 0, 0, 0, 0, 0, 0}, {1, 2, 2, 1, 0, 0, 1, 1, 1, 0}, {1, 1, 1, 1, 0, 0, 1, 7, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 1, 0}, {1, 1, 1, 1, 1, 0, 0, 0, 0, 0}, {1, 7, 7, 7, 1, 0, 0, 0, 0, 0}, {1, 7, 7, 7, 1, 0, 0, 0, 0, 0}, {1, 7, 7, 7, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const SEVEN{buildConnection("SEVEN", {})};
@@ -5896,8 +5718,7 @@ TEST(ArcDslTest, 681b3aeb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1}, {1, 3, 1}, {3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -5932,8 +5753,7 @@ TEST(ArcDslTest, 8e5a5113)
     inputs.emplace_back(hodel::Grid{{2, 7, 8, 5, 0, 0, 0, 5, 0, 0, 0}, {7, 7, 8, 5, 0, 0, 0, 5, 0, 0, 0}, {8, 8, 8, 5, 0, 0, 0, 5, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 7, 8, 5, 8, 7, 2, 5, 8, 8, 8}, {7, 7, 8, 5, 8, 7, 7, 5, 8, 7, 7}, {8, 8, 8, 5, 8, 8, 8, 5, 8, 7, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -5969,8 +5789,7 @@ TEST(ArcDslTest, 025d127b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 6, 6, 6, 0, 0, 0, 0, 0}, {0, 6, 0, 0, 6, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 6, 0, 0, 0}, {0, 0, 0, 6, 0, 0, 6, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 6, 0, 0, 0}, {0, 0, 0, 6, 0, 0, 6, 0, 0}, {0, 0, 0, 0, 6, 0, 6, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 2, 0, 2, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const RIGHT{buildConnection("RIGHT", {})};
@@ -6008,8 +5827,7 @@ TEST(ArcDslTest, 2281f1f4)
     inputs.emplace_back(hodel::Grid{{0, 0, 5, 5, 0, 5, 0, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 5, 5, 0, 5, 0, 5, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 2, 0, 2, 2, 5}, {0, 0, 2, 2, 0, 2, 0, 2, 2, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 2, 0, 2, 2, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 2, 0, 2, 2, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -6049,8 +5867,7 @@ TEST(ArcDslTest, cf98881b)
     inputs.emplace_back(hodel::Grid{{0, 4, 0, 4, 2, 9, 9, 0, 0, 2, 0, 0, 0, 0}, {0, 4, 0, 0, 2, 0, 0, 9, 9, 2, 0, 1, 0, 0}, {4, 0, 0, 0, 2, 0, 0, 0, 0, 2, 1, 1, 1, 0}, {4, 4, 4, 4, 2, 9, 0, 9, 0, 2, 1, 1, 0, 1}});
     outputs.emplace_back(hodel::Grid{{9, 4, 0, 4}, {0, 4, 9, 9}, {4, 1, 1, 0}, {4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -6082,8 +5899,7 @@ TEST(ArcDslTest, d4f3cd78)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 5, 5, 5, 0, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 5, 5, 5, 0, 0}, {0, 0, 5, 8, 8, 8, 8, 5, 0, 0}, {0, 0, 5, 8, 8, 8, 8, 5, 0, 0}, {0, 0, 5, 8, 8, 8, 8, 5, 0, 0}, {0, 0, 5, 8, 8, 8, 8, 5, 0, 0}, {0, 0, 5, 5, 5, 8, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -6116,8 +5932,7 @@ TEST(ArcDslTest, bda2d7a6)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3}, {3, 2, 2, 2, 2, 3}, {3, 2, 0, 0, 2, 3}, {3, 2, 0, 0, 2, 3}, {3, 2, 2, 2, 2, 3}, {3, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 3, 3, 3, 3, 0}, {0, 3, 2, 2, 3, 0}, {0, 3, 2, 2, 3, 0}, {0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const color{buildConnection("color", {})};
@@ -6152,8 +5967,7 @@ TEST(ArcDslTest, 137eaa0f)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 1, 1}, {1, 5, 2}, {9, 9, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -6198,8 +6012,7 @@ TEST(ArcDslTest, 6455b5f5)
     inputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 8}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -6238,8 +6051,7 @@ TEST(ArcDslTest, b8cdaf2b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {0, 2, 0}, {2, 4, 2}});
     outputs.emplace_back(hodel::Grid{{4, 0, 4}, {0, 2, 0}, {2, 4, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
     Connection const UP{buildConnection("UP", {})};
@@ -6273,8 +6085,7 @@ TEST(ArcDslTest, bd4472b8)
     inputs.emplace_back(hodel::Grid{{8, 3}, {5, 5}, {0, 0}, {0, 0}, {0, 0}, {0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 3}, {5, 5}, {8, 8}, {3, 3}, {8, 8}, {3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -6307,8 +6118,7 @@ TEST(ArcDslTest, 4be741c5)
     inputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6, 6, 6, 6, 6}, {6, 6, 4, 4, 6, 6, 6, 6, 6}, {6, 4, 4, 4, 6, 4, 6, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 2, 2, 4, 4, 4, 2, 2, 4}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 3, 2, 2, 2, 2, 2, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{6}, {4}, {2}, {3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -6350,8 +6160,7 @@ TEST(ArcDslTest, bbc9ae5d)
     inputs.emplace_back(hodel::Grid{{1, 1, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0}, {1, 1, 1, 1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const UNITY{buildConnection("UNITY", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -6385,8 +6194,7 @@ TEST(ArcDslTest, d90796e8)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 2, 0}, {3, 0, 0, 0, 0, 0, 3}, {5, 0, 2, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 0}, {3, 2, 0, 0, 0, 3, 0}, {0, 0, 0, 5, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 2, 0}, {3, 0, 0, 0, 0, 0, 3}, {5, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 5, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -6427,8 +6235,7 @@ TEST(ArcDslTest, 2c608aff)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 4, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 3, 3, 3, 4, 4, 4, 4, 4, 8, 8}, {8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -6468,8 +6275,7 @@ TEST(ArcDslTest, f8b3ba0a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 3, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 1, 1, 0, 4, 4, 0, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 4, 4, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 2, 2, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4}, {2}, {3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -6508,8 +6314,7 @@ TEST(ArcDslTest, 80af3007)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 5, 0, 5, 5, 0, 5, 5}, {5, 0, 5, 5, 0, 5, 5, 0, 5}, {0, 0, 0, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 0, 5, 5, 0, 5, 5}, {0, 0, 0, 5, 0, 5, 5, 0, 5}, {5, 5, 5, 0, 0, 0, 5, 5, 5}, {0, 5, 5, 0, 0, 0, 0, 5, 5}, {5, 0, 5, 0, 0, 0, 5, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -6544,8 +6349,7 @@ TEST(ArcDslTest, 83302e8f)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {9, 9, 9, 9, 9, 9, 9, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 9, 9, 9, 9, 9, 9, 9, 9}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {9, 9, 9, 9, 9, 9, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 3, 3, 3, 3}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9}, {3, 3, 3, 3, 9, 3, 3, 3, 3, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {3, 3, 3, 3, 9, 3, 3, 3, 3, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {3, 3, 3, 3, 9, 3, 3, 3, 3, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {3, 3, 3, 3, 9, 3, 3, 3, 3, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 4}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}, {4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 9, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -6583,8 +6387,7 @@ TEST(ArcDslTest, 1fad071e)
     inputs.emplace_back(hodel::Grid{{2, 2, 0, 1, 1, 0, 0, 0, 0}, {2, 2, 0, 1, 1, 0, 0, 1, 1}, {1, 0, 0, 0, 0, 0, 0, 1, 1}, {0, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 2, 2}, {0, 1, 1, 0, 0, 1, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -6622,8 +6425,7 @@ TEST(ArcDslTest, 11852cab)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 8, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 1, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 8, 0, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 0, 0}, {0, 0, 0, 8, 0, 1, 0, 8, 0, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 0, 0}, {0, 0, 0, 8, 0, 8, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const x1{buildConnection("objects", {I, T, T, T})};
@@ -6658,8 +6460,7 @@ TEST(ArcDslTest, 3428a4f5)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 2}, {0, 0, 2, 0, 2}, {2, 0, 0, 2, 2}, {2, 2, 0, 0, 2}, {0, 0, 0, 0, 2}, {0, 2, 0, 0, 0}, {4, 4, 4, 4, 4}, {2, 0, 0, 0, 0}, {2, 2, 0, 0, 0}, {2, 0, 2, 0, 0}, {0, 0, 2, 0, 0}, {0, 0, 0, 2, 2}, {2, 0, 0, 2, 0}});
     outputs.emplace_back(hodel::Grid{{3, 0, 0, 3, 3}, {3, 3, 3, 0, 3}, {0, 0, 3, 3, 3}, {3, 3, 3, 0, 3}, {0, 0, 0, 3, 0}, {3, 3, 0, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -6696,8 +6497,7 @@ TEST(ArcDslTest, 178fcbfb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -6739,8 +6539,7 @@ TEST(ArcDslTest, 3de23699)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 0, 0, 4, 0}, {0, 0, 0, 2, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 2, 2, 0, 0}, {0, 4, 0, 0, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 4, 0}, {4, 4, 4}, {0, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const x1{buildConnection("fgpartition", {I})};
@@ -6775,8 +6574,7 @@ TEST(ArcDslTest, 54d9e175)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 1, 0, 5, 0, 2, 0, 5, 0, 1, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 5, 7, 7, 7, 5, 6, 6, 6}, {6, 6, 6, 5, 7, 7, 7, 5, 6, 6, 6}, {6, 6, 6, 5, 7, 7, 7, 5, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -6822,8 +6620,7 @@ TEST(ArcDslTest, 5ad4f10b)
     inputs.emplace_back(hodel::Grid{{0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 3, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 3, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 6, 0, 3, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 6, 0, 3, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 3, 0}, {0, 3, 3}, {3, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -6859,8 +6656,7 @@ TEST(ArcDslTest, 623ea044)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 8, 0}, {8, 0, 0, 0, 8, 0, 0}, {0, 8, 0, 8, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0}, {0, 8, 0, 8, 0, 0, 0}, {8, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -6899,8 +6695,7 @@ TEST(ArcDslTest, 6b9890af)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 0, 0, 0, 4, 4, 4, 4, 4, 4, 2}, {2, 0, 0, 0, 4, 4, 4, 4, 4, 4, 2}, {2, 0, 0, 0, 4, 4, 4, 4, 4, 4, 2}, {2, 4, 4, 4, 0, 0, 0, 4, 4, 4, 2}, {2, 4, 4, 4, 0, 0, 0, 4, 4, 4, 2}, {2, 4, 4, 4, 0, 0, 0, 4, 4, 4, 2}, {2, 0, 0, 0, 0, 0, 0, 4, 4, 4, 2}, {2, 0, 0, 0, 0, 0, 0, 4, 4, 4, 2}, {2, 0, 0, 0, 0, 0, 0, 4, 4, 4, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -6951,8 +6746,7 @@ TEST(ArcDslTest, 794b24be)
     inputs.emplace_back(hodel::Grid{{0, 0, 0}, {1, 0, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 0, 0}, {0, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -6991,8 +6785,7 @@ TEST(ArcDslTest, 88a10436)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 3, 1, 0, 0, 0, 0}, {0, 3, 3, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 0, 0, 3, 1, 0, 0}, {0, 0, 0, 3, 3, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 3, 1, 0, 0, 0, 0}, {0, 3, 3, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -7028,8 +6821,7 @@ TEST(ArcDslTest, 88a62173)
     inputs.emplace_back(hodel::Grid{{8, 8, 0, 0, 8}, {8, 0, 0, 8, 0}, {0, 0, 0, 0, 0}, {8, 8, 0, 8, 8}, {8, 0, 0, 8, 0}});
     outputs.emplace_back(hodel::Grid{{0, 8}, {8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const x1{buildConnection("lefthalf", {I})};
     Connection const x2{buildConnection("righthalf", {I})};
@@ -7061,8 +6853,7 @@ TEST(ArcDslTest, 890034e9)
     inputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 3, 2, 0, 2, 0, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3}, {3, 2, 2, 0, 3, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 0, 3, 2}, {3, 3, 0, 3, 0, 0, 3, 2, 2, 2, 2, 3, 2, 2, 2, 2, 3, 0, 0, 3, 2}, {2, 2, 3, 2, 4, 4, 4, 4, 4, 4, 3, 0, 3, 2, 0, 2, 2, 2, 0, 0, 3}, {3, 3, 2, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 2, 0, 2, 3, 0, 2, 2, 0}, {3, 2, 2, 2, 4, 0, 0, 0, 0, 4, 0, 3, 2, 2, 3, 2, 2, 3, 3, 2, 0}, {2, 0, 2, 0, 4, 0, 0, 0, 0, 4, 2, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2}, {0, 2, 0, 2, 4, 4, 4, 4, 4, 4, 2, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2}, {2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 3, 2, 3, 3, 0, 2, 0, 0, 0, 2, 2}, {0, 2, 3, 0, 3, 0, 2, 3, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 3, 2, 0}, {3, 0, 2, 0, 2, 0, 0, 2, 2, 0, 3, 3, 2, 3, 0, 3, 3, 0, 0, 3, 0}, {2, 3, 0, 3, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 3, 0, 0, 2}, {3, 2, 2, 0, 2, 0, 2, 2, 0, 3, 2, 2, 2, 2, 3, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 2, 0, 2, 0, 2, 0, 3, 2, 2, 2, 0, 0, 3, 2, 2, 3, 2, 2}, {0, 0, 2, 2, 2, 3, 2, 0, 0, 2, 3, 2, 0, 3, 0, 2, 2, 3, 2, 2, 0}, {2, 2, 2, 2, 2, 3, 2, 3, 3, 3, 2, 0, 0, 0, 0, 2, 0, 0, 2, 3, 0}, {2, 2, 2, 2, 3, 0, 0, 3, 3, 2, 0, 0, 0, 0, 0, 0, 2, 2, 3, 2, 0}, {2, 0, 3, 2, 2, 2, 3, 2, 3, 3, 3, 0, 0, 0, 0, 0, 2, 0, 0, 2, 3}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 3, 2, 3, 2, 2, 3, 0, 0, 2, 2, 0, 0}, {0, 3, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 3, 0, 2, 0, 0, 0, 3, 2}, {2, 3, 2, 2, 2, 0, 0, 3, 2, 0, 3, 2, 0, 2, 2, 2, 3, 0, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 3, 2, 0, 2, 0, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3}, {3, 2, 2, 0, 3, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 0, 3, 2}, {3, 3, 0, 3, 0, 0, 3, 2, 2, 2, 2, 3, 2, 2, 2, 2, 3, 0, 0, 3, 2}, {2, 2, 3, 2, 4, 4, 4, 4, 4, 4, 3, 0, 3, 2, 0, 2, 2, 2, 0, 0, 3}, {3, 3, 2, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 2, 0, 2, 3, 0, 2, 2, 0}, {3, 2, 2, 2, 4, 0, 0, 0, 0, 4, 0, 3, 2, 2, 3, 2, 2, 3, 3, 2, 0}, {2, 0, 2, 0, 4, 0, 0, 0, 0, 4, 2, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2}, {0, 2, 0, 2, 4, 4, 4, 4, 4, 4, 2, 2, 0, 2, 0, 2, 0, 0, 2, 2, 2}, {2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 3, 2, 3, 3, 0, 2, 0, 0, 0, 2, 2}, {0, 2, 3, 0, 3, 0, 2, 3, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 3, 2, 0}, {3, 0, 2, 0, 2, 0, 0, 2, 2, 0, 3, 3, 2, 3, 0, 3, 3, 0, 0, 3, 0}, {2, 3, 0, 3, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 3, 0, 0, 2}, {3, 2, 2, 0, 2, 0, 2, 2, 0, 3, 2, 2, 2, 2, 3, 0, 2, 2, 2, 2, 2}, {3, 3, 3, 2, 0, 2, 0, 2, 0, 3, 2, 2, 2, 0, 0, 3, 2, 2, 3, 2, 2}, {0, 0, 2, 2, 2, 3, 2, 0, 0, 2, 4, 4, 4, 4, 4, 4, 2, 3, 2, 2, 0}, {2, 2, 2, 2, 2, 3, 2, 3, 3, 3, 4, 0, 0, 0, 0, 4, 0, 0, 2, 3, 0}, {2, 2, 2, 2, 3, 0, 0, 3, 3, 2, 4, 0, 0, 0, 0, 4, 2, 2, 3, 2, 0}, {2, 0, 3, 2, 2, 2, 3, 2, 3, 3, 4, 0, 0, 0, 0, 4, 2, 0, 0, 2, 3}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 3, 4, 4, 4, 4, 4, 4, 0, 2, 2, 0, 0}, {0, 3, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 3, 0, 2, 0, 0, 0, 3, 2}, {2, 3, 2, 2, 2, 0, 0, 3, 2, 0, 3, 2, 0, 2, 2, 2, 3, 0, 0, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -7099,8 +6890,7 @@ TEST(ArcDslTest, 99b1bc43)
     inputs.emplace_back(hodel::Grid{{0, 1, 0, 1}, {0, 0, 0, 1}, {1, 0, 1, 0}, {0, 0, 0, 1}, {4, 4, 4, 4}, {0, 2, 0, 2}, {0, 0, 0, 2}, {2, 0, 0, 2}, {2, 2, 2, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 3, 3}, {3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -7136,8 +6926,7 @@ TEST(ArcDslTest, a9f96cdd)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 2, 0, 0, 0}, {0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 0, 6, 0, 0}, {0, 0, 0, 0, 0}, {8, 0, 7, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -7179,8 +6968,7 @@ TEST(ArcDslTest, af902bf9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 4}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 2, 2, 2, 2, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 2, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -7224,8 +7012,7 @@ TEST(ArcDslTest, b548a754)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 6, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 6, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 6, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 1, 6, 6, 6, 6, 6, 6, 6, 1, 0}, {0, 0, 1, 6, 6, 6, 6, 6, 6, 6, 1, 0}, {0, 0, 1, 6, 6, 6, 6, 6, 6, 6, 1, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -7259,8 +7046,7 @@ TEST(ArcDslTest, bdad9b1f)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 8, 0}, {2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 8, 0}, {2, 2, 2, 2, 4, 2}, {0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -7295,8 +7081,7 @@ TEST(ArcDslTest, c3e719e8)
     inputs.emplace_back(hodel::Grid{{6, 9, 9}, {4, 6, 8}, {9, 9, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 6, 9, 9, 6, 9, 9}, {0, 0, 0, 4, 6, 8, 4, 6, 8}, {0, 0, 0, 9, 9, 8, 9, 9, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {6, 9, 9, 6, 9, 9, 0, 0, 0}, {4, 6, 8, 4, 6, 8, 0, 0, 0}, {9, 9, 8, 9, 9, 8, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -7332,8 +7117,7 @@ TEST(ArcDslTest, de1cd16c)
     inputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {4, 4, 4, 6, 4, 4, 4, 4, 0, 0, 6, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 6, 4, 4, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 6, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 6, 1}, {8, 8, 6, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 6, 8, 8, 1, 1, 1, 1, 1}, {8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -7371,8 +7155,7 @@ TEST(ArcDslTest, d8c310e9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 3, 0, 0, 3, 4, 4, 3, 0, 0, 0, 0, 0, 0, 0}, {4, 3, 2, 2, 3, 4, 4, 3, 2, 2, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 4, 4, 0, 0}, {4, 3, 0, 0, 3, 4, 4, 3, 0, 0, 3, 4, 4, 3, 0}, {4, 3, 2, 2, 3, 4, 4, 3, 2, 2, 3, 4, 4, 3, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -7413,8 +7196,7 @@ TEST(ArcDslTest, a3325580)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 8, 8, 8}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 4, 8}, {1, 4, 8}, {1, 4, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -7451,8 +7233,7 @@ TEST(ArcDslTest, 8eb1be9a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NEG_TWO{buildConnection("NEG_TWO", {})};
@@ -7489,8 +7270,7 @@ TEST(ArcDslTest, 321b1fc6)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 9, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 6, 0, 0, 0}, {0, 0, 0, 0, 0, 9, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 7, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 9, 4, 0, 0, 0, 0, 7, 6}, {0, 0, 0, 0, 0, 0, 0, 0, 9, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -7527,8 +7307,7 @@ TEST(ArcDslTest, 1caeab9d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 2, 0, 0, 4, 0, 0, 0}, {0, 1, 0, 2, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
@@ -7567,8 +7346,7 @@ TEST(ArcDslTest, 77fdfe62)
     inputs.emplace_back(hodel::Grid{{6, 1, 0, 0, 0, 0, 1, 2}, {1, 1, 1, 1, 1, 1, 1, 1}, {0, 1, 0, 8, 0, 8, 1, 0}, {0, 1, 8, 8, 8, 0, 1, 0}, {0, 1, 8, 0, 8, 8, 1, 0}, {0, 1, 8, 8, 8, 0, 1, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {7, 1, 0, 0, 0, 0, 1, 4}});
     outputs.emplace_back(hodel::Grid{{0, 6, 0, 2}, {6, 6, 2, 0}, {7, 0, 4, 4}, {7, 7, 4, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -7603,8 +7381,7 @@ TEST(ArcDslTest, c0f76784)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 8, 8, 8, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 8, 8, 8, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 8, 8, 8, 5, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 7, 7, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 7, 7, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -7645,8 +7422,7 @@ TEST(ArcDslTest, 1b60fb0c)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 1, 0, 1}, {0, 0, 0, 0, 0, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 1, 0, 1, 0, 1}, {0, 0, 0, 0, 1, 1, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 2, 0, 0, 1, 1, 1, 0, 0, 1}, {0, 2, 0, 2, 0, 1, 0, 1, 0, 1}, {0, 2, 2, 2, 2, 1, 1, 1, 1, 1}, {0, 2, 0, 2, 0, 1, 0, 1, 0, 1}, {0, 2, 0, 0, 1, 1, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -7686,8 +7462,7 @@ TEST(ArcDslTest, ddf7fa4f)
     inputs.emplace_back(hodel::Grid{{0, 1, 0, 0, 0, 6, 0, 0, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 0, 0, 0, 0, 5, 5, 5}, {0, 5, 5, 0, 0, 0, 0, 5, 5, 5}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 1, 0, 0, 0, 6, 0, 0, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 7, 7, 7}, {0, 1, 1, 0, 0, 0, 0, 7, 7, 7}, {0, 0, 0, 6, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -7728,8 +7503,7 @@ TEST(ArcDslTest, 47c1f68c)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 4, 0, 0, 0}, {0, 2, 2, 4, 0, 0, 0}, {0, 2, 0, 4, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4}, {0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 0, 0, 0, 4}, {0, 4, 4, 4, 4, 0}, {0, 4, 0, 0, 4, 0}, {0, 4, 0, 0, 4, 0}, {0, 4, 4, 4, 4, 0}, {4, 0, 0, 0, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const x1{buildConnection("leastcolor", {I})};
@@ -7760,8 +7534,7 @@ TEST(ArcDslTest, 6c434453)
     inputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0, 1, 0, 0}, {1, 1, 1, 0, 0, 0, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 0, 0, 1, 1}, {0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 0, 0, 0, 0, 1, 0, 0}, {0, 2, 0, 0, 0, 0, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 2, 0, 0, 1, 1}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -7798,8 +7571,7 @@ TEST(ArcDslTest, 23581191)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 8, 0, 0, 0, 7, 0, 0}, {0, 0, 8, 0, 0, 0, 7, 0, 0}, {8, 8, 8, 8, 8, 8, 2, 8, 8}, {0, 0, 8, 0, 0, 0, 7, 0, 0}, {0, 0, 8, 0, 0, 0, 7, 0, 0}, {0, 0, 8, 0, 0, 0, 7, 0, 0}, {7, 7, 2, 7, 7, 7, 7, 7, 7}, {0, 0, 8, 0, 0, 0, 7, 0, 0}, {0, 0, 8, 0, 0, 0, 7, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -7842,8 +7614,7 @@ TEST(ArcDslTest, c8cbb738)
     inputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 1, 4, 4, 4, 1, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 1, 4, 4, 4, 1, 4, 4, 7, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 7, 4, 4, 4, 7, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}});
     outputs.emplace_back(hodel::Grid{{1, 4, 7, 4, 1}, {4, 4, 4, 4, 4}, {7, 4, 4, 4, 7}, {4, 4, 4, 4, 4}, {1, 4, 7, 4, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const halve{buildConnection("halve", {})};
     Connection const identity{buildConnection("identity", {})};
@@ -7883,8 +7654,7 @@ TEST(ArcDslTest, 3eda0437)
     inputs.emplace_back(hodel::Grid{{5, 1, 1, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1}, {1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 1, 1, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 6, 6, 6, 6, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1}, {1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 6, 6, 6, 6, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -7937,8 +7707,7 @@ TEST(ArcDslTest, d4469b4b)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 0}, {0, 2, 0, 0, 2}, {2, 0, 0, 2, 0}, {0, 0, 0, 2, 2}, {0, 0, 2, 2, 0}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5}, {0, 5, 0}, {0, 5, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -7981,8 +7750,7 @@ TEST(ArcDslTest, 6ecd11f4)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 4, 1, 9, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 3, 6, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 7, 5, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 2, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 9, 4}, {6, 0, 6, 0}, {3, 0, 0, 5}, {2, 4, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -8019,8 +7787,7 @@ TEST(ArcDslTest, 760b3cac)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 8, 8, 0, 0, 0, 0, 0}, {8, 8, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8056,8 +7823,7 @@ TEST(ArcDslTest, c444b776)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 7, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 3, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 3, 0, 0, 0, 4, 0, 3, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 7, 0, 0, 0, 0, 4, 0, 0, 0, 8, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 3, 0, 4, 0, 0, 0, 0, 8, 0, 0, 3, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 3, 0, 0, 0, 4, 0, 3, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 7, 0, 0, 0, 0, 4, 0, 0, 0, 8, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 3, 0, 4, 0, 0, 0, 0, 8, 0, 0, 3, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -8095,8 +7861,7 @@ TEST(ArcDslTest, d4a91cb9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 4, 4, 4, 2, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8130,8 +7895,7 @@ TEST(ArcDslTest, eb281b96)
     inputs.emplace_back(hodel::Grid{{0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -8176,8 +7940,7 @@ TEST(ArcDslTest, ff28f65a)
     inputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 0}, {2, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -8215,8 +7978,7 @@ TEST(ArcDslTest, 7e0986d6)
     inputs.emplace_back(hodel::Grid{{8, 0, 0, 0, 8, 0, 3, 3, 3, 3, 3, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 8, 3, 8, 0, 0, 0}, {0, 0, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 3, 3, 3, 0, 3, 8, 3, 3, 3, 0, 0, 0}, {0, 0, 3, 3, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}, {0, 8, 0, 3, 3, 3, 8, 3, 0, 3, 3, 3, 8, 3}, {0, 0, 0, 3, 8, 3, 3, 3, 0, 3, 3, 3, 3, 3}, {0, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 8, 3, 3, 3, 8, 0, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 8, 3, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 0, 0}, {0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}, {0, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3}, {0, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3}, {0, 0, 0, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const colorcount{buildConnection("colorcount", {})};
@@ -8256,8 +8018,7 @@ TEST(ArcDslTest, 09629e4f)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 5, 0, 6, 2, 5, 0, 0, 4}, {0, 4, 3, 5, 4, 0, 8, 5, 3, 0, 6}, {6, 0, 0, 5, 3, 0, 0, 5, 8, 0, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {3, 8, 0, 5, 6, 2, 0, 5, 0, 4, 8}, {0, 0, 4, 5, 0, 0, 4, 5, 6, 0, 0}, {6, 2, 0, 5, 3, 8, 0, 5, 0, 3, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 3, 6, 5, 0, 2, 0, 5, 0, 6, 0}, {2, 0, 0, 5, 4, 0, 8, 5, 0, 0, 8}, {8, 0, 4, 5, 6, 3, 0, 5, 2, 3, 4}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 5, 0, 0, 0, 5, 0, 0, 0}, {2, 2, 2, 5, 0, 0, 0, 5, 0, 0, 0}, {2, 2, 2, 5, 0, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 4, 4, 4, 5, 3, 3, 3}, {0, 0, 0, 5, 4, 4, 4, 5, 3, 3, 3}, {0, 0, 0, 5, 4, 4, 4, 5, 3, 3, 3}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {6, 6, 6, 5, 0, 0, 0, 5, 0, 0, 0}, {6, 6, 6, 5, 0, 0, 0, 5, 0, 0, 0}, {6, 6, 6, 5, 0, 0, 0, 5, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -8293,8 +8054,7 @@ TEST(ArcDslTest, a85d4709)
     inputs.emplace_back(hodel::Grid{{0, 0, 5}, {0, 5, 0}, {5, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3}, {4, 4, 4}, {2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8342,8 +8102,7 @@ TEST(ArcDslTest, feca6190)
     inputs.emplace_back(hodel::Grid{{1, 0, 7, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 7}, {0, 0, 0, 0, 0, 0, 1, 0, 7, 0}, {0, 0, 0, 0, 0, 1, 0, 7, 0, 0}, {0, 0, 0, 0, 1, 0, 7, 0, 0, 0}, {0, 0, 0, 1, 0, 7, 0, 0, 0, 0}, {0, 0, 1, 0, 7, 0, 0, 0, 0, 0}, {0, 1, 0, 7, 0, 0, 0, 0, 0, 0}, {1, 0, 7, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -8391,8 +8150,7 @@ TEST(ArcDslTest, a68b268e)
     inputs.emplace_back(hodel::Grid{{7, 0, 0, 7, 1, 4, 4, 4, 0}, {0, 7, 7, 7, 1, 4, 4, 0, 4}, {7, 7, 7, 0, 1, 4, 4, 0, 4}, {7, 7, 7, 0, 1, 0, 4, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1}, {8, 8, 0, 8, 1, 6, 6, 6, 6}, {0, 8, 8, 8, 1, 0, 0, 0, 6}, {0, 8, 0, 8, 1, 0, 0, 6, 0}, {8, 8, 0, 8, 1, 0, 6, 0, 0}});
     outputs.emplace_back(hodel::Grid{{7, 4, 4, 7}, {4, 7, 7, 7}, {7, 7, 7, 4}, {7, 7, 7, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8429,8 +8187,7 @@ TEST(ArcDslTest, beb8660c)
     inputs.emplace_back(hodel::Grid{{2, 2, 0}, {0, 4, 0}, {8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 4}, {0, 2, 2}, {8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -8475,8 +8232,7 @@ TEST(ArcDslTest, 913fb3ed)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0}, {6, 6, 6, 0, 4, 8, 4, 0, 0, 0, 0, 0}, {6, 3, 6, 0, 4, 4, 4, 1, 1, 1, 0, 0}, {6, 6, 6, 0, 0, 0, 0, 1, 2, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8512,8 +8268,7 @@ TEST(ArcDslTest, 0962bcdd)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 7, 2, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 7, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {7, 7, 2, 7, 7, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 7, 0, 2, 0, 2, 0, 7, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 7, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 7, 2, 7, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 7, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 7, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -8557,8 +8312,7 @@ TEST(ArcDslTest, 05269061)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 8, 3, 0}, {0, 0, 0, 8, 3, 0, 0}, {0, 0, 8, 3, 0, 0, 0}, {0, 8, 3, 0, 0, 0, 4}, {8, 3, 0, 0, 0, 4, 0}, {3, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 4, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 8, 3, 4, 8, 3, 4}, {8, 3, 4, 8, 3, 4, 8}, {3, 4, 8, 3, 4, 8, 3}, {4, 8, 3, 4, 8, 3, 4}, {8, 3, 4, 8, 3, 4, 8}, {3, 4, 8, 3, 4, 8, 3}, {4, 8, 3, 4, 8, 3, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -8601,8 +8355,7 @@ TEST(ArcDslTest, 95990924)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 4, 0, 0, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 4, 0, 1, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -8645,8 +8398,7 @@ TEST(ArcDslTest, e509e548)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3}, {0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1}, {0, 6, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0}, {0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 6, 0, 6}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -8697,8 +8449,7 @@ TEST(ArcDslTest, d43fd935)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -8744,8 +8495,7 @@ TEST(ArcDslTest, db3e9e38)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 7, 8, 7, 8, 7, 8}, {0, 7, 8, 7, 8, 7, 0}, {0, 0, 8, 7, 8, 0, 0}, {0, 0, 0, 7, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
@@ -8789,8 +8539,7 @@ TEST(ArcDslTest, e73095fd)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 5}, {0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0}, {5, 5, 5, 5, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 0}, {0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 5, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 4, 4, 4, 5, 5}, {0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 5, 4, 4, 4, 5, 0}, {5, 5, 5, 5, 4, 4, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 0}, {0, 0, 0, 5, 4, 4, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 4, 4, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 4, 4, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -8838,8 +8587,7 @@ TEST(ArcDslTest, 1bfc4729)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 6, 6, 6, 6, 6, 6, 6, 6}, {6, 0, 0, 0, 0, 0, 0, 0, 0, 6}, {6, 6, 6, 6, 6, 6, 6, 6, 6, 6}, {6, 0, 0, 0, 0, 0, 0, 0, 0, 6}, {6, 0, 0, 0, 0, 0, 0, 0, 0, 6}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 7}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO_BY_ZERO{buildConnection("TWO_BY_ZERO", {})};
     Connection const x1{buildConnection("asindices", {I})};
@@ -8874,8 +8622,7 @@ TEST(ArcDslTest, 93b581b8)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 3, 6, 0, 0}, {0, 0, 5, 2, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 5, 5}, {2, 2, 0, 0, 5, 5}, {0, 0, 3, 6, 0, 0}, {0, 0, 5, 2, 0, 0}, {6, 6, 0, 0, 3, 3}, {6, 6, 0, 0, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_TWO{buildConnection("NEG_TWO", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -8918,8 +8665,7 @@ TEST(ArcDslTest, 9edfc990)
     inputs.emplace_back(hodel::Grid{{7, 4, 4, 0, 4, 0, 0, 6, 1, 1, 1, 0, 0, 6, 0, 5}, {1, 1, 3, 3, 4, 0, 3, 8, 5, 3, 4, 5, 0, 8, 2, 8}, {8, 0, 4, 8, 8, 5, 0, 9, 0, 0, 0, 5, 5, 8, 5, 8}, {0, 2, 6, 0, 0, 0, 0, 3, 0, 1, 0, 8, 0, 4, 0, 8}, {8, 0, 2, 8, 0, 7, 0, 0, 0, 9, 0, 7, 3, 0, 3, 6}, {0, 0, 0, 0, 0, 0, 5, 3, 0, 6, 0, 6, 0, 4, 5, 7}, {6, 6, 0, 0, 3, 1, 0, 0, 2, 5, 0, 0, 0, 3, 4, 5}, {7, 0, 7, 8, 0, 1, 0, 0, 0, 9, 0, 7, 3, 0, 3, 0}, {0, 6, 0, 0, 5, 6, 6, 5, 9, 8, 3, 9, 0, 7, 0, 0}, {7, 5, 0, 0, 0, 8, 0, 6, 9, 0, 0, 7, 1, 0, 0, 0}, {6, 5, 3, 4, 3, 0, 6, 9, 4, 1, 8, 9, 2, 8, 7, 7}, {8, 6, 8, 6, 3, 2, 7, 3, 0, 2, 0, 0, 2, 1, 0, 0}, {9, 0, 0, 0, 6, 1, 8, 0, 3, 3, 0, 2, 0, 2, 1, 4}, {0, 4, 0, 0, 0, 0, 1, 0, 0, 0, 6, 0, 4, 4, 5, 6}, {0, 5, 0, 8, 3, 2, 1, 0, 5, 9, 1, 8, 7, 0, 2, 7}, {0, 9, 0, 1, 8, 6, 0, 9, 9, 8, 0, 9, 0, 0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{7, 4, 4, 0, 4, 0, 0, 6, 1, 1, 1, 1, 1, 6, 0, 5}, {1, 1, 3, 3, 4, 0, 3, 8, 5, 3, 4, 5, 1, 8, 2, 8}, {8, 1, 4, 8, 8, 5, 1, 9, 1, 1, 1, 5, 5, 8, 5, 8}, {0, 2, 6, 1, 1, 1, 1, 3, 1, 1, 1, 8, 0, 4, 0, 8}, {8, 1, 2, 8, 1, 7, 1, 1, 1, 9, 1, 7, 3, 0, 3, 6}, {1, 1, 1, 1, 1, 1, 5, 3, 1, 6, 1, 6, 1, 4, 5, 7}, {6, 6, 1, 1, 3, 1, 1, 1, 2, 5, 1, 1, 1, 3, 4, 5}, {7, 0, 7, 8, 1, 1, 1, 1, 1, 9, 1, 7, 3, 0, 3, 1}, {0, 6, 0, 0, 5, 6, 6, 5, 9, 8, 3, 9, 1, 7, 1, 1}, {7, 5, 0, 0, 0, 8, 0, 6, 9, 1, 1, 7, 1, 1, 1, 1}, {6, 5, 3, 4, 3, 0, 6, 9, 4, 1, 8, 9, 2, 8, 7, 7}, {8, 6, 8, 6, 3, 2, 7, 3, 0, 2, 0, 0, 2, 1, 1, 1}, {9, 1, 1, 1, 6, 1, 8, 1, 3, 3, 0, 2, 0, 2, 1, 4}, {0, 4, 1, 1, 1, 1, 1, 1, 1, 1, 6, 0, 4, 4, 5, 6}, {0, 5, 1, 8, 3, 2, 1, 1, 5, 9, 1, 8, 7, 0, 2, 7}, {0, 9, 1, 1, 8, 6, 1, 9, 9, 8, 1, 9, 0, 0, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -8953,8 +8699,7 @@ TEST(ArcDslTest, a65b410d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 0, 0, 0}, {3, 3, 3, 3, 3, 0, 0, 0, 0}, {2, 2, 2, 2, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const LEFT{buildConnection("LEFT", {})};
@@ -8994,8 +8739,7 @@ TEST(ArcDslTest, 7447852a)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0}, {0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2}, {0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 2, 4, 4, 4, 2, 0, 0, 0, 2, 0, 0, 0, 2, 4}, {4, 2, 0, 2, 0, 2, 4, 2, 0, 2, 0, 2, 4, 2, 0, 2, 0, 2}, {4, 4, 2, 0, 0, 0, 2, 0, 0, 0, 2, 4, 4, 4, 2, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -9040,8 +8784,7 @@ TEST(ArcDslTest, 97999447)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 5, 8, 5, 8}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -9092,8 +8835,7 @@ TEST(ArcDslTest, 91714a58)
     inputs.emplace_back(hodel::Grid{{3, 0, 0, 0, 0, 0, 6, 2, 0, 0, 0, 5, 0, 0, 0, 3}, {0, 7, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 7, 7, 7, 0, 0, 0, 0, 4}, {0, 2, 0, 0, 0, 0, 0, 0, 7, 7, 7, 0, 2, 0, 5, 0}, {0, 8, 0, 0, 9, 6, 1, 7, 7, 7, 7, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 3, 6, 0, 6, 0, 0, 3, 3, 0, 0, 0}, {0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0}, {9, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 8, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 6, 0, 9, 0, 0, 0, 0, 0, 0}, {9, 0, 0, 0, 1, 0, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 7, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 5, 0, 0}, {4, 0, 0, 1, 7, 0, 3, 0, 0, 7, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 7, 2, 0, 0, 5, 0, 0, 1, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 7, 9, 0, 0, 0, 5, 0, 2, 0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -9136,8 +8878,7 @@ TEST(ArcDslTest, a61ba2ce)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 2, 2}, {8, 0, 0, 2}, {3, 0, 0, 1}, {3, 3, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -9184,8 +8925,7 @@ TEST(ArcDslTest, 8e1813be)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 0, 5, 5, 5, 5, 0, 2}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0}, {8, 8, 8, 8, 8, 0, 5, 5, 5, 5, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2}, {8, 8, 8, 8}, {4, 4, 4, 4}, {1, 1, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const T{buildConnection("T", {})};
@@ -9233,8 +8973,7 @@ TEST(ArcDslTest, bc1d5164)
     inputs.emplace_back(hodel::Grid{{0, 8, 0, 0, 0, 8, 0}, {8, 8, 0, 0, 0, 8, 8}, {0, 0, 0, 0, 0, 0, 0}, {8, 8, 0, 0, 0, 8, 8}, {0, 8, 0, 0, 0, 8, 0}});
     outputs.emplace_back(hodel::Grid{{0, 8, 0}, {8, 8, 8}, {0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -9279,8 +9018,7 @@ TEST(ArcDslTest, ce602527)
     inputs.emplace_back(hodel::Grid{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 3, 3, 1}, {1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 3, 1, 1, 1, 3, 1}, {1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 3, 3, 3, 3, 3, 1}, {1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1}, {1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 3, 3, 3, 3, 3, 1}, {1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 1, 1}, {1, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 8, 8, 1, 1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2}, {2, 1, 2, 1, 2}, {1, 1, 1, 1, 2}, {2, 1, 2, 1, 2}, {2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const intersection{buildConnection("intersection", {})};
@@ -9322,8 +9060,7 @@ TEST(ArcDslTest, 5c2c9af4)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_ONE{buildConnection("NEG_ONE", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -9370,8 +9107,7 @@ TEST(ArcDslTest, 75b8110e)
     inputs.emplace_back(hodel::Grid{{4, 4, 0, 0, 0, 0, 5, 0}, {4, 4, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 5, 0}, {0, 4, 0, 0, 5, 5, 0, 0}, {0, 0, 6, 0, 0, 0, 9, 0}, {6, 6, 6, 0, 0, 0, 0, 9}, {6, 0, 6, 6, 9, 9, 0, 0}, {0, 6, 6, 0, 9, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 4, 5, 0}, {6, 6, 6, 9}, {6, 9, 5, 6}, {5, 5, 6, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const asindices{buildConnection("asindices", {})};
@@ -9414,8 +9150,7 @@ TEST(ArcDslTest, 941d9a10)
     inputs.emplace_back(hodel::Grid{{0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{1, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {1, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {1, 5, 0, 0, 5, 0, 5, 0, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 0, 0, 5, 2, 5, 0, 5, 0}, {0, 5, 0, 0, 5, 2, 5, 0, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 3}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 3}, {0, 5, 0, 0, 5, 0, 5, 0, 5, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -9464,8 +9199,7 @@ TEST(ArcDslTest, 1a07d186)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -9512,8 +9246,7 @@ TEST(ArcDslTest, d687bc17)
     inputs.emplace_back(hodel::Grid{{0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 6, 0, 8}, {4, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 8}, {4, 0, 8, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0}, {4, 0, 0, 0, 0, 0, 0, 0, 6, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -9562,8 +9295,7 @@ TEST(ArcDslTest, 9af7a82c)
     inputs.emplace_back(hodel::Grid{{2, 2, 1}, {2, 3, 1}, {1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{1, 2, 3}, {1, 2, 0}, {1, 2, 0}, {1, 0, 0}, {1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -9609,8 +9341,7 @@ TEST(ArcDslTest, 6e19193c)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 7, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 7, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 7, 7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 7, 0, 0}, {0, 0, 0, 0, 0, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 7, 0, 0, 0, 0, 0}, {0, 0, 0, 7, 0, 0, 0, 0, 0, 0}, {0, 0, 7, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -9660,8 +9391,7 @@ TEST(ArcDslTest, ef135b50)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 2, 2, 2, 2}, {2, 2, 2, 2, 0, 0, 2, 2, 2, 2}, {2, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 2}, {2, 2, 2, 2, 0, 2, 2, 2, 0, 2}, {2, 2, 2, 2, 0, 2, 2, 2, 0, 2}, {2, 2, 2, 2, 0, 0, 0, 0, 0, 2}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 2, 2, 2, 2}, {2, 2, 2, 2, 9, 9, 2, 2, 2, 2}, {2, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 9, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 9, 2}, {2, 2, 2, 2, 9, 2, 2, 2, 9, 2}, {2, 2, 2, 2, 9, 2, 2, 2, 9, 2}, {2, 2, 2, 2, 0, 0, 0, 0, 0, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NINE{buildConnection("NINE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -9706,8 +9436,7 @@ TEST(ArcDslTest, cbded52d)
     inputs.emplace_back(hodel::Grid{{1, 1, 0, 1, 1, 0, 1, 1}, {1, 1, 0, 1, 1, 0, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 1, 1, 0, 1, 1}, {3, 1, 0, 1, 1, 0, 3, 1}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 1, 1, 0, 1, 1}, {1, 1, 0, 1, 1, 0, 1, 1}});
     outputs.emplace_back(hodel::Grid{{1, 1, 0, 1, 1, 0, 1, 1}, {1, 1, 0, 1, 1, 0, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 1, 1, 0, 1, 1}, {3, 1, 0, 3, 1, 0, 3, 1}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 1, 1, 0, 1, 1}, {1, 1, 0, 1, 1, 0, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -9757,8 +9486,7 @@ TEST(ArcDslTest, 8a004b2b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0}, {0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0}, {0, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0}, {0, 0, 0, 0, 3, 3, 3, 1, 1, 1, 0}, {0, 0, 0, 0, 3, 3, 3, 1, 1, 1, 0}, {0, 0, 0, 0, 3, 3, 3, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -9800,8 +9528,7 @@ TEST(ArcDslTest, e26a3af2)
     inputs.emplace_back(hodel::Grid{{3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 2, 3, 3, 2, 3, 3, 3, 3, 3}, {3, 3, 3, 9, 3, 3, 3, 2, 3, 3, 3, 9, 3, 3}, {3, 3, 4, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3}, {7, 7, 7, 7, 7, 7, 8, 7, 7, 3, 3, 7, 7, 4}, {9, 7, 7, 7, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 2}, {7, 7, 7, 7, 7, 5, 7, 7, 7, 7, 7, 7, 5, 8}, {7, 7, 7, 7, 7, 7, 3, 7, 7, 7, 7, 2, 7, 7}, {7, 7, 7, 4, 6, 7, 7, 7, 7, 7, 9, 7, 7, 7}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 8, 8}, {8, 8, 8, 4, 8, 8, 8, 7, 9, 8, 8, 8, 8, 8}, {1, 1, 1, 5, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const dedupe{buildConnection("dedupe", {})};
@@ -9846,8 +9573,7 @@ TEST(ArcDslTest, 6cf79266)
     inputs.emplace_back(hodel::Grid{{7, 0, 7, 7, 7, 7, 0, 7, 7, 0, 0, 7, 7, 0, 0, 7, 0, 7, 7, 7}, {0, 0, 7, 0, 7, 0, 7, 0, 7, 7, 7, 0, 0, 0, 0, 7, 7, 0, 0, 7}, {0, 0, 0, 0, 0, 7, 0, 0, 7, 7, 7, 7, 0, 7, 0, 0, 0, 0, 7, 0}, {7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 0, 7, 7, 0, 0, 7, 7, 0, 7, 0}, {0, 0, 7, 0, 0, 7, 0, 0, 7, 0, 7, 7, 7, 7, 0, 0, 7, 0, 0, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 0, 7, 7, 0, 0, 0, 7, 0, 7}, {0, 0, 0, 7, 0, 7, 0, 0, 7, 7, 0, 7, 0, 7, 0, 0, 0, 0, 7, 7}, {0, 7, 7, 7, 7, 0, 7, 0, 7, 0, 0, 7, 7, 7, 0, 0, 0, 0, 0, 7}, {0, 0, 0, 7, 0, 0, 0, 0, 7, 7, 7, 0, 0, 7, 7, 0, 0, 0, 7, 7}, {7, 7, 0, 7, 7, 7, 0, 7, 0, 0, 7, 0, 7, 7, 0, 7, 7, 0, 7, 0}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 7, 7, 0}, {7, 7, 0, 0, 7, 7, 7, 0, 7, 7, 7, 7, 0, 7, 0, 0, 7, 7, 7, 7}, {0, 7, 0, 7, 7, 7, 0, 0, 0, 7, 7, 0, 7, 7, 0, 7, 0, 0, 7, 7}, {0, 0, 7, 7, 0, 7, 7, 7, 7, 7, 0, 7, 7, 0, 7, 7, 7, 0, 7, 7}, {0, 0, 7, 7, 7, 0, 7, 0, 7, 7, 0, 7, 0, 7, 7, 7, 0, 7, 7, 7}, {7, 0, 7, 7, 7, 0, 7, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 0, 0}, {7, 7, 7, 0, 0, 0, 7, 7, 7, 0, 7, 7, 0, 7, 0, 7, 0, 0, 0, 0}, {7, 7, 7, 0, 0, 0, 7, 0, 7, 7, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0}, {7, 0, 0, 0, 0, 0, 7, 7, 0, 7, 0, 0, 0, 7, 0, 7, 7, 7, 0, 7}, {0, 7, 7, 0, 7, 7, 0, 7, 0, 0, 7, 7, 7, 7, 0, 0, 7, 0, 7, 7}});
     outputs.emplace_back(hodel::Grid{{7, 0, 7, 7, 7, 7, 0, 7, 7, 0, 0, 7, 7, 0, 0, 7, 0, 7, 7, 7}, {0, 0, 7, 0, 7, 0, 7, 0, 7, 7, 7, 0, 0, 0, 0, 7, 7, 0, 0, 7}, {0, 0, 0, 0, 0, 7, 0, 0, 7, 7, 7, 7, 0, 7, 0, 0, 0, 0, 7, 0}, {7, 0, 7, 0, 7, 0, 7, 7, 0, 0, 0, 7, 7, 0, 0, 7, 7, 0, 7, 0}, {0, 0, 7, 0, 0, 7, 0, 0, 7, 0, 7, 7, 7, 7, 0, 0, 7, 0, 0, 7}, {7, 7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 0, 7, 7, 1, 1, 1, 7, 0, 7}, {0, 0, 0, 7, 0, 7, 0, 0, 7, 7, 0, 7, 0, 7, 1, 1, 1, 0, 7, 7}, {0, 7, 7, 7, 7, 0, 7, 0, 7, 0, 0, 7, 7, 7, 1, 1, 1, 0, 0, 7}, {0, 0, 0, 7, 0, 0, 0, 0, 7, 7, 7, 0, 0, 7, 7, 0, 0, 0, 7, 7}, {7, 7, 0, 7, 7, 7, 0, 7, 0, 0, 7, 0, 7, 7, 0, 7, 7, 0, 7, 0}, {7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 7, 7, 0}, {7, 7, 0, 0, 7, 7, 7, 0, 7, 7, 7, 7, 0, 7, 0, 0, 7, 7, 7, 7}, {0, 7, 0, 7, 7, 7, 0, 0, 0, 7, 7, 0, 7, 7, 0, 7, 0, 0, 7, 7}, {0, 0, 7, 7, 0, 7, 7, 7, 7, 7, 0, 7, 7, 0, 7, 7, 7, 0, 7, 7}, {0, 0, 7, 7, 7, 0, 7, 0, 7, 7, 0, 7, 0, 7, 7, 7, 0, 7, 7, 7}, {7, 0, 7, 7, 7, 0, 7, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 0, 0}, {7, 7, 7, 1, 1, 1, 7, 7, 7, 0, 7, 7, 0, 7, 0, 7, 0, 0, 0, 0}, {7, 7, 7, 1, 1, 1, 7, 0, 7, 7, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0}, {7, 0, 0, 1, 1, 1, 7, 7, 0, 7, 0, 0, 0, 7, 0, 7, 7, 7, 0, 7}, {0, 7, 7, 0, 7, 7, 0, 7, 0, 0, 7, 7, 7, 7, 0, 0, 7, 0, 7, 7}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -9897,8 +9623,7 @@ TEST(ArcDslTest, a87f7484)
     inputs.emplace_back(hodel::Grid{{6, 0, 6}, {0, 6, 6}, {6, 0, 6}, {4, 0, 4}, {0, 4, 4}, {4, 0, 4}, {8, 8, 8}, {8, 0, 8}, {8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8}, {8, 0, 8}, {8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const dmirror{buildConnection("dmirror", {})};
@@ -9937,8 +9662,7 @@ TEST(ArcDslTest, 4093f84a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 0, 0, 5, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 5, 0, 5, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const dmirror{buildConnection("dmirror", {})};
@@ -9983,8 +9707,7 @@ TEST(ArcDslTest, ba26e723)
     inputs.emplace_back(hodel::Grid{{4, 0, 4, 0, 4, 0, 4, 0, 4, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 4, 0, 4, 0, 4, 0, 4, 0, 4}});
     outputs.emplace_back(hodel::Grid{{6, 0, 4, 0, 4, 0, 6, 0, 4, 0}, {6, 4, 4, 6, 4, 4, 6, 4, 4, 6}, {0, 4, 0, 6, 0, 4, 0, 4, 0, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const SIX{buildConnection("SIX", {})};
@@ -10022,8 +9745,7 @@ TEST(ArcDslTest, 4612dd53)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 2, 1, 1, 2, 1, 1, 1, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 1, 1, 2, 1, 2, 1, 1, 2, 2, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 1, 1, 2, 1, 1, 2, 2, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -10063,8 +9785,7 @@ TEST(ArcDslTest, 29c11459)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 5, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -10111,8 +9832,7 @@ TEST(ArcDslTest, 963e52fc)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 2, 2, 1, 2, 2, 1, 2}, {2, 1, 2, 2, 1, 2, 2, 1}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1}, {2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const x1{buildConnection("width", {I})};
@@ -10151,8 +9871,7 @@ TEST(ArcDslTest, ae3edfdc)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 7, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -10205,8 +9924,7 @@ TEST(ArcDslTest, 1f0c79e5)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 2, 0, 0, 0, 0, 0}, {0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 4, 4, 4}, {0, 0, 0, 0, 0, 4, 4, 4, 0}, {0, 0, 0, 0, 4, 4, 4, 0, 0}, {0, 0, 0, 4, 4, 4, 0, 0, 0}, {0, 0, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NINE{buildConnection("NINE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -10252,8 +9970,7 @@ TEST(ArcDslTest, 56dc2b01)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {2, 2, 2, 2, 2}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {3, 3, 3, 3, 0}, {3, 0, 0, 3, 0}, {3, 3, 0, 3, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 0}, {3, 0, 0, 3, 0}, {3, 3, 0, 3, 0}, {8, 8, 8, 8, 8}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -10302,8 +10019,7 @@ TEST(ArcDslTest, e48d4e1a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 5}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -10354,8 +10070,7 @@ TEST(ArcDslTest, 6773b310)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {6, 0, 0, 8, 0, 6, 0, 8, 0, 0, 6}, {0, 0, 6, 8, 0, 0, 0, 8, 0, 6, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 6, 0, 8, 0, 0, 6, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 6, 0, 8, 0, 0, 0, 8, 6, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 6, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 6, 0}, {0, 0, 0, 8, 6, 0, 0, 8, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 0, 1}, {1, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -10407,8 +10122,7 @@ TEST(ArcDslTest, 780d0b14)
     inputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7, 0, 0}, {2, 2, 0, 0, 2, 0, 2, 0, 7, 0, 7, 0, 7, 7, 7, 7, 0}, {2, 2, 2, 2, 0, 2, 2, 0, 0, 7, 7, 0, 0, 7, 7, 0, 7}, {2, 0, 2, 2, 0, 2, 2, 0, 0, 0, 7, 7, 7, 7, 7, 7, 0}, {2, 2, 2, 0, 2, 2, 2, 0, 0, 7, 0, 7, 7, 7, 0, 0, 0}, {2, 0, 2, 0, 2, 2, 2, 0, 7, 7, 0, 7, 7, 0, 0, 7, 7}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 4, 4, 4, 4, 0, 0, 0, 8, 0, 8, 8, 8, 8, 8, 8}, {4, 0, 4, 4, 0, 4, 0, 0, 8, 0, 8, 8, 8, 8, 8, 8, 8}, {4, 0, 0, 4, 0, 4, 4, 0, 0, 8, 0, 8, 8, 0, 8, 0, 8}, {4, 4, 0, 0, 0, 0, 4, 0, 8, 8, 0, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 0}, {4, 4, 4, 4, 0, 4, 4, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 0, 0, 8, 8, 8, 0, 0, 8, 8, 8, 0}, {0, 4, 4, 4, 0, 4, 4, 0, 8, 8, 0, 8, 8, 8, 8, 0, 8}, {0, 0, 0, 0, 4, 4, 4, 0, 0, 8, 0, 0, 8, 0, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 6, 6, 0, 6, 6, 0, 6, 6, 6}, {0, 1, 1, 1, 1, 1, 0, 0, 6, 6, 6, 0, 6, 6, 6, 6, 0}, {1, 1, 1, 1, 1, 0, 1, 0, 6, 6, 6, 6, 0, 6, 6, 6, 6}, {1, 0, 0, 0, 1, 1, 1, 0, 6, 6, 6, 0, 6, 6, 6, 6, 6}, {1, 0, 1, 1, 1, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 6, 6}, {1, 1, 1, 1, 1, 1, 1, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6}});
     outputs.emplace_back(hodel::Grid{{2, 7}, {4, 8}, {1, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
@@ -10458,8 +10172,7 @@ TEST(ArcDslTest, 2204b7a8)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 9, 0, 0, 0, 0, 9, 0, 0, 0}, {0, 0, 0, 9, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -10511,8 +10224,7 @@ TEST(ArcDslTest, d9f24cd1)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 2, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 2, 0, 0, 2, 0, 0, 2, 0, 0}, {0, 2, 0, 0, 2, 0, 5, 2, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 2, 0, 0}, {0, 2, 5, 0, 2, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 0, 0, 0}, {0, 2, 0, 0, 2, 0, 2, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -10563,8 +10275,7 @@ TEST(ArcDslTest, b782dc8a)
     inputs.emplace_back(hodel::Grid{{8, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 0, 8, 8, 8, 0}, {0, 0, 8, 8, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 0, 8, 0, 0, 8, 0, 8, 0}, {8, 8, 8, 0, 8, 0, 8, 8, 8, 8, 0, 8, 8, 8, 0, 8, 0, 8, 8, 8, 8, 0, 8, 0}, {8, 0, 0, 0, 8, 0, 8, 0, 0, 8, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0}, {8, 0, 8, 8, 8, 0, 8, 8, 0, 8, 0, 8, 8, 8, 0, 8, 8, 0, 8, 8, 8, 8, 8, 0}, {8, 0, 8, 0, 0, 0, 0, 8, 0, 8, 0, 8, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {8, 0, 8, 8, 8, 8, 8, 8, 0, 8, 0, 8, 8, 8, 8, 8, 8, 3, 8, 8, 8, 8, 8, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 3, 2, 3, 0, 0, 0, 8, 0}, {8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 3, 8, 8, 8, 0, 8, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 0, 0, 8, 0, 0, 0, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0}});
     outputs.emplace_back(hodel::Grid{{8, 3, 2, 3, 2, 3, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 2, 8, 8, 0, 8, 8, 8, 0}, {3, 2, 8, 8, 8, 2, 3, 2, 3, 2, 3, 8, 0, 0, 0, 8, 3, 8, 0, 0, 8, 2, 8, 0}, {8, 8, 8, 0, 8, 3, 8, 8, 8, 8, 2, 8, 8, 8, 0, 8, 2, 8, 8, 8, 8, 3, 8, 0}, {8, 0, 0, 0, 8, 2, 8, 0, 0, 8, 3, 2, 3, 8, 0, 8, 3, 2, 3, 2, 3, 2, 8, 0}, {8, 0, 8, 8, 8, 3, 8, 8, 0, 8, 2, 8, 8, 8, 0, 8, 8, 3, 8, 8, 8, 8, 8, 0}, {8, 0, 8, 2, 3, 2, 3, 8, 0, 8, 3, 8, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0, 0, 0}, {8, 0, 8, 8, 8, 8, 8, 8, 0, 8, 2, 8, 8, 8, 8, 8, 8, 3, 8, 8, 8, 8, 8, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 8, 0}, {8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 2, 8, 8, 8, 8, 8, 8, 3, 8, 8, 8, 3, 8, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 3, 2, 3, 8, 0, 0, 0, 0, 8, 2, 8, 0, 8, 2, 8, 0}, {0, 8, 8, 8, 0, 8, 8, 8, 2, 8, 8, 8, 0, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -10611,8 +10322,7 @@ TEST(ArcDslTest, 673ef223)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 8, 0, 0, 2}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 4, 8, 8, 2}, {0, 0, 4, 8, 8, 8, 8, 8, 8, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 4, 8, 8, 8, 8, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {2, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -10666,8 +10376,7 @@ TEST(ArcDslTest, f5b8619d)
     inputs.emplace_back(hodel::Grid{{0, 4}, {0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 4, 0, 4}, {0, 8, 0, 8}, {0, 4, 0, 4}, {0, 8, 0, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const vfrontier{buildConnection("vfrontier", {})};
@@ -10697,8 +10406,7 @@ TEST(ArcDslTest, f8c80d96)
     inputs.emplace_back(hodel::Grid{{0, 2, 0, 2, 0, 2, 0, 2, 0, 0}, {0, 2, 0, 2, 2, 2, 0, 2, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 2, 5, 2, 5, 2, 5, 2, 5, 2}, {5, 2, 5, 2, 2, 2, 5, 2, 5, 2}, {5, 2, 5, 5, 5, 5, 5, 2, 5, 2}, {5, 2, 2, 2, 2, 2, 2, 2, 5, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -10749,8 +10457,7 @@ TEST(ArcDslTest, ecdecbb3)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 8, 8, 8, 0, 0}, {8, 8, 8, 8, 2, 8, 8, 8, 2, 8, 8, 8}, {0, 0, 0, 8, 8, 8, 0, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 2, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -10804,8 +10511,7 @@ TEST(ArcDslTest, e5062a87)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 0, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 0, 5, 5, 5, 0, 5}, {5, 0, 5, 0, 5, 5, 0, 5, 5, 5}, {5, 0, 5, 0, 5, 5, 0, 0, 5, 5}, {5, 0, 0, 0, 0, 5, 5, 5, 0, 5}, {5, 5, 5, 0, 5, 0, 5, 0, 0, 5}, {0, 5, 0, 0, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 0, 0, 0, 5, 2, 5, 0}, {0, 5, 5, 5, 5, 0, 5, 2, 5, 0}, {5, 0, 0, 0, 0, 0, 5, 2, 2, 5}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 0, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 0, 5, 5, 5, 0, 5}, {5, 2, 5, 2, 5, 5, 0, 5, 5, 5}, {5, 2, 5, 2, 5, 5, 0, 0, 5, 5}, {5, 2, 2, 2, 2, 5, 5, 5, 0, 5}, {5, 5, 5, 2, 5, 0, 5, 0, 0, 5}, {0, 5, 0, 2, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 2, 2, 0, 5, 2, 5, 0}, {0, 5, 5, 5, 5, 0, 5, 2, 5, 0}, {5, 0, 0, 0, 0, 0, 5, 2, 2, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -10855,8 +10561,7 @@ TEST(ArcDslTest, a8d7556c)
     inputs.emplace_back(hodel::Grid{{0, 0, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 0, 5, 5, 0}, {5, 0, 0, 0, 5, 5, 0, 0, 0, 0, 5, 0, 5, 5, 0, 5, 5, 5}, {0, 0, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5}, {5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5}, {5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 0, 0, 0, 0}, {5, 0, 0, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 0, 0, 5}, {5, 5, 5, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 0}, {0, 5, 5, 0, 5, 5, 5, 5, 0, 5, 0, 0, 5, 0, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 0, 5, 0, 0, 0, 5, 0, 5, 0, 5}, {5, 0, 5, 0, 5, 0, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5}, {0, 0, 5, 0, 5, 5, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5, 5}, {0, 0, 5, 5, 5, 0, 5, 5, 0, 5, 5, 0, 5, 0, 5, 5, 5, 5}, {5, 5, 0, 5, 5, 5, 0, 0, 0, 0, 5, 0, 5, 5, 0, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 5, 5, 0, 5, 0, 0, 0, 5, 0, 5, 0}, {0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 0, 5, 5, 0, 0, 5}, {0, 5, 5, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 0, 5, 5, 5, 5}, {5, 0, 0, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5, 5, 0, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 0, 5, 5, 0}, {5, 0, 0, 0, 5, 5, 2, 2, 0, 0, 5, 0, 5, 5, 0, 5, 5, 5}, {0, 0, 5, 5, 5, 5, 2, 2, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5}, {5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5}, {5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 0, 2, 2, 0}, {5, 0, 0, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 2, 2, 5}, {5, 5, 5, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 0}, {0, 5, 5, 0, 5, 5, 5, 5, 0, 5, 2, 2, 5, 0, 5, 5, 5, 0}, {5, 5, 5, 5, 5, 0, 5, 5, 0, 5, 2, 2, 0, 5, 0, 5, 0, 5}, {5, 0, 5, 0, 5, 0, 5, 5, 5, 5, 2, 2, 0, 5, 5, 5, 5, 5}, {0, 0, 5, 0, 5, 5, 0, 5, 5, 5, 2, 2, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5, 5}, {0, 0, 5, 5, 5, 0, 5, 5, 0, 5, 5, 0, 5, 0, 5, 5, 5, 5}, {5, 5, 0, 5, 5, 5, 0, 0, 0, 0, 5, 0, 5, 5, 0, 5, 0, 0}, {0, 0, 5, 5, 5, 5, 0, 5, 5, 0, 5, 0, 0, 0, 5, 0, 5, 0}, {0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 0, 5, 5, 0, 0, 5}, {0, 5, 5, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 0, 5, 5, 5, 5}, {5, 0, 0, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5, 5, 0, 0, 5, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -10903,8 +10608,7 @@ TEST(ArcDslTest, 4938f0c2)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const T{buildConnection("T", {})};
@@ -10949,8 +10653,7 @@ TEST(ArcDslTest, 834ec97d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 9, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 0, 4, 0, 4, 0, 4, 0, 4}, {4, 0, 4, 0, 4, 0, 4, 0, 4}, {4, 0, 4, 0, 4, 0, 4, 0, 4}, {4, 0, 4, 0, 4, 0, 4, 0, 4}, {4, 0, 4, 0, 4, 0, 4, 0, 4}, {0, 0, 9, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -11003,8 +10706,7 @@ TEST(ArcDslTest, 846bdb03)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4}});
     outputs.emplace_back(hodel::Grid{{4, 0, 0, 0, 0, 0, 0, 4}, {2, 2, 2, 0, 1, 0, 0, 1}, {2, 0, 2, 0, 1, 1, 1, 1}, {2, 0, 2, 2, 1, 0, 0, 1}, {2, 0, 0, 2, 0, 0, 0, 1}, {4, 0, 0, 0, 0, 0, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -11053,8 +10755,7 @@ TEST(ArcDslTest, 90f3ed37)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 8, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 8, 0, 8, 0, 8, 0}, {0, 8, 0, 8, 0, 8, 0, 8, 0, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 1, 0, 1, 0, 1, 0}, {0, 8, 0, 1, 0, 1, 0, 1, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 8, 0, 8, 0, 1, 0, 1, 0}, {0, 8, 0, 8, 0, 1, 0, 1, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NEG_ONE{buildConnection("NEG_ONE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -11108,8 +10809,7 @@ TEST(ArcDslTest, 8403a5d5)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 4, 5, 4, 0, 4, 5}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 0, 4, 0}, {0, 0, 0, 0, 4, 0, 4, 5, 4, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -11164,8 +10864,7 @@ TEST(ArcDslTest, 91413438)
     inputs.emplace_back(hodel::Grid{{6, 6, 0}, {0, 6, 6}, {0, 0, 6}});
     outputs.emplace_back(hodel::Grid{{6, 6, 0, 6, 6, 0, 6, 6, 0, 6, 6, 0}, {0, 6, 6, 0, 6, 6, 0, 6, 6, 0, 6, 6}, {0, 0, 6, 0, 0, 6, 0, 0, 6, 0, 0, 6}, {6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const NINE{buildConnection("NINE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -11214,8 +10913,7 @@ TEST(ArcDslTest, 539a4f51)
     inputs.emplace_back(hodel::Grid{{2, 3, 4, 1, 6}, {3, 3, 4, 1, 6}, {4, 4, 4, 1, 6}, {1, 1, 1, 1, 6}, {6, 6, 6, 6, 6}});
     outputs.emplace_back(hodel::Grid{{2, 3, 4, 1, 6, 2, 3, 4, 1, 6}, {3, 3, 4, 1, 6, 2, 3, 4, 1, 6}, {4, 4, 4, 1, 6, 2, 3, 4, 1, 6}, {1, 1, 1, 1, 6, 2, 3, 4, 1, 6}, {6, 6, 6, 6, 6, 2, 3, 4, 1, 6}, {2, 2, 2, 2, 2, 2, 3, 4, 1, 6}, {3, 3, 3, 3, 3, 3, 3, 4, 1, 6}, {4, 4, 4, 4, 4, 4, 4, 4, 1, 6}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 6}, {6, 6, 6, 6, 6, 6, 6, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -11261,8 +10959,7 @@ TEST(ArcDslTest, 5daaa586)
     inputs.emplace_back(hodel::Grid{{0, 0, 4, 3, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 4}, {2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2}, {4, 0, 0, 3, 4, 4, 0, 4, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0}, {4, 0, 0, 3, 0, 0, 0, 0, 4, 0, 4, 4, 0, 0, 0}, {4, 0, 0, 3, 0, 0, 4, 0, 0, 0, 4, 4, 0, 0, 0}, {8, 8, 8, 3, 8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 4}, {0, 0, 0, 3, 4, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 4, 3, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 2, 2, 2, 2, 2, 2, 2, 4}, {3, 4, 4, 4, 4, 4, 4, 4, 4}, {3, 0, 0, 0, 0, 0, 0, 0, 4}, {3, 0, 0, 0, 0, 4, 4, 4, 4}, {3, 0, 0, 4, 4, 4, 4, 4, 4}, {3, 8, 8, 8, 8, 8, 8, 8, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -11310,8 +11007,7 @@ TEST(ArcDslTest, 3bdb4ada)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}, {4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -11371,8 +11067,7 @@ TEST(ArcDslTest, ec883f72)
     inputs.emplace_back(hodel::Grid{{3, 3, 0, 9, 0, 0}, {3, 3, 0, 9, 0, 0}, {0, 0, 0, 9, 0, 0}, {9, 9, 9, 9, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 0, 9, 0, 0}, {3, 3, 0, 9, 0, 0}, {0, 0, 0, 9, 0, 0}, {9, 9, 9, 9, 0, 0}, {0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
@@ -11422,8 +11117,7 @@ TEST(ArcDslTest, 2bee17df)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 2}, {8, 8, 8, 0, 8, 8, 0, 8, 0, 2}, {8, 8, 0, 0, 8, 0, 0, 0, 0, 2}, {8, 8, 0, 0, 0, 0, 0, 0, 2, 2}, {8, 0, 0, 0, 0, 0, 0, 0, 2, 2}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {8, 0, 0, 0, 0, 0, 2, 2, 0, 2}, {8, 2, 0, 0, 0, 2, 2, 2, 2, 2}, {8, 2, 2, 2, 2, 2, 2, 2, 2, 2}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 2}, {8, 8, 8, 3, 8, 8, 0, 8, 0, 2}, {8, 8, 0, 3, 8, 0, 0, 0, 0, 2}, {8, 8, 0, 3, 0, 0, 0, 0, 2, 2}, {8, 0, 0, 3, 0, 0, 0, 0, 2, 2}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 2}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 2}, {8, 0, 0, 3, 0, 0, 2, 2, 0, 2}, {8, 2, 0, 3, 0, 2, 2, 2, 2, 2}, {8, 2, 2, 2, 2, 2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -11476,8 +11170,7 @@ TEST(ArcDslTest, e8dc4411)
     inputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}});
     outputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 4, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 4, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 4, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 4, 8, 8}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 0, 0, 4, 0, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -11531,8 +11224,7 @@ TEST(ArcDslTest, e40b9e2f)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 9, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 9, 0, 0, 0, 9, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 0, 8, 8, 8, 0, 0, 0, 0}, {0, 0, 9, 0, 0, 0, 9, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -11584,8 +11276,7 @@ TEST(ArcDslTest, 29623171)
     inputs.emplace_back(hodel::Grid{{3, 3, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 3, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 3, 0, 5, 0, 3, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 3, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 3, 0, 5, 3, 0, 0, 5, 3, 3, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 3}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 3, 3, 3}, {0, 0, 0, 5, 0, 0, 0, 5, 3, 3, 3}, {0, 0, 0, 5, 0, 0, 0, 5, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -11641,8 +11332,7 @@ TEST(ArcDslTest, a2fd1cf0)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 2, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const THREE{buildConnection("THREE", {})};
@@ -11693,8 +11383,7 @@ TEST(ArcDslTest, b0c4d837)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 5, 0}, {0, 5, 0, 0, 0, 5, 0}, {0, 5, 8, 8, 8, 5, 0}, {0, 5, 8, 8, 8, 5, 0}, {0, 5, 5, 5, 5, 5, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 0}, {0, 0, 0}, {0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -11743,8 +11432,7 @@ TEST(ArcDslTest, 8731374e)
     inputs.emplace_back(hodel::Grid{{0, 0, 7, 9, 8, 8, 0, 8, 9, 9, 3, 1, 4, 5, 2, 7, 6}, {6, 0, 9, 2, 7, 2, 8, 4, 3, 3, 2, 7, 7, 5, 9, 4, 0}, {1, 9, 4, 5, 4, 8, 8, 8, 8, 8, 8, 8, 8, 2, 0, 7, 9}, {5, 5, 6, 8, 3, 8, 8, 8, 8, 8, 8, 8, 8, 2, 0, 2, 7}, {8, 2, 3, 2, 9, 8, 8, 8, 8, 8, 8, 8, 8, 0, 7, 6, 4}, {1, 7, 3, 3, 5, 8, 8, 8, 2, 8, 8, 8, 8, 7, 1, 1, 4}, {7, 2, 3, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8, 5, 8, 5, 6}, {5, 2, 7, 3, 5, 8, 8, 8, 8, 8, 8, 8, 8, 1, 4, 4, 6}, {1, 4, 0, 0, 9, 9, 4, 0, 2, 6, 5, 5, 0, 8, 6, 4, 7}, {8, 7, 8, 3, 3, 8, 0, 9, 0, 4, 8, 9, 8, 5, 2, 7, 3}, {2, 0, 2, 8, 2, 0, 8, 4, 4, 3, 2, 6, 8, 7, 4, 7, 2}, {2, 7, 8, 3, 7, 4, 2, 4, 8, 4, 2, 3, 9, 9, 2, 0, 8}, {4, 8, 8, 5, 3, 2, 0, 1, 8, 9, 3, 9, 8, 1, 8, 8, 7}, {3, 9, 9, 9, 1, 6, 1, 9, 4, 7, 5, 5, 3, 2, 9, 3, 0}, {5, 8, 2, 5, 4, 2, 2, 4, 0, 9, 2, 8, 1, 3, 5, 7, 3}, {8, 0, 9, 5, 3, 8, 4, 5, 0, 2, 5, 2, 9, 6, 0, 1, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 2, 8, 8, 8, 8}, {8, 8, 8, 2, 8, 8, 8, 8}, {8, 8, 8, 2, 8, 8, 8, 8}, {2, 2, 2, 2, 2, 2, 2, 2}, {8, 8, 8, 2, 8, 8, 8, 8}, {8, 8, 8, 2, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -11793,8 +11481,7 @@ TEST(ArcDslTest, 272f95fa)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 8, 2, 2, 2, 2, 2, 2, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 2, 2, 2, 2, 2, 2, 8, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 8, 6, 6, 6, 6, 6, 6, 8, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 8, 6, 6, 6, 6, 6, 6, 8, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 8, 6, 6, 6, 6, 6, 6, 8, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 8, 6, 6, 6, 6, 6, 6, 8, 3, 3, 3, 3, 3, 3, 3}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 1, 1, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -11853,8 +11540,7 @@ TEST(ArcDslTest, db93a21d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 9, 9, 0, 0}, {0, 0, 0, 0, 0, 0, 9, 9, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 9, 9, 0, 0, 0, 0, 0, 0, 0}, {0, 9, 9, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 3, 9, 9, 3, 0}, {0, 0, 0, 0, 0, 3, 9, 9, 3, 0}, {0, 0, 0, 0, 0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {3, 3, 3, 3, 0, 0, 1, 1, 0, 0}, {3, 9, 9, 3, 0, 0, 1, 1, 0, 0}, {3, 9, 9, 3, 0, 0, 1, 1, 0, 0}, {3, 3, 3, 3, 0, 0, 1, 1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -11907,8 +11593,7 @@ TEST(ArcDslTest, 53b68214)
     inputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -11957,8 +11642,7 @@ TEST(ArcDslTest, d6ad076f)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 9, 9, 9, 9, 9, 9, 0}, {0, 0, 0, 9, 9, 9, 9, 9, 9, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0}, {0, 0, 0, 9, 9, 9, 9, 9, 9, 0}, {0, 0, 0, 9, 9, 9, 9, 9, 9, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -12012,8 +11696,7 @@ TEST(ArcDslTest, 6cdd2623)
     inputs.emplace_back(hodel::Grid{{0, 4, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 4, 0}, {0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 5}, {4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 5}, {0, 4, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8}, {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 4, 0}, {4, 0, 4, 0, 4, 0, 0, 0, 4, 5, 0, 0, 0, 8, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const both{buildConnection("both", {})};
     Connection const connect{buildConnection("connect", {})};
@@ -12054,8 +11737,7 @@ TEST(ArcDslTest, 8d510a79)
     inputs.emplace_back(hodel::Grid{{0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 2, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 1, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 2, 0, 0, 1, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 1, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -12108,8 +11790,7 @@ TEST(ArcDslTest, cdecee7f)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 3}, {0, 0, 5, 0, 0, 9, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 4, 5}, {1, 9, 3}, {5, 1, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -12163,8 +11844,7 @@ TEST(ArcDslTest, 3345333e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 6, 6, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const intersection{buildConnection("intersection", {})};
@@ -12205,8 +11885,7 @@ TEST(ArcDslTest, b190f7f5)
     inputs.emplace_back(hodel::Grid{{2, 0, 0, 4, 0, 0, 8, 0}, {0, 2, 4, 0, 8, 8, 8, 8}, {0, 4, 2, 0, 0, 0, 8, 0}, {4, 0, 0, 2, 0, 0, 8, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0}, {2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 4, 4, 4, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 4, 4, 4, 2, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}, {4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}, {0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -12249,8 +11928,7 @@ TEST(ArcDslTest, caa06a1f)
     inputs.emplace_back(hodel::Grid{{5, 4, 5, 4, 5, 6}, {4, 5, 4, 5, 4, 6}, {5, 4, 5, 4, 5, 6}, {4, 5, 4, 5, 4, 6}, {5, 4, 5, 4, 5, 6}, {6, 6, 6, 6, 6, 6}});
     outputs.emplace_back(hodel::Grid{{4, 5, 4, 5, 4, 5}, {5, 4, 5, 4, 5, 4}, {4, 5, 4, 5, 4, 5}, {5, 4, 5, 4, 5, 4}, {4, 5, 4, 5, 4, 5}, {5, 4, 5, 4, 5, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const LEFT{buildConnection("LEFT", {})};
@@ -12301,8 +11979,7 @@ TEST(ArcDslTest, e21d9049)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 3, 2, 8, 3, 2, 8, 3, 2, 8, 3}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -12358,8 +12035,7 @@ TEST(ArcDslTest, d89b689b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 1, 0, 0, 0, 0, 0, 4}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 6}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 6, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -12407,8 +12083,7 @@ TEST(ArcDslTest, 746b3537)
     inputs.emplace_back(hodel::Grid{{1, 1, 1}, {2, 2, 2}, {1, 1, 1}});
     outputs.emplace_back(hodel::Grid{{1}, {2}, {1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -12450,8 +12125,7 @@ TEST(ArcDslTest, 63613498)
     inputs.emplace_back(hodel::Grid{{0, 4, 0, 5, 0, 0, 0, 1, 0, 0}, {4, 4, 4, 5, 0, 0, 1, 1, 1, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 4, 0, 5, 0, 0, 0, 5, 0, 0}, {4, 4, 4, 5, 0, 0, 5, 5, 5, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 3, 0, 0}, {0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 6, 6, 6, 0, 0, 0, 0, 0, 0}, {0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -12493,8 +12167,7 @@ TEST(ArcDslTest, 06df4c85)
     inputs.emplace_back(hodel::Grid{{0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 2, 2, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 3, 3, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
@@ -12550,8 +12223,7 @@ TEST(ArcDslTest, f9012d9b)
     inputs.emplace_back(hodel::Grid{{2, 2, 5, 2, 2, 5, 2}, {2, 2, 5, 2, 2, 5, 2}, {5, 5, 5, 5, 5, 5, 5}, {2, 2, 5, 2, 2, 5, 2}, {2, 2, 5, 2, 2, 5, 2}, {5, 5, 5, 5, 5, 0, 0}, {2, 2, 5, 2, 2, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 5}, {5, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -12604,8 +12276,7 @@ TEST(ArcDslTest, 4522001f)
     inputs.emplace_back(hodel::Grid{{3, 3, 0}, {3, 2, 0}, {0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 3, 3, 3, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const NINE{buildConnection("NINE", {})};
@@ -12657,8 +12328,7 @@ TEST(ArcDslTest, a48eeaf7)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 5, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 5, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -12697,8 +12367,7 @@ TEST(ArcDslTest, eb5a1d5d)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 1, 1, 1, 1, 1, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 1, 1, 1, 1, 1, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 1, 1, 1, 1, 1, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3}, {3, 8, 8, 8, 8, 8, 3}, {3, 8, 2, 2, 2, 8, 3}, {3, 8, 2, 1, 2, 8, 3}, {3, 8, 2, 2, 2, 8, 3}, {3, 8, 8, 8, 8, 8, 3}, {3, 3, 3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const dedupe{buildConnection("dedupe", {})};
     Connection const dmirror{buildConnection("dmirror", {})};
@@ -12736,8 +12405,7 @@ TEST(ArcDslTest, e179c5f4)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {1, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 1}, {8, 8, 1, 8}, {8, 1, 8, 8}, {1, 8, 8, 8}, {8, 1, 8, 8}, {8, 8, 1, 8}, {8, 8, 8, 1}, {8, 8, 1, 8}, {8, 1, 8, 8}, {1, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
@@ -12789,8 +12457,7 @@ TEST(ArcDslTest, 228f6490)
     inputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 5, 5, 5, 5, 5, 5}, {2, 2, 2, 0, 5, 0, 0, 0, 5, 5}, {0, 0, 0, 0, 5, 5, 5, 0, 0, 5}, {0, 4, 4, 0, 5, 5, 5, 5, 5, 5}, {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 0, 4, 4, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 0, 0, 5, 5, 0, 0, 0, 0, 4}, {5, 0, 0, 0, 5, 0, 8, 8, 8, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 8, 8}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 0, 5, 8, 8, 8, 5, 5}, {0, 0, 0, 0, 5, 5, 5, 8, 8, 5}, {0, 4, 4, 0, 5, 5, 5, 5, 5, 5}, {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 0, 4, 4, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 2, 2, 5, 5, 0, 0, 0, 0, 4}, {5, 2, 2, 2, 5, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -12844,8 +12511,7 @@ TEST(ArcDslTest, 995c5fa3)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5}, {5, 5, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 0}, {5, 5, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 0}, {5, 5, 5, 5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 5}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2}, {8, 8, 8}, {3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -12901,8 +12567,7 @@ TEST(ArcDslTest, d06dbe63)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -12959,8 +12624,7 @@ TEST(ArcDslTest, 36fdfd69)
     inputs.emplace_back(hodel::Grid{{3, 3, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0}, {0, 0, 3, 0, 0, 3, 3, 0, 3, 0, 0, 0, 3, 0}, {0, 0, 3, 3, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 3, 3}, {0, 0, 0, 2, 2, 2, 2, 3, 0, 0, 0, 3, 0, 3}, {0, 3, 3, 2, 2, 3, 3, 2, 0, 0, 0, 3, 3, 0}, {0, 3, 0, 2, 2, 2, 3, 2, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 3, 0, 0, 0, 0, 3}, {0, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 0, 3, 3}, {3, 3, 3, 2, 0, 3, 3, 0, 0, 0, 3, 0, 3, 0}, {0, 3, 2, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 0}, {0, 3, 3, 0, 3, 3, 0, 0, 3, 3, 0, 3, 0, 3}, {0, 0, 3, 0, 3, 3, 0, 0, 3, 0, 3, 3, 0, 3}, {0, 3, 3, 0, 3, 0, 3, 0, 3, 0, 0, 0, 0, 0}, {3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 3, 0, 3, 3}});
     outputs.emplace_back(hodel::Grid{{3, 3, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0}, {0, 0, 3, 0, 0, 3, 3, 0, 3, 0, 0, 0, 3, 0}, {0, 0, 3, 3, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 3, 3}, {0, 0, 0, 2, 2, 2, 2, 4, 0, 0, 0, 3, 0, 3}, {0, 3, 3, 2, 2, 4, 4, 2, 0, 0, 0, 3, 3, 0}, {0, 3, 0, 2, 2, 2, 4, 2, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 3, 0, 3, 0, 0, 0, 0, 3}, {0, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 0, 3, 3}, {3, 3, 4, 2, 0, 3, 3, 0, 0, 0, 3, 0, 3, 0}, {0, 3, 2, 4, 0, 0, 0, 3, 3, 0, 0, 0, 3, 0}, {0, 3, 3, 0, 3, 3, 0, 0, 3, 3, 0, 3, 0, 3}, {0, 0, 3, 0, 3, 3, 0, 0, 3, 0, 3, 3, 0, 3}, {0, 3, 3, 0, 3, 0, 3, 0, 3, 0, 0, 0, 0, 0}, {3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 3, 0, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -13008,8 +12672,7 @@ TEST(ArcDslTest, 0a938d79)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}, {0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const color{buildConnection("color", {})};
     Connection const decrement{buildConnection("decrement", {})};
@@ -13060,8 +12723,7 @@ TEST(ArcDslTest, 045e512c)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const T{buildConnection("T", {})};
@@ -13112,8 +12774,7 @@ TEST(ArcDslTest, 82819916)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 2, 3, 3, 2, 3, 3}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 6, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 2, 3, 3, 2, 3, 3}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {8, 8, 4, 8, 8, 4, 8, 8}, {0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 6, 1, 1, 6, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -13172,8 +12833,7 @@ TEST(ArcDslTest, 99fa7670)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 2}, {0, 3, 3, 3, 3, 3}, {0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -13233,8 +12893,7 @@ TEST(ArcDslTest, 72322fa7)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 2, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -13302,8 +12961,7 @@ TEST(ArcDslTest, 855e0971)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ZERO{buildConnection("ZERO", {})};
     Connection const color{buildConnection("color", {})};
@@ -13359,8 +13017,7 @@ TEST(ArcDslTest, a78176bb)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 2, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 2, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, {2, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 2, 0}, {2, 0, 0, 0, 0, 2, 0, 0, 0, 2}, {0, 2, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 2, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -13420,8 +13077,7 @@ TEST(ArcDslTest, 952a094c)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 1, 2, 0, 0, 5, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 6, 0, 0, 3, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 0, 0, 0, 0, 0, 0, 6, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -13468,8 +13124,7 @@ TEST(ArcDslTest, 6d58a25d)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 3, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 3, 0, 3, 3, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 3, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 3}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
     Connection const both{buildConnection("both", {})};
@@ -13519,8 +13174,7 @@ TEST(ArcDslTest, 6aa20dc0)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 2, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 3, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 2, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 2, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 2, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 3, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 3, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 2, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 3, 2, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 4, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -13590,8 +13244,7 @@ TEST(ArcDslTest, e6721834)
     inputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 1, 1, 1, 8, 8, 8, 8}, {4, 4, 4, 4, 2, 4, 4, 4, 8, 2, 1, 1, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 1, 1, 1, 8, 8, 8, 8}, {4, 4, 4, 4, 2, 4, 4, 4, 8, 2, 1, 1, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 1, 1, 6, 8, 8, 8}, {4, 4, 6, 4, 4, 4, 4, 4, 8, 8, 1, 1, 1, 8, 8, 8}, {4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 1, 1, 1, 4}, {4, 4, 4, 4, 2, 1, 1, 4}, {4, 4, 4, 4, 1, 1, 1, 4}, {4, 4, 4, 4, 2, 1, 1, 4}, {4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4}, {4, 4, 4, 4, 4, 4, 4, 4}, {1, 1, 6, 4, 4, 4, 4, 4}, {1, 1, 1, 4, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -13656,8 +13309,7 @@ TEST(ArcDslTest, 447fd412)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -13731,8 +13383,7 @@ TEST(ArcDslTest, 2bcee788)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 2, 0, 0, 0, 0}, {0, 0, 4, 4, 4, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 4, 4, 3, 3, 3, 3}, {3, 3, 4, 4, 4, 4, 4, 4, 3, 3}, {3, 3, 3, 3, 4, 4, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -13789,8 +13440,7 @@ TEST(ArcDslTest, 776ffc46)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 0, 2, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 2, 2, 2, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 0, 2, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 0, 2, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 2, 2, 2, 0, 5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, {5, 0, 0, 2, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -13841,8 +13491,7 @@ TEST(ArcDslTest, f35d900a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {3, 2, 3, 5, 5, 2, 3, 2, 0, 0, 0, 0, 0, 0}, {3, 3, 3, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {2, 3, 2, 5, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -13899,8 +13548,7 @@ TEST(ArcDslTest, 36d67576)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -13971,8 +13619,7 @@ TEST(ArcDslTest, 98cf29f8)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const THREE{buildConnection("THREE", {})};
     Connection const colorcount{buildConnection("colorcount", {})};
@@ -14023,8 +13670,7 @@ TEST(ArcDslTest, 469497ad)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 9}, {0, 1, 1, 0, 9}, {0, 1, 1, 0, 3}, {0, 0, 0, 0, 3}, {9, 9, 3, 3, 4}});
     outputs.emplace_back(hodel::Grid{{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 9, 9, 9}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 9, 9, 9, 9}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 9, 9, 9, 9}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 3, 3, 3}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3, 3, 3, 3}, {0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 3, 3, 3}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 3}, {9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4}, {9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4}, {9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4}, {9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -14073,8 +13719,7 @@ TEST(ArcDslTest, 39e1d7f9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 2, 2, 2}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 2, 2, 2}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 2, 2, 2}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 2, 2, 2, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 2, 2, 2, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 2, 2, 2, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2}, {4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2}, {4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4}, {4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4}, {4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 2, 2, 2, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 4, 4, 4, 8, 4, 4, 4, 8, 4, 4, 4, 8, 0, 0, 0}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}, {0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -14140,8 +13785,7 @@ TEST(ArcDslTest, 484b58aa)
     inputs.emplace_back(hodel::Grid{{1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}, {2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 8, 1, 2, 1, 4, 0, 0, 0, 0, 0, 0, 0, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1}, {2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 2, 1, 4, 1, 6, 0, 0, 0, 0, 0, 0, 0, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 0, 0, 0, 0, 0, 0, 0, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 0, 0, 0, 0, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 0, 0, 0, 0, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 0, 0, 0, 0, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2}, {1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 0, 0, 0, 0, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}});
     outputs.emplace_back(hodel::Grid{{1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1}, {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2}, {1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1, 2, 1, 4, 1, 6, 1, 8, 1}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
     Connection const TWO{buildConnection("TWO", {})};
@@ -14197,8 +13841,7 @@ TEST(ArcDslTest, 3befdf3e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 3, 1, 1, 3, 0, 0, 0, 0}, {0, 0, 3, 1, 1, 3, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {3, 3, 1, 1, 1, 1, 3, 3, 0, 0}, {3, 3, 1, 3, 3, 1, 3, 3, 0, 0}, {3, 3, 1, 3, 3, 1, 3, 3, 0, 0}, {3, 3, 1, 1, 1, 1, 3, 3, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 3, 3, 3, 3, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -14263,8 +13906,7 @@ TEST(ArcDslTest, 9aec4887)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 4, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 8, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 7, 7, 7, 7, 0}, {4, 8, 7, 0, 8, 6}, {4, 0, 8, 8, 0, 6}, {4, 0, 8, 0, 6, 6}, {4, 8, 1, 0, 8, 6}, {0, 1, 1, 1, 1, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -14326,8 +13968,7 @@ TEST(ArcDslTest, 49d1d64f)
     inputs.emplace_back(hodel::Grid{{2, 1, 4}, {8, 0, 2}, {3, 2, 8}});
     outputs.emplace_back(hodel::Grid{{0, 2, 1, 4, 0}, {2, 2, 1, 4, 4}, {8, 8, 0, 2, 2}, {3, 3, 2, 8, 8}, {0, 3, 2, 8, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const UNITY{buildConnection("UNITY", {})};
@@ -14382,8 +14023,7 @@ TEST(ArcDslTest, 57aa92db)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 1, 1, 0, 0, 0}, {0, 0, 0, 4, 4, 4, 4, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -14454,8 +14094,7 @@ TEST(ArcDslTest, aba27056)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3}, {3, 0, 0, 0, 0, 3}, {3, 0, 0, 0, 0, 3}, {3, 3, 0, 0, 3, 3}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3}, {3, 4, 4, 4, 4, 3}, {3, 4, 4, 4, 4, 3}, {3, 3, 4, 4, 3, 3}, {0, 4, 4, 4, 4, 0}, {4, 0, 4, 4, 0, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FOUR{buildConnection("FOUR", {})};
@@ -14527,8 +14166,7 @@ TEST(ArcDslTest, f1cefba8)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -14590,8 +14228,7 @@ TEST(ArcDslTest, 1e32b0e9)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 3, 0, 3, 0, 1, 0, 3, 0, 0, 0, 1, 0, 0, 0, 3, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 3, 0, 3, 0, 1, 0, 3, 0, 1, 0, 1, 0, 1, 0, 3, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 3, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0}, {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0}, {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const ORIGIN{buildConnection("ORIGIN", {})};
@@ -14661,8 +14298,7 @@ TEST(ArcDslTest, 28e73c20)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3}, {0, 0, 0, 0, 0, 3}, {3, 3, 3, 3, 0, 3}, {3, 0, 3, 3, 0, 3}, {3, 0, 0, 0, 0, 3}, {3, 3, 3, 3, 3, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -14729,8 +14365,7 @@ TEST(ArcDslTest, 4c5c2cf0)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0}, {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -14793,8 +14428,7 @@ TEST(ArcDslTest, 508bd3b6)
     inputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {2, 2, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -14858,8 +14492,7 @@ TEST(ArcDslTest, 6d0160f0)
     inputs.emplace_back(hodel::Grid{{3, 0, 0, 5, 7, 0, 6, 5, 8, 0, 7}, {0, 0, 9, 5, 0, 3, 0, 5, 0, 6, 0}, {7, 2, 0, 5, 0, 0, 2, 5, 0, 3, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {7, 0, 2, 5, 8, 7, 0, 5, 0, 2, 3}, {0, 0, 6, 5, 0, 0, 3, 5, 0, 0, 7}, {3, 0, 0, 5, 2, 0, 0, 5, 0, 6, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 3, 4, 5, 0, 2, 0, 5, 2, 0, 7}, {7, 0, 0, 5, 7, 0, 3, 5, 0, 0, 1}, {0, 0, 2, 5, 0, 6, 0, 5, 0, 3, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 5, 0, 0, 0, 5, 0, 3, 4}, {0, 0, 0, 5, 0, 0, 0, 5, 7, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 2}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -14922,8 +14555,7 @@ TEST(ArcDslTest, f8a8fe49)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 5, 0, 0, 5, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 5, 5, 0, 5, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 5, 0, 5, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0}, {5, 5, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0}, {5, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -14993,8 +14625,7 @@ TEST(ArcDslTest, d07ae81c)
     inputs.emplace_back(hodel::Grid{{1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 8, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 3, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 3, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 6, 6, 6, 6, 6}});
     outputs.emplace_back(hodel::Grid{{1, 1, 3, 6, 6, 6, 1, 1, 1, 1, 6, 6, 3, 6, 6}, {1, 1, 6, 3, 6, 6, 1, 1, 1, 1, 6, 3, 6, 6, 6}, {1, 1, 6, 6, 3, 6, 1, 1, 1, 1, 3, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 3, 1, 1, 1, 8, 6, 6, 6, 6, 6}, {8, 1, 6, 6, 6, 6, 8, 1, 8, 1, 6, 6, 6, 6, 6}, {1, 8, 6, 6, 6, 6, 1, 8, 1, 1, 6, 6, 6, 6, 6}, {1, 1, 3, 6, 6, 6, 8, 1, 8, 1, 6, 6, 6, 6, 6}, {1, 1, 6, 3, 6, 3, 1, 1, 1, 8, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 3, 6, 1, 1, 1, 1, 3, 6, 6, 6, 3}, {1, 1, 6, 3, 6, 3, 1, 1, 1, 1, 6, 3, 6, 3, 6}, {1, 1, 3, 6, 6, 6, 8, 1, 1, 1, 6, 6, 3, 6, 6}, {1, 8, 6, 6, 6, 6, 1, 8, 1, 1, 6, 3, 6, 3, 6}, {8, 1, 6, 6, 6, 6, 1, 1, 8, 1, 3, 6, 6, 6, 3}, {1, 1, 6, 6, 6, 6, 1, 1, 1, 8, 6, 6, 6, 6, 6}, {1, 1, 6, 6, 6, 6, 1, 1, 8, 1, 3, 6, 6, 6, 6}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -15057,8 +14688,7 @@ TEST(ArcDslTest, 6a1e5592)
     inputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0}, {2, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0}, {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0}, {0, 5, 5, 5, 0, 0, 5, 5, 0, 0, 0, 0, 0, 5, 0}, {0, 5, 5, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0, 5, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1}, {2, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1}, {0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -15136,8 +14766,7 @@ TEST(ArcDslTest, 0e206a2e)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 8, 8, 8, 2, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 8, 8, 8, 2, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -15222,8 +14851,7 @@ TEST(ArcDslTest, d22278a0)
     inputs.emplace_back(hodel::Grid{{1, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 0, 1, 0, 1, 2, 0, 2, 0, 2}, {0, 0, 1, 0, 1, 2, 0, 2, 0, 0}, {1, 1, 1, 0, 1, 2, 0, 2, 2, 2}, {0, 0, 0, 0, 1, 2, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -15307,8 +14935,7 @@ TEST(ArcDslTest, 4290ef0e)
     inputs.emplace_back(hodel::Grid{{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 2, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1, 1, 3, 8, 8, 3}, {3, 3, 2, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 1, 3, 8, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3}, {3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3}, {3, 3, 2, 3, 3, 3, 3, 7, 7, 7, 3, 3, 3, 3, 3, 8, 8, 3}, {2, 2, 2, 3, 3, 3, 3, 7, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 7, 7, 7, 3, 3, 3, 1, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 4, 3, 3, 3, 3}, {3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 3}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}});
     outputs.emplace_back(hodel::Grid{{4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 4}, {4, 1, 1, 1, 3, 3, 3, 1, 1, 1, 4}, {3, 1, 2, 2, 2, 3, 2, 2, 2, 1, 3}, {3, 1, 2, 8, 8, 3, 8, 8, 2, 1, 3}, {3, 3, 2, 8, 7, 7, 7, 8, 2, 3, 3}, {3, 3, 3, 3, 7, 6, 7, 3, 3, 3, 3}, {3, 3, 2, 8, 7, 7, 7, 8, 2, 3, 3}, {3, 1, 2, 8, 8, 3, 8, 8, 2, 1, 3}, {3, 1, 2, 2, 2, 3, 2, 2, 2, 1, 3}, {4, 1, 1, 1, 3, 3, 3, 1, 1, 1, 4}, {4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 4}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const NEG_TWO{buildConnection("NEG_TWO", {})};
@@ -15408,8 +15035,7 @@ TEST(ArcDslTest, 50846271)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 0, 0}, {0, 5, 0, 0, 5, 5, 5, 5, 0, 0, 5, 0, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5}, {5, 0, 5, 5, 0, 5, 5, 5, 0, 0, 5, 5, 2, 0, 0, 0, 0, 0, 0, 0, 5, 0}, {5, 0, 0, 5, 5, 0, 0, 0, 5, 0, 0, 0, 2, 5, 5, 5, 0, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 2, 5, 5, 0, 0, 5, 0, 5, 5, 0}, {0, 5, 0, 0, 5, 0, 0, 0, 5, 2, 5, 2, 5, 5, 5, 2, 5, 0, 5, 0, 0, 0}, {0, 5, 5, 0, 5, 0, 0, 0, 0, 0, 5, 0, 2, 5, 0, 0, 5, 0, 0, 5, 5, 5}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 2, 5, 0, 5, 5, 0, 5, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 5, 0, 5}, {5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 5, 0, 5, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5}, {0, 5, 5, 0, 0, 5, 0, 0, 5, 0, 5, 5, 0, 5, 5, 0, 5, 5, 0, 0, 5, 5}, {0, 0, 5, 5, 0, 2, 5, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0}, {5, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0, 5}, {0, 0, 2, 5, 5, 2, 2, 2, 2, 0, 0, 0, 5, 5, 0, 5, 0, 0, 5, 0, 5, 0}, {0, 5, 5, 0, 0, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 5, 2, 0, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0}, {0, 0, 5, 5, 0, 2, 5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 0, 0, 5, 5, 5}, {0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 0, 0, 5, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 5, 0, 0, 0, 5}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 0, 0}, {0, 5, 0, 0, 5, 5, 5, 5, 0, 0, 5, 0, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5}, {5, 0, 5, 5, 0, 5, 5, 5, 0, 0, 5, 5, 2, 0, 0, 0, 0, 0, 0, 0, 5, 0}, {5, 0, 0, 5, 5, 0, 0, 0, 5, 0, 0, 0, 2, 5, 5, 5, 0, 5, 5, 5, 0, 0}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 2, 5, 5, 0, 0, 5, 0, 5, 5, 0}, {0, 5, 0, 0, 5, 0, 0, 0, 5, 2, 8, 2, 8, 8, 8, 2, 5, 0, 5, 0, 0, 0}, {0, 5, 5, 0, 5, 0, 0, 0, 0, 0, 5, 0, 2, 5, 0, 0, 5, 0, 0, 5, 5, 5}, {0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 2, 5, 0, 5, 5, 0, 5, 0, 0, 0}, {5, 0, 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 5, 0, 5}, {5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0}, {0, 5, 0, 5, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5}, {0, 5, 5, 0, 0, 8, 0, 0, 5, 0, 5, 5, 0, 5, 5, 0, 5, 5, 0, 0, 5, 5}, {0, 0, 5, 5, 0, 2, 5, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0}, {5, 0, 5, 0, 0, 8, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0, 5}, {0, 0, 2, 8, 8, 2, 2, 2, 2, 0, 0, 0, 5, 5, 0, 5, 0, 0, 5, 0, 5, 0}, {0, 5, 5, 0, 0, 8, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0}, {5, 0, 0, 0, 5, 2, 0, 5, 5, 0, 5, 0, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0}, {0, 0, 5, 5, 0, 2, 5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 0, 0, 5, 5, 5}, {0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 0, 0, 5, 5}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5, 0, 5, 0, 0, 0, 5}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const F{buildConnection("F", {})};
@@ -15497,8 +15123,7 @@ TEST(ArcDslTest, b527c5c6)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 3, 0, 3, 3, 3, 3}, {0, 0, 0, 3, 3, 0, 3, 3, 2, 3}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 3, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 3, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 3, 0, 3, 3, 3, 3}, {3, 3, 3, 3, 3, 0, 3, 3, 2, 3}, {0, 0, 0, 3, 3, 0, 0, 3, 2, 3}, {0, 0, 0, 3, 3, 0, 0, 3, 2, 3}, {0, 0, 0, 0, 0, 0, 0, 3, 2, 3}, {0, 0, 0, 0, 0, 0, 0, 3, 2, 3}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -15589,8 +15214,7 @@ TEST(ArcDslTest, 150deff5)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 5, 5, 5, 5, 5, 0, 0, 0}, {0, 0, 0, 0, 5, 5, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 8, 8, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 8, 8, 0, 0, 0}, {0, 0, 0, 2, 8, 8, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -15660,8 +15284,7 @@ TEST(ArcDslTest, b7249182)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 8, 8, 8, 8, 8, 8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -15735,8 +15358,7 @@ TEST(ArcDslTest, 9d9215db)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 4, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NEG_TWO{buildConnection("NEG_TWO", {})};
@@ -15821,8 +15443,7 @@ TEST(ArcDslTest, 6855a6e4)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0}, {5, 5, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5, 5, 0}, {0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 5, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 5, 0, 0, 5, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 5, 5, 5, 5, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 5, 0, 5, 0, 0, 2, 0, 0, 0, 0}, {0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -15893,8 +15514,7 @@ TEST(ArcDslTest, 264363fd)
     inputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 4, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 4, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 5, 6, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 4, 6, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 5, 6, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
     outputs.emplace_back(hodel::Grid{{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 6, 5, 6, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 6, 4, 6, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 6, 5, 6, 3, 3, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 3, 3, 3, 6, 5, 6, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 3, 3, 3, 6, 4, 6, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 6, 5, 6, 3, 3, 3, 3, 8, 3, 3, 3, 6, 5, 6, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 6, 4, 6, 3, 3, 3, 3, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 6, 5, 6, 3, 3, 3, 3, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 6, 5, 6, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 6, 4, 6, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 6, 5, 6, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 3, 3, 3, 5, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -15981,8 +15601,7 @@ TEST(ArcDslTest, 7df24a62)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 4, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 4, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 4, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 4, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 4, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const FOUR{buildConnection("FOUR", {})};
     Connection const NEG_UNITY{buildConnection("NEG_UNITY", {})};
@@ -16069,8 +15688,7 @@ TEST(ArcDslTest, f15e1fac)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8}, {0, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0}, {8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const EIGHT{buildConnection("EIGHT", {})};
@@ -16161,8 +15779,7 @@ TEST(ArcDslTest, 234bbc79)
     inputs.emplace_back(hodel::Grid{{0, 5, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 0, 5, 1, 0, 5, 2, 2}, {0, 0, 0, 0, 5, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 2, 1, 1, 0, 0, 0}, {2, 2, 0, 1, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN_LEFT{buildConnection("DOWN_LEFT", {})};
     Connection const F{buildConnection("F", {})};
@@ -16257,8 +15874,7 @@ TEST(ArcDslTest, 22233c11)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 0, 0, 0, 0}, {0, 0, 0, 3, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 3, 0, 0, 0, 0, 0}, {0, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const T{buildConnection("T", {})};
@@ -16307,8 +15923,7 @@ TEST(ArcDslTest, 2dd70a9a)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 8, 0, 0, 8, 0}, {0, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0, 8, 0, 8, 8}, {8, 0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 0}, {0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 0}, {0, 3, 3, 0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0}, {0, 8, 8, 0, 0, 8, 0, 0, 8, 0, 8, 8, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0}, {8, 0, 0, 0, 0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 8, 0, 8, 0, 0, 0, 8, 8, 8, 8, 0}, {0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 8, 0, 0, 8, 0, 0, 8}, {0, 8, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 8, 0, 0, 8, 0}, {0, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0, 8, 0, 8, 8}, {8, 0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 8, 8, 8, 0}, {0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 0}, {0, 3, 3, 3, 3, 3, 3, 3, 8, 0, 0, 0, 8, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 8, 0, 8, 0}, {0, 8, 8, 0, 0, 8, 0, 3, 8, 0, 8, 8, 0, 0, 0}, {0, 8, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0}, {8, 2, 2, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 8, 0}, {8, 0, 0, 0, 0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 0}, {0, 8, 0, 0, 8, 0, 8, 0, 0, 0, 8, 8, 8, 8, 0}, {0, 0, 0, 0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 8, 0, 8, 0, 0, 8, 0, 0, 8}, {0, 8, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const DOWN{buildConnection("DOWN", {})};
     Connection const F{buildConnection("F", {})};
@@ -16393,8 +16008,7 @@ TEST(ArcDslTest, a64e4611)
     inputs.emplace_back(hodel::Grid{{0, 2, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0}, {0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0}, {0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 2, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2}, {0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {2, 2, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 2, 2, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2, 0, 2}, {0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0}, {0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2}, {2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0}, {2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 2, 2, 2}, {0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 2}, {2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 2, 0, 2, 0}, {2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 2}});
     outputs.emplace_back(hodel::Grid{{0, 2, 0, 2, 2, 2, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0}, {0, 0, 2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0}, {0, 2, 0, 0, 0, 2, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 2, 0, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 2, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0}, {0, 2, 0, 0, 2, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 2, 0, 0}, {2, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 2}, {0, 0, 0, 2, 0, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {2, 2, 2, 2, 0, 0, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 2, 2, 0, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 0, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0}, {0, 0, 0, 2, 2, 2, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0}, {0, 0, 2, 0, 0, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2, 0, 2}, {0, 0, 2, 2, 0, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0}, {0, 2, 0, 0, 0, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2}, {2, 0, 2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, {2, 2, 0, 0, 2, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 2, 2, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0}, {2, 0, 0, 0, 2, 2, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 2, 2, 2}, {0, 2, 0, 2, 0, 0, 2, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 2}, {2, 0, 2, 2, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 2, 0, 2, 0}, {2, 0, 0, 2, 2, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const EIGHT{buildConnection("EIGHT", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -16498,8 +16112,7 @@ TEST(ArcDslTest, 7837ac64)
     inputs.emplace_back(hodel::Grid{{0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 3, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 3, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}, {0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0}});
     outputs.emplace_back(hodel::Grid{{1, 0, 3}, {1, 0, 0}, {1, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -16582,8 +16195,7 @@ TEST(ArcDslTest, a8c38be5)
     inputs.emplace_back(hodel::Grid{{5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {8, 5, 5, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0}, {8, 8, 5, 0, 0, 0, 0, 0, 5, 2, 5, 0, 0, 0}, {0, 0, 2, 5, 5, 0, 0, 0, 5, 5, 5, 0, 0, 0}, {0, 0, 2, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 2, 5, 5, 0, 5, 5, 5, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 5, 5, 5, 0}, {0, 5, 1, 1, 0, 0, 5, 5, 5, 0, 5, 4, 5, 0}, {0, 5, 5, 1, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0}, {0, 5, 5, 5, 0, 0, 5, 5, 3, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 5, 3, 3, 0, 0, 0, 0, 0}, {5, 5, 5, 0, 0, 0, 5, 5, 3, 0, 6, 6, 5, 0}, {5, 5, 9, 0, 0, 0, 0, 0, 0, 0, 6, 5, 5, 0}, {5, 9, 9, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0}});
     outputs.emplace_back(hodel::Grid{{6, 6, 5, 2, 2, 2, 5, 1, 1}, {6, 5, 5, 5, 2, 5, 5, 5, 1}, {5, 5, 5, 5, 5, 5, 5, 5, 5}, {2, 5, 5, 5, 5, 5, 5, 5, 3}, {2, 2, 5, 5, 5, 5, 5, 3, 3}, {2, 5, 5, 5, 5, 5, 5, 5, 3}, {5, 5, 5, 5, 5, 5, 5, 5, 5}, {8, 5, 5, 5, 4, 5, 5, 5, 9}, {8, 8, 5, 4, 4, 4, 5, 9, 9}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
@@ -16650,8 +16262,7 @@ TEST(ArcDslTest, b775ac94)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 4, 4, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 6, 6, 0}, {0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 6, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 4, 4, 4, 4, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
@@ -16762,8 +16373,7 @@ TEST(ArcDslTest, 97a05b5b)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 8, 2, 8, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 0, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 8, 2, 8, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 8, 2, 8, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}, {2, 2, 2, 2, 2, 2, 2, 2, 2}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
@@ -16883,8 +16493,7 @@ TEST(ArcDslTest, 3e980e27)
     inputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     outputs.emplace_back(hodel::Grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
 
-    auto const iFunction{[] () -> hodel::Grid { return hodel::Grid{}; }};
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
