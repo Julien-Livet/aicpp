@@ -46,6 +46,9 @@ namespace aicpp
             size_t hash_;
             std::shared_ptr<Connection> source_;
     };
+
+    Connection buildConnection(std::string const& name, std::vector<std::any> const& args);
+    Connection buildFunctionConnection(std::string const& name, DslType const& expectedSignature);
 }
 
 template<>
