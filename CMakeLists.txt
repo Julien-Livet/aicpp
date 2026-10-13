@@ -138,6 +138,8 @@ set(FILES
     src/aicpp/ArgmaxNeuron.cpp include/aicpp/ArgmaxNeuron.h
     src/aicpp/ValminNeuron.cpp include/aicpp/ValminNeuron.h
     src/aicpp/ValmaxNeuron.cpp include/aicpp/ValmaxNeuron.h
+    src/aicpp/LbindNeuron.cpp include/aicpp/LbindNeuron.h
+    src/aicpp/RbindNeuron.cpp include/aicpp/RbindNeuron.h
     src/aicpp/HodelPolymorphicNeuronRegister.cpp include/aicpp/HodelPolymorphicNeuronRegister.h
     src/aicpp/HodelRegister.cpp include/aicpp/HodelRegister.h
     src/aicpp/FunctionAdapterNeuron.cpp include/aicpp/FunctionAdapterNeuron.h
