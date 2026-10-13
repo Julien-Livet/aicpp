@@ -6042,3 +6042,84 @@ TEST(RbindNeuronTest, AppliesIntegerTupleOverload)
 
     EXPECT_EQ(result, IntegerTuple({4, 6}));
 }
+
+TEST(ConnectionTest, RemainingSignaturePreservesAllMissingArguments)
+{
+    aicpp::DslType const signature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const connection =
+        aicpp::buildFunctionConnection("add", signature);
+
+    EXPECT_EQ(connection.remainingSignature(), signature);
+}
+
+TEST(ArcDslTest, BranchReturnsApplicableFunctionValue)
+{
+    // Arrange
+    hodel::Grid const input{
+        {4, 4, 4, 4, 4, 4},
+        {6, 4, 8, 6, 4, 8},
+        {6, 6, 8, 6, 6, 8}
+    };
+
+    auto const iFunction = [input] () -> hodel::Grid
+    {
+        return input;
+    };
+
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", iFunction};
+    aicpp::Connection const I{&iNeuron, {}};
+
+    aicpp::Connection const topHalf{
+        aicpp::buildConnection("tophalf", {})
+    };
+
+    aicpp::Connection const leftHalf{
+        aicpp::buildConnection("lefthalf", {})
+    };
+
+    aicpp::Connection const portrait{
+        aicpp::buildConnection("portrait", {I})
+    };
+
+
+    auto const branchSignature = aicpp::DslType::function(
+    {
+        aicpp::makeDslType<hodel::Boolean>(),
+        aicpp::makeDslType<aicpp::FunctionValue>(),
+        aicpp::makeDslType<aicpp::FunctionValue>()
+    },
+    aicpp::makeDslType<aicpp::FunctionValue>());
+
+    auto const branch = aicpp::buildFunctionConnection(
+        "branch",
+        branchSignature,
+        {
+            portrait,
+            topHalf,
+            leftHalf
+        });
+
+    // Act : branch produit une FunctionValue.
+    std::any const result = branch.output();
+
+    ASSERT_EQ(result.type(), typeid(aicpp::FunctionValue));
+
+    auto const& functionValue =
+        std::any_cast<aicpp::FunctionValue const&>(result);
+
+    // Act : appliquer la fonction encapsulée à une grille.
+    std::any const applied = functionValue.connection.apply(input);
+
+    // Assert
+    ASSERT_EQ(applied.type(), typeid(hodel::Grid));
+
+    EXPECT_EQ(
+        std::any_cast<hodel::Grid const&>(applied),
+        hodel::lefthalf(input));
+}
