@@ -36,6 +36,7 @@ namespace aicpp
             std::any apply(std::any const& argument) const;
             std::vector<std::type_index> immediateInputTypes() const;
             DslType valueType() const;
+            DslType remainingSignature() const;
 
         private:
             size_t computeHash_() const;
@@ -47,8 +48,10 @@ namespace aicpp
             std::shared_ptr<Connection> source_;
     };
 
+    NeuronBase const* findNeuron(DslType const& expected);
     Connection buildConnection(std::string const& name, std::vector<std::any> const& args);
     Connection buildFunctionConnection(std::string const& name, DslType const& expectedSignature);
+    Connection buildFunctionConnection(std::string const& name, DslType const& expectedSignature, std::vector<std::any> const& args);
 }
 
 template<>
