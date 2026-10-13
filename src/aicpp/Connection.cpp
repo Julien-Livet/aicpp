@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <boost/algorithm/string.hpp>
 
 #include "aicpp/Connection.h"
@@ -11,7 +13,7 @@ using namespace aicpp;
 
 static auto const registry = aicpp::makeNeuronRegistry();
 
-aicpp::NeuronBase const* findNeuron(aicpp::DslType const& expected)
+aicpp::NeuronBase const* aicpp::findNeuron(aicpp::DslType const& expected)
 {
     auto it = std::find_if(
         registry.begin(),
@@ -466,7 +468,7 @@ std::any Connection::output() const
                 "Neuron marked polymorphic does not implement PolymorphicNeuron");
         }
 
-        if (polymorphic->evaluatesToValue())
+        if (polymorphic->evaluatesToValue(inputs_))
             return polymorphic->evaluate(inputs_);
 
         return *this;
@@ -883,4 +885,139 @@ DslType Connection::valueType() const
         return connectionSignature.output();
 
     return connectionSignature;
+}
+
+DslType Connection::remainingSignature() const
+{
+    if (neuron_->isPolymorphic())
+    {
+        throw std::logic_error(
+            "Cannot compute remaining signature for a polymorphic neuron");
+    }
+
+    auto const nativeSignature = neuron_->signature();
+
+    if (!nativeSignature.isFunction())
+    {
+        throw std::logic_error(
+            "Cannot compute remaining signature for a non-function neuron");
+    }
+
+    auto const& nativeInputs = nativeSignature.inputs();
+
+    if (inputs_.size() != nativeInputs.size())
+    {
+        throw std::logic_error(
+            "Connection inputs do not match the native function signature");
+    }
+
+    DslType::Inputs remainingInputs;
+
+    for (std::size_t i = 0; i < inputs_.size(); ++i)
+    {
+        if (inputs_[i].type() == typeid(std::type_index))
+        {
+            auto const missingType =
+                std::any_cast<std::type_index>(inputs_[i]);
+
+            if (missingType != nativeInputs[i].nativeType())
+            {
+                throw std::logic_error(
+                    "Missing argument type does not match native signature");
+            }
+
+            remainingInputs.emplace_back(nativeInputs[i]);
+        }
+    }
+
+    return DslType::function(
+        remainingInputs,
+        nativeSignature.output());
+}
+
+aicpp::Connection aicpp::buildFunctionConnection(
+    std::string const& name,
+    DslType const& expectedSignature,
+    std::vector<std::any> const& args)
+{
+    if (!expectedSignature.isFunction())
+    {
+        throw std::invalid_argument(
+            "Expected signature must be a function");
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name || neuron->isPolymorphic())
+            continue;
+
+        if (neuron->signature() != expectedSignature)
+            continue;
+
+        auto const inputTypes = neuron->inputTypes();
+
+        if (args.size() > inputTypes.size())
+        {
+            throw std::invalid_argument(
+                "Too many fixed arguments for function: " + name);
+        }
+
+        std::vector<std::any> inputs;
+        inputs.reserve(inputTypes.size());
+
+        for (std::size_t i = 0; i < inputTypes.size(); ++i)
+        {
+            if (i < args.size())
+            {
+                auto const& argument = args[i];
+
+                if (argument.type() == typeid(Connection))
+                {
+                    auto const& connection =
+                        std::any_cast<Connection const&>(argument);
+
+                    if (inputTypes[i] == typeid(FunctionValue))
+                    {
+                        if (!connection.signature().isFunction())
+                        {
+                            throw std::invalid_argument(
+                                "Expected a function argument");
+                        }
+                    }
+                    else
+                    {
+                        auto const actualType = connection.valueType();
+
+                        if (actualType.isFunction()
+                            || actualType.nativeType() != inputTypes[i])
+                        {
+                            throw std::invalid_argument(
+                                "Fixed argument type mismatch");
+                        }
+                    }
+
+                    inputs.emplace_back(connection);
+                }
+                else
+                {
+                    if (argument.type() != inputTypes[i])
+                    {
+                        throw std::invalid_argument(
+                            "Fixed argument type mismatch");
+                    }
+
+                    inputs.emplace_back(argument);
+                }
+            }
+            else
+            {
+                inputs.emplace_back(inputTypes[i]);
+            }
+        }
+
+        return Connection{neuron, inputs};
+    }
+
+    throw std::runtime_error(
+        "No function overload found for neuron: " + name);
 }
