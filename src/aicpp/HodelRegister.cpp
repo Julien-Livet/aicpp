@@ -463,1521 +463,1313 @@ namespace aicpp
     aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&> neuron_mapply_448{"mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::mapply)}; // Original declaration: line 652
     aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&> neuron_mapply_449{"mapply", static_cast<aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::mapply)}; // Original declaration: line 653
     aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&> neuron_mapply_450{"mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::mapply)}; // Original declaration: line 654
-static FunctionAdapterNeuron adapter_invert_43{
-    &neuron_invert_43
-};
-
-static FunctionAdapterNeuron adapter_invert_44{
-    &neuron_invert_44
-};
-
-static FunctionAdapterNeuron adapter_even_45{
-    &neuron_even_45
-};
-
-static FunctionAdapterNeuron adapter_double__46{
-    &neuron_double__46
-};
-
-static FunctionAdapterNeuron adapter_double__47{
-    &neuron_double__47
-};
-
-static FunctionAdapterNeuron adapter_halve_48{
-    &neuron_halve_48
-};
-
-static FunctionAdapterNeuron adapter_halve_49{
-    &neuron_halve_49
-};
-
-static FunctionAdapterNeuron adapter_flip_50{
-    &neuron_flip_50
-};
-
-static FunctionAdapterNeuron adapter_maximum_52{
-    &neuron_maximum_52
-};
-
-static FunctionAdapterNeuron adapter_maximum_53{
-    &neuron_maximum_53
-};
-
-static FunctionAdapterNeuron adapter_minimum_54{
-    &neuron_minimum_54
-};
-
-static FunctionAdapterNeuron adapter_minimum_55{
-    &neuron_minimum_55
-};
-
-static FunctionAdapterNeuron adapter_increment_58{
-    &neuron_increment_58
-};
-
-static FunctionAdapterNeuron adapter_increment_59{
-    &neuron_increment_59
-};
-
-static FunctionAdapterNeuron adapter_decrement_60{
-    &neuron_decrement_60
-};
-
-static FunctionAdapterNeuron adapter_decrement_61{
-    &neuron_decrement_61
-};
-
-static FunctionAdapterNeuron adapter_crement_62{
-    &neuron_crement_62
-};
-
-static FunctionAdapterNeuron adapter_crement_63{
-    &neuron_crement_63
-};
-
-static FunctionAdapterNeuron adapter_sign_64{
-    &neuron_sign_64
-};
-
-static FunctionAdapterNeuron adapter_sign_65{
-    &neuron_sign_65
-};
-
-static FunctionAdapterNeuron adapter_positive_66{
-    &neuron_positive_66
-};
-
-static FunctionAdapterNeuron adapter_toivec_67{
-    &neuron_toivec_67
-};
-
-static FunctionAdapterNeuron adapter_tojvec_68{
-    &neuron_tojvec_68
-};
-
-static FunctionAdapterNeuron adapter_ulcorner_73{
-    &neuron_ulcorner_73
-};
-
-static FunctionAdapterNeuron adapter_ulcorner_74{
-    &neuron_ulcorner_74
-};
-
-static FunctionAdapterNeuron adapter_urcorner_75{
-    &neuron_urcorner_75
-};
-
-static FunctionAdapterNeuron adapter_urcorner_76{
-    &neuron_urcorner_76
-};
-
-static FunctionAdapterNeuron adapter_llcorner_77{
-    &neuron_llcorner_77
-};
-
-static FunctionAdapterNeuron adapter_llcorner_78{
-    &neuron_llcorner_78
-};
-
-static FunctionAdapterNeuron adapter_lrcorner_79{
-    &neuron_lrcorner_79
-};
-
-static FunctionAdapterNeuron adapter_lrcorner_80{
-    &neuron_lrcorner_80
-};
-
-static FunctionAdapterNeuron adapter_toindices_82{
-    &neuron_toindices_82
-};
-
-static FunctionAdapterNeuron adapter_uppermost_85{
-    &neuron_uppermost_85
-};
-
-static FunctionAdapterNeuron adapter_uppermost_86{
-    &neuron_uppermost_86
-};
-
-static FunctionAdapterNeuron adapter_lowermost_87{
-    &neuron_lowermost_87
-};
-
-static FunctionAdapterNeuron adapter_lowermost_88{
-    &neuron_lowermost_88
-};
-
-static FunctionAdapterNeuron adapter_leftmost_89{
-    &neuron_leftmost_89
-};
-
-static FunctionAdapterNeuron adapter_leftmost_90{
-    &neuron_leftmost_90
-};
-
-static FunctionAdapterNeuron adapter_rightmost_91{
-    &neuron_rightmost_91
-};
-
-static FunctionAdapterNeuron adapter_rightmost_92{
-    &neuron_rightmost_92
-};
-
-static FunctionAdapterNeuron adapter_rot90_93{
-    &neuron_rot90_93
-};
-
-static FunctionAdapterNeuron adapter_rot180_94{
-    &neuron_rot180_94
-};
-
-static FunctionAdapterNeuron adapter_rot270_95{
-    &neuron_rot270_95
-};
-
-static FunctionAdapterNeuron adapter_hmirror_96{
-    &neuron_hmirror_96
-};
-
-static FunctionAdapterNeuron adapter_hmirror_97{
-    &neuron_hmirror_97
-};
-
-static FunctionAdapterNeuron adapter_hmirror_98{
-    &neuron_hmirror_98
-};
-
-static FunctionAdapterNeuron adapter_vmirror_99{
-    &neuron_vmirror_99
-};
-
-static FunctionAdapterNeuron adapter_vmirror_100{
-    &neuron_vmirror_100
-};
-
-static FunctionAdapterNeuron adapter_vmirror_101{
-    &neuron_vmirror_101
-};
-
-static FunctionAdapterNeuron adapter_dmirror_102{
-    &neuron_dmirror_102
-};
-
-static FunctionAdapterNeuron adapter_dmirror_103{
-    &neuron_dmirror_103
-};
-
-static FunctionAdapterNeuron adapter_dmirror_104{
-    &neuron_dmirror_104
-};
-
-static FunctionAdapterNeuron adapter_cmirror_105{
-    &neuron_cmirror_105
-};
-
-static FunctionAdapterNeuron adapter_cmirror_106{
-    &neuron_cmirror_106
-};
-
-static FunctionAdapterNeuron adapter_cmirror_107{
-    &neuron_cmirror_107
-};
-
-static FunctionAdapterNeuron adapter_tophalf_117{
-    &neuron_tophalf_117
-};
-
-static FunctionAdapterNeuron adapter_bottomhalf_118{
-    &neuron_bottomhalf_118
-};
-
-static FunctionAdapterNeuron adapter_lefthalf_119{
-    &neuron_lefthalf_119
-};
-
-static FunctionAdapterNeuron adapter_righthalf_120{
-    &neuron_righthalf_120
-};
-
-static FunctionAdapterNeuron adapter_trim_121{
-    &neuron_trim_121
-};
-
-static FunctionAdapterNeuron adapter_compress_122{
-    &neuron_compress_122
-};
-
-static FunctionAdapterNeuron adapter_normalize_123{
-    &neuron_normalize_123
-};
-
-static FunctionAdapterNeuron adapter_normalize_124{
-    &neuron_normalize_124
-};
-
-static FunctionAdapterNeuron adapter_dneighbors_125{
-    &neuron_dneighbors_125
-};
-
-static FunctionAdapterNeuron adapter_ineighbors_126{
-    &neuron_ineighbors_126
-};
-
-static FunctionAdapterNeuron adapter_neighbors_127{
-    &neuron_neighbors_127
-};
-
-static FunctionAdapterNeuron adapter_square_130{
-    &neuron_square_130
-};
-
-static FunctionAdapterNeuron adapter_square_131{
-    &neuron_square_131
-};
-
-static FunctionAdapterNeuron adapter_square_132{
-    &neuron_square_132
-};
-
-static FunctionAdapterNeuron adapter_vline_133{
-    &neuron_vline_133
-};
-
-static FunctionAdapterNeuron adapter_vline_134{
-    &neuron_vline_134
-};
-
-static FunctionAdapterNeuron adapter_hline_135{
-    &neuron_hline_135
-};
-
-static FunctionAdapterNeuron adapter_hline_136{
-    &neuron_hline_136
-};
-
-static FunctionAdapterNeuron adapter_height_137{
-    &neuron_height_137
-};
-
-static FunctionAdapterNeuron adapter_height_138{
-    &neuron_height_138
-};
-
-static FunctionAdapterNeuron adapter_height_139{
-    &neuron_height_139
-};
-
-static FunctionAdapterNeuron adapter_width_140{
-    &neuron_width_140
-};
-
-static FunctionAdapterNeuron adapter_width_141{
-    &neuron_width_141
-};
-
-static FunctionAdapterNeuron adapter_width_142{
-    &neuron_width_142
-};
-
-static FunctionAdapterNeuron adapter_shape_143{
-    &neuron_shape_143
-};
-
-static FunctionAdapterNeuron adapter_shape_144{
-    &neuron_shape_144
-};
-
-static FunctionAdapterNeuron adapter_shape_145{
-    &neuron_shape_145
-};
-
-static FunctionAdapterNeuron adapter_portrait_146{
-    &neuron_portrait_146
-};
-
-static FunctionAdapterNeuron adapter_portrait_147{
-    &neuron_portrait_147
-};
-
-static FunctionAdapterNeuron adapter_portrait_148{
-    &neuron_portrait_148
-};
-
-static FunctionAdapterNeuron adapter_color_164{
-    &neuron_color_164
-};
-
-static FunctionAdapterNeuron adapter_asobject_167{
-    &neuron_asobject_167
-};
-
-static FunctionAdapterNeuron adapter_mostcolor_168{
-    &neuron_mostcolor_168
-};
-
-static FunctionAdapterNeuron adapter_mostcolor_169{
-    &neuron_mostcolor_169
-};
-
-static FunctionAdapterNeuron adapter_leastcolor_170{
-    &neuron_leastcolor_170
-};
-
-static FunctionAdapterNeuron adapter_leastcolor_171{
-    &neuron_leastcolor_171
-};
-
-static FunctionAdapterNeuron adapter_partition_177{
-    &neuron_partition_177
-};
-
-static FunctionAdapterNeuron adapter_fgpartition_178{
-    &neuron_fgpartition_178
-};
-
-static FunctionAdapterNeuron adapter_asindices_179{
-    &neuron_asindices_179
-};
-
-static FunctionAdapterNeuron adapter_centerofmass_213{
-    &neuron_centerofmass_213
-};
-
-static FunctionAdapterNeuron adapter_centerofmass_214{
-    &neuron_centerofmass_214
-};
-
-static FunctionAdapterNeuron adapter_palette_215{
-    &neuron_palette_215
-};
-
-static FunctionAdapterNeuron adapter_palette_216{
-    &neuron_palette_216
-};
-
-static FunctionAdapterNeuron adapter_numcolors_217{
-    &neuron_numcolors_217
-};
-
-static FunctionAdapterNeuron adapter_numcolors_218{
-    &neuron_numcolors_218
-};
-
-static FunctionAdapterNeuron adapter_center_225{
-    &neuron_center_225
-};
-
-static FunctionAdapterNeuron adapter_center_226{
-    &neuron_center_226
-};
-
-static FunctionAdapterNeuron adapter_corners_233{
-    &neuron_corners_233
-};
-
-static FunctionAdapterNeuron adapter_corners_234{
-    &neuron_corners_234
-};
-
-static FunctionAdapterNeuron adapter_vfrontier_238{
-    &neuron_vfrontier_238
-};
-
-static FunctionAdapterNeuron adapter_hfrontier_239{
-    &neuron_hfrontier_239
-};
-
-static FunctionAdapterNeuron adapter_backdrop_240{
-    &neuron_backdrop_240
-};
-
-static FunctionAdapterNeuron adapter_backdrop_241{
-    &neuron_backdrop_241
-};
-
-static FunctionAdapterNeuron adapter_delta_242{
-    &neuron_delta_242
-};
-
-static FunctionAdapterNeuron adapter_delta_243{
-    &neuron_delta_243
-};
-
-static FunctionAdapterNeuron adapter_inbox_248{
-    &neuron_inbox_248
-};
-
-static FunctionAdapterNeuron adapter_inbox_249{
-    &neuron_inbox_249
-};
-
-static FunctionAdapterNeuron adapter_outbox_250{
-    &neuron_outbox_250
-};
-
-static FunctionAdapterNeuron adapter_outbox_251{
-    &neuron_outbox_251
-};
-
-static FunctionAdapterNeuron adapter_box_252{
-    &neuron_box_252
-};
-
-static FunctionAdapterNeuron adapter_box_253{
-    &neuron_box_253
-};
-
-static FunctionAdapterNeuron adapter_frontiers_256{
-    &neuron_frontiers_256
-};
-
-static FunctionAdapterNeuron adapter_hperiod_257{
-    &neuron_hperiod_257
-};
-
-static FunctionAdapterNeuron adapter_vperiod_258{
-    &neuron_vperiod_258
-};
-
-static FunctionAdapterNeuron adapter_size_260{
-    &neuron_size_260
-};
-
-static FunctionAdapterNeuron adapter_size_261{
-    &neuron_size_261
-};
-
-static FunctionAdapterNeuron adapter_size_262{
-    &neuron_size_262
-};
-
-static FunctionAdapterNeuron adapter_size_263{
-    &neuron_size_263
-};
-
-static FunctionAdapterNeuron adapter_size_264{
-    &neuron_size_264
-};
-
-static FunctionAdapterNeuron adapter_size_265{
-    &neuron_size_265
-};
-
-static FunctionAdapterNeuron adapter_size_266{
-    &neuron_size_266
-};
-
-static FunctionAdapterNeuron adapter_size_267{
-    &neuron_size_267
-};
-
-static FunctionAdapterNeuron adapter_size_268{
-    &neuron_size_268
-};
-
-static FunctionAdapterNeuron adapter_size_269{
-    &neuron_size_269
-};
-
-static FunctionAdapterNeuron adapter_size_270{
-    &neuron_size_270
-};
-
-static FunctionAdapterNeuron adapter_size_271{
-    &neuron_size_271
-};
-
-static FunctionAdapterNeuron adapter_size_272{
-    &neuron_size_272
-};
-
-static FunctionAdapterNeuron adapter_size_273{
-    &neuron_size_273
-};
-
-static FunctionAdapterNeuron adapter_size_274{
-    &neuron_size_274
-};
-
-static FunctionAdapterNeuron adapter_identity_275{
-    &neuron_identity_275
-};
-
-static FunctionAdapterNeuron adapter_identity_276{
-    &neuron_identity_276
-};
-
-static FunctionAdapterNeuron adapter_identity_277{
-    &neuron_identity_277
-};
-
-static FunctionAdapterNeuron adapter_identity_278{
-    &neuron_identity_278
-};
-
-static FunctionAdapterNeuron adapter_identity_279{
-    &neuron_identity_279
-};
-
-static FunctionAdapterNeuron adapter_identity_280{
-    &neuron_identity_280
-};
-
-static FunctionAdapterNeuron adapter_identity_281{
-    &neuron_identity_281
-};
-
-static FunctionAdapterNeuron adapter_identity_282{
-    &neuron_identity_282
-};
-
-static FunctionAdapterNeuron adapter_identity_283{
-    &neuron_identity_283
-};
-
-static FunctionAdapterNeuron adapter_identity_284{
-    &neuron_identity_284
-};
-
-static FunctionAdapterNeuron adapter_identity_285{
-    &neuron_identity_285
-};
-
-static FunctionAdapterNeuron adapter_identity_286{
-    &neuron_identity_286
-};
-
-static FunctionAdapterNeuron adapter_identity_287{
-    &neuron_identity_287
-};
-
-static FunctionAdapterNeuron adapter_identity_288{
-    &neuron_identity_288
-};
-
-static FunctionAdapterNeuron adapter_identity_289{
-    &neuron_identity_289
-};
-
-static FunctionAdapterNeuron adapter_first_290{
-    &neuron_first_290
-};
-
-static FunctionAdapterNeuron adapter_first_291{
-    &neuron_first_291
-};
-
-static FunctionAdapterNeuron adapter_first_292{
-    &neuron_first_292
-};
-
-static FunctionAdapterNeuron adapter_first_293{
-    &neuron_first_293
-};
-
-static FunctionAdapterNeuron adapter_first_294{
-    &neuron_first_294
-};
-
-static FunctionAdapterNeuron adapter_first_295{
-    &neuron_first_295
-};
-
-static FunctionAdapterNeuron adapter_first_296{
-    &neuron_first_296
-};
-
-static FunctionAdapterNeuron adapter_first_297{
-    &neuron_first_297
-};
-
-static FunctionAdapterNeuron adapter_first_298{
-    &neuron_first_298
-};
-
-static FunctionAdapterNeuron adapter_first_299{
-    &neuron_first_299
-};
-
-static FunctionAdapterNeuron adapter_first_300{
-    &neuron_first_300
-};
-
-static FunctionAdapterNeuron adapter_first_301{
-    &neuron_first_301
-};
-
-static FunctionAdapterNeuron adapter_first_302{
-    &neuron_first_302
-};
-
-static FunctionAdapterNeuron adapter_first_303{
-    &neuron_first_303
-};
-
-static FunctionAdapterNeuron adapter_first_304{
-    &neuron_first_304
-};
-
-static FunctionAdapterNeuron adapter_first_305{
-    &neuron_first_305
-};
-
-static FunctionAdapterNeuron adapter_first_306{
-    &neuron_first_306
-};
-
-static FunctionAdapterNeuron adapter_last_307{
-    &neuron_last_307
-};
-
-static FunctionAdapterNeuron adapter_last_308{
-    &neuron_last_308
-};
-
-static FunctionAdapterNeuron adapter_last_309{
-    &neuron_last_309
-};
-
-static FunctionAdapterNeuron adapter_last_310{
-    &neuron_last_310
-};
-
-static FunctionAdapterNeuron adapter_last_311{
-    &neuron_last_311
-};
-
-static FunctionAdapterNeuron adapter_last_312{
-    &neuron_last_312
-};
-
-static FunctionAdapterNeuron adapter_last_313{
-    &neuron_last_313
-};
-
-static FunctionAdapterNeuron adapter_last_314{
-    &neuron_last_314
-};
-
-static FunctionAdapterNeuron adapter_last_315{
-    &neuron_last_315
-};
-
-static FunctionAdapterNeuron adapter_last_316{
-    &neuron_last_316
-};
-
-static FunctionAdapterNeuron adapter_last_317{
-    &neuron_last_317
-};
-
-static FunctionAdapterNeuron adapter_last_318{
-    &neuron_last_318
-};
-
-static FunctionAdapterNeuron adapter_last_319{
-    &neuron_last_319
-};
-
-static FunctionAdapterNeuron adapter_last_320{
-    &neuron_last_320
-};
-
-static FunctionAdapterNeuron adapter_last_321{
-    &neuron_last_321
-};
-
-static FunctionAdapterNeuron adapter_last_322{
-    &neuron_last_322
-};
-
-static FunctionAdapterNeuron adapter_last_323{
-    &neuron_last_323
-};
-
-static FunctionAdapterNeuron adapter_initset_362{
-    &neuron_initset_362
-};
-
-static FunctionAdapterNeuron adapter_initset_363{
-    &neuron_initset_363
-};
-
-static FunctionAdapterNeuron adapter_initset_364{
-    &neuron_initset_364
-};
-
-static FunctionAdapterNeuron adapter_initset_365{
-    &neuron_initset_365
-};
-
-static FunctionAdapterNeuron adapter_initset_366{
-    &neuron_initset_366
-};
-
-static FunctionAdapterNeuron adapter_initset_367{
-    &neuron_initset_367
-};
-
-static FunctionAdapterNeuron adapter_initset_368{
-    &neuron_initset_368
-};
-
-static FunctionAdapterNeuron adapter_initset_369{
-    &neuron_initset_369
-};
-
-static FunctionAdapterNeuron adapter_initset_370{
-    &neuron_initset_370
-};
-
-static FunctionAdapterNeuron adapter_initset_371{
-    &neuron_initset_371
-};
-
-static FunctionAdapterNeuron adapter_initset_372{
-    &neuron_initset_372
-};
-
-static FunctionAdapterNeuron adapter_totuple_373{
-    &neuron_totuple_373
-};
-
-static FunctionAdapterNeuron adapter_totuple_374{
-    &neuron_totuple_374
-};
-
-static FunctionAdapterNeuron adapter_totuple_375{
-    &neuron_totuple_375
-};
-
-static FunctionAdapterNeuron adapter_totuple_376{
-    &neuron_totuple_376
-};
-
-static FunctionAdapterNeuron adapter_dedupe_388{
-    &neuron_dedupe_388
-};
-
-static FunctionAdapterNeuron adapter_dedupe_389{
-    &neuron_dedupe_389
-};
-
-static FunctionAdapterNeuron adapter_dedupe_390{
-    &neuron_dedupe_390
-};
-
-static FunctionAdapterNeuron adapter_dedupe_391{
-    &neuron_dedupe_391
-};
-
-static FunctionAdapterNeuron adapter_dedupe_392{
-    &neuron_dedupe_392
-};
-
-static FunctionAdapterNeuron adapter_dedupe_393{
-    &neuron_dedupe_393
-};
-
-static FunctionAdapterNeuron adapter_merge_394{
-    &neuron_merge_394
-};
-
-static FunctionAdapterNeuron adapter_merge_395{
-    &neuron_merge_395
-};
-
-static FunctionAdapterNeuron adapter_merge_396{
-    &neuron_merge_396
-};
-
-static FunctionAdapterNeuron adapter_merge_397{
-    &neuron_merge_397
-};
-
-static FunctionAdapterNeuron adapter_merge_398{
-    &neuron_merge_398
-};
-
-static FunctionAdapterNeuron adapter_merge_399{
-    &neuron_merge_399
-};
-
-static FunctionAdapterNeuron adapter_merge_400{
-    &neuron_merge_400
-};
-
-NeuronRegistry makeNeuronRegistry()
-{
-    NeuronRegistry registry;
-    registry.emplace("neuron_F_0", &neuron_F_0);
-    registry.emplace("neuron_T_1", &neuron_T_1);
-    registry.emplace("neuron_ZERO_2", &neuron_ZERO_2);
-    registry.emplace("neuron_ONE_3", &neuron_ONE_3);
-    registry.emplace("neuron_TWO_4", &neuron_TWO_4);
-    registry.emplace("neuron_THREE_5", &neuron_THREE_5);
-    registry.emplace("neuron_FOUR_6", &neuron_FOUR_6);
-    registry.emplace("neuron_FIVE_7", &neuron_FIVE_7);
-    registry.emplace("neuron_SIX_8", &neuron_SIX_8);
-    registry.emplace("neuron_SEVEN_9", &neuron_SEVEN_9);
-    registry.emplace("neuron_EIGHT_10", &neuron_EIGHT_10);
-    registry.emplace("neuron_NINE_11", &neuron_NINE_11);
-    registry.emplace("neuron_TEN_12", &neuron_TEN_12);
-    registry.emplace("neuron_NEG_ONE_13", &neuron_NEG_ONE_13);
-    registry.emplace("neuron_NEG_TWO_14", &neuron_NEG_TWO_14);
-    registry.emplace("neuron_DOWN_15", &neuron_DOWN_15);
-    registry.emplace("neuron_RIGHT_16", &neuron_RIGHT_16);
-    registry.emplace("neuron_UP_17", &neuron_UP_17);
-    registry.emplace("neuron_LEFT_18", &neuron_LEFT_18);
-    registry.emplace("neuron_ORIGIN_19", &neuron_ORIGIN_19);
-    registry.emplace("neuron_UNITY_20", &neuron_UNITY_20);
-    registry.emplace("neuron_NEG_UNITY_21", &neuron_NEG_UNITY_21);
-    registry.emplace("neuron_UP_RIGHT_22", &neuron_UP_RIGHT_22);
-    registry.emplace("neuron_DOWN_LEFT_23", &neuron_DOWN_LEFT_23);
-    registry.emplace("neuron_ZERO_BY_TWO_24", &neuron_ZERO_BY_TWO_24);
-    registry.emplace("neuron_TWO_BY_ZERO_25", &neuron_TWO_BY_ZERO_25);
-    registry.emplace("neuron_TWO_BY_TWO_26", &neuron_TWO_BY_TWO_26);
-    registry.emplace("neuron_THREE_BY_THREE_27", &neuron_THREE_BY_THREE_27);
-    registry.emplace("neuron_add_28", &neuron_add_28);
-    registry.emplace("neuron_add_29", &neuron_add_29);
-    registry.emplace("neuron_add_30", &neuron_add_30);
-    registry.emplace("neuron_add_31", &neuron_add_31);
-    registry.emplace("neuron_subtract_32", &neuron_subtract_32);
-    registry.emplace("neuron_subtract_33", &neuron_subtract_33);
-    registry.emplace("neuron_subtract_34", &neuron_subtract_34);
-    registry.emplace("neuron_subtract_35", &neuron_subtract_35);
-    registry.emplace("neuron_multiply_36", &neuron_multiply_36);
-    registry.emplace("neuron_multiply_37", &neuron_multiply_37);
-    registry.emplace("neuron_multiply_38", &neuron_multiply_38);
-    registry.emplace("neuron_multiply_39", &neuron_multiply_39);
-    registry.emplace("neuron_divide_40", &neuron_divide_40);
-    registry.emplace("neuron_divide_41", &neuron_divide_41);
-    registry.emplace("neuron_divide_42", &neuron_divide_42);
-    registry.emplace("neuron_invert_43", &neuron_invert_43);
-    registry.emplace("adapter_invert_43", &adapter_invert_43);
-    registry.emplace("neuron_invert_44", &neuron_invert_44);
-    registry.emplace("adapter_invert_44", &adapter_invert_44);
-    registry.emplace("neuron_even_45", &neuron_even_45);
-    registry.emplace("adapter_even_45", &adapter_even_45);
-    registry.emplace("neuron_double__46", &neuron_double__46);
-    registry.emplace("adapter_double__46", &adapter_double__46);
-    registry.emplace("neuron_double__47", &neuron_double__47);
-    registry.emplace("adapter_double__47", &adapter_double__47);
-    registry.emplace("neuron_halve_48", &neuron_halve_48);
-    registry.emplace("adapter_halve_48", &adapter_halve_48);
-    registry.emplace("neuron_halve_49", &neuron_halve_49);
-    registry.emplace("adapter_halve_49", &adapter_halve_49);
-    registry.emplace("neuron_flip_50", &neuron_flip_50);
-    registry.emplace("adapter_flip_50", &adapter_flip_50);
-    registry.emplace("neuron_greater_51", &neuron_greater_51);
-    registry.emplace("neuron_maximum_52", &neuron_maximum_52);
-    registry.emplace("adapter_maximum_52", &adapter_maximum_52);
-    registry.emplace("neuron_maximum_53", &neuron_maximum_53);
-    registry.emplace("adapter_maximum_53", &adapter_maximum_53);
-    registry.emplace("neuron_minimum_54", &neuron_minimum_54);
-    registry.emplace("adapter_minimum_54", &adapter_minimum_54);
-    registry.emplace("neuron_minimum_55", &neuron_minimum_55);
-    registry.emplace("adapter_minimum_55", &adapter_minimum_55);
-    registry.emplace("neuron_both_56", &neuron_both_56);
-    registry.emplace("neuron_either_57", &neuron_either_57);
-    registry.emplace("neuron_increment_58", &neuron_increment_58);
-    registry.emplace("adapter_increment_58", &adapter_increment_58);
-    registry.emplace("neuron_increment_59", &neuron_increment_59);
-    registry.emplace("adapter_increment_59", &adapter_increment_59);
-    registry.emplace("neuron_decrement_60", &neuron_decrement_60);
-    registry.emplace("adapter_decrement_60", &adapter_decrement_60);
-    registry.emplace("neuron_decrement_61", &neuron_decrement_61);
-    registry.emplace("adapter_decrement_61", &adapter_decrement_61);
-    registry.emplace("neuron_crement_62", &neuron_crement_62);
-    registry.emplace("adapter_crement_62", &adapter_crement_62);
-    registry.emplace("neuron_crement_63", &neuron_crement_63);
-    registry.emplace("adapter_crement_63", &adapter_crement_63);
-    registry.emplace("neuron_sign_64", &neuron_sign_64);
-    registry.emplace("adapter_sign_64", &adapter_sign_64);
-    registry.emplace("neuron_sign_65", &neuron_sign_65);
-    registry.emplace("adapter_sign_65", &adapter_sign_65);
-    registry.emplace("neuron_positive_66", &neuron_positive_66);
-    registry.emplace("adapter_positive_66", &adapter_positive_66);
-    registry.emplace("neuron_toivec_67", &neuron_toivec_67);
-    registry.emplace("adapter_toivec_67", &adapter_toivec_67);
-    registry.emplace("neuron_tojvec_68", &neuron_tojvec_68);
-    registry.emplace("adapter_tojvec_68", &adapter_tojvec_68);
-    registry.emplace("neuron_interval_69", &neuron_interval_69);
-    registry.emplace("neuron_astuple_70", &neuron_astuple_70);
-    registry.emplace("neuron_astuple_71", &neuron_astuple_71);
-    registry.emplace("neuron_astuple_72", &neuron_astuple_72);
-    registry.emplace("neuron_ulcorner_73", &neuron_ulcorner_73);
-    registry.emplace("adapter_ulcorner_73", &adapter_ulcorner_73);
-    registry.emplace("neuron_ulcorner_74", &neuron_ulcorner_74);
-    registry.emplace("adapter_ulcorner_74", &adapter_ulcorner_74);
-    registry.emplace("neuron_urcorner_75", &neuron_urcorner_75);
-    registry.emplace("adapter_urcorner_75", &adapter_urcorner_75);
-    registry.emplace("neuron_urcorner_76", &neuron_urcorner_76);
-    registry.emplace("adapter_urcorner_76", &adapter_urcorner_76);
-    registry.emplace("neuron_llcorner_77", &neuron_llcorner_77);
-    registry.emplace("adapter_llcorner_77", &adapter_llcorner_77);
-    registry.emplace("neuron_llcorner_78", &neuron_llcorner_78);
-    registry.emplace("adapter_llcorner_78", &adapter_llcorner_78);
-    registry.emplace("neuron_lrcorner_79", &neuron_lrcorner_79);
-    registry.emplace("adapter_lrcorner_79", &adapter_lrcorner_79);
-    registry.emplace("neuron_lrcorner_80", &neuron_lrcorner_80);
-    registry.emplace("adapter_lrcorner_80", &adapter_lrcorner_80);
-    registry.emplace("neuron_crop_81", &neuron_crop_81);
-    registry.emplace("neuron_toindices_82", &neuron_toindices_82);
-    registry.emplace("adapter_toindices_82", &adapter_toindices_82);
-    registry.emplace("neuron_shift_83", &neuron_shift_83);
-    registry.emplace("neuron_shift_84", &neuron_shift_84);
-    registry.emplace("neuron_uppermost_85", &neuron_uppermost_85);
-    registry.emplace("adapter_uppermost_85", &adapter_uppermost_85);
-    registry.emplace("neuron_uppermost_86", &neuron_uppermost_86);
-    registry.emplace("adapter_uppermost_86", &adapter_uppermost_86);
-    registry.emplace("neuron_lowermost_87", &neuron_lowermost_87);
-    registry.emplace("adapter_lowermost_87", &adapter_lowermost_87);
-    registry.emplace("neuron_lowermost_88", &neuron_lowermost_88);
-    registry.emplace("adapter_lowermost_88", &adapter_lowermost_88);
-    registry.emplace("neuron_leftmost_89", &neuron_leftmost_89);
-    registry.emplace("adapter_leftmost_89", &adapter_leftmost_89);
-    registry.emplace("neuron_leftmost_90", &neuron_leftmost_90);
-    registry.emplace("adapter_leftmost_90", &adapter_leftmost_90);
-    registry.emplace("neuron_rightmost_91", &neuron_rightmost_91);
-    registry.emplace("adapter_rightmost_91", &adapter_rightmost_91);
-    registry.emplace("neuron_rightmost_92", &neuron_rightmost_92);
-    registry.emplace("adapter_rightmost_92", &adapter_rightmost_92);
-    registry.emplace("neuron_rot90_93", &neuron_rot90_93);
-    registry.emplace("adapter_rot90_93", &adapter_rot90_93);
-    registry.emplace("neuron_rot180_94", &neuron_rot180_94);
-    registry.emplace("adapter_rot180_94", &adapter_rot180_94);
-    registry.emplace("neuron_rot270_95", &neuron_rot270_95);
-    registry.emplace("adapter_rot270_95", &adapter_rot270_95);
-    registry.emplace("neuron_hmirror_96", &neuron_hmirror_96);
-    registry.emplace("adapter_hmirror_96", &adapter_hmirror_96);
-    registry.emplace("neuron_hmirror_97", &neuron_hmirror_97);
-    registry.emplace("adapter_hmirror_97", &adapter_hmirror_97);
-    registry.emplace("neuron_hmirror_98", &neuron_hmirror_98);
-    registry.emplace("adapter_hmirror_98", &adapter_hmirror_98);
-    registry.emplace("neuron_vmirror_99", &neuron_vmirror_99);
-    registry.emplace("adapter_vmirror_99", &adapter_vmirror_99);
-    registry.emplace("neuron_vmirror_100", &neuron_vmirror_100);
-    registry.emplace("adapter_vmirror_100", &adapter_vmirror_100);
-    registry.emplace("neuron_vmirror_101", &neuron_vmirror_101);
-    registry.emplace("adapter_vmirror_101", &adapter_vmirror_101);
-    registry.emplace("neuron_dmirror_102", &neuron_dmirror_102);
-    registry.emplace("adapter_dmirror_102", &adapter_dmirror_102);
-    registry.emplace("neuron_dmirror_103", &neuron_dmirror_103);
-    registry.emplace("adapter_dmirror_103", &adapter_dmirror_103);
-    registry.emplace("neuron_dmirror_104", &neuron_dmirror_104);
-    registry.emplace("adapter_dmirror_104", &adapter_dmirror_104);
-    registry.emplace("neuron_cmirror_105", &neuron_cmirror_105);
-    registry.emplace("adapter_cmirror_105", &adapter_cmirror_105);
-    registry.emplace("neuron_cmirror_106", &neuron_cmirror_106);
-    registry.emplace("adapter_cmirror_106", &adapter_cmirror_106);
-    registry.emplace("neuron_cmirror_107", &neuron_cmirror_107);
-    registry.emplace("adapter_cmirror_107", &adapter_cmirror_107);
-    registry.emplace("neuron_hupscale_108", &neuron_hupscale_108);
-    registry.emplace("neuron_vupscale_109", &neuron_vupscale_109);
-    registry.emplace("neuron_upscale_110", &neuron_upscale_110);
-    registry.emplace("neuron_upscale_111", &neuron_upscale_111);
-    registry.emplace("neuron_downscale_112", &neuron_downscale_112);
-    registry.emplace("neuron_hconcat_113", &neuron_hconcat_113);
-    registry.emplace("neuron_vconcat_114", &neuron_vconcat_114);
-    registry.emplace("neuron_replace_115", &neuron_replace_115);
-    registry.emplace("neuron_switch__116", &neuron_switch__116);
-    registry.emplace("neuron_tophalf_117", &neuron_tophalf_117);
-    registry.emplace("adapter_tophalf_117", &adapter_tophalf_117);
-    registry.emplace("neuron_bottomhalf_118", &neuron_bottomhalf_118);
-    registry.emplace("adapter_bottomhalf_118", &adapter_bottomhalf_118);
-    registry.emplace("neuron_lefthalf_119", &neuron_lefthalf_119);
-    registry.emplace("adapter_lefthalf_119", &adapter_lefthalf_119);
-    registry.emplace("neuron_righthalf_120", &neuron_righthalf_120);
-    registry.emplace("adapter_righthalf_120", &adapter_righthalf_120);
-    registry.emplace("neuron_trim_121", &neuron_trim_121);
-    registry.emplace("adapter_trim_121", &adapter_trim_121);
-    registry.emplace("neuron_compress_122", &neuron_compress_122);
-    registry.emplace("adapter_compress_122", &adapter_compress_122);
-    registry.emplace("neuron_normalize_123", &neuron_normalize_123);
-    registry.emplace("adapter_normalize_123", &adapter_normalize_123);
-    registry.emplace("neuron_normalize_124", &neuron_normalize_124);
-    registry.emplace("adapter_normalize_124", &adapter_normalize_124);
-    registry.emplace("neuron_dneighbors_125", &neuron_dneighbors_125);
-    registry.emplace("adapter_dneighbors_125", &adapter_dneighbors_125);
-    registry.emplace("neuron_ineighbors_126", &neuron_ineighbors_126);
-    registry.emplace("adapter_ineighbors_126", &adapter_ineighbors_126);
-    registry.emplace("neuron_neighbors_127", &neuron_neighbors_127);
-    registry.emplace("adapter_neighbors_127", &adapter_neighbors_127);
-    registry.emplace("neuron_recolor_128", &neuron_recolor_128);
-    registry.emplace("neuron_recolor_129", &neuron_recolor_129);
-    registry.emplace("neuron_square_130", &neuron_square_130);
-    registry.emplace("adapter_square_130", &adapter_square_130);
-    registry.emplace("neuron_square_131", &neuron_square_131);
-    registry.emplace("adapter_square_131", &adapter_square_131);
-    registry.emplace("neuron_square_132", &neuron_square_132);
-    registry.emplace("adapter_square_132", &adapter_square_132);
-    registry.emplace("neuron_vline_133", &neuron_vline_133);
-    registry.emplace("adapter_vline_133", &adapter_vline_133);
-    registry.emplace("neuron_vline_134", &neuron_vline_134);
-    registry.emplace("adapter_vline_134", &adapter_vline_134);
-    registry.emplace("neuron_hline_135", &neuron_hline_135);
-    registry.emplace("adapter_hline_135", &adapter_hline_135);
-    registry.emplace("neuron_hline_136", &neuron_hline_136);
-    registry.emplace("adapter_hline_136", &adapter_hline_136);
-    registry.emplace("neuron_height_137", &neuron_height_137);
-    registry.emplace("adapter_height_137", &adapter_height_137);
-    registry.emplace("neuron_height_138", &neuron_height_138);
-    registry.emplace("adapter_height_138", &adapter_height_138);
-    registry.emplace("neuron_height_139", &neuron_height_139);
-    registry.emplace("adapter_height_139", &adapter_height_139);
-    registry.emplace("neuron_width_140", &neuron_width_140);
-    registry.emplace("adapter_width_140", &adapter_width_140);
-    registry.emplace("neuron_width_141", &neuron_width_141);
-    registry.emplace("adapter_width_141", &adapter_width_141);
-    registry.emplace("neuron_width_142", &neuron_width_142);
-    registry.emplace("adapter_width_142", &adapter_width_142);
-    registry.emplace("neuron_shape_143", &neuron_shape_143);
-    registry.emplace("adapter_shape_143", &adapter_shape_143);
-    registry.emplace("neuron_shape_144", &neuron_shape_144);
-    registry.emplace("adapter_shape_144", &adapter_shape_144);
-    registry.emplace("neuron_shape_145", &neuron_shape_145);
-    registry.emplace("adapter_shape_145", &adapter_shape_145);
-    registry.emplace("neuron_portrait_146", &neuron_portrait_146);
-    registry.emplace("adapter_portrait_146", &adapter_portrait_146);
-    registry.emplace("neuron_portrait_147", &neuron_portrait_147);
-    registry.emplace("adapter_portrait_147", &adapter_portrait_147);
-    registry.emplace("neuron_portrait_148", &neuron_portrait_148);
-    registry.emplace("adapter_portrait_148", &adapter_portrait_148);
-    registry.emplace("neuron_branch_149", &neuron_branch_149);
-    registry.emplace("neuron_branch_150", &neuron_branch_150);
-    registry.emplace("neuron_branch_151", &neuron_branch_151);
-    registry.emplace("neuron_branch_152", &neuron_branch_152);
-    registry.emplace("neuron_branch_153", &neuron_branch_153);
-    registry.emplace("neuron_branch_154", &neuron_branch_154);
-    registry.emplace("neuron_branch_155", &neuron_branch_155);
-    registry.emplace("neuron_branch_156", &neuron_branch_156);
-    registry.emplace("neuron_branch_157", &neuron_branch_157);
-    registry.emplace("neuron_branch_158", &neuron_branch_158);
-    registry.emplace("neuron_branch_159", &neuron_branch_159);
-    registry.emplace("neuron_branch_160", &neuron_branch_160);
-    registry.emplace("neuron_branch_161", &neuron_branch_161);
-    registry.emplace("neuron_branch_162", &neuron_branch_162);
-    registry.emplace("neuron_branch_163", &neuron_branch_163);
-    registry.emplace("neuron_color_164", &neuron_color_164);
-    registry.emplace("adapter_color_164", &adapter_color_164);
-    registry.emplace("neuron_toobject_165", &neuron_toobject_165);
-    registry.emplace("neuron_toobject_166", &neuron_toobject_166);
-    registry.emplace("neuron_asobject_167", &neuron_asobject_167);
-    registry.emplace("adapter_asobject_167", &adapter_asobject_167);
-    registry.emplace("neuron_mostcolor_168", &neuron_mostcolor_168);
-    registry.emplace("adapter_mostcolor_168", &adapter_mostcolor_168);
-    registry.emplace("neuron_mostcolor_169", &neuron_mostcolor_169);
-    registry.emplace("adapter_mostcolor_169", &adapter_mostcolor_169);
-    registry.emplace("neuron_leastcolor_170", &neuron_leastcolor_170);
-    registry.emplace("adapter_leastcolor_170", &adapter_leastcolor_170);
-    registry.emplace("neuron_leastcolor_171", &neuron_leastcolor_171);
-    registry.emplace("adapter_leastcolor_171", &adapter_leastcolor_171);
-    registry.emplace("neuron_ofcolor_172", &neuron_ofcolor_172);
-    registry.emplace("neuron_colorcount_173", &neuron_colorcount_173);
-    registry.emplace("neuron_colorcount_174", &neuron_colorcount_174);
-    registry.emplace("neuron_colorfilter_175", &neuron_colorfilter_175);
-    registry.emplace("neuron_objects_176", &neuron_objects_176);
-    registry.emplace("neuron_partition_177", &neuron_partition_177);
-    registry.emplace("adapter_partition_177", &adapter_partition_177);
-    registry.emplace("neuron_fgpartition_178", &neuron_fgpartition_178);
-    registry.emplace("adapter_fgpartition_178", &adapter_fgpartition_178);
-    registry.emplace("neuron_asindices_179", &neuron_asindices_179);
-    registry.emplace("adapter_asindices_179", &adapter_asindices_179);
-    registry.emplace("neuron_equality_180", &neuron_equality_180);
-    registry.emplace("neuron_equality_181", &neuron_equality_181);
-    registry.emplace("neuron_equality_182", &neuron_equality_182);
-    registry.emplace("neuron_equality_183", &neuron_equality_183);
-    registry.emplace("neuron_equality_184", &neuron_equality_184);
-    registry.emplace("neuron_equality_185", &neuron_equality_185);
-    registry.emplace("neuron_equality_186", &neuron_equality_186);
-    registry.emplace("neuron_equality_187", &neuron_equality_187);
-    registry.emplace("neuron_equality_188", &neuron_equality_188);
-    registry.emplace("neuron_equality_189", &neuron_equality_189);
-    registry.emplace("neuron_equality_190", &neuron_equality_190);
-    registry.emplace("neuron_equality_191", &neuron_equality_191);
-    registry.emplace("neuron_equality_192", &neuron_equality_192);
-    registry.emplace("neuron_equality_193", &neuron_equality_193);
-    registry.emplace("neuron_equality_194", &neuron_equality_194);
-    registry.emplace("neuron_hmatching_195", &neuron_hmatching_195);
-    registry.emplace("neuron_hmatching_196", &neuron_hmatching_196);
-    registry.emplace("neuron_hmatching_197", &neuron_hmatching_197);
-    registry.emplace("neuron_hmatching_198", &neuron_hmatching_198);
-    registry.emplace("neuron_vmatching_199", &neuron_vmatching_199);
-    registry.emplace("neuron_vmatching_200", &neuron_vmatching_200);
-    registry.emplace("neuron_vmatching_201", &neuron_vmatching_201);
-    registry.emplace("neuron_vmatching_202", &neuron_vmatching_202);
-    registry.emplace("neuron_manhattan_203", &neuron_manhattan_203);
-    registry.emplace("neuron_manhattan_204", &neuron_manhattan_204);
-    registry.emplace("neuron_manhattan_205", &neuron_manhattan_205);
-    registry.emplace("neuron_manhattan_206", &neuron_manhattan_206);
-    registry.emplace("neuron_adjacent_207", &neuron_adjacent_207);
-    registry.emplace("neuron_adjacent_208", &neuron_adjacent_208);
-    registry.emplace("neuron_adjacent_209", &neuron_adjacent_209);
-    registry.emplace("neuron_adjacent_210", &neuron_adjacent_210);
-    registry.emplace("neuron_bordering_211", &neuron_bordering_211);
-    registry.emplace("neuron_bordering_212", &neuron_bordering_212);
-    registry.emplace("neuron_centerofmass_213", &neuron_centerofmass_213);
-    registry.emplace("adapter_centerofmass_213", &adapter_centerofmass_213);
-    registry.emplace("neuron_centerofmass_214", &neuron_centerofmass_214);
-    registry.emplace("adapter_centerofmass_214", &adapter_centerofmass_214);
-    registry.emplace("neuron_palette_215", &neuron_palette_215);
-    registry.emplace("adapter_palette_215", &adapter_palette_215);
-    registry.emplace("neuron_palette_216", &neuron_palette_216);
-    registry.emplace("adapter_palette_216", &adapter_palette_216);
-    registry.emplace("neuron_numcolors_217", &neuron_numcolors_217);
-    registry.emplace("adapter_numcolors_217", &adapter_numcolors_217);
-    registry.emplace("neuron_numcolors_218", &neuron_numcolors_218);
-    registry.emplace("adapter_numcolors_218", &adapter_numcolors_218);
-    registry.emplace("neuron_fill_219", &neuron_fill_219);
-    registry.emplace("neuron_fill_220", &neuron_fill_220);
-    registry.emplace("neuron_paint_221", &neuron_paint_221);
-    registry.emplace("neuron_underfill_222", &neuron_underfill_222);
-    registry.emplace("neuron_underfill_223", &neuron_underfill_223);
-    registry.emplace("neuron_underpaint_224", &neuron_underpaint_224);
-    registry.emplace("neuron_center_225", &neuron_center_225);
-    registry.emplace("adapter_center_225", &adapter_center_225);
-    registry.emplace("neuron_center_226", &neuron_center_226);
-    registry.emplace("adapter_center_226", &adapter_center_226);
-    registry.emplace("neuron_position_227", &neuron_position_227);
-    registry.emplace("neuron_position_228", &neuron_position_228);
-    registry.emplace("neuron_position_229", &neuron_position_229);
-    registry.emplace("neuron_position_230", &neuron_position_230);
-    registry.emplace("neuron_index_231", &neuron_index_231);
-    registry.emplace("neuron_canvas_232", &neuron_canvas_232);
-    registry.emplace("neuron_corners_233", &neuron_corners_233);
-    registry.emplace("adapter_corners_233", &adapter_corners_233);
-    registry.emplace("neuron_corners_234", &neuron_corners_234);
-    registry.emplace("adapter_corners_234", &adapter_corners_234);
-    registry.emplace("neuron_connect_235", &neuron_connect_235);
-    registry.emplace("neuron_cover_236", &neuron_cover_236);
-    registry.emplace("neuron_cover_237", &neuron_cover_237);
-    registry.emplace("neuron_vfrontier_238", &neuron_vfrontier_238);
-    registry.emplace("adapter_vfrontier_238", &adapter_vfrontier_238);
-    registry.emplace("neuron_hfrontier_239", &neuron_hfrontier_239);
-    registry.emplace("adapter_hfrontier_239", &adapter_hfrontier_239);
-    registry.emplace("neuron_backdrop_240", &neuron_backdrop_240);
-    registry.emplace("adapter_backdrop_240", &adapter_backdrop_240);
-    registry.emplace("neuron_backdrop_241", &neuron_backdrop_241);
-    registry.emplace("adapter_backdrop_241", &adapter_backdrop_241);
-    registry.emplace("neuron_delta_242", &neuron_delta_242);
-    registry.emplace("adapter_delta_242", &adapter_delta_242);
-    registry.emplace("neuron_delta_243", &neuron_delta_243);
-    registry.emplace("adapter_delta_243", &adapter_delta_243);
-    registry.emplace("neuron_gravitate_244", &neuron_gravitate_244);
-    registry.emplace("neuron_gravitate_245", &neuron_gravitate_245);
-    registry.emplace("neuron_gravitate_246", &neuron_gravitate_246);
-    registry.emplace("neuron_gravitate_247", &neuron_gravitate_247);
-    registry.emplace("neuron_inbox_248", &neuron_inbox_248);
-    registry.emplace("adapter_inbox_248", &adapter_inbox_248);
-    registry.emplace("neuron_inbox_249", &neuron_inbox_249);
-    registry.emplace("adapter_inbox_249", &adapter_inbox_249);
-    registry.emplace("neuron_outbox_250", &neuron_outbox_250);
-    registry.emplace("adapter_outbox_250", &adapter_outbox_250);
-    registry.emplace("neuron_outbox_251", &neuron_outbox_251);
-    registry.emplace("adapter_outbox_251", &adapter_outbox_251);
-    registry.emplace("neuron_box_252", &neuron_box_252);
-    registry.emplace("adapter_box_252", &adapter_box_252);
-    registry.emplace("neuron_box_253", &neuron_box_253);
-    registry.emplace("adapter_box_253", &adapter_box_253);
-    registry.emplace("neuron_shoot_254", &neuron_shoot_254);
-    registry.emplace("neuron_occurrences_255", &neuron_occurrences_255);
-    registry.emplace("neuron_frontiers_256", &neuron_frontiers_256);
-    registry.emplace("adapter_frontiers_256", &adapter_frontiers_256);
-    registry.emplace("neuron_hperiod_257", &neuron_hperiod_257);
-    registry.emplace("adapter_hperiod_257", &adapter_hperiod_257);
-    registry.emplace("neuron_vperiod_258", &neuron_vperiod_258);
-    registry.emplace("adapter_vperiod_258", &adapter_vperiod_258);
-    registry.emplace("neuron_pair_259", &neuron_pair_259);
-    registry.emplace("neuron_size_260", &neuron_size_260);
-    registry.emplace("adapter_size_260", &adapter_size_260);
-    registry.emplace("neuron_size_261", &neuron_size_261);
-    registry.emplace("adapter_size_261", &adapter_size_261);
-    registry.emplace("neuron_size_262", &neuron_size_262);
-    registry.emplace("adapter_size_262", &adapter_size_262);
-    registry.emplace("neuron_size_263", &neuron_size_263);
-    registry.emplace("adapter_size_263", &adapter_size_263);
-    registry.emplace("neuron_size_264", &neuron_size_264);
-    registry.emplace("adapter_size_264", &adapter_size_264);
-    registry.emplace("neuron_size_265", &neuron_size_265);
-    registry.emplace("adapter_size_265", &adapter_size_265);
-    registry.emplace("neuron_size_266", &neuron_size_266);
-    registry.emplace("adapter_size_266", &adapter_size_266);
-    registry.emplace("neuron_size_267", &neuron_size_267);
-    registry.emplace("adapter_size_267", &adapter_size_267);
-    registry.emplace("neuron_size_268", &neuron_size_268);
-    registry.emplace("adapter_size_268", &adapter_size_268);
-    registry.emplace("neuron_size_269", &neuron_size_269);
-    registry.emplace("adapter_size_269", &adapter_size_269);
-    registry.emplace("neuron_size_270", &neuron_size_270);
-    registry.emplace("adapter_size_270", &adapter_size_270);
-    registry.emplace("neuron_size_271", &neuron_size_271);
-    registry.emplace("adapter_size_271", &adapter_size_271);
-    registry.emplace("neuron_size_272", &neuron_size_272);
-    registry.emplace("adapter_size_272", &adapter_size_272);
-    registry.emplace("neuron_size_273", &neuron_size_273);
-    registry.emplace("adapter_size_273", &adapter_size_273);
-    registry.emplace("neuron_size_274", &neuron_size_274);
-    registry.emplace("adapter_size_274", &adapter_size_274);
-    registry.emplace("neuron_identity_275", &neuron_identity_275);
-    registry.emplace("adapter_identity_275", &adapter_identity_275);
-    registry.emplace("neuron_identity_276", &neuron_identity_276);
-    registry.emplace("adapter_identity_276", &adapter_identity_276);
-    registry.emplace("neuron_identity_277", &neuron_identity_277);
-    registry.emplace("adapter_identity_277", &adapter_identity_277);
-    registry.emplace("neuron_identity_278", &neuron_identity_278);
-    registry.emplace("adapter_identity_278", &adapter_identity_278);
-    registry.emplace("neuron_identity_279", &neuron_identity_279);
-    registry.emplace("adapter_identity_279", &adapter_identity_279);
-    registry.emplace("neuron_identity_280", &neuron_identity_280);
-    registry.emplace("adapter_identity_280", &adapter_identity_280);
-    registry.emplace("neuron_identity_281", &neuron_identity_281);
-    registry.emplace("adapter_identity_281", &adapter_identity_281);
-    registry.emplace("neuron_identity_282", &neuron_identity_282);
-    registry.emplace("adapter_identity_282", &adapter_identity_282);
-    registry.emplace("neuron_identity_283", &neuron_identity_283);
-    registry.emplace("adapter_identity_283", &adapter_identity_283);
-    registry.emplace("neuron_identity_284", &neuron_identity_284);
-    registry.emplace("adapter_identity_284", &adapter_identity_284);
-    registry.emplace("neuron_identity_285", &neuron_identity_285);
-    registry.emplace("adapter_identity_285", &adapter_identity_285);
-    registry.emplace("neuron_identity_286", &neuron_identity_286);
-    registry.emplace("adapter_identity_286", &adapter_identity_286);
-    registry.emplace("neuron_identity_287", &neuron_identity_287);
-    registry.emplace("adapter_identity_287", &adapter_identity_287);
-    registry.emplace("neuron_identity_288", &neuron_identity_288);
-    registry.emplace("adapter_identity_288", &adapter_identity_288);
-    registry.emplace("neuron_identity_289", &neuron_identity_289);
-    registry.emplace("adapter_identity_289", &adapter_identity_289);
-    registry.emplace("neuron_first_290", &neuron_first_290);
-    registry.emplace("adapter_first_290", &adapter_first_290);
-    registry.emplace("neuron_first_291", &neuron_first_291);
-    registry.emplace("adapter_first_291", &adapter_first_291);
-    registry.emplace("neuron_first_292", &neuron_first_292);
-    registry.emplace("adapter_first_292", &adapter_first_292);
-    registry.emplace("neuron_first_293", &neuron_first_293);
-    registry.emplace("adapter_first_293", &adapter_first_293);
-    registry.emplace("neuron_first_294", &neuron_first_294);
-    registry.emplace("adapter_first_294", &adapter_first_294);
-    registry.emplace("neuron_first_295", &neuron_first_295);
-    registry.emplace("adapter_first_295", &adapter_first_295);
-    registry.emplace("neuron_first_296", &neuron_first_296);
-    registry.emplace("adapter_first_296", &adapter_first_296);
-    registry.emplace("neuron_first_297", &neuron_first_297);
-    registry.emplace("adapter_first_297", &adapter_first_297);
-    registry.emplace("neuron_first_298", &neuron_first_298);
-    registry.emplace("adapter_first_298", &adapter_first_298);
-    registry.emplace("neuron_first_299", &neuron_first_299);
-    registry.emplace("adapter_first_299", &adapter_first_299);
-    registry.emplace("neuron_first_300", &neuron_first_300);
-    registry.emplace("adapter_first_300", &adapter_first_300);
-    registry.emplace("neuron_first_301", &neuron_first_301);
-    registry.emplace("adapter_first_301", &adapter_first_301);
-    registry.emplace("neuron_first_302", &neuron_first_302);
-    registry.emplace("adapter_first_302", &adapter_first_302);
-    registry.emplace("neuron_first_303", &neuron_first_303);
-    registry.emplace("adapter_first_303", &adapter_first_303);
-    registry.emplace("neuron_first_304", &neuron_first_304);
-    registry.emplace("adapter_first_304", &adapter_first_304);
-    registry.emplace("neuron_first_305", &neuron_first_305);
-    registry.emplace("adapter_first_305", &adapter_first_305);
-    registry.emplace("neuron_first_306", &neuron_first_306);
-    registry.emplace("adapter_first_306", &adapter_first_306);
-    registry.emplace("neuron_last_307", &neuron_last_307);
-    registry.emplace("adapter_last_307", &adapter_last_307);
-    registry.emplace("neuron_last_308", &neuron_last_308);
-    registry.emplace("adapter_last_308", &adapter_last_308);
-    registry.emplace("neuron_last_309", &neuron_last_309);
-    registry.emplace("adapter_last_309", &adapter_last_309);
-    registry.emplace("neuron_last_310", &neuron_last_310);
-    registry.emplace("adapter_last_310", &adapter_last_310);
-    registry.emplace("neuron_last_311", &neuron_last_311);
-    registry.emplace("adapter_last_311", &adapter_last_311);
-    registry.emplace("neuron_last_312", &neuron_last_312);
-    registry.emplace("adapter_last_312", &adapter_last_312);
-    registry.emplace("neuron_last_313", &neuron_last_313);
-    registry.emplace("adapter_last_313", &adapter_last_313);
-    registry.emplace("neuron_last_314", &neuron_last_314);
-    registry.emplace("adapter_last_314", &adapter_last_314);
-    registry.emplace("neuron_last_315", &neuron_last_315);
-    registry.emplace("adapter_last_315", &adapter_last_315);
-    registry.emplace("neuron_last_316", &neuron_last_316);
-    registry.emplace("adapter_last_316", &adapter_last_316);
-    registry.emplace("neuron_last_317", &neuron_last_317);
-    registry.emplace("adapter_last_317", &adapter_last_317);
-    registry.emplace("neuron_last_318", &neuron_last_318);
-    registry.emplace("adapter_last_318", &adapter_last_318);
-    registry.emplace("neuron_last_319", &neuron_last_319);
-    registry.emplace("adapter_last_319", &adapter_last_319);
-    registry.emplace("neuron_last_320", &neuron_last_320);
-    registry.emplace("adapter_last_320", &adapter_last_320);
-    registry.emplace("neuron_last_321", &neuron_last_321);
-    registry.emplace("adapter_last_321", &adapter_last_321);
-    registry.emplace("neuron_last_322", &neuron_last_322);
-    registry.emplace("adapter_last_322", &adapter_last_322);
-    registry.emplace("neuron_last_323", &neuron_last_323);
-    registry.emplace("adapter_last_323", &adapter_last_323);
-    registry.emplace("neuron_insert_324", &neuron_insert_324);
-    registry.emplace("neuron_insert_325", &neuron_insert_325);
-    registry.emplace("neuron_insert_326", &neuron_insert_326);
-    registry.emplace("neuron_insert_327", &neuron_insert_327);
-    registry.emplace("neuron_insert_328", &neuron_insert_328);
-    registry.emplace("neuron_insert_329", &neuron_insert_329);
-    registry.emplace("neuron_insert_330", &neuron_insert_330);
-    registry.emplace("neuron_insert_331", &neuron_insert_331);
-    registry.emplace("neuron_insert_332", &neuron_insert_332);
-    registry.emplace("neuron_insert_333", &neuron_insert_333);
-    registry.emplace("neuron_insert_334", &neuron_insert_334);
-    registry.emplace("neuron_insert_335", &neuron_insert_335);
-    registry.emplace("neuron_insert_336", &neuron_insert_336);
-    registry.emplace("neuron_insert_337", &neuron_insert_337);
-    registry.emplace("neuron_remove_338", &neuron_remove_338);
-    registry.emplace("neuron_remove_339", &neuron_remove_339);
-    registry.emplace("neuron_remove_340", &neuron_remove_340);
-    registry.emplace("neuron_remove_341", &neuron_remove_341);
-    registry.emplace("neuron_remove_342", &neuron_remove_342);
-    registry.emplace("neuron_remove_343", &neuron_remove_343);
-    registry.emplace("neuron_remove_344", &neuron_remove_344);
-    registry.emplace("neuron_remove_345", &neuron_remove_345);
-    registry.emplace("neuron_remove_346", &neuron_remove_346);
-    registry.emplace("neuron_remove_347", &neuron_remove_347);
-    registry.emplace("neuron_remove_348", &neuron_remove_348);
-    registry.emplace("neuron_remove_349", &neuron_remove_349);
-    registry.emplace("neuron_other_350", &neuron_other_350);
-    registry.emplace("neuron_other_351", &neuron_other_351);
-    registry.emplace("neuron_other_352", &neuron_other_352);
-    registry.emplace("neuron_other_353", &neuron_other_353);
-    registry.emplace("neuron_other_354", &neuron_other_354);
-    registry.emplace("neuron_other_355", &neuron_other_355);
-    registry.emplace("neuron_other_356", &neuron_other_356);
-    registry.emplace("neuron_other_357", &neuron_other_357);
-    registry.emplace("neuron_other_358", &neuron_other_358);
-    registry.emplace("neuron_other_359", &neuron_other_359);
-    registry.emplace("neuron_other_360", &neuron_other_360);
-    registry.emplace("neuron_other_361", &neuron_other_361);
-    registry.emplace("neuron_initset_362", &neuron_initset_362);
-    registry.emplace("adapter_initset_362", &adapter_initset_362);
-    registry.emplace("neuron_initset_363", &neuron_initset_363);
-    registry.emplace("adapter_initset_363", &adapter_initset_363);
-    registry.emplace("neuron_initset_364", &neuron_initset_364);
-    registry.emplace("adapter_initset_364", &adapter_initset_364);
-    registry.emplace("neuron_initset_365", &neuron_initset_365);
-    registry.emplace("adapter_initset_365", &adapter_initset_365);
-    registry.emplace("neuron_initset_366", &neuron_initset_366);
-    registry.emplace("adapter_initset_366", &adapter_initset_366);
-    registry.emplace("neuron_initset_367", &neuron_initset_367);
-    registry.emplace("adapter_initset_367", &adapter_initset_367);
-    registry.emplace("neuron_initset_368", &neuron_initset_368);
-    registry.emplace("adapter_initset_368", &adapter_initset_368);
-    registry.emplace("neuron_initset_369", &neuron_initset_369);
-    registry.emplace("adapter_initset_369", &adapter_initset_369);
-    registry.emplace("neuron_initset_370", &neuron_initset_370);
-    registry.emplace("adapter_initset_370", &adapter_initset_370);
-    registry.emplace("neuron_initset_371", &neuron_initset_371);
-    registry.emplace("adapter_initset_371", &adapter_initset_371);
-    registry.emplace("neuron_initset_372", &neuron_initset_372);
-    registry.emplace("adapter_initset_372", &adapter_initset_372);
-    registry.emplace("neuron_totuple_373", &neuron_totuple_373);
-    registry.emplace("adapter_totuple_373", &adapter_totuple_373);
-    registry.emplace("neuron_totuple_374", &neuron_totuple_374);
-    registry.emplace("adapter_totuple_374", &adapter_totuple_374);
-    registry.emplace("neuron_totuple_375", &neuron_totuple_375);
-    registry.emplace("adapter_totuple_375", &adapter_totuple_375);
-    registry.emplace("neuron_totuple_376", &neuron_totuple_376);
-    registry.emplace("adapter_totuple_376", &adapter_totuple_376);
-    registry.emplace("neuron_subgrid_377", &neuron_subgrid_377);
-    registry.emplace("neuron_subgrid_378", &neuron_subgrid_378);
-    registry.emplace("neuron_hsplit_379", &neuron_hsplit_379);
-    registry.emplace("neuron_vsplit_380", &neuron_vsplit_380);
-    registry.emplace("neuron_repeat_381", &neuron_repeat_381);
-    registry.emplace("neuron_repeat_382", &neuron_repeat_382);
-    registry.emplace("neuron_repeat_383", &neuron_repeat_383);
-    registry.emplace("neuron_repeat_384", &neuron_repeat_384);
-    registry.emplace("neuron_repeat_385", &neuron_repeat_385);
-    registry.emplace("neuron_repeat_386", &neuron_repeat_386);
-    registry.emplace("neuron_repeat_387", &neuron_repeat_387);
-    registry.emplace("neuron_dedupe_388", &neuron_dedupe_388);
-    registry.emplace("adapter_dedupe_388", &adapter_dedupe_388);
-    registry.emplace("neuron_dedupe_389", &neuron_dedupe_389);
-    registry.emplace("adapter_dedupe_389", &adapter_dedupe_389);
-    registry.emplace("neuron_dedupe_390", &neuron_dedupe_390);
-    registry.emplace("adapter_dedupe_390", &adapter_dedupe_390);
-    registry.emplace("neuron_dedupe_391", &neuron_dedupe_391);
-    registry.emplace("adapter_dedupe_391", &adapter_dedupe_391);
-    registry.emplace("neuron_dedupe_392", &neuron_dedupe_392);
-    registry.emplace("adapter_dedupe_392", &adapter_dedupe_392);
-    registry.emplace("neuron_dedupe_393", &neuron_dedupe_393);
-    registry.emplace("adapter_dedupe_393", &adapter_dedupe_393);
-    registry.emplace("neuron_merge_394", &neuron_merge_394);
-    registry.emplace("adapter_merge_394", &adapter_merge_394);
-    registry.emplace("neuron_merge_395", &neuron_merge_395);
-    registry.emplace("adapter_merge_395", &adapter_merge_395);
-    registry.emplace("neuron_merge_396", &neuron_merge_396);
-    registry.emplace("adapter_merge_396", &adapter_merge_396);
-    registry.emplace("neuron_merge_397", &neuron_merge_397);
-    registry.emplace("adapter_merge_397", &adapter_merge_397);
-    registry.emplace("neuron_merge_398", &neuron_merge_398);
-    registry.emplace("adapter_merge_398", &adapter_merge_398);
-    registry.emplace("neuron_merge_399", &neuron_merge_399);
-    registry.emplace("adapter_merge_399", &adapter_merge_399);
-    registry.emplace("neuron_merge_400", &neuron_merge_400);
-    registry.emplace("adapter_merge_400", &adapter_merge_400);
-    registry.emplace("neuron_contained_401", &neuron_contained_401);
-    registry.emplace("neuron_contained_402", &neuron_contained_402);
-    registry.emplace("neuron_contained_403", &neuron_contained_403);
-    registry.emplace("neuron_contained_404", &neuron_contained_404);
-    registry.emplace("neuron_contained_405", &neuron_contained_405);
-    registry.emplace("neuron_contained_406", &neuron_contained_406);
-    registry.emplace("neuron_contained_407", &neuron_contained_407);
-    registry.emplace("neuron_contained_408", &neuron_contained_408);
-    registry.emplace("neuron_contained_409", &neuron_contained_409);
-    registry.emplace("neuron_contained_410", &neuron_contained_410);
-    registry.emplace("neuron_product_411", &neuron_product_411);
-    registry.emplace("neuron_product_412", &neuron_product_412);
-    registry.emplace("neuron_product_413", &neuron_product_413);
-    registry.emplace("neuron_move_414", &neuron_move_414);
-    registry.emplace("neuron_intersection_415", &neuron_intersection_415);
-    registry.emplace("neuron_intersection_416", &neuron_intersection_416);
-    registry.emplace("neuron_intersection_417", &neuron_intersection_417);
-    registry.emplace("neuron_intersection_418", &neuron_intersection_418);
-    registry.emplace("neuron_intersection_419", &neuron_intersection_419);
-    registry.emplace("neuron_intersection_420", &neuron_intersection_420);
-    registry.emplace("neuron_intersection_421", &neuron_intersection_421);
-    registry.emplace("neuron_intersection_422", &neuron_intersection_422);
-    registry.emplace("neuron_intersection_423", &neuron_intersection_423);
-    registry.emplace("neuron_intersection_424", &neuron_intersection_424);
-    registry.emplace("neuron_difference_425", &neuron_difference_425);
-    registry.emplace("neuron_difference_426", &neuron_difference_426);
-    registry.emplace("neuron_difference_427", &neuron_difference_427);
-    registry.emplace("neuron_difference_428", &neuron_difference_428);
-    registry.emplace("neuron_difference_429", &neuron_difference_429);
-    registry.emplace("neuron_difference_430", &neuron_difference_430);
-    registry.emplace("neuron_difference_431", &neuron_difference_431);
-    registry.emplace("neuron_difference_432", &neuron_difference_432);
-    registry.emplace("neuron_difference_433", &neuron_difference_433);
-    registry.emplace("neuron_difference_434", &neuron_difference_434);
-    registry.emplace("neuron_combine_435", &neuron_combine_435);
-    registry.emplace("neuron_combine_436", &neuron_combine_436);
-    registry.emplace("neuron_combine_437", &neuron_combine_437);
-    registry.emplace("neuron_combine_438", &neuron_combine_438);
-    registry.emplace("neuron_combine_439", &neuron_combine_439);
-    registry.emplace("neuron_combine_440", &neuron_combine_440);
-    registry.emplace("neuron_combine_441", &neuron_combine_441);
-    registry.emplace("neuron_combine_442", &neuron_combine_442);
-    registry.emplace("neuron_combine_443", &neuron_combine_443);
-    registry.emplace("neuron_combine_444", &neuron_combine_444);
-    registry.emplace("neuron_mapply_445", &neuron_mapply_445);
-    registry.emplace("neuron_mapply_446", &neuron_mapply_446);
-    registry.emplace("neuron_mapply_447", &neuron_mapply_447);
-    registry.emplace("neuron_mapply_448", &neuron_mapply_448);
-    registry.emplace("neuron_mapply_449", &neuron_mapply_449);
-    registry.emplace("neuron_mapply_450", &neuron_mapply_450);
-
-    auto polymorphicRegistry = makePolymorphicNeuronRegistry();
-    registry.insert(
-        polymorphicRegistry.begin(),
-        polymorphicRegistry.end());
-
-    return registry;
-}
+    static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
+    static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
+    static FunctionAdapterNeuron adapter_add_30{&neuron_add_30};
+    static FunctionAdapterNeuron adapter_add_31{&neuron_add_31};
+    static FunctionAdapterNeuron adapter_subtract_32{&neuron_subtract_32};
+    static FunctionAdapterNeuron adapter_subtract_33{&neuron_subtract_33};
+    static FunctionAdapterNeuron adapter_subtract_34{&neuron_subtract_34};
+    static FunctionAdapterNeuron adapter_subtract_35{&neuron_subtract_35};
+    static FunctionAdapterNeuron adapter_multiply_36{&neuron_multiply_36};
+    static FunctionAdapterNeuron adapter_multiply_37{&neuron_multiply_37};
+    static FunctionAdapterNeuron adapter_multiply_38{&neuron_multiply_38};
+    static FunctionAdapterNeuron adapter_multiply_39{&neuron_multiply_39};
+    static FunctionAdapterNeuron adapter_divide_40{&neuron_divide_40};
+    static FunctionAdapterNeuron adapter_divide_41{&neuron_divide_41};
+    static FunctionAdapterNeuron adapter_divide_42{&neuron_divide_42};
+    static FunctionAdapterNeuron adapter_invert_43{&neuron_invert_43};
+    static FunctionAdapterNeuron adapter_invert_44{&neuron_invert_44};
+    static FunctionAdapterNeuron adapter_even_45{&neuron_even_45};
+    static FunctionAdapterNeuron adapter_double__46{&neuron_double__46};
+    static FunctionAdapterNeuron adapter_double__47{&neuron_double__47};
+    static FunctionAdapterNeuron adapter_halve_48{&neuron_halve_48};
+    static FunctionAdapterNeuron adapter_halve_49{&neuron_halve_49};
+    static FunctionAdapterNeuron adapter_flip_50{&neuron_flip_50};
+    static FunctionAdapterNeuron adapter_greater_51{&neuron_greater_51};
+    static FunctionAdapterNeuron adapter_maximum_52{&neuron_maximum_52};
+    static FunctionAdapterNeuron adapter_maximum_53{&neuron_maximum_53};
+    static FunctionAdapterNeuron adapter_minimum_54{&neuron_minimum_54};
+    static FunctionAdapterNeuron adapter_minimum_55{&neuron_minimum_55};
+    static FunctionAdapterNeuron adapter_both_56{&neuron_both_56};
+    static FunctionAdapterNeuron adapter_either_57{&neuron_either_57};
+    static FunctionAdapterNeuron adapter_increment_58{&neuron_increment_58};
+    static FunctionAdapterNeuron adapter_increment_59{&neuron_increment_59};
+    static FunctionAdapterNeuron adapter_decrement_60{&neuron_decrement_60};
+    static FunctionAdapterNeuron adapter_decrement_61{&neuron_decrement_61};
+    static FunctionAdapterNeuron adapter_crement_62{&neuron_crement_62};
+    static FunctionAdapterNeuron adapter_crement_63{&neuron_crement_63};
+    static FunctionAdapterNeuron adapter_sign_64{&neuron_sign_64};
+    static FunctionAdapterNeuron adapter_sign_65{&neuron_sign_65};
+    static FunctionAdapterNeuron adapter_positive_66{&neuron_positive_66};
+    static FunctionAdapterNeuron adapter_toivec_67{&neuron_toivec_67};
+    static FunctionAdapterNeuron adapter_tojvec_68{&neuron_tojvec_68};
+    static FunctionAdapterNeuron adapter_interval_69{&neuron_interval_69};
+    static FunctionAdapterNeuron adapter_astuple_70{&neuron_astuple_70};
+    static FunctionAdapterNeuron adapter_astuple_71{&neuron_astuple_71};
+    static FunctionAdapterNeuron adapter_astuple_72{&neuron_astuple_72};
+    static FunctionAdapterNeuron adapter_ulcorner_73{&neuron_ulcorner_73};
+    static FunctionAdapterNeuron adapter_ulcorner_74{&neuron_ulcorner_74};
+    static FunctionAdapterNeuron adapter_urcorner_75{&neuron_urcorner_75};
+    static FunctionAdapterNeuron adapter_urcorner_76{&neuron_urcorner_76};
+    static FunctionAdapterNeuron adapter_llcorner_77{&neuron_llcorner_77};
+    static FunctionAdapterNeuron adapter_llcorner_78{&neuron_llcorner_78};
+    static FunctionAdapterNeuron adapter_lrcorner_79{&neuron_lrcorner_79};
+    static FunctionAdapterNeuron adapter_lrcorner_80{&neuron_lrcorner_80};
+    static FunctionAdapterNeuron adapter_crop_81{&neuron_crop_81};
+    static FunctionAdapterNeuron adapter_toindices_82{&neuron_toindices_82};
+    static FunctionAdapterNeuron adapter_shift_83{&neuron_shift_83};
+    static FunctionAdapterNeuron adapter_shift_84{&neuron_shift_84};
+    static FunctionAdapterNeuron adapter_uppermost_85{&neuron_uppermost_85};
+    static FunctionAdapterNeuron adapter_uppermost_86{&neuron_uppermost_86};
+    static FunctionAdapterNeuron adapter_lowermost_87{&neuron_lowermost_87};
+    static FunctionAdapterNeuron adapter_lowermost_88{&neuron_lowermost_88};
+    static FunctionAdapterNeuron adapter_leftmost_89{&neuron_leftmost_89};
+    static FunctionAdapterNeuron adapter_leftmost_90{&neuron_leftmost_90};
+    static FunctionAdapterNeuron adapter_rightmost_91{&neuron_rightmost_91};
+    static FunctionAdapterNeuron adapter_rightmost_92{&neuron_rightmost_92};
+    static FunctionAdapterNeuron adapter_rot90_93{&neuron_rot90_93};
+    static FunctionAdapterNeuron adapter_rot180_94{&neuron_rot180_94};
+    static FunctionAdapterNeuron adapter_rot270_95{&neuron_rot270_95};
+    static FunctionAdapterNeuron adapter_hmirror_96{&neuron_hmirror_96};
+    static FunctionAdapterNeuron adapter_hmirror_97{&neuron_hmirror_97};
+    static FunctionAdapterNeuron adapter_hmirror_98{&neuron_hmirror_98};
+    static FunctionAdapterNeuron adapter_vmirror_99{&neuron_vmirror_99};
+    static FunctionAdapterNeuron adapter_vmirror_100{&neuron_vmirror_100};
+    static FunctionAdapterNeuron adapter_vmirror_101{&neuron_vmirror_101};
+    static FunctionAdapterNeuron adapter_dmirror_102{&neuron_dmirror_102};
+    static FunctionAdapterNeuron adapter_dmirror_103{&neuron_dmirror_103};
+    static FunctionAdapterNeuron adapter_dmirror_104{&neuron_dmirror_104};
+    static FunctionAdapterNeuron adapter_cmirror_105{&neuron_cmirror_105};
+    static FunctionAdapterNeuron adapter_cmirror_106{&neuron_cmirror_106};
+    static FunctionAdapterNeuron adapter_cmirror_107{&neuron_cmirror_107};
+    static FunctionAdapterNeuron adapter_hupscale_108{&neuron_hupscale_108};
+    static FunctionAdapterNeuron adapter_vupscale_109{&neuron_vupscale_109};
+    static FunctionAdapterNeuron adapter_upscale_110{&neuron_upscale_110};
+    static FunctionAdapterNeuron adapter_upscale_111{&neuron_upscale_111};
+    static FunctionAdapterNeuron adapter_downscale_112{&neuron_downscale_112};
+    static FunctionAdapterNeuron adapter_hconcat_113{&neuron_hconcat_113};
+    static FunctionAdapterNeuron adapter_vconcat_114{&neuron_vconcat_114};
+    static FunctionAdapterNeuron adapter_replace_115{&neuron_replace_115};
+    static FunctionAdapterNeuron adapter_switch__116{&neuron_switch__116};
+    static FunctionAdapterNeuron adapter_tophalf_117{&neuron_tophalf_117};
+    static FunctionAdapterNeuron adapter_bottomhalf_118{&neuron_bottomhalf_118};
+    static FunctionAdapterNeuron adapter_lefthalf_119{&neuron_lefthalf_119};
+    static FunctionAdapterNeuron adapter_righthalf_120{&neuron_righthalf_120};
+    static FunctionAdapterNeuron adapter_trim_121{&neuron_trim_121};
+    static FunctionAdapterNeuron adapter_compress_122{&neuron_compress_122};
+    static FunctionAdapterNeuron adapter_normalize_123{&neuron_normalize_123};
+    static FunctionAdapterNeuron adapter_normalize_124{&neuron_normalize_124};
+    static FunctionAdapterNeuron adapter_dneighbors_125{&neuron_dneighbors_125};
+    static FunctionAdapterNeuron adapter_ineighbors_126{&neuron_ineighbors_126};
+    static FunctionAdapterNeuron adapter_neighbors_127{&neuron_neighbors_127};
+    static FunctionAdapterNeuron adapter_recolor_128{&neuron_recolor_128};
+    static FunctionAdapterNeuron adapter_recolor_129{&neuron_recolor_129};
+    static FunctionAdapterNeuron adapter_square_130{&neuron_square_130};
+    static FunctionAdapterNeuron adapter_square_131{&neuron_square_131};
+    static FunctionAdapterNeuron adapter_square_132{&neuron_square_132};
+    static FunctionAdapterNeuron adapter_vline_133{&neuron_vline_133};
+    static FunctionAdapterNeuron adapter_vline_134{&neuron_vline_134};
+    static FunctionAdapterNeuron adapter_hline_135{&neuron_hline_135};
+    static FunctionAdapterNeuron adapter_hline_136{&neuron_hline_136};
+    static FunctionAdapterNeuron adapter_height_137{&neuron_height_137};
+    static FunctionAdapterNeuron adapter_height_138{&neuron_height_138};
+    static FunctionAdapterNeuron adapter_height_139{&neuron_height_139};
+    static FunctionAdapterNeuron adapter_width_140{&neuron_width_140};
+    static FunctionAdapterNeuron adapter_width_141{&neuron_width_141};
+    static FunctionAdapterNeuron adapter_width_142{&neuron_width_142};
+    static FunctionAdapterNeuron adapter_shape_143{&neuron_shape_143};
+    static FunctionAdapterNeuron adapter_shape_144{&neuron_shape_144};
+    static FunctionAdapterNeuron adapter_shape_145{&neuron_shape_145};
+    static FunctionAdapterNeuron adapter_portrait_146{&neuron_portrait_146};
+    static FunctionAdapterNeuron adapter_portrait_147{&neuron_portrait_147};
+    static FunctionAdapterNeuron adapter_portrait_148{&neuron_portrait_148};
+    static FunctionAdapterNeuron adapter_branch_149{&neuron_branch_149};
+    static FunctionAdapterNeuron adapter_branch_150{&neuron_branch_150};
+    static FunctionAdapterNeuron adapter_branch_151{&neuron_branch_151};
+    static FunctionAdapterNeuron adapter_branch_152{&neuron_branch_152};
+    static FunctionAdapterNeuron adapter_branch_153{&neuron_branch_153};
+    static FunctionAdapterNeuron adapter_branch_154{&neuron_branch_154};
+    static FunctionAdapterNeuron adapter_branch_155{&neuron_branch_155};
+    static FunctionAdapterNeuron adapter_branch_156{&neuron_branch_156};
+    static FunctionAdapterNeuron adapter_branch_157{&neuron_branch_157};
+    static FunctionAdapterNeuron adapter_branch_158{&neuron_branch_158};
+    static FunctionAdapterNeuron adapter_branch_159{&neuron_branch_159};
+    static FunctionAdapterNeuron adapter_branch_160{&neuron_branch_160};
+    static FunctionAdapterNeuron adapter_branch_161{&neuron_branch_161};
+    static FunctionAdapterNeuron adapter_branch_162{&neuron_branch_162};
+    static FunctionAdapterNeuron adapter_branch_163{&neuron_branch_163};
+    static FunctionAdapterNeuron adapter_color_164{&neuron_color_164};
+    static FunctionAdapterNeuron adapter_toobject_165{&neuron_toobject_165};
+    static FunctionAdapterNeuron adapter_toobject_166{&neuron_toobject_166};
+    static FunctionAdapterNeuron adapter_asobject_167{&neuron_asobject_167};
+    static FunctionAdapterNeuron adapter_mostcolor_168{&neuron_mostcolor_168};
+    static FunctionAdapterNeuron adapter_mostcolor_169{&neuron_mostcolor_169};
+    static FunctionAdapterNeuron adapter_leastcolor_170{&neuron_leastcolor_170};
+    static FunctionAdapterNeuron adapter_leastcolor_171{&neuron_leastcolor_171};
+    static FunctionAdapterNeuron adapter_ofcolor_172{&neuron_ofcolor_172};
+    static FunctionAdapterNeuron adapter_colorcount_173{&neuron_colorcount_173};
+    static FunctionAdapterNeuron adapter_colorcount_174{&neuron_colorcount_174};
+    static FunctionAdapterNeuron adapter_colorfilter_175{&neuron_colorfilter_175};
+    static FunctionAdapterNeuron adapter_objects_176{&neuron_objects_176};
+    static FunctionAdapterNeuron adapter_partition_177{&neuron_partition_177};
+    static FunctionAdapterNeuron adapter_fgpartition_178{&neuron_fgpartition_178};
+    static FunctionAdapterNeuron adapter_asindices_179{&neuron_asindices_179};
+    static FunctionAdapterNeuron adapter_equality_180{&neuron_equality_180};
+    static FunctionAdapterNeuron adapter_equality_181{&neuron_equality_181};
+    static FunctionAdapterNeuron adapter_equality_182{&neuron_equality_182};
+    static FunctionAdapterNeuron adapter_equality_183{&neuron_equality_183};
+    static FunctionAdapterNeuron adapter_equality_184{&neuron_equality_184};
+    static FunctionAdapterNeuron adapter_equality_185{&neuron_equality_185};
+    static FunctionAdapterNeuron adapter_equality_186{&neuron_equality_186};
+    static FunctionAdapterNeuron adapter_equality_187{&neuron_equality_187};
+    static FunctionAdapterNeuron adapter_equality_188{&neuron_equality_188};
+    static FunctionAdapterNeuron adapter_equality_189{&neuron_equality_189};
+    static FunctionAdapterNeuron adapter_equality_190{&neuron_equality_190};
+    static FunctionAdapterNeuron adapter_equality_191{&neuron_equality_191};
+    static FunctionAdapterNeuron adapter_equality_192{&neuron_equality_192};
+    static FunctionAdapterNeuron adapter_equality_193{&neuron_equality_193};
+    static FunctionAdapterNeuron adapter_equality_194{&neuron_equality_194};
+    static FunctionAdapterNeuron adapter_hmatching_195{&neuron_hmatching_195};
+    static FunctionAdapterNeuron adapter_hmatching_196{&neuron_hmatching_196};
+    static FunctionAdapterNeuron adapter_hmatching_197{&neuron_hmatching_197};
+    static FunctionAdapterNeuron adapter_hmatching_198{&neuron_hmatching_198};
+    static FunctionAdapterNeuron adapter_vmatching_199{&neuron_vmatching_199};
+    static FunctionAdapterNeuron adapter_vmatching_200{&neuron_vmatching_200};
+    static FunctionAdapterNeuron adapter_vmatching_201{&neuron_vmatching_201};
+    static FunctionAdapterNeuron adapter_vmatching_202{&neuron_vmatching_202};
+    static FunctionAdapterNeuron adapter_manhattan_203{&neuron_manhattan_203};
+    static FunctionAdapterNeuron adapter_manhattan_204{&neuron_manhattan_204};
+    static FunctionAdapterNeuron adapter_manhattan_205{&neuron_manhattan_205};
+    static FunctionAdapterNeuron adapter_manhattan_206{&neuron_manhattan_206};
+    static FunctionAdapterNeuron adapter_adjacent_207{&neuron_adjacent_207};
+    static FunctionAdapterNeuron adapter_adjacent_208{&neuron_adjacent_208};
+    static FunctionAdapterNeuron adapter_adjacent_209{&neuron_adjacent_209};
+    static FunctionAdapterNeuron adapter_adjacent_210{&neuron_adjacent_210};
+    static FunctionAdapterNeuron adapter_bordering_211{&neuron_bordering_211};
+    static FunctionAdapterNeuron adapter_bordering_212{&neuron_bordering_212};
+    static FunctionAdapterNeuron adapter_centerofmass_213{&neuron_centerofmass_213};
+    static FunctionAdapterNeuron adapter_centerofmass_214{&neuron_centerofmass_214};
+    static FunctionAdapterNeuron adapter_palette_215{&neuron_palette_215};
+    static FunctionAdapterNeuron adapter_palette_216{&neuron_palette_216};
+    static FunctionAdapterNeuron adapter_numcolors_217{&neuron_numcolors_217};
+    static FunctionAdapterNeuron adapter_numcolors_218{&neuron_numcolors_218};
+    static FunctionAdapterNeuron adapter_fill_219{&neuron_fill_219};
+    static FunctionAdapterNeuron adapter_fill_220{&neuron_fill_220};
+    static FunctionAdapterNeuron adapter_paint_221{&neuron_paint_221};
+    static FunctionAdapterNeuron adapter_underfill_222{&neuron_underfill_222};
+    static FunctionAdapterNeuron adapter_underfill_223{&neuron_underfill_223};
+    static FunctionAdapterNeuron adapter_underpaint_224{&neuron_underpaint_224};
+    static FunctionAdapterNeuron adapter_center_225{&neuron_center_225};
+    static FunctionAdapterNeuron adapter_center_226{&neuron_center_226};
+    static FunctionAdapterNeuron adapter_position_227{&neuron_position_227};
+    static FunctionAdapterNeuron adapter_position_228{&neuron_position_228};
+    static FunctionAdapterNeuron adapter_position_229{&neuron_position_229};
+    static FunctionAdapterNeuron adapter_position_230{&neuron_position_230};
+    static FunctionAdapterNeuron adapter_index_231{&neuron_index_231};
+    static FunctionAdapterNeuron adapter_canvas_232{&neuron_canvas_232};
+    static FunctionAdapterNeuron adapter_corners_233{&neuron_corners_233};
+    static FunctionAdapterNeuron adapter_corners_234{&neuron_corners_234};
+    static FunctionAdapterNeuron adapter_connect_235{&neuron_connect_235};
+    static FunctionAdapterNeuron adapter_cover_236{&neuron_cover_236};
+    static FunctionAdapterNeuron adapter_cover_237{&neuron_cover_237};
+    static FunctionAdapterNeuron adapter_vfrontier_238{&neuron_vfrontier_238};
+    static FunctionAdapterNeuron adapter_hfrontier_239{&neuron_hfrontier_239};
+    static FunctionAdapterNeuron adapter_backdrop_240{&neuron_backdrop_240};
+    static FunctionAdapterNeuron adapter_backdrop_241{&neuron_backdrop_241};
+    static FunctionAdapterNeuron adapter_delta_242{&neuron_delta_242};
+    static FunctionAdapterNeuron adapter_delta_243{&neuron_delta_243};
+    static FunctionAdapterNeuron adapter_gravitate_244{&neuron_gravitate_244};
+    static FunctionAdapterNeuron adapter_gravitate_245{&neuron_gravitate_245};
+    static FunctionAdapterNeuron adapter_gravitate_246{&neuron_gravitate_246};
+    static FunctionAdapterNeuron adapter_gravitate_247{&neuron_gravitate_247};
+    static FunctionAdapterNeuron adapter_inbox_248{&neuron_inbox_248};
+    static FunctionAdapterNeuron adapter_inbox_249{&neuron_inbox_249};
+    static FunctionAdapterNeuron adapter_outbox_250{&neuron_outbox_250};
+    static FunctionAdapterNeuron adapter_outbox_251{&neuron_outbox_251};
+    static FunctionAdapterNeuron adapter_box_252{&neuron_box_252};
+    static FunctionAdapterNeuron adapter_box_253{&neuron_box_253};
+    static FunctionAdapterNeuron adapter_shoot_254{&neuron_shoot_254};
+    static FunctionAdapterNeuron adapter_occurrences_255{&neuron_occurrences_255};
+    static FunctionAdapterNeuron adapter_frontiers_256{&neuron_frontiers_256};
+    static FunctionAdapterNeuron adapter_hperiod_257{&neuron_hperiod_257};
+    static FunctionAdapterNeuron adapter_vperiod_258{&neuron_vperiod_258};
+    static FunctionAdapterNeuron adapter_pair_259{&neuron_pair_259};
+    static FunctionAdapterNeuron adapter_size_260{&neuron_size_260};
+    static FunctionAdapterNeuron adapter_size_261{&neuron_size_261};
+    static FunctionAdapterNeuron adapter_size_262{&neuron_size_262};
+    static FunctionAdapterNeuron adapter_size_263{&neuron_size_263};
+    static FunctionAdapterNeuron adapter_size_264{&neuron_size_264};
+    static FunctionAdapterNeuron adapter_size_265{&neuron_size_265};
+    static FunctionAdapterNeuron adapter_size_266{&neuron_size_266};
+    static FunctionAdapterNeuron adapter_size_267{&neuron_size_267};
+    static FunctionAdapterNeuron adapter_size_268{&neuron_size_268};
+    static FunctionAdapterNeuron adapter_size_269{&neuron_size_269};
+    static FunctionAdapterNeuron adapter_size_270{&neuron_size_270};
+    static FunctionAdapterNeuron adapter_size_271{&neuron_size_271};
+    static FunctionAdapterNeuron adapter_size_272{&neuron_size_272};
+    static FunctionAdapterNeuron adapter_size_273{&neuron_size_273};
+    static FunctionAdapterNeuron adapter_size_274{&neuron_size_274};
+    static FunctionAdapterNeuron adapter_identity_275{&neuron_identity_275};
+    static FunctionAdapterNeuron adapter_identity_276{&neuron_identity_276};
+    static FunctionAdapterNeuron adapter_identity_277{&neuron_identity_277};
+    static FunctionAdapterNeuron adapter_identity_278{&neuron_identity_278};
+    static FunctionAdapterNeuron adapter_identity_279{&neuron_identity_279};
+    static FunctionAdapterNeuron adapter_identity_280{&neuron_identity_280};
+    static FunctionAdapterNeuron adapter_identity_281{&neuron_identity_281};
+    static FunctionAdapterNeuron adapter_identity_282{&neuron_identity_282};
+    static FunctionAdapterNeuron adapter_identity_283{&neuron_identity_283};
+    static FunctionAdapterNeuron adapter_identity_284{&neuron_identity_284};
+    static FunctionAdapterNeuron adapter_identity_285{&neuron_identity_285};
+    static FunctionAdapterNeuron adapter_identity_286{&neuron_identity_286};
+    static FunctionAdapterNeuron adapter_identity_287{&neuron_identity_287};
+    static FunctionAdapterNeuron adapter_identity_288{&neuron_identity_288};
+    static FunctionAdapterNeuron adapter_identity_289{&neuron_identity_289};
+    static FunctionAdapterNeuron adapter_first_290{&neuron_first_290};
+    static FunctionAdapterNeuron adapter_first_291{&neuron_first_291};
+    static FunctionAdapterNeuron adapter_first_292{&neuron_first_292};
+    static FunctionAdapterNeuron adapter_first_293{&neuron_first_293};
+    static FunctionAdapterNeuron adapter_first_294{&neuron_first_294};
+    static FunctionAdapterNeuron adapter_first_295{&neuron_first_295};
+    static FunctionAdapterNeuron adapter_first_296{&neuron_first_296};
+    static FunctionAdapterNeuron adapter_first_297{&neuron_first_297};
+    static FunctionAdapterNeuron adapter_first_298{&neuron_first_298};
+    static FunctionAdapterNeuron adapter_first_299{&neuron_first_299};
+    static FunctionAdapterNeuron adapter_first_300{&neuron_first_300};
+    static FunctionAdapterNeuron adapter_first_301{&neuron_first_301};
+    static FunctionAdapterNeuron adapter_first_302{&neuron_first_302};
+    static FunctionAdapterNeuron adapter_first_303{&neuron_first_303};
+    static FunctionAdapterNeuron adapter_first_304{&neuron_first_304};
+    static FunctionAdapterNeuron adapter_first_305{&neuron_first_305};
+    static FunctionAdapterNeuron adapter_first_306{&neuron_first_306};
+    static FunctionAdapterNeuron adapter_last_307{&neuron_last_307};
+    static FunctionAdapterNeuron adapter_last_308{&neuron_last_308};
+    static FunctionAdapterNeuron adapter_last_309{&neuron_last_309};
+    static FunctionAdapterNeuron adapter_last_310{&neuron_last_310};
+    static FunctionAdapterNeuron adapter_last_311{&neuron_last_311};
+    static FunctionAdapterNeuron adapter_last_312{&neuron_last_312};
+    static FunctionAdapterNeuron adapter_last_313{&neuron_last_313};
+    static FunctionAdapterNeuron adapter_last_314{&neuron_last_314};
+    static FunctionAdapterNeuron adapter_last_315{&neuron_last_315};
+    static FunctionAdapterNeuron adapter_last_316{&neuron_last_316};
+    static FunctionAdapterNeuron adapter_last_317{&neuron_last_317};
+    static FunctionAdapterNeuron adapter_last_318{&neuron_last_318};
+    static FunctionAdapterNeuron adapter_last_319{&neuron_last_319};
+    static FunctionAdapterNeuron adapter_last_320{&neuron_last_320};
+    static FunctionAdapterNeuron adapter_last_321{&neuron_last_321};
+    static FunctionAdapterNeuron adapter_last_322{&neuron_last_322};
+    static FunctionAdapterNeuron adapter_last_323{&neuron_last_323};
+    static FunctionAdapterNeuron adapter_insert_324{&neuron_insert_324};
+    static FunctionAdapterNeuron adapter_insert_325{&neuron_insert_325};
+    static FunctionAdapterNeuron adapter_insert_326{&neuron_insert_326};
+    static FunctionAdapterNeuron adapter_insert_327{&neuron_insert_327};
+    static FunctionAdapterNeuron adapter_insert_328{&neuron_insert_328};
+    static FunctionAdapterNeuron adapter_insert_329{&neuron_insert_329};
+    static FunctionAdapterNeuron adapter_insert_330{&neuron_insert_330};
+    static FunctionAdapterNeuron adapter_insert_331{&neuron_insert_331};
+    static FunctionAdapterNeuron adapter_insert_332{&neuron_insert_332};
+    static FunctionAdapterNeuron adapter_insert_333{&neuron_insert_333};
+    static FunctionAdapterNeuron adapter_insert_334{&neuron_insert_334};
+    static FunctionAdapterNeuron adapter_insert_335{&neuron_insert_335};
+    static FunctionAdapterNeuron adapter_insert_336{&neuron_insert_336};
+    static FunctionAdapterNeuron adapter_insert_337{&neuron_insert_337};
+    static FunctionAdapterNeuron adapter_remove_338{&neuron_remove_338};
+    static FunctionAdapterNeuron adapter_remove_339{&neuron_remove_339};
+    static FunctionAdapterNeuron adapter_remove_340{&neuron_remove_340};
+    static FunctionAdapterNeuron adapter_remove_341{&neuron_remove_341};
+    static FunctionAdapterNeuron adapter_remove_342{&neuron_remove_342};
+    static FunctionAdapterNeuron adapter_remove_343{&neuron_remove_343};
+    static FunctionAdapterNeuron adapter_remove_344{&neuron_remove_344};
+    static FunctionAdapterNeuron adapter_remove_345{&neuron_remove_345};
+    static FunctionAdapterNeuron adapter_remove_346{&neuron_remove_346};
+    static FunctionAdapterNeuron adapter_remove_347{&neuron_remove_347};
+    static FunctionAdapterNeuron adapter_remove_348{&neuron_remove_348};
+    static FunctionAdapterNeuron adapter_remove_349{&neuron_remove_349};
+    static FunctionAdapterNeuron adapter_other_350{&neuron_other_350};
+    static FunctionAdapterNeuron adapter_other_351{&neuron_other_351};
+    static FunctionAdapterNeuron adapter_other_352{&neuron_other_352};
+    static FunctionAdapterNeuron adapter_other_353{&neuron_other_353};
+    static FunctionAdapterNeuron adapter_other_354{&neuron_other_354};
+    static FunctionAdapterNeuron adapter_other_355{&neuron_other_355};
+    static FunctionAdapterNeuron adapter_other_356{&neuron_other_356};
+    static FunctionAdapterNeuron adapter_other_357{&neuron_other_357};
+    static FunctionAdapterNeuron adapter_other_358{&neuron_other_358};
+    static FunctionAdapterNeuron adapter_other_359{&neuron_other_359};
+    static FunctionAdapterNeuron adapter_other_360{&neuron_other_360};
+    static FunctionAdapterNeuron adapter_other_361{&neuron_other_361};
+    static FunctionAdapterNeuron adapter_initset_362{&neuron_initset_362};
+    static FunctionAdapterNeuron adapter_initset_363{&neuron_initset_363};
+    static FunctionAdapterNeuron adapter_initset_364{&neuron_initset_364};
+    static FunctionAdapterNeuron adapter_initset_365{&neuron_initset_365};
+    static FunctionAdapterNeuron adapter_initset_366{&neuron_initset_366};
+    static FunctionAdapterNeuron adapter_initset_367{&neuron_initset_367};
+    static FunctionAdapterNeuron adapter_initset_368{&neuron_initset_368};
+    static FunctionAdapterNeuron adapter_initset_369{&neuron_initset_369};
+    static FunctionAdapterNeuron adapter_initset_370{&neuron_initset_370};
+    static FunctionAdapterNeuron adapter_initset_371{&neuron_initset_371};
+    static FunctionAdapterNeuron adapter_initset_372{&neuron_initset_372};
+    static FunctionAdapterNeuron adapter_totuple_373{&neuron_totuple_373};
+    static FunctionAdapterNeuron adapter_totuple_374{&neuron_totuple_374};
+    static FunctionAdapterNeuron adapter_totuple_375{&neuron_totuple_375};
+    static FunctionAdapterNeuron adapter_totuple_376{&neuron_totuple_376};
+    static FunctionAdapterNeuron adapter_subgrid_377{&neuron_subgrid_377};
+    static FunctionAdapterNeuron adapter_subgrid_378{&neuron_subgrid_378};
+    static FunctionAdapterNeuron adapter_hsplit_379{&neuron_hsplit_379};
+    static FunctionAdapterNeuron adapter_vsplit_380{&neuron_vsplit_380};
+    static FunctionAdapterNeuron adapter_repeat_381{&neuron_repeat_381};
+    static FunctionAdapterNeuron adapter_repeat_382{&neuron_repeat_382};
+    static FunctionAdapterNeuron adapter_repeat_383{&neuron_repeat_383};
+    static FunctionAdapterNeuron adapter_repeat_384{&neuron_repeat_384};
+    static FunctionAdapterNeuron adapter_repeat_385{&neuron_repeat_385};
+    static FunctionAdapterNeuron adapter_repeat_386{&neuron_repeat_386};
+    static FunctionAdapterNeuron adapter_repeat_387{&neuron_repeat_387};
+    static FunctionAdapterNeuron adapter_dedupe_388{&neuron_dedupe_388};
+    static FunctionAdapterNeuron adapter_dedupe_389{&neuron_dedupe_389};
+    static FunctionAdapterNeuron adapter_dedupe_390{&neuron_dedupe_390};
+    static FunctionAdapterNeuron adapter_dedupe_391{&neuron_dedupe_391};
+    static FunctionAdapterNeuron adapter_dedupe_392{&neuron_dedupe_392};
+    static FunctionAdapterNeuron adapter_dedupe_393{&neuron_dedupe_393};
+    static FunctionAdapterNeuron adapter_merge_394{&neuron_merge_394};
+    static FunctionAdapterNeuron adapter_merge_395{&neuron_merge_395};
+    static FunctionAdapterNeuron adapter_merge_396{&neuron_merge_396};
+    static FunctionAdapterNeuron adapter_merge_397{&neuron_merge_397};
+    static FunctionAdapterNeuron adapter_merge_398{&neuron_merge_398};
+    static FunctionAdapterNeuron adapter_merge_399{&neuron_merge_399};
+    static FunctionAdapterNeuron adapter_merge_400{&neuron_merge_400};
+    static FunctionAdapterNeuron adapter_contained_401{&neuron_contained_401};
+    static FunctionAdapterNeuron adapter_contained_402{&neuron_contained_402};
+    static FunctionAdapterNeuron adapter_contained_403{&neuron_contained_403};
+    static FunctionAdapterNeuron adapter_contained_404{&neuron_contained_404};
+    static FunctionAdapterNeuron adapter_contained_405{&neuron_contained_405};
+    static FunctionAdapterNeuron adapter_contained_406{&neuron_contained_406};
+    static FunctionAdapterNeuron adapter_contained_407{&neuron_contained_407};
+    static FunctionAdapterNeuron adapter_contained_408{&neuron_contained_408};
+    static FunctionAdapterNeuron adapter_contained_409{&neuron_contained_409};
+    static FunctionAdapterNeuron adapter_contained_410{&neuron_contained_410};
+    static FunctionAdapterNeuron adapter_product_411{&neuron_product_411};
+    static FunctionAdapterNeuron adapter_product_412{&neuron_product_412};
+    static FunctionAdapterNeuron adapter_product_413{&neuron_product_413};
+    static FunctionAdapterNeuron adapter_move_414{&neuron_move_414};
+    static FunctionAdapterNeuron adapter_intersection_415{&neuron_intersection_415};
+    static FunctionAdapterNeuron adapter_intersection_416{&neuron_intersection_416};
+    static FunctionAdapterNeuron adapter_intersection_417{&neuron_intersection_417};
+    static FunctionAdapterNeuron adapter_intersection_418{&neuron_intersection_418};
+    static FunctionAdapterNeuron adapter_intersection_419{&neuron_intersection_419};
+    static FunctionAdapterNeuron adapter_intersection_420{&neuron_intersection_420};
+    static FunctionAdapterNeuron adapter_intersection_421{&neuron_intersection_421};
+    static FunctionAdapterNeuron adapter_intersection_422{&neuron_intersection_422};
+    static FunctionAdapterNeuron adapter_intersection_423{&neuron_intersection_423};
+    static FunctionAdapterNeuron adapter_intersection_424{&neuron_intersection_424};
+    static FunctionAdapterNeuron adapter_difference_425{&neuron_difference_425};
+    static FunctionAdapterNeuron adapter_difference_426{&neuron_difference_426};
+    static FunctionAdapterNeuron adapter_difference_427{&neuron_difference_427};
+    static FunctionAdapterNeuron adapter_difference_428{&neuron_difference_428};
+    static FunctionAdapterNeuron adapter_difference_429{&neuron_difference_429};
+    static FunctionAdapterNeuron adapter_difference_430{&neuron_difference_430};
+    static FunctionAdapterNeuron adapter_difference_431{&neuron_difference_431};
+    static FunctionAdapterNeuron adapter_difference_432{&neuron_difference_432};
+    static FunctionAdapterNeuron adapter_difference_433{&neuron_difference_433};
+    static FunctionAdapterNeuron adapter_difference_434{&neuron_difference_434};
+    static FunctionAdapterNeuron adapter_combine_435{&neuron_combine_435};
+    static FunctionAdapterNeuron adapter_combine_436{&neuron_combine_436};
+    static FunctionAdapterNeuron adapter_combine_437{&neuron_combine_437};
+    static FunctionAdapterNeuron adapter_combine_438{&neuron_combine_438};
+    static FunctionAdapterNeuron adapter_combine_439{&neuron_combine_439};
+    static FunctionAdapterNeuron adapter_combine_440{&neuron_combine_440};
+    static FunctionAdapterNeuron adapter_combine_441{&neuron_combine_441};
+    static FunctionAdapterNeuron adapter_combine_442{&neuron_combine_442};
+    static FunctionAdapterNeuron adapter_combine_443{&neuron_combine_443};
+    static FunctionAdapterNeuron adapter_combine_444{&neuron_combine_444};
+    static FunctionAdapterNeuron adapter_mapply_445{&neuron_mapply_445};
+    static FunctionAdapterNeuron adapter_mapply_446{&neuron_mapply_446};
+    static FunctionAdapterNeuron adapter_mapply_447{&neuron_mapply_447};
+    static FunctionAdapterNeuron adapter_mapply_448{&neuron_mapply_448};
+    static FunctionAdapterNeuron adapter_mapply_449{&neuron_mapply_449};
+    static FunctionAdapterNeuron adapter_mapply_450{&neuron_mapply_450};
+
+    NeuronRegistry makeNeuronRegistry()
+    {
+        NeuronRegistry registry;
+        registry.emplace("neuron_F_0", &neuron_F_0);
+        registry.emplace("neuron_T_1", &neuron_T_1);
+        registry.emplace("neuron_ZERO_2", &neuron_ZERO_2);
+        registry.emplace("neuron_ONE_3", &neuron_ONE_3);
+        registry.emplace("neuron_TWO_4", &neuron_TWO_4);
+        registry.emplace("neuron_THREE_5", &neuron_THREE_5);
+        registry.emplace("neuron_FOUR_6", &neuron_FOUR_6);
+        registry.emplace("neuron_FIVE_7", &neuron_FIVE_7);
+        registry.emplace("neuron_SIX_8", &neuron_SIX_8);
+        registry.emplace("neuron_SEVEN_9", &neuron_SEVEN_9);
+        registry.emplace("neuron_EIGHT_10", &neuron_EIGHT_10);
+        registry.emplace("neuron_NINE_11", &neuron_NINE_11);
+        registry.emplace("neuron_TEN_12", &neuron_TEN_12);
+        registry.emplace("neuron_NEG_ONE_13", &neuron_NEG_ONE_13);
+        registry.emplace("neuron_NEG_TWO_14", &neuron_NEG_TWO_14);
+        registry.emplace("neuron_DOWN_15", &neuron_DOWN_15);
+        registry.emplace("neuron_RIGHT_16", &neuron_RIGHT_16);
+        registry.emplace("neuron_UP_17", &neuron_UP_17);
+        registry.emplace("neuron_LEFT_18", &neuron_LEFT_18);
+        registry.emplace("neuron_ORIGIN_19", &neuron_ORIGIN_19);
+        registry.emplace("neuron_UNITY_20", &neuron_UNITY_20);
+        registry.emplace("neuron_NEG_UNITY_21", &neuron_NEG_UNITY_21);
+        registry.emplace("neuron_UP_RIGHT_22", &neuron_UP_RIGHT_22);
+        registry.emplace("neuron_DOWN_LEFT_23", &neuron_DOWN_LEFT_23);
+        registry.emplace("neuron_ZERO_BY_TWO_24", &neuron_ZERO_BY_TWO_24);
+        registry.emplace("neuron_TWO_BY_ZERO_25", &neuron_TWO_BY_ZERO_25);
+        registry.emplace("neuron_TWO_BY_TWO_26", &neuron_TWO_BY_TWO_26);
+        registry.emplace("neuron_THREE_BY_THREE_27", &neuron_THREE_BY_THREE_27);
+        registry.emplace("neuron_add_28", &neuron_add_28);
+        registry.emplace("adapter_add_28", &adapter_add_28);
+        registry.emplace("neuron_add_29", &neuron_add_29);
+        registry.emplace("adapter_add_29", &adapter_add_29);
+        registry.emplace("neuron_add_30", &neuron_add_30);
+        registry.emplace("adapter_add_30", &adapter_add_30);
+        registry.emplace("neuron_add_31", &neuron_add_31);
+        registry.emplace("adapter_add_31", &adapter_add_31);
+        registry.emplace("neuron_subtract_32", &neuron_subtract_32);
+        registry.emplace("adapter_subtract_32", &adapter_subtract_32);
+        registry.emplace("neuron_subtract_33", &neuron_subtract_33);
+        registry.emplace("adapter_subtract_33", &adapter_subtract_33);
+        registry.emplace("neuron_subtract_34", &neuron_subtract_34);
+        registry.emplace("adapter_subtract_34", &adapter_subtract_34);
+        registry.emplace("neuron_subtract_35", &neuron_subtract_35);
+        registry.emplace("adapter_subtract_35", &adapter_subtract_35);
+        registry.emplace("neuron_multiply_36", &neuron_multiply_36);
+        registry.emplace("adapter_multiply_36", &adapter_multiply_36);
+        registry.emplace("neuron_multiply_37", &neuron_multiply_37);
+        registry.emplace("adapter_multiply_37", &adapter_multiply_37);
+        registry.emplace("neuron_multiply_38", &neuron_multiply_38);
+        registry.emplace("adapter_multiply_38", &adapter_multiply_38);
+        registry.emplace("neuron_multiply_39", &neuron_multiply_39);
+        registry.emplace("adapter_multiply_39", &adapter_multiply_39);
+        registry.emplace("neuron_divide_40", &neuron_divide_40);
+        registry.emplace("adapter_divide_40", &adapter_divide_40);
+        registry.emplace("neuron_divide_41", &neuron_divide_41);
+        registry.emplace("adapter_divide_41", &adapter_divide_41);
+        registry.emplace("neuron_divide_42", &neuron_divide_42);
+        registry.emplace("adapter_divide_42", &adapter_divide_42);
+        registry.emplace("neuron_invert_43", &neuron_invert_43);
+        registry.emplace("adapter_invert_43", &adapter_invert_43);
+        registry.emplace("neuron_invert_44", &neuron_invert_44);
+        registry.emplace("adapter_invert_44", &adapter_invert_44);
+        registry.emplace("neuron_even_45", &neuron_even_45);
+        registry.emplace("adapter_even_45", &adapter_even_45);
+        registry.emplace("neuron_double__46", &neuron_double__46);
+        registry.emplace("adapter_double__46", &adapter_double__46);
+        registry.emplace("neuron_double__47", &neuron_double__47);
+        registry.emplace("adapter_double__47", &adapter_double__47);
+        registry.emplace("neuron_halve_48", &neuron_halve_48);
+        registry.emplace("adapter_halve_48", &adapter_halve_48);
+        registry.emplace("neuron_halve_49", &neuron_halve_49);
+        registry.emplace("adapter_halve_49", &adapter_halve_49);
+        registry.emplace("neuron_flip_50", &neuron_flip_50);
+        registry.emplace("adapter_flip_50", &adapter_flip_50);
+        registry.emplace("neuron_greater_51", &neuron_greater_51);
+        registry.emplace("adapter_greater_51", &adapter_greater_51);
+        registry.emplace("neuron_maximum_52", &neuron_maximum_52);
+        registry.emplace("adapter_maximum_52", &adapter_maximum_52);
+        registry.emplace("neuron_maximum_53", &neuron_maximum_53);
+        registry.emplace("adapter_maximum_53", &adapter_maximum_53);
+        registry.emplace("neuron_minimum_54", &neuron_minimum_54);
+        registry.emplace("adapter_minimum_54", &adapter_minimum_54);
+        registry.emplace("neuron_minimum_55", &neuron_minimum_55);
+        registry.emplace("adapter_minimum_55", &adapter_minimum_55);
+        registry.emplace("neuron_both_56", &neuron_both_56);
+        registry.emplace("adapter_both_56", &adapter_both_56);
+        registry.emplace("neuron_either_57", &neuron_either_57);
+        registry.emplace("adapter_either_57", &adapter_either_57);
+        registry.emplace("neuron_increment_58", &neuron_increment_58);
+        registry.emplace("adapter_increment_58", &adapter_increment_58);
+        registry.emplace("neuron_increment_59", &neuron_increment_59);
+        registry.emplace("adapter_increment_59", &adapter_increment_59);
+        registry.emplace("neuron_decrement_60", &neuron_decrement_60);
+        registry.emplace("adapter_decrement_60", &adapter_decrement_60);
+        registry.emplace("neuron_decrement_61", &neuron_decrement_61);
+        registry.emplace("adapter_decrement_61", &adapter_decrement_61);
+        registry.emplace("neuron_crement_62", &neuron_crement_62);
+        registry.emplace("adapter_crement_62", &adapter_crement_62);
+        registry.emplace("neuron_crement_63", &neuron_crement_63);
+        registry.emplace("adapter_crement_63", &adapter_crement_63);
+        registry.emplace("neuron_sign_64", &neuron_sign_64);
+        registry.emplace("adapter_sign_64", &adapter_sign_64);
+        registry.emplace("neuron_sign_65", &neuron_sign_65);
+        registry.emplace("adapter_sign_65", &adapter_sign_65);
+        registry.emplace("neuron_positive_66", &neuron_positive_66);
+        registry.emplace("adapter_positive_66", &adapter_positive_66);
+        registry.emplace("neuron_toivec_67", &neuron_toivec_67);
+        registry.emplace("adapter_toivec_67", &adapter_toivec_67);
+        registry.emplace("neuron_tojvec_68", &neuron_tojvec_68);
+        registry.emplace("adapter_tojvec_68", &adapter_tojvec_68);
+        registry.emplace("neuron_interval_69", &neuron_interval_69);
+        registry.emplace("adapter_interval_69", &adapter_interval_69);
+        registry.emplace("neuron_astuple_70", &neuron_astuple_70);
+        registry.emplace("adapter_astuple_70", &adapter_astuple_70);
+        registry.emplace("neuron_astuple_71", &neuron_astuple_71);
+        registry.emplace("adapter_astuple_71", &adapter_astuple_71);
+        registry.emplace("neuron_astuple_72", &neuron_astuple_72);
+        registry.emplace("adapter_astuple_72", &adapter_astuple_72);
+        registry.emplace("neuron_ulcorner_73", &neuron_ulcorner_73);
+        registry.emplace("adapter_ulcorner_73", &adapter_ulcorner_73);
+        registry.emplace("neuron_ulcorner_74", &neuron_ulcorner_74);
+        registry.emplace("adapter_ulcorner_74", &adapter_ulcorner_74);
+        registry.emplace("neuron_urcorner_75", &neuron_urcorner_75);
+        registry.emplace("adapter_urcorner_75", &adapter_urcorner_75);
+        registry.emplace("neuron_urcorner_76", &neuron_urcorner_76);
+        registry.emplace("adapter_urcorner_76", &adapter_urcorner_76);
+        registry.emplace("neuron_llcorner_77", &neuron_llcorner_77);
+        registry.emplace("adapter_llcorner_77", &adapter_llcorner_77);
+        registry.emplace("neuron_llcorner_78", &neuron_llcorner_78);
+        registry.emplace("adapter_llcorner_78", &adapter_llcorner_78);
+        registry.emplace("neuron_lrcorner_79", &neuron_lrcorner_79);
+        registry.emplace("adapter_lrcorner_79", &adapter_lrcorner_79);
+        registry.emplace("neuron_lrcorner_80", &neuron_lrcorner_80);
+        registry.emplace("adapter_lrcorner_80", &adapter_lrcorner_80);
+        registry.emplace("neuron_crop_81", &neuron_crop_81);
+        registry.emplace("adapter_crop_81", &adapter_crop_81);
+        registry.emplace("neuron_toindices_82", &neuron_toindices_82);
+        registry.emplace("adapter_toindices_82", &adapter_toindices_82);
+        registry.emplace("neuron_shift_83", &neuron_shift_83);
+        registry.emplace("adapter_shift_83", &adapter_shift_83);
+        registry.emplace("neuron_shift_84", &neuron_shift_84);
+        registry.emplace("adapter_shift_84", &adapter_shift_84);
+        registry.emplace("neuron_uppermost_85", &neuron_uppermost_85);
+        registry.emplace("adapter_uppermost_85", &adapter_uppermost_85);
+        registry.emplace("neuron_uppermost_86", &neuron_uppermost_86);
+        registry.emplace("adapter_uppermost_86", &adapter_uppermost_86);
+        registry.emplace("neuron_lowermost_87", &neuron_lowermost_87);
+        registry.emplace("adapter_lowermost_87", &adapter_lowermost_87);
+        registry.emplace("neuron_lowermost_88", &neuron_lowermost_88);
+        registry.emplace("adapter_lowermost_88", &adapter_lowermost_88);
+        registry.emplace("neuron_leftmost_89", &neuron_leftmost_89);
+        registry.emplace("adapter_leftmost_89", &adapter_leftmost_89);
+        registry.emplace("neuron_leftmost_90", &neuron_leftmost_90);
+        registry.emplace("adapter_leftmost_90", &adapter_leftmost_90);
+        registry.emplace("neuron_rightmost_91", &neuron_rightmost_91);
+        registry.emplace("adapter_rightmost_91", &adapter_rightmost_91);
+        registry.emplace("neuron_rightmost_92", &neuron_rightmost_92);
+        registry.emplace("adapter_rightmost_92", &adapter_rightmost_92);
+        registry.emplace("neuron_rot90_93", &neuron_rot90_93);
+        registry.emplace("adapter_rot90_93", &adapter_rot90_93);
+        registry.emplace("neuron_rot180_94", &neuron_rot180_94);
+        registry.emplace("adapter_rot180_94", &adapter_rot180_94);
+        registry.emplace("neuron_rot270_95", &neuron_rot270_95);
+        registry.emplace("adapter_rot270_95", &adapter_rot270_95);
+        registry.emplace("neuron_hmirror_96", &neuron_hmirror_96);
+        registry.emplace("adapter_hmirror_96", &adapter_hmirror_96);
+        registry.emplace("neuron_hmirror_97", &neuron_hmirror_97);
+        registry.emplace("adapter_hmirror_97", &adapter_hmirror_97);
+        registry.emplace("neuron_hmirror_98", &neuron_hmirror_98);
+        registry.emplace("adapter_hmirror_98", &adapter_hmirror_98);
+        registry.emplace("neuron_vmirror_99", &neuron_vmirror_99);
+        registry.emplace("adapter_vmirror_99", &adapter_vmirror_99);
+        registry.emplace("neuron_vmirror_100", &neuron_vmirror_100);
+        registry.emplace("adapter_vmirror_100", &adapter_vmirror_100);
+        registry.emplace("neuron_vmirror_101", &neuron_vmirror_101);
+        registry.emplace("adapter_vmirror_101", &adapter_vmirror_101);
+        registry.emplace("neuron_dmirror_102", &neuron_dmirror_102);
+        registry.emplace("adapter_dmirror_102", &adapter_dmirror_102);
+        registry.emplace("neuron_dmirror_103", &neuron_dmirror_103);
+        registry.emplace("adapter_dmirror_103", &adapter_dmirror_103);
+        registry.emplace("neuron_dmirror_104", &neuron_dmirror_104);
+        registry.emplace("adapter_dmirror_104", &adapter_dmirror_104);
+        registry.emplace("neuron_cmirror_105", &neuron_cmirror_105);
+        registry.emplace("adapter_cmirror_105", &adapter_cmirror_105);
+        registry.emplace("neuron_cmirror_106", &neuron_cmirror_106);
+        registry.emplace("adapter_cmirror_106", &adapter_cmirror_106);
+        registry.emplace("neuron_cmirror_107", &neuron_cmirror_107);
+        registry.emplace("adapter_cmirror_107", &adapter_cmirror_107);
+        registry.emplace("neuron_hupscale_108", &neuron_hupscale_108);
+        registry.emplace("adapter_hupscale_108", &adapter_hupscale_108);
+        registry.emplace("neuron_vupscale_109", &neuron_vupscale_109);
+        registry.emplace("adapter_vupscale_109", &adapter_vupscale_109);
+        registry.emplace("neuron_upscale_110", &neuron_upscale_110);
+        registry.emplace("adapter_upscale_110", &adapter_upscale_110);
+        registry.emplace("neuron_upscale_111", &neuron_upscale_111);
+        registry.emplace("adapter_upscale_111", &adapter_upscale_111);
+        registry.emplace("neuron_downscale_112", &neuron_downscale_112);
+        registry.emplace("adapter_downscale_112", &adapter_downscale_112);
+        registry.emplace("neuron_hconcat_113", &neuron_hconcat_113);
+        registry.emplace("adapter_hconcat_113", &adapter_hconcat_113);
+        registry.emplace("neuron_vconcat_114", &neuron_vconcat_114);
+        registry.emplace("adapter_vconcat_114", &adapter_vconcat_114);
+        registry.emplace("neuron_replace_115", &neuron_replace_115);
+        registry.emplace("adapter_replace_115", &adapter_replace_115);
+        registry.emplace("neuron_switch__116", &neuron_switch__116);
+        registry.emplace("adapter_switch__116", &adapter_switch__116);
+        registry.emplace("neuron_tophalf_117", &neuron_tophalf_117);
+        registry.emplace("adapter_tophalf_117", &adapter_tophalf_117);
+        registry.emplace("neuron_bottomhalf_118", &neuron_bottomhalf_118);
+        registry.emplace("adapter_bottomhalf_118", &adapter_bottomhalf_118);
+        registry.emplace("neuron_lefthalf_119", &neuron_lefthalf_119);
+        registry.emplace("adapter_lefthalf_119", &adapter_lefthalf_119);
+        registry.emplace("neuron_righthalf_120", &neuron_righthalf_120);
+        registry.emplace("adapter_righthalf_120", &adapter_righthalf_120);
+        registry.emplace("neuron_trim_121", &neuron_trim_121);
+        registry.emplace("adapter_trim_121", &adapter_trim_121);
+        registry.emplace("neuron_compress_122", &neuron_compress_122);
+        registry.emplace("adapter_compress_122", &adapter_compress_122);
+        registry.emplace("neuron_normalize_123", &neuron_normalize_123);
+        registry.emplace("adapter_normalize_123", &adapter_normalize_123);
+        registry.emplace("neuron_normalize_124", &neuron_normalize_124);
+        registry.emplace("adapter_normalize_124", &adapter_normalize_124);
+        registry.emplace("neuron_dneighbors_125", &neuron_dneighbors_125);
+        registry.emplace("adapter_dneighbors_125", &adapter_dneighbors_125);
+        registry.emplace("neuron_ineighbors_126", &neuron_ineighbors_126);
+        registry.emplace("adapter_ineighbors_126", &adapter_ineighbors_126);
+        registry.emplace("neuron_neighbors_127", &neuron_neighbors_127);
+        registry.emplace("adapter_neighbors_127", &adapter_neighbors_127);
+        registry.emplace("neuron_recolor_128", &neuron_recolor_128);
+        registry.emplace("adapter_recolor_128", &adapter_recolor_128);
+        registry.emplace("neuron_recolor_129", &neuron_recolor_129);
+        registry.emplace("adapter_recolor_129", &adapter_recolor_129);
+        registry.emplace("neuron_square_130", &neuron_square_130);
+        registry.emplace("adapter_square_130", &adapter_square_130);
+        registry.emplace("neuron_square_131", &neuron_square_131);
+        registry.emplace("adapter_square_131", &adapter_square_131);
+        registry.emplace("neuron_square_132", &neuron_square_132);
+        registry.emplace("adapter_square_132", &adapter_square_132);
+        registry.emplace("neuron_vline_133", &neuron_vline_133);
+        registry.emplace("adapter_vline_133", &adapter_vline_133);
+        registry.emplace("neuron_vline_134", &neuron_vline_134);
+        registry.emplace("adapter_vline_134", &adapter_vline_134);
+        registry.emplace("neuron_hline_135", &neuron_hline_135);
+        registry.emplace("adapter_hline_135", &adapter_hline_135);
+        registry.emplace("neuron_hline_136", &neuron_hline_136);
+        registry.emplace("adapter_hline_136", &adapter_hline_136);
+        registry.emplace("neuron_height_137", &neuron_height_137);
+        registry.emplace("adapter_height_137", &adapter_height_137);
+        registry.emplace("neuron_height_138", &neuron_height_138);
+        registry.emplace("adapter_height_138", &adapter_height_138);
+        registry.emplace("neuron_height_139", &neuron_height_139);
+        registry.emplace("adapter_height_139", &adapter_height_139);
+        registry.emplace("neuron_width_140", &neuron_width_140);
+        registry.emplace("adapter_width_140", &adapter_width_140);
+        registry.emplace("neuron_width_141", &neuron_width_141);
+        registry.emplace("adapter_width_141", &adapter_width_141);
+        registry.emplace("neuron_width_142", &neuron_width_142);
+        registry.emplace("adapter_width_142", &adapter_width_142);
+        registry.emplace("neuron_shape_143", &neuron_shape_143);
+        registry.emplace("adapter_shape_143", &adapter_shape_143);
+        registry.emplace("neuron_shape_144", &neuron_shape_144);
+        registry.emplace("adapter_shape_144", &adapter_shape_144);
+        registry.emplace("neuron_shape_145", &neuron_shape_145);
+        registry.emplace("adapter_shape_145", &adapter_shape_145);
+        registry.emplace("neuron_portrait_146", &neuron_portrait_146);
+        registry.emplace("adapter_portrait_146", &adapter_portrait_146);
+        registry.emplace("neuron_portrait_147", &neuron_portrait_147);
+        registry.emplace("adapter_portrait_147", &adapter_portrait_147);
+        registry.emplace("neuron_portrait_148", &neuron_portrait_148);
+        registry.emplace("adapter_portrait_148", &adapter_portrait_148);
+        registry.emplace("neuron_branch_149", &neuron_branch_149);
+        registry.emplace("adapter_branch_149", &adapter_branch_149);
+        registry.emplace("neuron_branch_150", &neuron_branch_150);
+        registry.emplace("adapter_branch_150", &adapter_branch_150);
+        registry.emplace("neuron_branch_151", &neuron_branch_151);
+        registry.emplace("adapter_branch_151", &adapter_branch_151);
+        registry.emplace("neuron_branch_152", &neuron_branch_152);
+        registry.emplace("adapter_branch_152", &adapter_branch_152);
+        registry.emplace("neuron_branch_153", &neuron_branch_153);
+        registry.emplace("adapter_branch_153", &adapter_branch_153);
+        registry.emplace("neuron_branch_154", &neuron_branch_154);
+        registry.emplace("adapter_branch_154", &adapter_branch_154);
+        registry.emplace("neuron_branch_155", &neuron_branch_155);
+        registry.emplace("adapter_branch_155", &adapter_branch_155);
+        registry.emplace("neuron_branch_156", &neuron_branch_156);
+        registry.emplace("adapter_branch_156", &adapter_branch_156);
+        registry.emplace("neuron_branch_157", &neuron_branch_157);
+        registry.emplace("adapter_branch_157", &adapter_branch_157);
+        registry.emplace("neuron_branch_158", &neuron_branch_158);
+        registry.emplace("adapter_branch_158", &adapter_branch_158);
+        registry.emplace("neuron_branch_159", &neuron_branch_159);
+        registry.emplace("adapter_branch_159", &adapter_branch_159);
+        registry.emplace("neuron_branch_160", &neuron_branch_160);
+        registry.emplace("adapter_branch_160", &adapter_branch_160);
+        registry.emplace("neuron_branch_161", &neuron_branch_161);
+        registry.emplace("adapter_branch_161", &adapter_branch_161);
+        registry.emplace("neuron_branch_162", &neuron_branch_162);
+        registry.emplace("adapter_branch_162", &adapter_branch_162);
+        registry.emplace("neuron_branch_163", &neuron_branch_163);
+        registry.emplace("adapter_branch_163", &adapter_branch_163);
+        registry.emplace("neuron_color_164", &neuron_color_164);
+        registry.emplace("adapter_color_164", &adapter_color_164);
+        registry.emplace("neuron_toobject_165", &neuron_toobject_165);
+        registry.emplace("adapter_toobject_165", &adapter_toobject_165);
+        registry.emplace("neuron_toobject_166", &neuron_toobject_166);
+        registry.emplace("adapter_toobject_166", &adapter_toobject_166);
+        registry.emplace("neuron_asobject_167", &neuron_asobject_167);
+        registry.emplace("adapter_asobject_167", &adapter_asobject_167);
+        registry.emplace("neuron_mostcolor_168", &neuron_mostcolor_168);
+        registry.emplace("adapter_mostcolor_168", &adapter_mostcolor_168);
+        registry.emplace("neuron_mostcolor_169", &neuron_mostcolor_169);
+        registry.emplace("adapter_mostcolor_169", &adapter_mostcolor_169);
+        registry.emplace("neuron_leastcolor_170", &neuron_leastcolor_170);
+        registry.emplace("adapter_leastcolor_170", &adapter_leastcolor_170);
+        registry.emplace("neuron_leastcolor_171", &neuron_leastcolor_171);
+        registry.emplace("adapter_leastcolor_171", &adapter_leastcolor_171);
+        registry.emplace("neuron_ofcolor_172", &neuron_ofcolor_172);
+        registry.emplace("adapter_ofcolor_172", &adapter_ofcolor_172);
+        registry.emplace("neuron_colorcount_173", &neuron_colorcount_173);
+        registry.emplace("adapter_colorcount_173", &adapter_colorcount_173);
+        registry.emplace("neuron_colorcount_174", &neuron_colorcount_174);
+        registry.emplace("adapter_colorcount_174", &adapter_colorcount_174);
+        registry.emplace("neuron_colorfilter_175", &neuron_colorfilter_175);
+        registry.emplace("adapter_colorfilter_175", &adapter_colorfilter_175);
+        registry.emplace("neuron_objects_176", &neuron_objects_176);
+        registry.emplace("adapter_objects_176", &adapter_objects_176);
+        registry.emplace("neuron_partition_177", &neuron_partition_177);
+        registry.emplace("adapter_partition_177", &adapter_partition_177);
+        registry.emplace("neuron_fgpartition_178", &neuron_fgpartition_178);
+        registry.emplace("adapter_fgpartition_178", &adapter_fgpartition_178);
+        registry.emplace("neuron_asindices_179", &neuron_asindices_179);
+        registry.emplace("adapter_asindices_179", &adapter_asindices_179);
+        registry.emplace("neuron_equality_180", &neuron_equality_180);
+        registry.emplace("adapter_equality_180", &adapter_equality_180);
+        registry.emplace("neuron_equality_181", &neuron_equality_181);
+        registry.emplace("adapter_equality_181", &adapter_equality_181);
+        registry.emplace("neuron_equality_182", &neuron_equality_182);
+        registry.emplace("adapter_equality_182", &adapter_equality_182);
+        registry.emplace("neuron_equality_183", &neuron_equality_183);
+        registry.emplace("adapter_equality_183", &adapter_equality_183);
+        registry.emplace("neuron_equality_184", &neuron_equality_184);
+        registry.emplace("adapter_equality_184", &adapter_equality_184);
+        registry.emplace("neuron_equality_185", &neuron_equality_185);
+        registry.emplace("adapter_equality_185", &adapter_equality_185);
+        registry.emplace("neuron_equality_186", &neuron_equality_186);
+        registry.emplace("adapter_equality_186", &adapter_equality_186);
+        registry.emplace("neuron_equality_187", &neuron_equality_187);
+        registry.emplace("adapter_equality_187", &adapter_equality_187);
+        registry.emplace("neuron_equality_188", &neuron_equality_188);
+        registry.emplace("adapter_equality_188", &adapter_equality_188);
+        registry.emplace("neuron_equality_189", &neuron_equality_189);
+        registry.emplace("adapter_equality_189", &adapter_equality_189);
+        registry.emplace("neuron_equality_190", &neuron_equality_190);
+        registry.emplace("adapter_equality_190", &adapter_equality_190);
+        registry.emplace("neuron_equality_191", &neuron_equality_191);
+        registry.emplace("adapter_equality_191", &adapter_equality_191);
+        registry.emplace("neuron_equality_192", &neuron_equality_192);
+        registry.emplace("adapter_equality_192", &adapter_equality_192);
+        registry.emplace("neuron_equality_193", &neuron_equality_193);
+        registry.emplace("adapter_equality_193", &adapter_equality_193);
+        registry.emplace("neuron_equality_194", &neuron_equality_194);
+        registry.emplace("adapter_equality_194", &adapter_equality_194);
+        registry.emplace("neuron_hmatching_195", &neuron_hmatching_195);
+        registry.emplace("adapter_hmatching_195", &adapter_hmatching_195);
+        registry.emplace("neuron_hmatching_196", &neuron_hmatching_196);
+        registry.emplace("adapter_hmatching_196", &adapter_hmatching_196);
+        registry.emplace("neuron_hmatching_197", &neuron_hmatching_197);
+        registry.emplace("adapter_hmatching_197", &adapter_hmatching_197);
+        registry.emplace("neuron_hmatching_198", &neuron_hmatching_198);
+        registry.emplace("adapter_hmatching_198", &adapter_hmatching_198);
+        registry.emplace("neuron_vmatching_199", &neuron_vmatching_199);
+        registry.emplace("adapter_vmatching_199", &adapter_vmatching_199);
+        registry.emplace("neuron_vmatching_200", &neuron_vmatching_200);
+        registry.emplace("adapter_vmatching_200", &adapter_vmatching_200);
+        registry.emplace("neuron_vmatching_201", &neuron_vmatching_201);
+        registry.emplace("adapter_vmatching_201", &adapter_vmatching_201);
+        registry.emplace("neuron_vmatching_202", &neuron_vmatching_202);
+        registry.emplace("adapter_vmatching_202", &adapter_vmatching_202);
+        registry.emplace("neuron_manhattan_203", &neuron_manhattan_203);
+        registry.emplace("adapter_manhattan_203", &adapter_manhattan_203);
+        registry.emplace("neuron_manhattan_204", &neuron_manhattan_204);
+        registry.emplace("adapter_manhattan_204", &adapter_manhattan_204);
+        registry.emplace("neuron_manhattan_205", &neuron_manhattan_205);
+        registry.emplace("adapter_manhattan_205", &adapter_manhattan_205);
+        registry.emplace("neuron_manhattan_206", &neuron_manhattan_206);
+        registry.emplace("adapter_manhattan_206", &adapter_manhattan_206);
+        registry.emplace("neuron_adjacent_207", &neuron_adjacent_207);
+        registry.emplace("adapter_adjacent_207", &adapter_adjacent_207);
+        registry.emplace("neuron_adjacent_208", &neuron_adjacent_208);
+        registry.emplace("adapter_adjacent_208", &adapter_adjacent_208);
+        registry.emplace("neuron_adjacent_209", &neuron_adjacent_209);
+        registry.emplace("adapter_adjacent_209", &adapter_adjacent_209);
+        registry.emplace("neuron_adjacent_210", &neuron_adjacent_210);
+        registry.emplace("adapter_adjacent_210", &adapter_adjacent_210);
+        registry.emplace("neuron_bordering_211", &neuron_bordering_211);
+        registry.emplace("adapter_bordering_211", &adapter_bordering_211);
+        registry.emplace("neuron_bordering_212", &neuron_bordering_212);
+        registry.emplace("adapter_bordering_212", &adapter_bordering_212);
+        registry.emplace("neuron_centerofmass_213", &neuron_centerofmass_213);
+        registry.emplace("adapter_centerofmass_213", &adapter_centerofmass_213);
+        registry.emplace("neuron_centerofmass_214", &neuron_centerofmass_214);
+        registry.emplace("adapter_centerofmass_214", &adapter_centerofmass_214);
+        registry.emplace("neuron_palette_215", &neuron_palette_215);
+        registry.emplace("adapter_palette_215", &adapter_palette_215);
+        registry.emplace("neuron_palette_216", &neuron_palette_216);
+        registry.emplace("adapter_palette_216", &adapter_palette_216);
+        registry.emplace("neuron_numcolors_217", &neuron_numcolors_217);
+        registry.emplace("adapter_numcolors_217", &adapter_numcolors_217);
+        registry.emplace("neuron_numcolors_218", &neuron_numcolors_218);
+        registry.emplace("adapter_numcolors_218", &adapter_numcolors_218);
+        registry.emplace("neuron_fill_219", &neuron_fill_219);
+        registry.emplace("adapter_fill_219", &adapter_fill_219);
+        registry.emplace("neuron_fill_220", &neuron_fill_220);
+        registry.emplace("adapter_fill_220", &adapter_fill_220);
+        registry.emplace("neuron_paint_221", &neuron_paint_221);
+        registry.emplace("adapter_paint_221", &adapter_paint_221);
+        registry.emplace("neuron_underfill_222", &neuron_underfill_222);
+        registry.emplace("adapter_underfill_222", &adapter_underfill_222);
+        registry.emplace("neuron_underfill_223", &neuron_underfill_223);
+        registry.emplace("adapter_underfill_223", &adapter_underfill_223);
+        registry.emplace("neuron_underpaint_224", &neuron_underpaint_224);
+        registry.emplace("adapter_underpaint_224", &adapter_underpaint_224);
+        registry.emplace("neuron_center_225", &neuron_center_225);
+        registry.emplace("adapter_center_225", &adapter_center_225);
+        registry.emplace("neuron_center_226", &neuron_center_226);
+        registry.emplace("adapter_center_226", &adapter_center_226);
+        registry.emplace("neuron_position_227", &neuron_position_227);
+        registry.emplace("adapter_position_227", &adapter_position_227);
+        registry.emplace("neuron_position_228", &neuron_position_228);
+        registry.emplace("adapter_position_228", &adapter_position_228);
+        registry.emplace("neuron_position_229", &neuron_position_229);
+        registry.emplace("adapter_position_229", &adapter_position_229);
+        registry.emplace("neuron_position_230", &neuron_position_230);
+        registry.emplace("adapter_position_230", &adapter_position_230);
+        registry.emplace("neuron_index_231", &neuron_index_231);
+        registry.emplace("adapter_index_231", &adapter_index_231);
+        registry.emplace("neuron_canvas_232", &neuron_canvas_232);
+        registry.emplace("adapter_canvas_232", &adapter_canvas_232);
+        registry.emplace("neuron_corners_233", &neuron_corners_233);
+        registry.emplace("adapter_corners_233", &adapter_corners_233);
+        registry.emplace("neuron_corners_234", &neuron_corners_234);
+        registry.emplace("adapter_corners_234", &adapter_corners_234);
+        registry.emplace("neuron_connect_235", &neuron_connect_235);
+        registry.emplace("adapter_connect_235", &adapter_connect_235);
+        registry.emplace("neuron_cover_236", &neuron_cover_236);
+        registry.emplace("adapter_cover_236", &adapter_cover_236);
+        registry.emplace("neuron_cover_237", &neuron_cover_237);
+        registry.emplace("adapter_cover_237", &adapter_cover_237);
+        registry.emplace("neuron_vfrontier_238", &neuron_vfrontier_238);
+        registry.emplace("adapter_vfrontier_238", &adapter_vfrontier_238);
+        registry.emplace("neuron_hfrontier_239", &neuron_hfrontier_239);
+        registry.emplace("adapter_hfrontier_239", &adapter_hfrontier_239);
+        registry.emplace("neuron_backdrop_240", &neuron_backdrop_240);
+        registry.emplace("adapter_backdrop_240", &adapter_backdrop_240);
+        registry.emplace("neuron_backdrop_241", &neuron_backdrop_241);
+        registry.emplace("adapter_backdrop_241", &adapter_backdrop_241);
+        registry.emplace("neuron_delta_242", &neuron_delta_242);
+        registry.emplace("adapter_delta_242", &adapter_delta_242);
+        registry.emplace("neuron_delta_243", &neuron_delta_243);
+        registry.emplace("adapter_delta_243", &adapter_delta_243);
+        registry.emplace("neuron_gravitate_244", &neuron_gravitate_244);
+        registry.emplace("adapter_gravitate_244", &adapter_gravitate_244);
+        registry.emplace("neuron_gravitate_245", &neuron_gravitate_245);
+        registry.emplace("adapter_gravitate_245", &adapter_gravitate_245);
+        registry.emplace("neuron_gravitate_246", &neuron_gravitate_246);
+        registry.emplace("adapter_gravitate_246", &adapter_gravitate_246);
+        registry.emplace("neuron_gravitate_247", &neuron_gravitate_247);
+        registry.emplace("adapter_gravitate_247", &adapter_gravitate_247);
+        registry.emplace("neuron_inbox_248", &neuron_inbox_248);
+        registry.emplace("adapter_inbox_248", &adapter_inbox_248);
+        registry.emplace("neuron_inbox_249", &neuron_inbox_249);
+        registry.emplace("adapter_inbox_249", &adapter_inbox_249);
+        registry.emplace("neuron_outbox_250", &neuron_outbox_250);
+        registry.emplace("adapter_outbox_250", &adapter_outbox_250);
+        registry.emplace("neuron_outbox_251", &neuron_outbox_251);
+        registry.emplace("adapter_outbox_251", &adapter_outbox_251);
+        registry.emplace("neuron_box_252", &neuron_box_252);
+        registry.emplace("adapter_box_252", &adapter_box_252);
+        registry.emplace("neuron_box_253", &neuron_box_253);
+        registry.emplace("adapter_box_253", &adapter_box_253);
+        registry.emplace("neuron_shoot_254", &neuron_shoot_254);
+        registry.emplace("adapter_shoot_254", &adapter_shoot_254);
+        registry.emplace("neuron_occurrences_255", &neuron_occurrences_255);
+        registry.emplace("adapter_occurrences_255", &adapter_occurrences_255);
+        registry.emplace("neuron_frontiers_256", &neuron_frontiers_256);
+        registry.emplace("adapter_frontiers_256", &adapter_frontiers_256);
+        registry.emplace("neuron_hperiod_257", &neuron_hperiod_257);
+        registry.emplace("adapter_hperiod_257", &adapter_hperiod_257);
+        registry.emplace("neuron_vperiod_258", &neuron_vperiod_258);
+        registry.emplace("adapter_vperiod_258", &adapter_vperiod_258);
+        registry.emplace("neuron_pair_259", &neuron_pair_259);
+        registry.emplace("adapter_pair_259", &adapter_pair_259);
+        registry.emplace("neuron_size_260", &neuron_size_260);
+        registry.emplace("adapter_size_260", &adapter_size_260);
+        registry.emplace("neuron_size_261", &neuron_size_261);
+        registry.emplace("adapter_size_261", &adapter_size_261);
+        registry.emplace("neuron_size_262", &neuron_size_262);
+        registry.emplace("adapter_size_262", &adapter_size_262);
+        registry.emplace("neuron_size_263", &neuron_size_263);
+        registry.emplace("adapter_size_263", &adapter_size_263);
+        registry.emplace("neuron_size_264", &neuron_size_264);
+        registry.emplace("adapter_size_264", &adapter_size_264);
+        registry.emplace("neuron_size_265", &neuron_size_265);
+        registry.emplace("adapter_size_265", &adapter_size_265);
+        registry.emplace("neuron_size_266", &neuron_size_266);
+        registry.emplace("adapter_size_266", &adapter_size_266);
+        registry.emplace("neuron_size_267", &neuron_size_267);
+        registry.emplace("adapter_size_267", &adapter_size_267);
+        registry.emplace("neuron_size_268", &neuron_size_268);
+        registry.emplace("adapter_size_268", &adapter_size_268);
+        registry.emplace("neuron_size_269", &neuron_size_269);
+        registry.emplace("adapter_size_269", &adapter_size_269);
+        registry.emplace("neuron_size_270", &neuron_size_270);
+        registry.emplace("adapter_size_270", &adapter_size_270);
+        registry.emplace("neuron_size_271", &neuron_size_271);
+        registry.emplace("adapter_size_271", &adapter_size_271);
+        registry.emplace("neuron_size_272", &neuron_size_272);
+        registry.emplace("adapter_size_272", &adapter_size_272);
+        registry.emplace("neuron_size_273", &neuron_size_273);
+        registry.emplace("adapter_size_273", &adapter_size_273);
+        registry.emplace("neuron_size_274", &neuron_size_274);
+        registry.emplace("adapter_size_274", &adapter_size_274);
+        registry.emplace("neuron_identity_275", &neuron_identity_275);
+        registry.emplace("adapter_identity_275", &adapter_identity_275);
+        registry.emplace("neuron_identity_276", &neuron_identity_276);
+        registry.emplace("adapter_identity_276", &adapter_identity_276);
+        registry.emplace("neuron_identity_277", &neuron_identity_277);
+        registry.emplace("adapter_identity_277", &adapter_identity_277);
+        registry.emplace("neuron_identity_278", &neuron_identity_278);
+        registry.emplace("adapter_identity_278", &adapter_identity_278);
+        registry.emplace("neuron_identity_279", &neuron_identity_279);
+        registry.emplace("adapter_identity_279", &adapter_identity_279);
+        registry.emplace("neuron_identity_280", &neuron_identity_280);
+        registry.emplace("adapter_identity_280", &adapter_identity_280);
+        registry.emplace("neuron_identity_281", &neuron_identity_281);
+        registry.emplace("adapter_identity_281", &adapter_identity_281);
+        registry.emplace("neuron_identity_282", &neuron_identity_282);
+        registry.emplace("adapter_identity_282", &adapter_identity_282);
+        registry.emplace("neuron_identity_283", &neuron_identity_283);
+        registry.emplace("adapter_identity_283", &adapter_identity_283);
+        registry.emplace("neuron_identity_284", &neuron_identity_284);
+        registry.emplace("adapter_identity_284", &adapter_identity_284);
+        registry.emplace("neuron_identity_285", &neuron_identity_285);
+        registry.emplace("adapter_identity_285", &adapter_identity_285);
+        registry.emplace("neuron_identity_286", &neuron_identity_286);
+        registry.emplace("adapter_identity_286", &adapter_identity_286);
+        registry.emplace("neuron_identity_287", &neuron_identity_287);
+        registry.emplace("adapter_identity_287", &adapter_identity_287);
+        registry.emplace("neuron_identity_288", &neuron_identity_288);
+        registry.emplace("adapter_identity_288", &adapter_identity_288);
+        registry.emplace("neuron_identity_289", &neuron_identity_289);
+        registry.emplace("adapter_identity_289", &adapter_identity_289);
+        registry.emplace("neuron_first_290", &neuron_first_290);
+        registry.emplace("adapter_first_290", &adapter_first_290);
+        registry.emplace("neuron_first_291", &neuron_first_291);
+        registry.emplace("adapter_first_291", &adapter_first_291);
+        registry.emplace("neuron_first_292", &neuron_first_292);
+        registry.emplace("adapter_first_292", &adapter_first_292);
+        registry.emplace("neuron_first_293", &neuron_first_293);
+        registry.emplace("adapter_first_293", &adapter_first_293);
+        registry.emplace("neuron_first_294", &neuron_first_294);
+        registry.emplace("adapter_first_294", &adapter_first_294);
+        registry.emplace("neuron_first_295", &neuron_first_295);
+        registry.emplace("adapter_first_295", &adapter_first_295);
+        registry.emplace("neuron_first_296", &neuron_first_296);
+        registry.emplace("adapter_first_296", &adapter_first_296);
+        registry.emplace("neuron_first_297", &neuron_first_297);
+        registry.emplace("adapter_first_297", &adapter_first_297);
+        registry.emplace("neuron_first_298", &neuron_first_298);
+        registry.emplace("adapter_first_298", &adapter_first_298);
+        registry.emplace("neuron_first_299", &neuron_first_299);
+        registry.emplace("adapter_first_299", &adapter_first_299);
+        registry.emplace("neuron_first_300", &neuron_first_300);
+        registry.emplace("adapter_first_300", &adapter_first_300);
+        registry.emplace("neuron_first_301", &neuron_first_301);
+        registry.emplace("adapter_first_301", &adapter_first_301);
+        registry.emplace("neuron_first_302", &neuron_first_302);
+        registry.emplace("adapter_first_302", &adapter_first_302);
+        registry.emplace("neuron_first_303", &neuron_first_303);
+        registry.emplace("adapter_first_303", &adapter_first_303);
+        registry.emplace("neuron_first_304", &neuron_first_304);
+        registry.emplace("adapter_first_304", &adapter_first_304);
+        registry.emplace("neuron_first_305", &neuron_first_305);
+        registry.emplace("adapter_first_305", &adapter_first_305);
+        registry.emplace("neuron_first_306", &neuron_first_306);
+        registry.emplace("adapter_first_306", &adapter_first_306);
+        registry.emplace("neuron_last_307", &neuron_last_307);
+        registry.emplace("adapter_last_307", &adapter_last_307);
+        registry.emplace("neuron_last_308", &neuron_last_308);
+        registry.emplace("adapter_last_308", &adapter_last_308);
+        registry.emplace("neuron_last_309", &neuron_last_309);
+        registry.emplace("adapter_last_309", &adapter_last_309);
+        registry.emplace("neuron_last_310", &neuron_last_310);
+        registry.emplace("adapter_last_310", &adapter_last_310);
+        registry.emplace("neuron_last_311", &neuron_last_311);
+        registry.emplace("adapter_last_311", &adapter_last_311);
+        registry.emplace("neuron_last_312", &neuron_last_312);
+        registry.emplace("adapter_last_312", &adapter_last_312);
+        registry.emplace("neuron_last_313", &neuron_last_313);
+        registry.emplace("adapter_last_313", &adapter_last_313);
+        registry.emplace("neuron_last_314", &neuron_last_314);
+        registry.emplace("adapter_last_314", &adapter_last_314);
+        registry.emplace("neuron_last_315", &neuron_last_315);
+        registry.emplace("adapter_last_315", &adapter_last_315);
+        registry.emplace("neuron_last_316", &neuron_last_316);
+        registry.emplace("adapter_last_316", &adapter_last_316);
+        registry.emplace("neuron_last_317", &neuron_last_317);
+        registry.emplace("adapter_last_317", &adapter_last_317);
+        registry.emplace("neuron_last_318", &neuron_last_318);
+        registry.emplace("adapter_last_318", &adapter_last_318);
+        registry.emplace("neuron_last_319", &neuron_last_319);
+        registry.emplace("adapter_last_319", &adapter_last_319);
+        registry.emplace("neuron_last_320", &neuron_last_320);
+        registry.emplace("adapter_last_320", &adapter_last_320);
+        registry.emplace("neuron_last_321", &neuron_last_321);
+        registry.emplace("adapter_last_321", &adapter_last_321);
+        registry.emplace("neuron_last_322", &neuron_last_322);
+        registry.emplace("adapter_last_322", &adapter_last_322);
+        registry.emplace("neuron_last_323", &neuron_last_323);
+        registry.emplace("adapter_last_323", &adapter_last_323);
+        registry.emplace("neuron_insert_324", &neuron_insert_324);
+        registry.emplace("adapter_insert_324", &adapter_insert_324);
+        registry.emplace("neuron_insert_325", &neuron_insert_325);
+        registry.emplace("adapter_insert_325", &adapter_insert_325);
+        registry.emplace("neuron_insert_326", &neuron_insert_326);
+        registry.emplace("adapter_insert_326", &adapter_insert_326);
+        registry.emplace("neuron_insert_327", &neuron_insert_327);
+        registry.emplace("adapter_insert_327", &adapter_insert_327);
+        registry.emplace("neuron_insert_328", &neuron_insert_328);
+        registry.emplace("adapter_insert_328", &adapter_insert_328);
+        registry.emplace("neuron_insert_329", &neuron_insert_329);
+        registry.emplace("adapter_insert_329", &adapter_insert_329);
+        registry.emplace("neuron_insert_330", &neuron_insert_330);
+        registry.emplace("adapter_insert_330", &adapter_insert_330);
+        registry.emplace("neuron_insert_331", &neuron_insert_331);
+        registry.emplace("adapter_insert_331", &adapter_insert_331);
+        registry.emplace("neuron_insert_332", &neuron_insert_332);
+        registry.emplace("adapter_insert_332", &adapter_insert_332);
+        registry.emplace("neuron_insert_333", &neuron_insert_333);
+        registry.emplace("adapter_insert_333", &adapter_insert_333);
+        registry.emplace("neuron_insert_334", &neuron_insert_334);
+        registry.emplace("adapter_insert_334", &adapter_insert_334);
+        registry.emplace("neuron_insert_335", &neuron_insert_335);
+        registry.emplace("adapter_insert_335", &adapter_insert_335);
+        registry.emplace("neuron_insert_336", &neuron_insert_336);
+        registry.emplace("adapter_insert_336", &adapter_insert_336);
+        registry.emplace("neuron_insert_337", &neuron_insert_337);
+        registry.emplace("adapter_insert_337", &adapter_insert_337);
+        registry.emplace("neuron_remove_338", &neuron_remove_338);
+        registry.emplace("adapter_remove_338", &adapter_remove_338);
+        registry.emplace("neuron_remove_339", &neuron_remove_339);
+        registry.emplace("adapter_remove_339", &adapter_remove_339);
+        registry.emplace("neuron_remove_340", &neuron_remove_340);
+        registry.emplace("adapter_remove_340", &adapter_remove_340);
+        registry.emplace("neuron_remove_341", &neuron_remove_341);
+        registry.emplace("adapter_remove_341", &adapter_remove_341);
+        registry.emplace("neuron_remove_342", &neuron_remove_342);
+        registry.emplace("adapter_remove_342", &adapter_remove_342);
+        registry.emplace("neuron_remove_343", &neuron_remove_343);
+        registry.emplace("adapter_remove_343", &adapter_remove_343);
+        registry.emplace("neuron_remove_344", &neuron_remove_344);
+        registry.emplace("adapter_remove_344", &adapter_remove_344);
+        registry.emplace("neuron_remove_345", &neuron_remove_345);
+        registry.emplace("adapter_remove_345", &adapter_remove_345);
+        registry.emplace("neuron_remove_346", &neuron_remove_346);
+        registry.emplace("adapter_remove_346", &adapter_remove_346);
+        registry.emplace("neuron_remove_347", &neuron_remove_347);
+        registry.emplace("adapter_remove_347", &adapter_remove_347);
+        registry.emplace("neuron_remove_348", &neuron_remove_348);
+        registry.emplace("adapter_remove_348", &adapter_remove_348);
+        registry.emplace("neuron_remove_349", &neuron_remove_349);
+        registry.emplace("adapter_remove_349", &adapter_remove_349);
+        registry.emplace("neuron_other_350", &neuron_other_350);
+        registry.emplace("adapter_other_350", &adapter_other_350);
+        registry.emplace("neuron_other_351", &neuron_other_351);
+        registry.emplace("adapter_other_351", &adapter_other_351);
+        registry.emplace("neuron_other_352", &neuron_other_352);
+        registry.emplace("adapter_other_352", &adapter_other_352);
+        registry.emplace("neuron_other_353", &neuron_other_353);
+        registry.emplace("adapter_other_353", &adapter_other_353);
+        registry.emplace("neuron_other_354", &neuron_other_354);
+        registry.emplace("adapter_other_354", &adapter_other_354);
+        registry.emplace("neuron_other_355", &neuron_other_355);
+        registry.emplace("adapter_other_355", &adapter_other_355);
+        registry.emplace("neuron_other_356", &neuron_other_356);
+        registry.emplace("adapter_other_356", &adapter_other_356);
+        registry.emplace("neuron_other_357", &neuron_other_357);
+        registry.emplace("adapter_other_357", &adapter_other_357);
+        registry.emplace("neuron_other_358", &neuron_other_358);
+        registry.emplace("adapter_other_358", &adapter_other_358);
+        registry.emplace("neuron_other_359", &neuron_other_359);
+        registry.emplace("adapter_other_359", &adapter_other_359);
+        registry.emplace("neuron_other_360", &neuron_other_360);
+        registry.emplace("adapter_other_360", &adapter_other_360);
+        registry.emplace("neuron_other_361", &neuron_other_361);
+        registry.emplace("adapter_other_361", &adapter_other_361);
+        registry.emplace("neuron_initset_362", &neuron_initset_362);
+        registry.emplace("adapter_initset_362", &adapter_initset_362);
+        registry.emplace("neuron_initset_363", &neuron_initset_363);
+        registry.emplace("adapter_initset_363", &adapter_initset_363);
+        registry.emplace("neuron_initset_364", &neuron_initset_364);
+        registry.emplace("adapter_initset_364", &adapter_initset_364);
+        registry.emplace("neuron_initset_365", &neuron_initset_365);
+        registry.emplace("adapter_initset_365", &adapter_initset_365);
+        registry.emplace("neuron_initset_366", &neuron_initset_366);
+        registry.emplace("adapter_initset_366", &adapter_initset_366);
+        registry.emplace("neuron_initset_367", &neuron_initset_367);
+        registry.emplace("adapter_initset_367", &adapter_initset_367);
+        registry.emplace("neuron_initset_368", &neuron_initset_368);
+        registry.emplace("adapter_initset_368", &adapter_initset_368);
+        registry.emplace("neuron_initset_369", &neuron_initset_369);
+        registry.emplace("adapter_initset_369", &adapter_initset_369);
+        registry.emplace("neuron_initset_370", &neuron_initset_370);
+        registry.emplace("adapter_initset_370", &adapter_initset_370);
+        registry.emplace("neuron_initset_371", &neuron_initset_371);
+        registry.emplace("adapter_initset_371", &adapter_initset_371);
+        registry.emplace("neuron_initset_372", &neuron_initset_372);
+        registry.emplace("adapter_initset_372", &adapter_initset_372);
+        registry.emplace("neuron_totuple_373", &neuron_totuple_373);
+        registry.emplace("adapter_totuple_373", &adapter_totuple_373);
+        registry.emplace("neuron_totuple_374", &neuron_totuple_374);
+        registry.emplace("adapter_totuple_374", &adapter_totuple_374);
+        registry.emplace("neuron_totuple_375", &neuron_totuple_375);
+        registry.emplace("adapter_totuple_375", &adapter_totuple_375);
+        registry.emplace("neuron_totuple_376", &neuron_totuple_376);
+        registry.emplace("adapter_totuple_376", &adapter_totuple_376);
+        registry.emplace("neuron_subgrid_377", &neuron_subgrid_377);
+        registry.emplace("adapter_subgrid_377", &adapter_subgrid_377);
+        registry.emplace("neuron_subgrid_378", &neuron_subgrid_378);
+        registry.emplace("adapter_subgrid_378", &adapter_subgrid_378);
+        registry.emplace("neuron_hsplit_379", &neuron_hsplit_379);
+        registry.emplace("adapter_hsplit_379", &adapter_hsplit_379);
+        registry.emplace("neuron_vsplit_380", &neuron_vsplit_380);
+        registry.emplace("adapter_vsplit_380", &adapter_vsplit_380);
+        registry.emplace("neuron_repeat_381", &neuron_repeat_381);
+        registry.emplace("adapter_repeat_381", &adapter_repeat_381);
+        registry.emplace("neuron_repeat_382", &neuron_repeat_382);
+        registry.emplace("adapter_repeat_382", &adapter_repeat_382);
+        registry.emplace("neuron_repeat_383", &neuron_repeat_383);
+        registry.emplace("adapter_repeat_383", &adapter_repeat_383);
+        registry.emplace("neuron_repeat_384", &neuron_repeat_384);
+        registry.emplace("adapter_repeat_384", &adapter_repeat_384);
+        registry.emplace("neuron_repeat_385", &neuron_repeat_385);
+        registry.emplace("adapter_repeat_385", &adapter_repeat_385);
+        registry.emplace("neuron_repeat_386", &neuron_repeat_386);
+        registry.emplace("adapter_repeat_386", &adapter_repeat_386);
+        registry.emplace("neuron_repeat_387", &neuron_repeat_387);
+        registry.emplace("adapter_repeat_387", &adapter_repeat_387);
+        registry.emplace("neuron_dedupe_388", &neuron_dedupe_388);
+        registry.emplace("adapter_dedupe_388", &adapter_dedupe_388);
+        registry.emplace("neuron_dedupe_389", &neuron_dedupe_389);
+        registry.emplace("adapter_dedupe_389", &adapter_dedupe_389);
+        registry.emplace("neuron_dedupe_390", &neuron_dedupe_390);
+        registry.emplace("adapter_dedupe_390", &adapter_dedupe_390);
+        registry.emplace("neuron_dedupe_391", &neuron_dedupe_391);
+        registry.emplace("adapter_dedupe_391", &adapter_dedupe_391);
+        registry.emplace("neuron_dedupe_392", &neuron_dedupe_392);
+        registry.emplace("adapter_dedupe_392", &adapter_dedupe_392);
+        registry.emplace("neuron_dedupe_393", &neuron_dedupe_393);
+        registry.emplace("adapter_dedupe_393", &adapter_dedupe_393);
+        registry.emplace("neuron_merge_394", &neuron_merge_394);
+        registry.emplace("adapter_merge_394", &adapter_merge_394);
+        registry.emplace("neuron_merge_395", &neuron_merge_395);
+        registry.emplace("adapter_merge_395", &adapter_merge_395);
+        registry.emplace("neuron_merge_396", &neuron_merge_396);
+        registry.emplace("adapter_merge_396", &adapter_merge_396);
+        registry.emplace("neuron_merge_397", &neuron_merge_397);
+        registry.emplace("adapter_merge_397", &adapter_merge_397);
+        registry.emplace("neuron_merge_398", &neuron_merge_398);
+        registry.emplace("adapter_merge_398", &adapter_merge_398);
+        registry.emplace("neuron_merge_399", &neuron_merge_399);
+        registry.emplace("adapter_merge_399", &adapter_merge_399);
+        registry.emplace("neuron_merge_400", &neuron_merge_400);
+        registry.emplace("adapter_merge_400", &adapter_merge_400);
+        registry.emplace("neuron_contained_401", &neuron_contained_401);
+        registry.emplace("adapter_contained_401", &adapter_contained_401);
+        registry.emplace("neuron_contained_402", &neuron_contained_402);
+        registry.emplace("adapter_contained_402", &adapter_contained_402);
+        registry.emplace("neuron_contained_403", &neuron_contained_403);
+        registry.emplace("adapter_contained_403", &adapter_contained_403);
+        registry.emplace("neuron_contained_404", &neuron_contained_404);
+        registry.emplace("adapter_contained_404", &adapter_contained_404);
+        registry.emplace("neuron_contained_405", &neuron_contained_405);
+        registry.emplace("adapter_contained_405", &adapter_contained_405);
+        registry.emplace("neuron_contained_406", &neuron_contained_406);
+        registry.emplace("adapter_contained_406", &adapter_contained_406);
+        registry.emplace("neuron_contained_407", &neuron_contained_407);
+        registry.emplace("adapter_contained_407", &adapter_contained_407);
+        registry.emplace("neuron_contained_408", &neuron_contained_408);
+        registry.emplace("adapter_contained_408", &adapter_contained_408);
+        registry.emplace("neuron_contained_409", &neuron_contained_409);
+        registry.emplace("adapter_contained_409", &adapter_contained_409);
+        registry.emplace("neuron_contained_410", &neuron_contained_410);
+        registry.emplace("adapter_contained_410", &adapter_contained_410);
+        registry.emplace("neuron_product_411", &neuron_product_411);
+        registry.emplace("adapter_product_411", &adapter_product_411);
+        registry.emplace("neuron_product_412", &neuron_product_412);
+        registry.emplace("adapter_product_412", &adapter_product_412);
+        registry.emplace("neuron_product_413", &neuron_product_413);
+        registry.emplace("adapter_product_413", &adapter_product_413);
+        registry.emplace("neuron_move_414", &neuron_move_414);
+        registry.emplace("adapter_move_414", &adapter_move_414);
+        registry.emplace("neuron_intersection_415", &neuron_intersection_415);
+        registry.emplace("adapter_intersection_415", &adapter_intersection_415);
+        registry.emplace("neuron_intersection_416", &neuron_intersection_416);
+        registry.emplace("adapter_intersection_416", &adapter_intersection_416);
+        registry.emplace("neuron_intersection_417", &neuron_intersection_417);
+        registry.emplace("adapter_intersection_417", &adapter_intersection_417);
+        registry.emplace("neuron_intersection_418", &neuron_intersection_418);
+        registry.emplace("adapter_intersection_418", &adapter_intersection_418);
+        registry.emplace("neuron_intersection_419", &neuron_intersection_419);
+        registry.emplace("adapter_intersection_419", &adapter_intersection_419);
+        registry.emplace("neuron_intersection_420", &neuron_intersection_420);
+        registry.emplace("adapter_intersection_420", &adapter_intersection_420);
+        registry.emplace("neuron_intersection_421", &neuron_intersection_421);
+        registry.emplace("adapter_intersection_421", &adapter_intersection_421);
+        registry.emplace("neuron_intersection_422", &neuron_intersection_422);
+        registry.emplace("adapter_intersection_422", &adapter_intersection_422);
+        registry.emplace("neuron_intersection_423", &neuron_intersection_423);
+        registry.emplace("adapter_intersection_423", &adapter_intersection_423);
+        registry.emplace("neuron_intersection_424", &neuron_intersection_424);
+        registry.emplace("adapter_intersection_424", &adapter_intersection_424);
+        registry.emplace("neuron_difference_425", &neuron_difference_425);
+        registry.emplace("adapter_difference_425", &adapter_difference_425);
+        registry.emplace("neuron_difference_426", &neuron_difference_426);
+        registry.emplace("adapter_difference_426", &adapter_difference_426);
+        registry.emplace("neuron_difference_427", &neuron_difference_427);
+        registry.emplace("adapter_difference_427", &adapter_difference_427);
+        registry.emplace("neuron_difference_428", &neuron_difference_428);
+        registry.emplace("adapter_difference_428", &adapter_difference_428);
+        registry.emplace("neuron_difference_429", &neuron_difference_429);
+        registry.emplace("adapter_difference_429", &adapter_difference_429);
+        registry.emplace("neuron_difference_430", &neuron_difference_430);
+        registry.emplace("adapter_difference_430", &adapter_difference_430);
+        registry.emplace("neuron_difference_431", &neuron_difference_431);
+        registry.emplace("adapter_difference_431", &adapter_difference_431);
+        registry.emplace("neuron_difference_432", &neuron_difference_432);
+        registry.emplace("adapter_difference_432", &adapter_difference_432);
+        registry.emplace("neuron_difference_433", &neuron_difference_433);
+        registry.emplace("adapter_difference_433", &adapter_difference_433);
+        registry.emplace("neuron_difference_434", &neuron_difference_434);
+        registry.emplace("adapter_difference_434", &adapter_difference_434);
+        registry.emplace("neuron_combine_435", &neuron_combine_435);
+        registry.emplace("adapter_combine_435", &adapter_combine_435);
+        registry.emplace("neuron_combine_436", &neuron_combine_436);
+        registry.emplace("adapter_combine_436", &adapter_combine_436);
+        registry.emplace("neuron_combine_437", &neuron_combine_437);
+        registry.emplace("adapter_combine_437", &adapter_combine_437);
+        registry.emplace("neuron_combine_438", &neuron_combine_438);
+        registry.emplace("adapter_combine_438", &adapter_combine_438);
+        registry.emplace("neuron_combine_439", &neuron_combine_439);
+        registry.emplace("adapter_combine_439", &adapter_combine_439);
+        registry.emplace("neuron_combine_440", &neuron_combine_440);
+        registry.emplace("adapter_combine_440", &adapter_combine_440);
+        registry.emplace("neuron_combine_441", &neuron_combine_441);
+        registry.emplace("adapter_combine_441", &adapter_combine_441);
+        registry.emplace("neuron_combine_442", &neuron_combine_442);
+        registry.emplace("adapter_combine_442", &adapter_combine_442);
+        registry.emplace("neuron_combine_443", &neuron_combine_443);
+        registry.emplace("adapter_combine_443", &adapter_combine_443);
+        registry.emplace("neuron_combine_444", &neuron_combine_444);
+        registry.emplace("adapter_combine_444", &adapter_combine_444);
+        registry.emplace("neuron_mapply_445", &neuron_mapply_445);
+        registry.emplace("adapter_mapply_445", &adapter_mapply_445);
+        registry.emplace("neuron_mapply_446", &neuron_mapply_446);
+        registry.emplace("adapter_mapply_446", &adapter_mapply_446);
+        registry.emplace("neuron_mapply_447", &neuron_mapply_447);
+        registry.emplace("adapter_mapply_447", &adapter_mapply_447);
+        registry.emplace("neuron_mapply_448", &neuron_mapply_448);
+        registry.emplace("adapter_mapply_448", &adapter_mapply_448);
+        registry.emplace("neuron_mapply_449", &neuron_mapply_449);
+        registry.emplace("adapter_mapply_449", &adapter_mapply_449);
+        registry.emplace("neuron_mapply_450", &neuron_mapply_450);
+        registry.emplace("adapter_mapply_450", &adapter_mapply_450);
+
+        auto polymorphicRegistry = makePolymorphicNeuronRegistry();
+        registry.insert(
+            polymorphicRegistry.begin(),
+            polymorphicRegistry.end());
+
+        return registry;
+    }
 } // namespace aicpp
