@@ -1731,6 +1731,11 @@ hodel::BooleanVector hodel::branch(Boolean const& condition, BooleanVector const
     return condition ? a : b;
 }
 
+aicpp::FunctionValue hodel::branch(Boolean const& condition, aicpp::FunctionValue const& a, aicpp::FunctionValue const& b)
+{
+    return condition ? a : b;
+}
+
 hodel::Integer hodel::color(Object const& object)
 {
     if (object.empty())
