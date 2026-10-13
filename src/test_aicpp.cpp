@@ -14,109 +14,8 @@
 #include "aicpp/ArgminNeuron.h"
 #include "aicpp/ValminNeuron.h"
 #include "aicpp/FunctionAdapterNeuron.h"
-
-static auto const registry = aicpp::makeNeuronRegistry();
-
-aicpp::NeuronBase const* findNeuron(aicpp::DslType const& expected)
-{
-    auto it = std::find_if(
-        registry.begin(),
-        registry.end(),
-        [&expected](auto const& entry)
-        {
-            return !entry.second->isPolymorphic()
-                && entry.second->signature() == expected;
-        });
-
-    if (it == registry.end())
-    {
-        throw std::runtime_error(
-            "Neuron not found for expected signature");
-    }
-
-    return it->second;
-};
-
-aicpp::Connection buildConnection(
-    std::string const& name,
-    std::vector<std::any> const& args)
-{
-    for (auto const& arg : args)
-    {
-        if (arg.type() != typeid(aicpp::Connection))
-        {
-            throw std::invalid_argument(
-                "Arguments must be connections");
-        }
-    }
-
-    for (auto const& [_, neuron] : registry)
-    {
-        if (neuron->name() != name)
-            continue;
-
-        if (neuron->isPolymorphic())
-        {
-            auto const* polymorphic =
-                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
-
-            if (polymorphic == nullptr)
-                continue;
-
-            std::vector<aicpp::Connection> connections;
-            connections.reserve(args.size());
-
-            for (auto const& arg : args)
-            {
-                connections.push_back(
-                    std::any_cast<aicpp::Connection const&>(arg));
-            }
-
-            try
-            {
-                polymorphic->inferConnectionSignature(connections);
-                return aicpp::Connection{neuron, args};
-            }
-            catch (std::exception const&)
-            {
-                continue;
-            }
-        }
-
-        if (neuron->inputTypes().size() != args.size())
-            continue;
-
-        bool compatible = true;
-
-        for (size_t i = 0; i < args.size(); ++i)
-        {
-            auto const& connection =
-                std::any_cast<aicpp::Connection const&>(args[i]);
-
-            auto const expectedType = neuron->inputTypes()[i];
-
-            if (expectedType == typeid(aicpp::FunctionValue))
-            {
-                compatible = connection.signature().isFunction();
-            }
-            else
-            {
-                compatible =
-                    connection.neuron()->returnType() == expectedType;
-            }
-
-            if (!compatible)
-                break;
-        }
-
-        if (compatible)
-            return aicpp::Connection{neuron, args};
-    }
-
-    throw std::runtime_error{
-        "No compatible connection found for neuron: " + name
-    };
-}
+#include "aicpp/RbindNeuron.h"
+#include "aicpp/LbindNeuron.h"
 
 TEST(NeuronTest, CallsNativeFunction)
 {
@@ -5615,7 +5514,7 @@ TEST(IntegrationTest, ArgminIntegerVector)
         {integerType},
         integerType);
 
-    auto increment = buildConnection("increment", {});
+    auto increment = aicpp::buildConnection("increment", {});
 
     aicpp::ArgminNeuron argmin;
 
@@ -5661,7 +5560,7 @@ TEST(IntegrationTest, ArgminRejectsEmptyIntegerVector)
 {
     using namespace hodel;
 
-    auto increment = buildConnection("increment", {});
+    auto increment = aicpp::buildConnection("increment", {});
 
     aicpp::ArgminNeuron argmin;
 
@@ -5679,7 +5578,7 @@ TEST(IntegrationTest, ValminIntegerVector)
 {
     using namespace hodel;
 
-    auto increment = buildConnection("increment", {});
+    auto increment = aicpp::buildConnection("increment", {});
 
     aicpp::ValminNeuron valmin;
 
@@ -5774,8 +5673,422 @@ TEST(FunctionAdapterNeuronTest, RejectsIncompatibleInputType)
 
 TEST(FunctionOverloadNeuronTest, BuildsOverloadedFunctionReference)
 {
-    auto const size = buildConnection("size", {});
+    auto const size = aicpp::buildConnection("size", {});
 
     EXPECT_EQ(size.name(), "size");
     EXPECT_TRUE(size.signature().isFunction());
+}
+
+TEST(ConnectionTest, BuildFunctionConnectionBinary)
+{
+    using namespace aicpp;
+
+    auto const addSignature = DslType::function(
+        {
+            makeDslType<hodel::Integer>(),
+            makeDslType<hodel::Integer>()
+        },
+        makeDslType<hodel::Integer>());
+
+    auto const connection =
+        buildFunctionConnection("add", addSignature);
+
+    EXPECT_EQ(connection.signature(), addSignature);
+    EXPECT_EQ(connection.name(), "add");
+    EXPECT_EQ(connection.neuron()->returnType(), typeid(hodel::Integer));
+
+    auto const inputTypes = connection.inputTypes();
+
+    ASSERT_EQ(inputTypes.size(), 2);
+    EXPECT_EQ(inputTypes[0], typeid(hodel::Integer));
+    EXPECT_EQ(inputTypes[1], typeid(hodel::Integer));
+}
+
+TEST(ConnectionTest, BuildFunctionConnectionBinaryPreservesSignature)
+{
+    using namespace aicpp;
+
+    auto const expectedSignature = DslType::function(
+        {
+            makeDslType<hodel::Integer>(),
+            makeDslType<hodel::Integer>()
+        },
+        makeDslType<hodel::Integer>());
+
+    auto const connection =
+        buildFunctionConnection("add", expectedSignature);
+
+    EXPECT_EQ(connection.signature(), expectedSignature);
+    EXPECT_EQ(connection.name(), "add");
+
+    ASSERT_NE(connection.neuron(), nullptr);
+    EXPECT_EQ(connection.neuron()->signature(), expectedSignature);
+
+    auto const inputs = connection.inputs();
+    ASSERT_EQ(inputs.size(), 2);
+
+    EXPECT_EQ(inputs[0].type(), typeid(std::type_index));
+    EXPECT_EQ(inputs[1].type(), typeid(std::type_index));
+}
+
+TEST(ConnectionTest, BuildFunctionConnectionBinaryCannotBeEvaluatedWithoutArguments)
+{
+    using namespace aicpp;
+
+    auto const signature = DslType::function(
+        {
+            makeDslType<hodel::Integer>(),
+            makeDslType<hodel::Integer>()
+        },
+        makeDslType<hodel::Integer>());
+
+    auto const connection =
+        buildFunctionConnection("add", signature);
+
+    EXPECT_THROW(connection.output(), std::bad_any_cast);
+}
+
+TEST(LbindNeuronTest, AppliesFixedFirstArgument)
+{
+    auto const addSignature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const fixed = aicpp::buildConnection("ONE", {});
+    auto const function = aicpp::buildFunctionConnection("add", addSignature);
+
+    aicpp::LbindNeuron lbind;
+
+    aicpp::Connection bound{
+        &lbind,
+        {function, fixed}
+    };
+
+    auto const result{bound.apply(hodel::Integer{21})};
+
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(result),
+        hodel::Integer{22});
+}
+
+TEST(RbindNeuronTest, AppliesFixedSecondArgument)
+{
+    auto const addSignature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const fixed = aicpp::buildConnection("ONE", {});
+    auto const function = aicpp::buildFunctionConnection("add", addSignature);
+
+    aicpp::RbindNeuron rbind;
+
+    aicpp::Connection bound{
+        &rbind,
+        {function, fixed}
+    };
+
+    auto const result{bound.apply(hodel::Integer{21})};
+
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(result),
+        hodel::Integer{22});
+}
+
+TEST(LbindNeuronTest, RejectsIncorrectNumberOfArguments)
+{
+    aicpp::LbindNeuron lbind;
+
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            integerType)};
+
+    EXPECT_THROW(
+        lbind.inferSignature({functionSignature}),
+        std::invalid_argument);
+
+    EXPECT_THROW(
+        lbind.inferSignature(
+            {functionSignature, integerType, integerType}),
+        std::invalid_argument);
+}
+
+TEST(RbindNeuronTest, RejectsIncorrectNumberOfArguments)
+{
+    aicpp::RbindNeuron rbind;
+
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            integerType)};
+
+    EXPECT_THROW(
+        rbind.inferSignature({functionSignature}),
+        std::invalid_argument);
+
+    EXPECT_THROW(
+        rbind.inferSignature(
+            {functionSignature, integerType, integerType}),
+        std::invalid_argument);
+}
+
+TEST(LbindNeuronTest, RejectsIncompatibleFixedArgumentType)
+{
+    aicpp::LbindNeuron lbind;
+
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const tupleType{
+        aicpp::makeDslType<hodel::IntegerTuple>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            integerType)};
+
+    auto const fixedSignature{
+        aicpp::DslType::function({}, tupleType)};
+
+    EXPECT_THROW(
+        lbind.inferSignature(
+            {functionSignature, fixedSignature}),
+        std::invalid_argument);
+}
+
+TEST(RbindNeuronTest, RejectsIncompatibleFixedArgumentType)
+{
+    aicpp::RbindNeuron rbind;
+
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const tupleType{
+        aicpp::makeDslType<hodel::IntegerTuple>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            integerType)};
+
+    auto const fixedSignature{
+        aicpp::DslType::function({}, tupleType)};
+
+    EXPECT_THROW(
+        rbind.inferSignature(
+            {functionSignature, fixedSignature}),
+        std::invalid_argument);
+}
+
+TEST(RbindNeuronTest, RejectsIncompatibleInputType)
+{
+    auto const addSignature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const fixed = aicpp::buildConnection("ONE", {});
+    auto const function =
+        aicpp::buildFunctionConnection("add", addSignature);
+
+    aicpp::RbindNeuron rbind;
+
+    aicpp::Connection bound{
+        &rbind,
+        {function, fixed}
+    };
+
+    EXPECT_THROW(
+        bound.apply(std::any{std::string{"invalid"}}),
+        std::invalid_argument);
+}
+
+TEST(LbindNeuronTest, BuildsConnectionThroughRegistry)
+{
+    auto const addSignature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const fixed = aicpp::buildConnection("ONE", {});
+    auto const function =
+        aicpp::buildFunctionConnection("add", addSignature);
+
+    auto const bound =
+        aicpp::buildConnection("lbind", {function, fixed});
+
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(
+            bound.apply(hodel::Integer{21})),
+        hodel::Integer{22});
+}
+
+TEST(RbindNeuronTest, BuildsConnectionThroughRegistry)
+{
+    auto const addSignature = aicpp::DslType::function(
+        {
+            aicpp::makeDslType<hodel::Integer>(),
+            aicpp::makeDslType<hodel::Integer>()
+        },
+        aicpp::makeDslType<hodel::Integer>());
+
+    auto const fixed = aicpp::buildConnection("ONE", {});
+    auto const function =
+        aicpp::buildFunctionConnection("add", addSignature);
+
+    auto const bound =
+        aicpp::buildConnection("rbind", {function, fixed});
+
+    EXPECT_EQ(
+        std::any_cast<hodel::Integer>(
+            bound.apply(hodel::Integer{21})),
+        hodel::Integer{22});
+}
+
+TEST(LbindNeuronTest, PreservesFunctionReturnType)
+{
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const booleanType{
+        aicpp::makeDslType<hodel::Boolean>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            booleanType)};
+
+    auto const fixedSignature{
+        aicpp::DslType::function({}, integerType)};
+
+    aicpp::LbindNeuron lbind;
+
+    auto const signature{
+        lbind.inferSignature(
+            {functionSignature, fixedSignature})};
+
+    ASSERT_TRUE(signature.isFunction());
+    ASSERT_EQ(signature.inputs().size(), 1);
+
+    EXPECT_EQ(signature.inputs()[0], integerType);
+    EXPECT_EQ(signature.output(), booleanType);
+}
+
+TEST(RbindNeuronTest, PreservesFunctionReturnType)
+{
+    auto const integerType{
+        aicpp::makeDslType<hodel::Integer>()};
+
+    auto const booleanType{
+        aicpp::makeDslType<hodel::Boolean>()};
+
+    auto const functionSignature{
+        aicpp::DslType::function(
+            {integerType, integerType},
+            booleanType)};
+
+    auto const fixedSignature{
+        aicpp::DslType::function({}, integerType)};
+
+    aicpp::RbindNeuron rbind;
+
+    auto const signature{
+        rbind.inferSignature(
+            {functionSignature, fixedSignature})};
+
+    ASSERT_TRUE(signature.isFunction());
+    ASSERT_EQ(signature.inputs().size(), 1);
+
+    EXPECT_EQ(signature.inputs()[0], integerType);
+    EXPECT_EQ(signature.output(), booleanType);
+}
+
+TEST(LbindNeuronTest, AppliesIntegerTupleOverload)
+{
+    using IntegerTuple = hodel::IntegerTuple;
+
+    auto const tupleType{
+        aicpp::makeDslType<IntegerTuple>()};
+
+    auto const signature{
+        aicpp::DslType::function(
+            {tupleType, tupleType},
+            tupleType)};
+
+    auto const function{
+        aicpp::buildFunctionConnection("add", signature)};
+
+    aicpp::Neuron<IntegerTuple> const fixedNeuron{
+        "fixed",
+        [] () -> IntegerTuple { return {1, 2}; }
+    };
+
+    aicpp::Connection const fixedConnection{
+        &fixedNeuron,
+        {}
+    };
+
+    auto const bound{
+        aicpp::buildConnection("lbind", {function, fixedConnection})
+    };
+
+    auto const result{
+        std::any_cast<IntegerTuple>(
+            bound.apply(IntegerTuple{3, 4}))
+    };
+
+    EXPECT_EQ(result, IntegerTuple({4, 6}));
+}
+
+TEST(RbindNeuronTest, AppliesIntegerTupleOverload)
+{
+    using IntegerTuple = hodel::IntegerTuple;
+
+    auto const tupleType{
+        aicpp::makeDslType<IntegerTuple>()};
+
+    auto const signature{
+        aicpp::DslType::function(
+            {tupleType, tupleType},
+            tupleType)};
+
+    auto const function{
+        aicpp::buildFunctionConnection("add", signature)};
+
+    aicpp::Neuron<IntegerTuple> const fixedNeuron{
+        "fixed",
+        [] () -> IntegerTuple { return {1, 2}; }
+    };
+
+    aicpp::Connection const fixedConnection{
+        &fixedNeuron,
+        {}
+    };
+
+    auto const bound{
+        aicpp::buildConnection("rbind", {function, fixedConnection})
+    };
+
+    auto const result{
+        std::any_cast<IntegerTuple>(
+            bound.apply(IntegerTuple{3, 4}))
+    };
+
+    EXPECT_EQ(result, IntegerTuple({4, 6}));
 }
