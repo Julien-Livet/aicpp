@@ -8,6 +8,11 @@ namespace aicpp
     struct FunctionValue
     {
         Connection connection;
+
+        std::any apply(std::any const& argument) const
+        {
+            return connection.apply(argument);
+        }
     };
 }
 
