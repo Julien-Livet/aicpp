@@ -2,10 +2,9 @@ import re
 import sys
 from pathlib import Path
 
-def is_unary_function(declaration: dict) -> bool:
+def is_function(declaration: dict) -> bool:
     return (
         not declaration.get("constant", False)
-        and len(declaration["arguments"]) == 1
     )
 
 CONSTANT_RE = re.compile(
@@ -277,17 +276,14 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
             ])
 
     for index, declaration in enumerate(declarations):
-        if not is_unary_function(declaration):
+        if not is_function(declaration):
             continue
 
         variable_name = f"neuron_{declaration['name']}_{index}"
         adapter_name = f"adapter_{declaration['name']}_{index}"
 
         lines.extend([
-            f"static FunctionAdapterNeuron {adapter_name}{{",
-            f"    &{variable_name}",
-            "};",
-            "",
+            f"    static FunctionAdapterNeuron {adapter_name}{{&{variable_name}}};",
         ])
 
     registry_entries = []
@@ -296,29 +292,30 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         variable_name = f"neuron_{declaration['name']}_{index}"
 
         registry_entries.append(
-            f'    registry.emplace("{variable_name}", &{variable_name});'
+            f'        registry.emplace("{variable_name}", &{variable_name});'
         )
 
-        if is_unary_function(declaration):
+        if is_function(declaration):
             adapter_name = f"adapter_{declaration['name']}_{index}"
 
             registry_entries.append(
-                f'    registry.emplace("{adapter_name}", &{adapter_name});'
+                f'        registry.emplace("{adapter_name}", &{adapter_name});'
             )
 
     lines.extend([
-        "NeuronRegistry makeNeuronRegistry()",
-        "{",
-        "    NeuronRegistry registry;",
+        "",
+        "    NeuronRegistry makeNeuronRegistry()",
+        "    {",
+        "        NeuronRegistry registry;",
         *registry_entries,
         "",
-        "    auto polymorphicRegistry = makePolymorphicNeuronRegistry();",
-        "    registry.insert(",
-        "        polymorphicRegistry.begin(),",
-        "        polymorphicRegistry.end());",
+        "        auto polymorphicRegistry = makePolymorphicNeuronRegistry();",
+        "        registry.insert(",
+        "            polymorphicRegistry.begin(),",
+        "            polymorphicRegistry.end());",
         "",
-        "    return registry;",
-        "}",
+        "        return registry;",
+        "    }",
     ])
 
     lines.extend([
