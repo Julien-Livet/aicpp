@@ -77,6 +77,12 @@ namespace aicpp
 
             return inferSignature(signatures);
         }
+
+        virtual bool evaluatesToValue(
+            std::vector<std::any> const& arguments) const
+        {
+            return evaluatesToValue();
+        }
     };
 }
 
