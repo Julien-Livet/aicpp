@@ -171,114 +171,7 @@ hodel::IntegerTuple hodel::divide(IntegerTuple const& a, IntegerTuple const& b)
 
     return r;
 }
-/*
-template<typename T>
-static std::any repeat(std::any const& item, hodel::Integer const& n)
-{
-    if (item.type() == typeid(T))
-        return std::vector<T>(n, std::any_cast<T>(item));
 
-    return std::any{};
-}
-
-template<typename T>
-static std::any equality(std::any const& a, std::any const& b)
-{
-    if (a.type() == typeid(T) && b.type() == typeid(T))
-        return hodel::Boolean{std::any_cast<T>(a) == std::any_cast<T>(b)};
-
-    return std::any{};
-}
-*//*
-template<typename T>
-static hodel::Integer size_set(T const& value)
-{
-    return static_cast<hodel::Integer>(value.size());
-}
-*//*
-template<typename T>
-static std::any init_set(std::any const& value)
-{
-    if (value.type() == typeid(typename T::value_type))
-        return T{std::any_cast<typename T::value_type>(value)};
-
-    return std::any{};
-}
-
-template<typename T>
-static std::any first_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        if (x.size())
-            return *x.begin();
-    }
-
-    return std::any{};
-}
-
-template<typename T>
-static std::any last_set(std::any const& container)
-{
-    if (container.type() == typeid(T))
-    {
-        auto const x{std::any_cast<T>(container)};
-
-        if (x.size())
-            return *x.rbegin();
-    }
-
-    return std::any{};
-}
-*//*
-template<typename T>
-static std::vector<typename T::value_type> vector_set(T const& container)
-{
-    return std::vector<typename T::value_type>{container.begin(), container.end()};
-}
-
-template<typename T>
-static T difference_sets(T const& a, T const& b)
-{
-    std::vector<typename T::value_type> v;
-
-    std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
-
-    return T{v.begin(), v.end()};
-}
-
-template<typename T>
-static T intersection_sets(T const& a, T const& b)
-{
-    std::vector<typename T::value_type> v;
-
-    std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(v));
-
-    return T{v.begin(), v.end()};
-}
-
-template<typename T>
-static T combine_sets(T const& a, T const& b)
-{
-    T result{a};
-
-    result.insert(b.begin(), b.end());
-
-    return result;
-}
-*//*
-std::any hodel::identity(std::vector<std::any> const& args)
-{
-    if (args.size() != 1)
-        return std::any{};
-
-    auto const x{args.front()};
-
-    return x;
-}
-*/
 hodel::Integer hodel::invert(Integer const& n)
 {
     auto const r{-n};
@@ -329,125 +222,7 @@ hodel::Boolean hodel::flip(Boolean const& b)
 {
     return !b;
 }
-/*
-hodel::Container hodel::combine(Container const& a, Container const& b)
-{
-    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
-        return combine_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
-    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
-        return combine_sets(std::get<Object>(a), std::get<Object>(b));
-    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
-        return combine_sets(std::get<Objects>(a), std::get<Objects>(b));
-    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
-        return combine_sets(std::get<Indices>(a), std::get<Indices>(b));
-    else if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
-        return combine_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
-    else //if (std::holds_alternative<Grid>(a) && std::holds_alternative<Grid>(b))
-    {
-        auto const x{std::get<Grid>(a)};
-        auto const y{std::get<Grid>(b)};
-        Grid result{x};
 
-        result.insert(result.end(), y.begin(), y.end());
-
-        return result;
-    }
-}
-
-hodel::FrozenSet hodel::intersection(FrozenSet const& a, FrozenSet const& b)
-{   
-    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
-        return intersection_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
-    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
-        return intersection_sets(std::get<Object>(a), std::get<Object>(b));
-    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
-        return intersection_sets(std::get<Objects>(a), std::get<Objects>(b));
-    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
-        return intersection_sets(std::get<Indices>(a), std::get<Indices>(b));
-    else //if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
-        return intersection_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
-}
-
-hodel::FrozenSet hodel::difference(FrozenSet const& a, FrozenSet const& b)
-{
-    if (std::holds_alternative<IntegerSet>(a) && std::holds_alternative<IntegerSet>(b))
-        return difference_sets(std::get<IntegerSet>(a), std::get<IntegerSet>(b));
-    else if (std::holds_alternative<Object>(a) && std::holds_alternative<Object>(b))
-        return difference_sets(std::get<Object>(a), std::get<Object>(b));
-    else if (std::holds_alternative<Objects>(a) && std::holds_alternative<Objects>(b))
-        return difference_sets(std::get<Objects>(a), std::get<Objects>(b));
-    else if (std::holds_alternative<Indices>(a) && std::holds_alternative<Indices>(b))
-        return difference_sets(std::get<Indices>(a), std::get<Indices>(b));
-    else //if (std::holds_alternative<IndicesSet>(a) && std::holds_alternative<IndicesSet>(b))
-        return difference_sets(std::get<IndicesSet>(a), std::get<IndicesSet>(b));
-}
-
-template <typename T>
-static T dedupe_vector(T const& v)
-{
-    T result;
-    result.reserve(v.size());
-
-    for (size_t i{0}; i < v.size(); ++i)
-    {
-        auto const r{std::ranges::find_end(v, std::views::single(v[i]))};
-
-        if (r.begin() != v.end() && std::distance(v.begin(), r.begin()) == i)
-            result.emplace_back(v[i]);
-    }
-
-    return result;
-}
-
-hodel::Tuple hodel::dedupe(Tuple const& tup)
-{
-    if (std::holds_alternative<Element>(tup))
-    {
-        auto const& element{std::get<Element>(tup)};
-
-        if (std::holds_alternative<Grid>(element))
-            return dedupe(std::get<Grid>(element));
-        else
-            return element;
-    }
-    else if (std::holds_alternative<Piece>(tup))
-    {
-        auto const& piece{std::get<Piece>(tup)};
-
-        if (std::holds_alternative<Grid>(piece))
-            return dedupe(std::get<Grid>(piece));
-        else
-            return piece;
-    }
-    else if (std::holds_alternative<std::vector<Integer> >(tup))
-        return dedupe_vector(std::get<std::vector<Integer> >(tup));
-    else if (std::holds_alternative<std::vector<Integer> >(tup))
-        return dedupe_vector(std::get<std::vector<Integer> >(tup));
-    else if (std::holds_alternative<std::vector<Cell> >(tup))
-        return dedupe_vector(std::get<std::vector<Cell> >(tup));
-    else if (std::holds_alternative<std::vector<std::vector<Cell> > >(tup))
-        return dedupe_vector(std::get<std::vector<std::vector<Cell> > >(tup));
-    else if (std::holds_alternative<std::vector<IntegerTuple> >(tup))
-        return dedupe_vector(std::get<std::vector<IntegerTuple> >(tup));
-    else if (std::holds_alternative<std::vector<std::vector<IntegerTuple> > >(tup))
-        return dedupe_vector(std::get<std::vector<std::vector<IntegerTuple> > >(tup));
-    else //if (std::holds_alternative<Grid>(tup))
-        return dedupe_vector(std::get<Grid>(tup));
-}
-*//*
-std::any hodel::order(std::vector<std::any> const& args)
-{
-    if (args.size() != 2)
-        return std::any{};
-
-    auto const container{args[0]};
-    auto const compfunc{args[1]};
-
-    //...
-
-    return std::any{};
-}
-*/
 hodel::Boolean hodel::greater(Integer const& a, Integer const& b)
 {
     return a > b;
@@ -469,6 +244,14 @@ hodel::Integer hodel::maximum(IntegerVector const& container)
     return *std::max_element(container.begin(), container.end());
 }
 
+hodel::IntegerTuple hodel::maximum(Indices const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"maximum"};
+    
+    return *std::max_element(container.begin(), container.end());
+}
+
 hodel::Integer hodel::minimum(IntegerSet const& container)
 {
     if (container.empty())
@@ -478,6 +261,14 @@ hodel::Integer hodel::minimum(IntegerSet const& container)
 }
 
 hodel::Integer hodel::minimum(IntegerVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"maximum"};
+    
+    return *std::min_element(container.begin(), container.end());
+}
+
+hodel::IntegerTuple hodel::minimum(Indices const& container)
 {
     if (container.empty())
         throw EmptyContainer{"maximum"};
@@ -567,83 +358,7 @@ hodel::IntegerTuple hodel::tojvec(Integer const& j)
 {
     return {0, j};
 }
-/*
-hodel::Tuple hodel::totuple(FrozenSet const& container)
-{
-    if (std::holds_alternative<IntegerSet>(container))
-        return vector_set(std::get<IntegerSet>(container));
-    else if (std::holds_alternative<Object>(container))
-        return vector_set(std::get<Object>(container));
-    else if (std::holds_alternative<Objects>(container))
-    {
-        auto const& objects{std::get<Objects>(container)};
-        std::vector<std::vector<Cell> > c;
 
-        for (auto const& v : objects)
-            c.emplace_back(v.begin(), v.end());
-
-        return vector_set(c);
-    }
-    else if (std::holds_alternative<Indices>(container))
-        return vector_set(std::get<Indices>(container));
-    else //if (std::holds_alternative<IndicesSet>(container))
-    {
-        auto const& indicesSet{std::get<IndicesSet>(container)};
-        std::vector<std::vector<IntegerTuple> > c;
-
-        for (auto const& v : indicesSet)
-            c.emplace_back(v.begin(), v.end());
-
-        return vector_set(c);
-    }
-}
-*//*
-std::any hodel::first(std::vector<std::any> const& args)
-{
-    if (args.size() != 1)
-        return std::any{};
-
-    auto const container{args.front()};
-
-    if (auto r = first_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = first_set<Object>    (container); r.has_value()) return r;
-    if (auto r = first_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = first_set<Indices>   (container); r.has_value()) return r;
-    if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
-
-    if (container.type() == typeid(Grid))
-    {
-        auto const x{std::any_cast<Grid>(container)};
-        
-        return x.front();
-    }
-
-    return std::any{};
-}
-
-std::any hodel::last(std::vector<std::any> const& args)
-{
-    if (args.size() != 1)
-        return std::any{};
-
-    auto const container{args.front()};
-
-    if (auto r = last_set<IntegerSet>(container); r.has_value()) return r;
-    if (auto r = last_set<Object>    (container); r.has_value()) return r;
-    if (auto r = last_set<Objects>   (container); r.has_value()) return r;
-    if (auto r = last_set<Indices>   (container); r.has_value()) return r;
-    if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
-
-    if (container.type() == typeid(Grid))
-    {
-        auto const x{std::any_cast<Grid>(container)};
-        
-        return x.front();
-    }
-
-    return std::any{};
-}
-*/
 hodel::IntegerSet hodel::interval(Integer start, Integer const& stop, Integer const& step)
 {
     IntegerSet result;
@@ -671,6 +386,11 @@ hodel::FunctionIntegerPair hodel::astuple(aicpp::FunctionValue const& a, Integer
 }
 
 hodel::Cell hodel::astuple(Integer const& a, IntegerTuple const& b)
+{
+    return {a, b};
+}
+
+hodel::GridVector hodel::astuple(Grid const& a, Grid const& b)
 {
     return {a, b};
 }
@@ -1127,7 +847,7 @@ hodel::Grid hodel::hupscale(Grid const& grid, Integer const& factor)
         throw InvalidGrid{"hupscale"};
     }
 
-    if (factor <= 1 || factor > 10)
+    if (factor <= 0 || factor > 10)
         throw InvalidInteger{"hupscale"};
 
     Grid result;
@@ -1161,7 +881,7 @@ hodel::Grid hodel::vupscale(Grid const& grid, Integer const& factor)
         throw InvalidGrid{"vupscale"};
     }
 
-    if (factor <= 1 || factor > 10)
+    if (factor <= 0 || factor > 10)
         throw InvalidInteger{"vupscale"};
 
     Grid result;
@@ -1188,7 +908,7 @@ hodel::Grid hodel::upscale(Grid const& element, Integer const& factor)
         throw InvalidGrid{"upscale"};
     }
 
-    if (factor <= 1 || factor > 10)
+    if (factor <= 0 || factor > 10)
         throw InvalidInteger{"upscale"};
 
     Grid result;
@@ -1217,7 +937,7 @@ hodel::Object hodel::upscale(Object const& element, Integer const& factor)
     if (element.empty())
         throw EmptyObject{"upscale"};
 
-    if (factor <= 1 || factor > 10)
+    if (factor <= 0 || factor > 10)
         throw InvalidInteger{"upscale"};
 
     auto const [di_inv, dj_inv] = ulcorner(element);
@@ -4575,6 +4295,331 @@ hodel::Grid hodel::cellwise(Grid const& a, Grid const& b, Integer const& fallbac
     catch (std::exception const&)
     {
         throw InvalidGrid{"cellwise"};
+    }
+
+    return result;
+}
+
+
+hodel::Boolean hodel::mostcommon(BooleanVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Integer hodel::mostcommon(IntegerVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::IntegerTuple hodel::mostcommon(Indices const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Object hodel::mostcommon(Objects const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::IntegerVector hodel::mostcommon(Grid const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Grid hodel::mostcommon(GridVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Boolean hodel::leastcommon(BooleanVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Integer hodel::leastcommon(IntegerVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::IntegerTuple hodel::leastcommon(Indices const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Object hodel::leastcommon(Objects const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::IntegerVector hodel::leastcommon(Grid const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Grid hodel::leastcommon(GridVector const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
     }
 
     return result;
