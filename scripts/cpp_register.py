@@ -265,14 +265,18 @@ def generate_cpp(name: str, declarations: list[dict], output_path: Path) -> None
         if (trueName.endswith("_")):
             trueName = trueName.removesuffix("_")
 
+        lines.append(f"    // Original declaration: line {declaration['line']}")
+
         if is_constant:
             lines.extend([
-                f'    {neuron_type} {variable_name}{{"{trueName}", [] () -> {return_type} {{ return hodel::{name}; }}}}; // Original declaration: line {declaration['line']}',
+                f'    {neuron_type} {variable_name}{{',
+                f'        "{trueName}", [] () -> {return_type} {{ return hodel::{name}; }}}};',
             ])
 
         else:
             lines.extend([
-                f'    {neuron_type} {variable_name}{{"{trueName}", static_cast<{function_type}>(&hodel::{name})}}; // Original declaration: line {declaration['line']}',
+                f'    {neuron_type} {variable_name}{{',
+                f'        "{trueName}", static_cast<{function_type}>(&hodel::{name})}};',
             ])
 
     for index, declaration in enumerate(declarations):
