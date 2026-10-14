@@ -907,10 +907,10 @@ TEST(ArcDslTest, 3aa6fb7a)
     Connection const F{buildConnection("F", {})};
     Connection const ONE{buildConnection("ONE", {})};
     Connection const T{buildConnection("T", {})};
-    auto const expectedSignature = aicpp::DslType::function(
+    auto const cornersSignature = aicpp::DslType::function(
         {aicpp::makeDslType<hodel::Object>()},
         aicpp::makeDslType<hodel::Indices>());
-    Connection const corners{buildFunctionConnection("corners", expectedSignature)};
+    Connection const corners{buildFunctionConnection("corners", cornersSignature)};
     Connection const x1{buildConnection("objects", {I, T, F, T})};
     Connection const x2{buildConnection("mapply", {corners, x1})};
     Connection const O{buildConnection("underfill", {I, ONE, x2})};
@@ -980,10 +980,10 @@ TEST(ArcDslTest, 4258a5f9)
     Connection const I{&iNeuron, {}};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const ONE{buildConnection("ONE", {})};
-    auto const expectedSignature = aicpp::DslType::function(
+    auto const neighborsSignature = aicpp::DslType::function(
         {aicpp::makeDslType<hodel::IntegerTuple>()},
         aicpp::makeDslType<hodel::Indices>());
-    Connection const neighbors{buildFunctionConnection("neighbors", expectedSignature)};
+    Connection const neighbors{buildFunctionConnection("neighbors", neighborsSignature)};
     Connection const x1{buildConnection("ofcolor", {I, FIVE})};
     Connection const x2{buildConnection("mapply", {neighbors, x1})};
     Connection const O{buildConnection("fill", {I, ONE, x2})};
@@ -2144,7 +2144,7 @@ TEST(ArcDslTest, 22eb0ac0)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 9f236235)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2161,7 +2161,10 @@ TEST(ArcDslTest, 9f236235)
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
-    Connection const width{buildConnection("width", {})};
+    auto const widthSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const width{buildFunctionConnection("width", widthSignature)};
     Connection const x1{buildConnection("compress", {I})};
     Connection const x2{buildConnection("objects", {I, T, F, F})};
     Connection const x3{buildConnection("vmirror", {x1})};
@@ -2174,7 +2177,7 @@ TEST(ArcDslTest, 9f236235)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, a699fb00)
 {
     std::vector<hodel::Grid> inputs, outputs;
