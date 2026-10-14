@@ -2,6 +2,8 @@
 #include <typeindex>
 #include <vector>
 
+#include <boost/algorithm/string/join.hpp>
+
 #include "aicpp/ApplyNeuron.h"
 #include "aicpp/Connection.h"
 #include "aicpp/FunctionValue.h"
@@ -141,7 +143,19 @@ namespace
                 hodel::Indices,
                 hodel::Indices,
                 hodel::IndicesSet>(
-                    makeDslType<hodel::IndicesSet>())
+                    makeDslType<hodel::IndicesSet>()),
+
+            makeApplyRule<
+                hodel::IntegerTuple,
+                hodel::Indices,
+                hodel::Indices>(
+                    makeDslType<hodel::Indices>()),
+
+            makeApplyRule<
+                hodel::Grid,
+                hodel::GridVector,
+                hodel::GridVector>(
+                    makeDslType<hodel::GridVectorVector>()),
         };
 
         return rules;
@@ -204,8 +218,14 @@ namespace aicpp
                 return rule.resultType;
         }
 
+        std::vector<std::string> v;
+        v.reserve(arguments.size());
+
+        for (auto const& arg : arguments)
+            v.emplace_back(arg.string());
+
         throw std::invalid_argument(
-            "apply does not support this function and collection combination");
+            "Unsupported function and collection combination for apply " + boost::algorithm::join(v, ", "));
     }
 
     std::any ApplyNeuron::evaluate(
@@ -249,7 +269,7 @@ namespace aicpp
         }
 
         throw std::invalid_argument(
-            "Unsupported function and collection combination for apply");
+            "Unsupported function and collection combination for apply " + aicpp::signature(arguments));
     }
 
     std::any ApplyNeuron::apply(
@@ -258,5 +278,65 @@ namespace aicpp
     {
         throw std::logic_error(
             "apply is a value-producing operator, not a function");
+    }
+
+    DslType ApplyNeuron::inferConnectionSignature(
+        std::vector<Connection> const& arguments) const
+    {
+        if (arguments.size() != 2)
+        {
+            throw std::invalid_argument(
+                "apply requires exactly two arguments");
+        }
+
+        auto const& function = arguments[0];
+        auto const& collection = arguments[1];
+
+        auto const functionType = function.signature();
+
+        auto const collectionType = collection.valueType();
+
+        if (!functionType.isFunction())
+        {
+            throw std::invalid_argument(
+                "apply requires a function as its first argument");
+        }
+
+        if (functionType.inputs().size() != 1)
+        {
+            throw std::invalid_argument(
+                "apply requires a unary function");
+        }
+
+        if (collectionType.isFunction())
+        {
+            throw std::invalid_argument(
+                "apply requires a collection-producing expression");
+        }
+
+        auto const nativeCollectionType = collectionType.nativeType();
+        auto const& inputType = functionType.inputs().front();
+        auto const& outputType = functionType.output();
+
+        for (auto const& rule : applyRules())
+        {
+            if (rule.collectionType == nativeCollectionType
+                && rule.inputType == inputType
+                && rule.outputType == outputType)
+            {
+                return DslType::function(
+                    {collectionType},
+                    rule.resultType);
+            }
+        }
+
+        std::vector<std::string> v;
+        v.reserve(arguments.size());
+
+        for (auto const& arg : arguments)
+            v.emplace_back(arg.signature().string());
+
+        throw std::invalid_argument(
+            "apply does not support this function and collection combination " + boost::algorithm::join(v, ", "));
     }
 }
