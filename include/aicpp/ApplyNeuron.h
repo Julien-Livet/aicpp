@@ -32,6 +32,9 @@ namespace aicpp
             {
                 return true;
             }
+
+            DslType inferConnectionSignature(
+                std::vector<Connection> const& arguments) const override;
     };
 }
 
