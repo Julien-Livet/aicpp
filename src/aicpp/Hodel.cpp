@@ -252,6 +252,11 @@ hodel::IntegerTuple hodel::maximum(Indices const& container)
     return *std::max_element(container.begin(), container.end());
 }
 
+hodel::Integer hodel::maximum(IntegerTuple const& container)
+{
+    return std::max(container.first, container.second);
+}
+
 hodel::Integer hodel::minimum(IntegerSet const& container)
 {
     if (container.empty())
@@ -274,6 +279,11 @@ hodel::IntegerTuple hodel::minimum(Indices const& container)
         throw EmptyContainer{"maximum"};
     
     return *std::min_element(container.begin(), container.end());
+}
+
+hodel::Integer hodel::minimum(IntegerTuple const& container)
+{
+    return std::min(container.first, container.second);
 }
 
 hodel::Boolean hodel::both(Boolean const& a, Boolean const& b)
@@ -608,14 +618,14 @@ hodel::Grid hodel::rot90(Grid const& grid)
 
     try
     {
-        auto const rows{static_cast<int>(grid.size())};
-        auto const cols{static_cast<int>(grid.at(0).size())};
+        auto const rows{grid.size()};
+        auto const cols{grid.at(0).size()};
 
         result = Grid(cols, std::vector<Integer>(rows));
 
-        for (int i = 0; i < rows; ++i)
+        for (size_t i = 0; i < rows; ++i)
         {
-            for (int j = 0; j < cols; ++j)
+            for (size_t j = 0; j < cols; ++j)
                 result.at(j).at(rows - 1 - i) = grid.at(i).at(j);
         }
     }
@@ -636,14 +646,14 @@ hodel::Grid hodel::rot180(hodel::Grid const& grid)
 
     try
     {
-        auto const rows{static_cast<int>(grid.size())};
-        auto const cols{static_cast<int>(grid.at(0).size())};
+        auto const rows{grid.size()};
+        auto const cols{grid.at(0).size()};
 
         result = Grid(cols, std::vector<Integer>(rows));
 
-        for (int i = 0; i < rows; ++i)
+        for (size_t i = 0; i < rows; ++i)
         {
-            for (int j = 0; j < cols; ++j)
+            for (size_t j = 0; j < cols; ++j)
                 result.at(rows - 1 - i).at(cols - 1 - j) = grid.at(i).at(j);
         }
     }
@@ -664,15 +674,15 @@ hodel::Grid hodel::rot270(hodel::Grid const& grid)
 
     try
     {
-        auto const rows{static_cast<int>(grid.size())};
-        auto const cols{static_cast<int>(grid.at(0).size())};
+        auto const rows{grid.size()};
+        auto const cols{grid.at(0).size()};
 
         result = Grid(cols, std::vector<Integer>(rows));
 
-        for (int i = 0; i < rows; ++i)
+        for (size_t i = 0; i < rows; ++i)
         {
-            for (int j = 0; j < cols; ++j)
-                result.at(rows - 1 - j).at(i) = grid.at(i).at(j);
+            for (size_t j = 0; j < cols; ++j)
+                result.at(cols - 1 - j).at(i) = grid.at(i).at(j);
         }
     }
     catch (std::exception const&)
@@ -1525,7 +1535,7 @@ hodel::Integer hodel::mostcolor(Grid const& element)
         });
 
     if (it == counts.end())
-        throw InvalidGrid{"mostcolor"};
+        return 0;
 
     return it->first;
 }
@@ -1543,7 +1553,7 @@ hodel::Integer hodel::mostcolor(Object const& element)
         });
 
     if (it == counts.end())
-        throw InvalidGrid{"mostcolor"};
+        return 0;
 
     return it->first;
 }
@@ -1561,7 +1571,7 @@ hodel::Integer hodel::leastcolor(Grid const& element)
         });
 
     if (it == counts.end())
-        throw InvalidGrid{"leastcolor"};
+        return 0;
 
     return it->first;
 }
@@ -1579,7 +1589,7 @@ hodel::Integer hodel::leastcolor(Object const& element)
         });
 
     if (it == counts.end())
-        throw InvalidGrid{"leastcolor"};
+        return 0;
 
     return it->first;
 }
@@ -1651,7 +1661,6 @@ hodel::Objects hodel::objects(Grid const& grid, Boolean const& univalued, Boolea
     {
         auto const h = grid.size();
         auto const w = grid.at(0).size();
-
         auto const bg = without_bg ? mostcolor(grid) : Integer{-1};
 
         Indices occupied;
