@@ -857,7 +857,7 @@ hodel::Grid hodel::hupscale(Grid const& grid, Integer const& factor)
         throw InvalidGrid{"hupscale"};
     }
 
-    if (factor <= 0 || factor > 10)
+    if (factor <= 0 || factor > 20)
         throw InvalidInteger{"hupscale"};
 
     Grid result;
@@ -891,7 +891,7 @@ hodel::Grid hodel::vupscale(Grid const& grid, Integer const& factor)
         throw InvalidGrid{"vupscale"};
     }
 
-    if (factor <= 0 || factor > 10)
+    if (factor <= 0 || factor > 20)
         throw InvalidInteger{"vupscale"};
 
     Grid result;
@@ -918,7 +918,7 @@ hodel::Grid hodel::upscale(Grid const& element, Integer const& factor)
         throw InvalidGrid{"upscale"};
     }
 
-    if (factor <= 0 || factor > 10)
+    if (factor <= 0 || factor > 20)
         throw InvalidInteger{"upscale"};
 
     Grid result;
@@ -947,7 +947,7 @@ hodel::Object hodel::upscale(Object const& element, Integer const& factor)
     if (element.empty())
         throw EmptyObject{"upscale"};
 
-    if (factor <= 0 || factor > 10)
+    if (factor <= 0 || factor > 20)
         throw InvalidInteger{"upscale"};
 
     auto const [di_inv, dj_inv] = ulcorner(element);
@@ -2199,8 +2199,8 @@ hodel::IntegerTuple hodel::center(Indices const& patch)
 
 hodel::IntegerTuple hodel::position(Indices const& a, Indices const& b)
 {
-    auto const [ia, ib] = center(a);
-    auto const [ja, jb] = center(b);
+    auto const [ia, ja] = center(a);
+    auto const [ib, jb] = center(b);
 
     if (ia == ib)
         return {0, static_cast<Integer>(ja < jb ? 1 : -1)};
@@ -3738,6 +3738,22 @@ hodel::ObjectsVector hodel::dedupe(ObjectsVector const& tup)
 }
 
 hodel::IndicesVector hodel::dedupe(IndicesVector const& tup)
+{
+    std::remove_cvref_t<decltype(tup)> r;
+    r.reserve(tup.size());
+
+    for (size_t i{0}; i < tup.size(); ++i)
+    {
+        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+
+        if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
+            r.emplace_back(tup.at(i));
+    }
+
+    return r;
+}
+
+hodel::Grid hodel::dedupe(Grid const& tup)
 {
     std::remove_cvref_t<decltype(tup)> r;
     r.reserve(tup.size());
