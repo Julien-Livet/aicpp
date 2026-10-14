@@ -1,6 +1,7 @@
 #ifndef AICPP_HODEL_H
 #define AICPP_HODEL_H
 
+#include <map>
 #include <set>
 #include <stdexcept>
 #include <variant>
@@ -194,6 +195,24 @@ namespace hodel
     typedef std::vector<aicpp::FunctionValue> FunctionSet;
     typedef std::pair<aicpp::FunctionValue, hodel::Integer> FunctionIntegerPair;
     typedef std::vector<FunctionIntegerPair> FunctionIntegerPairVector;
+
+    static std::map<std::type_index, std::string> const types{{typeid(Boolean), "Boolean"},
+                                                              {typeid(Integer), "Integer"},
+                                                              {typeid(IntegerTuple), "IntegerTuple"},
+                                                              {typeid(IntegerSet), "IntegerSet"},
+                                                              {typeid(Grid), "Grid"},
+                                                              {typeid(Cell), "Cell"},
+                                                              {typeid(Object), "Object"},
+                                                              {typeid(Objects), "Objects"},
+                                                              {typeid(Indices), "Indices"},
+                                                              {typeid(IndicesSet), "IndicesSet"},
+                                                              {typeid(GridVector), "GridVector"},
+                                                              {typeid(IndicesVector), "IndicesVector"},
+                                                              {typeid(ObjectVector), "ObjectVector"},
+                                                              {typeid(ObjectsVector), "ObjectsVector"},
+                                                              {typeid(FunctionSet), "FunctionSet"},
+                                                              {typeid(FunctionIntegerPair), "FunctionIntegerPair"},
+                                                              {typeid(FunctionIntegerPairVector), "FunctionIntegerPairVector"}};
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -664,6 +683,7 @@ namespace hodel
     Objects mapply(aicpp::FunctionValue const& function, ObjectsVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesSet const& container); //apply and merge
+    Indices mapply(aicpp::FunctionValue const& function, Indices const& container); //apply and merge
     Grid cellwise(Grid const& a, Grid const& b, Integer const& fallback); //cellwise match of two grids
     Boolean mostcommon(BooleanVector const& container); //most common item
     Integer mostcommon(IntegerVector const& container); //most common item
