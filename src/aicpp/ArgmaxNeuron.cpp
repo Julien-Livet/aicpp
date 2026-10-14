@@ -70,8 +70,8 @@ namespace aicpp
         auto const& container = arguments[0];
         auto const& function = arguments[1];
 
-        DslType elementType{std::type_index{typeid(int)}};
-        DslType resultType{std::type_index{typeid(int)}};
+        DslType elementType{std::type_index{typeid(hodel::Integer)}};
+        DslType resultType{std::type_index{typeid(hodel::Integer)}};
 
         if (container == makeDslType<hodel::IntegerSet>()
             || container == makeDslType<hodel::IntegerVector>())
@@ -213,6 +213,17 @@ namespace aicpp
                 resolvedFunction);
         }
 
+        if (input.type() == typeid(hodel::Grid))
+        {
+            auto const resolvedFunction = resolveFunction(
+                function,
+                makeDslType<hodel::IntegerVector>());
+
+            return findMaximum(
+                std::any_cast<hodel::Grid const&>(input),
+                resolvedFunction);
+        }
+
         throw std::invalid_argument(
             "argmax received an unsupported container type");
     }
@@ -301,6 +312,11 @@ namespace aicpp
         if (nativeType == typeid(hodel::IntegerTuple))
         {
             return makeDslType<hodel::Integer>();
+        }
+
+        if (nativeType == typeid(hodel::Grid))
+        {
+            return makeDslType<hodel::IntegerVector>();
         }
 
         throw std::invalid_argument(
