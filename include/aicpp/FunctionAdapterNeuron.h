@@ -20,6 +20,8 @@ namespace aicpp
                 std::vector<std::any> const& arguments,
                 std::any const& input) const override;
 
+            NeuronBase const* adaptedNeuron() const noexcept;
+
         private:
             NeuronBase const* neuron_;
     };
