@@ -1,6 +1,7 @@
 #ifndef AICPP_DSLTYPE_H
 #define AICPP_DSLTYPE_H
 
+#include <any>
 #include <memory>
 #include <stdexcept>
 #include <typeindex>
@@ -89,6 +90,8 @@ namespace aicpp
             Inputs inputs_;
             std::shared_ptr<DslType> output_;
     };
+
+    std::string signature(std::vector<std::any> const& args);
 
     template <typename T>
     DslType makeDslType()
