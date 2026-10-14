@@ -256,8 +256,10 @@ namespace hodel
     Integer maximum(IntegerSet const& container); //maximum
     Integer maximum(IntegerVector const& container); //maximum
     IntegerTuple maximum(Indices const& container); //maximum
+    Integer maximum(IntegerTuple const& container); //maximum
     Integer minimum(IntegerSet const& container); //minimum
     Integer minimum(IntegerVector const& container); //minimum
+    Integer minimum(IntegerTuple const& container); //minimum
     IntegerTuple minimum(Indices const& container); //minimum
     Boolean both(Boolean const& a, Boolean const& b); //logical and
     Boolean either(Boolean const& a, Boolean const& b); //logical or
