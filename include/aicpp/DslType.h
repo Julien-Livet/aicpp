@@ -82,6 +82,8 @@ namespace aicpp
                 return !(lhs == rhs);
             }
 
+            std::string string() const;
+
         private:
             std::type_index type_;
             Inputs inputs_;
