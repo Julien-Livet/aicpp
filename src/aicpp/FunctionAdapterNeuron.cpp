@@ -65,4 +65,9 @@ namespace aicpp
 
         return neuron_->invoke({input});
     }
+
+    NeuronBase const* FunctionAdapterNeuron::adaptedNeuron() const noexcept
+    {
+        return neuron_;
+    }
 }
