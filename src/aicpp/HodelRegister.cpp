@@ -12,1436 +12,1439 @@ namespace aicpp
 {
     using namespace hodel;
 
-    // Original declaration: line 217
+    // Original declaration: line 220
     aicpp::Neuron<hodel::Boolean> neuron_F_0{
         "F", [] () -> hodel::Boolean { return hodel::F; }};
-    // Original declaration: line 218
+    // Original declaration: line 221
     aicpp::Neuron<hodel::Boolean> neuron_T_1{
         "T", [] () -> hodel::Boolean { return hodel::T; }};
-    // Original declaration: line 220
+    // Original declaration: line 223
     aicpp::Neuron<hodel::Integer> neuron_ZERO_2{
         "ZERO", [] () -> hodel::Integer { return hodel::ZERO; }};
-    // Original declaration: line 221
+    // Original declaration: line 224
     aicpp::Neuron<hodel::Integer> neuron_ONE_3{
         "ONE", [] () -> hodel::Integer { return hodel::ONE; }};
-    // Original declaration: line 222
+    // Original declaration: line 225
     aicpp::Neuron<hodel::Integer> neuron_TWO_4{
         "TWO", [] () -> hodel::Integer { return hodel::TWO; }};
-    // Original declaration: line 223
+    // Original declaration: line 226
     aicpp::Neuron<hodel::Integer> neuron_THREE_5{
         "THREE", [] () -> hodel::Integer { return hodel::THREE; }};
-    // Original declaration: line 224
+    // Original declaration: line 227
     aicpp::Neuron<hodel::Integer> neuron_FOUR_6{
         "FOUR", [] () -> hodel::Integer { return hodel::FOUR; }};
-    // Original declaration: line 225
+    // Original declaration: line 228
     aicpp::Neuron<hodel::Integer> neuron_FIVE_7{
         "FIVE", [] () -> hodel::Integer { return hodel::FIVE; }};
-    // Original declaration: line 226
+    // Original declaration: line 229
     aicpp::Neuron<hodel::Integer> neuron_SIX_8{
         "SIX", [] () -> hodel::Integer { return hodel::SIX; }};
-    // Original declaration: line 227
+    // Original declaration: line 230
     aicpp::Neuron<hodel::Integer> neuron_SEVEN_9{
         "SEVEN", [] () -> hodel::Integer { return hodel::SEVEN; }};
-    // Original declaration: line 228
+    // Original declaration: line 231
     aicpp::Neuron<hodel::Integer> neuron_EIGHT_10{
         "EIGHT", [] () -> hodel::Integer { return hodel::EIGHT; }};
-    // Original declaration: line 229
+    // Original declaration: line 232
     aicpp::Neuron<hodel::Integer> neuron_NINE_11{
         "NINE", [] () -> hodel::Integer { return hodel::NINE; }};
-    // Original declaration: line 230
+    // Original declaration: line 233
     aicpp::Neuron<hodel::Integer> neuron_TEN_12{
         "TEN", [] () -> hodel::Integer { return hodel::TEN; }};
-    // Original declaration: line 232
+    // Original declaration: line 235
     aicpp::Neuron<hodel::Integer> neuron_NEG_ONE_13{
         "NEG_ONE", [] () -> hodel::Integer { return hodel::NEG_ONE; }};
-    // Original declaration: line 233
+    // Original declaration: line 236
     aicpp::Neuron<hodel::Integer> neuron_NEG_TWO_14{
         "NEG_TWO", [] () -> hodel::Integer { return hodel::NEG_TWO; }};
-    // Original declaration: line 235
+    // Original declaration: line 238
     aicpp::Neuron<IntegerTuple> neuron_DOWN_15{
         "DOWN", [] () -> IntegerTuple { return hodel::DOWN; }};
-    // Original declaration: line 236
+    // Original declaration: line 239
     aicpp::Neuron<IntegerTuple> neuron_RIGHT_16{
         "RIGHT", [] () -> IntegerTuple { return hodel::RIGHT; }};
-    // Original declaration: line 237
+    // Original declaration: line 240
     aicpp::Neuron<IntegerTuple> neuron_UP_17{
         "UP", [] () -> IntegerTuple { return hodel::UP; }};
-    // Original declaration: line 238
+    // Original declaration: line 241
     aicpp::Neuron<IntegerTuple> neuron_LEFT_18{
         "LEFT", [] () -> IntegerTuple { return hodel::LEFT; }};
-    // Original declaration: line 240
+    // Original declaration: line 243
     aicpp::Neuron<IntegerTuple> neuron_ORIGIN_19{
         "ORIGIN", [] () -> IntegerTuple { return hodel::ORIGIN; }};
-    // Original declaration: line 241
+    // Original declaration: line 244
     aicpp::Neuron<IntegerTuple> neuron_UNITY_20{
         "UNITY", [] () -> IntegerTuple { return hodel::UNITY; }};
-    // Original declaration: line 242
+    // Original declaration: line 245
     aicpp::Neuron<IntegerTuple> neuron_NEG_UNITY_21{
         "NEG_UNITY", [] () -> IntegerTuple { return hodel::NEG_UNITY; }};
-    // Original declaration: line 243
+    // Original declaration: line 246
     aicpp::Neuron<IntegerTuple> neuron_UP_RIGHT_22{
         "UP_RIGHT", [] () -> IntegerTuple { return hodel::UP_RIGHT; }};
-    // Original declaration: line 244
+    // Original declaration: line 247
     aicpp::Neuron<IntegerTuple> neuron_DOWN_LEFT_23{
         "DOWN_LEFT", [] () -> IntegerTuple { return hodel::DOWN_LEFT; }};
-    // Original declaration: line 246
+    // Original declaration: line 249
     aicpp::Neuron<IntegerTuple> neuron_ZERO_BY_TWO_24{
         "ZERO_BY_TWO", [] () -> IntegerTuple { return hodel::ZERO_BY_TWO; }};
-    // Original declaration: line 247
+    // Original declaration: line 250
     aicpp::Neuron<IntegerTuple> neuron_TWO_BY_ZERO_25{
         "TWO_BY_ZERO", [] () -> IntegerTuple { return hodel::TWO_BY_ZERO; }};
-    // Original declaration: line 248
+    // Original declaration: line 251
     aicpp::Neuron<IntegerTuple> neuron_TWO_BY_TWO_26{
         "TWO_BY_TWO", [] () -> IntegerTuple { return hodel::TWO_BY_TWO; }};
-    // Original declaration: line 249
+    // Original declaration: line 252
     aicpp::Neuron<IntegerTuple> neuron_THREE_BY_THREE_27{
         "THREE_BY_THREE", [] () -> IntegerTuple { return hodel::THREE_BY_THREE; }};
-    // Original declaration: line 251
+    // Original declaration: line 254
     aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_add_28{
         "add", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::add)};
-    // Original declaration: line 252
+    // Original declaration: line 255
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_add_29{
         "add", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::PointerFunction>(&hodel::add)};
-    // Original declaration: line 253
+    // Original declaration: line 256
     aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_add_30{
         "add", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::PointerFunction>(&hodel::add)};
-    // Original declaration: line 254
+    // Original declaration: line 257
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_add_31{
         "add", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::add)};
-    // Original declaration: line 255
+    // Original declaration: line 258
     aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_subtract_32{
         "subtract", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::subtract)};
-    // Original declaration: line 256
+    // Original declaration: line 259
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_subtract_33{
         "subtract", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::PointerFunction>(&hodel::subtract)};
-    // Original declaration: line 257
+    // Original declaration: line 260
     aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_subtract_34{
         "subtract", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::PointerFunction>(&hodel::subtract)};
-    // Original declaration: line 258
+    // Original declaration: line 261
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_subtract_35{
         "subtract", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::subtract)};
-    // Original declaration: line 259
+    // Original declaration: line 262
     aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_multiply_36{
         "multiply", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::multiply)};
-    // Original declaration: line 260
+    // Original declaration: line 263
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_multiply_37{
         "multiply", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::PointerFunction>(&hodel::multiply)};
-    // Original declaration: line 261
+    // Original declaration: line 264
     aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&> neuron_multiply_38{
         "multiply", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&, IntegerTuple const&>::PointerFunction>(&hodel::multiply)};
-    // Original declaration: line 262
+    // Original declaration: line 265
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_multiply_39{
         "multiply", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::multiply)};
-    // Original declaration: line 263
+    // Original declaration: line 266
     aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_divide_40{
         "divide", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::divide)};
-    // Original declaration: line 264
+    // Original declaration: line 267
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&> neuron_divide_41{
         "divide", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, hodel::Integer const&>::PointerFunction>(&hodel::divide)};
-    // Original declaration: line 265
+    // Original declaration: line 268
     aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&> neuron_divide_42{
         "divide", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::divide)};
-    // Original declaration: line 266
+    // Original declaration: line 269
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_invert_43{
         "invert", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::invert)};
-    // Original declaration: line 267
+    // Original declaration: line 270
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_invert_44{
         "invert", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::invert)};
-    // Original declaration: line 268
+    // Original declaration: line 271
     aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_even_45{
         "even", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&>::PointerFunction>(&hodel::even)};
-    // Original declaration: line 269
+    // Original declaration: line 272
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_double__46{
         "double", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::double_)};
-    // Original declaration: line 270
+    // Original declaration: line 273
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_double__47{
         "double", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::double_)};
-    // Original declaration: line 271
+    // Original declaration: line 274
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_halve_48{
         "halve", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::halve)};
-    // Original declaration: line 272
+    // Original declaration: line 275
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_halve_49{
         "halve", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::halve)};
-    // Original declaration: line 273
+    // Original declaration: line 276
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_flip_50{
         "flip", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>::PointerFunction>(&hodel::flip)};
-    // Original declaration: line 274
+    // Original declaration: line 277
     aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neuron_greater_51{
         "greater", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::greater)};
-    // Original declaration: line 275
+    // Original declaration: line 278
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_maximum_52{
         "maximum", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::maximum)};
-    // Original declaration: line 276
+    // Original declaration: line 279
     aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_maximum_53{
         "maximum", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::maximum)};
-    // Original declaration: line 277
+    // Original declaration: line 280
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_maximum_54{
         "maximum", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::maximum)};
-    // Original declaration: line 278
+    // Original declaration: line 281
     aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_maximum_55{
         "maximum", static_cast<aicpp::Neuron<hodel::Integer, IntegerTuple const&>::PointerFunction>(&hodel::maximum)};
-    // Original declaration: line 279
+    // Original declaration: line 282
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_minimum_56{
         "minimum", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::minimum)};
-    // Original declaration: line 280
+    // Original declaration: line 283
     aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_minimum_57{
         "minimum", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::minimum)};
-    // Original declaration: line 281
+    // Original declaration: line 284
     aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_minimum_58{
         "minimum", static_cast<aicpp::Neuron<hodel::Integer, IntegerTuple const&>::PointerFunction>(&hodel::minimum)};
-    // Original declaration: line 282
+    // Original declaration: line 285
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_minimum_59{
         "minimum", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::minimum)};
-    // Original declaration: line 283
+    // Original declaration: line 286
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_both_60{
         "both", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::PointerFunction>(&hodel::both)};
-    // Original declaration: line 284
+    // Original declaration: line 287
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_either_61{
         "either", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::PointerFunction>(&hodel::either)};
-    // Original declaration: line 285
+    // Original declaration: line 288
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_increment_62{
         "increment", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::increment)};
-    // Original declaration: line 286
+    // Original declaration: line 289
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_increment_63{
         "increment", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::increment)};
-    // Original declaration: line 287
+    // Original declaration: line 290
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_decrement_64{
         "decrement", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::decrement)};
-    // Original declaration: line 288
+    // Original declaration: line 291
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_decrement_65{
         "decrement", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::decrement)};
-    // Original declaration: line 289
+    // Original declaration: line 292
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_crement_66{
         "crement", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::crement)};
-    // Original declaration: line 290
+    // Original declaration: line 293
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_crement_67{
         "crement", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::crement)};
-    // Original declaration: line 291
+    // Original declaration: line 294
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_sign_68{
         "sign", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::sign)};
-    // Original declaration: line 292
+    // Original declaration: line 295
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_sign_69{
         "sign", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::sign)};
-    // Original declaration: line 293
+    // Original declaration: line 296
     aicpp::Neuron<hodel::Boolean, hodel::Integer const&> neuron_positive_70{
         "positive", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&>::PointerFunction>(&hodel::positive)};
-    // Original declaration: line 294
+    // Original declaration: line 297
     aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_toivec_71{
         "toivec", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&>::PointerFunction>(&hodel::toivec)};
-    // Original declaration: line 295
+    // Original declaration: line 298
     aicpp::Neuron<IntegerTuple, hodel::Integer const&> neuron_tojvec_72{
         "tojvec", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&>::PointerFunction>(&hodel::tojvec)};
-    // Original declaration: line 296
+    // Original declaration: line 299
     aicpp::Neuron<hodel::IntegerSet, hodel::Integer, hodel::Integer const&, hodel::Integer const&> neuron_interval_73{
         "interval", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Integer, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::interval)};
-    // Original declaration: line 297
+    // Original declaration: line 300
     aicpp::Neuron<IntegerTuple, hodel::Integer const&, hodel::Integer const&> neuron_astuple_74{
         "astuple", static_cast<aicpp::Neuron<IntegerTuple, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::astuple)};
-    // Original declaration: line 298
+    // Original declaration: line 301
     aicpp::Neuron<hodel::FunctionIntegerPair, aicpp::FunctionValue const&, hodel::Integer const&> neuron_astuple_75{
         "astuple", static_cast<aicpp::Neuron<hodel::FunctionIntegerPair, aicpp::FunctionValue const&, hodel::Integer const&>::PointerFunction>(&hodel::astuple)};
-    // Original declaration: line 299
+    // Original declaration: line 302
     aicpp::Neuron<hodel::Cell, hodel::Integer const&, IntegerTuple const&> neuron_astuple_76{
         "astuple", static_cast<aicpp::Neuron<hodel::Cell, hodel::Integer const&, IntegerTuple const&>::PointerFunction>(&hodel::astuple)};
-    // Original declaration: line 300
+    // Original declaration: line 303
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Grid const&> neuron_astuple_77{
         "astuple", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::astuple)};
-    // Original declaration: line 301
+    // Original declaration: line 304
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_ulcorner_78{
         "ulcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::ulcorner)};
-    // Original declaration: line 302
+    // Original declaration: line 305
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_ulcorner_79{
         "ulcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::ulcorner)};
-    // Original declaration: line 303
+    // Original declaration: line 306
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_urcorner_80{
         "urcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::urcorner)};
-    // Original declaration: line 304
+    // Original declaration: line 307
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_urcorner_81{
         "urcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::urcorner)};
-    // Original declaration: line 305
+    // Original declaration: line 308
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_llcorner_82{
         "llcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::llcorner)};
-    // Original declaration: line 306
+    // Original declaration: line 309
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_llcorner_83{
         "llcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::llcorner)};
-    // Original declaration: line 307
+    // Original declaration: line 310
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_lrcorner_84{
         "lrcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::lrcorner)};
-    // Original declaration: line 308
+    // Original declaration: line 311
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_lrcorner_85{
         "lrcorner", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::lrcorner)};
-    // Original declaration: line 309
+    // Original declaration: line 312
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, IntegerTuple const&, IntegerTuple const&> neuron_crop_86{
         "crop", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::crop)};
-    // Original declaration: line 310
+    // Original declaration: line 313
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_toindices_87{
         "toindices", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::toindices)};
-    // Original declaration: line 311
+    // Original declaration: line 314
     aicpp::Neuron<hodel::Object, hodel::Object const&, IntegerTuple const&> neuron_shift_88{
         "shift", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, IntegerTuple const&>::PointerFunction>(&hodel::shift)};
-    // Original declaration: line 312
+    // Original declaration: line 315
     aicpp::Neuron<hodel::Indices, hodel::Indices const&, IntegerTuple const&> neuron_shift_89{
         "shift", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, IntegerTuple const&>::PointerFunction>(&hodel::shift)};
-    // Original declaration: line 313
+    // Original declaration: line 316
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_uppermost_90{
         "uppermost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::uppermost)};
-    // Original declaration: line 314
+    // Original declaration: line 317
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_uppermost_91{
         "uppermost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::uppermost)};
-    // Original declaration: line 315
+    // Original declaration: line 318
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_lowermost_92{
         "lowermost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::lowermost)};
-    // Original declaration: line 316
+    // Original declaration: line 319
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_lowermost_93{
         "lowermost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::lowermost)};
-    // Original declaration: line 317
+    // Original declaration: line 320
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leftmost_94{
         "leftmost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::leftmost)};
-    // Original declaration: line 318
+    // Original declaration: line 321
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_leftmost_95{
         "leftmost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::leftmost)};
-    // Original declaration: line 319
+    // Original declaration: line 322
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_rightmost_96{
         "rightmost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::rightmost)};
-    // Original declaration: line 320
+    // Original declaration: line 323
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_rightmost_97{
         "rightmost", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::rightmost)};
-    // Original declaration: line 321
+    // Original declaration: line 324
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot90_98{
         "rot90", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::rot90)};
-    // Original declaration: line 322
+    // Original declaration: line 325
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot180_99{
         "rot180", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::rot180)};
-    // Original declaration: line 323
+    // Original declaration: line 326
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_rot270_100{
         "rot270", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::rot270)};
-    // Original declaration: line 324
+    // Original declaration: line 327
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_hmirror_101{
         "hmirror", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::hmirror)};
-    // Original declaration: line 325
+    // Original declaration: line 328
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_hmirror_102{
         "hmirror", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::hmirror)};
-    // Original declaration: line 326
+    // Original declaration: line 329
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_hmirror_103{
         "hmirror", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::hmirror)};
-    // Original declaration: line 327
+    // Original declaration: line 330
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_vmirror_104{
         "vmirror", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::vmirror)};
-    // Original declaration: line 328
+    // Original declaration: line 331
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_vmirror_105{
         "vmirror", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::vmirror)};
-    // Original declaration: line 329
+    // Original declaration: line 332
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_vmirror_106{
         "vmirror", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::vmirror)};
-    // Original declaration: line 330
+    // Original declaration: line 333
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_dmirror_107{
         "dmirror", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::dmirror)};
-    // Original declaration: line 331
+    // Original declaration: line 334
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_dmirror_108{
         "dmirror", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::dmirror)};
-    // Original declaration: line 332
+    // Original declaration: line 335
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_dmirror_109{
         "dmirror", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::dmirror)};
-    // Original declaration: line 333
+    // Original declaration: line 336
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_cmirror_110{
         "cmirror", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::cmirror)};
-    // Original declaration: line 334
+    // Original declaration: line 337
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_cmirror_111{
         "cmirror", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::cmirror)};
-    // Original declaration: line 335
+    // Original declaration: line 338
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_cmirror_112{
         "cmirror", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::cmirror)};
-    // Original declaration: line 336
+    // Original declaration: line 339
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_hupscale_113{
         "hupscale", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::hupscale)};
-    // Original declaration: line 337
+    // Original declaration: line 340
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_vupscale_114{
         "vupscale", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::vupscale)};
-    // Original declaration: line 338
+    // Original declaration: line 341
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_upscale_115{
         "upscale", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::upscale)};
-    // Original declaration: line 339
+    // Original declaration: line 342
     aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Integer const&> neuron_upscale_116{
         "upscale", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Integer const&>::PointerFunction>(&hodel::upscale)};
-    // Original declaration: line 340
+    // Original declaration: line 343
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_downscale_117{
         "downscale", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::downscale)};
-    // Original declaration: line 341
+    // Original declaration: line 344
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_hconcat_118{
         "hconcat", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::hconcat)};
-    // Original declaration: line 342
+    // Original declaration: line 345
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_vconcat_119{
         "vconcat", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::vconcat)};
-    // Original declaration: line 343
+    // Original declaration: line 346
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&> neuron_replace_120{
         "replace", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::replace)};
-    // Original declaration: line 344
+    // Original declaration: line 347
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&> neuron_switch__121{
         "switch", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::switch_)};
-    // Original declaration: line 345
+    // Original declaration: line 348
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_tophalf_122{
         "tophalf", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::tophalf)};
-    // Original declaration: line 346
+    // Original declaration: line 349
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_bottomhalf_123{
         "bottomhalf", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::bottomhalf)};
-    // Original declaration: line 347
+    // Original declaration: line 350
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_lefthalf_124{
         "lefthalf", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::lefthalf)};
-    // Original declaration: line 348
+    // Original declaration: line 351
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_righthalf_125{
         "righthalf", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::righthalf)};
-    // Original declaration: line 349
+    // Original declaration: line 352
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_trim_126{
         "trim", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::trim)};
-    // Original declaration: line 350
+    // Original declaration: line 353
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_compress_127{
         "compress", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::compress)};
-    // Original declaration: line 351
+    // Original declaration: line 354
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_normalize_128{
         "normalize", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::normalize)};
-    // Original declaration: line 352
+    // Original declaration: line 355
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_normalize_129{
         "normalize", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::normalize)};
-    // Original declaration: line 353
+    // Original declaration: line 356
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_dneighbors_130{
         "dneighbors", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::dneighbors)};
-    // Original declaration: line 354
+    // Original declaration: line 357
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_ineighbors_131{
         "ineighbors", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::ineighbors)};
-    // Original declaration: line 355
+    // Original declaration: line 358
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_neighbors_132{
         "neighbors", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::neighbors)};
-    // Original declaration: line 356
+    // Original declaration: line 359
     aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Object const&> neuron_recolor_133{
         "recolor", static_cast<aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Object const&>::PointerFunction>(&hodel::recolor)};
-    // Original declaration: line 357
+    // Original declaration: line 360
     aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Indices const&> neuron_recolor_134{
         "recolor", static_cast<aicpp::Neuron<hodel::Object, hodel::Integer const&, hodel::Indices const&>::PointerFunction>(&hodel::recolor)};
-    // Original declaration: line 358
+    // Original declaration: line 361
     aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_square_135{
         "square", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Grid const&>::PointerFunction>(&hodel::square)};
-    // Original declaration: line 359
+    // Original declaration: line 362
     aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_square_136{
         "square", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&>::PointerFunction>(&hodel::square)};
-    // Original declaration: line 360
+    // Original declaration: line 363
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_square_137{
         "square", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::PointerFunction>(&hodel::square)};
-    // Original declaration: line 361
+    // Original declaration: line 364
     aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_vline_138{
         "vline", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&>::PointerFunction>(&hodel::vline)};
-    // Original declaration: line 362
+    // Original declaration: line 365
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_vline_139{
         "vline", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::PointerFunction>(&hodel::vline)};
-    // Original declaration: line 363
+    // Original declaration: line 366
     aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_hline_140{
         "hline", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&>::PointerFunction>(&hodel::hline)};
-    // Original declaration: line 364
+    // Original declaration: line 367
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_hline_141{
         "hline", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::PointerFunction>(&hodel::hline)};
-    // Original declaration: line 365
+    // Original declaration: line 368
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_height_142{
         "height", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::height)};
-    // Original declaration: line 366
+    // Original declaration: line 369
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_height_143{
         "height", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::height)};
-    // Original declaration: line 367
+    // Original declaration: line 370
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_height_144{
         "height", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::height)};
-    // Original declaration: line 368
+    // Original declaration: line 371
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_width_145{
         "width", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::width)};
-    // Original declaration: line 369
+    // Original declaration: line 372
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_width_146{
         "width", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::width)};
-    // Original declaration: line 370
+    // Original declaration: line 373
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_width_147{
         "width", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::width)};
-    // Original declaration: line 371
+    // Original declaration: line 374
     aicpp::Neuron<IntegerTuple, hodel::Grid const&> neuron_shape_148{
         "shape", static_cast<aicpp::Neuron<IntegerTuple, hodel::Grid const&>::PointerFunction>(&hodel::shape)};
-    // Original declaration: line 372
+    // Original declaration: line 375
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_shape_149{
         "shape", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::shape)};
-    // Original declaration: line 373
+    // Original declaration: line 376
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_shape_150{
         "shape", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::shape)};
-    // Original declaration: line 374
+    // Original declaration: line 377
     aicpp::Neuron<hodel::Boolean, hodel::Grid const&> neuron_portrait_151{
         "portrait", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Grid const&>::PointerFunction>(&hodel::portrait)};
-    // Original declaration: line 375
+    // Original declaration: line 378
     aicpp::Neuron<hodel::Boolean, hodel::Object const&> neuron_portrait_152{
         "portrait", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&>::PointerFunction>(&hodel::portrait)};
-    // Original declaration: line 376
+    // Original declaration: line 379
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&> neuron_portrait_153{
         "portrait", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&>::PointerFunction>(&hodel::portrait)};
-    // Original declaration: line 377
+    // Original declaration: line 380
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&> neuron_branch_154{
         "branch", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 378
+    // Original declaration: line 381
     aicpp::Neuron<hodel::Integer, hodel::Boolean const&, hodel::Integer const&, hodel::Integer const&> neuron_branch_155{
         "branch", static_cast<aicpp::Neuron<hodel::Integer, hodel::Boolean const&, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 379
+    // Original declaration: line 382
     aicpp::Neuron<IntegerTuple, hodel::Boolean const&, IntegerTuple const&, IntegerTuple const&> neuron_branch_156{
         "branch", static_cast<aicpp::Neuron<IntegerTuple, hodel::Boolean const&, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 380
+    // Original declaration: line 383
     aicpp::Neuron<hodel::Indices, hodel::Boolean const&, hodel::Indices const&, hodel::Indices const&> neuron_branch_157{
         "branch", static_cast<aicpp::Neuron<hodel::Indices, hodel::Boolean const&, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 381
+    // Original declaration: line 384
     aicpp::Neuron<hodel::Object, hodel::Boolean const&, hodel::Object const&, hodel::Object const&> neuron_branch_158{
         "branch", static_cast<aicpp::Neuron<hodel::Object, hodel::Boolean const&, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 382
+    // Original declaration: line 385
     aicpp::Neuron<hodel::Grid, hodel::Boolean const&, hodel::Grid const&, hodel::Grid const&> neuron_branch_159{
         "branch", static_cast<aicpp::Neuron<hodel::Grid, hodel::Boolean const&, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 383
+    // Original declaration: line 386
     aicpp::Neuron<hodel::GridVector, hodel::Boolean const&, hodel::GridVector const&, hodel::GridVector const&> neuron_branch_160{
         "branch", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Boolean const&, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 384
+    // Original declaration: line 387
     aicpp::Neuron<hodel::IntegerVector, hodel::Boolean const&, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_branch_161{
         "branch", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Boolean const&, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 385
+    // Original declaration: line 388
     aicpp::Neuron<hodel::IndicesSet, hodel::Boolean const&, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_branch_162{
         "branch", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::Boolean const&, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 386
+    // Original declaration: line 389
     aicpp::Neuron<hodel::IntegerSet, hodel::Boolean const&, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_branch_163{
         "branch", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Boolean const&, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 387
+    // Original declaration: line 390
     aicpp::Neuron<hodel::Objects, hodel::Boolean const&, hodel::Objects const&, hodel::Objects const&> neuron_branch_164{
         "branch", static_cast<aicpp::Neuron<hodel::Objects, hodel::Boolean const&, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 388
+    // Original declaration: line 391
     aicpp::Neuron<hodel::ObjectVector, hodel::Boolean const&, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_branch_165{
         "branch", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::Boolean const&, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 389
+    // Original declaration: line 392
     aicpp::Neuron<hodel::ObjectsVector, hodel::Boolean const&, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_branch_166{
         "branch", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::Boolean const&, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 390
+    // Original declaration: line 393
     aicpp::Neuron<hodel::IndicesVector, hodel::Boolean const&, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_branch_167{
         "branch", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::Boolean const&, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 391
+    // Original declaration: line 394
     aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_branch_168{
         "branch", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 392
+    // Original declaration: line 395
     aicpp::Neuron<aicpp::FunctionValue, hodel::Boolean const&, aicpp::FunctionValue const&, aicpp::FunctionValue const&> neuron_branch_169{
         "branch", static_cast<aicpp::Neuron<aicpp::FunctionValue, hodel::Boolean const&, aicpp::FunctionValue const&, aicpp::FunctionValue const&>::PointerFunction>(&hodel::branch)};
-    // Original declaration: line 393
+    // Original declaration: line 396
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_color_170{
         "color", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::color)};
-    // Original declaration: line 394
+    // Original declaration: line 397
     aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Grid const&> neuron_toobject_171{
         "toobject", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Grid const&>::PointerFunction>(&hodel::toobject)};
-    // Original declaration: line 395
+    // Original declaration: line 398
     aicpp::Neuron<hodel::Object, hodel::Indices const&, hodel::Grid const&> neuron_toobject_172{
         "toobject", static_cast<aicpp::Neuron<hodel::Object, hodel::Indices const&, hodel::Grid const&>::PointerFunction>(&hodel::toobject)};
-    // Original declaration: line 396
+    // Original declaration: line 399
     aicpp::Neuron<hodel::Object, hodel::Grid const&> neuron_asobject_173{
         "asobject", static_cast<aicpp::Neuron<hodel::Object, hodel::Grid const&>::PointerFunction>(&hodel::asobject)};
-    // Original declaration: line 397
+    // Original declaration: line 400
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_mostcolor_174{
         "mostcolor", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::mostcolor)};
-    // Original declaration: line 398
+    // Original declaration: line 401
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_mostcolor_175{
         "mostcolor", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::mostcolor)};
-    // Original declaration: line 399
+    // Original declaration: line 402
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_leastcolor_176{
         "leastcolor", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::leastcolor)};
-    // Original declaration: line 400
+    // Original declaration: line 403
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_leastcolor_177{
         "leastcolor", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::leastcolor)};
-    // Original declaration: line 401
+    // Original declaration: line 404
     aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Integer const&> neuron_ofcolor_178{
         "ofcolor", static_cast<aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::ofcolor)};
-    // Original declaration: line 402
+    // Original declaration: line 405
     aicpp::Neuron<hodel::Integer, hodel::Grid const&, hodel::Integer const&> neuron_colorcount_179{
         "colorcount", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::colorcount)};
-    // Original declaration: line 403
+    // Original declaration: line 406
     aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Integer const&> neuron_colorcount_180{
         "colorcount", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Integer const&>::PointerFunction>(&hodel::colorcount)};
-    // Original declaration: line 404
+    // Original declaration: line 407
     aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neuron_colorfilter_181{
         "colorfilter", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&>::PointerFunction>(&hodel::colorfilter)};
-    // Original declaration: line 405
+    // Original declaration: line 408
     aicpp::Neuron<hodel::Objects, hodel::Grid const&, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&> neuron_objects_182{
         "objects", static_cast<aicpp::Neuron<hodel::Objects, hodel::Grid const&, hodel::Boolean const&, hodel::Boolean const&, hodel::Boolean const&>::PointerFunction>(&hodel::objects)};
-    // Original declaration: line 406
+    // Original declaration: line 409
     aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_partition_183{
         "partition", static_cast<aicpp::Neuron<hodel::Objects, hodel::Grid const&>::PointerFunction>(&hodel::partition)};
-    // Original declaration: line 407
+    // Original declaration: line 410
     aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_fgpartition_184{
         "fgpartition", static_cast<aicpp::Neuron<hodel::Objects, hodel::Grid const&>::PointerFunction>(&hodel::fgpartition)};
-    // Original declaration: line 408
+    // Original declaration: line 411
     aicpp::Neuron<hodel::Indices, hodel::Grid const&> neuron_asindices_185{
         "asindices", static_cast<aicpp::Neuron<hodel::Indices, hodel::Grid const&>::PointerFunction>(&hodel::asindices)};
-    // Original declaration: line 409
+    // Original declaration: line 412
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&> neuron_equality_186{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::Boolean const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 410
+    // Original declaration: line 413
     aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&> neuron_equality_187{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 411
+    // Original declaration: line 414
     aicpp::Neuron<hodel::Boolean, IntegerTuple const&, IntegerTuple const&> neuron_equality_188{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 412
+    // Original declaration: line 415
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_equality_189{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 413
+    // Original declaration: line 416
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_equality_190{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 414
+    // Original declaration: line 417
     aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::Grid const&> neuron_equality_191{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 415
+    // Original declaration: line 418
     aicpp::Neuron<hodel::Boolean, hodel::GridVector const&, hodel::GridVector const&> neuron_equality_192{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 416
+    // Original declaration: line 419
     aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_equality_193{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 417
+    // Original declaration: line 420
     aicpp::Neuron<hodel::Boolean, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_equality_194{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 418
+    // Original declaration: line 421
     aicpp::Neuron<hodel::Boolean, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_equality_195{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 419
+    // Original declaration: line 422
     aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::Objects const&> neuron_equality_196{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 420
+    // Original declaration: line 423
     aicpp::Neuron<hodel::Boolean, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_equality_197{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 421
+    // Original declaration: line 424
     aicpp::Neuron<hodel::Boolean, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_equality_198{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 422
+    // Original declaration: line 425
     aicpp::Neuron<hodel::Boolean, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_equality_199{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 423
+    // Original declaration: line 426
     aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_equality_200{
         "equality", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::equality)};
-    // Original declaration: line 424
+    // Original declaration: line 427
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_hmatching_201{
         "hmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::hmatching)};
-    // Original declaration: line 425
+    // Original declaration: line 428
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_hmatching_202{
         "hmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::hmatching)};
-    // Original declaration: line 426
+    // Original declaration: line 429
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_hmatching_203{
         "hmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::hmatching)};
-    // Original declaration: line 427
+    // Original declaration: line 430
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_hmatching_204{
         "hmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::hmatching)};
-    // Original declaration: line 428
+    // Original declaration: line 431
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_vmatching_205{
         "vmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::vmatching)};
-    // Original declaration: line 429
+    // Original declaration: line 432
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_vmatching_206{
         "vmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::vmatching)};
-    // Original declaration: line 430
+    // Original declaration: line 433
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_vmatching_207{
         "vmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::vmatching)};
-    // Original declaration: line 431
+    // Original declaration: line 434
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_vmatching_208{
         "vmatching", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::vmatching)};
-    // Original declaration: line 432
+    // Original declaration: line 435
     aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Indices const&> neuron_manhattan_209{
         "manhattan", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::manhattan)};
-    // Original declaration: line 433
+    // Original declaration: line 436
     aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Indices const&> neuron_manhattan_210{
         "manhattan", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::manhattan)};
-    // Original declaration: line 434
+    // Original declaration: line 437
     aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Object const&> neuron_manhattan_211{
         "manhattan", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::manhattan)};
-    // Original declaration: line 435
+    // Original declaration: line 438
     aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Object const&> neuron_manhattan_212{
         "manhattan", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::manhattan)};
-    // Original declaration: line 436
+    // Original declaration: line 439
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&> neuron_adjacent_213{
         "adjacent", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::adjacent)};
-    // Original declaration: line 437
+    // Original declaration: line 440
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&> neuron_adjacent_214{
         "adjacent", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::adjacent)};
-    // Original declaration: line 438
+    // Original declaration: line 441
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&> neuron_adjacent_215{
         "adjacent", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::adjacent)};
-    // Original declaration: line 439
+    // Original declaration: line 442
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&> neuron_adjacent_216{
         "adjacent", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::adjacent)};
-    // Original declaration: line 440
+    // Original declaration: line 443
     aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Grid const> neuron_bordering_217{
         "bordering", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::Grid const>::PointerFunction>(&hodel::bordering)};
-    // Original declaration: line 441
+    // Original declaration: line 444
     aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Grid const> neuron_bordering_218{
         "bordering", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Grid const>::PointerFunction>(&hodel::bordering)};
-    // Original declaration: line 442
+    // Original declaration: line 445
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_centerofmass_219{
         "centerofmass", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::centerofmass)};
-    // Original declaration: line 443
+    // Original declaration: line 446
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_centerofmass_220{
         "centerofmass", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::centerofmass)};
-    // Original declaration: line 444
+    // Original declaration: line 447
     aicpp::Neuron<hodel::IntegerSet, hodel::Grid const&> neuron_palette_221{
         "palette", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Grid const&>::PointerFunction>(&hodel::palette)};
-    // Original declaration: line 445
+    // Original declaration: line 448
     aicpp::Neuron<hodel::IntegerSet, hodel::Object const&> neuron_palette_222{
         "palette", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Object const&>::PointerFunction>(&hodel::palette)};
-    // Original declaration: line 446
+    // Original declaration: line 449
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_numcolors_223{
         "numcolors", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::numcolors)};
-    // Original declaration: line 447
+    // Original declaration: line 450
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_numcolors_224{
         "numcolors", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::numcolors)};
-    // Original declaration: line 448
+    // Original declaration: line 451
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&> neuron_fill_225{
         "fill", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&>::PointerFunction>(&hodel::fill)};
-    // Original declaration: line 449
+    // Original declaration: line 452
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&> neuron_fill_226{
         "fill", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&>::PointerFunction>(&hodel::fill)};
-    // Original declaration: line 450
+    // Original declaration: line 453
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_paint_227{
         "paint", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::PointerFunction>(&hodel::paint)};
-    // Original declaration: line 451
+    // Original declaration: line 454
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&> neuron_underfill_228{
         "underfill", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Indices const&>::PointerFunction>(&hodel::underfill)};
-    // Original declaration: line 452
+    // Original declaration: line 455
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&> neuron_underfill_229{
         "underfill", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&, hodel::Object const&>::PointerFunction>(&hodel::underfill)};
-    // Original declaration: line 453
+    // Original declaration: line 456
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_underpaint_230{
         "underpaint", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::PointerFunction>(&hodel::underpaint)};
-    // Original declaration: line 454
+    // Original declaration: line 457
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_center_231{
         "center", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::center)};
-    // Original declaration: line 455
+    // Original declaration: line 458
     aicpp::Neuron<IntegerTuple, hodel::Object const&> neuron_center_232{
         "center", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&>::PointerFunction>(&hodel::center)};
-    // Original declaration: line 456
+    // Original declaration: line 459
     aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron_position_233{
         "position", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::position)};
-    // Original declaration: line 457
+    // Original declaration: line 460
     aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_position_234{
         "position", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::position)};
-    // Original declaration: line 458
+    // Original declaration: line 461
     aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_position_235{
         "position", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::position)};
-    // Original declaration: line 459
+    // Original declaration: line 462
     aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_position_236{
         "position", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::position)};
-    // Original declaration: line 460
+    // Original declaration: line 463
     aicpp::Neuron<hodel::Integer, hodel::Grid const&, IntegerTuple const&> neuron_index_237{
         "index", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&, IntegerTuple const&>::PointerFunction>(&hodel::index)};
-    // Original declaration: line 461
+    // Original declaration: line 464
     aicpp::Neuron<hodel::Grid, hodel::Integer const&, IntegerTuple const&> neuron_canvas_238{
         "canvas", static_cast<aicpp::Neuron<hodel::Grid, hodel::Integer const&, IntegerTuple const&>::PointerFunction>(&hodel::canvas)};
-    // Original declaration: line 462
+    // Original declaration: line 465
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_corners_239{
         "corners", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::corners)};
-    // Original declaration: line 463
+    // Original declaration: line 466
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_corners_240{
         "corners", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::corners)};
-    // Original declaration: line 464
+    // Original declaration: line 467
     aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_connect_241{
         "connect", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::connect)};
-    // Original declaration: line 465
+    // Original declaration: line 468
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Indices const&> neuron_cover_242{
         "cover", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Indices const&>::PointerFunction>(&hodel::cover)};
-    // Original declaration: line 466
+    // Original declaration: line 469
     aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&> neuron_cover_243{
         "cover", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&>::PointerFunction>(&hodel::cover)};
-    // Original declaration: line 467
+    // Original declaration: line 470
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_vfrontier_244{
         "vfrontier", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::vfrontier)};
-    // Original declaration: line 468
+    // Original declaration: line 471
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_hfrontier_245{
         "hfrontier", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::hfrontier)};
-    // Original declaration: line 469
+    // Original declaration: line 472
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_backdrop_246{
         "backdrop", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::backdrop)};
-    // Original declaration: line 470
+    // Original declaration: line 473
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_backdrop_247{
         "backdrop", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::backdrop)};
-    // Original declaration: line 471
+    // Original declaration: line 474
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_delta_248{
         "delta", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::delta)};
-    // Original declaration: line 472
+    // Original declaration: line 475
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_delta_249{
         "delta", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::delta)};
-    // Original declaration: line 473
+    // Original declaration: line 476
     aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&> neuron_gravitate_250{
         "gravitate", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::gravitate)};
-    // Original declaration: line 474
+    // Original declaration: line 477
     aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&> neuron_gravitate_251{
         "gravitate", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Indices const&>::PointerFunction>(&hodel::gravitate)};
-    // Original declaration: line 475
+    // Original declaration: line 478
     aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&> neuron_gravitate_252{
         "gravitate", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&, hodel::Object const&>::PointerFunction>(&hodel::gravitate)};
-    // Original declaration: line 476
+    // Original declaration: line 479
     aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&> neuron_gravitate_253{
         "gravitate", static_cast<aicpp::Neuron<IntegerTuple, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::gravitate)};
-    // Original declaration: line 477
+    // Original declaration: line 480
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_inbox_254{
         "inbox", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::inbox)};
-    // Original declaration: line 478
+    // Original declaration: line 481
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_inbox_255{
         "inbox", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::inbox)};
-    // Original declaration: line 479
+    // Original declaration: line 482
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_outbox_256{
         "outbox", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::outbox)};
-    // Original declaration: line 480
+    // Original declaration: line 483
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_outbox_257{
         "outbox", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::outbox)};
-    // Original declaration: line 481
+    // Original declaration: line 484
     aicpp::Neuron<hodel::Indices, hodel::Object const&> neuron_box_258{
         "box", static_cast<aicpp::Neuron<hodel::Indices, hodel::Object const&>::PointerFunction>(&hodel::box)};
-    // Original declaration: line 482
+    // Original declaration: line 485
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_box_259{
         "box", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::box)};
-    // Original declaration: line 483
+    // Original declaration: line 486
     aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_shoot_260{
         "shoot", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::shoot)};
-    // Original declaration: line 484
+    // Original declaration: line 487
     aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Object const&> neuron_occurrences_261{
         "occurrences", static_cast<aicpp::Neuron<hodel::Indices, hodel::Grid const&, hodel::Object const&>::PointerFunction>(&hodel::occurrences)};
-    // Original declaration: line 485
+    // Original declaration: line 488
     aicpp::Neuron<hodel::Objects, hodel::Grid const&> neuron_frontiers_262{
         "frontiers", static_cast<aicpp::Neuron<hodel::Objects, hodel::Grid const&>::PointerFunction>(&hodel::frontiers)};
-    // Original declaration: line 486
+    // Original declaration: line 489
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_hperiod_263{
         "hperiod", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::hperiod)};
-    // Original declaration: line 487
+    // Original declaration: line 490
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_vperiod_264{
         "vperiod", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::vperiod)};
-    // Original declaration: line 488
+    // Original declaration: line 491
     aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_pair_265{
         "pair", static_cast<aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::pair)};
-    // Original declaration: line 489
+    // Original declaration: line 492
     aicpp::Neuron<hodel::Integer, hodel::Object const&> neuron_size_266{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::Object const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 490
+    // Original declaration: line 493
     aicpp::Neuron<hodel::Integer, hodel::Objects const&> neuron_size_267{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::Objects const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 491
+    // Original declaration: line 494
     aicpp::Neuron<hodel::Integer, hodel::ObjectVector const&> neuron_size_268{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::ObjectVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 492
+    // Original declaration: line 495
     aicpp::Neuron<hodel::Integer, hodel::ObjectsVector const&> neuron_size_269{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::ObjectsVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 493
+    // Original declaration: line 496
     aicpp::Neuron<hodel::Integer, hodel::Indices const&> neuron_size_270{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::Indices const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 494
+    // Original declaration: line 497
     aicpp::Neuron<hodel::Integer, hodel::IndicesSet const&> neuron_size_271{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::IndicesSet const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 495
+    // Original declaration: line 498
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_size_272{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 496
+    // Original declaration: line 499
     aicpp::Neuron<hodel::Integer, hodel::Grid const&> neuron_size_273{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::Grid const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 497
+    // Original declaration: line 500
     aicpp::Neuron<hodel::Integer, hodel::GridVector const&> neuron_size_274{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::GridVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 498
+    // Original declaration: line 501
     aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_size_275{
         "size", static_cast<aicpp::Neuron<hodel::Integer, IntegerTuple const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 499
+    // Original declaration: line 502
     aicpp::Neuron<hodel::Integer, hodel::IndicesVector const&> neuron_size_276{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::IndicesVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 500
+    // Original declaration: line 503
     aicpp::Neuron<hodel::Integer, hodel::BooleanVector const&> neuron_size_277{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::BooleanVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 501
+    // Original declaration: line 504
     aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPair const&> neuron_size_278{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPair const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 502
+    // Original declaration: line 505
     aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPairVector const&> neuron_size_279{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPairVector const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 503
+    // Original declaration: line 506
     aicpp::Neuron<hodel::Integer, hodel::Cell const&> neuron_size_280{
         "size", static_cast<aicpp::Neuron<hodel::Integer, hodel::Cell const&>::PointerFunction>(&hodel::size)};
-    // Original declaration: line 504
+    // Original declaration: line 507
     aicpp::Neuron<hodel::Boolean, hodel::Boolean const&> neuron_identity_281{
         "identity", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 505
+    // Original declaration: line 508
     aicpp::Neuron<hodel::Integer, hodel::Integer const&> neuron_identity_282{
         "identity", static_cast<aicpp::Neuron<hodel::Integer, hodel::Integer const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 506
+    // Original declaration: line 509
     aicpp::Neuron<IntegerTuple, IntegerTuple const&> neuron_identity_283{
         "identity", static_cast<aicpp::Neuron<IntegerTuple, IntegerTuple const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 507
+    // Original declaration: line 510
     aicpp::Neuron<hodel::Indices, hodel::Indices const&> neuron_identity_284{
         "identity", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 508
+    // Original declaration: line 511
     aicpp::Neuron<hodel::Object, hodel::Object const&> neuron_identity_285{
         "identity", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 509
+    // Original declaration: line 512
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_identity_286{
         "identity", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 510
+    // Original declaration: line 513
     aicpp::Neuron<hodel::GridVector, hodel::GridVector const&> neuron_identity_287{
         "identity", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 511
+    // Original declaration: line 514
     aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&> neuron_identity_288{
         "identity", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 512
+    // Original declaration: line 515
     aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&> neuron_identity_289{
         "identity", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 513
+    // Original declaration: line 516
     aicpp::Neuron<hodel::IntegerSet, hodel::IntegerSet const&> neuron_identity_290{
         "identity", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::IntegerSet const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 514
+    // Original declaration: line 517
     aicpp::Neuron<hodel::Objects, hodel::Objects const&> neuron_identity_291{
         "identity", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 515
+    // Original declaration: line 518
     aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&> neuron_identity_292{
         "identity", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 516
+    // Original declaration: line 519
     aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&> neuron_identity_293{
         "identity", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 517
+    // Original declaration: line 520
     aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&> neuron_identity_294{
         "identity", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 518
+    // Original declaration: line 521
     aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&> neuron_identity_295{
         "identity", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&>::PointerFunction>(&hodel::identity)};
-    // Original declaration: line 519
+    // Original declaration: line 522
     aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_first_296{
         "first", static_cast<aicpp::Neuron<hodel::Integer, IntegerTuple const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 520
+    // Original declaration: line 523
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_first_297{
         "first", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 521
+    // Original declaration: line 524
     aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_first_298{
         "first", static_cast<aicpp::Neuron<hodel::Cell, hodel::Object const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 522
+    // Original declaration: line 525
     aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_first_299{
         "first", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 523
+    // Original declaration: line 526
     aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_first_300{
         "first", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 524
+    // Original declaration: line 527
     aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_first_301{
         "first", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 525
+    // Original declaration: line 528
     aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_first_302{
         "first", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 526
+    // Original declaration: line 529
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_first_303{
         "first", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 527
+    // Original declaration: line 530
     aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_first_304{
         "first", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 528
+    // Original declaration: line 531
     aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_first_305{
         "first", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 529
+    // Original declaration: line 532
     aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_first_306{
         "first", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 530
+    // Original declaration: line 533
     aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_first_307{
         "first", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 531
+    // Original declaration: line 534
     aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_first_308{
         "first", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 532
+    // Original declaration: line 535
     aicpp::Neuron<hodel::Integer, hodel::Cell const&> neuron_first_309{
         "first", static_cast<aicpp::Neuron<hodel::Integer, hodel::Cell const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 533
+    // Original declaration: line 536
     aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionSet const&> neuron_first_310{
         "first", static_cast<aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionSet const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 534
+    // Original declaration: line 537
     aicpp::Neuron<hodel::FunctionIntegerPair, hodel::FunctionIntegerPairVector const&> neuron_first_311{
         "first", static_cast<aicpp::Neuron<hodel::FunctionIntegerPair, hodel::FunctionIntegerPairVector const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 535
+    // Original declaration: line 538
     aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionIntegerPair const&> neuron_first_312{
         "first", static_cast<aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionIntegerPair const&>::PointerFunction>(&hodel::first)};
-    // Original declaration: line 536
+    // Original declaration: line 539
     aicpp::Neuron<hodel::Integer, IntegerTuple const&> neuron_last_313{
         "last", static_cast<aicpp::Neuron<hodel::Integer, IntegerTuple const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 537
+    // Original declaration: line 540
     aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_last_314{
         "last", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 538
+    // Original declaration: line 541
     aicpp::Neuron<hodel::Cell, hodel::Object const&> neuron_last_315{
         "last", static_cast<aicpp::Neuron<hodel::Cell, hodel::Object const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 539
+    // Original declaration: line 542
     aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_last_316{
         "last", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 540
+    // Original declaration: line 543
     aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_last_317{
         "last", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 541
+    // Original declaration: line 544
     aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_last_318{
         "last", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 542
+    // Original declaration: line 545
     aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_last_319{
         "last", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 543
+    // Original declaration: line 546
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_last_320{
         "last", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 544
+    // Original declaration: line 547
     aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_last_321{
         "last", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 545
+    // Original declaration: line 548
     aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_last_322{
         "last", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 546
+    // Original declaration: line 549
     aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_last_323{
         "last", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 547
+    // Original declaration: line 550
     aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_last_324{
         "last", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 548
+    // Original declaration: line 551
     aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_last_325{
         "last", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 549
+    // Original declaration: line 552
     aicpp::Neuron<IntegerTuple, hodel::Cell const&> neuron_last_326{
         "last", static_cast<aicpp::Neuron<IntegerTuple, hodel::Cell const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 550
+    // Original declaration: line 553
     aicpp::Neuron<hodel::FunctionIntegerPair, hodel::FunctionIntegerPairVector const&> neuron_last_327{
         "last", static_cast<aicpp::Neuron<hodel::FunctionIntegerPair, hodel::FunctionIntegerPairVector const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 551
+    // Original declaration: line 554
     aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPair const&> neuron_last_328{
         "last", static_cast<aicpp::Neuron<hodel::Integer, hodel::FunctionIntegerPair const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 552
+    // Original declaration: line 555
     aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionSet const&> neuron_last_329{
         "last", static_cast<aicpp::Neuron<aicpp::FunctionValue, hodel::FunctionSet const&>::PointerFunction>(&hodel::last)};
-    // Original declaration: line 553
+    // Original declaration: line 556
     aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron_insert_330{
         "insert", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 554
+    // Original declaration: line 557
     aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_insert_331{
         "insert", static_cast<aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 555
+    // Original declaration: line 558
     aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neuron_insert_332{
         "insert", static_cast<aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 556
+    // Original declaration: line 559
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> neuron_insert_333{
         "insert", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 557
+    // Original declaration: line 560
     aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&> neuron_insert_334{
         "insert", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 558
+    // Original declaration: line 561
     aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&> neuron_insert_335{
         "insert", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 559
+    // Original declaration: line 562
     aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&> neuron_insert_336{
         "insert", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 560
+    // Original declaration: line 563
     aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuron_insert_337{
         "insert", static_cast<aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 561
+    // Original declaration: line 564
     aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&> neuron_insert_338{
         "insert", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 562
+    // Original declaration: line 565
     aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&> neuron_insert_339{
         "insert", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 563
+    // Original declaration: line 566
     aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&> neuron_insert_340{
         "insert", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 564
+    // Original declaration: line 567
     aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&> neuron_insert_341{
         "insert", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 565
+    // Original declaration: line 568
     aicpp::Neuron<hodel::FunctionSet, aicpp::FunctionValue const&, hodel::FunctionSet const&> neuron_insert_342{
         "insert", static_cast<aicpp::Neuron<hodel::FunctionSet, aicpp::FunctionValue const&, hodel::FunctionSet const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 566
+    // Original declaration: line 569
     aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionIntegerPair const&, hodel::FunctionIntegerPairVector const&> neuron_insert_343{
         "insert", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionIntegerPair const&, hodel::FunctionIntegerPairVector const&>::PointerFunction>(&hodel::insert)};
-    // Original declaration: line 567
+    // Original declaration: line 570
     aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&> neuron_remove_344{
         "remove", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, hodel::Indices const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 568
+    // Original declaration: line 571
     aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&> neuron_remove_345{
         "remove", static_cast<aicpp::Neuron<hodel::Object, hodel::Cell const&, hodel::Object const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 569
+    // Original declaration: line 572
     aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&> neuron_remove_346{
         "remove", static_cast<aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Grid const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 570
+    // Original declaration: line 573
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&> neuron_remove_347{
         "remove", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::GridVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 571
+    // Original declaration: line 574
     aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&> neuron_remove_348{
         "remove", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 572
+    // Original declaration: line 575
     aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&> neuron_remove_349{
         "remove", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 573
+    // Original declaration: line 576
     aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&> neuron_remove_350{
         "remove", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 574
+    // Original declaration: line 577
     aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&> neuron_remove_351{
         "remove", static_cast<aicpp::Neuron<hodel::Objects, hodel::Object const&, hodel::Objects const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 575
+    // Original declaration: line 578
     aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&> neuron_remove_352{
         "remove", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 576
+    // Original declaration: line 579
     aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&> neuron_remove_353{
         "remove", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 577
+    // Original declaration: line 580
     aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&> neuron_remove_354{
         "remove", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 578
+    // Original declaration: line 581
     aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&> neuron_remove_355{
         "remove", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::remove)};
-    // Original declaration: line 579
+    // Original declaration: line 582
     aicpp::Neuron<IntegerTuple, hodel::Indices const&, IntegerTuple const&> neuron_other_356{
         "other", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&, IntegerTuple const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 580
+    // Original declaration: line 583
     aicpp::Neuron<hodel::Cell, hodel::Object const&, hodel::Cell const&> neuron_other_357{
         "other", static_cast<aicpp::Neuron<hodel::Cell, hodel::Object const&, hodel::Cell const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 581
+    // Original declaration: line 584
     aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&, hodel::IntegerVector const&> neuron_other_358{
         "other", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 582
+    // Original declaration: line 585
     aicpp::Neuron<hodel::Grid, hodel::GridVector const&, hodel::Grid const&> neuron_other_359{
         "other", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&, hodel::Grid const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 583
+    // Original declaration: line 586
     aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&, hodel::Integer const&> neuron_other_360{
         "other", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&, hodel::Integer const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 584
+    // Original declaration: line 587
     aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&, hodel::Indices const&> neuron_other_361{
         "other", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&, hodel::Indices const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 585
+    // Original declaration: line 588
     aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&, hodel::Integer const&> neuron_other_362{
         "other", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&, hodel::Integer const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 586
+    // Original declaration: line 589
     aicpp::Neuron<hodel::Object, hodel::Objects const&, hodel::Object const&> neuron_other_363{
         "other", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&, hodel::Object const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 587
+    // Original declaration: line 590
     aicpp::Neuron<hodel::Object, hodel::ObjectVector const&, hodel::Object const&> neuron_other_364{
         "other", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&, hodel::Object const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 588
+    // Original declaration: line 591
     aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&, hodel::Objects const&> neuron_other_365{
         "other", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&, hodel::Objects const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 589
+    // Original declaration: line 592
     aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&, hodel::Indices const&> neuron_other_366{
         "other", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&, hodel::Indices const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 590
+    // Original declaration: line 593
     aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&, hodel::Boolean const&> neuron_other_367{
         "other", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&, hodel::Boolean const&>::PointerFunction>(&hodel::other)};
-    // Original declaration: line 591
+    // Original declaration: line 594
     aicpp::Neuron<hodel::Indices, IntegerTuple const&> neuron_initset_368{
         "initset", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 592
+    // Original declaration: line 595
     aicpp::Neuron<hodel::Object, hodel::Cell const&> neuron_initset_369{
         "initset", static_cast<aicpp::Neuron<hodel::Object, hodel::Cell const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 593
+    // Original declaration: line 596
     aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&> neuron_initset_370{
         "initset", static_cast<aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 594
+    // Original declaration: line 597
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&> neuron_initset_371{
         "initset", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 595
+    // Original declaration: line 598
     aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&> neuron_initset_372{
         "initset", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::Indices const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 596
+    // Original declaration: line 599
     aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&> neuron_initset_373{
         "initset", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::Integer const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 597
+    // Original declaration: line 600
     aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&> neuron_initset_374{
         "initset", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 598
+    // Original declaration: line 601
     aicpp::Neuron<hodel::Objects, hodel::Object const&> neuron_initset_375{
         "initset", static_cast<aicpp::Neuron<hodel::Objects, hodel::Object const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 599
+    // Original declaration: line 602
     aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&> neuron_initset_376{
         "initset", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 600
+    // Original declaration: line 603
     aicpp::Neuron<hodel::FunctionSet, aicpp::FunctionValue const&> neuron_initset_377{
         "initset", static_cast<aicpp::Neuron<hodel::FunctionSet, aicpp::FunctionValue const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 601
+    // Original declaration: line 604
     aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionIntegerPair const&> neuron_initset_378{
         "initset", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionIntegerPair const&>::PointerFunction>(&hodel::initset)};
-    // Original declaration: line 602
+    // Original declaration: line 605
     aicpp::Neuron<hodel::IntegerVector, IntegerTuple const&> neuron_totuple_379{
         "totuple", static_cast<aicpp::Neuron<hodel::IntegerVector, IntegerTuple const&>::PointerFunction>(&hodel::totuple)};
-    // Original declaration: line 603
+    // Original declaration: line 606
     aicpp::Neuron<hodel::IntegerVector, hodel::IntegerSet const&> neuron_totuple_380{
         "totuple", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerSet const&>::PointerFunction>(&hodel::totuple)};
-    // Original declaration: line 604
+    // Original declaration: line 607
     aicpp::Neuron<hodel::IndicesVector, hodel::IndicesSet const&> neuron_totuple_381{
         "totuple", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesSet const&>::PointerFunction>(&hodel::totuple)};
-    // Original declaration: line 605
+    // Original declaration: line 608
     aicpp::Neuron<hodel::ObjectVector, hodel::Objects const&> neuron_totuple_382{
         "totuple", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::Objects const&>::PointerFunction>(&hodel::totuple)};
-    // Original declaration: line 606
+    // Original declaration: line 609
     aicpp::Neuron<hodel::Grid, hodel::Object const&, hodel::Grid const&> neuron_subgrid_383{
         "subgrid", static_cast<aicpp::Neuron<hodel::Grid, hodel::Object const&, hodel::Grid const&>::PointerFunction>(&hodel::subgrid)};
-    // Original declaration: line 607
+    // Original declaration: line 610
     aicpp::Neuron<hodel::Grid, hodel::Indices const&, hodel::Grid const&> neuron_subgrid_384{
         "subgrid", static_cast<aicpp::Neuron<hodel::Grid, hodel::Indices const&, hodel::Grid const&>::PointerFunction>(&hodel::subgrid)};
-    // Original declaration: line 608
+    // Original declaration: line 611
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&> neuron_hsplit_385{
         "hsplit", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::hsplit)};
-    // Original declaration: line 609
+    // Original declaration: line 612
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&> neuron_vsplit_386{
         "vsplit", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::vsplit)};
-    // Original declaration: line 610
+    // Original declaration: line 613
     aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::Integer const&> neuron_repeat_387{
         "repeat", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::Boolean const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 611
+    // Original declaration: line 614
     aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::Integer const&> neuron_repeat_388{
         "repeat", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Integer const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 612
+    // Original declaration: line 615
     aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Integer const&> neuron_repeat_389{
         "repeat", static_cast<aicpp::Neuron<hodel::Grid, hodel::IntegerVector const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 613
+    // Original declaration: line 616
     aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&> neuron_repeat_390{
         "repeat", static_cast<aicpp::Neuron<hodel::GridVector, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 614
+    // Original declaration: line 617
     aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::Integer const&> neuron_repeat_391{
         "repeat", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::Object const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 615
+    // Original declaration: line 618
     aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::Integer const&> neuron_repeat_392{
         "repeat", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::Objects const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 616
+    // Original declaration: line 619
     aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::Integer const&> neuron_repeat_393{
         "repeat", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::Indices const&, hodel::Integer const&>::PointerFunction>(&hodel::repeat)};
-    // Original declaration: line 617
+    // Original declaration: line 620
     aicpp::Neuron<hodel::GridVector, hodel::GridVector const&> neuron_dedupe_394{
         "dedupe", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 618
+    // Original declaration: line 621
     aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&> neuron_dedupe_395{
         "dedupe", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 619
+    // Original declaration: line 622
     aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&> neuron_dedupe_396{
         "dedupe", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 620
+    // Original declaration: line 623
     aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&> neuron_dedupe_397{
         "dedupe", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 621
+    // Original declaration: line 624
     aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&> neuron_dedupe_398{
         "dedupe", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 622
+    // Original declaration: line 625
     aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&> neuron_dedupe_399{
         "dedupe", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 623
+    // Original declaration: line 626
     aicpp::Neuron<hodel::Grid, hodel::Grid const&> neuron_dedupe_400{
         "dedupe", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&>::PointerFunction>(&hodel::dedupe)};
-    // Original declaration: line 624
+    // Original declaration: line 627
     aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_merge_401{
         "merge", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 625
+    // Original declaration: line 628
     aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_merge_402{
         "merge", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 626
+    // Original declaration: line 629
     aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&> neuron_merge_403{
         "merge", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesSet const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 627
+    // Original declaration: line 630
     aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&> neuron_merge_404{
         "merge", static_cast<aicpp::Neuron<hodel::Indices, hodel::IndicesVector const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 628
+    // Original declaration: line 631
     aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_merge_405{
         "merge", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 629
+    // Original declaration: line 632
     aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_merge_406{
         "merge", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 630
-    aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_merge_407{
-        "merge", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::PointerFunction>(&hodel::merge)};
-    // Original declaration: line 631
-    aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::BooleanVector const&> neuron_contained_408{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::contained)};
-    // Original declaration: line 632
-    aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerVector const&> neuron_contained_409{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 633
-    aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerSet const&> neuron_contained_410{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVectorVector const&> neuron_merge_407{
+        "merge", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVectorVector const&>::PointerFunction>(&hodel::merge)};
     // Original declaration: line 634
-    aicpp::Neuron<hodel::Boolean, IntegerTuple const&, hodel::Indices const&> neuron_contained_411{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, IntegerTuple const&, hodel::Indices const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&> neuron_merge_408{
+        "merge", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectsVector const&>::PointerFunction>(&hodel::merge)};
     // Original declaration: line 635
-    aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::Grid const&> neuron_contained_412{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::Grid const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::BooleanVector const&> neuron_contained_409{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Boolean const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 636
-    aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::GridVector const&> neuron_contained_413{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::GridVector const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerVector const&> neuron_contained_410{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 637
-    aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Objects const&> neuron_contained_414{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Objects const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerSet const&> neuron_contained_411{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Integer const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 638
-    aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::ObjectVector const&> neuron_contained_415{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, IntegerTuple const&, hodel::Indices const&> neuron_contained_412{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, IntegerTuple const&, hodel::Indices const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 639
-    aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::ObjectsVector const&> neuron_contained_416{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::Grid const&> neuron_contained_413{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::IntegerVector const&, hodel::Grid const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 640
-    aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&> neuron_contained_417{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::GridVector const&> neuron_contained_414{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Grid const&, hodel::GridVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 641
-    aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&> neuron_contained_418{
-        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::contained)};
+    aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Objects const&> neuron_contained_415{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::Objects const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 642
-    aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&> neuron_product_419{
-        "product", static_cast<aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::ObjectVector const&> neuron_contained_416{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Object const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 643
-    aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_product_420{
-        "product", static_cast<aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::ObjectsVector const&> neuron_contained_417{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Objects const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 644
-    aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&> neuron_product_421{
-        "product", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
+    aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&> neuron_contained_418{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 645
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&> neuron_move_422{
-        "move", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&>::PointerFunction>(&hodel::move)};
+    aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&> neuron_contained_419{
+        "contained", static_cast<aicpp::Neuron<hodel::Boolean, hodel::Indices const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::contained)};
     // Original declaration: line 646
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_intersection_423{
-        "intersection", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&> neuron_product_420{
+        "product", static_cast<aicpp::Neuron<hodel::Object, hodel::IntegerSet const&, hodel::Indices const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 647
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_intersection_424{
-        "intersection", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&> neuron_product_421{
+        "product", static_cast<aicpp::Neuron<hodel::Indices, hodel::IntegerSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 648
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_intersection_425{
-        "intersection", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&> neuron_product_422{
+        "product", static_cast<aicpp::Neuron<hodel::FunctionIntegerPairVector, hodel::FunctionSet const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::product)};
     // Original declaration: line 649
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_intersection_426{
-        "intersection", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&> neuron_move_423{
+        "move", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Object const&, IntegerTuple const&>::PointerFunction>(&hodel::move)};
     // Original declaration: line 650
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_intersection_427{
-        "intersection", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_intersection_424{
+        "intersection", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 651
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_intersection_428{
-        "intersection", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_intersection_425{
+        "intersection", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 652
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_intersection_429{
-        "intersection", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_intersection_426{
+        "intersection", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 653
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_intersection_430{
-        "intersection", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_intersection_427{
+        "intersection", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 654
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_intersection_431{
-        "intersection", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_intersection_428{
+        "intersection", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 655
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_intersection_432{
-        "intersection", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_intersection_429{
+        "intersection", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 656
-    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_intersection_433{
-        "intersection", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::intersection)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_intersection_430{
+        "intersection", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 657
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_difference_434{
-        "difference", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_intersection_431{
+        "intersection", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 658
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_difference_435{
-        "difference", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_intersection_432{
+        "intersection", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 659
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_difference_436{
-        "difference", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_intersection_433{
+        "intersection", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 660
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_difference_437{
-        "difference", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_intersection_434{
+        "intersection", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::intersection)};
     // Original declaration: line 661
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_difference_438{
-        "difference", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_difference_435{
+        "difference", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 662
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_difference_439{
-        "difference", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_difference_436{
+        "difference", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 663
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_difference_440{
-        "difference", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_difference_437{
+        "difference", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 664
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_difference_441{
-        "difference", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_difference_438{
+        "difference", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 665
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_difference_442{
-        "difference", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_difference_439{
+        "difference", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 666
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_difference_443{
-        "difference", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_difference_440{
+        "difference", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 667
-    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_difference_444{
-        "difference", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::difference)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_difference_441{
+        "difference", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 668
-    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_combine_445{
-        "combine", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_difference_442{
+        "difference", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 669
-    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_combine_446{
-        "combine", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_difference_443{
+        "difference", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 670
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_combine_447{
-        "combine", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_difference_444{
+        "difference", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 671
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_combine_448{
-        "combine", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_difference_445{
+        "difference", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::difference)};
     // Original declaration: line 672
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_combine_449{
-        "combine", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&> neuron_combine_446{
+        "combine", static_cast<aicpp::Neuron<hodel::BooleanVector, hodel::BooleanVector const&, hodel::BooleanVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 673
-    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_combine_450{
-        "combine", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&> neuron_combine_447{
+        "combine", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::IntegerVector const&, hodel::IntegerVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 674
-    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_combine_451{
-        "combine", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&> neuron_combine_448{
+        "combine", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 675
-    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_combine_452{
-        "combine", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&> neuron_combine_449{
+        "combine", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::GridVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 676
-    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_combine_453{
-        "combine", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&> neuron_combine_450{
+        "combine", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 677
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_combine_454{
-        "combine", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&> neuron_combine_451{
+        "combine", static_cast<aicpp::Neuron<hodel::ObjectsVector, hodel::ObjectsVector const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 678
-    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_combine_455{
-        "combine", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::combine)};
+    aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&> neuron_combine_452{
+        "combine", static_cast<aicpp::Neuron<hodel::IndicesVector, hodel::IndicesVector const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 679
-    aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&> neuron_mapply_456{
-        "mapply", static_cast<aicpp::Neuron<hodel::Grid, aicpp::FunctionValue const&, hodel::GridVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&> neuron_combine_453{
+        "combine", static_cast<aicpp::Neuron<hodel::Indices, hodel::Indices const&, hodel::Indices const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 680
-    aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&> neuron_mapply_457{
-        "mapply", static_cast<aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&> neuron_combine_454{
+        "combine", static_cast<aicpp::Neuron<hodel::Object, hodel::Object const&, hodel::Object const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 681
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&> neuron_mapply_458{
-        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&> neuron_combine_455{
+        "combine", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Objects const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 682
-    aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&> neuron_mapply_459{
-        "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&> neuron_combine_456{
+        "combine", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::combine)};
     // Original declaration: line 683
-    aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&> neuron_mapply_460{
-        "mapply", static_cast<aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::GridVector, aicpp::FunctionValue const&, hodel::GridVector const&> neuron_mapply_457{
+        "mapply", static_cast<aicpp::Neuron<hodel::GridVector, aicpp::FunctionValue const&, hodel::GridVector const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 684
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&> neuron_mapply_461{
-        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&> neuron_mapply_458{
+        "mapply", static_cast<aicpp::Neuron<hodel::IntegerVector, aicpp::FunctionValue const&, hodel::Grid const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 685
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&> neuron_mapply_462{
-        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&> neuron_mapply_459{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Objects const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 686
-    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Indices const&> neuron_mapply_463{
-        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Indices const&>::PointerFunction>(&hodel::mapply)};
+    aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&> neuron_mapply_460{
+        "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::ObjectVector const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 687
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&> neuron_cellwise_464{
-        "cellwise", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::cellwise)};
+    aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&> neuron_mapply_461{
+        "mapply", static_cast<aicpp::Neuron<hodel::Objects, aicpp::FunctionValue const&, hodel::ObjectsVector const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 688
-    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_mostcommon_465{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&> neuron_mapply_462{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesVector const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 689
-    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_mostcommon_466{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&> neuron_mapply_463{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::IndicesSet const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 690
-    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_mostcommon_467{
-        "mostcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Indices const&> neuron_mapply_464{
+        "mapply", static_cast<aicpp::Neuron<hodel::Indices, aicpp::FunctionValue const&, hodel::Indices const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 691
-    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_mostcommon_468{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&> neuron_cellwise_465{
+        "cellwise", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::cellwise)};
     // Original declaration: line 692
-    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_mostcommon_469{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_mostcommon_466{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 693
-    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_mostcommon_470{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_mostcommon_467{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 694
-    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_leastcommon_471{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_mostcommon_468{
+        "mostcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 695
-    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_leastcommon_472{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_mostcommon_469{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 696
-    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_leastcommon_473{
-        "leastcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_mostcommon_470{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 697
-    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_leastcommon_474{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_mostcommon_471{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 698
-    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_leastcommon_475{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_leastcommon_472{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 699
-    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_leastcommon_476{
+    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_leastcommon_473{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::leastcommon)};
+    // Original declaration: line 700
+    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_leastcommon_474{
+        "leastcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::leastcommon)};
+    // Original declaration: line 701
+    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_leastcommon_475{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::leastcommon)};
+    // Original declaration: line 702
+    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_leastcommon_476{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::leastcommon)};
+    // Original declaration: line 703
+    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_leastcommon_477{
         "leastcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::leastcommon)};
     static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
     static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
@@ -1823,7 +1826,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_merge_405{&neuron_merge_405};
     static FunctionAdapterNeuron adapter_merge_406{&neuron_merge_406};
     static FunctionAdapterNeuron adapter_merge_407{&neuron_merge_407};
-    static FunctionAdapterNeuron adapter_contained_408{&neuron_contained_408};
+    static FunctionAdapterNeuron adapter_merge_408{&neuron_merge_408};
     static FunctionAdapterNeuron adapter_contained_409{&neuron_contained_409};
     static FunctionAdapterNeuron adapter_contained_410{&neuron_contained_410};
     static FunctionAdapterNeuron adapter_contained_411{&neuron_contained_411};
@@ -1834,11 +1837,11 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_contained_416{&neuron_contained_416};
     static FunctionAdapterNeuron adapter_contained_417{&neuron_contained_417};
     static FunctionAdapterNeuron adapter_contained_418{&neuron_contained_418};
-    static FunctionAdapterNeuron adapter_product_419{&neuron_product_419};
+    static FunctionAdapterNeuron adapter_contained_419{&neuron_contained_419};
     static FunctionAdapterNeuron adapter_product_420{&neuron_product_420};
     static FunctionAdapterNeuron adapter_product_421{&neuron_product_421};
-    static FunctionAdapterNeuron adapter_move_422{&neuron_move_422};
-    static FunctionAdapterNeuron adapter_intersection_423{&neuron_intersection_423};
+    static FunctionAdapterNeuron adapter_product_422{&neuron_product_422};
+    static FunctionAdapterNeuron adapter_move_423{&neuron_move_423};
     static FunctionAdapterNeuron adapter_intersection_424{&neuron_intersection_424};
     static FunctionAdapterNeuron adapter_intersection_425{&neuron_intersection_425};
     static FunctionAdapterNeuron adapter_intersection_426{&neuron_intersection_426};
@@ -1849,7 +1852,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_intersection_431{&neuron_intersection_431};
     static FunctionAdapterNeuron adapter_intersection_432{&neuron_intersection_432};
     static FunctionAdapterNeuron adapter_intersection_433{&neuron_intersection_433};
-    static FunctionAdapterNeuron adapter_difference_434{&neuron_difference_434};
+    static FunctionAdapterNeuron adapter_intersection_434{&neuron_intersection_434};
     static FunctionAdapterNeuron adapter_difference_435{&neuron_difference_435};
     static FunctionAdapterNeuron adapter_difference_436{&neuron_difference_436};
     static FunctionAdapterNeuron adapter_difference_437{&neuron_difference_437};
@@ -1860,7 +1863,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_difference_442{&neuron_difference_442};
     static FunctionAdapterNeuron adapter_difference_443{&neuron_difference_443};
     static FunctionAdapterNeuron adapter_difference_444{&neuron_difference_444};
-    static FunctionAdapterNeuron adapter_combine_445{&neuron_combine_445};
+    static FunctionAdapterNeuron adapter_difference_445{&neuron_difference_445};
     static FunctionAdapterNeuron adapter_combine_446{&neuron_combine_446};
     static FunctionAdapterNeuron adapter_combine_447{&neuron_combine_447};
     static FunctionAdapterNeuron adapter_combine_448{&neuron_combine_448};
@@ -1871,7 +1874,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_combine_453{&neuron_combine_453};
     static FunctionAdapterNeuron adapter_combine_454{&neuron_combine_454};
     static FunctionAdapterNeuron adapter_combine_455{&neuron_combine_455};
-    static FunctionAdapterNeuron adapter_mapply_456{&neuron_mapply_456};
+    static FunctionAdapterNeuron adapter_combine_456{&neuron_combine_456};
     static FunctionAdapterNeuron adapter_mapply_457{&neuron_mapply_457};
     static FunctionAdapterNeuron adapter_mapply_458{&neuron_mapply_458};
     static FunctionAdapterNeuron adapter_mapply_459{&neuron_mapply_459};
@@ -1879,19 +1882,20 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_mapply_461{&neuron_mapply_461};
     static FunctionAdapterNeuron adapter_mapply_462{&neuron_mapply_462};
     static FunctionAdapterNeuron adapter_mapply_463{&neuron_mapply_463};
-    static FunctionAdapterNeuron adapter_cellwise_464{&neuron_cellwise_464};
-    static FunctionAdapterNeuron adapter_mostcommon_465{&neuron_mostcommon_465};
+    static FunctionAdapterNeuron adapter_mapply_464{&neuron_mapply_464};
+    static FunctionAdapterNeuron adapter_cellwise_465{&neuron_cellwise_465};
     static FunctionAdapterNeuron adapter_mostcommon_466{&neuron_mostcommon_466};
     static FunctionAdapterNeuron adapter_mostcommon_467{&neuron_mostcommon_467};
     static FunctionAdapterNeuron adapter_mostcommon_468{&neuron_mostcommon_468};
     static FunctionAdapterNeuron adapter_mostcommon_469{&neuron_mostcommon_469};
     static FunctionAdapterNeuron adapter_mostcommon_470{&neuron_mostcommon_470};
-    static FunctionAdapterNeuron adapter_leastcommon_471{&neuron_leastcommon_471};
+    static FunctionAdapterNeuron adapter_mostcommon_471{&neuron_mostcommon_471};
     static FunctionAdapterNeuron adapter_leastcommon_472{&neuron_leastcommon_472};
     static FunctionAdapterNeuron adapter_leastcommon_473{&neuron_leastcommon_473};
     static FunctionAdapterNeuron adapter_leastcommon_474{&neuron_leastcommon_474};
     static FunctionAdapterNeuron adapter_leastcommon_475{&neuron_leastcommon_475};
     static FunctionAdapterNeuron adapter_leastcommon_476{&neuron_leastcommon_476};
+    static FunctionAdapterNeuron adapter_leastcommon_477{&neuron_leastcommon_477};
 
     NeuronRegistry makeNeuronRegistry()
     {
@@ -2684,8 +2688,8 @@ namespace aicpp
         registry.emplace("adapter_merge_406", &adapter_merge_406);
         registry.emplace("neuron_merge_407", &neuron_merge_407);
         registry.emplace("adapter_merge_407", &adapter_merge_407);
-        registry.emplace("neuron_contained_408", &neuron_contained_408);
-        registry.emplace("adapter_contained_408", &adapter_contained_408);
+        registry.emplace("neuron_merge_408", &neuron_merge_408);
+        registry.emplace("adapter_merge_408", &adapter_merge_408);
         registry.emplace("neuron_contained_409", &neuron_contained_409);
         registry.emplace("adapter_contained_409", &adapter_contained_409);
         registry.emplace("neuron_contained_410", &neuron_contained_410);
@@ -2706,16 +2710,16 @@ namespace aicpp
         registry.emplace("adapter_contained_417", &adapter_contained_417);
         registry.emplace("neuron_contained_418", &neuron_contained_418);
         registry.emplace("adapter_contained_418", &adapter_contained_418);
-        registry.emplace("neuron_product_419", &neuron_product_419);
-        registry.emplace("adapter_product_419", &adapter_product_419);
+        registry.emplace("neuron_contained_419", &neuron_contained_419);
+        registry.emplace("adapter_contained_419", &adapter_contained_419);
         registry.emplace("neuron_product_420", &neuron_product_420);
         registry.emplace("adapter_product_420", &adapter_product_420);
         registry.emplace("neuron_product_421", &neuron_product_421);
         registry.emplace("adapter_product_421", &adapter_product_421);
-        registry.emplace("neuron_move_422", &neuron_move_422);
-        registry.emplace("adapter_move_422", &adapter_move_422);
-        registry.emplace("neuron_intersection_423", &neuron_intersection_423);
-        registry.emplace("adapter_intersection_423", &adapter_intersection_423);
+        registry.emplace("neuron_product_422", &neuron_product_422);
+        registry.emplace("adapter_product_422", &adapter_product_422);
+        registry.emplace("neuron_move_423", &neuron_move_423);
+        registry.emplace("adapter_move_423", &adapter_move_423);
         registry.emplace("neuron_intersection_424", &neuron_intersection_424);
         registry.emplace("adapter_intersection_424", &adapter_intersection_424);
         registry.emplace("neuron_intersection_425", &neuron_intersection_425);
@@ -2736,8 +2740,8 @@ namespace aicpp
         registry.emplace("adapter_intersection_432", &adapter_intersection_432);
         registry.emplace("neuron_intersection_433", &neuron_intersection_433);
         registry.emplace("adapter_intersection_433", &adapter_intersection_433);
-        registry.emplace("neuron_difference_434", &neuron_difference_434);
-        registry.emplace("adapter_difference_434", &adapter_difference_434);
+        registry.emplace("neuron_intersection_434", &neuron_intersection_434);
+        registry.emplace("adapter_intersection_434", &adapter_intersection_434);
         registry.emplace("neuron_difference_435", &neuron_difference_435);
         registry.emplace("adapter_difference_435", &adapter_difference_435);
         registry.emplace("neuron_difference_436", &neuron_difference_436);
@@ -2758,8 +2762,8 @@ namespace aicpp
         registry.emplace("adapter_difference_443", &adapter_difference_443);
         registry.emplace("neuron_difference_444", &neuron_difference_444);
         registry.emplace("adapter_difference_444", &adapter_difference_444);
-        registry.emplace("neuron_combine_445", &neuron_combine_445);
-        registry.emplace("adapter_combine_445", &adapter_combine_445);
+        registry.emplace("neuron_difference_445", &neuron_difference_445);
+        registry.emplace("adapter_difference_445", &adapter_difference_445);
         registry.emplace("neuron_combine_446", &neuron_combine_446);
         registry.emplace("adapter_combine_446", &adapter_combine_446);
         registry.emplace("neuron_combine_447", &neuron_combine_447);
@@ -2780,8 +2784,8 @@ namespace aicpp
         registry.emplace("adapter_combine_454", &adapter_combine_454);
         registry.emplace("neuron_combine_455", &neuron_combine_455);
         registry.emplace("adapter_combine_455", &adapter_combine_455);
-        registry.emplace("neuron_mapply_456", &neuron_mapply_456);
-        registry.emplace("adapter_mapply_456", &adapter_mapply_456);
+        registry.emplace("neuron_combine_456", &neuron_combine_456);
+        registry.emplace("adapter_combine_456", &adapter_combine_456);
         registry.emplace("neuron_mapply_457", &neuron_mapply_457);
         registry.emplace("adapter_mapply_457", &adapter_mapply_457);
         registry.emplace("neuron_mapply_458", &neuron_mapply_458);
@@ -2796,10 +2800,10 @@ namespace aicpp
         registry.emplace("adapter_mapply_462", &adapter_mapply_462);
         registry.emplace("neuron_mapply_463", &neuron_mapply_463);
         registry.emplace("adapter_mapply_463", &adapter_mapply_463);
-        registry.emplace("neuron_cellwise_464", &neuron_cellwise_464);
-        registry.emplace("adapter_cellwise_464", &adapter_cellwise_464);
-        registry.emplace("neuron_mostcommon_465", &neuron_mostcommon_465);
-        registry.emplace("adapter_mostcommon_465", &adapter_mostcommon_465);
+        registry.emplace("neuron_mapply_464", &neuron_mapply_464);
+        registry.emplace("adapter_mapply_464", &adapter_mapply_464);
+        registry.emplace("neuron_cellwise_465", &neuron_cellwise_465);
+        registry.emplace("adapter_cellwise_465", &adapter_cellwise_465);
         registry.emplace("neuron_mostcommon_466", &neuron_mostcommon_466);
         registry.emplace("adapter_mostcommon_466", &adapter_mostcommon_466);
         registry.emplace("neuron_mostcommon_467", &neuron_mostcommon_467);
@@ -2810,8 +2814,8 @@ namespace aicpp
         registry.emplace("adapter_mostcommon_469", &adapter_mostcommon_469);
         registry.emplace("neuron_mostcommon_470", &neuron_mostcommon_470);
         registry.emplace("adapter_mostcommon_470", &adapter_mostcommon_470);
-        registry.emplace("neuron_leastcommon_471", &neuron_leastcommon_471);
-        registry.emplace("adapter_leastcommon_471", &adapter_leastcommon_471);
+        registry.emplace("neuron_mostcommon_471", &neuron_mostcommon_471);
+        registry.emplace("adapter_mostcommon_471", &adapter_mostcommon_471);
         registry.emplace("neuron_leastcommon_472", &neuron_leastcommon_472);
         registry.emplace("adapter_leastcommon_472", &adapter_leastcommon_472);
         registry.emplace("neuron_leastcommon_473", &neuron_leastcommon_473);
@@ -2822,6 +2826,8 @@ namespace aicpp
         registry.emplace("adapter_leastcommon_475", &adapter_leastcommon_475);
         registry.emplace("neuron_leastcommon_476", &neuron_leastcommon_476);
         registry.emplace("adapter_leastcommon_476", &adapter_leastcommon_476);
+        registry.emplace("neuron_leastcommon_477", &neuron_leastcommon_477);
+        registry.emplace("adapter_leastcommon_477", &adapter_leastcommon_477);
 
         auto polymorphicRegistry = makePolymorphicNeuronRegistry();
         registry.insert(
