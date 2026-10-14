@@ -1,5 +1,6 @@
 #include "aicpp/RbindNeuron.h"
 #include "aicpp/FunctionValue.h"
+#include "aicpp/FunctionAdapterNeuron.h"
 
 #include <stdexcept>
 
@@ -153,14 +154,14 @@ namespace aicpp
         if (arguments.size() != 2)
         {
             throw std::invalid_argument(
-                "rbind requires exactly two arguments");
+                "rbind expects two arguments");
         }
 
         if (arguments[0].type() != typeid(Connection)
             || arguments[1].type() != typeid(Connection))
         {
             throw std::invalid_argument(
-                "rbind arguments must be connections");
+                "rbind expects Connection arguments");
         }
 
         auto const& function =
@@ -172,32 +173,45 @@ namespace aicpp
         auto const signature = function.signature();
 
         if (!signature.isFunction()
-            || signature.inputs().size() < 2)
+            || signature.inputs().size() != 2)
         {
             throw std::invalid_argument(
-                "rbind requires a function with at least two arguments");
+                "rbind requires a binary function");
         }
 
-        if (input.type() != signature.inputs()[0].nativeType())
-        {
-            throw std::invalid_argument(
-                "rbind received an incompatible input");
-        }
+        auto const& firstInputType = signature.inputs()[0];
+        auto const& secondInputType = signature.inputs()[1];
 
-        if (function.neuron()->isPolymorphic())
+        if (input.type() != firstInputType.nativeType())
         {
             throw std::invalid_argument(
-                "rbind currently requires a native function");
+                "Argument type does not match first function input");
         }
 
         auto const fixed = fixedConnection.output();
 
-        if (fixed.type() != signature.inputs()[1].nativeType())
+        if (fixed.type() != secondInputType.nativeType())
         {
             throw std::invalid_argument(
-                "rbind fixed argument has an incompatible type");
+                "Fixed argument type does not match second function input");
         }
 
-        return function.neuron()->invoke({input, fixed});
+        NeuronBase const* nativeNeuron = function.neuron();
+
+        if (nativeNeuron->isPolymorphic())
+        {
+            auto const* adapter =
+                dynamic_cast<FunctionAdapterNeuron const*>(nativeNeuron);
+
+            if (adapter == nullptr)
+            {
+                throw std::invalid_argument(
+                    "rbind requires a native function or FunctionAdapterNeuron");
+            }
+
+            nativeNeuron = adapter->adaptedNeuron();
+        }
+
+        return nativeNeuron->invoke({input, fixed});
     }
 }
