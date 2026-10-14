@@ -70,8 +70,8 @@ namespace aicpp
         auto const& container = arguments[0];
         auto const& function = arguments[1];
 
-        DslType elementType{std::type_index{typeid(int)}};
-        DslType resultType{std::type_index{typeid(int)}};
+        DslType elementType{std::type_index{typeid(hodel::Integer)}};
+        DslType resultType{std::type_index{typeid(hodel::Integer)}};
 
         if (container == makeDslType<hodel::IntegerSet>()
             || container == makeDslType<hodel::IntegerVector>())
@@ -98,6 +98,11 @@ namespace aicpp
         {
             elementType = makeDslType<hodel::Integer>();
             resultType = makeDslType<hodel::Integer>();
+        }
+        else if (container == makeDslType<hodel::Object>())
+        {
+            elementType = makeDslType<hodel::Cell>();
+            resultType = elementType;
         }
         else
         {
@@ -259,7 +264,7 @@ namespace aicpp
 
         return DslType::function(
             {containerSignature},
-            elementType);
+            makeDslType<hodel::Integer>());
     }
 
     DslType ValmaxNeuron::elementTypeFor(DslType const& container) const
