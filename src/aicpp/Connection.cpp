@@ -163,9 +163,8 @@ aicpp::Connection aicpp::buildConnection(
             return aicpp::Connection{neuron, args};
     }
 
-    throw std::runtime_error{
-        "No compatible connection found for neuron: " + name
-    };
+    throw std::runtime_error(
+        "No function overload found for neuron: " + name + " " + signature(args));
 }
 
 Connection::Connection(
