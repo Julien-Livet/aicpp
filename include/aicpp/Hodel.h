@@ -601,6 +601,7 @@ namespace hodel
     ObjectVector dedupe(ObjectVector const& tup); //remove duplicates
     ObjectsVector dedupe(ObjectsVector const& tup); //remove duplicates
     IndicesVector dedupe(IndicesVector const& tup); //remove duplicates
+    Grid dedupe(Grid const& tup); //remove duplicates
     Object merge(Objects const& containers); //merging
     Object merge(ObjectVector const& containers); //merging
     Indices merge(IndicesSet const& containers); //merging
