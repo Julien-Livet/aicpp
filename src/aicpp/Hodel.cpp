@@ -4298,6 +4298,15 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesSet co
     return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
 }
 
+hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Indices const& container)
+{
+    aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
+    aicpp::Connection const containerConnection{&neuron, {}};
+    auto const apply{aicpp::buildFunctionConnection("apply", function.connection.signature(), {function.connection, containerConnection})};
+
+    return merge(std::any_cast<IndicesVector>(apply.output()));
+}
+
 hodel::Grid hodel::cellwise(Grid const& a, Grid const& b, Integer const& fallback)
 {
     Grid result;
