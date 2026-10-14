@@ -3829,6 +3829,16 @@ hodel::Grid hodel::merge(GridVector const& containers)
     return result;
 }
 
+hodel::GridVector hodel::merge(GridVectorVector const& containers)
+{
+    std::remove_cvref_t<decltype(containers)>::value_type result;
+
+    for (auto const& container : containers)
+        result.insert(result.end(), container.begin(), container.end());
+
+    return result;
+}
+
 hodel::Objects hodel::merge(ObjectsVector const& containers)
 {
     std::remove_cvref_t<decltype(containers)>::value_type result;
@@ -4235,13 +4245,13 @@ hodel::IndicesSet hodel::combine(IndicesSet const& a, IndicesSet const& b)
     return {v.begin(), v.end()};
 }
 
-hodel::Grid hodel::mapply(aicpp::FunctionValue const& function, GridVector const& container)
+hodel::GridVector hodel::mapply(aicpp::FunctionValue const& function, GridVector const& container)
 {
     aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+    return merge(std::any_cast<GridVectorVector>(apply.output()));
 }
 
 hodel::IntegerVector hodel::mapply(aicpp::FunctionValue const& function, Grid const& container)
@@ -4302,7 +4312,7 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Indices const
 {
     aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
     aicpp::Connection const containerConnection{&neuron, {}};
-    auto const apply{aicpp::buildFunctionConnection("apply", function.connection.signature(), {function.connection, containerConnection})};
+    auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
     return merge(std::any_cast<IndicesVector>(apply.output()));
 }
