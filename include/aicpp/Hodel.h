@@ -187,6 +187,7 @@ namespace hodel
     typedef std::set<IntegerTuple> Indices;
     typedef std::set<Indices> IndicesSet;
     typedef std::vector<Grid> GridVector;
+    typedef std::vector<std::vector<Grid> > GridVectorVector;
     typedef std::vector<Integer> IntegerVector;
     typedef std::vector<Indices> IndicesVector;
     typedef std::vector<Object> ObjectVector;
@@ -207,12 +208,14 @@ namespace hodel
                                                               {typeid(Indices), "Indices"},
                                                               {typeid(IndicesSet), "IndicesSet"},
                                                               {typeid(GridVector), "GridVector"},
+                                                              {typeid(GridVectorVector), "GridVectorVector"},
                                                               {typeid(IndicesVector), "IndicesVector"},
                                                               {typeid(ObjectVector), "ObjectVector"},
                                                               {typeid(ObjectsVector), "ObjectsVector"},
                                                               {typeid(FunctionSet), "FunctionSet"},
                                                               {typeid(FunctionIntegerPair), "FunctionIntegerPair"},
-                                                              {typeid(FunctionIntegerPairVector), "FunctionIntegerPairVector"}};
+                                                              {typeid(FunctionIntegerPairVector), "FunctionIntegerPairVector"},
+                                                              {typeid(aicpp::FunctionValue), "FunctionValue"}};
 
     Boolean constexpr F = false;
     Boolean constexpr T = true;
@@ -627,6 +630,7 @@ namespace hodel
     Indices merge(IndicesVector const& containers); //merging
     IntegerVector merge(Grid const& containers); //merging
     Grid merge(GridVector const& containers); //merging
+    GridVector merge(GridVectorVector const& containers); //merging
     Objects merge(ObjectsVector const& containers); //merging
     Boolean contained(Boolean const& value, BooleanVector const& container); //element of
     Boolean contained(Integer const& value, IntegerVector const& container); //element of
@@ -676,7 +680,7 @@ namespace hodel
     Object combine(Object const& a, Object const& b); //union
     Objects combine(Objects const& a, Objects const& b); //union
     IndicesSet combine(IndicesSet const& a, IndicesSet const& b); //union
-    Grid mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
+    GridVector mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
     IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply(aicpp::FunctionValue const& function, ObjectVector const& container); //apply and merge
