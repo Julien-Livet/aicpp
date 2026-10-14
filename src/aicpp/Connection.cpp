@@ -8,6 +8,7 @@
 #include "aicpp/FunctionValue.h"
 #include "aicpp/HodelRegister.h"
 #include "aicpp/FunctionAdapterNeuron.h"
+#include "aicpp/Hodel.h"
 
 using namespace aicpp;
 
@@ -79,9 +80,8 @@ aicpp::Connection aicpp::buildFunctionConnection(
 
         return Connection{neuron, inputs};
     }
-
     throw std::runtime_error(
-        "No function overload found for neuron: " + name);
+        "No function overload found for neuron: " + name + " " + expectedSignature.string());
 }
 
 aicpp::Connection aicpp::buildConnection(
@@ -1019,5 +1019,5 @@ aicpp::Connection aicpp::buildFunctionConnection(
     }
 
     throw std::runtime_error(
-        "No function overload found for neuron: " + name);
+        "No function overload found for neuron: " + name + " " + expectedSignature.string());
 }
