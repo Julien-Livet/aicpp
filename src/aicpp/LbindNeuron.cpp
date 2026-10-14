@@ -1,5 +1,6 @@
 #include "aicpp/LbindNeuron.h"
 #include "aicpp/FunctionValue.h"
+#include "aicpp/FunctionAdapterNeuron.h"
 
 #include <stdexcept>
 
@@ -61,8 +62,8 @@ namespace aicpp
                 "lbind requires exactly two arguments");
         }
 
-        if (arguments[0].type() != typeid(Connection)
-            || arguments[1].type() != typeid(Connection))
+        if (arguments[0].type() != typeid(Connection) ||
+            arguments[1].type() != typeid(Connection))
         {
             throw std::invalid_argument(
                 "lbind arguments must be connections");
@@ -76,23 +77,17 @@ namespace aicpp
 
         auto const signature = function.signature();
 
-        if (!signature.isFunction()
-            || signature.inputs().size() < 2)
+        if (!signature.isFunction() ||
+            signature.inputs().size() != 2)
         {
             throw std::invalid_argument(
-                "lbind requires a function with at least two arguments");
+                "lbind requires a binary function");
         }
 
         if (input.type() != signature.inputs()[1].nativeType())
         {
             throw std::invalid_argument(
                 "lbind received an incompatible input");
-        }
-
-        if (function.neuron()->isPolymorphic())
-        {
-            throw std::invalid_argument(
-                "lbind currently requires a native function");
         }
 
         auto const fixed = fixedConnection.output();
@@ -103,7 +98,24 @@ namespace aicpp
                 "lbind fixed argument has an incompatible type");
         }
 
-        return function.neuron()->invoke({fixed, input});
+        NeuronBase const* nativeNeuron = function.neuron();
+
+        if (nativeNeuron->isPolymorphic())
+        {
+            auto const* adapter =
+                dynamic_cast<aicpp::FunctionAdapterNeuron const*>(
+                    nativeNeuron);
+
+            if (adapter == nullptr)
+            {
+                throw std::invalid_argument(
+                    "lbind requires a native function or FunctionAdapterNeuron");
+            }
+
+            nativeNeuron = adapter->adaptedNeuron();
+        }
+
+        return nativeNeuron->invoke({fixed, input});
     }
 
     DslType LbindNeuron::inferConnectionSignature(
