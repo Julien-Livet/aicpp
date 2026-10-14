@@ -59,7 +59,7 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
         if (symbol in ("double", "switch")):
             rightSymbol += "_"
 
-        content += f"    Connection const {rightSymbol}" + '{buildConnection("' + symbol + '", {})};\n'
+        content += f"    auto const {rightSymbol}" + '{buildConnection("' + symbol + '", {})};\n'
 
     symbols = dict(symbols)
 
