@@ -127,7 +127,7 @@ set(FILES
     src/aicpp/Hodel.cpp include/aicpp/Hodel.h
     include/aicpp/Neuron.h
     src/aicpp/Connection.cpp include/aicpp/Connection.h
-    include/aicpp/DslType.h
+    src/aicpp/DslType.cpp include/aicpp/DslType.h
     include/aicpp/PolymorphicNeuron.h
     include/aicpp/ComposeNeuron.h
     src/aicpp/ChainNeuron.cpp include/aicpp/ChainNeuron.h
