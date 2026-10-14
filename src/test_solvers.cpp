@@ -689,7 +689,10 @@ TEST(ArcDslTest, 1f85a75f)
     aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
     Connection const T{buildConnection("T", {})};
-    Connection const size{buildConnection("size", {})};
+    auto const sizeSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const size{buildFunctionConnection("size", sizeSignature)};
     Connection const x1{buildConnection("objects", {I, T, T, T})};
     Connection const x2{buildConnection("argmax", {x1, size})};
     Connection const O{buildConnection("subgrid", {x2, I})};
@@ -777,7 +780,10 @@ TEST(ArcDslTest, be94b721)
     Connection const I{&iNeuron, {}};
     Connection const F{buildConnection("F", {})};
     Connection const T{buildConnection("T", {})};
-    Connection const size{buildConnection("size", {})};
+    auto const sizeSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const size{buildFunctionConnection("size", sizeSignature)};
     Connection const x1{buildConnection("objects", {I, T, F, T})};
     Connection const x2{buildConnection("argmax", {x1, size})};
     Connection const O{buildConnection("subgrid", {x2, I})};
@@ -965,7 +971,7 @@ TEST(ArcDslTest, 7b7f7511)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 4258a5f9)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1011,7 +1017,10 @@ TEST(ArcDslTest, 2dc579da)
     Connection const I{&iNeuron, {}};
     Connection const TWO{buildConnection("TWO", {})};
     Connection const hsplit{buildConnection("hsplit", {})};
-    Connection const numcolors{buildConnection("numcolors", {})};
+    auto const numcolorsSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Grid>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const numcolors{buildFunctionConnection("numcolors", numcolorsSignature)};
     Connection const x1{buildConnection("vsplit", {I, TWO})};
     Connection const x2{buildConnection("rbind", {hsplit, TWO})};
     Connection const x3{buildConnection("mapply", {x2, x1})};
@@ -1023,7 +1032,7 @@ TEST(ArcDslTest, 2dc579da)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 28bf18c6)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1947,7 +1956,10 @@ TEST(ArcDslTest, 9565186b)
     Connection const F{buildConnection("F", {})};
     Connection const FIVE{buildConnection("FIVE", {})};
     Connection const T{buildConnection("T", {})};
-    Connection const size{buildConnection("size", {})};
+    auto const sizeSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const size{buildFunctionConnection("size", sizeSignature)};
     Connection const x1{buildConnection("shape", {I})};
     Connection const x2{buildConnection("objects", {I, T, F, F})};
     Connection const x3{buildConnection("argmax", {x2, size})};
@@ -3892,7 +3904,10 @@ TEST(ArcDslTest, d9fac9be)
     Connection const T{buildConnection("T", {})};
     Connection const UNITY{buildConnection("UNITY", {})};
     Connection const ZERO{buildConnection("ZERO", {})};
-    Connection const size{buildConnection("size", {})};
+    auto const sizeSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    Connection const size{buildFunctionConnection("size", sizeSignature)};
     Connection const x1{buildConnection("palette", {I})};
     Connection const x2{buildConnection("objects", {I, T, F, T})};
     Connection const x3{buildConnection("argmax", {x2, size})};
