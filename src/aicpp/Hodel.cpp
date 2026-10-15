@@ -2683,73 +2683,46 @@ hodel::Grid hodel::pair(IntegerVector const& a, IntegerVector const &b)
 
 hodel::Integer hodel::size(Object const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(Objects const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(ObjectVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(ObjectsVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(Indices const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(IndicesSet const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(IntegerSet const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(Grid const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(GridVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
@@ -2760,17 +2733,11 @@ hodel::Integer hodel::size(IntegerTuple const& container)
 
 hodel::Integer hodel::size(IndicesVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
 hodel::Integer hodel::size(BooleanVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
@@ -2781,9 +2748,6 @@ hodel::Integer hodel::size(FunctionIntegerPair const& container)
 
 hodel::Integer hodel::size(FunctionIntegerPairVector const& container)
 {
-    if (container.empty())
-        throw EmptyContainer{"size"};
-
     return container.size();
 }
 
