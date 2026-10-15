@@ -80,6 +80,7 @@ aicpp::Connection aicpp::buildFunctionConnection(
 
         return Connection{neuron, inputs};
     }
+
     throw std::runtime_error(
         "No function overload found for neuron: " + name + " " + expectedSignature.string());
 }
@@ -104,8 +105,7 @@ aicpp::Connection aicpp::buildConnection(
 
         if (neuron->isPolymorphic())
         {
-            auto const* polymorphic =
-                dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
+            auto const* polymorphic = dynamic_cast<aicpp::PolymorphicNeuron const*>(neuron);
 
             if (polymorphic == nullptr)
                 continue;
@@ -114,14 +114,12 @@ aicpp::Connection aicpp::buildConnection(
             connections.reserve(args.size());
 
             for (auto const& arg : args)
-            {
-                connections.push_back(
-                    std::any_cast<aicpp::Connection const&>(arg));
-            }
+                connections.emplace_back(std::any_cast<aicpp::Connection const&>(arg));
 
             try
             {
                 polymorphic->inferConnectionSignature(connections);
+
                 return aicpp::Connection{neuron, args};
             }
             catch (std::exception const& e)
@@ -137,15 +135,12 @@ aicpp::Connection aicpp::buildConnection(
 
         for (size_t i = 0; i < args.size(); ++i)
         {
-            auto const& connection =
-                std::any_cast<aicpp::Connection const&>(args[i]);
+            auto const& connection = std::any_cast<aicpp::Connection const&>(args[i]);
 
             auto const expectedType = neuron->inputTypes()[i];
 
             if (expectedType == typeid(aicpp::FunctionValue))
-            {
                 compatible = connection.signature().isFunction();
-            }
             else
             {
                 auto const actualType = connection.valueType();
@@ -163,8 +158,7 @@ aicpp::Connection aicpp::buildConnection(
             return aicpp::Connection{neuron, args};
     }
 
-    throw std::runtime_error(
-        "No function overload found for neuron: " + name + " " + signature(args));
+    throw std::runtime_error("No function overload found for neuron: " + name + " " + signature(args));
 }
 
 Connection::Connection(
@@ -180,15 +174,11 @@ Connection::Connection(
         {
             if (inputs_[i].type() == typeid(Connection))
             {
-                auto const& connection =
-                    std::any_cast<Connection const&>(inputs_[i]);
-
+                auto const& connection = std::any_cast<Connection const&>(inputs_[i]);
                 auto const expectedType = neuron_->inputTypes()[i];
 
                 if (expectedType == typeid(FunctionValue))
-                {
                     assert(connection.signature().isFunction());
-                }
                 else
                 {
                     auto const actualType = connection.valueType();
@@ -198,27 +188,17 @@ Connection::Connection(
                 }
             }
             else if (inputs_[i].type() == typeid(std::type_index))
-            {
-                assert(
-                    std::any_cast<std::type_index>(inputs_[i])
-                    == neuron_->inputTypes()[i]);
-            }
+                assert(std::any_cast<std::type_index>(inputs_[i]) == neuron_->inputTypes()[i]);
             else
-            {
                 assert(inputs_[i].type() == neuron_->inputTypes()[i]);
-            }
         }
     }
     else
     {
-        auto const* polymorphic =
-            dynamic_cast<PolymorphicNeuron const*>(neuron_);
+        auto const* polymorphic = dynamic_cast<PolymorphicNeuron const*>(neuron_);
 
         if (polymorphic == nullptr)
-        {
-            throw std::logic_error(
-                "Neuron marked polymorphic does not implement PolymorphicNeuron");
-        }
+            throw std::logic_error("Neuron marked polymorphic does not implement PolymorphicNeuron");
 
         std::vector<Connection> arguments;
         arguments.reserve(inputs_.size());
@@ -226,15 +206,9 @@ Connection::Connection(
         for (auto const& input : inputs_)
         {
             if (input.type() != typeid(Connection))
-            {
-                throw std::invalid_argument(
-                    "Polymorphic neuron '" + neuron_->name()
-                    + "' received an argument of type '"
-                    + input.type().name() + "' instead of Connection");
-            }
+                throw std::invalid_argument("Polymorphic neuron '" + neuron_->name() + "' received an argument of type '" + input.type().name() + "' instead of Connection");
 
-            arguments.emplace_back(
-                std::any_cast<Connection const&>(input));
+            arguments.emplace_back(std::any_cast<Connection const&>(input));
         }
 
         polymorphic->inferConnectionSignature(arguments);
@@ -458,14 +432,10 @@ std::any Connection::output() const
 {
     if (neuron_->isPolymorphic())
     {
-        auto const* polymorphic =
-            dynamic_cast<PolymorphicNeuron const*>(neuron_);
+        auto const* polymorphic = dynamic_cast<PolymorphicNeuron const*>(neuron_);
 
         if (polymorphic == nullptr)
-        {
-            throw std::logic_error(
-                "Neuron marked polymorphic does not implement PolymorphicNeuron");
-        }
+            throw std::logic_error("Neuron marked polymorphic does not implement PolymorphicNeuron");
 
         if (polymorphic->evaluatesToValue(inputs_))
             return polymorphic->evaluate(inputs_);
@@ -484,22 +454,15 @@ std::any Connection::output() const
 
         if (input.type() == typeid(Connection))
         {
-            auto const& connection =
-                std::any_cast<Connection const&>(input);
+            auto const& connection = std::any_cast<Connection const&>(input);
 
             if (expectedTypes[i] == typeid(aicpp::FunctionValue))
-            {
                 args.emplace_back(aicpp::FunctionValue{connection});
-            }
             else
-            {
                 args.emplace_back(connection.output());
-            }
         }
         else
-        {
             args.emplace_back(input);
-        }
     }
 
     return neuron_->invoke(args);
