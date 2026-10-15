@@ -701,6 +701,11 @@ namespace hodel
     Object leastcommon(Objects const& container); //least common item
     IntegerVector leastcommon(Grid const& container); //least common item
     Grid leastcommon(GridVector const& container); //least common item
+    Grid sizefilter(Grid const& container, Integer const& n); //filter items by size
+    GridVector sizefilter(GridVector const& container, Integer const& n); //filter items by size
+    ObjectVector sizefilter(ObjectVector const& container, Integer const& n); //filter items by size
+    Objects sizefilter(Objects const& container, Integer const& n); //filter items by size
+    IndicesSet sizefilter(IndicesSet const& container, Integer const& n); //filter items by size
 }
 
 #endif // AICPP_HODEL_H
