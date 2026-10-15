@@ -1464,6 +1464,9 @@ namespace aicpp
     // Original declaration: line 709
     aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&> neuron_sizefilter_483{
         "sizefilter", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    // Original declaration: line 710
+    aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_asset_484{
+        "asset", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::asset)};
     static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
     static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
     static FunctionAdapterNeuron adapter_add_30{&neuron_add_30};
@@ -1920,6 +1923,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_sizefilter_481{&neuron_sizefilter_481};
     static FunctionAdapterNeuron adapter_sizefilter_482{&neuron_sizefilter_482};
     static FunctionAdapterNeuron adapter_sizefilter_483{&neuron_sizefilter_483};
+    static FunctionAdapterNeuron adapter_asset_484{&neuron_asset_484};
 
     NeuronRegistry makeNeuronRegistry()
     {
@@ -2864,6 +2868,8 @@ namespace aicpp
         registry.emplace("adapter_sizefilter_482", &adapter_sizefilter_482);
         registry.emplace("neuron_sizefilter_483", &neuron_sizefilter_483);
         registry.emplace("adapter_sizefilter_483", &adapter_sizefilter_483);
+        registry.emplace("neuron_asset_484", &neuron_asset_484);
+        registry.emplace("adapter_asset_484", &adapter_asset_484);
 
         auto polymorphicRegistry = makePolymorphicNeuronRegistry();
         registry.insert(
