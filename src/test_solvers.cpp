@@ -1277,7 +1277,7 @@ TEST(ArcDslTest, 42a50994)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 56ff96f3)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1294,12 +1294,24 @@ TEST(ArcDslTest, 56ff96f3)
 
     aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
-    auto const backdrop{buildConnection("backdrop", {})};
-    auto const color{buildConnection("color", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const backdropSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const backdrop{buildFunctionConnection("backdrop", backdropSignature)};
+    auto const colorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
+    auto const recolorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Integer>(), aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const x1{buildConnection("fgpartition", {I})};
     auto const x2{buildConnection("fork", {recolor, color, backdrop})};
-    auto const x3{buildConnection("mapply", {x2, x1})};
+    auto const mapplySignature = aicpp::DslType::function(
+        {aicpp::makeDslType<aicpp::FunctionValue>(), aicpp::makeDslType<hodel::Objects>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const x3{buildFunctionConnection("mapply", mapplySignature, {x2, x1})};
     auto const O{buildConnection("paint", {I, x3})};
 
     for (size_t i = 0; i < 4; ++i)
@@ -1308,7 +1320,7 @@ TEST(ArcDslTest, 56ff96f3)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 50cb2852)
 {
     std::vector<hodel::Grid> inputs, outputs;
