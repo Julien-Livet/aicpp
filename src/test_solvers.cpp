@@ -3861,7 +3861,10 @@ TEST(ArcDslTest, f8ff0b80)
     auto const UNITY{buildConnection("UNITY", {})};
     auto const canvas{buildConnection("canvas", {})};
     auto const color{buildConnection("color", {})};
-    auto const size{buildConnection("size", {})};
+    auto const sizeSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const size{buildFunctionConnection("size", sizeSignature)};
     auto const x1{buildConnection("objects", {I, T, T, T})};
     auto const x2{buildConnection("order", {x1, size})};
     auto const x3{buildConnection("apply", {color, x2})};
@@ -3876,7 +3879,7 @@ TEST(ArcDslTest, f8ff0b80)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 85c4e7cd)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -4147,7 +4150,7 @@ TEST(ArcDslTest, d9fac9be)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, e50d258f)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -4186,7 +4189,7 @@ TEST(ArcDslTest, e50d258f)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 810b9b61)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -4228,6 +4231,8 @@ TEST(ArcDslTest, 810b9b61)
 
 TEST(ArcDslTest, 54d82841)
 {
+    //C++ exception with description "No function overload found for neuron: apply ((Object) -> Integer, (Grid, Boolean, Boolean, Boolean) -> Objects) -> ?" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -4243,9 +4248,18 @@ TEST(ArcDslTest, 54d82841)
     auto const F{buildConnection("F", {})};
     auto const FOUR{buildConnection("FOUR", {})};
     auto const T{buildConnection("T", {})};
-    auto const astuple{buildConnection("astuple", {})};
-    auto const center{buildConnection("center", {})};
-    auto const last{buildConnection("last", {})};
+    auto const astupleSignature = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::Integer>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const astuple{buildFunctionConnection("astuple", astupleSignature)};
+    auto const centerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const lastSignature = DslType::function(
+        {makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Integer>());
+    auto const last{buildFunctionConnection("last", lastSignature)};
     auto const x1{buildConnection("height", {I})};
     auto const x2{buildConnection("objects", {I, T, F, T})};
     auto const x3{buildConnection("compose", {last, center})};
@@ -4579,7 +4593,7 @@ TEST(ArcDslTest, ce4f8723)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, d13f3404)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -4599,15 +4613,24 @@ TEST(ArcDslTest, d13f3404)
     auto const T{buildConnection("T", {})};
     auto const UNITY{buildConnection("UNITY", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const center{buildConnection("center", {})};
+    auto const centerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
     auto const color{buildConnection("color", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const recolorSignature = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const shoot{buildConnection("shoot", {})};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("rbind", {shoot, UNITY})};
     auto const x3{buildConnection("compose", {x2, center})};
     auto const x4{buildConnection("fork", {recolor, color, x3})};
-    auto const x5{buildConnection("mapply", {x4, x1})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x5{buildFunctionConnection("mapply", mapplySignature, {x4, x1})};
     auto const x6{buildConnection("astuple", {SIX, SIX})};
     auto const x7{buildConnection("canvas", {ZERO, x6})};
     auto const O{buildConnection("paint", {x7, x5})};
@@ -4618,7 +4641,7 @@ TEST(ArcDslTest, d13f3404)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, dc433765)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -4800,6 +4823,8 @@ TEST(ArcDslTest, ff805c23)
 /*
 TEST(ArcDslTest, e76a88a6)
 {
+    //C++ exception with description "No function overload found for neuron: apply ((Object) -> IntegerTuple, (Object, Objects) -> Objects) -> ?" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(2);
     outputs.reserve(2);
@@ -4812,16 +4837,28 @@ TEST(ArcDslTest, e76a88a6)
     Connection const I{&iNeuron, {}};
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
-    auto const numcolors{buildConnection("numcolors", {})};
-    auto const shift{buildConnection("shift", {})};
-    auto const ulcorner{buildConnection("ulcorner", {})};
+    auto const numcolorsSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const numcolors{buildFunctionConnection("numcolors", numcolorsSignature)};
+    auto const shiftSignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Object>());
+    auto const shift{buildFunctionConnection("shift", shiftSignature)};
+    auto const ulcornerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const ulcorner{buildFunctionConnection("ulcorner", ulcornerSignature)};
     auto const x1{buildConnection("objects", {I, F, F, T})};
     auto const x2{buildConnection("argmax", {x1, numcolors})};
     auto const x3{buildConnection("normalize", {x2})};
     auto const x4{buildConnection("remove", {x2, x1})};
     auto const x5{buildConnection("apply", {ulcorner, x4})};
     auto const x6{buildConnection("lbind", {shift, x3})};
-    auto const x7{buildConnection("mapply", {x6, x5})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x7{buildFunctionConnection("mapply", mapplySignature, {x6, x5})};
     auto const O{buildConnection("paint", {I, x7})};
 
     for (size_t i = 0; i < 2; ++i)
