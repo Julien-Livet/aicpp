@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <utility>
 
 #include "aicpp/Connection.h"
 #include "aicpp/ExtractNeuron.h"
@@ -10,35 +11,45 @@ namespace aicpp
         std::vector<DslType> const& arguments) const
     {
         if (arguments.size() != 2)
+        {
             throw std::invalid_argument(
                 "extract expects exactly two arguments");
+        }
 
         auto const& container = arguments[0];
         auto const& condition = arguments[1];
 
-        if (container != makeDslType<hodel::GridVector>())
-            throw std::invalid_argument(
-                "extract expects a GridVector container");
+        auto const [containerType, elementType] =
+            inferElementTypes(container);
 
         if (!condition.isFunction())
+        {
             throw std::invalid_argument(
                 "extract expects a function as its condition");
+        }
 
         if (condition.inputs().size() != 1)
+        {
             throw std::invalid_argument(
                 "extract condition must be unary");
+        }
 
-        if (condition.inputs()[0] != makeDslType<hodel::Grid>())
+        if (condition.inputs()[0] != elementType)
+        {
             throw std::invalid_argument(
-                "extract condition must accept a Grid");
+                "extract condition input type does not match "
+                "the container element type");
+        }
 
         if (condition.output() != makeDslType<hodel::Boolean>())
+        {
             throw std::invalid_argument(
                 "extract condition must return a Boolean");
+        }
 
         return DslType::function(
-            {makeDslType<hodel::GridVector>()},
-            makeDslType<hodel::Grid>());
+            {containerType},
+            elementType);
     }
 
     std::any ExtractNeuron::apply(
@@ -46,71 +57,123 @@ namespace aicpp
         std::any const& input) const
     {
         if (arguments.size() != 2)
+        {
             throw std::invalid_argument(
                 "extract expects exactly two arguments");
-
-        if (input.type() != typeid(hodel::GridVector))
-            throw std::invalid_argument(
-                "extract expects a GridVector input");
+        }
 
         if (arguments[1].type() != typeid(Connection))
+        {
             throw std::invalid_argument(
                 "extract expects a Connection as its condition");
+        }
 
         auto const& condition =
             std::any_cast<Connection const&>(arguments[1]);
 
-        auto const& grids =
-            std::any_cast<hodel::GridVector const&>(input);
-
-        for (auto const& grid : grids)
+        if (input.type() == typeid(hodel::GridVector))
         {
-            auto const result = condition.apply(std::any{grid});
+            auto const& grids =
+                std::any_cast<hodel::GridVector const&>(input);
 
-            if (result.type() != typeid(hodel::Boolean))
-                throw std::invalid_argument(
-                    "extract condition must return a Boolean");
+            for (auto const& grid : grids)
+            {
+                auto const result = condition.apply(std::any{grid});
 
-            if (std::any_cast<hodel::Boolean>(result))
-                return grid;
+                if (result.type() != typeid(hodel::Boolean))
+                {
+                    throw std::invalid_argument(
+                        "extract condition must return a Boolean");
+                }
+
+                if (std::any_cast<hodel::Boolean>(result))
+                {
+                    return std::any{grid};
+                }
+            }
+
+            return std::any{};
         }
 
-        return std::any{};
+        if (input.type() == typeid(hodel::Objects))
+        {
+            auto const& objects =
+                std::any_cast<hodel::Objects const&>(input);
+
+            for (auto const& object : objects)
+            {
+                auto const result = condition.apply(std::any{object});
+
+                if (result.type() != typeid(hodel::Boolean))
+                {
+                    throw std::invalid_argument(
+                        "extract condition must return a Boolean");
+                }
+
+                if (std::any_cast<hodel::Boolean>(result))
+                {
+                    return std::any{object};
+                }
+            }
+
+            return std::any{};
+        }
+
+        throw std::invalid_argument(
+            "extract expects a GridVector or Objects input");
     }
 
     DslType ExtractNeuron::inferConnectionSignature(
         std::vector<Connection> const& arguments) const
     {
         if (arguments.size() != 2)
+        {
             throw std::invalid_argument(
                 "extract expects exactly two arguments");
+        }
 
-        auto const containerType = arguments[0].valueType();
-        auto const conditionSignature = arguments[1].signature();
+        auto const& container = arguments[0];
+        auto const& condition = arguments[1];
 
-        if (containerType != makeDslType<hodel::GridVector>())
-            throw std::invalid_argument(
-                "extract expects a GridVector container");
+        auto const containerSignature = container.signature();
+
+        auto const containerType = containerSignature.isFunction()
+            ? containerSignature.output()
+            : containerSignature;
+
+        auto const [expectedContainerType, elementType] =
+            inferElementTypes(containerType);
+
+        auto const conditionSignature = condition.signature();
 
         if (!conditionSignature.isFunction())
+        {
             throw std::invalid_argument(
                 "extract expects a function as its condition");
+        }
 
         if (conditionSignature.inputs().size() != 1)
+        {
             throw std::invalid_argument(
                 "extract condition must be unary");
+        }
 
-        if (conditionSignature.inputs()[0] != makeDslType<hodel::Grid>())
+        if (conditionSignature.inputs()[0] != elementType)
+        {
             throw std::invalid_argument(
-                "extract condition must accept a Grid");
+                "extract condition input type does not match "
+                "the container element type");
+        }
 
         if (conditionSignature.output() != makeDslType<hodel::Boolean>())
+        {
             throw std::invalid_argument(
                 "extract condition must return a Boolean");
+        }
 
         return DslType::function(
-            {makeDslType<hodel::GridVector>()},
-            makeDslType<hodel::Grid>());
+            {expectedContainerType},
+            elementType);
     }
 
     bool ExtractNeuron::evaluatesToValue(
@@ -140,5 +203,28 @@ namespace aicpp
             std::any_cast<Connection const&>(arguments[0]);
 
         return apply(arguments, container.output());
+    }
+
+    std::pair<DslType, DslType> ExtractNeuron::inferElementTypes(
+        DslType const& containerType)
+    {
+        if (containerType == makeDslType<hodel::GridVector>())
+        {
+            return {
+                makeDslType<hodel::GridVector>(),
+                makeDslType<hodel::Grid>()
+            };
+        }
+
+        if (containerType == makeDslType<hodel::Objects>())
+        {
+            return {
+                makeDslType<hodel::Objects>(),
+                makeDslType<hodel::Object>()
+            };
+        }
+
+        throw std::invalid_argument(
+            "extract expects a GridVector or Objects container");
     }
 }
