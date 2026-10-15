@@ -1320,7 +1320,7 @@ TEST(ArcDslTest, 56ff96f3)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 50cb2852)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1338,8 +1338,14 @@ TEST(ArcDslTest, 50cb2852)
     auto const EIGHT{buildConnection("EIGHT", {})};
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
-    auto const backdrop{buildConnection("backdrop", {})};
-    auto const inbox{buildConnection("inbox", {})};
+    auto const backdropSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const backdrop{buildFunctionConnection("backdrop", backdropSignature)};
+    auto const inboxSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const inbox{buildFunctionConnection("inbox", inboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("compose", {backdrop, inbox})};
     auto const x3{buildConnection("mapply", {x2, x1})};
@@ -1351,7 +1357,7 @@ TEST(ArcDslTest, 50cb2852)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 4347f46a)
 {
     std::vector<hodel::Grid> inputs, outputs;
