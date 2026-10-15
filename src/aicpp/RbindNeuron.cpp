@@ -84,10 +84,27 @@ namespace aicpp
             return fixedSignature.output();
         }
 
-        return inferSignature({
-            functionExpression.signature(),
-            fixedExpression.signature()
-        });
+        auto const functionSignature = functionExpression.signature();
+
+        if (!functionSignature.isFunction()
+            || functionSignature.inputs().size() != 2)
+        {
+            throw std::invalid_argument(
+                "rbind requires a binary function");
+        }
+
+        auto const fixedType = fixedExpression.valueType();
+
+        if (fixedType != functionSignature.inputs()[1])
+        {
+            throw std::invalid_argument(
+                "rbind fixed argument type does not match "
+                "the second function input");
+        }
+
+        return DslType::function(
+            {functionSignature.inputs()[0]},
+            functionSignature.output());
     }
 
     bool RbindNeuron::evaluatesToValue(
