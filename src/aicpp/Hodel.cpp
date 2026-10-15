@@ -4709,3 +4709,8 @@ hodel::IndicesSet hodel::sizefilter(IndicesSet const& container, Integer const& 
 
     return result;
 }
+
+hodel::Indices hodel::asset(IntegerTuple const& a, IntegerTuple const& b)
+{
+    return {a, b};
+}
