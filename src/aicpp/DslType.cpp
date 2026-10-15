@@ -9,9 +9,10 @@ using namespace aicpp;
 std::string DslType::string() const
 {
     std::vector<std::string> args;
-    args.reserve(inputs().size());
+    auto const inputs{this->inputs()};
+    args.reserve(inputs.size());
 
-    for (auto const& input : inputs())
+    for (auto const input : inputs)
     {
         try
         {
