@@ -77,4 +77,68 @@ namespace aicpp
 
         return std::any{};
     }
+
+    DslType ExtractNeuron::inferConnectionSignature(
+        std::vector<Connection> const& arguments) const
+    {
+        if (arguments.size() != 2)
+            throw std::invalid_argument(
+                "extract expects exactly two arguments");
+
+        auto const containerType = arguments[0].valueType();
+        auto const conditionSignature = arguments[1].signature();
+
+        if (containerType != makeDslType<hodel::GridVector>())
+            throw std::invalid_argument(
+                "extract expects a GridVector container");
+
+        if (!conditionSignature.isFunction())
+            throw std::invalid_argument(
+                "extract expects a function as its condition");
+
+        if (conditionSignature.inputs().size() != 1)
+            throw std::invalid_argument(
+                "extract condition must be unary");
+
+        if (conditionSignature.inputs()[0] != makeDslType<hodel::Grid>())
+            throw std::invalid_argument(
+                "extract condition must accept a Grid");
+
+        if (conditionSignature.output() != makeDslType<hodel::Boolean>())
+            throw std::invalid_argument(
+                "extract condition must return a Boolean");
+
+        return DslType::function(
+            {makeDslType<hodel::GridVector>()},
+            makeDslType<hodel::Grid>());
+    }
+
+    bool ExtractNeuron::evaluatesToValue(
+        std::vector<std::any> const& arguments) const
+    {
+        return arguments.size() == 2
+            && arguments[0].type() == typeid(Connection)
+            && arguments[1].type() == typeid(Connection);
+    }
+
+    std::any ExtractNeuron::evaluate(
+        std::vector<std::any> const& arguments) const
+    {
+        if (arguments.size() != 2)
+        {
+            throw std::invalid_argument(
+                "extract expects exactly two arguments");
+        }
+
+        if (arguments[0].type() != typeid(Connection))
+        {
+            throw std::invalid_argument(
+                "extract expects a Connection as its first argument");
+        }
+
+        auto const& container =
+            std::any_cast<Connection const&>(arguments[0]);
+
+        return apply(arguments, container.output());
+    }
 }
