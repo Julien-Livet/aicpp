@@ -32,6 +32,10 @@ namespace aicpp
 
             std::any evaluate(
                 std::vector<std::any> const& arguments) const override;
+
+        private:
+            static std::pair<DslType, DslType> inferElementTypes(
+                DslType const& containerType);
     };
 }
 
