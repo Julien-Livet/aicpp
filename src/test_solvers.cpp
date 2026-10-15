@@ -1580,6 +1580,9 @@ TEST(ArcDslTest, b27ca6d3)
 /*
 TEST(ArcDslTest, ce22a75a)
 {
+    //x2 signature: (Objects) -> Objects
+    //C++ exception with description "Fixed argument type mismatch" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(2);
     outputs.reserve(2);
@@ -1698,8 +1701,14 @@ TEST(ArcDslTest, 44d8ac46)
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const delta{buildConnection("delta", {})};
-    auto const square{buildConnection("square", {})};
+    auto const deltaSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const delta{buildFunctionConnection("delta", deltaSignature)};
+    auto const squareSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Boolean>());
+    auto const square{buildFunctionConnection("square", squareSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("apply", {delta, x1})};
     auto const x3{buildConnection("mfilter", {x2, square})};
@@ -2227,6 +2236,8 @@ TEST(ArcDslTest, ce9e57f2)
 /*
 TEST(ArcDslTest, 22eb0ac0)
 {
+    //C++ exception with description "No function overload found for neuron: mfilter ((Objects) -> Objects, (Object) -> Boolean) -> ?" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -2656,7 +2667,7 @@ TEST(ArcDslTest, b94a9452)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, d037b0a7)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2674,15 +2685,27 @@ TEST(ArcDslTest, d037b0a7)
     auto const DOWN{buildConnection("DOWN", {})};
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
-    auto const center{buildConnection("center", {})};
-    auto const color{buildConnection("color", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const centerSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const colorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
+    auto const recolorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Integer>(), aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const shoot{buildConnection("shoot", {})};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("rbind", {shoot, DOWN})};
     auto const x3{buildConnection("compose", {x2, center})};
     auto const x4{buildConnection("fork", {recolor, color, x3})};
-    auto const x5{buildConnection("mapply", {x4, x1})};
+    auto const mapplySignature = aicpp::DslType::function(
+        {aicpp::makeDslType<aicpp::FunctionValue>(), aicpp::makeDslType<hodel::Objects>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const x5{buildFunctionConnection("mapply", mapplySignature, {x4, x1})};
     auto const O{buildConnection("paint", {I, x5})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -2691,7 +2714,7 @@ TEST(ArcDslTest, d037b0a7)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, d0f5fe59)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3248,8 +3271,14 @@ TEST(ArcDslTest, 1f876c06)
     auto const TWO{buildConnection("TWO", {})};
     auto const color{buildConnection("color", {})};
     auto const connect{buildConnection("connect", {})};
-    auto const first{buildConnection("first", {})};
-    auto const last{buildConnection("last", {})};
+    auto const firstSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Objects>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const first{buildFunctionConnection("first", firstSignature)};
+    auto const lastSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Objects>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const last{buildFunctionConnection("last", lastSignature)};
     auto const recolor{buildConnection("recolor", {})};
     auto const x1{buildConnection("fgpartition", {I})};
     auto const x2{buildConnection("compose", {last, first})};
@@ -3437,7 +3466,7 @@ TEST(ArcDslTest, b6afb2da)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, b9b7f026)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -3477,9 +3506,11 @@ TEST(ArcDslTest, b9b7f026)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, ba97ae07)
 {
+    //C++ exception with description "No function overload found for neuron: apply ((Object) -> Integer, (Objects) -> ObjectVector) -> ?" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(4);
     outputs.reserve(4);
@@ -3939,6 +3970,8 @@ TEST(ArcDslTest, 017c7c7b)
 /*
 TEST(ArcDslTest, 363442ee)
 {
+    //C++ exception with description "Fixed argument type mismatch" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -3967,7 +4000,10 @@ TEST(ArcDslTest, 363442ee)
     auto const x3{buildConnection("asobject", {x2})};
     auto const x4{buildConnection("lbind", {shift, x3})};
     auto const x5{buildConnection("compose", {x4, decrement})};
-    auto const x6{buildConnection("mapply", {x5, x1})};
+    auto const mapplySignature = aicpp::DslType::function(
+        {aicpp::makeDslType<aicpp::FunctionValue>(), aicpp::makeDslType<hodel::Objects>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const x6{buildFunctionConnection("mapply", mapplySignature, {x5, x1})};
     auto const O{buildConnection("paint", {I, x6})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -4025,9 +4061,18 @@ TEST(ArcDslTest, e9614598)
     Connection const I{&iNeuron, {}};
     auto const ONE{buildConnection("ONE", {})};
     auto const THREE{buildConnection("THREE", {})};
-    auto const add{buildConnection("add", {})};
-    auto const first{buildConnection("first", {})};
-    auto const last{buildConnection("last", {})};
+    auto const addSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::IntegerTuple>(), aicpp::makeDslType<hodel::IntegerTuple>()},
+        aicpp::makeDslType<hodel::IntegerTuple>());
+    auto const add{buildFunctionConnection("add", addSignature)};
+    auto const firstSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::IntegerTuple>());
+    auto const first{buildFunctionConnection("first", firstSignature)};
+    auto const lastSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::IntegerTuple>());
+    auto const last{buildFunctionConnection("last", lastSignature)};
     auto const x1{buildConnection("ofcolor", {I, ONE})};
     auto const x2{buildConnection("fork", {add, first, last})};
     auto const x3{buildConnection("lbind", {x2, x1})};
