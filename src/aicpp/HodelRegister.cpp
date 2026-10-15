@@ -1446,6 +1446,21 @@ namespace aicpp
     // Original declaration: line 703
     aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_leastcommon_477{
         "leastcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::leastcommon)};
+    // Original declaration: line 704
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_sizefilter_478{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    // Original declaration: line 705
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&> neuron_sizefilter_479{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    // Original declaration: line 706
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&> neuron_sizefilter_480{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    // Original declaration: line 707
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neuron_sizefilter_481{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    // Original declaration: line 708
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&> neuron_sizefilter_482{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
     static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
     static FunctionAdapterNeuron adapter_add_30{&neuron_add_30};
@@ -1896,6 +1911,11 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_leastcommon_475{&neuron_leastcommon_475};
     static FunctionAdapterNeuron adapter_leastcommon_476{&neuron_leastcommon_476};
     static FunctionAdapterNeuron adapter_leastcommon_477{&neuron_leastcommon_477};
+    static FunctionAdapterNeuron adapter_sizefilter_478{&neuron_sizefilter_478};
+    static FunctionAdapterNeuron adapter_sizefilter_479{&neuron_sizefilter_479};
+    static FunctionAdapterNeuron adapter_sizefilter_480{&neuron_sizefilter_480};
+    static FunctionAdapterNeuron adapter_sizefilter_481{&neuron_sizefilter_481};
+    static FunctionAdapterNeuron adapter_sizefilter_482{&neuron_sizefilter_482};
 
     NeuronRegistry makeNeuronRegistry()
     {
@@ -2828,6 +2848,16 @@ namespace aicpp
         registry.emplace("adapter_leastcommon_476", &adapter_leastcommon_476);
         registry.emplace("neuron_leastcommon_477", &neuron_leastcommon_477);
         registry.emplace("adapter_leastcommon_477", &adapter_leastcommon_477);
+        registry.emplace("neuron_sizefilter_478", &neuron_sizefilter_478);
+        registry.emplace("adapter_sizefilter_478", &adapter_sizefilter_478);
+        registry.emplace("neuron_sizefilter_479", &neuron_sizefilter_479);
+        registry.emplace("adapter_sizefilter_479", &adapter_sizefilter_479);
+        registry.emplace("neuron_sizefilter_480", &neuron_sizefilter_480);
+        registry.emplace("adapter_sizefilter_480", &adapter_sizefilter_480);
+        registry.emplace("neuron_sizefilter_481", &neuron_sizefilter_481);
+        registry.emplace("adapter_sizefilter_481", &adapter_sizefilter_481);
+        registry.emplace("neuron_sizefilter_482", &neuron_sizefilter_482);
+        registry.emplace("adapter_sizefilter_482", &adapter_sizefilter_482);
 
         auto polymorphicRegistry = makePolymorphicNeuronRegistry();
         registry.insert(
