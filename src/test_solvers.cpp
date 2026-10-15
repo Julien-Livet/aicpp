@@ -1234,7 +1234,7 @@ TEST(ArcDslTest, 662c240a)
     auto const identitySignature = aicpp::DslType::function(
         {aicpp::makeDslType<hodel::Grid>()},
         aicpp::makeDslType<hodel::Grid>());
-    auto const identity{buildFunctionConnection("identity", dmirrorSignature)};
+    auto const identity{buildFunctionConnection("identity", identitySignature)};
     auto const x1{buildConnection("vsplit", {I, THREE})};
     auto const x2{buildConnection("fork", {equality, dmirror, identity})};
     auto const x3{buildConnection("compose", {flip, x2})};
@@ -1726,7 +1726,10 @@ TEST(ArcDslTest, 1e0a9b12)
 
     aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
-    auto const identity{buildConnection("identity", {})};
+    auto const identitySignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Grid>()},
+        aicpp::makeDslType<hodel::Grid>());
+    auto const identity{buildFunctionConnection("identity", identitySignature)};
     auto const order{buildConnection("order", {})};
     auto const x1{buildConnection("rot270", {I})};
     auto const x2{buildConnection("rbind", {order, identity})};
@@ -3735,8 +3738,14 @@ TEST(ArcDslTest, 08ed6ac7)
     auto const NEG_ONE{buildConnection("NEG_ONE", {})};
     auto const T{buildConnection("T", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const height{buildConnection("height", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const heightSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    auto const height{buildFunctionConnection("height", heightSignature)};
+    auto const recolorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Integer>(), aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("totuple", {x1})};
     auto const x3{buildConnection("order", {x1, height})};
