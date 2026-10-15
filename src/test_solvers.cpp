@@ -5825,7 +5825,7 @@ TEST(ArcDslTest, a5f85a15)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 3ac3eb23)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -5843,13 +5843,13 @@ TEST(ArcDslTest, 3ac3eb23)
     auto const THREE{buildConnection("THREE", {})};
     auto const color{buildConnection("color", {})};
     auto const firstSignature = DslType::function(
-        {makeDslType<hodel::Objects>()},
-        makeDslType<hodel::Object>());
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Cell>());
     auto const first{buildFunctionConnection("first", firstSignature)};
     auto const ineighbors{buildConnection("ineighbors", {})};
     auto const lastSignature = DslType::function(
-        {makeDslType<hodel::Objects>()},
-        makeDslType<hodel::Object>());
+        {makeDslType<hodel::Cell>()},
+        makeDslType<hodel::IntegerTuple>());
     auto const last{buildFunctionConnection("last", lastSignature)};
     auto const recolorSignature = DslType::function(
         {makeDslType<hodel::Integer>(), makeDslType<hodel::Indices>()},
@@ -5858,7 +5858,10 @@ TEST(ArcDslTest, 3ac3eb23)
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("chain", {ineighbors, last, first})};
     auto const x3{buildConnection("fork", {recolor, color, x2})};
-    auto const x4{buildConnection("mapply", {x3, x1})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x4{buildFunctionConnection("mapply", mapplySignature, {x3, x1})};
     auto const x5{buildConnection("paint", {I, x4})};
     auto const x6{buildConnection("vsplit", {x5, THREE})};
     auto const x7{buildConnection("first", {x6})};
@@ -5871,7 +5874,7 @@ TEST(ArcDslTest, 3ac3eb23)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 444801d8)
 {
     std::vector<hodel::Grid> inputs, outputs;
