@@ -4668,3 +4668,68 @@ hodel::Grid hodel::leastcommon(GridVector const& container)
 
     return result;
 }
+
+hodel::Grid hodel::sizefilter(Grid const& container, Integer const& n)
+{
+    std::remove_cvref_t<decltype(container)> result;
+
+    for (auto const& v : container)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
+
+hodel::GridVector hodel::sizefilter(GridVector const& container, Integer const& n)
+{
+    std::remove_cvref_t<decltype(container)> result;
+
+    for (auto const& v : container)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
+
+hodel::ObjectVector hodel::sizefilter(ObjectVector const& container, Integer const& n)
+{
+    std::remove_cvref_t<decltype(container)> result;
+
+    for (auto const& v : container)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
+
+hodel::Objects hodel::sizefilter(Objects const& container, Integer const& n)
+{
+    std::remove_cvref_t<decltype(container)> result;
+
+    for (auto const& v : container)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
+
+hodel::IndicesSet hodel::sizefilter(IndicesSet const& container, Integer const& n)
+{
+    std::remove_cvref_t<decltype(container)> result;
+
+    for (auto const& v : container)
+    {
+        if (v.size() == n)
+            result.insert(result.end(), v);
+    }
+
+    return result;
+}
