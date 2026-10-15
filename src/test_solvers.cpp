@@ -1778,7 +1778,7 @@ TEST(ArcDslTest, 0d3d703e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 3618c87e)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1808,7 +1808,7 @@ TEST(ArcDslTest, 3618c87e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 1c786137)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1840,7 +1840,7 @@ TEST(ArcDslTest, 1c786137)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 8efcae92)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1858,8 +1858,14 @@ TEST(ArcDslTest, 8efcae92)
     auto const F{buildConnection("F", {})};
     auto const ONE{buildConnection("ONE", {})};
     auto const T{buildConnection("T", {})};
-    auto const delta{buildConnection("delta", {})};
-    auto const size{buildConnection("size", {})};
+    auto const deltaSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const delta{buildFunctionConnection("delta", deltaSignature)};
+    auto const sizeSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Integer>());
+    auto const size{buildFunctionConnection("size", sizeSignature)};
     auto const x1{buildConnection("objects", {I, T, F, F})};
     auto const x2{buildConnection("colorfilter", {x1, ONE})};
     auto const x3{buildConnection("compose", {size, delta})};
@@ -1872,7 +1878,7 @@ TEST(ArcDslTest, 8efcae92)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 445eab21)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1973,7 +1979,7 @@ TEST(ArcDslTest, 2013d3e2)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 41e4d17e)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1989,8 +1995,14 @@ TEST(ArcDslTest, 41e4d17e)
     auto const F{buildConnection("F", {})};
     auto const SIX{buildConnection("SIX", {})};
     auto const T{buildConnection("T", {})};
-    auto const center{buildConnection("center", {})};
-    auto const combine{buildConnection("combine", {})};
+    auto const centerSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const combineSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>(), aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const combine{buildFunctionConnection("combine", combineSignature)};
     auto const hfrontier{buildConnection("hfrontier", {})};
     auto const vfrontier{buildConnection("vfrontier", {})};
     auto const x1{buildConnection("objects", {I, T, F, T})};
@@ -2005,7 +2017,7 @@ TEST(ArcDslTest, 41e4d17e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 9565186b)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2041,7 +2053,7 @@ TEST(ArcDslTest, 9565186b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, aedd82e4)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2091,8 +2103,14 @@ TEST(ArcDslTest, bb43febb)
     auto const FIVE{buildConnection("FIVE", {})};
     auto const T{buildConnection("T", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const backdrop{buildConnection("backdrop", {})};
-    auto const inbox{buildConnection("inbox", {})};
+    auto const backdropSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const backdrop{buildFunctionConnection("backdrop", backdropSignature)};
+    auto const inboxSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const inbox{buildFunctionConnection("inbox", inboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, F})};
     auto const x2{buildConnection("colorfilter", {x1, FIVE})};
     auto const x3{buildConnection("compose", {backdrop, inbox})};
@@ -2105,7 +2123,7 @@ TEST(ArcDslTest, bb43febb)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, e98196ab)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2221,10 +2239,22 @@ TEST(ArcDslTest, 22eb0ac0)
 
     aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
     Connection const I{&iNeuron, {}};
-    auto const backdrop{buildConnection("backdrop", {})};
-    auto const color{buildConnection("color", {})};
-    auto const hline{buildConnection("hline", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const backdropSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const backdrop{buildFunctionConnection("backdrop", backdropSignature)};
+    auto const colorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
+    auto const hlineSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Boolean>());
+    auto const hline{buildFunctionConnection("hline", hlineSignature)};
+    auto const recolorSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Integer>(), aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const x1{buildConnection("fgpartition", {I})};
     auto const x2{buildConnection("fork", {recolor, color, backdrop})};
     auto const x3{buildConnection("apply", {x2, x1})};
@@ -2397,7 +2427,7 @@ TEST(ArcDslTest, 0ca9ddb6)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 543a7ed5)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -2415,8 +2445,14 @@ TEST(ArcDslTest, 543a7ed5)
     auto const SIX{buildConnection("SIX", {})};
     auto const T{buildConnection("T", {})};
     auto const THREE{buildConnection("THREE", {})};
-    auto const delta{buildConnection("delta", {})};
-    auto const outbox{buildConnection("outbox", {})};
+    auto const deltaSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const delta{buildFunctionConnection("delta", deltaSignature)};
+    auto const outboxSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const outbox{buildFunctionConnection("outbox", outboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("colorfilter", {x1, SIX})};
     auto const x3{buildConnection("mapply", {outbox, x2})};
@@ -2430,7 +2466,7 @@ TEST(ArcDslTest, 543a7ed5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 0520fde7)
 {
     std::vector<hodel::Grid> inputs, outputs;
