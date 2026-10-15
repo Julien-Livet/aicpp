@@ -1017,7 +1017,7 @@ TEST(ConnectionTest, ReplaceNeuronInSubExpressionOnly)
 
     EXPECT_EQ(expression.neuron(), &increment);
 
-    auto const& inputs = expression.inputs();
+    auto const inputs = expression.inputs();
     ASSERT_EQ(inputs.size(), 1);
     ASSERT_EQ(inputs[0].type(), typeid(aicpp::Connection));
 
@@ -2616,7 +2616,7 @@ TEST(ConnectionTest, ReplaceNeuronInsidePolymorphicComposition)
     EXPECT_EQ(expression.neuron(), &compose);
     EXPECT_EQ(expression.signature(), originalSignature);
 
-    auto const& inputs = expression.inputs();
+    auto const inputs = expression.inputs();
 
     ASSERT_EQ(inputs.size(), 2);
 
