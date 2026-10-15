@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <gtest/gtest.h>
 
 #include "aicpp/Connection.h"
@@ -1594,11 +1596,21 @@ TEST(ArcDslTest, ce22a75a)
     auto const F{buildConnection("F", {})};
     auto const ONE{buildConnection("ONE", {})};
     auto const T{buildConnection("T", {})};
-    auto const backdrop{buildConnection("backdrop", {})};
-    auto const outbox{buildConnection("outbox", {})};
+    auto const backdropSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Indices>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const backdrop{buildFunctionConnection("backdrop", backdropSignature)};
+    auto const outboxSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const outbox{buildFunctionConnection("outbox", outboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("apply", {outbox, x1})};
-    auto const x3{buildConnection("mapply", {backdrop, x2})};
+    std::cout << "x2 signature: " << x2.signature().string() << '\n';
+    auto const mapplySignature = aicpp::DslType::function(
+        {aicpp::makeDslType<aicpp::FunctionValue>(), aicpp::makeDslType<hodel::IndicesVector>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const x3{buildFunctionConnection("mapply", mapplySignature, {backdrop, x2})};
     auto const O{buildConnection("fill", {I, ONE, x3})};
 
     for (size_t i = 0; i < 2; ++i)
@@ -1607,7 +1619,7 @@ TEST(ArcDslTest, ce22a75a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, dc1df850)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -1626,7 +1638,10 @@ TEST(ArcDslTest, dc1df850)
     auto const ONE{buildConnection("ONE", {})};
     auto const T{buildConnection("T", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const outbox{buildConnection("outbox", {})};
+    auto const outboxSignature = aicpp::DslType::function(
+        {aicpp::makeDslType<hodel::Object>()},
+        aicpp::makeDslType<hodel::Indices>());
+    auto const outbox{buildFunctionConnection("outbox", outboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("colorfilter", {x1, TWO})};
     auto const x3{buildConnection("mapply", {outbox, x2})};
@@ -1638,7 +1653,7 @@ TEST(ArcDslTest, dc1df850)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, f25fbde4)
 {
     std::vector<hodel::Grid> inputs, outputs;
