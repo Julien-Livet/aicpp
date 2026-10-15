@@ -683,6 +683,7 @@ namespace hodel
     GridVector mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
     IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
+    Object mapply_(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply(aicpp::FunctionValue const& function, ObjectVector const& container); //apply and merge
     Objects mapply(aicpp::FunctionValue const& function, ObjectsVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
