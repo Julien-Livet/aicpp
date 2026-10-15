@@ -707,6 +707,7 @@ namespace hodel
     ObjectVector sizefilter(ObjectVector const& container, Integer const& n); //filter items by size
     Objects sizefilter(Objects const& container, Integer const& n); //filter items by size
     IndicesSet sizefilter(IndicesSet const& container, Integer const& n); //filter items by size
+    Indices asset(IntegerTuple const& a, IntegerTuple const& b); //constructs a set
 }
 
 #endif // AICPP_HODEL_H
