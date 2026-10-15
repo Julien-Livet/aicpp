@@ -44,20 +44,18 @@ namespace aicpp
                 return type_;
             }
 
-            Inputs const& inputs() const
+            Inputs inputs() const
             {
                 if (!isFunction())
-                    throw std::logic_error(
-                        "A native type has no function inputs");
+                    return {};
 
                 return inputs_;
             }
 
-            DslType const& output() const
+            DslType output() const
             {
                 if (!isFunction())
-                    throw std::logic_error(
-                        "A native type has no function output");
+                    return DslType{type_};
 
                 return *output_;
             }
