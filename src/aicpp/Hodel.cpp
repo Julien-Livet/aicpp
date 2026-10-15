@@ -1463,6 +1463,9 @@ hodel::BooleanVector hodel::branch(Boolean const& condition, BooleanVector const
 
 aicpp::FunctionValue hodel::branch(Boolean const& condition, aicpp::FunctionValue const& a, aicpp::FunctionValue const& b)
 {
+    if (a.connection.signature() != b.connection.signature())
+        throw std::logic_error{"branch"};
+
     return condition ? a : b;
 }
 
