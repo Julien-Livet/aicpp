@@ -2451,10 +2451,10 @@ hodel::Indices hodel::outbox(Object const& patch)
 
 hodel::Indices hodel::outbox(Indices const& patch)
 {
-    auto const ai = uppermost(patch) + 1;
-    auto const aj = leftmost(patch) + 1;
-    auto const bi = lowermost(patch) - 1;
-    auto const bj = rightmost(patch) - 1;
+    auto const ai = uppermost(patch) - 1;
+    auto const aj = leftmost(patch) - 1;
+    auto const bi = lowermost(patch) + 1;
+    auto const bj = rightmost(patch) + 1;
 
     return rectangleOutline(
         std::min(ai, bi),
