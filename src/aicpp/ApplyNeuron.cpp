@@ -156,6 +156,12 @@ namespace
                 hodel::GridVector,
                 hodel::GridVector>(
                     makeDslType<hodel::GridVectorVector>()),
+
+            makeApplyRule<
+                hodel::Object,
+                hodel::Object,
+                hodel::Objects>(
+                    makeDslType<hodel::Objects>()),
         };
 
         return rules;
