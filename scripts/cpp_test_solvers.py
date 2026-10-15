@@ -26,7 +26,7 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
         content += "    outputs.emplace_back(hodel::Grid" + str(o).replace("[", "{").replace("]", "}") + ");\n"
 
     content += """
-    aicpp::Neuron<hodel::Grid> iNeuron{"I", [] () -> hodel::Grid { return hodel::Grid{}; }};
+    aicpp::Neuron<hodel::Grid> iNeuron{"I", [&inputs] () -> hodel::Grid { return inputs[0]; }};
 """
 
     content += "    Connection const I{&iNeuron, {}};\n"
@@ -86,7 +86,7 @@ def processTask(task: str, data: dict, lines: str, functions: set) -> str:
     content += f"""
     for (size_t i = 0; i < {len(trainPairs)}; ++i)\n"""
     content += """    {
-        iNeuron.function() = [inputs, i] () -> hodel::Grid { return inputs[i]; };
+        iNeuron.function() = [&inputs, i] () -> hodel::Grid { return inputs[i]; };
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 """
