@@ -9189,7 +9189,7 @@ TEST(ArcDslTest, 9edfc990)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, a65b410d)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -9218,8 +9218,11 @@ TEST(ArcDslTest, a65b410d)
     auto const x5{buildConnection("underfill", {I, THREE, x3})};
     auto const x6{buildConnection("underfill", {x5, ONE, x4})};
     auto const x7{buildConnection("rbind", {shoot, LEFT})};
-    auto const x8{buildConnection("mapply", {x7, x3})};
-    auto const x9{buildConnection("mapply", {x7, x4})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const x8{buildFunctionConnection("mapply", mapplySignature, {x7, x3})};
+    auto const x9{buildFunctionConnection("mapply", mapplySignature, {x7, x4})};
     auto const x10{buildConnection("underfill", {x6, ONE, x9})};
     auto const O{buildConnection("underfill", {x10, THREE, x8})};
 
@@ -9229,7 +9232,7 @@ TEST(ArcDslTest, a65b410d)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 7447852a)
 {
     std::vector<hodel::Grid> inputs, outputs;
