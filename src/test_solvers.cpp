@@ -7258,7 +7258,7 @@ TEST(ArcDslTest, 88a62173)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 890034e9)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -7275,7 +7275,10 @@ TEST(ArcDslTest, 890034e9)
     Connection const I{&iNeuron, {}};
     auto const NEG_UNITY{buildConnection("NEG_UNITY", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const shift{buildConnection("shift", {})};
+    auto const shiftSignature = DslType::function(
+        {makeDslType<hodel::Indices>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const shift{buildFunctionConnection("shift", shiftSignature)};
     auto const x1{buildConnection("leastcolor", {I})};
     auto const x2{buildConnection("ofcolor", {I, x1})};
     auto const x3{buildConnection("inbox", {x2})};
@@ -7284,7 +7287,10 @@ TEST(ArcDslTest, 890034e9)
     auto const x6{buildConnection("normalize", {x2})};
     auto const x7{buildConnection("shift", {x6, NEG_UNITY})};
     auto const x8{buildConnection("lbind", {shift, x7})};
-    auto const x9{buildConnection("mapply", {x8, x5})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const x9{buildFunctionConnection("mapply", mapplySignature, {x8, x5})};
     auto const O{buildConnection("fill", {I, x1, x9})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -7293,7 +7299,7 @@ TEST(ArcDslTest, 890034e9)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 99b1bc43)
 {
     std::vector<hodel::Grid> inputs, outputs;
