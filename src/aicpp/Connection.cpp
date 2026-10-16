@@ -46,12 +46,9 @@ aicpp::NeuronBase const* aicpp::findNeuron(aicpp::DslType const& expected)
     return it->second;
 };
 
-aicpp::Connection aicpp::buildFunctionConnection(
-    std::string const& name,
-    DslType const& expectedSignature)
+aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslType const& expectedSignature)
 {
-    if (expectedSignature.isFunction()
-        && expectedSignature.inputs().size() == 1)
+    if (expectedSignature.isFunction() && expectedSignature.inputs().size() == 1)
     {
         for (auto const& [_, neuron] : registry)
         {
@@ -93,21 +90,15 @@ aicpp::Connection aicpp::buildFunctionConnection(
         return Connection{neuron, inputs};
     }
 
-    throw std::runtime_error(
-        "No function overload found for neuron: " + name + " " + expectedSignature.string());
+    throw std::runtime_error("buildFunctionConnection: No function overload found for neuron: " + name + " " + expectedSignature.string());
 }
 
-aicpp::Connection aicpp::buildConnection(
-    std::string const& name,
-    std::vector<std::any> const& args)
+aicpp::Connection aicpp::buildConnection(std::string const& name, std::vector<std::any> const& args)
 {
     for (auto const& arg : args)
     {
         if (arg.type() != typeid(aicpp::Connection))
-        {
-            throw std::invalid_argument(
-                "Arguments must be connections");
-        }
+            throw std::invalid_argument("Arguments must be connections");
     }
 
     for (auto const& [_, neuron] : registry)
@@ -157,9 +148,7 @@ aicpp::Connection aicpp::buildConnection(
             {
                 auto const actualType = connection.valueType();
 
-                compatible =
-                    !actualType.isFunction()
-                    && actualType.nativeType() == expectedType;
+                compatible = !actualType.isFunction() && actualType.nativeType() == expectedType;
             }
 
             if (!compatible)
@@ -170,13 +159,10 @@ aicpp::Connection aicpp::buildConnection(
             return aicpp::Connection{neuron, args};
     }
 
-    throw std::runtime_error("No function overload found for neuron: " + name + " " + signature(args));
+    throw std::runtime_error("buildConnection: No function overload found for neuron: " + name + " " + signature(args));
 }
 
-Connection::Connection(
-    NeuronBase const* neuron,
-    std::vector<std::any> const& inputs)
-    : neuron_{neuron}, inputs_(inputs)
+Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs) : neuron_{neuron}, inputs_(inputs)
 {
     if (!neuron_->isPolymorphic())
     {
@@ -909,10 +895,7 @@ DslType Connection::remainingSignature() const
         nativeSignature.output());
 }
 
-aicpp::Connection aicpp::buildFunctionConnection(
-    std::string const& name,
-    DslType const& expectedSignature,
-    std::vector<std::any> const& args)
+aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslType const& expectedSignature, std::vector<std::any> const& args)
 {
     if (!expectedSignature.isFunction())
         throw std::invalid_argument("Expected signature must be a function");
@@ -953,7 +936,7 @@ aicpp::Connection aicpp::buildFunctionConnection(
                         auto const actualType = connection.valueType();
 
                         if (actualType.isFunction() || actualType.nativeType() != inputTypes[i])
-                            throw std::invalid_argument("Fixed argument type mismatch " + type(actualType.nativeType()) + " " + type(inputTypes[i]));
+                            throw std::invalid_argument("Connection argument: Fixed argument type mismatch " + type(actualType.nativeType()) + " " + type(inputTypes[i]));
                     }
 
                     inputs.emplace_back(connection);
@@ -961,7 +944,7 @@ aicpp::Connection aicpp::buildFunctionConnection(
                 else
                 {
                     if (argument.type() != inputTypes[i])
-                        throw std::invalid_argument("Fixed argument type mismatch " + type(argument.type()) + " " + type(inputTypes[i]));
+                        throw std::invalid_argument("Other argument: Fixed argument type mismatch " + type(argument.type()) + " " + type(inputTypes[i]));
 
                     inputs.emplace_back(argument);
                 }
@@ -973,5 +956,5 @@ aicpp::Connection aicpp::buildFunctionConnection(
         return Connection{neuron, inputs};
     }
 
-    throw std::runtime_error("No function overload found for neuron: " + name + " " + expectedSignature.string());
+    throw std::runtime_error("buildFunctionConnection: No function overload found for neuron: " + name + " " + expectedSignature.string());
 }
