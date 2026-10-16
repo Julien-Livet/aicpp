@@ -116,6 +116,12 @@ namespace
                     makeDslType<hodel::BooleanVector>()),
 
             makeApplyRule<
+                hodel::Grid,
+                hodel::Indices,
+                hodel::GridVector>(
+                    makeDslType<hodel::Indices>()),
+
+            makeApplyRule<
                 hodel::Object,
                 hodel::Boolean,
                 hodel::ObjectVector>(
