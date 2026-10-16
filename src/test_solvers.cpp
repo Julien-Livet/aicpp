@@ -947,7 +947,6 @@ TEST(ArcDslTest, 7b7f7511)
     auto const lefthalf{buildConnection("lefthalf", {})};
     auto const tophalf{buildConnection("tophalf", {})};
     auto const x1{buildConnection("portrait", {I})};
-    
     auto const branchSignature = DslType::function(
     {
         makeDslType<hodel::Boolean>(),
@@ -955,16 +954,7 @@ TEST(ArcDslTest, 7b7f7511)
         makeDslType<FunctionValue>()
     },
     makeDslType<FunctionValue>());
-
-    auto const x2 = buildFunctionConnection(
-        "branch",
-        branchSignature,
-        {
-            x1,
-            tophalf,
-            lefthalf
-        });
-
+    auto const x2{buildFunctionConnection("branch", branchSignature, {x1, tophalf, lefthalf})};
     auto const O{buildConnection("lbind", {x2, I})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -10473,7 +10463,7 @@ TEST(ArcDslTest, 1f0c79e5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 56dc2b01)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -10494,8 +10484,14 @@ TEST(ArcDslTest, 56dc2b01)
     auto const THREE{buildConnection("THREE", {})};
     auto const TWO{buildConnection("TWO", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const height{buildConnection("height", {})};
-    auto const width{buildConnection("width", {})};
+    auto const heightSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const height{buildFunctionConnection("height", heightSignature)};
+    auto const widthSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const width{buildFunctionConnection("width", widthSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("colorfilter", {x1, THREE})};
     auto const x3{buildConnection("first", {x2})};
@@ -10503,11 +10499,21 @@ TEST(ArcDslTest, 56dc2b01)
     auto const x5{buildConnection("gravitate", {x3, x4})};
     auto const x6{buildConnection("first", {x5})};
     auto const x7{buildConnection("equality", {x6, ZERO})};
-    auto const x8{buildConnection("branch", {x7, width, height})};
+    auto const branchSignature = DslType::function(
+    {
+        makeDslType<hodel::Boolean>(),
+        makeDslType<FunctionValue>(),
+        makeDslType<FunctionValue>()
+    },
+    makeDslType<FunctionValue>());
+    auto const x8{buildFunctionConnection("branch", branchSignature, {x7, width, height})};
     auto const x9{buildConnection("lbind", {x8, x3})};
     auto const x10{buildConnection("gravitate", {x4, x3})};
     auto const x11{buildConnection("sign", {x10})};
-    auto const x12{buildConnection("multiply", {x11, x9})};
+    auto const multiplySignature = DslType::function(
+        {makeDslType<hodel::IntegerTuple>(), makeDslType<hodel::Integer>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const x12{buildFunctionConnection("multiply", multiplySignature, {x11, x9})};
     auto const x13{buildConnection("crement", {x12})};
     auto const x14{buildConnection("recolor", {EIGHT, x4})};
     auto const x15{buildConnection("shift", {x14, x13})};
@@ -10520,7 +10526,7 @@ TEST(ArcDslTest, 56dc2b01)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, e48d4e1a)
 {
     std::vector<hodel::Grid> inputs, outputs;
