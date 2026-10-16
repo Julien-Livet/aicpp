@@ -6953,7 +6953,7 @@ TEST(ArcDslTest, 3de23699)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 54d9e175)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -6980,15 +6980,30 @@ TEST(ArcDslTest, 54d9e175)
     auto const T{buildConnection("T", {})};
     auto const THREE{buildConnection("THREE", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const center{buildConnection("center", {})};
-    auto const color{buildConnection("color", {})};
-    auto const neighbors{buildConnection("neighbors", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const centerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const colorSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
+    auto const neighborsSignature = DslType::function(
+        {makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const neighbors{buildFunctionConnection("neighbors", neighborsSignature)};
+    auto const recolorSignature = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("sizefilter", {x1, ONE})};
     auto const x3{buildConnection("compose", {neighbors, center})};
     auto const x4{buildConnection("fork", {recolor, color, x3})};
-    auto const x5{buildConnection("mapply", {x4, x2})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x5{buildFunctionConnection("mapply", mapplySignature, {x4, x2})};
     auto const x6{buildConnection("paint", {I, x5})};
     auto const x7{buildConnection("replace", {x6, ONE, SIX})};
     auto const x8{buildConnection("replace", {x7, TWO, SEVEN})};
@@ -7001,7 +7016,7 @@ TEST(ArcDslTest, 54d9e175)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 5ad4f10b)
 {
     std::vector<hodel::Grid> inputs, outputs;
