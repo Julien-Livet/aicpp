@@ -8565,7 +8565,7 @@ TEST(ArcDslTest, a85d4709)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, feca6190)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -8589,9 +8589,18 @@ TEST(ArcDslTest, feca6190)
     auto const T{buildConnection("T", {})};
     auto const UNITY{buildConnection("UNITY", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const center{buildConnection("center", {})};
-    auto const color{buildConnection("color", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const centerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const colorSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
+    auto const recolorSignature = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const shoot{buildConnection("shoot", {})};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("size", {x1})};
@@ -8601,7 +8610,10 @@ TEST(ArcDslTest, feca6190)
     auto const x6{buildConnection("rbind", {shoot, UNITY})};
     auto const x7{buildConnection("compose", {x6, center})};
     auto const x8{buildConnection("fork", {recolor, color, x7})};
-    auto const x9{buildConnection("mapply", {x8, x1})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x9{buildFunctionConnection("mapply", mapplySignature, {x8, x1})};
     auto const x10{buildConnection("paint", {x5, x9})};
     auto const O{buildConnection("hmirror", {x10})};
 
@@ -8611,7 +8623,7 @@ TEST(ArcDslTest, feca6190)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, a68b268e)
 {
     std::vector<hodel::Grid> inputs, outputs;
