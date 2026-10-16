@@ -14200,11 +14200,9 @@ TEST(ArcDslTest, 98cf29f8)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 469497ad)
 {
-    //argmax, argmin, valmin, valmax should also manage IntegerTuple and not only Integer
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -14257,7 +14255,7 @@ TEST(ArcDslTest, 469497ad)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 39e1d7f9)
 {
     std::vector<hodel::Grid> inputs, outputs;
