@@ -15764,7 +15764,7 @@ TEST(ArcDslTest, b527c5c6)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 150deff5)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -15786,12 +15786,18 @@ TEST(ArcDslTest, 150deff5)
     auto const TWO{buildConnection("TWO", {})};
     auto const TWO_BY_TWO{buildConnection("TWO_BY_TWO", {})};
     auto const UNITY{buildConnection("UNITY", {})};
-    auto const shift{buildConnection("shift", {})};
+    auto const shiftSignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Object>());
+    auto const shift{buildFunctionConnection("shift", shiftSignature)};
     auto const x1{buildConnection("canvas", {FIVE, TWO_BY_TWO})};
     auto const x2{buildConnection("asobject", {x1})};
     auto const x3{buildConnection("occurrences", {I, x2})};
     auto const x4{buildConnection("lbind", {shift, x2})};
-    auto const x5{buildConnection("mapply", {x4, x3})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const x5{buildFunctionConnection("mapply", mapplySignature, {x4, x3})};
     auto const x6{buildConnection("fill", {I, EIGHT, x5})};
     auto const x7{buildConnection("canvas", {FIVE, UNITY})};
     auto const x8{buildConnection("astuple", {TWO, ONE})};
@@ -15800,32 +15806,32 @@ TEST(ArcDslTest, 150deff5)
     auto const x11{buildConnection("asobject", {x10})};
     auto const x12{buildConnection("occurrences", {x6, x11})};
     auto const x13{buildConnection("lbind", {shift, x11})};
-    auto const x14{buildConnection("mapply", {x13, x12})};
+    auto const x14{buildFunctionConnection("mapply", mapplySignature, {x13, x12})};
     auto const x15{buildConnection("fill", {x6, TWO, x14})};
     auto const x16{buildConnection("astuple", {ONE, THREE})};
     auto const x17{buildConnection("canvas", {FIVE, x16})};
     auto const x18{buildConnection("asobject", {x17})};
     auto const x19{buildConnection("occurrences", {x15, x18})};
     auto const x20{buildConnection("lbind", {shift, x18})};
-    auto const x21{buildConnection("mapply", {x20, x19})};
+    auto const x21{buildFunctionConnection("mapply", mapplySignature, {x20, x19})};
     auto const x22{buildConnection("fill", {x15, TWO, x21})};
     auto const x23{buildConnection("hmirror", {x10})};
     auto const x24{buildConnection("asobject", {x23})};
     auto const x25{buildConnection("occurrences", {x22, x24})};
     auto const x26{buildConnection("lbind", {shift, x24})};
-    auto const x27{buildConnection("mapply", {x26, x25})};
+    auto const x27{buildFunctionConnection("mapply", mapplySignature, {x26, x25})};
     auto const x28{buildConnection("fill", {x22, TWO, x27})};
     auto const x29{buildConnection("dmirror", {x10})};
     auto const x30{buildConnection("asobject", {x29})};
     auto const x31{buildConnection("occurrences", {x28, x30})};
     auto const x32{buildConnection("lbind", {shift, x30})};
-    auto const x33{buildConnection("mapply", {x32, x31})};
+    auto const x33{buildFunctionConnection("mapply", mapplySignature, {x32, x31})};
     auto const x34{buildConnection("fill", {x28, TWO, x33})};
     auto const x35{buildConnection("vmirror", {x29})};
     auto const x36{buildConnection("asobject", {x35})};
     auto const x37{buildConnection("occurrences", {x34, x36})};
     auto const x38{buildConnection("lbind", {shift, x36})};
-    auto const x39{buildConnection("mapply", {x38, x37})};
+    auto const x39{buildFunctionConnection("mapply", mapplySignature, {x38, x37})};
     auto const O{buildConnection("fill", {x34, TWO, x39})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -15834,7 +15840,7 @@ TEST(ArcDslTest, 150deff5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, b7249182)
 {
     std::vector<hodel::Grid> inputs, outputs;
