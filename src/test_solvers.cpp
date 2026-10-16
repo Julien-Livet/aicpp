@@ -7055,7 +7055,7 @@ TEST(ArcDslTest, 5ad4f10b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 623ea044)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -7081,11 +7081,14 @@ TEST(ArcDslTest, 623ea044)
     auto const x2{buildConnection("first", {x1})};
     auto const x3{buildConnection("center", {x2})};
     auto const x4{buildConnection("color", {x2})};
-    auto const x5{buildConnection("astuple", {UNITY, NEG_UNITY})};
-    auto const x6{buildConnection("astuple", {UP_RIGHT, DOWN_LEFT})};
+    auto const x5{buildConnection("asset", {UNITY, NEG_UNITY})};
+    auto const x6{buildConnection("asset", {UP_RIGHT, DOWN_LEFT})};
     auto const x7{buildConnection("combine", {x5, x6})};
     auto const x8{buildConnection("lbind", {shoot, x3})};
-    auto const x9{buildConnection("mapply", {x8, x7})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const x9{buildFunctionConnection("mapply", mapplySignature, {x8, x7})};
     auto const O{buildConnection("fill", {I, x4, x9})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -7094,7 +7097,7 @@ TEST(ArcDslTest, 623ea044)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 6b9890af)
 {
     std::vector<hodel::Grid> inputs, outputs;
