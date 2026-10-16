@@ -182,7 +182,13 @@ Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& in
                     auto const actualType = connection.valueType();
 
                     assert(!actualType.isFunction());
-                    assert(actualType.nativeType() == expectedType);
+
+                    auto t{actualType.nativeType()};
+
+                    if (t == typeid(FunctionValue))
+                        t = connection.output().type();
+                        
+                    assert(t == expectedType);
                 }
             }
             else if (inputs_[i].type() == typeid(std::type_index))
@@ -934,9 +940,13 @@ aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslTyp
                     else
                     {
                         auto const actualType = connection.valueType();
+                        auto t{actualType.nativeType()};
 
-                        if (actualType.isFunction() || actualType.nativeType() != inputTypes[i])
-                            throw std::invalid_argument("Connection argument: Fixed argument type mismatch " + type(actualType.nativeType()) + " " + type(inputTypes[i]));
+                        if (t == typeid(FunctionValue))
+                            t = connection.output().type();
+
+                        if (actualType.isFunction() || t != inputTypes[i])
+                            throw std::invalid_argument("Connection argument: Fixed argument type mismatch " + type(t) + " " + type(inputTypes[i]));
                     }
 
                     inputs.emplace_back(connection);
