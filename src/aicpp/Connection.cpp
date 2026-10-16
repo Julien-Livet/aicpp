@@ -14,7 +14,7 @@ using namespace aicpp;
 
 static auto const registry = aicpp::makeNeuronRegistry();
 
-std::string type(std::type_index const& t)
+std::string aicpp::type(std::type_index const& t)
 {
     try
     {
