@@ -8,6 +8,8 @@
 
 namespace aicpp
 {
+    std::string type(std::type_index const& t);
+
     class Connection
     {
         public:
