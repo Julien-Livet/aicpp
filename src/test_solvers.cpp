@@ -8755,7 +8755,7 @@ TEST(ArcDslTest, 913fb3ed)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 0962bcdd)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -8771,13 +8771,22 @@ TEST(ArcDslTest, 0962bcdd)
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const combine{buildConnection("combine", {})};
-    auto const connect{buildConnection("connect", {})};
+    auto const combineSignature = DslType::function(
+        {makeDslType<hodel::Indices>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const combine{buildFunctionConnection("combine", combineSignature)};
+    auto const connectSignature = DslType::function(
+        {makeDslType<hodel::IntegerTuple>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const connect{buildFunctionConnection("connect", connectSignature)};
     auto const dneighbors{buildConnection("dneighbors", {})};
-    auto const llcorner{buildConnection("llcorner", {})};
-    auto const lrcorner{buildConnection("lrcorner", {})};
-    auto const ulcorner{buildConnection("ulcorner", {})};
-    auto const urcorner{buildConnection("urcorner", {})};
+    auto const cornerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const llcorner{buildFunctionConnection("llcorner", cornerSignature)};
+    auto const lrcorner{buildFunctionConnection("lrcorner", cornerSignature)};
+    auto const ulcorner{buildFunctionConnection("ulcorner", cornerSignature)};
+    auto const urcorner{buildFunctionConnection("urcorner", cornerSignature)};
     auto const x1{buildConnection("leastcolor", {I})};
     auto const x2{buildConnection("replace", {I, ZERO, x1})};
     auto const x3{buildConnection("leastcolor", {x2})};
@@ -8788,7 +8797,10 @@ TEST(ArcDslTest, 0962bcdd)
     auto const x8{buildConnection("fork", {connect, ulcorner, lrcorner})};
     auto const x9{buildConnection("fork", {connect, llcorner, urcorner})};
     auto const x10{buildConnection("fork", {combine, x8, x9})};
-    auto const x11{buildConnection("mapply", {x10, x7})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Indices>());
+    auto const x11{buildFunctionConnection("mapply", mapplySignature, {x10, x7})};
     auto const O{buildConnection("fill", {x6, x1, x11})};
 
     for (size_t i = 0; i < 2; ++i)
@@ -8797,7 +8809,7 @@ TEST(ArcDslTest, 0962bcdd)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 05269061)
 {
     std::vector<hodel::Grid> inputs, outputs;
