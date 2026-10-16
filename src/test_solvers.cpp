@@ -8145,7 +8145,7 @@ TEST(ArcDslTest, 3eda0437)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, d4469b4b)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -8176,7 +8176,10 @@ TEST(ArcDslTest, d4469b4b)
     auto const TWO_BY_TWO{buildConnection("TWO_BY_TWO", {})};
     auto const UNITY{buildConnection("UNITY", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const combine{buildConnection("combine", {})};
+    auto const combineSignature = DslType::function(
+        {makeDslType<hodel::Indices>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const combine{buildFunctionConnection("combine", combineSignature)};
     auto const hfrontier{buildConnection("hfrontier", {})};
     auto const vfrontier{buildConnection("vfrontier", {})};
     auto const x1{buildConnection("palette", {I})};
@@ -8196,7 +8199,7 @@ TEST(ArcDslTest, d4469b4b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 6ecd11f4)
 {
     std::vector<hodel::Grid> inputs, outputs;
