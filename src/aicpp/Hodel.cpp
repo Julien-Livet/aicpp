@@ -504,9 +504,6 @@ hodel::Grid hodel::crop(Grid const& grid, IntegerTuple const& start, IntegerTupl
 
 hodel::Indices hodel::toindices(Object const& patch)
 {
-    if (patch.empty())
-        throw EmptyObject{"toindices"};
-
     Indices result;
 
     for (auto const& cell : patch)
@@ -4290,7 +4287,7 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesSet co
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
+    return merge(std::any_cast<IndicesVector>(apply.output()));
 }
 
 hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Indices const& container)
