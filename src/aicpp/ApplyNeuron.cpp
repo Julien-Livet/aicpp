@@ -12,9 +12,7 @@
 namespace
 {
     template<typename Input, typename Output>
-    std::vector<Output> applyToCollection(
-        std::vector<Input> const& collection,
-        aicpp::Connection const& function)
+    std::vector<Output> applyToCollection(std::vector<Input> const& collection, aicpp::Connection const& function)
     {
         std::vector<Output> result;
         result.reserve(collection.size());
@@ -29,9 +27,7 @@ namespace
     }
 
     template<typename Input, typename Output>
-    std::vector<Output> applyToCollection(
-        std::set<Input> const& collection,
-        aicpp::Connection const& function)
+    std::vector<Output> applyToCollection(std::set<Input> const& collection, aicpp::Connection const& function)
     {
         std::vector<Output> result;
         result.reserve(collection.size());
@@ -60,9 +56,7 @@ namespace
     };
 
     template<typename Input, typename Output, typename Collection>
-    std::any evaluateCollection(
-        std::any const& collectionValue,
-        Connection const& function)
+    std::any evaluateCollection(std::any const& collectionValue, Connection const& function)
     {
         auto const& collection =
             std::any_cast<Collection const&>(collectionValue);
@@ -182,8 +176,7 @@ namespace
 
 namespace aicpp
 {
-    DslType ApplyNeuron::inferSignature(
-        std::vector<DslType> const& arguments) const
+    DslType ApplyNeuron::inferSignature(std::vector<DslType> const& arguments) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("apply requires exactly two arguments");
@@ -228,8 +221,7 @@ namespace aicpp
         throw std::invalid_argument("Unsupported function and collection combination for apply " + boost::algorithm::join(v, ", "));
     }
 
-    std::any ApplyNeuron::evaluate(
-        std::vector<std::any> const& arguments) const
+    std::any ApplyNeuron::evaluate(std::vector<std::any> const& arguments) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("apply requires exactly two arguments");
@@ -256,15 +248,12 @@ namespace aicpp
         throw std::invalid_argument("Unsupported function and collection combination for apply " + aicpp::signature(arguments));
     }
 
-    std::any ApplyNeuron::apply(
-        std::vector<std::any> const&,
-        std::any const&) const
+    std::any ApplyNeuron::apply(std::vector<std::any> const&, std::any const&) const
     {
         throw std::logic_error("apply is a value-producing operator, not a function");
     }
 
-    DslType ApplyNeuron::inferConnectionSignature(
-        std::vector<Connection> const& arguments) const
+    DslType ApplyNeuron::inferConnectionSignature(std::vector<Connection> const& arguments) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("apply requires exactly two arguments");
