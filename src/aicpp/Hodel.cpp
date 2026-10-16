@@ -228,6 +228,11 @@ hodel::Boolean hodel::greater(Integer const& a, Integer const& b)
     return a > b;
 }
 
+hodel::Boolean hodel::greater(IntegerTuple const& a, IntegerTuple const& b)
+{
+    return a > b;
+}
+
 hodel::Integer hodel::maximum(IntegerSet const& container)
 {
     if (container.empty())
