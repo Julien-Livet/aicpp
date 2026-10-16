@@ -681,6 +681,7 @@ namespace hodel
     Objects combine(Objects const& a, Objects const& b); //union
     IndicesSet combine(IndicesSet const& a, IndicesSet const& b); //union
     GridVector mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
+    Indices mapply_(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
     IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply_(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
