@@ -14203,6 +14203,8 @@ TEST(ArcDslTest, 98cf29f8)
 
 TEST(ArcDslTest, 469497ad)
 {
+    //argmax, argmin, valmin, valmax should also manage IntegerTuple and not only Integer
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -14222,8 +14224,14 @@ TEST(ArcDslTest, 469497ad)
     auto const TWO{buildConnection("TWO", {})};
     auto const UNITY{buildConnection("UNITY", {})};
     auto const UP_RIGHT{buildConnection("UP_RIGHT", {})};
-    auto const lrcorner{buildConnection("lrcorner", {})};
-    auto const size{buildConnection("size", {})};
+    auto const lrcornerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const lrcorner{buildFunctionConnection("lrcorner", lrcornerSignature)};
+    auto const sizeSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const size{buildFunctionConnection("size", sizeSignature)};
     auto const x1{buildConnection("numcolors", {I})};
     auto const x2{buildConnection("decrement", {x1})};
     auto const x3{buildConnection("upscale", {I, x2})};
@@ -14958,7 +14966,7 @@ TEST(ArcDslTest, 4c5c2cf0)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 508bd3b6)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -14979,8 +14987,14 @@ TEST(ArcDslTest, 508bd3b6)
     auto const T{buildConnection("T", {})};
     auto const THREE{buildConnection("THREE", {})};
     auto const UNITY{buildConnection("UNITY", {})};
-    auto const adjacent{buildConnection("adjacent", {})};
-    auto const size{buildConnection("size", {})};
+    auto const adjacentSignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Object>()},
+        makeDslType<hodel::Boolean>());
+    auto const adjacent{buildFunctionConnection("adjacent", adjacentSignature)};
+    auto const sizeSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const size{buildFunctionConnection("size", sizeSignature)};
     auto const x1{buildConnection("width", {I})};
     auto const x2{buildConnection("objects", {I, T, T, T})};
     auto const x3{buildConnection("argmin", {x2, size})};
@@ -15020,7 +15034,7 @@ TEST(ArcDslTest, 508bd3b6)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+/*
 TEST(ArcDslTest, 6d0160f0)
 {
     std::vector<hodel::Grid> inputs, outputs;
