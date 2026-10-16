@@ -275,6 +275,7 @@ namespace hodel
     IntegerTuple halve(IntegerTuple const& n); //scaling by one half
     Boolean flip(Boolean const& b); //logical not
     Boolean greater(Integer const& a, Integer const& b); //greater
+    Boolean greater(IntegerTuple const& a, IntegerTuple const& b); //greater
     Integer maximum(IntegerSet const& container); //maximum
     Integer maximum(IntegerVector const& container); //maximum
     IntegerTuple maximum(Indices const& container); //maximum
