@@ -6863,7 +6863,7 @@ TEST(ArcDslTest, 3428a4f5)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 178fcbfb)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -6881,20 +6881,35 @@ TEST(ArcDslTest, 178fcbfb)
     auto const F{buildConnection("F", {})};
     auto const T{buildConnection("T", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const center{buildConnection("center", {})};
-    auto const color{buildConnection("color", {})};
+    auto const centerSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::IntegerTuple>());
+    auto const center{buildFunctionConnection("center", centerSignature)};
+    auto const colorSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const color{buildFunctionConnection("color", colorSignature)};
     auto const hfrontier{buildConnection("hfrontier", {})};
-    auto const recolor{buildConnection("recolor", {})};
+    auto const recolorSignature = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const recolor{buildFunctionConnection("recolor", recolorSignature)};
     auto const vfrontier{buildConnection("vfrontier", {})};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("ofcolor", {I, TWO})};
-    auto const x3{buildConnection("mapply", {vfrontier, x2})};
+    auto const mapplySignature1 = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const x3{buildFunctionConnection("mapply", mapplySignature1, {vfrontier, x2})};
     auto const x4{buildConnection("fill", {I, TWO, x3})};
     auto const x5{buildConnection("colorfilter", {x1, TWO})};
     auto const x6{buildConnection("difference", {x1, x5})};
     auto const x7{buildConnection("compose", {hfrontier, center})};
     auto const x8{buildConnection("fork", {recolor, color, x7})};
-    auto const x9{buildConnection("mapply", {x8, x6})};
+    auto const mapplySignature2 = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        makeDslType<hodel::Object>());
+    auto const x9{buildFunctionConnection("mapply", mapplySignature2, {x8, x6})};
     auto const O{buildConnection("paint", {x4, x9})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -6903,7 +6918,7 @@ TEST(ArcDslTest, 178fcbfb)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 3de23699)
 {
     std::vector<hodel::Grid> inputs, outputs;
