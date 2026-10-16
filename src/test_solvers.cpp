@@ -11076,7 +11076,7 @@ TEST(ArcDslTest, e5062a87)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, a8d7556c)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -11097,13 +11097,19 @@ TEST(ArcDslTest, a8d7556c)
     auto const SIX{buildConnection("SIX", {})};
     auto const TWO{buildConnection("TWO", {})};
     auto const ZERO{buildConnection("ZERO", {})};
-    auto const shift{buildConnection("shift", {})};
+    auto const shiftSignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Object>());
+    auto const shift{buildFunctionConnection("shift", shiftSignature)};
     auto const x1{buildConnection("initset", {ORIGIN})};
     auto const x2{buildConnection("recolor", {ZERO, x1})};
     auto const x3{buildConnection("upscale", {x2, TWO})};
     auto const x4{buildConnection("occurrences", {I, x3})};
     auto const x5{buildConnection("lbind", {shift, x3})};
-    auto const x6{buildConnection("mapply", {x5, x4})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Object>());
+    auto const x6{buildFunctionConnection("mapply", mapplySignature, {x5, x4})};
     auto const x7{buildConnection("fill", {I, TWO, x6})};
     auto const x8{buildConnection("add", {SIX, SIX})};
     auto const x9{buildConnection("astuple", {EIGHT, x8})};
@@ -11123,7 +11129,7 @@ TEST(ArcDslTest, a8d7556c)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 4938f0c2)
 {
     std::vector<hodel::Grid> inputs, outputs;
