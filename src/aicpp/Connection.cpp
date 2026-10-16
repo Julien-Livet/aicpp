@@ -14,6 +14,18 @@ using namespace aicpp;
 
 static auto const registry = aicpp::makeNeuronRegistry();
 
+std::string type(std::type_index const& t)
+{
+    try
+    {
+        return hodel::types.at(t);
+    }
+    catch (std::exception const&)
+    {
+        return t.name();
+    }
+}
+
 aicpp::NeuronBase const* aicpp::findNeuron(aicpp::DslType const& expected)
 {
     auto it = std::find_if(
@@ -941,7 +953,7 @@ aicpp::Connection aicpp::buildFunctionConnection(
                         auto const actualType = connection.valueType();
 
                         if (actualType.isFunction() || actualType.nativeType() != inputTypes[i])
-                            throw std::invalid_argument("1.Fixed argument type mismatch");
+                            throw std::invalid_argument("Fixed argument type mismatch " + type(actualType.nativeType()) + " " + type(inputTypes[i]));
                     }
 
                     inputs.emplace_back(connection);
@@ -949,7 +961,7 @@ aicpp::Connection aicpp::buildFunctionConnection(
                 else
                 {
                     if (argument.type() != inputTypes[i])
-                        throw std::invalid_argument("Fixed argument type mismatch");
+                        throw std::invalid_argument("Fixed argument type mismatch " + type(argument.type()) + " " + type(inputTypes[i]));
 
                     inputs.emplace_back(argument);
                 }
