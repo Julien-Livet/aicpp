@@ -7857,6 +7857,8 @@ TEST(ArcDslTest, c0f76784)
 
 TEST(ArcDslTest, 1b60fb0c)
 {
+    //C++ exception with description "buildConnection: No function overload found for neuron: argmax ((Indices) -> Indices, (Indices) -> Integer) -> ?" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -7872,10 +7874,22 @@ TEST(ArcDslTest, 1b60fb0c)
     auto const ONE{buildConnection("ONE", {})};
     auto const ORIGIN{buildConnection("ORIGIN", {})};
     auto const TWO{buildConnection("TWO", {})};
-    auto const intersection{buildConnection("intersection", {})};
-    auto const neighbors{buildConnection("neighbors", {})};
-    auto const shift{buildConnection("shift", {})};
-    auto const size{buildConnection("size", {})};
+    auto const intersectionSignature = DslType::function(
+        {makeDslType<hodel::Indices>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Indices>());
+    auto const intersection{buildFunctionConnection("intersection", intersectionSignature)};
+    auto const neighborsSignature = DslType::function(
+        {makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const neighbors{buildFunctionConnection("neighbors", neighborsSignature)};
+    auto const shiftSignature = DslType::function(
+        {makeDslType<hodel::Indices>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const shift{buildFunctionConnection("shift", shiftSignature)};
+    auto const sizeSignature = DslType::function(
+        {makeDslType<hodel::Indices>()},
+        makeDslType<hodel::Integer>());
+    auto const size{buildFunctionConnection("size", sizeSignature)};
     auto const x1{buildConnection("rot90", {I})};
     auto const x2{buildConnection("ofcolor", {I, ONE})};
     auto const x3{buildConnection("ofcolor", {x1, ONE})};
