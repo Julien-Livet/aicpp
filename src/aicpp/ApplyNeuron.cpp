@@ -158,6 +158,12 @@ namespace
                     makeDslType<hodel::Indices>()),
 
             makeApplyRule<
+                hodel::IntegerTuple,
+                hodel::Object,
+                hodel::Indices>(
+                    makeDslType<hodel::Object>()),
+
+            makeApplyRule<
                 hodel::Grid,
                 hodel::GridVector,
                 hodel::GridVector>(
