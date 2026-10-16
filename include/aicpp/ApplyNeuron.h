@@ -18,23 +18,16 @@ namespace aicpp
                 return name;
             }
 
-            DslType inferSignature(
-                std::vector<DslType> const& arguments) const override;
-
-            std::any apply(
-                std::vector<std::any> const& arguments,
-                std::any const& input) const override;
-
-            std::any evaluate(
-                std::vector<std::any> const& arguments) const override;
+            DslType inferSignature(std::vector<DslType> const& arguments) const override;
+            std::any apply(std::vector<std::any> const& arguments, std::any const& input) const override;
+            std::any evaluate(std::vector<std::any> const& arguments) const override;
 
             bool evaluatesToValue() const override
             {
                 return true;
             }
 
-            DslType inferConnectionSignature(
-                std::vector<Connection> const& arguments) const override;
+            DslType inferConnectionSignature(std::vector<Connection> const& arguments) const override;
     };
 }
 
