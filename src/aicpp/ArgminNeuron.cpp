@@ -10,7 +10,7 @@
 
 namespace
 {
-    template<typename T>
+    template<typename S = hodel::Integer, typename T>
     std::any findMinimum(std::vector<T> const& values, aicpp::Connection const& function)
     {
         if (values.empty())
@@ -21,9 +21,9 @@ namespace
             auto const result = function.apply(std::any{value});
 
             if (result.type() != typeid(hodel::Integer))
-                throw std::invalid_argument("argmin function must return an Integer");
+                throw std::invalid_argument("argmin function must return an " + aicpp::type(typeid(S)));
 
-            return std::any_cast<hodel::Integer>(result);
+            return std::any_cast<S>(result);
         };
 
         auto best = values.begin();
@@ -112,12 +112,18 @@ namespace aicpp
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Integer>());
 
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::IntegerSet const&>(input)), resolvedFunction);
+
             return findMinimum(asVector(std::any_cast<hodel::IntegerSet const&>(input)), resolvedFunction);
         }
 
         if (input.type() == typeid(hodel::IntegerVector))
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Integer>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::IntegerVector const&>(input)), resolvedFunction);
 
             return findMinimum(std::any_cast<hodel::IntegerVector const&>(input), resolvedFunction);
         }
@@ -126,12 +132,18 @@ namespace aicpp
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Grid>());
 
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::GridVector const&>(input)), resolvedFunction);
+
             return findMinimum(std::any_cast<hodel::GridVector const&>(input), resolvedFunction);
         }
 
         if (input.type() == typeid(hodel::Objects))
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Object>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::Objects const&>(input)), resolvedFunction);
 
             return findMinimum(asVector(std::any_cast<hodel::Objects const&>(input)), resolvedFunction);
         }
@@ -140,12 +152,18 @@ namespace aicpp
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Cell>());
 
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::Object const&>(input)), resolvedFunction);
+
             return findMinimum(asVector(std::any_cast<hodel::Object const&>(input)), resolvedFunction);
         }
 
         if (input.type() == typeid(hodel::Indices))
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::IntegerTuple>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::Indices const&>(input)), resolvedFunction);
 
             return findMinimum(asVector(std::any_cast<hodel::Indices const&>(input)), resolvedFunction);
         }
@@ -155,12 +173,18 @@ namespace aicpp
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Integer>());
             auto const tuple = std::any_cast<hodel::IntegerTuple const&>(input);
 
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(hodel::IntegerVector{tuple.first, tuple.second}, resolvedFunction);
+
             return findMinimum(hodel::IntegerVector{tuple.first, tuple.second}, resolvedFunction);
         }
 
         if (input.type() == typeid(hodel::Grid))
         {
             auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::IntegerVector>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::Grid const&>(input)), resolvedFunction);
 
             return findMinimum(std::any_cast<hodel::Grid const&>(input), resolvedFunction);
         }
@@ -186,10 +210,11 @@ namespace aicpp
         else
         {
             auto const functionSignature = arguments[1].signature();
+            bool const correctOutput = functionSignature.output() == makeDslType<hodel::Integer>() || functionSignature.output() == makeDslType<hodel::IntegerTuple>();
 
             if (!functionSignature.isFunction() || functionSignature.inputs().size() != 1
-                || functionSignature.inputs().front() != elementType || functionSignature.output() != makeDslType<hodel::Integer>())
-                throw std::invalid_argument("inferConnectionSignature: argmin expects a function from the element type to Integer");
+                || functionSignature.inputs().front() != elementType || !correctOutput)
+                throw std::invalid_argument("inferConnectionSignature: argmin expects a function from the element type to Integer or IntegerTuple");
         }
 
         return DslType::function({containerSignature}, elementType);
@@ -233,15 +258,16 @@ namespace aicpp
         if (overload == nullptr)
         {
             auto const signature = function.signature();
+            bool const correctOutput = signature.output() == makeDslType<hodel::Integer>() || signature.output() == makeDslType<hodel::IntegerTuple>();
 
             if (!signature.isFunction() || signature.inputs().size() != 1
-                || signature.inputs().front() != elementType || signature.output() != makeDslType<hodel::Integer>())
-                throw std::invalid_argument("resolveFunction: argmin expects a function from the element type to Integer");
+                || signature.inputs().front() != elementType || !correctOutput)
+                throw std::invalid_argument("resolveFunction: argmin expects a function from the element type to Integer or IntegerTuple");
 
             return function;
         }
 
-        auto const expectedSignature = DslType::function({elementType}, makeDslType<hodel::Integer>());
+        auto const expectedSignature = DslType::function({elementType}, signature().output());
 
         auto const* selected = overload->resolve(expectedSignature);
 
