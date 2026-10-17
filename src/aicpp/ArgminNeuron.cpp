@@ -88,6 +88,11 @@ namespace aicpp
             elementType = makeDslType<hodel::Integer>();
             resultType = makeDslType<hodel::Integer>();
         }
+        else if (container == makeDslType<hodel::IndicesVector>())
+        {
+            elementType = makeDslType<hodel::Indices>();
+            resultType = elementType;
+        }
         else
             throw std::invalid_argument("argmin does not support this container type");
 
@@ -189,6 +194,16 @@ namespace aicpp
             return findMinimum(std::any_cast<hodel::Grid const&>(input), resolvedFunction);
         }
 
+        if (input.type() == typeid(hodel::IndicesVector))
+        {
+            auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Indices>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMinimum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::GridVector const&>(input)), resolvedFunction);
+
+            return findMinimum(std::any_cast<hodel::IndicesVector const&>(input), resolvedFunction);
+        }
+
         throw std::invalid_argument("argmin received an unsupported container type");
     }
 
@@ -247,6 +262,9 @@ namespace aicpp
 
         if (nativeType == typeid(hodel::Grid))
             return makeDslType<hodel::IntegerVector>();
+
+        if (nativeType == typeid(hodel::IndicesVector))
+            return makeDslType<hodel::Indices>();
 
         throw std::invalid_argument("argmin does not support this container type");
     }
