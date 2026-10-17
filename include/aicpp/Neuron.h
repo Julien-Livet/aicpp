@@ -151,14 +151,9 @@ namespace aicpp
             Function function_;
 
             template <std::size_t... I>
-            std::any invokeImpl_(
-                std::vector<std::any> const& inputs,
-                std::index_sequence<I...>
-            ) const
+            std::any invokeImpl_(std::vector<std::any> const& inputs, std::index_sequence<I...>) const
             {
-                return std::any{
-                    function_(std::any_cast<Args const&>(inputs[I])...)
-                };
+                return std::any{function_(std::any_cast<Args const&>(inputs[I])...)};
             }
     };
 }
