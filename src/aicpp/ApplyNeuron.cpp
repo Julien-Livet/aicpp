@@ -8,7 +8,7 @@
 #include "aicpp/Connection.h"
 #include "aicpp/FunctionValue.h"
 #include "aicpp/Hodel.h"
-#include <iostream> //TODO: to remove
+
 namespace
 {
     template<typename Input, typename Output>
@@ -70,6 +70,12 @@ namespace
     std::vector<ApplyRule> const& applyRules()
     {
         static std::vector<ApplyRule> const rules{
+            makeApplyRule<
+                hodel::Object,
+                hodel::Integer,
+                hodel::ObjectVector>(
+                    makeDslType<hodel::IntegerVector>()),
+
             makeApplyRule<
                 hodel::Integer,
                 hodel::Integer,
@@ -312,7 +318,6 @@ namespace aicpp
             auto const inputMatches = rule.inputType == inputType;
             auto const outputMatches = rule.outputType == outputType;
             auto const resultMatches = rule.resultType == expectedResultType;
-            std::cout << collectionMatches << " " << inputMatches << " " << outputMatches << " " << resultMatches << std::endl;
 
             if (collectionMatches && inputMatches && outputMatches && resultMatches)
                 return DslType::function({collectionType}, rule.resultType);
