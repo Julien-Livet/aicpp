@@ -1568,9 +1568,6 @@ TEST(ArcDslTest, b27ca6d3)
 
 TEST(ArcDslTest, ce22a75a)
 {
-    //x2 signature: (Objects) -> Objects
-    //C++ exception with description "Fixed argument type mismatch" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(2);
     outputs.reserve(2);
@@ -1700,7 +1697,10 @@ TEST(ArcDslTest, 44d8ac46)
         makeDslType<hodel::Boolean>());
     auto const square{buildFunctionConnection("square", squareSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
-    auto const x2{buildConnection("apply", {delta, x1})};
+    auto const applySignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::IndicesVector>());
+    auto const x2{buildFunctionConnection("apply", applySignature, {delta, x1})};
     auto const x3{buildConnection("mfilter", {x2, square})};
     auto const O{buildConnection("fill", {I, TWO, x3})};
 
@@ -2226,8 +2226,6 @@ TEST(ArcDslTest, ce9e57f2)
 /*
 TEST(ArcDslTest, 22eb0ac0)
 {
-    //C++ exception with description "No function overload found for neuron: mfilter ((Objects) -> Objects, (Object) -> Boolean) -> ?" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -3496,11 +3494,9 @@ TEST(ArcDslTest, b9b7f026)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, ba97ae07)
 {
-    //C++ exception with description "No function overload found for neuron: apply ((Object) -> Integer, (Objects) -> ObjectVector) -> ?" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(4);
     outputs.reserve(4);
@@ -3523,7 +3519,10 @@ TEST(ArcDslTest, ba97ae07)
     auto const color{buildFunctionConnection("color", colorSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const x2{buildConnection("totuple", {x1})};
-    auto const x3{buildConnection("apply", {color, x2})};
+    auto const applySignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Integer>()},
+        makeDslType<hodel::IntegerVector>());
+    auto const x3{buildFunctionConnection("apply", applySignature, {color, x2})};
     auto const x4{buildConnection("mostcommon", {x3})};
     auto const x5{buildConnection("ofcolor", {I, x4})};
     auto const x6{buildConnection("backdrop", {x5})};
@@ -3535,7 +3534,7 @@ TEST(ArcDslTest, ba97ae07)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, c9f8e694)
 {
     std::vector<hodel::Grid> inputs, outputs;
