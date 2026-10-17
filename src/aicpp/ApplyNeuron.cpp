@@ -85,6 +85,12 @@ namespace
             makeApplyRule<
                 hodel::Integer,
                 hodel::Integer,
+                hodel::IntegerVector>(
+                    makeDslType<hodel::IntegerVector>()),
+
+            makeApplyRule<
+                hodel::Integer,
+                hodel::Integer,
                 hodel::IntegerSet>(
                     makeDslType<hodel::IntegerSet>()),
 
@@ -92,6 +98,12 @@ namespace
                 hodel::Integer,
                 hodel::Boolean,
                 hodel::IntegerSet>(
+                    makeDslType<hodel::BooleanVector>()),
+
+            makeApplyRule<
+                hodel::Integer,
+                hodel::Boolean,
+                hodel::IntegerVector>(
                     makeDslType<hodel::BooleanVector>()),
 
             makeApplyRule<
@@ -126,9 +138,21 @@ namespace
 
             makeApplyRule<
                 hodel::Object,
+                hodel::Boolean,
+                hodel::ObjectVector>(
+                    makeDslType<hodel::BooleanVector>()),
+
+            makeApplyRule<
+                hodel::Object,
                 hodel::Object,
                 hodel::Objects>(
                     makeDslType<hodel::Objects>()),
+
+            makeApplyRule<
+                hodel::Object,
+                hodel::Object,
+                hodel::ObjectVector>(
+                    makeDslType<hodel::ObjectVector>()),
 
             makeApplyRule<
                 hodel::Object,
