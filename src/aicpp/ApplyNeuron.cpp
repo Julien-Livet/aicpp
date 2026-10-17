@@ -138,6 +138,12 @@ namespace
 
             makeApplyRule<
                 hodel::Object,
+                hodel::IntegerTuple,
+                hodel::Objects>(
+                    makeDslType<hodel::Indices>()),
+
+            makeApplyRule<
+                hodel::Object,
                 hodel::Boolean,
                 hodel::ObjectVector>(
                     makeDslType<hodel::BooleanVector>()),
