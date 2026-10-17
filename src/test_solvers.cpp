@@ -1592,10 +1592,10 @@ TEST(ArcDslTest, ce22a75a)
     auto const x1{buildConnection("objects", {I, T, F, T})};
     auto const applySignature = DslType::function(
         {makeDslType<hodel::Object>(), makeDslType<hodel::Indices>()},
-        makeDslType<hodel::IndicesVector>());
+        makeDslType<hodel::IndicesSet>());
     auto const x2{buildFunctionConnection("apply", applySignature, {outbox, x1})};
     auto const mapplySignature = DslType::function(
-        {makeDslType<FunctionValue>(), makeDslType<hodel::IndicesVector>()},
+        {makeDslType<FunctionValue>(), makeDslType<hodel::IndicesSet>()},
         makeDslType<hodel::Indices>());
     auto const x3{buildFunctionConnection("mapply", mapplySignature, {backdrop, x2})};
     auto const O{buildConnection("fill", {I, ONE, x3})};
@@ -4215,11 +4215,9 @@ TEST(ArcDslTest, 810b9b61)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-
+*/
 TEST(ArcDslTest, 54d82841)
 {
-    //C++ exception with description "No function overload found for neuron: apply ((Object) -> Integer, (Grid, Boolean, Boolean, Boolean) -> Objects) -> ?" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -4250,10 +4248,16 @@ TEST(ArcDslTest, 54d82841)
     auto const x1{buildConnection("height", {I})};
     auto const x2{buildConnection("objects", {I, T, F, T})};
     auto const x3{buildConnection("compose", {last, center})};
-    auto const x4{buildConnection("apply", {x3, x2})};
+    auto const applySignature1 = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Integer>()},
+        makeDslType<hodel::IntegerSet>());
+    auto const x4{buildFunctionConnection("apply", applySignature1, {x3, x2})};
     auto const x5{buildConnection("decrement", {x1})};
     auto const x6{buildConnection("lbind", {astuple, x5})};
-    auto const x7{buildConnection("apply", {x6, x4})};
+    auto const applySignature2 = DslType::function(
+        {makeDslType<hodel::Integer>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const x7{buildFunctionConnection("apply", applySignature2, {x6, x4})};
     auto const O{buildConnection("fill", {I, FOUR, x7})};
 
     for (size_t i = 0; i < 3; ++i)
@@ -4262,7 +4266,7 @@ TEST(ArcDslTest, 54d82841)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 60b61512)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -7888,7 +7892,7 @@ TEST(ArcDslTest, 1b60fb0c)
     auto const x6{buildConnection("lbind", {shift, x3})};
     auto const applySignature = DslType::function(
         {makeDslType<hodel::Indices>(), makeDslType<hodel::Indices>()},
-        makeDslType<hodel::IndicesVector>());
+        makeDslType<hodel::IndicesSet>());
     auto const x7{buildFunctionConnection("apply", applySignature, {x6, x5})};
     auto const x8{buildConnection("lbind", {intersection, x2})};
     auto const x9{buildConnection("compose", {size, x8})};
@@ -9520,9 +9524,10 @@ TEST(ArcDslTest, bc1d5164)
     auto const x12{buildConnection("combine", {x10, x11})};
     auto const mapplySignature = DslType::function(
         {makeDslType<FunctionValue>(), makeDslType<hodel::GridVector>()},
-        makeDslType<hodel::Indices>());
+        makeDslType<hodel::IntegerTupleVector>());
     auto const x13{buildFunctionConnection("mapply", mapplySignature, {x9, x12})};
-    auto const O{buildConnection("fill", {x8, x1, x13})};
+    auto const x14{buildConnection("toset", {x13})};
+    auto const O{buildConnection("fill", {x8, x1, x14})};
 
     for (size_t i = 0; i < 5; ++i)
     {
