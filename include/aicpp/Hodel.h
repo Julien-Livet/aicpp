@@ -201,6 +201,7 @@ namespace hodel
                                                               {typeid(Integer), "Integer"},
                                                               {typeid(IntegerTuple), "IntegerTuple"},
                                                               {typeid(IntegerSet), "IntegerSet"},
+                                                              {typeid(IntegerVector), "IntegerVector"},
                                                               {typeid(Grid), "Grid"},
                                                               {typeid(Cell), "Cell"},
                                                               {typeid(Object), "Object"},
