@@ -2,6 +2,7 @@
 #define AICPP_CONNECTION_H
 
 #include <memory>
+#include <optional>
 
 #include "aicpp/Neuron.h"
 #include "aicpp/DslType.h"
@@ -14,6 +15,7 @@ namespace aicpp
     {
         public:
             Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs);
+            Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs, DslType const& expectedResultType);
             NeuronBase const* neuron() const;
             std::vector<std::any> const& inputs() const;
             size_t cost() const;
@@ -48,6 +50,7 @@ namespace aicpp
             std::vector<std::any> inputs_;
             size_t hash_;
             std::shared_ptr<Connection> source_;
+            std::optional<DslType> expectedResultType_{std::nullopt};
     };
 
     NeuronBase const* findNeuron(DslType const& expected);
