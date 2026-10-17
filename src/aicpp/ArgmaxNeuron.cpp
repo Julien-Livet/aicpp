@@ -10,9 +10,11 @@
 
 namespace
 {
-    template<typename S = hodel::Integer, typename T>
-    std::any findMaximum(std::vector<T> const& values, aicpp::Connection const& function)
+    template<typename S = hodel::Integer, typename Collection>
+    std::any findMaximum(Collection const& values, aicpp::Connection const& function)
     {
+        using T = typename Collection::value_type;
+
         if (values.empty())
             throw std::invalid_argument("argmax cannot process an empty container");
 
@@ -89,6 +91,11 @@ namespace aicpp
             resultType = makeDslType<hodel::Integer>();
         }
         else if (container == makeDslType<hodel::IndicesVector>())
+        {
+            elementType = makeDslType<hodel::Indices>();
+            resultType = elementType;
+        }
+        else if (container == makeDslType<hodel::IndicesSet>())
         {
             elementType = makeDslType<hodel::Indices>();
             resultType = elementType;
@@ -204,6 +211,16 @@ namespace aicpp
             return findMaximum(std::any_cast<hodel::IndicesVector const&>(input), resolvedFunction);
         }
 
+        if (input.type() == typeid(hodel::IndicesSet))
+        {
+            auto const resolvedFunction = resolveFunction(function, makeDslType<hodel::Indices>());
+
+            if (function.signature().output() == makeDslType<hodel::IntegerTuple>())
+                return findMaximum<hodel::IntegerTuple>(asVector(std::any_cast<hodel::GridVector const&>(input)), resolvedFunction);
+
+            return findMaximum(std::any_cast<hodel::IndicesSet const&>(input), resolvedFunction);
+        }
+
         throw std::invalid_argument("argmax received an unsupported container type");
     }
 
@@ -264,6 +281,9 @@ namespace aicpp
             return makeDslType<hodel::IntegerVector>();
 
         if (nativeType == typeid(hodel::IndicesVector))
+            return makeDslType<hodel::Indices>();
+
+        if (nativeType == typeid(hodel::IndicesSet))
             return makeDslType<hodel::Indices>();
 
         throw std::invalid_argument("argmax does not support this container type");
