@@ -11,31 +11,31 @@
 
 namespace
 {
-    template<typename Input, typename Output>
-    std::vector<Output> applyToCollection(std::vector<Input> const& collection, aicpp::Connection const& function)
-    {
-        std::vector<Output> result;
-        result.reserve(collection.size());
-
-        for (auto const& value : collection)
-            result.emplace_back(std::any_cast<Output>(function.apply(value)));
-
-        return result;
-    }
-
-    template<typename Input, typename Output>
-    std::vector<Output> applyToCollection(std::set<Input> const& collection, aicpp::Connection const& function)
-    {
-        std::vector<Output> result;
-        result.reserve(collection.size());
-
-        for (auto const& value : collection)
-            result.emplace_back(std::any_cast<Output>(function.apply(value)));
-
-        return result;
-    }
-
     using namespace aicpp;
+
+    template<typename Input, typename Output>
+    std::vector<Output> applyToCollection(std::vector<Input> const& collection, Connection const& function)
+    {
+        std::vector<Output> result;
+        result.reserve(collection.size());
+
+        for (auto const& value : collection)
+            result.emplace_back(std::any_cast<Output>(function.apply(value)));
+
+        return result;
+    }
+
+    template<typename Input, typename Output>
+    std::set<Output> applyToCollection(std::set<Input> const& collection, Connection const& function)
+    {
+        std::vector<Output> result;
+        result.reserve(collection.size());
+
+        for (auto const& value : collection)
+            result.emplace_back(std::any_cast<Output>(function.apply(value)));
+
+        return {result.begin(), result.end()};
+    }
 
     struct ApplyRule
     {
@@ -77,15 +77,21 @@ namespace
                     makeDslType<hodel::IntegerVector>()),
 
             makeApplyRule<
+                hodel::Object,
+                hodel::Integer,
+                hodel::Objects>(
+                    makeDslType<hodel::IntegerSet>()),
+
+            makeApplyRule<
                 hodel::Integer,
                 hodel::Integer,
-                hodel::IntegerVector>(
-                    makeDslType<hodel::IntegerVector>()),
+                hodel::IntegerSet>(
+                    makeDslType<hodel::IntegerSet>()),
 
             makeApplyRule<
                 hodel::Integer,
                 hodel::Boolean,
-                hodel::IntegerVector>(
+                hodel::IntegerSet>(
                     makeDslType<hodel::BooleanVector>()),
 
             makeApplyRule<
@@ -115,14 +121,14 @@ namespace
             makeApplyRule<
                 hodel::Object,
                 hodel::Boolean,
-                hodel::ObjectVector>(
+                hodel::Objects>(
                     makeDslType<hodel::BooleanVector>()),
 
             makeApplyRule<
                 hodel::Object,
                 hodel::Object,
-                hodel::ObjectVector>(
-                    makeDslType<hodel::ObjectVector>()),
+                hodel::Objects>(
+                    makeDslType<hodel::Objects>()),
 
             makeApplyRule<
                 hodel::Object,
@@ -134,13 +140,13 @@ namespace
                 hodel::Object,
                 hodel::Indices,
                 hodel::Objects>(
-                    makeDslType<hodel::IndicesVector>()),
+                    makeDslType<hodel::IndicesSet>()),
 
             makeApplyRule<
                 hodel::Indices,
                 hodel::Indices,
-                hodel::IndicesVector>(
-                    makeDslType<hodel::IndicesVector>()),
+                hodel::IndicesSet>(
+                    makeDslType<hodel::IndicesSet>()),
 
             makeApplyRule<
                 hodel::IntegerTuple,
@@ -152,13 +158,19 @@ namespace
                 hodel::IntegerTuple,
                 hodel::Indices,
                 hodel::Indices>(
-                    makeDslType<hodel::IndicesVector>()),
+                    makeDslType<hodel::IndicesSet>()),
 
             makeApplyRule<
                 hodel::IntegerTuple,
                 hodel::Object,
                 hodel::Indices>(
                     makeDslType<hodel::Object>()),
+
+            makeApplyRule<
+                hodel::Integer,
+                hodel::IntegerTuple,
+                hodel::IntegerSet>(
+                    makeDslType<hodel::Indices>()),
 
             makeApplyRule<
                 hodel::Grid,
