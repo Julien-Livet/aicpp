@@ -4811,11 +4811,9 @@ TEST(ArcDslTest, ff805c23)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, e76a88a6)
 {
-    //C++ exception with description "No function overload found for neuron: apply ((Object) -> IntegerTuple, (Object, Objects) -> Objects) -> ?" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(2);
     outputs.reserve(2);
@@ -4844,10 +4842,13 @@ TEST(ArcDslTest, e76a88a6)
     auto const x2{buildConnection("argmax", {x1, numcolors})};
     auto const x3{buildConnection("normalize", {x2})};
     auto const x4{buildConnection("remove", {x2, x1})};
-    auto const x5{buildConnection("apply", {ulcorner, x4})};
+    auto const applySignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::IntegerTuple>()},
+        makeDslType<hodel::Indices>());
+    auto const x5{buildFunctionConnection("apply", applySignature, {ulcorner, x4})};
     auto const x6{buildConnection("lbind", {shift, x3})};
     auto const mapplySignature = DslType::function(
-        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
         makeDslType<hodel::Object>());
     auto const x7{buildFunctionConnection("mapply", mapplySignature, {x6, x5})};
     auto const O{buildConnection("paint", {I, x7})};
@@ -4858,7 +4859,7 @@ TEST(ArcDslTest, e76a88a6)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 7c008303)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -7848,8 +7849,6 @@ TEST(ArcDslTest, c0f76784)
 */
 TEST(ArcDslTest, 1b60fb0c)
 {
-    //C++ exception with description "buildConnection: No function overload found for neuron: argmax ((Indices) -> Indices, (Indices) -> Integer) -> ?" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
