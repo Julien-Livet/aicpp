@@ -3768,14 +3768,14 @@ hodel::Indices hodel::merge(IndicesSet const& containers)
     return result;
 }
 
-hodel::Indices hodel::merge(IndicesVector const& containers)
+hodel::IntegerTupleVector hodel::merge(IndicesVector const& containers)
 {
     std::remove_cvref_t<decltype(containers)>::value_type result;
 
     for (auto const& container : containers)
         result.insert(container.begin(), container.end());
 
-    return result;
+    return {result.begin(), result.end()};
 }
 
 hodel::IntegerVector hodel::merge(Grid const& containers)
@@ -4223,7 +4223,7 @@ hodel::GridVector hodel::mapply(aicpp::FunctionValue const& function, GridVector
     return merge(std::any_cast<GridVectorVector>(apply.output()));
 }
 
-hodel::Indices hodel::mapply_(aicpp::FunctionValue const& function, GridVector const& container)
+hodel::IntegerTupleVector hodel::mapply_(aicpp::FunctionValue const& function, GridVector const& container)
 {
     aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
     aicpp::Connection const containerConnection{&neuron, {}};
@@ -4247,7 +4247,7 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Objects const
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<IndicesVector>(apply.output()));
+    return merge(std::any_cast<IndicesSet>(apply.output()));
 }
 
 hodel::Object hodel::mapply_(aicpp::FunctionValue const& function, Objects const& container)
@@ -4256,7 +4256,7 @@ hodel::Object hodel::mapply_(aicpp::FunctionValue const& function, Objects const
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<ObjectVector>(apply.output()));
+    return merge(std::any_cast<Objects>(apply.output()));
 }
 
 hodel::Object hodel::mapply(aicpp::FunctionValue const& function, ObjectVector const& container)
@@ -4277,7 +4277,7 @@ hodel::Objects hodel::mapply(aicpp::FunctionValue const& function, ObjectsVector
     return merge(std::any_cast<std::remove_cvref_t<decltype(container)> >(apply.output()));
 }
 
-hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesVector const& container)
+hodel::IntegerTupleVector hodel::mapply(aicpp::FunctionValue const& function, IndicesVector const& container)
 {
     aicpp::Neuron<std::remove_cvref_t<decltype(container)> > const neuron{"container", [&container] () -> std::remove_cvref_t<decltype(container)> { return container; }};
     aicpp::Connection const containerConnection{&neuron, {}};
@@ -4292,7 +4292,7 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, IndicesSet co
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<IndicesVector>(apply.output()));
+    return merge(std::any_cast<IndicesSet>(apply.output()));
 }
 
 hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Indices const& container)
@@ -4301,7 +4301,7 @@ hodel::Indices hodel::mapply(aicpp::FunctionValue const& function, Indices const
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<IndicesVector>(apply.output()));
+    return merge(std::any_cast<IndicesSet>(apply.output()));
 }
 
 hodel::Object hodel::mapply_(aicpp::FunctionValue const& function, Indices const& container)
@@ -4310,7 +4310,7 @@ hodel::Object hodel::mapply_(aicpp::FunctionValue const& function, Indices const
     aicpp::Connection const containerConnection{&neuron, {}};
     auto const apply{aicpp::buildConnection("apply", {function.connection, containerConnection})};
 
-    return merge(std::any_cast<ObjectVector>(apply.output()));
+    return merge(std::any_cast<Objects>(apply.output()));
 }
 
 hodel::Grid hodel::cellwise(Grid const& a, Grid const& b, Integer const& fallback)
@@ -4395,6 +4395,33 @@ hodel::Integer hodel::mostcommon(IntegerVector const& container)
     return result;
 }
 
+hodel::Integer hodel::mostcommon(IntegerSet const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
 hodel::IntegerTuple hodel::mostcommon(Indices const& container)
 {
     if (container.empty())
@@ -4423,6 +4450,33 @@ hodel::IntegerTuple hodel::mostcommon(Indices const& container)
 }
 
 hodel::Object hodel::mostcommon(Objects const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"mostcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto maxCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count > maxCount)
+        {
+            maxCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Object hodel::mostcommon(ObjectVector const& container)
 {
     if (container.empty())
         throw EmptyContainer{"mostcommon"};
@@ -4557,6 +4611,33 @@ hodel::Integer hodel::leastcommon(IntegerVector const& container)
     return result;
 }
 
+hodel::Integer hodel::leastcommon(IntegerSet const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::unordered_map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
 hodel::IntegerTuple hodel::leastcommon(Indices const& container)
 {
     if (container.empty())
@@ -4585,6 +4666,33 @@ hodel::IntegerTuple hodel::leastcommon(Indices const& container)
 }
 
 hodel::Object hodel::leastcommon(Objects const& container)
+{
+    if (container.empty())
+        throw EmptyContainer{"leastcommon"};
+
+    std::map<std::remove_cvref_t<decltype(container)>::value_type, size_t> counts;
+
+    for (auto const& value : container)
+        ++counts[value];
+
+    auto result{*container.begin()};
+    auto minCount{counts[result]};
+
+    for (auto const& value : container)
+    {
+        auto const& count{counts[value]};
+
+        if (count < minCount)
+        {
+            minCount = count;
+            result = value;
+        }
+    }
+
+    return result;
+}
+
+hodel::Object hodel::leastcommon(ObjectVector const& container)
 {
     if (container.empty())
         throw EmptyContainer{"leastcommon"};
@@ -4733,4 +4841,24 @@ hodel::IndicesSet hodel::sizefilter(IndicesSet const& container, Integer const& 
 hodel::Indices hodel::asset(IntegerTuple const& a, IntegerTuple const& b)
 {
     return {a, b};
+}
+
+hodel::IntegerSet hodel::toset(IntegerVector const& container)
+{
+    return {container.begin(), container.end()};
+}
+
+hodel::IndicesSet hodel::toset(IndicesVector const& container)
+{
+    return {container.begin(), container.end()};
+}
+
+hodel::Objects hodel::toset(ObjectVector const& container)
+{
+    return {container.begin(), container.end()};
+}
+
+hodel::Indices hodel::toset(IntegerTupleVector const& container)
+{
+    return {container.begin(), container.end()};
 }
