@@ -3974,11 +3974,9 @@ TEST(ArcDslTest, 017c7c7b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 363442ee)
 {
-    //C++ exception with description "Fixed argument type mismatch" thrown in the test body.
-
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(3);
     outputs.reserve(3);
@@ -4008,7 +4006,7 @@ TEST(ArcDslTest, 363442ee)
     auto const x4{buildConnection("lbind", {shift, x3})};
     auto const x5{buildConnection("compose", {x4, decrement})};
     auto const mapplySignature = DslType::function(
-        {makeDslType<FunctionValue>(), makeDslType<hodel::Objects>()},
+        {makeDslType<FunctionValue>(), makeDslType<hodel::Indices>()},
         makeDslType<hodel::Object>());
     auto const x6{buildFunctionConnection("mapply", mapplySignature, {x5, x1})};
     auto const O{buildConnection("paint", {I, x6})};
@@ -4019,7 +4017,7 @@ TEST(ArcDslTest, 363442ee)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 5168d44c)
 {
     std::vector<hodel::Grid> inputs, outputs;
