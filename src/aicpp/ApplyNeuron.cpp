@@ -150,6 +150,12 @@ namespace
 
             makeApplyRule<
                 hodel::IntegerTuple,
+                hodel::Indices,
+                hodel::Indices>(
+                    makeDslType<hodel::IndicesVector>()),
+
+            makeApplyRule<
+                hodel::IntegerTuple,
                 hodel::Object,
                 hodel::Indices>(
                     makeDslType<hodel::Object>()),
