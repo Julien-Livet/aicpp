@@ -185,6 +185,7 @@ namespace hodel
     typedef std::set<Cell> Object;
     typedef std::set<Object> Objects;
     typedef std::set<IntegerTuple> Indices;
+    typedef std::vector<IntegerTuple> IntegerTupleVector;
     typedef std::set<Indices> IndicesSet;
     typedef std::vector<Grid> GridVector;
     typedef std::vector<std::vector<Grid> > GridVectorVector;
@@ -200,6 +201,7 @@ namespace hodel
     static std::map<std::type_index, std::string> const types{{typeid(Boolean), "Boolean"},
                                                               {typeid(Integer), "Integer"},
                                                               {typeid(IntegerTuple), "IntegerTuple"},
+                                                              {typeid(IntegerTupleVector), "IntegerTupleVector"},
                                                               {typeid(IntegerSet), "IntegerSet"},
                                                               {typeid(IntegerVector), "IntegerVector"},
                                                               {typeid(Grid), "Grid"},
@@ -629,7 +631,7 @@ namespace hodel
     Object merge(Objects const& containers); //merging
     Object merge(ObjectVector const& containers); //merging
     Indices merge(IndicesSet const& containers); //merging
-    Indices merge(IndicesVector const& containers); //merging
+    IntegerTupleVector merge(IndicesVector const& containers); //merging
     IntegerVector merge(Grid const& containers); //merging
     Grid merge(GridVector const& containers); //merging
     GridVector merge(GridVectorVector const& containers); //merging
@@ -683,27 +685,31 @@ namespace hodel
     Objects combine(Objects const& a, Objects const& b); //union
     IndicesSet combine(IndicesSet const& a, IndicesSet const& b); //union
     GridVector mapply(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
-    Indices mapply_(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
+    IntegerTupleVector mapply_(aicpp::FunctionValue const& function, GridVector const& container); //apply and merge
     IntegerVector mapply(aicpp::FunctionValue const& function, Grid const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply_(aicpp::FunctionValue const& function, Objects const& container); //apply and merge
     Object mapply(aicpp::FunctionValue const& function, ObjectVector const& container); //apply and merge
     Objects mapply(aicpp::FunctionValue const& function, ObjectsVector const& container); //apply and merge
-    Indices mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
+    IntegerTupleVector mapply(aicpp::FunctionValue const& function, IndicesVector const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, IndicesSet const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Indices const& container); //apply and merge
     Object mapply_(aicpp::FunctionValue const& function, Indices const& container); //apply and merge
     Grid cellwise(Grid const& a, Grid const& b, Integer const& fallback); //cellwise match of two grids
     Boolean mostcommon(BooleanVector const& container); //most common item
     Integer mostcommon(IntegerVector const& container); //most common item
+    Integer mostcommon(IntegerSet const& container); //most common item
     IntegerTuple mostcommon(Indices const& container); //most common item
     Object mostcommon(Objects const& container); //most common item
+    Object mostcommon(ObjectVector const& container); //most common item
     IntegerVector mostcommon(Grid const& container); //most common item
     Grid mostcommon(GridVector const& container); //most common item
     Boolean leastcommon(BooleanVector const& container); //least common item
     Integer leastcommon(IntegerVector const& container); //least common item
+    Integer leastcommon(IntegerSet const& container); //least common item
     IntegerTuple leastcommon(Indices const& container); //least common item
     Object leastcommon(Objects const& container); //least common item
+    Object leastcommon(ObjectVector const& container); //least common item
     IntegerVector leastcommon(Grid const& container); //least common item
     Grid leastcommon(GridVector const& container); //least common item
     Grid sizefilter(Grid const& container, Integer const& n); //filter items by size
@@ -712,6 +718,10 @@ namespace hodel
     Objects sizefilter(Objects const& container, Integer const& n); //filter items by size
     IndicesSet sizefilter(IndicesSet const& container, Integer const& n); //filter items by size
     Indices asset(IntegerTuple const& a, IntegerTuple const& b); //constructs a set
+    IntegerSet toset(IntegerVector const& container); //conversion to set
+    IndicesSet toset(IndicesVector const& container); //conversion to set
+    Objects toset(ObjectVector const& container); //conversion to set
+    Indices toset(IntegerTupleVector const& container); //conversion to set
 }
 
 #endif // AICPP_HODEL_H
