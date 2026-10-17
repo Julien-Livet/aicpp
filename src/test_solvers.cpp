@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <gtest/gtest.h>
 
 #include "aicpp/Connection.h"
@@ -1567,7 +1565,7 @@ TEST(ArcDslTest, b27ca6d3)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, ce22a75a)
 {
     //x2 signature: (Objects) -> Objects
@@ -1595,8 +1593,10 @@ TEST(ArcDslTest, ce22a75a)
         makeDslType<hodel::Indices>());
     auto const outbox{buildFunctionConnection("outbox", outboxSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
-    auto const x2{buildConnection("apply", {outbox, x1})};
-    std::cout << "x2 signature: " << x2.signature().string() << '\n';
+    auto const applySignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Indices>()},
+        makeDslType<hodel::IndicesVector>());
+    auto const x2{buildFunctionConnection("apply", applySignature, {outbox, x1})};
     auto const mapplySignature = DslType::function(
         {makeDslType<FunctionValue>(), makeDslType<hodel::IndicesVector>()},
         makeDslType<hodel::Indices>());
@@ -1609,7 +1609,7 @@ TEST(ArcDslTest, ce22a75a)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, dc1df850)
 {
     std::vector<hodel::Grid> inputs, outputs;
