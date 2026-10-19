@@ -695,6 +695,7 @@ namespace hodel
     Indices mapply(aicpp::FunctionValue const& function, IndicesSet const& container); //apply and merge
     Indices mapply(aicpp::FunctionValue const& function, Indices const& container); //apply and merge
     Object mapply_(aicpp::FunctionValue const& function, Indices const& container); //apply and merge
+    Object mapply(aicpp::FunctionValue const& function, IntegerSet const& container); //apply and merge
     Grid cellwise(Grid const& a, Grid const& b, Integer const& fallback); //cellwise match of two grids
     Boolean mostcommon(BooleanVector const& container); //most common item
     Integer mostcommon(IntegerVector const& container); //most common item
