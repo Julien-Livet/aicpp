@@ -16,6 +16,7 @@ namespace aicpp
         public:
             Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs);
             Connection(NeuronBase const* neuron, std::vector<std::any> const& inputs, DslType const& expectedResultType);
+            Connection(std::shared_ptr<NeuronBase> const& neuron, std::vector<std::any> const& inputs);
             NeuronBase const* neuron() const;
             std::vector<std::any> const& inputs() const;
             size_t cost() const;
@@ -51,6 +52,7 @@ namespace aicpp
             size_t hash_;
             std::shared_ptr<Connection> source_;
             std::optional<DslType> expectedResultType_{std::nullopt};
+            std::shared_ptr<NeuronBase> ownedNeuron_;
     };
 
     NeuronBase const* findNeuron(DslType const& expected);
