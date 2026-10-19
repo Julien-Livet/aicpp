@@ -6146,6 +6146,8 @@ TEST(ArcDslTest, 8e5a5113)
 
 TEST(ArcDslTest, 025d127b)
 {
+    //C++ exception with description "bad any_cast" thrown in the test body.
+
     std::vector<hodel::Grid> inputs, outputs;
     inputs.reserve(2);
     outputs.reserve(2);
@@ -6159,17 +6161,29 @@ TEST(ArcDslTest, 025d127b)
     auto const F{buildConnection("F", {})};
     auto const RIGHT{buildConnection("RIGHT", {})};
     auto const T{buildConnection("T", {})};
-    auto const argmax{buildConnection("argmax", {})};
+    auto const argmaxSignature = DslType::function(
+        {makeDslType<hodel::Objects>(), DslType::function({makeDslType<hodel::Object>()}, makeDslType<hodel::Integer>())},
+        makeDslType<hodel::Object>());
+    auto const argmax{buildFunctionConnection("argmax", argmaxSignature)};
     auto const color{buildConnection("color", {})};
     auto const colorfilter{buildConnection("colorfilter", {})};
-    auto const rightmost{buildConnection("rightmost", {})};
+    auto const rightmostSignature = DslType::function(
+        {makeDslType<hodel::Object>()},
+        makeDslType<hodel::Integer>());
+    auto const rightmost{buildFunctionConnection("rightmost", rightmostSignature)};
     auto const x1{buildConnection("objects", {I, T, F, T})};
-    auto const x2{buildConnection("apply", {color, x1})};
+    auto const applySignature = DslType::function(
+        {makeDslType<hodel::Object>(), makeDslType<hodel::Integer>()},
+        makeDslType<hodel::IntegerSet>());
+    auto const x2{buildFunctionConnection("apply", applySignature, {color, x1})};
     auto const x3{buildConnection("merge", {x1})};
     auto const x4{buildConnection("lbind", {colorfilter, x1})};
     auto const x5{buildConnection("rbind", {argmax, rightmost})};
     auto const x6{buildConnection("compose", {x5, x4})};
-    auto const x7{buildConnection("mapply", {x6, x2})};
+    auto const mapplySignature = DslType::function(
+        {makeDslType<FunctionValue>(), makeDslType<hodel::IntegerSet>()},
+        makeDslType<hodel::Object>());
+    auto const x7{buildFunctionConnection("mapply", mapplySignature, {x6, x2})};
     auto const x8{buildConnection("difference", {x3, x7})};
     auto const O{buildConnection("move", {I, x8, RIGHT})};
 
