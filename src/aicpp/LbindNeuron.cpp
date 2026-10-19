@@ -6,8 +6,7 @@
 
 namespace aicpp
 {
-    DslType LbindNeuron::inferSignature(
-        std::vector<DslType> const& arguments) const
+    DslType LbindNeuron::inferSignature(std::vector<DslType> const& arguments) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("lbind requires exactly two arguments");
@@ -26,21 +25,15 @@ namespace aicpp
         if (fixed.output() != inputs.back())
             throw std::invalid_argument("lbind fixed argument type does not match the first function input");
 
-        DslType::Inputs remainingInputs(
-            inputs.begin() + 1,
-            inputs.end());
+        DslType::Inputs remainingInputs(inputs.begin() + 1, inputs.end());
 
         if (remainingInputs.empty())
             return function.output();
 
-        return DslType::function(
-            remainingInputs,
-            function.output());
+        return DslType::function(remainingInputs, function.output());
     }
 
-    std::any LbindNeuron::apply(
-        std::vector<std::any> const& arguments,
-        std::any const& input) const
+    std::any LbindNeuron::apply(std::vector<std::any> const& arguments, std::any const& input) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("lbind requires exactly two arguments");
@@ -89,15 +82,13 @@ namespace aicpp
         return nativeNeuron->invoke({fixed, input});
     }
 
-    DslType LbindNeuron::inferConnectionSignature(
-        std::vector<Connection> const& arguments) const
+    DslType LbindNeuron::inferConnectionSignature(std::vector<Connection> const& arguments) const
     {
         if (arguments.size() != 2)
             throw std::invalid_argument("lbind requires exactly two arguments");
 
         auto const& functionExpression = arguments[0];
         auto const& fixedExpression = arguments[1];
-
         auto const functionSignature = functionExpression.signature();
         auto const fixedType = fixedExpression.valueType();
 
@@ -112,91 +103,66 @@ namespace aicpp
             if (fixedType.output() != inputs[0])
                 throw std::invalid_argument("lbind fixed argument type does not match the first function input");
 
-            DslType::Inputs remainingInputs(
-                inputs.begin() + 1,
-                inputs.end());
+            DslType::Inputs remainingInputs(inputs.begin() + 1, inputs.end());
 
             if (remainingInputs.empty())
                 return makeDslType<FunctionValue>();
 
-            return DslType::function(
-                remainingInputs,
-                makeDslType<FunctionValue>());
+            return DslType::function(remainingInputs, makeDslType<FunctionValue>());
         }
 
         auto const inputs{functionSignature.inputs()};
 
-        if (fixedType != inputs[0])
-            throw std::invalid_argument("lbind fixed argument type does not match the first function input");
+        if (inputs.back().isFunction())
+        {
+            if (fixedExpression.signature() != inputs[0])
+                throw std::invalid_argument("lbind fixed argument type does not match the last function input");
+        }
+        else
+        {
+            if (fixedType != inputs[0])
+                throw std::invalid_argument("lbind fixed argument type does not match the first function input");
+        }
 
-        DslType::Inputs remainingInputs(
-            inputs.begin() + 1,
-            inputs.end());
+        DslType::Inputs remainingInputs(inputs.begin() + 1, inputs.end());
 
         if (remainingInputs.empty())
             return functionSignature.output();
 
-        return DslType::function(
-            remainingInputs,
-            functionSignature.output());
+        return DslType::function(remainingInputs, functionSignature.output());
     }
 
-    bool LbindNeuron::evaluatesToValue(
-        std::vector<std::any> const& arguments) const
+    bool LbindNeuron::evaluatesToValue(std::vector<std::any> const& arguments) const
     {
-        if (arguments.size() != 2
-            || arguments[0].type() != typeid(Connection)
-            || arguments[1].type() != typeid(Connection))
-        {
+        if (arguments.size() != 2 || arguments[0].type() != typeid(Connection) || arguments[1].type() != typeid(Connection))
             return false;
-        }
 
-        auto const& functionExpression =
-            std::any_cast<Connection const&>(arguments[0]);
-
+        auto const& functionExpression = std::any_cast<Connection const&>(arguments[0]);
         auto const functionSignature = functionExpression.signature();
 
-        if (functionSignature.isFunction()
-            && functionSignature.inputs().size() == 1)
-        {
+        if (functionSignature.isFunction() && functionSignature.inputs().size() == 1)
             return true;
-        }
 
         auto const functionValueType = functionExpression.valueType();
 
-        return !functionValueType.isFunction()
-            && functionValueType.nativeType() == typeid(FunctionValue);
+        return !functionValueType.isFunction() && functionValueType.nativeType() == typeid(FunctionValue);
     }
 
-    std::any LbindNeuron::evaluate(
-        std::vector<std::any> const& arguments) const
+    std::any LbindNeuron::evaluate(std::vector<std::any> const& arguments) const
     {
         if (arguments.size() != 2)
-        {
-            throw std::invalid_argument(
-                "lbind requires exactly two arguments");
-        }
+            throw std::invalid_argument("lbind requires exactly two arguments");
 
-        if (arguments[0].type() != typeid(Connection)
-            || arguments[1].type() != typeid(Connection))
-        {
-            throw std::invalid_argument(
-                "lbind arguments must be connections");
-        }
+        if (arguments[0].type() != typeid(Connection) || arguments[1].type() != typeid(Connection))
+            throw std::invalid_argument("lbind arguments must be connections");
 
-        auto const& functionExpression =
-            std::any_cast<Connection const&>(arguments[0]);
-
-        auto const& fixedExpression =
-            std::any_cast<Connection const&>(arguments[1]);
-
+        auto const& functionExpression = std::any_cast<Connection const&>(arguments[0]);
+        auto const& fixedExpression = std::any_cast<Connection const&>(arguments[1]);
         auto const functionResult = functionExpression.output();
 
         if (functionResult.type() == typeid(FunctionValue))
         {
-            auto const& functionValue =
-                std::any_cast<FunctionValue const&>(functionResult);
-
+            auto const& functionValue = std::any_cast<FunctionValue const&>(functionResult);
             auto const fixedValue = fixedExpression.output();
 
             return functionValue.connection.apply(fixedValue);
@@ -204,15 +170,12 @@ namespace aicpp
 
         if (functionResult.type() == typeid(Connection))
         {
-            auto const& functionValue =
-                std::any_cast<Connection const&>(functionResult);
-
+            auto const& functionValue = std::any_cast<Connection const&>(functionResult);
             auto const fixedValue = fixedExpression.output();
 
             return functionValue.apply(fixedValue);
         }
 
-        throw std::invalid_argument(
-            "lbind expected a FunctionValue or a Connection");
+        throw std::invalid_argument("lbind expected a FunctionValue or a Connection");
     }
 }
