@@ -48,28 +48,8 @@ aicpp::NeuronBase const* aicpp::findNeuron(aicpp::DslType const& expected)
 
 aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslType const& expectedSignature)
 {
-    if (expectedSignature.isFunction() && expectedSignature.inputs().size() == 1)
-    {
-        for (auto const& [_, neuron] : registry)
-        {
-            if (neuron->name() != name || !neuron->isPolymorphic())
-                continue;
-
-            auto const* adapter = dynamic_cast<FunctionAdapterNeuron const*>(neuron);
-
-            if (adapter == nullptr)
-                continue;
-
-            try
-            {
-                if (adapter->inferSignature({}) == expectedSignature)
-                    return Connection{neuron, {}};
-            }
-            catch (std::exception const&)
-            {
-            }
-        }
-    }
+    if (!expectedSignature.isFunction())
+        throw std::invalid_argument("Expected signature must be a function");
 
     for (auto const& [_, neuron] : registry)
     {
@@ -79,7 +59,8 @@ aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslTyp
         if (neuron->signature() != expectedSignature)
             continue;
 
-        auto const inputTypes{neuron->inputTypes()};
+        auto const inputTypes = neuron->inputTypes();
+
         std::vector<std::any> inputs;
         inputs.reserve(inputTypes.size());
 
@@ -87,6 +68,73 @@ aicpp::Connection aicpp::buildFunctionConnection(std::string const& name, DslTyp
             inputs.emplace_back(input);
 
         return Connection{neuron, inputs};
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name || !neuron->isPolymorphic())
+            continue;
+
+        auto const* adapter = dynamic_cast<FunctionAdapterNeuron const*>(neuron);
+
+        if (adapter == nullptr)
+            continue;
+
+        try
+        {
+            if (adapter->inferSignature({}) == expectedSignature)
+                return Connection{neuron, {}};
+        }
+        catch (std::exception const&)
+        {
+        }
+    }
+
+    for (auto const& [_, neuron] : registry)
+    {
+        if (neuron->name() != name || !neuron->isPolymorphic())
+            continue;
+
+        auto const* polymorphic = dynamic_cast<PolymorphicNeuron const*>(neuron);
+
+        if (polymorphic == nullptr)
+            continue;
+
+        try
+        {
+            auto const inferredSignature = polymorphic->inferSignature(expectedSignature.inputs());
+
+            if (inferredSignature.output() == expectedSignature.output())
+            {
+                std::vector<std::any> inputs;
+                auto const i{expectedSignature.inputs()};
+                inputs.reserve(i.size());
+
+                for (auto const& input : i)
+                {
+                    if (input.isFunction())
+                    {
+                        if (input == DslType::function({makeDslType<hodel::Object>()}, makeDslType<hodel::Integer>()))
+                            inputs.emplace_back(Connection(std::make_shared<Neuron<hodel::Integer, hodel::Object> >("type", [] (hodel::Object const&) -> auto { return hodel::Integer{}; }), {std::type_index{typeid(hodel::Object)}}));
+                        else
+                            throw std::logic_error("Function signature not implemented " + input.string());
+                    }
+                    else if (input.nativeType() == typeid(hodel::Objects))
+                        inputs.emplace_back(Connection(std::make_shared<Neuron<hodel::Objects> >("type", [] () -> auto { return hodel::Objects{}; }), {}));
+                    else if (input.nativeType() == typeid(hodel::Indices))
+                        inputs.emplace_back(Connection(std::make_shared<Neuron<hodel::Indices> >("type", [] () -> auto { return hodel::Indices{}; }), {}));
+                    else if (input.nativeType() == typeid(hodel::IntegerSet))
+                        inputs.emplace_back(Connection(std::make_shared<Neuron<hodel::IntegerSet> >("type", [] () -> auto { return hodel::IntegerSet{}; }), {}));
+                    else
+                        throw std::logic_error("Input signature not implemented " + input.string());
+                }
+
+                return Connection{neuron, inputs};
+            }
+        }
+        catch (std::exception const&)
+        {
+        }
     }
 
     throw std::runtime_error("buildFunctionConnection: No function overload found for neuron: " + name + " " + expectedSignature.string());
@@ -224,6 +272,12 @@ Connection::Connection(NeuronBase const* neuron, std::vector<std::any> const& in
     : Connection(neuron, inputs)
 {
     expectedResultType_ = expectedResultType;
+}
+
+Connection::Connection(std::shared_ptr<NeuronBase> const& neuron, std::vector<std::any> const& inputs)
+    : Connection(neuron.get(), inputs)
+{
+    ownedNeuron_ = neuron;
 }
 
 NeuronBase const* Connection::neuron() const
