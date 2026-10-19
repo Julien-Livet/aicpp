@@ -238,18 +238,18 @@ namespace aicpp
             auto const expectedFunction = DslType::function({elementType}, makeDslType<hodel::Integer>());
 
             overload->resolve(expectedFunction);
-        }
-        else
-        {
-            auto const functionSignature = arguments[1].signature();
-            bool const correctOutput = functionSignature.output() == makeDslType<hodel::Integer>() || functionSignature.output() == makeDslType<hodel::IntegerTuple>();
 
-            if (!functionSignature.isFunction() || functionSignature.inputs().size() != 1
-                || functionSignature.inputs().front() != elementType || !correctOutput)
-                throw std::invalid_argument("inferConnectionSignature: argmin expects a function from the element type to Integer or IntegerTuple");
+            return DslType::function({containerSignature, expectedFunction}, elementType);
         }
 
-        return DslType::function({containerSignature}, elementType);
+        auto const functionSignature = arguments[1].signature();
+        bool const correctOutput = functionSignature.output() == makeDslType<hodel::Integer>() || functionSignature.output() == makeDslType<hodel::IntegerTuple>();
+
+        if (!functionSignature.isFunction() || functionSignature.inputs().size() != 1
+            || functionSignature.inputs().front() != elementType || !correctOutput)
+            throw std::invalid_argument("inferConnectionSignature: argmin expects a function from the element type to Integer or IntegerTuple");
+
+        return DslType::function({containerSignature, functionSignature}, elementType);
     }
 
     DslType ArgminNeuron::elementTypeFor(DslType const& container) const
