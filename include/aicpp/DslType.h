@@ -1,5 +1,5 @@
-#ifndef AICPP_DSLTYPE_H
-#define AICPP_DSLTYPE_H
+#ifndef AICPP_DSL_TYPE_H
+#define AICPP_DSL_TYPE_H
 
 #include <any>
 #include <memory>
@@ -16,8 +16,7 @@ namespace aicpp
         public:
             using Inputs = std::vector<DslType>;
 
-            explicit DslType(std::type_index type)
-                : type_{type}
+            explicit DslType(std::type_index type) : type_{type}
             {
             }
 
@@ -25,8 +24,8 @@ namespace aicpp
             {
                 DslType result{typeid(void)};
                 result.inputs_ = std::move(inputs);
-                result.output_ = std::make_shared<DslType>(
-                    std::move(output));
+                result.output_ = std::make_shared<DslType>(std::move(output));
+
                 return result;
             }
 
@@ -38,8 +37,7 @@ namespace aicpp
             std::type_index nativeType() const
             {
                 if (isFunction())
-                    throw std::logic_error(
-                        "A function type has no native type");
+                    throw std::logic_error("A function type has no native type");
 
                 return type_;
             }
@@ -60,9 +58,7 @@ namespace aicpp
                 return *output_;
             }
 
-            friend bool operator==(
-                DslType const& lhs,
-                DslType const& rhs)
+            friend bool operator==(DslType const& lhs, DslType const& rhs)
             {
                 if (lhs.isFunction() != rhs.isFunction())
                     return false;
@@ -70,13 +66,10 @@ namespace aicpp
                 if (!lhs.isFunction())
                     return lhs.type_ == rhs.type_;
 
-                return lhs.inputs_ == rhs.inputs_
-                    && lhs.output() == rhs.output();
+                return lhs.inputs_ == rhs.inputs_ && lhs.output() == rhs.output();
             }
 
-            friend bool operator!=(
-                DslType const& lhs,
-                DslType const& rhs)
+            friend bool operator!=(DslType const& lhs, DslType const& rhs)
             {
                 return !(lhs == rhs);
             }
@@ -98,27 +91,19 @@ namespace aicpp
         return DslType{typeid(NativeType)};
     }
 
-    inline DslType inferComposeSignature(
-        DslType const& outer,
-        DslType const& inner)
+    inline DslType inferComposeSignature(DslType const& outer, DslType const& inner)
     {
         if (!outer.isFunction() || !inner.isFunction())
-            throw std::invalid_argument(
-                "compose requires two function types");
+            throw std::invalid_argument("compose requires two function types");
 
-        if (outer.inputs().size() != 1
-            || inner.inputs().size() != 1)
-            throw std::invalid_argument(
-                "compose requires unary functions");
+        if (outer.inputs().size() != 1 || inner.inputs().size() != 1)
+            throw std::invalid_argument("compose requires unary functions");
 
         if (outer.inputs()[0] != inner.output())
-            throw std::invalid_argument(
-                "compose function types are incompatible");
+            throw std::invalid_argument("compose function types are incompatible");
 
-        return DslType::function(
-            {inner.inputs()[0]},
-            outer.output());
+        return DslType::function({inner.inputs()[0]}, outer.output());
     }
 }
 
-#endif
+#endif // AICPP_DSL_TYPE_H
