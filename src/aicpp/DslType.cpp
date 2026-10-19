@@ -16,7 +16,10 @@ std::string DslType::string() const
     {
         try
         {
-            args.emplace_back(hodel::types.at(input.nativeType()));
+            if (input.isFunction())
+                args.emplace_back(input.string());
+            else
+                args.emplace_back(hodel::types.at(input.nativeType()));
         }
         catch (std::exception const&)
         {
