@@ -1420,85 +1420,88 @@ namespace aicpp
     aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::Indices const&> neuron_mapply__468{
         "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::Indices const&>::PointerFunction>(&hodel::mapply_)};
     // Original declaration: line 698
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&> neuron_cellwise_469{
-        "cellwise", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::cellwise)};
+    aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::IntegerSet const&> neuron_mapply_469{
+        "mapply", static_cast<aicpp::Neuron<hodel::Object, aicpp::FunctionValue const&, hodel::IntegerSet const&>::PointerFunction>(&hodel::mapply)};
     // Original declaration: line 699
-    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_mostcommon_470{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&> neuron_cellwise_470{
+        "cellwise", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::cellwise)};
     // Original declaration: line 700
-    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_mostcommon_471{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_mostcommon_471{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 701
-    aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_mostcommon_472{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_mostcommon_472{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 702
-    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_mostcommon_473{
-        "mostcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_mostcommon_473{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 703
-    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_mostcommon_474{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_mostcommon_474{
+        "mostcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 704
-    aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_mostcommon_475{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_mostcommon_475{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 705
-    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_mostcommon_476{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_mostcommon_476{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 706
-    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_mostcommon_477{
-        "mostcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::mostcommon)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_mostcommon_477{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 707
-    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_leastcommon_478{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_mostcommon_478{
+        "mostcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::mostcommon)};
     // Original declaration: line 708
-    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_leastcommon_479{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&> neuron_leastcommon_479{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Boolean, hodel::BooleanVector const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 709
-    aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_leastcommon_480{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&> neuron_leastcommon_480{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerVector const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 710
-    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_leastcommon_481{
-        "leastcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&> neuron_leastcommon_481{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Integer, hodel::IntegerSet const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 711
-    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_leastcommon_482{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<IntegerTuple, hodel::Indices const&> neuron_leastcommon_482{
+        "leastcommon", static_cast<aicpp::Neuron<IntegerTuple, hodel::Indices const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 712
-    aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_leastcommon_483{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Object, hodel::Objects const&> neuron_leastcommon_483{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::Objects const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 713
-    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_leastcommon_484{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::Object, hodel::ObjectVector const&> neuron_leastcommon_484{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Object, hodel::ObjectVector const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 714
-    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_leastcommon_485{
-        "leastcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::leastcommon)};
+    aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&> neuron_leastcommon_485{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::IntegerVector, hodel::Grid const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 715
-    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_sizefilter_486{
-        "sizefilter", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    aicpp::Neuron<hodel::Grid, hodel::GridVector const&> neuron_leastcommon_486{
+        "leastcommon", static_cast<aicpp::Neuron<hodel::Grid, hodel::GridVector const&>::PointerFunction>(&hodel::leastcommon)};
     // Original declaration: line 716
-    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&> neuron_sizefilter_487{
-        "sizefilter", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&> neuron_sizefilter_487{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::Grid, hodel::Grid const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     // Original declaration: line 717
-    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&> neuron_sizefilter_488{
-        "sizefilter", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&> neuron_sizefilter_488{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::GridVector, hodel::GridVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     // Original declaration: line 718
-    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neuron_sizefilter_489{
-        "sizefilter", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&> neuron_sizefilter_489{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::ObjectVector, hodel::ObjectVector const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     // Original declaration: line 719
-    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&> neuron_sizefilter_490{
-        "sizefilter", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
+    aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&> neuron_sizefilter_490{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::Objects, hodel::Objects const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     // Original declaration: line 720
-    aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_asset_491{
-        "asset", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::asset)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&> neuron_sizefilter_491{
+        "sizefilter", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesSet const&, hodel::Integer const&>::PointerFunction>(&hodel::sizefilter)};
     // Original declaration: line 721
-    aicpp::Neuron<hodel::IntegerSet, hodel::IntegerVector const&> neuron_toset_492{
-        "toset", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::IntegerVector const&>::PointerFunction>(&hodel::toset)};
+    aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&> neuron_asset_492{
+        "asset", static_cast<aicpp::Neuron<hodel::Indices, IntegerTuple const&, IntegerTuple const&>::PointerFunction>(&hodel::asset)};
     // Original declaration: line 722
-    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesVector const&> neuron_toset_493{
-        "toset", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesVector const&>::PointerFunction>(&hodel::toset)};
+    aicpp::Neuron<hodel::IntegerSet, hodel::IntegerVector const&> neuron_toset_493{
+        "toset", static_cast<aicpp::Neuron<hodel::IntegerSet, hodel::IntegerVector const&>::PointerFunction>(&hodel::toset)};
     // Original declaration: line 723
-    aicpp::Neuron<hodel::Objects, hodel::ObjectVector const&> neuron_toset_494{
-        "toset", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectVector const&>::PointerFunction>(&hodel::toset)};
+    aicpp::Neuron<hodel::IndicesSet, hodel::IndicesVector const&> neuron_toset_494{
+        "toset", static_cast<aicpp::Neuron<hodel::IndicesSet, hodel::IndicesVector const&>::PointerFunction>(&hodel::toset)};
     // Original declaration: line 724
-    aicpp::Neuron<hodel::Indices, hodel::IntegerTupleVector const&> neuron_toset_495{
+    aicpp::Neuron<hodel::Objects, hodel::ObjectVector const&> neuron_toset_495{
+        "toset", static_cast<aicpp::Neuron<hodel::Objects, hodel::ObjectVector const&>::PointerFunction>(&hodel::toset)};
+    // Original declaration: line 725
+    aicpp::Neuron<hodel::Indices, hodel::IntegerTupleVector const&> neuron_toset_496{
         "toset", static_cast<aicpp::Neuron<hodel::Indices, hodel::IntegerTupleVector const&>::PointerFunction>(&hodel::toset)};
     static FunctionAdapterNeuron adapter_add_28{&neuron_add_28};
     static FunctionAdapterNeuron adapter_add_29{&neuron_add_29};
@@ -1941,8 +1944,8 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_mapply_466{&neuron_mapply_466};
     static FunctionAdapterNeuron adapter_mapply_467{&neuron_mapply_467};
     static FunctionAdapterNeuron adapter_mapply__468{&neuron_mapply__468};
-    static FunctionAdapterNeuron adapter_cellwise_469{&neuron_cellwise_469};
-    static FunctionAdapterNeuron adapter_mostcommon_470{&neuron_mostcommon_470};
+    static FunctionAdapterNeuron adapter_mapply_469{&neuron_mapply_469};
+    static FunctionAdapterNeuron adapter_cellwise_470{&neuron_cellwise_470};
     static FunctionAdapterNeuron adapter_mostcommon_471{&neuron_mostcommon_471};
     static FunctionAdapterNeuron adapter_mostcommon_472{&neuron_mostcommon_472};
     static FunctionAdapterNeuron adapter_mostcommon_473{&neuron_mostcommon_473};
@@ -1950,7 +1953,7 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_mostcommon_475{&neuron_mostcommon_475};
     static FunctionAdapterNeuron adapter_mostcommon_476{&neuron_mostcommon_476};
     static FunctionAdapterNeuron adapter_mostcommon_477{&neuron_mostcommon_477};
-    static FunctionAdapterNeuron adapter_leastcommon_478{&neuron_leastcommon_478};
+    static FunctionAdapterNeuron adapter_mostcommon_478{&neuron_mostcommon_478};
     static FunctionAdapterNeuron adapter_leastcommon_479{&neuron_leastcommon_479};
     static FunctionAdapterNeuron adapter_leastcommon_480{&neuron_leastcommon_480};
     static FunctionAdapterNeuron adapter_leastcommon_481{&neuron_leastcommon_481};
@@ -1958,16 +1961,17 @@ namespace aicpp
     static FunctionAdapterNeuron adapter_leastcommon_483{&neuron_leastcommon_483};
     static FunctionAdapterNeuron adapter_leastcommon_484{&neuron_leastcommon_484};
     static FunctionAdapterNeuron adapter_leastcommon_485{&neuron_leastcommon_485};
-    static FunctionAdapterNeuron adapter_sizefilter_486{&neuron_sizefilter_486};
+    static FunctionAdapterNeuron adapter_leastcommon_486{&neuron_leastcommon_486};
     static FunctionAdapterNeuron adapter_sizefilter_487{&neuron_sizefilter_487};
     static FunctionAdapterNeuron adapter_sizefilter_488{&neuron_sizefilter_488};
     static FunctionAdapterNeuron adapter_sizefilter_489{&neuron_sizefilter_489};
     static FunctionAdapterNeuron adapter_sizefilter_490{&neuron_sizefilter_490};
-    static FunctionAdapterNeuron adapter_asset_491{&neuron_asset_491};
-    static FunctionAdapterNeuron adapter_toset_492{&neuron_toset_492};
+    static FunctionAdapterNeuron adapter_sizefilter_491{&neuron_sizefilter_491};
+    static FunctionAdapterNeuron adapter_asset_492{&neuron_asset_492};
     static FunctionAdapterNeuron adapter_toset_493{&neuron_toset_493};
     static FunctionAdapterNeuron adapter_toset_494{&neuron_toset_494};
     static FunctionAdapterNeuron adapter_toset_495{&neuron_toset_495};
+    static FunctionAdapterNeuron adapter_toset_496{&neuron_toset_496};
 
     NeuronRegistry makeNeuronRegistry()
     {
@@ -2882,10 +2886,10 @@ namespace aicpp
         registry.emplace("adapter_mapply_467", &adapter_mapply_467);
         registry.emplace("neuron_mapply__468", &neuron_mapply__468);
         registry.emplace("adapter_mapply__468", &adapter_mapply__468);
-        registry.emplace("neuron_cellwise_469", &neuron_cellwise_469);
-        registry.emplace("adapter_cellwise_469", &adapter_cellwise_469);
-        registry.emplace("neuron_mostcommon_470", &neuron_mostcommon_470);
-        registry.emplace("adapter_mostcommon_470", &adapter_mostcommon_470);
+        registry.emplace("neuron_mapply_469", &neuron_mapply_469);
+        registry.emplace("adapter_mapply_469", &adapter_mapply_469);
+        registry.emplace("neuron_cellwise_470", &neuron_cellwise_470);
+        registry.emplace("adapter_cellwise_470", &adapter_cellwise_470);
         registry.emplace("neuron_mostcommon_471", &neuron_mostcommon_471);
         registry.emplace("adapter_mostcommon_471", &adapter_mostcommon_471);
         registry.emplace("neuron_mostcommon_472", &neuron_mostcommon_472);
@@ -2900,8 +2904,8 @@ namespace aicpp
         registry.emplace("adapter_mostcommon_476", &adapter_mostcommon_476);
         registry.emplace("neuron_mostcommon_477", &neuron_mostcommon_477);
         registry.emplace("adapter_mostcommon_477", &adapter_mostcommon_477);
-        registry.emplace("neuron_leastcommon_478", &neuron_leastcommon_478);
-        registry.emplace("adapter_leastcommon_478", &adapter_leastcommon_478);
+        registry.emplace("neuron_mostcommon_478", &neuron_mostcommon_478);
+        registry.emplace("adapter_mostcommon_478", &adapter_mostcommon_478);
         registry.emplace("neuron_leastcommon_479", &neuron_leastcommon_479);
         registry.emplace("adapter_leastcommon_479", &adapter_leastcommon_479);
         registry.emplace("neuron_leastcommon_480", &neuron_leastcommon_480);
@@ -2916,8 +2920,8 @@ namespace aicpp
         registry.emplace("adapter_leastcommon_484", &adapter_leastcommon_484);
         registry.emplace("neuron_leastcommon_485", &neuron_leastcommon_485);
         registry.emplace("adapter_leastcommon_485", &adapter_leastcommon_485);
-        registry.emplace("neuron_sizefilter_486", &neuron_sizefilter_486);
-        registry.emplace("adapter_sizefilter_486", &adapter_sizefilter_486);
+        registry.emplace("neuron_leastcommon_486", &neuron_leastcommon_486);
+        registry.emplace("adapter_leastcommon_486", &adapter_leastcommon_486);
         registry.emplace("neuron_sizefilter_487", &neuron_sizefilter_487);
         registry.emplace("adapter_sizefilter_487", &adapter_sizefilter_487);
         registry.emplace("neuron_sizefilter_488", &neuron_sizefilter_488);
@@ -2926,16 +2930,18 @@ namespace aicpp
         registry.emplace("adapter_sizefilter_489", &adapter_sizefilter_489);
         registry.emplace("neuron_sizefilter_490", &neuron_sizefilter_490);
         registry.emplace("adapter_sizefilter_490", &adapter_sizefilter_490);
-        registry.emplace("neuron_asset_491", &neuron_asset_491);
-        registry.emplace("adapter_asset_491", &adapter_asset_491);
-        registry.emplace("neuron_toset_492", &neuron_toset_492);
-        registry.emplace("adapter_toset_492", &adapter_toset_492);
+        registry.emplace("neuron_sizefilter_491", &neuron_sizefilter_491);
+        registry.emplace("adapter_sizefilter_491", &adapter_sizefilter_491);
+        registry.emplace("neuron_asset_492", &neuron_asset_492);
+        registry.emplace("adapter_asset_492", &adapter_asset_492);
         registry.emplace("neuron_toset_493", &neuron_toset_493);
         registry.emplace("adapter_toset_493", &adapter_toset_493);
         registry.emplace("neuron_toset_494", &neuron_toset_494);
         registry.emplace("adapter_toset_494", &adapter_toset_494);
         registry.emplace("neuron_toset_495", &neuron_toset_495);
         registry.emplace("adapter_toset_495", &adapter_toset_495);
+        registry.emplace("neuron_toset_496", &neuron_toset_496);
+        registry.emplace("adapter_toset_496", &adapter_toset_496);
 
         auto polymorphicRegistry = makePolymorphicNeuronRegistry();
         registry.insert(
