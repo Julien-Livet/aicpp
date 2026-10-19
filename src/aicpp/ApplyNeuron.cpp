@@ -149,6 +149,12 @@ namespace
                     makeDslType<hodel::BooleanVector>()),
 
             makeApplyRule<
+                hodel::Integer,
+                hodel::Object,
+                hodel::IntegerSet>(
+                    makeDslType<hodel::Objects>()),
+
+            makeApplyRule<
                 hodel::Object,
                 hodel::Object,
                 hodel::Objects>(
