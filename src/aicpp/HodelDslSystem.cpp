@@ -257,7 +257,8 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("divide7", Neuron{"divide", hodel::divide, std::vector<std::type_index>{typeid(hodel::IntegerType), typeid(hodel::IntegerType)}, typeid(hodel::IntegerType)});
     neurons.emplace("invert0", Neuron{"invert", hodel::invert, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("invert1", Neuron{"invert", hodel::invert, std::vector<std::type_index>{typeid(hodel::IntegerType)}, typeid(hodel::IntegerType)});
-    neurons.emplace("even0", Neuron{"even", hodel::even, std::vector<std::type_index>{}, typeid(hodel::Boolean)});
+    neurons.emplace("even0", Neuron{"even", hodel::even, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::Boolean)});
+    neurons.emplace("even1", Neuron{"even", hodel::even, std::vector<std::type_index>{typeid(hodel::IntegerType)}, typeid(hodel::Boolean)});
     neurons.emplace("double0", Neuron{"double", hodel::double_, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("double1", Neuron{"double", hodel::double_, std::vector<std::type_index>{typeid(hodel::IntegerType)}, typeid(hodel::IntegerType)});
     neurons.emplace("halve0", Neuron{"halve", hodel::halve, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
@@ -383,6 +384,7 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("merge2", Neuron{"merge", hodel::merge, std::vector<std::type_index>{typeid(std::vector<hodel::ObjectType>)}, typeid(hodel::ObjectType)});
     neurons.emplace("merge3", Neuron{"merge", hodel::merge, std::vector<std::type_index>{typeid(std::set<hodel::IndicesType>)}, typeid(hodel::IndicesType)});
     neurons.emplace("merge4", Neuron{"merge", hodel::merge, std::vector<std::type_index>{typeid(std::set<hodel::ObjectType>)}, typeid(hodel::ObjectType)});
+    neurons.emplace("merge5", Neuron{"merge", hodel::merge, std::vector<std::type_index>{typeid(std::vector<hodel::GridVector>)}, typeid(hodel::GridVector)});
     neurons.emplace("maximum0", Neuron{"maximum", hodel::maximum, std::vector<std::type_index>{typeid(std::vector<hodel::IntegerType>)}, typeid(hodel::IntegerType)});
     neurons.emplace("maximum1", Neuron{"maximum", hodel::maximum, std::vector<std::type_index>{typeid(std::set<hodel::IntegerType>)}, typeid(hodel::IntegerType)});
     neurons.emplace("maximum2", Neuron{"maximum", hodel::maximum, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerType)});
@@ -535,6 +537,7 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("first14", Neuron{"first", hodel::first, std::vector<std::type_index>{typeid(std::set<hodel::ObjectType>)}, typeid(hodel::ObjectType)});
     neurons.emplace("first15", Neuron{"first", hodel::first, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerType)});
     neurons.emplace("first16", Neuron{"first", hodel::first, std::vector<std::type_index>{typeid(hodel::Cell)}, typeid(hodel::IntegerType)});
+    neurons.emplace("first17", Neuron{"first", hodel::first, std::vector<std::type_index>{typeid(hodel::IntegerTuplePair)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("last0", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(std::vector<hodel::Boolean>)}, typeid(hodel::Boolean)});
     neurons.emplace("last1", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(std::vector<hodel::Callable>)}, typeid(hodel::Callable)});
     neurons.emplace("last2", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(std::vector<hodel::GridType>)}, typeid(hodel::GridType)});
@@ -552,6 +555,7 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("last14", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(std::set<hodel::ObjectType>)}, typeid(hodel::ObjectType)});
     neurons.emplace("last15", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerType)});
     neurons.emplace("last16", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(hodel::Cell)}, typeid(hodel::IntegerTuple)});
+    neurons.emplace("last17", Neuron{"last", hodel::last, std::vector<std::type_index>{typeid(hodel::IntegerTuplePair)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("insert0", Neuron{"insert", hodel::insert, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(std::vector<hodel::Boolean>)}, typeid(std::vector<hodel::Boolean>)});
     neurons.emplace("insert1", Neuron{"insert", hodel::insert, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::Callable>)}, typeid(std::vector<hodel::Callable>)});
     neurons.emplace("insert2", Neuron{"insert", hodel::insert, std::vector<std::type_index>{typeid(hodel::GridType), typeid(std::vector<hodel::GridType>)}, typeid(std::vector<hodel::GridType>)});
@@ -595,8 +599,10 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("other14", Neuron{"other", hodel::other, std::vector<std::type_index>{typeid(std::set<hodel::ObjectType>), typeid(hodel::ObjectType)}, typeid(hodel::ObjectType)});
     neurons.emplace("interval0", Neuron{"interval", hodel::interval, std::vector<std::type_index>{typeid(hodel::IntegerType), typeid(hodel::IntegerType), typeid(hodel::IntegerType)}, typeid(hodel::IntegerVector)});
     neurons.emplace("astuple0", Neuron{"astuple", hodel::astuple, std::vector<std::type_index>{typeid(hodel::IntegerType), typeid(hodel::IntegerType)}, typeid(hodel::IntegerTuple)});
+    neurons.emplace("astuple1", Neuron{"astuple", hodel::astuple, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::IndicesType)});
     neurons.emplace("product0", Neuron{"product", hodel::product, std::vector<std::type_index>{typeid(hodel::IntegerType), typeid(hodel::IntegerTuple)}, typeid(hodel::ObjectType)});
     neurons.emplace("product1", Neuron{"product", hodel::product, std::vector<std::type_index>{typeid(hodel::IntegerType), typeid(hodel::IntegerType)}, typeid(hodel::IndicesType)});
+    neurons.emplace("product2", Neuron{"product", hodel::product, std::vector<std::type_index>{typeid(hodel::IntegerTuplePair), typeid(hodel::IndicesType)}, typeid(std::set<hodel::IntegerTuplePair>)});
     neurons.emplace("pair0", Neuron{"pair", hodel::pair, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::IntegerVector)}, typeid(hodel::GridType)});
     neurons.emplace("branch0", Neuron{"branch", hodel::branch, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(hodel::Boolean), typeid(hodel::Boolean)}, typeid(hodel::Boolean)});
     neurons.emplace("branch1", Neuron{"branch", hodel::branch, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(hodel::Callable), typeid(hodel::Callable)}, typeid(hodel::Callable)});
@@ -691,6 +697,9 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("apply10", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::TupleVector)}, typeid(hodel::IntegerVector)});
     neurons.emplace("apply11", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesType)}, typeid(hodel::IndicesSet)});
     neurons.emplace("apply12", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesSet)}, typeid(hodel::IndicesType)});
+    neurons.emplace("apply13", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::GridVector>)}, typeid(hodel::GridVector)});
+    neurons.emplace("apply14", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesSet)}, typeid(hodel::IndicesSet)});
+    neurons.emplace("apply15", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::GridType)}, typeid(hodel::GridType)});
     neurons.emplace("rapply0", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::Callable>), typeid(hodel::Boolean)}, typeid(std::vector<hodel::Boolean>)});
     neurons.emplace("rapply1", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::Callable>), typeid(hodel::IntegerType)}, typeid(std::vector<hodel::Boolean>)});
     neurons.emplace("rapply2", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::Callable>), typeid(hodel::IntegerType)}, typeid(std::vector<hodel::IntegerType>)});
