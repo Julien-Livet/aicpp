@@ -2,11 +2,41 @@
 #include <map>
 #include <numeric>
 #include <ranges>
+#include <typeindex>
 
 #include "aicpp/Hodel.h"
 
 constexpr hodel::IntegerType MAX_SIZE = 30;
 constexpr size_t SHOOT_DISTANCE = 42;
+
+static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean), "Boolean"},
+    {typeid(hodel::IntegerType), "Integer"},
+    {typeid(hodel::IntegerTuple), "IntegerTuple"},
+    {typeid(hodel::IntegerSet), "IntegerSet"},
+    {typeid(hodel::IntegerVector), "IntegerVector"},
+    {typeid(hodel::GridType), "Grid"},
+    {typeid(hodel::Cell), "Cell"},
+    {typeid(hodel::ObjectType), "Object"},
+    {typeid(hodel::Objects), "Objects"},
+    {typeid(hodel::IndicesType), "Indices"},
+    {typeid(hodel::IndicesSet), "IndicesSet"},
+    {typeid(hodel::GridVector), "GridVector"},
+    {typeid(hodel::Callable), "Callable"},
+    {typeid(hodel::Patch), "Patch"},
+    {typeid(hodel::Element), "Element"},
+};
+                                                            
+std::string hodel::type(std::type_index const& t)
+{
+    try
+    {
+        return types.at(t);
+    }
+    catch (std::exception const&)
+    {
+        return t.name();
+    }
+}
 
 using IntegerCountMap = std::map<hodel::IntegerType, hodel::IntegerType>;
 
@@ -383,7 +413,7 @@ std::any hodel::double_(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerType>(x)};
 
-            return y * IntegerType{2};
+            return static_cast<IntegerType>(y * 2);
         }
         else if (std::holds_alternative<IntegerTuple>(x))
         {
@@ -415,7 +445,7 @@ std::any hodel::halve(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerType>(x)};
 
-            return y / IntegerType{2};
+            return static_cast<IntegerType>(y / 2);
         }
         else if (std::holds_alternative<IntegerTuple>(x))
         {
@@ -913,6 +943,18 @@ std::any hodel::merge(std::vector<std::any> const& args)
 
         return result;
     }
+    else if (containers.type() == typeid(std::vector<GridVector>))
+    {
+        auto const containers_{std::any_cast<std::vector<GridVector> >(containers)};
+
+        GridVector result;
+
+        for (auto const& container : containers_)
+            result.insert(result.end(), container.begin(), container.end());
+
+        return result;
+    }
+
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1231,9 +1273,6 @@ std::any mostcommon(std::any const& container)
 
     auto const container_{std::any_cast<T>(container)};
 
-    if (container_.empty())
-        throw std::runtime_error{"Wrong value"};
-
     std::unordered_map<typename T::value_type, size_t> counts;
 
     for (auto const& value : container_)
@@ -1285,9 +1324,6 @@ std::any leastcommon(std::any const& container)
         return std::any{};
 
     auto const container_{std::any_cast<T>(container)};
-
-    if (container_.empty())
-        throw std::runtime_error{"Wrong value"};
 
     std::unordered_map<typename T::value_type, size_t> counts;
 
@@ -1406,7 +1442,7 @@ std::any hodel::increment(std::vector<std::any> const& args)
         auto const y{std::any_cast<Numerical>(x)};
 
         if (std::holds_alternative<IntegerType>(y))
-            return std::get<IntegerType>(y) + IntegerType{1};
+            return static_cast<IntegerType>(std::get<IntegerType>(y) + 1);
         else if (std::holds_alternative<IntegerTuple>(y))
         {
             auto const z{std::get<IntegerTuple>(y)};
@@ -1434,7 +1470,7 @@ std::any hodel::decrement(std::vector<std::any> const& args)
         auto const y{std::any_cast<Numerical>(x)};
 
         if (std::holds_alternative<IntegerType>(y))
-            return std::get<IntegerType>(y) - IntegerType{1};
+            return static_cast<IntegerType>(std::get<IntegerType>(y) - 1);
         else if (std::holds_alternative<IntegerTuple>(y))
         {
             auto const z{std::get<IntegerTuple>(y)};
@@ -1790,6 +1826,9 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (auto r = first_set<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Callable> >(container); r.has_value()) return r;
 
+    if (container.type() == typeid(IntegerTuplePair))
+        return std::any_cast<IntegerTuplePair>(container).first;
+
     if (container.type() == typeid(GridType))
     {
         auto const x{std::any_cast<GridType>(container)};
@@ -1845,6 +1884,9 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (auto r = last_set<std::vector<IntegerType> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Callable> >(container); r.has_value()) return r;
+
+    if (container.type() == typeid(IntegerTuplePair))
+        return std::any_cast<IntegerTuplePair>(container).second;
 
     if (container.type() == typeid(GridType))
     {
@@ -1997,6 +2039,9 @@ std::any hodel::astuple(std::vector<std::any> const& args)
     if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
         return IntegerTuple{std::make_pair<IntegerType, IntegerType>(std::any_cast<IntegerType>(a), std::any_cast<IntegerType>(b))};
 
+    if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
+        return IndicesType{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -2034,6 +2079,21 @@ std::any hodel::product(std::vector<std::any> const& args)
         {
             for (auto const& j : b_)
                 result.emplace(i, j);
+        }
+
+        return result;
+    }
+    else if (a.type() == typeid(IndicesType) && b.type() == typeid(IndicesType))
+    {
+        auto const a_{std::any_cast<IndicesType>(a)};
+        auto const b_{std::any_cast<IndicesType>(b)};
+
+        std::set<IntegerTuplePair> result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(std::make_pair(i, j));
         }
 
         return result;
@@ -2202,7 +2262,7 @@ std::any hodel::lbind(std::vector<std::any> const& args)
 
     if (function.type() == typeid(Callable))
     {
-        auto const f{std::any_cast<Callable>(function)};
+        auto f{std::any_cast<Callable>(function)};
 
         return Callable{[f, fixed] (std::vector<std::any> const& args) -> std::any
         {
@@ -2234,7 +2294,7 @@ std::any hodel::power(std::vector<std::any> const& args)
         if (n_ == IntegerType{1})
             return function;
 
-        return compose({function, power({function, n_ - IntegerType{1}})});
+        return compose({function, power({function, static_cast<IntegerType>(n_ - 1)})});
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -2322,6 +2382,12 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<TupleVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesType, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridVector, std::vector<GridVector> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesSet, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridType, GridType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<std::pair<IntegerTuple, IntegerTuple> >, IndicesSet>(function_, container); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2576,7 +2642,7 @@ std::any hodel::mostcolor(std::vector<std::any> const& args)
             });
 
         if (it == counts.end())
-            throw std::runtime_error{"Wrong value"};
+            return 0;
 
         return it->first;
     }
@@ -2618,7 +2684,7 @@ std::any hodel::leastcolor(std::vector<std::any> const& args)
             });
 
         if (it == counts.end())
-            throw std::runtime_error{"Wrong value"};
+            return 0;
 
         return it->first;
     }
@@ -2651,7 +2717,7 @@ std::any hodel::height(std::vector<std::any> const& args)
             auto const lm{std::any_cast<IntegerType>(lowermost({std::get<Patch>(piece_)}))};
             auto const um{std::any_cast<IntegerType>(uppermost({std::get<Patch>(piece_)}))};
 
-            return lm - um + IntegerType{1};
+            return static_cast<IntegerType>(lm - um + 1);
         }
     }
     else if (piece.type() == typeid(GridType))
@@ -2659,14 +2725,9 @@ std::any hodel::height(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return height({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(ObjectType))
-    {
-        auto const object{std::any_cast<ObjectType>(piece)};
-
-        auto const lm{std::any_cast<IntegerType>(lowermost({object}))};
-        auto const um{std::any_cast<IntegerType>(uppermost({object}))};
-
-        return lm - um + IntegerType{1};
-    }
+        return height({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
+    else if (piece.type() == typeid(IndicesType))
+        return height({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2701,7 +2762,7 @@ std::any hodel::width(std::vector<std::any> const& args)
             auto const rm{std::any_cast<IntegerType>(rightmost({std::get<Patch>(piece_)}))};
             auto const lm{std::any_cast<IntegerType>(leftmost({std::get<Patch>(piece_)}))};
 
-            return rm - lm + IntegerType{1};
+            return static_cast<IntegerType>(rm - lm + 1);
         }
     }
     else if (piece.type() == typeid(GridType))
@@ -2709,14 +2770,9 @@ std::any hodel::width(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return width({Piece{std::any_cast<Patch>(piece)}});
     else if (piece.type() == typeid(ObjectType))
-    {
-        auto const object{std::any_cast<ObjectType>(piece)};
-
-        auto const rm{std::any_cast<IntegerType>(rightmost({object}))};
-        auto const lm{std::any_cast<IntegerType>(leftmost({object}))};
-
-        return rm - lm + IntegerType{1};
-    }
+        return width({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
+    else if (piece.type() == typeid(IndicesType))
+        return width({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2868,7 +2924,7 @@ std::any hodel::sizefilter(std::vector<std::any> const& args)
 
     auto const n_{std::any_cast<IntegerType>(n)};
 
-    if (n_ < 0)
+    if (n_ <= 0)
         throw std::runtime_error{"Wrong value"};
 
     if (container.type() == typeid(Piece))
@@ -3157,9 +3213,6 @@ std::any hodel::crop(std::vector<std::any> const& args)
 
                 result.emplace_back(row);
             }
-                
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -3187,9 +3240,6 @@ std::any hodel::toindices(std::vector<std::any> const& args)
             return std::get<IndicesType>(patch_);
 
         auto const& obj = std::get<ObjectType>(patch_);
-
-        if (obj.empty())
-            throw std::runtime_error{"Wrong value"};
 
         IndicesType result;
 
@@ -3225,12 +3275,12 @@ std::any hodel::recolor(std::vector<std::any> const& args)
 
         try
         {
-            ObjectType ObjectType;
+            ObjectType object;
 
             for (auto const& index : std::any_cast<IndicesType>(toindices({patch})))
-                ObjectType.emplace(value_, index);
+                object.emplace(value_, index);
 
-            return ObjectType;
+            return object;
         }
         catch (std::exception const&)
         {
@@ -3452,11 +3502,10 @@ std::any hodel::objects(std::vector<std::any> const& args)
         {
             auto const h = grid_.size();
             auto const w = grid_.at(0).size();
-
             auto const bg = without_bg_ ? std::any_cast<IntegerType>(mostcolor({grid})) : IntegerType{-1};
 
             IndicesType occupied;
-            IndicesType unvisited = std::any_cast<IndicesType>(asindices({grid}));
+            auto unvisited = std::any_cast<IndicesType>(asindices({grid}));
 
             for (auto const& loc : unvisited)
             {
@@ -3482,8 +3531,7 @@ std::any hodel::objects(std::vector<std::any> const& args)
 
                         auto const v = grid_.at(cand.first).at(cand.second);
 
-                        if ((univalued_ && v == val) ||
-                            (!univalued_ && (!without_bg_ || v != bg)))
+                        if ((univalued_ && v == val) || (!univalued_ && (!without_bg_ || v != bg)))
                         {
                             obj.emplace(v, cand);
                             occupied.insert(cand);
@@ -3773,6 +3821,10 @@ std::any hodel::square(std::vector<std::any> const& args)
         return square({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return square({Piece{std::any_cast<Patch>(piece)}});
+    else if (piece.type() == typeid(IndicesType))
+        return square({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
+    else if (piece.type() == typeid(ObjectType))
+        return square({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -4274,7 +4326,7 @@ std::any hodel::toobject(std::vector<std::any> const& args)
             auto const h{grid_.size()};
             auto const w{grid_.at(0).size()};
 
-            ObjectType ObjectType;
+            ObjectType object;
 
             if (grid_.empty())
                 throw std::runtime_error{"Wrong value"};
@@ -4282,10 +4334,10 @@ std::any hodel::toobject(std::vector<std::any> const& args)
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({patch})))
             {
                 if (0 <= i && i < h && 0 <= j && j < w)
-                    ObjectType.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+                    object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
             }
 
-            return ObjectType;
+            return object;
         }
         catch (std::exception const&)
         {
@@ -4317,15 +4369,15 @@ std::any hodel::asobject(std::vector<std::any> const& args)
 
         try
         {
-            ObjectType ObjectType;
+            ObjectType object;
 
             for (size_t i = 0; i < grid_.size(); ++i)
             {
                 for (size_t j = 0; j < grid_.at(i).size(); ++j)
-                    ObjectType.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
+                    object.emplace(grid_.at(i).at(j), IntegerTuple{i, j});
             }
 
-            return ObjectType;
+            return object;
         }
         catch (std::exception const&)
         {
@@ -4367,9 +4419,6 @@ std::any hodel::rot90(std::vector<std::any> const& args)
                 for (size_t j = 0; j < cols; ++j)
                     result.at(j).at(rows - 1 - i) = grid_.at(i).at(j);
             }
-
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4414,9 +4463,6 @@ std::any hodel::rot180(std::vector<std::any> const& args)
                     result.at(rows - 1 - i).at(cols - 1 - j) = grid_.at(i).at(j);
             }
 
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
         catch (const std::exception&)
@@ -4460,9 +4506,6 @@ std::any hodel::rot270(std::vector<std::any> const& args)
                     result.at(cols - 1 - j).at(i) = grid_.at(i).at(j);
             }
 
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
         catch (const std::exception&)
@@ -4492,9 +4535,6 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
             std::reverse(result.begin(), result.end());
 
-            if (result == grid)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
 
@@ -4517,9 +4557,6 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
                 result.insert({v, {d - i, j}});
             }
 
-            if (result == obj)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
 
@@ -4529,9 +4566,6 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({d - i, j});
-
-        if (result == indices)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4562,9 +4596,6 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
             for (auto& row : result)
                 std::reverse(row.begin(), row.end());
 
-            if (result == grid)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
 
@@ -4587,9 +4618,6 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
                 result.insert({v, {i, d - j}});
             }
 
-            if (result == obj)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
 
@@ -4599,9 +4627,6 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({i, d - j});
-
-        if (result == indices)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4641,9 +4666,6 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                         result.at(j).at(i) = grid.at(i).at(j);
                 }
 
-                if (result == grid)
-                    throw std::runtime_error{"Wrong value"};
-
                 return result;
             }
             catch (std::exception const&)
@@ -4669,9 +4691,6 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
                 result.insert({v, {j - b + a, i - a + b}});
             }
 
-            if (result == obj)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
 
@@ -4681,9 +4700,6 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
 
         for (auto const& [i, j] : indices)
             result.insert({j - b + a, i - a + b});
-
-        if (result == indices)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -4717,9 +4733,6 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
                 std::reverse(row.begin(), row.end());
 
             auto const result = std::any_cast<GridType>(dmirror({Piece{grid}}));
-
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4798,9 +4811,6 @@ std::any hodel::fill(std::vector<std::any> const& args)
                     result.at(i).at(j) = value_;
             }
 
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
         catch (std::exception const&)
@@ -4847,9 +4857,6 @@ std::any hodel::paint(std::vector<std::any> const& args)
                 if (0 <= i && i < h && 0 <= j && j < w)
                     result.at(i).at(j) = value;
             }
-
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -4955,9 +4962,6 @@ std::any hodel::underpaint(std::vector<std::any> const& args)
                     result.at(i).at(j) = value;
             }
 
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
         catch (std::exception const&)
@@ -5000,7 +5004,7 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
 
-        if (factor_ <= 1 || factor_ > 10)
+        if (factor_ < 1 || factor_ > 20)
             throw std::runtime_error{"Wrong value"};
 
         GridType result;
@@ -5018,9 +5022,6 @@ std::any hodel::hupscale(std::vector<std::any> const& args)
 
             result.emplace_back(new_row);
         }
-
-        if (result == grid_)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -5059,7 +5060,7 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
             throw std::runtime_error{"Wrong value"};
         }
 
-        if (factor_ <= 1 || factor_ > 10)
+        if (factor_ < 1 || factor_ > 20)
             throw std::runtime_error{"Wrong value"};
 
         GridType result;
@@ -5070,9 +5071,6 @@ std::any hodel::vupscale(std::vector<std::any> const& args)
             for (IntegerType k = 0; k < factor_; ++k)
                 result.emplace_back(row);
         }
-
-        if (result == grid_)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -5093,7 +5091,7 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         auto const element_{std::any_cast<Element>(element)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
-        if (factor_ <= 1 || factor_ > 10)
+        if (factor_ < 1 || factor_ > 20)
             throw std::runtime_error{"Wrong value"};
 
         if (std::holds_alternative<GridType>(element_))
@@ -5127,9 +5125,6 @@ std::any hodel::upscale(std::vector<std::any> const& args)
                 for (IntegerType k = 0; k < factor_; ++k)
                     result.emplace_back(upscaled_row);
             }
-
-            if (result == grid)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -5189,7 +5184,7 @@ std::any hodel::downscale(std::vector<std::any> const& args)
         auto const grid_{std::any_cast<GridType>(grid)};
         auto const factor_{std::any_cast<IntegerType>(factor)};
 
-        if (factor_ <= 1)
+        if (factor_ < 1)
             throw std::runtime_error{"Wrong value"};
 
         try
@@ -5219,9 +5214,6 @@ std::any hodel::downscale(std::vector<std::any> const& args)
                 if (i % factor_ == 0)
                     result.emplace_back(temp.at(i));
             }
-
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
@@ -5518,9 +5510,6 @@ std::any hodel::cellwise(std::vector<std::any> const& args)
                     result.at(i).at(j) = (a_.at(i).at(j) == b_.at(i).at(j)) ? a_.at(i).at(j) : fallback_;
             }
 
-            if (result == a_)
-                throw std::runtime_error{"Wrong value"};
-
             return result;
         }
         catch (std::exception const&)
@@ -5566,9 +5555,6 @@ std::any hodel::replace(std::vector<std::any> const& args)
             }
         }
 
-        if (result == grid_)
-            throw std::runtime_error{"Wrong value"};
-
         return result;
     }
 
@@ -5610,9 +5596,6 @@ std::any hodel::switch_(std::vector<std::any> const& args)
                     v = a_;
             }
         }
-
-        if (result == grid_)
-            throw std::runtime_error{"Wrong value"};
 
         return result;
     }
@@ -5813,7 +5796,7 @@ std::any hodel::corners(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-
+#include <iostream>
 std::any hodel::connect(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -5836,6 +5819,8 @@ std::any hodel::connect(std::vector<std::any> const& args)
         if (std::abs(bi - ai) > SHOOT_DISTANCE * MAX_SIZE || std::abs(bj - aj) > SHOOT_DISTANCE * MAX_SIZE)
             throw std::runtime_error{"Wrong value"};
 
+        IndicesType result;
+
         if (ai == bi)
             dj = (bj > aj ? 1 : -1);
         else if (aj == bj)
@@ -5846,9 +5831,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
             dj = (bj > aj ? 1 : -1);
         }
         else
-            throw std::runtime_error{"Wrong value"};
-
-        IndicesType result;
+            return result;
 
         auto i{ai};
         auto j{aj};
@@ -5866,7 +5849,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
 
         return result;
     }
-
+std::cout << type(a.type()) << " " << type(b.type()) << std::endl;
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -6395,10 +6378,10 @@ std::any hodel::outbox(std::vector<std::any> const& args)
 
         try
         {
-            auto const ai = std::any_cast<IntegerType>(uppermost({patch})) + 1;
-            auto const aj = std::any_cast<IntegerType>(leftmost({patch})) + 1;
-            auto const bi = std::any_cast<IntegerType>(lowermost({patch})) - 1;
-            auto const bj = std::any_cast<IntegerType>(rightmost({patch})) - 1;
+            auto const ai = std::any_cast<IntegerType>(uppermost({patch})) - 1;
+            auto const aj = std::any_cast<IntegerType>(leftmost({patch})) - 1;
+            auto const bi = std::any_cast<IntegerType>(lowermost({patch})) + 1;
+            auto const bj = std::any_cast<IntegerType>(rightmost({patch})) + 1;
 
             return rectangleOutline(
                 std::min(ai, bi),
@@ -6726,9 +6709,6 @@ std::any hodel::compress(std::vector<std::any> const& args)
 
                 result.emplace_back(std::move(row));
             }
-
-            if (result == grid_)
-                throw std::runtime_error{"Wrong value"};
 
             return result;
         }
