@@ -797,11 +797,11 @@ std::any hodel::order(std::vector<std::any> const& args)
 
     auto const f{std::any_cast<Callable>(compfunc)};
 
-    if (auto r = ::order<IntegerSet, IntegerSet>(container, f); r.has_value()) return r;
+    if (auto r = ::order<IntegerSet>(container, f); r.has_value()) return r;
     if (auto r = ::order<std::vector<IntegerType> >(container, f); r.has_value()) return r;
     if (auto r = ::order<std::vector<GridType> >(container, f); r.has_value()) return r;
-    if (auto r = ::order<Objects, Objects>(container, f); r.has_value()) return r;
-    if (auto r = ::order<IndicesSet, IndicesSet>(container, f); r.has_value()) return r;
+    if (auto r = ::order<Objects>(container, f); r.has_value()) return r;
+    if (auto r = ::order<IndicesSet>(container, f); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
