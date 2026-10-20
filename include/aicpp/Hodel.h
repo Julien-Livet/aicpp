@@ -43,9 +43,9 @@ namespace hodel
     IntegerType constexpr NEG_ONE = -1;
     IntegerType constexpr NEG_TWO = -2;
 
-    IntegerTuple constexpr DOWN = IntegerTuple{-1, 0};
+    IntegerTuple constexpr DOWN = IntegerTuple{1, 0};
     IntegerTuple constexpr RIGHT = IntegerTuple{0, 1};
-    IntegerTuple constexpr UP = IntegerTuple{1, 0};
+    IntegerTuple constexpr UP = IntegerTuple{-1, 0};
     IntegerTuple constexpr LEFT = IntegerTuple{0, -1};
 
     IntegerTuple constexpr ORIGIN = IntegerTuple{0, 0};
@@ -74,7 +74,8 @@ namespace hodel
     typedef std::tuple<IntegerVector, GridType, ObjectType> AnyVector3;
     typedef std::tuple<ObjectType, IndicesType> AnySet2;
     typedef std::vector<IntegerTuple> TupleVector;
-
+    typedef std::pair<IntegerTuple, IntegerTuple> IntegerTuplePair;
+    
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
     //Num1 add(Num2, Num3)
@@ -87,7 +88,7 @@ namespace hodel
     std::any divide(std::vector<std::any> const& args); //floor division
     //Numerical invert(Numerical)
     std::any invert(std::vector<std::any> const& args); //inversion with respect to addition
-    //Boolean even(Integer)
+    //Boolean even(Numerical)
     std::any even(std::vector<std::any> const& args); //evenness
     //Numerical double_(Numerical)
     std::any double_(std::vector<std::any> const& args); //scaling by two
@@ -136,6 +137,7 @@ namespace hodel
     std::any size(std::vector<std::any> const& args); //cardinality
     //AnyVector3 merge(std::vector<AnyVector3>)
     //AnySet2 merge(std::set<AnySet2>)
+    //GridVector merge(std::vector<GridVector>)
     std::any merge(std::vector<std::any> const& args); //merging
     //IntegerType maximum(std::vector<IntegerType>)
     //IntegerType maximum(std::set<IntegerType>)
@@ -204,11 +206,13 @@ namespace hodel
     //AnySet1 first(std::set<AnySet1>)
     //IntegerType first(IntegerTuple)
     //IntegerType first(Cell)
+    //IntegerTuple first(IntegerTuplePair)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
     //AnySet1 last(std::set<AnySet1>)
     //IntegerType last(IntegerTuple)
     //IntegerTuple last(Cell)
+    //IntegerTuple last(IntegerTuplePair)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -222,9 +226,11 @@ namespace hodel
     //IntegerVector interval(IntegerType, IntegerType, IntegerType)
     std::any interval(std::vector<std::any> const& args); //range
     //IntegerTuple astuple(IntegerType, IntegerType)
+    //IndicesType astuple(IntegerTuple, IntegerTuple)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
     //ObjectType product(IntegerType, IntegerTuple)
     //IndicesType product(IntegerType, IntegerType)
+    //std::set<IntegerTuplePair> product(IndicesType, IndicesType)
     std::any product(std::vector<std::any> const& args); //cartesian product
     //GridType pair(IntegerVector, IntegerVector)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
@@ -257,6 +263,9 @@ namespace hodel
     //IntegerVector apply(Callable, TupleVector)
     //IndicesSet apply(Callable, IndicesType)
     //IndicesType apply(Callable, IndicesSet)
+    //GridVector apply(Callable, std::vector<GridVector>)
+    //IndicesSet apply(Callable, IndicesSet)
+    //GridType apply(Callable, GridType)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
     //std::vector<Boolean> rapply(std::vector<Callable>, IntegerType)
@@ -336,7 +345,7 @@ namespace hodel
     //IntegerType width(Piece)
     std::any width(std::vector<std::any> const& args); //width of grid or patch
     //IntegerTuple shape(Piece)
-    std::any shape(std::vector<std::any> const& args); //height and width of grid or patch
+    std::any shape(std::vector<std::any> const& args); //height and width of grid or patch 
     //Boolean portrait(Piece)
     std::any portrait(std::vector<std::any> const& args); //whether height is greater than width
     //IntegerType colorcount(Element, IntegerType)
@@ -516,6 +525,8 @@ namespace hodel
     std::any hperiod(std::vector<std::any> const& args); //horizontal periodicity
     //IntegerType vperiod(ObjectType)
     std::any vperiod(std::vector<std::any> const& args); //vertical periodicity
+
+    std::string type(std::type_index const& t);
 }
 
 #endif // AICPP_HODEL_H
