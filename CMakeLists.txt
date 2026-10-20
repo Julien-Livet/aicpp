@@ -42,6 +42,11 @@ if(USE_TESTS STREQUAL "TRUE")
                 src/aicpp/Brain.cpp src/aicpp/DslEngine.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
                 include/aicpp/Brain.h include/aicpp/HodelDslSystem.h include/aicpp/Hodel.h include/aicpp/DslEngine.h
                 ${SRCS} ${HEADERS})
+    add_executable(test_solvers
+                src/test_solvers.cpp
+                src/aicpp/Brain.cpp src/aicpp/DslEngine.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
+                include/aicpp/Brain.h include/aicpp/HodelDslSystem.h include/aicpp/Hodel.h include/aicpp/DslEngine.h
+                ${SRCS} ${HEADERS})
 endif()
 
 add_executable(dsl_dataset
@@ -55,52 +60,57 @@ add_executable(chess_dsl_dataset
                include/aicpp/Brain.h include/aicpp/Chess.h include/aicpp/ChessDslSystem.h
                ${SRCS} ${HEADERS})
 
-add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
-pybind11_add_module(aicpppy
-                    src/aicpppy.cpp
-                    src/aicpp/Brain.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
-                    include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
-                    ${SRCS} ${HEADERS})
+#add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
+#pybind11_add_module(aicpppy
+#                    src/aicpppy.cpp
+#                    src/aicpp/Brain.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
+#                    include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
+#                    ${SRCS} ${HEADERS})
 
 if(USE_TESTS STREQUAL "TRUE")
     target_include_directories(test_aicpp PRIVATE include)
+    target_include_directories(test_solvers PRIVATE include)
 endif()
 
 target_include_directories(dsl_dataset PRIVATE include)
-target_include_directories(aicpppy PRIVATE include)
+#target_include_directories(aicpppy PRIVATE include)
 target_include_directories(chess_dsl_dataset PRIVATE include)
 
-set_target_properties(aicpppy PROPERTIES
-    BUILD_RPATH "$ORIGIN"
-    INSTALL_RPATH "$ORIGIN"
-)
+#set_target_properties(aicpppy PROPERTIES
+#    BUILD_RPATH "$ORIGIN"
+#    INSTALL_RPATH "$ORIGIN"
+#)
 
 if (WIN32)
     if(USE_TESTS STREQUAL "TRUE")
         target_link_libraries(test_aicpp PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+        target_link_libraries(test_solvers PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
-    target_link_libraries(aicpppy PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
+    #target_link_libraries(aicpppy PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 else()
     if(USE_TESTS STREQUAL "TRUE")
         target_link_libraries(test_aicpp PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
+        target_link_libraries(test_solvers PRIVATE Boost::json Boost::headers Eigen3::Eigen gtest gtest_main dlib::dlib)
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
-    target_link_libraries(aicpppy PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
+    #target_link_libraries(aicpppy PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 endif()
 
 if(USE_TESTS STREQUAL "TRUE")
     add_test(NAME TestAiCpp COMMAND test_aicpp)
+    add_test(NAME TestSolvers COMMAND test_solvers)
 
     if (WIN32)
     else()
     include(GoogleTest)
     gtest_discover_tests(test_aicpp)
+    gtest_discover_tests(test_solvers)
     endif()
 endif()
 
-install(TARGETS aicpppy LIBRARY DESTINATION .)
+#install(TARGETS aicpppy LIBRARY DESTINATION .)
