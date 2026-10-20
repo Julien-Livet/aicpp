@@ -24,6 +24,8 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(hodel::Callable), "Callable"},
     {typeid(hodel::Patch), "Patch"},
     {typeid(hodel::Element), "Element"},
+    {typeid(std::vector<hodel::IndicesType>), "IndicesVector"},
+    {typeid(std::vector<hodel::ObjectType>), "ObjectVector"},
 };
                                                             
 std::string hodel::type(std::type_index const& t)
@@ -698,6 +700,25 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
         if (std::holds_alternative<GridType>(x))
             return dedupe({std::get<GridType>(x)});
     }
+    else if (tup.type() == typeid(IntegerVector))
+    {
+        auto const x{std::any_cast<IntegerVector>(tup)};
+        IntegerVector y;
+        y.reserve(x.size());
+
+        for (size_t i{0}; i < x.size(); ++i)
+        {
+            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
+
+            if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
+                y.emplace_back(x.at(i));
+        }
+
+        if (x == y)
+            throw std::runtime_error{"Wrong value"};
+
+        return y;
+    }
     else if (tup.type() == typeid(GridType))
     {
         auto const x{std::any_cast<GridType>(tup)};
@@ -829,6 +850,9 @@ std::any hodel::greater(std::vector<std::any> const& args)
 
     if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
         return Boolean{std::any_cast<IntegerType>(a) > std::any_cast<IntegerType>(b)};
+
+    if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
+        return Boolean{std::any_cast<IntegerTuple>(a) > std::any_cast<IntegerTuple>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1050,6 +1074,8 @@ std::any hodel::valmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
         values = toVector(std::any_cast<IndicesType>(container));
+    else if (container.type() == typeid(IndicesSet))
+        values = toVector(std::any_cast<IndicesSet>(container));
 
     try
     {
@@ -1102,6 +1128,8 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
         values = toVector(std::any_cast<IndicesType>(container));
+    else if (container.type() == typeid(IndicesSet))
+        values = toVector(std::any_cast<IndicesSet>(container));
 
     try
     {
@@ -1120,7 +1148,7 @@ std::any hodel::valmin(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-
+#include <iostream>
 std::any hodel::argmax(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -1154,6 +1182,8 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
         values = toVector(std::any_cast<IndicesType>(container));
+    else if (container.type() == typeid(IndicesSet))
+        values = toVector(std::any_cast<IndicesSet>(container));
 
     try
     {
@@ -1206,6 +1236,8 @@ std::any hodel::argmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
         values = toVector(std::any_cast<IndicesType>(container));
+    else if (container.type() == typeid(IndicesSet))
+        values = toVector(std::any_cast<IndicesSet>(container));
 
     try
     {
@@ -1261,7 +1293,7 @@ std::any mostcommon(std::any const& container)
 
     auto const container_{std::any_cast<T>(container)};
 
-    std::unordered_map<typename T::value_type, size_t> counts;
+    std::map<typename T::value_type, size_t> counts;
 
     for (auto const& value : container_)
         ++counts[value];
@@ -1301,6 +1333,7 @@ std::any hodel::mostcommon(std::vector<std::any> const& args)
     if (auto r = ::mostcommon<std::vector<IntegerType> >(container); r.has_value()) return r;
     if (auto r = ::mostcommon<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = ::mostcommon<GridType>(container); r.has_value()) return r;
+    if (auto r = ::mostcommon<std::vector<ObjectType> >(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1313,7 +1346,7 @@ std::any leastcommon(std::any const& container)
 
     auto const container_{std::any_cast<T>(container)};
 
-    std::unordered_map<typename T::value_type, size_t> counts;
+    std::map<typename T::value_type, size_t> counts;
 
     for (auto const& value : container_)
         ++counts[value];
@@ -1353,6 +1386,7 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
     if (auto r = ::leastcommon<std::vector<IntegerType> >(container); r.has_value()) return r;
     if (auto r = ::leastcommon<std::vector<GridType> >(container); r.has_value()) return r;
     if (auto r = ::leastcommon<GridType>(container); r.has_value()) return r;
+    if (auto r = ::leastcommon<std::vector<ObjectType> >(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1819,6 +1853,9 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (container.type() == typeid(IntegerTuplePair))
         return std::any_cast<IntegerTuplePair>(container).first;
 
+    if (container.type() == typeid(ObjectPair))
+        return std::any_cast<ObjectPair>(container).first;
+
     if (container.type() == typeid(GridType))
     {
         auto const x{std::any_cast<GridType>(container)};
@@ -1877,6 +1914,9 @@ std::any hodel::last(std::vector<std::any> const& args)
 
     if (container.type() == typeid(IntegerTuplePair))
         return std::any_cast<IntegerTuplePair>(container).second;
+
+    if (container.type() == typeid(ObjectPair))
+        return std::any_cast<ObjectPair>(container).second;
 
     if (container.type() == typeid(GridType))
     {
@@ -2032,6 +2072,12 @@ std::any hodel::astuple(std::vector<std::any> const& args)
     if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
         return IndicesType{std::any_cast<IntegerTuple>(a), std::any_cast<IntegerTuple>(b)};
 
+    if (a.type() == typeid(GridType) && b.type() == typeid(GridType))
+        return GridVector{std::any_cast<GridType>(a), std::any_cast<GridType>(b)};
+
+    if (a.type() == typeid(Objects) && b.type() == typeid(Objects))
+        return std::vector<Objects>{std::any_cast<Objects>(a), std::any_cast<Objects>(b)};
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -2079,6 +2125,21 @@ std::any hodel::product(std::vector<std::any> const& args)
         auto const b_{std::any_cast<IndicesType>(b)};
 
         std::set<IntegerTuplePair> result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(std::make_pair(i, j));
+        }
+
+        return result;
+    }
+    else if (a.type() == typeid(Objects) && b.type() == typeid(Objects))
+    {
+        auto const a_{std::any_cast<Objects>(a)};
+        auto const b_{std::any_cast<Objects>(b)};
+
+        std::set<ObjectPair> result;
 
         for (auto const& i : a_)
         {
@@ -2381,6 +2442,19 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerVector, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesType, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, GridVector>(function_, container); r.has_value()) return r;
+    
+    if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
+    {
+        auto const values{std::any_cast<IntegerVector>(r)};
+
+        if (values.size() == 2)
+            return hodel::IntegerTuple{values.front(), values.back()};
+
+        return r;
+    }
+
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2542,9 +2616,6 @@ std::any prapply(hodel::Callable const& function, std::any const& a, std::any co
     auto const a_{std::any_cast<T>(a)};
     auto const b_{std::any_cast<S>(b)};
 
-    if (a_.size() != b_.size())
-        return std::any{};
-
     std::vector<typename U::value_type> result;
     result.reserve(a_.size() * b_.size());
 
@@ -2596,6 +2667,7 @@ std::any hodel::prapply(std::vector<std::any> const& args)
     if (auto r = ::prapply<std::vector<Callable>, IndicesType, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, IndicesSet, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IndicesType, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IntegerVector, IntegerVector, IndicesType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2897,9 +2969,6 @@ std::any sizefilter(std::any const& container, hodel::IntegerType n)
         if (v.size() == n)
             result.insert(result.end(), v);
     }
-
-    if (container_ == result)
-        return std::any{};
 
     return result;
 }
@@ -4566,6 +4635,10 @@ std::any hodel::hmirror(std::vector<std::any> const& args)
         return hmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return hmirror({Piece{std::any_cast<Patch>(piece)}});
+    else if (piece.type() == typeid(IndicesType))
+        return hmirror({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
+    else if (piece.type() == typeid(ObjectType))
+        return hmirror({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -4627,6 +4700,10 @@ std::any hodel::vmirror(std::vector<std::any> const& args)
         return vmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return vmirror({Piece{std::any_cast<Patch>(piece)}});
+    else if (piece.type() == typeid(IndicesType))
+        return vmirror({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
+    else if (piece.type() == typeid(ObjectType))
+        return vmirror({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -4700,6 +4777,10 @@ std::any hodel::dmirror(std::vector<std::any> const& args)
         return dmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return dmirror({Piece{std::any_cast<Patch>(piece)}});
+    else if (piece.type() == typeid(IndicesType))
+        return dmirror({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
+    else if (piece.type() == typeid(ObjectType))
+        return dmirror({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -4759,6 +4840,10 @@ std::any hodel::cmirror(std::vector<std::any> const& args)
         return cmirror({Piece{std::any_cast<GridType>(piece)}});
     else if (piece.type() == typeid(Patch))
         return cmirror({Piece{std::any_cast<Patch>(piece)}});
+    else if (piece.type() == typeid(IndicesType))
+        return cmirror({Piece{Patch{std::any_cast<IndicesType>(piece)}}});
+    else if (piece.type() == typeid(ObjectType))
+        return cmirror({Piece{Patch{std::any_cast<ObjectType>(piece)}}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -5127,12 +5212,11 @@ std::any hodel::upscale(std::vector<std::any> const& args)
         if (obj.empty())
             return ObjectType{};
 
-        auto const [di_inv, dj_inv] = std::any_cast<IntegerTuple>(ulcorner({element}));
+        auto const [di_inv, dj_inv] = std::any_cast<IntegerTuple>(ulcorner({obj}));
         IntegerType const di = -di_inv;
         IntegerType const dj = -dj_inv;
 
-        Patch const p = std::any_cast<Patch>(shift({Patch{obj}, IntegerTuple{di, dj}}));
-        ObjectType normed_obj = std::get<ObjectType>(p);
+        auto const normed_obj = std::any_cast<ObjectType>(shift({Patch{obj}, IntegerTuple{di, dj}}));
         ObjectType result;
 
         for (auto const& [value, pos] : normed_obj)
@@ -5842,7 +5926,7 @@ std::any hodel::connect(std::vector<std::any> const& args)
 
         return result;
     }
-std::cout << type(a.type()) << " " << type(b.type()) << std::endl;
+
     throw std::runtime_error{"Wrong value"};
 }
 
