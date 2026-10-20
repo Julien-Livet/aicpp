@@ -64,17 +64,18 @@ namespace hodel
     typedef Numerical Num3;
 
     typedef std::function<std::any(std::vector<std::any> const&)> Callable;
+    typedef std::vector<IntegerType> IntegerVector;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, GridType, Cell, ObjectType, Objects, IndicesType, IndicesSet, Callable, std::vector<IntegerType>, std::vector<GridType>, std::vector<Boolean>, std::vector<ObjectType>, std::vector<Objects>, std::vector<IndicesType>, std::vector<IndicesSet>, std::vector<Callable> > AnyIdentity;
     typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerSet, GridType, Cell, ObjectType, Objects, IndicesType, IndicesSet, std::vector<GridType>, std::vector<Boolean>, std::vector<Objects> > AnyEquality;
-    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, GridType, ObjectType, IndicesType, Objects, Callable, std::vector<IntegerTuple> > AnyVector1;
-    typedef std::tuple<Boolean, IntegerType, IntegerTuple, std::vector<IntegerType>, GridType, Objects> AnyVector2;
+    typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerVector, GridType, ObjectType, IndicesType, Objects, Callable, std::vector<IntegerTuple> > AnyVector1;
+    typedef std::tuple<Boolean, IntegerType, IntegerTuple, IntegerVector, GridType, Objects> AnyVector2;
     typedef std::tuple<IntegerType, Cell, ObjectType, IntegerTuple, IndicesType> AnySet1;
-    typedef std::vector<IntegerType> IntegerVector;
     typedef std::vector<GridType> GridVector;
     typedef std::tuple<IntegerVector, GridType, ObjectType> AnyVector3;
     typedef std::tuple<ObjectType, IndicesType> AnySet2;
     typedef std::vector<IntegerTuple> TupleVector;
     typedef std::pair<IntegerTuple, IntegerTuple> IntegerTuplePair;
+    typedef std::pair<ObjectType, ObjectType> ObjectPair;
     
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
@@ -98,7 +99,7 @@ namespace hodel
     std::any flip(std::vector<std::any> const& args); //logical not
     //Boolean equality(AnyEquality, AnyEquality)
     std::any equality(std::vector<std::any> const& args); //equality
-    //Boolean contained(AnyVector, std::vector<AnyVector>)
+    //Boolean contained(AnyVector1, std::vector<AnyVector1>)
     //Boolean contained(AnySet1, std::set<AnySet1>)
     std::any contained(std::vector<std::any> const& args); //element of
     //IntegerTuple combine(IntegerType, IntegerType)
@@ -130,6 +131,7 @@ namespace hodel
     //std::vector<AnyVector1> repeat(AnyVector1, IntegerType)
     std::any repeat(std::vector<std::any> const& args); //repetition of item within vector
     //Boolean greater(IntegerType, IntegerType)
+    //Boolean greater(IntegerTuple, IntegerTuple)
     std::any greater(std::vector<std::any> const& args); //greater
     //IntegerType size(std::vector<AnyVector1>)
     //IntegerType size(std::set<AnySet1>)
@@ -207,12 +209,14 @@ namespace hodel
     //IntegerType first(IntegerTuple)
     //IntegerType first(Cell)
     //IntegerTuple first(IntegerTuplePair)
+    //IntegerTuple first(ObjectPair)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
     //AnySet1 last(std::set<AnySet1>)
     //IntegerType last(IntegerTuple)
     //IntegerTuple last(Cell)
     //IntegerTuple last(IntegerTuplePair)
+    //IntegerTuple last(ObjectPair)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -227,10 +231,12 @@ namespace hodel
     std::any interval(std::vector<std::any> const& args); //range
     //IntegerTuple astuple(IntegerType, IntegerType)
     //IndicesType astuple(IntegerTuple, IntegerTuple)
+    //GridVector astuple(GridType, GridType)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
     //ObjectType product(IntegerType, IntegerTuple)
     //IndicesType product(IntegerType, IntegerType)
     //std::set<IntegerTuplePair> product(IndicesType, IndicesType)
+    //std::set<ObjectPair> product(ObjectType, ObjectType)
     std::any product(std::vector<std::any> const& args); //cartesian product
     //GridType pair(IntegerVector, IntegerVector)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
@@ -270,6 +276,10 @@ namespace hodel
     //GridVector apply(Callable, IntegerVector)
     //Objects apply(Callable, Indices)
     //IndicesType apply(Callable, IntegerVector)
+    //IndicesType apply(Callable, Objects)
+    //GridVector apply(Callable, Objects)
+    //IntegerVector apply(Callable, std::vector<Objects>)
+    //IntegerTuple apply(Callable, std::vector<Objects>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
     //std::vector<Boolean> rapply(std::vector<Callable>, IntegerType)
@@ -339,6 +349,7 @@ namespace hodel
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesType)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesSet)
     //IndicesSet prapply(Callable, IndicesType, IndicesType)
+    //IndicesSet prapply(Callable, IntegerVector, IntegerVector)
     std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
