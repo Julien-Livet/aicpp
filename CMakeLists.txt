@@ -60,12 +60,12 @@ add_executable(chess_dsl_dataset
                include/aicpp/Brain.h include/aicpp/Chess.h include/aicpp/ChessDslSystem.h
                ${SRCS} ${HEADERS})
 
-#add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
-#pybind11_add_module(aicpppy
-#                    src/aicpppy.cpp
-#                    src/aicpp/Brain.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
-#                    include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
-#                    ${SRCS} ${HEADERS})
+add_definitions(-DPYBIND11_DETAILED_ERROR_MESSAGES)
+pybind11_add_module(aicpppy
+                    src/aicpppy.cpp
+                    src/aicpp/Brain.cpp src/aicpp/Hodel.cpp src/aicpp/HodelDslSystem.cpp
+                    include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
+                    ${SRCS} ${HEADERS})
 
 if(USE_TESTS STREQUAL "TRUE")
     target_include_directories(test_aicpp PRIVATE include)
@@ -73,13 +73,13 @@ if(USE_TESTS STREQUAL "TRUE")
 endif()
 
 target_include_directories(dsl_dataset PRIVATE include)
-#target_include_directories(aicpppy PRIVATE include)
+target_include_directories(aicpppy PRIVATE include)
 target_include_directories(chess_dsl_dataset PRIVATE include)
 
-#set_target_properties(aicpppy PROPERTIES
-#    BUILD_RPATH "$ORIGIN"
-#    INSTALL_RPATH "$ORIGIN"
-#)
+set_target_properties(aicpppy PROPERTIES
+    BUILD_RPATH "$ORIGIN"
+    INSTALL_RPATH "$ORIGIN"
+)
 
 if (WIN32)
     if(USE_TESTS STREQUAL "TRUE")
@@ -88,7 +88,7 @@ if (WIN32)
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
-    #target_link_libraries(aicpppy PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
+    target_link_libraries(aicpppy PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Ws2_32 Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 else()
     if(USE_TESTS STREQUAL "TRUE")
@@ -97,7 +97,7 @@ else()
     endif()
 
     target_link_libraries(dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
-    #target_link_libraries(aicpppy PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
+    target_link_libraries(aicpppy PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
     target_link_libraries(chess_dsl_dataset PRIVATE Boost::json Boost::headers Eigen3::Eigen dlib::dlib)
 endif()
 
@@ -113,4 +113,4 @@ if(USE_TESTS STREQUAL "TRUE")
     endif()
 endif()
 
-#install(TARGETS aicpppy LIBRARY DESTINATION .)
+install(TARGETS aicpppy LIBRARY DESTINATION .)
