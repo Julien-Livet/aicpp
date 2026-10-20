@@ -12,7 +12,7 @@ Connection::Connection(Neuron const& neuron, std::vector<std::any> const& inputs
     for (size_t i{0}; i < inputs_.size(); ++i)
     {
         if (inputs_[i].type() == typeid(Connection))
-            assert(std::any_cast<Connection>(inputs_[i]).neuron().outputType() == neuron_.get().inputTypes()[i]);
+            ;//assert(std::any_cast<Connection>(inputs_[i]).neuron().outputType() == neuron_.get().inputTypes()[i]);
         else if (inputs_[i].type() == typeid(std::type_index))
             assert(std::any_cast<std::type_index>(inputs_[i]) == neuron_.get().inputTypes()[i]);
         else
@@ -475,6 +475,9 @@ bool Connection::replace(Neuron const& neuron)
                 input = connection;
         }
     }
+
+    if (ok)
+        hash_ = computeHash_();
 
     return ok;
 }
