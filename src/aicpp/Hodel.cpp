@@ -187,9 +187,6 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
             auto const& y_{std::get<hodel::IntegerType>(y)};
             auto const z{op(x_, y_)};
 
-            if (z == x_ || z == y_)
-                return std::any{};
-            
             return z;
         }
         else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
@@ -198,9 +195,6 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
             auto const& d{std::get<hodel::IntegerTuple>(y)};
             hodel::IntegerTuple const z{op(c.first, d.first), op(c.second, d.second)};
 
-            if (z == c || z == d)
-                return std::any{};
-            
             return z;
         }
         else if (std::holds_alternative<hodel::IntegerType>(x) && std::holds_alternative<hodel::IntegerTuple>(y))
@@ -209,9 +203,6 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
             auto const& d{std::get<hodel::IntegerTuple>(y)};
             hodel::IntegerTuple const z{op(c, d.first), op(c, d.second)};
 
-            if (z == d)
-                return std::any{};
-            
             return z;
         }
         else if (std::holds_alternative<hodel::IntegerTuple>(x) && std::holds_alternative<hodel::IntegerType>(y))
@@ -220,9 +211,6 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
             auto const& d{std::get<hodel::IntegerType>(y)};
             hodel::IntegerTuple const z{op(c.first, d), op(c.second, d)};
 
-            if (z == c)
-                return std::any{};
-            
             return z;
         }
     }
@@ -419,7 +407,7 @@ std::any hodel::double_(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerTuple>(x)};
 
-            return Numerical{std::make_pair<IntegerType, IntegerType>(y.first * 2, y.second * 2)};
+            return IntegerTuple{y.first * 2, y.second * 2};
         }
     }
     else if (n.type() == typeid(IntegerType))
@@ -451,7 +439,7 @@ std::any hodel::halve(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerTuple>(x)};
 
-            return Numerical{std::make_pair<IntegerType, IntegerType>(y.first / 2, y.second / 2)};
+            return IntegerTuple{y.first / 2, y.second / 2};
         }
     }
     else if (n.type() == typeid(IntegerType))
@@ -1580,6 +1568,8 @@ std::any hodel::sign(std::vector<std::any> const& args)
     }
     else if (x.type() == typeid(IntegerType))
         return sign({Numerical{std::any_cast<IntegerType>(x)}});
+    else if (x.type() == typeid(IntegerTuple))
+        return sign({Numerical{std::any_cast<IntegerTuple>(x)}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2387,7 +2377,10 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<GridVector, std::vector<GridVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridType, GridType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::set<std::pair<IntegerTuple, IntegerTuple> >, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, GridVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesType, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, IndicesType>(function_, container); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
