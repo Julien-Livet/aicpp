@@ -35,7 +35,7 @@ WORKDIR /app/aicpp
 RUN [ -e ARC-AGI-2 ] || git clone https://github.com/arcprize/ARC-AGI-2.git
 WORKDIR /app/aicpp/scripts
 RUN [ -e arc-dsl ] || git clone https://github.com/Julien-Livet/arc-dsl.git
-RUN git switch --detach 6dba502
+RUN cd arc-dsl && git switch --detach 6dba502
 WORKDIR /app/aicpp
 RUN mkdir -p build
 RUN cmake -S . -B build -D USE_TESTS="TRUE" -DWITHOUT_HODEL_TASKS=ON
