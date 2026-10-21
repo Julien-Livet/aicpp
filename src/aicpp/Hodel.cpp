@@ -1689,6 +1689,7 @@ std::any hodel::sfilter(std::vector<std::any> const& args)
     if (auto r = ::sfilter<GridType>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<std::vector<IntegerType> >(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<std::vector<GridType> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<std::set<ObjectPair> >(container, condition_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2392,7 +2393,7 @@ std::any hodel::fork(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-
+#include <iostream> //TODO: to remove
 template <typename T, typename S = std::vector<typename T::value_type> >
 static std::any apply(hodel::Callable const& function, std::any const& container)
 {
@@ -2469,6 +2470,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerVector, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, ObjectType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<ObjectPair>, Objects>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -2481,7 +2483,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     }
 
     //TODO: add other cases?
-
+std::cout << type(container.type()) << std::endl;
     throw std::runtime_error{"Wrong value"};
 }
 
