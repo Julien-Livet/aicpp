@@ -1149,7 +1149,7 @@ std::any hodel::valmin(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-#include <iostream>
+
 std::any hodel::argmax(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -2440,7 +2440,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
 
     if (auto r = ::apply<std::vector<BooleanType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, std::vector<BooleanType> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerType>, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, std::vector<GridType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, Objects>(function_, container); r.has_value()) return r;
@@ -2463,6 +2463,11 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Objects, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<ObjectType>, GridVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesType, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerSet, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridVector, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesType>(function_, container); r.has_value()) return r;
     
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -2475,6 +2480,8 @@ std::any hodel::apply(std::vector<std::any> const& args)
     }
 
     //TODO: add other cases?
+
+    typedef std::pair<IndicesType, IndicesType> IndicesPair;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2610,6 +2617,7 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<std::vector<IndicesSet>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridType, GridType, TupleVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, GridVector, BooleanType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<Objects, IndicesType, ObjectType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -3421,6 +3429,12 @@ std::any hodel::shift(std::vector<std::any> const& args)
         return shift({Patch{std::any_cast<ObjectType>(patch)}, directions});
     else if (patch.type() == typeid(IndicesType))
         return shift({Patch{std::any_cast<IndicesType>(patch)}, directions});
+    else if (patch.type() == typeid(std::vector<IntegerTuple>))
+    {
+        auto const v{std::any_cast<std::vector<IntegerTuple>>(patch)};
+
+        return shift({Patch{IndicesType{v.begin(), v.end()}}, directions});
+    }
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -5893,7 +5907,7 @@ std::any hodel::corners(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-#include <iostream>
+
 std::any hodel::connect(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
