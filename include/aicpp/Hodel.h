@@ -196,6 +196,7 @@ namespace hodel
     std::any tojvec(std::vector<std::any> const& args); //vector pointing horizontally
     //std::vector<AnyVector1> sfilter(std::vector<AnyVector1>, Callable)
     //std::set<AnySet1> sfilter(std::set<AnySet1>, Callable)
+    //std::set<ObjectPair> sfilter(std::set<ObjectPair>, Callable)
     std::any sfilter(std::vector<std::any> const& args); //keep elements in container that satisfy condition
     //AnyVector3 mfilter(std::vector<AnyVector3>, Callable)
     //AnySet2 mfilter(std::set<AnySet2>, Callable)
@@ -294,6 +295,7 @@ namespace hodel
     //IndicesType apply(Callable, IntegerVector)
     //IndicesType apply(Callable, std::set<IntegerTuplePair>)
     //ObjectType apply(Callable, Objects)
+    //Objects apply(Callable, std::set<ObjectPair>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<BooleanType> rapply(std::vector<Callable>, BooleanType)
     //std::vector<BooleanType> rapply(std::vector<Callable>, IntegerType)
