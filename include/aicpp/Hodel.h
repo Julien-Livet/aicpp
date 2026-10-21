@@ -293,6 +293,7 @@ namespace hodel
     //Objects apply(Callable, IntegerVector)
     //IndicesType apply(Callable, IntegerVector)
     //IndicesType apply(Callable, std::set<IntegerTuplePair>)
+    //ObjectType apply(Callable, Objects)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<BooleanType> rapply(std::vector<Callable>, BooleanType)
     //std::vector<BooleanType> rapply(std::vector<Callable>, IntegerType)
