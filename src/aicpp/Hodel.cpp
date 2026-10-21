@@ -3,7 +3,7 @@
 #include <numeric>
 #include <ranges>
 #include <typeindex>
-#include <iostream> //TODO: to remove
+
 #include "aicpp/Hodel.h"
 
 constexpr hodel::IntegerType MAX_SIZE = 30;
@@ -2410,7 +2410,7 @@ static std::any apply(hodel::Callable const& function, std::any const& container
         for (auto const& v : container_)
             values.emplace_back(std::any_cast<typename S::value_type>(function({v})));
     }
-    catch (std::exception const&)
+    catch (std::exception const& e) //TODO: remove e
     {
         return std::any{};
     }
@@ -6634,7 +6634,7 @@ std::any hodel::occurrences(std::vector<std::any> const& args)
                         size_t const a = pos.first + i;
                         size_t const b = pos.second + j;
 
-                        if (grid_.at(a).at(b) != value)
+                        if (!(0 <= a && a < h && 0 <= b && b < w && grid_.at(a).at(b) == value))
                         {
                             ok = false;
                             break;
