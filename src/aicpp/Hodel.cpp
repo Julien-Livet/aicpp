@@ -3,7 +3,7 @@
 #include <numeric>
 #include <ranges>
 #include <typeindex>
-
+#include <iostream> //TODO: to remove
 #include "aicpp/Hodel.h"
 
 constexpr hodel::IntegerType MAX_SIZE = 30;
@@ -365,7 +365,7 @@ std::any hodel::invert(std::vector<std::any> const& args)
         {
             auto const& y{std::get<IntegerTuple>(x)};
 
-            return Numerical{std::make_pair<IntegerType, IntegerType>(-y.first, -y.second)};
+            return IntegerTuple{-y.first, -y.second};
         }
     }
     else if (n.type() == typeid(IntegerType))
@@ -2468,7 +2468,8 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<GridVector, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesType>(function_, container); r.has_value()) return r;
-    
+    if (auto r = ::apply<Objects, ObjectType>(function_, container); r.has_value()) return r;
+
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
         auto const values{std::any_cast<IntegerVector>(r)};
@@ -2480,8 +2481,6 @@ std::any hodel::apply(std::vector<std::any> const& args)
     }
 
     //TODO: add other cases?
-
-    typedef std::pair<IndicesType, IndicesType> IndicesPair;
 
     throw std::runtime_error{"Wrong value"};
 }
