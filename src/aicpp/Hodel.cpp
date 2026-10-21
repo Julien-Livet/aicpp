@@ -9,7 +9,7 @@
 constexpr hodel::IntegerType MAX_SIZE = 30;
 constexpr size_t SHOOT_DISTANCE = 42;
 
-static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean), "Boolean"},
+static std::map<std::type_index, std::string> const types{{typeid(hodel::BooleanType), "Boolean"},
     {typeid(hodel::IntegerType), "Integer"},
     {typeid(hodel::IntegerTuple), "IntegerTuple"},
     {typeid(hodel::IntegerSet), "IntegerSet"},
@@ -26,6 +26,7 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(hodel::Element), "Element"},
     {typeid(std::vector<hodel::IndicesType>), "IndicesVector"},
     {typeid(std::vector<hodel::ObjectType>), "ObjectVector"},
+    {typeid(std::vector<hodel::BooleanType>), "BooleanVector"},
 };
                                                             
 std::string hodel::type(std::type_index const& t)
@@ -128,7 +129,7 @@ template <typename T>
 static std::any equality(std::any const& a, std::any const& b)
 {
     if (a.type() == typeid(T) && b.type() == typeid(T))
-        return hodel::Boolean{std::any_cast<T>(a) == std::any_cast<T>(b)};
+        return hodel::BooleanType{std::any_cast<T>(a) == std::any_cast<T>(b)};
 
     return std::any{};
 }
@@ -383,7 +384,7 @@ std::any hodel::even(std::vector<std::any> const& args)
     auto const n{args.front()};
 
     if (n.type() == typeid(hodel::IntegerType))
-        return Boolean{std::any_cast<IntegerType>(n) % 2 == 0};
+        return BooleanType{std::any_cast<IntegerType>(n) % 2 == 0};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -459,8 +460,8 @@ std::any hodel::flip(std::vector<std::any> const& args)
 
     auto const b{args.front()};
 
-    if (b.type() == typeid(Boolean))
-        return Boolean{!std::any_cast<Boolean>(b)};
+    if (b.type() == typeid(BooleanType))
+        return BooleanType{!std::any_cast<BooleanType>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -473,7 +474,7 @@ std::any hodel::equality(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    if (auto r = ::equality<Boolean>(a, b); r.has_value()) return r;
+    if (auto r = ::equality<BooleanType>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerType>(a, b); r.has_value()) return r;
     if (auto r = ::equality<IntegerTuple>(a, b); r.has_value()) return r;
     if (auto r = ::equality<Numerical>(a, b); r.has_value()) return r;
@@ -506,7 +507,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const v{std::any_cast<IntegerType>(value)};
         auto const c{std::any_cast<IntegerSet>(container)};
 
-        return static_cast<Boolean>(c.contains(v));
+        return static_cast<BooleanType>(c.contains(v));
     }
     if (value.type()     == typeid(IntegerType)    &&
         container.type() == typeid(std::vector<IntegerType>))
@@ -514,7 +515,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const v{std::any_cast<IntegerType>(value)};
         auto const c{std::any_cast<std::vector<IntegerType> >(container)};
 
-        return static_cast<Boolean>(std::find(c.begin(), c.end(), v) != c.end());
+        return static_cast<BooleanType>(std::find(c.begin(), c.end(), v) != c.end());
     }
     else if (container.type() == typeid(ObjectType))
     {
@@ -524,7 +525,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         {
             auto const v{std::any_cast<Cell>(value)};
 
-            return static_cast<Boolean>(c.contains(v));
+            return static_cast<BooleanType>(c.contains(v));
         }
     }
     else if (value.type()     == typeid(ObjectType)  &&
@@ -533,7 +534,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const v{std::any_cast<ObjectType>(value)};
         auto const c{std::any_cast<Objects>(container)};
 
-        return static_cast<Boolean>(c.contains(v));
+        return static_cast<BooleanType>(c.contains(v));
     }
     else if (value.type()     == typeid(IntegerTuple) &&
              container.type() == typeid(IndicesType))
@@ -541,7 +542,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const v{std::any_cast<IntegerTuple>(value)};
         auto const c{std::any_cast<IndicesType>(container)};
 
-        return static_cast<Boolean>(c.contains(v));
+        return static_cast<BooleanType>(c.contains(v));
     }
     else if (value.type()     == typeid(IndicesType)    &&
              container.type() == typeid(IndicesSet))
@@ -549,7 +550,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const v{std::any_cast<IndicesType>(value)};
         auto const c{std::any_cast<IndicesSet>(container)};
 
-        return static_cast<Boolean>(c.contains(v));
+        return static_cast<BooleanType>(c.contains(v));
     }
     else if (value.type()     == typeid(Patch)   &&
              container.type() == typeid(Objects))
@@ -558,7 +559,7 @@ std::any hodel::contained(std::vector<std::any> const& args)
         auto const c{std::any_cast<Objects>(container)};
 
         if (std::holds_alternative<ObjectType>(p))
-            return static_cast<Boolean>(c.contains(std::get<ObjectType>(p)));
+            return static_cast<BooleanType>(c.contains(std::get<ObjectType>(p)));
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -774,7 +775,7 @@ static std::any order(std::any const& container, hodel::Callable const& function
         std::sort(values.begin(), values.end(),
                   [function] (auto const& x, auto const& y) -> auto
                   {
-                      return std::any_cast<hodel::Boolean>(hodel::greater({function({y}), function({x})}));
+                      return std::any_cast<hodel::BooleanType>(hodel::greater({function({y}), function({x})}));
                   });
     }
     catch (std::exception const&)
@@ -832,7 +833,7 @@ std::any hodel::repeat(std::vector<std::any> const& args)
 
         if (auto r = ::repeat<IntegerType>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<BooleanType>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<GridType>(item, n); r.has_value()) return r;
     }
@@ -849,10 +850,10 @@ std::any hodel::greater(std::vector<std::any> const& args)
     auto const b{args[1]};
 
     if (a.type() == typeid(IntegerType) && b.type() == typeid(IntegerType))
-        return Boolean{std::any_cast<IntegerType>(a) > std::any_cast<IntegerType>(b)};
+        return BooleanType{std::any_cast<IntegerType>(a) > std::any_cast<IntegerType>(b)};
 
     if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
-        return Boolean{std::any_cast<IntegerTuple>(a) > std::any_cast<IntegerTuple>(b)};
+        return BooleanType{std::any_cast<IntegerTuple>(a) > std::any_cast<IntegerTuple>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1082,7 +1083,7 @@ std::any hodel::valmax(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::max_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
+        auto const it{std::max_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<BooleanType>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
@@ -1136,7 +1137,7 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         for (auto& v : values)
             v = f({v});
 
-        auto const it{std::min_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({y, x})); } )};
+        auto const it{std::min_element(values.begin(), values.end(), [] (auto const& x, auto const& y) -> auto { return std::any_cast<BooleanType>(greater({y, x})); } )};
 
         if (it != values.end())
             return *it;
@@ -1190,7 +1191,7 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         if (values.size() == 1)
             f({*values.begin()});
 
-        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
+        auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<BooleanType>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
             return *it;
@@ -1244,7 +1245,7 @@ std::any hodel::argmin(std::vector<std::any> const& args)
         if (values.size() == 1)
             f({*values.begin()});
 
-        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
+        auto const it{std::min_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<BooleanType>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
             return *it;
@@ -1415,7 +1416,7 @@ std::any hodel::initset(std::vector<std::any> const& args)
     if (auto r = init_set<std::vector<IntegerType> >(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<GridType> >(value); r.has_value()) return r;
     if (auto r = init_set<std::vector<Callable> >(value); r.has_value()) return r;
-    if (auto r = init_set<std::vector<Boolean> >(value); r.has_value()) return r;
+    if (auto r = init_set<std::vector<BooleanType> >(value); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1428,8 +1429,8 @@ std::any hodel::both(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
-        return Boolean{std::any_cast<Boolean>(a) && std::any_cast<Boolean>(b)};
+    if (a.type() == typeid(BooleanType) && b.type() == typeid(BooleanType))
+        return BooleanType{std::any_cast<BooleanType>(a) && std::any_cast<BooleanType>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1442,8 +1443,8 @@ std::any hodel::either(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    if (a.type() == typeid(Boolean) && b.type() == typeid(Boolean))
-        return Boolean{std::any_cast<Boolean>(a) || std::any_cast<Boolean>(b)};
+    if (a.type() == typeid(BooleanType) && b.type() == typeid(BooleanType))
+        return BooleanType{std::any_cast<BooleanType>(a) || std::any_cast<BooleanType>(b)};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1512,9 +1513,9 @@ std::any hodel::crement(std::vector<std::any> const& args)
     auto const x{args.front()};
 
     if (x.type() == typeid(IntegerTuple))
-        return decrement({Numerical{std::any_cast<IntegerTuple>(x)}});
+        return crement({Numerical{std::any_cast<IntegerTuple>(x)}});
     else if (x.type() == typeid(IntegerType))
-        return decrement({Numerical{std::any_cast<IntegerType>(x)}});
+        return crement({Numerical{std::any_cast<IntegerType>(x)}});
     else if (x.type() == typeid(Numerical))
     {
         auto const y{std::any_cast<Numerical>(x)};
@@ -1533,23 +1534,8 @@ std::any hodel::crement(std::vector<std::any> const& args)
         else if (std::holds_alternative<IntegerTuple>(y))
         {
             auto const z{std::get<IntegerTuple>(y)};
-            IntegerTuple result{std::make_pair<IntegerType, IntegerType>(0, 0)};
 
-            if (!z.first)
-                result.first = z.first;
-            else if (z.first > 0)
-                ++result.first;
-            else
-                --result.first;
-
-            if (!z.second)
-                result.second = z.second;
-            else if (z.second > 0)
-                ++result.second;
-            else
-                --result.second;
-
-            return result;
+            return IntegerTuple{std::any_cast<IntegerType>(crement({z.first})), std::any_cast<IntegerType>(crement({z.second}))};
         }
     }
 
@@ -1616,7 +1602,7 @@ std::any hodel::positive(std::vector<std::any> const& args)
     auto const x{args.front()};
 
     if (x.type() == typeid(IntegerType))
-        return Boolean{std::any_cast<IntegerType>(x) > 0};
+        return BooleanType{std::any_cast<IntegerType>(x) > 0};
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1660,7 +1646,7 @@ std::any sfilter(std::any const& container, hodel::Callable const& condition)
     {
         for (const auto& element : container_)
         {
-            if (std::any_cast<hodel::Boolean>(condition({element})))
+            if (std::any_cast<hodel::BooleanType>(condition({element})))
                 result.insert(result.end(), element);
         }
 
@@ -1731,7 +1717,7 @@ std::any extract(std::any const& container, hodel::Callable const& condition)
 
     for (auto it{container_.begin()}; it != container_.end(); ++it)
     {
-        if (std::any_cast<hodel::Boolean>(condition({*it})))
+        if (std::any_cast<hodel::BooleanType>(condition({*it})))
             return *it;
     }
 
@@ -1765,6 +1751,8 @@ std::any hodel::extract(std::vector<std::any> const& args)
     if (auto r = ::extract<std::vector<GridType> >(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<GridType>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<std::vector<Callable> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<Callable> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<std::vector<GridBooleanPair> >(container, condition_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1856,6 +1844,9 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (container.type() == typeid(ObjectPair))
         return std::any_cast<ObjectPair>(container).first;
 
+    if (container.type() == typeid(GridBooleanPair))
+        return std::any_cast<GridBooleanPair>(container).first;
+
     if (container.type() == typeid(GridType))
     {
         auto const x{std::any_cast<GridType>(container)};
@@ -1918,6 +1909,9 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (container.type() == typeid(ObjectPair))
         return std::any_cast<ObjectPair>(container).second;
 
+    if (container.type() == typeid(GridBooleanPair))
+        return std::any_cast<GridBooleanPair>(container).second;
+
     if (container.type() == typeid(GridType))
     {
         auto const x{std::any_cast<GridType>(container)};
@@ -1967,7 +1961,7 @@ std::any hodel::insert(std::vector<std::any> const& args)
     if (auto r = ::insert<std::vector<GridType> >(value, container); r.has_value()) return r;
     if (auto r = ::insert<GridType>(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<Callable> >(value, container); r.has_value()) return r;
-    if (auto r = ::insert<std::vector<Boolean> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<std::vector<BooleanType> >(value, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2011,7 +2005,7 @@ std::any hodel::remove(std::vector<std::any> const& args)
     if (auto r = ::remove<std::vector<IntegerType> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<GridType> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<GridType>(value, container); r.has_value()) return r;
-    if (auto r = ::remove<std::vector<Boolean> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<std::vector<BooleanType> >(value, container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2185,6 +2179,30 @@ std::any hodel::pair(std::vector<std::any> const& args)
 
         return result;
     }
+
+    if (a.type() == typeid(GridVector) && b.type() == typeid(std::vector<BooleanType>))
+    {
+        auto const a_{std::any_cast<GridVector>(a)};
+        auto const b_{std::any_cast<std::vector<BooleanType> >(b)};
+
+        if (a_.size() != b_.size())
+            throw std::runtime_error{"Wrong value"};
+
+        std::vector<GridBooleanPair> result;
+        result.reserve(a_.size());
+
+        try
+        {
+            for (size_t i = 0; i < a_.size(); ++i)
+                result.emplace_back(a_.at(i), b_.at(i));
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+
+        return result;
+    }
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2199,9 +2217,9 @@ std::any hodel::branch(std::vector<std::any> const& args)
     auto const a{args[1]};
     auto const b{args[2]};
 
-    if (condition.type() == typeid(Boolean))
+    if (condition.type() == typeid(BooleanType))
     {
-        auto const condition_{std::any_cast<Boolean>(condition)};
+        auto const condition_{std::any_cast<BooleanType>(condition)};
 
         return condition_ ? a : b;
     }
@@ -2420,8 +2438,8 @@ std::any hodel::apply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<Callable>(function)};
 
-    if (auto r = ::apply<std::vector<Boolean> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<GridType>, std::vector<Boolean> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<BooleanType> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<GridType>, std::vector<BooleanType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IntegerType>, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, std::vector<GridType> >(function_, container); r.has_value()) return r;
@@ -2444,6 +2462,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerVector, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, GridVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<ObjectType>, GridVector>(function_, container); r.has_value()) return r;
     
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -2494,7 +2513,7 @@ std::any hodel::rapply(std::vector<std::any> const& args)
 
     auto const functions_{std::any_cast<std::vector<Callable> >(functions)};
 
-    if (auto r = ::rapply<Boolean>(functions_, value); r.has_value()) return r;
+    if (auto r = ::rapply<BooleanType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IntegerType>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<IntegerTuple>(functions_, value); r.has_value()) return r;
     if (auto r = ::rapply<GridType>(functions_, value); r.has_value()) return r;
@@ -2560,12 +2579,12 @@ std::any hodel::papply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<Callable>(function)};
 
-    if (auto r = ::papply<std::vector<Boolean>, std::vector<Boolean>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<BooleanType>, std::vector<BooleanType>, BooleanType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<IntegerType>, std::vector<IntegerType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, BooleanType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, BooleanType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, BooleanType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, BooleanType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<IndicesType>, std::vector<IndicesType>, IntegerType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, IntegerType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, IntegerType>(function_, a, b); r.has_value()) return r;
@@ -2574,8 +2593,8 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<std::vector<IndicesType>, std::vector<ObjectType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<ObjectType>, std::vector<IndicesType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<ObjectType>, std::vector<ObjectType>, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<IndicesType>, std::vector<GridType>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<ObjectType>, std::vector<GridType>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<IndicesType>, std::vector<GridType>, BooleanType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<GridType>, BooleanType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<GridType>, std::vector<ObjectType>, GridType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<GridType>, std::vector<IntegerType>, GridType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<GridType>, std::vector<IntegerType>, IndicesType>(function_, a, b); r.has_value()) return r;
@@ -2590,6 +2609,7 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<std::vector<Objects>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<IndicesSet>, std::vector<Callable>, IntegerType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridType, GridType, TupleVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<GridVector, GridVector, BooleanType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2653,11 +2673,11 @@ std::any hodel::prapply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<Callable>(function)};
 
-    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, std::vector<Boolean> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, std::vector<BooleanType> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<IndicesType>, std::vector<IndicesType>, std::vector<IntegerType> >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, std::vector<Boolean> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, std::vector<BooleanType> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<ObjectType>, std::vector<ObjectType>, std::vector<IntegerType> >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<Boolean>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, std::vector<BooleanType>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerType>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerTuple>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, GridType, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
@@ -2877,7 +2897,7 @@ std::any hodel::portrait(std::vector<std::any> const& args)
         auto const h{std::any_cast<IntegerType>(height(args))};
         auto const w{std::any_cast<IntegerType>(width(args))};
 
-        return static_cast<Boolean>(h > w);
+        return static_cast<BooleanType>(h > w);
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -3548,12 +3568,12 @@ std::any hodel::objects(std::vector<std::any> const& args)
             return objects({std::get<GridType>(piece), univalued, diagonal, without_bg});
     }
 
-    if (univalued.type() == typeid(Boolean) && diagonal.type() == typeid(Boolean) && without_bg.type() == typeid(Boolean))
+    if (univalued.type() == typeid(BooleanType) && diagonal.type() == typeid(BooleanType) && without_bg.type() == typeid(BooleanType))
     {
         auto const grid_{std::any_cast<GridType>(grid)};
-        auto const univalued_{std::any_cast<Boolean>(univalued)};
-        auto const diagonal_{std::any_cast<Boolean>(diagonal)};
-        auto const without_bg_{std::any_cast<Boolean>(without_bg)};
+        auto const univalued_{std::any_cast<BooleanType>(univalued)};
+        auto const diagonal_{std::any_cast<BooleanType>(diagonal)};
+        auto const without_bg_{std::any_cast<BooleanType>(without_bg)};
 
         Objects objs;
 
@@ -3857,7 +3877,7 @@ std::any hodel::square(std::vector<std::any> const& args)
 
                 try
                 {
-                    return Boolean{grid.size() == grid.at(0).size()};
+                    return BooleanType{grid.size() == grid.at(0).size()};
                 }
                 catch (std::exception const&)
                 {
@@ -3871,7 +3891,7 @@ std::any hodel::square(std::vector<std::any> const& args)
                 auto const patch{std::get<Patch>(piece_)};
                 auto const l{static_cast<IntegerType>(std::holds_alternative<ObjectType>(patch) ? std::get<ObjectType>(patch).size() : std::get<IndicesType>(patch).size())};
 
-                return Boolean{h * w == l and h == w};
+                return BooleanType{h * w == l and h == w};
             }
         }
         catch (std::exception const&)
@@ -3907,7 +3927,7 @@ std::any hodel::vline(std::vector<std::any> const& args)
             auto const patch_{std::any_cast<Patch>(patch)};
             auto const l{static_cast<IntegerType>(std::holds_alternative<ObjectType>(patch_) ? std::get<ObjectType>(patch_).size() : std::get<IndicesType>(patch_).size())};
 
-            return Boolean{h == l && w == 1};
+            return BooleanType{h == l && w == 1};
         }
         catch (std::exception const&)
         {
@@ -3938,7 +3958,7 @@ std::any hodel::hline(std::vector<std::any> const& args)
             auto const patch_{std::any_cast<Patch>(patch)};
             auto const l{static_cast<IntegerType>(std::holds_alternative<ObjectType>(patch_) ? std::get<ObjectType>(patch_).size() : std::get<IndicesType>(patch_).size())};
 
-            return Boolean{w == l && h == 1};
+            return BooleanType{w == l && h == 1};
         }
         catch (std::exception const&)
         {
@@ -4000,10 +4020,10 @@ std::any hodel::hmatching(std::vector<std::any> const& args)
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({b})))
             {
                 if (rows.count(i))
-                    return Boolean{true};
+                    return BooleanType{true};
             }
 
-            return Boolean{false};
+            return BooleanType{false};
         }
         catch (std::exception const&)
         {
@@ -4061,10 +4081,10 @@ std::any hodel::vmatching(std::vector<std::any> const& args)
             for (auto const& [i, j] : std::any_cast<IndicesType>(toindices({b})))
             {
                 if (cols.count(j))
-                    return Boolean{true};
+                    return BooleanType{true};
             }
 
-            return Boolean{false};
+            return BooleanType{false};
         }
         catch (std::exception const&)
         {
@@ -4175,7 +4195,7 @@ std::any hodel::adjacent(std::vector<std::any> const& args)
     {
         try
         {
-            return Boolean{std::any_cast<IntegerType>(manhattan(args)) == 1};
+            return BooleanType{std::any_cast<IntegerType>(manhattan(args)) == 1};
         }
         catch (std::exception const&)
         {
@@ -4218,7 +4238,7 @@ std::any hodel::bordering(std::vector<std::any> const& args)
             auto const lrm{std::any_cast<IntegerType>(lowermost({patch}))};
             auto const rtm{std::any_cast<IntegerType>(rightmost({patch}))};
 
-            return Boolean{urm == 0 || ltm == 0 || lrm == grid_.size() - 1 || rtm == grid_.at(0).size() - 1};
+            return BooleanType{urm == 0 || ltm == 0 || lrm == grid_.size() - 1 || rtm == grid_.at(0).size() - 1};
         }
         catch (std::exception const&)
         {
@@ -5756,8 +5776,8 @@ std::any hodel::position(std::vector<std::any> const& args)
 
         try
         {
-            auto const [ia, ib] = std::any_cast<IntegerTuple>(center({toindices({a_})}));
-            auto const [ja, jb] = std::any_cast<IntegerTuple>(center({toindices({b_})}));
+            auto const [ia, ja] = std::any_cast<IntegerTuple>(center({toindices({a_})}));
+            auto const [ib, jb] = std::any_cast<IntegerTuple>(center({toindices({b_})}));
 
             if (ia == ib)
                 return IntegerTuple{0, ja < jb ? 1 : -1};
@@ -6334,7 +6354,7 @@ std::any hodel::gravitate(std::vector<std::any> const& args)
             IntegerType stepI = 0;
             IntegerType stepJ = 0;
 
-            if (std::any_cast<Boolean>(vmatching({current, destination})))
+            if (std::any_cast<BooleanType>(vmatching({current, destination})))
                 stepI = (si < di) ? 1 : -1;
             else
                 stepJ = (sj < dj) ? 1 : -1;
@@ -6343,7 +6363,7 @@ std::any hodel::gravitate(std::vector<std::any> const& args)
             auto moveJ = stepJ;
             IntegerType count = 0;
 
-            while (!std::any_cast<Boolean>(adjacent({current, destination})) && count < 42)
+            while (!std::any_cast<BooleanType>(adjacent({current, destination})) && count < 42)
             {
                 ++count;
 
