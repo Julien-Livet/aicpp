@@ -32,6 +32,45 @@ find_package(pybind11 REQUIRED)
 
 include_directories(include)
 
+set(REGISTER_SCRIPT
+    "${CMAKE_CURRENT_SOURCE_DIR}/scripts/cpp_dsl_system.py"
+)
+
+set(HODEL_HEADER
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/aicpp/Hodel.h"
+)
+
+set(HODEL_REGISTER
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/aicpp/HodelDslSystem.cpp"
+)
+
+add_custom_command(
+    OUTPUT
+        "${HODEL_REGISTER}"
+
+    COMMAND
+        "${Python3_EXECUTABLE}"
+        "${REGISTER_SCRIPT}"
+        Hodel
+
+    DEPENDS
+        "${REGISTER_SCRIPT}"
+        "${HODEL_HEADER}"
+
+    WORKING_DIRECTORY
+        "${CMAKE_CURRENT_SOURCE_DIR}/scripts"
+
+    COMMENT
+        "Generating neuron registry"
+
+    VERBATIM
+)
+
+add_custom_target(generate_neuron_registries
+    DEPENDS
+        "${HODEL_REGISTER}"
+)
+
 set(SRCS src/aicpp/Connection.cpp src/aicpp/Neuron.cpp)
 set(HEADERS include/aicpp/Connection.h include/aicpp/Neuron.h include/aicpp/utility.h)
 
