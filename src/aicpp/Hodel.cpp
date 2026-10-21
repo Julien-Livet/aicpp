@@ -2393,7 +2393,7 @@ std::any hodel::fork(std::vector<std::any> const& args)
 
     throw std::runtime_error{"Wrong value"};
 }
-#include <iostream> //TODO: to remove
+
 template <typename T, typename S = std::vector<typename T::value_type> >
 static std::any apply(hodel::Callable const& function, std::any const& container)
 {
@@ -2483,7 +2483,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     }
 
     //TODO: add other cases?
-std::cout << type(container.type()) << std::endl;
+
     throw std::runtime_error{"Wrong value"};
 }
 
