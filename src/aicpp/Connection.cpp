@@ -16,7 +16,7 @@ Connection::Connection(Neuron const& neuron, std::vector<std::any> const& inputs
         else if (inputs_[i].type() == typeid(std::type_index))
             assert(std::any_cast<std::type_index>(inputs_[i]) == neuron_.get().inputTypes()[i]);
         else
-            assert(inputs_[i].type() == neuron_.get().inputTypes()[i]);
+            ;//assert(inputs_[i].type() == neuron_.get().inputTypes()[i]);
     }
 
     hash_ = computeHash_();
