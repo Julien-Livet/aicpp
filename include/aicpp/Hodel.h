@@ -287,6 +287,12 @@ namespace hodel
     //IntegerVector apply(Callable, std::vector<Objects>)
     //IntegerTuple apply(Callable, std::vector<Objects>)
     //GridVector apply(Callable, std::vector<ObjectType>)
+    //IndicesType apply(Callable, IndicesType)
+    //Objects apply(Callable, IntegerSet)
+    //Objects apply(Callable, GridVector)
+    //Objects apply(Callable, IntegerVector)
+    //IndicesType apply(Callable, IntegerVector)
+    //IndicesType apply(Callable, std::set<IntegerTuplePair>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<BooleanType> rapply(std::vector<Callable>, BooleanType)
     //std::vector<BooleanType> rapply(std::vector<Callable>, IntegerType)
@@ -304,6 +310,8 @@ namespace hodel
     //ObjectType mapply(Callable, Objects)
     //ObjectType mapply(Callable, std::vector<ObjectType>)
     //ObjectType mapply(Callable, IndicesType)
+    //ObjectType apply(Callable, IntegerSet)
+    //ObjectType apply(Callable, IntegerVector)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
     //BooleanType papply(Callable, std::vector<BooleanType>, std::vector<BooleanType>)
     //IntegerTuple papply(Callable, std::vector<IntegerType>, std::vector<IntegerType>)
@@ -335,9 +343,11 @@ namespace hodel
     //IntegerType papply(Callable, std::vector<IndicesSet>, std::vector<Callable>)
     //std::vector<TupleVector> papply(Callable, GridType, GridType)
     //std::vector<BooleanType> papply(Callable, GridVector, GridVector)
+    //std::vector<ObjectType> papply(Callable, Objects, IndicesType)
     std::any papply(std::vector<std::any> const& args); //apply function on two vectors
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<GridType>)
     //ObjectType mpapply(Callable, std::vector<Objects>, std::vector<IntegerType>)
+    //ObjectType mpapply(Callable, std::vector<Objects>, std::vector<IntegerTuple>)
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<ObjectType>)
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<IntegerType>)
     //ObjectType mpapply(Callable, std::vector<IntegerType>, std::vector<ObjectType>)
