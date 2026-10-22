@@ -93,7 +93,7 @@ for definition in primitiveDefinitions:
     trueName = name
 
     if (trueName.endswith("_")):
-        trueName = trueName[:-1]
+        trueName = trueName.removesuffix("_")
 
     content += f'    neurons.emplace("{trueName}"'
     content += ", Neuron{"
