@@ -655,9 +655,9 @@ std::any hodel::intersection(std::vector<std::any> const& args)
     auto const b{args[1]};
 
     if (auto r = intersection_sets<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<ObjectType>    (a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<Objects>   (a, b); r.has_value()) return r;
-    if (auto r = intersection_sets<IndicesType>   (a, b); r.has_value()) return r;
+    if (auto r = intersection_sets<ObjectType>(a, b); r.has_value()) return r;
+    if (auto r = intersection_sets<Objects>(a, b); r.has_value()) return r;
+    if (auto r = intersection_sets<IndicesType>(a, b); r.has_value()) return r;
     if (auto r = intersection_sets<IndicesSet>(a, b); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -672,9 +672,9 @@ std::any hodel::difference(std::vector<std::any> const& args)
     auto const b{args[1]};
 
     if (auto r = difference_sets<IntegerSet>(a, b); r.has_value()) return r;
-    if (auto r = difference_sets<ObjectType>    (a, b); r.has_value()) return r;
-    if (auto r = difference_sets<Objects>   (a, b); r.has_value()) return r;
-    if (auto r = difference_sets<IndicesType>   (a, b); r.has_value()) return r;
+    if (auto r = difference_sets<ObjectType>(a, b); r.has_value()) return r;
+    if (auto r = difference_sets<Objects>(a, b); r.has_value()) return r;
+    if (auto r = difference_sets<IndicesType>(a, b); r.has_value()) return r;
     if (auto r = difference_sets<IndicesSet>(a, b); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -709,14 +709,11 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         for (size_t i{0}; i < x.size(); ++i)
         {
-            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
+            auto const result{std::ranges::search(x, std::views::single(x.at(i)))};
 
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
                 y.emplace_back(x.at(i));
         }
-
-        if (x == y)
-            throw std::runtime_error{"Wrong value"};
 
         return y;
     }
@@ -728,14 +725,11 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         for (size_t i{0}; i < x.size(); ++i)
         {
-            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
+            auto const result{std::ranges::search(x, std::views::single(x.at(i)))};
 
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
                 y.emplace_back(x.at(i));
         }
-
-        if (x == y)
-            throw std::runtime_error{"Wrong value"};
 
         return y;
     }
@@ -747,14 +741,11 @@ std::any hodel::dedupe(std::vector<std::any> const& args)
 
         for (size_t i{0}; i < x.size(); ++i)
         {
-            auto const result{std::ranges::find_end(x, std::views::single(x.at(i)))};
+            auto const result{std::ranges::search(x, std::views::single(x.at(i)))};
 
             if (result.begin() != x.end() && std::distance(x.begin(), result.begin()) == i)
                 y.emplace_back(x.at(i));
         }
-
-        if (x == y)
-            throw std::runtime_error{"Wrong value"};
 
         return y;
     }
