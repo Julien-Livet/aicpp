@@ -4,7 +4,7 @@ import copy
 from dsl_model.dsl_model import DSLModel
 import dsl_model.utils as utils
 from dsl_model.worker_pool import WorkerPool
-from dsl_rl import VOCAB
+from dsl_model.utils import VOCAB
 import os
 import torch
 from tqdm import tqdm
