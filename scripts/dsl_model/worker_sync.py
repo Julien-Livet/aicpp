@@ -1,4 +1,4 @@
-from dsl_rl import VOCAB
+from .utils import VOCAB
 import math
 import pandas as pd
 import torch
