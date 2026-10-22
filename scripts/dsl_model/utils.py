@@ -1,7 +1,6 @@
 from .cached_decoder_layer import CachedDecoderLayer
 from .dsl_model import DSLModel
 from .dsl_graph_builder import DSLGraphBuilder
-from dsl_rl import VOCAB
 from .experience import Experience
 from itertools import chain
 import os
@@ -22,6 +21,94 @@ minAlpha: float = 0.1
 
 MAX_ITERATIONS_PER_TARGET: int = 500000
 PLATEAU_PATIENCE: int = 50000
+
+dslName: str = "Hodel"
+
+def dslVocabulary() -> list[str]:
+    with open(f"../include/aicpp/{dslName}.h", "r") as f:
+        lines: list = f.read().split("\n")
+
+    variableDefinitions: list = list(filter(lambda x: " = " in x and not x.strip().startswith("using"), lines))
+    primitiveDefinitions: list = list(filter(lambda x: x.strip().startswith("//"), lines))
+    vocabulary = set()
+
+    for definition in variableDefinitions:
+        definition = definition.strip()
+        affectationList = definition.split(" = ")
+        spaceList = affectationList[0].split(" ")
+        name = spaceList[-1]
+        vocabulary.add(name)
+
+    for definition in primitiveDefinitions:
+        definition = definition.strip()
+        i1 = definition.index(" ")
+        i2 = definition.index("(")
+        name = definition[i1+1:i2]
+
+        trueName = name
+
+        if (trueName.endswith("_")):
+            trueName = trueName.removesuffix("_")
+            
+        vocabulary.add(trueName)
+
+    vocabulary.add("I")
+
+    return vocabulary
+
+class DSLVocab:
+    SPECIAL = ["<PAD>", "<BOS>", "<EOS>"]
+
+    def __init__(self):
+        structural = [",", "(", ")"]
+        self.tokens    = self.SPECIAL + structural + sorted(dslVocabulary())
+        self.token2id  = {t: i for i, t in enumerate(self.tokens)}
+        self.id2token  = {i: t for t, i in self.token2id.items()}
+        self.PAD = self.token2id["<PAD>"]
+        self.BOS = self.token2id["<BOS>"]
+        self.EOS = self.token2id["<EOS>"]
+
+    def __len__(self) -> int:
+        return len(self.tokens)
+
+    def encode(self, program: str, max_len: int = 128) -> List[int]:
+        ids: list = [self.BOS]
+        known = sorted([t for t in self.tokens if t not in self.SPECIAL],
+                       key = len, reverse = True)
+        i: int = 0
+
+        while (i < len(program)):
+            for tok in known:
+                if (program[i:i+len(tok)] == tok):
+                    ids.append(self.token2id[tok])
+                    i += len(tok)
+                    break
+            else:
+                i += 1
+
+        ids.append(self.EOS)
+        ids = ids[:max_len]
+        ids += [self.PAD] * (max_len - len(ids))
+
+        return ids
+
+    def decode(self, ids: List[int]) -> str:
+        result: list = []
+
+        for i in ids:
+            tok = self.id2token.get(i, "")
+
+            if (tok in ("<PAD>", "<BOS>")):
+                continue
+
+            if (tok == "<EOS>"):
+                break
+
+            result.append(tok)
+
+        return "".join(result)
+
+VOCAB = DSLVocab()
 
 def is_valid_arc_grid(grid):
     values = list(chain.from_iterable(grid))
