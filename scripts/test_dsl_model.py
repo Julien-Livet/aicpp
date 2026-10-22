@@ -2,7 +2,7 @@ from aicpppy import Engine
 import datetime
 import dsl_model.utils as utils
 from dsl_model.dsl_model import DSLModel
-import dsl_rl
+from dsl_model.utils import VOCAB
 import json
 import math
 import numpy as np
@@ -60,7 +60,7 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
             grid_tensors: list = []
 
             for program, df, _, programOutputs in candidates:
-                g = utils.build_prog_graph(program, dsl_rl.VOCAB, device)
+                g = utils.build_prog_graph(program, VOCAB, device)
                 prog_graphs.append(g)
                 cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(device))
                 grid_tensors.append(utils.grids_to_tensors(programOutputs))
@@ -74,7 +74,7 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
                 )   # [1, D]
 
         program = utils.generate_one(
-            model, dsl_rl.VOCAB, z_context, engine,
+            model, VOCAB, z_context, engine,
             temperature = 5.0,
             device = device,
             max_depth = depth
@@ -119,7 +119,7 @@ def processTask(engine, model, id_, data, depth: int = 10, debug: bool = True):
     return candidate
 
 def passTask(folder: str, task: str, debug: bool = False, depth: int = 6):
-    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
+    dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     
     ok: bool = True
@@ -182,7 +182,7 @@ def test_hodel_tasks():
         print(f"Duration for {k} step{'s' if k > 1 else ''} of DSL ({len(v)} tasks): {time.time() - t1} s")
 
 def passTasks(tasks, debug: bool = True):
-    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = device)
+    dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = device)
     model = dslModel.to(device)
     checkpoint = torch.load(modelFilename, map_location = device)
     model.load_state_dict(checkpoint["model_state"])
