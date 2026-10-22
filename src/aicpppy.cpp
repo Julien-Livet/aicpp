@@ -435,7 +435,7 @@ class ConnectionBuilder
             return true;
         }
 
-        Connection& connection() const
+        Connection const& connection() const
         {
             if (!connection_)
                 throw std::runtime_error{"Invalid connection"};
