@@ -1,4 +1,4 @@
-from dsl_rl import VOCAB
+from .utils import VOCAB
 import math
 from . import utils
 import pandas as pd
