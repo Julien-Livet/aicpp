@@ -3,7 +3,7 @@ import argparse
 import datetime
 import dsl_model.utils as utils
 from dsl_model.dsl_model import DSLModel
-import dsl_rl
+from dsl_model.utils import VOCAB
 import json
 import math
 import numpy as np
@@ -44,7 +44,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
             grid_tensors: list = []
 
             for program, df, _, programOutputs in candidates:
-                g = utils.build_prog_graph(program, dsl_rl.VOCAB, test_dsl_model.device)
+                g = utils.build_prog_graph(program, VOCAB, test_dsl_model.device)
                 prog_graphs.append(g)
                 cost_tensors.append(utils.dataframe_to_cost_tensor(df).to(test_dsl_model.device))
                 grid_tensors.append(utils.grids_to_tensors(programOutputs))
@@ -58,7 +58,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
                 )   # [1, D]
 
         program = utils.generate_one(
-            model, dsl_rl.VOCAB, z_context, engine,
+            model, VOCAB, z_context, engine,
             temperature = 5.0,
             device = test_dsl_model.device,
             max_depth = depth
@@ -97,7 +97,7 @@ def processTask(engine, model, id_, data, depth: int = 6):
     return candidate
 
 def processTasks(tasks):
-    dslModel = DSLModel(len(dsl_rl.VOCAB.token2id), d_model = 256, device = test_dsl_model.device)
+    dslModel = DSLModel(len(VOCAB.token2id), d_model = 256, device = test_dsl_model.device)
     model = dslModel.to(test_dsl_model.device)
     checkpoint = torch.load(test_dsl_model.modelFilename, map_location = test_dsl_model.device)
     model.load_state_dict(checkpoint["model_state"])
