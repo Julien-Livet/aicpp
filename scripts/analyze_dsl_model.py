@@ -17,8 +17,7 @@ import torch
 import torch.nn.functional as F
 
 from dsl_model.dsl_model import DSLModel
-from dsl_model.utils import encode_program_tokens
-from dsl_rl import VOCAB
+from dsl_model.utils import encode_program_tokens, VOCAB
 
 from scipy.spatial.distance import cdist, pdist, squareform
 
