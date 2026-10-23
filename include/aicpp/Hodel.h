@@ -78,6 +78,7 @@ namespace hodel
     typedef std::pair<IntegerTuple, IntegerTuple> IntegerTuplePair;
     typedef std::pair<ObjectType, ObjectType> ObjectPair;
     typedef std::pair<GridType, BooleanType> GridBooleanPair;
+    typedef std::pair<ObjectType, IntegerType> ObjectIntegerPair;
     
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
@@ -118,6 +119,7 @@ namespace hodel
     //std::vector<IntegerType> combine(std::vector<IntegerType>, std::vector<IntegerType>)
     //GridType combine(GridType, GridType)
     //std::vector<GridType> combine(std::vector<GridType>, std::vector<GridType>)
+    //std::vector<ObjectType> combine(std::vector<ObjectType>, std::vector<ObjectType>)
     std::any combine(std::vector<std::any> const& args); //union
     //std::vector<AnyVector1> intersection(std::vector<AnyVector1>, std::vector<AnyVector1>)
     //std::set<AnySet1> intersection(std::set<AnySet1>, std::set<AnySet1>)
@@ -197,6 +199,7 @@ namespace hodel
     //std::vector<AnyVector1> sfilter(std::vector<AnyVector1>, Callable)
     //std::set<AnySet1> sfilter(std::set<AnySet1>, Callable)
     //std::set<ObjectPair> sfilter(std::set<ObjectPair>, Callable)
+    //std::vector<ObjectIntegerPair> sfilter(std::vector<ObjectIntegerPair>, Callable)
     std::any sfilter(std::vector<std::any> const& args); //keep elements in container that satisfy condition
     //AnyVector3 mfilter(std::vector<AnyVector3>, Callable)
     //AnySet2 mfilter(std::set<AnySet2>, Callable)
@@ -215,6 +218,7 @@ namespace hodel
     //IntegerTuple first(IntegerTuplePair)
     //IntegerTuple first(ObjectPair)
     //GridType first(GridBooleanPair)
+    //ObjectType first(ObjectIntegerPair)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
     //AnySet1 last(std::set<AnySet1>)
@@ -223,6 +227,7 @@ namespace hodel
     //IntegerTuple last(IntegerTuplePair)
     //IntegerTuple last(ObjectPair)
     //BooleanType last(GridBooleanPair)
+    //IntegerVector last(ObjectIntegerPair)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -246,6 +251,8 @@ namespace hodel
     std::any product(std::vector<std::any> const& args); //cartesian product
     //GridType pair(IntegerVector, IntegerVector)
     //GridBooleanPair pair(GridVector, BooleanVector)
+    //ObjectIntegerPair pair(std::vector<ObjectType>, IntegerVector)
+    //IntegerTuplePair pair(IndicesType, IndicesType)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(BooleanType, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
@@ -300,6 +307,8 @@ namespace hodel
     //IndicesType apply(Callable, std::set<IntegerTuplePair>)
     //ObjectType apply(Callable, Objects)
     //Objects apply(Callable, std::set<ObjectPair>)
+    //std::vector<ObjectType> apply(Callable, std::vector<ObjectIntegerPair>)
+    //std::vector<IntegerTuple> apply(Callable, std::vector<IntegerTuplePair>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<BooleanType> rapply(std::vector<Callable>, BooleanType)
     //std::vector<BooleanType> rapply(std::vector<Callable>, IntegerType)
@@ -317,8 +326,10 @@ namespace hodel
     //ObjectType mapply(Callable, Objects)
     //ObjectType mapply(Callable, std::vector<ObjectType>)
     //ObjectType mapply(Callable, IndicesType)
-    //ObjectType apply(Callable, IntegerSet)
-    //ObjectType apply(Callable, IntegerVector)
+    //ObjectType mapply(Callable, IntegerSet)
+    //ObjectType mapply(Callable, IntegerVector)
+    //ObjectType mapply(Callable, std::vector<ObjectIntegerPair>)
+    //IndicesType mapply(Callable, std::vector<IntegerTuplePair>)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
     //BooleanType papply(Callable, std::vector<BooleanType>, std::vector<BooleanType>)
     //IntegerTuple papply(Callable, std::vector<IntegerType>, std::vector<IntegerType>)
@@ -377,6 +388,7 @@ namespace hodel
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesSet)
     //IndicesSet prapply(Callable, IndicesType, IndicesType)
     //IndicesSet prapply(Callable, IntegerVector, IntegerVector)
+    //IndicesSet prapply(Callable, IndicesSet, Indices)
     std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
