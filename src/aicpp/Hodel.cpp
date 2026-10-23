@@ -3633,7 +3633,7 @@ hodel::GridVector hodel::dedupe(GridVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3649,7 +3649,7 @@ hodel::BooleanVector hodel::dedupe(BooleanVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3665,7 +3665,7 @@ hodel::IntegerVector hodel::dedupe(IntegerVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3681,7 +3681,7 @@ hodel::ObjectVector hodel::dedupe(ObjectVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3697,7 +3697,7 @@ hodel::ObjectsVector hodel::dedupe(ObjectsVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3713,7 +3713,7 @@ hodel::IndicesVector hodel::dedupe(IndicesVector const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
@@ -3729,7 +3729,7 @@ hodel::Grid hodel::dedupe(Grid const& tup)
 
     for (size_t i{0}; i < tup.size(); ++i)
     {
-        auto const result{std::ranges::find_end(tup, std::views::single(tup.at(i)))};
+        auto const result{std::ranges::search(tup, std::views::single(tup.at(i)))};
 
         if (result.begin() != tup.end() && std::distance(tup.begin(), result.begin()) == i)
             r.emplace_back(tup.at(i));
