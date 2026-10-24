@@ -325,6 +325,7 @@ namespace hodel
     //std::vector<Indices> apply(Callable, std::vector<IntegerTuplePair>)
     //std::vector<IntegerTuple> apply(Callable, GridVector)
     //Objects apply(Callable, IndicesSet)
+    //IntegerVector apply(Callable, Grid)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
     //std::vector<Boolean> rapply(std::vector<Callable>, Integer)
