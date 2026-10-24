@@ -31,6 +31,7 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(std::vector<hodel::ObjectIntegerPair>), "ObjectIntegerPairVector"},
     {typeid(hodel::IntegerTuplePair), "IntegerTuplePair"},
     {typeid(std::vector<hodel::IntegerTuplePair>), "IntegerTuplePairVector"},
+    {typeid(std::vector<hodel::IntegerTuple>), "IntegerTupleVector"},
 };
                                                             
 std::string hodel::type(std::type_index const& t)
@@ -1133,6 +1134,8 @@ std::any hodel::valmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
     else if (container.type() == typeid(std::vector<GridType>))
         values = toVector(std::any_cast<std::vector<GridType> >(container));
+    else if (container.type() == typeid(std::set<GridType>))
+        values = toVector(std::any_cast<std::set<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -1187,6 +1190,8 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<std::vector<IntegerType> >(container));
     else if (container.type() == typeid(std::vector<GridType>))
         values = toVector(std::any_cast<std::vector<GridType> >(container));
+    else if (container.type() == typeid(std::set<GridType>))
+        values = toVector(std::any_cast<std::set<GridType> >(container));
     else if (container.type() == typeid(Objects))
         values = toVector(std::any_cast<Objects>(container));
     else if (container.type() == typeid(IndicesType))
@@ -2288,6 +2293,34 @@ std::any hodel::pair(std::vector<std::any> const& args)
 
         return result;
     }
+
+    if (a.type() == typeid(std::vector<IntegerTuple>) && b.type() == typeid(std::vector<IntegerTuple>))
+    {
+        auto const a_{std::any_cast<std::vector<IntegerTuple> >(a)};
+        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+
+        if (a_.size() != b_.size())
+            throw std::runtime_error{"Wrong value"};
+
+        std::vector<IntegerTuplePair> result;
+        result.reserve(a_.size());
+
+        try
+        {
+            auto itA{a_.begin()};
+            auto itB{b_.begin()};
+
+            for (; itA != a_.end(); ++itA, ++itB)
+                result.emplace_back(*itA, *itB);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+
+        return result;
+    }
+
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2526,6 +2559,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::vector<BooleanType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, std::vector<BooleanType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, std::vector<IntegerVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<GridType>, std::vector<GridType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, std::vector<ObjectType> >(function_, container); r.has_value()) return r;
@@ -2537,6 +2571,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::vector<TupleVector>, GridType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<TupleVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesType, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuple>, std::vector<IndicesType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
@@ -2546,25 +2581,26 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesType, Objects>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<IntegerVector, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuple>, std::vector<ObjectType> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerSet, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerSet, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesType>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects, GridVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, std::set<GridType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<ObjectType>, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesType, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuple>, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuple>, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerSet, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<ObjectType> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, std::vector<ObjectType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, ObjectType>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<ObjectIntegerPair>, std::vector<ObjectType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<IndicesType> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IntegerTuplePair>, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, IndicesType>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuplePair>, std::vector<IndicesType> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
@@ -2714,7 +2750,7 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<GridType, GridType, TupleVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, GridVector, BooleanType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<Objects, IndicesType, ObjectType>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<ObjectType>, IndicesType, ObjectType>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<std::vector<ObjectType>, std::vector<IntegerTuple>, ObjectType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2790,6 +2826,7 @@ std::any hodel::prapply(std::vector<std::any> const& args)
     if (auto r = ::prapply<IndicesType, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IntegerVector, IntegerVector, IndicesType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IndicesSet, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesSet, std::vector<IntegerTuple>, IndicesSet>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IndicesType, IntegerVector, IndicesType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
@@ -4944,6 +4981,12 @@ std::any hodel::fill(std::vector<std::any> const& args)
         return fill({grid, value, Patch{std::any_cast<ObjectType>(patch)}});
     else if (patch.type() == typeid(IndicesType))
         return fill({grid, value, Patch{std::any_cast<IndicesType>(patch)}});
+    else if (patch.type() == typeid(std::vector<IntegerTuple>))
+    {
+        auto const patch_{std::any_cast<std::vector<IntegerTuple> >(patch)};
+
+        return fill({grid, value, Patch{IndicesType{patch_.begin(), patch_.end()}}});
+    }
 
     if (grid.type() == typeid(GridType) && value.type() == typeid(IntegerType) && patch.type() == typeid(Patch))
     {
@@ -6558,6 +6601,12 @@ std::any hodel::box(std::vector<std::any> const& args)
         return box({Patch(std::any_cast<IndicesType>(patch))});
     else if (patch.type() == typeid(ObjectType))
         return box({Patch(std::any_cast<ObjectType>(patch))});
+    else if (patch.type() == typeid(IntegerTuplePair))
+    {
+        auto const patch_{std::any_cast<IntegerTuplePair>(patch)};
+
+        return box({Patch{IndicesType{patch_.first, patch_.second}}});
+    }
 
     if (patch.type() == typeid(Patch))
     {
