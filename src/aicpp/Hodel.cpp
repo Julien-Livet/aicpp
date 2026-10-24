@@ -2648,6 +2648,8 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IndicesSet, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<ObjectVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<ObjectPair>, IndicesSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<ObjectPair>, Indices>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
