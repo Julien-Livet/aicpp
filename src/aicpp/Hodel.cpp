@@ -2442,7 +2442,7 @@ std::any hodel::power(std::vector<std::any> const& args)
     {
         auto const n_{std::any_cast<IntegerType>(n)};
 
-        if (n_ <= IntegerType{0} || n_ > IntegerType{10})
+        if (n_ <= IntegerType{0} || n_ > IntegerType{20})
             throw std::runtime_error{"Wrong value"};
 
         if (n_ == IntegerType{1})
