@@ -36,6 +36,8 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(std::set<hodel::ObjectPair>), "ObjectPairSet"},
     {typeid(hodel::ObjectPair), "ObjectPair"},
     {typeid(std::set<hodel::ObjectVector>), "ObjectVectorSet"},
+    {typeid(hodel::IndicesIntegerPair), "IndicesIntegerPair"},
+    {typeid(std::vector<hodel::IndicesIntegerPair>), "IndicesIntegerPairVector"},
 };
                                                             
 std::string hodel::type(std::type_index const& t)
@@ -644,15 +646,15 @@ std::any hodel::combine(std::vector<std::any> const& args)
     if (auto r = combine_sets<Object, Object>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<Objects, Objects>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<Indices, Indices>(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<Indices, std::vector<IntegerTuple> >(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<std::vector<IntegerTuple>, Indices>(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<Indices, IntegerTupleVector>(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<IntegerTupleVector, Indices>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<IndicesSet, IndicesSet>(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<std::vector<IntegerTuple>, std::vector<IntegerTuple> >(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<IntegerTupleVector, IntegerTupleVector>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<IntegerVector, IntegerVector>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<Grid, Grid>(a, b); r.has_value()) return r;
     if (auto r = combine_sets<GridVector, GridVector >(a, b); r.has_value()) return r;
     if (auto r = combine_sets<GridVector, GridVector >(a, b); r.has_value()) return r;
-    if (auto r = combine_sets<ObjectVector, ObjectVector >(a, b); r.has_value()) return r;
+    if (auto r = combine_sets<ObjectVector, ObjectVector>(a, b); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -877,7 +879,7 @@ std::any hodel::size(std::vector<std::any> const& args)
     if (auto r = size_set<Indices>   (container); r.has_value()) return r;
     if (auto r = size_set<IndicesSet>(container); r.has_value()) return r;
     if (auto r = size_set<IntegerVector>(container); r.has_value()) return r;
-    if (auto r = size_set<ObjectVector >(container); r.has_value()) return r;
+    if (auto r = size_set<ObjectVector>(container); r.has_value()) return r;
 
     if (container.type() == typeid(Grid))
     {
@@ -917,7 +919,7 @@ std::any hodel::merge(std::vector<std::any> const& args)
     }
     else if (containers.type() == typeid(ObjectVector))
     {
-        auto const containers_{std::any_cast<ObjectVector >(containers)};
+        auto const containers_{std::any_cast<ObjectVector>(containers)};
 
         Object result;
 
@@ -970,9 +972,9 @@ std::any hodel::merge(std::vector<std::any> const& args)
 
         return result;
     }
-    else if (containers.type() == typeid(std::vector<Indices>))
+    else if (containers.type() == typeid(IndicesVector))
     {
-        auto const containers_{std::any_cast<std::vector<Indices> >(containers)};
+        auto const containers_{std::any_cast<IndicesVector>(containers)};
 
         Indices result;
 
@@ -1214,7 +1216,7 @@ std::any hodel::argmax(std::vector<std::any> const& args)
     else if (container.type() == typeid(IndicesSet))
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
-        values = toVector(std::any_cast<ObjectVector >(container));
+        values = toVector(std::any_cast<ObjectVector>(container));
 
     try
     {
@@ -1270,7 +1272,7 @@ std::any hodel::argmin(std::vector<std::any> const& args)
     else if (container.type() == typeid(IndicesSet))
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
-        values = toVector(std::any_cast<ObjectVector >(container));
+        values = toVector(std::any_cast<ObjectVector>(container));
 
     try
     {
@@ -1369,8 +1371,8 @@ std::any hodel::mostcommon(std::vector<std::any> const& args)
     if (auto r = ::mostcommon<IntegerVector>(container); r.has_value()) return r;
     if (auto r = ::mostcommon<GridVector >(container); r.has_value()) return r;
     if (auto r = ::mostcommon<Grid>(container); r.has_value()) return r;
-    if (auto r = ::mostcommon<ObjectVector >(container); r.has_value()) return r;
-    if (auto r = ::mostcommon<std::vector<Indices> >(container); r.has_value()) return r;
+    if (auto r = ::mostcommon<ObjectVector>(container); r.has_value()) return r;
+    if (auto r = ::mostcommon<IndicesVector>(container); r.has_value()) return r;
     if (auto r = ::mostcommon<IndicesSet>(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -1427,8 +1429,8 @@ std::any hodel::leastcommon(std::vector<std::any> const& args)
     if (auto r = ::leastcommon<IntegerVector>(container); r.has_value()) return r;
     if (auto r = ::leastcommon<GridVector >(container); r.has_value()) return r;
     if (auto r = ::leastcommon<Grid>(container); r.has_value()) return r;
-    if (auto r = ::leastcommon<ObjectVector >(container); r.has_value()) return r;
-    if (auto r = ::leastcommon<std::vector<Indices> >(container); r.has_value()) return r;
+    if (auto r = ::leastcommon<ObjectVector>(container); r.has_value()) return r;
+    if (auto r = ::leastcommon<IndicesVector>(container); r.has_value()) return r;
     if (auto r = ::leastcommon<IndicesSet>(container); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
@@ -1695,7 +1697,14 @@ std::any sfilter(std::any const& container, hodel::Callable const& condition)
         return result;
     }
     catch (std::exception const&)
-    {
+    {if (typeid(Container) == typeid(hodel::Indices))
+        {            
+        for (const auto& element : container_)
+        {
+            if (std::any_cast<hodel::Boolean>(condition({element})))
+                result.insert(result.end(), element);
+        }
+        }
         return std::any{};
     }
 
@@ -1726,7 +1735,7 @@ std::any hodel::sfilter(std::vector<std::any> const& args)
     if (auto r = ::sfilter<IntegerSet>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<Object>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<Objects>(container, condition_); r.has_value()) return r;
-    if (auto r = ::sfilter<ObjectVector >(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<ObjectVector>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<Indices>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<IndicesSet>(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<Grid>(container, condition_); r.has_value()) return r;
@@ -1788,11 +1797,11 @@ std::any hodel::extract(std::vector<std::any> const& args)
     if (auto r = ::extract<Object>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<std::vector<Cell> >(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<Objects>(container, condition_); r.has_value()) return r;
-    if (auto r = ::extract<ObjectVector >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<ObjectVector>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<Indices>(container, condition_); r.has_value()) return r;
-    if (auto r = ::extract<std::vector<IntegerTuple> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<IntegerTupleVector>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<IndicesSet>(container, condition_); r.has_value()) return r;
-    if (auto r = ::extract<std::vector<Indices> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::extract<IndicesVector>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<IntegerVector>(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<GridVector >(container, condition_); r.has_value()) return r;
     if (auto r = ::extract<Grid>(container, condition_); r.has_value()) return r;
@@ -1875,11 +1884,11 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (auto r = first_set<Object>(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Cell> >(container); r.has_value()) return r;
     if (auto r = first_set<Objects>(container); r.has_value()) return r;
-    if (auto r = first_set<ObjectVector >(container); r.has_value()) return r;
+    if (auto r = first_set<ObjectVector>(container); r.has_value()) return r;
     if (auto r = first_set<Indices>(container); r.has_value()) return r;
-    if (auto r = first_set<std::vector<IntegerTuple> >(container); r.has_value()) return r;
+    if (auto r = first_set<IntegerTupleVector>(container); r.has_value()) return r;
     if (auto r = first_set<IndicesSet>(container); r.has_value()) return r;
-    if (auto r = first_set<std::vector<Indices> >(container); r.has_value()) return r;
+    if (auto r = first_set<IndicesVector>(container); r.has_value()) return r;
     if (auto r = first_set<IntegerVector>(container); r.has_value()) return r;
     if (auto r = first_set<GridVector >(container); r.has_value()) return r;
     if (auto r = first_set<std::vector<Callable> >(container); r.has_value()) return r;
@@ -1895,6 +1904,12 @@ std::any hodel::first(std::vector<std::any> const& args)
 
     if (container.type() == typeid(ObjectIntegerPair))
         return std::any_cast<ObjectIntegerPair>(container).first;
+
+    if (container.type() == typeid(IndicesIntegerPair))
+        return std::any_cast<IndicesIntegerPair>(container).first;
+
+    if (container.type() == typeid(IntegerTupleIndicesIntegerPairPair))
+        return std::any_cast<IntegerTupleIndicesIntegerPairPair>(container).first;
 
     if (container.type() == typeid(Grid))
     {
@@ -1943,11 +1958,11 @@ std::any hodel::last(std::vector<std::any> const& args)
     if (auto r = last_set<Object>(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Cell> >(container); r.has_value()) return r;
     if (auto r = last_set<Objects>(container); r.has_value()) return r;
-    if (auto r = last_set<ObjectVector >(container); r.has_value()) return r;
+    if (auto r = last_set<ObjectVector>(container); r.has_value()) return r;
     if (auto r = last_set<Indices>(container); r.has_value()) return r;
-    if (auto r = last_set<std::vector<IntegerTuple> >(container); r.has_value()) return r;
+    if (auto r = last_set<IntegerTupleVector>(container); r.has_value()) return r;
     if (auto r = last_set<IndicesSet>(container); r.has_value()) return r;
-    if (auto r = last_set<std::vector<Indices> >(container); r.has_value()) return r;
+    if (auto r = last_set<IndicesVector>(container); r.has_value()) return r;
     if (auto r = last_set<IntegerVector>(container); r.has_value()) return r;
     if (auto r = last_set<GridVector >(container); r.has_value()) return r;
     if (auto r = last_set<std::vector<Callable> >(container); r.has_value()) return r;
@@ -1963,6 +1978,12 @@ std::any hodel::last(std::vector<std::any> const& args)
 
     if (container.type() == typeid(ObjectIntegerPair))
         return std::any_cast<ObjectIntegerPair>(container).second;
+
+    if (container.type() == typeid(IndicesIntegerPair))
+        return std::any_cast<IndicesIntegerPair>(container).second;
+
+    if (container.type() == typeid(IntegerTupleIndicesIntegerPairPair))
+        return std::any_cast<IntegerTupleIndicesIntegerPairPair>(container).second;
 
     if (container.type() == typeid(Grid))
     {
@@ -2004,11 +2025,11 @@ std::any hodel::insert(std::vector<std::any> const& args)
     if (auto r = ::insert<Object>(value, container); r.has_value()) return r;
     if (auto r = ::insert<std::vector<Cell> >(value, container); r.has_value()) return r;
     if (auto r = ::insert<Objects>(value, container); r.has_value()) return r;
-    if (auto r = ::insert<ObjectVector >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<ObjectVector>(value, container); r.has_value()) return r;
     if (auto r = ::insert<Indices>(value, container); r.has_value()) return r;
-    if (auto r = ::insert<std::vector<IntegerTuple> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<IntegerTupleVector>(value, container); r.has_value()) return r;
     if (auto r = ::insert<IndicesSet>(value, container); r.has_value()) return r;
-    if (auto r = ::insert<std::vector<Indices> >(value, container); r.has_value()) return r;
+    if (auto r = ::insert<IndicesVector>(value, container); r.has_value()) return r;
     if (auto r = ::insert<IntegerVector>(value, container); r.has_value()) return r;
     if (auto r = ::insert<GridVector >(value, container); r.has_value()) return r;
     if (auto r = ::insert<Grid>(value, container); r.has_value()) return r;
@@ -2049,11 +2070,11 @@ std::any hodel::remove(std::vector<std::any> const& args)
     if (auto r = ::remove<Object>(value, container); r.has_value()) return r;
     if (auto r = ::remove<std::vector<Cell> >(value, container); r.has_value()) return r;
     if (auto r = ::remove<Objects>(value, container); r.has_value()) return r;
-    if (auto r = ::remove<ObjectVector >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<ObjectVector>(value, container); r.has_value()) return r;
     if (auto r = ::remove<Indices>(value, container); r.has_value()) return r;
-    if (auto r = ::remove<std::vector<IntegerTuple> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<IntegerTupleVector>(value, container); r.has_value()) return r;
     if (auto r = ::remove<IndicesSet>(value, container); r.has_value()) return r;
-    if (auto r = ::remove<std::vector<Indices> >(value, container); r.has_value()) return r;
+    if (auto r = ::remove<IndicesVector>(value, container); r.has_value()) return r;
     if (auto r = ::remove<IntegerVector>(value, container); r.has_value()) return r;
     if (auto r = ::remove<GridVector >(value, container); r.has_value()) return r;
     if (auto r = ::remove<Grid>(value, container); r.has_value()) return r;
@@ -2127,6 +2148,9 @@ std::any hodel::astuple(std::vector<std::any> const& args)
     if (a.type() == typeid(Integer) && b.type() == typeid(IntegerTuple))
         return Cell{std::any_cast<Integer>(a), std::any_cast<IntegerTuple>(b)};
 
+    if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IndicesIntegerPair))
+        return IntegerTupleIndicesIntegerPairPair{std::any_cast<IntegerTuple>(a), std::any_cast<IndicesIntegerPair>(b)};
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -2138,10 +2162,10 @@ std::any hodel::product(std::vector<std::any> const& args)
     auto const a{args[0]};
     auto const b{args[1]};
 
-    if (a.type() == typeid(IntegerVector) && b.type() == typeid(std::vector<IntegerTuple>))
+    if (a.type() == typeid(IntegerVector) && b.type() == typeid(IntegerTupleVector))
     {
         auto const a_{std::any_cast<IntegerVector>(a)};
-        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+        auto const b_{std::any_cast<IntegerTupleVector>(b)};
 
         Object result;
 
@@ -2219,7 +2243,7 @@ std::any hodel::pair(std::vector<std::any> const& args)
         if (a_.size() != b_.size())
             throw std::runtime_error{"Wrong value"};
 
-        TupleVector result;
+        IntegerTupleVector result;
         result.reserve(a_.size());
 
         try
@@ -2261,7 +2285,7 @@ std::any hodel::pair(std::vector<std::any> const& args)
 
     if (a.type() == typeid(ObjectVector) && b.type() == typeid(IntegerVector))
     {
-        auto const a_{std::any_cast<ObjectVector >(a)};
+        auto const a_{std::any_cast<ObjectVector>(a)};
         auto const b_{std::any_cast<IntegerVector>(b)};
 
         if (a_.size() != b_.size())
@@ -2310,10 +2334,10 @@ std::any hodel::pair(std::vector<std::any> const& args)
         return result;
     }
 
-    if (a.type() == typeid(std::vector<IntegerTuple>) && b.type() == typeid(std::vector<IntegerTuple>))
+    if (a.type() == typeid(IntegerTupleVector) && b.type() == typeid(IntegerTupleVector))
     {
-        auto const a_{std::any_cast<std::vector<IntegerTuple> >(a)};
-        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+        auto const a_{std::any_cast<IntegerTupleVector>(a)};
+        auto const b_{std::any_cast<IntegerTupleVector>(b)};
 
         if (a_.size() != b_.size())
             throw std::runtime_error{"Wrong value"};
@@ -2337,10 +2361,10 @@ std::any hodel::pair(std::vector<std::any> const& args)
         return result;
     }
 
-    if (a.type() == typeid(IntegerVector) && b.type() == typeid(std::vector<IntegerTuple>))
+    if (a.type() == typeid(IntegerVector) && b.type() == typeid(IntegerTupleVector))
     {
         auto const a_{std::any_cast<IntegerVector>(a)};
-        auto const b_{std::any_cast<std::vector<IntegerTuple> >(b)};
+        auto const b_{std::any_cast<IntegerTupleVector>(b)};
 
         if (a_.size() != b_.size())
             throw std::runtime_error{"Wrong value"};
@@ -2354,6 +2378,33 @@ std::any hodel::pair(std::vector<std::any> const& args)
 
             for (; itA != a_.end(); ++itA, ++itB)
                 result.emplace(*itA, *itB);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+
+        return result;
+    }
+
+    if (a.type() == typeid(IndicesVector) && b.type() == typeid(IntegerVector))
+    {
+        auto const a_{std::any_cast<IndicesVector>(a)};
+        auto const b_{std::any_cast<IntegerVector>(b)};
+
+        if (a_.size() != b_.size())
+            throw std::runtime_error{"Wrong value"};
+
+        std::vector<IndicesIntegerPair> result;
+        result.reserve(a_.size());
+
+        try
+        {
+            auto itA{a_.begin()};
+            auto itB{b_.begin()};
+
+            for (; itA != a_.end(); ++itA, ++itB)
+                result.emplace_back(*itA, *itB);
         }
         catch (std::exception const&)
         {
@@ -2610,10 +2661,10 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Objects, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<ObjectVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<ObjectVector, IntegerVector>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<TupleVector>, Grid>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<TupleVector, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTupleVector>, Grid>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerTupleVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Indices, IndicesSet>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuple>, std::vector<Indices> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerTupleVector, IndicesVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
@@ -2623,33 +2674,34 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::set<IntegerTuplePair>, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Indices, Objects>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuple>, ObjectVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerTupleVector, ObjectVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerSet, Indices>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<IntegerVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, IntegerTupleVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerSet, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, std::set<Grid> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<ObjectVector, GridVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Indices, Indices>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuple>, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuple>, IntegerVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerTupleVector, IntegerTupleVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerTupleVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerSet, Objects>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, ObjectVector >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<IntegerVector, ObjectVector >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridVector, ObjectVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerVector, ObjectVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<IntegerTuplePair>, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, Object>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<ObjectIntegerPair>, ObjectVector>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, std::vector<Indices> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuplePair>, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<std::vector<IntegerTuplePair>, std::vector<Indices> >(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<GridVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridVector, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuplePair>, IntegerTupleVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IntegerTuplePair>, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<GridVector, IntegerTupleVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, std::set<ObjectVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid, IntegerVector>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<ObjectVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<ObjectVector, IntegerTupleVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, Indices>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<IndicesIntegerPair>, IndicesVector>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -2730,7 +2782,7 @@ std::any papply(hodel::Callable const& function, std::any const& a, std::any con
     auto const a_{std::any_cast<T>(a)};
     auto const b_{std::any_cast<S>(b)};
 
-    if (a_.size() != b_.size()|| a_.empty())
+    if (a_.size() != b_.size() || a_.empty())
         return std::any{};
 
     std::vector<U> result;
@@ -2768,26 +2820,26 @@ std::any hodel::papply(std::vector<std::any> const& args)
 
     if (auto r = ::papply<BooleanVector, BooleanVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IntegerVector, IntegerVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, std::vector<Indices>, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, ObjectVector, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<ObjectVector, std::vector<Indices>, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, IndicesVector, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, ObjectVector, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<ObjectVector, IndicesVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<ObjectVector, ObjectVector, Boolean>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, std::vector<Indices>, Integer>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, ObjectVector, Integer>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<ObjectVector, std::vector<Indices>, Integer>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, IndicesVector, Integer>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, ObjectVector, Integer>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<ObjectVector, IndicesVector, Integer>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<ObjectVector, ObjectVector, Integer>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, std::vector<Indices>, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, ObjectVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<ObjectVector, std::vector<Indices>, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, IndicesVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, ObjectVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<ObjectVector, IndicesVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<ObjectVector, ObjectVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<std::vector<Indices>, GridVector, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, GridVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<ObjectVector, GridVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, ObjectVector, Grid>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, IntegerVector, Grid>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, IntegerVector, Indices>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IntegerVector, ObjectVector, Object>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IntegerVector, Objects, Object>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<IntegerVector, std::vector<Indices>, Object>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IntegerVector, IndicesVector, Object>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<Objects>, IntegerVector, Objects>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<Callable>, GridVector, IntegerVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, GridVector, GridVector>(function_, a, b); r.has_value()) return r;
@@ -2795,10 +2847,11 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<std::vector<IntegerSet>, std::vector<Callable>, Integer>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<Objects>, std::vector<Callable>, Integer>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<std::vector<IndicesSet>, std::vector<Callable>, Integer>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<Grid, Grid, TupleVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<Grid, Grid, IntegerTupleVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<GridVector, GridVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<Objects, Indices, Object>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::papply<ObjectVector, std::vector<IntegerTuple>, Object>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<ObjectVector, IntegerTupleVector, Object>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IntegerTupleVector, IntegerTupleVector, Indices>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2858,13 +2911,13 @@ std::any hodel::prapply(std::vector<std::any> const& args)
 
     auto const function_{std::any_cast<Callable>(function)};
 
-    if (auto r = ::prapply<std::vector<Indices>, std::vector<Indices>, BooleanVector >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Indices>, std::vector<Indices>, IntegerVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesVector, IndicesVector, BooleanVector >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesVector, IndicesVector, IntegerVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<ObjectVector, ObjectVector, BooleanVector >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<ObjectVector, ObjectVector, IntegerVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, BooleanVector, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, IntegerVector, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<std::vector<Callable>, std::vector<IntegerTuple>, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<std::vector<Callable>, IntegerTupleVector, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, Grid, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, GridVector, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<std::vector<Callable>, Object, std::vector<Callable> >(function_, a, b); r.has_value()) return r;
@@ -2874,7 +2927,7 @@ std::any hodel::prapply(std::vector<std::any> const& args)
     if (auto r = ::prapply<Indices, Indices, IndicesSet>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IntegerVector, IntegerVector, Indices>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IndicesSet, Indices, IndicesSet>(function_, a, b); r.has_value()) return r;
-    if (auto r = ::prapply<IndicesSet, std::vector<IntegerTuple>, IndicesSet>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesSet, IntegerTupleVector, IndicesSet>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<Indices, IntegerVector, Indices>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
@@ -3613,9 +3666,9 @@ std::any hodel::shift(std::vector<std::any> const& args)
         return shift({Patch{std::any_cast<Object>(patch)}, directions});
     else if (patch.type() == typeid(Indices))
         return shift({Patch{std::any_cast<Indices>(patch)}, directions});
-    else if (patch.type() == typeid(std::vector<IntegerTuple>))
+    else if (patch.type() == typeid(IntegerTupleVector))
     {
-        auto const v{std::any_cast<std::vector<IntegerTuple>>(patch)};
+        auto const v{std::any_cast<IntegerTupleVector>(patch)};
 
         return shift({Patch{Indices{v.begin(), v.end()}}, directions});
     }
@@ -5029,9 +5082,9 @@ std::any hodel::fill(std::vector<std::any> const& args)
         return fill({grid, value, Patch{std::any_cast<Object>(patch)}});
     else if (patch.type() == typeid(Indices))
         return fill({grid, value, Patch{std::any_cast<Indices>(patch)}});
-    else if (patch.type() == typeid(std::vector<IntegerTuple>))
+    else if (patch.type() == typeid(IntegerTupleVector))
     {
-        auto const patch_{std::any_cast<std::vector<IntegerTuple> >(patch)};
+        auto const patch_{std::any_cast<IntegerTupleVector>(patch)};
 
         return fill({grid, value, Patch{Indices{patch_.begin(), patch_.end()}}});
     }
