@@ -66,13 +66,13 @@ namespace hodel
     typedef std::function<std::any(std::vector<std::any> const&)> Callable;
     typedef std::vector<Integer> IntegerVector;
     typedef std::vector<Object> ObjectVector;
-    typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerSet, Grid, Cell, Object, Objects, Indices, IndicesSet, Callable, std::vector<Integer>, std::vector<Grid>, std::vector<Boolean>, ObjectVector, std::vector<Objects>, std::vector<Indices>, std::vector<IndicesSet>, std::vector<Callable> > AnyIdentity;
-    typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerSet, Grid, Cell, Object, Objects, Indices, IndicesSet, std::vector<Grid>, std::vector<Boolean>, std::vector<Objects> > AnyEquality;
+    typedef std::vector<Boolean> BooleanVector;
+    typedef std::vector<Grid> GridVector;
+    typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerSet, Grid, Cell, Object, Objects, Indices, IndicesSet, Callable, IntegerVector, GridVector, BooleanVector, ObjectVector, std::vector<Objects>, std::vector<Indices>, std::vector<IndicesSet>, std::vector<Callable> > AnyIdentity;
+    typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerSet, Grid, Cell, Object, Objects, Indices, IndicesSet, GridVector, BooleanVector, std::vector<Objects> > AnyEquality;
     typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerVector, Grid, Object, Indices, Objects, Callable, std::vector<IntegerTuple> > AnyVector1;
     typedef std::tuple<Boolean, Integer, IntegerTuple, IntegerVector, Grid, Objects> AnyVector2;
     typedef std::tuple<Integer, Cell, Object, IntegerTuple, Indices> AnySet1;
-    typedef std::vector<Grid> GridVector;
-    typedef std::vector<Boolean> BooleanVector;
     typedef std::tuple<IntegerVector, Grid, Object> AnyVector3;
     typedef std::tuple<Object, Indices> AnySet2;
     typedef std::vector<IntegerTuple> TupleVector;
@@ -108,8 +108,8 @@ namespace hodel
     std::any contained(std::vector<std::any> const& args); //element of
     //IntegerTuple combine(Integer, Integer)
     //IntegerSet combine(IntegerSet, IntegerSet)
-    //std::vector<Integer> combine(std::vector<Integer>, IntegerSet)
-    //IntegerSet combine(IntegerSet, std::vector<Integer>)
+    //IntegerVector combine(IntegerVector, IntegerSet)
+    //IntegerSet combine(IntegerSet, IntegerVector)
     //ObjectVector combine(Object, Object)
     //std::vector<Objects> combine(Objects, Objects)
     //Indices combine(Indices, Indices)
@@ -117,9 +117,9 @@ namespace hodel
     //Indices combine(Indices, std::vector<IntegerTuple>)
     //IndicesSet combine(IndicesSet, IndicesSet)
     //std::vector<IntegerTuple> combine(std::vector<IntegerTuple>, std::vector<IntegerTuple>)
-    //std::vector<Integer> combine(std::vector<Integer>, std::vector<Integer>)
+    //IntegerVector combine(IntegerVector, IntegerVector)
     //Grid combine(Grid, Grid)
-    //std::vector<Grid> combine(std::vector<Grid>, std::vector<Grid>)
+    //GridVector combine(GridVector, GridVector)
     //ObjectVector combine(ObjectVector, ObjectVector)
     std::any combine(std::vector<std::any> const& args); //union
     //std::vector<AnyVector1> intersection(std::vector<AnyVector1>, std::vector<AnyVector1>)
@@ -147,23 +147,23 @@ namespace hodel
     //GridVector merge(std::vector<GridVector>)
     //Object merge(ObjectPair)
     std::any merge(std::vector<std::any> const& args); //merging
-    //Integer maximum(std::vector<Integer>)
+    //Integer maximum(IntegerVector)
     //Integer maximum(std::set<Integer>)
     //Integer maximum(IntegerTuple)
     std::any maximum(std::vector<std::any> const& args); //maximum
-    //Integer minimum(std::vector<Integer>)
+    //Integer minimum(IntegerVector)
     //Integer minimum(std::set<Integer>)
     //Integer minimum(IntegerTuple)
     std::any minimum(std::vector<std::any> const& args); //minimum
     //Integer valmax(IntegerVector, Callable)
     //Integer valmax(IntegerSet, Callable)
-    //Integer valmax(std::vector<Grid>, Callable)
+    //Integer valmax(GridVector, Callable)
     //Integer valmax(Objects, Callable)
     //Integer valmax(IndicesSet, Callable)
     std::any valmax(std::vector<std::any> const& args); //maximum by custom function
     //Integer valmin(IntegerVector, Callable)
     //Integer valmin(IntegerSet, Callable)
-    //Integer valmin(std::vector<Grid>, Callable)
+    //Integer valmin(GridVector, Callable)
     //Integer valmin(Objects, Callable)
     //Integer valmin(IndicesSet, Callable)
     std::any valmin(std::vector<std::any> const& args); //minimum by custom function
@@ -214,7 +214,7 @@ namespace hodel
     //GridBooleanPair extract(std::vector<GridBooleanPair>, Callable)
     std::any extract(std::vector<std::any> const& args); //first element of container that satisfies condition
     //std::vector<AnySet1> totuple(std::set<AnySet1>)
-    //std::vector<Integer> totuple(IntegerTuple)
+    //IntegerVector totuple(IntegerTuple)
     std::any totuple(std::vector<std::any> const& args); //conversion to tuple
     //AnyVector1 first(std::vector<AnyVector1>)
     //AnySet1 first(std::set<AnySet1>)
@@ -260,6 +260,7 @@ namespace hodel
     //ObjectIntegerPair pair(ObjectVector, IntegerVector)
     //IntegerTuplePair pair(Indices, Indices)
     //IntegerTuplePair pair(std::vector<IntegerTuple>, std::vector<IntegerTuple>)
+    //Object pair(IntegerVector, std::vector<IntegerTuple>)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(Boolean, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
@@ -277,15 +278,15 @@ namespace hodel
     std::any power(std::vector<std::any> const& args); //power of function
     //Callable fork(Callable, Callable, Callable)
     std::any fork(std::vector<std::any> const& args); //creates a wrapper function
-    //std::vector<Boolean> apply(Callable, std::vector<Boolean>)
-    //std::vector<Boolean> apply(Callable, GridVector)
+    //BooleanVector apply(Callable, BooleanVector)
+    //BooleanVector apply(Callable, GridVector)
     //IntegerVector apply(Callable, IntegerVector)
     //std::vector<IntegerVector> apply(Callable, IntegerVector)
     //IntegerVector apply(Callable, GridVector)
-    //std::vector<Grid> apply(Callable, GridVector)
+    //GridVector apply(Callable, GridVector)
     //IntegerSet apply(Callable, Objects)
     //IntegerVector apply(Callable, Objects)
-    //std::vector<Integer> apply(Callable, ObjectVector)
+    //IntegerVector apply(Callable, ObjectVector)
     //ObjectVector apply(Callable, Objects)
     //Objects apply(Callable, Objects)
     //ObjectVector apply(Callable, ObjectVector)
@@ -326,19 +327,20 @@ namespace hodel
     //std::vector<IntegerTuple> apply(Callable, GridVector)
     //Objects apply(Callable, IndicesSet)
     //IntegerVector apply(Callable, Grid)
+    //std::vector<IntegerTuple> apply(Callable, ObjectVector)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
-    //std::vector<Boolean> rapply(std::vector<Callable>, Boolean)
-    //std::vector<Boolean> rapply(std::vector<Callable>, Integer)
-    //std::vector<Integer> rapply(std::vector<Callable>, Integer)
+    //BooleanVector rapply(std::vector<Callable>, Boolean)
+    //BooleanVector rapply(std::vector<Callable>, Integer)
+    //IntegerVector rapply(std::vector<Callable>, Integer)
     //std::vector<IntegerTuple> rapply(std::vector<Callable>, IntegerTuple)
-    //std::vector<Integer> rapply(std::vector<Callable>, IntegerTuple)
-    //std::vector<Grid> rapply(std::vector<Callable>, Grid)
-    //std::vector<Boolean> rapply(std::vector<Callable>, Grid)
+    //IntegerVector rapply(std::vector<Callable>, IntegerTuple)
+    //GridVector rapply(std::vector<Callable>, Grid)
+    //BooleanVector rapply(std::vector<Callable>, Grid)
     //std::vector<IndicesSet> rapply(std::vector<Callable>, IndicesSet)
     //ObjectVector rapply(std::vector<Callable>, Object)
-    //std::vector<Integer> rapply(std::vector<Callable>, Object)
+    //IntegerVector rapply(std::vector<Callable>, Object)
     std::any rapply(std::vector<std::any> const& args); //apply each function in container to value
-    //Grid mapply(Callable, std::vector<Grid>)
+    //Grid mapply(Callable, GridVector)
     //IntegerVector mapply(Callable, Grid)
     //Object mapply(Callable, Objects)
     //Object mapply(Callable, ObjectVector)
@@ -349,8 +351,8 @@ namespace hodel
     //Object mapply(Callable, std::vector<ObjectIntegerPair>)
     //Indices mapply(Callable, std::vector<IntegerTuplePair>)
     std::any mapply(std::vector<std::any> const& args); //apply and merge
-    //Boolean papply(Callable, std::vector<Boolean>, std::vector<Boolean>)
-    //IntegerTuple papply(Callable, std::vector<Integer>, std::vector<Integer>)
+    //Boolean papply(Callable, BooleanVector, BooleanVector)
+    //IntegerTuple papply(Callable, IntegerVector, IntegerVector)
     //Boolean papply(Callable, std::vector<Indices>, std::vector<Indices>)
     //Boolean papply(Callable, std::vector<Indices>, ObjectVector)
     //Boolean papply(Callable, ObjectVector, std::vector<Indices>)
@@ -363,43 +365,43 @@ namespace hodel
     //IntegerTuple papply(Callable, std::vector<Indices>, ObjectVector)
     //IntegerTuple papply(Callable, ObjectVector, std::vector<Indices>)
     //IntegerTuple papply(Callable, ObjectVector, ObjectVector)
-    //Boolean papply(Callable, std::vector<Indices>, std::vector<Grid>)
-    //Boolean papply(Callable, ObjectVector, std::vector<Grid>)
-    //Grid papply(Callable, std::vector<Grid>, ObjectVector)
-    //Grid papply(Callable, std::vector<Grid>, std::vector<Integer>)
-    //Indices papply(Callable, std::vector<Grid>, std::vector<Integer>)
-    //Object papply(Callable, std::vector<Integer>, ObjectVector)
-    //Object papply(Callable, std::vector<Integer>, std::vector<Indices>)
-    //Objects papply(Callable, std::vector<Objects>, std::vector<Integer>)
-    //IntegerVector papply(Callable, std::vector<Callable>, std::vector<Grid>)
-    //GridVector papply(Callable, std::vector<Grid>, std::vector<Grid>)
+    //Boolean papply(Callable, std::vector<Indices>, GridVector)
+    //Boolean papply(Callable, ObjectVector, GridVector)
+    //Grid papply(Callable, GridVector, ObjectVector)
+    //Grid papply(Callable, GridVector, IntegerVector)
+    //Indices papply(Callable, GridVector, IntegerVector)
+    //Object papply(Callable, IntegerVector, ObjectVector)
+    //Object papply(Callable, IntegerVector, std::vector<Indices>)
+    //Objects papply(Callable, std::vector<Objects>, IntegerVector)
+    //IntegerVector papply(Callable, std::vector<Callable>, GridVector)
+    //GridVector papply(Callable, GridVector, GridVector)
     //Integer papply(Callable, std::vector<IntegerVector>, std::vector<Callable>)
     //Integer papply(Callable, std::vector<IntegerSet>, std::vector<Callable>)
     //Integer papply(Callable, std::vector<Objects>, std::vector<Callable>)
     //Integer papply(Callable, std::vector<IndicesSet>, std::vector<Callable>)
     //std::vector<TupleVector> papply(Callable, Grid, Grid)
-    //std::vector<Boolean> papply(Callable, GridVector, GridVector)
+    //BooleanVector papply(Callable, GridVector, GridVector)
     //ObjectVector papply(Callable, Objects, Indices)
     //ObjectVector papply(Callable, ObjectVector, std::vector<IntegerTuple>)
     std::any papply(std::vector<std::any> const& args); //apply function on two vectors
-    //IntegerVector mpapply(Callable, std::vector<Grid>, std::vector<Grid>)
-    //Object mpapply(Callable, std::vector<Objects>, std::vector<Integer>)
+    //IntegerVector mpapply(Callable, GridVector, GridVector)
+    //Object mpapply(Callable, std::vector<Objects>, IntegerVector)
     //Object mpapply(Callable, std::vector<Objects>, std::vector<IntegerTuple>)
-    //IntegerVector mpapply(Callable, std::vector<Grid>, ObjectVector)
-    //IntegerVector mpapply(Callable, std::vector<Grid>, std::vector<Integer>)
-    //Object mpapply(Callable, std::vector<Integer>, ObjectVector)
-    //Object mpapply(Callable, std::vector<Integer>, Objects)
-    //Object mpapply(Callable, std::vector<Integer>, ObjectVector)
+    //IntegerVector mpapply(Callable, GridVector, ObjectVector)
+    //IntegerVector mpapply(Callable, GridVector, IntegerVector)
+    //Object mpapply(Callable, IntegerVector, ObjectVector)
+    //Object mpapply(Callable, IntegerVector, Objects)
+    //Object mpapply(Callable, IntegerVector, ObjectVector)
     std::any mpapply(std::vector<std::any> const& args); //apply function on two vectors and merge
-    //std::vector<Boolean> prapply(Callable, std::vector<Indices>, std::vector<Indices>)
-    //std::vector<Integer> prapply(Callable, std::vector<Indices>, std::vector<Indices>)
-    //std::vector<Boolean> prapply(Callable, ObjectVector, ObjectVector)
-    //std::vector<Integer> prapply(Callable, ObjectVector, ObjectVector)
-    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<Boolean>)
-    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<Integer>)
+    //BooleanVector prapply(Callable, std::vector<Indices>, std::vector<Indices>)
+    //IntegerVector prapply(Callable, std::vector<Indices>, std::vector<Indices>)
+    //BooleanVector prapply(Callable, ObjectVector, ObjectVector)
+    //IntegerVector prapply(Callable, ObjectVector, ObjectVector)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, BooleanVector)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, IntegerVector)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<IntegerTuple>)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, Grid)
-    //std::vector<Callable> prapply(Callable, std::vector<Callable>, std::vector<Grid>)
+    //std::vector<Callable> prapply(Callable, std::vector<Callable>, GridVector)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, Object)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, Objects)
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, Indices)
