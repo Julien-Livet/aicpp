@@ -3,7 +3,7 @@
 #include <numeric>
 #include <ranges>
 #include <typeindex>
-#include <iostream> //TODO: to remove
+
 #include "aicpp/Hodel.h"
 
 constexpr hodel::Integer MAX_SIZE = 30;
@@ -2619,6 +2619,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::vector<IntegerTuplePair>, std::vector<Indices> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, std::set<ObjectVector> >(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IndicesSet, Objects>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
