@@ -2744,15 +2744,11 @@ std::any prapply(hodel::Callable const& function, std::any const& a, std::any co
     std::vector<typename U::value_type> result;
     result.reserve(a_.size() * b_.size());
 
-    auto itA{a_.begin()};
-
     try
     {
-        for (; itA != a_.end(); ++itA)
+        for (auto itA{a_.begin()}; itA != a_.end(); ++itA)
         {
-            auto itB{b_.begin()};
-
-            for (; itB != b_.end(); ++itB)
+            for (auto itB{b_.begin()}; itB != b_.end(); ++itB)
                 result.emplace_back(std::any_cast<typename U::value_type>(function({*itA, *itB})));
         }
     }
@@ -2794,6 +2790,7 @@ std::any hodel::prapply(std::vector<std::any> const& args)
     if (auto r = ::prapply<IndicesType, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IntegerVector, IntegerVector, IndicesType>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<IndicesSet, IndicesType, IndicesSet>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<IndicesType, IntegerVector, IndicesType>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2997,8 +2994,12 @@ std::any hodel::portrait(std::vector<std::any> const& args)
         return portrait({Piece(std::any_cast<GridType>(piece))});
     else if (piece.type() == typeid(Patch))
         return portrait({Piece(std::any_cast<Patch>(piece))});
+    else if (piece.type() == typeid(ObjectType))
+        return portrait({Piece(Patch{std::any_cast<ObjectType>(piece)})});
+    else if (piece.type() == typeid(IndicesType))
+        return portrait({Piece(Patch{std::any_cast<IndicesType>(piece)})});
 
-    if (piece.type() == typeid(Piece) || piece.type() == typeid(ObjectType))
+    if (piece.type() == typeid(Piece))
     {
         auto const h{std::any_cast<IntegerType>(height(args))};
         auto const w{std::any_cast<IntegerType>(width(args))};
