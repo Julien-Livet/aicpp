@@ -256,6 +256,7 @@ namespace hodel
     //GridBooleanPair pair(GridVector, BooleanVector)
     //ObjectIntegerPair pair(std::vector<ObjectType>, IntegerVector)
     //IntegerTuplePair pair(IndicesType, IndicesType)
+    //IntegerTuplePair pair(std::vector<IntegerTuple>, std::vector<IntegerTuple>)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(BooleanType, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
@@ -276,6 +277,7 @@ namespace hodel
     //std::vector<BooleanType> apply(Callable, std::vector<BooleanType>)
     //std::vector<BooleanType> apply(Callable, GridVector)
     //IntegerVector apply(Callable, IntegerVector)
+    //std::vector<IntegerVector> apply(Callable, IntegerVector)
     //IntegerVector apply(Callable, GridVector)
     //std::vector<GridType> apply(Callable, GridVector)
     //IntegerSet apply(Callable, Objects)
@@ -287,24 +289,27 @@ namespace hodel
     //GridType apply(Callable, std::vector<TupleVector>)
     //IntegerVector apply(Callable, TupleVector)
     //IndicesSet apply(Callable, IndicesType)
+    //std::vector<IndicesType> apply(Callable, std::vector<IntegerTuple>)
     //IndicesType apply(Callable, IndicesSet)
     //GridVector apply(Callable, std::vector<GridVector>)
     //IndicesSet apply(Callable, IndicesSet)
     //GridType apply(Callable, GridType)
     //IndicesSet apply(Callable, std::set<IntegerTuplePair>)
     //GridVector apply(Callable, IntegerVector)
-    //Objects apply(Callable, Indices)
-    //IndicesType apply(Callable, IntegerVector)
+    //Objects apply(Callable, IndicesType)
+    //std::vector<ObjectType> apply(Callable, std::vector<IntegerTuple>)
+    //IndicesType apply(Callable, IntegerSet)
     //std::vector<IntegerTuple> apply(Callable, IntegerVector)
     //IndicesType apply(Callable, IntegerSet)
     //GridVector apply(Callable, std::vector<ObjectType>)
     //IntegerVector apply(Callable, std::vector<Objects>)
     //IntegerTuple apply(Callable, std::vector<Objects>)
-    //GridVector apply(Callable, Objects)
+    //std::set<GridType> apply(Callable, Objects)
     //GridVector apply(Callable, std::vector<ObjectType>)
     //IndicesType apply(Callable, IndicesType)
+    //std::vector<IntegerTuple> apply(Callable, std::vector<IntegerTuple>)
+    //IntegerVector apply(Callable, std::vector<IntegerTuple>)
     //Objects apply(Callable, IntegerSet)
-    //Objects apply(Callable, GridVector)
     //std::vector<ObjectType> apply(Callable, GridVector)
     //std::vector<ObjectType> apply(Callable, IntegerVector)
     //std::vector<IntegerTuple> apply(Callable, IntegerVector)
@@ -312,10 +317,9 @@ namespace hodel
     //ObjectType apply(Callable, Objects)
     //Objects apply(Callable, std::set<ObjectPair>)
     //std::vector<ObjectType> apply(Callable, std::vector<ObjectIntegerPair>)
-    //IndicesSet apply(Callable, GridVector)
     //std::vector<IndicesType> apply(Callable, GridVector)
     //std::vector<IntegerTuple> apply(Callable, std::vector<IntegerTuplePair>)
-    //IndicesType apply(Callable, GridVector)
+    //std::vector<IndicesType> apply(Callable, std::vector<IntegerTuplePair>)
     //std::vector<IntegerTuple> apply(Callable, GridVector)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //std::vector<BooleanType> rapply(std::vector<Callable>, BooleanType)
@@ -334,6 +338,7 @@ namespace hodel
     //ObjectType mapply(Callable, Objects)
     //ObjectType mapply(Callable, std::vector<ObjectType>)
     //ObjectType mapply(Callable, IndicesType)
+    //ObjectType mapply(Callable, std::vector<IntegerTuple>)
     //ObjectType mapply(Callable, IntegerSet)
     //ObjectType mapply(Callable, IntegerVector)
     //ObjectType mapply(Callable, std::vector<ObjectIntegerPair>)
@@ -370,7 +375,7 @@ namespace hodel
     //std::vector<TupleVector> papply(Callable, GridType, GridType)
     //std::vector<BooleanType> papply(Callable, GridVector, GridVector)
     //std::vector<ObjectType> papply(Callable, Objects, IndicesType)
-    //std::vector<ObjectType> papply(Callable, std::vector<ObjectType>, IndicesType)
+    //std::vector<ObjectType> papply(Callable, std::vector<ObjectType>, std::vector<IntegerTuple>)
     std::any papply(std::vector<std::any> const& args); //apply function on two vectors
     //IntegerVector mpapply(Callable, std::vector<GridType>, std::vector<GridType>)
     //ObjectType mpapply(Callable, std::vector<Objects>, std::vector<IntegerType>)
@@ -396,7 +401,8 @@ namespace hodel
     //std::vector<Callable> prapply(Callable, std::vector<Callable>, IndicesSet)
     //IndicesSet prapply(Callable, IndicesType, IndicesType)
     //IndicesSet prapply(Callable, IntegerVector, IntegerVector)
-    //IndicesSet prapply(Callable, IndicesSet, Indices)
+    //IndicesSet prapply(Callable, IndicesSet, IndicesType)
+    //IndicesSet prapply(Callable, IndicesSet, std::vector<IntegerTuple>)
     //IndicesType prapply(Callable, IndicesType, IntegerVector)
     std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
@@ -503,6 +509,7 @@ namespace hodel
     //Piece cmirror(Piece)
     std::any cmirror(std::vector<std::any> const& args); //mirroring along counterdiagonal
     //GridType fill(GridType, IntegerType, Patch)
+    //GridType fill(GridType, IntegerType, std::vector<IntegerTuple>)
     std::any fill(std::vector<std::any> const& args); //fill value at indices
     //GridType paint(GridType, ObjectType)
     std::any paint(std::vector<std::any> const& args); //paint object to grid
@@ -575,6 +582,7 @@ namespace hodel
     //IndicesType outbox(Patch)
     std::any outbox(std::vector<std::any> const& args); //outbox for patch
     //IndicesType box(Patch)
+    //IndicesType box(IntegerTuplePair)
     std::any box(std::vector<std::any> const& args); //outline of patch
     //IndicesType shoot(IntegerTuple, IntegerTuple)
     std::any shoot(std::vector<std::any> const& args); //line from starting point and direction
