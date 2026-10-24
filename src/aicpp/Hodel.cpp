@@ -2255,7 +2255,7 @@ hodel::Integer hodel::index(Grid const& grid, IntegerTuple const& loc)
 
 hodel::Grid hodel::canvas(Integer const& value, IntegerTuple const& dimensions)
 {
-    if (dimensions.first <= 0 || dimensions.second <= 0)
+    if (dimensions.first < 0 || dimensions.second < 0)
         throw InvalidIntegerTuple{"canvas"};
 
     return Grid(dimensions.first, std::vector<Integer>(dimensions.second, value));
