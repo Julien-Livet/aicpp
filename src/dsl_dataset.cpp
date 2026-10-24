@@ -130,7 +130,7 @@ Connection buildConnection(std::map<std::type_index, std::vector<std::reference_
     throw std::runtime_error{"Wrong connection"};
 }
 
-using Pair = std::pair<hodel::GridType, Connection>;
+using Pair = std::pair<hodel::Grid, Connection>;
 
 struct PairLess
 {
@@ -142,7 +142,7 @@ struct PairLess
 
 int constexpr NUM_COLORS = 10;
 
-hodel::GridType generateStructuredGrid(
+hodel::Grid generateStructuredGrid(
     std::pair<size_t, size_t> minSize = {4, 4},
     std::pair<size_t, size_t> maxSize = {30, 30})
 {
@@ -162,10 +162,10 @@ hodel::GridType generateStructuredGrid(
     auto const h = hDist(rd);
     auto const w = wDist(rd);
 
-    hodel::GridType grid(h, std::vector<hodel::IntegerType>(w, 0));
+    hodel::Grid grid(h, std::vector<hodel::Integer>(w, 0));
 
-    std::uniform_int_distribution<hodel::IntegerType> colorDist(1, NUM_COLORS - 1);
-    std::uniform_int_distribution<hodel::IntegerType> anyColorDist(0, NUM_COLORS - 1);
+    std::uniform_int_distribution<hodel::Integer> colorDist(1, NUM_COLORS - 1);
+    std::uniform_int_distribution<hodel::Integer> anyColorDist(0, NUM_COLORS - 1);
     std::uniform_real_distribution<double> realDist(0.0, 1.0);
 
     if (kind == "stripes")
@@ -219,7 +219,7 @@ hodel::GridType generateStructuredGrid(
         auto const baseH = baseHDist(rd);
         auto const baseW = baseWDist(rd);
 
-        std::vector<std::vector<hodel::IntegerType> > base(baseH, std::vector<hodel::IntegerType>(baseW));
+        std::vector<std::vector<hodel::Integer> > base(baseH, std::vector<hodel::Integer>(baseW));
 
         for (int i = 0; i < baseH; ++i)
             for (int j = 0; j < baseW; ++j)
@@ -359,7 +359,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         //{"gravitate"}, //cf. below
     };
 
-    std::vector<std::pair<Connection, std::optional<hodel::GridType> > > programs;
+    std::vector<std::pair<Connection, std::optional<hodel::Grid> > > programs;
 
     //rbind
     {
@@ -376,7 +376,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{paint, {}});
     }
 
     //lbind
@@ -394,7 +394,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const hmirror{primitives.at("hmirror0"), {I}};
         Connection const paint{primitives.at("paint0"), {hmirror, mfilter}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, {}});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{paint, {}});
     }
 
     //matcher: 39a8645d
@@ -411,7 +411,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const extract{primitives.at("extract14"), {objects, matcher}};
         Connection const subgrid{primitives.at("subgrid1"), {extract, I}};
 
-        hodel::GridType const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 8, 0},
                                    {0, 0, 8, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0},
@@ -426,7 +426,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
                         
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{subgrid, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{subgrid, grid});
     }
 
     //power: 1f876c06
@@ -446,7 +446,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const mapply{primitives.at("mapply2"), {fork2, fgpartition}};
         Connection const paint{primitives.at("paint0"), {I, mapply}};
 
-        hodel::GridType const grid{{0, 0, 2, 0, 0, 6, 0, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 2, 0, 0, 6, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -457,7 +457,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 4, 0, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{paint, grid});
     }
 
     //papply: 73251a56
@@ -479,7 +479,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const shoot{primitives.at("shoot0"), {ORIGIN, UNITY}};
         Connection const fill{primitives.at("fill0"), {replace, index, shoot}};
 
-        hodel::GridType const grid{{4, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 1, 1, 2, 2, 3, 3, 4},
+        hodel::Grid const grid{{4, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 1, 1, 2, 2, 3, 3, 4},
                                    {3, 4, 3, 3, 4, 4, 4, 5, 5, 5, 0, 0, 6, 7, 7, 7, 8, 8, 8, 9, 9},
                                    {4, 3, 4, 3, 3, 3, 4, 4, 4, 4, 0, 0, 5, 5, 6, 6, 6, 6, 7, 7, 7},
                                    {4, 3, 3, 4, 3, 3, 3, 3, 4, 4, 0, 0, 4, 5, 5, 5, 5, 5, 6, 6, 6},
@@ -501,7 +501,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {3, 9, 7, 6, 5, 5, 4, 4, 4, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 4, 3},
                                    {4, 9, 7, 6, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{fill, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{fill, grid});
     }
 
     //mpapply: 08ed6ac7
@@ -521,7 +521,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const mpapply{primitives.at("mpapply5"), {recolor, interval, order}};
         Connection const paint{primitives.at("paint0"), {I, mpapply}};
 
-        hodel::GridType const grid{{0, 0, 0, 0, 0, 5, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 0, 0, 0, 5, 0, 0, 0},
                                    {0, 5, 0, 0, 0, 5, 0, 0, 0},
                                    {0, 5, 0, 0, 0, 5, 0, 0, 0},
                                    {0, 5, 0, 5, 0, 5, 0, 0, 0},
@@ -531,7 +531,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 5, 0, 5, 0, 5, 0, 5, 0},
                                    {0, 5, 0, 5, 0, 5, 0, 5, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{paint, grid});
     }
 
     //prapply, hline, vline: 253bf280
@@ -556,7 +556,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const fill1{primitives.at("fill0"), {I, THREE, mfilter}};
         Connection const fill2{primitives.at("fill0"), {fill1, EIGHT, ofcolor}};
 
-        hodel::GridType const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 8, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0},
@@ -564,7 +564,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{fill2, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{fill2, grid});
     }
 
     //hmatching, vmatching, gravitate: d43fd935
@@ -597,7 +597,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const mapply{primitives.at("mapply2"), {fork4, sfilter}};
         Connection const paint{primitives.at("paint0"), {I, mapply}};
 
-        hodel::GridType const grid{{1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        hodel::Grid const grid{{1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 6, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 3, 3, 0, 0, 0, 0, 1, 0},
@@ -608,7 +608,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 0, 6, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{paint, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{paint, grid});
     }
 
     //adjacent: 48d8fb45
@@ -626,7 +626,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const extract2{primitives.at("extract14"), {objects, lbind}};
         Connection const subgrid{primitives.at("subgrid1"), {extract2, I}};
 
-        hodel::GridType const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                                    {0, 0, 0, 5, 0, 0, 0, 1, 1, 0},
                                    {0, 0, 0, 1, 0, 0, 0, 0, 1, 0},
@@ -637,7 +637,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
                                    {0, 0, 0, 0, 0, 1, 1, 1, 0, 0},
                                    {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{subgrid, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{subgrid, grid});
     }
 
     //bordering: 6f8cd79b
@@ -652,13 +652,13 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
         Connection const EIGHT{variables.at("EIGHT"), {}};
         Connection const fill{primitives.at("fill0"), {I, EIGHT, mfilter}};
 
-        hodel::GridType const grid{{0, 0, 0, 0},
+        hodel::Grid const grid{{0, 0, 0, 0},
                                    {0, 0, 0, 0},
                                    {0, 0, 0, 0},
                                    {0, 0, 0, 0},
                                    {0, 0, 0, 0}};
 
-        programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{fill, grid});
+        programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{fill, grid});
     }
 
     for (auto names : allNames)
@@ -667,7 +667,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
         try
         {
-            programs.emplace_back(std::pair<Connection, std::optional<hodel::GridType> >{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, typeid(hodel::GridType), names), {}});
+            programs.emplace_back(std::pair<Connection, std::optional<hodel::Grid> >{buildNamedConnection(variableNeuronsByOutputType, neuronsByOutputType, typeid(hodel::Grid), names), {}});
         }
         catch (std::exception const&)
         {
@@ -686,7 +686,7 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
     {
         auto& connection{program.first};
 
-        assert(connection.neuron().outputType() == typeid(hodel::GridType));
+        assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
         auto const dslProgram{connection.string()};
 
@@ -712,33 +712,33 @@ void checkConnections(std::map<std::string, Neuron> const& variables, std::map<s
 
                 if (output.has_value())
                 {
-                    auto const grid{std::any_cast<hodel::GridType>(output)};
+                    auto const grid{std::any_cast<hodel::Grid>(output)};
                     add = true;
 
                     if (grid == input)
                         add = false;
 
-                    auto const minReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::min(a, b); };
+                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
                     auto const minTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::IntegerType>::max()
+                            ? std::numeric_limits<hodel::Integer>::max()
                             : *std::min_element(row.begin(), row.end());
                     };
-                    auto const maxReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::max(a, b); };
+                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
                     auto const maxTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::IntegerType>::min()
+                            ? std::numeric_limits<hodel::Integer>::min()
                             : *std::max_element(row.begin(), row.end());
                     };
 
                     auto const min = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::IntegerType>::max(),
+                        std::numeric_limits<hodel::Integer>::max(),
                         minReducer,
                         minTransformer);
                     auto const max = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::IntegerType>::min(),
+                        std::numeric_limits<hodel::Integer>::min(),
                         maxReducer,
                         maxTransformer);
 
@@ -779,7 +779,7 @@ int main(int argc, char* argv[])
     for (auto const& variable : variables)
         variableNeuronsByOutputType[variable.second.outputType()].emplace_back(variable.second);
 
-    Neuron iNeuron{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::GridType)};
+    Neuron iNeuron{"I", [] (std::vector<std::any> const&) -> std::any { return std::any{}; }, std::vector<std::type_index>{}, typeid(hodel::Grid)};
 
     variableNeuronsByOutputType[iNeuron.outputType()].emplace_back(iNeuron);
 
@@ -806,9 +806,9 @@ int main(int argc, char* argv[])
 
         try
         {
-            auto const connection{buildConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::GridType))};
+            auto const connection{buildConnection(variableNeuronsByOutputType, neuronsByOutputType, depth, typeid(hodel::Grid))};
 
-            assert(connection.neuron().outputType() == typeid(hodel::GridType));
+            assert(connection.neuron().outputType() == typeid(hodel::Grid));
 
             auto const program{connection.string()};
 
@@ -830,33 +830,33 @@ int main(int argc, char* argv[])
 
                 if (output.has_value())
                 {
-                    auto const grid{std::any_cast<hodel::GridType>(output)};
+                    auto const grid{std::any_cast<hodel::Grid>(output)};
                     bool add{true};
 
                     if (grid == input || grid.empty())
                         add = false;
 
-                    auto const minReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::min(a, b); };
+                    auto const minReducer = [] (hodel::Integer a, hodel::Integer b) { return std::min(a, b); };
                     auto const minTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::IntegerType>::max()
+                            ? std::numeric_limits<hodel::Integer>::max()
                             : *std::min_element(row.begin(), row.end());
                     };
-                    auto const maxReducer = [] (hodel::IntegerType a, hodel::IntegerType b) { return std::max(a, b); };
+                    auto const maxReducer = [] (hodel::Integer a, hodel::Integer b) { return std::max(a, b); };
                     auto const maxTransformer = [] (auto const& row) {
                         return row.empty()
-                            ? std::numeric_limits<hodel::IntegerType>::min()
+                            ? std::numeric_limits<hodel::Integer>::min()
                             : *std::max_element(row.begin(), row.end());
                     };
 
                     auto const min = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::IntegerType>::max(),
+                        std::numeric_limits<hodel::Integer>::max(),
                         minReducer,
                         minTransformer);
                     auto const max = std::transform_reduce(
                         grid.begin(), grid.end(),
-                        std::numeric_limits<hodel::IntegerType>::min(),
+                        std::numeric_limits<hodel::Integer>::min(),
                         maxReducer,
                         maxTransformer);
 
@@ -930,7 +930,7 @@ int main(int argc, char* argv[])
     }
 
     {
-        std::vector<hodel::GridType> grids;
+        std::vector<hodel::Grid> grids;
 
         for (auto const& connection : brain.connections())
         {
