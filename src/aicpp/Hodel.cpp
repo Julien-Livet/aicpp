@@ -836,9 +836,9 @@ std::any hodel::repeat(std::vector<std::any> const& args)
         if (auto r = ::repeat<Integer>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<IntegerTuple>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Boolean>(item, n); r.has_value()) return r;
-        if (auto r = ::repeat<Numerical>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Grid>(item, n); r.has_value()) return r;
         if (auto r = ::repeat<Object>(item, n); r.has_value()) return r;
+        if (auto r = ::repeat<IntegerVector>(item, n); r.has_value()) return r;
     }
 
     throw std::runtime_error{"Wrong value"};
@@ -2620,6 +2620,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<GridVector, std::vector<IntegerTuple> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, std::set<ObjectVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, Objects>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Grid, IntegerVector>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
