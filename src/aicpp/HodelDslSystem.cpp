@@ -839,6 +839,7 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("prapply13", Neuron{"prapply", hodel::prapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesType), typeid(hodel::IndicesType)}, typeid(hodel::IndicesSet)});
     neurons.emplace("prapply14", Neuron{"prapply", hodel::prapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IntegerVector), typeid(hodel::IntegerVector)}, typeid(hodel::IndicesSet)});
     neurons.emplace("prapply15", Neuron{"prapply", hodel::prapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesSet)}, typeid(hodel::IndicesSet)});
+    neurons.emplace("prapply16", Neuron{"prapply", hodel::prapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesType), typeid(hodel::IntegerVector)}, typeid(hodel::IndicesType)});
     neurons.emplace("mostcolor0", Neuron{"mostcolor", hodel::mostcolor, std::vector<std::type_index>{typeid(hodel::GridType)}, typeid(hodel::IntegerType)});
     neurons.emplace("mostcolor1", Neuron{"mostcolor", hodel::mostcolor, std::vector<std::type_index>{typeid(hodel::ObjectType)}, typeid(hodel::IntegerType)});
     neurons.emplace("leastcolor0", Neuron{"leastcolor", hodel::leastcolor, std::vector<std::type_index>{typeid(hodel::GridType)}, typeid(hodel::IntegerType)});
