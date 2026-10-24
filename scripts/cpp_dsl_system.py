@@ -1,5 +1,6 @@
 from collections import defaultdict
 import itertools
+import re
 import sys
 
 dslName = sys.argv[-1]
@@ -113,12 +114,12 @@ content += """
 """
 
 def typeName(x: str) -> str:
-    if (x.startswith("std::vector")):
-        return x.replace("std::vector<", f"std::vector<{dslName.lower()}::")
-    elif (x.startswith("std::set")):
-        return x.replace("std::set<", f"std::set<{dslName.lower()}::")
-    else:
-        return f"{dslName.lower()}::" + x
+    y = x
+
+    for t in dslTypes:
+        y = re.sub(r'\b' + t + r'\b', f"{dslName.lower()}::" + t, y)
+
+    return y
 
 indices: dict = {}
 
@@ -173,7 +174,7 @@ for definition in primitiveDefinitions:
         tt: list = []
 
         for x, y, z in zip(arg_types, args, p[1:]):
-            tt.append(f"typeid({x.replace(y, typeName(z))})")
+            tt.append(f"typeid({typeName(re.sub(r'\b' + y + r'\b', z, x))})")
 
         content += f'    neurons.emplace("{n}"'
         content += ", Neuron{"
@@ -182,7 +183,7 @@ for definition in primitiveDefinitions:
         content += ", std::vector<std::type_index>{"
         content += ", ".join(tt)
         content += "}, typeid("
-        content += return_type.replace(returnArgs[0], typeName(p[0]))
+        content += typeName(re.sub(r'\b' + returnArgs[0] + r'\b', p[0], return_type))
         content += ")});\n"
 
     indices[name] = indices.get(name, 0) + i + 1
