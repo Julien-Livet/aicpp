@@ -106,6 +106,11 @@ pybind11_add_module(aicpppy
                     include/aicpp/Brain.h include/aicpp/Hodel.h include/aicpp/HodelDslSystem.h
                     ${SRCS} ${HEADERS})
 
+add_dependencies(dsl_dataset generate_neuron_registries)
+add_dependencies(aicpppy generate_neuron_registries)
+add_dependencies(test_solvers generate_neuron_registries)
+add_dependencies(test_aicpp generate_neuron_registries)
+
 if(USE_TESTS STREQUAL "TRUE")
     target_include_directories(test_aicpp PRIVATE include)
     target_include_directories(test_solvers PRIVATE include)
