@@ -397,6 +397,7 @@ namespace hodel
     //IndicesSet prapply(Callable, IndicesType, IndicesType)
     //IndicesSet prapply(Callable, IntegerVector, IntegerVector)
     //IndicesSet prapply(Callable, IndicesSet, Indices)
+    //IndicesType prapply(Callable, IndicesType, IntegerVector)
     std::any prapply(std::vector<std::any> const& args); //apply function on cartesian product
     //IntegerType mostcolor(Element)
     std::any mostcolor(std::vector<std::any> const& args); //most common color
