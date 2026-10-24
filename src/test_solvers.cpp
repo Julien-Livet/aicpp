@@ -9538,7 +9538,7 @@ TEST(ArcDslTest, 8a004b2b)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, e26a3af2)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -9579,11 +9579,11 @@ TEST(ArcDslTest, e26a3af2)
         auto const x12{buildConnection("rot90", {x4})};
         auto const x13{buildConnection("branch", {x9, x5, x12})};
         auto const x14{buildConnection("branch", {x9, vupscale, hupscale})};
-        auto const O{std::any_cast<hodel::Callable>(x14.output())({x13, x11})};
+        auto const O{std::any_cast<hodel::Callable>(x14.output())({x13.output(), x11})};
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O));
     }
 }
-*/
+
 TEST(ArcDslTest, 6cf79266)
 {
     std::vector<hodel::Grid> inputs, outputs;
