@@ -8935,7 +8935,7 @@ TEST(ArcDslTest, a61ba2ce)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::GridType>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 8e1813be)
 {
     std::vector<hodel::GridType> inputs, outputs;
@@ -8979,7 +8979,7 @@ TEST(ArcDslTest, 8e1813be)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::GridType>(O));
     }
 }
-*/
+
 TEST(ArcDslTest, bc1d5164)
 {
     std::vector<hodel::GridType> inputs, outputs;
@@ -9070,7 +9070,7 @@ TEST(ArcDslTest, ce602527)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::GridType>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 5c2c9af4)
 {
     std::vector<hodel::GridType> inputs, outputs;
@@ -9113,7 +9113,7 @@ TEST(ArcDslTest, 5c2c9af4)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::GridType>(O.output()));
     }
 }
-*/
+
 TEST(ArcDslTest, 75b8110e)
 {
     std::vector<hodel::GridType> inputs, outputs;
