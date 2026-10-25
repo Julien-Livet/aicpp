@@ -2244,6 +2244,21 @@ std::any hodel::product(std::vector<std::any> const& args)
 
         return result;
     }
+    else if (a.type() == typeid(IntegerSet) && b.type() == typeid(IntegerSet))
+    {
+        auto const a_{std::any_cast<IntegerSet>(a)};
+        auto const b_{std::any_cast<IntegerSet>(b)};
+
+        Indices result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(i, j);
+        }
+
+        return result;
+    }
     else if (a.type() == typeid(Indices) && b.type() == typeid(Indices))
     {
         auto const a_{std::any_cast<Indices>(a)};
