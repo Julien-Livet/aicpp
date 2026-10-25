@@ -83,6 +83,7 @@ namespace hodel
     typedef std::pair<Object, Integer> ObjectIntegerPair;
     typedef std::pair<Indices, Integer> IndicesIntegerPair;
     typedef std::pair<IntegerTuple, IndicesIntegerPair> IntegerTupleIndicesIntegerPairPair;
+    typedef std::pair<Cell, Cell> CellPair;
     
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
@@ -217,6 +218,7 @@ namespace hodel
     //std::set<ObjectPair> sfilter(std::set<ObjectPair>, Callable)
     //std::vector<ObjectIntegerPair> sfilter(std::vector<ObjectIntegerPair>, Callable)
     //std::set<IntegerTuplePair> sfilter(std::set<IntegerTuplePair>, Callable)
+    //std::set<CellPair> sfilter(std::set<CellPair>, Callable)
     std::any sfilter(std::vector<std::any> const& args); //keep elements in container that satisfy condition
     //AnyVector3 mfilter(std::vector<AnyVector3>, Callable)
     //AnySet2 mfilter(std::set<AnySet2>, Callable)
@@ -233,22 +235,24 @@ namespace hodel
     //Integer first(IntegerTuple)
     //Integer first(Cell)
     //IntegerTuple first(IntegerTuplePair)
-    //IntegerTuple first(ObjectPair)
+    //Object first(ObjectPair)
     //Grid first(GridBooleanPair)
     //Object first(ObjectIntegerPair)
     //Indices first(IndicesIntegerPair)
     //IntegerTuple first(IntegerTupleIndicesIntegerPairPair)
+    //Cell first(CellPair)
     std::any first(std::vector<std::any> const& args); //first item of container
     //AnyVector1 last(std::vector<AnyVector1>)
     //AnySet1 last(std::set<AnySet1>)
     //Integer last(IntegerTuple)
     //IntegerTuple last(Cell)
     //IntegerTuple last(IntegerTuplePair)
-    //IntegerTuple last(ObjectPair)
+    //Object last(ObjectPair)
     //Boolean last(GridBooleanPair)
     //IntegerVector last(ObjectIntegerPair)
     //Integer last(IndicesIntegerPair)
     //IndicesIntegerPair last(IntegerTupleIndicesIntegerPairPair)
+    //Cell last(CellPair)
     std::any last(std::vector<std::any> const& args); //last item of container
     //std::vector<AnyVector1> insert(AnyVector1, std::vector<AnyVector1>)
     //std::set<AnySet1> insert(AnySet1, std::set<AnySet1>)
@@ -269,7 +273,8 @@ namespace hodel
     //Object product(Integer, IntegerTuple)
     //Indices product(Integer, Integer)
     //std::set<IntegerTuplePair> product(Indices, Indices)
-    //std::set<ObjectPair> product(Object, Object)
+    //std::set<ObjectPair> product(Objects, Objects)
+    //std::set<CellPair> product(Object, Object)
     std::any product(std::vector<std::any> const& args); //cartesian product
     //IntegerTupleVector pair(IntegerVector, IntegerVector)
     //GridBooleanPair pair(GridVector, BooleanVector)
@@ -350,6 +355,7 @@ namespace hodel
     //Indices apply(Callable, std::set<ObjectPair>)
     //IndicesVector apply(Callable, std::vector<IndicesIntegerPair>)
     //IndicesVector apply(Callable, Grid)
+    //Objects apply(Callable, std::set<CellPair>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(std::vector<Callable>, Boolean)
     //BooleanVector rapply(std::vector<Callable>, Integer)
