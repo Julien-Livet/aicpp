@@ -13254,7 +13254,7 @@ TEST(ArcDslTest, 6aa20dc0)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*//*
+*/
 TEST(ArcDslTest, e6721834)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -13293,7 +13293,7 @@ TEST(ArcDslTest, e6721834)
     for (size_t i = 0; i < 3; ++i)
     {
         iNeuron.function() = [&inputs, i] (std::vector<std::any> const&) -> std::any { return inputs[i]; };
-        auto const x3{std::any_cast<hodel::Callable>(x2.output())({I, TWO.output()})};
+        auto const x3{std::any_cast<hodel::Callable>(x2.output())({I.output(), TWO.output()})};
         auto const x4{buildConnection("order", {x3, numcolors})};
         auto const x5{buildConnection("first", {x4})};
         auto const x6{buildConnection("last", {x4})};
@@ -13319,7 +13319,7 @@ TEST(ArcDslTest, e6721834)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*//*
+/*
 TEST(ArcDslTest, 447fd412)
 {
     std::vector<hodel::Grid> inputs, outputs;
