@@ -364,6 +364,7 @@ namespace hodel
     //Objects apply(Callable, std::set<CellPair>)
     //IndicesVector apply(std::vector<Callable>, IntegerVector)
     //ObjectVector apply(Callable, std::vector<ObjectPair>)
+    //Object apply(Callable, Indices)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(std::vector<Callable>, Boolean)
     //BooleanVector rapply(std::vector<Callable>, Integer)
