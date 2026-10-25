@@ -282,7 +282,8 @@ namespace hodel
     //IntegerTuplePair astuple(IntegerTupleVector, IntegerTupleVector)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
     //Object product(Integer, IntegerTuple)
-    //Indices product(Integer, Integer)
+    //Indices product(IntegerVector, IntegerVector)
+    //Indices product(IntegerSet, IntegerSet)
     //std::set<IntegerTuplePair> product(Indices, Indices)
     //std::set<ObjectPair> product(Objects, Objects)
     //std::set<CellPair> product(Object, Object)
