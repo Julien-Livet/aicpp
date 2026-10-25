@@ -12680,7 +12680,7 @@ TEST(ArcDslTest, 36fdfd69)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-/*
+
 TEST(ArcDslTest, 0a938d79)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -12733,7 +12733,7 @@ TEST(ArcDslTest, 0a938d79)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O));
     }
 }
-*/
+
 TEST(ArcDslTest, 045e512c)
 {
     std::vector<hodel::Grid> inputs, outputs;
