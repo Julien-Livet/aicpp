@@ -448,6 +448,8 @@ std::any hodel::double_(std::vector<std::any> const& args)
         return double_({Numerical{std::any_cast<Integer>(n)}});
     else if (n.type() == typeid(IntegerTuple))
         return double_({Numerical{std::any_cast<IntegerTuple>(n)}});
+    else if (n.type() == typeid(Boolean))
+        return double_({Numerical{static_cast<Integer>(std::any_cast<Boolean>(n))}});
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -880,6 +882,9 @@ std::any hodel::greater(std::vector<std::any> const& args)
     if (a.type() == typeid(IntegerTuple) && b.type() == typeid(IntegerTuple))
         return Boolean{std::any_cast<IntegerTuple>(a) > std::any_cast<IntegerTuple>(b)};
 
+    if (a.type() == typeid(Object) && b.type() == typeid(Object))
+        return Boolean{std::any_cast<Object>(a) > std::any_cast<Object>(b)};
+
     throw std::runtime_error{"Wrong value"};
 }
 
@@ -1237,21 +1242,21 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
         values = toVector(std::any_cast<ObjectVector>(container));
-
+/*
     try
-    {
+    {*/
         if (values.size() == 1)
             f({*values.begin()});
 
         auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
-            return *it;
+            return *it;/*
     }
     catch (std::exception const&)
     {
         throw std::runtime_error{"Wrong value"};
-    }
+    }*/
 
     throw std::runtime_error{"Wrong value"};
 }
