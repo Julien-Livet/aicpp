@@ -821,7 +821,7 @@ static std::any order(std::any const& container, hodel::Callable const& function
 
     return S{values.begin(), values.end()};
 }
-
+#include <iostream>
 std::any hodel::order(std::vector<std::any> const& args)
 {
     if (args.size() != 2)
@@ -845,9 +845,10 @@ std::any hodel::order(std::vector<std::any> const& args)
 
     if (auto r = ::order<IntegerSet>(container, f); r.has_value()) return r;
     if (auto r = ::order<IntegerVector>(container, f); r.has_value()) return r;
-    if (auto r = ::order<GridVector >(container, f); r.has_value()) return r;
+    if (auto r = ::order<GridVector>(container, f); r.has_value()) return r;
     if (auto r = ::order<Objects>(container, f); r.has_value()) return r;
     if (auto r = ::order<IndicesSet>(container, f); r.has_value()) return r;
+    if (auto r = ::order<ObjectVector>(container, f); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1045,7 +1046,7 @@ std::any hodel::maximum(std::vector<std::any> const& args)
         auto const set{std::any_cast<IntegerSet>(container)};
 
         if (set.empty())
-            throw std::runtime_error{"Wrong value"};
+            return Integer{0};
 
         return *std::max_element(set.begin(), set.end());
     }
@@ -1054,7 +1055,7 @@ std::any hodel::maximum(std::vector<std::any> const& args)
         auto const v{std::any_cast<IntegerVector>(container)};
 
         if (v.empty())
-            throw std::runtime_error{"Wrong value"};
+            return Integer{0};
 
         return *std::max_element(v.begin(), v.end());
     }
@@ -1080,7 +1081,7 @@ std::any hodel::minimum(std::vector<std::any> const& args)
         auto const set{std::any_cast<IntegerSet>(container)};
 
         if (set.empty())
-            throw std::runtime_error{"Wrong value"};
+            return Integer{0};
 
         return *std::min_element(set.begin(), set.end());
     }
@@ -1089,7 +1090,7 @@ std::any hodel::minimum(std::vector<std::any> const& args)
         auto const v{std::any_cast<IntegerVector>(container)};
 
         if (v.empty())
-            throw std::runtime_error{"Wrong value"};
+            return Integer{0};
 
         return *std::min_element(v.begin(), v.end());
     }
@@ -2834,6 +2835,8 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerVector, CallableVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<CallablePair>, CallableVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<ObjectVector, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Indices, IntegerSet>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<IntegerSet>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -2985,6 +2988,7 @@ std::any hodel::papply(std::vector<std::any> const& args)
     if (auto r = ::papply<Objects, Indices, Object>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<ObjectVector, IntegerTupleVector, Object>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IntegerTupleVector, IntegerTupleVector, Indices>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IndicesVector, IntegerTupleVector, Indices>(function_, a, b); r.has_value()) return r;
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -3048,6 +3052,7 @@ std::any hodel::prapply(std::vector<std::any> const& args)
     if (auto r = ::prapply<IndicesVector, IndicesVector, IntegerVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<ObjectVector, ObjectVector, BooleanVector >(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<ObjectVector, ObjectVector, IntegerVector>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::prapply<Objects, Objects, IntegerVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<CallableVector, BooleanVector, CallableVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<CallableVector, IntegerVector, CallableVector>(function_, a, b); r.has_value()) return r;
     if (auto r = ::prapply<CallableVector, IntegerTupleVector, CallableVector>(function_, a, b); r.has_value()) return r;
