@@ -13916,7 +13916,7 @@ TEST(ArcDslTest, 3befdf3e)
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*//*
+*/
 TEST(ArcDslTest, 9aec4887)
 {
     std::vector<hodel::Grid> inputs, outputs;
@@ -13966,19 +13966,19 @@ TEST(ArcDslTest, 9aec4887)
     auto const x16{buildConnection("apply", {x15, x7})};
     auto const x17{buildConnection("paint", {x4, x16})};
     auto const x18{buildConnection("fork", {connect, ulcorner, lrcorner})};
-    auto const x19{std::any_cast<hodel::Callable>(x18.output())({x7.output()})};
-    auto const x20{buildConnection("fork", {combine, identity, vmirror})};
-    auto const x21{std::any_cast<hodel::Callable>(x20.output())({x19})};
-    auto const x22{buildConnection("intersection", {x7, x21})};
-    auto const O{buildConnection("fill", {x17, EIGHT, x22})};
 
     for (size_t i = 0; i < 3; ++i)
     {
         iNeuron.function() = [&inputs, i] (std::vector<std::any> const&) -> std::any { return inputs[i]; };
+        auto const x19{std::any_cast<hodel::Callable>(x18.output())({x7.output()})};
+        auto const x20{buildConnection("fork", {combine, identity, vmirror})};
+        auto const x21{std::any_cast<hodel::Callable>(x20.output())({x19})};
+        auto const x22{buildConnection("intersection", {x7, x21})};
+        auto const O{buildConnection("fill", {x17, EIGHT, x22})};
         EXPECT_TRUE(outputs[i] == std::any_cast<hodel::Grid>(O.output()));
     }
 }
-*//*
+/*
 TEST(ArcDslTest, 49d1d64f)
 {
     std::vector<hodel::Grid> inputs, outputs;
