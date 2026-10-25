@@ -246,6 +246,18 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
         else if (b.type() == typeid(hodel::IntegerTuple))
             return do_op(hodel::Numerical{x}, hodel::Numerical{std::any_cast<hodel::IntegerTuple>(b)}, op);
     }
+    else if (a.type() == typeid(hodel::IntegerVector) && b.type() == typeid(hodel::Integer))
+    {
+        auto x{std::any_cast<hodel::IntegerVector>(a)};
+        auto const b_{std::any_cast<hodel::Integer>(b)};
+
+        for (auto& v : x)
+            v = std::any_cast<hodel::Integer>(do_op(v, b_, op));
+
+        return x;
+    }
+    else if (a.type() == typeid(hodel::Integer) && b.type() == typeid(hodel::IntegerVector))
+        return do_op(std::any_cast<hodel::IntegerVector>(b), std::any_cast<hodel::Integer>(a), op);
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -2702,6 +2714,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::set<ObjectPair>, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<ObjectPair>, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IndicesIntegerPair>, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Grid, IndicesVector>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -3115,7 +3128,7 @@ std::any hodel::shape(std::vector<std::any> const& args)
     else if (piece.type() == typeid(Patch))
         return shape({Piece(std::any_cast<Patch>(piece))});
 
-    if (piece.type() == typeid(Piece) || piece.type() == typeid(Object))
+    if (piece.type() == typeid(Piece) || piece.type() == typeid(Object) || piece.type() == typeid(Indices))
         return IntegerTuple{std::any_cast<Integer>(height(args)), std::any_cast<Integer>(width(args))};
 
     throw std::runtime_error{"Wrong value"};
@@ -3625,6 +3638,14 @@ std::any hodel::shift(std::vector<std::any> const& args)
 
     auto const patch{args[0]};
     auto const directions{args[1]};
+
+    if (directions.type() == typeid(IntegerVector))
+    {
+        auto const directions_{std::any_cast<IntegerVector>(directions)};
+
+        if (directions_.size() == 2)
+            return shift({patch, IntegerTuple{directions_.front(), directions_.back()}});
+    }
 
     if (patch.type() == typeid(Patch) && directions.type() == typeid(IntegerTuple))
     {
