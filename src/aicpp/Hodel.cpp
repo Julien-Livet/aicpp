@@ -2741,6 +2741,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerVector, Grid>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, IntegerVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, GridVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, ObjectVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IntegerSet>(function_, container); r.has_value()) return r;
@@ -2752,7 +2753,6 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Indices, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerTupleVector, IndicesVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, Indices>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<GridVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid, Grid>(function_, container); r.has_value()) return r;
