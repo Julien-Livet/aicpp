@@ -362,6 +362,7 @@ namespace hodel
     //IndicesVector apply(Callable, std::vector<IndicesIntegerPair>)
     //IndicesVector apply(Callable, Grid)
     //Objects apply(Callable, std::set<CellPair>)
+    //IndicesVector apply(std::vector<Callable>, IntegerVector)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(std::vector<Callable>, Boolean)
     //BooleanVector rapply(std::vector<Callable>, Integer)
@@ -383,6 +384,7 @@ namespace hodel
     //Object mapply(Callable, IntegerTupleVector)
     //Object mapply(Callable, IntegerSet)
     //Object mapply(Callable, IntegerVector)
+    //Indices mapply(Callable, IntegerVector)
     //Object mapply(Callable, std::vector<ObjectIntegerPair>)
     //Indices mapply(Callable, std::vector<IntegerTuplePair>)
     //Indices mapply(Callable, std::set<ObjectPair>)
