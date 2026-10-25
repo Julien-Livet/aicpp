@@ -106,6 +106,7 @@ namespace hodel
     //Boolean even(Numerical)
     std::any even(std::vector<std::any> const& args); //evenness
     //Numerical double_(Numerical)
+    //Integer double_(Boolean)
     std::any double_(std::vector<std::any> const& args); //scaling by two
     //Numerical halve(Numerical)
     std::any halve(std::vector<std::any> const& args); //scaling by one half
@@ -147,6 +148,7 @@ namespace hodel
     std::any repeat(std::vector<std::any> const& args); //repetition of item within vector
     //Boolean greater(Integer, Integer)
     //Boolean greater(IntegerTuple, IntegerTuple)
+    //Boolean greater(Object, Object)
     std::any greater(std::vector<std::any> const& args); //greater
     //Integer size(std::vector<AnyVector1>)
     //Integer size(std::set<AnySet1>)
