@@ -401,6 +401,7 @@ namespace hodel
     std::any mapply(std::vector<std::any> const& args); //apply and merge
     //Boolean papply(Callable, BooleanVector, BooleanVector)
     //IntegerTuple papply(Callable, IntegerVector, IntegerVector)
+    //Integer papply(Callable, IntegerVector, IntegerVector)
     //Boolean papply(Callable, IndicesVector, IndicesVector)
     //Boolean papply(Callable, IndicesVector, ObjectVector)
     //Boolean papply(Callable, ObjectVector, IndicesVector)
