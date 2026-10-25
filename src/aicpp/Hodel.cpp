@@ -34,6 +34,7 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(std::set<hodel::IntegerTuplePair>), "IntegerTuplePairSet"},
     {typeid(std::vector<hodel::IntegerTuple>), "IntegerTupleVector"},
     {typeid(std::set<hodel::ObjectPair>), "ObjectPairSet"},
+    {typeid(std::vector<hodel::ObjectPair>), "ObjectPairVector"},
     {typeid(hodel::ObjectPair), "ObjectPair"},
     {typeid(std::set<hodel::ObjectVector>), "ObjectVectorSet"},
     {typeid(hodel::IndicesIntegerPair), "IndicesIntegerPair"},
@@ -2472,6 +2473,33 @@ std::any hodel::pair(std::vector<std::any> const& args)
         return result;
     }
 
+    if (a.type() == typeid(ObjectVector) && b.type() == typeid(ObjectVector))
+    {
+        auto const a_{std::any_cast<ObjectVector>(a)};
+        auto const b_{std::any_cast<ObjectVector>(b)};
+
+        if (a_.size() != b_.size())
+            throw std::runtime_error{"Wrong value"};
+
+        std::vector<ObjectPair> result;
+        result.reserve(a_.size());
+
+        try
+        {
+            auto itA{a_.begin()};
+            auto itB{b_.begin()};
+
+            for (; itA != a_.end(); ++itA, ++itB)
+                result.emplace_back(*itA, *itB);
+        }
+        catch (std::exception const&)
+        {
+            throw std::runtime_error{"Wrong value"};
+        }
+
+        return result;
+    }
+
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2763,6 +2791,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<Grid, IndicesVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::set<CellPair>, Objects>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IntegerVector, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::vector<ObjectPair>, ObjectVector>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
