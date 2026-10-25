@@ -275,6 +275,7 @@ namespace hodel
     //Indices astuple(IntegerTuple, IntegerTuple)
     //GridVector astuple(Grid, Grid)
     //Cell astuple(Integer, IntegerTuple)
+    //IntegerTuplePair astuple(IntegerTupleVector, IntegerTupleVector)
     std::any astuple(std::vector<std::any> const& args); //constructs a tuple
     //Object product(Integer, IntegerTuple)
     //Indices product(Integer, Integer)
@@ -286,10 +287,9 @@ namespace hodel
     //GridBooleanPair pair(GridVector, BooleanVector)
     //ObjectIntegerPair pair(ObjectVector, IntegerVector)
     //IntegerTuplePair pair(Indices, Indices)
-    //IntegerTuplePair pair(IntegerTupleVector, IntegerTupleVector)
     //Object pair(IntegerVector, IntegerTupleVector)
-    //IndicesIntegerPair pair(Indices, IntegerVector)
-    //IntegerTupleIndicesIntegerPairPair pair(IntegerTuple, IndicesIntegerPair)
+    //std::vector<IndicesIntegerPair> pair(Indices, IntegerVector)
+    //std::vector<ObjectPair> pair(ObjectVector, ObjectVector)
     std::any pair(std::vector<std::any> const& args); //zipping of two tuples
     //AnyIdentity branch(Boolean, AnyIdentity, AnyIdentity)
     std::any branch(std::vector<std::any> const& args); //if else branching
@@ -363,6 +363,7 @@ namespace hodel
     //IndicesVector apply(Callable, Grid)
     //Objects apply(Callable, std::set<CellPair>)
     //IndicesVector apply(std::vector<Callable>, IntegerVector)
+    //ObjectVector apply(Callable, std::vector<ObjectPair>)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(std::vector<Callable>, Boolean)
     //BooleanVector rapply(std::vector<Callable>, Integer)
