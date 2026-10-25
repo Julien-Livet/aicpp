@@ -233,6 +233,8 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("add7", Neuron{"add", hodel::add, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("add8", Neuron{"add", hodel::add, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::Integer)}, typeid(hodel::IntegerVector)});
     neurons.emplace("add9", Neuron{"add", hodel::add, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::IntegerVector)}, typeid(hodel::IntegerVector)});
+    neurons.emplace("add10", Neuron{"add", hodel::add, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(hodel::Integer)}, typeid(hodel::Integer)});
+    neurons.emplace("add11", Neuron{"add", hodel::add, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Boolean)}, typeid(hodel::Integer)});
     neurons.emplace("subtract0", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Integer)}, typeid(hodel::Integer)});
     neurons.emplace("subtract1", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::IntegerTuple)}, typeid(hodel::Integer)});
     neurons.emplace("subtract2", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::Integer)}, typeid(hodel::Integer)});
@@ -243,6 +245,8 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("subtract7", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("subtract8", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::Integer)}, typeid(hodel::IntegerVector)});
     neurons.emplace("subtract9", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::IntegerVector)}, typeid(hodel::IntegerVector)});
+    neurons.emplace("subtract10", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(hodel::Integer)}, typeid(hodel::Integer)});
+    neurons.emplace("subtract11", Neuron{"subtract", hodel::subtract, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Boolean)}, typeid(hodel::Integer)});
     neurons.emplace("multiply0", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Integer)}, typeid(hodel::Integer)});
     neurons.emplace("multiply1", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::IntegerTuple)}, typeid(hodel::Integer)});
     neurons.emplace("multiply2", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::Integer)}, typeid(hodel::Integer)});
@@ -253,6 +257,8 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("multiply7", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerTuple)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("multiply8", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::Integer)}, typeid(hodel::IntegerVector)});
     neurons.emplace("multiply9", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::IntegerVector), typeid(hodel::IntegerVector)}, typeid(hodel::IntegerVector)});
+    neurons.emplace("multiply10", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::Boolean), typeid(hodel::Integer)}, typeid(hodel::Integer)});
+    neurons.emplace("multiply11", Neuron{"multiply", hodel::multiply, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Boolean)}, typeid(hodel::Integer)});
     neurons.emplace("divide0", Neuron{"divide", hodel::divide, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::Integer)}, typeid(hodel::Integer)});
     neurons.emplace("divide1", Neuron{"divide", hodel::divide, std::vector<std::type_index>{typeid(hodel::Integer), typeid(hodel::IntegerTuple)}, typeid(hodel::Integer)});
     neurons.emplace("divide2", Neuron{"divide", hodel::divide, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::Integer)}, typeid(hodel::Integer)});
