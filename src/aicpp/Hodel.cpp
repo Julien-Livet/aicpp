@@ -2753,7 +2753,6 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<IntegerTupleVector, IndicesVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
-    if (auto r = ::apply<Objects, IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<GridVector, std::vector<GridVector> >(function_, container); r.has_value()) return r;
     if (auto r = ::apply<IndicesSet>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid, Grid>(function_, container); r.has_value()) return r;
@@ -3730,10 +3729,10 @@ std::any hodel::shift(std::vector<std::any> const& args)
         auto const directions_{std::any_cast<IntegerTuple>(directions)};
 
         if (std::holds_alternative<Object>(patch_) && std::get<Object>(patch_).empty())
-            return patch;
+            return Object{};
 
         if (std::holds_alternative<Indices>(patch_) && std::get<Indices>(patch_).empty())
-            return patch;
+            return Indices{};
 
         auto const& [di, dj] = directions_;
 
