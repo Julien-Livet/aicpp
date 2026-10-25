@@ -373,6 +373,8 @@ namespace hodel
     //CallableVector apply(Callable, IntegerVector)
     //CallableVector apply(Callable, std::vector<CallablePair>)
     //IndicesVector apply(Callable, ObjectVector)
+    //IntegerSet apply(Callable, Indices)
+    //IntegerSet apply(Callable, IntegerSet)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(CallableVector, Boolean)
     //BooleanVector rapply(CallableVector, Integer)
@@ -434,6 +436,7 @@ namespace hodel
     //ObjectVector papply(Callable, Objects, Indices)
     //ObjectVector papply(Callable, ObjectVector, IntegerTupleVector)
     //Indices papply(Callable, IntegerTupleVector, IntegerTupleVector)
+    //Indices papply(Callable, IndicesVector, IntegerTupleVector)
     std::any papply(std::vector<std::any> const& args); //apply function on two vectors
     //IntegerVector mpapply(Callable, GridVector, GridVector)
     //Object mpapply(Callable, std::vector<Objects>, IntegerVector)
@@ -448,6 +451,7 @@ namespace hodel
     //IntegerVector prapply(Callable, IndicesVector, IndicesVector)
     //BooleanVector prapply(Callable, ObjectVector, ObjectVector)
     //IntegerVector prapply(Callable, ObjectVector, ObjectVector)
+    //IntegerVector prapply(Callable, Objects, Objects)
     //CallableVector prapply(Callable, CallableVector, BooleanVector)
     //CallableVector prapply(Callable, CallableVector, IntegerVector)
     //CallableVector prapply(Callable, CallableVector, IntegerTupleVector)
