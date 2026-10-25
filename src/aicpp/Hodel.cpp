@@ -257,7 +257,15 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
         return x;
     }
     else if (a.type() == typeid(hodel::Integer) && b.type() == typeid(hodel::IntegerVector))
-        return do_op(std::any_cast<hodel::IntegerVector>(b), std::any_cast<hodel::Integer>(a), op);
+    {
+        auto x{std::any_cast<hodel::IntegerVector>(b)};
+        auto const a_{std::any_cast<hodel::Integer>(a)};
+
+        for (auto& v : x)
+            v = std::any_cast<hodel::Integer>(do_op(a_, v, op));
+
+        return x;
+    }
 
     throw std::runtime_error{"Wrong value"};
 }
