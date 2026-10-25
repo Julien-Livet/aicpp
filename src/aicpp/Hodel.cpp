@@ -1242,21 +1242,21 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
         values = toVector(std::any_cast<ObjectVector>(container));
-/*
+
     try
-    {*/
+    {
         if (values.size() == 1)
             f({*values.begin()});
 
         auto const it{std::max_element(values.begin(), values.end(), [f] (auto const& x, auto const& y) -> auto { return std::any_cast<Boolean>(greater({f({y}), f({x})})); } )};
 
         if (it != values.end())
-            return *it;/*
+            return *it;
     }
     catch (std::exception const&)
     {
         throw std::runtime_error{"Wrong value"};
-    }*/
+    }
 
     throw std::runtime_error{"Wrong value"};
 }
