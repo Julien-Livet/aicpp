@@ -268,6 +268,10 @@ std::any do_op(std::any const& a, std::any const& b, std::function<hodel::Intege
 
         return x;
     }
+    else if (a.type() == typeid(hodel::Boolean) && b.type() == typeid(hodel::Integer))
+        return do_op(static_cast<hodel::Integer>(std::any_cast<hodel::Boolean>(a)), b, op);
+    else if (a.type() == typeid(hodel::Integer) && b.type() == typeid(hodel::Boolean))
+        return do_op(a, static_cast<hodel::Integer>(std::any_cast<hodel::Boolean>(b)), op);
 
     throw std::runtime_error{"Wrong value"};
 }
