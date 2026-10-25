@@ -87,12 +87,19 @@ namespace hodel
     //AnyIdentity identity(AnyIdentity)
     std::any identity(std::vector<std::any> const& args); //identity function
     //Num1 add(Num2, Num3)
+    //IntegerVector add(IntegerVector, Integer)
+    //IntegerVector add(Integer, IntegerVector)
     std::any add(std::vector<std::any> const& args); //addition
     //Num1 subtract(Num2, Num3)
+    //IntegerVector subtract(IntegerVector, Integer)
+    //IntegerVector subtract(Integer, IntegerVector)
     std::any subtract(std::vector<std::any> const& args); //subtraction
     //Num1 multiply(Num2, Num3)
+    //IntegerVector multiply(IntegerVector, Integer)
+    //IntegerVector multiply(Integer, IntegerVector)
     std::any multiply(std::vector<std::any> const& args); //multiplication
     //Num1 divide(Num2, Num3)
+    //IntegerVector divide(IntegerVector, Integer)
     std::any divide(std::vector<std::any> const& args); //floor division
     //Numerical invert(Numerical)
     std::any invert(std::vector<std::any> const& args); //inversion with respect to addition
@@ -340,6 +347,7 @@ namespace hodel
     //IndicesSet apply(Callable, std::set<ObjectPair>)
     //Indices apply(Callable, std::set<ObjectPair>)
     //IndicesVector apply(Callable, std::vector<IndicesIntegerPair>)
+    //IndicesVector apply(Callable, Grid)
     std::any apply(std::vector<std::any> const& args); //apply function to each item in container
     //BooleanVector rapply(std::vector<Callable>, Boolean)
     //BooleanVector rapply(std::vector<Callable>, Integer)
@@ -354,6 +362,7 @@ namespace hodel
     std::any rapply(std::vector<std::any> const& args); //apply each function in container to value
     //Grid mapply(Callable, GridVector)
     //IntegerVector mapply(Callable, Grid)
+    //Indices mapply(Callable, Grid)
     //Object mapply(Callable, Objects)
     //Object mapply(Callable, ObjectVector)
     //Object mapply(Callable, Indices)
