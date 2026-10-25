@@ -90,14 +90,20 @@ namespace hodel
     //Num1 add(Num2, Num3)
     //IntegerVector add(IntegerVector, Integer)
     //IntegerVector add(Integer, IntegerVector)
+    //Integer add(Boolean, Integer)
+    //Integer add(Integer, Boolean)
     std::any add(std::vector<std::any> const& args); //addition
     //Num1 subtract(Num2, Num3)
     //IntegerVector subtract(IntegerVector, Integer)
     //IntegerVector subtract(Integer, IntegerVector)
+    //Integer subtract(Boolean, Integer)
+    //Integer subtract(Integer, Boolean)
     std::any subtract(std::vector<std::any> const& args); //subtraction
     //Num1 multiply(Num2, Num3)
     //IntegerVector multiply(IntegerVector, Integer)
     //IntegerVector multiply(Integer, IntegerVector)
+    //Integer multiply(Boolean, Integer)
+    //Integer multiply(Integer, Boolean)
     std::any multiply(std::vector<std::any> const& args); //multiplication
     //Num1 divide(Num2, Num3)
     //IntegerVector divide(IntegerVector, Integer)
