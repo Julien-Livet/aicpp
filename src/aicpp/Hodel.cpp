@@ -1248,6 +1248,8 @@ std::any hodel::argmax(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
         values = toVector(std::any_cast<ObjectVector>(container));
+    else if (container.type() == typeid(Object))
+        values = toVector(std::any_cast<Object>(container));
 
     try
     {
@@ -1304,6 +1306,8 @@ std::any hodel::argmin(std::vector<std::any> const& args)
         values = toVector(std::any_cast<IndicesSet>(container));
     else if (container.type() == typeid(ObjectVector))
         values = toVector(std::any_cast<ObjectVector>(container));
+    else if (container.type() == typeid(Object))
+        values = toVector(std::any_cast<Object>(container));
 
     try
     {
