@@ -804,6 +804,7 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("apply52", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::IndicesVector), typeid(std::vector<hodel::IndicesIntegerPair>)}, typeid(hodel::IndicesVector)});
     neurons.emplace("apply53", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::IndicesVector), typeid(hodel::Callable)}, typeid(hodel::IndicesVector)});
     neurons.emplace("apply54", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(hodel::Objects), typeid(std::set<hodel::CellPair>)}, typeid(hodel::Objects)});
+    neurons.emplace("apply55", Neuron{"apply", hodel::apply, std::vector<std::type_index>{typeid(std::vector<hodel::IndicesVector>), typeid(hodel::IntegerVector)}, typeid(hodel::IndicesVector)});
     neurons.emplace("rapply0", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::BooleanVector>), typeid(hodel::Callable)}, typeid(hodel::BooleanVector)});
     neurons.emplace("rapply1", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::BooleanVector>), typeid(hodel::Callable)}, typeid(hodel::BooleanVector)});
     neurons.emplace("rapply2", Neuron{"rapply", hodel::rapply, std::vector<std::type_index>{typeid(std::vector<hodel::IntegerVector>), typeid(hodel::Callable)}, typeid(hodel::IntegerVector)});
@@ -823,10 +824,11 @@ std::map<std::string, Neuron> aicpp::hodelDslPrimitiveNeurons()
     neurons.emplace("mapply6", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IntegerTupleVector)}, typeid(hodel::Object)});
     neurons.emplace("mapply7", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IntegerSet)}, typeid(hodel::Object)});
     neurons.emplace("mapply8", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IntegerVector)}, typeid(hodel::Object)});
-    neurons.emplace("mapply9", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::ObjectIntegerPair>)}, typeid(hodel::Object)});
-    neurons.emplace("mapply10", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::IntegerTuplePair>)}, typeid(hodel::Indices)});
-    neurons.emplace("mapply11", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::set<hodel::ObjectPair>)}, typeid(hodel::Indices)});
-    neurons.emplace("mapply12", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::IndicesIntegerPair>)}, typeid(hodel::Indices)});
+    neurons.emplace("mapply9", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IntegerVector)}, typeid(hodel::Indices)});
+    neurons.emplace("mapply10", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::ObjectIntegerPair>)}, typeid(hodel::Object)});
+    neurons.emplace("mapply11", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::IntegerTuplePair>)}, typeid(hodel::Indices)});
+    neurons.emplace("mapply12", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::set<hodel::ObjectPair>)}, typeid(hodel::Indices)});
+    neurons.emplace("mapply13", Neuron{"mapply", hodel::mapply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(std::vector<hodel::IndicesIntegerPair>)}, typeid(hodel::Indices)});
     neurons.emplace("papply0", Neuron{"papply", hodel::papply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::BooleanVector), typeid(hodel::BooleanVector)}, typeid(hodel::Boolean)});
     neurons.emplace("papply1", Neuron{"papply", hodel::papply, std::vector<std::type_index>{typeid(hodel::IntegerTuple), typeid(hodel::IntegerVector), typeid(hodel::Integer)}, typeid(hodel::IntegerTuple)});
     neurons.emplace("papply2", Neuron{"papply", hodel::papply, std::vector<std::type_index>{typeid(hodel::Callable), typeid(hodel::IndicesVector), typeid(hodel::IndicesVector)}, typeid(hodel::Boolean)});
