@@ -2936,6 +2936,7 @@ std::any hodel::papply(std::vector<std::any> const& args)
     auto const function_{std::any_cast<Callable>(function)};
 
     if (auto r = ::papply<BooleanVector, BooleanVector, Boolean>(function_, a, b); r.has_value()) return r;
+    if (auto r = ::papply<IntegerVector, IntegerVector, Integer>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IntegerVector, IntegerVector, IntegerTuple>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IndicesVector, IndicesVector, Boolean>(function_, a, b); r.has_value()) return r;
     if (auto r = ::papply<IndicesVector, ObjectVector, Boolean>(function_, a, b); r.has_value()) return r;
