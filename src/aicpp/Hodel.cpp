@@ -38,6 +38,8 @@ static std::map<std::type_index, std::string> const types{{typeid(hodel::Boolean
     {typeid(std::set<hodel::ObjectVector>), "ObjectVectorSet"},
     {typeid(hodel::IndicesIntegerPair), "IndicesIntegerPair"},
     {typeid(std::vector<hodel::IndicesIntegerPair>), "IndicesIntegerPairVector"},
+    {typeid(hodel::CellPair), "CellPair"},
+    {typeid(std::set<hodel::CellPair>), "CellPairSet"},
 };
                                                             
 std::string hodel::type(std::type_index const& t)
@@ -1769,6 +1771,7 @@ std::any hodel::sfilter(std::vector<std::any> const& args)
     if (auto r = ::sfilter<std::set<ObjectPair> >(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<std::vector<ObjectIntegerPair> >(container, condition_); r.has_value()) return r;
     if (auto r = ::sfilter<std::set<IntegerTuplePair> >(container, condition_); r.has_value()) return r;
+    if (auto r = ::sfilter<std::set<CellPair> >(container, condition_); r.has_value()) return r;
 
     throw std::runtime_error{"Wrong value"};
 }
@@ -1936,6 +1939,9 @@ std::any hodel::first(std::vector<std::any> const& args)
     if (container.type() == typeid(IntegerTupleIndicesIntegerPairPair))
         return std::any_cast<IntegerTupleIndicesIntegerPairPair>(container).first;
 
+    if (container.type() == typeid(CellPair))
+        return std::any_cast<CellPair>(container).first;
+
     if (container.type() == typeid(Grid))
     {
         auto const x{std::any_cast<Grid>(container)};
@@ -2009,6 +2015,9 @@ std::any hodel::last(std::vector<std::any> const& args)
 
     if (container.type() == typeid(IntegerTupleIndicesIntegerPairPair))
         return std::any_cast<IntegerTupleIndicesIntegerPairPair>(container).second;
+
+    if (container.type() == typeid(CellPair))
+        return std::any_cast<CellPair>(container).second;
 
     if (container.type() == typeid(Grid))
     {
@@ -2247,6 +2256,22 @@ std::any hodel::product(std::vector<std::any> const& args)
 
         return result;
     }
+    else if (a.type() == typeid(Object) && b.type() == typeid(Object))
+    {
+        auto const a_{std::any_cast<Object>(a)};
+        auto const b_{std::any_cast<Object>(b)};
+
+        std::set<CellPair> result;
+
+        for (auto const& i : a_)
+        {
+            for (auto const& j : b_)
+                result.emplace(std::make_pair(i, j));
+        }
+
+        return result;
+    }
+
     //TODO: add other cases?
 
     throw std::runtime_error{"Wrong value"};
@@ -2728,6 +2753,7 @@ std::any hodel::apply(std::vector<std::any> const& args)
     if (auto r = ::apply<std::set<ObjectPair>, Indices>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<std::vector<IndicesIntegerPair>, IndicesVector>(function_, container); r.has_value()) return r;
     if (auto r = ::apply<Grid, IndicesVector>(function_, container); r.has_value()) return r;
+    if (auto r = ::apply<std::set<CellPair>, Objects>(function_, container); r.has_value()) return r;
 
     if (auto r = ::apply<std::vector<Objects>, IntegerVector>(function_, container); r.has_value())
     {
@@ -4651,12 +4677,18 @@ std::any hodel::color(std::vector<std::any> const& args)
 
     if (object.type() == typeid(Object))
     {
-        auto const& object_{std::any_cast<Object>(object)};
+        auto const object_{std::any_cast<Object>(object)};
 
         if (object_.empty())
             throw std::runtime_error{"Wrong value"};
 
         return object_.begin()->first;
+    }
+    else if (object.type() == typeid(CellPair))
+    {
+        auto const cellPair{std::any_cast<CellPair>(object)};
+
+        return color({Object{cellPair.first, cellPair.second}});
     }
 
     throw std::runtime_error{"Wrong value"};
